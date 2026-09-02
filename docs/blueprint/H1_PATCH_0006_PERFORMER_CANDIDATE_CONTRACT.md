@@ -1,6 +1,6 @@
 # H1 Patch 0006 — Performer Candidate Output Contract
 
-Status: blueprint proposal 0.4 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; APPROVAL REQUIRED; implementation not started
+Status: blueprint proposal 0.5 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; APPROVAL REQUIRED; implementation not started
 Parent baseline: validated H1 Patch 0005
 Branch: `h1-patch-0006-performer-candidate-blueprint`
 
@@ -198,19 +198,18 @@ Rules:
 - no additional root, `performance`, or `control` properties are permitted;
 - the full root object must be present; trailing non-whitespace content fails.
 
-### Deterministic parser safety ceiling
+### Deterministic parser safety ceilings
 
 The public untrusted-byte parser fails closed when candidate JSON exceeds:
 
 ```text
 MaxCandidateJsonBytes = 1,048,576 bytes (1 MiB)
+MaxCandidateJsonDepth = 8
 ```
 
-This is a parser/denial-of-service safety ceiling, not a generation target, token budget, artistic limit, or E0 optimization policy. It intentionally sits far above plausible E0 single-Performance output while preventing pathological unbounded parsing through the public Core boundary.
+These are parser/denial-of-service safety ceilings, not generation targets, token budgets, artistic limits, or E0 optimization policy. They sit well above the depth/size required by the frozen candidate schema while preventing pathological unbounded parsing through the public Core boundary.
 
-A later provider-execution contract may freeze a substantially smaller response/generation limit for cost, latency, or experiment control. That later limit does not change this parser safety ceiling unless explicitly versioned.
-
-The parser also uses a small fixed maximum JSON nesting depth sufficient for this exact schema.
+A later provider-execution contract may freeze a substantially smaller response/generation limit for cost, latency, or experiment control. That later limit does not change these parser safety ceilings unless explicitly versioned.
 
 ## 10. Visible Performance text contract
 
@@ -415,7 +414,7 @@ Strict requirements:
 - maximum 1 MiB raw JSON input;
 - UTF-8 BOM rejected;
 - root must be one object;
-- fixed small maximum JSON depth;
+- `MaxCandidateJsonDepth = 8`;
 - comments rejected;
 - trailing commas rejected;
 - duplicate decoded property names rejected at every object level;
@@ -433,6 +432,27 @@ Strict requirements:
 - content after the root other than ordinary JSON whitespace fails.
 
 One small Performer-candidate-specific exception type represents technical parse/semantic contract failure. Default/uninitialized Character IDs encountered through the semantic factory or decoded control are converted to this fail-closed domain exception rather than leaking incidental `InvalidOperationException`/`ArgumentException` authority behavior.
+
+### Error-message safety
+
+Candidate-contract exceptions are diagnostics, not a second raw-output channel.
+
+Exception messages may include safe structural information such as:
+
+- contract/property/field name;
+- expected token/category;
+- byte/line position when available;
+- canonical roster Character ID when relevant.
+
+They must **not** echo:
+
+- the complete raw candidate payload;
+- `VisibleText` contents;
+- arbitrary unknown-property values;
+- provider secrets/credentials;
+- full surrounding JSON snippets.
+
+A lower-level parser exception may be retained as an inner exception only when doing so does not attach the raw payload itself. Exact raw output belongs to the separately governed E0 provenance/diagnostic record, not ordinary exception text.
 
 Malformed output never becomes fictional Performance.
 
@@ -648,47 +668,50 @@ Use the validated Patch 0005 ContextPacket path and existing fixtures. Do not du
 31. control does not mutate ContextPacket or Character state;
 32. candidate/control public constructors are absent;
 33. public validated factory creates candidates without exposing an invariant-bypass constructor;
-34. no CandidatePerformance property exposes fixture, Production truth, provenance, Access decisions, state mutation, confidence, private reasoning, provider credential/configuration, accepted history, CandidateId, or TakeId.
+34. candidate exception text does not echo invalid VisibleText sentinel content;
+35. no CandidatePerformance property exposes fixture, Production truth, provenance, Access decisions, state mutation, confidence, private reasoning, provider credential/configuration, accepted history, CandidateId, or TakeId.
 
 ### Strict JSON tests
 
-35. canonical valid AI JSON parses to same semantic candidate as direct `Create`;
-36. JSON property reordering produces identical semantic candidate;
-37. ordinary structural JSON whitespace produces identical semantic candidate;
-38. equivalent JSON string escape encodings produce identical semantic candidate;
-39. Markdown/code fence wrapper fails;
-40. empty input fails;
-41. >1 MiB raw JSON fails before semantic construction;
-42. exact schemaVersion required/case-sensitive;
-43. property names are case-sensitive;
-44. unknown root property fails;
-45. unknown performance property fails;
-46. unknown control property fails;
-47. missing required property fails;
-48. duplicate root property fails;
-49. duplicate nested property fails;
-50. escaped duplicate decoded property name fails;
-51. comments fail;
-52. trailing comma fails;
-53. UTF-8 BOM fails;
-54. malformed UTF-8 fails;
-55. malformed JSON fails;
-56. escaped isolated-surrogate text fails;
-57. wrong JSON token type for every field category fails;
-58. extra non-whitespace content after root fails;
-59. lower/alternate-case Character ID that does not exactly match roster fails;
-60. parser delegates semantic text/control invariants rather than maintaining a divergent rule set;
-61. repeated parse produces identical semantic result;
-62. parser does not mutate ContextPacket.
+36. canonical valid AI JSON parses to same semantic candidate as direct `Create`;
+37. JSON property reordering produces identical semantic candidate;
+38. ordinary structural JSON whitespace produces identical semantic candidate;
+39. equivalent JSON string escape encodings produce identical semantic candidate;
+40. Markdown/code fence wrapper fails;
+41. empty input fails;
+42. >1 MiB raw JSON fails before semantic construction;
+43. JSON nesting deeper than 8 fails;
+44. exact schemaVersion required/case-sensitive;
+45. property names are case-sensitive;
+46. unknown root property fails;
+47. unknown performance property fails;
+48. unknown control property fails;
+49. missing required property fails;
+50. duplicate root property fails;
+51. duplicate nested property fails;
+52. escaped duplicate decoded property name fails;
+53. comments fail;
+54. trailing comma fails;
+55. UTF-8 BOM fails;
+56. malformed UTF-8 fails;
+57. malformed JSON fails;
+58. escaped isolated-surrogate text fails;
+59. wrong JSON token type for every field category fails;
+60. extra non-whitespace content after root fails;
+61. lower/alternate-case Character ID that does not exactly match roster fails;
+62. malformed-payload exception text does not echo raw candidate sentinel content;
+63. parser delegates semantic text/control invariants rather than maintaining a divergent rule set;
+64. repeated parse produces identical semantic result;
+65. parser does not mutate ContextPacket.
 
 ### Regression/scope tests
 
-63. frozen Missing Raft StructuredContextHash remains unchanged;
-64. frozen Missing Raft RenderedContextHash remains unchanged;
-65. frozen Missing Raft ECJ-1 remains exactly 9112 bytes and frozen SHA-256;
-66. all existing 115 Core tests remain green;
-67. existing Missing Raft Harness runtime remains PASS/0;
-68. existing generic smoke Harness runtime remains PASS/0.
+66. frozen Missing Raft StructuredContextHash remains unchanged;
+67. frozen Missing Raft RenderedContextHash remains unchanged;
+68. frozen Missing Raft ECJ-1 remains exactly 9112 bytes and frozen SHA-256;
+69. all existing 115 Core tests remain green;
+70. existing Missing Raft Harness runtime remains PASS/0;
+71. existing generic smoke Harness runtime remains PASS/0.
 
 Tests prove boundary semantics, not screenplay content.
 
@@ -704,7 +727,7 @@ A provider-execution Harness path belongs to a later approved slice after provid
 
 ## 28. ARM64 and battery suitability
 
-Patch 0006 is deterministic CPU validation over one semantic candidate or at most 1 MiB of explicit JSON parser input.
+Patch 0006 is deterministic CPU validation over one semantic candidate or at most 1 MiB / JSON depth 8 of explicit parser input.
 
 It performs:
 
@@ -718,7 +741,7 @@ It performs:
 
 Structural authority validation belongs on CPU because it is cheap relative to model inference, deterministic, and security-sensitive. NPU/model inference would add probabilistic failure, energy cost, and authority ambiguity.
 
-The 1 MiB parser ceiling bounds worst-case JSON parser input for this public Core operation; later provider execution may impose a smaller experimental/resource limit.
+The parser ceilings bound worst-case raw JSON input and nesting for this public Core operation; later provider execution may impose smaller experimental/resource limits.
 
 No NPU execution/performance claim is made.
 
@@ -777,7 +800,7 @@ Before approval, this proposal must receive repeated complete passes across:
 16. performance-grammar openness;
 17. public API invariant bypass/non-forgeability;
 18. unsupported future-contract fail-closed behavior;
-19. untrusted-input resource bounds;
+19. untrusted-input resource bounds and diagnostic leakage;
 20. scope creep/premature abstraction;
 21. deterministic ARM64/battery suitability;
 22. test completeness and independently observable failure modes;
@@ -797,22 +820,23 @@ Before implementation promotion:
 6. candidate-v1 accepts only the explicitly supported Patch 0005 Context contract;
 7. only ContextPacket + explicit candidate fields/bytes enter candidate construction;
 8. subject/context attribution copies only from trusted ContextPacket;
-9. exact JSON shape/resource ceiling/strict parser behavior receive implementation adversarial review;
-10. visible text is preserved and remains untrusted creative content;
-11. typed control remains only direct-address set + optional nomination and remains non-authoritative;
-12. no state mutation/private reasoning/provider runtime data enter candidate schema;
-13. stable roster IDs are validated exactly/case-sensitively;
-14. candidate constructors cannot bypass validation while public validated factory remains usable by later human Performer code;
-15. silence invariants pass;
-16. provider-error-like/malformed/oversized payloads fail technically rather than becoming fiction;
-17. all existing 115 Core tests remain green;
-18. frozen Context identities remain unchanged;
-19. frozen ECJ-1 identity remains unchanged;
-20. native Windows ARM64 Core/Harness build passes warnings-as-errors;
-21. full Core test suite passes on target machine;
-22. existing Missing Raft and smoke Harness regressions pass/0;
-23. final hygiene review finds no provider adapter, Director, Integrity acceptance, State Interpreter, State Authority, Take semantics, persistence, or later-scope implementation;
-24. validation evidence distinguishes exact machine-tested executable head from later documentation-only closure commits.
+9. exact JSON shape/1 MiB/depth-8/strict parser behavior receives implementation adversarial review;
+10. candidate exceptions do not become a raw-output leakage channel;
+11. visible text is preserved and remains untrusted creative content;
+12. typed control remains only direct-address set + optional nomination and remains non-authoritative;
+13. no state mutation/private reasoning/provider runtime data enter candidate schema;
+14. stable roster IDs are validated exactly/case-sensitively;
+15. candidate constructors cannot bypass validation while public validated factory remains usable by later human Performer code;
+16. silence invariants pass;
+17. provider-error-like/malformed/oversized/deep payloads fail technically rather than becoming fiction;
+18. all existing 115 Core tests remain green;
+19. frozen Context identities remain unchanged;
+20. frozen ECJ-1 identity remains unchanged;
+21. native Windows ARM64 Core/Harness build passes warnings-as-errors;
+22. full Core test suite passes on target machine;
+23. existing Missing Raft and smoke Harness regressions pass/0;
+24. final hygiene review finds no provider adapter, Director, Integrity acceptance, State Interpreter, State Authority, Take semantics, persistence, or later-scope implementation;
+25. validation evidence distinguishes exact machine-tested executable head from later documentation-only closure commits.
 
 ## 32. Material approval decisions
 
@@ -835,11 +859,12 @@ Explicit approval freezes these Patch 0006 decisions:
 15. future provider request must make stable roster IDs available only through safe ContextPacket-derived machine-control mapping separate from creative context;
 16. no State Interpreter mutation, confidence score, private reasoning, chain-of-thought, world-fact proposal, CandidateId, or TakeId enters candidate schema;
 17. strict JSON parser is fail-closed, exact/case-sensitive where semantic, property-order-insensitive, JSON-whitespace-insensitive, and never repairs malformed output;
-18. public JSON parser has a deterministic 1 MiB untrusted-input safety ceiling plus fixed small max depth; this is not the future generation/token budget;
-19. semantic factory/parser share one invariant implementation path;
-20. constructors remain non-public, while a public validated semantic factory supports legitimate Performer construction without authority bypass;
-21. exact raw AI output/partial/error data remains separate E0 provenance/diagnostics and does not enter CandidatePerformance or Production history automatically;
-22. Character refusal/redirection/silence remains distinct from provider refusal/error/cancellation;
-23. provider experiment limits, provider integration, Director, Integrity Validator, State Interpreter, State Authority, Take semantics, and causal persistence remain outside Patch 0006.
+18. public JSON parser has deterministic 1 MiB and depth-8 untrusted-input safety ceilings; these are not the future generation/token budget;
+19. candidate exceptions must not echo raw payload/VisibleText into ordinary diagnostics;
+20. semantic factory/parser share one invariant implementation path;
+21. constructors remain non-public, while a public validated semantic factory supports legitimate Performer construction without authority bypass;
+22. exact raw AI output/partial/error data remains separate E0 provenance/diagnostics and does not enter CandidatePerformance or Production history automatically;
+23. Character refusal/redirection/silence remains distinct from provider refusal/error/cancellation;
+24. provider experiment limits, provider integration, Director, Integrity Validator, State Interpreter, State Authority, Take semantics, and causal persistence remain outside Patch 0006.
 
 Implementation must not begin until recursive audit completes and these decisions are explicitly approved.
