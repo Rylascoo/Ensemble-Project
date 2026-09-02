@@ -153,7 +153,7 @@
       "knowledge": [
         {
           "id": "KNOW-MARLOWE-RELEASED-RAFT",
-          "text": "Marlowe knows that he deliberately released the correctly secured raft without group consent.",
+          "text": "Marlowe knows that he deliberately released the raft without group consent.",
           "provenance": [
             "HT-MARLOWE-RELEASED-RAFT"
           ]
@@ -176,7 +176,7 @@
         },
         {
           "id": "BEL-MARLOWE-GROUP-LIKELY-PROCEED",
-          "text": "Marlowe believes the group is likely to proceed despite the deterioration.",
+          "text": "Marlowe believes the group would likely have proceeded with using the raft despite the deterioration.",
           "provenance": []
         },
         {
@@ -234,7 +234,7 @@
       "constitution": [
         {
           "id": "CON-VOSS",
-          "text": "Voss believes consequential decisions should withstand explicit examination and seeks reasons under uncertainty.",
+          "text": "Consequential decisions should withstand explicit examination; Voss seeks reasons under uncertainty.",
           "provenance": []
         }
       ],
@@ -349,7 +349,7 @@
       "suspicions": [
         {
           "id": "SUSP-WREN-MARLOWE-KNOWS-MORE",
-          "text": "Because Wren knows she secured the raft and later saw Marlowe return from the shoreline, she suspects Marlowe may know more than he has said; she does not know that he released the raft.",
+          "text": "Wren suspects Marlowe may know more than he has said, based on her certainty that she secured the raft and her observation of his later return from the shoreline.",
           "provenance": [
             "KNOW-WREN-SECURED-RAFT",
             "OBS-WREN-MARLOWE-RETURN"
