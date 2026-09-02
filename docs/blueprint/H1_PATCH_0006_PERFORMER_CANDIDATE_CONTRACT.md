@@ -1,6 +1,6 @@
 # H1 Patch 0006 — Performer Candidate Output Contract
 
-Status: blueprint proposal 0.9 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; APPROVAL REQUIRED; implementation not started
+Status: blueprint proposal 1.0 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; APPROVAL REQUIRED; implementation not started
 Parent baseline: validated H1 Patch 0005
 Branch: `h1-patch-0006-performer-candidate-blueprint`
 
@@ -49,10 +49,10 @@ Frozen architectural law additionally states:
 
 Validated Patch 0005 freezes the immediate upstream boundary:
 
-- `ContextPacket` is Character-safe;
-- `ContextPacketId = CTX:<StructuredContextHash>`;
-- `RenderingContract` versions exact provider-neutral rendering;
-- `RenderedContextHash` identifies RenderingContract + exact provider-neutral rendered disclosure;
+- `ContextPacket` is the typed Character-context artifact;
+- `ContextPacketId = CTX:<StructuredContextHash>` identifies structured semantic context;
+- `RenderingContract` versions provider-neutral rendering;
+- `RenderedContextHash` identifies rendering contract + exact rendered disclosure;
 - ContextPacket roster contains safe CharacterId + DisplayName structural metadata;
 - provider-neutral creative rendering deliberately omits Character IDs;
 - final system/provider request construction remains outside Context Composer.
@@ -94,7 +94,7 @@ This distinction preserves future human Take a Seat compatibility without adding
 
 Patch 0006 does **not** ship a public human-oriented `Create(...)` factory merely for future convenience. That public API is deferred until a real non-JSON construction caller enters scope.
 
-Neither the current JSON path nor any future semantic construction path may accept omniscient Production state.
+Neither the current JSON path nor any future semantic construction path may accept omniscient Production state directly; it consumes a deliberately produced typed Context artifact.
 
 ## 5. Semantic candidate shape
 
@@ -139,7 +139,7 @@ Therefore:
 - structural parsing does not classify the dramatic meaning of the text;
 - later Integrity/State interpretation may reason about semantic content under their own approved contracts without changing the preserved Performance text.
 
-This preserves ODR performance-grammar freedom and avoids message-centric ontology lock-in.
+This preserves performance-grammar freedom and avoids message-centric ontology lock-in.
 
 ## 7. Candidate contract version
 
@@ -155,23 +155,38 @@ For AI JSON input, `schemaVersion` must match this value exactly before candidat
 
 The identifier is structural only. It grants no authority.
 
-## 8. Supported upstream Context contract
+## 8. ContextPacket dependency: typed boundary, not composition-policy coupling
 
-`ensemble.e0.performer.candidate.v1` is defined against the validated Patch 0005 E0 reference Context contract and fails closed on a different context contract unless a later explicitly approved Performer-candidate version extends compatibility.
+Patch 0006 consumes the typed `ContextPacket` boundary but does **not** gate candidate construction on a particular Context `SchemaVersion`, `CompositionContract`, or `RenderingContract` string.
 
-Required upstream identifiers:
+Reason:
 
-```text
-Context SchemaVersion      = ensemble.e0.context.v1
-CompositionContract        = ensemble.e0.context.full-authorized.v1
-RenderingContract          = ensemble.e0.context.render.v1
-```
+- CandidatePerformance does not inspect, select, summarize, or reinterpret Context records;
+- it does not need to understand how a packet was composed;
+- it does not need to understand the semantics of a rendering contract;
+- it only needs the trusted packet fields required for candidate association and roster-safe control validation;
+- E0-D context ablations must be able to vary context composition while keeping the Performer candidate-output contract fixed, otherwise the experiment changes multiple variables at once.
 
-Candidate construction verifies those identifiers from the supplied ContextPacket/RenderedContext and verifies the Patch 0005 E0 invariant that `OpportunityCharacterId == SubjectCharacterId`.
+This is especially important for later separately labeled relationship-omitted or omniscient-context controls. If those experiments intentionally materialize the same typed ContextPacket boundary with different composition identity, candidate-v1 can remain unchanged.
 
-It does **not** reimplement Context canonicalization, recompute Context hashes, or duplicate the Context Composer’s record-level validation. `ContextPacket` remains the canonical safe upstream authority object.
+If a future context design requires a genuinely different .NET/domain type or removes fields candidate-v1 consumes, that is an explicit new compatibility decision rather than a string-based policy registry inside Patch 0006.
 
-This check prevents candidate-v1 from silently accepting a future incompatible Context schema/rendering contract under old semantics.
+### Local Context invariants candidate-v1 actually validates
+
+Candidate construction fails closed unless:
+
+- ContextPacket is non-null;
+- SubjectCharacterId and OpportunityCharacterId are initialized;
+- `OpportunityCharacterId == SubjectCharacterId` for this E0 one-opportunity candidate contract;
+- ContextPacketId is initialized;
+- `Rendered` is non-null;
+- `Rendered.RenderingContract` is non-null/non-empty because it is copied as association metadata;
+- `RenderedContextHash` is non-null/non-empty because it is copied as association metadata;
+- roster Character IDs are initialized and unique;
+- subject appears exactly once in roster;
+- any control target resolves exactly once in that roster.
+
+Patch 0006 does **not** recompute Context hashes, recanonicalize Context, inspect denied information, or duplicate Context record-level validation. The typed ContextPacket remains the upstream authority artifact.
 
 ## 9. Exact E0 AI JSON transport shape
 
@@ -294,7 +309,7 @@ Rules:
 - duplicate IDs fail rather than being silently deduplicated;
 - semantic candidate stores the resulting set sorted ordinally by CharacterId;
 - the valid unique maximum is exactly `ContextPacket.Roster.Length - 1` because self-address is prohibited;
-- JSON parsing fails immediately once the array contains more entries than that roster-derived maximum, before allocating/accumulating additional control entries.
+- JSON parsing fails immediately once the array contains more entries than that roster-derived maximum, before accumulating additional control entries.
 
 No unrelated numeric quota is invented.
 
@@ -403,7 +418,7 @@ PerformerCandidateContract.ParseJson(
 
 Inside Core, parsing delegates to one canonical semantic validation/builder path that:
 
-- checks the supported upstream Context contract from Section 8;
+- validates the local Context invariants from Section 8;
 - validates text discipline;
 - validates initialized Character IDs and roster/self/duplicate control rules;
 - sorts addressed IDs ordinally;
@@ -467,7 +482,7 @@ They must **not** echo untrusted values, including:
 - provider secrets/credentials;
 - full surrounding JSON snippets.
 
-Unknown-property diagnostics should identify the containing known contract object (for example, “unknown property in control object”) without replaying the unknown name. Invalid-ID diagnostics may identify the known field but not replay the unrecognized value.
+Unknown-property diagnostics should identify the containing known contract object without replaying the unknown name. Invalid-ID diagnostics may identify the known field but not replay the unrecognized value.
 
 A lower-level parser exception may be retained as an inner exception only when doing so does not attach or quote the raw payload/untrusted value. Exact raw output belongs to the separately governed E0 provenance/diagnostic record, not ordinary exception text.
 
@@ -490,17 +505,17 @@ The AI JSON transport does not contain those fields and cannot override them.
 
 This creates a deterministic association inside Ensemble’s candidate object with:
 
-- the subject Character represented by the supplied safe context;
+- the subject Character represented by the supplied context;
 - the structured semantic ContextPacket identity;
-- the rendering contract;
-- the exact provider-neutral rendered disclosure identity.
+- the rendering contract identifier carried by the packet;
+- the rendered disclosure identity carried by the packet.
 
 Consequences:
 
 - candidate cannot self-assert a different Character;
 - candidate cannot self-assert a different ContextPacketId;
 - candidate cannot self-assert a different RenderedContextHash;
-- later experiment orchestration can associate semantic candidate output with the intended safe Character context without giving the candidate full fixture/Production state.
+- later experiment orchestration can associate semantic candidate output with the intended Character context without giving the candidate full fixture/Production state.
 
 The candidate object alone does **not** prove that an external model actually received those bytes. That causal provider-attempt evidence belongs to later provider orchestration/provenance.
 
@@ -663,86 +678,89 @@ Use the validated Patch 0005 ContextPacket path and existing fixtures. Do not du
 3. ContextPacketId copied exactly;
 4. RenderingContract copied exactly from `ContextPacket.Rendered.RenderingContract`;
 5. RenderedContextHash copied exactly;
-6. unsupported Context SchemaVersion fails closed;
-7. unsupported CompositionContract fails closed;
-8. unsupported RenderingContract fails closed;
-9. E0 Context packet with opportunity != subject fails closed;
-10. null ContextPacket fails with candidate-specific exception;
-11. non-empty visible text preserved exactly;
-12. empty text produces valid silence only with empty/null control;
-13. whitespace-only non-empty text fails;
-14. zero-width/Format-only text fails as non-legible pseudo-performance;
-15. combining-mark-only text fails as non-legible pseudo-performance;
-16. a display-bearing scalar plus permitted Format/combining content remains valid and preserved;
-17. silence with direct address fails;
-18. silence with nomination fails;
-19. LF/TAB text preserved;
-20. CR/NUL/other Control-category scalar text fails;
-21. invalid surrogate sequence fails;
-22. non-NFC text fails rather than being normalized;
-23. addressed Character must exist in roster;
-24. default/uninitialized addressed CharacterId fails with candidate-specific exception;
-25. subject cannot address self;
-26. duplicate addressed IDs fail rather than deduplicate;
-27. addressed IDs stored ordinally sorted;
-28. addressed array exceeding `Roster.Length - 1` fails immediately;
-29. nominated Character must exist in roster;
-30. default/uninitialized nominated CharacterId fails with candidate-specific exception;
-31. subject cannot nominate self;
-32. nomination may validly overlap addressed set;
-33. parsing/control construction does not mutate ContextPacket or Character state;
-34. candidate/control public constructors are absent;
-35. CandidatePerformance/Control expose no accepted/validated/DirectorEligible/routing-weight authority field;
-36. no public semantic `Create`/factory operation is added in Patch 0006;
-37. candidate exception text does not echo invalid VisibleText sentinel content;
-38. invalid Character-ID exception text does not echo the unrecognized ID sentinel;
-39. no CandidatePerformance property exposes fixture, Production truth, provenance, Access decisions, state mutation, confidence, private reasoning, provider credential/configuration, accepted history, CandidateId, or TakeId.
+6. E0 Context packet with opportunity != subject fails closed;
+7. malformed/ambiguous roster IDs fail closed if encountered;
+8. subject must appear exactly once in roster;
+9. null ContextPacket fails with candidate-specific exception;
+10. non-empty visible text preserved exactly;
+11. empty text produces valid silence only with empty/null control;
+12. whitespace-only non-empty text fails;
+13. zero-width/Format-only text fails as non-legible pseudo-performance;
+14. combining-mark-only text fails as non-legible pseudo-performance;
+15. a display-bearing scalar plus permitted Format/combining content remains valid and preserved;
+16. silence with direct address fails;
+17. silence with nomination fails;
+18. LF/TAB text preserved;
+19. CR/NUL/other Control-category scalar text fails;
+20. invalid surrogate sequence fails;
+21. non-NFC text fails rather than being normalized;
+22. addressed Character must exist in roster;
+23. default/uninitialized addressed CharacterId fails with candidate-specific exception;
+24. subject cannot address self;
+25. duplicate addressed IDs fail rather than deduplicate;
+26. addressed IDs stored ordinally sorted;
+27. addressed array exceeding `Roster.Length - 1` fails immediately;
+28. nominated Character must exist in roster;
+29. default/uninitialized nominated CharacterId fails with candidate-specific exception;
+30. subject cannot nominate self;
+31. nomination may validly overlap addressed set;
+32. parsing/control construction does not mutate ContextPacket or Character state;
+33. candidate/control public constructors are absent;
+34. CandidatePerformance/Control expose no accepted/validated/DirectorEligible/routing-weight authority field;
+35. no public semantic `Create`/factory operation is added in Patch 0006;
+36. candidate exception text does not echo invalid VisibleText sentinel content;
+37. invalid Character-ID exception text does not echo the unrecognized ID sentinel;
+38. no CandidatePerformance property exposes fixture, Production truth, provenance, Access decisions, state mutation, confidence, private reasoning, provider credential/configuration, accepted history, CandidateId, or TakeId.
 
 ### Strict JSON tests
 
-40. canonical valid AI JSON parses successfully;
-41. JSON property reordering produces identical semantic candidate;
-42. ordinary structural JSON whitespace produces identical semantic candidate;
-43. equivalent JSON string escape encodings produce identical semantic candidate;
-44. Markdown/code fence wrapper fails;
-45. empty input fails;
-46. >1 MiB raw JSON fails before semantic construction;
-47. JSON nesting deeper than 8 fails;
-48. exact schemaVersion required/case-sensitive;
-49. mismatched schema-version exception text does not echo the untrusted actual version;
-50. property names are case-sensitive;
-51. unknown root property fails;
-52. unknown performance property fails;
-53. unknown control property fails;
-54. unknown-property exception text does not echo the unknown-name sentinel;
-55. missing required property fails;
-56. duplicate root property fails;
-57. duplicate nested property fails;
-58. escaped duplicate decoded property name fails;
-59. comments fail;
-60. trailing comma fails;
-61. UTF-8 BOM fails;
-62. malformed UTF-8 fails;
-63. malformed JSON fails;
-64. escaped isolated-surrogate text fails;
-65. wrong JSON token type for every field category fails;
-66. extra non-whitespace content after root fails;
-67. lower/alternate-case Character ID that does not exactly match roster fails;
-68. malformed-payload exception text does not echo raw candidate sentinel content;
-69. parser and internal semantic builder maintain one invariant implementation path;
-70. repeated parse produces identical semantic result;
-71. parser does not mutate ContextPacket.
+39. canonical valid AI JSON parses successfully;
+40. JSON property reordering produces identical semantic candidate;
+41. ordinary structural JSON whitespace produces identical semantic candidate;
+42. equivalent JSON string escape encodings produce identical semantic candidate;
+43. Markdown/code fence wrapper fails;
+44. empty input fails;
+45. >1 MiB raw JSON fails before semantic construction;
+46. JSON nesting deeper than 8 fails;
+47. exact schemaVersion required/case-sensitive;
+48. mismatched schema-version exception text does not echo the untrusted actual version;
+49. property names are case-sensitive;
+50. unknown root property fails;
+51. unknown performance property fails;
+52. unknown control property fails;
+53. unknown-property exception text does not echo the unknown-name sentinel;
+54. missing required property fails;
+55. duplicate root property fails;
+56. duplicate nested property fails;
+57. escaped duplicate decoded property name fails;
+58. comments fail;
+59. trailing comma fails;
+60. UTF-8 BOM fails;
+61. malformed UTF-8 fails;
+62. malformed JSON fails;
+63. escaped isolated-surrogate text fails;
+64. wrong JSON token type for every field category fails;
+65. extra non-whitespace content after root fails;
+66. lower/alternate-case Character ID that does not exactly match roster fails;
+67. malformed-payload exception text does not echo raw candidate sentinel content;
+68. parser and internal semantic builder maintain one invariant implementation path;
+69. repeated parse produces identical semantic result;
+70. parser does not mutate ContextPacket.
 
-### Public-surface / regression tests
+### Contract-decoupling / public-surface / regression tests
 
-72. public candidate construction surface is limited to strict ParseJson for Patch 0006;
-73. no raw candidate control type is presented as a Director decision/eligibility type;
-74. frozen Missing Raft StructuredContextHash remains unchanged;
-75. frozen Missing Raft RenderedContextHash remains unchanged;
-76. frozen Missing Raft ECJ-1 remains exactly 9112 bytes and frozen SHA-256;
-77. all existing 115 Core tests remain green;
-78. existing Missing Raft Harness runtime remains PASS/0;
-79. existing generic smoke Harness runtime remains PASS/0.
+71. candidate parsing contains no branch that requires `ensemble.e0.context.full-authorized.v1` specifically;
+72. candidate parsing contains no branch that requires `ensemble.e0.context.render.v1` specifically;
+73. public candidate construction surface is limited to strict ParseJson for Patch 0006;
+74. no raw candidate control type is presented as a Director decision/eligibility type;
+75. frozen Missing Raft StructuredContextHash remains unchanged;
+76. frozen Missing Raft RenderedContextHash remains unchanged;
+77. frozen Missing Raft ECJ-1 remains exactly 9112 bytes and frozen SHA-256;
+78. all existing 115 Core tests remain green;
+79. existing Missing Raft Harness runtime remains PASS/0;
+80. existing generic smoke Harness runtime remains PASS/0.
+
+Where an intentionally invalid ContextPacket state cannot be constructed through public authority-safe APIs, implementation review may prove the defensive branch without adding a public fixture or invariant-bypass test hook solely for testing.
 
 Tests prove boundary semantics, not screenplay content.
 
@@ -804,9 +822,9 @@ Patch 0006 does not implement:
 - atomic causal commit;
 - accepted history;
 - observation engine;
-- E0-D ablations;
+- E0-D ablation Context Composer implementation itself;
 - playwright control execution;
-- final Unicode/UI rendering/sanitization policy beyond the candidate legibility invariants above;
+- final Unicode/UI rendering/sanitization policy beyond candidate legibility invariants;
 - WinUI;
 - Windows AI/NPU;
 - packaging/WACK/Store.
@@ -832,7 +850,7 @@ Before approval, this proposal must receive repeated complete passes across:
 15. typed-control minimum sufficiency, boundedness, and overreach;
 16. performance-grammar openness;
 17. public API invariant bypass/minimality;
-18. unsupported future-contract fail-closed behavior;
+18. Context-ablation decoupling and future typed-boundary compatibility;
 19. untrusted-input resource bounds and diagnostic leakage;
 20. scope creep/premature abstraction;
 21. deterministic ARM64/battery suitability;
@@ -851,7 +869,7 @@ Before implementation promotion:
 4. Patch 0006 exposes no speculative human-construction API;
 5. no PerformanceKind taxonomy is introduced;
 6. strict JSON parser and internal semantic builder share one invariant path;
-7. candidate-v1 accepts only the explicitly supported Patch 0005 Context contract;
+7. candidate-v1 depends on the typed ContextPacket fields it actually consumes rather than hard-coding reference composition/rendering policy;
 8. only ContextPacket + explicit candidate JSON bytes enter the public construction boundary;
 9. subject/context association copies only from trusted ContextPacket;
 10. exact JSON shape/1 MiB/depth-8/roster-derived-control-bound/strict parser behavior receives implementation adversarial review;
@@ -865,7 +883,7 @@ Before implementation promotion:
 18. silence invariants pass;
 19. provider-error-like/malformed/oversized/deep/control-overflow payloads fail technically rather than becoming fiction;
 20. all existing 115 Core tests remain green;
-21. frozen Context identities remain unchanged;
+21. frozen reference Context identities remain unchanged;
 22. frozen ECJ-1 identity remains unchanged;
 23. native Windows ARM64 Core/Harness build passes warnings-as-errors;
 24. full Core test suite passes on target machine;
@@ -881,7 +899,7 @@ Explicit approval freezes these Patch 0006 decisions:
 2. Patch 0006 implements no provider/model call;
 3. `CandidatePerformance` is a semantic provider-neutral Performer output, not raw/provider JSON;
 4. E0 AI transport uses strict JSON schema `ensemble.e0.performer.candidate.v1`;
-5. candidate-v1 fails closed unless supplied the validated Patch 0005 E0 Context schema/composition/rendering contract and subject-opportunity invariant;
+5. candidate-v1 consumes the typed ContextPacket boundary and validates only local invariants it actually needs; it does not hard-code `full-authorized.v1` or `render.v1`, preserving context-ablation isolation;
 6. future Human Take a Seat can reuse the same semantic candidate/invariants under bounded Context authority, but Patch 0006 does not expose a speculative public human-construction API;
 7. candidate carries SchemaVersion plus trusted SubjectCharacterId, ContextPacketId, RenderingContract, and RenderedContextHash copied from ContextPacket;
 8. this is deterministic object association, not proof of provider receipt, provider/person authentication, or authorization;
