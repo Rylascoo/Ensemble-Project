@@ -13,18 +13,18 @@ public static class FixtureLoader
         UnmappedMemberHandling = JsonUnmappedMemberHandling.Disallow
     };
 
-    public static FixtureEnvelopeDocument Load(ReadOnlySpan<byte> utf8Json)
+    public static E0FixtureDocument Load(ReadOnlySpan<byte> utf8Json)
     {
         StrictJsonPreflight.Validate(utf8Json);
 
         try
         {
-            return JsonSerializer.Deserialize<FixtureEnvelopeDocument>(utf8Json, SerializerOptions)
+            return JsonSerializer.Deserialize<E0FixtureDocument>(utf8Json, SerializerOptions)
                 ?? throw new FixtureValidationException("Fixture JSON deserialized to null.");
         }
         catch (JsonException exception)
         {
-            throw new FixtureValidationException("Fixture JSON does not match the fixture envelope schema.", exception);
+            throw new FixtureValidationException("Fixture JSON does not match E0 Fixture Dialect v1.", exception);
         }
     }
 }
