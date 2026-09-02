@@ -1,6 +1,6 @@
 # H1 Patch 0006 — Performer Candidate Output Contract
 
-Status: blueprint proposal 0.5 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; APPROVAL REQUIRED; implementation not started
+Status: blueprint proposal 0.6 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; APPROVAL REQUIRED; implementation not started
 Parent baseline: validated H1 Patch 0005
 Branch: `h1-patch-0006-performer-candidate-blueprint`
 
@@ -437,22 +437,27 @@ One small Performer-candidate-specific exception type represents technical parse
 
 Candidate-contract exceptions are diagnostics, not a second raw-output channel.
 
-Exception messages may include safe structural information such as:
+Exception messages may include only safe structural information such as:
 
-- contract/property/field name;
+- a **known contract** property/field path;
 - expected token/category;
 - byte/line position when available;
-- canonical roster Character ID when relevant.
+- trusted canonical roster Character ID when relevant.
 
-They must **not** echo:
+They must **not** echo untrusted values, including:
 
 - the complete raw candidate payload;
 - `VisibleText` contents;
+- unknown property names;
+- invalid/unrecognized Character ID strings;
+- actual mismatched schema-version strings;
 - arbitrary unknown-property values;
 - provider secrets/credentials;
 - full surrounding JSON snippets.
 
-A lower-level parser exception may be retained as an inner exception only when doing so does not attach the raw payload itself. Exact raw output belongs to the separately governed E0 provenance/diagnostic record, not ordinary exception text.
+Unknown-property diagnostics should identify the containing known contract object (for example, “unknown property in control object”) without replaying the unknown name. Invalid-ID diagnostics may identify the known field but not replay the unrecognized value.
+
+A lower-level parser exception may be retained as an inner exception only when doing so does not attach or quote the raw payload/untrusted value. Exact raw output belongs to the separately governed E0 provenance/diagnostic record, not ordinary exception text.
 
 Malformed output never becomes fictional Performance.
 
@@ -669,49 +674,52 @@ Use the validated Patch 0005 ContextPacket path and existing fixtures. Do not du
 32. candidate/control public constructors are absent;
 33. public validated factory creates candidates without exposing an invariant-bypass constructor;
 34. candidate exception text does not echo invalid VisibleText sentinel content;
-35. no CandidatePerformance property exposes fixture, Production truth, provenance, Access decisions, state mutation, confidence, private reasoning, provider credential/configuration, accepted history, CandidateId, or TakeId.
+35. invalid Character-ID exception text does not echo the unrecognized ID sentinel;
+36. no CandidatePerformance property exposes fixture, Production truth, provenance, Access decisions, state mutation, confidence, private reasoning, provider credential/configuration, accepted history, CandidateId, or TakeId.
 
 ### Strict JSON tests
 
-36. canonical valid AI JSON parses to same semantic candidate as direct `Create`;
-37. JSON property reordering produces identical semantic candidate;
-38. ordinary structural JSON whitespace produces identical semantic candidate;
-39. equivalent JSON string escape encodings produce identical semantic candidate;
-40. Markdown/code fence wrapper fails;
-41. empty input fails;
-42. >1 MiB raw JSON fails before semantic construction;
-43. JSON nesting deeper than 8 fails;
-44. exact schemaVersion required/case-sensitive;
-45. property names are case-sensitive;
-46. unknown root property fails;
-47. unknown performance property fails;
-48. unknown control property fails;
-49. missing required property fails;
-50. duplicate root property fails;
-51. duplicate nested property fails;
-52. escaped duplicate decoded property name fails;
-53. comments fail;
-54. trailing comma fails;
-55. UTF-8 BOM fails;
-56. malformed UTF-8 fails;
-57. malformed JSON fails;
-58. escaped isolated-surrogate text fails;
-59. wrong JSON token type for every field category fails;
-60. extra non-whitespace content after root fails;
-61. lower/alternate-case Character ID that does not exactly match roster fails;
-62. malformed-payload exception text does not echo raw candidate sentinel content;
-63. parser delegates semantic text/control invariants rather than maintaining a divergent rule set;
-64. repeated parse produces identical semantic result;
-65. parser does not mutate ContextPacket.
+37. canonical valid AI JSON parses to same semantic candidate as direct `Create`;
+38. JSON property reordering produces identical semantic candidate;
+39. ordinary structural JSON whitespace produces identical semantic candidate;
+40. equivalent JSON string escape encodings produce identical semantic candidate;
+41. Markdown/code fence wrapper fails;
+42. empty input fails;
+43. >1 MiB raw JSON fails before semantic construction;
+44. JSON nesting deeper than 8 fails;
+45. exact schemaVersion required/case-sensitive;
+46. mismatched schema-version exception text does not echo the untrusted actual version;
+47. property names are case-sensitive;
+48. unknown root property fails;
+49. unknown performance property fails;
+50. unknown control property fails;
+51. unknown-property exception text does not echo the unknown-name sentinel;
+52. missing required property fails;
+53. duplicate root property fails;
+54. duplicate nested property fails;
+55. escaped duplicate decoded property name fails;
+56. comments fail;
+57. trailing comma fails;
+58. UTF-8 BOM fails;
+59. malformed UTF-8 fails;
+60. malformed JSON fails;
+61. escaped isolated-surrogate text fails;
+62. wrong JSON token type for every field category fails;
+63. extra non-whitespace content after root fails;
+64. lower/alternate-case Character ID that does not exactly match roster fails;
+65. malformed-payload exception text does not echo raw candidate sentinel content;
+66. parser delegates semantic text/control invariants rather than maintaining a divergent rule set;
+67. repeated parse produces identical semantic result;
+68. parser does not mutate ContextPacket.
 
 ### Regression/scope tests
 
-66. frozen Missing Raft StructuredContextHash remains unchanged;
-67. frozen Missing Raft RenderedContextHash remains unchanged;
-68. frozen Missing Raft ECJ-1 remains exactly 9112 bytes and frozen SHA-256;
-69. all existing 115 Core tests remain green;
-70. existing Missing Raft Harness runtime remains PASS/0;
-71. existing generic smoke Harness runtime remains PASS/0.
+69. frozen Missing Raft StructuredContextHash remains unchanged;
+70. frozen Missing Raft RenderedContextHash remains unchanged;
+71. frozen Missing Raft ECJ-1 remains exactly 9112 bytes and frozen SHA-256;
+72. all existing 115 Core tests remain green;
+73. existing Missing Raft Harness runtime remains PASS/0;
+74. existing generic smoke Harness runtime remains PASS/0.
 
 Tests prove boundary semantics, not screenplay content.
 
@@ -821,7 +829,7 @@ Before implementation promotion:
 7. only ContextPacket + explicit candidate fields/bytes enter candidate construction;
 8. subject/context attribution copies only from trusted ContextPacket;
 9. exact JSON shape/1 MiB/depth-8/strict parser behavior receives implementation adversarial review;
-10. candidate exceptions do not become a raw-output leakage channel;
+10. candidate exceptions do not become a raw-output/untrusted-value leakage channel;
 11. visible text is preserved and remains untrusted creative content;
 12. typed control remains only direct-address set + optional nomination and remains non-authoritative;
 13. no state mutation/private reasoning/provider runtime data enter candidate schema;
@@ -860,7 +868,7 @@ Explicit approval freezes these Patch 0006 decisions:
 16. no State Interpreter mutation, confidence score, private reasoning, chain-of-thought, world-fact proposal, CandidateId, or TakeId enters candidate schema;
 17. strict JSON parser is fail-closed, exact/case-sensitive where semantic, property-order-insensitive, JSON-whitespace-insensitive, and never repairs malformed output;
 18. public JSON parser has deterministic 1 MiB and depth-8 untrusted-input safety ceilings; these are not the future generation/token budget;
-19. candidate exceptions must not echo raw payload/VisibleText into ordinary diagnostics;
+19. candidate exceptions may expose only trusted/known structural diagnostics and must not echo raw payload, VisibleText, unknown property names, invalid IDs, or other untrusted values;
 20. semantic factory/parser share one invariant implementation path;
 21. constructors remain non-public, while a public validated semantic factory supports legitimate Performer construction without authority bypass;
 22. exact raw AI output/partial/error data remains separate E0 provenance/diagnostics and does not enter CandidatePerformance or Production history automatically;
