@@ -102,7 +102,7 @@ Unknown/generic fixture-family validation behavior remains intact under the exer
 
 Status: **PASS — advisory only**.
 
-Final comparison against approved Patch 0004 baseline shows exactly four executable/test files added:
+Final executable comparison against approved Patch 0004 baseline shows exactly four executable/test files added:
 
 1. `src/Ensemble.E0.Core/Access/CharacterAccessModels.cs`
 2. `src/Ensemble.E0.Core/Access/CharacterBoundedAccessControl.cs`
@@ -130,7 +130,7 @@ H1 Patch 0004 satisfies its exercised native ARM64 compiler, Core test, and Harn
 
 `b228cd134f8e3258bb54fcb8e8f1fb01c21b96f8`
 
-The evidence supports promotion of Patch 0004, subject to final repository hygiene/promotion checks.
+The documentation-only closure commits after that SHA record evidence and canonical status only; they do not claim compilation or runtime validation of a different executable state.
 
 ## Explicitly not established
 
