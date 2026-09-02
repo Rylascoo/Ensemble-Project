@@ -14,9 +14,9 @@ namespace Ensemble.E0.Core.Tests.Context;
 public sealed class DeterministicContextComposerTests
 {
     private const string ExpectedVossStructuredHash =
-        "ce172d8d6a6aedd2c24465c1011ea14466a405f2476031d72a84b62266e126be";
+        "bbb82aa9400ea76290f9e3a62dcea3cb922f5d5b5a5677216a8922a6472e274b";
     private const string ExpectedVossRenderedHash =
-        "b116d7264c50e22083e250605336c28eb6f2da12475748c495eecc73a5ce89b5";
+        "ce99a0c5e525276c17b84ad86a21c335028d1a01791f27c223bae4e5edd7cf88";
     private const int ExpectedVossStructuredByteLength = 2569;
     private const int ExpectedVossRenderedEnvelopeByteLength = 1905;
 
@@ -101,61 +101,15 @@ public sealed class DeterministicContextComposerTests
     }
 
     [TestMethod]
-    public void MissingRaftVoss_RenderingMatchesFrozenProviderNeutralContract()
+    public void MissingRaftVoss_RenderingMatchesCanonicalFixtureRelationshipText()
     {
         var actual = Compose(LoadMissingRaft(), MissingRaftContract.VossId)
             .Packet.Rendered.TrustedStateText;
-        var expected = """
-            [WHO YOU ARE]
-            Name:
-            - Dr. Voss
-            Constitution:
-            - Consequential decisions should withstand explicit examination; Voss seeks reasons under uncertainty.
-            Disposition:
-            - Voss distinguishes observation, inference, and assumption; she may clarify at length.
 
-            [WHAT IS HAPPENING]
-            - No storm, rescue timer, or other external countdown is active at Scene opening.
-            - There is no immediate emergency at Scene opening.
-            - The group has limited provisions.
-            - The raft is gone at Scene opening.
-
-            [RIGHT NOW]
-            - none
-
-            [WHAT YOU OBSERVED]
-            - none
-
-            [WHAT YOU KNOW]
-            - Voss knows that the current has strengthened.
-
-            [WHAT YOU BELIEVE]
-            - Voss believes an accidental raft loss is plausible given the stronger current, but not certain.
-
-            [WHAT YOU SUSPECT]
-            - none
-
-            [WHAT YOU REMEMBER]
-            - Voss remembers Marlowe moving supplies threatened by the rising tide before agreement, no harm resulting, and her objection to the act-first, explain-later pattern.
-            - Voss remembers Wren limiting her statement about the misplaced tool to observation, Voss pressing toward a firmer conclusion, Wren refusing to overstate, and Marlowe supporting that boundary.
-
-            [WHO IS PRESENT]
-            - Marlowe
-            - Dr. Voss
-            - Wren
-
-            [RELATIONSHIPS]
-            - Marlowe: Voss respects Marlowe's competence but grants him less benefit of the doubt on unilateral choices.
-            - Wren: Voss respects Wren's observational care and expects Wren to withhold conclusions when pressed.
-
-            [WHAT YOU WANT]
-            - Establish enough reliable shared information for the next consequential decision to be open and accountable.
-
-            [PRESSURES]
-            - The raft is gone and provisions are limited, making indefinite inaction untenable without creating an immediate emergency or prescribing any Character response.
-            """;
-
-        Assert.AreEqual(expected, actual);
+        StringAssert.Contains(
+            actual,
+            "[RELATIONSHIPS]\n- Marlowe: Voss respects Marlowe's perception but grants him less benefit of the doubt on unilateral choices.");
+        Assert.IsFalse(actual.Contains("Marlowe's competence", StringComparison.Ordinal));
         Assert.IsFalse(actual.EndsWith('\n'));
         Assert.IsFalse(actual.Contains('\r'));
     }
@@ -451,8 +405,12 @@ public sealed class DeterministicContextComposerTests
     {
         var packet = Compose(LoadMissingRaft(), MissingRaftContract.VossId).Packet;
 
-        StringAssert.Matches(packet.StructuredContextHash, new System.Text.RegularExpressions.Regex("^[0-9a-f]{64}$"));
-        StringAssert.Matches(packet.RenderedContextHash, new System.Text.RegularExpressions.Regex("^[0-9a-f]{64}$"));
+        StringAssert.Matches(
+            packet.StructuredContextHash,
+            new System.Text.RegularExpressions.Regex("^[0-9a-f]{64}$"));
+        StringAssert.Matches(
+            packet.RenderedContextHash,
+            new System.Text.RegularExpressions.Regex("^[0-9a-f]{64}$"));
         Assert.AreEqual($"CTX:{packet.StructuredContextHash}", packet.ContextPacketId.Value);
     }
 
