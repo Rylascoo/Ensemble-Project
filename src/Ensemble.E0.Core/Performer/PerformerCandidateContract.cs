@@ -19,8 +19,12 @@ public static class PerformerCandidateContract
         ReadOnlySpan<byte> utf8CandidateOutput)
     {
         var context = ValidateContext(contextPacket);
-        ValidateTransportEnvelope(utf8CandidateOutput);
-        var parsed = ParseTransport(utf8CandidateOutput, context.MaxAddressedCharacterCount);
+        ValidateTransportEnvelope(
+            utf8CandidateOutput,
+            context.MaxAddressedCharacterCount);
+        var parsed = ParseTransport(
+            utf8CandidateOutput,
+            context.MaxAddressedCharacterCount);
         return BuildCandidate(context, parsed);
     }
 
@@ -59,7 +63,8 @@ public static class PerformerCandidateContract
         {
             if (participant is null)
             {
-                throw new PerformerCandidateException("ContextPacket roster contains an invalid participant.");
+                throw new PerformerCandidateException(
+                    "ContextPacket roster contains an invalid participant.");
             }
 
             var participantId = RequireInitialized(
@@ -68,7 +73,8 @@ public static class PerformerCandidateContract
 
             if (!rosterIds.Add(participantId))
             {
-                throw new PerformerCandidateException("ContextPacket roster contains duplicate Character IDs.");
+                throw new PerformerCandidateException(
+                    "ContextPacket roster contains duplicate Character IDs.");
             }
 
             if (string.Equals(participantId, subjectValue, StringComparison.Ordinal))
@@ -89,7 +95,9 @@ public static class PerformerCandidateContract
             Math.Max(0, contextPacket.Roster.Length - 1));
     }
 
-    private static void ValidateTransportEnvelope(ReadOnlySpan<byte> utf8CandidateOutput)
+    private static void ValidateTransportEnvelope(
+        ReadOnlySpan<byte> utf8CandidateOutput,
+        int maxAddressedCharacterCount)
     {
         if (utf8CandidateOutput.IsEmpty)
         {
@@ -98,7 +106,8 @@ public static class PerformerCandidateContract
 
         if (utf8CandidateOutput.Length > MaxCandidateJsonBytes)
         {
-            throw new PerformerCandidateException("Candidate JSON exceeds the parser safety ceiling.");
+            throw new PerformerCandidateException(
+                "Candidate JSON exceeds the parser safety ceiling.");
         }
 
         if (utf8CandidateOutput.Length >= 3 &&
@@ -106,7 +115,8 @@ public static class PerformerCandidateContract
             utf8CandidateOutput[1] == 0xBB &&
             utf8CandidateOutput[2] == 0xBF)
         {
-            throw new PerformerCandidateException("Candidate JSON must not contain a UTF-8 BOM.");
+            throw new PerformerCandidateException(
+                "Candidate JSON must not contain a UTF-8 BOM.");
         }
 
         var readerOptions = new JsonReaderOptions
@@ -120,6 +130,9 @@ public static class PerformerCandidateContract
         var objectProperties = new Stack<HashSet<string>>();
         var sawRoot = false;
         var rootClosed = false;
+        string? pendingPropertyName = null;
+        var addressedArrayDepth = -1;
+        var addressedEntryCount = 0;
 
         try
         {
@@ -129,7 +142,8 @@ public static class PerformerCandidateContract
                 {
                     if (reader.TokenType != JsonTokenType.StartObject || reader.CurrentDepth != 0)
                     {
-                        throw new PerformerCandidateException("Candidate JSON root must be an object.");
+                        throw new PerformerCandidateException(
+                            "Candidate JSON root must be an object.");
                     }
 
                     sawRoot = true;
@@ -140,10 +154,29 @@ public static class PerformerCandidateContract
                         "Candidate JSON contains content after the root object.");
                 }
 
+                if (addressedArrayDepth >= 0)
+                {
+                    if (reader.TokenType == JsonTokenType.EndArray &&
+                        reader.CurrentDepth == addressedArrayDepth)
+                    {
+                        addressedArrayDepth = -1;
+                    }
+                    else if (reader.CurrentDepth == addressedArrayDepth + 1)
+                    {
+                        addressedEntryCount++;
+                        if (addressedEntryCount > maxAddressedCharacterCount)
+                        {
+                            throw new PerformerCandidateException(
+                                "Candidate control addressedCharacterIds exceeds the roster-derived limit.");
+                        }
+                    }
+                }
+
                 switch (reader.TokenType)
                 {
                     case JsonTokenType.StartObject:
                         objectProperties.Push(new HashSet<string>(StringComparer.Ordinal));
+                        pendingPropertyName = null;
                         break;
 
                     case JsonTokenType.PropertyName:
@@ -166,6 +199,20 @@ public static class PerformerCandidateContract
                                 "Candidate JSON contains a duplicate property.");
                         }
 
+                        pendingPropertyName = propertyName;
+                        break;
+
+                    case JsonTokenType.StartArray:
+                        if (string.Equals(
+                                pendingPropertyName,
+                                "addressedCharacterIds",
+                                StringComparison.Ordinal))
+                        {
+                            addressedArrayDepth = reader.CurrentDepth;
+                            addressedEntryCount = 0;
+                        }
+
+                        pendingPropertyName = null;
                         break;
 
                     case JsonTokenType.EndObject:
@@ -176,18 +223,24 @@ public static class PerformerCandidateContract
                         }
 
                         objectProperties.Pop();
+                        pendingPropertyName = null;
                         if (reader.CurrentDepth == 0)
                         {
                             rootClosed = true;
                         }
 
                         break;
+
+                    default:
+                        pendingPropertyName = null;
+                        break;
                 }
             }
         }
         catch (JsonException)
         {
-            throw new PerformerCandidateException("Candidate JSON is syntactically invalid.");
+            throw new PerformerCandidateException(
+                "Candidate JSON is syntactically invalid.");
         }
 
         if (!sawRoot || !rootClosed || objectProperties.Count != 0)
@@ -214,9 +267,17 @@ public static class PerformerCandidateContract
 
             var root = document.RootElement;
             RequireObject(root, "candidate root");
-            EnsureOnlyProperties(root, "candidate root", "schemaVersion", "performance", "control");
+            EnsureOnlyProperties(
+                root,
+                "candidate root",
+                "schemaVersion",
+                "performance",
+                "control");
 
-            var schemaVersion = RequireString(root, "schemaVersion", "candidate root");
+            var schemaVersion = RequireString(
+                root,
+                "schemaVersion",
+                "candidate root");
             if (!string.Equals(
                     schemaVersion,
                     CandidateJsonSchemaVersion,
@@ -226,18 +287,27 @@ public static class PerformerCandidateContract
                     "Candidate JSON schemaVersion is unsupported.");
             }
 
-            var performance = RequireObjectProperty(root, "performance", "candidate root");
+            var performance = RequireObjectProperty(
+                root,
+                "performance",
+                "candidate root");
             EnsureOnlyProperties(performance, "performance", "text");
             var visibleText = RequireString(performance, "text", "performance");
 
-            var control = RequireObjectProperty(root, "control", "candidate root");
+            var control = RequireObjectProperty(
+                root,
+                "control",
+                "candidate root");
             EnsureOnlyProperties(
                 control,
                 "control",
                 "addressedCharacterIds",
                 "nominatedCharacterId");
 
-            var addressedElement = RequireProperty(control, "addressedCharacterIds", "control");
+            var addressedElement = RequireProperty(
+                control,
+                "addressedCharacterIds",
+                "control");
             if (addressedElement.ValueKind != JsonValueKind.Array)
             {
                 throw new PerformerCandidateException(
@@ -265,7 +335,10 @@ public static class PerformerCandidateContract
                         "Candidate control addressedCharacterIds contains an invalid string."));
             }
 
-            var nominationElement = RequireProperty(control, "nominatedCharacterId", "control");
+            var nominationElement = RequireProperty(
+                control,
+                "nominatedCharacterId",
+                "control");
             string? nominatedCharacterId;
             if (nominationElement.ValueKind == JsonValueKind.Null)
             {
@@ -290,7 +363,8 @@ public static class PerformerCandidateContract
         }
         catch (JsonException)
         {
-            throw new PerformerCandidateException("Candidate JSON is syntactically invalid.");
+            throw new PerformerCandidateException(
+                "Candidate JSON is syntactically invalid.");
         }
     }
 
@@ -301,7 +375,8 @@ public static class PerformerCandidateContract
         ValidateVisibleText(parsed.VisibleText);
 
         var subjectValue = context.Packet.SubjectCharacterId.Value;
-        var addressed = ImmutableArray.CreateBuilder<CharacterId>(parsed.AddressedCharacterIds.Count);
+        var addressed = ImmutableArray.CreateBuilder<CharacterId>(
+            parsed.AddressedCharacterIds.Count);
         var addressedValues = new HashSet<string>(StringComparer.Ordinal);
 
         foreach (var rawId in parsed.AddressedCharacterIds)
@@ -385,7 +460,8 @@ public static class PerformerCandidateContract
     {
         if (visibleText is null)
         {
-            throw new PerformerCandidateException("Candidate performance text is required.");
+            throw new PerformerCandidateException(
+                "Candidate performance text is required.");
         }
 
         if (visibleText.Length == 0)
@@ -471,7 +547,8 @@ public static class PerformerCandidateContract
         }
         catch (InvalidOperationException)
         {
-            throw new PerformerCandidateException($"Trusted {fieldName} is uninitialized.");
+            throw new PerformerCandidateException(
+                $"Trusted {fieldName} is uninitialized.");
         }
     }
 
@@ -483,7 +560,8 @@ public static class PerformerCandidateContract
         }
         catch (InvalidOperationException)
         {
-            throw new PerformerCandidateException($"Trusted {fieldName} is uninitialized.");
+            throw new PerformerCandidateException(
+                $"Trusted {fieldName} is uninitialized.");
         }
     }
 
