@@ -1,0 +1,24 @@
+# .NET build output
+**/bin/
+**/obj/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Test results / coverage
+TestResults/
+coverage/
+
+# Local run artifacts
+artifacts/runs/
+
+# Local secrets / environment
+.env
+.env.*
+*.secrets.json
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
