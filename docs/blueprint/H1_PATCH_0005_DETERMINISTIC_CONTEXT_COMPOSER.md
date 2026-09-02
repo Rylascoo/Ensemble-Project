@@ -1,6 +1,7 @@
 # H1 Patch 0005 — Deterministic Context Composer + Dual Context Identity
 
-Status: blueprint proposal 0.3 — APPROVAL REQUIRED; implementation not started
+Status: APPROVED — canonical implementation specification 0.3; implementation not started
+Approved: 2026-09-02
 Parent baseline: validated H1 Patch 0004
 Branch: `h1-patch-0005-context-composer-blueprint`
 
@@ -713,4 +714,6 @@ Explicit approval freezes:
 15. local composition trace remains separate from Performer-facing packet;
 16. no relevance inference, token optimization, provider calls, Director logic, persistence, recent-history implementation, or E0-D bypass enters Patch 0005.
 
-Implementation must not begin until these decisions are approved.
+## 26. Approval decision
+
+Blueprint Proposal 0.3 was explicitly approved on 2026-09-02. These decisions are canonical for H1 Patch 0005 implementation.
