@@ -15,9 +15,10 @@ public sealed class Ecj1FixtureIdentityTests
     {
         var fixture = ValidateGeneric(ReadMissingRaftFixture());
         var canonicalBytes = Ecj1FixtureCanonicalizer.Serialize(fixture);
+        var actualHash = FixtureHash.Compute(fixture);
 
         Assert.AreEqual(ExpectedMissingRaftCanonicalByteLength, canonicalBytes.Length);
-        Assert.AreEqual(MissingRaftContract.ExpectedFixtureHash, FixtureHash.Compute(fixture));
+        Assert.AreEqual(MissingRaftContract.ExpectedFixtureHash, actualHash);
 
         MissingRaftContract.Validate(fixture);
     }
@@ -45,8 +46,10 @@ public sealed class Ecj1FixtureIdentityTests
         });
 
         var reordered = ValidateGeneric(reorderedJson);
+        var expectedHash = FixtureHash.Compute(canonical);
+        var actualHash = FixtureHash.Compute(reordered);
 
-        Assert.AreEqual(FixtureHash.Compute(canonical), FixtureHash.Compute(reordered));
+        Assert.AreEqual(expectedHash, actualHash);
         MissingRaftContract.Validate(reordered);
     }
 
@@ -68,8 +71,10 @@ public sealed class Ecj1FixtureIdentityTests
         });
 
         var reordered = ValidateGeneric(reorderedJson);
+        var expectedHash = FixtureHash.Compute(canonical);
+        var actualHash = FixtureHash.Compute(reordered);
 
-        Assert.AreEqual(FixtureHash.Compute(canonical), FixtureHash.Compute(reordered));
+        Assert.AreEqual(expectedHash, actualHash);
         MissingRaftContract.Validate(reordered);
     }
 
@@ -83,8 +88,9 @@ public sealed class Ecj1FixtureIdentityTests
                 "beliefs",
                 MissingRaftContract.BelMarloweDisclosureRiskId)["text"] =
                     JsonValue.Create("Marlowe believes disclosure now carries a different trust risk.")));
+        var actualHash = FixtureHash.Compute(fixture);
 
-        Assert.AreNotEqual(MissingRaftContract.ExpectedFixtureHash, FixtureHash.Compute(fixture));
+        Assert.AreNotEqual(MissingRaftContract.ExpectedFixtureHash, actualHash);
         Assert.Throws<FixtureValidationException>(() => MissingRaftContract.Validate(fixture));
     }
 
@@ -97,8 +103,9 @@ public sealed class Ecj1FixtureIdentityTests
                 MissingRaftContract.WrenCharacterId,
                 MissingRaftContract.RelWrenVossId)["text"] =
                     JsonValue.Create("Wren now describes Voss differently while preserving the same structural relationship.")));
+        var actualHash = FixtureHash.Compute(fixture);
 
-        Assert.AreNotEqual(MissingRaftContract.ExpectedFixtureHash, FixtureHash.Compute(fixture));
+        Assert.AreNotEqual(MissingRaftContract.ExpectedFixtureHash, actualHash);
         Assert.Throws<FixtureValidationException>(() => MissingRaftContract.Validate(fixture));
     }
 
@@ -112,8 +119,10 @@ public sealed class Ecj1FixtureIdentityTests
                 MissingRaftContract.WrenCharacterId,
                 "suspicions",
                 MissingRaftContract.SuspWrenMarloweKnowsMoreId)["provenance"]!.AsArray())));
+        var expectedHash = FixtureHash.Compute(canonical);
+        var actualHash = FixtureHash.Compute(reordered);
 
-        Assert.AreEqual(FixtureHash.Compute(canonical), FixtureHash.Compute(reordered));
+        Assert.AreEqual(expectedHash, actualHash);
         MissingRaftContract.Validate(reordered);
     }
 
@@ -156,9 +165,10 @@ public sealed class Ecj1FixtureIdentityTests
         var fixture = ValidateGeneric(ReadSmokeFixture());
 
         var hash = FixtureHash.Compute(fixture);
+        var lowercaseHash = hash.ToLowerInvariant();
 
         Assert.AreEqual(64, hash.Length);
-        Assert.AreEqual(hash, hash.ToLowerInvariant());
+        Assert.AreEqual(lowercaseHash, hash);
         Assert.Throws<FixtureValidationException>(() => MissingRaftContract.Validate(fixture));
     }
 
