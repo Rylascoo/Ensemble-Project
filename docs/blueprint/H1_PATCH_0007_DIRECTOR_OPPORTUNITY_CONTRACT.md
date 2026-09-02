@@ -1,6 +1,6 @@
 # H1 Patch 0007 — E0 Director Opportunity Contract
 
-Status: blueprint proposal 0.1 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; APPROVAL REQUIRED; implementation not started
+Status: blueprint proposal 0.2 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; APPROVAL REQUIRED; implementation not started
 Parent baseline: validated H1 Patch 0006
 Branch: `h1-patch-0007-director-opportunity-blueprint`
 
@@ -11,84 +11,90 @@ Define the next E0-A behavioral boundary after the validated Performer candidate
 ```text
 validated safe ContextPacket
 + structurally valid CandidatePerformance
-+ effective opportunity history
-    -> deterministic E0 Director proposal
-        -> later causal acceptance/commit boundary
++ immutable effective opportunity history
+    -> deterministic E0 Director proposal/evaluation
+        -> later Integrity / State / Take / atomic-commit boundary
             -> effective Current Opportunity
                 -> next Context Composer / Performer
 ```
 
-Patch 0007 answers one narrow question:
+Patch 0007 asks:
 
-> Given the Character-safe context associated with the current candidate, the candidate's narrow typed handoff metadata, and the already-effective opportunity history for the Scene, what next Character opportunity would the E0 reference Director propose without writing outcomes, inventing world reality, granting knowledge, using hidden prose interpretation, or acquiring authority before the current Performance causally commits?
+> Given the Character-safe context associated with the current candidate, the candidate's narrow typed social-handoff metadata, and the already-effective opportunity history for the Scene, what next Character opportunity would the E0 reference Director propose while intervening as little as possible and without writing outcomes, inventing world reality, granting knowledge, interpreting hidden prose, or acquiring effective authority before causal commit?
 
-Patch 0007 defines and, after approval, may implement a deterministic **E0 reference proposal function**. It does not make a proposal effective Current Opportunity and does not implement the later Take/Integrity/State/atomic-commit boundary that authorizes such an effect.
+Patch 0007 defines one pure deterministic **E0 reference proposal function**. It does not mutate effective Current Opportunity and does not implement the later Integrity, State, Take, or atomic-commit authority that may eventually apply a proposal.
 
 ## 2. Authority basis
 
 Frozen Blueprint 0.1 establishes:
 
-- the Director manages attention and opportunity;
+- Director manages attention and opportunity;
 - its central question is “Whose agency becomes salient next, and why?”;
-- the Director may consider hard eligibility, direct social address, Character nomination, current interaction relevance, relationship relevance, observable pressure, participation balance, and recent repetition;
-- Blueprint 0.1 freezes no invented numeric weights;
+- it may consider hard eligibility, direct social address, Character nomination, current interaction relevance, relationship relevance, observable pressure, participation balance, and recent repetition;
+- no invented numeric weights are frozen;
 - equal dialogue is not the goal;
-- the Director should detect accidental exclusion, repetitive two-character ping-pong, and stalled attention without enforcing a turn quota;
-- a handoff represents opportunity and social pressure, not obligation;
-- the selected Character may speak, act, evade, redirect, refuse, or remain silent;
-- the Director may not write a required line, force an outcome, grant inaccessible knowledge, create belief/truth, commit state, authorize spending/retries, or manufacture non-Character reality;
-- World Resolver remains separate and unimplemented in E0;
-- deterministic eligibility/cost/access rules may not be delegated to an LLM;
+- Director should detect accidental exclusion, repetitive two-character ping-pong, and stalled attention without enforcing a turn quota;
+- handoff represents opportunity/social pressure, not obligation;
+- selected Character may speak, act, evade, redirect, refuse, or remain silent;
+- Director may not write a line, force an outcome, grant inaccessible knowledge, create belief/truth, commit state, authorize spending/retries, or manufacture non-Character reality;
+- World Resolver is separate and unimplemented in E0;
+- deterministic hard eligibility/access/cost rules may not be delegated to an LLM;
 - every E0 run preserves Director opportunity inputs and decisions in provenance;
 - E0-D requires deterministic round-robin opportunity order as a separately labeled ablation;
-- ODR-12 intentionally leaves the **post-E0/final opportunity-selection mechanism** open: structured rules, local semantic judgment, or a hybrid.
+- ODR-12 intentionally leaves the **post-E0/final opportunity-selection mechanism** open: structured rules, local semantic judgment, or a hybrid;
+- the exact E0-A preparation explicitly requires Director inputs, responsibilities, prohibitions, and a **least-intervention rule**.
 
-Therefore Patch 0007 must freeze only the narrow provisional E0 mechanism required to run the experiment. It must not claim to resolve ODR-12 for the product after E0.
+The recovered E0 reasoning gives least-intervention its operational meaning for this reference slice:
 
-Validated Patch 0006 additionally establishes:
+> Preserve Performer/social intention by default. Intervene mainly for hard constraints, continuity, degenerate repetition, accidental exclusion, or Scene exhaustion. Do not optimize plot twists or force outcomes.
+
+Scene exhaustion remains outside Patch 0007 because ODR-13/run termination is not yet frozen. The selector is simply not invoked once a later run protocol has ended the Scene.
+
+Validated Patch 0006 additionally freezes:
 
 - `CandidatePerformance` is provisional semantic Performer output;
-- its `Control` contains only optional `AddressedCharacterIds` and optional `NominatedCharacterId`;
+- `Control` contains only optional `AddressedCharacterIds` and optional `NominatedCharacterId`;
 - control is Performer intent metadata, not truth/state/observation/Director authority/history;
 - provisional/uncommitted control cannot create effective opportunity, trigger another Performer, or survive rollback as routing state;
-- discardable precommit Director computation is permissible only with zero effective authority/effect;
+- discardable precommit Director computation is allowed only with zero authority/effect;
 - control associated with a successfully committed accepted Performance may later become one non-binding Director input;
-- if Director consumes such control for an effective opportunity, the semantic control input and resulting decision must be retained in causal/provenance records.
+- if Director control is actually consumed for effective attention, the semantic control and decision must remain reconstructable in causal provenance.
 
-## 3. Scope decision: provisional E0 selector, not final Director
+## 3. Scope: provisional E0 strategy, not final Director
 
-Blueprint 0.1 explicitly leaves the post-E0 Director mechanism open. Patch 0007 therefore freezes:
+Patch 0007 freezes only:
 
-- one deterministic, auditable E0 reference proposal strategy;
-- one semantic proposal contract;
-- one local trace sufficient to reconstruct why the E0 proposal was produced;
-- no post-E0 claim that this strategy is the final product Director.
+1. one structured, deterministic E0 reference proposal strategy;
+2. one semantic proposal contract;
+3. one typed local trace sufficient to reconstruct E0 selection;
+4. exact least-intervention/anti-degeneracy behavior needed for the reference experiment.
 
-The reference strategy is deliberately structured and model-free so E0 can isolate the Character/context/opportunity architecture without introducing another model/provider variable into the same-model reference condition.
+It does **not** resolve ODR-12 for the product after E0.
 
-This does **not** establish that a future product Director should remain structured-only. ODR-12 remains open after E0.
+The reference strategy is model-free specifically to avoid adding a second semantic-model variable to the E0-A same-model Performer reference condition. A future product Director may be structured, local-semantic, hybrid, or replaced if E0 evidence supports that.
 
-## 4. Opening opportunity is fixture authority, not a Director decision
+## 4. Opening opportunity remains fixture authority
 
-The frozen Missing Raft fixture already establishes opening opportunity `VOSS`.
+Missing Raft fixture opening opportunity remains exactly `VOSS`.
 
-Patch 0007 does not re-select, reinterpret, or overwrite the opening opportunity.
+Patch 0007:
 
-The E0 Director proposal function is used only **after** a Character has received an effective opportunity and produced a structurally valid candidate.
-
-The opening fixture opportunity must remain distinguishable in provenance from later Director-produced opportunities.
+- does not select the opening Character;
+- does not overwrite fixture initial opportunity;
+- is invoked only after an effective opportunity has already produced a structurally valid candidate;
+- keeps opening fixture provenance distinct from later Director proposals/decisions.
 
 ## 5. Public reference input
 
-Preferred semantic input:
+Preferred API input:
 
 ```text
 ContextPacket currentContext
 CandidatePerformance currentCandidate
-DirectorOpportunityHistory opportunityHistory
+ImmutableArray<CharacterId> opportunityHistory
 ```
 
-`currentContext` supplies only Character-safe structural information needed by the reference selector:
+`currentContext` contributes only:
 
 - SceneId;
 - SubjectCharacterId;
@@ -96,66 +102,67 @@ DirectorOpportunityHistory opportunityHistory
 - ContextPacketId;
 - roster Character IDs.
 
-`currentCandidate` supplies:
+`currentCandidate` contributes only:
 
 - SubjectCharacterId;
 - ContextPacketId;
-- typed control only.
+- AddressedCharacterIds;
+- NominatedCharacterId.
 
-The selector must not inspect `VisibleText` to derive hidden semantic meaning.
+`VisibleText` is not inspected.
 
-`opportunityHistory` is the ordered sequence of **effective Character opportunity IDs already established for this Scene**, including the opening fixture opportunity and any later effective Director opportunities.
+`opportunityHistory` is an immutable ordered sequence of **effective Character opportunities already established for this Scene**, including the opening fixture opportunity and later effective Director opportunities.
 
-Opportunity history is attention history, not dialogue quota, accepted Performance history, world truth, or transcript text.
+It is attention history, not transcript history, dialogue counts, accepted-Take storage, world truth, or persistence authority.
 
-## 6. Why VisibleText is not a Director input in E0 reference strategy
+Using `ImmutableArray<CharacterId>` avoids a mutable caller-owned list changing during deterministic evaluation and avoids inventing a speculative Take/Commit persistence DTO.
 
-The frozen Director may eventually consider current interaction relevance. Patch 0007 does not infer that relevance from free-form candidate prose.
+## 6. Why VisibleText is excluded
 
-Reasons:
+The frozen Director may eventually consider current interaction relevance, but Patch 0007 does not infer it from free-form candidate prose because:
 
-- Patch 0006 already provides explicit machine-legible address/nomination signals;
-- free-form Performance is untrusted creative content;
-- semantic interpretation would require another model or a new deterministic language ontology;
-- introducing that mechanism now would add a confound before the E0 behavioral architecture is tested;
-- hidden semantic parsing risks creating a covert authority path from prose into routing;
-- ODR-12 intentionally leaves future structured/local-semantic/hybrid Director design open.
+- Patch 0006 already provides explicit typed social-handoff metadata;
+- Performance prose is untrusted creative content;
+- semantic parsing would introduce another model or a new language ontology;
+- doing so now would confound E0 before the behavioral architecture is measured;
+- hidden semantic parsing could become a covert authority path from prose into routing;
+- ODR-12 explicitly preserves post-E0 structured/local-semantic/hybrid choice.
 
-The E0 selector therefore uses candidate control plus opportunity history only. Future approved Director contracts may add bounded interaction/relationship/pressure relevance without changing what Patch 0007 proved.
+Changing VisibleText while preserving candidate identity/control inputs must not change the Patch 0007 proposal.
 
-## 7. Why relationship and pressure relevance are not reference inputs yet
+## 7. Why relationship/pressure relevance is not consumed yet
 
-Blueprint 0.1 says the Director **may** consider relationship relevance and observable pressure. It does not require every Director implementation to consume every possible signal.
+Blueprint 0.1 says Director **may** consider relationship relevance and observable pressure; it does not require every implementation to consume every signal.
 
 Patch 0007 intentionally does not inspect:
 
-- Character-private relationship records;
+- private relationship records;
 - full Production relationship state;
 - Pressure text;
-- candidate prose;
 - WorldState;
 - hidden truth;
 - Access decisions;
-- provenance graph.
+- fixture provenance;
+- candidate prose.
 
-The current deterministic spine does not yet provide a Director-specific, authority-safe relevance projection for those concepts, and inventing one inside this patch would conflate Director selection with state interpretation/access design.
+The deterministic spine does not yet expose a Director-specific, authority-safe relevance projection for those concepts. Inventing one here would collapse selection with Access/State/semantic interpretation.
 
-This is an E0-reference simplification, not a claim that relationship/pressure relevance is unimportant.
+This is a narrow E0 reference simplification, not a product judgment that those signals are unimportant.
 
-## 8. E0 reference strategy contracts
+## 8. Contracts
 
 Freeze:
 
 ```text
 DirectorOpportunityContractVersion = ensemble.e0.director.opportunity.v1
-DirectorStrategyContract = ensemble.e0.director.social-handoff-recency.v1
+DirectorStrategyContract = ensemble.e0.director.least-intervention.v1
 ```
 
-The semantic proposal and the strategy are separately named so later E0-D or post-E0 strategies do not need to redefine the proposal object merely because selection behavior changes.
+The semantic proposal contract and strategy are named separately so E0-D/post-E0 strategy changes do not automatically redefine the proposal object.
 
-Neither identifier grants state or truth authority.
+Neither identifier grants truth/state/routing authority.
 
-## 9. Semantic proposal shape
+## 9. Proposal shape
 
 ```text
 DirectorOpportunityProposal
@@ -168,29 +175,37 @@ DirectorOpportunityProposal
 - Basis
 ```
 
-`Basis` is one of:
+`Basis` is exactly one of:
 
 ```text
+InitialExclusionRecovery
+PingPongBreak
 Nomination
 DirectAddress
 RecencyFallback
 ```
 
-The proposal contains no prose direction, line suggestion, emotional instruction, world event, pressure mutation, state mutation, confidence score, numeric salience score, provider/model identity, cost decision, retry authority, or hidden chain-of-thought.
+The proposal contains no:
 
-The proposal is **not** itself effective Current Opportunity.
+- line or prose direction;
+- emotional instruction;
+- required outcome;
+- world event;
+- relationship/pressure/state mutation;
+- confidence or salience score;
+- provider/model data;
+- cost/retry authority;
+- hidden chain-of-thought.
 
-## 10. Local evaluation/trace shape
+A proposal is not effective Current Opportunity.
 
-Preferred result:
+## 10. Evaluation and trace
 
 ```text
 DirectorOpportunityEvaluation
 - Proposal
 - Trace
 ```
-
-Local trace:
 
 ```text
 DirectorOpportunityTrace
@@ -203,265 +218,308 @@ DirectorOpportunityTrace
 - OpportunityHistory
 - AddressedCharacterIds
 - NominatedCharacterId
-- CandidatePoolCharacterIds
+- IntendedCandidatePoolCharacterIds
+- IntendedSelectedCharacterId
+- FinalCandidatePoolCharacterIds
 - SelectedCharacterId
 - Basis
 ```
 
-Trace contains IDs/control only and no `VisibleText`, private Character records, denied IDs, truth records, provider credentials, or model reasoning.
+Trace contains structural IDs/control only. It contains no VisibleText, private Character records, denied IDs, truth records, provider credentials, model reasoning, or free-form Director rationale.
 
-For E0 provenance, the exact input history/control and resulting proposal must be preservable. The trace is not Character-facing context.
+The distinction between `IntendedSelectedCharacterId` and final `SelectedCharacterId` makes least-intervention overrides auditable rather than silently replacing Performer social intent.
 
-## 11. Context/candidate binding invariants
+Trace is local/provenance material and is never Character-facing context.
+
+## 11. Binding and structural invariants
 
 Fail closed unless:
 
-1. `currentContext` is non-null and structurally initialized;
-2. `currentCandidate` is non-null and structurally initialized;
-3. Context SubjectCharacterId equals Context OpportunityCharacterId;
+1. Context is non-null and initialized;
+2. Candidate is non-null and initialized;
+3. Context SubjectCharacterId equals OpportunityCharacterId;
 4. Candidate SubjectCharacterId equals Context SubjectCharacterId;
 5. Candidate ContextPacketId equals Context ContextPacketId;
-6. Context roster Character IDs are initialized and unique;
-7. Context subject appears exactly once in roster;
-8. Candidate addressed/nomination IDs are initialized, resolve exactly/case-sensitively in roster, do not equal the source subject, and addressed IDs contain no duplicates;
-9. Opportunity history is non-empty;
-10. every history Character ID resolves exactly/case-sensitively in current roster;
-11. the final history entry equals the current source Character.
+6. roster is initialized, contains exactly the frozen E0 three Characters, IDs initialized/unique;
+7. subject appears exactly once in roster;
+8. Candidate addressed/nomination IDs are initialized, exact/case-sensitive roster members, not source, with no duplicate addresses;
+9. opportunityHistory is non-default and non-empty;
+10. every history ID is initialized and exactly in current roster;
+11. history final element equals the source Character.
 
-The selector does not recompute Context hashes, inspect fixture provenance, or re-run Access Control.
+The selector does not recanonicalize Context, recompute hashes, inspect provenance, or rerun Access Control.
 
-## 12. Eligibility for E0 reference strategy
+## 12. E0 hard eligibility
 
-E0 has exactly three co-present Characters in one Scene.
+For the frozen three-Character co-present Scene, Context roster is the Director's hard eligible set.
 
-For Patch 0007 reference selection:
+Patch 0007 introduces no separate eligibility model/score/LLM.
 
-- the current Context roster is the eligible set;
-- no separate eligibility model/flag is invented;
-- all three roster Characters remain eligible;
-- the source Character is excluded from the **fallback pool** when at least one other roster Character exists;
-- a candidate cannot nominate/address itself under Patch 0006, so explicit control pools already exclude source.
+The source Character is excluded from ordinary fallback selection because the E0 roster contains two other eligible Characters. Explicit Candidate control already cannot target self under Patch 0006.
 
-Future scenes may require richer hard eligibility based on presence, channel, incapacity, creator intervention, or other conditions. Those remain later design and must stay deterministic where they are hard rules.
+Future product eligibility may consider presence, communication channel, incapacity, creator intervention, or other conditions. Those remain later authority design and deterministic when hard.
 
-## 13. Exact deterministic proposal rule
+## 13. Least-intervention strategy overview
 
-The E0 reference selector performs these steps exactly:
+The selector first determines the **socially intended result** from typed control. It then asks only whether a narrow structural anti-degeneracy guard must override that result.
 
-### Step 1 — nomination
+Exact order:
 
-If `NominatedCharacterId` is present and valid:
+1. derive intended social/fallback candidate pool;
+2. derive intended selected Character;
+3. apply one-time initial-exclusion recovery if required;
+4. otherwise apply two-Character ping-pong break if required;
+5. otherwise preserve intended selection unchanged.
 
-```text
-CandidatePool = [NominatedCharacterId]
-SelectedCharacterId = NominatedCharacterId
-Basis = Nomination
-```
+This order means Director intervention is exceptional and auditable.
 
-Nomination is a strong explicit handoff signal but remains non-binding. It selects whose opportunity would become salient if the later causal boundary applies the proposal; it does not force that Character to speak or act in any particular way.
+It does not optimize drama, plot surprise, pacing, moral outcome, or equal line counts.
 
-### Step 2 — direct address
+## 14. Intended selection from social control
 
-Otherwise, if `AddressedCharacterIds` is non-empty:
+### 14.1 Nomination present
+
+If valid `NominatedCharacterId` is present:
 
 ```text
-CandidatePool = AddressedCharacterIds
-SelectedCharacterId = least-recently-opportunitied member of CandidatePool
-Basis = DirectAddress
+IntendedCandidatePool = [NominatedCharacterId]
+IntendedSelectedCharacterId = NominatedCharacterId
+IntendedBasis = Nomination
 ```
 
-### Step 3 — deterministic fallback
+### 14.2 Otherwise direct address present
 
-Otherwise:
+If one or more addressed Characters exist:
 
 ```text
-CandidatePool = current roster excluding SourceCharacterId
-SelectedCharacterId = least-recently-opportunitied member of CandidatePool
-Basis = RecencyFallback
+IntendedCandidatePool = AddressedCharacterIds
+IntendedSelectedCharacterId = least-recently-opportunitied member of IntendedCandidatePool
+IntendedBasis = DirectAddress
 ```
 
-For the frozen three-Character E0 Scene, fallback pool therefore contains the other two Characters.
+### 14.3 Otherwise fallback
 
-No numeric weight, score, probability, random choice, clock, culture, model, network, or process-global mutable state is used.
+```text
+IntendedCandidatePool = roster excluding SourceCharacterId
+IntendedSelectedCharacterId = least-recently-opportunitied member of IntendedCandidatePool
+IntendedBasis = RecencyFallback
+```
 
-## 14. Least-recently-opportunitied rule
+Nomination/address are social intent cues, not truth or outcome authority. Honoring them gives the nominated/addressed Character an opportunity only; it does not obligate response.
 
-For a candidate pool:
+They may still be overridden by the narrow anti-degeneracy guards below.
 
-1. a Character never appearing in `OpportunityHistory` is considered less recent than any Character that appears;
-2. among never-seen Characters, choose the ordinally smallest CharacterId;
-3. otherwise compare each Character's last index in `OpportunityHistory`;
-4. choose the Character with the smallest last index (oldest most-recent opportunity);
-5. exact ties use ordinal CharacterId.
+## 15. Initial-exclusion recovery guard
 
-This rule uses recency, not total dialogue count or a turn quota.
+The Director must detect a Character who has been accidentally absent from opportunity altogether without enforcing ongoing equality.
 
-Explicit nomination/address always overrides recency across Characters outside its candidate pool. Therefore the strategy does not enforce equal dialogue.
+For E0's exactly three Characters:
 
-## 15. Why no participation-count quota exists
+```text
+InitialExclusionWindow = 6 effective opportunities
+```
 
-Blueprint 0.1 says equal dialogue is not the goal and explicitly warns against mechanical scheduling.
+When `OpportunityHistory.Length >= 6`, find roster Characters that have **never appeared anywhere in opportunityHistory**.
 
-Patch 0007 therefore does not:
+If one or more never-seen Characters exist and the intended selection is not one of them:
 
-- track total lines;
+```text
+FinalCandidatePool = never-seen Characters excluding SourceCharacterId
+SelectedCharacterId = ordinally smallest FinalCandidatePool CharacterId
+Basis = InitialExclusionRecovery
+```
+
+If the intended selection already targets a never-seen Character, no override occurs and the social basis remains Nomination/DirectAddress/RecencyFallback.
+
+Once every roster Character has appeared at least once, this guard is permanently irrelevant for that history. It does not create a recurring maximum-gap quota.
+
+The six-opportunity threshold is an E0-only structural guard equal to two complete three-Character roster spans; it is not a post-E0 product constant or a numeric salience weight.
+
+## 16. Two-Character ping-pong guard
+
+For E0's three-Character roster, detect a degenerate two-Character exchange using the last four effective opportunities.
+
+Ping-pong exists only when all are true:
+
+1. `OpportunityHistory.Length >= 4`;
+2. last four IDs alternate exactly `A,B,A,B` or `B,A,B,A`;
+3. `A != B`;
+4. exactly one roster Character `C` is absent from those four;
+5. intended selection would choose `A` or `B` again rather than `C`.
+
+Then:
+
+```text
+FinalCandidatePool = [C]
+SelectedCharacterId = C
+Basis = PingPongBreak
+```
+
+If social intent already selects `C`, no override occurs and the social basis remains intact.
+
+This is a narrow structural anti-degeneracy rule, not a general fairness score.
+
+## 17. Least-recently-opportunitied helper
+
+Within a candidate pool:
+
+1. a Character never appearing in history is less recent than any appearing Character;
+2. among never-seen Characters choose ordinally smallest CharacterId;
+3. otherwise compare each Character's final index in history;
+4. choose smallest final index (oldest most-recent opportunity);
+5. exact tie uses ordinal CharacterId.
+
+No total turn count, dialogue count, word count, token count, percentage, probability, or random value is used.
+
+## 18. No turn quota
+
+Patch 0007 deliberately does not:
+
+- target equal opportunities;
+- target equal dialogue;
+- maintain percentages;
 - count words/tokens;
-- target equal turns;
-- assign fairness percentages;
-- force a Character because they are “behind” a quota;
-- use numeric participation weights.
+- assign fairness scores;
+- route merely because someone is “behind” an ongoing count.
 
-Recency exists only as a deterministic tie/fallback mechanism to reduce accidental exclusion and repetitive ping-pong when explicit social signals do not uniquely resolve attention.
+The initial-exclusion guard only guarantees that an eligible Character is not absent forever from the Scene's opportunity grammar; once all three have appeared it ceases to matter. The ping-pong guard only breaks a specific repetitive structural loop.
 
-## 16. Silence behavior
+Explicit social intention otherwise wins even if it gives one Character more opportunities than another.
 
-A committed or candidate silence does not itself force a handoff category.
+## 19. Silence
 
-Patch 0006 represents silence as empty VisibleText and empty/null control. Because Patch 0007 ignores VisibleText, silence naturally reaches `RecencyFallback`.
+Patch 0006 silence is empty VisibleText + empty/null control.
 
-The next selected Character receives only an opportunity. The silent source is not judged as failed, penalized, or rewritten.
+Patch 0007 does not inspect VisibleText, so a silent candidate naturally produces fallback intent and is subject to the same narrow guards as any other candidate.
 
-## 17. Proposal authority versus effective opportunity
+Silence is not failure, punishment, or a command to end the Scene. The next selected Character receives opportunity only.
 
-This distinction is constitutional for Patch 0007:
+## 20. Proposal versus effective Current Opportunity
+
+Constitutional distinction:
 
 ```text
 DirectorOpportunityProposal != effective Current Opportunity
 ```
 
-`ProposeNext(...)` is a pure deterministic calculation with no side effect.
+`ProposeNext(...)` is pure and side-effect free.
 
-It may be computed speculatively before commit because Patch 0006 permits discardable zero-authority Director speculation.
+It may be computed speculatively before commit only because Patch 0006 explicitly permits discardable zero-authority Director computation.
 
-A proposal may become an effective opportunity only through a later approved causal/orchestration boundary **after** the source Performance and its approved consequences successfully commit atomically.
+A proposal may become effective only through a later approved orchestration/causal boundary **after** the source Performance and all approved consequences successfully commit atomically.
 
-If the Performance is rejected, cancelled, fails, or its causal commit fails:
+On rejection, cancellation, technical failure, or failed causal commit:
 
-- the proposal must not alter Current Opportunity;
-- it must not trigger another Performer;
-- it must not survive as effective routing state;
-- speculative proposal data may remain diagnostics/provenance only as appropriate.
+- no Current Opportunity changes;
+- no next Performer is triggered;
+- proposal cannot survive as effective routing state;
+- speculative evaluation may remain diagnostics/provenance only where required.
 
-Patch 0007 does not implement effective opportunity mutation.
+Patch 0007 implements no effective opportunity mutation.
 
-## 18. No hidden Director prose or chain-of-thought
+## 21. Causal consistency after commit
 
-The reference selector produces only typed deterministic artifacts.
+Because E0 has one frozen co-present three-Character Scene and Patch 0007 consumes only roster/control/opportunity history, the reference proposal does not depend on mutable world/relationship/pressure projections that might change during State Authority commit.
 
-No:
+The later causal layer may therefore either compute the pure proposal after commit or precompute it speculatively and apply it only if the source commit succeeds and the required Context/Candidate/history binding remains valid.
 
-- free-form “Director reasoning”;
-- model chain-of-thought;
-- hidden scratchpad;
-- natural-language stage direction;
-- generated rationale;
-- prompt-derived salience explanation.
+No broader post-E0 stale-state rule is frozen here.
 
-`Basis + exact typed inputs + deterministic strategy contract` are sufficient to reconstruct the E0 proposal.
+## 22. No hidden Director prose/reasoning
 
-Future Director Glass may render a human-readable explanation from provenance, but that presentation is outside this patch and must not expose private chain-of-thought.
+Reference Director output is typed deterministic data only.
 
-## 19. Information-authority boundary
+No free-form Director reasoning, chain-of-thought, scratchpad, natural-language stage direction, plot instruction, generated rationale, or semantic hidden score is created.
 
-The E0 Director is an orchestration role, not a Character and not a truth authority.
+`Basis + typed inputs + strategy contract` are sufficient for E0 reconstruction.
 
-Patch 0007 may inspect only:
+Future Director Glass may render human-readable explanation from provenance outside this patch without exposing private chain-of-thought.
+
+## 23. Information-authority boundary
+
+Director is an orchestration role, not a Character and not truth authority.
+
+Patch 0007 sees only:
 
 - safe Context structural IDs/roster;
 - Candidate structural identity/control;
 - effective opportunity history.
 
-It does not receive denied Character information or full Production truth merely because it is “the Director.”
+It does not receive denied Character state or full Production truth merely because it is Director.
 
-The proposal itself reveals only the selected Character plus structural basis. It does not grant any Character new knowledge.
+Proposal grants no Character knowledge. Stage/Character context receives only later effective opportunity, not the private trace.
 
-## 20. Statement/truth/world boundary
+## 24. Statement/truth/World Resolver boundary
 
-Director control signals cannot make Character prose true.
+Nomination/address mean only Performer social intent.
 
-Nomination/address mean only Performer intent about social attention.
+Director cannot:
 
-The Director cannot:
-
-- treat a claim as historical fact;
-- promote a possibility;
+- treat Character claims as fact;
+- promote possibilities;
 - infer hidden world events;
-- create an observation;
-- alter memory/belief/relationship/pressure;
-- resolve non-Character reality.
+- create observations;
+- mutate memory/belief/relationship/pressure;
+- resolve weather/resources/non-Character reality.
 
 World Resolver remains separate and unimplemented.
 
-## 21. Determinism
+## 25. Determinism
 
-For identical:
+Identical:
 
 ```text
-ContextPacket structural identity/roster
-+ CandidatePerformance identity/control
-+ OpportunityHistory
+Context structural identity/roster
++ Candidate identity/control
++ immutable OpportunityHistory
 + Director contract versions
 ```
 
-Patch 0007 produces identical:
+must produce identical intended pool, intended selection, guard result, final pool, Basis, Proposal, and Trace.
 
-- candidate pool;
-- selected Character;
-- Basis;
-- Proposal;
-- Trace.
+No filesystem, clock, random source, culture, network, provider/model, AI inference, GPU/NPU, thread-global/process-global mutable state affects selection.
 
-No filesystem, clock, random source, culture, network, provider/model, AI inference, GPU/NPU, or global mutable state affects selection.
+## 26. E0-D round-robin ablation isolation
 
-## 22. E0-D round-robin ablation boundary
+Required deterministic round-robin remains a **separate strategy/implementation**, never a flag inside `least-intervention.v1`.
 
-Required E0-D deterministic round-robin is **not** a flag inside `social-handoff-recency.v1`.
+Round-robin deliberately ignores social handoff/least-intervention behavior and follows its own fixed cyclic order while other feasible variables remain matched.
 
-It must later be a separately labeled experimental strategy/implementation, with the same fixture, same-model Performer reference configuration, and other feasible variables held fixed.
+Patch 0007 does not implement the E0-D ablation.
 
-The round-robin ablation ignores nomination/address and follows its own frozen cyclic order.
+The reference fallback may resemble rotation when no social cues occur, but reference and round-robin remain experimentally distinct because the reference honors social intent and only intervenes through the two narrow guards.
 
-Patch 0007 does not implement or silently invoke that ablation.
+## 27. ODR-12 remains open
 
-This keeps the experimental variable explicit.
+Patch 0007 is E0 experimental machinery only.
 
-## 23. ODR-12 remains open after E0
+It does not decide whether post-E0 Director should use:
 
-Patch 0007 does not answer the final product question:
+- structured rules;
+- local semantic judgment;
+- hybrid selection;
+- richer relevance projections;
+- a different strategy entirely.
 
-> structured rules, local semantic judgment, or hybrid?
+E0 evidence must inform that later decision. Deterministic hard eligibility/authority remains required regardless of later semantic assistance.
 
-The E0 reference strategy is provisional experimental machinery.
-
-E0 evidence may later show that:
-
-- explicit typed social handoff is sufficient;
-- richer deterministic relevance is needed;
-- a local semantic proposal layer helps;
-- a hybrid works better;
-- the entire strategy should change.
-
-Any post-E0 mechanism requires separate approval/evidence and must preserve deterministic hard eligibility/authority gates.
-
-## 24. Proposed public surface
-
-Preferred reference API:
+## 28. Proposed public surface
 
 ```text
 DirectorOpportunitySelector.ProposeNext(
     ContextPacket currentContext,
     CandidatePerformance currentCandidate,
-    IReadOnlyList<CharacterId> opportunityHistory)
+    ImmutableArray<CharacterId> opportunityHistory)
     -> DirectorOpportunityEvaluation
 ```
 
-`opportunityHistory` is caller-supplied observed history, not mutated by the selector.
+`DirectorOpportunityProposal`, `DirectorOpportunityTrace`, and `DirectorOpportunityEvaluation` are public read-only outputs with Core-internal constructors.
 
-`DirectorOpportunityProposal`, `DirectorOpportunityTrace`, and `DirectorOpportunityEvaluation` are public read-only outputs with Core-internal constructors, preserving the non-forgeable output pattern used by Access/Context/Performer authority artifacts.
+Input `ImmutableArray<CharacterId>` is caller-provided observational attention history, not an authority object and not a speculative persistence abstraction.
 
-The input history type is intentionally a standard read-only sequence rather than a speculative persistence/Take/Commit DTO.
+No public method applies the proposal or mutates Current Opportunity.
 
-## 25. Fail-closed errors
+## 29. Fail closed
 
 Use one small Director-specific exception domain.
 
@@ -471,186 +529,209 @@ Fail on:
 - null/uninitialized Candidate;
 - Context subject/opportunity mismatch;
 - Candidate subject/context mismatch;
-- invalid/duplicate roster IDs;
-- source missing/duplicated in roster;
-- invalid Candidate control relative to current roster;
-- empty opportunity history;
-- unknown/uninitialized Character in history;
-- history tail not equal to current source Character;
-- empty candidate pool;
-- impossible selection invariant.
+- roster not exactly three for this E0 strategy;
+- invalid/duplicate roster;
+- source missing/duplicated;
+- invalid Candidate control relative to roster;
+- default/empty history;
+- unknown/uninitialized history ID;
+- history tail != source;
+- empty intended/final candidate pool;
+- impossible guard/selection invariant.
 
-Errors contain structural diagnostics only. They must not echo Candidate VisibleText or private Context record text.
+Errors expose structural diagnostics only and never echo Candidate VisibleText/private Context record text.
 
-Technical failure never becomes fictional action or an implicit fallback opportunity.
+Failure produces no alternate fictional action and no implicit fallback opportunity.
 
-## 26. Required tests
+## 30. Required tests
 
 Use validated Patch 0005 ContextPacket and Patch 0006 CandidatePerformance paths; no duplicated fixture JSON.
 
-Required coverage:
+### Binding/opening/surface
 
-1. Missing Raft opening opportunity remains fixture `VOSS`; selector does not create opening state;
-2. valid Voss nomination of Wren proposes WREN with `Nomination` basis;
-3. nomination overrides addressed set;
-4. single direct address proposes addressed Character;
-5. multiple direct addresses choose least-recently-opportunitied addressed Character;
-6. empty control chooses least-recently-opportunitied non-source roster Character;
-7. never-seen Character beats previously seen Character in recency selection;
-8. never-seen tie resolves ordinally;
-9. last-index comparison is deterministic;
-10. explicit nomination may select a recently selected Character, proving no quota overrides handoff;
-11. explicit direct address pool may exclude a less-recent unaddressed Character, proving no global quota;
-12. candidate VisibleText changes with identical control/history do not change proposal;
-13. silence reaches fallback without invented narration/penalty;
-14. selected Character receives opportunity only; proposal contains no line/outcome/state mutation;
-15. Proposal carries semantic contract + strategy contract;
-16. Proposal carries SceneId/source Character/source ContextPacketId/selected Character/basis only;
-17. Trace contains exact roster/history/control/candidate pool/selection IDs and no VisibleText;
-18. output constructors are non-public;
-19. Context/Candidate/history are not mutated;
-20. repeated evaluation is identical;
-21. source-order-independent addressed control remains deterministic because Patch 0006 stores it ordinally;
-22. null Context fails Director-specific;
-23. null Candidate fails Director-specific;
-24. Context subject != opportunity fails;
-25. Candidate subject != Context subject fails;
-26. Candidate ContextPacketId mismatch fails;
-27. invalid/duplicate roster fails where defensively constructible;
-28. empty history fails;
-29. history unknown Character fails;
-30. uninitialized history Character fails;
-31. history tail != source fails;
-32. Director failure does not synthesize an alternate proposal;
-33. no method mutates effective opportunity or triggers Performer;
-34. no provider/model/AI dependency;
-35. no full fixture/Production truth/Access decision input;
-36. no Candidate VisibleText inspection in selection implementation;
-37. no relationship/private-record/Pressure text inspection;
-38. no numeric score/weight/probability field;
-39. no dialogue/word/token count quota;
+1. Missing Raft opening opportunity remains fixture VOSS and selector does not create opening state;
+2. Context/Candidate SubjectCharacterId must match;
+3. Candidate ContextPacketId must match Context;
+4. Context SubjectCharacterId must equal OpportunityCharacterId;
+5. roster exactly three/unique/initialized/source once;
+6. history immutable/non-default/non-empty;
+7. history IDs must be roster members/initialized;
+8. history tail must equal source;
+9. output constructors non-public;
+10. no public apply/mutate/trigger operation;
+11. Proposal exact fields only;
+12. Trace contains no VisibleText/private records/provider/model reasoning.
+
+### Least-intervention/social intent
+
+13. Voss nomination of Wren -> WREN/Nomination when no guard overrides;
+14. nomination overrides ordinary address intent;
+15. single address -> addressed Character/DirectAddress;
+16. multiple addresses choose least-recent within addressed pool;
+17. no control -> least-recent non-source fallback;
+18. never-seen beats seen inside ordinary pool;
+19. ordinary ties use ordinal ID;
+20. explicit nomination may choose globally more-recent Character when no guard requires intervention;
+21. direct-address pool may exclude globally less-recent unaddressed Character when no guard requires intervention;
+22. VisibleText mutation with same identity/control/history leaves selection unchanged;
+23. silence uses fallback without penalty/narration.
+
+### Anti-degeneracy
+
+24. before six opportunities, never-seen Character does not by itself override social intent;
+25. at six+ opportunities, globally never-seen third Character overrides intended A/B target with InitialExclusionRecovery;
+26. if intended selection already targets never-seen Character, no exclusion override/basis replacement;
+27. once every Character appeared, initial-exclusion guard never reactivates merely because one later becomes infrequent;
+28. exact A,B,A,B last-four pattern continuing to A/B routes third Character with PingPongBreak;
+29. A,B,A,C is not ping-pong;
+30. A,A,B,A is not ping-pong;
+31. if social intent already targets third Character, ping-pong guard does not replace social basis;
+32. ping-pong detection uses opportunity IDs only, never prose;
+33. guard override is visible in Trace intended-vs-final fields.
+
+### No quota/authority leakage
+
+34. no line/word/token counts;
+35. no numeric score/weight/probability field;
+36. social intent can produce unequal opportunity distribution absent narrow guards;
+37. Proposal alone does not mutate Context OpportunityCharacterId;
+38. Proposal alone cannot trigger Performer;
+39. no Candidate control becomes truth/state/observation authority;
 40. no World Resolver behavior;
-41. no TakeId/CommitId allocation or commit semantics;
-42. no Integrity/State Interpreter/State Authority behavior;
-43. social-handoff strategy distinct from future round-robin ablation contract;
-44. frozen Missing Raft Context hashes unchanged;
-45. frozen Missing Raft ECJ-1 identity unchanged;
-46. all existing 173 Core tests remain green;
-47. Missing Raft Harness remains PASS/0;
-48. generic smoke Harness remains PASS/0.
+41. no relationship/Pressure/private-state input;
+42. no Access decisions/full fixture/Production truth input;
+43. no TakeId/CommitId allocation;
+44. no Integrity/State Interpreter/State Authority behavior;
+45. no provider/model/AI dependency.
 
-## 27. Harness behavior
+### Determinism/regression
 
-Patch 0007 does not add live provider execution or a self-running Scene loop.
+46. repeated evaluation identical;
+47. inputs not mutated;
+48. Candidate address order already canonical and selection deterministic;
+49. `least-intervention.v1` distinct from future E0-D round-robin strategy;
+50. frozen Missing Raft StructuredContextHash unchanged;
+51. frozen Missing Raft RenderedContextHash unchanged;
+52. frozen Missing Raft ECJ-1 9112 bytes/hash unchanged;
+53. all existing 173 Core tests green;
+54. Missing Raft Harness PASS/0;
+55. generic smoke Harness PASS/0.
 
-Existing Harness validation output remains unchanged.
+Impossible malformed immutable authority objects may be covered by defensive review/reflection without adding public bypass constructors.
 
-Core tests exercise the pure Director proposal function using ContextPackets and CandidatePerformances produced through validated upstream boundaries.
+## 31. Harness behavior
 
-The first effective Scene-loop integration must wait until the downstream Integrity/State/Take/atomic-commit contracts can guarantee that a proposal is applied only after successful causal commit.
+No live provider execution or self-running Scene loop is introduced.
 
-## 28. ARM64/battery suitability
+Existing Harness output remains unchanged.
 
-Patch 0007 reference selection is tiny deterministic CPU work:
+Core tests exercise the pure proposal/evaluation using upstream validated Context/Candidate objects.
 
-- validate a three-Character roster;
+Effective Scene-loop integration waits for downstream Integrity/State/Take/atomic-commit contracts so proposal application cannot outrun causal authority.
+
+## 32. ARM64/battery suitability
+
+Tiny deterministic CPU work only:
+
+- validate three IDs/roster;
 - inspect narrow typed control;
-- scan bounded E0 opportunity history;
-- choose by ordinal deterministic recency.
+- scan E0 opportunity history;
+- inspect at most last four for ping-pong;
+- deterministic ordinal comparisons.
 
-No network, background task, AI inference, GPU, NPU, filesystem I/O, polling, embeddings, or semantic model.
+No network/background task/AI/GPU/NPU/filesystem/polling/embedding/semantic model.
 
-This authority logic belongs on CPU because it is trivial and deterministic. No NPU execution/performance claim is made.
+No NPU claim.
 
-## 29. Explicit exclusions
+## 33. Explicit exclusions
 
-Patch 0007 does not implement:
+No:
 
 - final/post-E0 Director mechanism;
-- local semantic Director model;
-- hybrid semantic + deterministic Director;
+- local semantic/hybrid Director;
 - provider/model Director role;
 - prompt-based Director reasoning;
-- relationship/pressure relevance projection;
 - VisibleText semantic parsing;
-- World Resolver;
-- observation engine;
+- relationship/pressure relevance projection;
+- Scene exhaustion/ending policy;
+- World Resolver/observation;
 - effective opportunity state mutation;
 - Scene loop/orchestration;
 - provider Performer execution;
 - Integrity Validator;
-- accepted/rejected/alternate Take semantics;
-- State Interpreter;
-- State Authority;
+- Take semantics/IDs;
+- State Interpreter/Authority;
 - ProductionState/StateHash;
-- atomic causal commit;
-- persistence/recovery replay;
+- atomic causal commit/persistence/recovery;
 - E0-D round-robin implementation;
 - E0-E playwright execution;
 - final Stage/Director Glass UX;
-- Windows AI/NPU;
-- WinUI;
-- packaging/WACK/Store.
+- WinUI/Windows AI/NPU/packaging/WACK/Store.
 
-## 30. Recursive audit dimensions
+## 34. Recursive audit dimensions
 
-Before approval, recursively audit from the top after every correction for:
+After every correction restart from the top and test:
 
-1. Blueprint 0.1 Director/attention law;
-2. ODR-12 preservation;
-3. Patch 0006 provisional-control/atomic-commit law;
-4. Director vs Performer;
-5. Director vs World Resolver;
-6. Director vs Integrity/State/Take authority;
-7. proposal vs effective opportunity distinction;
-8. opening fixture opportunity vs Director decision;
-9. deterministic hard eligibility;
-10. social cue authority and nomination non-obligation;
-11. equal-dialogue/quota avoidance;
-12. repetitive ping-pong/exclusion fallback behavior;
-13. VisibleText/untrusted-content isolation;
-14. privacy/access leakage;
-15. statement-vs-truth boundary;
-16. causal provenance/reconstruction;
-17. E0-D round-robin experimental isolation;
-18. same-model reference-confound avoidance;
-19. public API/forgery/minimality;
-20. fail-closed behavior;
-21. determinism;
-22. test completeness;
-23. ARM64/battery suitability;
-24. scope/hygiene/premature abstraction;
-25. E0-B/C/D/E/F/G compatibility.
+1. frozen Director/attention law;
+2. least-intervention law;
+3. ODR-12 preservation;
+4. Patch 0006 provisional-control/commit law;
+5. Director vs Performer;
+6. Director vs World Resolver;
+7. Director vs Integrity/State/Take;
+8. proposal vs effective opportunity;
+9. opening fixture vs Director;
+10. hard eligibility;
+11. social intent/non-obligation;
+12. accidental exclusion;
+13. ping-pong/stalled attention;
+14. no ongoing turn quota;
+15. VisibleText/untrusted-content isolation;
+16. privacy/access leakage;
+17. statement-vs-truth;
+18. causal provenance/reconstruction;
+19. E0-D isolation;
+20. E0-A same-model confound isolation;
+21. public API/non-forgeability/minimality;
+22. fail-closed behavior;
+23. deterministic immutable inputs;
+24. test completeness;
+25. ARM64 suitability;
+26. scope/hygiene/premature abstraction;
+27. E0-B/C/D/E/F/G compatibility.
 
-Approval is requested only after one complete pass returns zero remaining material corrections or worthwhile improvements.
+Approval only after one complete pass returns zero material corrections or worthwhile improvements.
 
-## 31. Material approval decisions
+## 35. Material approval decisions
 
 Approval would freeze only these E0 Patch 0007 decisions:
 
-1. Patch 0007 is the Director opportunity boundary after Performer candidate output;
-2. Patch 0007 defines a pure proposal/evaluation, not effective Current Opportunity mutation;
-3. opening Missing Raft opportunity remains fixture authority, not a Director decision;
-4. E0 reference strategy is deterministic/model-free and provisional, preserving post-E0 ODR-12;
-5. semantic proposal contract is `ensemble.e0.director.opportunity.v1`;
-6. reference strategy is `ensemble.e0.director.social-handoff-recency.v1`;
-7. input is safe Context structural identity/roster + Candidate identity/control + effective opportunity history;
-8. Candidate VisibleText, private Character records, Production truth, relationship text, Pressure text, Access decisions, and provenance are not selection inputs;
-9. Context/Candidate identity must match and history tail must equal source Character;
-10. E0 roster is the eligible set; no separate eligibility scoring model is invented;
-11. nomination selects first when present;
-12. otherwise direct-address pool selects by least-recent opportunity;
-13. otherwise fallback excludes current source and chooses least-recent opportunity among remaining roster;
-14. least-recent rule uses history last index + ordinal tie-break only;
-15. no dialogue-count quota, numeric weight, probability, random choice, or LLM selection exists;
-16. explicit social signals may override global recency, so equal dialogue is not enforced;
-17. silence has no special penalty/obligation and naturally reaches fallback when control is empty;
-18. proposal Basis is typed `Nomination | DirectAddress | RecencyFallback` and contains no generated rationale;
-19. trace preserves exact structural inputs/selection for E0 provenance and is not Character-facing;
-20. proposal/control have zero effective routing authority before successful later causal commit;
-21. failed/rejected/cancelled/uncommitted source Performance cannot establish effective next opportunity;
-22. E0-D round-robin remains a separate later experimental strategy, never a flag/bypass in the reference strategy;
-23. relationship/pressure/current-interaction semantic relevance remains permitted future Director design, not silently frozen out of the product;
-24. no provider, World Resolver, Integrity, State, Take, commit, persistence, Scene-loop, UI, Windows AI/NPU, or Store scope enters Patch 0007.
+1. Patch 0007 follows validated Performer candidate output and precedes downstream Integrity/State/Take/commit integration;
+2. Director output here is pure proposal/evaluation, not effective Current Opportunity;
+3. Missing Raft opening VOSS remains fixture authority;
+4. E0 reference Director is deterministic/model-free/least-intervention and provisional, preserving ODR-12;
+5. semantic proposal contract `ensemble.e0.director.opportunity.v1`;
+6. strategy `ensemble.e0.director.least-intervention.v1`;
+7. inputs limited to safe Context structural IDs/roster + Candidate identity/control + immutable effective opportunity history;
+8. exactly three roster Characters are hard eligible for this E0 strategy;
+9. VisibleText/private Character state/Production truth/relationship text/Pressure text/Access decisions/provenance are not selection inputs;
+10. Context/Candidate identity must bind and history tail must equal source;
+11. ordinary least-intervention honors nomination first, otherwise direct address, otherwise non-source recency fallback;
+12. multiple addresses use least-recent within addressed pool;
+13. first narrow override is E0-only initial-exclusion recovery after six effective opportunities if a roster Character has never appeared;
+14. initial-exclusion guard disables once all three have ever appeared and is not an ongoing quota;
+15. second narrow override breaks exact last-four A,B,A,B two-Character ping-pong by proposing the absent third Character;
+16. guards do not replace social basis when social intent already targets the recovery Character;
+17. least-recent helper uses only final history index + ordinal tie-break;
+18. no total-turn/dialogue/token counts, ongoing fairness quotas, numeric salience weights, probabilities, randomness, or LLM routing;
+19. silence receives no penalty/obligation and naturally uses fallback when control empty;
+20. Basis is typed `InitialExclusionRecovery | PingPongBreak | Nomination | DirectAddress | RecencyFallback`, no generated rationale;
+21. Trace records intended and final structural inputs/selection so intervention is auditable and is not Character-facing;
+22. proposal/control have zero effective routing authority before successful later causal commit;
+23. rejection/cancellation/failure/rollback cannot establish next effective opportunity;
+24. E0-D round-robin remains separate strategy, not flag/bypass;
+25. interaction/relationship/pressure semantic relevance and final structured/local/hybrid choice remain permitted future design;
+26. Scene ending/exhaustion remains later ODR-13/run-protocol authority;
+27. no provider, World Resolver, Integrity, State, Take, commit, persistence, Scene loop, UI, Windows AI/NPU, or Store scope enters Patch 0007.
 
-Implementation must not begin until the recursively audited proposal is explicitly approved.
+Implementation remains blocked until recursive audit completes and user explicitly approves the final proposal.
