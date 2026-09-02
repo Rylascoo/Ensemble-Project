@@ -1,6 +1,6 @@
 # H1 Patch 0006 — Performer Candidate Output Contract
 
-Status: blueprint proposal 0.7 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; APPROVAL REQUIRED; implementation not started
+Status: blueprint proposal 0.8 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; APPROVAL REQUIRED; implementation not started
 Parent baseline: validated H1 Patch 0005
 Branch: `h1-patch-0006-performer-candidate-blueprint`
 
@@ -12,7 +12,7 @@ Implement the next E0-A boundary after the validated Context Composer:
 
 Patch 0006 answers one narrow question:
 
-> Can Ensemble represent one provisional Character Performance as a strict, schema-bounded, provider-neutral semantic candidate, deterministically associated with the exact safe ContextPacket supplied for that candidate attempt, while keeping model-supplied control data non-authoritative and preventing malformed output, provider failures, hidden reasoning, mutation proposals, or transport artifacts from entering fiction?
+> Can Ensemble represent one provisional Character Performance as a strict, schema-bounded, provider-neutral semantic candidate, deterministically associated with the exact safe ContextPacket supplied for that candidate attempt, while keeping model-supplied control data non-authoritative and preventing malformed output, provider failures, hidden reasoning, mutation proposals, covert routing signals, or transport artifacts from entering fiction or authority?
 
 Patch 0006 defines and implements the candidate-output semantic contract plus its strict E0 JSON transport parser. It does **not** call any provider/model.
 
@@ -67,7 +67,7 @@ This ordering is implementable now because the frozen Missing Raft fixture alrea
 
 A stable candidate vocabulary is also prerequisite for later boundaries:
 
-- Director needs a stable accepted-performance/control input vocabulary;
+- Director needs a stable accepted/eligible performance-control vocabulary;
 - Integrity Validator needs a concrete provisional candidate object;
 - State Interpreter must interpret an accepted Performance rather than an untyped provider string;
 - Take semantics must identify accepted/rejected attempts without redefining candidate content.
@@ -120,7 +120,8 @@ Rules:
 - `SchemaVersion` is always the canonical Patch 0006 candidate contract identifier;
 - Subject/context association fields are copied only from the supplied trusted ContextPacket;
 - `VisibleText` is the Character-legible provisional Performance representation;
-- `Control` is non-visible typed Performer output;
+- `Control` is non-visible typed **Performer assertion** output;
+- neither candidate nor Control contains an “accepted,” “validated,” “DirectorEligible,” weight, score, or routing-authority flag;
 - the candidate is provisional and has no truth, acceptance, persistence, Director, or mutation authority.
 
 Patch 0006 deliberately defines **no PerformanceKind enum**.
@@ -300,7 +301,15 @@ Rules:
 
 The nominated Character may also appear in `AddressedCharacterIds`; overlap is valid and carries no additional authority beyond the two independent asserted signals.
 
-A later Director may consider these signals only after the relevant Performance has passed whatever acceptance/eligibility contract is later frozen. Rejected/failed candidate control must not silently route the Scene.
+### Raw control is never routing authority
+
+`CandidatePerformance.Control` is raw Performer assertion data. It must **not** be passed directly to the Director as an authoritative routing input.
+
+A later Integrity/acceptance contract must decide whether, and in what validated downstream form, direct-address/nomination assertions are eligible for Director consideration. In particular, hidden nomination/address metadata that is not legitimately grounded in the visible Performance must not become a covert handoff mechanism merely because the parser accepted its structure.
+
+Patch 0006 does not define that semantic grounding algorithm or a Director-eligible projection type; it only freezes the authority rule that raw candidate control is insufficient by itself.
+
+Rejected, failed, cancelled, or otherwise ineligible candidate control must never route the Scene.
 
 ## 13. Typed control is assertion, not authority
 
@@ -314,9 +323,10 @@ Control metadata may not:
 - create observation eligibility;
 - bypass Integrity Validator;
 - authorize spend/retry;
-- create historical fact by itself.
+- create historical fact by itself;
+- self-certify its semantic consistency or Director eligibility.
 
-A later Integrity Validator may compare typed control with visible Performance and reject/flag semantic inconsistency. Patch 0006 performs structural validation only.
+A later Integrity Validator owns the approved eligibility/grounding rule for any control that may flow toward Director. Patch 0006 performs structural validation only.
 
 ## 14. Stable Character IDs and the future provider request
 
@@ -549,7 +559,7 @@ Future Integrity Validator remains responsible for approved hard gates such as:
 - locked canon/impossible-world violation;
 - creator-only disclosure;
 - provider technical failure contamination;
-- later required semantic consistency between visible Performance and typed control;
+- semantic consistency/grounding of direct-address and nomination assertions before they can become Director-eligible inputs;
 - other deterministic acceptance rules frozen in its own blueprint.
 
 Model-assisted semantic checks may later flag concerns but cannot waive deterministic hard rules.
@@ -558,16 +568,18 @@ Patch 0006 must not absorb those acceptance decisions into parsing.
 
 ## 23. Relationship to future Director
 
-Typed control provides only two explicit later Director signals already named by Blueprint 0.1:
+Typed control names two possible future Director signals already present in Blueprint 0.1:
 
 - direct social address;
 - Character nomination.
 
-Neither is a Director decision.
+Raw `CandidatePerformance.Control` is **not** a Director input contract.
+
+The future Director may receive only whatever accepted/eligible control projection the later Integrity/acceptance design explicitly authorizes. It must not consume raw hidden Performer assertions merely because they are structurally valid.
 
 The future Director may additionally consider hard eligibility, current interaction relevance, relationship relevance, observable pressure, participation balance, and recent repetition under its least-intervention contract.
 
-Patch 0006 does not score, weight, rank, enforce quotas, or choose the next opportunity.
+Patch 0006 does not score, weight, rank, enforce quotas, validate semantic control grounding, or choose the next opportunity.
 
 Silence remains valid agency and does not create a forced handoff.
 
@@ -579,14 +591,16 @@ Later causal path remains conceptually:
 
 ```text
 CandidatePerformance
--> Integrity Validator
--> later acceptance/Take boundary
+-> Integrity Validator / later acceptance boundary
+-> accepted Performance + any separately authorized downstream control projection
 -> State Interpreter proposal
 -> deterministic State Authority
 -> atomic causal commit
 ```
 
-The exact ordering/ownership of acceptance, Take identification, consequence proposal, and atomic commit will be frozen in those later standalone contracts.
+Director opportunity flow remains a separate later attention boundary and is not collapsed into the State path above.
+
+The exact ordering/ownership of acceptance, Director eligibility, Take identification, consequence proposal, and atomic commit will be frozen in those later standalone contracts.
 
 Patch 0006 does not pre-implement them.
 
@@ -662,55 +676,57 @@ Use the validated Patch 0005 ContextPacket path and existing fixtures. Do not du
 28. nomination may validly overlap addressed set;
 29. parsing/control construction does not mutate ContextPacket or Character state;
 30. candidate/control public constructors are absent;
-31. no public semantic `Create`/factory operation is added in Patch 0006;
-32. candidate exception text does not echo invalid VisibleText sentinel content;
-33. invalid Character-ID exception text does not echo the unrecognized ID sentinel;
-34. no CandidatePerformance property exposes fixture, Production truth, provenance, Access decisions, state mutation, confidence, private reasoning, provider credential/configuration, accepted history, CandidateId, or TakeId.
+31. CandidatePerformance/Control expose no accepted/validated/DirectorEligible/routing-weight authority field;
+32. no public semantic `Create`/factory operation is added in Patch 0006;
+33. candidate exception text does not echo invalid VisibleText sentinel content;
+34. invalid Character-ID exception text does not echo the unrecognized ID sentinel;
+35. no CandidatePerformance property exposes fixture, Production truth, provenance, Access decisions, state mutation, confidence, private reasoning, provider credential/configuration, accepted history, CandidateId, or TakeId.
 
 ### Strict JSON tests
 
-35. canonical valid AI JSON parses successfully;
-36. JSON property reordering produces identical semantic candidate;
-37. ordinary structural JSON whitespace produces identical semantic candidate;
-38. equivalent JSON string escape encodings produce identical semantic candidate;
-39. Markdown/code fence wrapper fails;
-40. empty input fails;
-41. >1 MiB raw JSON fails before semantic construction;
-42. JSON nesting deeper than 8 fails;
-43. exact schemaVersion required/case-sensitive;
-44. mismatched schema-version exception text does not echo the untrusted actual version;
-45. property names are case-sensitive;
-46. unknown root property fails;
-47. unknown performance property fails;
-48. unknown control property fails;
-49. unknown-property exception text does not echo the unknown-name sentinel;
-50. missing required property fails;
-51. duplicate root property fails;
-52. duplicate nested property fails;
-53. escaped duplicate decoded property name fails;
-54. comments fail;
-55. trailing comma fails;
-56. UTF-8 BOM fails;
-57. malformed UTF-8 fails;
-58. malformed JSON fails;
-59. escaped isolated-surrogate text fails;
-60. wrong JSON token type for every field category fails;
-61. extra non-whitespace content after root fails;
-62. lower/alternate-case Character ID that does not exactly match roster fails;
-63. malformed-payload exception text does not echo raw candidate sentinel content;
-64. parser and internal semantic builder maintain one invariant implementation path;
-65. repeated parse produces identical semantic result;
-66. parser does not mutate ContextPacket.
+36. canonical valid AI JSON parses successfully;
+37. JSON property reordering produces identical semantic candidate;
+38. ordinary structural JSON whitespace produces identical semantic candidate;
+39. equivalent JSON string escape encodings produce identical semantic candidate;
+40. Markdown/code fence wrapper fails;
+41. empty input fails;
+42. >1 MiB raw JSON fails before semantic construction;
+43. JSON nesting deeper than 8 fails;
+44. exact schemaVersion required/case-sensitive;
+45. mismatched schema-version exception text does not echo the untrusted actual version;
+46. property names are case-sensitive;
+47. unknown root property fails;
+48. unknown performance property fails;
+49. unknown control property fails;
+50. unknown-property exception text does not echo the unknown-name sentinel;
+51. missing required property fails;
+52. duplicate root property fails;
+53. duplicate nested property fails;
+54. escaped duplicate decoded property name fails;
+55. comments fail;
+56. trailing comma fails;
+57. UTF-8 BOM fails;
+58. malformed UTF-8 fails;
+59. malformed JSON fails;
+60. escaped isolated-surrogate text fails;
+61. wrong JSON token type for every field category fails;
+62. extra non-whitespace content after root fails;
+63. lower/alternate-case Character ID that does not exactly match roster fails;
+64. malformed-payload exception text does not echo raw candidate sentinel content;
+65. parser and internal semantic builder maintain one invariant implementation path;
+66. repeated parse produces identical semantic result;
+67. parser does not mutate ContextPacket.
 
 ### Public-surface / regression tests
 
-67. public candidate construction surface is limited to strict ParseJson for Patch 0006;
-68. frozen Missing Raft StructuredContextHash remains unchanged;
-69. frozen Missing Raft RenderedContextHash remains unchanged;
-70. frozen Missing Raft ECJ-1 remains exactly 9112 bytes and frozen SHA-256;
-71. all existing 115 Core tests remain green;
-72. existing Missing Raft Harness runtime remains PASS/0;
-73. existing generic smoke Harness runtime remains PASS/0.
+68. public candidate construction surface is limited to strict ParseJson for Patch 0006;
+69. no raw candidate control type is presented as a Director decision/eligibility type;
+70. frozen Missing Raft StructuredContextHash remains unchanged;
+71. frozen Missing Raft RenderedContextHash remains unchanged;
+72. frozen Missing Raft ECJ-1 remains exactly 9112 bytes and frozen SHA-256;
+73. all existing 115 Core tests remain green;
+74. existing Missing Raft Harness runtime remains PASS/0;
+75. existing generic smoke Harness runtime remains PASS/0.
 
 Tests prove boundary semantics, not screenplay content.
 
@@ -761,7 +777,8 @@ Patch 0006 does not implement:
 - raw-response/provenance persistence;
 - public human candidate-construction API or Human Take a Seat UI;
 - Director/opportunity selection;
-- Integrity Validator acceptance/rejection;
+- Director-eligible control projection;
+- Integrity Validator acceptance/rejection or control-grounding eligibility;
 - semantic leakage/canon checking;
 - accepted/rejected/alternate Take semantics;
 - CandidateId/TakeId allocation;
@@ -785,7 +802,7 @@ Before approval, this proposal must receive repeated complete passes across:
 2. validated Patch 0004 Access authority;
 3. validated Patch 0005 ContextPacket authority/identity;
 4. Character != Performer and future human Take a Seat semantic compatibility;
-5. Director != Performer routing authority;
+5. Director != Performer routing authority, including hidden-control covert-routing risk;
 6. Integrity Validator separation;
 7. State Interpreter != State Authority separation;
 8. statement != fact / claim != truth;
@@ -824,19 +841,20 @@ Before implementation promotion:
 11. candidate exceptions do not become a raw-output/untrusted-value leakage channel;
 12. visible text is preserved and remains untrusted creative content;
 13. typed control remains only direct-address set + optional nomination and remains non-authoritative;
-14. no state mutation/private reasoning/provider runtime data enter candidate schema;
-15. stable roster IDs are validated exactly/case-sensitively;
-16. candidate constructors cannot bypass validation;
-17. silence invariants pass;
-18. provider-error-like/malformed/oversized/deep payloads fail technically rather than becoming fiction;
-19. all existing 115 Core tests remain green;
-20. frozen Context identities remain unchanged;
-21. frozen ECJ-1 identity remains unchanged;
-22. native Windows ARM64 Core/Harness build passes warnings-as-errors;
-23. full Core test suite passes on target machine;
-24. existing Missing Raft and smoke Harness regressions pass/0;
-25. final hygiene review finds no provider adapter, human UI/factory, Director, Integrity acceptance, State Interpreter, State Authority, Take semantics, persistence, or later-scope implementation;
-26. validation evidence distinguishes exact machine-tested executable head from later documentation-only closure commits.
+14. raw candidate control cannot self-certify or directly enter Director routing;
+15. no state mutation/private reasoning/provider runtime data enter candidate schema;
+16. stable roster IDs are validated exactly/case-sensitively;
+17. candidate constructors cannot bypass validation;
+18. silence invariants pass;
+19. provider-error-like/malformed/oversized/deep payloads fail technically rather than becoming fiction;
+20. all existing 115 Core tests remain green;
+21. frozen Context identities remain unchanged;
+22. frozen ECJ-1 identity remains unchanged;
+23. native Windows ARM64 Core/Harness build passes warnings-as-errors;
+24. full Core test suite passes on target machine;
+25. existing Missing Raft and smoke Harness regressions pass/0;
+26. final hygiene review finds no provider adapter, human UI/factory, Director, Director-eligible control projection, Integrity acceptance, State Interpreter, State Authority, Take semantics, persistence, or later-scope implementation;
+27. validation evidence distinguishes exact machine-tested executable head from later documentation-only closure commits.
 
 ## 32. Material approval decisions
 
@@ -854,17 +872,18 @@ Explicit approval freezes these Patch 0006 decisions:
 10. visible text remains untrusted creative content and parsing never promotes assertions to truth/instruction authority;
 11. visible text is preserved exactly after validation; invalid Unicode/control/NFC input is rejected rather than repaired;
 12. non-visible typed control contains only direct-address Character IDs and optional nominated Character ID;
-13. typed control is Performer assertion, not state/truth/observation/Director authority;
-14. nomination may overlap direct address but never obligates response;
-15. future provider request must make stable roster IDs available only through safe ContextPacket-derived machine-control mapping separate from creative context;
-16. no State Interpreter mutation, confidence score, private reasoning, chain-of-thought, world-fact proposal, CandidateId, or TakeId enters candidate schema;
-17. strict JSON parser is fail-closed, exact/case-sensitive where semantic, property-order-insensitive, JSON-whitespace-insensitive, and never repairs malformed output;
-18. public JSON parser has deterministic 1 MiB and depth-8 untrusted-input safety ceilings; these are not the future generation/token budget;
-19. candidate exceptions may expose only trusted/known structural diagnostics and must not echo raw payload, VisibleText, unknown property names, invalid IDs, or other untrusted values;
-20. Patch 0006 exposes only ParseJson as public candidate construction; one internal semantic builder owns candidate invariants;
-21. candidate/control constructors remain non-public;
-22. exact raw AI output/partial/error data remains separate E0 provenance/diagnostics and does not enter CandidatePerformance or Production history automatically;
-23. Character refusal/redirection/silence remains distinct from provider refusal/error/cancellation;
-24. provider experiment limits, provider integration, human Take a Seat construction/UI, Director, Integrity Validator, State Interpreter, State Authority, Take semantics, and causal persistence remain outside Patch 0006.
+13. typed control is raw Performer assertion, not state/truth/observation/Director authority;
+14. raw control may not directly route the Director; later Integrity/acceptance authority must establish any Director-eligible grounded projection;
+15. nomination may overlap direct address but never obligates response;
+16. future provider request must make stable roster IDs available only through safe ContextPacket-derived machine-control mapping separate from creative context;
+17. no State Interpreter mutation, confidence score, private reasoning, chain-of-thought, world-fact proposal, CandidateId, or TakeId enters candidate schema;
+18. strict JSON parser is fail-closed, exact/case-sensitive where semantic, property-order-insensitive, JSON-whitespace-insensitive, and never repairs malformed output;
+19. public JSON parser has deterministic 1 MiB and depth-8 untrusted-input safety ceilings; these are not the future generation/token budget;
+20. candidate exceptions may expose only trusted/known structural diagnostics and must not echo raw payload, VisibleText, unknown property names, invalid IDs, or other untrusted values;
+21. Patch 0006 exposes only ParseJson as public candidate construction; one internal semantic builder owns candidate invariants;
+22. candidate/control constructors remain non-public and contain no accepted/validated/Director-eligibility flags;
+23. exact raw AI output/partial/error data remains separate E0 provenance/diagnostics and does not enter CandidatePerformance or Production history automatically;
+24. Character refusal/redirection/silence remains distinct from provider refusal/error/cancellation;
+25. provider experiment limits, provider integration, human Take a Seat construction/UI, Director, Director-eligible control projection, Integrity Validator, State Interpreter, State Authority, Take semantics, and causal persistence remain outside Patch 0006.
 
 Implementation must not begin until recursive audit completes and these decisions are explicitly approved.
