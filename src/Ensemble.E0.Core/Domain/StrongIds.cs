@@ -6,7 +6,7 @@ public readonly record struct FixtureId
     public string Value => _value ?? throw new InvalidOperationException("FixtureId is uninitialized.");
     private FixtureId(string value) => _value = value;
     public static FixtureId From(string value) => new(CanonicalId.Validate(value, nameof(value)));
-    public override string ToString() => _value ?? string.Empty;
+    public override string ToString() => Value;
 }
 
 public readonly record struct SceneId
@@ -15,7 +15,7 @@ public readonly record struct SceneId
     public string Value => _value ?? throw new InvalidOperationException("SceneId is uninitialized.");
     private SceneId(string value) => _value = value;
     public static SceneId From(string value) => new(CanonicalId.Validate(value, nameof(value)));
-    public override string ToString() => _value ?? string.Empty;
+    public override string ToString() => Value;
 }
 
 public readonly record struct CharacterId
@@ -24,7 +24,7 @@ public readonly record struct CharacterId
     public string Value => _value ?? throw new InvalidOperationException("CharacterId is uninitialized.");
     private CharacterId(string value) => _value = value;
     public static CharacterId From(string value) => new(CanonicalId.Validate(value, nameof(value)));
-    public override string ToString() => _value ?? string.Empty;
+    public override string ToString() => Value;
 }
 
 public readonly record struct RecordId
@@ -33,7 +33,7 @@ public readonly record struct RecordId
     public string Value => _value ?? throw new InvalidOperationException("RecordId is uninitialized.");
     private RecordId(string value) => _value = value;
     public static RecordId From(string value) => new(CanonicalId.Validate(value, nameof(value)));
-    public override string ToString() => _value ?? string.Empty;
+    public override string ToString() => Value;
 }
 
 public readonly record struct RunId
@@ -42,7 +42,7 @@ public readonly record struct RunId
     public string Value => _value ?? throw new InvalidOperationException("RunId is uninitialized.");
     private RunId(string value) => _value = value;
     public static RunId From(string value) => new(CanonicalId.Validate(value, nameof(value)));
-    public override string ToString() => _value ?? string.Empty;
+    public override string ToString() => Value;
 }
 
 public readonly record struct TakeId
@@ -51,7 +51,7 @@ public readonly record struct TakeId
     public string Value => _value ?? throw new InvalidOperationException("TakeId is uninitialized.");
     private TakeId(string value) => _value = value;
     public static TakeId From(string value) => new(CanonicalId.Validate(value, nameof(value)));
-    public override string ToString() => _value ?? string.Empty;
+    public override string ToString() => Value;
 }
 
 public readonly record struct CommitId
@@ -60,7 +60,7 @@ public readonly record struct CommitId
     public string Value => _value ?? throw new InvalidOperationException("CommitId is uninitialized.");
     private CommitId(string value) => _value = value;
     public static CommitId From(string value) => new(CanonicalId.Validate(value, nameof(value)));
-    public override string ToString() => _value ?? string.Empty;
+    public override string ToString() => Value;
 }
 
 public readonly record struct ContextPacketId
@@ -69,5 +69,5 @@ public readonly record struct ContextPacketId
     public string Value => _value ?? throw new InvalidOperationException("ContextPacketId is uninitialized.");
     private ContextPacketId(string value) => _value = value;
     public static ContextPacketId From(string value) => new(CanonicalId.Validate(value, nameof(value)));
-    public override string ToString() => _value ?? string.Empty;
+    public override string ToString() => Value;
 }
