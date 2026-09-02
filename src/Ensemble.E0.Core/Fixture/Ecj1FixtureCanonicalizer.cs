@@ -1,86 +1,93 @@
 using System.Collections.Immutable;
 using System.Text;
 using Ensemble.E0.Core.Domain;
+using Ensemble.E0.Core.Serialization;
 
 namespace Ensemble.E0.Core.Fixture;
 
 public static class Ecj1FixtureCanonicalizer
 {
-    private const string HexDigits = "0123456789abcdef";
-    private static readonly Encoding Utf8 = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false, throwOnInvalidBytes: true);
-
     public static byte[] Serialize(ValidatedFixture fixture)
     {
         ArgumentNullException.ThrowIfNull(fixture);
 
-        var builder = new StringBuilder(capacity: 16 * 1024);
-        builder.Append('{');
+        try
+        {
+            var builder = new StringBuilder(capacity: 16 * 1024);
+            builder.Append('{');
 
-        AppendPropertyName(builder, "schemaVersion");
-        AppendString(builder, fixture.SchemaVersion);
-        builder.Append(',');
+            AppendPropertyName(builder, "schemaVersion");
+            AppendString(builder, fixture.SchemaVersion);
+            builder.Append(',');
 
-        AppendPropertyName(builder, "fixture");
-        builder.Append('{');
-        AppendPropertyName(builder, "id");
-        AppendString(builder, fixture.FamilyId.Value);
-        builder.Append(',');
-        AppendPropertyName(builder, "version");
-        AppendString(builder, fixture.Version.Value);
-        builder.Append('}');
-        builder.Append(',');
+            AppendPropertyName(builder, "fixture");
+            builder.Append('{');
+            AppendPropertyName(builder, "id");
+            AppendString(builder, fixture.FamilyId.Value);
+            builder.Append(',');
+            AppendPropertyName(builder, "version");
+            AppendString(builder, fixture.Version.Value);
+            builder.Append('}');
+            builder.Append(',');
 
-        AppendPropertyName(builder, "accessContract");
-        AppendString(builder, fixture.AccessContract);
-        builder.Append(',');
+            AppendPropertyName(builder, "accessContract");
+            AppendString(builder, fixture.AccessContract);
+            builder.Append(',');
 
-        AppendPropertyName(builder, "observationContract");
-        AppendString(builder, fixture.ObservationContract);
-        builder.Append(',');
+            AppendPropertyName(builder, "observationContract");
+            AppendString(builder, fixture.ObservationContract);
+            builder.Append(',');
 
-        AppendPropertyName(builder, "chronology");
-        AppendRecordIds(builder, fixture.Chronology, preserveOrder: true);
-        builder.Append(',');
+            AppendPropertyName(builder, "chronology");
+            AppendRecordIds(builder, fixture.Chronology, preserveOrder: true);
+            builder.Append(',');
 
-        AppendPropertyName(builder, "historicalTruth");
-        AppendRecords(builder, fixture.HistoricalTruth);
-        builder.Append(',');
+            AppendPropertyName(builder, "historicalTruth");
+            AppendRecords(builder, fixture.HistoricalTruth);
+            builder.Append(',');
 
-        AppendPropertyName(builder, "unresolvedPropositions");
-        AppendRecords(builder, fixture.UnresolvedPropositions);
-        builder.Append(',');
+            AppendPropertyName(builder, "unresolvedPropositions");
+            AppendRecords(builder, fixture.UnresolvedPropositions);
+            builder.Append(',');
 
-        AppendPropertyName(builder, "worldState");
-        AppendRecords(builder, fixture.WorldState);
-        builder.Append(',');
+            AppendPropertyName(builder, "worldState");
+            AppendRecords(builder, fixture.WorldState);
+            builder.Append(',');
 
-        AppendPropertyName(builder, "scene");
-        builder.Append('{');
-        AppendPropertyName(builder, "id");
-        AppendString(builder, fixture.Scene.Id.Value);
-        builder.Append(',');
-        AppendPropertyName(builder, "roster");
-        AppendCharacterIds(builder, fixture.Scene.Roster);
-        builder.Append('}');
-        builder.Append(',');
+            AppendPropertyName(builder, "scene");
+            builder.Append('{');
+            AppendPropertyName(builder, "id");
+            AppendString(builder, fixture.Scene.Id.Value);
+            builder.Append(',');
+            AppendPropertyName(builder, "roster");
+            AppendCharacterIds(builder, fixture.Scene.Roster);
+            builder.Append('}');
+            builder.Append(',');
 
-        AppendPropertyName(builder, "sceneState");
-        AppendRecords(builder, fixture.SceneState);
-        builder.Append(',');
+            AppendPropertyName(builder, "sceneState");
+            AppendRecords(builder, fixture.SceneState);
+            builder.Append(',');
 
-        AppendPropertyName(builder, "characters");
-        AppendCharacters(builder, fixture.Characters);
-        builder.Append(',');
+            AppendPropertyName(builder, "characters");
+            AppendCharacters(builder, fixture.Characters);
+            builder.Append(',');
 
-        AppendPropertyName(builder, "pressures");
-        AppendRecords(builder, fixture.Pressures);
-        builder.Append(',');
+            AppendPropertyName(builder, "pressures");
+            AppendRecords(builder, fixture.Pressures);
+            builder.Append(',');
 
-        AppendPropertyName(builder, "initialOpportunity");
-        AppendString(builder, fixture.InitialOpportunity.Value);
+            AppendPropertyName(builder, "initialOpportunity");
+            AppendString(builder, fixture.InitialOpportunity.Value);
 
-        builder.Append('}');
-        return Utf8.GetBytes(builder.ToString());
+            builder.Append('}');
+            return CanonicalJson.EncodeUtf8(builder.ToString());
+        }
+        catch (CanonicalJsonException exception)
+        {
+            throw new FixtureValidationException(
+                $"ECJ-1 canonicalization failed: {exception.Message}",
+                exception);
+        }
     }
 
     private static void AppendCharacters(StringBuilder builder, ImmutableArray<ValidatedCharacter> characters)
@@ -246,82 +253,12 @@ public static class Ecj1FixtureCanonicalizer
         builder.Append(']');
     }
 
-    private static void AppendPropertyName(StringBuilder builder, string name)
-    {
-        AppendString(builder, name);
-        builder.Append(':');
-    }
+    private static void AppendPropertyName(StringBuilder builder, string name) =>
+        CanonicalJson.AppendPropertyName(builder, name);
 
-    private static void AppendSeparator(StringBuilder builder, ref bool first)
-    {
-        if (!first)
-        {
-            builder.Append(',');
-        }
+    private static void AppendSeparator(StringBuilder builder, ref bool first) =>
+        CanonicalJson.AppendSeparator(builder, ref first);
 
-        first = false;
-    }
-
-    private static void AppendString(StringBuilder builder, string value)
-    {
-        ArgumentNullException.ThrowIfNull(value);
-
-        builder.Append('"');
-        for (var index = 0; index < value.Length; index++)
-        {
-            var character = value[index];
-            switch (character)
-            {
-                case '"':
-                    builder.Append("\\\"");
-                    break;
-                case '\\':
-                    builder.Append("\\\\");
-                    break;
-                case '\b':
-                    builder.Append("\\b");
-                    break;
-                case '\t':
-                    builder.Append("\\t");
-                    break;
-                case '\n':
-                    builder.Append("\\n");
-                    break;
-                case '\f':
-                    builder.Append("\\f");
-                    break;
-                case '\r':
-                    throw new FixtureValidationException("ECJ-1 string contains a carriage return.");
-                default:
-                    if (character <= '\u001F')
-                    {
-                        builder.Append("\\u00");
-                        builder.Append(HexDigits[(character >> 4) & 0x0F]);
-                        builder.Append(HexDigits[character & 0x0F]);
-                    }
-                    else if (char.IsHighSurrogate(character))
-                    {
-                        if (index + 1 >= value.Length || !char.IsLowSurrogate(value[index + 1]))
-                        {
-                            throw new FixtureValidationException("ECJ-1 string contains an invalid Unicode surrogate sequence.");
-                        }
-
-                        builder.Append(character);
-                        builder.Append(value[++index]);
-                    }
-                    else if (char.IsLowSurrogate(character))
-                    {
-                        throw new FixtureValidationException("ECJ-1 string contains an invalid Unicode surrogate sequence.");
-                    }
-                    else
-                    {
-                        builder.Append(character);
-                    }
-
-                    break;
-            }
-        }
-
-        builder.Append('"');
-    }
+    private static void AppendString(StringBuilder builder, string value) =>
+        CanonicalJson.AppendString(builder, value);
 }
