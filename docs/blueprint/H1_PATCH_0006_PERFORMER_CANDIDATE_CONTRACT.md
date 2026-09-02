@@ -1,6 +1,6 @@
 # H1 Patch 0006 — Performer Candidate Output Contract
 
-Status: blueprint proposal 1.7 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; APPROVAL REQUIRED; implementation not started
+Status: blueprint proposal 1.7 — RECURSIVE ADVERSARIAL AUDIT COMPLETE; APPROVAL REQUIRED; implementation not started
 Parent baseline: validated H1 Patch 0005
 Branch: `h1-patch-0006-performer-candidate-blueprint`
 
@@ -253,7 +253,7 @@ Optional explicit Character-level handoff/nomination intent:
 - no truth/knowledge/state authority;
 - may overlap addressed set.
 
-**Both control signals are independently optional for a non-silent Performance.** A non-silent candidate with empty addressed set + null nomination is valid; address-only and nomination-only candidates are valid when other invariants hold.
+Both control signals are independently optional for non-silent Performance. Empty control, address-only, and nomination-only are valid when other invariants hold.
 
 ## 13. Provisional control and effective routing
 
@@ -261,7 +261,7 @@ Control is provisional Performer metadata.
 
 Before later causal acceptance/commit succeeds it has no effective Director authority. Rejected/malformed/failed/cancelled/unaccepted/uncommitted control never establishes effective opportunity, triggers another Performer, persists as effective routing state, or survives rollback as if the Performance occurred.
 
-For E0, **all such attempted control/output that exists must still be preserved in required experimental provenance/diagnostics**. Preservation never makes it Scene history or routing authority.
+For E0, **all attempted output/control that exists must still be preserved in required experimental provenance/diagnostics**. Preservation never makes it Scene history or routing authority.
 
 No DirectorEligible projection, semantic-grounding authority, or routing score is introduced.
 
@@ -360,7 +360,7 @@ Every E0 run must preserve, as applicable, complete raw candidate output, partia
 
 Equivalent JSON spellings may map to one semantic candidate; provenance preserves transport facts.
 
-Rejected/partial/cancelled output and any control present **must be preserved for E0 as diagnostics/provenance only** and never Production history.
+Rejected/partial/cancelled output and any control present must be preserved for E0 as diagnostics/provenance only and never Production history.
 
 ## 22. Provider failure vs Character refusal
 
@@ -449,9 +449,9 @@ Use validated Patch 0005 ContextPacket/fixtures; no duplicate fixture JSON.
 16. visible + permitted Format/combining preserved;
 17. silence+address fails;
 18. silence+nomination fails;
-19. non-silent + empty control is valid;
-20. non-silent + address-only is valid;
-21. non-silent + nomination-only is valid;
+19. non-silent + empty control valid;
+20. non-silent + address-only valid;
+21. non-silent + nomination-only valid;
 22. LF/TAB preserved;
 23. forbidden Controls fail;
 24. invalid surrogate fails;
@@ -509,7 +509,7 @@ Use validated Patch 0005 ContextPacket/fixtures; no duplicate fixture JSON.
 70. invalid VisibleText sentinel absent from complete exception representation;
 71. invalid ID sentinel absent;
 72. mismatched transport schema sentinel absent;
-73. unknown property sentinel incl. control/newline absent;
+73. unknown property sentinel including control/newline absent;
 74. malformed payload sentinel absent.
 
 ### Policy/causal/public/regression
@@ -544,15 +544,15 @@ No provider call/adapter/request/system prompt; attempt/disclosure persistence; 
 
 ## 31. Recursive audit dimensions
 
-Repeat complete passes across Blueprint consistency; Patch 0004/0005 authority; Character/Performer/Take a Seat; semantic-vs-transport-vs-provenance separation; semantic-vs-transport versioning; Director/Integrity/State separations; statement-vs-fact; Take/atomic commit; causal provenance vs Production history; E0 mandatory provenance; provider failure; JSON/Unicode/identity/control bounds; Performance ontology openness; API minimality; safe composition/omniscient separation; resource/diagnostic leakage; precommit side effects/speculation; Director reconstruction; scope/hygiene; ARM64 suitability; tests and E0-B/C/D/E/F/G isolation.
+Complete passes covered Blueprint consistency; Patch 0004/0005 authority; Character/Performer/Take a Seat; semantic-vs-transport-vs-provenance separation; semantic-vs-transport versioning; Director/Integrity/State separations; statement-vs-fact; Take/atomic commit; causal provenance vs Production history; mandatory E0 provenance; provider failure; JSON/Unicode/identity/control bounds; Performance ontology openness; API minimality; safe composition/omniscient separation; resource/diagnostic leakage; precommit side effects/speculation; Director reconstruction; scope/hygiene; ARM64 suitability; tests and E0-B/C/D/E/F/G isolation.
 
-Any correction restarts the full pass. Approval only after one full zero-material-change pass.
+Every earlier correction restarted the full pass. Proposal 1.7 then received one complete pass across these dimensions with **zero remaining material errors or worthwhile improvements identified**.
 
 ## 32. Exit gate
 
 Before implementation promotion:
 
-1. zero-change recursive pass + user approval;
+1. user explicitly approves this zero-change-audited proposal;
 2. dedicated implementation branch from then-current main;
 3. semantic candidate distinct from AI transport/provenance;
 4. semantic/transport versions separate;
@@ -570,7 +570,7 @@ Before implementation promotion:
 16. no diagnostic leakage;
 17. preserved untrusted visible text/no invisible pseudo-performance;
 18. optional address+nomination control;
-19. precommit control no effective opportunity/trigger; rejected control still mandatory E0 provenance; speculation discardable;
+19. precommit control no effective opportunity/trigger; rejected control remains mandatory E0 provenance; speculation discardable;
 20. postcommit control may inform Director without becoming history/truth/state;
 21. control used by Director preserved causally for reconstruction;
 22. no mutation/private reasoning/provider runtime candidate data;
@@ -619,4 +619,25 @@ Approval freezes:
 30. Character refusal/redirection/silence distinct from provider refusal/error/cancel;
 31. provider execution, human UI/factory, Director, Integrity, State Interpreter, State Authority, Take semantics, atomic commit, persistence, E0-D bindings all outside Patch 0006.
 
-Implementation must not begin until recursive audit completes and these decisions are explicitly approved.
+## 34. Recursive audit result
+
+**PASS — zero-material-change pass achieved.**
+
+The recursive audit began from Proposal 0.2 and repeatedly restarted after corrections. Material improvements included:
+
+- removing an invented PerformanceKind taxonomy;
+- separating semantic Performance from AI transport and provider-attempt provenance;
+- separating semantic contract version from JSON transport schema version;
+- keeping Human Take a Seat compatibility without adding a speculative public factory;
+- making candidate text explicitly untrusted and preventing invisible-only pseudo-performance;
+- bounding untrusted JSON size/depth and control-array work;
+- sanitizing the full exception chain against untrusted-value leakage;
+- keeping Context composition policy orthogonal to candidate semantics while preserving the omniscient-ablation boundary;
+- making typed control optional, bounded, provisional, non-authoritative, and unable to create precommit routing effects;
+- distinguishing associated control metadata from Production history while requiring causal provenance if Director actually consumes it;
+- restoring the frozen mandatory E0 provenance requirement for rejected/partial output and control;
+- adding explicit boundary tests for optional control and parser off-by-one behavior.
+
+The final complete pass found no further material error, authority conflation, security/integrity defect, experiment-isolation problem, premature abstraction, or worthwhile specification improvement.
+
+**Implementation remains blocked only on explicit user approval.**
