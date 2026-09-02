@@ -1,0 +1,406 @@
+{
+  "schemaVersion": "ensemble.e0.fixture.v1",
+  "fixture": {
+    "id": "ensemble.e0.missing-raft",
+    "version": "0.1.0"
+  },
+  "accessContract": "ensemble.e0.character-bounded.v1",
+  "observationContract": "ensemble.e0.copresent-trio.v1",
+  "chronology": [
+    "RH-001",
+    "RH-002",
+    "HT-WREN-SECURED-RAFT",
+    "HT-RAFT-DETERIORATED",
+    "HT-MARLOWE-RELEASED-RAFT",
+    "HT-CURRENT-CARRIED-RAFT-AWAY",
+    "HT-MARLOWE-RETURNED-SHORELINE"
+  ],
+  "historicalTruth": [
+    {
+      "id": "RH-001",
+      "text": "During a rising tide that threatened a cache, Marlowe moved supplies before the group agreed. No harm resulted. Voss objected to the act-first, explain-later pattern.",
+      "provenance": []
+    },
+    {
+      "id": "RH-002",
+      "text": "A tool was misplaced. Wren limited her statement to what she had observed; Voss pressed toward a firmer conclusion; Wren refused to overstate; Marlowe supported that boundary.",
+      "provenance": []
+    },
+    {
+      "id": "HT-WREN-SECURED-RAFT",
+      "text": "Wren correctly secured the raft.",
+      "provenance": []
+    },
+    {
+      "id": "HT-RAFT-DETERIORATED",
+      "text": "The raft had real structural deterioration.",
+      "provenance": []
+    },
+    {
+      "id": "HT-MARLOWE-RELEASED-RAFT",
+      "text": "Marlowe deliberately released the correctly secured raft without the group's consent.",
+      "provenance": []
+    },
+    {
+      "id": "HT-MARLOWE-NOT-WARNED",
+      "text": "Marlowe had not warned the group before releasing the raft.",
+      "provenance": []
+    },
+    {
+      "id": "HT-CURRENT-CARRIED-RAFT-AWAY",
+      "text": "After the raft was unmoored, the stronger current carried it away.",
+      "provenance": []
+    },
+    {
+      "id": "HT-CURRENT-DID-NOT-RELEASE-MOORING",
+      "text": "The stronger current did not release the correctly secured mooring.",
+      "provenance": []
+    },
+    {
+      "id": "HT-MARLOWE-RETURNED-SHORELINE",
+      "text": "Marlowe later returned from the shoreline.",
+      "provenance": []
+    }
+  ],
+  "unresolvedPropositions": [
+    {
+      "id": "UP-RAFT-WOULD-FAIL",
+      "text": "Whether the raft would actually have failed remains unresolved.",
+      "provenance": [
+        "HT-RAFT-DETERIORATED"
+      ]
+    },
+    {
+      "id": "UP-RH001-CACHE-WOULD-BE-LOST",
+      "text": "Whether the cache would have been lost if Marlowe had not moved the supplies remains unresolved.",
+      "provenance": [
+        "RH-001"
+      ]
+    }
+  ],
+  "worldState": [
+    {
+      "id": "WORLD-CURRENT-STRENGTHENED",
+      "text": "The current has strengthened.",
+      "provenance": []
+    }
+  ],
+  "scene": {
+    "id": "SCENE-MISSING-RAFT",
+    "roster": [
+      "MARLOWE",
+      "VOSS",
+      "WREN"
+    ]
+  },
+  "sceneState": [
+    {
+      "id": "SCENE-RAFT-GONE",
+      "text": "The raft is gone at Scene opening.",
+      "provenance": [
+        "HT-CURRENT-CARRIED-RAFT-AWAY"
+      ]
+    },
+    {
+      "id": "SCENE-PROVISIONS-LIMITED",
+      "text": "The group has limited provisions.",
+      "provenance": []
+    },
+    {
+      "id": "SCENE-NO-IMMEDIATE-EMERGENCY",
+      "text": "There is no immediate emergency at Scene opening.",
+      "provenance": []
+    },
+    {
+      "id": "SCENE-NO-EXTERNAL-COUNTDOWN",
+      "text": "No storm, rescue timer, or other external countdown is active at Scene opening.",
+      "provenance": []
+    }
+  ],
+  "characters": [
+    {
+      "id": "MARLOWE",
+      "displayName": "Marlowe",
+      "constitution": [
+        {
+          "id": "CON-MARLOWE",
+          "text": "Marlowe anticipates harm and responsibility; he may act protectively without agreement when he judges irreversible harm to outweigh consensus.",
+          "provenance": []
+        }
+      ],
+      "disposition": [
+        {
+          "id": "DISP-MARLOWE",
+          "text": "When delay seems dangerous, Marlowe may act before fully explaining; explanation becomes harder afterward.",
+          "provenance": []
+        }
+      ],
+      "circumstance": [],
+      "observations": [
+        {
+          "id": "OBS-MARLOWE-RAFT-DETERIORATION",
+          "text": "Marlowe observed structural deterioration in the raft.",
+          "provenance": [
+            "HT-RAFT-DETERIORATED"
+          ]
+        },
+        {
+          "id": "OBS-MARLOWE-NOBODY-VISIBLE",
+          "text": "While releasing the raft, Marlowe saw nobody visibly nearby; he does not know whether anyone observed him.",
+          "provenance": []
+        }
+      ],
+      "knowledge": [
+        {
+          "id": "KNOW-MARLOWE-RELEASED-RAFT",
+          "text": "Marlowe knows that he deliberately released the correctly secured raft without group consent.",
+          "provenance": [
+            "HT-MARLOWE-RELEASED-RAFT"
+          ]
+        },
+        {
+          "id": "KNOW-MARLOWE-NOT-WARNED",
+          "text": "Marlowe knows that he did not warn the group before releasing the raft.",
+          "provenance": [
+            "HT-MARLOWE-NOT-WARNED"
+          ]
+        }
+      ],
+      "beliefs": [
+        {
+          "id": "BEL-MARLOWE-DAMAGE-UNACCEPTABLE",
+          "text": "Marlowe believes the raft's deterioration posed an unacceptable risk.",
+          "provenance": [
+            "OBS-MARLOWE-RAFT-DETERIORATION"
+          ]
+        },
+        {
+          "id": "BEL-MARLOWE-GROUP-LIKELY-PROCEED",
+          "text": "Marlowe believes the group is likely to proceed despite the deterioration.",
+          "provenance": []
+        },
+        {
+          "id": "BEL-MARLOWE-DISCLOSURE-RISK",
+          "text": "Marlowe believes disclosing his unilateral release now may damage the group's later decision-making.",
+          "provenance": []
+        }
+      ],
+      "suspicions": [],
+      "memories": [
+        {
+          "id": "MEM-MARLOWE-RH001",
+          "text": "Marlowe remembers moving the threatened cache supplies before agreement, no harm resulting, and Voss objecting to the act-first, explain-later pattern.",
+          "provenance": [
+            "RH-001"
+          ]
+        },
+        {
+          "id": "MEM-MARLOWE-RH002",
+          "text": "Marlowe remembers Wren refusing to overstate what she knew about the misplaced tool, Voss pressing toward a firmer conclusion, and himself supporting Wren's uncertainty boundary.",
+          "provenance": [
+            "RH-002"
+          ]
+        }
+      ],
+      "goals": [
+        {
+          "id": "GOAL-MARLOWE",
+          "text": "Prevent the group from rushing into a dangerous, underexamined decision while avoiding unnecessary destruction of trust.",
+          "provenance": []
+        }
+      ],
+      "relationships": [
+        {
+          "id": "REL-MARLOWE-VOSS",
+          "targetCharacterId": "VOSS",
+          "text": "Marlowe respects Voss's competence and expects her to press for explicit justification.",
+          "provenance": [
+            "RH-001"
+          ]
+        },
+        {
+          "id": "REL-MARLOWE-WREN",
+          "targetCharacterId": "WREN",
+          "text": "Marlowe expects and respects Wren's refusal to overstate uncertainty.",
+          "provenance": [
+            "RH-002"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "VOSS",
+      "displayName": "Dr. Voss",
+      "constitution": [
+        {
+          "id": "CON-VOSS",
+          "text": "Voss believes consequential decisions should withstand explicit examination and seeks reasons under uncertainty.",
+          "provenance": []
+        }
+      ],
+      "disposition": [
+        {
+          "id": "DISP-VOSS",
+          "text": "Voss distinguishes observation, inference, and assumption; she may clarify at length.",
+          "provenance": []
+        }
+      ],
+      "circumstance": [],
+      "observations": [],
+      "knowledge": [
+        {
+          "id": "KNOW-VOSS-CURRENT-STRENGTHENED",
+          "text": "Voss knows that the current has strengthened.",
+          "provenance": [
+            "WORLD-CURRENT-STRENGTHENED"
+          ]
+        }
+      ],
+      "beliefs": [
+        {
+          "id": "BEL-VOSS-ACCIDENTAL-LOSS-PLAUSIBLE",
+          "text": "Voss believes an accidental raft loss is plausible given the stronger current, but not certain.",
+          "provenance": [
+            "KNOW-VOSS-CURRENT-STRENGTHENED",
+            "SCENE-RAFT-GONE"
+          ]
+        }
+      ],
+      "suspicions": [],
+      "memories": [
+        {
+          "id": "MEM-VOSS-RH001",
+          "text": "Voss remembers Marlowe moving supplies threatened by the rising tide before agreement, no harm resulting, and her objection to the act-first, explain-later pattern.",
+          "provenance": [
+            "RH-001"
+          ]
+        },
+        {
+          "id": "MEM-VOSS-RH002",
+          "text": "Voss remembers Wren limiting her statement about the misplaced tool to observation, Voss pressing toward a firmer conclusion, Wren refusing to overstate, and Marlowe supporting that boundary.",
+          "provenance": [
+            "RH-002"
+          ]
+        }
+      ],
+      "goals": [
+        {
+          "id": "GOAL-VOSS",
+          "text": "Establish enough reliable shared information for the next consequential decision to be open and accountable.",
+          "provenance": []
+        }
+      ],
+      "relationships": [
+        {
+          "id": "REL-VOSS-MARLOWE",
+          "targetCharacterId": "MARLOWE",
+          "text": "Voss respects Marlowe's perception but grants him less benefit of the doubt on unilateral choices.",
+          "provenance": [
+            "RH-001"
+          ]
+        },
+        {
+          "id": "REL-VOSS-WREN",
+          "targetCharacterId": "WREN",
+          "text": "Voss respects Wren's observational care and expects Wren to withhold conclusions when pressed.",
+          "provenance": [
+            "RH-002"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "WREN",
+      "displayName": "Wren",
+      "constitution": [
+        {
+          "id": "CON-WREN",
+          "text": "Wren values autonomy and firsthand observation and resists overstating certainty.",
+          "provenance": []
+        }
+      ],
+      "disposition": [
+        {
+          "id": "DISP-WREN",
+          "text": "Under pressure, Wren narrows her speech and may withhold inference.",
+          "provenance": []
+        }
+      ],
+      "circumstance": [],
+      "observations": [
+        {
+          "id": "OBS-WREN-MARLOWE-RETURN",
+          "text": "Wren observed Marlowe return from the shoreline after the raft was gone.",
+          "provenance": [
+            "HT-MARLOWE-RETURNED-SHORELINE"
+          ]
+        }
+      ],
+      "knowledge": [
+        {
+          "id": "KNOW-WREN-SECURED-RAFT",
+          "text": "Wren knows that she correctly secured the raft.",
+          "provenance": [
+            "HT-WREN-SECURED-RAFT"
+          ]
+        }
+      ],
+      "beliefs": [],
+      "suspicions": [
+        {
+          "id": "SUSP-WREN-MARLOWE-KNOWS-MORE",
+          "text": "Because Wren knows she secured the raft and later saw Marlowe return from the shoreline, she suspects Marlowe may know more than he has said; she does not know that he released the raft.",
+          "provenance": [
+            "KNOW-WREN-SECURED-RAFT",
+            "OBS-WREN-MARLOWE-RETURN"
+          ]
+        }
+      ],
+      "memories": [
+        {
+          "id": "MEM-WREN-RH002",
+          "text": "Wren remembers limiting her statement about the misplaced tool to observation, Voss pressing toward a firmer conclusion, Wren refusing to overstate, and Marlowe supporting that boundary.",
+          "provenance": [
+            "RH-002"
+          ]
+        }
+      ],
+      "goals": [
+        {
+          "id": "GOAL-WREN",
+          "text": "Avoid claiming more than is known while deciding whether speaking now would clarify matters or unfairly accuse someone.",
+          "provenance": []
+        }
+      ],
+      "relationships": [
+        {
+          "id": "REL-WREN-MARLOWE",
+          "targetCharacterId": "MARLOWE",
+          "text": "Wren expects Marlowe to respect uncertainty because he supported that boundary before.",
+          "provenance": [
+            "RH-002"
+          ]
+        },
+        {
+          "id": "REL-WREN-VOSS",
+          "targetCharacterId": "VOSS",
+          "text": "Wren respects Voss's competence and expects pressure from her toward a firm conclusion.",
+          "provenance": [
+            "RH-002"
+          ]
+        }
+      ]
+    }
+  ],
+  "pressures": [
+    {
+      "id": "PRESSURE-ISOLATION",
+      "text": "The raft is gone and provisions are limited, making indefinite inaction untenable without creating an immediate emergency or prescribing any Character response.",
+      "provenance": [
+        "SCENE-RAFT-GONE",
+        "SCENE-PROVISIONS-LIMITED"
+      ]
+    }
+  ],
+  "initialOpportunity": "VOSS"
+}
