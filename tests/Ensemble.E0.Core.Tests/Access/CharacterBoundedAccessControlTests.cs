@@ -192,9 +192,11 @@ public sealed class CharacterBoundedAccessControlTests
         var actualIds = evaluation.Decisions
             .Select(decision => decision.RecordId.Value)
             .ToArray();
+        var expectedDistinctCount = actualIds.Length;
+        var actualDistinctCount = actualIds.Distinct(StringComparer.Ordinal).Count();
 
         CollectionAssert.AreEqual(expectedIds, actualIds);
-        Assert.AreEqual(actualIds.Length, actualIds.Distinct(StringComparer.Ordinal).Count());
+        Assert.AreEqual(expectedDistinctCount, actualDistinctCount);
     }
 
     [TestMethod]
@@ -228,13 +230,17 @@ public sealed class CharacterBoundedAccessControlTests
             var id = CharacterId.From(characterId);
             var canonicalEvaluation = CharacterBoundedAccessControl.Evaluate(canonical, id);
             var reorderedEvaluation = CharacterBoundedAccessControl.Evaluate(reordered, id);
+            var expectedProjectionSignature = ProjectionSignature(canonicalEvaluation.Projection);
+            var actualProjectionSignature = ProjectionSignature(reorderedEvaluation.Projection);
+            var expectedDecisionSignatures = canonicalEvaluation.Decisions
+                .Select(DecisionSignature)
+                .ToArray();
+            var actualDecisionSignatures = reorderedEvaluation.Decisions
+                .Select(DecisionSignature)
+                .ToArray();
 
-            Assert.AreEqual(
-                ProjectionSignature(canonicalEvaluation.Projection),
-                ProjectionSignature(reorderedEvaluation.Projection));
-            CollectionAssert.AreEqual(
-                canonicalEvaluation.Decisions.Select(DecisionSignature).ToArray(),
-                reorderedEvaluation.Decisions.Select(DecisionSignature).ToArray());
+            Assert.AreEqual(expectedProjectionSignature, actualProjectionSignature);
+            CollectionAssert.AreEqual(expectedDecisionSignatures, actualDecisionSignatures);
         }
     }
 
