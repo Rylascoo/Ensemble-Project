@@ -1,0 +1,111 @@
+{
+  "schemaVersion": "ensemble.e0.fixture.v1",
+  "fixture": {
+    "id": "ensemble.e0.smoke",
+    "version": "0.1.0"
+  },
+  "accessContract": "ensemble.e0.character-bounded.v1",
+  "observationContract": "ensemble.e0.copresent-trio.v1",
+  "chronology": [
+    "HT-001"
+  ],
+  "historicalTruth": [
+    {
+      "id": "HT-001",
+      "text": "Three Characters are present in the test Scene.",
+      "provenance": []
+    }
+  ],
+  "unresolvedPropositions": [],
+  "worldState": [],
+  "scene": {
+    "id": "SCENE-001",
+    "roster": [
+      "CHAR-A",
+      "CHAR-B",
+      "CHAR-C"
+    ]
+  },
+  "sceneState": [],
+  "characters": [
+    {
+      "id": "CHAR-A",
+      "displayName": "A",
+      "constitution": [
+        {
+          "id": "CON-A",
+          "text": "A preserves stated boundaries.",
+          "provenance": []
+        }
+      ],
+      "disposition": [],
+      "circumstance": [],
+      "observations": [],
+      "knowledge": [],
+      "beliefs": [],
+      "suspicions": [],
+      "memories": [],
+      "goals": [],
+      "relationships": [
+        {
+          "id": "REL-A-B",
+          "targetCharacterId": "CHAR-B",
+          "text": "A recognizes B as a distinct participant.",
+          "provenance": [
+            "HT-001"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CHAR-B",
+      "displayName": "B",
+      "constitution": [
+        {
+          "id": "CON-B",
+          "text": "B distinguishes observation from inference.",
+          "provenance": []
+        }
+      ],
+      "disposition": [],
+      "circumstance": [],
+      "observations": [],
+      "knowledge": [],
+      "beliefs": [],
+      "suspicions": [],
+      "memories": [],
+      "goals": [],
+      "relationships": []
+    },
+    {
+      "id": "CHAR-C",
+      "displayName": "C",
+      "constitution": [
+        {
+          "id": "CON-C",
+          "text": "C does not claim more certainty than the available evidence supports.",
+          "provenance": []
+        }
+      ],
+      "disposition": [],
+      "circumstance": [],
+      "observations": [],
+      "knowledge": [],
+      "beliefs": [],
+      "suspicions": [],
+      "memories": [],
+      "goals": [],
+      "relationships": []
+    }
+  ],
+  "pressures": [
+    {
+      "id": "PRESSURE-001",
+      "text": "The Scene requires a next opportunity without prescribing an outcome.",
+      "provenance": [
+        "HT-001"
+      ]
+    }
+  ],
+  "initialOpportunity": "CHAR-A"
+}
