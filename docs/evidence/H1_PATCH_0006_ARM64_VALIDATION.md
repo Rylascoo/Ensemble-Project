@@ -1,18 +1,20 @@
 # H1 Patch 0006 — Native Windows ARM64 Validation
 
-Status: validation in progress — corrected Core test rerun required
+Status: COMPLETE for exercised gates
 
 ## Scope
 
 Patch 0006 implements the approved Performer Candidate Output Contract only.
 
-## Initial machine-tested implementation head
+## Native Windows ARM64 validation
+
+### Harness build/runtime authority head
 
 `fa37653d5c3e492e53d0f927a9c0844e139f12eb`
 
 User-supplied native Windows ARM64 evidence on 2026-09-02:
 
-### Harness build
+#### Harness build
 
 Command:
 
@@ -28,7 +30,19 @@ Result:
 - Harness output target: `net9.0\win-arm64`;
 - overall build PASS.
 
-### Initial Core test gate
+#### Missing Raft Harness regression
+
+Result: PASS; exit `0`.
+
+#### Generic smoke Harness regression
+
+Result: PASS; exit `0`.
+
+### Corrected full Core test authority head
+
+Machine-tested branch head:
+
+`93d549b2ca02db81a87596c0936f29f7c89058db`
 
 Command:
 
@@ -38,56 +52,84 @@ dotnet test .\tests\Ensemble.E0.Core.Tests\Ensemble.E0.Core.Tests.csproj -c Debu
 
 Result:
 
-- Core build PASS;
-- test project compilation blocked by two `MSTEST0032` analyzer errors in `PerformerCandidateContractTests.cs`;
-- both errors were tautological assertions comparing compile-time contract constants with their own literal values;
-- tests did not execute at this head.
+- restore PASS;
+- `Ensemble.E0.Core` rebuilt successfully;
+- `Ensemble.E0.Core.Tests` build PASS;
+- full Core test execution PASS;
+- total: `173`;
+- failed: `0`;
+- succeeded: `173`;
+- skipped: `0`.
 
-This was a test-only analyzer failure, not a production compile/runtime failure.
+## Analyzer correction lineage
 
-### Missing Raft Harness regression
+The initial Core test attempt at `fa37653...` was blocked before execution by two `MSTEST0032` warnings-as-errors in `PerformerCandidateContractTests.cs`.
 
-Result: PASS; exit `0`.
-
-### Generic smoke Harness regression
-
-Result: PASS; exit `0`.
-
-## Targeted correction
+Those assertions were tautological compile-time literal-vs-constant checks. They were removed while retaining the meaningful runtime semantic-vs-transport version assertion.
 
 Corrected executable/test head:
 
 `175f25ff8055943cdd900b08c1b89bea8b887692`
 
-GitHub comparison from the initial machine-tested head `fa37653...` to `175f25...` changes only:
+GitHub comparison from `fa37653...` to `175f25...` changes only:
 
-- `tests/Ensemble.E0.Core.Tests/Performer/PerformerCandidateContractTests.cs`
+- `tests/Ensemble.E0.Core.Tests/Performer/PerformerCandidateContractTests.cs`.
 
-Correction:
+No production source changed.
 
-- removed two tautological literal-vs-constant assertions flagged by `MSTEST0032`;
-- retained the meaningful runtime assertion that parsed `CandidatePerformance.ContractVersion` equals the semantic contract and differs from the AI JSON transport schema;
-- no production source changed;
-- expected total test executions remain 173.
+The later machine-tested head `93d549b...` adds this evidence document only beyond that corrected test state. Therefore:
 
-Because production source is byte-identical between `fa37653...` and `175f25...`, the native Harness build/runtime evidence above applies to the same production source that will be exercised by the corrected Core test rerun.
+- Harness build/runtime evidence at `fa37653...` applies to the same production source content;
+- the corrected full 173-test gate at `93d549b...` validates the same production implementation with the analyzer-only test correction;
+- documentation-only commits do not increase executable validation authority.
 
-A later evidence-only commit is a documentation descendant of `175f25...`; it does not change executable or test content and does not increase validation authority.
+## Exercised Patch 0006 guarantees
 
-## Remaining machine gate
+The passing Core suite exercises the approved candidate boundary, including:
 
-Run the full Core suite at the current branch head. The executable/test content is exactly the corrected `175f25...` state.
+- semantic `CandidatePerformance` contract version separation from AI JSON transport version;
+- strict `ContextPacket + UTF-8 candidate JSON` construction path;
+- grammar-open visible Performance with exact text preservation;
+- silence invariants;
+- display-bearing Unicode requirement;
+- NFC/control-character enforcement;
+- optional address and nomination control;
+- exact roster/self/duplicate/case-sensitive control validation;
+- roster-derived address bound during streaming preflight;
+- 1 MiB inclusive parser ceiling and JSON depth 8;
+- strict duplicate/unknown/missing/property/token/BOM/comment/trailing-content handling;
+- sanitized candidate-domain failures without untrusted-value echo;
+- candidate/control non-public constructors and narrow public authority surface;
+- no PerformanceKind taxonomy or provider/rendering/mutation/Take/Director authority fields;
+- frozen Missing Raft StructuredContextHash and RenderedContextHash regression;
+- frozen Missing Raft ECJ-1 `9112` bytes/hash regression.
 
-Expected:
+## Validation authority
 
-- test project compiles with warnings-as-errors;
-- total 173;
-- failed 0;
-- succeeded 173;
-- skipped 0.
+- Static/adversarial review: PASS advisory only.
+- Native Windows ARM64 Harness build: PASS at `fa37653...`.
+- Native Windows ARM64 Core tests: PASS — 173/173 at `93d549b...`.
+- Missing Raft Harness runtime: PASS/0 at `fa37653...`.
+- generic smoke Harness runtime: PASS/0 at `fa37653...`.
 
-Patch 0006 is not machine-validation complete until that corrected test gate passes.
+The tested evidence is intentionally split by exact commit because the only post-Harness correction was test-only and the later evidence closure is documentation-only.
 
 ## Nonclaims
 
-This evidence does not establish provider/model behavior, Director behavior, Integrity acceptance, State Interpreter/Authority, Take semantics, causal persistence, NPU execution, WinUI, WACK, or Store certification.
+This evidence does not establish:
+
+- provider/model execution or quality;
+- provider request/system-contract behavior;
+- provider-attempt provenance persistence;
+- Director behavior;
+- Integrity Validator acceptance/rejection;
+- State Interpreter or State Authority;
+- Take semantics;
+- atomic causal commit/persistence;
+- E0-D bindings;
+- Windows AI/NPU execution/performance;
+- WinUI;
+- WACK;
+- Microsoft Store certification.
+
+Patch 0006 validation proves only the exercised deterministic Performer candidate contract boundary and its regressions.
