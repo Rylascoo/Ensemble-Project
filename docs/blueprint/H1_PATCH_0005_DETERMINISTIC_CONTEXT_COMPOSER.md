@@ -1,6 +1,6 @@
 # H1 Patch 0005 — Deterministic Context Composer + Dual Context Identity
 
-Status: APPROVED — canonical implementation specification 0.3; implementation not started
+Status: APPROVED — canonical implementation specification 0.3
 Approved: 2026-09-02
 Parent baseline: validated H1 Patch 0004
 
