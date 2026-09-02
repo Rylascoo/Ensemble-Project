@@ -26,13 +26,13 @@ Do not advance yet into canonical fixture hashing, full Missing Raft semantic sc
 
 ## GitHub checkpoint
 - Canonical implementation branch: `h1-source`.
-- Draft PR: #1 `H1: bootstrap deterministic spine foundation`.
-- PR remains open while runtime sanity validation is pending.
+- PR #1: `H1: bootstrap deterministic spine foundation`.
+- Patch 0001 has clean compiler evidence and process-start/runtime-guard evidence on the target ARM64 machine.
 
 ## Validation authority
 - Static review: advisory only.
 - Visual Studio / `dotnet` ARM64 build output: compiler authority.
-- Actual target-device execution: runtime authority.
+- Actual target-device execution: runtime authority for the behavior actually exercised.
 - NPU execution requires explicit hardware evidence.
 - WACK and Partner Center remain later independent authorities.
 
@@ -42,12 +42,12 @@ Do not advance yet into canonical fixture hashing, full Missing Raft semantic sc
 - On 2026-09-01, `dotnet build .\src\Ensemble.E0.Harness\Ensemble.E0.Harness.csproj -c Debug` succeeded on the target Windows ARM64 machine using SDK 9.0.317.
 - `Ensemble.E0.Core` compiled successfully to `bin\Debug\net9.0\Ensemble.E0.Core.dll`.
 - `Ensemble.E0.Harness` compiled successfully to `bin\Debug\net9.0\win-arm64\Ensemble.E0.Harness.dll`.
-- Build completed with no reported compiler errors; this establishes compiler validation only, not runtime behavior.
-- No Windows ARM64 runtime validation exists yet.
+- `dotnet run --project .\src\Ensemble.E0.Harness\Ensemble.E0.Harness.csproj -c Debug --no-build` started successfully on the same target machine, passed the Windows/ARM64 architecture guard, reached the expected missing-fixture usage path, and returned exit code `2`.
+- This establishes compiler validation plus process-start/runtime-guard validation only. It does not validate fixture semantics, Access Control, Context Composer, persistence, provider behavior, NPU execution, packaging, WACK, or Store certification.
 - No Windows AI/NPU/Store validation exists.
 
 ## Immediate next action
-Run the H1 Harness once on the same ARM64 machine to validate the runtime architecture guard and basic process startup. If clean, record Patch 0001 as compiler+runtime-sanity validated, complete the PR review gate, and then design H1 Patch 0002 for the full typed Missing Raft fixture schema and semantic invariant validation.
+Complete the Patch 0001 PR gate, then design H1 Patch 0002 for the full typed Missing Raft fixture schema and semantic invariant validation. Do not add hashing or Access Control until Patch 0002 is separately reviewed and machine-validated.
 
 ## Project rule
 Patch first. Freeze only evidence-earned decisions. After every meaningful phase: correctness -> consistency -> authority -> evidence -> simplicity -> vision -> implementation readiness.
