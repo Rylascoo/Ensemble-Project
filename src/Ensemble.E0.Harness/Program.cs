@@ -19,6 +19,11 @@ try
     var document = FixtureLoader.Load(bytes);
     var fixture = GenericE0FixtureValidator.Validate(document);
 
+    if (fixture.FamilyId == MissingRaftContract.FamilyId)
+    {
+        MissingRaftContract.Validate(fixture);
+    }
+
     Console.WriteLine($"Fixture validated: {fixture.Id}");
     return 0;
 }
