@@ -1,4 +1,5 @@
 using Ensemble.E0.Core.Domain;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Ensemble.E0.Core.Tests.Domain;
 
