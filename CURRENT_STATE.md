@@ -8,6 +8,7 @@ Updated: 2026-09-02
 - H1 Deterministic Spine Blueprint 0.2 is approved.
 - H1 Patch 0002.2 Missing Raft Fixture Contract Blueprint 0.4 is canonical for the Missing Raft fixture subset.
 - H1 Patch 0003 ECJ-1 Canonical Fixture Identity Blueprint 0.2 is APPROVED and canonical.
+- H1 Patch 0004 Deterministic Character-Bounded Access Control Blueprint 0.2 is APPROVED and canonical.
 - `docs/ENGINEERING_HYGIENE_CONSTITUTION.md` is project law unless a stronger frozen specification explicitly overrides it.
 - GitHub `Rylascoo/Ensemble-Project` is the authoritative engineering source.
 - Google Drive `Ensemble Project` is the design repository.
@@ -17,52 +18,54 @@ E0-A Harness Implementation — H1 Deterministic Spine.
 
 H1 Patch 0003 is COMPLETE, machine-validated for its exercised gates, and promoted to `main` through PR #8.
 
-## Validated executable baseline
-The validated executable baseline now includes H1 Patch 0002.1, Patch 0002.1a, Patch 0002.2, and Patch 0003.
+H1 Patch 0004 Blueprint 0.2 is explicitly approved and promoted to `main` through PR #9. Patch 0004 executable implementation has not yet been machine-validated.
 
+## Validated executable baseline
 Latest machine-tested executable implementation head:
 `c55eb022983a3954a78c8386a8c83ce8d5f4f2a7`
 
-Patch 0003 promotion head on `main` before this checkpoint update:
-`3006f1294b60ff6ec764d0b66097bfd12d7ad8da`
-
-The commits after the tested executable head are documentation-only validation/approval closure. They do not increase the executable validation level.
-
 Validated on the user's native Windows ARM64 machine:
-- Native Windows ARM64 compiler gate: PASS — Core and Harness built successfully; Harness output targeted `net9.0\win-arm64`.
-- Core tests: PASS — 73 total, 73 succeeded, 0 failed, 0 skipped.
-- Canonical Missing Raft runtime with ECJ-1/SHA-256 enforcement: PASS — `ensemble.e0.missing-raft@0.1.0`; exit `0`.
-- Generic smoke runtime regression: PASS — `ensemble.e0.smoke@0.1.0`; exit `0`.
+- Native Windows ARM64 compiler gate: PASS — Core and Harness built successfully; Harness targeted `net9.0\win-arm64`.
+- Core tests: PASS — 73/73, 0 failed, 0 skipped.
+- Canonical Missing Raft runtime with ECJ-1/SHA-256 enforcement: PASS; exit `0`.
+- Generic smoke runtime regression: PASS; exit `0`.
 - Independent ECJ-1 digest review: PASS advisory.
 - Final static/hygiene/scope review: PASS advisory.
 
 Detailed evidence:
 `docs/evidence/H1_PATCH_0003_ARM64_VALIDATION.md`
 
-## Patch 0003 implementation result
+Documentation-only blueprint/checkpoint commits after `c55eb…` do not increase executable validation authority.
+
+## Patch 0003 frozen identity
 Canonical specification:
 `docs/blueprint/H1_PATCH_0003_ECJ1_FIXTURE_HASH.md`
 
-Implemented architecture:
-1. `ValidatedFixture` remains the single successful fixture domain representation;
-2. `Ecj1FixtureCanonicalizer` emits explicit deterministic semantic JSON rather than hashing source bytes or serializer/reflection output;
-3. ECJ-1 output is UTF-8/no BOM/minified with frozen property order and exact deterministic string escaping;
-4. chronology preserves semantic sequence while roster/record/relationship/provenance collections canonicalize ordinally by stable ID;
-5. semantic text fails closed on NUL, carriage return, invalid surrogate sequences, or non-NFC input rather than being repaired;
-6. `FixtureHash.Compute` defines SHA-256 over ECJ-1 bytes and exposes exactly 64 lowercase hexadecimal characters;
-7. Missing Raft 0.1.0 freezes expected digest `5556a02325e6a7f774e6997942b395d670741d494ea86f1a50b83633e26b6703` inside `MissingRaftContract`;
-8. `MissingRaftContract.Validate(ValidatedFixture)` remains the single complete structural/authority/provenance + hash gate;
-9. generic unknown fixture families remain generically valid and may be deterministically hashed without acquiring Missing Raft authority;
-10. no second fixture representation, canonical source copy, mutable hash sidecar, registry/plugin framework, compatibility mode, or hash/access conflation was introduced.
-
-## ECJ-1 frozen reference
-Independent reference serialization paths over the canonical Missing Raft source agreed on:
-- ECJ-1 canonical UTF-8 byte length: `9112`;
+Missing Raft 0.1.0 frozen ECJ-1 reference:
+- canonical UTF-8 byte length: `9112`;
 - SHA-256: `5556a02325e6a7f774e6997942b395d670741d494ea86f1a50b83633e26b6703`.
 
-The passing Core suite freezes both values so byte-contract drift fails closed.
+The canonical Missing Raft source JSON remains unchanged.
 
-The canonical Missing Raft source JSON itself was not changed by Patch 0003.
+## Current Patch 0004 specification
+Canonical specification:
+`docs/blueprint/H1_PATCH_0004_DETERMINISTIC_ACCESS_CONTROL.md`
+
+Approved law includes:
+1. `Production State -> deterministic Access Control -> permitted Character information -> Context Composer -> bounded context -> Performer` remains the required authority order;
+2. `ensemble.e0.character-bounded.v1` is implemented as one concrete deterministic contract, not an ACL/policy framework;
+3. Character projections deny Production `HistoricalTruth`, `UnresolvedProposition`, `WorldState`, and chronology;
+4. Scene identity/roster identities, all `SceneState`, and root `Pressure` are shared with the Scene roster;
+5. each Character receives only their own Constitution, Disposition, Circumstance, Observation, Knowledge, Belief, Suspicion, Memory, Goal, and outbound Relationships;
+6. every other Character's private state and inbound Relationships remain denied;
+7. Character-facing projection records strip provenance entirely so denied source IDs/content cannot leak;
+8. Access Control returns the maximal permitted set; relevance, token budgeting, summarization, and prompt construction belong to later Context Composer work;
+9. a deterministic permit/deny audit is retained locally but must remain separate from the Context Composer/Performer-facing surface;
+10. projection/audit collections sort ordinally by stable ID;
+11. initial opportunity/Director state is outside the Access Control projection;
+12. E0-D omniscient context remains an explicitly labeled experimental ablation outside the safe reference Access Control operation;
+13. Access Control must not depend on Missing-Raft-specific policy logic;
+14. no Context Composer, persistence, provider/AI, Windows AI/NPU, WinUI, packaging, WACK, or Store work belongs in Patch 0004.
 
 ## Validation authority
 - Static review: advisory only.
@@ -73,44 +76,40 @@ The canonical Missing Raft source JSON itself was not changed by Patch 0003.
 - WACK and Partner Center remain later independent authorities.
 
 ## Explicitly unvalidated / excluded
-Patch 0003 does not establish or implement:
-- deterministic Access Control;
-- Context Composer or ContextPacketHash;
-- StateHash;
-- ProductionState construction or persistence;
-- accepted-history / causal commits;
-- Performer, Director, Integrity Validator, or State Interpreter runtime orchestration;
-- provider or AI behavior;
-- Windows AI / NPU execution;
-- WinUI;
-- packaging;
-- WACK;
-- Microsoft Store certification.
+No Patch 0004 executable validation exists yet.
 
-SHA-256 fixture identity is not authorization, secrecy, encryption, signing, or publisher-authenticity evidence.
+No Context Composer or ContextPacketHash, StateHash, ProductionState construction/persistence, accepted-history/causal commits, Performer/Director/Integrity Validator/State Interpreter runtime orchestration, provider/AI behavior, Windows AI/NPU execution, WinUI, packaging, WACK, or Store validation exists yet.
 
-No NPU, WACK, Store, or broader product-runtime claim may be inferred from Patch 0003 validation.
+Access Control will be deterministic information authority only. It does not itself prove model behavior, context quality, runtime orchestration, or product UX.
 
 ## Immediate next action
-Hold at the validated H1 Patch 0003 boundary.
+Implement H1 Patch 0004 only from current `main` on a dedicated implementation branch, following:
+`docs/blueprint/H1_PATCH_0004_DETERMINISTIC_ACCESS_CONTROL.md`
 
-Do not begin Patch 0004 deterministic Access Control as Patch 0003 cleanup or correction.
+Implementation order:
+1. add the smallest immutable Character-safe projection types;
+2. add one concrete `CharacterBoundedAccessControl` operation for `ensemble.e0.character-bounded.v1`;
+3. derive access only from category, structural ownership, roster, and contract — never provenance traversal;
+4. produce a separate deterministic local permit/deny audit;
+5. add exact generic + Missing Raft access-set, provenance-leak, ordering, and fail-closed tests;
+6. verify Access Control does not mutate the fixture or change the frozen Missing Raft hash;
+7. run static/adversarial/hygiene review;
+8. request native Windows ARM64 build, full tests, Missing Raft runtime regression, and generic smoke runtime regression;
+9. promote only after all exercised gates pass.
 
-Before entering the next H1 slice, read this checkpoint first and then locate/read the relevant canonical H1 roadmap/specification for Patch 0004. If GitHub does not yet contain a complete implementation-level Access Control contract, checkpoint and explicitly approve that blueprint before executable work begins rather than reconstructing authority from chat memory.
-
-No further Patch 0003 implementation work is currently required.
+Do not enter Context Composer or create an omniscient/debug bypass during Patch 0004 implementation.
 
 ## Continuity
 Fresh chats read this file first.
 
-For Patch 0003 history, then read:
-- `docs/evidence/H1_PATCH_0003_ARM64_VALIDATION.md`;
-- `docs/blueprint/H1_PATCH_0003_ECJ1_FIXTURE_HASH.md`.
+For Patch 0004 implementation, then read:
+- `docs/blueprint/H1_PATCH_0004_DETERMINISTIC_ACCESS_CONTROL.md`;
+- `src/Ensemble.E0.Core/Fixture/ValidatedFixture.cs`;
+- only directly affected Core/test files.
 
-For Missing Raft structural/semantic authority, read:
+For fixture/hash authority, read only as needed:
+- `docs/blueprint/H1_PATCH_0003_ECJ1_FIXTURE_HASH.md`;
 - `docs/blueprint/H1_PATCH_0002_2_MISSING_RAFT_CONTRACT.md`.
-
-`docs/handoff/E0A_H1_PATCH_0002_2_IMPLEMENTATION_HANDOFF.md` is historical and must not be treated as a current implementation instruction.
 
 Do not reconstruct already-approved project state from chat history when GitHub contains it.
 
