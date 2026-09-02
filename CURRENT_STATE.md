@@ -10,6 +10,8 @@ Updated: 2026-09-02
 - H1 Patch 0003 ECJ-1 Canonical Fixture Identity Blueprint 0.2 is APPROVED and canonical.
 - H1 Patch 0004 Deterministic Character-Bounded Access Control Blueprint 0.2 is APPROVED and canonical.
 - H1 Patch 0005 Deterministic Context Composer + Dual Context Identity Blueprint 0.3 is APPROVED and canonical.
+- H1 Patch 0006 Performer Candidate Output Contract Blueprint Proposal 1.7 is APPROVED and canonical for executable implementation.
+- Patch 0006 Proposal 1.7 completed the required recursive adversarial audit with a full zero-material-change pass before approval.
 - `docs/ENGINEERING_HYGIENE_CONSTITUTION.md` is project law unless a stronger frozen specification explicitly overrides it.
 - GitHub `Rylascoo/Ensemble-Project` is the authoritative engineering source.
 - Google Drive `Ensemble Project` is the design repository.
@@ -22,6 +24,37 @@ H1 Patch 0003 is COMPLETE, machine-validated for its exercised gates, and promot
 H1 Patch 0004 is COMPLETE, machine-validated for its exercised gates, and promoted through PR #10.
 
 H1 Patch 0005 is COMPLETE for its exercised gates and promoted through PR #12.
+
+H1 Patch 0006 blueprint authority is APPROVED through PR #13. Executable Patch 0006 implementation has not yet received compiler/test/runtime authority.
+
+## Patch 0006 approved blueprint checkpoint
+Canonical specification:
+`docs/blueprint/H1_PATCH_0006_PERFORMER_CANDIDATE_CONTRACT.md`
+
+Approved blueprint head / PR #13 promoted head:
+`eea1398cb49ac8ec5275f65083093d7fdaab890b`
+
+PR #13 is recorded by GitHub as merged. The connector's draft-to-ready GraphQL mutation failed on GitHub's schema, so `main` was advanced by a non-force fast-forward to the exact approved head. GitHub then recorded PR #13 as merged at that same head. The lingering draft flag is not authority.
+
+Approved Patch 0006 architecture:
+1. `CandidatePerformance` is semantic, provider-neutral Performer output rather than raw AI transport.
+2. Semantic candidate contract: `ensemble.e0.performer.candidate.v1`.
+3. E0 AI JSON transport schema is independently versioned as `ensemble.e0.performer.candidate-json.v1`.
+4. Semantic candidate contains only `ContractVersion`, `SubjectCharacterId`, `ContextPacketId`, `VisibleText`, and `Control`.
+5. `CandidatePerformanceControl` contains only `AddressedCharacterIds` and optional `NominatedCharacterId`.
+6. No `PerformanceKind` taxonomy is introduced. Empty `VisibleText` means silence; non-empty E0 text remains grammar-open Character-legible Performance.
+7. Non-empty text must contain a display-bearing Unicode scalar, must already be NFC, preserves exact text, permits LF/TAB, and rejects unsafe Control/invisible-only pseudo-performance.
+8. Candidate prose remains untrusted creative content. Parsing never promotes assertion to truth, knowledge, system instruction, state mutation, routing authority, or history.
+9. Control is provisional Performer intent metadata, not Production history/truth/state/observation/Director authority.
+10. Address/nomination are independently optional for non-silent Performance; target IDs are exact/case-sensitive roster IDs; self-target and duplicate addresses fail; addresses sort ordinally and are roster-minus-subject bounded.
+11. Precommit control cannot create effective opportunity, trigger another Performer, or survive rollback as effective routing state. Only associated control from a later successfully committed accepted Performance may become a non-binding Director input.
+12. All E0 attempted output/control that exists, including rejected/partial attempts, remains mandatory experimental provenance/diagnostics and never automatically Production history.
+13. `ParseJson(ContextPacket, ReadOnlySpan<byte>)` is the only Patch 0006 public construction path; candidate/control constructors remain non-public; one internal semantic builder owns invariants.
+14. Strict parser is fail-closed: trusted Context invariants first; 1 MiB inclusive byte ceiling; max depth 8; BOM/comments/trailing commas/duplicate decoded properties/unknown or missing fields/wrong token types/malformed UTF-8 or JSON/trailing content all fail.
+15. Entire externally observable exception representation must not echo raw payload, candidate prose, unknown property names, invalid IDs, actual mismatched schema values, arbitrary untrusted values, secrets, or JSON snippets.
+16. Semantic candidate copies only SubjectCharacterId + ContextPacketId from the safe reference ContextPacket. Rendering/provider/request/transport facts belong to later provider-attempt provenance where exact external disclosure can be recorded truthfully.
+17. Candidate parsing does not hard-code Context composition/rendering policy strings it does not interpret; this preserves safe composition variation without weakening the separately labeled omniscient E0-D boundary.
+18. No provider integration, provider request/system prompt, Director, Integrity Validator, Take semantics, State Interpreter, State Authority, causal commit, persistence, observation engine, E0-D binding, WinUI, Windows AI/NPU, packaging, WACK, or Store work enters Patch 0006.
 
 ## Latest machine-validated Patch 0005 implementation state
 Corrected full Core test head:
@@ -52,8 +85,6 @@ Patch 0005 PR #12 closure head:
 PR #12 merge commit on `main`:
 `b0573a6ad8049ee5a03cd5af822476ad013135e3`
 
-The merge commit has two parents: the durable `CURRENT_STATE.md` checkpoint line and the exact PR #12 closure head. This preserved both histories without a force update after the GitHub draft-to-ready connector failed.
-
 Commits after `befb...` on the PR implementation lineage are documentation-only evidence closure and do not increase executable validation authority.
 
 Detailed evidence:
@@ -80,20 +111,17 @@ Implemented architecture:
 2. public Composer input is limited to `CharacterAccessProjection + CurrentOpportunityCharacterId`;
 3. current opportunity must equal the projection subject and grants no additional knowledge;
 4. every already-permitted Access record is included exactly once in its original authority category;
-5. Knowledge, Belief, Suspicion, Memory, Observation, SceneState, Pressure, Constitution, Disposition, Circumstance, Goal, and directional Relationship remain structurally distinct;
-6. no semantic relevance, embeddings, ranking, token optimization, summarization, paraphrase, deduplication, or truncation occurs in the E0 reference contract;
+5. epistemic and authority categories remain structurally distinct;
+6. no semantic relevance, ranking, token optimization, summarization, paraphrase, deduplication, or truncation occurs in the E0 reference contract;
 7. `recentPerformances` is canonically exact `[]`; no accepted-history DTO or non-empty population path exists yet;
-8. provider-neutral rendering uses `ensemble.e0.context.render.v1` with deterministic LF-only headings/bullets and separate trusted-state, recent-performance, and opportunity layers;
-9. Rendered context omits internal Record IDs, Character IDs, SceneId, fixture hash, provenance, access decisions, provider/model data, and diagnostics;
-10. `StructuredContextHash` identifies canonical structured semantic context;
-11. `RenderedContextHash` identifies the rendering contract plus exact provider-neutral rendered disclosure;
-12. `ContextPacketId = CTX:<StructuredContextHash>` is content identity, not authorization, fixture/run provenance, signing, or publisher identity;
-13. local composition trace is separate from Performer-facing packet context and contains no denied Access IDs or record text;
-14. public safe output types are read-only with Core-internal constructors so external assemblies cannot forge authoritative Context objects through public construction;
-15. canonical JSON scalar/string + UTF-8 emission is shared with ECJ-1 through one small internal helper; fixture-specific ECJ-1 ordering remains explicit;
-16. frozen Missing Raft ECJ-1 identity remains exactly 9112 bytes and SHA-256 `5556a02325e6a7f774e6997942b395d670741d494ea86f1a50b83633e26b6703`;
-17. E0-D omniscient and relationship-omission conditions remain separate experimental paths, not flags/bypasses in the safe reference Composer;
-18. no provider/model adapter, Director, persistence/history implementation, ProductionState, StateHash, WinUI, Windows AI/NPU, packaging, WACK, or Store machinery was introduced.
+8. provider-neutral rendering uses `ensemble.e0.context.render.v1` with deterministic separate authority layers;
+9. rendered context omits internal IDs/provenance/provider/debug data;
+10. StructuredContextHash and RenderedContextHash remain distinct deterministic identities;
+11. `ContextPacketId = CTX:<StructuredContextHash>` is content identity, not authorization/provenance/signature;
+12. local composition trace remains separate from Performer context;
+13. public safe output types have Core-internal constructors;
+14. ECJ-1 shared canonical JSON primitive preserves frozen Missing Raft identity;
+15. E0-D conditions remain separate experimental paths rather than safe-reference bypasses.
 
 ## Validation authority
 - Static review: advisory only.
@@ -104,44 +132,42 @@ Implemented architecture:
 - WACK and Partner Center remain later independent authorities.
 
 ## Explicitly unvalidated / excluded
-Patch 0005 does not establish or implement:
-- provider/model behavior;
-- Performer system contract or provider-request framing;
+Patch 0006 approval does not establish or validate:
+- any Patch 0006 executable implementation;
+- provider/model behavior or provider-request framing;
+- exact provider-attempt/disclosure provenance implementation;
 - Director/opportunity selection;
-- accepted Take/history authority or non-empty recent-performance context;
-- semantic/probabilistic relevance optimization;
-- E0-D omniscient or relationship-omission execution;
-- ProductionState or StateHash;
-- Integrity Validator;
+- Integrity Validator acceptance/rejection;
+- accepted Take/history authority;
 - State Interpreter / State Authority;
-- causal commit/persistence/recovery replay;
-- full observation engine;
+- ProductionState / StateHash;
+- atomic causal commit/persistence/recovery;
+- observation engine;
+- E0-D execution;
 - Windows AI or NPU execution/performance;
 - WinUI;
 - packaging/WACK;
 - Microsoft Store certification.
 
-Deterministic Context Composer validation proves the exercised safe composition/render/identity boundary. It does not itself prove Character/model quality, Director behavior, causal state evolution, persistence, product UX, or later security boundaries.
-
 ## Immediate next action
-Hold at the validated H1 Patch 0005 boundary.
+Implement **H1 Patch 0006 only** from this approved checkpoint.
 
-Do not enter provider integration, Director logic, accepted-history plumbing, persistence, or E0-D bypasses as Patch 0005 cleanup.
-
-Before entering the next H1 slice:
-1. read this checkpoint first;
-2. recover the canonical roadmap/specification for the next deterministic-spine boundary;
-3. determine whether the next authority slice is already implementation-complete in GitHub;
-4. if not, create and explicitly approve a standalone blueprint before executable work begins;
-5. preserve `CharacterAccessProjection` as the only Character information authority input to Context composition;
-6. preserve the validated ContextPacket/dual-hash boundary unless a stronger explicitly approved specification deliberately changes it.
-
-No further Patch 0005 implementation work is currently required.
+Required workflow:
+1. branch from the approved `main` checkpoint after this CURRENT_STATE commit;
+2. implement only semantic `CandidatePerformance`/Control plus strict `candidate-json.v1` parser and tests;
+3. preserve Patch 0005 Context and ECJ-1 frozen identities exactly;
+4. run static/adversarial implementation review against the approved 1.7 exit gate;
+5. request native Windows ARM64 build/test/Harness validation before claiming executable validation;
+6. do not enter provider integration, Director, Integrity, State, Take, persistence, E0-D, WinUI, Windows AI/NPU, or Store scope as Patch 0006 cleanup.
 
 ## Continuity
 Fresh chats read this file first.
 
-For Patch 0005 history and authority, then read:
+For current Patch 0006 authority, then read:
+- `docs/blueprint/H1_PATCH_0006_PERFORMER_CANDIDATE_CONTRACT.md`;
+- PR #13 history only if audit evolution is relevant.
+
+For Patch 0005 executable evidence, read:
 - `docs/evidence/H1_PATCH_0005_ARM64_VALIDATION.md`;
 - `docs/evidence/H1_PATCH_0005_REFERENCE_ORACLE.md`;
 - `docs/blueprint/H1_PATCH_0005_DETERMINISTIC_CONTEXT_COMPOSER.md`.
