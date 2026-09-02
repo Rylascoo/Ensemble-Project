@@ -73,8 +73,8 @@ public static class MissingRaftContract
 
     public static FixtureFamilyId FamilyId { get; } = FixtureFamilyId.From(FamilyIdValue);
     public static FixtureVersion Version { get; } = FixtureVersion.From(VersionValue);
-    public static FixtureId ExpectedFixtureId { get; } = Domain.FixtureId.From(FixtureIdValue);
-    public static SceneId ExpectedSceneId { get; } = Domain.SceneId.From(SceneIdValue);
+    public static FixtureId ExpectedFixtureId { get; } = FixtureId.From(FixtureIdValue);
+    public static SceneId ExpectedSceneId { get; } = SceneId.From(SceneIdValue);
     public static CharacterId MarloweId { get; } = CharacterId.From(MarloweCharacterId);
     public static CharacterId VossId { get; } = CharacterId.From(VossCharacterId);
     public static CharacterId WrenId { get; } = CharacterId.From(WrenCharacterId);
