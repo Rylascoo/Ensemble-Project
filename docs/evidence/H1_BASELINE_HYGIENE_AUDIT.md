@@ -7,7 +7,7 @@ Purpose: establish a clean inherited baseline before Patch 0002 fixture-domain e
 ## Overall result
 Patch 0001 is appropriately small and clean for its validated scope. No legacy subsystem, provider abstraction, UI dependency, persistence layer, database, or speculative AI framework exists.
 
-Two immediate hygiene corrections are justified before Patch 0002, and several placeholder surfaces are explicitly marked for replacement rather than compatibility preservation.
+Three immediate hygiene corrections are justified before Patch 0002, and several placeholder surfaces are explicitly marked for replacement rather than compatibility preservation.
 
 ## Immediate corrections
 
@@ -20,6 +20,11 @@ Decision: change every strong ID `ToString()` implementation to return `Value`, 
 Patch 0001 evidence correctly records that SDK 9.0.317 produced the first successful ARM64 build. The project policy, however, is supported stable .NET 9 rather than permanent dependence on that exact feature band.
 
 Decision: change `global.json` to request `9.0.100` with `rollForward: latestFeature` and `allowPrerelease: false`. The exact SDK used by each validation remains recorded in evidence.
+
+### 3. Regression-test foundation
+The strong-ID behavior change needs an automated regression test, and Patch 0002.1 immediately requires deterministic semantic tests. A Core test project is therefore an earned boundary rather than speculative infrastructure.
+
+Decision: add `tests/Ensemble.E0.Core.Tests` using the current supported MSTest SDK / Microsoft.Testing.Platform path, with tests proving valid strong IDs round-trip and every default/uninitialized strong ID fails closed during stringification. Patch 0002.1 will extend this same project rather than introduce a second test stack.
 
 ## Surfaces intentionally preserved
 - `CanonicalId`: simple ASCII canonical-ID validation remains appropriate.
@@ -68,6 +73,6 @@ These remain outside the current correction boundary and must not be pulled into
 - Dependency-direction violations: none
 - Hidden compatibility burden: none yet; placeholder fixture types must be replaced rather than preserved
 - Validation inflation: none
-- Immediate cleanup required: strong-ID fail-closed behavior + .NET 9 SDK policy
+- Immediate cleanup required: strong-ID fail-closed behavior + .NET 9 SDK policy + regression-test foundation
 
-After those two corrections compile and pass the existing ARM64 runtime sanity check, the repository is a clean baseline for Patch 0002.1.
+After the corrections build, `dotnet test` passes, and the existing ARM64 runtime sanity check passes, the repository is a clean baseline for Patch 0002.1.
