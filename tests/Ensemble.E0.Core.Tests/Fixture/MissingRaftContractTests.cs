@@ -128,7 +128,7 @@ public sealed class MissingRaftContractTests
     public void ChronologyAddition_IsRejectedByMissingRaftContract() => AssertContractInvalid(Mutate(root =>
         root["chronology"]!.AsArray().Add(JsonValue.Create(MissingRaftContract.HtMarloweNotWarnedId))));
 
-    [DataTestMethod]
+    [TestMethod]
     [DataRow(MissingRaftContract.UpRaftWouldFailId)]
     [DataRow(MissingRaftContract.UpRh001CacheWouldBeLostId)]
     public void UnresolvedPropositionMovedToHistoricalTruth_IsRejected(string recordId) => AssertContractInvalid(Mutate(root =>
