@@ -1,8 +1,10 @@
 # H1 Patch 0003 — ECJ-1 Canonical Fixture Identity
 
-Status: blueprint proposal 0.2 — APPROVAL REQUIRED; implementation not started
+Status: APPROVED — canonical implementation specification 0.2
 Parent baseline: validated H1 Patch 0002.2
-Branch: `h1-patch-0003-ecj1-blueprint`
+Approved: 2026-09-02
+
+This document is the canonical implementation specification for H1 Patch 0003. Its original proposal branch was `h1-patch-0003-ecj1-blueprint`; implementation proceeded on `h1-patch-0003-implementation` after explicit user approval.
 
 ## 1. Purpose
 
@@ -28,7 +30,7 @@ The following law is already established by the approved H1 deterministic-spine 
 - duplicate JSON properties remain rejected before deserialization;
 - `FixtureHash = SHA-256(ECJ-1 canonical fixture UTF-8 bytes)`.
 
-GitHub currently contains forward references to this law but not a standalone Patch 0003 implementation specification. This proposal checkpoints and concretizes the missing implementation-level contract before code is written.
+GitHub initially contained forward references to this law but not a standalone Patch 0003 implementation specification. This specification checkpoints and concretizes the implementation-level contract.
 
 The Patch 0003 fixture path is conceptually:
 
@@ -367,7 +369,7 @@ Before promotion:
 
 ## 18. Approval decision
 
-Most of Patch 0003 follows already-approved H1 law. This proposal asks explicit approval for the implementation-level compatibility contract that GitHub did not previously preserve, especially:
+Approved on 2026-09-02 as canonical Patch 0003 law. The following compatibility decisions are frozen for this patch/version:
 
 - the exact ECJ-1 fixture property order in Section 5;
 - the exact ordered-versus-unordered array treatment in Section 6;
@@ -378,5 +380,3 @@ Most of Patch 0003 follows already-approved H1 law. This proposal asks explicit 
 - preserving the single `MissingRaftContract.Validate` operation as the complete structural + hash gate;
 - extending canonical semantic text validation to reject carriage return and invalid surrogate sequences rather than normalize/replacement-encode them;
 - the independent digest-freeze review in Section 11.
-
-Once approved, these become canonical Patch 0003 law and implementation can proceed without reopening them during coding.
