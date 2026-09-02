@@ -5,7 +5,6 @@ namespace Ensemble.E0.Core.Fixture;
 public static class StrictJsonPreflight
 {
     private const int MaxDepth = 64;
-    private const int MaxFixtureBytes = 1024 * 1024;
 
     public static void Validate(ReadOnlySpan<byte> utf8Json)
     {
@@ -14,10 +13,10 @@ public static class StrictJsonPreflight
             throw new FixtureValidationException("Fixture JSON is empty.");
         }
 
-        if (utf8Json.Length > MaxFixtureBytes)
+        if (utf8Json.Length > E0FixtureDialect.MaxFixtureBytes)
         {
             throw new FixtureValidationException(
-                $"Fixture JSON exceeds the E0 limit of {MaxFixtureBytes} bytes.");
+                $"Fixture JSON exceeds the E0 limit of {E0FixtureDialect.MaxFixtureBytes} bytes.");
         }
 
         var options = new JsonReaderOptions
