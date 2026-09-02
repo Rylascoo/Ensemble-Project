@@ -13,7 +13,7 @@ Updated: 2026-09-01
 ## Current phase
 E0-A Harness Implementation — H1 Deterministic Spine.
 
-## Last machine-validated baseline
+## Last fully machine-validated baseline
 H1 Patch 0001 + Patch 0001a on `main`:
 - native Windows ARM64 Core/Harness build succeeded under .NET SDK 9.0.317;
 - Core regression tests passed 2/2;
@@ -55,12 +55,15 @@ Patch 0002.1 does not include Missing Raft-specific law/content, ECJ-1, SHA-256,
 - WACK and Partner Center remain later independent authorities.
 
 ## Current validation state
-- Patch 0001 + 0001a remain the last machine-validated baseline.
-- Patch 0002.1 implementation has static review only until rebuilt/tested/run on the target Windows ARM64 machine.
+- Patch 0001 + 0001a remain the last fully machine-validated baseline.
+- Patch 0002.1 static review is complete with no known blocker.
+- On 2026-09-01, the target Windows ARM64 machine successfully ran the Patch 0002.1 Harness against `fixtures\smoke\e0-fixture-v1.json`; output was `Fixture validated: ensemble.e0.smoke@0.1.0` and process exit code was `0`.
+- This establishes runtime validation only for the generic fixture load/validation path actually exercised.
+- Patch 0002.1 compiler and expanded test-suite evidence have not yet been supplied for this gate, so the patch is not yet fully machine-validated and PR #3 remains unmerged.
 - No Missing Raft semantic validation, Access Control, Context Composer, persistence, provider behavior, Windows AI/NPU execution, packaging, WACK, or Store validation exists yet.
 
 ## Immediate next action
-Complete branch-wide static correctness/consistency/authority/scope/test/simplicity/hygiene review. If clean, run the Patch 0002.1 ARM64 gate: Harness build, Core tests, then Harness validation of `fixtures\smoke\e0-fixture-v1.json`. Patch only evidence-backed failures before merge.
+Obtain Patch 0002.1 ARM64 build and Core test output for the current implementation. If both pass, perform the final post-evidence hygiene review and merge PR #3; otherwise patch only evidence-backed failures.
 
 ## Project rule
 Every patch is reviewed against the previous validated baseline: correctness -> consistency -> authority -> scope -> tests -> simplicity -> hygiene -> ARM64 suitability -> vision -> evidence. Git preserves history; the active source tree preserves only the best current architecture.
