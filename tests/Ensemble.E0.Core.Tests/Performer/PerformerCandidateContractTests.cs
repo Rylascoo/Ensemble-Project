@@ -51,11 +51,8 @@ public sealed class PerformerCandidateContractTests
         var candidate = Parse(ComposeVoss(), CandidateJson("I need a moment."));
 
         Assert.AreEqual(
-            "ensemble.e0.performer.candidate.v1",
-            PerformerCandidateContract.CandidateContractVersion);
-        Assert.AreEqual(
-            "ensemble.e0.performer.candidate-json.v1",
-            PerformerCandidateContract.CandidateJsonSchemaVersion);
+            PerformerCandidateContract.CandidateContractVersion,
+            candidate.ContractVersion);
         Assert.AreNotEqual(
             PerformerCandidateContract.CandidateJsonSchemaVersion,
             candidate.ContractVersion);
