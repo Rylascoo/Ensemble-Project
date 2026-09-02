@@ -32,6 +32,11 @@ The original independent oracle had accidentally substituted `competence` for ca
 
 The canonical fixture is authoritative. Production code remains unchanged. This document and the corresponding test expectations are corrected to the fixture text.
 
+Corrective test/evidence head prepared for native rerun:
+`f5aa4f000bfa3f7f0cc3c432df6b5638f7f2c774`
+
+The corrective delta from the first machine-tested head contains only this evidence file and `tests/Ensemble.E0.Core.Tests/Context/DeterministicContextComposerTests.cs`; no production source changed.
+
 ## Corrected independent derivation
 Two independent reference serialization paths were rerun using the exact canonical fixture text:
 
