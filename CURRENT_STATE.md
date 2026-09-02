@@ -14,27 +14,17 @@ Updated: 2026-09-01
 E0-A Harness Implementation — H1 Deterministic Spine.
 
 ## Validated baseline
-H1 Patch 0002.1 — E0 Fixture Dialect v1 — is merged to `main` through PR #3.
+H1 Patch 0002.1 + Patch 0002.1a are merged to `main` through PRs #3 and #4.
 
-## Validated correction ready for promotion
-H1 Patch 0002.1a — provenance DAG correction.
-Branch: `h1-patch-0002-1a-provenance-dag`
-PR: #4 `H1: enforce acyclic fixture provenance`
+The baseline includes typed E0 Fixture Dialect v1, immutable generic fixture validation, strict JSON/text boundaries, structural Character ownership, fixture-global record/reference validation, and an acyclic provenance DAG invariant enforced at `ValidatedFixture` construction.
 
-Patch 0002.1a adds one inherited invariant only:
-- `ValidatedFixture` provenance must form a DAG;
-- cycle detection is iterative/topological rather than recursive;
-- a regression test rejects a two-record provenance cycle.
-
-No fixture schema, authority category, Missing Raft content, hashing, Access Control, Context Composer, persistence, provider/AI, UI, NPU, or Store surface changed.
-
-## Patch 0002.1a validation
-Tested executable implementation head: `365537456f5890f3e2766abeb833f974c8fd7d8e`.
+## Latest machine validation
+Patch 0002.1a tested executable implementation head: `365537456f5890f3e2766abeb833f974c8fd7d8e`.
 
 - Native Windows ARM64 compiler gate: PASS — Core and Harness built successfully; Harness output targeted `net9.0\win-arm64`.
 - Core tests: PASS — 31 total, 31 succeeded, 0 failed, 0 skipped.
 - Generic fixture runtime regression: PASS — `ensemble.e0.smoke@0.1.0` validated; exit code `0`.
-- Final hygiene/scope comparison: PASS — only the DAG invariant, construction hook, one regression test, and checkpoint/evidence material changed.
+- Final hygiene/scope comparison: PASS.
 - Detailed evidence: `docs/evidence/H1_PATCH_0002_1A_ARM64_VALIDATION.md`.
 - Evidence/checkpoint commits after the tested head do not alter executable source.
 
@@ -48,7 +38,7 @@ Tested executable implementation head: `365537456f5890f3e2766abeb833f974c8fd7d8e
 No Missing Raft-specific semantic validation, ECJ-1, SHA-256 fixture hashing, deterministic Access Control, Context Composer, Production state construction, persistence, causal commits, provider/AI behavior, Windows AI/NPU execution, WinUI, packaging, WACK, or Store validation exists yet.
 
 ## Immediate next action
-Promote Patch 0002.1a to `main`, then design H1 Patch 0002.2: canonical Missing Raft fixture plus experiment-specific structural validation. Keep ECJ-1/hash and Access Control deferred until Patch 0002.2 is separately reviewed and machine-validated.
+Design H1 Patch 0002.2: canonical Missing Raft fixture plus experiment-specific structural validation. Compare every addition against the validated generic fixture baseline. Keep ECJ-1/hash and Access Control deferred until Patch 0002.2 is separately reviewed and machine-validated.
 
 ## Project rule
 Every patch is reviewed against the previous validated baseline: correctness -> consistency -> authority -> scope -> tests -> simplicity -> hygiene -> ARM64 suitability -> vision -> evidence. Git preserves history; the active source tree preserves only the best current architecture.
