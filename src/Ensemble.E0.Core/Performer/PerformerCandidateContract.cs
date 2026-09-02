@@ -202,6 +202,13 @@ public static class PerformerCandidateContract
                         pendingPropertyName = propertyName;
                         break;
 
+                    case JsonTokenType.String:
+                        _ = reader.GetString()
+                            ?? throw new PerformerCandidateException(
+                                "Candidate JSON contains an invalid string value.");
+                        pendingPropertyName = null;
+                        break;
+
                     case JsonTokenType.StartArray:
                         if (string.Equals(
                                 pendingPropertyName,
@@ -241,6 +248,11 @@ public static class PerformerCandidateContract
         {
             throw new PerformerCandidateException(
                 "Candidate JSON is syntactically invalid.");
+        }
+        catch (InvalidOperationException)
+        {
+            throw new PerformerCandidateException(
+                "Candidate JSON contains invalid Unicode data.");
         }
 
         if (!sawRoot || !rootClosed || objectProperties.Count != 0)
