@@ -9,6 +9,7 @@ public sealed class StrongIdsTests
     [TestMethod]
     public void ValidStrongIds_StringifyToCanonicalValue()
     {
+        Assert.AreEqual("fixture-family", FixtureFamilyId.From("fixture-family").ToString());
         Assert.AreEqual("fixture", FixtureId.From("fixture").ToString());
         Assert.AreEqual("scene", SceneId.From("scene").ToString());
         Assert.AreEqual("character", CharacterId.From("character").ToString());
@@ -20,8 +21,15 @@ public sealed class StrongIdsTests
     }
 
     [TestMethod]
+    public void FixtureFamilyId_RejectsVersionDelimiter()
+    {
+        Assert.Throws<ArgumentException>(() => FixtureFamilyId.From("fixture@0.1.0"));
+    }
+
+    [TestMethod]
     public void DefaultStrongIds_RejectStringification()
     {
+        Assert.Throws<InvalidOperationException>(() => default(FixtureFamilyId).ToString());
         Assert.Throws<InvalidOperationException>(() => default(FixtureId).ToString());
         Assert.Throws<InvalidOperationException>(() => default(SceneId).ToString());
         Assert.Throws<InvalidOperationException>(() => default(CharacterId).ToString());
