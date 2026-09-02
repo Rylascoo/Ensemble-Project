@@ -1,5 +1,25 @@
 namespace Ensemble.E0.Core.Domain;
 
+public readonly record struct FixtureFamilyId
+{
+    private readonly string? _value;
+    public string Value => _value ?? throw new InvalidOperationException("FixtureFamilyId is uninitialized.");
+    private FixtureFamilyId(string value) => _value = value;
+
+    public static FixtureFamilyId From(string value)
+    {
+        var canonical = CanonicalId.Validate(value, nameof(value));
+        if (canonical.Contains('@', StringComparison.Ordinal))
+        {
+            throw new ArgumentException("Fixture family IDs may not contain '@'.", nameof(value));
+        }
+
+        return new FixtureFamilyId(canonical);
+    }
+
+    public override string ToString() => Value;
+}
+
 public readonly record struct FixtureId
 {
     private readonly string? _value;
