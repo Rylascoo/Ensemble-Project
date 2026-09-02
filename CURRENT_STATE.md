@@ -6,7 +6,7 @@ Updated: 2026-09-01
 - Blueprint 0.1 is FROZEN FOR E0.
 - E0-A Preparation Blueprint 0.2 is approved.
 - H1 Deterministic Spine Blueprint 0.2 is approved.
-- H1 Patch 0002.2 Missing Raft Fixture Contract Blueprint 0.4 is explicitly approved as the canonical GitHub implementation specification for the Missing Raft fixture subset.
+- H1 Patch 0002.2 Missing Raft Fixture Contract Blueprint 0.4 is the canonical GitHub implementation specification for the Missing Raft fixture subset.
 - `docs/ENGINEERING_HYGIENE_CONSTITUTION.md` is project law for implementation quality and cleanup unless a stronger frozen specification explicitly overrides it.
 - GitHub `Rylascoo/Ensemble-Project` is the authoritative engineering source.
 - Google Drive `Ensemble Project` is the design repository.
@@ -14,66 +14,89 @@ Updated: 2026-09-01
 ## Current phase
 E0-A Harness Implementation — H1 Deterministic Spine.
 
+H1 Patch 0002.2 is COMPLETE, machine-validated for its exercised gates, and promoted to `main` through PR #6.
+
 ## Validated executable baseline
-H1 Patch 0002.1 + Patch 0002.1a are merged to `main` through PRs #3 and #4.
+The current validated executable baseline includes H1 Patch 0002.1, Patch 0002.1a, and Patch 0002.2.
 
-The baseline includes typed E0 Fixture Dialect v1, immutable generic fixture validation, strict JSON/text boundaries, structural Character ownership, fixture-global record/reference validation, and an acyclic provenance DAG invariant enforced at `ValidatedFixture` construction.
+Latest machine-tested executable implementation head:
+`33a8a9f96d2320260619ac28309f0f40bee8e19e`
 
-Latest machine-validated executable head: `365537456f5890f3e2766abeb833f974c8fd7d8e`.
+Patch 0002.2 promotion head on `main` before this checkpoint update:
+`e9f61b79bc4b6bbf7272e9815acd0073e2275c8a`
 
+The commit after the tested executable head and before promotion is documentation-only validation evidence. It does not increase the executable validation level.
+
+Validated on the user's native Windows ARM64 machine:
 - Native Windows ARM64 compiler gate: PASS — Core and Harness built successfully; Harness output targeted `net9.0\win-arm64`.
-- Core tests: PASS — 31 total, 31 succeeded, 0 failed, 0 skipped.
-- Generic fixture runtime regression: PASS — `ensemble.e0.smoke@0.1.0` validated; exit code `0`.
+- Core tests: PASS — 62 total, 62 succeeded, 0 failed, 0 skipped.
+- Canonical Missing Raft runtime: PASS — `ensemble.e0.missing-raft@0.1.0` validated; exit code `0`.
+- Generic smoke runtime regression: PASS — `ensemble.e0.smoke@0.1.0` validated; exit code `0`.
+- Direct Missing Raft validation rejects the generic smoke fixture through the passing Core test suite.
+- Source-content review: PASS.
 - Final hygiene/scope comparison: PASS.
-- Detailed evidence: `docs/evidence/H1_PATCH_0002_1A_ARM64_VALIDATION.md`.
+- Detailed evidence: `docs/evidence/H1_PATCH_0002_2_ARM64_VALIDATION.md`.
 
-## Approved Patch 0002.2 specification
-PR #5 `H1: define Missing Raft fixture contract` was promoted to `main` as a blueprint-only fast-forward. No executable source changed in that promotion.
-
+## Patch 0002.2 implementation result
 Canonical specification:
 `docs/blueprint/H1_PATCH_0002_2_MISSING_RAFT_CONTRACT.md`
 
-Fresh-chat implementation handoff:
-`docs/handoff/E0A_H1_PATCH_0002_2_IMPLEMENTATION_HANDOFF.md`
+Canonical fixture source:
+`fixtures/missing-raft/missing-raft-0.1.0.json`
 
-Key implementation laws:
-1. preserve E0 Fixture Dialect v1 and generic validation unless implementation proves an impossibility;
-2. use `MissingRaftContract.Validate(ValidatedFixture)` without a second fixture/domain representation;
-3. keep exact Missing Raft fixture/Scene/Character/record IDs, authority categories, ownership, chronology, relationship targets, and frozen provenance explicit;
-4. provenance explains evidence/derivation and never grants access;
-5. one canonical fixture source: `fixtures/missing-raft/missing-raft-0.1.0.json`;
-6. relationship omission for E0-D is later context exclusion over the same frozen fixture, not fixture mutation;
-7. prose is source-reviewed in Patch 0002.2 and becomes cryptographically bound only in Patch 0003;
-8. no generic registry/plugin/causal/ablation framework is earned yet.
+Implemented architecture:
+1. E0 Fixture Dialect v1 and generic validation remain unchanged;
+2. `MissingRaftContract.Validate(ValidatedFixture)` adds fixture-specific structural law without a second fixture/domain representation;
+3. exact Missing Raft fixture/Scene/Character/record IDs, authority categories, ownership, chronology, relationship targets, and frozen provenance are mechanically protected;
+4. provenance remains evidence/derivation only and does not grant access;
+5. Harness dispatch is explicit and minimal for the known Missing Raft family while unknown generic families remain generically valid;
+6. relationship-context IDs remain a derived union for later E0-D context exclusion rather than fixture mutation;
+7. source prose is reviewed in Patch 0002.2 but is not cryptographically bound yet;
+8. mutation-style tests use the one canonical Missing Raft source rather than malformed-fixture copy sprawl;
+9. no generic registry/plugin/factory/causal/ablation framework was introduced.
+
+## Source-content disposition
+The canonical Missing Raft source passed review against the approved semantic contract.
+
+Confirmed:
+- raft failure remains unresolved;
+- the stronger current did not release the correctly secured mooring;
+- Wren observed Marlowe's later shoreline return, not the release;
+- Wren's suspicion remains suspicion rather than release knowledge;
+- Voss's accidental-loss explanation remains plausible belief rather than Production truth;
+- Marlowe's Character-owned knowledge does not gain Wren-private observation or an unsupported claim that he knew Wren correctly secured the mooring;
+- no extra dramatic premise, moral winner, forced confession, accusation, revelation, reconciliation, or solution was added.
 
 ## Validation authority
 - Static review: advisory only.
 - Visual Studio / `dotnet` ARM64 build output: compiler authority.
 - `dotnet test` on the target machine is test-execution authority for the tests actually exercised.
-- Actual target-device execution: runtime authority for the behavior actually exercised.
+- Actual target-device execution is runtime authority for the behavior actually exercised.
 - NPU execution requires explicit hardware evidence.
 - WACK and Partner Center remain later independent authorities.
 
 ## Explicitly unvalidated / excluded
-Patch 0002.2 executable implementation does not exist yet. No canonical Missing Raft runtime validation, ECJ-1, SHA-256 fixture hashing, deterministic Access Control, Context Composer, Production state construction, persistence, causal commits, provider/AI behavior, Windows AI/NPU execution, WinUI, packaging, WACK, or Store validation exists yet.
+Patch 0002.2 does not validate or implement ECJ-1 canonical serialization, SHA-256 fixture hashing, deterministic Access Control, Context Composer, Production state construction, persistence, causal commits, Performer/Director/Integrity Validator/Interpreter runtime orchestration, provider/AI behavior, Windows AI/NPU execution, WinUI, packaging, WACK, or Store behavior.
+
+No NPU, WACK, Store, or broader product-runtime claim may be inferred from the Patch 0002.2 evidence.
 
 ## Immediate next action
-Begin H1 Patch 0002.2 implementation from current `main` on a new dedicated branch.
+Hold at the validated H1 Patch 0002.2 boundary.
 
-Implementation order:
-1. author the one canonical Missing Raft JSON fixture exactly from the approved contract;
-2. perform source-content review against the approved semantic meanings before calling it canonical;
-3. add `MissingRaftContract` stable IDs/sets and fail-closed structural validation over `ValidatedFixture`;
-4. add the smallest Harness family dispatch;
-5. extend the existing Core test project with mutation-style contract tests;
-6. run static + engineering-hygiene comparison against the validated Patch 0002.1a baseline;
-7. request target Windows ARM64 build, full Core test, Missing Raft runtime, and generic smoke-regression evidence from the user;
-8. merge only after all gates pass.
+Do not begin Patch 0003 hashing or Patch 0004 Access Control as part of Patch 0002.2 cleanup or correction. A subsequent chat may resume the next approved H1 slice only after reading this checkpoint and the relevant canonical specification/roadmap source for that slice.
 
-Do not enter Patch 0003 hashing or Patch 0004 Access Control during 0002.2 correction/debugging.
+No further Patch 0002.2 implementation work is currently required.
 
 ## Continuity
-Fresh chats read this file first, then `docs/handoff/E0A_H1_PATCH_0002_2_IMPLEMENTATION_HANDOFF.md`, then the approved Patch 0002.2 contract, then only source/test files relevant to the immediate implementation slice. Do not reconstruct already-approved project state from chat history.
+Fresh chats read this file first.
+
+For Patch 0002.2 validation history, then read:
+- `docs/evidence/H1_PATCH_0002_2_ARM64_VALIDATION.md`;
+- `docs/blueprint/H1_PATCH_0002_2_MISSING_RAFT_CONTRACT.md`.
+
+`docs/handoff/E0A_H1_PATCH_0002_2_IMPLEMENTATION_HANDOFF.md` is now a completed historical handoff, not an instruction to reimplement the patch.
+
+Do not reconstruct already-approved project state from chat history when GitHub contains it.
 
 ## Project rule
 Every patch is reviewed against the previous validated baseline: correctness -> consistency -> authority -> scope -> tests -> simplicity -> hygiene -> ARM64 suitability -> vision -> evidence. Git preserves history; the active source tree preserves only the best current architecture.
