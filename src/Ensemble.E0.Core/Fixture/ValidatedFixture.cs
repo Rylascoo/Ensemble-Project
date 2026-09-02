@@ -31,6 +31,8 @@ public sealed class ValidatedFixture
         SceneState = sceneState;
         Characters = characters;
         Pressures = pressures;
+
+        ProvenanceDagValidator.Validate(this);
     }
 
     public FixtureId Id { get; }
