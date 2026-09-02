@@ -42,6 +42,17 @@ public sealed class CharacterBoundedAccessControlBoundaryTests
     }
 
     [TestMethod]
+    public void CharacterSafeAuthorityTypes_HaveNoPublicConstructors()
+    {
+        Assert.AreEqual(0, typeof(SceneParticipant).GetConstructors().Length);
+        Assert.AreEqual(0, typeof(PermittedRecord).GetConstructors().Length);
+        Assert.AreEqual(0, typeof(PermittedRelationship).GetConstructors().Length);
+        Assert.AreEqual(0, typeof(CharacterAccessProjection).GetConstructors().Length);
+        Assert.AreEqual(0, typeof(AccessDecision).GetConstructors().Length);
+        Assert.AreEqual(0, typeof(CharacterAccessEvaluation).GetConstructors().Length);
+    }
+
+    [TestMethod]
     public void InvalidAuthorityInputs_FailWithCharacterAccessException()
     {
         ValidatedFixture? missingFixture = null;
