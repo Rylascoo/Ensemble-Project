@@ -46,10 +46,15 @@ GitHub comparison from `44efd...` through `befb...` contains only:
 
 No production source changed between those machine-tested heads. Therefore the Harness build/runtime evidence applies to the same production source content that passed the corrected 115-test gate.
 
-Patch 0005 documentation closure head promoted to `main` before this checkpoint:
+Patch 0005 PR #12 closure head:
 `7256d5a59776b5c8198b14de4335ebb92eda89c4`
 
-Commits after `befb...` are documentation-only evidence closure and do not increase executable validation authority.
+PR #12 merge commit on `main`:
+`b0573a6ad8049ee5a03cd5af822476ad013135e3`
+
+The merge commit has two parents: the durable `CURRENT_STATE.md` checkpoint line and the exact PR #12 closure head. This preserved both histories without a force update after the GitHub draft-to-ready connector failed.
+
+Commits after `befb...` on the PR implementation lineage are documentation-only evidence closure and do not increase executable validation authority.
 
 Detailed evidence:
 - `docs/evidence/H1_PATCH_0005_ARM64_VALIDATION.md`
