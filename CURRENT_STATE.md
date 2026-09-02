@@ -13,26 +13,38 @@ Updated: 2026-09-01
 ## Current phase
 E0-A Harness Implementation — H1 Deterministic Spine.
 
-## Validated baseline
-H1 Patch 0001 and Patch 0001a are merged to `main`.
+## Last machine-validated baseline
+H1 Patch 0001 + Patch 0001a on `main`:
+- native Windows ARM64 Core/Harness build succeeded under .NET SDK 9.0.317;
+- Core regression tests passed 2/2;
+- native Harness process-start/runtime-guard sanity passed with expected exit code `2`.
 
-The current baseline includes:
-1. .NET 9 Core + native Windows ARM64 console Harness skeleton.
-2. Strong typed IDs with fail-closed behavior for default/uninitialized values.
-3. Strict fixture JSON ingestion/preflight bootstrap boundary.
-4. Fixture-envelope bootstrap DTOs and validation entrypoints, explicitly scheduled for direct replacement in Patch 0002.1.
-5. Stable .NET 9 SDK policy (`9.0.100` + `latestFeature`, prerelease disabled).
-6. One canonical `tests/Ensemble.E0.Core.Tests` project using MSTest SDK / Microsoft.Testing.Platform.
-7. Ensemble Engineering Hygiene Constitution and baseline hygiene audit.
-8. Successful native Windows ARM64 compiler, test-execution, and process-start/runtime-guard validation for the behavior exercised so far.
+## Active implementation boundary
+Branch: `h1-patch-0002-1-fixture-dialect`
 
-## Baseline hygiene audit decisions
-- Preserve `CanonicalId`, `StrictJsonPreflight`, `FixtureValidationException`, Core/Harness dependency direction, warnings-as-errors, deterministic build settings, native ARM64 Harness targeting, and one canonical Core test project.
-- Patch 0001 fixture-envelope types are bootstrap placeholders, not compatibility contracts.
-- In Patch 0002.1, replace `FixtureEnvelopeDocument` and `FixtureEnvelopeValidator` directly with the typed E0 Fixture Dialect v1 model/validators; do not retain a legacy adapter.
-- Remove fixture-authored `accessPolicies`; access will be governed by a known deterministic access contract plus authority category/ownership law.
-- Correct fixture identity semantics in Patch 0002.1 so family identity and fully versioned authoritative fixture identity are distinct; do not preserve the current unversioned `FixtureId` interpretation as a compatibility alias.
-- Update `FixtureLoader` directly to the new typed transport model when Patch 0002.1 lands.
+H1 Patch 0002.1 implements E0 Fixture Dialect v1 only:
+1. typed `E0FixtureDocument` transport schema;
+2. distinct fixture family identity, stable `major.minor.patch` fixture version, and derived versioned `FixtureId`;
+3. structurally separate Production-authoritative and Character-subjective record categories;
+4. Character ownership encoded by nesting rather than redundant owner fields;
+5. known access/observation contract identifiers with no fixture-authored ACLs;
+6. immutable `ValidatedFixture` promotion boundary;
+7. generic deterministic validation for exactly three Characters, Scene roster equality, initial opportunity, fixture-global Record IDs, chronology references, provenance integrity, and relationship targets;
+8. E0 JSON preflight bound to 1 MiB with duplicate-property rejection and JSON Number tokens forbidden;
+9. Unicode NFC/NUL semantic-text validation without silent normalization;
+10. one canonical non-Missing-Raft smoke fixture shared by tests and Harness runtime validation;
+11. existing Core test project extended for strong IDs, fixture versions, dialect loading, authority/reference invariants, and parser/preflight failures.
+
+## Clean replacement completed on this branch
+The Patch 0001 bootstrap fixture surfaces are not preserved as compatibility layers:
+- `FixtureEnvelopeDocument` deleted;
+- `FixtureEnvelopeValidator` deleted;
+- fixture-authored `accessPolicies` removed from the transport schema;
+- `FixtureLoader` now returns `E0FixtureDocument` directly;
+- Harness promotes only through `GenericE0FixtureValidator` to `ValidatedFixture`.
+
+## Explicit exclusions
+Patch 0002.1 does not include Missing Raft-specific law/content, ECJ-1, SHA-256, Access Control implementation, Context Composer, Production state construction, persistence, causal commits, Performer/Director/Interpreter, provider/AI work, WinUI, Windows AI, NPU/QNN, packaging, WACK, or Store work.
 
 ## Validation authority
 - Static review: advisory only.
@@ -43,16 +55,12 @@ The current baseline includes:
 - WACK and Partner Center remain later independent authorities.
 
 ## Current validation state
-- Native machine evidence confirms Windows `win-arm64`, .NET host architecture `arm64`, .NET SDK 9.0.317 installed, and .NET runtime 9.0.19 installed.
-- Patch 0001a validation on 2026-09-01 used SDK 9.0.317 under the stable .NET 9 roll-forward policy.
-- Harness/Core build succeeded, with Harness output targeting `net9.0\win-arm64`.
-- Core regression tests succeeded: 2 total, 2 succeeded, 0 failed, 0 skipped.
-- Harness process started successfully, passed the Windows/ARM64 architecture guard, reached the expected missing-fixture usage path, and returned exit code `2`.
-- Detailed evidence is recorded in `docs/evidence/H1_PATCH_0001_ARM64_BUILD.md`, `docs/evidence/H1_PATCH_0001_ARM64_RUNTIME_SANITY.md`, and `docs/evidence/H1_PATCH_0001A_ARM64_VALIDATION.md`.
-- No fixture semantic validation, Access Control, Context Composer, persistence, provider behavior, Windows AI/NPU execution, packaging, WACK, or Store validation exists yet.
+- Patch 0001 + 0001a remain the last machine-validated baseline.
+- Patch 0002.1 implementation has static review only until rebuilt/tested/run on the target Windows ARM64 machine.
+- No Missing Raft semantic validation, Access Control, Context Composer, persistence, provider behavior, Windows AI/NPU execution, packaging, WACK, or Store validation exists yet.
 
 ## Immediate next action
-Begin Patch 0002.1: typed E0 Fixture Dialect v1 plus generic semantic validation using the existing Core test project. Replace the bootstrap fixture DTO/validator surfaces directly rather than layering compatibility adapters. Do not add ECJ-1 hashing, Access Control, Context Composer, or later H1 machinery until Patch 0002.1 is separately reviewed and machine-validated.
+Complete branch-wide static correctness/consistency/authority/scope/test/simplicity/hygiene review. If clean, run the Patch 0002.1 ARM64 gate: Harness build, Core tests, then Harness validation of `fixtures\smoke\e0-fixture-v1.json`. Patch only evidence-backed failures before merge.
 
 ## Project rule
 Every patch is reviewed against the previous validated baseline: correctness -> consistency -> authority -> scope -> tests -> simplicity -> hygiene -> ARM64 suitability -> vision -> evidence. Git preserves history; the active source tree preserves only the best current architecture.
