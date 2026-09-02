@@ -14,6 +14,7 @@ Raw UTF-8 bytes -> StrictJsonPreflight -> E0FixtureDocument (untrusted transport
 ## Dialect identity
 - schema version: `ensemble.e0.fixture.v1`
 - access contract: `ensemble.e0.character-bounded.v1`
+- observation contract: `ensemble.e0.copresent-trio.v1`
 - fixture family ID and fixture version are separate source fields
 - authoritative FixtureId is derived as `<family>@<version>`
 - E0 v1 fixture versions use stable `major.minor.patch` semantic-version core syntax only
@@ -53,7 +54,7 @@ Generic E0 validation requires:
 - relationship targets resolve and may not target the source Character
 - chronology references HistoricalTruth records only and contains no duplicate references
 - provenance references resolve to existing Record IDs and may not self-reference
-- schema version and access contract are known
+- schema version, access contract, and observation contract are known
 
 Patch 0002.1 validates graph integrity, not narrative meaning.
 
@@ -95,7 +96,7 @@ Patch 0001 bootstrap surfaces are replaced directly:
 No legacy adapter or alias is retained.
 
 ## Tests
-Extend the single existing `Ensemble.E0.Core.Tests` project. Tests cover the valid generic fixture and one-invariant-at-a-time failures for dialect/schema, IDs, roster, references, chronology, provenance, access contract, JSON numbers, duplicate properties, text canonicality, and strong identity behavior.
+Extend the single existing `Ensemble.E0.Core.Tests` project. Tests cover the valid generic fixture and one-invariant-at-a-time failures for dialect/schema, IDs, roster, references, chronology, provenance, access/observation contracts, JSON numbers, duplicate properties, text canonicality, size bounds, and strong identity behavior.
 
 ## Explicit exclusions
 - Missing Raft-specific law/content
