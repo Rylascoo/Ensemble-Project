@@ -9,7 +9,7 @@ public readonly record struct FixtureFamilyId
     public static FixtureFamilyId From(string value)
     {
         var canonical = CanonicalId.Validate(value, nameof(value));
-        if (canonical.Contains('@', StringComparison.Ordinal))
+        if (canonical.Contains('@'))
         {
             throw new ArgumentException("Fixture family IDs may not contain '@'.", nameof(value));
         }
