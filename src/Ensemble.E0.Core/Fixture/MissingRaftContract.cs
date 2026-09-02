@@ -13,6 +13,9 @@ public static class MissingRaftContract
     public const string MarloweCharacterId = "MARLOWE";
     public const string VossCharacterId = "VOSS";
     public const string WrenCharacterId = "WREN";
+    public const string MarloweDisplayName = "Marlowe";
+    public const string VossDisplayName = "Dr. Voss";
+    public const string WrenDisplayName = "Wren";
 
     public const string Rh001Id = "RH-001";
     public const string Rh002Id = "RH-002";
@@ -70,8 +73,8 @@ public static class MissingRaftContract
 
     public static FixtureFamilyId FamilyId { get; } = FixtureFamilyId.From(FamilyIdValue);
     public static FixtureVersion Version { get; } = FixtureVersion.From(VersionValue);
-    public static FixtureId FixtureId { get; } = FixtureId.From(FixtureIdValue);
-    public static SceneId SceneId { get; } = SceneId.From(SceneIdValue);
+    public static FixtureId ExpectedFixtureId { get; } = Domain.FixtureId.From(FixtureIdValue);
+    public static SceneId ExpectedSceneId { get; } = Domain.SceneId.From(SceneIdValue);
     public static CharacterId MarloweId { get; } = CharacterId.From(MarloweCharacterId);
     public static CharacterId VossId { get; } = CharacterId.From(VossCharacterId);
     public static CharacterId WrenId { get; } = CharacterId.From(WrenCharacterId);
@@ -98,6 +101,8 @@ public static class MissingRaftContract
             .Union(RelationshipRecordIds)
             .Union(RelationshipDerivedMemoryRecordIds)
             .ToImmutableHashSet();
+
+    private static readonly ImmutableHashSet<RecordId> NoRecordIds = ImmutableHashSet<RecordId>.Empty;
 
     private static readonly ImmutableHashSet<CharacterId> CharacterIds =
         ImmutableHashSet.Create(MarloweId, VossId, WrenId);
@@ -126,16 +131,14 @@ public static class MissingRaftContract
 
     private static readonly ImmutableHashSet<RecordId> PressureIds = RecordIds(PressureIsolationId);
 
-    private static readonly ImmutableArray<RecordId> ChronologyIds =
-    [
+    private static readonly ImmutableArray<RecordId> ChronologyIds = ImmutableArray.Create(
         RecordId.From(Rh001Id),
         RecordId.From(Rh002Id),
         RecordId.From(HtWrenSecuredRaftId),
         RecordId.From(HtRaftDeterioratedId),
         RecordId.From(HtMarloweReleasedRaftId),
         RecordId.From(HtCurrentCarriedRaftAwayId),
-        RecordId.From(HtMarloweReturnedShorelineId)
-    ];
+        RecordId.From(HtMarloweReturnedShorelineId));
 
     private static readonly ImmutableDictionary<RecordId, CharacterId> RelationshipTargets =
         new Dictionary<RecordId, CharacterId>
@@ -154,12 +157,12 @@ public static class MissingRaftContract
 
         RequireEqual(fixture.FamilyId, FamilyId, "Fixture family");
         RequireEqual(fixture.Version, Version, "Fixture version");
-        RequireEqual(fixture.Id, FixtureId, "Fixture ID");
+        RequireEqual(fixture.Id, ExpectedFixtureId, "Fixture ID");
         RequireEqual(fixture.SchemaVersion, E0FixtureDialect.SchemaVersion, "Schema version");
         RequireEqual(fixture.AccessContract, E0FixtureDialect.AccessContract, "Access contract");
         RequireEqual(fixture.ObservationContract, E0FixtureDialect.ObservationContract, "Observation contract");
 
-        RequireEqual(fixture.Scene.Id, SceneId, "Scene ID");
+        RequireEqual(fixture.Scene.Id, ExpectedSceneId, "Scene ID");
         RequireExactSet(fixture.Characters.Select(character => character.Id), CharacterIds, "Character set");
         RequireExactSet(fixture.Scene.Roster, CharacterIds, "Scene roster");
         RequireEqual(fixture.InitialOpportunity, VossId, "Initial opportunity");
@@ -209,7 +212,7 @@ public static class MissingRaftContract
 
     private static void ValidateMarlowe(ValidatedCharacter character)
     {
-        RequireEqual(character.DisplayName, "Marlowe", "MARLOWE display name");
+        RequireEqual(character.DisplayName, MarloweDisplayName, "MARLOWE display name");
         ValidateCharacterCollections(
             character,
             constitution: RecordIds(ConMarloweId),
@@ -217,7 +220,7 @@ public static class MissingRaftContract
             observations: RecordIds(ObsMarloweRaftDeteriorationId, ObsMarloweNobodyVisibleId),
             knowledge: RecordIds(KnowMarloweReleasedRaftId, KnowMarloweNotWarnedId),
             beliefs: RecordIds(BelMarloweDamageUnacceptableId, BelMarloweGroupLikelyProceedId, BelMarloweDisclosureRiskId),
-            suspicions: [],
+            suspicions: NoRecordIds,
             memories: RecordIds(MemMarloweRh001Id, MemMarloweRh002Id),
             goals: RecordIds(GoalMarloweId),
             relationships: RecordIds(RelMarloweVossId, RelMarloweWrenId));
@@ -225,15 +228,15 @@ public static class MissingRaftContract
 
     private static void ValidateVoss(ValidatedCharacter character)
     {
-        RequireEqual(character.DisplayName, "Dr. Voss", "VOSS display name");
+        RequireEqual(character.DisplayName, VossDisplayName, "VOSS display name");
         ValidateCharacterCollections(
             character,
             constitution: RecordIds(ConVossId),
             disposition: RecordIds(DispVossId),
-            observations: [],
+            observations: NoRecordIds,
             knowledge: RecordIds(KnowVossCurrentStrengthenedId),
             beliefs: RecordIds(BelVossAccidentalLossPlausibleId),
-            suspicions: [],
+            suspicions: NoRecordIds,
             memories: RecordIds(MemVossRh001Id, MemVossRh002Id),
             goals: RecordIds(GoalVossId),
             relationships: RecordIds(RelVossMarloweId, RelVossWrenId));
@@ -241,14 +244,14 @@ public static class MissingRaftContract
 
     private static void ValidateWren(ValidatedCharacter character)
     {
-        RequireEqual(character.DisplayName, "Wren", "WREN display name");
+        RequireEqual(character.DisplayName, WrenDisplayName, "WREN display name");
         ValidateCharacterCollections(
             character,
             constitution: RecordIds(ConWrenId),
             disposition: RecordIds(DispWrenId),
             observations: RecordIds(ObsWrenMarloweReturnId),
             knowledge: RecordIds(KnowWrenSecuredRaftId),
-            beliefs: [],
+            beliefs: NoRecordIds,
             suspicions: RecordIds(SuspWrenMarloweKnowsMoreId),
             memories: RecordIds(MemWrenRh002Id),
             goals: RecordIds(GoalWrenId),
@@ -269,7 +272,7 @@ public static class MissingRaftContract
     {
         RequireExactSet(character.Constitution.Select(record => record.Id), constitution, $"{character.Id} Constitution");
         RequireExactSet(character.Disposition.Select(record => record.Id), disposition, $"{character.Id} Disposition");
-        RequireExactSet(character.Circumstance.Select(record => record.Id), [], $"{character.Id} Circumstance");
+        RequireExactSet(character.Circumstance.Select(record => record.Id), NoRecordIds, $"{character.Id} Circumstance");
         RequireExactSet(character.Observations.Select(record => record.Id), observations, $"{character.Id} Observation");
         RequireExactSet(character.Knowledge.Select(record => record.Id), knowledge, $"{character.Id} Knowledge");
         RequireExactSet(character.Beliefs.Select(record => record.Id), beliefs, $"{character.Id} Belief");
@@ -364,7 +367,7 @@ public static class MissingRaftContract
         RelWrenMarloweId => RecordIds(Rh002Id),
         RelWrenVossId => RecordIds(Rh002Id),
 
-        _ => ImmutableHashSet<RecordId>.Empty
+        _ => NoRecordIds
     };
 
     private static ImmutableHashSet<RecordId> RecordIds(params string[] values) =>
@@ -376,7 +379,8 @@ public static class MissingRaftContract
         string label)
         where T : notnull
     {
-        if (!actual.ToHashSet().SetEquals(expected))
+        var values = actual.ToArray();
+        if (values.Length != expected.Count || !values.ToHashSet().SetEquals(expected))
         {
             throw new FixtureValidationException($"Missing Raft {label} does not match the frozen contract.");
         }
