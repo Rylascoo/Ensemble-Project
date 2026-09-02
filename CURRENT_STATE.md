@@ -21,68 +21,74 @@ H1 Patch 0003 is COMPLETE, machine-validated for its exercised gates, and promot
 
 H1 Patch 0004 is COMPLETE, machine-validated for its exercised gates, and promoted through PR #10.
 
-H1 Patch 0005 Blueprint 0.3 is explicitly approved and promoted through PR #11 at `4ca5e88210209885e836b566f42602fb5bf94607`. Patch 0005 executable implementation has not yet been machine-validated.
+H1 Patch 0005 is COMPLETE for its exercised gates and promoted through PR #12.
 
-## Validated executable baseline
-Latest machine-tested executable implementation head:
-`b228cd134f8e3258bb54fcb8e8f1fb01c21b96f8`
+## Latest machine-validated Patch 0005 implementation state
+Corrected full Core test head:
+`befb6648c36400546ac4843d575bd64760b23445`
 
-Validated on the user's native Windows ARM64 machine:
-- Native Windows ARM64 compiler gate: PASS — Core and Harness built successfully; Harness targeted `net9.0\win-arm64`.
-- Core tests: PASS — 90 total, 90 succeeded, 0 failed, 0 skipped.
-- Canonical Missing Raft runtime with structural + ECJ-1/SHA-256 enforcement: PASS; exit `0`.
-- Generic smoke runtime regression: PASS; exit `0`.
-- Final Patch 0004 static/adversarial/hygiene/scope review: PASS advisory.
+At that head on the user's native Windows ARM64 machine:
+- `Ensemble.E0.Core` rebuilt successfully as part of `dotnet test`;
+- Core tests: PASS — 115 total, 115 succeeded, 0 failed, 0 skipped.
+
+Native Harness build/runtime authority was established at earlier implementation head:
+`44efd6358d8a94e769eee2ff9b2c7bd4715f5587`
+
+At that head on the same native Windows ARM64 machine:
+- Core and Harness build: PASS;
+- Harness target output: `net9.0\win-arm64`;
+- Missing Raft runtime regression: PASS; exit `0`;
+- generic smoke runtime regression: PASS; exit `0`.
+
+GitHub comparison from `44efd...` through `befb...` contains only:
+- `docs/evidence/H1_PATCH_0005_REFERENCE_ORACLE.md`;
+- `tests/Ensemble.E0.Core.Tests/Context/DeterministicContextComposerTests.cs`.
+
+No production source changed between those machine-tested heads. Therefore the Harness build/runtime evidence applies to the same production source content that passed the corrected 115-test gate.
+
+Patch 0005 documentation closure head promoted to `main` before this checkpoint:
+`7256d5a59776b5c8198b14de4335ebb92eda89c4`
+
+Commits after `befb...` are documentation-only evidence closure and do not increase executable validation authority.
 
 Detailed evidence:
-`docs/evidence/H1_PATCH_0004_ARM64_VALIDATION.md`
+- `docs/evidence/H1_PATCH_0005_ARM64_VALIDATION.md`
+- `docs/evidence/H1_PATCH_0005_REFERENCE_ORACLE.md`
 
-Documentation-only Patch 0005 blueprint/checkpoint commits do not increase executable validation authority.
+## Patch 0005 corrected frozen Context identity
+Canonical Missing Raft / Voss reference:
+- structured canonical UTF-8 length: `2569` bytes;
+- StructuredContextHash: `bbb82aa9400ea76290f9e3a62dcea3cb922f5d5b5a5677216a8922a6472e274b`;
+- ContextPacketId: `CTX:bbb82aa9400ea76290f9e3a62dcea3cb922f5d5b5a5677216a8922a6472e274b`;
+- TrustedStateText UTF-8 length: `1696` bytes;
+- rendered envelope UTF-8 length: `1905` bytes;
+- RenderedContextHash: `ce99a0c5e525276c17b84ad86a21c335028d1a01791f27c223bae4e5edd7cf88`.
 
-## Patch 0003 frozen identity
-Canonical specification:
-`docs/blueprint/H1_PATCH_0003_ECJ1_FIXTURE_HASH.md`
+The original pre-machine oracle accidentally transcribed canonical `REL-VOSS-MARLOWE` text as `competence` instead of fixture-authoritative `perception`. Because both words are ten ASCII bytes, byte-length expectations remained unchanged while both hashes changed. The canonical fixture controlled; production Composer code did not change.
 
-Missing Raft 0.1.0 frozen ECJ-1 reference remains:
-- canonical UTF-8 byte length: `9112`;
-- SHA-256: `5556a02325e6a7f774e6997942b395d670741d494ea86f1a50b83633e26b6703`.
-
-The canonical Missing Raft source JSON remains unchanged.
-
-## Patch 0004 validated Access Control boundary
-Canonical specification:
-`docs/blueprint/H1_PATCH_0004_DETERMINISTIC_ACCESS_CONTROL.md`
-
-Validated law preserved for Patch 0005:
-1. `CharacterAccessProjection` is the only approved Character-safe information input to Context Composer;
-2. Production HistoricalTruth, UnresolvedProposition, WorldState, chronology, denied Access decisions, and fixture provenance are not Composer inputs;
-3. projection records contain safe disclosure fields only and no authoritative `Validated*` references;
-4. Access Control emits the maximal permitted set and remains upstream of all relevance/composition logic;
-5. E0-D omniscient context remains outside the safe reference Access Control operation.
-
-## Current Patch 0005 specification
+## Patch 0005 implementation result
 Canonical specification:
 `docs/blueprint/H1_PATCH_0005_DETERMINISTIC_CONTEXT_COMPOSER.md`
 
-Approved law includes:
-1. Patch 0005 implements the deterministic Context Composer immediately after validated Access Control;
-2. E0 reference composition is `ensemble.e0.context.full-authorized.v1`: every permitted record is included exactly once in its original authority category;
-3. Composer public input is only `CharacterAccessProjection + CurrentOpportunityCharacterId`;
-4. opportunity must equal the subject Character, be rostered, and grants no additional knowledge;
-5. `ContextSchemaVersion = ensemble.e0.context.v1`;
-6. `RenderingContract = ensemble.e0.context.render.v1`;
-7. packet structure preserves Scene/subject/opportunity identity, roster, SceneState, Pressures, Constitution, Disposition, Circumstance, Observations, Knowledge, Beliefs, Suspicions, Memories, Goals, and directional Relationships as distinct fields;
-8. `recentPerformances` is reserved as exact empty schema-v1 array; Patch 0005 creates no recent-history DTO/non-empty path;
-9. provider-neutral rendering separates trusted state, recent performance, and opportunity layers with exact LF/headings/bullet/no-trailing-LF behavior;
-10. final system/provider request construction remains outside Context Composer;
-11. `StructuredContextHash` is SHA-256 over explicit canonical structured semantic content;
-12. `RenderedContextHash` is SHA-256 over RenderingContract plus exact provider-neutral rendered disclosure;
-13. `ContextPacketId = CTX:<StructuredContextHash>` and is semantic content identity, not fixture/run provenance or authorization;
-14. canonical JSON string/UTF-8 emission is shared with ECJ-1 rather than duplicated, while fixture-specific canonical order remains explicit;
-15. Missing Raft ECJ-1 must remain exactly 9112 bytes and the frozen SHA-256 digest;
-16. packet/render/trace must not contain denied Access IDs or fixture provenance;
-17. packet/render/trace constructors remain non-public authority boundaries;
-18. no relevance inference, token optimization, provider/model calls, Director selection logic, persistence, recent-history implementation, or E0-D bypass belongs in Patch 0005.
+Implemented architecture:
+1. `DeterministicContextComposer` is the single safe E0 reference Composer for `ensemble.e0.context.full-authorized.v1`;
+2. public Composer input is limited to `CharacterAccessProjection + CurrentOpportunityCharacterId`;
+3. current opportunity must equal the projection subject and grants no additional knowledge;
+4. every already-permitted Access record is included exactly once in its original authority category;
+5. Knowledge, Belief, Suspicion, Memory, Observation, SceneState, Pressure, Constitution, Disposition, Circumstance, Goal, and directional Relationship remain structurally distinct;
+6. no semantic relevance, embeddings, ranking, token optimization, summarization, paraphrase, deduplication, or truncation occurs in the E0 reference contract;
+7. `recentPerformances` is canonically exact `[]`; no accepted-history DTO or non-empty population path exists yet;
+8. provider-neutral rendering uses `ensemble.e0.context.render.v1` with deterministic LF-only headings/bullets and separate trusted-state, recent-performance, and opportunity layers;
+9. Rendered context omits internal Record IDs, Character IDs, SceneId, fixture hash, provenance, access decisions, provider/model data, and diagnostics;
+10. `StructuredContextHash` identifies canonical structured semantic context;
+11. `RenderedContextHash` identifies the rendering contract plus exact provider-neutral rendered disclosure;
+12. `ContextPacketId = CTX:<StructuredContextHash>` is content identity, not authorization, fixture/run provenance, signing, or publisher identity;
+13. local composition trace is separate from Performer-facing packet context and contains no denied Access IDs or record text;
+14. public safe output types are read-only with Core-internal constructors so external assemblies cannot forge authoritative Context objects through public construction;
+15. canonical JSON scalar/string + UTF-8 emission is shared with ECJ-1 through one small internal helper; fixture-specific ECJ-1 ordering remains explicit;
+16. frozen Missing Raft ECJ-1 identity remains exactly 9112 bytes and SHA-256 `5556a02325e6a7f774e6997942b395d670741d494ea86f1a50b83633e26b6703`;
+17. E0-D omniscient and relationship-omission conditions remain separate experimental paths, not flags/bypasses in the safe reference Composer;
+18. no provider/model adapter, Director, persistence/history implementation, ProductionState, StateHash, WinUI, Windows AI/NPU, packaging, WACK, or Store machinery was introduced.
 
 ## Validation authority
 - Static review: advisory only.
@@ -93,59 +99,50 @@ Approved law includes:
 - WACK and Partner Center remain later independent authorities.
 
 ## Explicitly unvalidated / excluded
-No Patch 0005 executable validation exists yet.
-
 Patch 0005 does not establish or implement:
-- semantic/probabilistic relevance ranking;
-- embeddings/vector search;
-- token budgeting/truncation or context-cost optimization;
-- provider system prompt/request construction;
-- provider/model adapters or calls;
-- provider-request hash;
+- provider/model behavior;
+- Performer system contract or provider-request framing;
 - Director/opportunity selection;
-- accepted Take/history projection or non-empty recent performance;
+- accepted Take/history authority or non-empty recent-performance context;
+- semantic/probabilistic relevance optimization;
 - E0-D omniscient or relationship-omission execution;
+- ProductionState or StateHash;
 - Integrity Validator;
 - State Interpreter / State Authority;
-- ProductionState / StateHash;
 - causal commit/persistence/recovery replay;
-- observation engine;
+- full observation engine;
 - Windows AI or NPU execution/performance;
 - WinUI;
 - packaging/WACK;
 - Microsoft Store certification.
 
+Deterministic Context Composer validation proves the exercised safe composition/render/identity boundary. It does not itself prove Character/model quality, Director behavior, causal state evolution, persistence, product UX, or later security boundaries.
+
 ## Immediate next action
-Implement H1 Patch 0005 only from current `main` on a dedicated implementation branch, following:
-`docs/blueprint/H1_PATCH_0005_DETERMINISTIC_CONTEXT_COMPOSER.md`
+Hold at the validated H1 Patch 0005 boundary.
 
-Implementation order:
-1. independently derive the canonical Missing Raft Voss structured/rendered reference hashes from the approved blueprint contract before freezing expected values in production tests;
-2. extract the smallest shared canonical JSON string/UTF-8 primitive from ECJ-1 only if needed, preserving exact existing ECJ-1 bytes/digest;
-3. add immutable non-forgeable Context packet/render/trace models;
-4. implement deterministic full-authorized composition from `CharacterAccessProjection + opportunity CharacterId` only;
-5. implement exact structured canonicalization, dual SHA-256 identity, and `CTX:<StructuredContextHash>` packet identity;
-6. implement exact provider-neutral render contract without provider/system prompt machinery;
-7. add exact generic + Missing Raft packet-set, category, leakage, render-byte, hash, ordering, determinism, fail-closed, and non-forgeability tests;
-8. prove `recentPerformances` remains exact empty array with no speculative history implementation;
-9. prove the frozen Missing Raft fixture ECJ-1 output/hash remains unchanged;
-10. run static/adversarial/hygiene/scope review;
-11. request native Windows ARM64 build, full tests, Missing Raft runtime regression, and generic smoke runtime regression;
-12. promote only after all exercised gates pass.
+Do not enter provider integration, Director logic, accepted-history plumbing, persistence, or E0-D bypasses as Patch 0005 cleanup.
 
-Do not enter provider integration, Director logic, accepted-history/persistence, relevance inference, token optimization, or E0-D bypasses during Patch 0005.
+Before entering the next H1 slice:
+1. read this checkpoint first;
+2. recover the canonical roadmap/specification for the next deterministic-spine boundary;
+3. determine whether the next authority slice is already implementation-complete in GitHub;
+4. if not, create and explicitly approve a standalone blueprint before executable work begins;
+5. preserve `CharacterAccessProjection` as the only Character information authority input to Context composition;
+6. preserve the validated ContextPacket/dual-hash boundary unless a stronger explicitly approved specification deliberately changes it.
+
+No further Patch 0005 implementation work is currently required.
 
 ## Continuity
 Fresh chats read this file first.
 
-For Patch 0005 implementation, then read:
-- `docs/blueprint/H1_PATCH_0005_DETERMINISTIC_CONTEXT_COMPOSER.md`;
-- `src/Ensemble.E0.Core/Access/CharacterAccessModels.cs`;
-- `src/Ensemble.E0.Core/Access/CharacterBoundedAccessControl.cs`;
-- `src/Ensemble.E0.Core/Fixture/Ecj1FixtureCanonicalizer.cs`;
-- only directly affected Core/test files.
+For Patch 0005 history and authority, then read:
+- `docs/evidence/H1_PATCH_0005_ARM64_VALIDATION.md`;
+- `docs/evidence/H1_PATCH_0005_REFERENCE_ORACLE.md`;
+- `docs/blueprint/H1_PATCH_0005_DETERMINISTIC_CONTEXT_COMPOSER.md`.
 
-For prior authority, read only as needed:
+For earlier authority, read only as needed:
+- `docs/evidence/H1_PATCH_0004_ARM64_VALIDATION.md`;
 - `docs/blueprint/H1_PATCH_0004_DETERMINISTIC_ACCESS_CONTROL.md`;
 - `docs/blueprint/H1_PATCH_0003_ECJ1_FIXTURE_HASH.md`;
 - `docs/blueprint/H1_PATCH_0002_2_MISSING_RAFT_CONTRACT.md`.
