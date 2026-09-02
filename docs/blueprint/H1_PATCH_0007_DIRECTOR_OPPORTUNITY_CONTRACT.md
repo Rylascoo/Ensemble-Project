@@ -1,6 +1,6 @@
 # H1 Patch 0007 — E0 Director Opportunity Contract
 
-Status: blueprint proposal 0.7 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; APPROVAL REQUIRED; implementation not started
+Status: blueprint proposal 0.8 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; APPROVAL REQUIRED; implementation not started
 Parent baseline: validated H1 Patch 0006
 Branch: `h1-patch-0007-director-opportunity-blueprint`
 
@@ -9,7 +9,7 @@ Branch: `h1-patch-0007-director-opportunity-blueprint`
 Define the next E0-A behavioral boundary after the validated Performer candidate contract:
 
 ```text
-ContextPacket + CandidatePerformance + effective opportunity history
+ContextPacket + CandidatePerformance + effective opportunity-event history
     -> deterministic Director input binding
         -> least-privilege DirectorOpportunityInput
             -> deterministic E0 Director proposal/evaluation
@@ -119,7 +119,7 @@ Within validated DirectorOpportunityInput:
 - RosterCharacterIds stored ordinally by CharacterId;
 - AddressedCharacterIds stored ordinally by CharacterId;
 - NominatedCharacterId remains nullable scalar;
-- OpportunityHistory preserves exact effective causal order and is never sorted;
+- OpportunityHistory preserves exact effective opportunity-event order and is never sorted;
 - SceneId, SourceCharacterId, SourceContextPacketId copy exactly from trusted upstream identity.
 
 No trimming, inference, ranking, semantic rewriting, or hidden normalization occurs.
@@ -143,20 +143,31 @@ Bind fails closed unless:
 
 Binder does not recanonicalize Context, recompute hashes, inspect provenance, rerun Access Control, or inspect Candidate VisibleText.
 
-## 8. Exact opportunity-history semantics
+## 8. Exact OpportunityHistory semantics
 
-OpportunityHistory records effective opportunity changes only.
+OpportunityHistory records **effective opportunity establishments/events**, not provider attempts and not merely Character-ID transitions.
 
 It includes:
 
-- fixture-authored opening opportunity once;
-- each later Character opportunity only when it became effective through the future causal/orchestration boundary.
+- fixture-authored opening opportunity exactly once;
+- every later newly authorized effective Character opportunity event through the future causal/orchestration boundary.
 
-It does not append for provider retry/refusal/error, partial/cancelled generation, malformed candidate, rejected candidate, request-another-take attempt, alternate attempt while the same Character retains opportunity, or speculative Director proposal.
+A newly established effective opportunity appends one history entry even if its CharacterId equals the previous history entry. This permits structural detection of repeated same-Character attention without pretending that Character identity had to change.
 
-Retries/rejections therefore cannot distort recency.
+It does not append for:
 
-Patch 0007 defines this semantic input but does not implement its persistence/mutation.
+- provider retry;
+- provider refusal/error;
+- partial/cancelled generation;
+- malformed candidate;
+- rejected CandidatePerformance;
+- request-another-take attempt;
+- alternate candidate attempt while the existing opportunity remains in force;
+- speculative/precommit Director proposal or evaluation.
+
+Therefore retries/rejections cannot distort recency, while genuinely re-established attention remains causally observable.
+
+Patch 0007 defines this semantic input but does not implement its persistence or mutation.
 
 ## 9. DirectorOpportunityInput is observational, not authority state
 
@@ -246,7 +257,7 @@ TwoCharacterAlternation
 
 Pattern diagnostics never change SelectedCharacterId.
 
-NeverOpportunitiedCharacterIds is the ordinally stored subset of roster IDs absent from the complete OpportunityHistory. It is descriptive structural evidence, not a fairness command.
+NeverOpportunitiedCharacterIds is the ordinally stored subset of roster IDs absent from complete OpportunityHistory. It is descriptive structural evidence, not a fairness command.
 
 Trace set-like collections are ordinal; OpportunityHistory stays exact order.
 
@@ -330,11 +341,11 @@ This does not label the absence “accidental,” because intent cannot be estab
 
 RecentAttentionPattern = RepeatedSameCharacter when OpportunityHistory has at least two entries and the final two Character IDs are equal.
 
-This is a structural stall/repeat signal only. It does not change selection.
+This is a structural repeated/stalled-attention signal only. It does not change selection.
 
 ### Two-character alternation
 
-RecentAttentionPattern = TwoCharacterAlternation when history has at least four entries and the final four are exact A,B,A,B with A != B.
+RecentAttentionPattern = TwoCharacterAlternation when OpportunityHistory has at least four entries and the final four are exact A,B,A,B with A != B.
 
 This detects repetitive ping-pong without assuming it is accidental and without overriding explicit social intention.
 
@@ -488,12 +499,12 @@ Use upstream validated Context/Candidate paths and canonical fixtures.
 6. roster exactly three/unique/initialized/source once;
 7. control IDs roster-bound/non-self/duplicate-free;
 8. history non-default/non-empty/roster-bound/tail==source;
-9. OpportunityHistory contract excludes retries/rejections/alternate attempts/speculation;
+9. OpportunityHistory excludes retries/rejections/alternate attempts/speculation but permits a newly effective same-Character opportunity event;
 10. Input constructor non-public;
 11. Input exact fields contain no VisibleText/private Context/Rendering/Access/provenance;
 12. roster stored ordinally;
 13. addresses stored ordinally;
-14. history exact order preserved;
+14. history exact event order preserved including repeated Character IDs;
 15. strategy public API accepts DirectorOpportunityInput only;
 16. strategy cannot receive ContextPacket/CandidatePerformance directly.
 
@@ -503,7 +514,7 @@ Use upstream validated Context/Candidate paths and canonical fixtures.
 18. Proposal has no StrategyContract/Basis/ContextPacketId/prose/score/control/history;
 19. Proposal constructor non-public;
 20. trace contains strategy/source ContextPacketId/control/history/candidate pool/selection/Rule/diagnostics;
-21. trace set ordering canonical and history ordering exact;
+21. trace set ordering canonical and history event ordering exact;
 22. trace contains no VisibleText/private/provider/model reasoning.
 
 ### Least-intervention selection
@@ -524,7 +535,7 @@ Use upstream validated Context/Candidate paths and canonical fixtures.
 ### Diagnostics/no fairness authority
 
 35. history with never-seen roster Character records it diagnostically but does not override nomination/address;
-36. final same,same -> RepeatedSameCharacter;
+36. final same,same effective opportunity events -> RepeatedSameCharacter;
 37. final A,B,A,B -> TwoCharacterAlternation;
 38. A,B,A,C -> None;
 39. pattern diagnostic never changes selected Character;
@@ -593,7 +604,7 @@ Restart after every correction and test:
 12. no quota/fake precision;
 13. untrusted-content isolation;
 14. truth/privacy boundaries;
-15. exact opportunity-history semantics;
+15. exact opportunity-event history semantics;
 16. causal attempt identity/postcommit rebind/provenance labeling;
 17. E0-D same-input/same-output-shape isolation;
 18. E0-A model-confound isolation;
@@ -619,15 +630,15 @@ Approval would freeze only:
 6. Bind only public input construction path, copying Scene/source/context ID/roster/control/history only;
 7. strategy cannot access Context private state or Candidate VisibleText by type;
 8. exactly three roster Characters form E0 hard eligible set;
-9. roster/address sets canonical ordinal; OpportunityHistory exact effective order;
-10. OpportunityHistory records effective opportunity changes only, never retries/rejections/errors/alternate attempts/speculation;
+9. roster/address sets canonical ordinal; OpportunityHistory exact effective event order;
+10. OpportunityHistory records effective opportunity establishments, including a newly authorized same-Character opportunity, but never retries/rejections/errors/alternate attempts under the same opportunity/speculation;
 11. semantic Proposal `ensemble.e0.director.opportunity.v1`, fields ContractVersion/SceneId/SourceCharacterId/SelectedCharacterId only;
 12. strategy identity/context ID/control/history/reasoning diagnostics remain trace/provenance only;
 13. least-intervention strategy `ensemble.e0.director.least-intervention.v1`;
 14. exact selection: nomination, else addressed-pool recency, else complete-roster recency;
 15. source not hard-excluded; recency naturally deprioritizes it;
 16. recency = never-seen first, then oldest final history index, ordinal tie;
-17. Director structurally detects never-opportunitied roster members, repeated same-Character attention, and last-four two-Character alternation in trace only;
+17. Director structurally detects never-opportunitied roster members, repeated same-Character effective attention, and last-four two-Character alternation in trace only;
 18. diagnostics never override explicit social selection and never create equal-turn/fairness authority;
 19. no exclusion timer/max-gap/turn quota/dialogue-token counts/scores/weights/probability/random/LLM routing;
 20. silence naturally uses fallback and is never penalized/rewritten;
