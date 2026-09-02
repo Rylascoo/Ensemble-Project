@@ -10,7 +10,10 @@ public static class CharacterBoundedAccessControl
         ValidatedFixture fixture,
         CharacterId subjectCharacterId)
     {
-        ArgumentNullException.ThrowIfNull(fixture);
+        if (fixture is null)
+        {
+            throw new CharacterAccessException("Validated fixture is required.");
+        }
 
         try
         {
