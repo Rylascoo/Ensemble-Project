@@ -75,6 +75,15 @@ public sealed class GenericE0FixtureValidatorTests
     }));
 
     [TestMethod]
+    public void MultiRecordProvenanceCycle_IsRejected() => AssertInvalid(Mutate(root =>
+    {
+        var constitution = Character(root, 0)["constitution"]!.AsArray()[0]!.AsObject();
+        var relationship = Character(root, 0)["relationships"]!.AsArray()[0]!.AsObject();
+        constitution["provenance"] = new JsonArray(JsonValue.Create("REL-A-B"));
+        relationship["provenance"] = new JsonArray(JsonValue.Create("CON-A"));
+    }));
+
+    [TestMethod]
     public void ChronologyReferenceOutsideHistoricalTruth_IsRejected() => AssertInvalid(Mutate(root =>
         root["chronology"]!.AsArray()[0] = JsonValue.Create("PRESSURE-001")));
 
