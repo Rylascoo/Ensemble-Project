@@ -9,6 +9,7 @@ public static class MissingRaftContract
     public const string VersionValue = "0.1.0";
     public const string FixtureIdValue = "ensemble.e0.missing-raft@0.1.0";
     public const string SceneIdValue = "SCENE-MISSING-RAFT";
+    public const string ExpectedFixtureHash = "5556a02325e6a7f774e6997942b395d670741d494ea86f1a50b83633e26b6703";
 
     public const string MarloweCharacterId = "MARLOWE";
     public const string VossCharacterId = "VOSS";
@@ -207,6 +208,12 @@ public static class MissingRaftContract
         if (!RelationshipContextRecordIds.SetEquals(derivedRelationshipContext))
         {
             throw new FixtureValidationException("RelationshipContextRecordIds must be the exact derived union of its component sets.");
+        }
+
+        var actualHash = FixtureHash.Compute(fixture);
+        if (!string.Equals(actualHash, ExpectedFixtureHash, StringComparison.Ordinal))
+        {
+            throw new FixtureValidationException("Missing Raft fixture hash does not match the frozen ECJ-1 identity.");
         }
     }
 
