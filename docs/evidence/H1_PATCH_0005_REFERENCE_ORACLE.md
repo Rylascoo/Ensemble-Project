@@ -1,11 +1,13 @@
 # H1 Patch 0005 — Independent Context Reference Oracle
 
 Date: 2026-09-02
-Status: corrected pre-machine-validation reference evidence
-Purpose: record independently derived Missing Raft / Voss Context identities before executable promotion.
+Status: corrected and machine-confirmed reference evidence
+Purpose: record the independently derived Missing Raft / Voss Context identities used by Patch 0005.
 
 ## Authority level
-This document records independent reference derivation and static/adversarial evidence only. It is **not** Windows ARM64 compiler, test-execution, runtime, NPU, WACK, or Store evidence.
+This document records independent reference derivation plus the corrected machine-confirmation result. The independent derivation itself is static/advisory evidence; native compiler/test/runtime authority is recorded separately in `docs/evidence/H1_PATCH_0005_ARM64_VALIDATION.md`.
+
+It is not NPU, WACK, Store, signing, or authorization evidence.
 
 ## Reference input
 Canonical fixture:
@@ -22,7 +24,7 @@ Approved contracts:
 The semantic input is derived directly from the canonical Patch 0004 Voss access projection and Patch 0005 canonical property/order rules. No production Context canonicalizer or renderer is used to derive the expected values.
 
 ## Correction after first native test gate
-The first native ARM64 Patch 0005 test run at executable head `44efd6358d8a94e769eee2ff9b2c7bd4715f5587` compiled successfully and discovered all 115 tests, but 2 tests failed.
+The first native ARM64 Patch 0005 test run at implementation head `44efd6358d8a94e769eee2ff9b2c7bd4715f5587` compiled successfully and discovered all 115 tests, but 2 tests failed.
 
 Static comparison isolated both failures to this oracle/test fixture transcription, not production Composer behavior. The canonical Missing Raft fixture defines `REL-VOSS-MARLOWE` as:
 
@@ -30,14 +32,13 @@ Static comparison isolated both failures to this oracle/test fixture transcripti
 
 The original independent oracle had accidentally substituted `competence` for canonical `perception`. Because both words contain ten ASCII bytes, the structured and rendered byte-length expectations remained correct while both SHA-256 values differed. The exact-render expectation therefore failed for the same single transcription error.
 
-The canonical fixture is authoritative. Production code remains unchanged. This document and the corresponding test expectations are corrected to the fixture text.
+The canonical fixture is authoritative. Production code remained unchanged. This document and the corresponding test expectations were corrected to the fixture text.
 
-Corrected executable/test content first appears at:
-`f5aa4f000bfa3f7f0cc3c432df6b5638f7f2c774`
+The corrective delta from the first machine-tested head through corrected machine-test head `befb6648c36400546ac4843d575bd64760b23445` contains only:
+- this evidence file;
+- `tests/Ensemble.E0.Core.Tests/Context/DeterministicContextComposerTests.cs`.
 
-Later correction commits update this evidence document only. They do not alter production or test code. Native rerun should use the current implementation branch head; validation evidence must distinguish the checked-out branch head from the last executable/test-content change above.
-
-The corrective delta from the first machine-tested head contains only this evidence file and `tests/Ensemble.E0.Core.Tests/Context/DeterministicContextComposerTests.cs`; no production source changed.
+No production source changed in that interval.
 
 ## Corrected independent derivation
 Two independent reference serialization paths were rerun using the exact canonical fixture text:
@@ -127,21 +128,27 @@ The rendered identity is SHA-256 over canonical JSON with this exact property or
 ```
 
 ## Existing fixture identity preservation requirement
-Patch 0005's shared canonical JSON primitive extraction must leave Missing Raft ECJ-1 exactly unchanged:
+Patch 0005's shared canonical JSON primitive extraction leaves Missing Raft ECJ-1 unchanged:
 
 - canonical fixture bytes: `9112`
 - fixture SHA-256: `5556a02325e6a7f774e6997942b395d670741d494ea86f1a50b83633e26b6703`
 
-## Validation record so far
-At head `44efd6358d8a94e769eee2ff9b2c7bd4715f5587` on the user's native Windows ARM64 machine:
-- Core/Harness build: PASS;
-- tests discovered: 115;
-- tests succeeded: 113;
-- tests failed: 2, both traced to the stale oracle transcription above;
+The exact ECJ-1 regression is included in the native 115-test suite.
+
+## Native confirmation
+Initial native gate at `44efd6358d8a94e769eee2ff9b2c7bd4715f5587`:
+- native Core/Harness build: PASS;
+- tests: 113/115 PASS, with exactly 2 failures caused by the stale oracle transcription above;
 - Missing Raft Harness regression: PASS/0;
 - generic smoke Harness regression: PASS/0.
 
-These results do not yet establish Patch 0005 executable completion. A rerun at the corrected branch head is required.
+Corrected native gate at `befb6648c36400546ac4843d575bd64760b23445`:
+- Core rebuilt successfully as part of `dotnet test`;
+- tests: 115/115 PASS;
+- 0 failed;
+- 0 skipped.
 
-## Promotion rule
-Production tests use the corrected values in this document as the oracle. Executable promotion still requires native Windows ARM64 build, complete Core tests, Missing Raft runtime regression, generic smoke runtime regression, and final static/hygiene/scope review.
+GitHub comparison proves no production source changed between those two machine-tested heads. Therefore the earlier native Harness build/runtime evidence applies to the same production source content that passed the corrected 115-test gate.
+
+Detailed authority record:
+`docs/evidence/H1_PATCH_0005_ARM64_VALIDATION.md`
