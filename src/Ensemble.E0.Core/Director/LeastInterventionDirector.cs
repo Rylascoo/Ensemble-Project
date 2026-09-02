@@ -185,18 +185,11 @@ public static class LeastInterventionDirector
         var rosterValues = new HashSet<string>(StringComparer.Ordinal);
         foreach (var characterId in input.RosterCharacterIds)
         {
-            try
-            {
-                _ = characterId.Value;
-            }
-            catch (InvalidOperationException exception)
-            {
-                throw new DirectorOpportunityException(
-                    "Director input roster contains an uninitialized character ID.",
-                    exception);
-            }
+            var value = RequireValue(
+                characterId,
+                "Director input roster contains an uninitialized character ID.");
 
-            if (!rosterValues.Add(characterId.Value))
+            if (!rosterValues.Add(value))
             {
                 throw new DirectorOpportunityException(
                     "Director input roster contains duplicate character IDs.");
@@ -205,7 +198,11 @@ public static class LeastInterventionDirector
 
         foreach (var historyCharacterId in input.OpportunityHistory)
         {
-            if (!rosterValues.Contains(historyCharacterId.Value))
+            var value = RequireValue(
+                historyCharacterId,
+                "Director opportunity history contains an uninitialized character ID.");
+
+            if (!rosterValues.Contains(value))
             {
                 throw new DirectorOpportunityException(
                     "Director opportunity history contains a character outside the E0 roster.");
@@ -220,18 +217,40 @@ public static class LeastInterventionDirector
 
         foreach (var addressedCharacterId in input.AddressedCharacterIds)
         {
-            if (!rosterValues.Contains(addressedCharacterId.Value))
+            var value = RequireValue(
+                addressedCharacterId,
+                "Director addressed-character input contains an uninitialized character ID.");
+
+            if (!rosterValues.Contains(value))
             {
                 throw new DirectorOpportunityException(
                     "Director addressed character is outside the E0 roster.");
             }
         }
 
-        if (input.NominatedCharacterId is CharacterId nominatedCharacterId &&
-            !rosterValues.Contains(nominatedCharacterId.Value))
+        if (input.NominatedCharacterId is CharacterId nominatedCharacterId)
         {
-            throw new DirectorOpportunityException(
-                "Director nominated character is outside the E0 roster.");
+            var value = RequireValue(
+                nominatedCharacterId,
+                "Director nominated-character input is uninitialized.");
+
+            if (!rosterValues.Contains(value))
+            {
+                throw new DirectorOpportunityException(
+                    "Director nominated character is outside the E0 roster.");
+            }
+        }
+    }
+
+    private static string RequireValue(CharacterId characterId, string message)
+    {
+        try
+        {
+            return characterId.Value;
+        }
+        catch (InvalidOperationException exception)
+        {
+            throw new DirectorOpportunityException(message, exception);
         }
     }
 }
