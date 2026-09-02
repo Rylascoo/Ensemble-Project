@@ -13,14 +13,9 @@ Updated: 2026-09-01
 ## Current phase
 E0-A Harness Implementation — H1 Deterministic Spine.
 
-## Last fully machine-validated baseline
-H1 Patch 0001 + Patch 0001a on `main`:
-- native Windows ARM64 Core/Harness build succeeded under .NET SDK 9.0.317;
-- Core regression tests passed 2/2;
-- native Harness process-start/runtime-guard sanity passed with expected exit code `2`.
-
 ## Active implementation boundary
 Branch: `h1-patch-0002-1-fixture-dialect`
+Draft PR: #3 `H1: add E0 Fixture Dialect v1`
 
 H1 Patch 0002.1 implements E0 Fixture Dialect v1 only:
 1. typed `E0FixtureDocument` transport schema;
@@ -35,7 +30,7 @@ H1 Patch 0002.1 implements E0 Fixture Dialect v1 only:
 10. one canonical non-Missing-Raft smoke fixture shared by tests and Harness runtime validation;
 11. existing Core test project extended for strong IDs, fixture versions, dialect loading, authority/reference invariants, and parser/preflight failures.
 
-## Clean replacement completed on this branch
+## Clean replacement completed
 The Patch 0001 bootstrap fixture surfaces are not preserved as compatibility layers:
 - `FixtureEnvelopeDocument` deleted;
 - `FixtureEnvelopeValidator` deleted;
@@ -55,15 +50,20 @@ Patch 0002.1 does not include Missing Raft-specific law/content, ECJ-1, SHA-256,
 - WACK and Partner Center remain later independent authorities.
 
 ## Current validation state
-- Patch 0001 + 0001a remain the last fully machine-validated baseline.
-- Patch 0002.1 static review is complete with no known blocker.
-- On 2026-09-01, the target Windows ARM64 machine successfully ran the Patch 0002.1 Harness against `fixtures\smoke\e0-fixture-v1.json`; output was `Fixture validated: ensemble.e0.smoke@0.1.0` and process exit code was `0`.
-- This establishes runtime validation only for the generic fixture load/validation path actually exercised.
-- Patch 0002.1 compiler and expanded test-suite evidence have not yet been supplied for this gate, so the patch is not yet fully machine-validated and PR #3 remains unmerged.
+Patch 0002.1 has completed its required machine gate on the target Windows ARM64 development machine.
+
+Tested implementation head: `f0147b09`.
+
+- Static review: PASS, no known blocker before machine validation.
+- Compiler: PASS — Core and Harness built successfully; Harness output targeted `net9.0\win-arm64`.
+- Core tests: PASS — 30 total, 30 succeeded, 0 failed, 0 skipped.
+- Generic fixture runtime smoke: PASS — Harness validated `ensemble.e0.smoke@0.1.0` and returned exit code `0`.
+- Exact evidence is recorded in `docs/evidence/H1_PATCH_0002_1_ARM64_VALIDATION.md`.
+- The machine had previously confirmed .NET SDK 9.0.317; the final build/test submission did not repeat `dotnet --version`.
 - No Missing Raft semantic validation, Access Control, Context Composer, persistence, provider behavior, Windows AI/NPU execution, packaging, WACK, or Store validation exists yet.
 
 ## Immediate next action
-Obtain Patch 0002.1 ARM64 build and Core test output for the current implementation. If both pass, perform the final post-evidence hygiene review and merge PR #3; otherwise patch only evidence-backed failures.
+Perform the final Patch 0002.1 post-evidence hygiene/scope comparison. If clean, merge PR #3 and update `main` as the new validated baseline. Then design Patch 0002.2: Missing Raft fixture plus experiment-specific structural validation; do not add ECJ-1/hash or Access Control yet.
 
 ## Project rule
 Every patch is reviewed against the previous validated baseline: correctness -> consistency -> authority -> scope -> tests -> simplicity -> hygiene -> ARM64 suitability -> vision -> evidence. Git preserves history; the active source tree preserves only the best current architecture.
