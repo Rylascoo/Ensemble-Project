@@ -1,6 +1,6 @@
 # H1 Patch 0006 — Performer Candidate Output Contract
 
-Status: blueprint proposal 0.8 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; APPROVAL REQUIRED; implementation not started
+Status: blueprint proposal 0.9 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; APPROVAL REQUIRED; implementation not started
 Parent baseline: validated H1 Patch 0005
 Branch: `h1-patch-0006-performer-candidate-blueprint`
 
@@ -12,7 +12,7 @@ Implement the next E0-A boundary after the validated Context Composer:
 
 Patch 0006 answers one narrow question:
 
-> Can Ensemble represent one provisional Character Performance as a strict, schema-bounded, provider-neutral semantic candidate, deterministically associated with the exact safe ContextPacket supplied for that candidate attempt, while keeping model-supplied control data non-authoritative and preventing malformed output, provider failures, hidden reasoning, mutation proposals, covert routing signals, or transport artifacts from entering fiction or authority?
+> Can Ensemble represent one provisional Character Performance as a strict, schema-bounded, provider-neutral semantic candidate, deterministically associated with the exact safe ContextPacket supplied for that candidate attempt, while keeping model-supplied control data non-authoritative and preventing malformed output, provider failures, hidden reasoning, mutation proposals, covert routing signals, invisible pseudo-performance, or transport artifacts from entering fiction or authority?
 
 Patch 0006 defines and implements the candidate-output semantic contract plus its strict E0 JSON transport parser. It does **not** call any provider/model.
 
@@ -233,19 +233,28 @@ Ensemble does not invent prose such as “Voss says nothing.” An accepted futu
 
 ### Non-silent Performance
 
-For non-empty `VisibleText`:
+A non-empty `VisibleText` is valid only if it contains at least one **display-bearing Unicode scalar**.
 
-- at least one Unicode scalar must be non-whitespace;
+For this E0 contract, a scalar is display-bearing when:
+
+- it is not Unicode whitespace; and
+- its Unicode category is not `Control`, `Format`, `NonSpacingMark`, `SpacingCombiningMark`, or `EnclosingMark`.
+
+This requirement prevents zero-width/format/combining-only strings from masquerading as visible Performance while carrying hidden control metadata.
+
+Additional rules:
+
 - leading/trailing whitespace is preserved rather than trimmed;
 - LF (`U+000A`) is permitted;
 - TAB (`U+0009`) is permitted;
-- all other Unicode Control-category scalars are rejected, including CR, NUL, DEL/C1 controls, backspace, and form feed;
+- all other Unicode `Control`-category scalars are rejected, including CR, NUL, DEL/C1 controls, backspace, and form feed;
+- Unicode `Format` and combining-mark scalars may appear **alongside** at least one display-bearing scalar so ordinary language/emoji/combining behavior is not globally prohibited;
 - invalid surrogate sequences are rejected;
 - text must already be Unicode NFC;
 - text is preserved exactly after semantic validation;
 - no paraphrase, repair, normalization, Markdown cleanup, quote insertion, punctuation correction, or hidden rewriting occurs.
 
-This candidate-specific display-safety discipline is intentionally stricter than merely accepting every JSON-escapable control character.
+The display-bearing test is a Character-legibility invariant, not a typography engine or final UI sanitization policy.
 
 ## 11. VisibleText remains untrusted creative content
 
@@ -284,7 +293,10 @@ Rules:
 - subject Character may not appear;
 - duplicate IDs fail rather than being silently deduplicated;
 - semantic candidate stores the resulting set sorted ordinally by CharacterId;
-- with E0’s three-person roster, the natural maximum is roster-minus-subject; no unrelated numeric quota is invented.
+- the valid unique maximum is exactly `ContextPacket.Roster.Length - 1` because self-address is prohibited;
+- JSON parsing fails immediately once the array contains more entries than that roster-derived maximum, before allocating/accumulating additional control entries.
+
+No unrelated numeric quota is invented.
 
 ### NominatedCharacterId
 
@@ -425,7 +437,7 @@ Strict requirements:
 - `performance` must be object;
 - `performance.text` must be JSON string;
 - `control` must be object;
-- `addressedCharacterIds` must be array of JSON strings;
+- `addressedCharacterIds` must be array of JSON strings and may contain no more than the roster-derived unique maximum;
 - `nominatedCharacterId` must be string or null;
 - number/boolean/null/object/array substitutions at the wrong field fail;
 - malformed UTF-8/JSON fails;
@@ -659,74 +671,78 @@ Use the validated Patch 0005 ContextPacket path and existing fixtures. Do not du
 11. non-empty visible text preserved exactly;
 12. empty text produces valid silence only with empty/null control;
 13. whitespace-only non-empty text fails;
-14. silence with direct address fails;
-15. silence with nomination fails;
-16. LF/TAB text preserved;
-17. CR/NUL/other Control-category scalar text fails;
-18. invalid surrogate sequence fails;
-19. non-NFC text fails rather than being normalized;
-20. addressed Character must exist in roster;
-21. default/uninitialized addressed CharacterId fails with candidate-specific exception;
-22. subject cannot address self;
-23. duplicate addressed IDs fail rather than deduplicate;
-24. addressed IDs stored ordinally sorted;
-25. nominated Character must exist in roster;
-26. default/uninitialized nominated CharacterId fails with candidate-specific exception;
-27. subject cannot nominate self;
-28. nomination may validly overlap addressed set;
-29. parsing/control construction does not mutate ContextPacket or Character state;
-30. candidate/control public constructors are absent;
-31. CandidatePerformance/Control expose no accepted/validated/DirectorEligible/routing-weight authority field;
-32. no public semantic `Create`/factory operation is added in Patch 0006;
-33. candidate exception text does not echo invalid VisibleText sentinel content;
-34. invalid Character-ID exception text does not echo the unrecognized ID sentinel;
-35. no CandidatePerformance property exposes fixture, Production truth, provenance, Access decisions, state mutation, confidence, private reasoning, provider credential/configuration, accepted history, CandidateId, or TakeId.
+14. zero-width/Format-only text fails as non-legible pseudo-performance;
+15. combining-mark-only text fails as non-legible pseudo-performance;
+16. a display-bearing scalar plus permitted Format/combining content remains valid and preserved;
+17. silence with direct address fails;
+18. silence with nomination fails;
+19. LF/TAB text preserved;
+20. CR/NUL/other Control-category scalar text fails;
+21. invalid surrogate sequence fails;
+22. non-NFC text fails rather than being normalized;
+23. addressed Character must exist in roster;
+24. default/uninitialized addressed CharacterId fails with candidate-specific exception;
+25. subject cannot address self;
+26. duplicate addressed IDs fail rather than deduplicate;
+27. addressed IDs stored ordinally sorted;
+28. addressed array exceeding `Roster.Length - 1` fails immediately;
+29. nominated Character must exist in roster;
+30. default/uninitialized nominated CharacterId fails with candidate-specific exception;
+31. subject cannot nominate self;
+32. nomination may validly overlap addressed set;
+33. parsing/control construction does not mutate ContextPacket or Character state;
+34. candidate/control public constructors are absent;
+35. CandidatePerformance/Control expose no accepted/validated/DirectorEligible/routing-weight authority field;
+36. no public semantic `Create`/factory operation is added in Patch 0006;
+37. candidate exception text does not echo invalid VisibleText sentinel content;
+38. invalid Character-ID exception text does not echo the unrecognized ID sentinel;
+39. no CandidatePerformance property exposes fixture, Production truth, provenance, Access decisions, state mutation, confidence, private reasoning, provider credential/configuration, accepted history, CandidateId, or TakeId.
 
 ### Strict JSON tests
 
-36. canonical valid AI JSON parses successfully;
-37. JSON property reordering produces identical semantic candidate;
-38. ordinary structural JSON whitespace produces identical semantic candidate;
-39. equivalent JSON string escape encodings produce identical semantic candidate;
-40. Markdown/code fence wrapper fails;
-41. empty input fails;
-42. >1 MiB raw JSON fails before semantic construction;
-43. JSON nesting deeper than 8 fails;
-44. exact schemaVersion required/case-sensitive;
-45. mismatched schema-version exception text does not echo the untrusted actual version;
-46. property names are case-sensitive;
-47. unknown root property fails;
-48. unknown performance property fails;
-49. unknown control property fails;
-50. unknown-property exception text does not echo the unknown-name sentinel;
-51. missing required property fails;
-52. duplicate root property fails;
-53. duplicate nested property fails;
-54. escaped duplicate decoded property name fails;
-55. comments fail;
-56. trailing comma fails;
-57. UTF-8 BOM fails;
-58. malformed UTF-8 fails;
-59. malformed JSON fails;
-60. escaped isolated-surrogate text fails;
-61. wrong JSON token type for every field category fails;
-62. extra non-whitespace content after root fails;
-63. lower/alternate-case Character ID that does not exactly match roster fails;
-64. malformed-payload exception text does not echo raw candidate sentinel content;
-65. parser and internal semantic builder maintain one invariant implementation path;
-66. repeated parse produces identical semantic result;
-67. parser does not mutate ContextPacket.
+40. canonical valid AI JSON parses successfully;
+41. JSON property reordering produces identical semantic candidate;
+42. ordinary structural JSON whitespace produces identical semantic candidate;
+43. equivalent JSON string escape encodings produce identical semantic candidate;
+44. Markdown/code fence wrapper fails;
+45. empty input fails;
+46. >1 MiB raw JSON fails before semantic construction;
+47. JSON nesting deeper than 8 fails;
+48. exact schemaVersion required/case-sensitive;
+49. mismatched schema-version exception text does not echo the untrusted actual version;
+50. property names are case-sensitive;
+51. unknown root property fails;
+52. unknown performance property fails;
+53. unknown control property fails;
+54. unknown-property exception text does not echo the unknown-name sentinel;
+55. missing required property fails;
+56. duplicate root property fails;
+57. duplicate nested property fails;
+58. escaped duplicate decoded property name fails;
+59. comments fail;
+60. trailing comma fails;
+61. UTF-8 BOM fails;
+62. malformed UTF-8 fails;
+63. malformed JSON fails;
+64. escaped isolated-surrogate text fails;
+65. wrong JSON token type for every field category fails;
+66. extra non-whitespace content after root fails;
+67. lower/alternate-case Character ID that does not exactly match roster fails;
+68. malformed-payload exception text does not echo raw candidate sentinel content;
+69. parser and internal semantic builder maintain one invariant implementation path;
+70. repeated parse produces identical semantic result;
+71. parser does not mutate ContextPacket.
 
 ### Public-surface / regression tests
 
-68. public candidate construction surface is limited to strict ParseJson for Patch 0006;
-69. no raw candidate control type is presented as a Director decision/eligibility type;
-70. frozen Missing Raft StructuredContextHash remains unchanged;
-71. frozen Missing Raft RenderedContextHash remains unchanged;
-72. frozen Missing Raft ECJ-1 remains exactly 9112 bytes and frozen SHA-256;
-73. all existing 115 Core tests remain green;
-74. existing Missing Raft Harness runtime remains PASS/0;
-75. existing generic smoke Harness runtime remains PASS/0.
+72. public candidate construction surface is limited to strict ParseJson for Patch 0006;
+73. no raw candidate control type is presented as a Director decision/eligibility type;
+74. frozen Missing Raft StructuredContextHash remains unchanged;
+75. frozen Missing Raft RenderedContextHash remains unchanged;
+76. frozen Missing Raft ECJ-1 remains exactly 9112 bytes and frozen SHA-256;
+77. all existing 115 Core tests remain green;
+78. existing Missing Raft Harness runtime remains PASS/0;
+79. existing generic smoke Harness runtime remains PASS/0.
 
 Tests prove boundary semantics, not screenplay content.
 
@@ -742,7 +758,7 @@ A provider-execution Harness path belongs to a later approved slice after provid
 
 ## 28. ARM64 and battery suitability
 
-Patch 0006 is deterministic CPU validation over at most 1 MiB / JSON depth 8 of explicit parser input plus a small semantic candidate object.
+Patch 0006 is deterministic CPU validation over at most 1 MiB / JSON depth 8 of explicit parser input plus at most the roster-derived number of control IDs and one semantic candidate object.
 
 It performs:
 
@@ -756,7 +772,7 @@ It performs:
 
 Structural authority validation belongs on CPU because it is cheap relative to model inference, deterministic, and security-sensitive. NPU/model inference would add probabilistic failure, energy cost, and authority ambiguity.
 
-The parser ceilings bound worst-case raw JSON input and nesting for this public Core operation; later provider execution may impose smaller experimental/resource limits.
+The parser ceilings and roster-derived control bound limit worst-case raw JSON/nesting/control accumulation for this public Core operation; later provider execution may impose smaller experimental/resource limits.
 
 No NPU execution/performance claim is made.
 
@@ -790,6 +806,7 @@ Patch 0006 does not implement:
 - observation engine;
 - E0-D ablations;
 - playwright control execution;
+- final Unicode/UI rendering/sanitization policy beyond the candidate legibility invariants above;
 - WinUI;
 - Windows AI/NPU;
 - packaging/WACK/Store.
@@ -810,9 +827,9 @@ Before approval, this proposal must receive repeated complete passes across:
 10. E0 experimental provenance completeness;
 11. provider-error-to-fiction prevention;
 12. strict JSON ambiguity/malformed-input behavior;
-13. Unicode/display/control-character behavior;
+13. Unicode/display/control-character/invisible-text behavior;
 14. stable identity and roster resolution;
-15. typed-control minimum sufficiency and overreach;
+15. typed-control minimum sufficiency, boundedness, and overreach;
 16. performance-grammar openness;
 17. public API invariant bypass/minimality;
 18. unsupported future-contract fail-closed behavior;
@@ -837,16 +854,16 @@ Before implementation promotion:
 7. candidate-v1 accepts only the explicitly supported Patch 0005 Context contract;
 8. only ContextPacket + explicit candidate JSON bytes enter the public construction boundary;
 9. subject/context association copies only from trusted ContextPacket;
-10. exact JSON shape/1 MiB/depth-8/strict parser behavior receives implementation adversarial review;
+10. exact JSON shape/1 MiB/depth-8/roster-derived-control-bound/strict parser behavior receives implementation adversarial review;
 11. candidate exceptions do not become a raw-output/untrusted-value leakage channel;
-12. visible text is preserved and remains untrusted creative content;
+12. visible text is preserved, remains untrusted creative content, and cannot use invisible-only content to masquerade as non-silence;
 13. typed control remains only direct-address set + optional nomination and remains non-authoritative;
 14. raw candidate control cannot self-certify or directly enter Director routing;
 15. no state mutation/private reasoning/provider runtime data enter candidate schema;
 16. stable roster IDs are validated exactly/case-sensitively;
 17. candidate constructors cannot bypass validation;
 18. silence invariants pass;
-19. provider-error-like/malformed/oversized/deep payloads fail technically rather than becoming fiction;
+19. provider-error-like/malformed/oversized/deep/control-overflow payloads fail technically rather than becoming fiction;
 20. all existing 115 Core tests remain green;
 21. frozen Context identities remain unchanged;
 22. frozen ECJ-1 identity remains unchanged;
@@ -869,21 +886,23 @@ Explicit approval freezes these Patch 0006 decisions:
 7. candidate carries SchemaVersion plus trusted SubjectCharacterId, ContextPacketId, RenderingContract, and RenderedContextHash copied from ContextPacket;
 8. this is deterministic object association, not proof of provider receipt, provider/person authentication, or authorization;
 9. no PerformanceKind enum is frozen; empty VisibleText means silence and non-empty text remains grammar-open Character-legible Performance;
-10. visible text remains untrusted creative content and parsing never promotes assertions to truth/instruction authority;
-11. visible text is preserved exactly after validation; invalid Unicode/control/NFC input is rejected rather than repaired;
-12. non-visible typed control contains only direct-address Character IDs and optional nominated Character ID;
-13. typed control is raw Performer assertion, not state/truth/observation/Director authority;
-14. raw control may not directly route the Director; later Integrity/acceptance authority must establish any Director-eligible grounded projection;
-15. nomination may overlap direct address but never obligates response;
-16. future provider request must make stable roster IDs available only through safe ContextPacket-derived machine-control mapping separate from creative context;
-17. no State Interpreter mutation, confidence score, private reasoning, chain-of-thought, world-fact proposal, CandidateId, or TakeId enters candidate schema;
-18. strict JSON parser is fail-closed, exact/case-sensitive where semantic, property-order-insensitive, JSON-whitespace-insensitive, and never repairs malformed output;
-19. public JSON parser has deterministic 1 MiB and depth-8 untrusted-input safety ceilings; these are not the future generation/token budget;
-20. candidate exceptions may expose only trusted/known structural diagnostics and must not echo raw payload, VisibleText, unknown property names, invalid IDs, or other untrusted values;
-21. Patch 0006 exposes only ParseJson as public candidate construction; one internal semantic builder owns candidate invariants;
-22. candidate/control constructors remain non-public and contain no accepted/validated/Director-eligibility flags;
-23. exact raw AI output/partial/error data remains separate E0 provenance/diagnostics and does not enter CandidatePerformance or Production history automatically;
-24. Character refusal/redirection/silence remains distinct from provider refusal/error/cancellation;
-25. provider experiment limits, provider integration, human Take a Seat construction/UI, Director, Director-eligible control projection, Integrity Validator, State Interpreter, State Authority, Take semantics, and causal persistence remain outside Patch 0006.
+10. a non-empty Performance must contain at least one display-bearing Unicode scalar, preventing zero-width/format/combining-only pseudo-performance from carrying hidden control while appearing silent;
+11. visible text remains untrusted creative content and parsing never promotes assertions to truth/instruction authority;
+12. visible text is preserved exactly after validation; invalid Unicode/control/NFC input is rejected rather than repaired;
+13. non-visible typed control contains only direct-address Character IDs and optional nominated Character ID;
+14. addressed IDs are bounded structurally to roster-minus-subject and parser accumulation fails immediately beyond that bound;
+15. typed control is raw Performer assertion, not state/truth/observation/Director authority;
+16. raw control may not directly route the Director; later Integrity/acceptance authority must establish any Director-eligible grounded projection;
+17. nomination may overlap direct address but never obligates response;
+18. future provider request must make stable roster IDs available only through safe ContextPacket-derived machine-control mapping separate from creative context;
+19. no State Interpreter mutation, confidence score, private reasoning, chain-of-thought, world-fact proposal, CandidateId, or TakeId enters candidate schema;
+20. strict JSON parser is fail-closed, exact/case-sensitive where semantic, property-order-insensitive, JSON-whitespace-insensitive, and never repairs malformed output;
+21. public JSON parser has deterministic 1 MiB and depth-8 untrusted-input safety ceilings; these are not the future generation/token budget;
+22. candidate exceptions may expose only trusted/known structural diagnostics and must not echo raw payload, VisibleText, unknown property names, invalid IDs, or other untrusted values;
+23. Patch 0006 exposes only ParseJson as public candidate construction; one internal semantic builder owns candidate invariants;
+24. candidate/control constructors remain non-public and contain no accepted/validated/Director-eligibility flags;
+25. exact raw AI output/partial/error data remains separate E0 provenance/diagnostics and does not enter CandidatePerformance or Production history automatically;
+26. Character refusal/redirection/silence remains distinct from provider refusal/error/cancellation;
+27. provider experiment limits, provider integration, human Take a Seat construction/UI, Director, Director-eligible control projection, Integrity Validator, State Interpreter, State Authority, Take semantics, and causal persistence remain outside Patch 0006.
 
 Implementation must not begin until recursive audit completes and these decisions are explicitly approved.
