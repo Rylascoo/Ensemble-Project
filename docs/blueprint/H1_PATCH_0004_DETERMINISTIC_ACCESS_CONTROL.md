@@ -1,8 +1,10 @@
 # H1 Patch 0004 — Deterministic Character-Bounded Access Control
 
-Status: blueprint proposal 0.2 — APPROVAL REQUIRED; implementation not started
+Status: APPROVED — canonical implementation specification 0.2
 Parent baseline: validated H1 Patch 0003
-Branch: `h1-patch-0004-access-control-blueprint`
+Approved: 2026-09-02
+
+This document is the canonical implementation specification for H1 Patch 0004. Its proposal branch was `h1-patch-0004-access-control-blueprint`; executable implementation must proceed only after this approved specification is promoted to `main`.
 
 ## 1. Purpose
 
@@ -518,5 +520,3 @@ Explicit approval of this blueprint freezes the following persistent implementat
 8. the local audit records permit/deny decisions separately and is forbidden from the Performer-facing surface;
 9. one concrete single-contract Access Control implementation is preferred over an ACL/policy framework;
 10. E0-D omniscient context remains an explicit experimental bypass outside the safe reference Access Control operation.
-
-Implementation must not begin until these decisions are approved.
