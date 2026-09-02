@@ -1,6 +1,6 @@
 # H1 Patch 0007 — E0 Director Opportunity Contract
 
-Status: blueprint proposal 0.8 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; APPROVAL REQUIRED; implementation not started
+Status: blueprint proposal 0.9 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; APPROVAL REQUIRED; implementation not started
 Parent baseline: validated H1 Patch 0006
 Branch: `h1-patch-0007-director-opportunity-blueprint`
 
@@ -9,13 +9,15 @@ Branch: `h1-patch-0007-director-opportunity-blueprint`
 Define the next E0-A behavioral boundary after the validated Performer candidate contract:
 
 ```text
-ContextPacket + CandidatePerformance + effective opportunity-event history
+original source ContextPacket + CandidatePerformance + effective opportunity-event history
     -> deterministic Director input binding
         -> least-privilege DirectorOpportunityInput
             -> deterministic E0 Director proposal/evaluation
                 -> later successful atomic causal commit
-                    -> re-Bind + recompute from accepted source
-                        -> later effective Current Opportunity
+                    -> re-Bind original source ContextPacket + accepted Candidate
+                       against then-authoritative opportunity-event history
+                        -> recompute Director evaluation
+                            -> later effective Current Opportunity
 ```
 
 Patch 0007 defines one pure deterministic E0 reference Director proposal strategy plus the structural input boundary shared by Director strategies.
@@ -46,7 +48,7 @@ Least intervention for this E0 slice means:
 
 > Preserve explicit Performer/social intention. Use deterministic recency only to resolve ambiguity or absence of social intent. Detect degenerate attention patterns for provenance/evaluation, but do not convert those diagnostics into an equal-turn scheduler or silently override explicit Character handoff.
 
-This is especially important in E0: the experiment must be able to reveal repetitive ping-pong, exclusion, or mechanical routing rather than having the Director automatically hide those weaknesses.
+E0 must be able to reveal repetitive ping-pong, exclusion, or mechanical routing rather than having the Director automatically hide those weaknesses.
 
 Scene exhaustion stays outside Patch 0007 because ODR-13/run termination remains open.
 
@@ -58,6 +60,8 @@ Patch 0006 additionally freezes:
 - speculative Director work before commit is discardable only;
 - associated control may become a later non-binding Director input only after successful causal commit;
 - causally used control + Director decision must be reconstructable.
+
+Frozen E0 provenance also preserves complete Character ContextPackets, which is required by the postcommit binding rule below.
 
 ## 3. E0-only scope and ODR-12 preservation
 
@@ -100,8 +104,8 @@ Construction:
 
 ```text
 DirectorOpportunityInput.Bind(
-    ContextPacket currentContext,
-    CandidatePerformance currentCandidate,
+    ContextPacket sourceContext,
+    CandidatePerformance sourceCandidate,
     ImmutableArray<CharacterId> opportunityHistory)
     -> DirectorOpportunityInput
 ```
@@ -128,8 +132,8 @@ No trimming, inference, ranking, semantic rewriting, or hidden normalization occ
 
 Bind fails closed unless:
 
-1. Context non-null/initialized;
-2. Candidate non-null/initialized;
+1. sourceContext non-null/initialized;
+2. sourceCandidate non-null/initialized;
 3. Context SubjectCharacterId == Context OpportunityCharacterId;
 4. Candidate SubjectCharacterId == Context SubjectCharacterId;
 5. Candidate ContextPacketId == Context ContextPacketId;
@@ -152,22 +156,13 @@ It includes:
 - fixture-authored opening opportunity exactly once;
 - every later newly authorized effective Character opportunity event through the future causal/orchestration boundary.
 
-A newly established effective opportunity appends one history entry even if its CharacterId equals the previous history entry. This permits structural detection of repeated same-Character attention without pretending that Character identity had to change.
+A newly established effective opportunity appends one history entry even if its CharacterId equals the previous history entry.
 
-It does not append for:
-
-- provider retry;
-- provider refusal/error;
-- partial/cancelled generation;
-- malformed candidate;
-- rejected CandidatePerformance;
-- request-another-take attempt;
-- alternate candidate attempt while the existing opportunity remains in force;
-- speculative/precommit Director proposal or evaluation.
+It does not append for provider retry/refusal/error, partial/cancelled generation, malformed candidate, rejected CandidatePerformance, request-another-take attempt, alternate candidate attempt while the existing opportunity remains in force, or speculative/precommit Director proposal/evaluation.
 
 Therefore retries/rejections cannot distort recency, while genuinely re-established attention remains causally observable.
 
-Patch 0007 defines this semantic input but does not implement its persistence or mutation.
+Patch 0007 defines this semantic input but does not implement persistence or mutation of it.
 
 ## 9. DirectorOpportunityInput is observational, not authority state
 
@@ -239,7 +234,7 @@ DirectorLeastInterventionTrace
 - RecentAttentionPattern
 ```
 
-Rule is exactly:
+Rule:
 
 ```text
 Nomination
@@ -247,7 +242,7 @@ DirectAddress
 RecencyFallback
 ```
 
-RecentAttentionPattern is exactly:
+RecentAttentionPattern:
 
 ```text
 None
@@ -257,7 +252,7 @@ TwoCharacterAlternation
 
 Pattern diagnostics never change SelectedCharacterId.
 
-NeverOpportunitiedCharacterIds is the ordinally stored subset of roster IDs absent from complete OpportunityHistory. It is descriptive structural evidence, not a fairness command.
+NeverOpportunitiedCharacterIds is the ordinally stored subset of roster IDs absent from complete OpportunityHistory. It is descriptive evidence, not a fairness command.
 
 Trace set-like collections are ordinal; OpportunityHistory stays exact order.
 
@@ -283,7 +278,7 @@ No overload accepts ContextPacket, CandidatePerformance, ValidatedFixture, Produ
 
 ## 16. Exact selection rule
 
-### 16.1 Nomination present
+### Nomination present
 
 ```text
 CandidatePool = [NominatedCharacterId]
@@ -291,9 +286,9 @@ SelectedCharacterId = NominatedCharacterId
 Rule = Nomination
 ```
 
-Nomination is the strongest typed handoff signal in Patch 0006 and is preserved without fairness override.
+Nomination is preserved without fairness override.
 
-### 16.2 Otherwise direct address present
+### Otherwise direct address present
 
 ```text
 CandidatePool = AddressedCharacterIds
@@ -301,9 +296,9 @@ SelectedCharacterId = least-recently-opportunitied member of CandidatePool
 Rule = DirectAddress
 ```
 
-Direct address constrains the social candidate pool; recency only resolves ambiguity among multiple addressed Characters.
+Direct address constrains the social pool; recency resolves ambiguity only among multiple addressed Characters.
 
-### 16.3 Otherwise
+### Otherwise
 
 ```text
 CandidatePool = complete roster
@@ -311,9 +306,9 @@ SelectedCharacterId = least-recently-opportunitied member of CandidatePool
 Rule = RecencyFallback
 ```
 
-The source is not hard-excluded. Because history tail is source, recency naturally favors another eligible Character when one exists.
+Source is not hard-excluded. Because history tail is source, recency naturally favors another eligible Character when one exists.
 
-No pattern diagnostic overrides these rules.
+No pattern diagnostic overrides selection.
 
 ## 17. Least-recent helper
 
@@ -329,29 +324,23 @@ No total-turn/dialogue/word/token counts, percentages, scores, probability, or r
 
 ## 18. Structural attention diagnostics
 
-Director should detect structural routing pathologies without automatically converting them into authority.
+Director detects structural routing patterns without automatically converting them into authority.
 
 ### Never-opportunitied roster members
 
-Trace records every roster Character absent from complete OpportunityHistory in NeverOpportunitiedCharacterIds.
-
-This does not label the absence “accidental,” because intent cannot be established from structural history alone.
+Trace records roster Characters absent from complete OpportunityHistory. It does not label absence “accidental,” because intent cannot be established from history alone.
 
 ### Repeated same-Character attention
 
-RecentAttentionPattern = RepeatedSameCharacter when OpportunityHistory has at least two entries and the final two Character IDs are equal.
-
-This is a structural repeated/stalled-attention signal only. It does not change selection.
+RecentAttentionPattern = RepeatedSameCharacter when history has at least two entries and final two IDs are equal.
 
 ### Two-character alternation
 
-RecentAttentionPattern = TwoCharacterAlternation when OpportunityHistory has at least four entries and the final four are exact A,B,A,B with A != B.
-
-This detects repetitive ping-pong without assuming it is accidental and without overriding explicit social intention.
+RecentAttentionPattern = TwoCharacterAlternation when history has at least four entries and final four are exact A,B,A,B with A != B.
 
 Otherwise RecentAttentionPattern = None.
 
-These diagnostics make the frozen Director concerns observable in E0 provenance while avoiding a covert equal-turn policy that could mask the behavior the experiment is meant to evaluate.
+These diagnostics do not affect selection. They make the frozen Director concerns observable in E0 provenance without masking the behavior being tested.
 
 ## 19. No turn quota or fairness override
 
@@ -359,7 +348,7 @@ Patch 0007 has no equal-opportunity/equal-dialogue target, exclusion timer, maxi
 
 Explicit social intention may legitimately produce unequal opportunity distribution.
 
-If E0 shows this reference strategy needs stronger anti-degeneracy intervention, that is evidence for a later Director revision rather than something to hide before measurement.
+If E0 shows stronger anti-degeneracy intervention is needed, that becomes evidence for a later Director revision.
 
 ## 20. Silence
 
@@ -381,19 +370,26 @@ Precommit Input/Evaluation may exist only as discardable preview/speculation.
 
 Rejection, cancellation, provider failure, Integrity failure, or failed causal commit cannot change Current Opportunity or trigger another Performer.
 
-## 22. Mandatory postcommit re-Bind + recompute
+## 22. Mandatory postcommit re-Bind + recompute using original source ContextPacket
 
 Precommit DirectorOpportunityInput/Evaluation may never be promoted directly into effective routing authority.
 
 Patch 0006 has no CandidateId/TakeId; distinct attempts can share Context/control and cannot be safely distinguished by precommit evaluation alone.
 
+In addition, approved consequences may change future Character context. A freshly recomposed postcommit ContextPacket is therefore **not** a substitute for the ContextPacket under which the accepted source Performance was actually produced.
+
 A later effective-opportunity boundary must:
 
 1. successfully commit accepted Performance + approved consequences atomically;
-2. use accepted source CandidatePerformance/control and then-authoritative effective OpportunityHistory;
-3. call DirectorOpportunityInput.Bind again after commit;
-4. call selected Director strategy again after commit;
-5. only then apply SelectedCharacterId through the later effective-opportunity contract.
+2. retain/recover the **exact original validated ContextPacket associated with that accepted source CandidatePerformance**;
+3. use that original source ContextPacket + accepted CandidatePerformance/control + then-authoritative effective OpportunityHistory;
+4. call DirectorOpportunityInput.Bind after commit;
+5. call the selected Director strategy after commit;
+6. only then apply SelectedCharacterId through the later effective-opportunity contract.
+
+The original source ContextPacket identity must equal the accepted CandidatePerformance.ContextPacketId through the existing Bind invariant.
+
+Frozen E0 provenance already requires complete Character ContextPackets, so this rule does not invent a new disclosure artifact.
 
 Patch 0007 defines no TakeId/CommitId/application semantics.
 
@@ -401,7 +397,7 @@ Patch 0007 defines no TakeId/CommitId/application semantics.
 
 A precommit evaluation, if preserved, is explicitly speculative diagnostic/provenance only.
 
-The postcommit recomputed evaluation is the Director evaluation relevant to causal opportunity provenance.
+The postcommit evaluation recomputed from the exact original source ContextPacket + accepted Candidate + authoritative opportunity history is the Director evaluation relevant to causal opportunity provenance.
 
 Failed/rejected attempts may preserve speculative evaluations for E0 diagnostics but never as Scene routing history.
 
@@ -411,7 +407,7 @@ Storage format is later; the semantic distinction is frozen here.
 
 E0 has one fixed co-present three-Character Scene.
 
-Director input contains no world/relationship/pressure projection that State Authority could change between candidate generation and postcommit recomputation.
+Director input contains no mutable world/relationship/pressure projection. The only postcommit-varying Director input is the authoritative effective OpportunityHistory; the source ContextPacket remains the original packet tied to the accepted source Performance.
 
 Broader post-E0 stale-state/eligibility rules remain open.
 
@@ -499,7 +495,7 @@ Use upstream validated Context/Candidate paths and canonical fixtures.
 6. roster exactly three/unique/initialized/source once;
 7. control IDs roster-bound/non-self/duplicate-free;
 8. history non-default/non-empty/roster-bound/tail==source;
-9. OpportunityHistory excludes retries/rejections/alternate attempts/speculation but permits a newly effective same-Character opportunity event;
+9. history excludes retries/rejections/alternate attempts/speculation but permits a newly effective same-Character opportunity event;
 10. Input constructor non-public;
 11. Input exact fields contain no VisibleText/private Context/Rendering/Access/provenance;
 12. roster stored ordinally;
@@ -534,39 +530,40 @@ Use upstream validated Context/Candidate paths and canonical fixtures.
 
 ### Diagnostics/no fairness authority
 
-35. history with never-seen roster Character records it diagnostically but does not override nomination/address;
-36. final same,same effective opportunity events -> RepeatedSameCharacter;
+35. never-seen roster Character recorded diagnostically but does not override nomination/address;
+36. final same,same effective events -> RepeatedSameCharacter;
 37. final A,B,A,B -> TwoCharacterAlternation;
 38. A,B,A,C -> None;
 39. pattern diagnostic never changes selected Character;
 40. no exclusion timer/equal-turn/max-gap/forced-third guard exists;
-41. explicit A↔B nomination may continue despite diagnostic ping-pong, proving detection != obligation/fairness authority.
+41. explicit A↔B nomination may continue despite diagnostic alternation, proving detection != obligation/fairness authority.
 
 ### Authority/causal
 
 42. Bind/Propose do not mutate upstream/input;
 43. no apply/trigger operation;
 44. no precommit promote/apply surface;
-45. specification requires postcommit re-Bind/recompute before effective use;
-46. speculative and causal evaluation provenance are distinguished;
-47. semantic Proposal reusable by round-robin without least-intervention Rule taxonomy;
-48. no truth/state/observation/World Resolver authority;
-49. no relationship/Pressure/private-state input;
-50. no TakeId/CommitId/Integrity/State behavior;
-51. no provider/model/AI dependency;
-52. no line/token/score/probability fields.
+45. postcommit effective use requires exact original source ContextPacket, accepted Candidate, authoritative history, re-Bind, and recompute;
+46. freshly recomposed postcommit ContextPacket is not accepted as a substitute if its identity differs from Candidate.ContextPacketId;
+47. speculative and causal evaluation provenance are distinguished;
+48. semantic Proposal reusable by round-robin without least-intervention Rule taxonomy;
+49. no truth/state/observation/World Resolver authority;
+50. no relationship/Pressure/private-state input;
+51. no TakeId/CommitId/Integrity/State behavior;
+52. no provider/model/AI dependency;
+53. no line/token/score/probability fields.
 
 ### Determinism/regression
 
-53. repeated Bind/Propose identical;
-54. strategy does not mutate Input;
-55. least-intervention distinguishable from round-robin by strategy/trace, not Proposal shape;
-56. frozen Missing Raft StructuredContextHash unchanged;
-57. frozen Missing Raft RenderedContextHash unchanged;
-58. frozen ECJ-1 9112 bytes/hash unchanged;
-59. all existing 173 Core tests green;
-60. Missing Raft Harness PASS/0;
-61. smoke Harness PASS/0.
+54. repeated Bind/Propose identical;
+55. strategy does not mutate Input;
+56. least-intervention distinguishable from round-robin by strategy/trace, not Proposal shape;
+57. frozen Missing Raft StructuredContextHash unchanged;
+58. frozen Missing Raft RenderedContextHash unchanged;
+59. frozen ECJ-1 9112 bytes/hash unchanged;
+60. all existing 173 Core tests green;
+61. Missing Raft Harness PASS/0;
+62. smoke Harness PASS/0.
 
 ## 33. Harness
 
@@ -605,7 +602,7 @@ Restart after every correction and test:
 13. untrusted-content isolation;
 14. truth/privacy boundaries;
 15. exact opportunity-event history semantics;
-16. causal attempt identity/postcommit rebind/provenance labeling;
+16. accepted-attempt/original-context identity + postcommit rebind/provenance;
 17. E0-D same-input/same-output-shape isolation;
 18. E0-A model-confound isolation;
 19. public API/non-forgeability/minimality;
@@ -631,7 +628,7 @@ Approval would freeze only:
 7. strategy cannot access Context private state or Candidate VisibleText by type;
 8. exactly three roster Characters form E0 hard eligible set;
 9. roster/address sets canonical ordinal; OpportunityHistory exact effective event order;
-10. OpportunityHistory records effective opportunity establishments, including a newly authorized same-Character opportunity, but never retries/rejections/errors/alternate attempts under the same opportunity/speculation;
+10. OpportunityHistory records effective opportunity establishments, including newly authorized same-Character opportunities, but never retries/rejections/errors/alternate attempts under an existing opportunity/speculation;
 11. semantic Proposal `ensemble.e0.director.opportunity.v1`, fields ContractVersion/SceneId/SourceCharacterId/SelectedCharacterId only;
 12. strategy identity/context ID/control/history/reasoning diagnostics remain trace/provenance only;
 13. least-intervention strategy `ensemble.e0.director.least-intervention.v1`;
@@ -643,11 +640,12 @@ Approval would freeze only:
 19. no exclusion timer/max-gap/turn quota/dialogue-token counts/scores/weights/probability/random/LLM routing;
 20. silence naturally uses fallback and is never penalized/rewritten;
 21. precommit Input/Evaluation always discardable and never promotable;
-22. effective Director use must re-Bind and recompute after successful atomic source commit;
-23. speculative precommit evaluation and causal postcommit evaluation must remain distinguishable in provenance;
-24. E0-D round-robin later consumes same Input/emits same Proposal shape under separate strategy/trace;
-25. interaction/relationship/pressure relevance and post-E0 structured/local/hybrid Director remain open;
-26. Scene ending remains later ODR-13 authority;
-27. no provider, World Resolver, Integrity, State, Take, commit, persistence, Scene loop, UI, Windows AI/NPU, or Store scope enters Patch 0007.
+22. effective Director use must, after successful atomic source commit, re-Bind using the exact original validated source ContextPacket + accepted Candidate + authoritative effective OpportunityHistory and then recompute;
+23. a freshly recomposed postcommit ContextPacket is not a substitute for what the accepted Performer actually received;
+24. speculative precommit evaluation and causal postcommit evaluation must remain distinguishable in provenance;
+25. E0-D round-robin later consumes same Input/emits same Proposal shape under separate strategy/trace;
+26. interaction/relationship/pressure relevance and post-E0 structured/local/hybrid Director remain open;
+27. Scene ending remains later ODR-13 authority;
+28. no provider, World Resolver, Integrity, State, Take, commit, persistence, Scene loop, UI, Windows AI/NPU, or Store scope enters Patch 0007.
 
 Implementation remains blocked until recursive audit completes and user explicitly approves the final proposal.
