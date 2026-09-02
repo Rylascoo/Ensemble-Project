@@ -32,10 +32,10 @@ The original independent oracle had accidentally substituted `competence` for ca
 
 The canonical fixture is authoritative. Production code remains unchanged. This document and the corresponding test expectations are corrected to the fixture text.
 
-Corrected executable/test head:
+Corrected executable/test content first appears at:
 `f5aa4f000bfa3f7f0cc3c432df6b5638f7f2c774`
 
-Commits after that executable correction update evidence only and do not alter production or test code. Native rerun may occur at the current branch head; executable authority must still identify `f5aa4f000bfa3f7f0cc3c432df6b5638f7f2c774` as the tested executable/test content unless a later executable file changes.
+Subsequent commits through the current correction branch head update this evidence document only. They do not alter production or test code. Native rerun should use the current branch head; when recording validation authority, distinguish the checked-out branch head from the last executable/test-content change above.
 
 The corrective delta from the first machine-tested head contains only this evidence file and `tests/Ensemble.E0.Core.Tests/Context/DeterministicContextComposerTests.cs`; no production source changed.
 
