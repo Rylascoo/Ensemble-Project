@@ -32,8 +32,10 @@ The original independent oracle had accidentally substituted `competence` for ca
 
 The canonical fixture is authoritative. Production code remains unchanged. This document and the corresponding test expectations are corrected to the fixture text.
 
-Corrective test/evidence head prepared for native rerun:
+Corrected executable/test head:
 `f5aa4f000bfa3f7f0cc3c432df6b5638f7f2c774`
+
+Commits after that executable correction update evidence only and do not alter production or test code. Native rerun may occur at the current branch head; executable authority must still identify `f5aa4f000bfa3f7f0cc3c432df6b5638f7f2c774` as the tested executable/test content unless a later executable file changes.
 
 The corrective delta from the first machine-tested head contains only this evidence file and `tests/Ensemble.E0.Core.Tests/Context/DeterministicContextComposerTests.cs`; no production source changed.
 
@@ -139,7 +141,7 @@ At head `44efd6358d8a94e769eee2ff9b2c7bd4715f5587` on the user's native Windows 
 - Missing Raft Harness regression: PASS/0;
 - generic smoke Harness regression: PASS/0.
 
-These results do not yet establish Patch 0005 executable completion. A rerun at the corrected test head is required.
+These results do not yet establish Patch 0005 executable completion. A rerun at the corrected branch head is required.
 
 ## Promotion rule
 Production tests use the corrected values in this document as the oracle. Executable promotion still requires native Windows ARM64 build, complete Core tests, Missing Raft runtime regression, generic smoke runtime regression, and final static/hygiene/scope review.
