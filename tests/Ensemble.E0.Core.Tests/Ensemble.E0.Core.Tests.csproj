@@ -8,5 +8,8 @@
     <None Include="..\..\fixtures\smoke\e0-fixture-v1.json"
           Link="Fixtures\e0-fixture-v1.json"
           CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\fixtures\missing-raft\missing-raft-0.1.0.json"
+          Link="Fixtures\missing-raft-0.1.0.json"
+          CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>
