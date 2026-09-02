@@ -55,7 +55,7 @@ Result: PASS; exit `0`.
 
 ## Targeted correction
 
-Corrected head:
+Corrected executable/test head:
 
 `175f25ff8055943cdd900b08c1b89bea8b887692`
 
@@ -72,9 +72,11 @@ Correction:
 
 Because production source is byte-identical between `fa37653...` and `175f25...`, the native Harness build/runtime evidence above applies to the same production source that will be exercised by the corrected Core test rerun.
 
+A later evidence-only commit is a documentation descendant of `175f25...`; it does not change executable or test content and does not increase validation authority.
+
 ## Remaining machine gate
 
-Run the full Core suite at exact head `175f25ff8055943cdd900b08c1b89bea8b887692` or a documentation-only descendant.
+Run the full Core suite at the current branch head. The executable/test content is exactly the corrected `175f25...` state.
 
 Expected:
 
