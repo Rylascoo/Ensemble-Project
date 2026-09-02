@@ -1,6 +1,6 @@
 # H1 Patch 0002.2 — Missing Raft Fixture Contract
 
-Status: blueprint proposal 0.4 — final adversarial review complete, implementation awaiting approval
+Status: blueprint proposal 0.4 — FINAL APPROVAL CANDIDATE; implementation not yet started
 Parent baseline: H1 Patch 0002.1 + 0002.1a
 Review result: no remaining material correctness, authority, scope, experiment-isolation, simplicity, or continuity defect identified
 
