@@ -17,9 +17,9 @@ try
 {
     var bytes = await File.ReadAllBytesAsync(args[0]);
     var document = FixtureLoader.Load(bytes);
-    var fixtureId = FixtureEnvelopeValidator.Validate(document);
+    var fixture = GenericE0FixtureValidator.Validate(document);
 
-    Console.WriteLine($"Fixture envelope validated: {fixtureId}");
+    Console.WriteLine($"Fixture validated: {fixture.Id}");
     return 0;
 }
 catch (Exception exception) when (exception is FixtureValidationException or IOException or UnauthorizedAccessException)
