@@ -3,7 +3,6 @@
 Status: APPROVED — canonical implementation specification 0.3; implementation not started
 Approved: 2026-09-02
 Parent baseline: validated H1 Patch 0004
-Branch: `h1-patch-0005-context-composer-blueprint`
 
 ## 1. Purpose
 
@@ -21,7 +20,6 @@ Patch 0005 does **not** call a model, choose a provider, implement the Director,
 
 Current GitHub authority establishes:
 
-- `main` is held at validated Patch 0004;
 - `CharacterAccessProjection` is the only approved Character-safe information input boundary;
 - Access Control returns the maximal permitted set and explicitly leaves relevance, token budgeting, summarization, and prompt construction to later Context Composer work;
 - the future Context Composer must accept `CharacterAccessProjection`, not `CharacterAccessEvaluation`, so denied audit IDs cannot become a disclosure side channel;
