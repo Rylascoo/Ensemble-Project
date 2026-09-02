@@ -16,7 +16,7 @@ E0-A Harness Implementation — H1 Deterministic Spine.
 ## Validated baseline
 H1 Patch 0002.1 — E0 Fixture Dialect v1 — is merged to `main` through PR #3.
 
-## Active correction boundary
+## Validated correction ready for promotion
 H1 Patch 0002.1a — provenance DAG correction.
 Branch: `h1-patch-0002-1a-provenance-dag`
 PR: #4 `H1: enforce acyclic fixture provenance`
@@ -34,6 +34,7 @@ Tested executable implementation head: `365537456f5890f3e2766abeb833f974c8fd7d8e
 - Native Windows ARM64 compiler gate: PASS — Core and Harness built successfully; Harness output targeted `net9.0\win-arm64`.
 - Core tests: PASS — 31 total, 31 succeeded, 0 failed, 0 skipped.
 - Generic fixture runtime regression: PASS — `ensemble.e0.smoke@0.1.0` validated; exit code `0`.
+- Final hygiene/scope comparison: PASS — only the DAG invariant, construction hook, one regression test, and checkpoint/evidence material changed.
 - Detailed evidence: `docs/evidence/H1_PATCH_0002_1A_ARM64_VALIDATION.md`.
 - Evidence/checkpoint commits after the tested head do not alter executable source.
 
@@ -47,7 +48,7 @@ Tested executable implementation head: `365537456f5890f3e2766abeb833f974c8fd7d8e
 No Missing Raft-specific semantic validation, ECJ-1, SHA-256 fixture hashing, deterministic Access Control, Context Composer, Production state construction, persistence, causal commits, provider/AI behavior, Windows AI/NPU execution, WinUI, packaging, WACK, or Store validation exists yet.
 
 ## Immediate next action
-Perform the final Patch 0002.1a hygiene/scope comparison and promote it to `main` if unchanged, then design H1 Patch 0002.2: canonical Missing Raft fixture plus experiment-specific structural validation.
+Promote Patch 0002.1a to `main`, then design H1 Patch 0002.2: canonical Missing Raft fixture plus experiment-specific structural validation. Keep ECJ-1/hash and Access Control deferred until Patch 0002.2 is separately reviewed and machine-validated.
 
 ## Project rule
 Every patch is reviewed against the previous validated baseline: correctness -> consistency -> authority -> scope -> tests -> simplicity -> hygiene -> ARM64 suitability -> vision -> evidence. Git preserves history; the active source tree preserves only the best current architecture.
