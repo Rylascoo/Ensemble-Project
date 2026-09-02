@@ -16,6 +16,31 @@ internal static class CanonicalText
             throw new FixtureValidationException($"Text field '{fieldName}' contains a NUL character.");
         }
 
+        if (value.Contains('\r'))
+        {
+            throw new FixtureValidationException($"Text field '{fieldName}' contains a carriage return.");
+        }
+
+        for (var index = 0; index < value.Length; index++)
+        {
+            var character = value[index];
+            if (char.IsHighSurrogate(character))
+            {
+                if (index + 1 >= value.Length || !char.IsLowSurrogate(value[index + 1]))
+                {
+                    throw new FixtureValidationException(
+                        $"Text field '{fieldName}' contains an invalid Unicode surrogate sequence.");
+                }
+
+                index++;
+            }
+            else if (char.IsLowSurrogate(character))
+            {
+                throw new FixtureValidationException(
+                    $"Text field '{fieldName}' contains an invalid Unicode surrogate sequence.");
+            }
+        }
+
         if (!value.IsNormalized(NormalizationForm.FormC))
         {
             throw new FixtureValidationException($"Text field '{fieldName}' must already be Unicode NFC.");
