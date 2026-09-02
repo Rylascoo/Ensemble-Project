@@ -37,7 +37,7 @@ public sealed class LeastInterventionDirectorTests
         var candidate = ParseCandidate(
             packet,
             "Wren?",
-            new[] { "MARLOWE", "WREN" },
+            new[] { "WREN", "MARLOWE" },
             "WREN");
         var history = History("VOSS");
 
@@ -59,9 +59,10 @@ public sealed class LeastInterventionDirectorTests
     [TestMethod]
     public void Bind_IsStructuralNotCausalAuthenticationSurface()
     {
+        var packet = ComposeVoss();
         var input = Bind(
-            ComposeVoss(),
-            ParseCandidate(ComposeVoss(), "Wren?", nominatedCharacterId: "WREN"),
+            packet,
+            ParseCandidate(packet, "Wren?", nominatedCharacterId: "WREN"),
             History("MARLOWE", "WREN", "VOSS"));
 
         var propertyNames = PublicPropertyNames(typeof(DirectorOpportunityInput));
@@ -72,6 +73,18 @@ public sealed class LeastInterventionDirectorTests
         Assert.IsFalse(propertyNames.Contains("TakeId"));
         Assert.IsFalse(propertyNames.Contains("CommitId"));
         Assert.AreEqual("VOSS", input.OpportunityHistory[^1].Value);
+    }
+
+    [TestMethod]
+    public void Bind_NullContextOrCandidateFailsInDirectorExceptionDomain()
+    {
+        var packet = ComposeVoss();
+        var candidate = ParseCandidate(packet, "No.");
+
+        Assert.Throws<DirectorOpportunityException>(() =>
+            DirectorOpportunityInput.Bind(null!, candidate, History("VOSS")));
+        Assert.Throws<DirectorOpportunityException>(() =>
+            DirectorOpportunityInput.Bind(packet, null!, History("VOSS")));
     }
 
     [TestMethod]
@@ -232,6 +245,7 @@ public sealed class LeastInterventionDirectorTests
     {
         var traceProperties = PublicPropertyNames(typeof(LeastInterventionDirectorTrace));
         var evaluationProperties = PublicPropertyNames(typeof(LeastInterventionDirectorEvaluation));
+        var traceProperty = typeof(LeastInterventionDirectorEvaluation).GetProperty("Trace")!;
 
         CollectionAssert.AreEquivalent(
             new[]
@@ -246,7 +260,7 @@ public sealed class LeastInterventionDirectorTests
         CollectionAssert.AreEquivalent(
             new[] { "Proposal", "Trace" },
             evaluationProperties.ToArray());
-        Assert.IsNull(typeof(Ensemble.E0.Core.Director).AssemblyQualifiedName);
+        Assert.AreEqual(typeof(LeastInterventionDirectorTrace), traceProperty.PropertyType);
     }
 
     [TestMethod]
@@ -307,10 +321,7 @@ public sealed class LeastInterventionDirectorTests
     public void EmptyControl_UsesCompleteRosterRecencyFallback()
     {
         var packet = ComposeVoss();
-        var evaluation = Propose(
-            packet,
-            ParseCandidate(packet, "No."),
-            History("VOSS"));
+        var evaluation = Propose(packet, ParseCandidate(packet, "No."), History("VOSS"));
 
         Assert.AreEqual("MARLOWE", evaluation.Proposal.SelectedCharacterId.Value);
         Assert.AreEqual(LeastInterventionDirectorRule.RecencyFallback, evaluation.Trace.Rule);
@@ -479,6 +490,19 @@ public sealed class LeastInterventionDirectorTests
             Assert.IsFalse(traceProperties.Contains(forbidden), forbidden);
             Assert.IsFalse(publicMethodNames.Contains(forbidden), forbidden);
         }
+    }
+
+    [TestMethod]
+    public void Proposal_DoesNotAppendSelectedTargetToInputHistory()
+    {
+        var packet = ComposeVoss();
+        var input = Bind(packet, ParseCandidate(packet, "Wren?", nominatedCharacterId: "WREN"), History("VOSS"));
+
+        var evaluation = LeastInterventionDirector.Propose(input);
+
+        CollectionAssert.AreEqual(new[] { "VOSS" }, Values(input.OpportunityHistory));
+        Assert.AreEqual("WREN", evaluation.Proposal.SelectedCharacterId.Value);
+        Assert.AreEqual("VOSS", input.OpportunityHistory[^1].Value);
     }
 
     [TestMethod]
