@@ -1,13 +1,14 @@
 # Ensemble Current State
 
-Updated: 2026-09-01
+Updated: 2026-09-02
 
 ## Authority
 - Blueprint 0.1 is FROZEN FOR E0.
 - E0-A Preparation Blueprint 0.2 is approved.
 - H1 Deterministic Spine Blueprint 0.2 is approved.
-- H1 Patch 0002.2 Missing Raft Fixture Contract Blueprint 0.4 is the canonical GitHub implementation specification for the Missing Raft fixture subset.
-- `docs/ENGINEERING_HYGIENE_CONSTITUTION.md` is project law for implementation quality and cleanup unless a stronger frozen specification explicitly overrides it.
+- H1 Patch 0002.2 Missing Raft Fixture Contract Blueprint 0.4 is canonical for the Missing Raft fixture subset.
+- H1 Patch 0003 ECJ-1 Canonical Fixture Identity Blueprint 0.2 is explicitly approved and canonical for fixture canonicalization/hash implementation.
+- `docs/ENGINEERING_HYGIENE_CONSTITUTION.md` is project law unless a stronger frozen specification explicitly overrides it.
 - GitHub `Rylascoo/Ensemble-Project` is the authoritative engineering source.
 - Google Drive `Ensemble Project` is the design repository.
 
@@ -16,87 +17,71 @@ E0-A Harness Implementation — H1 Deterministic Spine.
 
 H1 Patch 0002.2 is COMPLETE, machine-validated for its exercised gates, and promoted to `main` through PR #6.
 
-## Validated executable baseline
-The current validated executable baseline includes H1 Patch 0002.1, Patch 0002.1a, and Patch 0002.2.
+H1 Patch 0003 blueprint-only specification is approved and promoted through PR #7. Executable Patch 0003 implementation has not yet been machine-validated.
 
+## Validated executable baseline
 Latest machine-tested executable implementation head:
 `33a8a9f96d2320260619ac28309f0f40bee8e19e`
 
-Patch 0002.2 promotion head on `main` before this checkpoint update:
-`e9f61b79bc4b6bbf7272e9815acd0073e2275c8a`
-
-The commit after the tested executable head and before promotion is documentation-only validation evidence. It does not increase the executable validation level.
-
 Validated on the user's native Windows ARM64 machine:
-- Native Windows ARM64 compiler gate: PASS — Core and Harness built successfully; Harness output targeted `net9.0\win-arm64`.
-- Core tests: PASS — 62 total, 62 succeeded, 0 failed, 0 skipped.
-- Canonical Missing Raft runtime: PASS — `ensemble.e0.missing-raft@0.1.0` validated; exit code `0`.
-- Generic smoke runtime regression: PASS — `ensemble.e0.smoke@0.1.0` validated; exit code `0`.
-- Direct Missing Raft validation rejects the generic smoke fixture through the passing Core test suite.
-- Source-content review: PASS.
-- Final hygiene/scope comparison: PASS.
-- Detailed evidence: `docs/evidence/H1_PATCH_0002_2_ARM64_VALIDATION.md`.
+- Core/Harness build: PASS; Harness targeted `net9.0\win-arm64`.
+- Core tests: PASS — 62/62.
+- canonical Missing Raft runtime: PASS; exit `0`.
+- generic smoke runtime regression: PASS; exit `0`.
+- source-content and final hygiene/scope review: PASS.
 
-## Patch 0002.2 implementation result
+Detailed evidence:
+`docs/evidence/H1_PATCH_0002_2_ARM64_VALIDATION.md`
+
+Documentation/blueprint commits after the tested executable head do not increase the executable validation level.
+
+## Current Patch 0003 specification
 Canonical specification:
-`docs/blueprint/H1_PATCH_0002_2_MISSING_RAFT_CONTRACT.md`
+`docs/blueprint/H1_PATCH_0003_ECJ1_FIXTURE_HASH.md`
 
-Canonical fixture source:
-`fixtures/missing-raft/missing-raft-0.1.0.json`
-
-Implemented architecture:
-1. E0 Fixture Dialect v1 and generic validation remain unchanged;
-2. `MissingRaftContract.Validate(ValidatedFixture)` adds fixture-specific structural law without a second fixture/domain representation;
-3. exact Missing Raft fixture/Scene/Character/record IDs, authority categories, ownership, chronology, relationship targets, and frozen provenance are mechanically protected;
-4. provenance remains evidence/derivation only and does not grant access;
-5. Harness dispatch is explicit and minimal for the known Missing Raft family while unknown generic families remain generically valid;
-6. relationship-context IDs remain a derived union for later E0-D context exclusion rather than fixture mutation;
-7. source prose is reviewed in Patch 0002.2 but is not cryptographically bound yet;
-8. mutation-style tests use the one canonical Missing Raft source rather than malformed-fixture copy sprawl;
-9. no generic registry/plugin/factory/causal/ablation framework was introduced.
-
-## Source-content disposition
-The canonical Missing Raft source passed review against the approved semantic contract.
-
-Confirmed:
-- raft failure remains unresolved;
-- the stronger current did not release the correctly secured mooring;
-- Wren observed Marlowe's later shoreline return, not the release;
-- Wren's suspicion remains suspicion rather than release knowledge;
-- Voss's accidental-loss explanation remains plausible belief rather than Production truth;
-- Marlowe's Character-owned knowledge does not gain Wren-private observation or an unsupported claim that he knew Wren correctly secured the mooring;
-- no extra dramatic premise, moral winner, forced confession, accusation, revelation, reconciliation, or solution was added.
+Approved law includes:
+1. canonicalize semantic `ValidatedFixture` content, not literal source bytes;
+2. ECJ-1 emits deterministic UTF-8/no-BOM/minified JSON with explicit property order and exact string escaping;
+3. chronology remains ordered while semantically unordered roster/record/relationship/provenance collections sort ordinally by canonical ID;
+4. semantic text must be NFC and fail closed on NUL, carriage return, or invalid Unicode surrogate sequences rather than being repaired;
+5. `FixtureHash = SHA-256(ECJ1(ValidatedFixture))`, represented as exactly 64 lowercase hexadecimal characters;
+6. the Missing Raft 0.1.0 expected digest is frozen in `MissingRaftContract`, not an authoritative sidecar;
+7. `MissingRaftContract.Validate(ValidatedFixture)` remains the single complete structural + hash gate;
+8. canonical bytes must receive an independent digest-freeze review before the expected digest is frozen;
+9. generic unknown fixture families remain generically valid;
+10. Patch 0004 Access Control and later H1 surfaces remain excluded.
 
 ## Validation authority
 - Static review: advisory only.
 - Visual Studio / `dotnet` ARM64 build output: compiler authority.
-- `dotnet test` on the target machine is test-execution authority for the tests actually exercised.
-- Actual target-device execution is runtime authority for the behavior actually exercised.
+- `dotnet test` on the target machine: test-execution authority for tests actually exercised.
+- Actual target-device execution: runtime authority for behavior actually exercised.
 - NPU execution requires explicit hardware evidence.
 - WACK and Partner Center remain later independent authorities.
 
 ## Explicitly unvalidated / excluded
-Patch 0002.2 does not validate or implement ECJ-1 canonical serialization, SHA-256 fixture hashing, deterministic Access Control, Context Composer, Production state construction, persistence, causal commits, Performer/Director/Integrity Validator/Interpreter runtime orchestration, provider/AI behavior, Windows AI/NPU execution, WinUI, packaging, WACK, or Store behavior.
-
-No NPU, WACK, Store, or broader product-runtime claim may be inferred from the Patch 0002.2 evidence.
+No Patch 0003 executable validation exists yet. No deterministic Access Control, Context Composer, ContextPacketHash, StateHash, Production state/persistence, causal commits, provider/AI behavior, Windows AI/NPU execution, WinUI, packaging, WACK, or Store validation exists yet.
 
 ## Immediate next action
-Hold at the validated H1 Patch 0002.2 boundary.
+Implement H1 Patch 0003 only from current `main` on a dedicated branch, following `docs/blueprint/H1_PATCH_0003_ECJ1_FIXTURE_HASH.md`.
 
-Do not begin Patch 0003 hashing or Patch 0004 Access Control as part of Patch 0002.2 cleanup or correction. A subsequent chat may resume the next approved H1 slice only after reading this checkpoint and the relevant canonical specification/roadmap source for that slice.
+Implementation order:
+1. extend canonical text validation for carriage return and invalid surrogate sequences;
+2. add the smallest explicit ECJ-1 `ValidatedFixture` canonicalizer;
+3. add SHA-256 fixture hash computation;
+4. independently review canonical Missing Raft bytes and derive/freeze its expected digest;
+5. bind the expected digest into `MissingRaftContract.Validate`;
+6. add focused determinism/order/string/hash mutation tests;
+7. run static/adversarial/hygiene review;
+8. request native Windows ARM64 build, full tests, Missing Raft runtime, generic smoke regression, and semantic-mutation rejection evidence;
+9. merge only after all gates pass.
 
-No further Patch 0002.2 implementation work is currently required.
+Do not enter Patch 0004 Access Control during Patch 0003 implementation/correction.
 
 ## Continuity
-Fresh chats read this file first.
+Fresh chats read this file first, then `docs/blueprint/H1_PATCH_0003_ECJ1_FIXTURE_HASH.md`, then only source/test files relevant to the immediate Patch 0003 slice.
 
-For Patch 0002.2 validation history, then read:
-- `docs/evidence/H1_PATCH_0002_2_ARM64_VALIDATION.md`;
-- `docs/blueprint/H1_PATCH_0002_2_MISSING_RAFT_CONTRACT.md`.
-
-`docs/handoff/E0A_H1_PATCH_0002_2_IMPLEMENTATION_HANDOFF.md` is now a completed historical handoff, not an instruction to reimplement the patch.
-
-Do not reconstruct already-approved project state from chat history when GitHub contains it.
+`docs/handoff/E0A_H1_PATCH_0002_2_IMPLEMENTATION_HANDOFF.md` is historical and must not be treated as a current implementation instruction.
 
 ## Project rule
 Every patch is reviewed against the previous validated baseline: correctness -> consistency -> authority -> scope -> tests -> simplicity -> hygiene -> ARM64 suitability -> vision -> evidence. Git preserves history; the active source tree preserves only the best current architecture.
