@@ -1,6 +1,6 @@
 # H1 Patch 0006 — Performer Candidate Output Contract
 
-Status: blueprint proposal 1.2 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; APPROVAL REQUIRED; implementation not started
+Status: blueprint proposal 1.3 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; APPROVAL REQUIRED; implementation not started
 Parent baseline: validated H1 Patch 0005
 Branch: `h1-patch-0006-performer-candidate-blueprint`
 
@@ -12,7 +12,7 @@ Implement the next E0-A boundary after the validated Context Composer:
 
 Patch 0006 answers one narrow question:
 
-> Can Ensemble represent one provisional Character Performance as a strict, schema-bounded, provider-neutral semantic candidate, deterministically associated with the exact reference ContextPacket supplied for that candidate attempt, while keeping model-supplied control data provisional and preventing malformed output, provider failures, hidden reasoning, mutation proposals, invisible pseudo-performance, or uncommitted routing signals from entering fiction or authority?
+> Can Ensemble represent one provisional Character Performance as a strict, schema-bounded, provider-neutral semantic candidate, deterministically associated with the exact reference ContextPacket supplied for that candidate attempt, while keeping model-supplied control data provisional and preventing malformed output, provider failures, hidden reasoning, mutation proposals, invisible pseudo-performance, or uncommitted routing effects from entering fiction or authority?
 
 Patch 0006 defines and implements the candidate-output semantic contract plus its strict E0 JSON transport parser. It does **not** call any provider/model.
 
@@ -314,15 +314,20 @@ Rules:
 - nomination grants no knowledge/truth/state authority;
 - nominated Character may also appear in AddressedCharacterIds.
 
-## 13. Provisional control, acceptance, commit, and Director eligibility
+## 13. Provisional control, causal commit, and effective Director routing
 
 `CandidatePerformance.Control` is provisional Performer output exactly like `VisibleText` is provisional Performer output.
 
-Before later causal acceptance/commit completes, it has **no Director effect**. Rejected, malformed, failed, cancelled, unaccepted, or transactionally uncommitted candidate control must never advance attention.
+Before later causal acceptance/commit completes, it has **no effective Director authority**. Rejected, malformed, failed, cancelled, unaccepted, or transactionally uncommitted candidate control must never:
+
+- establish Current Attention/Opportunity;
+- trigger another Performer invocation;
+- persist as a Director input;
+- survive rollback as if its Performance had occurred.
 
 Patch 0006 does not invent a separate `DirectorEligible` projection, semantic-grounding authority, or routing score.
 
-The later Integrity/Take/State/commit contracts own the exact transition from candidate to committed accepted Performance. Only control belonging to a Performance/Take that has successfully entered the later atomic causal commit may become available to the Director for the next opportunity.
+The later Integrity/Take/State/commit contracts own the exact transition from candidate to committed accepted Performance. Control belonging to a Performance/Take that successfully enters the later atomic causal commit may become available to the Director as one permissible input for an effective next opportunity.
 
 Even after commit:
 
@@ -331,13 +336,13 @@ Even after commit:
 - nomination remains opportunity pressure, not obligation;
 - control never grants truth, knowledge, state mutation, or observation eligibility.
 
+Patch 0006 does **not** prohibit a later implementation from computing a purely speculative/discardable Director recommendation before commit for performance reasons, provided that speculative result has no authority, cannot trigger the next Performer, is discarded on failed/aborted commit, and is not represented as the effective opportunity.
+
 Semantic mismatch between visible Performance and typed control may be an Integrity concern under the later approved Integrity contract; Patch 0006 does not invent a fuzzy semantic acceptance algorithm now.
 
 This preserves:
 
-`Performer proposes -> Integrity/State/Take path establishes one committed causal Performance -> Director may consider its committed social intent when choosing the next opportunity.`
-
-The exact runtime ordering is frozen later; Patch 0006 freezes only the prohibition on Director consuming pre-commit candidate control.
+`Performer proposes -> causal acceptance/commit establishes what happened -> Director may effectively advance attention from committed history.`
 
 ## 14. Stable Character IDs and future provider request
 
@@ -498,9 +503,11 @@ Typed control names two possible Director inputs already frozen in Blueprint 0.1
 - direct social address;
 - Character nomination.
 
-CandidatePerformance.Control itself is never a pre-commit Director input. Only corresponding control belonging to a later successfully committed accepted Performance/Take may become available under the future Director contract.
+CandidatePerformance.Control itself has no effective pre-commit routing authority. Only corresponding control belonging to a later successfully committed accepted Performance/Take may become an effective Director input under the future Director contract.
 
-Even then it remains one non-binding input. Director may also consider hard eligibility, interaction relevance, relationships, pressure, participation balance, and repetition.
+A future implementation may compute a provisional Director recommendation before commit, but it cannot trigger a Performer, alter Current Opportunity, or survive a failed commit.
+
+Committed control remains one non-binding input. Director may also consider hard eligibility, interaction relevance, relationships, pressure, participation balance, and repetition.
 
 Patch 0006 does not score, weight, rank, enforce quotas, or choose the next opportunity. Silence does not force a handoff.
 
@@ -515,10 +522,12 @@ CandidatePerformance
 -> Integrity / State Interpreter / State Authority / Take semantics
 -> atomic causal commit of accepted Performance + approved consequences
 -> committed Performance/control becomes eligible historical input
--> Director chooses a later opportunity under its own contract
+-> Director establishes an effective later opportunity under its own contract
 ```
 
-The exact runtime pipeline and identifiers remain for the later standalone contracts; Patch 0006 freezes only compatibility constraints and pre-commit prohibitions.
+Speculative/discardable computations do not change this authority ordering.
+
+The exact runtime pipeline and identifiers remain for later standalone contracts; Patch 0006 freezes only compatibility constraints and effective-authority prohibitions.
 
 ## 25. Missing Raft illustrative examples
 
@@ -563,17 +572,17 @@ Use validated Patch 0005 reference ContextPacket path and existing fixtures; do 
 3. ContextPacketId copied exactly;
 4. RenderingContract copied exactly;
 5. RenderedContextHash copied exactly;
-6. Context invariants are checked before untrusted JSON parsing;
+6. Context invariants checked before untrusted JSON parsing;
 7. opportunity != subject fails closed;
 8. malformed/ambiguous roster IDs fail closed if encountered;
 9. subject resolves exactly once in roster;
 10. null ContextPacket fails candidate-specifically;
 11. non-empty visible text preserved exactly;
-12. exact empty text is valid silence only with empty/null control;
+12. exact empty text valid silence only with empty/null control;
 13. whitespace-only non-empty text fails;
 14. zero-width/Format-only text fails;
 15. combining-mark-only text fails;
-16. display-bearing text plus permitted Format/combining content remains valid/preserved;
+16. display-bearing text plus permitted Format/combining content valid/preserved;
 17. silence with address fails;
 18. silence with nomination fails;
 19. LF/TAB preserved;
@@ -633,16 +642,16 @@ Use validated Patch 0005 reference ContextPacket path and existing fixtures; do 
 
 68. candidate parser does not require `full-authorized.v1` specifically;
 69. candidate parser does not require `render.v1` specifically;
-70. no omniscient bypass/omniscient construction path is introduced;
-71. public candidate construction is ParseJson only;
+70. no omniscient bypass/omniscient construction path introduced;
+71. public candidate construction ParseJson only;
 72. CandidatePerformance.Control exposes no commit/Director authority flag;
-73. Patch 0006 contains no path that routes candidate control to Director;
+73. Patch 0006 contains no path that establishes an effective Director opportunity from candidate control;
 74. frozen Missing Raft StructuredContextHash unchanged;
 75. frozen Missing Raft RenderedContextHash unchanged;
-76. frozen Missing Raft ECJ-1 remains exactly 9112 bytes + frozen SHA-256;
-77. all existing 115 Core tests remain green;
-78. Missing Raft Harness remains PASS/0;
-79. generic smoke Harness remains PASS/0.
+76. frozen Missing Raft ECJ-1 exactly 9112 bytes + frozen SHA-256;
+77. all existing 115 Core tests green;
+78. Missing Raft Harness PASS/0;
+79. generic smoke Harness PASS/0.
 
 Where intentionally invalid ContextPacket states are impossible through public authority-safe APIs, implementation review may prove defensive branches without creating an invariant-bypass public test hook.
 
@@ -671,7 +680,7 @@ Patch 0006 does not implement:
 - streaming/retry/cancellation/refusal classification;
 - raw-response/provenance persistence;
 - Human Take a Seat construction API/UI;
-- Director selection;
+- Director selection or effective-opportunity state;
 - Integrity acceptance/rejection;
 - accepted/rejected/alternate Take semantics or IDs;
 - State Interpreter/State Authority/ProductionState/StateHash;
@@ -705,7 +714,7 @@ Before approval, repeat complete passes across:
 17. public API minimality;
 18. safe Context composition decoupling without weakening omniscient boundary;
 19. untrusted-input resource/diagnostic leakage;
-20. causal ordering/pre-commit side effects;
+20. causal ordering/effective pre-commit side effects versus harmless speculation;
 21. scope/premature abstraction;
 22. ARM64/battery suitability;
 23. test completeness and E0-B/C/D/E/F/G compatibility.
@@ -716,22 +725,22 @@ Any correction restarts the entire pass. Approval is requested only after one co
 
 Before implementation promotion:
 
-1. recursive blueprint audit reaches a zero-material-change pass and user explicitly approves;
-2. implementation starts from then-current `main` on dedicated branch;
+1. recursive audit reaches zero-material-change pass + user approval;
+2. implementation starts from then-current main dedicated branch;
 3. CandidatePerformance provider-neutral/distinct from raw JSON;
 4. no speculative human-construction API;
 5. no PerformanceKind taxonomy;
-6. parser/internal builder share one invariant path;
-7. candidate parser uses reference ContextPacket fields it consumes without hard-coded composition/rendering strings;
-8. decoupling does not introduce omniscient bypass;
-9. trusted Context invariants validate before untrusted JSON;
-10. public input remains ContextPacket + explicit JSON bytes;
+6. parser/internal builder one invariant path;
+7. parser uses reference ContextPacket fields it consumes without hard-coded composition/rendering strings;
+8. no omniscient bypass;
+9. trusted Context invariants before untrusted JSON;
+10. public input ContextPacket + JSON bytes;
 11. association fields copy only from ContextPacket;
-12. JSON/size/depth/control-bound behavior passes adversarial review;
-13. diagnostics do not leak untrusted content;
-14. VisibleText preserved/untrusted and cannot be invisible pseudo-performance;
-15. typed control remains address + nomination and provisional;
-16. candidate/pre-commit control cannot advance Director;
+12. JSON/size/depth/control-bound behavior reviewed;
+13. diagnostics no untrusted leakage;
+14. VisibleText preserved/untrusted/no invisible pseudo-performance;
+15. typed control address+nomination/provisional;
+16. pre-commit control cannot create effective opportunity or trigger Performer; speculative computation, if later introduced, must remain discardable/non-authoritative;
 17. no mutations/private reasoning/provider runtime data in candidate;
 18. roster IDs exact/case-sensitive;
 19. constructors cannot bypass validation;
@@ -739,11 +748,11 @@ Before implementation promotion:
 21. existing 115 Core tests green;
 22. frozen Context identities unchanged;
 23. frozen ECJ-1 unchanged;
-24. native ARM64 Core/Harness build passes warnings-as-errors;
-25. full Core tests pass target machine;
-26. Missing Raft/smoke Harness pass/0;
-27. hygiene finds no provider adapter, human factory/UI, Director, Integrity, State, Take, commit, persistence, ablation bypass, or later scope;
-28. evidence distinguishes machine-tested executable head from docs-only closure.
+24. native ARM64 build passes;
+25. full tests pass target machine;
+26. Missing Raft/smoke pass/0;
+27. hygiene finds no provider/human/Director/Integrity/State/Take/commit/persistence/ablation scope creep;
+28. evidence separates machine-tested head from docs closure.
 
 ## 32. Material approval decisions
 
@@ -754,28 +763,29 @@ Approval freezes:
 3. CandidatePerformance semantic/provider-neutral, not raw JSON;
 4. AI transport schema `ensemble.e0.performer.candidate.v1`;
 5. ParseJson accepts safe reference ContextPacket but does not hard-code composition/rendering policy strings it does not interpret;
-6. policy decoupling does not authorize omniscient state inside safe reference ContextPacket; omniscient E0-D remains separate future experimental binding;
-7. future Take a Seat reuses semantic invariants, but no speculative public human factory now;
+6. decoupling does not authorize omniscient state inside safe reference ContextPacket; omniscient E0-D remains separate future experimental binding;
+7. future Take a Seat reuses semantic invariants, no speculative public human factory now;
 8. candidate carries SchemaVersion + SubjectCharacterId + ContextPacketId + RenderingContract + RenderedContextHash copied from ContextPacket;
 9. association is not provider receipt/authentication/authorization proof;
 10. no PerformanceKind enum; empty text silence, non-empty grammar-open;
-11. non-empty text requires display-bearing scalar, preventing invisible-only pseudo-performance;
-12. VisibleText preserved after validation and remains untrusted creative content;
+11. non-empty text requires display-bearing scalar;
+12. VisibleText preserved and untrusted;
 13. invalid Unicode/control/NFC rejected, never repaired;
-14. typed control only direct-address IDs + optional nomination;
+14. typed control only address IDs + optional nomination;
 15. addressed IDs roster-minus-subject bounded with immediate overflow failure;
-16. typed control is provisional Performer intent, not truth/state/observation/Director authority;
-17. pre-commit candidate control cannot affect Director; only control belonging to a later successfully atomically committed accepted Performance/Take may become eligible as a non-binding Director input;
-18. nomination may overlap address and never obligates response;
-19. provider request later exposes stable IDs only via safe roster-derived machine-control mapping separate from creative text;
-20. no mutation/confidence/private reasoning/world-fact proposal/CandidateId/TakeId in candidate schema;
-21. strict JSON fail-closed, semantic case-sensitive, order/structural-whitespace insensitive, no repair;
-22. parser ceilings 1 MiB/depth 8, not generation budgets;
-23. exceptions expose only trusted structural diagnostics, never raw/untrusted candidate values;
-24. public construction ParseJson only; non-public builder owns invariants;
-25. candidate/control constructors non-public with no acceptance/commit/routing flags;
-26. exact raw/partial/error provider data separate provenance/diagnostics and never automatically Production history;
-27. Character refusal/redirection/silence distinct from provider refusal/error/cancellation;
-28. provider execution, human UI/factory, Director, Integrity, State Interpreter, State Authority, Take semantics, atomic commit, persistence, and E0-D experimental binding remain outside Patch 0006.
+16. typed control provisional Performer intent, not truth/state/observation/Director authority;
+17. no candidate/pre-commit control may create effective Current Opportunity, trigger another Performer, or survive rollback; only control belonging to a later successfully committed accepted Performance/Take may become an effective non-binding Director input;
+18. this does not forbid future discardable/speculative Director computation before commit, provided it has no authority/effect and is discarded on failed commit;
+19. nomination may overlap address and never obligates response;
+20. provider request later exposes stable IDs only via safe roster-derived machine-control mapping separate from creative text;
+21. no mutation/confidence/private reasoning/world-fact proposal/CandidateId/TakeId in candidate;
+22. strict JSON fail-closed, semantic case-sensitive, order/structural-whitespace insensitive, no repair;
+23. parser ceilings 1 MiB/depth 8, not generation budgets;
+24. exceptions expose only trusted structural diagnostics;
+25. public construction ParseJson only; non-public builder owns invariants;
+26. candidate/control constructors non-public with no acceptance/commit/routing flags;
+27. exact raw/partial/error provider data separate provenance and never automatically Production history;
+28. Character refusal/redirection/silence distinct from provider refusal/error/cancellation;
+29. provider execution, human UI/factory, Director, Integrity, State Interpreter, State Authority, Take semantics, atomic commit, persistence, and E0-D experimental binding remain outside Patch 0006.
 
 Implementation must not begin until recursive audit completes and these decisions are explicitly approved.
