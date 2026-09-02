@@ -33,6 +33,9 @@ PR #5 `H1: define Missing Raft fixture contract` was promoted to `main` as a blu
 Canonical specification:
 `docs/blueprint/H1_PATCH_0002_2_MISSING_RAFT_CONTRACT.md`
 
+Fresh-chat implementation handoff:
+`docs/handoff/E0A_H1_PATCH_0002_2_IMPLEMENTATION_HANDOFF.md`
+
 Key implementation laws:
 1. preserve E0 Fixture Dialect v1 and generic validation unless implementation proves an impossibility;
 2. use `MissingRaftContract.Validate(ValidatedFixture)` without a second fixture/domain representation;
@@ -70,7 +73,7 @@ Implementation order:
 Do not enter Patch 0003 hashing or Patch 0004 Access Control during 0002.2 correction/debugging.
 
 ## Continuity
-Fresh chats read this file first, then the approved Patch 0002.2 contract, then only the source/test files relevant to the immediate implementation slice. Do not reconstruct already-approved project state from chat history.
+Fresh chats read this file first, then `docs/handoff/E0A_H1_PATCH_0002_2_IMPLEMENTATION_HANDOFF.md`, then the approved Patch 0002.2 contract, then only source/test files relevant to the immediate implementation slice. Do not reconstruct already-approved project state from chat history.
 
 ## Project rule
 Every patch is reviewed against the previous validated baseline: correctness -> consistency -> authority -> scope -> tests -> simplicity -> hygiene -> ARM64 suitability -> vision -> evidence. Git preserves history; the active source tree preserves only the best current architecture.
