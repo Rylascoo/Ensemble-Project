@@ -8,7 +8,7 @@ Updated: 2026-09-01
 - H1 Deterministic Spine Blueprint 0.2 is approved.
 - `docs/ENGINEERING_HYGIENE_CONSTITUTION.md` is project law for implementation quality and cleanup unless a stronger frozen specification explicitly overrides it.
 - GitHub `Rylascoo/Ensemble-Project` is the authoritative engineering source.
-- Google Drive `Ensemble Project` is the design repository for UI/UX architecture, mockups/prototypes, visual identity/artwork, motion/animation, Store/marketing assets, and research/reference material.
+- Google Drive `Ensemble Project` is the design repository.
 
 ## Current phase
 E0-A Harness Implementation — H1 Deterministic Spine.
@@ -16,51 +16,34 @@ E0-A Harness Implementation — H1 Deterministic Spine.
 ## Validated baseline
 H1 Patch 0002.1 — E0 Fixture Dialect v1 — is merged to `main` through PR #3.
 
-The validated baseline includes:
-1. typed `E0FixtureDocument` transport schema;
-2. distinct fixture family identity, stable `major.minor.patch` fixture version, and derived versioned `FixtureId`;
-3. structurally separate Production-authoritative and Character-subjective record categories;
-4. Character ownership encoded by nesting rather than redundant owner fields;
-5. known access/observation contract identifiers with no fixture-authored ACLs;
-6. immutable `ValidatedFixture` promotion boundary;
-7. generic deterministic validation for exactly three Characters, Scene roster equality, initial opportunity, fixture-global Record IDs, chronology references, provenance integrity, and relationship targets;
-8. E0 JSON preflight bound to 1 MiB with duplicate-property rejection and JSON Number tokens forbidden;
-9. Unicode NFC/NUL semantic-text validation without silent normalization;
-10. one canonical non-Missing-Raft smoke fixture shared by tests and Harness runtime validation;
-11. one canonical Core test project covering strong IDs, fixture versions, dialect loading, authority/reference invariants, and parser/preflight failures.
+Machine evidence for that baseline:
+- native Windows ARM64 compiler gate: PASS;
+- Core tests: 30/30 PASS;
+- generic fixture runtime smoke: PASS, exit code `0`;
+- detailed evidence: `docs/evidence/H1_PATCH_0002_1_ARM64_VALIDATION.md`.
 
-## Clean replacement result
-Patch 0001 bootstrap fixture surfaces were removed rather than retained as legacy compatibility layers:
-- `FixtureEnvelopeDocument` deleted;
-- `FixtureEnvelopeValidator` deleted;
-- fixture-authored `accessPolicies` removed;
-- `FixtureLoader` returns `E0FixtureDocument` directly;
-- Harness promotes only through `GenericE0FixtureValidator` to `ValidatedFixture`.
+## Active correction boundary
+Branch: `h1-patch-0002-1a-provenance-dag`
+
+Patch 0002.1a corrects one inherited invariant only:
+- multi-record provenance cycles were not rejected by Patch 0002.1;
+- `ValidatedFixture` construction now requires the complete provenance graph to be acyclic;
+- cycle detection is iterative/topological, avoiding recursive stack-depth risk;
+- one regression test proves a two-record provenance cycle is rejected.
+
+No fixture schema, authority category, Missing Raft content, hashing, Access Control, Context Composer, persistence, provider/AI, UI, NPU, or Store surface changes in this correction.
 
 ## Validation authority
 - Static review: advisory only.
 - Visual Studio / `dotnet` ARM64 build output: compiler authority.
 - `dotnet test` on the target machine is test-execution authority for the tests actually exercised.
 - Actual target-device execution: runtime authority for the behavior actually exercised.
-- NPU execution requires explicit hardware evidence.
-- WACK and Partner Center remain later independent authorities.
 
-## Patch 0002.1 validation
-Tested executable implementation head: `f0147b09`.
-
-- Static review: PASS.
-- Native Windows ARM64 compiler gate: PASS — Core and Harness built successfully; Harness output targeted `net9.0\win-arm64`.
-- Core tests: PASS — 30 total, 30 succeeded, 0 failed, 0 skipped.
-- Generic fixture runtime smoke: PASS — `ensemble.e0.smoke@0.1.0` validated and process exit code was `0`.
-- Final hygiene/scope comparison: PASS.
-- Evidence/checkpoint commits after `f0147b09` did not alter executable source.
-- Detailed evidence: `docs/evidence/H1_PATCH_0002_1_ARM64_VALIDATION.md`.
-
-## Explicitly unvalidated / excluded
-No Missing Raft semantic validation, ECJ-1, SHA-256 fixture hashing, deterministic Access Control, Context Composer, Production state construction, persistence, causal commits, provider/AI behavior, Windows AI/NPU execution, WinUI, packaging, WACK, or Store validation exists yet.
+## Current validation state
+Patch 0002.1a has static review only until the target Windows ARM64 machine completes its build/test/smoke gate.
 
 ## Immediate next action
-Design H1 Patch 0002.2: canonical Missing Raft fixture plus experiment-specific structural validation. Compare every proposed addition against the Patch 0002.1 baseline and preserve the generic fixture layer; do not add ECJ-1/hash or Access Control until Patch 0002.2 is separately reviewed and machine-validated.
+Validate Patch 0002.1a on the target machine. If clean, merge it before designing Patch 0002.2 so Missing Raft inherits the corrected provenance invariant.
 
 ## Project rule
 Every patch is reviewed against the previous validated baseline: correctness -> consistency -> authority -> scope -> tests -> simplicity -> hygiene -> ARM64 suitability -> vision -> evidence. Git preserves history; the active source tree preserves only the best current architecture.
