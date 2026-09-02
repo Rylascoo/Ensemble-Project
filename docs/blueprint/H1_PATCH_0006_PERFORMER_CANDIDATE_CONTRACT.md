@@ -1,6 +1,6 @@
 # H1 Patch 0006 — Performer Candidate Output Contract
 
-Status: blueprint proposal 0.1 — APPROVAL REQUIRED; implementation not started
+Status: blueprint proposal 0.2 — APPROVAL REQUIRED; implementation not started
 Parent baseline: validated H1 Patch 0005
 Branch: `h1-patch-0006-performer-candidate-blueprint`
 
@@ -12,9 +12,11 @@ Implement the next E0-A boundary after the validated Context Composer:
 
 Patch 0006 answers one narrow question:
 
-> Can Ensemble represent one provisional Character performance as a strict, bounded, provider-neutral candidate object that is cryptographically bound to the exact ContextPacket disclosure that produced it, while keeping model-supplied control data non-authoritative and preventing provider errors, malformed output, hidden reasoning, or mutation proposals from entering fiction?
+> Can Ensemble represent one provisional Character performance as a strict, schema-bounded, provider-neutral candidate object that is deterministically attributed to the exact ContextPacket disclosure that produced it, while keeping model-supplied control data non-authoritative and preventing provider errors, malformed output, hidden reasoning, or mutation proposals from entering fiction?
 
 Patch 0006 defines and implements the candidate-output contract only. It does not call any provider/model.
+
+The ContextPacket hashes provide content identity for attribution. They are not a signature, MAC, provider authentication mechanism, or proof that a particular model produced the candidate.
 
 ## 2. Authority basis
 
@@ -87,6 +89,7 @@ Those values are copied from the trusted packet. They are **not echoed by the mo
 
 ```text
 CandidatePerformance
+- SchemaVersion
 - SubjectCharacterId
 - ContextPacketId
 - RenderingContract
@@ -103,6 +106,8 @@ CandidatePerformanceControl
 - AddressedCharacterIds
 - NominatedCharacterId
 ```
+
+`SchemaVersion` is the exact verified contract value from Section 5. The parser verifies the model-supplied token and stores the canonical contract value; callers do not provide it separately.
 
 The candidate is provisional. It is not an accepted Take, not Production history, and not authority.
 
@@ -160,6 +165,8 @@ Property order in provider output is not semantically significant. Candidate par
 
 No additional root, `performance`, or `control` properties are permitted.
 
+Patch 0006 freezes schema shape, not a generation-length optimization policy. Deterministic transport/response byte ceilings belong to the later provider-execution contract and must be enforced before unbounded provider data reaches Core parsing.
+
 ## 7. Performance kinds
 
 Frozen E0 kinds:
@@ -202,7 +209,7 @@ For `Speech`, `Action`, and `Mixed`:
 - NUL is forbidden;
 - invalid surrogate sequences are forbidden;
 - text must be NFC;
-- accepted candidate text is preserved exactly after JSON decoding; no paraphrase, repair, normalization, rewriting, Markdown cleanup, quote insertion, or punctuation correction occurs.
+- candidate `VisibleText` is preserved exactly after JSON decoding; no paraphrase, repair, normalization, rewriting, Markdown cleanup, quote insertion, or punctuation correction occurs.
 
 For `Silence`:
 
@@ -306,7 +313,7 @@ Requirements:
 - trailing commas rejected;
 - unknown properties rejected;
 - required properties must appear exactly once;
-- schemaVersion must match exactly;
+- `schemaVersion` must match exactly;
 - kind values are case-sensitive exact lowercase contract tokens;
 - addressed IDs must be JSON strings;
 - nominated ID must be string or null;
@@ -317,7 +324,7 @@ A malformed provider response is a technical contract failure. It never becomes 
 
 Patch 0006 may reuse the repository’s existing strict-JSON/preflight techniques when appropriate, but must not couple Performer output parsing to fixture-specific types or fixture schema rules.
 
-## 13. Candidate binding to exact context disclosure
+## 13. Candidate attribution to exact context disclosure
 
 Trusted candidate construction copies from the supplied `ContextPacket`:
 
@@ -328,10 +335,10 @@ RenderingContract
 RenderedContextHash
 ```
 
-This creates an explicit link from candidate Performance to:
+This creates deterministic content attribution from candidate Performance to:
 
 - the structured semantic context identity;
-- the exact provider-neutral rendered disclosure contract and bytes.
+- the exact provider-neutral rendered disclosure contract and content identity.
 
 The model/provider output is not allowed to supply or override those fields.
 
@@ -340,9 +347,9 @@ Consequences:
 - a candidate cannot claim it came from a different Character;
 - a candidate cannot claim a different ContextPacketId;
 - a candidate cannot claim a different RenderedContextHash;
-- later experimental provenance can attribute a Performance to the exact Character disclosure without reintroducing full fixture/Production state into the candidate.
+- later experimental provenance can associate a Performance with the exact Character disclosure without reintroducing full fixture/Production state into the candidate.
 
-This is binding/attribution, not acceptance or truth authority.
+This is content binding/attribution inside Ensemble’s deterministic object graph. It is **not** provider authentication, signing, non-repudiation, authorization, acceptance, or truth authority.
 
 ## 14. No TakeId semantics in Patch 0006
 
@@ -394,8 +401,9 @@ No provider abstraction, retry loop, logging side effect, file I/O, network I/O,
 For identical `ContextPacket + candidate-output UTF-8 bytes`:
 
 - parsing result is semantically identical;
+- `SchemaVersion` is identical;
 - AddressedCharacterIds ordering is identical;
-- all copied context-binding fields are identical;
+- all copied context-attribution fields are identical;
 - no culture, filesystem, clock, randomness, network, provider state, process-global mutable state, or machine architecture affects the result.
 
 The parser never mutates the ContextPacket.
@@ -546,7 +554,7 @@ Required coverage:
 5. non-silence empty/whitespace-only text fails;
 6. Silence with text fails;
 7. Silence with address or nomination fails;
-8. exact schema version required;
+8. exact schema version required and exposed on parsed candidate;
 9. unknown root property fails;
 10. unknown performance property fails;
 11. unknown control property fails;
@@ -594,7 +602,7 @@ A provider-execution Harness mode belongs to a later explicitly approved slice o
 
 ## 26. ARM64 and battery suitability
 
-Patch 0006 is tiny deterministic CPU work over one bounded JSON candidate.
+Patch 0006 is tiny deterministic CPU work over one already transport-bounded JSON candidate.
 
 It performs:
 
@@ -617,6 +625,7 @@ Patch 0006 does not implement:
 - provider/model adapter;
 - provider API call;
 - Performer system prompt/request framing;
+- provider-response byte ceiling;
 - credentials/secrets;
 - model casting;
 - generation/reasoning settings;
@@ -649,22 +658,23 @@ Before promotion:
 2. implementation begins from then-current `main` on a dedicated branch;
 3. only ContextPacket + explicit candidate bytes enter parser;
 4. exact JSON shape and strict parser behavior receive adversarial review;
-5. candidate copies subject/context/render binding only from trusted ContextPacket;
-6. visible text remains preserved and not silently rewritten;
-7. typed control remains narrow and non-authoritative;
-8. no mutation/private-reasoning/provider/runtime fields enter candidate schema;
-9. candidate authority objects cannot be publicly forged;
-10. Silence invariants pass;
-11. roster-target/self-target/duplicate checks pass;
-12. malformed/provider-error-like payloads fail technically rather than becoming fiction;
-13. all existing 115 Core tests remain green;
-14. frozen Context hashes remain unchanged;
-15. frozen ECJ-1 hash/byte length remain unchanged;
-16. native Windows ARM64 Core/Harness build passes warnings-as-errors;
-17. full Core test suite passes on target machine;
-18. existing Missing Raft and smoke Harness regressions pass/0;
-19. final hygiene review finds no provider adapter, Director, Integrity decision, State Interpreter, State Authority, Take semantics, persistence, or later-scope implementation;
-20. validation evidence distinguishes exact machine-tested executable head from documentation-only closure commits.
+5. candidate copies subject/context/render attribution only from trusted ContextPacket;
+6. verified SchemaVersion is carried on parsed candidate;
+7. visible text remains preserved and not silently rewritten;
+8. typed control remains narrow and non-authoritative;
+9. no mutation/private-reasoning/provider/runtime fields enter candidate schema;
+10. candidate authority objects cannot be publicly forged;
+11. Silence invariants pass;
+12. roster-target/self-target/duplicate checks pass;
+13. malformed/provider-error-like payloads fail technically rather than becoming fiction;
+14. all existing 115 Core tests remain green;
+15. frozen Context hashes remain unchanged;
+16. frozen ECJ-1 hash/byte length remain unchanged;
+17. native Windows ARM64 Core/Harness build passes warnings-as-errors;
+18. full Core test suite passes on target machine;
+19. existing Missing Raft and smoke Harness regressions pass/0;
+20. final hygiene review finds no provider adapter, Director, Integrity decision, State Interpreter, State Authority, Take semantics, persistence, or later-scope implementation;
+21. validation evidence distinguishes exact machine-tested executable head from documentation-only closure commits.
 
 ## 29. Material approval decisions
 
@@ -673,19 +683,21 @@ Explicit approval freezes these Patch 0006 decisions:
 1. Patch 0006 is the Performer candidate-output contract immediately after validated Context Composer and before Director/Integrity/State layers;
 2. Patch 0006 implements no provider call;
 3. model output contract is strict JSON version `ensemble.e0.performer.candidate.v1`;
-4. trusted candidate binding fields are copied from ContextPacket and cannot be model-supplied;
-5. candidate binds to SubjectCharacterId, ContextPacketId, RenderingContract, and RenderedContextHash;
-6. performance kinds are Speech, Action, Mixed, Silence;
-7. refusal/redirection remain semantic behavior rather than extra authority enums;
-8. Silence uses exact empty visible text and cannot carry address/nomination control;
-9. hidden typed control contains only addressed Character IDs and optional nominated Character ID;
-10. typed control is Performer assertion, not state/truth/Director authority;
-11. no State Interpreter mutation, confidence score, private reasoning, chain-of-thought, or world-fact proposal enters the Performer candidate schema;
-12. parser is strict/fail-closed and never repairs malformed model output;
-13. visible candidate text is preserved exactly after decoding; invalid canonical text is rejected rather than rewritten;
-14. public validated candidate/control constructors are Core-internal;
-15. raw provider response and technical errors remain separate diagnostics, not candidate fiction;
-16. TakeId/accepted/rejected/alternate Take semantics remain deferred to their later frozen boundary;
-17. Director, Integrity Validator, State Interpreter, State Authority, provider integration, and causal persistence remain outside Patch 0006.
+4. parsed CandidatePerformance exposes the verified SchemaVersion;
+5. trusted candidate attribution fields are copied from ContextPacket and cannot be model-supplied;
+6. candidate is attributed to SubjectCharacterId, ContextPacketId, RenderingContract, and RenderedContextHash, without claiming signature/authentication semantics;
+7. performance kinds are Speech, Action, Mixed, Silence;
+8. refusal/redirection remain semantic behavior rather than extra authority enums;
+9. Silence uses exact empty visible text and cannot carry address/nomination control;
+10. hidden typed control contains only addressed Character IDs and optional nominated Character ID;
+11. typed control is Performer assertion, not state/truth/Director authority;
+12. no State Interpreter mutation, confidence score, private reasoning, chain-of-thought, or world-fact proposal enters the Performer candidate schema;
+13. parser is strict/fail-closed and never repairs malformed model output;
+14. visible candidate text is preserved exactly after decoding; invalid canonical text is rejected rather than rewritten;
+15. public validated candidate/control constructors are Core-internal;
+16. raw provider response and technical errors remain separate diagnostics, not candidate fiction;
+17. TakeId/accepted/rejected/alternate Take semantics remain deferred to their later frozen boundary;
+18. provider response size ceilings are deferred to the later provider-execution contract rather than invented as E0 behavior here;
+19. Director, Integrity Validator, State Interpreter, State Authority, provider integration, and causal persistence remain outside Patch 0006.
 
 Implementation must not begin until these decisions are approved.
