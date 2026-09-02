@@ -1,7 +1,7 @@
 # H1 Patch 0005 — Independent Context Reference Oracle
 
 Date: 2026-09-02
-Status: pre-machine-validation reference evidence
+Status: corrected pre-machine-validation reference evidence
 Purpose: record independently derived Missing Raft / Voss Context identities before executable promotion.
 
 ## Authority level
@@ -19,25 +19,36 @@ Approved contracts:
 - composition: `ensemble.e0.context.full-authorized.v1`
 - rendering: `ensemble.e0.context.render.v1`
 
-The semantic input was constructed independently from the approved Patch 0004 Voss access set and Patch 0005 canonical property/order rules. No production Context canonicalizer or renderer was used to derive the expected values.
+The semantic input is derived directly from the canonical Patch 0004 Voss access projection and Patch 0005 canonical property/order rules. No production Context canonicalizer or renderer is used to derive the expected values.
 
-## Independent derivation
-Two separate reference serialization paths were used:
+## Correction after first native test gate
+The first native ARM64 Patch 0005 test run at executable head `44efd6358d8a94e769eee2ff9b2c7bd4715f5587` compiled successfully and discovered all 115 tests, but 2 tests failed.
+
+Static comparison isolated both failures to this oracle/test fixture transcription, not production Composer behavior. The canonical Missing Raft fixture defines `REL-VOSS-MARLOWE` as:
+
+`Voss respects Marlowe's perception but grants him less benefit of the doubt on unilateral choices.`
+
+The original independent oracle had accidentally substituted `competence` for canonical `perception`. Because both words contain ten ASCII bytes, the structured and rendered byte-length expectations remained correct while both SHA-256 values differed. The exact-render expectation therefore failed for the same single transcription error.
+
+The canonical fixture is authoritative. Production code remains unchanged. This document and the corresponding test expectations are corrected to the fixture text.
+
+## Corrected independent derivation
+Two independent reference serialization paths were rerun using the exact canonical fixture text:
 
 1. an independently constructed ordered semantic object serialized as minified UTF-8 JSON with non-ASCII scalar preservation;
 2. a manual explicit canonical JSON emitter implementing the approved property order and ECJ-1 scalar/string escaping rules.
 
-The two paths produced byte-identical structured content and byte-identical rendered-envelope content.
+The two paths again produced byte-identical structured content and byte-identical rendered-envelope content.
 
-## Frozen Voss reference values
+## Corrected frozen Voss reference values
 Structured canonical UTF-8 length:
 `2569` bytes
 
 StructuredContextHash:
-`ce172d8d6a6aedd2c24465c1011ea14466a405f2476031d72a84b62266e126be`
+`bbb82aa9400ea76290f9e3a62dcea3cb922f5d5b5a5677216a8922a6472e274b`
 
 ContextPacketId:
-`CTX:ce172d8d6a6aedd2c24465c1011ea14466a405f2476031d72a84b62266e126be`
+`CTX:bbb82aa9400ea76290f9e3a62dcea3cb922f5d5b5a5677216a8922a6472e274b`
 
 TrustedStateText UTF-8 length:
 `1696` bytes
@@ -46,7 +57,7 @@ Rendered canonical envelope UTF-8 length:
 `1905` bytes
 
 RenderedContextHash:
-`b116d7264c50e22083e250605336c28eb6f2da12475748c495eecc73a5ce89b5`
+`ce99a0c5e525276c17b84ad86a21c335028d1a01791f27c223bae4e5edd7cf88`
 
 ## Exact Voss TrustedStateText
 No trailing LF is present.
@@ -91,7 +102,7 @@ Disposition:
 - Wren
 
 [RELATIONSHIPS]
-- Marlowe: Voss respects Marlowe's competence but grants him less benefit of the doubt on unilateral choices.
+- Marlowe: Voss respects Marlowe's perception but grants him less benefit of the doubt on unilateral choices.
 - Wren: Voss respects Wren's observational care and expects Wren to withhold conclusions when pressed.
 
 [WHAT YOU WANT]
@@ -114,5 +125,16 @@ Patch 0005's shared canonical JSON primitive extraction must leave Missing Raft 
 - canonical fixture bytes: `9112`
 - fixture SHA-256: `5556a02325e6a7f774e6997942b395d670741d494ea86f1a50b83633e26b6703`
 
+## Validation record so far
+At head `44efd6358d8a94e769eee2ff9b2c7bd4715f5587` on the user's native Windows ARM64 machine:
+- Core/Harness build: PASS;
+- tests discovered: 115;
+- tests succeeded: 113;
+- tests failed: 2, both traced to the stale oracle transcription above;
+- Missing Raft Harness regression: PASS/0;
+- generic smoke Harness regression: PASS/0.
+
+These results do not yet establish Patch 0005 executable completion. A rerun at the corrected test head is required.
+
 ## Promotion rule
-Production tests may use the frozen values in this document as an oracle. Executable promotion still requires native Windows ARM64 build, complete Core tests, Missing Raft runtime regression, generic smoke runtime regression, and final static/hygiene/scope review.
+Production tests use the corrected values in this document as the oracle. Executable promotion still requires native Windows ARM64 build, complete Core tests, Missing Raft runtime regression, generic smoke runtime regression, and final static/hygiene/scope review.
