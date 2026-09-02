@@ -1,6 +1,6 @@
 # H1 Patch 0005 — Deterministic Context Composer + Dual Context Identity
 
-Status: blueprint proposal 0.2 — APPROVAL REQUIRED; implementation not started
+Status: blueprint proposal 0.3 — APPROVAL REQUIRED; implementation not started
 Parent baseline: validated H1 Patch 0004
 Branch: `h1-patch-0005-context-composer-blueprint`
 
@@ -99,16 +99,21 @@ ContextCompositionEvaluation
 
 All public packet/render/trace types are read-only and have Core-internal constructors. External assemblies may inspect Composer output but cannot fabricate authoritative ContextPacket objects through public constructors.
 
-## 5. Context identifiers
+## 5. Context contracts
 
 Patch 0005 freezes:
 
 ```text
 ContextSchemaVersion = ensemble.e0.context.v1
 CompositionContract = ensemble.e0.context.full-authorized.v1
+RenderingContract = ensemble.e0.context.render.v1
 ```
 
-Neither identifier grants access or truth authority.
+- `ContextSchemaVersion` versions structured semantic packet shape.
+- `CompositionContract` versions selection behavior.
+- `RenderingContract` versions exact provider-neutral text rendering behavior.
+
+None grants access or truth authority.
 
 ## 6. Structured ContextPacket schema
 
@@ -141,7 +146,7 @@ ContextPacket
 - RenderedContextHash
 ```
 
-Safe value shapes:
+Safe value shapes implemented by Patch 0005:
 
 ```text
 ContextParticipant
@@ -156,28 +161,24 @@ ContextRelationship
 - RecordId
 - TargetCharacterId
 - Text
-
-ContextPerformanceExcerpt
-- TakeId
-- CharacterId
-- Text
 ```
 
 No packet state record contains authoritative fixture provenance or denied Access Control data.
 
 ### RecentPerformances
 
-`RecentPerformances` is a fixed schema-v1 section because frozen Blueprint 0.1 requires later context to distinguish “what just happened.” Patch 0005 has no accepted-history authority producer yet.
+`recentPerformances` is a fixed root schema-v1 array because frozen Blueprint 0.1 requires later context to distinguish “what just happened.” Patch 0005 has no accepted-history authority producer yet.
 
 Therefore:
 
-- every Patch 0005 packet contains an empty `RecentPerformances` array;
-- `RecentPerformanceText` is empty;
+- every Patch 0005 packet canonicalizes `recentPerformances` as exactly `[]`;
+- `RecentPerformanceText` is exactly empty;
+- Patch 0005 introduces **no executable recent-performance DTO, Take-history projection, or non-empty serializer path**;
 - Patch 0005 must not fabricate transcript/history content;
-- a later approved accepted-history/commit slice may populate this section only from a safe accepted-history projection;
-- accepted fictional performance remains a separate authority layer from trusted structured state.
+- a later explicitly approved accepted-history/commit slice owns the item schema and safe population path before `recentPerformances` may become non-empty;
+- accepted fictional performance must remain a separate authority layer from trusted structured state.
 
-This freezes the semantic slot without pretending persistence exists.
+This reserves the semantic section without inventing history infrastructure early.
 
 ## 7. Exact inclusion matrix
 
@@ -233,6 +234,7 @@ Patch 0005 produces deterministic provider-neutral context, not a final provider
 
 ```text
 RenderedContext
+- RenderingContract
 - TrustedStateText
 - RecentPerformanceText
 - OpportunityText
@@ -284,7 +286,7 @@ Disposition:
 <disposition bullet list>
 ```
 
-The Name list contains exactly the subject's display name resolved from the roster.
+Name contains exactly the subject display name resolved from roster.
 
 ### Other sections
 
@@ -296,7 +298,7 @@ The Name list contains exactly the subject's display name resolved from the rost
 - `[WHAT YOU SUSPECT]` -> Suspicions
 - `[WHAT YOU REMEMBER]` -> Memories
 - `[WHO IS PRESENT]` -> roster display names
-- `[RELATIONSHIPS]` -> subject's directional relationships
+- `[RELATIONSHIPS]` -> subject directional Relationships
 - `[WHAT YOU WANT]` -> Goals
 - `[PRESSURES]` -> Pressures
 
@@ -306,13 +308,13 @@ Normal text entry:
 
 ```text
 - <first line>
-  <second line if source text contains LF>
-  <additional lines>
+  <second source line>
+  <additional source lines>
 ```
 
 Source LF is preserved semantically by splitting on LF and indenting continuation lines with exactly two spaces. Source text is never trimmed, paraphrased, summarized, or reordered.
 
-An empty list renders exactly:
+Empty list:
 
 ```text
 - none
@@ -320,18 +322,18 @@ An empty list renders exactly:
 
 Roster renders display names only.
 
-A Relationship renders its target display name and state as:
+Relationship:
 
 ```text
 - <target display name>: <first relationship-text line>
   <relationship continuation lines>
 ```
 
-Relationship targets must resolve uniquely in the roster or composition fails closed.
+Relationship target must resolve uniquely in roster or composition fails closed.
 
-Record IDs, Character IDs, SceneId, fixture hash, provenance IDs, access decisions, provider/model data, and diagnostics are omitted from provider-neutral rendered text.
+Record IDs, Character IDs, SceneId, fixture hash, provenance IDs, access decisions, provider/model data, and diagnostics are omitted from provider-neutral text.
 
-`RecentPerformanceText` is exactly the empty string in Patch 0005.
+`RecentPerformanceText` is exactly the empty string.
 
 `OpportunityText` is exactly, with no trailing LF:
 
@@ -345,10 +347,10 @@ This states salience; it does not require speech or a predetermined action.
 
 `StructuredContextHash` is SHA-256 over deterministic canonical JSON of structured semantic packet content, excluding:
 
-- `ContextPacketId`;
-- `StructuredContextHash`;
-- `RenderedContext`;
-- `RenderedContextHash`.
+- ContextPacketId;
+- StructuredContextHash;
+- RenderedContext;
+- RenderedContextHash.
 
 Canonical root property order:
 
@@ -376,15 +378,14 @@ Nested property order:
 
 - participant: `characterId`, `displayName`;
 - record: `recordId`, `text`;
-- relationship: `recordId`, `targetCharacterId`, `text`;
-- future recent performance: `takeId`, `characterId`, `text`.
+- relationship: `recordId`, `targetCharacterId`, `text`.
 
 Ordering:
 
 - roster by CharacterId, ordinal;
 - every record collection by RecordId, ordinal;
 - relationships by relationship RecordId, ordinal;
-- future RecentPerformances preserve causal sequence and are never set-sorted.
+- `recentPerformances` is exactly empty in Patch 0005; future non-empty causal ordering is owned by the later accepted-history contract.
 
 String/UTF-8 discipline reuses frozen ECJ-1 byte rules:
 
@@ -407,7 +408,7 @@ The extraction is valid only if Missing Raft ECJ-1 remains exactly:
 - `9112` UTF-8 bytes;
 - SHA-256 `5556a02325e6a7f774e6997942b395d670741d494ea86f1a50b83633e26b6703`.
 
-Fixture-specific property/order rules stay explicit in `Ecj1FixtureCanonicalizer`; no reflection/serializer framework is introduced.
+Fixture-specific property/order rules remain explicit in `Ecj1FixtureCanonicalizer`; no reflection/serializer framework is introduced.
 
 ## 12. Dual context identity
 
@@ -423,17 +424,19 @@ It identifies **what semantic Character context was selected for this opportunit
 
 ### RenderedContextHash
 
-SHA-256 over this canonical three-property rendered envelope, in exact property order:
+SHA-256 over this canonical rendered envelope, in exact property order:
 
 ```json
-{"trustedStateText":"...","recentPerformanceText":"...","opportunityText":"..."}
+{"renderingContract":"ensemble.e0.context.render.v1","trustedStateText":"...","recentPerformanceText":"...","opportunityText":"..."}
 ```
 
 using the same canonical JSON string/UTF-8 rules.
 
-It identifies **the exact provider-neutral textual disclosure emitted by Context Composer**.
+It identifies **which rendering contract and exact provider-neutral textual disclosure were emitted by Context Composer**.
 
 It does not identify a system prompt, provider adapter framing, provider request, credentials, model settings, or provider response.
+
+Changing rendering behavior requires a new RenderingContract value unless the change is proven byte-identical for every valid input under the same contract.
 
 ## 13. ContextPacketId
 
@@ -448,11 +451,11 @@ The existing 128-character strong ID supports the 68-character value.
 Therefore:
 
 - identical structured semantic packets have identical ContextPacketId;
-- renderer-only change may keep ContextPacketId while changing RenderedContextHash;
+- renderer-only contract change may keep ContextPacketId while changing RenderingContract/RenderedContextHash;
 - semantic state/category/opportunity change changes StructuredContextHash and ContextPacketId;
 - ContextPacketId is content identity, not authorization, source-fixture provenance, signing, or publisher identity.
 
-Fixture/run/provider provenance remains a higher orchestration concern. A later run record should associate fixture identity + run/performer identity + ContextPacketId + RenderedContextHash; Patch 0005 does not smuggle fixture identity back through the Character-safe Composer input.
+Fixture/run/provider provenance remains a higher orchestration concern. A later run record should associate fixture identity + run/performer identity + ContextPacketId + RenderingContract + RenderedContextHash; Patch 0005 does not smuggle fixture identity back through the Character-safe Composer input.
 
 ## 14. Composition trace
 
@@ -461,6 +464,7 @@ Local-only audit:
 ```text
 ContextCompositionTrace
 - CompositionContract
+- RenderingContract
 - IncludedRecordIds
 - IncludedRosterCharacterIds
 - OpportunityCharacterId
@@ -478,7 +482,7 @@ Rules:
 - no record text appears;
 - future provider/Performer API accepts `ContextPacket`, not `ContextCompositionEvaluation`.
 
-The trace is E0 diagnostic/experimental provenance, not Character knowledge.
+Trace is E0 diagnostic/experimental provenance, not Character knowledge.
 
 ## 15. Fail-closed behavior
 
@@ -502,15 +506,15 @@ Composition failure remains technical authority failure and must never become fi
 
 ## 16. Determinism and immutability
 
-For identical semantic `CharacterAccessProjection + CurrentOpportunityCharacterId`:
+For identical semantic `CharacterAccessProjection + CurrentOpportunityCharacterId` under the same contracts:
 
 - canonical structured bytes are identical;
 - StructuredContextHash and ContextPacketId are identical;
-- all three rendered layer strings are identical;
+- all rendered layer strings are identical;
 - RenderedContextHash is identical;
 - trace is identical.
 
-Composer never mutates the Access projection or its safe records.
+Composer never mutates Access projection or safe records.
 
 No filesystem state, culture, clock, randomness, dictionary enumeration, network, model output, provider state, process-global mutable state, or machine architecture influences composition.
 
@@ -527,7 +531,7 @@ ValidatedFixture
 -> DeterministicContextComposer.Compose(projection, VOSS)
 ```
 
-Packet includes exactly the approved Voss access set.
+Packet includes exactly the approved Voss Access set.
 
 Shared:
 
@@ -550,11 +554,11 @@ Voss-owned:
 - `REL-VOSS-MARLOWE`
 - `REL-VOSS-WREN`
 
-Packet, render, and trace must not contain `WORLD-CURRENT-STRENGTHENED`, `HT-MARLOWE-RELEASED-RAFT`, `KNOW-MARLOWE-RELEASED-RAFT`, Wren's private Observation/Suspicion, another denied record, or hidden fixture provenance ID.
+Packet, render, and trace must not contain `WORLD-CURRENT-STRENGTHENED`, `HT-MARLOWE-RELEASED-RAFT`, `KNOW-MARLOWE-RELEASED-RAFT`, Wren private Observation/Suspicion, another denied record, or hidden fixture provenance ID.
 
-`RecentPerformances` is empty.
+`recentPerformances` is empty.
 
-Tests also compose Marlowe and Wren packets with synthetic matching opportunity IDs to prove the generic boundary; this does not change the fixture's actual opening opportunity.
+Tests also compose Marlowe/Wren packets with synthetic matching opportunity CharacterIds to prove generic boundary behavior; this does not alter the fixture's actual opening opportunity.
 
 ## 18. Required tests
 
@@ -563,37 +567,39 @@ Use existing canonical smoke/Missing Raft fixtures and Patch 0004 Access Control
 Required coverage:
 
 1. generic smoke packet composes from CharacterAccessProjection only;
-2. Missing Raft Voss exact packet Record-ID set equals its Patch 0004 permitted set;
+2. Missing Raft Voss exact packet Record-ID set equals Patch 0004 permitted set;
 3. Marlowe/Wren synthetic matching-opportunity packet sets equal their permitted sets;
 4. denied Production/other-Character IDs never enter packet, render, or trace;
 5. Access audit decisions cannot enter Composer input/output;
-6. every permitted record appears exactly once in its original category;
+6. every permitted record appears exactly once in original category;
 7. Knowledge/Belief/Suspicion/Memory/Observation remain structurally distinct;
 8. relationship directionality and target-name rendering are correct;
-9. roster identity is complete and deterministically ordered;
+9. roster identity is complete and deterministic;
 10. opportunity must equal subject and belong to roster;
-11. RecentPerformances is present/empty; RecentPerformanceText is empty;
-12. trusted/recent/opportunity render layers are separate;
-13. exact TrustedStateText headings/order/blank lines/no-trailing-LF contract;
-14. bullet continuation and empty-list rendering contract;
-15. provider-neutral render contains no Record IDs, Character IDs, SceneId, provenance, provider/debug data;
-16. source reordering of semantically unordered fixture collections does not change structured bytes/hashes/render;
-17. repeated composition is byte-identical;
-18. generic semantic text mutation changes StructuredContextHash, ContextPacketId, and RenderedContextHash;
-19. same ID/text moved to a different authority category changes StructuredContextHash;
-20. display-name mutation changes identities where semantically represented;
-21. mismatched/uninitialized opportunity fails closed;
-22. both hashes are exactly 64 lowercase hex;
-23. ContextPacketId equals `CTX:<StructuredContextHash>` exactly;
-24. output constructors are non-public and packet authority cannot be forged through public constructors;
-25. composition does not mutate Access projection or alter Missing Raft fixture hash;
-26. shared canonical JSON extraction preserves exact ECJ-1 9112-byte/digest regression;
-27. independently derive and freeze expected Missing Raft Voss StructuredContextHash and RenderedContextHash before executable promotion;
-28. all existing 90 Core tests remain green;
-29. Missing Raft Harness regression remains PASS/0;
-30. generic smoke Harness regression remains PASS/0.
+11. `recentPerformances` canonicalizes exactly as `[]`; RecentPerformanceText is empty;
+12. no executable recent-performance type/non-empty path is added;
+13. trusted/recent/opportunity render layers are separate;
+14. exact TrustedStateText headings/order/blank lines/no-trailing-LF contract;
+15. bullet continuation and empty-list rendering contract;
+16. provider-neutral render contains no Record IDs, Character IDs, SceneId, provenance, provider/debug data;
+17. source reordering of semantically unordered fixture collections does not change structured bytes/hashes/render;
+18. repeated composition is byte-identical;
+19. generic semantic text mutation changes StructuredContextHash, ContextPacketId, and RenderedContextHash;
+20. same ID/text moved to a different authority category changes StructuredContextHash;
+21. display-name mutation changes identities where semantically represented;
+22. mismatched/uninitialized opportunity fails closed;
+23. both hashes are exactly 64 lowercase hex;
+24. ContextPacketId equals `CTX:<StructuredContextHash>` exactly;
+25. RenderingContract is included in rendered hash envelope/trace but excluded from StructuredContextHash;
+26. output constructors are non-public and packet authority cannot be forged through public constructors;
+27. composition does not mutate Access projection or alter Missing Raft fixture hash;
+28. shared canonical JSON extraction preserves exact ECJ-1 9112-byte/digest regression;
+29. independently derive and freeze expected Missing Raft Voss StructuredContextHash and RenderedContextHash before executable promotion;
+30. all existing 90 Core tests remain green;
+31. Missing Raft Harness regression remains PASS/0;
+32. generic smoke Harness regression remains PASS/0.
 
-Tests compare exact bytes/hashes/sets, not story-text heuristics.
+Independent hash derivation must use a reference path separate from the production Context canonicalizer/renderer so the test does not merely confirm the same implementation against itself.
 
 ## 19. Harness behavior
 
@@ -649,7 +655,8 @@ Patch 0005 does not implement:
 - provider/model adapters or calls;
 - provider-request hash;
 - Director/opportunity selection;
-- accepted Take/history projection or non-empty recent performance;
+- accepted Take/history projection;
+- recent-performance DTO/non-empty recent-performance path;
 - context/cost optimization;
 - E0-D omniscient or relationship-omission execution;
 - Integrity Validator;
@@ -671,10 +678,10 @@ Before promotion:
 6. packet/render/trace carry no denied IDs or fixture provenance;
 7. exact structured canonical property/order rules are frozen/tested;
 8. shared canonical JSON extraction leaves ECJ-1 byte-identical;
-9. dual hash semantics are deterministic and distinct;
+9. dual hash semantics and separate RenderingContract are deterministic;
 10. ContextPacketId exact content-addressing rule passes;
 11. exact rendered layer/heading/newline/bullet contract passes;
-12. opening RecentPerformances remains empty rather than fabricated;
+12. `recentPerformances` remains exact empty array with no speculative executable DTO/path;
 13. Missing Raft exact Voss packet and Marlowe/Wren generic-boundary tests pass;
 14. source-order invariance and repeated-byte identity pass;
 15. packet authority cannot be publicly forged;
@@ -694,15 +701,16 @@ Explicit approval freezes:
 3. Composer input is only CharacterAccessProjection + CurrentOpportunityCharacterId;
 4. opportunity must equal subject and grants no knowledge;
 5. packet schema preserves authority categories separately;
-6. RecentPerformances is fixed in schema v1 but remains empty until approved accepted-history authority exists;
+6. `recentPerformances` is reserved as exact empty schema-v1 array, with item type/population deferred to accepted-history authority;
 7. provider-neutral rendering separates trusted state, recent performance, and opportunity layers;
-8. final system/provider-request construction remains outside Composer;
-9. StructuredContextHash and RenderedContextHash are separate SHA-256 identities;
-10. structured hash uses explicit canonical JSON with frozen order and ECJ-1 byte discipline;
-11. canonical JSON string/UTF-8 emission is shared rather than duplicated, with exact ECJ-1 regression required;
-12. ContextPacketId is `CTX:<StructuredContextHash>`;
-13. packet identity is semantic context identity, not fixture/run provenance or authorization;
-14. local composition trace remains separate from Performer-facing packet;
-15. no relevance inference, token optimization, provider calls, Director logic, persistence, or E0-D bypass enters Patch 0005.
+8. `RenderingContract = ensemble.e0.context.render.v1` versions exact rendered-byte behavior;
+9. final system/provider-request construction remains outside Composer;
+10. StructuredContextHash and RenderedContextHash are separate SHA-256 identities;
+11. structured hash uses explicit canonical JSON with frozen order and ECJ-1 byte discipline;
+12. canonical JSON string/UTF-8 emission is shared rather than duplicated, with exact ECJ-1 regression required;
+13. ContextPacketId is `CTX:<StructuredContextHash>`;
+14. packet identity is semantic context identity, not fixture/run provenance or authorization;
+15. local composition trace remains separate from Performer-facing packet;
+16. no relevance inference, token optimization, provider calls, Director logic, persistence, recent-history implementation, or E0-D bypass enters Patch 0005.
 
 Implementation must not begin until these decisions are approved.
