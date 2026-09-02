@@ -5,5 +5,8 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Ensemble.E0.Core\Ensemble.E0.Core.csproj" />
+    <None Include="..\..\fixtures\smoke\e0-fixture-v1.json"
+          Link="Fixtures\e0-fixture-v1.json"
+          CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>
