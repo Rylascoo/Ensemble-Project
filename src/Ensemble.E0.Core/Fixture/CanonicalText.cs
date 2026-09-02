@@ -11,7 +11,7 @@ internal static class CanonicalText
             throw new FixtureValidationException($"Required text field '{fieldName}' is empty.");
         }
 
-        if (value.Contains('\0', StringComparison.Ordinal))
+        if (value.Contains('\0'))
         {
             throw new FixtureValidationException($"Text field '{fieldName}' contains a NUL character.");
         }
