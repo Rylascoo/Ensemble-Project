@@ -12,7 +12,7 @@ public sealed class FixtureVersionTests
         Assert.AreEqual("0.1.0", FixtureVersion.From("0.1.0").ToString());
     }
 
-    [DataTestMethod]
+    [TestMethod]
     [DataRow("01.0.0")]
     [DataRow("1.0")]
     [DataRow("1.0.0-beta")]
