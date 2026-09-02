@@ -17,7 +17,7 @@ public sealed class MissingRaftContractTests
 
         Assert.AreEqual(MissingRaftContract.FamilyId, fixture.FamilyId);
         Assert.AreEqual(MissingRaftContract.Version, fixture.Version);
-        Assert.AreEqual(MissingRaftContract.FixtureId, fixture.Id);
+        Assert.AreEqual(MissingRaftContract.ExpectedFixtureId, fixture.Id);
     }
 
     [TestMethod]
@@ -94,6 +94,13 @@ public sealed class MissingRaftContractTests
             MissingRaftContract.BelMarloweGroupLikelyProceedId)));
 
     [TestMethod]
+    public void CharacterCategoryMove_IsRejectedByMissingRaftContract() => AssertContractInvalid(Mutate(root =>
+        MoveRecord(
+            Character(root, MissingRaftContract.MarloweCharacterId)["knowledge"]!.AsArray(),
+            Character(root, MissingRaftContract.MarloweCharacterId)["beliefs"]!.AsArray(),
+            MissingRaftContract.KnowMarloweNotWarnedId)));
+
+    [TestMethod]
     public void CharacterRecordAddition_IsRejectedByMissingRaftContract() => AssertContractInvalid(Mutate(root =>
         Character(root, MissingRaftContract.WrenCharacterId)["beliefs"]!.AsArray().Add(NewRecord("BEL-WREN-EXTRA"))));
 
@@ -107,7 +114,10 @@ public sealed class MissingRaftContractTests
     public void ChronologyReorder_IsRejectedByMissingRaftContract() => AssertContractInvalid(Mutate(root =>
     {
         var chronology = root["chronology"]!.AsArray();
-        (chronology[0], chronology[1]) = (chronology[1], chronology[0]);
+        var first = chronology[0]!.GetValue<string>();
+        var second = chronology[1]!.GetValue<string>();
+        chronology[0] = JsonValue.Create(second);
+        chronology[1] = JsonValue.Create(first);
     }));
 
     [TestMethod]
@@ -154,6 +164,13 @@ public sealed class MissingRaftContractTests
             Character(root, MissingRaftContract.MarloweCharacterId)["knowledge"]!.AsArray(),
             Character(root, MissingRaftContract.WrenCharacterId)["knowledge"]!.AsArray(),
             MissingRaftContract.KnowMarloweNotWarnedId)));
+
+    [TestMethod]
+    public void RelationshipOwnerMismatch_IsRejected() => AssertContractInvalid(Mutate(root =>
+        MoveRecord(
+            Character(root, MissingRaftContract.MarloweCharacterId)["relationships"]!.AsArray(),
+            Character(root, MissingRaftContract.WrenCharacterId)["relationships"]!.AsArray(),
+            MissingRaftContract.RelMarloweVossId)));
 
     [TestMethod]
     public void RelationshipTargetMismatch_IsRejected() => AssertContractInvalid(Mutate(root =>
@@ -212,8 +229,16 @@ public sealed class MissingRaftContractTests
     private static void RemoveRecord(JsonArray records, string recordId) =>
         records.Remove(Record(records, recordId));
 
-    private static void SetProvenance(JsonObject record, params string[] provenanceIds) =>
-        record["provenance"] = new JsonArray(provenanceIds.Select(JsonValue.Create).ToArray<JsonNode?>());
+    private static void SetProvenance(JsonObject record, params string[] provenanceIds)
+    {
+        var provenance = new JsonArray();
+        foreach (var provenanceId in provenanceIds)
+        {
+            provenance.Add(JsonValue.Create(provenanceId));
+        }
+
+        record["provenance"] = provenance;
+    }
 
     private static void AddProvenance(JsonObject record, string provenanceId) =>
         record["provenance"]!.AsArray().Add(JsonValue.Create(provenanceId));
