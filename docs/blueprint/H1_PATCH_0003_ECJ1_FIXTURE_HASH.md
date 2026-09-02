@@ -1,6 +1,6 @@
 # H1 Patch 0003 — ECJ-1 Canonical Fixture Identity
 
-Status: blueprint proposal 0.1 — APPROVAL REQUIRED; implementation not started
+Status: blueprint proposal 0.2 — APPROVAL REQUIRED; implementation not started
 Parent baseline: validated H1 Patch 0002.2
 Branch: `h1-patch-0003-ecj1-blueprint`
 
@@ -24,12 +24,17 @@ The following law is already established by the approved H1 deterministic-spine 
 - semantically unordered collections canonicalize by stable ID using ordinal ordering;
 - semantically ordered sequences retain their defined order;
 - strings must already satisfy canonical text requirements; canonicalization rejects nonconforming input rather than silently normalizing it;
-- ECJ-1 permits JSON strings, integers, booleans, null, arrays, and objects, but not floating-point values;
+- ECJ-1's broader scalar model permits JSON strings, integers, booleans, null, arrays, and objects, but not floating-point values;
 - duplicate JSON properties remain rejected before deserialization;
-- the pipeline remains `raw JSON -> strict preflight -> transport DTO -> generic semantic validation -> immutable ValidatedFixture -> fixture-specific validation -> ECJ-1 bytes -> SHA-256 identity`;
 - `FixtureHash = SHA-256(ECJ-1 canonical fixture UTF-8 bytes)`.
 
 GitHub currently contains forward references to this law but not a standalone Patch 0003 implementation specification. This proposal checkpoints and concretizes the missing implementation-level contract before code is written.
+
+The Patch 0003 fixture path is conceptually:
+
+`raw JSON -> strict preflight -> transport DTO -> generic semantic validation -> immutable ValidatedFixture -> existing Missing Raft structural/authority checks -> ECJ-1 bytes -> SHA-256 -> Missing Raft expected-digest check`
+
+These are ordered checks inside one overall fixture-validation flow; Patch 0003 does not create a second domain representation.
 
 ## 3. Architecture boundary
 
@@ -58,24 +63,46 @@ For Patch 0003 fixture identity, ECJ-1 output is:
 - no indentation;
 - no spaces or line breaks outside JSON string values;
 - explicit property emission order defined below;
-- deterministic JSON string escaping;
+- exact deterministic JSON string escaping defined below;
 - no floating-point output.
 
 Canonicalization is pure: identical validated semantic input must produce byte-for-byte identical output without filesystem, clock, culture, randomness, network, or process-global state.
 
+Patch 0003 implements only the scalar forms actually present in E0 Fixture Dialect v1. It must not build an unused general-purpose ECJ object framework merely because later canonical structures may use integer, boolean, or null values.
+
 ### 4.1 String discipline
 
-All semantic text entering `ValidatedFixture` must already be Unicode NFC. Patch 0003 extends the existing fail-closed text boundary so semantic text containing carriage return (`U+000D`) is rejected rather than normalized to line feed. Line feed (`U+000A`) may remain meaningful text when a later fixture needs it.
+All semantic text entering `ValidatedFixture` must already:
+- be a valid Unicode scalar sequence with no unpaired UTF-16 surrogate;
+- be Unicode NFC;
+- contain no NUL;
+- contain no carriage return (`U+000D`).
 
-ECJ-1 never silently Unicode-normalizes or line-ending-normalizes strings during serialization.
+Patch 0003 extends the existing fail-closed semantic-text boundary where needed to enforce those requirements. It rejects nonconforming text rather than repairing or normalizing it.
 
-IDs continue to use their existing canonical ID validation.
+Line feed (`U+000A`) may remain meaningful semantic text when a fixture requires it. ECJ-1 never silently Unicode-normalizes or line-ending-normalizes strings during serialization.
 
-### 4.2 JSON string encoding
+Canonical IDs remain governed by the existing ASCII-limited `CanonicalId` law and therefore cannot introduce Unicode/string-escaping ambiguity.
 
-ECJ-1 emits non-control Unicode scalar values directly as UTF-8 rather than optional `\u` escapes. JSON syntax characters and control characters are escaped deterministically. The implementation must use one explicitly configured canonical writer path; serializer defaults, reflection order, dictionary enumeration order, and locale-sensitive formatting are forbidden as authority.
+### 4.2 Exact JSON string encoding
 
-If implementation review finds that a framework JSON writer cannot guarantee the byte contract without relying on unspecified behavior, implement the smallest dedicated ECJ-1 string writer rather than weakening the contract.
+For semantic string values, ECJ-1 encodes Unicode scalar values as follows:
+
+- `U+0022` quotation mark -> `\"`;
+- `U+005C` reverse solidus -> `\\`;
+- `U+0008` backspace -> `\b`;
+- `U+0009` tab -> `\t`;
+- `U+000A` line feed -> `\n`;
+- `U+000C` form feed -> `\f`;
+- `U+000D` carriage return is rejected before canonical serialization;
+- any other `U+0000` through `U+001F` control scalar -> six ASCII bytes `\u00xx`, using lowercase hexadecimal digits;
+- every other valid Unicode scalar value is emitted directly in its shortest UTF-8 encoding, including non-BMP scalars; it is not emitted as an optional `\uXXXX`/surrogate escape.
+
+Property names in E0 Fixture Dialect v1 are fixed ASCII strings and are emitted literally between JSON quotation marks.
+
+Serializer defaults, reflection order, dictionary enumeration order, locale-sensitive formatting, optional HTML escaping, and optional Unicode escaping are not authority.
+
+If a framework JSON writer cannot guarantee this exact byte contract, implement the smallest dedicated ECJ-1 string-emission helper rather than weakening the contract.
 
 ## 5. Canonical fixture property order
 
@@ -182,20 +209,30 @@ It does not hash:
 
 Therefore a source-only reformat does not create a new fixture identity, while a semantic wording/ID/provenance/ownership/chronology change does.
 
+SHA-256 here is identity/change detection. The digest is not secret, so timing-resistant comparison is not an E0 security requirement; exact digest equality is sufficient.
+
 ## 8. Missing Raft binding
 
 `MissingRaftContract` remains the one owner of frozen Missing Raft experiment metadata.
 
-Patch 0003 adds exactly one expected immutable hash value for `ensemble.e0.missing-raft@0.1.0` to that contract. The value is derived from the approved canonical fixture through the implemented ECJ-1 algorithm and then frozen in the same implementation patch.
+Patch 0003 adds exactly one expected immutable hash value for `ensemble.e0.missing-raft@0.1.0` to that contract. The value is derived from the approved canonical fixture through the implemented ECJ-1 algorithm, independently reviewed against this byte contract, and then frozen in the same implementation patch.
 
-`MissingRaftContract.Validate(ValidatedFixture)` becomes the complete version-0.1.0 contract gate:
-1. existing structural/authority/provenance validation;
+The existing public operation remains:
+
+`MissingRaftContract.Validate(ValidatedFixture)`
+
+Its implementation becomes the complete version-0.1.0 contract gate and internally performs, in order:
+1. existing structural/authority/provenance checks;
 2. ECJ-1 canonicalization;
 3. SHA-256 computation;
-4. constant-time-or-equivalent exact digest comparison against the frozen expected hash;
+4. exact digest comparison against the frozen expected hash;
 5. fail closed on mismatch.
 
+Do not introduce a second public `ValidateStructure`/`ValidateHash` contract unless implementation proves the single operation impossible or materially harmful.
+
 No `.sha256` sidecar is authoritative. A mutable sidecar beside a mutable fixture would not independently bind the fixture. The expected Missing Raft digest lives with the contract law in Core.
+
+Changing the expected digest for fixture version `0.1.0` is not routine maintenance. After the digest is frozen, any semantic fixture change requires deliberate fixture-version review; correcting an ECJ-1 implementation defect that would change the digest requires an explicit validation/migration correction rather than silently replacing the constant.
 
 Unknown generic fixture families remain generically valid. Patch 0003 does not require every generic fixture to have a frozen expected hash.
 
@@ -225,7 +262,21 @@ Consequences:
 
 The canonical source file remains the human-reviewed source of fixture content. ECJ-1 supplies cryptographic semantic identity, not a second source representation.
 
-## 11. Tests
+## 11. Digest freeze procedure
+
+Do not derive the expected Missing Raft digest and immediately trust it merely because the same implementation produced it.
+
+Before freezing the digest:
+1. implement ECJ-1 from this specification;
+2. emit the canonical Missing Raft bytes through a temporary/non-authoritative diagnostic or test inspection path;
+3. independently review those emitted bytes for exact property order, canonical array order, string escaping, lack of BOM/whitespace, and semantic completeness;
+4. compute SHA-256 over exactly those reviewed bytes;
+5. freeze the lowercase digest in `MissingRaftContract`;
+6. remove any temporary hash-generation/debug path that is not part of the final E0 contract.
+
+Do not commit a second canonical Missing Raft JSON file merely as a golden serialization copy. Git history plus the specification and digest are sufficient; the active tree keeps one fixture source.
+
+## 12. Tests
 
 Add targeted tests without malformed-fixture copy sprawl.
 
@@ -239,13 +290,15 @@ Required coverage:
 7. a relationship text mutation is likewise rejected by hash binding;
 8. a provenance-set source-order change preserves the hash, while adding/removing/changing a provenance edge fails structurally or changes identity as appropriate;
 9. semantic text containing carriage return is rejected rather than normalized;
-10. generic smoke remains valid through the generic Harness path;
-11. explicit Missing Raft validation still rejects generic smoke;
-12. existing duplicate-property, NFC, provenance-DAG, and all Patch 0002.2 regressions remain green.
+10. semantic text containing an unpaired surrogate is rejected rather than replacement-encoded;
+11. an ECJ-1 string-escaping conformance test covers quotation mark, reverse solidus, tab, line feed, form feed, a remaining C0 control, non-ASCII BMP text, and one non-BMP scalar without using the Missing Raft fixture as a second golden copy;
+12. generic smoke remains valid through the generic Harness path;
+13. explicit Missing Raft validation still rejects generic smoke;
+14. existing duplicate-property, NFC, provenance-DAG, and all Patch 0002.2 regressions remain green.
 
 Prefer mutation of the canonical fixture in memory for negative cases. Do not create alternate valid Missing Raft fixture files.
 
-## 12. Harness behavior
+## 13. Harness behavior
 
 Keep the Harness interface unchanged.
 
@@ -259,7 +312,7 @@ No hash-printing CLI, migration command, or debug compatibility mode is required
 
 Unknown generic fixture families remain on the generic path.
 
-## 13. Security and authority properties
+## 14. Security and authority properties
 
 - SHA-256 supplies change detection/identity, not authorization or secrecy.
 - Hash equality never grants Character access.
@@ -268,7 +321,7 @@ Unknown generic fixture families remain on the generic path.
 - A hash mismatch is a deterministic fixture-contract failure, not a recoverable story event.
 - No model participates in canonicalization, hashing, or hash verification.
 
-## 14. ARM64 and battery suitability
+## 15. ARM64 and battery suitability
 
 Canonicalization and SHA-256 are deterministic CPU operations over a fixture bounded by the existing 1 MiB fixture limit. Patch 0003 does not route them to AI, GPU, or NPU hardware.
 
@@ -280,7 +333,7 @@ This is preferable for E0 because:
 
 No NPU behavior is claimed or tested by this patch.
 
-## 15. Explicit exclusions
+## 16. Explicit exclusions
 
 Patch 0003 does not implement:
 - Patch 0004 deterministic Access Control;
@@ -296,30 +349,34 @@ Patch 0003 does not implement:
 - packaging/WACK/Store work;
 - signing, HMAC, encryption, or trust-chain infrastructure.
 
-## 16. Exit gate
+## 17. Exit gate
 
 Before promotion:
 1. this blueprint is explicitly approved as the canonical Patch 0003 specification;
 2. implementation begins from the then-current `main` on a dedicated branch;
 3. canonical Missing Raft source remains semantically unchanged from validated Patch 0002.2 unless an actual defect is separately approved;
 4. ECJ-1 static/adversarial review passes;
-5. expected Missing Raft fixture hash is frozen from the approved ECJ-1 bytes;
-6. native Windows ARM64 Harness/Core build passes with warnings-as-errors;
-7. full Core test suite passes;
-8. canonical Missing Raft Harness validation passes with hash enforcement;
-9. generic smoke Harness regression passes;
-10. semantic mutation is demonstrably rejected by hash binding;
-11. final hygiene comparison finds no second fixture representation, source-byte identity leak, reflection/serializer-order dependency, generic over-abstraction, access/hash conflation, or later-patch scope leakage.
+5. canonical emitted bytes receive the independent review in Section 11;
+6. expected Missing Raft fixture hash is frozen from those reviewed ECJ-1 bytes;
+7. native Windows ARM64 Harness/Core build passes with warnings-as-errors;
+8. full Core test suite passes;
+9. canonical Missing Raft Harness validation passes with hash enforcement;
+10. generic smoke Harness regression passes;
+11. semantic mutation is demonstrably rejected by hash binding;
+12. final hygiene comparison finds no second fixture representation, source-byte identity leak, reflection/serializer-order dependency, generic over-abstraction, access/hash conflation, silent Unicode repair, or later-patch scope leakage.
 
-## 17. Approval decision
+## 18. Approval decision
 
 Most of Patch 0003 follows already-approved H1 law. This proposal asks explicit approval for the implementation-level compatibility contract that GitHub did not previously preserve, especially:
 
 - the exact ECJ-1 fixture property order in Section 5;
 - the exact ordered-versus-unordered array treatment in Section 6;
+- the exact string escaping and Unicode-validity rules in Section 4;
 - lowercase 64-character SHA-256 representation;
 - semantic canonical bytes rather than literal source bytes;
 - storing the expected Missing Raft digest in `MissingRaftContract` rather than an authoritative sidecar;
-- extending canonical semantic text validation to reject carriage return rather than normalize line endings.
+- preserving the single `MissingRaftContract.Validate` operation as the complete structural + hash gate;
+- extending canonical semantic text validation to reject carriage return and invalid surrogate sequences rather than normalize/replacement-encode them;
+- the independent digest-freeze review in Section 11.
 
 Once approved, these become canonical Patch 0003 law and implementation can proceed without reopening them during coding.
