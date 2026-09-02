@@ -15,7 +15,11 @@ Read [`CURRENT_STATE.md`](CURRENT_STATE.md) before modifying source.
 - **GitHub:** authoritative engineering source, tests, fixtures, validation evidence, implementation checkpoints.
 - **Google Drive — Ensemble Project:** UI/UX architecture, mockups/prototypes, visual identity/artwork, motion/animation, Store/marketing assets, and design research.
 
-See [`docs/PROJECT_AUTHORITY.md`](docs/PROJECT_AUTHORITY.md) and [`docs/DESIGN_REPOSITORY.md`](docs/DESIGN_REPOSITORY.md).
+See [`docs/PROJECT_AUTHORITY.md`](docs/PROJECT_AUTHORITY.md), [`docs/ENGINEERING_HYGIENE_CONSTITUTION.md`](docs/ENGINEERING_HYGIENE_CONSTITUTION.md), and [`docs/DESIGN_REPOSITORY.md`](docs/DESIGN_REPOSITORY.md).
+
+## Engineering discipline
+
+Every accepted implementation must leave the active codebase at least as coherent as the validated baseline it replaces. Git preserves superseded work; the active tree preserves the best current architecture. New patches are reviewed for correctness, consistency, authority, scope, tests, simplicity, hygiene, ARM64 suitability, vision, and evidence.
 
 ## Validation discipline
 
