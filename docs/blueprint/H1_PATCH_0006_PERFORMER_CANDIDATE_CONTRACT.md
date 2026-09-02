@@ -1,6 +1,6 @@
 # H1 Patch 0006 — Performer Candidate Output Contract
 
-Status: blueprint proposal 0.2 — APPROVAL REQUIRED; implementation not started
+Status: blueprint proposal 0.3 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; APPROVAL REQUIRED; implementation not started
 Parent baseline: validated H1 Patch 0005
 Branch: `h1-patch-0006-performer-candidate-blueprint`
 
@@ -8,84 +8,93 @@ Branch: `h1-patch-0006-performer-candidate-blueprint`
 
 Implement the next E0-A boundary after the validated Context Composer:
 
-`ContextPacket -> later provider/Performer execution -> strict candidate-output contract -> CandidatePerformance -> later Integrity Validator`
+`ContextPacket -> Performer -> provisional CandidatePerformance -> later Integrity Validator`
 
 Patch 0006 answers one narrow question:
 
-> Can Ensemble represent one provisional Character performance as a strict, schema-bounded, provider-neutral candidate object that is deterministically attributed to the exact ContextPacket disclosure that produced it, while keeping model-supplied control data non-authoritative and preventing provider errors, malformed output, hidden reasoning, or mutation proposals from entering fiction?
+> Can Ensemble represent one provisional Character Performance as a strict, bounded, provider-neutral semantic candidate, deterministically attributed to the exact safe ContextPacket disclosure that preceded it, while keeping model-supplied control data non-authoritative and preventing malformed output, provider failures, hidden reasoning, mutation proposals, or transport artifacts from entering fiction?
 
-Patch 0006 defines and implements the candidate-output contract only. It does not call any provider/model.
+Patch 0006 defines and implements the candidate-output semantic contract plus its strict E0 JSON transport parser. It does **not** call any provider/model.
 
-The ContextPacket hashes provide content identity for attribution. They are not a signature, MAC, provider authentication mechanism, or proof that a particular model produced the candidate.
+ContextPacket hashes provide deterministic local content identity for attribution. They are not signatures, MACs, provider authentication, authorization, or proof that a particular model/person produced a candidate.
 
 ## 2. Authority basis
 
 Frozen Blueprint 0.1 requires the E0-A preparation sequence to define, after Access Control and Context Composer:
 
-1. Performer candidate-output contract, including visible Performance and typed control data;
+1. Performer candidate-output contract, including visible Performance and any typed control data;
 2. Director opportunity-selection contract;
 3. Integrity Validator acceptance/rejection rules;
 4. State Interpreter candidate-mutation schema;
 5. deterministic State Authority commit rules;
-6. Take semantics;
+6. accepted/rejected/alternate Take semantics;
 7. atomic causal commit.
 
-The frozen behavioral architecture additionally states:
+Frozen architectural law additionally states:
 
 - Character != Performer;
-- a Performer receives one bounded Character context and produces a candidate Performance plus any required typed control output;
-- the Performer portrays agency but owns neither truth nor persistence;
+- Performer receives one bounded Character context and produces a candidate Performance plus any required typed control output;
+- Performer portrays agency but owns neither truth nor persistence;
+- a Performance may contain speech, action, silence, refusal, redirection, or another Character-legible response;
+- Performance grammar remains an Open Design Register question rather than a frozen engine taxonomy;
+- Director manages attention/opportunity and may later consider direct social address and Character nomination, but offers opportunity rather than obligation;
+- Integrity Validator checks candidate Performance before acceptance;
+- State Interpreter proposes consequences; deterministic State Authority decides what may commit;
 - generated work becomes Production history only through later acceptance;
-- provider failure/refusal/timeout/retry must never become fictional action;
-- accepted Performance must be preserved rather than silently rewritten;
-- Director manages opportunity, not outcomes;
-- State Interpreter proposes consequences; State Authority alone decides what may commit;
-- experimental provenance records complete Context packets, Performer outputs, hidden typed control output, errors/refusals/cancellations, and later acceptance results.
+- provider error/refusal/timeout/retry must never become fictional action;
+- partial/cancelled/unaccepted output must not enter Production history;
+- experimental provenance must preserve Performer outputs, hidden typed control output, errors/refusals/cancellations, and later validation/commit results;
+- imported text and fictional dialogue are untrusted creative content rather than instruction authority;
+- human Take a Seat uses the same deterministic Access Control -> Context Composer information boundary as an AI Performer.
 
 Validated Patch 0005 freezes the immediate upstream boundary:
 
 - `ContextPacket` is Character-safe;
 - `ContextPacketId = CTX:<StructuredContextHash>`;
-- `RenderedContextHash` identifies the exact provider-neutral textual disclosure;
-- the system/provider request contract remains outside Context Composer.
+- `RenderingContract` versions exact provider-neutral rendering;
+- `RenderedContextHash` identifies RenderingContract + exact provider-neutral rendered disclosure;
+- ContextPacket roster contains safe CharacterId + DisplayName structural metadata;
+- provider-neutral creative rendering deliberately omits Character IDs;
+- final system/provider request construction remains outside Context Composer.
 
-Patch 0006 must preserve all of those separations.
+Patch 0006 preserves all of those separations.
 
-## 3. Why Performer comes before Director implementation
+## 3. Why Performer candidate contract comes next
 
-The frozen E0-A continuation order places the Performer candidate-output contract before the Director contract.
+The frozen continuation order explicitly places the Performer candidate-output contract before Director, Integrity Validator, State Interpreter, State Authority, Take semantics, and causal commit.
 
-This ordering is also architecturally necessary:
+This ordering is implementable now because the frozen Missing Raft fixture already supplies the first opportunity (`VOSS`). Dynamic Director selection is therefore not required to establish the first candidate boundary.
 
-- the opening Missing Raft fixture already supplies the first opportunity (`VOSS`), so the first candidate can be generated without implementing dynamic opportunity selection;
-- the Director needs a stable accepted-performance/control vocabulary before its later inputs can be frozen;
-- Integrity Validator needs a concrete candidate type before acceptance/rejection rules can be implemented;
-- State Interpreter must interpret an accepted Performance, not an untyped provider string.
+A stable candidate vocabulary is also prerequisite for later boundaries:
 
-Therefore Patch 0006 does not implement Director logic merely to obtain a first speaker.
+- Director needs a stable accepted-performance/control input vocabulary;
+- Integrity Validator needs a concrete provisional candidate object;
+- State Interpreter must interpret an accepted Performance rather than an untyped provider string;
+- Take semantics must identify accepted/rejected attempts without redefining candidate content.
 
-## 4. Architectural boundary
+Patch 0006 does not implement any of those later authorities.
 
-### Trusted input to candidate construction
+## 4. Semantic candidate is not an AI-only transport object
 
-Patch 0006 candidate construction accepts:
+Frozen Take a Seat law means the semantic Performer output cannot be defined as “JSON returned by an AI.”
+
+Patch 0006 therefore separates:
 
 ```text
-ContextPacket
-UTF-8 candidate-output bytes
+Semantic Performer candidate
+    CandidatePerformance
+
+E0 AI transport representation
+    ensemble.e0.performer.candidate.v1 JSON
 ```
 
-The trusted `ContextPacket` supplies:
+Both AI and future human Performers must be able to produce the same semantic `CandidatePerformance` under the same bounded ContextPacket authority.
 
-- SubjectCharacterId;
-- ContextPacketId;
-- RenderingContract;
-- RenderedContextHash;
-- Scene roster for structural target validation.
+The E0 JSON parser is one validated construction path for AI output. A semantic validated factory is a second construction path so future Take a Seat or test harness code can create the same candidate without pretending a human authored provider JSON.
 
-Those values are copied from the trusted packet. They are **not echoed by the model** and are not trusted from provider output.
+Neither construction path accepts omniscient Production state.
 
-### Output
+## 5. Semantic candidate shape
 
 ```text
 CandidatePerformance
@@ -94,12 +103,9 @@ CandidatePerformance
 - ContextPacketId
 - RenderingContract
 - RenderedContextHash
-- Kind
 - VisibleText
 - Control
 ```
-
-with:
 
 ```text
 CandidatePerformanceControl
@@ -107,29 +113,32 @@ CandidatePerformanceControl
 - NominatedCharacterId
 ```
 
-`SchemaVersion` is the exact verified contract value from Section 5. The parser verifies the model-supplied token and stores the canonical contract value; callers do not provide it separately.
+Rules:
 
-The candidate is provisional. It is not an accepted Take, not Production history, and not authority.
+- `SchemaVersion` is always the canonical Patch 0006 candidate contract identifier;
+- Subject/context attribution fields are copied only from the trusted ContextPacket;
+- `VisibleText` is the Character-legible provisional Performance representation;
+- `Control` is non-visible typed Performer output;
+- the candidate is provisional and has no truth, acceptance, persistence, Director, or mutation authority.
 
-### Explicit non-inputs
+Patch 0006 deliberately defines **no PerformanceKind enum**.
 
-Patch 0006 candidate parsing/construction does not accept:
+## 6. Why there is no PerformanceKind enum
 
-- `ValidatedFixture`;
-- Production truth/WorldState/chronology;
-- Access decisions;
-- fixture provenance;
-- denied Character state;
-- State Interpreter or mutation schema;
-- State Authority;
-- Director state;
-- provider/model credentials;
-- generation configuration;
-- retry/cost policy;
-- diagnostic logs;
-- accepted history.
+Blueprint 0.1 says a Performance may contain speech, action, silence, refusal, redirection, or another Character-legible response. It separately leaves performance grammar open: dialogue, dramatic, literary, simulation, or other grammars remain unresolved.
 
-## 5. Output contract version
+A required `speech|action|mixed|silence` enum would prematurely force the Performer to classify portrayal semantics and could distort E0 by making ambiguous or blended human behavior fit an invented engine taxonomy.
+
+Therefore:
+
+- empty `VisibleText` represents silence;
+- non-empty `VisibleText` may express speech, action, refusal, redirection, evasion, combinations, or another Character-legible response;
+- structural parsing does not classify the dramatic meaning of the text;
+- later Integrity/State interpretation may reason about semantic content under their own approved contracts without changing the preserved Performance text.
+
+This preserves ODR performance-grammar freedom and avoids message-centric ontology lock-in.
+
+## 7. Candidate contract version
 
 Patch 0006 freezes:
 
@@ -137,11 +146,13 @@ Patch 0006 freezes:
 PerformerCandidateContract = ensemble.e0.performer.candidate.v1
 ```
 
-The provider/model-facing candidate JSON contains this version so malformed or stale output cannot be silently interpreted under a different schema.
+The semantic candidate exposes this value as `SchemaVersion`.
 
-The contract identifier is structural only. It grants no authority.
+For AI JSON input, `schemaVersion` must match this value exactly before candidate construction.
 
-## 6. Exact model-supplied JSON shape
+The identifier is structural only. It grants no authority.
+
+## 8. Exact E0 AI JSON transport shape
 
 Candidate output bytes must decode as one strict JSON object of this semantic shape:
 
@@ -149,7 +160,6 @@ Candidate output bytes must decode as one strict JSON object of this semantic sh
 {
   "schemaVersion": "ensemble.e0.performer.candidate.v1",
   "performance": {
-    "kind": "speech|action|mixed|silence",
     "text": "..."
   },
   "control": {
@@ -161,117 +171,154 @@ Candidate output bytes must decode as one strict JSON object of this semantic sh
 
 `nominatedCharacterId` is either a canonical Character ID string or JSON `null`.
 
-Property order in provider output is not semantically significant. Candidate parsing must not depend on property order.
+Rules:
 
-No additional root, `performance`, or `control` properties are permitted.
+- JSON property order is semantically insignificant;
+- ordinary JSON structural whitespace is semantically insignificant;
+- equivalent JSON escape spellings that decode to the same validated strings produce the same semantic candidate;
+- Markdown/code fences are not part of the contract and fail;
+- no additional root, `performance`, or `control` properties are permitted;
+- the full root object must be present; trailing non-whitespace content fails.
 
-Patch 0006 freezes schema shape, not a generation-length optimization policy. Deterministic transport/response byte ceilings belong to the later provider-execution contract and must be enforced before unbounded provider data reaches Core parsing.
+Patch 0006 freezes semantic shape, not a creative-output length optimization policy.
 
-## 7. Performance kinds
+The parser uses a small fixed maximum JSON nesting depth sufficient for this exact schema. A deterministic provider-response byte ceiling must be frozen in the later provider-execution boundary before untrusted network response data is handed to Core; Patch 0006 does not invent a creative token/length policy.
 
-Frozen E0 kinds:
+## 9. Visible Performance text contract
+
+### Silence
+
+Silence is represented semantically by:
 
 ```text
-Speech
-Action
-Mixed
-Silence
+VisibleText == ""
 ```
 
-External JSON values are lowercase ASCII:
+For silence:
 
-```text
-speech
-action
-mixed
-silence
-```
-
-Meaning:
-
-- `Speech`: visible text represents spoken/verbal Character performance.
-- `Action`: visible text represents non-verbal Character action.
-- `Mixed`: visible text contains both speech and action.
-- `Silence`: the Character performs silence/non-response and `text` is exactly the empty string.
-
-Blueprint 0.1 also permits refusal and redirection. Patch 0006 does **not** create `Refusal` or `Redirection` authority categories. Those are semantic forms of Character agency expressible through Speech, Action, Mixed, or Silence plus optional control metadata.
-
-This avoids turning dramatic interpretation into an unnecessary enum taxonomy.
-
-## 8. Visible text contract
-
-For `Speech`, `Action`, and `Mixed`:
-
-- `text` must contain at least one non-whitespace Unicode scalar;
-- leading/trailing whitespace is not silently trimmed;
-- LF (`U+000A`) may appear;
-- CR (`U+000D`) is forbidden;
-- NUL is forbidden;
-- invalid surrogate sequences are forbidden;
-- text must be NFC;
-- candidate `VisibleText` is preserved exactly after JSON decoding; no paraphrase, repair, normalization, rewriting, Markdown cleanup, quote insertion, or punctuation correction occurs.
-
-For `Silence`:
-
-- `text` must be exactly `""`;
 - `AddressedCharacterIds` must be empty;
 - `NominatedCharacterId` must be null.
 
-A silent Character is represented structurally rather than by Ensemble inventing prose such as “Voss says nothing.”
+Ensemble does not invent prose such as “Voss says nothing.” An accepted future silent Take can remain a real causal Performance without fabricated dialogue/narration.
 
-## 9. Typed control data
+### Non-silent Performance
 
-The hidden typed control block is deliberately narrow.
+For non-empty `VisibleText`:
+
+- at least one Unicode scalar must be non-whitespace;
+- leading/trailing whitespace is preserved rather than trimmed;
+- LF (`U+000A`) is permitted;
+- TAB (`U+0009`) is permitted;
+- all other Unicode Control-category scalars are rejected, including CR, NUL, DEL/C1 controls, backspace, and form feed;
+- invalid surrogate sequences are rejected;
+- text must already be Unicode NFC;
+- text is preserved exactly after semantic validation;
+- no paraphrase, repair, normalization, Markdown cleanup, quote insertion, punctuation correction, or hidden rewriting occurs.
+
+This candidate-specific display-safety discipline is intentionally stricter than merely accepting every JSON-escapable control character.
+
+## 10. VisibleText remains untrusted creative content
+
+Structural parsing does **not** promote candidate prose to instruction authority or objective truth.
+
+`VisibleText` remains untrusted creative content throughout Patch 0006.
+
+Therefore:
+
+- text resembling system instructions has no system authority;
+- text saying “the raft was deliberately released” is a Character Performance/claim, not Production truth merely because parsing succeeded;
+- text cannot grant the Character knowledge it did not have;
+- text cannot change Constitution, relationship state, belief, memory, world state, or canon;
+- text cannot itself select the next Performer;
+- text cannot itself commit history.
+
+If a candidate is accepted in a later patch, the fact that **the Performance occurred** may become historical truth through the atomic acceptance/commit path. Propositions asserted inside that Performance remain claims/beliefs/etc. unless separately authorized by the later State Authority contract.
+
+This carries the frozen `statement != fact` law through the Performer boundary.
+
+## 11. Typed control vocabulary
+
+The non-visible typed control block is deliberately minimal and derived directly from frozen future Director inputs.
 
 ### AddressedCharacterIds
 
-Represents the Performer’s structured assertion that the visible Performance directly addresses or acts toward one or more other roster Characters.
+Represents the Performer’s structured assertion that one or more other roster Characters are directly socially addressed/turned toward by the Performance.
+
+It does **not** mean generic causal impact, inferred observation eligibility, or world-action target.
 
 Rules:
 
 - zero or more Character IDs;
-- every ID must resolve exactly once in the ContextPacket roster;
+- each ID must exactly match a CharacterId in the ContextPacket roster;
+- Character ID comparison is ordinal/case-sensitive;
 - subject Character may not appear;
-- duplicate IDs are invalid;
-- candidate object stores the set sorted ordinally by CharacterId;
-- in E0 with three co-present Characters, structural maximum follows naturally from roster-minus-subject; no separate numeric product limit is invented.
+- duplicate IDs fail rather than being silently deduplicated;
+- semantic candidate stores the resulting set sorted ordinally by CharacterId;
+- with E0’s three-person roster, the natural maximum is roster-minus-subject; no unrelated numeric quota is invented.
 
 ### NominatedCharacterId
 
-Represents an optional Character-level nomination/handoff signal such as “Wren?” or a turn toward another Character.
+Represents an optional explicit Character-level handoff/nomination assertion.
 
 Rules:
 
 - null or exactly one Character ID;
-- target must resolve exactly once in roster;
+- target must exactly match one roster Character;
 - subject may not nominate self;
-- nomination does **not** select the next Performer;
-- nomination does **not** obligate the nominated Character to act;
-- nomination is merely one future Director input after the candidate becomes accepted/eligible under later contracts.
+- nomination does not select the next Performer;
+- nomination does not obligate the nominated Character to respond;
+- nomination creates no knowledge/truth/state authority.
 
-### Authority of control data
+The nominated Character may also appear in `AddressedCharacterIds`; overlap is valid and carries no additional authority beyond the two independent asserted signals.
 
-Typed control is a **Performer assertion**, not trusted world evidence.
+A later Director may consider these signals only after the relevant Performance has passed whatever acceptance/eligibility contract is later frozen. Rejected/failed candidate control must not silently route the Scene.
 
-It may not:
+## 12. Typed control is assertion, not authority
+
+Control metadata may not:
 
 - grant knowledge;
-- create truth;
-- mutate state;
+- create objective truth;
+- mutate Character or World state;
 - commit relationship change;
 - force Director selection;
-- bypass Integrity Validator;
-- authorize spending/retry;
 - create observation eligibility;
+- bypass Integrity Validator;
+- authorize spend/retry;
 - create historical fact by itself.
 
-A later Integrity Validator may compare control metadata with visible Performance and reject or flag semantic inconsistency. Patch 0006 performs structural validation only.
+A later Integrity Validator may compare typed control with visible Performance and reject/flag semantic inconsistency. Patch 0006 performs structural validation only.
 
-## 10. Why no state-mutation output exists here
+## 13. Stable Character IDs and the future provider request
 
-The Performer contract contains no:
+Patch 0005 intentionally omits internal Character IDs from provider-neutral creative prose, but Patch 0006 typed control uses stable Character IDs because display names are not guaranteed unique identifiers.
+
+Therefore a later AI provider-request contract must provide an allowed machine-control roster mapping derived **only** from safe ContextPacket roster metadata, for example conceptually:
+
+```text
+MARLOWE -> Marlowe
+VOSS    -> Dr. Voss
+WREN    -> Wren
+```
+
+Requirements for that future layer:
+
+- mapping comes from ContextPacket roster only;
+- it reveals no denied record, provenance, Production truth, or other private Character state;
+- it remains separate from provider-neutral creative state text;
+- it exists only so the model can emit stable control IDs;
+- it does not change Access Control authority.
+
+Patch 0006 does not construct the provider request or system prompt. It only ensures its JSON contract is satisfiable without relying on ambiguous display-name matching.
+
+A future human Take a Seat UI may resolve user-facing Character choices to the same safe IDs without exposing technical IDs visually.
+
+## 14. No state-mutation or private-reasoning channel
+
+The Performer candidate contract contains no:
 
 - fact proposal;
+- knowledge mutation;
 - belief mutation;
 - memory mutation;
 - relationship delta;
@@ -279,54 +326,90 @@ The Performer contract contains no:
 - world mutation;
 - Constitution/Disposition/Circumstance mutation;
 - confidence score;
-- causal consequence list.
+- causal consequence list;
+- chain-of-thought;
+- scratchpad;
+- hidden rationale;
+- private monologue;
+- “why I chose this” reasoning field.
 
-Those belong to the later State Interpreter proposal boundary.
+State/consequence proposals belong to the later State Interpreter. Private model reasoning is neither required experimental provenance nor a new authority channel.
 
-Allowing the Performer to emit mutation objects here would collapse portrayal and interpretation, violating the frozen rule that models may propose but deterministic authority decides and that State Interpreter is a separate layer.
+Provider-supported metadata may later be recorded as diagnostics/provenance without being embedded in CandidatePerformance or Production state.
 
-## 11. Why no private reasoning field exists
+## 15. Semantic construction authority
 
-The candidate contract contains no chain-of-thought, scratchpad, hidden rationale, private monologue, or “why I chose this” field.
+`CandidatePerformance` and `CandidatePerformanceControl` expose read-only state and have no public constructors, preventing callers from bypassing invariants through direct object construction.
 
-Reasons:
+Patch 0006 provides one public validated semantic factory surface, conceptually:
 
-- the E0 experiment evaluates Character-legible Performance, not private model reasoning;
-- provider reasoning interfaces differ and must not be faked;
-- private chain-of-thought is not required for experimental provenance;
-- hidden reasoning must not become a new authority channel;
-- provider adapters may record supported provider metadata later without placing private reasoning inside Production state.
+```text
+PerformerCandidateContract.Create(
+    ContextPacket contextPacket,
+    string visibleText,
+    IEnumerable<CharacterId> addressedCharacterIds,
+    CharacterId? nominatedCharacterId)
+    -> CandidatePerformance
+```
 
-The only hidden candidate metadata in Patch 0006 is the narrow typed control block above.
+This is intentionally usable by future Human Performer/Take a Seat code as well as tests/adapters.
 
-## 12. Strict JSON parsing
+Creating a provisional candidate is **not** an authority grant. Any caller with an approved ContextPacket may propose a candidate through the validated factory; later Integrity/Take/State gates remain responsible for acceptance and persistence.
 
-Patch 0006 uses one deterministic strict parser.
+The factory:
 
-Requirements:
+- validates ContextPacket presence/invariants needed by this contract;
+- validates text discipline;
+- validates roster/self/duplicate control rules;
+- sorts addressed IDs ordinally;
+- copies trusted context-attribution fields;
+- sets canonical SchemaVersion.
+
+No caller can directly construct a CandidatePerformance that bypasses these invariants through a public constructor.
+
+## 16. Strict AI JSON parser
+
+Patch 0006 also provides one public parser surface, conceptually:
+
+```text
+PerformerCandidateContract.ParseJson(
+    ContextPacket contextPacket,
+    ReadOnlySpan<byte> utf8CandidateOutput)
+    -> CandidatePerformance
+```
+
+The parser decodes the exact Section 8 schema and then delegates semantic construction to the same validation path used by `Create`.
+
+Strict requirements:
 
 - UTF-8 input;
 - UTF-8 BOM rejected;
-- root must be one JSON object;
-- duplicate property names rejected at every contract level;
+- root must be one object;
+- fixed small maximum JSON depth;
 - comments rejected;
 - trailing commas rejected;
+- duplicate decoded property names rejected at every object level;
 - unknown properties rejected;
-- required properties must appear exactly once;
-- `schemaVersion` must match exactly;
-- kind values are case-sensitive exact lowercase contract tokens;
-- addressed IDs must be JSON strings;
-- nominated ID must be string or null;
-- non-object/non-array substitutions fail closed;
-- malformed JSON fails closed.
+- required properties appear exactly once;
+- `schemaVersion` exact/case-sensitive;
+- `performance` must be object;
+- `performance.text` must be JSON string;
+- `control` must be object;
+- `addressedCharacterIds` must be array of JSON strings;
+- `nominatedCharacterId` must be string or null;
+- number/boolean/null/object/array substitutions at the wrong field fail;
+- malformed UTF-8/JSON fails;
+- content after the root other than ordinary JSON whitespace fails.
 
-A malformed provider response is a technical contract failure. It never becomes fictional dialogue/action.
+One small Performer-candidate-specific exception type represents technical parse/semantic contract failure.
 
-Patch 0006 may reuse the repository’s existing strict-JSON/preflight techniques when appropriate, but must not couple Performer output parsing to fixture-specific types or fixture schema rules.
+Malformed output never becomes fictional Performance.
 
-## 13. Candidate attribution to exact context disclosure
+The parser may reuse generic strict-JSON implementation techniques already proven by the fixture parser, but it must not reuse fixture-specific byte limits, fixture schema rules, or `FixtureValidationException` as Performer-domain authority.
 
-Trusted candidate construction copies from the supplied `ContextPacket`:
+## 17. Candidate attribution to exact Context disclosure
+
+Validated candidate construction copies from the supplied ContextPacket:
 
 ```text
 SubjectCharacterId
@@ -335,183 +418,140 @@ RenderingContract
 RenderedContextHash
 ```
 
-This creates deterministic content attribution from candidate Performance to:
+The AI JSON transport does not contain those fields and cannot override them.
 
-- the structured semantic context identity;
-- the exact provider-neutral rendered disclosure contract and content identity.
+This creates deterministic content attribution to:
 
-The model/provider output is not allowed to supply or override those fields.
+- the subject Character whose safe context was composed;
+- the structured semantic ContextPacket identity;
+- the rendering contract;
+- the exact provider-neutral rendered disclosure identity.
 
 Consequences:
 
-- a candidate cannot claim it came from a different Character;
-- a candidate cannot claim a different ContextPacketId;
-- a candidate cannot claim a different RenderedContextHash;
-- later experimental provenance can associate a Performance with the exact Character disclosure without reintroducing full fixture/Production state into the candidate.
+- candidate cannot self-assert a different Character;
+- candidate cannot self-assert a different ContextPacketId;
+- candidate cannot self-assert a different RenderedContextHash;
+- later experiment records can associate semantic candidate output with exact safe Character context without giving the candidate full fixture/Production state.
 
-This is content binding/attribution inside Ensemble’s deterministic object graph. It is **not** provider authentication, signing, non-repudiation, authorization, acceptance, or truth authority.
+This attribution is **not** provider/person authentication, signature, non-repudiation, authorization, acceptance, or truth authority.
 
-## 14. No TakeId semantics in Patch 0006
+## 18. No CandidateId / TakeId semantics in Patch 0006
 
-The repository already defines a `TakeId` strong ID, but the frozen continuation places accepted/rejected/alternate Take semantics **after** State Authority contract work.
+The repository already defines `TakeId`, but the frozen continuation places accepted/rejected/alternate Take semantics later.
 
-Patch 0006 therefore does not prematurely define:
+Patch 0006 therefore does not define:
 
-- when a TakeId is allocated;
+- CandidateId;
+- CandidateHash;
+- when TakeId is allocated;
 - whether rejected attempts receive TakeIds;
 - accepted/alternate Take identity;
 - Take numbering;
 - RunId/TakeId composition;
-- commit identity.
+- CommitId composition.
 
-`CandidatePerformance` is deliberately a provisional object without Take acceptance semantics.
+The semantic candidate is intentionally provisional.
 
-A later approved Take/acceptance patch may wrap or identify a candidate without changing the candidate’s content contract.
+Exact AI raw output can be preserved by later E0 provenance without pretending it is already an accepted Take identity.
 
-## 15. Candidate immutability and construction authority
+## 19. Raw provider output and experimental provenance
 
-Public candidate model types are read-only.
+`CandidatePerformance` stores semantic validated Performer output, not the entire raw provider response or original JSON spelling.
 
-Their constructors are Core-internal so external assemblies cannot fabricate “validated candidate” objects directly.
+Because Blueprint 0.1 requires complete Performer outputs and hidden typed control output to be preserved for E0, the later provider-execution/provenance slice must record the exact provider attempt representation separately, including as applicable:
 
-Only the strict candidate parser/factory may construct them from:
+- complete raw candidate-output bytes/text;
+- partial streamed output;
+- provider refusal/error payload;
+- latency/token/cost metadata;
+- generation/reasoning settings;
+- retry/cancellation outcomes.
 
-- a trusted validated `ContextPacket`;
-- successfully parsed/validated candidate-output bytes.
+Property order, JSON whitespace, and escape spelling may differ while decoding to the same semantic CandidatePerformance; raw provenance preserves those transport facts when E0 requires them.
 
-This follows the same authority-hardening principle used by Patch 0004 and Patch 0005 safe outputs.
+Rejected/partial/cancelled output remains diagnostics/provenance only and never becomes Production history.
 
-## 16. Candidate parser result
+Patch 0006 does not implement persistence or provider diagnostics storage.
 
-Preferred public surface:
+## 20. Provider technical failure versus Character refusal
+
+These are constitutionally different:
 
 ```text
-PerformerCandidateContract.Parse(
-    ContextPacket contextPacket,
-    ReadOnlySpan<byte> utf8CandidateOutput)
-    -> CandidatePerformance
+Provider refusal/error/timeout/cancellation = technical outcome
+Character refusal/redirection/silence        = possible Performance
 ```
 
-A small contract-specific exception type is used for failures.
+Patch 0006 parses only explicit candidate-output payload bytes supplied by a later provider-execution layer after that layer has classified the transport outcome as a candidate payload.
 
-No provider abstraction, retry loop, logging side effect, file I/O, network I/O, clock, random source, or model call occurs inside parsing.
+Transport/authentication/billing/timeout/retry/error messages must never be automatically wrapped as `VisibleText`.
 
-## 17. Determinism
+A Character refusal, by contrast, is ordinary preserved Character-legible Performance content inside a valid candidate.
 
-For identical `ContextPacket + candidate-output UTF-8 bytes`:
+Patch 0006 does not implement provider outcome classification, but its API requires an explicit candidate parsing call rather than accepting a generic exception/response object.
 
-- parsing result is semantically identical;
-- `SchemaVersion` is identical;
-- AddressedCharacterIds ordering is identical;
-- all copied context-attribution fields are identical;
-- no culture, filesystem, clock, randomness, network, provider state, process-global mutable state, or machine architecture affects the result.
+## 21. Relationship to future Integrity Validator
 
-The parser never mutates the ContextPacket.
+Patch 0006 performs structural/semantic contract validation only. It does not decide whether a well-formed candidate should be accepted.
 
-## 18. Candidate text versus raw provider response
-
-`CandidatePerformance.VisibleText` contains the decoded contract text only.
-
-Patch 0006 does not store the entire raw provider response inside the candidate.
-
-Later diagnostics/provenance may separately preserve:
-
-- raw provider response;
-- streamed partial output;
-- refusal/error payload;
-- latency/token metadata;
-- generation settings.
-
-Those diagnostic artifacts do not become Character state or accepted Production history merely because they exist.
-
-This preserves Blueprint 0.1’s distinction between creative history and diagnostics.
-
-## 19. Provider refusal/error boundary
-
-Patch 0006 parses only a provider response that the later provider execution layer classifies as a candidate-output payload.
-
-The following must never be passed into fiction as candidate text:
-
-- transport error message;
-- HTTP/service error;
-- provider refusal object;
-- timeout message;
-- retry notice;
-- cancellation exception;
-- authentication/billing error;
-- unsupported-model message.
-
-The later provider adapter owns classification of those technical outcomes before calling the candidate parser.
-
-Patch 0006 does not implement that adapter, but its API must make accidental error-to-fiction conversion difficult: it accepts only explicit candidate bytes plus trusted ContextPacket.
-
-## 20. Relationship to future Integrity Validator
-
-Patch 0006 performs structural contract validation only.
-
-It does not decide whether a well-formed candidate should be accepted.
-
-The next Integrity Validator contract is expected to own hard candidate acceptance checks such as:
+Future Integrity Validator remains responsible for approved hard gates such as:
 
 - inaccessible-information leakage/use;
-- locked canon or impossible-world violation;
+- locked canon/impossible-world violation;
 - creator-only disclosure;
-- semantic mismatch between visible Performance and hidden control metadata where required;
-- required output-contract integrity beyond parser shape;
-- provider technical failure contamination.
+- provider technical failure contamination;
+- later required semantic consistency between visible Performance and typed control;
+- other deterministic acceptance rules frozen in its own blueprint.
 
-Model-assisted semantic checks may later flag concerns but cannot waive deterministic hard gates.
+Model-assisted semantic checks may later flag concerns but cannot waive deterministic hard rules.
 
-Patch 0006 must not pre-implement those acceptance decisions inside the parser.
+Patch 0006 must not absorb those acceptance decisions into parsing.
 
-## 21. Relationship to future Director
+## 22. Relationship to future Director
 
-The candidate’s typed control metadata provides two possible future Director inputs:
+Typed control provides only two explicit later Director signals already named by Blueprint 0.1:
 
-- direct address/acted-toward Characters;
-- optional Character nomination.
+- direct social address;
+- Character nomination.
 
 Neither is a Director decision.
 
-The future Director may also consider:
+The future Director may additionally consider hard eligibility, current interaction relevance, relationship relevance, observable pressure, participation balance, and recent repetition under its least-intervention contract.
 
-- hard eligibility;
-- current interaction relevance;
-- relationships;
-- observable pressure;
-- participation balance;
-- recent repetition.
+Patch 0006 does not score, weight, rank, enforce quotas, or choose the next opportunity.
 
-Patch 0006 does not score, weight, rank, or choose the next opportunity.
+Silence remains valid agency and does not create a forced handoff.
 
-## 22. Relationship to State Interpreter / State Authority
+## 23. Relationship to State Interpreter / State Authority
 
-Only a later accepted Performance may be interpreted for consequences.
+CandidatePerformance has no mutation authority and cannot directly enter Production state.
 
-Patch 0006 candidate objects have no mutation authority and cannot directly enter Production state.
-
-Required downstream shape remains:
+Later causal path remains conceptually:
 
 ```text
 CandidatePerformance
 -> Integrity Validator
--> later accepted Performance/Take boundary
--> State Interpreter proposals
+-> later acceptance/Take boundary
+-> State Interpreter proposal
 -> deterministic State Authority
 -> atomic causal commit
 ```
 
-Exact acceptance/Take ordering will be frozen in later approved patches; Patch 0006 must not collapse those layers.
+The exact ordering/ownership of acceptance, Take identification, consequence proposal, and atomic commit will be frozen in those later standalone contracts.
 
-## 23. E0 Missing Raft reference examples
+Patch 0006 does not pre-implement them.
 
-Illustrative structurally valid candidate for Voss:
+## 24. Missing Raft illustrative examples
+
+These examples demonstrate transport shape only. They are not canonical screenplay lines, expected model behavior, fixture truth, or experimental golden output.
+
+### Character speech/refusal/action represented without engine classification
 
 ```json
 {
   "schemaVersion": "ensemble.e0.performer.candidate.v1",
   "performance": {
-    "kind": "speech",
     "text": "Before we decide what happened, what did each of us actually observe?"
   },
   "control": {
@@ -521,15 +561,14 @@ Illustrative structurally valid candidate for Voss:
 }
 ```
 
-This example is **not** canonical story output and is not a required E0 line. It demonstrates contract shape only.
+A different valid non-empty text could contain a gesture, refusal, redirection, or blended dramatic/literary representation without changing schema.
 
-Illustrative silence:
+### Silence
 
 ```json
 {
   "schemaVersion": "ensemble.e0.performer.candidate.v1",
   "performance": {
-    "kind": "silence",
     "text": ""
   },
   "control": {
@@ -539,70 +578,88 @@ Illustrative silence:
 }
 ```
 
-No example candidate may be promoted into fixture truth, expected model behavior, or screenplay canon.
+## 25. Required implementation tests
 
-## 24. Required tests
+Use the validated Patch 0005 ContextPacket path and existing fixtures. Do not duplicate fixture JSON.
 
-Implementation tests must use the validated Patch 0005 ContextPacket path and existing fixtures; do not duplicate fixture JSON.
+### Semantic candidate tests
 
-Required coverage:
+1. semantic `Create` from Voss ContextPacket produces canonical SchemaVersion;
+2. SubjectCharacterId copied from ContextPacket;
+3. ContextPacketId copied exactly;
+4. RenderingContract copied exactly;
+5. RenderedContextHash copied exactly;
+6. non-empty visible text preserved byte-for-byte as .NET string content;
+7. empty text produces valid silence only with empty/null control;
+8. whitespace-only non-empty text fails;
+9. silence with direct address fails;
+10. silence with nomination fails;
+11. LF/TAB text preserved;
+12. CR/NUL/other Control-category scalar text fails;
+13. invalid surrogate sequence fails;
+14. non-NFC text fails rather than being normalized;
+15. addressed Character must exist in roster;
+16. subject cannot address self;
+17. duplicate addressed IDs fail rather than deduplicate;
+18. addressed IDs stored ordinally sorted;
+19. nominated Character must exist in roster;
+20. subject cannot nominate self;
+21. nomination may validly overlap addressed set;
+22. control does not mutate ContextPacket or Character state;
+23. candidate/control public constructors are absent;
+24. public validated factory creates candidates without exposing an invariant-bypass constructor;
+25. no CandidatePerformance property exposes fixture, Production truth, provenance, Access decisions, state mutation, confidence, private reasoning, provider credential/configuration, accepted history, CandidateId, or TakeId.
 
-1. valid Speech candidate parses and binds to Voss ContextPacket metadata;
-2. valid Action candidate parses;
-3. valid Mixed candidate parses;
-4. valid Silence candidate requires empty text and empty/null control;
-5. non-silence empty/whitespace-only text fails;
-6. Silence with text fails;
-7. Silence with address or nomination fails;
-8. exact schema version required and exposed on parsed candidate;
-9. unknown root property fails;
-10. unknown performance property fails;
-11. unknown control property fails;
-12. missing required property fails;
-13. duplicate property names fail;
-14. comments fail;
-15. trailing commas fail;
-16. UTF-8 BOM fails;
-17. malformed UTF-8/JSON fails;
-18. CR/NUL/non-NFC candidate text fails without rewriting;
-19. multiline LF text is preserved exactly;
-20. addressed Character must be in roster;
-21. subject cannot address self;
-22. duplicate addressed IDs fail;
-23. addressed ID storage is ordinally sorted;
-24. nominated Character must be in roster;
-25. subject cannot nominate self;
-26. nomination remains metadata and does not alter ContextPacket/Character state;
-27. candidate SubjectCharacterId is copied from ContextPacket, not provider payload;
-28. ContextPacketId copied exactly;
-29. RenderingContract copied exactly;
-30. RenderedContextHash copied exactly;
-31. no candidate property exposes Production fixture, provenance, Access decisions, world truth, mutations, confidence, private reasoning, provider credentials, retry policy, or accepted history;
-32. candidate/control constructors have no public constructors;
-33. repeated parse produces identical semantic result;
-34. source JSON property reordering does not change semantic result;
-35. parser does not mutate ContextPacket;
-36. existing frozen Missing Raft Context identities remain unchanged;
-37. existing frozen Missing Raft ECJ-1 identity remains unchanged;
-38. all existing 115 Core tests remain green;
-39. existing Missing Raft Harness runtime remains PASS/0;
-40. existing generic smoke Harness runtime remains PASS/0.
+### Strict JSON tests
 
-Tests must prove strict boundary behavior rather than screenplay semantics.
+26. canonical valid AI JSON parses to same semantic candidate as direct `Create`;
+27. JSON property reordering produces identical semantic candidate;
+28. ordinary structural JSON whitespace produces identical semantic candidate;
+29. equivalent JSON string escape encodings produce identical semantic candidate;
+30. Markdown/code fence wrapper fails;
+31. exact schemaVersion required/case-sensitive;
+32. unknown root property fails;
+33. unknown performance property fails;
+34. unknown control property fails;
+35. missing required property fails;
+36. duplicate root property fails;
+37. duplicate nested property fails;
+38. comments fail;
+39. trailing comma fails;
+40. UTF-8 BOM fails;
+41. malformed UTF-8 fails;
+42. malformed JSON fails;
+43. wrong JSON token type for every field category fails;
+44. extra non-whitespace content after root fails;
+45. lower/alternate-case Character ID that does not exactly match roster fails;
+46. parser delegates semantic text/control invariants rather than maintaining a divergent rule set;
+47. repeated parse produces identical semantic result;
+48. parser does not mutate ContextPacket.
 
-## 25. Harness behavior
+### Regression/scope tests
 
-Patch 0006 does not add a live provider call or normal CLI command that generates a Performance.
+49. frozen Missing Raft StructuredContextHash remains unchanged;
+50. frozen Missing Raft RenderedContextHash remains unchanged;
+51. frozen Missing Raft ECJ-1 remains exactly 9112 bytes and frozen SHA-256;
+52. all existing 115 Core tests remain green;
+53. existing Missing Raft Harness runtime remains PASS/0;
+54. existing generic smoke Harness runtime remains PASS/0.
+
+Tests prove boundary semantics, not screenplay content.
+
+## 26. Harness behavior
+
+Patch 0006 adds no live provider call and no normal CLI command that generates Performance.
 
 Existing Harness validation output remains unchanged.
 
-Core tests exercise candidate contract parsing using explicit candidate JSON bytes.
+Core tests exercise semantic candidate construction and strict candidate JSON parsing using explicit local inputs.
 
-A provider-execution Harness mode belongs to a later explicitly approved slice once provider configuration, secrets, retry/cancellation, reference-model assignment, and system-contract authority are frozen.
+A provider-execution Harness path belongs to a later approved slice after provider assignment, system/request contract, safe roster control mapping, secrets, deterministic response limits, retry/cancellation, refusal/error classification, and E0 reference configuration are frozen.
 
-## 26. ARM64 and battery suitability
+## 27. ARM64 and battery suitability
 
-Patch 0006 is tiny deterministic CPU work over one already transport-bounded JSON candidate.
+Patch 0006 is small deterministic CPU work over an already caller/transport-bounded candidate payload.
 
 It performs:
 
@@ -611,93 +668,126 @@ It performs:
 - no AI inference;
 - no GPU work;
 - no NPU work;
-- no polling;
-- no filesystem I/O.
+- no filesystem I/O;
+- no polling.
 
-This authority parsing belongs on CPU because it is deterministic, cheap, and security-sensitive. Offloading structural authority checks to an NPU/model would add latency, power use, and probabilistic failure while violating the frozen rule that deterministic authority remains deterministic.
+Structural authority validation belongs on CPU because it is cheap, deterministic, and security-sensitive. NPU/model inference would add probabilistic failure, energy cost, and authority ambiguity.
 
 No NPU execution/performance claim is made.
 
-## 27. Explicit exclusions
+## 28. Explicit exclusions
 
 Patch 0006 does not implement:
 
-- provider/model adapter;
-- provider API call;
-- Performer system prompt/request framing;
-- provider-response byte ceiling;
+- provider/model adapter or provider API call;
+- system prompt/provider request framing;
+- machine-control roster-map rendering;
+- provider-response byte/token ceiling;
 - credentials/secrets;
-- model casting;
+- model casting/understudy execution;
 - generation/reasoning settings;
 - cost/call/retry/cancellation policy;
 - streaming lifecycle;
-- refusal/error classification implementation;
-- raw-response diagnostics persistence;
+- provider refusal/error classification implementation;
+- raw-response/provenance persistence;
+- Human Take a Seat UI;
 - Director/opportunity selection;
 - Integrity Validator acceptance/rejection;
 - semantic leakage/canon checking;
 - accepted/rejected/alternate Take semantics;
-- TakeId allocation;
-- State Interpreter mutations;
+- CandidateId/TakeId allocation;
+- State Interpreter mutation proposals;
 - State Authority;
 - ProductionState/StateHash;
 - atomic causal commit;
 - accepted history;
 - observation engine;
 - E0-D ablations;
-- playwright control;
+- playwright control execution;
 - WinUI;
 - Windows AI/NPU;
 - packaging/WACK/Store.
 
-## 28. Exit gate
+## 29. Recursive adversarial audit dimensions
 
-Before promotion:
+Before approval, this proposal must receive repeated complete passes across:
 
-1. this blueprint is explicitly approved;
+1. frozen Blueprint 0.1 consistency;
+2. validated Patch 0004 Access authority;
+3. validated Patch 0005 ContextPacket authority/identity;
+4. Character != Performer and human Take a Seat compatibility;
+5. Director != Performer routing authority;
+6. Integrity Validator separation;
+7. State Interpreter != State Authority separation;
+8. statement != fact / claim != truth;
+9. event-history/Take/atomic-commit compatibility;
+10. E0 experimental provenance completeness;
+11. provider-error-to-fiction prevention;
+12. strict JSON ambiguity/malformed-input behavior;
+13. Unicode/display/control-character behavior;
+14. stable identity and roster resolution;
+15. typed-control minimum sufficiency and overreach;
+16. performance-grammar openness;
+17. public API invariant bypass/non-forgeability;
+18. scope creep/premature abstraction;
+19. deterministic ARM64/battery suitability;
+20. test completeness and independently observable failure modes;
+21. future E0-B/C/D/E/G compatibility without contaminating reference behavior.
+
+Corrections found by a pass are implemented, then the full pass repeats. Approval is requested only after one complete pass finds no remaining material error or worthwhile improvement.
+
+## 30. Exit gate
+
+Before implementation promotion:
+
+1. recursive blueprint audit reaches a zero-material-change pass and user explicitly approves the resulting blueprint;
 2. implementation begins from then-current `main` on a dedicated branch;
-3. only ContextPacket + explicit candidate bytes enter parser;
-4. exact JSON shape and strict parser behavior receive adversarial review;
-5. candidate copies subject/context/render attribution only from trusted ContextPacket;
-6. verified SchemaVersion is carried on parsed candidate;
-7. visible text remains preserved and not silently rewritten;
-8. typed control remains narrow and non-authoritative;
-9. no mutation/private-reasoning/provider/runtime fields enter candidate schema;
-10. candidate authority objects cannot be publicly forged;
-11. Silence invariants pass;
-12. roster-target/self-target/duplicate checks pass;
-13. malformed/provider-error-like payloads fail technically rather than becoming fiction;
-14. all existing 115 Core tests remain green;
-15. frozen Context hashes remain unchanged;
-16. frozen ECJ-1 hash/byte length remain unchanged;
-17. native Windows ARM64 Core/Harness build passes warnings-as-errors;
-18. full Core test suite passes on target machine;
-19. existing Missing Raft and smoke Harness regressions pass/0;
-20. final hygiene review finds no provider adapter, Director, Integrity decision, State Interpreter, State Authority, Take semantics, persistence, or later-scope implementation;
-21. validation evidence distinguishes exact machine-tested executable head from documentation-only closure commits.
+3. semantic CandidatePerformance is provider-neutral and usable by future AI/Human Performer paths;
+4. no PerformanceKind taxonomy is introduced;
+5. semantic factory and strict JSON parser share one invariant path;
+6. only ContextPacket + explicit candidate fields/bytes enter candidate construction;
+7. subject/context attribution copies only from trusted ContextPacket;
+8. exact JSON shape and strict parser behavior receive implementation adversarial review;
+9. visible text is preserved and remains untrusted creative content;
+10. typed control remains only direct-address set + optional nomination and remains non-authoritative;
+11. no state mutation/private reasoning/provider runtime data enter candidate schema;
+12. stable roster IDs are validated exactly/case-sensitively;
+13. candidate constructors cannot bypass validation while public validated factory remains usable by later human Performer code;
+14. silence invariants pass;
+15. provider-error-like/malformed payloads fail technically rather than becoming fiction;
+16. all existing 115 Core tests remain green;
+17. frozen Context identities remain unchanged;
+18. frozen ECJ-1 identity remains unchanged;
+19. native Windows ARM64 Core/Harness build passes warnings-as-errors;
+20. full Core test suite passes on target machine;
+21. existing Missing Raft and smoke Harness regressions pass/0;
+22. final hygiene review finds no provider adapter, Director, Integrity acceptance, State Interpreter, State Authority, Take semantics, persistence, or later-scope implementation;
+23. validation evidence distinguishes exact machine-tested executable head from later documentation-only closure commits.
 
-## 29. Material approval decisions
+## 31. Material approval decisions
 
 Explicit approval freezes these Patch 0006 decisions:
 
-1. Patch 0006 is the Performer candidate-output contract immediately after validated Context Composer and before Director/Integrity/State layers;
-2. Patch 0006 implements no provider call;
-3. model output contract is strict JSON version `ensemble.e0.performer.candidate.v1`;
-4. parsed CandidatePerformance exposes the verified SchemaVersion;
-5. trusted candidate attribution fields are copied from ContextPacket and cannot be model-supplied;
-6. candidate is attributed to SubjectCharacterId, ContextPacketId, RenderingContract, and RenderedContextHash, without claiming signature/authentication semantics;
-7. performance kinds are Speech, Action, Mixed, Silence;
-8. refusal/redirection remain semantic behavior rather than extra authority enums;
-9. Silence uses exact empty visible text and cannot carry address/nomination control;
-10. hidden typed control contains only addressed Character IDs and optional nominated Character ID;
-11. typed control is Performer assertion, not state/truth/Director authority;
-12. no State Interpreter mutation, confidence score, private reasoning, chain-of-thought, or world-fact proposal enters the Performer candidate schema;
-13. parser is strict/fail-closed and never repairs malformed model output;
-14. visible candidate text is preserved exactly after decoding; invalid canonical text is rejected rather than rewritten;
-15. public validated candidate/control constructors are Core-internal;
-16. raw provider response and technical errors remain separate diagnostics, not candidate fiction;
-17. TakeId/accepted/rejected/alternate Take semantics remain deferred to their later frozen boundary;
-18. provider response size ceilings are deferred to the later provider-execution contract rather than invented as E0 behavior here;
-19. Director, Integrity Validator, State Interpreter, State Authority, provider integration, and causal persistence remain outside Patch 0006.
+1. Patch 0006 is the Performer candidate-output contract immediately after validated Context Composer and before Director/Integrity/State/Take layers;
+2. Patch 0006 implements no provider/model call;
+3. `CandidatePerformance` is a semantic provider-neutral Performer output, not an AI-JSON-only domain object;
+4. E0 AI transport uses strict JSON schema `ensemble.e0.performer.candidate.v1`;
+5. future Human Take a Seat may use the same semantic validated factory under the same bounded ContextPacket authority without authoring JSON;
+6. candidate carries SchemaVersion plus trusted SubjectCharacterId, ContextPacketId, RenderingContract, and RenderedContextHash copied from ContextPacket;
+7. context identity is deterministic attribution, not provider/person authentication or authorization;
+8. no PerformanceKind enum is frozen; empty VisibleText means silence and non-empty text remains grammar-open Character-legible Performance;
+9. visible text remains untrusted creative content and parsing never promotes assertions to truth/instruction authority;
+10. visible text is preserved exactly after validation; invalid Unicode/control/NFC input is rejected rather than repaired;
+11. non-visible typed control contains only direct-address Character IDs and optional nominated Character ID;
+12. typed control is Performer assertion, not state/truth/observation/Director authority;
+13. nomination may overlap direct address but never obligates response;
+14. future provider request must make stable roster IDs available only through safe ContextPacket-derived machine-control mapping separate from creative context;
+15. no State Interpreter mutation, confidence score, private reasoning, chain-of-thought, world-fact proposal, CandidateId, or TakeId enters candidate schema;
+16. strict JSON parser is fail-closed, order-insensitive, JSON-whitespace-insensitive, and never repairs malformed output;
+17. semantic factory/parser share one invariant implementation path;
+18. constructors remain non-public, while a public validated semantic factory supports legitimate Performer construction without authority bypass;
+19. exact raw AI output/partial/error data remains separate E0 provenance/diagnostics and does not enter CandidatePerformance or Production history automatically;
+20. Character refusal/redirection/silence remains distinct from provider refusal/error/cancellation;
+21. provider response size ceiling, provider integration, Director, Integrity Validator, State Interpreter, State Authority, Take semantics, and causal persistence remain outside Patch 0006.
 
-Implementation must not begin until these decisions are approved.
+Implementation must not begin until recursive audit completes and these decisions are explicitly approved.
