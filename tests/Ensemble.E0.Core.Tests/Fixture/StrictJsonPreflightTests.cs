@@ -9,13 +9,13 @@ public sealed class StrictJsonPreflightTests
     [TestMethod]
     public void EmptyFixture_IsRejected()
     {
-        Assert.Throws<FixtureValidationException>(() => StrictJsonPreflight.Validate([]));
+        Assert.Throws<FixtureValidationException>(() => StrictJsonPreflight.Validate(Array.Empty<byte>()));
     }
 
     [TestMethod]
     public void FixtureOverOneMiB_IsRejectedBeforeParsing()
     {
-        var bytes = new byte[(1024 * 1024) + 1];
+        var bytes = new byte[E0FixtureDialect.MaxFixtureBytes + 1];
 
         Assert.Throws<FixtureValidationException>(() => StrictJsonPreflight.Validate(bytes));
     }
