@@ -1,10 +1,8 @@
 # H1 Patch 0004 — Deterministic Character-Bounded Access Control
 
-Status: APPROVED — canonical implementation specification 0.2
+Status: APPROVED and CANONICAL — implementation machine-validated at `b228cd134f8e3258bb54fcb8e8f1fb01c21b96f8`
 Parent baseline: validated H1 Patch 0003
 Approved: 2026-09-02
-
-This document is the canonical implementation specification for H1 Patch 0004. Its proposal branch was `h1-patch-0004-access-control-blueprint`; executable implementation must proceed only after this approved specification is promoted to `main`.
 
 ## 1. Purpose
 
@@ -506,6 +504,8 @@ Before promotion:
 13. final hygiene review finds no ACL framework, policy registry, omniscient bypass, provenance traversal, Context Composer leakage, or later-patch scope creep;
 14. validation evidence preserves the distinction between machine-tested executable head and any later documentation-only closure commits.
 
+All exit gates above are satisfied for the exercised Patch 0004 scope. Machine evidence is recorded in `docs/evidence/H1_PATCH_0004_ARM64_VALIDATION.md`.
+
 ## 22. Material approval decisions
 
 Explicit approval of this blueprint freezes the following persistent implementation decisions for `ensemble.e0.character-bounded.v1`:
@@ -520,3 +520,5 @@ Explicit approval of this blueprint freezes the following persistent implementat
 8. the local audit records permit/deny decisions separately and is forbidden from the Performer-facing surface;
 9. one concrete single-contract Access Control implementation is preferred over an ACL/policy framework;
 10. E0-D omniscient context remains an explicit experimental bypass outside the safe reference Access Control operation.
+
+These decisions are approved and canonical for H1 Patch 0004.
