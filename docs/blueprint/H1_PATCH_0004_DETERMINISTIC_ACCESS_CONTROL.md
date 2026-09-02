@@ -1,6 +1,6 @@
 # H1 Patch 0004 — Deterministic Character-Bounded Access Control
 
-Status: blueprint proposal 0.1 — APPROVAL REQUIRED; implementation not started
+Status: blueprint proposal 0.2 — APPROVAL REQUIRED; implementation not started
 Parent baseline: validated H1 Patch 0003
 Branch: `h1-patch-0004-access-control-blueprint`
 
@@ -294,7 +294,7 @@ Use one small Access-Control-specific domain exception rather than misclassifyin
 
 Do not silently return an empty projection for an invalid subject. Empty access can be a valid semantic result for a category; invalid authority selection must remain distinguishable.
 
-Patch 0004 may trust invariants already guaranteed by `ValidatedFixture` and must not duplicate the entire generic fixture validator.
+Patch 0004 may trust invariants already guaranteed by `ValidatedFixture` and must not duplicate the entire generic fixture validator. Under E0 Fixture Dialect v1, every validated Character is already required to be in the Scene roster; therefore the separate “Character exists but is not rostered” branch is defensive only and is not a separately constructible public test fixture state.
 
 For Missing Raft, known-family structural/hash validation remains a prerequisite in the Harness pipeline before Access Control. Generic Access Control itself must not depend on `MissingRaftContract`.
 
@@ -403,7 +403,7 @@ Required coverage:
 20. decisions contain every fixture record exactly once and carry the correct permit/deny reason;
 21. decision order and projection collection order are deterministic under source reordering of semantically unordered arrays;
 22. access evaluation does not mutate the fixture or alter the frozen Missing Raft fixture hash;
-23. requesting an unknown/non-roster Character fails closed;
+23. requesting an unknown Character fails closed;
 24. generic smoke still validates/runs through the existing Harness path;
 25. canonical Missing Raft still validates/runs with its frozen ECJ-1 hash;
 26. all existing 73 Core tests remain green.
