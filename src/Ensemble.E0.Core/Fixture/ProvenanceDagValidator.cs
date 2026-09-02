@@ -33,12 +33,43 @@ internal static class ProvenanceDagValidator
             }
         }
 
-        var visiting = new HashSet<RecordId>();
-        var visited = new HashSet<RecordId>();
+        var indegree = graph.Keys.ToDictionary(id => id, _ => 0);
 
-        foreach (var id in graph.Keys)
+        foreach (var (_, sources) in graph)
         {
-            Visit(id, graph, visiting, visited);
+            foreach (var sourceId in sources)
+            {
+                if (!indegree.ContainsKey(sourceId))
+                {
+                    throw new FixtureValidationException(
+                        $"Fixture provenance cites unknown record '{sourceId}'.");
+                }
+
+                indegree[sourceId]++;
+            }
+        }
+
+        var ready = new Queue<RecordId>(indegree.Where(pair => pair.Value == 0).Select(pair => pair.Key));
+        var visitedCount = 0;
+
+        while (ready.Count > 0)
+        {
+            var id = ready.Dequeue();
+            visitedCount++;
+
+            foreach (var sourceId in graph[id])
+            {
+                indegree[sourceId]--;
+                if (indegree[sourceId] == 0)
+                {
+                    ready.Enqueue(sourceId);
+                }
+            }
+        }
+
+        if (visitedCount != graph.Count)
+        {
+            throw new FixtureValidationException("Fixture provenance must form an acyclic graph.");
         }
     }
 
@@ -50,31 +81,5 @@ internal static class ProvenanceDagValidator
         {
             graph.Add(record.Id, record.Provenance);
         }
-    }
-
-    private static void Visit(
-        RecordId id,
-        IReadOnlyDictionary<RecordId, ImmutableArray<RecordId>> graph,
-        HashSet<RecordId> visiting,
-        HashSet<RecordId> visited)
-    {
-        if (visited.Contains(id))
-        {
-            return;
-        }
-
-        if (!visiting.Add(id))
-        {
-            throw new FixtureValidationException(
-                $"Fixture provenance contains a cycle involving record '{id}'.");
-        }
-
-        foreach (var sourceId in graph[id])
-        {
-            Visit(sourceId, graph, visiting, visited);
-        }
-
-        visiting.Remove(id);
-        visited.Add(id);
     }
 }
