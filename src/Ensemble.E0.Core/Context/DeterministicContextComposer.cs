@@ -298,7 +298,7 @@ public static class DeterministicContextComposer
         var sections = new[]
         {
             string.Join(
-                '\n',
+                "\n",
                 "[WHO YOU ARE]",
                 "Name:",
                 RenderEntries(new[] { subjectName }),
@@ -345,7 +345,7 @@ public static class DeterministicContextComposer
             return "- none";
         }
 
-        return string.Join('\n', materialized.Select(RenderBullet));
+        return string.Join("\n", materialized.Select(RenderBullet));
     }
 
     private static string RenderRelationships(
@@ -358,7 +358,7 @@ public static class DeterministicContextComposer
         }
 
         return string.Join(
-            '\n',
+            "\n",
             relationships.Select(relationship =>
             {
                 if (!namesById.TryGetValue(relationship.TargetCharacterId, out var targetName))
@@ -375,7 +375,7 @@ public static class DeterministicContextComposer
                 }
 
                 return first + "\n" + string.Join(
-                    '\n',
+                    "\n",
                     lines.Skip(1).Select(line => $"  {line}"));
             }));
     }
@@ -390,7 +390,7 @@ public static class DeterministicContextComposer
         }
 
         return first + "\n" + string.Join(
-            '\n',
+            "\n",
             lines.Skip(1).Select(line => $"  {line}"));
     }
 
@@ -415,11 +415,13 @@ public static class DeterministicContextComposer
 
     private static void ValidateHash(string hash, string fieldName)
     {
-        if (hash.Length != 64 || hash.Any(character =>
-                character is not (>= '0' and <= '9') and not (>= 'a' and <= 'f')))
+        if (hash.Length != 64 || hash.Any(character => !IsLowerHex(character)))
         {
             throw new ContextCompositionException(
                 $"{fieldName} must be exactly 64 lowercase hexadecimal characters.");
         }
     }
+
+    private static bool IsLowerHex(char character) =>
+        character is >= '0' and <= '9' or >= 'a' and <= 'f';
 }
