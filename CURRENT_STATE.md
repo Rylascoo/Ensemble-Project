@@ -17,7 +17,7 @@ Updated: 2026-09-03
 - H1 Patch 0009 E0 State Interpreter Mutation-Proposal Contract Proposal 0.7 is APPROVED, canonical, implemented, and machine-validated for exercised gates.
 - H1 Patch 0010 E0 Deterministic State Authority Review/Decision Contract Proposal 0.6 is APPROVED, canonical, implemented, and machine-validated for exercised deterministic gates.
 - H1 Patch 0011 E0 Take Semantics Contract Proposal 0.15 is APPROVED, canonical, implemented, machine-validated for exercised Take gates at exact head `4250011c167cd9850ad891aaea4ee053216cf135`, and promoted to `main` by PR #24 squash merge `82e572d0f56a4e4a9791722a2352e39d62e3d59d`.
-- H1 Patch 0012 E0 Atomic Causal Commit Contract Proposal 0.10 is APPROVED and canonical for implementation; implementation has not started and no Patch 0012 compiler/runtime claim exists yet.
+- H1 Patch 0012 E0 Atomic Causal Commit Contract Proposal 0.10 is APPROVED and canonical; implementation is statically converged at exact source/test head `48e7932c8ba8753709f2d37464ad366eebbddea7` and native Windows ARM64 validation is pending.
 - Patches 0006–0012 preserve probabilistic proposal versus deterministic authority separation and completed recursive architecture/static review before approval/closure.
 - `docs/ENGINEERING_HYGIENE_CONSTITUTION.md` is project law unless stronger frozen authority explicitly overrides it.
 - GitHub `Rylascoo/Ensemble-Project` is authoritative current engineering state.
@@ -41,7 +41,15 @@ Current architecture checkpoint:
 
 Status:
 
-`BLUEPRINT APPROVED — READY FOR FRESH-CHAT IMPLEMENTATION`
+`IMPLEMENTATION STATICALLY CONVERGED — READY FOR NATIVE WINDOWS ARM64 VALIDATION`
+
+Exact statically audited Patch 0012 source/test head:
+
+`48e7932c8ba8753709f2d37464ad366eebbddea7`
+
+Static implementation audit:
+
+`docs/evidence/H1_PATCH_0012_STATIC_IMPLEMENTATION_AUDIT.md`
 
 Latest machine-validated executable checkpoint:
 
@@ -55,7 +63,7 @@ Status:
 
 `COMPLETE FOR EXERCISED E0 TAKE SEMANTICS GATES`
 
-Patch 0012 architecture approval does not supersede Patch 0011 as the latest executable/test authority. No Patch 0012 source or tests have yet been machine-validated.
+Patch 0012 static implementation convergence does not supersede Patch 0011 as the latest compiler/test/Harness authority. No Patch 0012 source or tests have yet been machine-validated.
 
 ## Patch 0012 canonical authority
 
@@ -74,6 +82,18 @@ Blueprint approval record:
 Fresh-chat implementation handoff:
 `docs/handoff/E0A_H1_PATCH_0012_IMPLEMENTATION_HANDOFF.md`
 
+Static implementation audit:
+`docs/evidence/H1_PATCH_0012_STATIC_IMPLEMENTATION_AUDIT.md`
+
+Implementation branch:
+`h1-patch-0012-atomic-causal-commit-implementation`
+
+Approved implementation baseline:
+`163696f4a89aa3a3b1ea4975167c15b827328d1d`
+
+Exact statically audited source/test head:
+`48e7932c8ba8753709f2d37464ad366eebbddea7`
+
 Blueprint branch:
 `h1-patch-0012-atomic-causal-commit-blueprint`
 
@@ -87,7 +107,9 @@ Important status rule:
 
 The canonical Patch 0012 blueprint preserves its historical Proposal 0.10 audit-stage header at the exact approved bytes. Current approval status is established by this file plus `docs/evidence/H1_PATCH_0012_BLUEPRINT_APPROVAL.md`; do not edit the audited blueprint merely to turn its historical header into a live status field.
 
-PR #25 is documentation-only. It introduces no Patch 0012 executable/test code and establishes no compiler, runtime, ARM64, NPU, WACK, packaging, or Store validation.
+PR #25 is documentation-only. It introduced no Patch 0012 executable/test code and establishes no compiler, runtime, ARM64, NPU, WACK, packaging, or Store validation.
+
+The current implementation branch now contains Patch 0012 source/tests, but static review remains advisory until the native Windows ARM64 gate succeeds.
 
 ## Frozen Patch 0012 architecture boundary
 
@@ -131,11 +153,11 @@ Key frozen laws include:
 34. unexpected programming/runtime failures are not catch-all relabeled as ordinary commit failure;
 35. Patch 0012 Core architecture introduces no network/filesystem/clock/random/provider/GPU/NPU/polling/background/global-mutable-state work and no idle work.
 
-## Patch 0012 implementation entry gate
+## Patch 0012 implementation checkpoint
 
-Implementation must begin from the promoted approved `main` checkpoint, not from the historical architecture branch.
+Implementation began from the approved promoted `main` checkpoint `163696f4a89aa3a3b1ea4975167c15b827328d1d` on the approved implementation branch.
 
-Required first reads:
+Required authority was read before executable changes:
 
 1. `CURRENT_STATE.md`;
 2. `docs/handoff/E0A_H1_PATCH_0012_IMPLEMENTATION_HANDOFF.md`;
@@ -144,15 +166,15 @@ Required first reads:
 5. `docs/ENGINEERING_HYGIENE_CONSTITUTION.md`;
 6. only the exact upstream source/tests needed for the smallest implementation surface.
 
-Do not reopen approved Proposal 0.10 during routine implementation.
+Patch-first implementation remained inside the approved Production/CausalCommit surface plus narrow Fixture/StateAuthority/StateInterpreter refactors required by Proposal 0.10.
 
-Use patch-first implementation and recursively audit:
+Recursive static audit order:
 
 `correctness -> consistency -> authority -> scope -> tests -> simplicity -> hygiene -> ARM64 suitability -> vision -> evidence`
 
-Restart the audit after every material correction until one full pass finds no material corrections or worthwhile improvements.
+After every material correction the audit restarted from correctness. At exact source/test head `48e7932c8ba8753709f2d37464ad366eebbddea7`, one complete final pass found zero material corrections and zero worthwhile implementation improvements within Patch 0012 scope.
 
-Do not claim compilation/runtime validation until the user's native Windows ARM64 machine runs the required gate on the exact implementation head.
+This is static evidence only. Do not claim compilation/runtime validation until the user's native Windows ARM64 machine runs the required gate on the final branch head.
 
 ## Patch 0011 executable and machine authority
 
@@ -199,25 +221,38 @@ In particular:
 
 ## Immediate next action
 
-Create/use the fresh Patch 0012 implementation branch from the approved main checkpoint and implement Proposal 0.10 according to:
+Run the complete Patch 0012 native Windows ARM64 validation gate from the repository root on branch:
 
-`docs/handoff/E0A_H1_PATCH_0012_IMPLEMENTATION_HANDOFF.md`
+`h1-patch-0012-atomic-causal-commit-implementation`
+
+The exact tested branch head must be reported by `git rev-parse HEAD`, and `git status --short` must be reviewed with the validation output.
+
+If the build fails, later `--no-build` Harness results are not Patch 0012 evidence. Patch only the smallest compiler surface and rerun the complete final gate from the corrected exact head.
 
 Implementation status:
 
-`NOT STARTED`
+`STATICALLY CONVERGED — MACHINE VALIDATION PENDING`
 
 Do not enter later evolved Access/Context or next-opportunity integration scope during Patch 0012.
 
 ## Explicit validation limits
 
-Current repository state does not establish Patch 0012 implementation or any of the following:
+Current repository state statically establishes a Patch 0012 implementation candidate for:
 
-- implemented evolved ProductionState / StateHash semantics;
+- immutable ProductionState / StateHash semantics;
+- genesis and causal-commit canonical hashing;
+- Accepted-only source-state binding;
+- atomic causal Commit behavior;
+- one-step Replay behavior;
+- evolved Production-derived StateAuthority snapshot projection;
+- RecordId materialization and duplicate-rejection semantics.
+
+Static review does **not** establish compiler/test/runtime authority for those behaviors.
+
+Current repository state does not establish any of the following later or higher validation claims:
+
 - authoritative evolved ContextPacket / ProductionState common-state identity;
 - authoritative new RecordId allocation policy;
-- implemented atomic causal commit/replay behavior;
-- stale-state runtime application behavior beyond approved architecture;
 - full multi-turn state-transition replay;
 - next-opportunity ProductionState transition;
 - persistence/recovery;
@@ -247,6 +282,13 @@ Missing Raft ECJ-1:
 
 - `9112` UTF-8 bytes;
 - SHA-256 `5556a02325e6a7f774e6997942b395d670741d494ea86f1a50b83633e26b6703`.
+
+Patch 0012 static test oracles pending machine execution:
+
+- genesis StateHash `6e5bb762614a6885721a5d160b99b8c67dc6d096a560e3f04a15fc10a7451376`;
+- oracle post-commit StateHash `59ae86a03a3aad544ca828406349c1b5cc148871a4b479ad8fff6101d2be71bf`.
+
+These Patch 0012 values remain test expectations until the native test gate executes successfully.
 
 ## Validation authority
 
