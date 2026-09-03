@@ -417,16 +417,22 @@ public sealed class AddStateAuthorityTransition : StateAuthorityTransition
 
 public sealed class SupersedeStateAuthorityTransition : StateAuthorityTransition
 {
-    internal SupersedeStateAuthorityTransition(RecordId existingRecordId) =>
+    internal SupersedeStateAuthorityTransition(RecordId existingRecordId)
+    {
+        StateAuthoritySnapshot.RequireInitialized(existingRecordId, "existing RecordId");
         ExistingRecordId = existingRecordId;
+    }
 
     public RecordId ExistingRecordId { get; }
 }
 
 public sealed class DeactivateStateAuthorityTransition : StateAuthorityTransition
 {
-    internal DeactivateStateAuthorityTransition(RecordId existingRecordId) =>
+    internal DeactivateStateAuthorityTransition(RecordId existingRecordId)
+    {
+        StateAuthoritySnapshot.RequireInitialized(existingRecordId, "existing RecordId");
         ExistingRecordId = existingRecordId;
+    }
 
     public RecordId ExistingRecordId { get; }
 }
@@ -439,9 +445,25 @@ public abstract class StateAuthorityMutationInput
         StateAuthorityTransition transition,
         ImmutableArray<RecordId> supportingRecordIds)
     {
+        if (mutationIndex < 0)
+        {
+            throw new StateAuthorityException(
+                "State Authority mutation index must be nonnegative.");
+        }
+
+        if (!Enum.IsDefined(domain))
+        {
+            throw new StateAuthorityException(
+                "State Authority mutation contains an undefined domain.");
+        }
+
+        Transition = transition
+            ?? throw new StateAuthorityException(
+                "State Authority mutation transition is required.");
+        StateAuthorityMutationInputInvariants.ValidateSupportingRecordIds(supportingRecordIds);
+
         MutationIndex = mutationIndex;
         Domain = domain;
-        Transition = transition;
         SupportingRecordIds = supportingRecordIds;
     }
 
@@ -460,6 +482,7 @@ public sealed class GlobalStateAuthorityMutationInput : StateAuthorityMutationIn
         ImmutableArray<RecordId> supportingRecordIds)
         : base(mutationIndex, domain, transition, supportingRecordIds)
     {
+        StateAuthorityMutationInputInvariants.RequireGlobalDomain(domain);
     }
 }
 
@@ -473,6 +496,8 @@ public sealed class CharacterStateAuthorityMutationInput : StateAuthorityMutatio
         ImmutableArray<RecordId> supportingRecordIds)
         : base(mutationIndex, domain, transition, supportingRecordIds)
     {
+        StateAuthorityMutationInputInvariants.RequireCharacterDomain(domain, transition);
+        StateAuthoritySnapshot.RequireInitialized(subjectCharacterId, "subject CharacterId");
         SubjectCharacterId = subjectCharacterId;
     }
 
@@ -489,12 +514,86 @@ public sealed class RelationshipStateAuthorityMutationInput : StateAuthorityMuta
         ImmutableArray<RecordId> supportingRecordIds)
         : base(mutationIndex, StateMutationDomain.Relationship, transition, supportingRecordIds)
     {
+        StateAuthoritySnapshot.RequireInitialized(subjectCharacterId, "relationship subject CharacterId");
+        StateAuthoritySnapshot.RequireInitialized(targetCharacterId, "relationship target CharacterId");
+        if (subjectCharacterId == targetCharacterId)
+        {
+            throw new StateAuthorityException(
+                "State Authority relationship mutation cannot target its subject Character.");
+        }
+
         SubjectCharacterId = subjectCharacterId;
         TargetCharacterId = targetCharacterId;
     }
 
     public CharacterId SubjectCharacterId { get; }
     public CharacterId TargetCharacterId { get; }
+}
+
+internal static class StateAuthorityMutationInputInvariants
+{
+    public static void RequireGlobalDomain(StateMutationDomain domain)
+    {
+        if (domain is not StateMutationDomain.WorldState and
+            not StateMutationDomain.SceneState and
+            not StateMutationDomain.UnresolvedProposition and
+            not StateMutationDomain.Pressure)
+        {
+            throw new StateAuthorityException(
+                "Global State Authority mutation input contains an invalid domain family.");
+        }
+    }
+
+    public static void RequireCharacterDomain(
+        StateMutationDomain domain,
+        StateAuthorityTransition transition)
+    {
+        if (domain is not StateMutationDomain.CharacterKnowledge and
+            not StateMutationDomain.CharacterBelief and
+            not StateMutationDomain.CharacterSuspicion and
+            not StateMutationDomain.CharacterMemory and
+            not StateMutationDomain.CharacterGoal and
+            not StateMutationDomain.CharacterDisposition and
+            not StateMutationDomain.CharacterCircumstance and
+            not StateMutationDomain.CharacterClaim)
+        {
+            throw new StateAuthorityException(
+                "Character State Authority mutation input contains an invalid domain family.");
+        }
+
+        if (domain is StateMutationDomain.CharacterKnowledge or
+            StateMutationDomain.CharacterMemory or
+            StateMutationDomain.CharacterClaim)
+        {
+            if (transition is not AddStateAuthorityTransition)
+            {
+                throw new StateAuthorityException(
+                    "Append-only Character State Authority domain requires an Add transition.");
+            }
+        }
+    }
+
+    public static void ValidateSupportingRecordIds(ImmutableArray<RecordId> ids)
+    {
+        if (ids.IsDefault)
+        {
+            throw new StateAuthorityException(
+                "State Authority supporting Record IDs are invalid.");
+        }
+
+        var previous = string.Empty;
+        for (var index = 0; index < ids.Length; index++)
+        {
+            var value = StateAuthoritySnapshot.RequireInitialized(ids[index], "supporting RecordId");
+            if (index != 0 && string.CompareOrdinal(previous, value) >= 0)
+            {
+                throw new StateAuthorityException(
+                    "State Authority supporting Record IDs are not canonical.");
+            }
+
+            previous = value;
+        }
+    }
 }
 
 public sealed class StateAuthorityInput
@@ -835,27 +934,8 @@ public sealed class StateAuthorityInput
         return id;
     }
 
-    private static void ValidateSupportingRecordIds(ImmutableArray<RecordId> ids)
-    {
-        if (ids.IsDefault)
-        {
-            throw new StateAuthorityException(
-                "State Authority supporting Record IDs are invalid.");
-        }
-
-        var previous = string.Empty;
-        for (var index = 0; index < ids.Length; index++)
-        {
-            var value = StateAuthoritySnapshot.RequireInitialized(ids[index], "supporting RecordId");
-            if (index != 0 && string.CompareOrdinal(previous, value) >= 0)
-            {
-                throw new StateAuthorityException(
-                    "State Authority supporting Record IDs are not canonical.");
-            }
-
-            previous = value;
-        }
-    }
+    private static void ValidateSupportingRecordIds(ImmutableArray<RecordId> ids) =>
+        StateAuthorityMutationInputInvariants.ValidateSupportingRecordIds(ids);
 
     private static void ValidateRosterCharacter(
         CharacterId id,
