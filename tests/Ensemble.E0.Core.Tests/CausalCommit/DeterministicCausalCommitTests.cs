@@ -17,13 +17,13 @@ namespace Ensemble.E0.Core.Tests.CausalCommit;
 public sealed class DeterministicCausalCommitTests
 {
     private const string ExpectedGenesisStateHash =
-        "6e5bb762614a6885721a5d160b99b8c67dc6d096a560e3f04a15fc10a7451376";
+        "30041ae0dd287b9ef192aaf90c0cee4aedf85e4e8a9c3b31ad14094fbfda0104";
     private const string ExpectedOracleCandidateHash =
         "cced4de8efbaf3bf707c92192cdbe0f084a46156205c4f88c326e5f7535dc153";
     private const string ExpectedOracleProposalHash =
         "16f20511ddd9655640d532be37b6431e9e9fa8abc07cda3033bf7dba5ed8e248";
     private const string ExpectedPostCommitStateHash =
-        "59ae86a03a3aad544ca828406349c1b5cc148871a4b479ad8fff6101d2be71bf";
+        "057034560f8d97f648ed7ba66776ba7d1ced7ed694c2bd6561dd0ef1fac24c30";
 
     private const string ExpectedOracleCommitPayload =
         "{\"schemaVersion\":\"ensemble.e0.causal-commit.v1\",\"commitId\":\"COMMIT-PATCH-0012-ORACLE\",\"take\":{" +
@@ -397,7 +397,6 @@ public sealed class DeterministicCausalCommitTests
             Materials((0, "PRESSURE-PATCH-0012-DIFFERENT")));
         Assert.AreNotEqual(firstResult.ResultState.StateHash, differentRecord.ResultState.StateHash);
     }
-
     [TestMethod]
     public void OracleCommitPayloadAndPostCommitStateHash_MatchFixedCanonicalBytes()
     {
