@@ -1,6 +1,6 @@
 # H1 Patch 0011 — E0 Take Semantics Contract
 
-Status: blueprint proposal 0.9 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; approval required; implementation not started
+Status: blueprint proposal 0.10 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; approval required; implementation not started
 Parent baseline: machine-validated H1 Patch 0010
 Branch: `h1-patch-0011-take-semantics-blueprint`
 
@@ -482,7 +482,7 @@ This preserves Blueprint 0.1 accepted-Take immutability without freezing post-E0
 
 Proposal 0.1 considered introducing an `AuthorityDecisionContentHash`.
 
-Proposal 0.9 removes it.
+Proposal 0.10 removes it.
 
 Reason:
 
@@ -775,7 +775,7 @@ Future implementation should prove at minimum:
 29. Alternate Take applies no State/history/Director routing;
 30. Rejected/Alternate Take cannot make Candidate control effective;
 31. Accepted-but-uncommitted Take cannot make Candidate control effective;
-32. failed commit leaves Accepted Take outside Production history and preserves only required E0 provenance;
+32. Take public surface exposes no CommitId, committed/history flag, ProductionState, StateHash, mutation-application API, persistence API, or effective-opportunity authority;
 33. identical semantic Candidate/Proposal packages may bind under distinct TakeIds;
 34. TakeId is not equal/derived by contract from CandidateContentHash or ProposalContentHash;
 35. Core defines no TakeId allocator/format beyond existing canonical strong-ID validation;
@@ -791,7 +791,7 @@ Future implementation should prove at minimum:
 45. Missing Raft Harness regression remains green;
 46. generic smoke Harness regression remains green.
 
-The reference disposition mapping, per-Run TakeId uniqueness, disposition-source attribution, and E0 Take provenance obligations are later Harness/orchestration invariants; Patch 0011 Core need not add implementation surfaces merely to restate them.
+The reference disposition mapping, per-Run TakeId uniqueness, disposition-source attribution, failed-commit behavior, and E0 Take provenance obligations are later Harness/atomic-commit/orchestration invariants; Patch 0011 Core need not add implementation surfaces or tests that claim those later capabilities already exist.
 
 Patch 0011 implementation must add no tests that falsely claim ProductionState, persistence, provider authentication, global TakeId allocation, atomic commit, or runtime/hardware behavior.
 
@@ -858,7 +858,7 @@ This blueprint is architecture only.
 
 Before implementation:
 
-1. recursively adversarial-audit Proposal 0.9 against frozen Blueprint 0.1, approved Patches 0006–0010, current source/tests, engineering hygiene, E0 experiment isolation, provenance boundaries, exception boundaries, invalid-state construction, causal-coherence limitations, and future Patch 0012 separation;
+1. recursively adversarial-audit Proposal 0.10 against frozen Blueprint 0.1, approved Patches 0006–0010, current source/tests, engineering hygiene, E0 experiment isolation, provenance boundaries, exception boundaries, invalid-state construction, causal-coherence limitations, and future Patch 0012 separation;
 2. restart the audit after every material correction;
 3. require one complete final pass with zero material corrections and zero worthwhile architectural improvements;
 4. obtain explicit user approval;
