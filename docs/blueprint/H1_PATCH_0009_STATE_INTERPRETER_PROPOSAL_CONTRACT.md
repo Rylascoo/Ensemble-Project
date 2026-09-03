@@ -1,6 +1,6 @@
 # H1 Patch 0009 — E0 State Interpreter Mutation-Proposal Contract
 
-Status: blueprint proposal 0.7 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; APPROVAL REQUIRED; implementation not started
+Status: blueprint proposal 0.7 — RECURSIVE ADVERSARIAL AUDIT COMPLETE; APPROVAL REQUIRED; implementation not started
 Parent baseline: machine-validated H1 Patch 0008
 Branch: `h1-patch-0009-state-interpreter-blueprint`
 
@@ -550,7 +550,7 @@ Restart after each material correction:
 32. ARM64;
 33. scope/validation claims.
 
-Approval only after a complete restart finds zero material correction/worthwhile improvement.
+Audit result for Proposal 0.7: one complete restart across all dimensions above produced **zero material corrections and zero worthwhile architectural improvements**. This status update records that result and does not change the contract.
 
 ## 48. Material approval decisions
 
