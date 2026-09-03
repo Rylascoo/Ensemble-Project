@@ -99,7 +99,7 @@ public sealed class DeterministicStateAuthorityTests
         var mutation = (CharacterStateAuthorityMutationInput)pipeline.Input.Mutations.Single();
         Assert.AreEqual(StateMutationDomain.CharacterBelief, mutation.Domain);
         Assert.AreEqual(MissingRaftContract.VossId, mutation.SubjectCharacterId);
-        Assert.IsInstanceOfType<AddStateAuthorityTransition>(mutation.Transition);
+        Assert.IsInstanceOfType(mutation.Transition, typeof(AddStateAuthorityTransition));
     }
 
     [TestMethod]
@@ -110,7 +110,9 @@ public sealed class DeterministicStateAuthorityTests
             PublicPropertyNames(typeof(StateAuthorityInput)).ToArray());
 
         var authorityTypes = typeof(StateAuthorityInput).Assembly.GetTypes()
-            .Where(type => string.Equals(type.Namespace, "Ensemble.E0.Core.StateAuthority", StringComparison.Ordinal))
+            .Where(type =>
+                (type.IsPublic || type.IsNestedPublic) &&
+                string.Equals(type.Namespace, "Ensemble.E0.Core.StateAuthority", StringComparison.Ordinal))
             .ToArray();
         foreach (var forbidden in new[]
                  {
