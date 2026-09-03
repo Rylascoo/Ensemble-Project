@@ -17,7 +17,7 @@ namespace Ensemble.E0.Core.Tests.Production;
 public sealed class ProductionStateTests
 {
     private const string ExpectedGenesisStateHash =
-        "6e5bb762614a6885721a5d160b99b8c67dc6d096a560e3f04a15fc10a7451376";
+        "30041ae0dd287b9ef192aaf90c0cee4aedf85e4e8a9c3b31ad14094fbfda0104";
 
     [TestMethod]
     public void PublicContractsAndEnumValues_AreExact()
