@@ -12,6 +12,78 @@ public static class E0CausalCommitContracts
     public const string ContractVersion = "ensemble.e0.causal-commit.v1";
 }
 
+public sealed class ProductionStateCheckpoint
+{
+    private readonly ProductionState _sourceState;
+
+    private ProductionStateCheckpoint(
+        ProductionState sourceState,
+        StateHash stateHash,
+        SceneId sceneId,
+        CharacterId currentOpportunityCharacterId)
+    {
+        _sourceState = sourceState;
+        StateHash = stateHash;
+        SceneId = sceneId;
+        CurrentOpportunityCharacterId = currentOpportunityCharacterId;
+    }
+
+    public StateHash StateHash { get; }
+    public SceneId SceneId { get; }
+    public CharacterId CurrentOpportunityCharacterId { get; }
+
+    internal ProductionState SourceState => _sourceState;
+
+    public static ProductionStateCheckpoint Capture(ProductionState sourceState)
+    {
+        if (sourceState is null)
+        {
+            throw new E0CausalCommitException(
+                "Causal commit source Production state is required.");
+        }
+
+        try
+        {
+            _ = sourceState.StateHash.Value;
+            _ = sourceState.SceneId.Value;
+        }
+        catch (InvalidOperationException)
+        {
+            throw new E0CausalCommitException(
+                "Causal commit source Production state identity is uninitialized.");
+        }
+
+        var opportunity = sourceState.CurrentOpportunityCharacterId;
+        if (!opportunity.HasValue)
+        {
+            throw new E0CausalCommitException(
+                "Causal commit source Production state has no current opportunity.");
+        }
+
+        try
+        {
+            _ = opportunity.Value.Value;
+        }
+        catch (InvalidOperationException)
+        {
+            throw new E0CausalCommitException(
+                "Causal commit source current opportunity is uninitialized.");
+        }
+
+        if (!sourceState.RosterCharacterIds.Contains(opportunity.Value))
+        {
+            throw new E0CausalCommitException(
+                "Causal commit source current opportunity is outside the Scene roster.");
+        }
+
+        return new ProductionStateCheckpoint(
+            sourceState,
+            sourceState.StateHash,
+            sourceState.SceneId,
+            opportunity.Value);
+    }
+}
+
 public sealed class E0TakeStateBinding
 {
     private E0TakeStateBinding(StateHash sourceStateHash, E0Take take)
