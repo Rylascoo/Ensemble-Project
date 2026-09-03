@@ -17,7 +17,15 @@ Exact recursively audited proposal head:
 Blueprint branch:
 `h1-patch-0011-take-semantics-blueprint`
 
-The approved blueprint content is the exact Proposal 0.15 document at the audited head above. Its audit-stage header is intentionally preserved as historical evidence; live approval status is established by this record and `CURRENT_STATE.md` after promotion to `main`.
+Approval PR:
+`#23 — H1: approve E0 Take semantics contract`
+
+PR #23 squash-merged the exact audited blueprint plus approval/handoff documentation without executable changes.
+
+Canonical blueprint promotion commit on `main`:
+`5ed7be9aec6c83616ab743da3081781fb97b41a2`
+
+The approved blueprint content is the exact Proposal 0.15 document at the audited head above. Its audit-stage header is intentionally preserved as historical evidence; live approval status is established by this record and `CURRENT_STATE.md`.
 
 ## Approval authority
 
