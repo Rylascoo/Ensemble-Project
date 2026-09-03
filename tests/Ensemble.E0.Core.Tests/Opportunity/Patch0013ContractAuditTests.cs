@@ -217,12 +217,21 @@ public sealed class Patch0013ContractAuditTests
     [TestMethod]
     public void StrategyContract_RemainsExactReplayLaw()
     {
+        var strategyContract = typeof(E0DirectorContracts).GetField(
+            nameof(E0DirectorContracts.LeastInterventionStrategyContract),
+            BindingFlags.Public | BindingFlags.Static)
+            ?? throw new InvalidOperationException("Director strategy contract field is missing.");
+        var opportunityContract = typeof(E0DirectorContracts).GetField(
+            nameof(E0DirectorContracts.OpportunityContractVersion),
+            BindingFlags.Public | BindingFlags.Static)
+            ?? throw new InvalidOperationException("Director opportunity contract field is missing.");
+
         Assert.AreEqual(
             "ensemble.e0.director.least-intervention.v1",
-            E0DirectorContracts.LeastInterventionStrategyContract);
+            strategyContract.GetRawConstantValue());
         Assert.AreEqual(
             "ensemble.e0.director.opportunity.v1",
-            E0DirectorContracts.OpportunityContractVersion);
+            opportunityContract.GetRawConstantValue());
     }
 
     private static string[] PublicPropertyNames(Type type) =>
