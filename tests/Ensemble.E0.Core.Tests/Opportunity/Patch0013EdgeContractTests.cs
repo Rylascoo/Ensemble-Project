@@ -44,11 +44,12 @@ public sealed class Patch0013EdgeContractTests
                 scenario.SourceHistory,
                 live.Event));
 
+        var advancedForeignHistory = Patch0013TestSupport.Establish(foreign).History;
         Assert.Throws<E0OpportunityTransitionException>(() =>
             DeterministicOpportunityAuthority.Replay(
                 scenario.PostCommitState,
                 scenario.SourceCommit,
-                foreign.SourceHistory,
+                advancedForeignHistory,
                 live.Event));
     }
 
