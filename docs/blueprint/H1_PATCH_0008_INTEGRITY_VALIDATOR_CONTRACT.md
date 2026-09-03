@@ -1,6 +1,6 @@
 # H1 Patch 0008 — E0 Integrity Validator Contract
 
-Status: blueprint proposal 1.1 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; APPROVAL REQUIRED; implementation not started
+Status: blueprint proposal 1.1 — RECURSIVE ADVERSARIAL AUDIT COMPLETE; APPROVAL REQUIRED; implementation not started
 Parent baseline: validated H1 Patch 0007
 Branch: `h1-patch-0008-integrity-validator-blueprint`
 
@@ -667,4 +667,23 @@ Approval would freeze only:
 33. Trace nests Input + optional ConcernEvidence and contains no Performance/private prose or assessor-authenticity claim;
 34. no State Interpreter/Authority, Take, commit, persistence, opportunity application, Scene loop, provider execution, UI, Windows AI/NPU, or Store machinery enters Patch 0008.
 
-Implementation remains blocked until recursive audit completes and user explicitly approves final proposal.
+## 40. Recursive audit result
+
+Proposal 1.1 completed a full restart after the Proposal 1.0 hygiene correction.
+
+The complete pass rechecked all forty dimensions in Section 38 against:
+
+- Blueprint 0.1 frozen Integrity/State/Take law;
+- machine-validated Patch 0005 Context identity semantics;
+- machine-validated Patch 0006 Candidate construction/control semantics;
+- machine-validated Patch 0007 Director authority boundaries;
+- Creator Ontology Extensibility Guard;
+- Engineering Hygiene Constitution;
+- E0-A through E0-G control isolation;
+- ARM64/core dependency constraints.
+
+Result: **zero material corrections and zero worthwhile architectural improvements found**.
+
+No executable source has been created or modified by the Patch 0008 blueprint branch.
+
+Implementation remains blocked until the user explicitly approves Proposal 1.1.
