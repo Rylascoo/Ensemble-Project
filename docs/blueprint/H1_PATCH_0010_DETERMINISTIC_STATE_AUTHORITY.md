@@ -1,6 +1,6 @@
 # H1 Patch 0010 — E0 Deterministic State Authority Review/Decision Contract
 
-Status: blueprint proposal 0.3 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; implementation not started
+Status: blueprint proposal 0.4 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; implementation not started
 Parent baseline: machine-validated H1 Patch 0009
 Branch: `h1-patch-0010-state-authority-blueprint`
 
@@ -57,7 +57,7 @@ Frozen law:
 - accepted Performance + approved consequences later form one atomic causal commit;
 - E0 provenance preserves proposed mutations plus committed/rejected mutation decisions with reasons.
 
-Blueprint 0.1 leaves consequence acceptance UX/modes open in ODR-19. Patch 0010 does not freeze product modes such as Autopilot, Review, Strict Creator, or equivalent UI taxonomy.
+Blueprint 0.1 leaves consequence acceptance UX/modes open in ODR-19. Patch 0010 therefore does not freeze product modes such as Autopilot, Review, Strict Creator, or equivalent UI taxonomy.
 
 ## 3. Why Patch 0010 is decision logic, not mutation application
 
@@ -114,7 +114,6 @@ Canonical semantic JSON shape is exactly:
   "sourceSceneId": "SCENE-ID",
   "mutations": [
     {
-      "kind": "global",
       "domain": "worldState",
       "operation": "add",
       "subjectCharacterId": null,
@@ -137,22 +136,15 @@ Root property order is exactly:
 
 Every mutation object has exactly these properties in order:
 
-1. `kind`;
-2. `domain`;
-3. `operation`;
-4. `subjectCharacterId`;
-5. `targetCharacterId`;
-6. `existingRecordId`;
-7. `text`;
-8. `supportingRecordIds`.
+1. `domain`;
+2. `operation`;
+3. `subjectCharacterId`;
+4. `targetCharacterId`;
+5. `existingRecordId`;
+6. `text`;
+7. `supportingRecordIds`.
 
-Exact `kind` tokens:
-
-```text
-global
-character
-relationship
-```
+Domain uniquely determines the Patch 0009 semantic variant family, so no redundant `kind` field is serialized.
 
 Domain/operation tokens are the exact Patch 0009 transport tokens. Absent scalar fields are canonical JSON `null`.
 
@@ -184,14 +176,14 @@ Public shape:
 
 ```text
 StateAuthoritySnapshot
-- OriginFixtureId
-- OriginFixtureVersion
 - SceneId
 - RosterCharacterIds
 - Records
 ```
 
 The snapshot is a deterministic prose-free structural projection of authoritative E0 fixture state plus an exact-record creator-lock overlay. It is not ProductionState and has no durable StateHash.
+
+Fixture identity/version remain run provenance outside the snapshot rather than masquerading as future state identity.
 
 The current public factory is fixture-based because that is the only validated authoritative state representation today. Patch 0010 executable validation therefore proves initial-fixture State Authority review only. Multi-turn evolved-state review remains unvalidated until later ProductionState/atomic-commit work supplies an evolved snapshot construction path.
 
@@ -239,9 +231,9 @@ Relationship
 Pressure
 ```
 
-`CharacterClaim` has no initial Missing Raft records but is included for future state produced from Patch 0009 claim proposals.
+`CharacterClaim` has no initial Missing Raft records but is included because Patch 0009 may propose new claim state later.
 
-This is E0 authority vocabulary only, not final creator-facing ontology.
+This remains E0 authority vocabulary only, not final creator-facing ontology.
 
 ## 10. Record lifecycle
 
@@ -323,14 +315,13 @@ Patch 0008/0009 synthetic Accept remains synthetic for this boundary. Later effe
 StateAuthorityInput
 - ProposalContentIdentityContract
 - ProposalContentHash
-- CandidateContentIdentityContract
-- CandidateContentHash
-- SourceSceneId
 - Snapshot
 - Mutations
 ```
 
-No Source object, Proposal object, Candidate text, mutation Text, Context prose, record Text, Integrity evidence, provider/model information, Take, or commit authority.
+No Source object, Proposal object, Candidate hash, SourceContextPacketId, SourceCharacterId, mutation Text, Context prose, record Text, Integrity evidence, provider/model information, Take, or commit authority.
+
+Upstream Source/Proposal/Candidate identities remain separate provenance records. The exact ProposalContentHash binds this decision input back to one semantic proposal without giving the evaluator upstream Character/Performer data.
 
 ## 15. Prose-free structural mutation input
 
@@ -362,7 +353,7 @@ StateAuthorityTransition
     DeactivateStateAuthorityTransition(ExistingRecordId)
 ```
 
-No mutation input contains Text. Internal constructors must enforce their approved domain families so invalid authority shapes are difficult to represent outside the binder too.
+No mutation input contains Text. Internal constructors must enforce approved domain families so invalid authority shapes remain difficult to express outside the binder too.
 
 ## 16. Explicit E0 review policy
 
@@ -385,7 +376,7 @@ Duplicate/undefined enum values fail. AutoApproveDomains canonicalize by contrac
 
 An empty set means all structurally admissible mutations require review.
 
-Policy selection is itself authority configuration. It must not be authored by the Performer/Interpreter or untrusted creative content. Later effective orchestration must retain/authenticate the configured policy provenance before relying on policy-auto-approved decisions.
+Policy selection is itself authority configuration. It must not be authored by the Performer/Interpreter or untrusted creative content. Later effective orchestration must retain/authenticate configured policy provenance before relying on policy-auto-approved decisions.
 
 Patch 0010 does not choose the E0-A reference policy; that experimental setting remains to be frozen separately if stronger authority has not already done so.
 
@@ -434,8 +425,6 @@ Auto-approval remains an explicit recorded E0 authority-policy choice. It never 
 
 ## 20. Review choice and exact proposal binding
 
-A bare mutation index must not be reusable against another Interpreter proposal.
-
 Choice:
 
 ```text
@@ -455,7 +444,7 @@ StateAuthorityReviewChoice.Approve(index)
 StateAuthorityReviewChoice.Reject(index)
 ```
 
-Choices are then bound:
+Choices are bound:
 
 ```text
 StateAuthorityReviewSet.Bind(
@@ -704,7 +693,7 @@ Patch 0010 does not prove who configured policy or who made explicit review choi
 
 No Performer, State Interpreter, provider output, or untrusted creative content may be treated as authority for policy/review selection.
 
-Later effective commit/orchestration must preserve and authenticate the authority provenance it relies on before treating an Approved decision as commit-eligible in the live Production.
+Later effective commit/orchestration must preserve and authenticate the authority provenance it relies on before treating an Approved decision as commit-eligible in live Production.
 
 ## 34. Evaluation phase / stale-state boundary
 
@@ -762,7 +751,7 @@ Canonical order:
 
 ## 39. Creator ontology guard
 
-Patch 0010 evaluates the E0 authority domains already frozen by Patch 0009. It does not turn them into final creator-facing UI or post-E0 storage ontology.
+Patch 0010 evaluates E0 authority domains already frozen by Patch 0009. It does not turn them into final creator-facing UI or post-E0 storage ontology.
 
 ## 40. E0 control isolation
 
@@ -789,120 +778,117 @@ Use canonical upstream construction and public production paths. No public test 
 ### Proposal identity / least privilege
 1. canonical Proposal -> lowercase 64-hex ProposalContentHash;
 2. identical semantic Proposal -> identical hash;
-3. raw JSON whitespace/property order changes producing same semantic Proposal -> same hash;
+3. raw JSON whitespace/property-order changes producing same semantic Proposal -> same hash;
 4. mutation Text change -> hash changes while structural StateAuthorityMutationInput remains identical;
 5. support ID change -> hash changes;
 6. mutation order change -> hash changes;
 7. Candidate/Scene identity change -> hash changes;
 8. canonical semantic JSON exact fixed-property oracle;
-9. canonical string escaping reuses existing CanonicalJson law;
-10. Input excludes Proposal/Source/Text/Context/provider/model;
-11. evaluator API accepts only prose-free StateAuthorityInput + Policy + ReviewSet.
+9. no redundant `kind` property in canonical identity;
+10. canonical string escaping reuses existing CanonicalJson law;
+11. Input exact public fields are ProposalContentIdentityContract, ProposalContentHash, Snapshot, Mutations;
+12. Input/evaluator exclude Proposal/Source/Candidate identity/Text/Context/provider/model;
+13. evaluator API accepts only StateAuthorityInput + Policy + ReviewSet.
 
 ### Snapshot
-12. Missing Raft fixture binds empty lock overlay;
-13. snapshot constructor non-public;
-14. exact canonical trio roster;
-15. every frozen fixture RecordId represented exactly once;
-16. exact descriptor domain/subject/pair mapping;
-17. HistoricalTruth/Constitution/Observation SystemImmutable;
-18. other initial records unprotected;
-19. creator lock marks mutable record CreatorLocked;
-20. duplicate/unknown lock IDs fail;
-21. SystemImmutable overlay stays SystemImmutable;
-22. snapshot excludes Text/prose/provider/model/apply APIs;
-23. records RecordId ordinal;
-24. all initial records Active.
+14. Missing Raft fixture binds empty lock overlay;
+15. snapshot constructor non-public;
+16. exact public fields SceneId/RosterCharacterIds/Records only;
+17. exact canonical trio roster;
+18. every frozen fixture RecordId represented exactly once;
+19. exact descriptor domain/subject/pair mapping;
+20. HistoricalTruth/Constitution/Observation SystemImmutable;
+21. other initial records unprotected;
+22. creator lock marks mutable record CreatorLocked;
+23. duplicate/unknown lock IDs fail;
+24. SystemImmutable overlay stays SystemImmutable;
+25. snapshot excludes fixture identity/version/Text/prose/provider/model/apply APIs;
+26. records RecordId ordinal;
+27. all initial records Active.
 
 ### Source/proposal binding
-25. canonical Patch 0009 Source+Proposal binds;
-26. Scene mismatch fails;
-27. roster mismatch fails;
-28. Candidate identity/hash mismatch fails;
-29. unsupported Patch 0009 contract fails;
-30. Bind does not rerun Integrity/Interpreter parsing;
-31. synthetic Patch 0008 Accept association remains non-authenticated;
-32. structural mutation projection preserves index/domain/transition/IDs/supports and drops Text.
+28. canonical Patch 0009 Source+Proposal binds;
+29. Scene mismatch fails;
+30. roster mismatch fails;
+31. Candidate identity/hash mismatch fails during Bind even though those fields are not retained in Input;
+32. unsupported Patch 0009 contract fails;
+33. Bind does not rerun Integrity/Interpreter parsing;
+34. synthetic Patch 0008 Accept association remains non-authenticated;
+35. structural mutation projection preserves index/domain/transition/IDs/supports and drops Text.
 
 ### ReviewSet / policy binding
-33. empty Policy valid;
-34. duplicate/undefined policy domains fail;
-35. mandatory domains cannot auto-approve;
-36. Policy public surface has no confidence/UI mode/provider;
-37. ReviewChoice factory rejects negative index;
-38. ReviewSet constructor non-public;
-39. duplicate/out-of-range/undefined choices fail;
-40. ReviewSet canonicalizes index order;
-41. ReviewSet copies ProposalContentHash;
-42. ReviewSet for different Input ProposalContentHash fails Evaluate;
-43. choice count cannot exceed mutation count.
+36. empty Policy valid;
+37. duplicate/undefined policy domains fail;
+38. mandatory domains cannot auto-approve;
+39. Policy public surface has no confidence/UI mode/provider;
+40. ReviewChoice factory rejects negative index;
+41. ReviewSet constructor non-public;
+42. duplicate/out-of-range/undefined choices fail;
+43. ReviewSet canonicalizes index order;
+44. ReviewSet copies ProposalContentHash;
+45. ReviewSet for different Input ProposalContentHash fails Evaluate;
+46. choice count cannot exceed mutation count.
 
 ### Hard transition rules
-44. valid Add survives hard rules;
-45. valid Supersede resolves exact active record;
-46. valid Deactivate resolves exact active record;
-47. missing ExistingRecord -> Reject;
-48. inactive target -> Reject when later internal evolved snapshot construction exists; current patch static/internal invariant gate;
-49. wrong domain -> Reject;
-50. wrong Character subject -> Reject;
-51. wrong relationship pair -> Reject;
-52. SystemImmutable target -> Reject;
-53. CreatorLocked target -> Reject;
-54. missing support -> Reject;
-55. known inactive support remains referenceable in future snapshot;
-56. same resolved ExistingRecord targeted twice -> all contenders Reject;
-57. no conflict winner/merge.
+47. valid Add survives hard rules;
+48. valid Supersede resolves exact active record;
+49. valid Deactivate resolves exact active record;
+50. missing ExistingRecord -> Reject;
+51. inactive target -> Reject when later internal evolved snapshot construction exists; current patch static/internal invariant gate;
+52. wrong domain -> Reject;
+53. wrong Character subject -> Reject;
+54. wrong relationship pair -> Reject;
+55. SystemImmutable target -> Reject;
+56. CreatorLocked target -> Reject;
+57. missing support -> Reject;
+58. known inactive support remains referenceable in future snapshot;
+59. same resolved ExistingRecord targeted twice -> all contenders Reject;
+60. no conflict winner/merge.
 
 ### Review algorithm
-58. each mandatory domain -> RequiresReview without choice;
-59. mandatory domain + Approve -> Approved `[MandatoryReview, ExplicitReviewApproved]`;
-60. mandatory domain + Reject -> Rejected `[MandatoryReview, ExplicitReviewRejected]`;
-61. eligible domain absent policy + no choice -> RequiresReview `[PolicyReviewRequired]`;
-62. eligible domain absent policy + Approve -> Approved `[PolicyReviewRequired, ExplicitReviewApproved]`;
-63. eligible domain absent policy + Reject -> Rejected `[PolicyReviewRequired, ExplicitReviewRejected]`;
-64. eligible domain in policy -> Approved `[PolicyAutoApproved]`;
-65. review choice for hard-rejected mutation fails Evaluate;
-66. review choice for policy-auto-approved mutation fails Evaluate;
-67. policy/review never override hard reason;
-68. review input ordering does not affect result.
+61. each mandatory domain -> RequiresReview without choice;
+62. mandatory + Approve -> Approved `[MandatoryReview, ExplicitReviewApproved]`;
+63. mandatory + Reject -> Rejected `[MandatoryReview, ExplicitReviewRejected]`;
+64. eligible absent policy + no choice -> RequiresReview `[PolicyReviewRequired]`;
+65. eligible absent policy + Approve -> Approved `[PolicyReviewRequired, ExplicitReviewApproved]`;
+66. eligible absent policy + Reject -> Rejected `[PolicyReviewRequired, ExplicitReviewRejected]`;
+67. eligible in policy -> Approved `[PolicyAutoApproved]`;
+68. review choice for hard-rejected mutation fails Evaluate;
+69. review choice for policy-auto-approved mutation fails Evaluate;
+70. hard reasons cannot be waived;
+71. ReviewSet choice order does not affect result.
 
 ### Evaluation
-69. decision order exact MutationIndex/Proposal order;
-70. reason order exact contract order;
-71. any pending -> ReviewRequired status;
-72. all terminal -> Complete;
-73. empty mutations -> Complete / zero decisions;
-74. Evaluation/Decision/Trace constructors non-public;
-75. Trace contains exact prose-free Input/Policy/ReviewSet;
-76. Approved exposes no state-applied/Take/Commit authority;
-77. no creative Text in Input/Trace/reason messages.
+72. decision order exact MutationIndex/Proposal order;
+73. reason order exact contract order;
+74. any pending -> ReviewRequired status;
+75. all terminal -> Complete;
+76. empty mutations -> Complete / zero decisions;
+77. Evaluation/Decision/Trace constructors non-public;
+78. Trace contains exact prose-free Input/Policy/ReviewSet;
+79. Approved exposes no state-applied/Take/Commit authority;
+80. no creative Text in Input/Trace/reason messages.
 
 ### Truth / scope
-78. approved Claim remains Claim only;
-79. Belief/Suspicion/Memory approval cannot create WorldState/Knowledge;
-80. objective domains cannot policy-auto-approve;
-81. Disposition/Relationship/Memory cannot policy-auto-approve;
-82. creator lock cannot be overridden by review;
-83. no State apply/NewRecordId/Take/Commit/provider API;
-84. no numeric psychology/confidence.
+81. approved Claim remains Claim only;
+82. Belief/Suspicion/Memory approval cannot create WorldState/Knowledge;
+83. objective domains cannot policy-auto-approve;
+84. Disposition/Relationship/Memory cannot policy-auto-approve;
+85. creator lock cannot be overridden by review;
+86. no State apply/NewRecordId/Take/Commit/provider API;
+87. no numeric psychology/confidence.
 
 ### Regression
-85. existing 330 Core tests green;
-86. Patch 0008 Candidate hash oracle unchanged;
-87. Missing Raft Context hashes unchanged;
-88. Missing Raft ECJ-1 9112 bytes/hash unchanged;
-89. Missing Raft Harness PASS/0;
-90. smoke Harness PASS/0.
+88. existing 330 Core tests green;
+89. Patch 0008 Candidate hash oracle unchanged;
+90. Missing Raft Context hashes unchanged;
+91. Missing Raft ECJ-1 9112 bytes/hash unchanged;
+92. Missing Raft Harness PASS/0;
+93. smoke Harness PASS/0.
 
 ## 43. Explicit validation limit
 
-Patch 0010 machine validation, when implemented, can prove:
-
-- State Authority review over fixture-derived initial snapshots;
-- exact proposal binding/prose-free structural evaluation;
-- creator-lock overlay on initial fixture records;
-- deterministic policy/review decisions;
-- regression gates.
+Patch 0010 machine validation, when implemented, can prove fixture-derived initial-snapshot State Authority review, exact proposal binding/prose-free evaluation, creator-lock overlay, deterministic policy/review decisions, and regressions.
 
 It cannot yet prove multi-turn evolved-state review because no ProductionState/evolved snapshot constructor exists. That higher validation level belongs to later state-application/atomic-commit work.
 
@@ -959,9 +945,9 @@ Approval would freeze only:
 
 1. Patch 0010 as deterministic review/decision logic, not state application;
 2. sole rich `StateAuthorityInput.Bind(snapshot, source, proposal)` boundary;
-3. exact semantic ProposalContentHash using existing CanonicalJson law;
-4. evaluator prose-blind structural input;
-5. fixture-derived structural Snapshot + exact-record creator-lock overlay;
+3. exact semantic ProposalContentHash using existing CanonicalJson law and the seven Patch 0009 mutation fields;
+4. evaluator prose-blind structural input containing only proposal identity, Snapshot, and mutation structure;
+5. Snapshot containing only SceneId/roster/structural records plus exact-record lock overlay at construction;
 6. typed record descriptors/lifecycle/protection;
 7. SystemImmutable HistoricalTruth/Constitution/Observation;
 8. typed structural mutation projection;
@@ -979,7 +965,7 @@ Approval would freeze only:
 20. Approved/Rejected/RequiresReview + Complete/ReviewRequired semantics;
 21. Approved is later commit-eligible only;
 22. no StateHash yet; later commit must recompute or bind current state;
-23. current executable validation limited to fixture-derived initial snapshots;
+23. executable validation limited to fixture-derived initial snapshots until evolved state exists;
 24. Take ordering remains open;
 25. no ProductionState/StateHash/RecordId allocation/application/Take/commit/persistence/provider/UI/NPU/Store scope.
 
