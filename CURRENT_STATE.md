@@ -27,7 +27,7 @@ No current evidence establishes Windows AI/NPU execution, WACK success, packagin
 
 `E0-A Harness Implementation — H1 Deterministic Spine`
 
-Current completed patch:
+Latest completed patch:
 
 `H1 Patch 0012 — E0 Atomic Causal Commit`
 
@@ -45,29 +45,33 @@ Native validation:
 
 Promotion:
 
-`IMPLEMENTATION PR #26 OPEN`
+`PROMOTED TO MAIN`
 
 ## Current Git authority
 
-`main` remains at approved Patch 0012 implementation baseline:
-
-`163696f4a89aa3a3b1ea4975167c15b827328d1d`
-
-Implementation branch:
-
-`h1-patch-0012-atomic-causal-commit-implementation`
-
-Implementation PR:
+Patch 0012 implementation/promotion PR:
 
 `#26 — H1: implement and validate E0 Atomic Causal Commit`
+
+PR #26 squash-merge commit on `main`:
+
+`bc208e6c9b46acf3c98b454df13bfc65efca5a38`
 
 Exact native Windows ARM64 machine-tested executable/test head:
 
 `39bc078c130ab1165c6a81c1673dd5cd25da3724`
 
-This SHA is the Patch 0012 compiler/test/Harness authority.
+This tested SHA remains the Patch 0012 compiler/test/Harness authority.
 
-Later evidence/checkpoint documentation commits on the implementation branch do **not** replace that tested-head authority.
+The later squash-merge commit and post-promotion documentation checkpoint do **not** replace that tested-head authority.
+
+Historical implementation branch:
+
+`h1-patch-0012-atomic-causal-commit-implementation`
+
+Approved implementation baseline before Patch 0012 source work:
+
+`163696f4a89aa3a3b1ea4975167c15b827328d1d`
 
 ## Patch 0012 machine validation
 
@@ -199,7 +203,7 @@ Core frozen laws now implemented and exercised include:
 20. causal event surface is minimal: CommitId, ParentStateHash, ResultStateHash, exact Accepted Take, exact RecordMaterializations;
 21. successful commit consumes Current Opportunity and sets result opportunity to null;
 22. zero-mutation and all-Rejected Accepted Takes remain valid history-advancing commits;
-23. canonical Production projection / causal payload / StateHash byte rules are frozen and now machine-oracled;
+23. canonical Production projection / causal payload / StateHash byte rules are frozen and machine-oracled;
 24. effective CommitId/TakeId indexes remain derived duplicate-rejection caches excluded from projection hashing;
 25. Commit and Replay share one deterministic transition engine;
 26. Replay is one-step only and does not claim full session replay from genesis;
@@ -208,7 +212,7 @@ Core frozen laws now implemented and exercised include:
 
 ## Explicit Patch 0012 non-scope
 
-Do not extend Patch 0012 or PR #26 into any of the following without a separately approved next architecture:
+Do not extend Patch 0012 into any of the following without a separately approved next architecture:
 
 - evolved `ProductionState -> Access/Context` integration;
 - CharacterClaim / recent-Performance disclosure policy;
@@ -244,7 +248,7 @@ H1 Patch 0011 — E0 Take Semantics:
 - Missing Raft and generic smoke PASS;
 - promoted by PR #24 squash merge `82e572d0f56a4e4a9791722a2352e39d62e3d59d`.
 
-Patch 0012 now supersedes Patch 0011 as the latest fully machine-validated executable checkpoint for the exercised deterministic-spine scope, while Patch 0011 evidence remains authoritative for its exact historical head.
+Patch 0012 supersedes Patch 0011 as the latest fully machine-validated executable checkpoint for the exercised deterministic-spine scope, while Patch 0011 evidence remains authoritative for its exact historical head.
 
 ## Earlier patch status
 
@@ -257,17 +261,16 @@ Do not reload or summarize all historical patches in fresh chats unless required
 For the next Kymaean engineering chat:
 
 1. read this `CURRENT_STATE.md` first;
-2. resolve current `main` and PR #26 state before changing source;
-3. if PR #26 is still open, review only the exact implementation PR delta and final evidence needed for promotion;
-4. preserve exact machine-tested executable authority `39bc078c130ab1165c6a81c1673dd5cd25da3724` even if PR/documentation head is later;
-5. do not rerun architecture design for approved Proposal 0.10;
-6. do not enter the deferred Patch 0012 non-scope above;
-7. after promotion, define the next patch from the canonical roadmap rather than extending Patch 0012 opportunistically.
+2. resolve current `main` before changing source;
+3. treat PR #26 as merged and Patch 0012 as complete;
+4. preserve exact machine-tested executable authority `39bc078c130ab1165c6a81c1673dd5cd25da3724` even though `main` contains the later squash-merge and checkpoint commits;
+5. do not reopen approved Proposal 0.10 or redesign completed Patch 0012;
+6. do not enter deferred Patch 0012 non-scope by silently extending the completed patch;
+7. read only the canonical roadmap and source files needed to define the next patch boundary;
+8. use the same patch-first and recursive-audit discipline for the next approved implementation.
 
 ## Next action
 
-Current next engineering action:
+Patch 0012 implementation, native validation, recursive audit, evidence, PR review, and promotion are complete.
 
-`Review PR #26 final delta/evidence and promote Patch 0012 to main if no material issue is found.`
-
-After promotion, update this file with the exact merge commit while preserving `39bc078c130ab1165c6a81c1673dd5cd25da3724` as the native machine-tested executable/test authority.
+Next engineering work must begin as a new patch from the canonical Kymaean roadmap rather than by extending Patch 0012 opportunistically.
