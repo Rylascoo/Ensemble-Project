@@ -17,7 +17,7 @@ Updated: 2026-09-03
 - H1 Patch 0009 E0 State Interpreter Mutation-Proposal Contract Proposal 0.7 is APPROVED, canonical, implemented, and machine-validated for exercised gates.
 - H1 Patch 0010 E0 Deterministic State Authority Review/Decision Contract Proposal 0.6 is APPROVED, canonical, implemented, and machine-validated for exercised deterministic gates.
 - H1 Patch 0011 E0 Take Semantics Contract Proposal 0.15 is APPROVED, canonical, implemented, machine-validated for exercised Take gates at exact head `4250011c167cd9850ad891aaea4ee053216cf135`, and promoted to `main` by PR #24 squash merge `82e572d0f56a4e4a9791722a2352e39d62e3d59d`.
-- H1 Patch 0012 E0 Atomic Causal Commit Contract Proposal 0.10 is APPROVED and canonical; the first native Windows ARM64 validation attempt at `d8eb91a3bcf077fe8ce5b3bce4f59dbf493ad66d` passed the Core/Harness build but the Core test project failed to compile on four test-source diagnostics. Test-only compiler corrections are applied through exact source/test head `e91b2d30f52210cc65671329e361ae6b7407d2a3`; targeted native test rerun is pending.
+- H1 Patch 0012 E0 Atomic Causal Commit Contract Proposal 0.10 is APPROVED and canonical. Native attempt 01 at `d8eb91a3bcf077fe8ce5b3bce4f59dbf493ad66d` passed the Core/Harness build but exposed four test-source compile diagnostics. After test-only compiler corrections, native attempt 02 at `4dabf508ba17d3d40dc73449dbb6ad0b2c122010` compiled the Core test assembly and executed `472` tests, with `371` passing and `101` failing from one fixture-provenance canonicalization defect. The production correction and focused regression are applied through exact source/test head `94f13c06ecd7834b9c1e7abc777b4e3ef6d92c3a`; targeted native test rerun is pending.
 - Patches 0006–0012 preserve probabilistic proposal versus deterministic authority separation and completed recursive architecture/static review before approval/closure.
 - `docs/ENGINEERING_HYGIENE_CONSTITUTION.md` is project law unless stronger frozen authority explicitly overrides it.
 - GitHub `Rylascoo/Ensemble-Project` is authoritative current engineering state.
@@ -41,15 +41,16 @@ Current architecture checkpoint:
 
 Status:
 
-`NATIVE ARM64 CORE/HARNESS BUILD PASSED — TEST COMPILER CORRECTION APPLIED — TARGETED TEST RERUN PENDING`
+`NATIVE ARM64 BUILD PASS + TEST EXECUTION REACHED — FIXTURE PROVENANCE CORRECTION APPLIED — TARGETED TEST RERUN PENDING`
 
 Exact corrected Patch 0012 source/test head:
 
-`e91b2d30f52210cc65671329e361ae6b7407d2a3`
+`94f13c06ecd7834b9c1e7abc777b4e3ef6d92c3a`
 
-First native validation evidence:
+Native validation evidence:
 
-`docs/evidence/H1_PATCH_0012_NATIVE_VALIDATION_ATTEMPT_01.md`
+- `docs/evidence/H1_PATCH_0012_NATIVE_VALIDATION_ATTEMPT_01.md`
+- `docs/evidence/H1_PATCH_0012_NATIVE_VALIDATION_ATTEMPT_02.md`
 
 Historical static implementation audit:
 
@@ -67,7 +68,7 @@ Status:
 
 `COMPLETE FOR EXERCISED E0 TAKE SEMANTICS GATES`
 
-Patch 0012 has partial machine evidence only: at `d8eb91a3bcf077fe8ce5b3bce4f59dbf493ad66d`, the native Windows ARM64 Core/Harness Debug build passed and produced the Harness under `net9.0\win-arm64`, while the Core test project failed during compilation. The two Harness fixture runs also succeeded, but Patch 0012 is not yet a complete compiler/test/Harness milestone because the test assembly did not compile. Patch 0011 therefore remains the latest fully machine-validated executable/test authority.
+Patch 0012 has partial machine evidence only. At `d8eb91a3bcf077fe8ce5b3bce4f59dbf493ad66d`, the native Windows ARM64 Core/Harness Debug build passed and produced the Harness under `net9.0\win-arm64`; both Harness fixture runs succeeded, while the Core test project failed during compilation. At corrected branch head `4dabf508ba17d3d40dc73449dbb6ad0b2c122010`, the Core test project compiled and `472` tests executed, but `101` failed because valid source-order fixture provenance was incorrectly rejected by the new neutral genesis projection. The isolated production correction is now pending native rerun. Patch 0011 therefore remains the latest fully machine-validated executable/test authority.
 
 ## Patch 0012 canonical authority
 
@@ -89,8 +90,10 @@ Fresh-chat implementation handoff:
 Historical static implementation audit:
 `docs/evidence/H1_PATCH_0012_STATIC_IMPLEMENTATION_AUDIT.md`
 
-First native validation attempt:
-`docs/evidence/H1_PATCH_0012_NATIVE_VALIDATION_ATTEMPT_01.md`
+Native validation attempts:
+
+- `docs/evidence/H1_PATCH_0012_NATIVE_VALIDATION_ATTEMPT_01.md`
+- `docs/evidence/H1_PATCH_0012_NATIVE_VALIDATION_ATTEMPT_02.md`
 
 Implementation branch:
 `h1-patch-0012-atomic-causal-commit-implementation`
@@ -104,8 +107,14 @@ Historical statically audited source/test head:
 First native-tested branch head:
 `d8eb91a3bcf077fe8ce5b3bce4f59dbf493ad66d`
 
-Corrected source/test head after native compiler feedback:
+Test-compiler-corrected source/test head:
 `e91b2d30f52210cc65671329e361ae6b7407d2a3`
+
+Second native-tested branch head:
+`4dabf508ba17d3d40dc73449dbb6ad0b2c122010`
+
+Current provenance-corrected source/test head:
+`94f13c06ecd7834b9c1e7abc777b4e3ef6d92c3a`
 
 Blueprint branch:
 `h1-patch-0012-atomic-causal-commit-blueprint`
@@ -120,11 +129,11 @@ Important status rule:
 
 The canonical Patch 0012 blueprint preserves its historical Proposal 0.10 audit-stage header at the exact approved bytes. Current approval status is established by this file plus `docs/evidence/H1_PATCH_0012_BLUEPRINT_APPROVAL.md`; do not edit the audited blueprint merely to turn its historical header into a live status field.
 
-The Patch 0012 static implementation audit is historical advisory evidence. The user's native compiler feedback supersedes any implication that static convergence proved test-project compilability.
+The Patch 0012 static implementation audit is historical advisory evidence. Native compiler/test evidence supersedes any implication that static convergence proved test-project compilability or successful execution.
 
 PR #25 is documentation-only. It introduced no Patch 0012 executable/test code and establishes no compiler, runtime, ARM64, NPU, WACK, packaging, or Store validation.
 
-The current implementation branch contains Patch 0012 source/tests and the test-only compiler correction. Complete machine validation still requires a successful test compile/execution and final grouped gate on the corrected branch.
+The current implementation branch contains Patch 0012 source/tests plus the compiler and provenance corrections. Complete machine validation still requires successful test execution and the final grouped gate on the corrected branch.
 
 ## Frozen Patch 0012 architecture boundary
 
@@ -183,13 +192,17 @@ Required authority was read before executable changes:
 
 Patch-first implementation remained inside the approved Production/CausalCommit surface plus narrow Fixture/StateAuthority/StateInterpreter refactors required by Proposal 0.10.
 
-Recursive static audit order:
+Recursive audit order:
 
 `correctness -> consistency -> authority -> scope -> tests -> simplicity -> hygiene -> ARM64 suitability -> vision -> evidence`
 
-At historical source/test head `48e7932c8ba8753709f2d37464ad366eebbddea7`, static review found no further material correction. Native test-project compilation then exposed four test-source diagnostics at branch head `d8eb91a3bcf077fe8ce5b3bce4f59dbf493ad66d`. Patch-first correction changed only the two affected test files and produced corrected source/test head `e91b2d30f52210cc65671329e361ae6b7407d2a3`.
+At historical source/test head `48e7932c8ba8753709f2d37464ad366eebbddea7`, static review found no further material correction. Native attempt 01 then exposed four test-source compile diagnostics. Patch-first test correction changed only the two affected test files and produced source/test head `e91b2d30f52210cc65671329e361ae6b7407d2a3`.
 
-The correction preserves the frozen contract: one ambiguous BCL overload call was made explicit, and three compile-time-constant assertions were converted to reflection-based public constant-surface checks. No production semantics or architecture changed.
+Native attempt 02 confirmed those compiler corrections: the test project compiled and `472` tests executed. The resulting `101` failures shared a common root cause in `ProductionGenesisProjection.ValidateProvenance(...)`: valid source-order fixture provenance was rejected unless already ordinally sorted. This contradicted established fixture/ECJ semantics and Proposal 0.10's fixture-derived StateAuthority compatibility law.
+
+Patch-first correction now validates the exact provenance edge set and canonicalizes it to ordinal RecordId order during Production projection. A focused regression test uses canonical Missing Raft's `PRESSURE-ISOLATION` source-order case to prove edge-set preservation plus canonical Production storage. The corrected source/test head is `94f13c06ecd7834b9c1e7abc777b4e3ef6d92c3a`.
+
+Because this was material, the recursive audit restarted from correctness. One complete post-correction static pass found no additional material correction within Patch 0012 scope. This remains advisory pending native rerun.
 
 Do not claim complete Patch 0012 compiler/test/runtime validation until the corrected branch passes the required native Windows ARM64 test and final grouped gates.
 
@@ -233,7 +246,8 @@ In particular:
 - Patch 0010 machine evidence: `docs/evidence/H1_PATCH_0010_ARM64_VALIDATION.md`;
 - Patch 0011 blueprint: `docs/blueprint/H1_PATCH_0011_TAKE_SEMANTICS.md`;
 - Patch 0011 machine evidence: `docs/evidence/H1_PATCH_0011_ARM64_VALIDATION.md`;
-- Patch 0012 first native validation attempt: `docs/evidence/H1_PATCH_0012_NATIVE_VALIDATION_ATTEMPT_01.md`.
+- Patch 0012 native attempt 01: `docs/evidence/H1_PATCH_0012_NATIVE_VALIDATION_ATTEMPT_01.md`;
+- Patch 0012 native attempt 02: `docs/evidence/H1_PATCH_0012_NATIVE_VALIDATION_ATTEMPT_02.md`.
 
 `CURRENT_STATE.md` is the live checkpoint, not a duplicate transcript of every historical compiler iteration.
 
@@ -248,26 +262,37 @@ git rev-parse HEAD
 dotnet test .\tests\Ensemble.E0.Core.Tests\Ensemble.E0.Core.Tests.csproj -c Debug
 ```
 
-The exact corrected source/test content head is `e91b2d30f52210cc65671329e361ae6b7407d2a3`; later documentation-only commits do not alter that executable/test content.
+The exact corrected executable/test content head is `94f13c06ecd7834b9c1e7abc777b4e3ef6d92c3a`; later evidence/checkpoint documentation commits do not alter those executable/test bytes.
 
 If the targeted test rerun passes, run the complete Patch 0012 native Windows ARM64 grouped validation gate on the same branch before recording Patch 0012 as fully machine-validated. If another compiler/test failure appears, patch only the smallest affected surface and rerun the relevant gate.
 
 Implementation status:
 
-`TEST COMPILER CORRECTION APPLIED — TARGETED NATIVE TEST RERUN PENDING`
+`PROVENANCE CORRECTION APPLIED — TARGETED NATIVE TEST RERUN PENDING`
 
 Do not enter later evolved Access/Context or next-opportunity integration scope during Patch 0012.
 
 ## Explicit validation limits
 
-Current machine evidence establishes for Patch 0012 branch head `d8eb91a3bcf077fe8ce5b3bce4f59dbf493ad66d`:
+Current machine evidence establishes:
+
+At `d8eb91a3bcf077fe8ce5b3bce4f59dbf493ad66d`:
 
 - native Windows ARM64 Core/Harness Debug build: PASS;
 - Harness output target: `net9.0\win-arm64`;
 - Missing Raft Harness execution after that build: PASS;
-- smoke Harness execution after that build: PASS.
+- smoke Harness execution after that build: PASS;
+- Core test project compilation: FAIL on four test-source diagnostics.
 
-It does **not** establish successful Core test-project compilation or test execution. Those remain pending on the corrected source/test content through `e91b2d30f52210cc65671329e361ae6b7407d2a3`.
+At `4dabf508ba17d3d40dc73449dbb6ad0b2c122010`:
+
+- Core test project compilation: PASS;
+- Core test execution reached `472` tests;
+- `371` passed;
+- `101` failed from the isolated fixture-provenance canonicalization defect;
+- `0` skipped.
+
+No successful Core test execution has yet been established for corrected source/test head `94f13c06ecd7834b9c1e7abc777b4e3ef6d92c3a`.
 
 Current repository state does not establish any of the following later or higher validation claims:
 
