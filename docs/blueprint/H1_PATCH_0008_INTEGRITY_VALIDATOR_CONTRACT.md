@@ -1,6 +1,6 @@
 # H1 Patch 0008 — E0 Integrity Validator Contract
 
-Status: blueprint proposal 1.0 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; APPROVAL REQUIRED; implementation not started
+Status: blueprint proposal 1.1 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; APPROVAL REQUIRED; implementation not started
 Parent baseline: validated H1 Patch 0007
 Branch: `h1-patch-0008-integrity-validator-blueprint`
 
@@ -73,23 +73,23 @@ Patch 0008 has no deterministic secret/canon keyword scanner, objective-truth co
 
 Patch 0006 leaves non-empty Performance grammar open, so semantic distinctions belong to bounded concern review rather than deterministic prose parsing.
 
-## 5. Contracts
+## 5. Contract/version domains
 
-Freeze separate version domains:
+Freeze only three independent version domains:
 
 ```text
-IntegrityCandidateInputContract = ensemble.e0.integrity.input.v1
 CandidateContentIdentityContract = ensemble.e0.integrity.candidate-content.v1
 IntegrityConcernEvidenceContract = ensemble.e0.integrity.concerns.v1
 IntegrityValidationContract = ensemble.e0.integrity.validation.v1
 ```
 
-These contracts version different meanings and must not be collapsed:
+They version distinct meanings:
 
-- InputContract versions the least-privilege Input shape + deterministic Reject-code semantics;
-- CandidateContentIdentityContract versions canonical Candidate content identity;
-- ConcernEvidenceContract versions the typed concern-evidence vocabulary/shape;
-- ValidationContract versions disposition/evaluation semantics.
+- CandidateContentIdentityContract: canonical Candidate content hash semantics;
+- ConcernEvidenceContract: typed concern vocabulary/shape;
+- ValidationContract: deterministic Reject-code ordering + disposition/evaluation semantics.
+
+`IntegrityCandidateInput` is an in-process validated object with no public constructor or persistence/serialization contract in Patch 0008. It therefore has **no separate InputContract field**; introducing one would be imaginary compatibility debt without an independent evolution axis.
 
 ## 6. Rich-object binding boundary
 
@@ -102,7 +102,7 @@ IntegrityCandidateInput.Bind(
 
 This is the only Patch 0008 operation receiving full ContextPacket + CandidatePerformance together.
 
-Bind validates trusted prerequisites, computes Candidate content identity and deterministic Reject codes, and returns a least-privilege immutable Input.
+Bind validates trusted prerequisites, computes Candidate content identity and deterministic Reject codes under the Patch 0008 validation semantics, and returns a least-privilege immutable Input.
 
 The deterministic Validator itself receives no ContextPacket or raw CandidatePerformance.
 
@@ -110,14 +110,11 @@ The deterministic Validator itself receives no ContextPacket or raw CandidatePer
 
 ```text
 IntegrityCandidateInput
-- InputContract
 - CandidateContentIdentityContract
 - CandidateContentHash
 - SourceContextPacketId
 - DeterministicRejectCodes
 ```
-
-`InputContract` is exactly `ensemble.e0.integrity.input.v1`.
 
 No public constructor.
 
@@ -140,7 +137,7 @@ SubjectContextMismatch
 ContextPacketIdentityMismatch
 ```
 
-Frozen order:
+Frozen order under `ensemble.e0.integrity.validation.v1`:
 
 1. SubjectContextMismatch
 2. ContextPacketIdentityMismatch
@@ -153,7 +150,7 @@ ContextPacketIdentityMismatch: Candidate ContextPacketId != source ContextPacket
 
 These codes reject the Candidate/source pairing for this Integrity evaluation. They do not convert the mismatch into fictional action or Character behavior.
 
-For normal validated upstream objects, a different-subject Candidate will also carry a different ContextPacketId, so both codes are expected together. A subject-only mismatch is a defensive impossible-state case, not a reason to introduce public test construction bypasses.
+For normal validated upstream objects, a different-subject Candidate also carries a different ContextPacketId, so both codes are expected together. A subject-only mismatch is a defensive impossible-state case, not a reason to introduce public test construction bypasses.
 
 ## 10. Candidate content identity
 
@@ -228,7 +225,7 @@ IntegrityConcernEvidence.Bind(
     -> IntegrityConcernEvidence
 ```
 
-Bind requires supported/initialized InputContract, zero deterministic Reject codes, initialized concern array, only defined concern kinds, no duplicates, and count <= 5.
+Bind requires non-null/initialized Input, zero deterministic Reject codes, initialized concern array, only defined concern kinds, no duplicates, and count <= 5.
 
 It copies Candidate content identity contract/hash and stores concerns in frozen contract order.
 
@@ -300,7 +297,7 @@ Nullable evidence exists only because deterministic Reject requires none.
 
 Exact rules:
 
-1. validate InputContract and Input structure;
+1. validate Input structural invariants expected under `ensemble.e0.integrity.validation.v1`;
 2. if Reject codes non-empty:
    - concernEvidence must be null;
    - non-null evidence -> Integrity exception/no disposition;
@@ -421,15 +418,15 @@ IntegrityValidationTrace
 
 ConcernEvidence is null only for canonical deterministic Reject.
 
-Input owns InputContract, source Context identity, Candidate content identity, Reject codes. ConcernEvidence owns typed semantic concern evidence. No duplicated identity fields.
+Input owns source Context identity, Candidate content identity, Reject codes. ConcernEvidence owns typed semantic concern evidence. No duplicated identity fields.
 
 Trace contains no Candidate/Context/protected prose, provider output, rationale, confidence, chain-of-thought, assessor identity, or authenticity claim.
 
 ## 29. Evaluation invariants
 
-- Accept => supported InputContract, zero Reject codes, non-null matching evidence, zero concerns;
-- RequestAnotherTake => supported InputContract, zero Reject codes, non-null matching evidence, concerns non-empty;
-- Reject => supported InputContract, Reject codes non-empty, null concern evidence;
+- Accept => zero Reject codes, non-null matching evidence, zero concerns;
+- RequestAnotherTake => zero Reject codes, non-null matching evidence, concerns non-empty;
+- Reject => Reject codes non-empty, null concern evidence;
 - exception/no disposition => no Evaluation object.
 
 ## 30. Determinism
@@ -455,8 +452,8 @@ Executable tests should prefer independently valid objects constructed through c
 For Patch 0008:
 
 - same-subject, different-context Candidate is a real executable path for ContextPacketIdentityMismatch only;
-- different-subject Candidate from another valid Context is a real executable path that naturally produces both SubjectContextMismatch and ContextPacketIdentityMismatch;
-- subject-only mismatch with matching ContextPacketId is an impossible validated upstream state under the current Context identity contract and is covered by defensive/static/reflection boundary review only if needed;
+- different-subject Candidate from another valid Context is a real executable path naturally producing both SubjectContextMismatch and ContextPacketIdentityMismatch;
+- subject-only mismatch with matching ContextPacketId is impossible under current validated Context identity and is defensive/static/reflection review only if needed;
 - unsupported/malformed Candidate contract states likewise do not justify production bypass APIs.
 
 ## 33. Public-surface intent
@@ -484,90 +481,89 @@ No authenticated assessment/eligibility token, commit, retry, or State-mutation 
 
 ### Least privilege / Input
 1. valid Missing Raft Voss Context+Candidate -> Input;
-2. Input exact public fields include InputContract + content identity + source Context ID + Reject codes only;
+2. Input exact public fields are CandidateContentIdentityContract, CandidateContentHash, SourceContextPacketId, DeterministicRejectCodes;
 3. no Context/Candidate prose/render/private record exposure;
 4. Validator API accepts Input + nullable Evidence only;
 5. no ContextPacket/CandidatePerformance Validator overload;
-6. Input constructor non-public;
-7. InputContract exact v1 value and Validator rejects unsupported contract defensively.
+6. Input constructor non-public.
 
 ### Candidate identity
-8. identical Candidate -> identical hash;
-9. visible text/address/nomination/ContextPacketId change -> hash changes;
-10. Candidate + identity contracts in preimage;
-11. addressed order stable;
-12. lowercase 64-hex;
-13. not attempt/Take/causal identity.
+7. identical Candidate -> identical hash;
+8. visible text/address/nomination/ContextPacketId change -> hash changes;
+9. Candidate + identity contract in preimage;
+10. addressed order stable;
+11. lowercase 64-hex;
+12. not attempt/Take/causal identity.
 
 ### Reject codes through valid upstream states
-14. same-subject/different-context Candidate -> ContextPacketIdentityMismatch only;
-15. different-subject valid Candidate -> SubjectContextMismatch + ContextPacketIdentityMismatch in frozen order;
-16. no duplicate Reject codes;
-17. subject-only mismatch remains defensive impossible-state review, not public test-construction requirement;
-18. malformed source/unsupported Candidate contract -> exception/static defensive review without bypass API;
-19. no duplicate Patch 0006 parser validation.
+13. same-subject/different-context Candidate -> ContextPacketIdentityMismatch only;
+14. different-subject valid Candidate -> SubjectContextMismatch + ContextPacketIdentityMismatch in frozen order;
+15. no duplicate Reject codes;
+16. subject-only mismatch remains defensive impossible-state review, not public test-construction requirement;
+17. malformed source/unsupported Candidate contract -> exception/static defensive review without bypass API;
+18. no duplicate Patch 0006 parser validation.
 
 ### Concern evidence binding
-20. zero initialized concerns valid on zero-Reject Input;
-21. default/undefined/duplicate/over-count invalid;
-22. five kinds frozen order;
-23. copied Input Candidate content identity;
-24. no prose/confidence/disposition/assessor/authenticity fields;
-25. evidence Bind on Reject-coded Input -> exception;
-26. synthetic evidence explicitly does not claim completed-review authenticity.
+19. zero initialized concerns valid on zero-Reject Input;
+20. default/undefined/duplicate/over-count invalid;
+21. five kinds frozen order;
+22. copied Input Candidate content identity;
+23. no prose/confidence/disposition/assessor/authenticity fields;
+24. evidence Bind on Reject-coded Input -> exception;
+25. synthetic evidence explicitly does not claim completed-review authenticity.
 
 ### Hard-rule short circuit
-27. Reject codes + null evidence -> Reject;
-28. Reject codes + non-null evidence -> exception/no disposition;
-29. canonical Reject trace evidence null;
-30. reference flow has no assessor dependency for deterministic Reject.
+26. Reject codes + null evidence -> Reject;
+27. Reject codes + non-null evidence -> exception/no disposition;
+28. canonical Reject trace evidence null;
+29. reference flow has no assessor dependency for deterministic Reject.
 
 ### Evidence-required path
-31. zero Reject + null evidence -> exception/no disposition;
-32. evidence for different hash/contract -> exception;
-33. zero Reject + concern -> RequestAnotherTake;
-34. zero Reject + zero concerns -> Accept.
+30. zero Reject + null evidence -> exception/no disposition;
+31. evidence for different hash/contract -> exception;
+32. zero Reject + concern -> RequestAnotherTake;
+33. zero Reject + zero concerns -> Accept.
 
 ### Non-authority
-35. synthetic empty evidence may yield synthetic Accept evaluation but no authority-bearing token;
-36. Evaluation exposes only Disposition + Trace;
-37. no accepted-Take/history/State flag/token;
-38. exact provisional-Take-vs-State-Interpreter ordering not frozen;
-39. later authority must authenticate concern-review provenance separately.
+34. synthetic empty evidence may yield synthetic Accept evaluation but no authority-bearing token;
+35. Evaluation exposes only Disposition + Trace;
+36. no accepted-Take/history/State flag/token;
+37. exact provisional-Take-vs-State-Interpreter ordering not frozen;
+38. later authority must authenticate concern-review provenance separately.
 
 ### Creative law
-40. false claim not rejected solely for truth conflict;
-41. hidden-truth coincidence alone does not deterministically produce InaccessibleInformationUse;
-42. no secret/canon keyword scanner;
-43. no Performance rewrite;
-44. no State/Context/Candidate mutation;
-45. no Director/State Authority/Take/Commit/provider dependency;
-46. no score/probability;
-47. trace no Character/protected prose;
-48. technical words in dialogue do not auto-create concern;
-49. PotentialLockedAuthorityViolation is supplied semantic evidence, not false-speech detector.
+39. false claim not rejected solely for truth conflict;
+40. hidden-truth coincidence alone does not deterministically produce InaccessibleInformationUse;
+41. no secret/canon keyword scanner;
+42. no Performance rewrite;
+43. no State/Context/Candidate mutation;
+44. no Director/State Authority/Take/Commit/provider dependency;
+45. no score/probability;
+46. trace no Character/protected prose;
+47. technical words in dialogue do not auto-create concern;
+48. PotentialLockedAuthorityViolation is supplied semantic evidence, not false-speech detector.
 
 ### Technical failure / experimental isolation
-50. completed authenticated semantic uncertainty evidence -> RequestAnotherTake;
-51. assessor technical failure -> no authenticated evidence/no effective disposition, not Indeterminate;
-52. RequestAnotherTake no retry/spend;
-53. Patch 0008 review configuration fixed/attributable for per-Character Candidate-path comparison batches unless explicitly varied;
-54. E0-E not forced through Patch 0008 Candidate API but remains subject to separately auditable hard integrity gates.
+49. completed authenticated semantic uncertainty evidence -> RequestAnotherTake;
+50. assessor technical failure -> no authenticated evidence/no effective disposition, not Indeterminate;
+51. RequestAnotherTake no retry/spend;
+52. Patch 0008 review configuration fixed/attributable for per-Character Candidate-path comparison batches unless explicitly varied;
+53. E0-E not forced through Patch 0008 Candidate API but remains subject to separately auditable hard integrity gates.
 
 ### Lifecycle
-55. Reject non-history;
-56. Request non-history;
-57. Accept evaluation alone cannot advance Production authority;
-58. Accept does not promote Director;
-59. no opportunity/history mutation/trigger.
+54. Reject non-history;
+55. Request non-history;
+56. Accept evaluation alone cannot advance Production authority;
+57. Accept does not promote Director;
+58. no opportunity/history mutation/trigger.
 
 ### Regression
-60. Missing Raft StructuredContextHash unchanged;
-61. Missing Raft RenderedContextHash unchanged;
-62. ECJ-1 9112 bytes/frozen hash unchanged;
-63. existing 211 Core tests green;
-64. Missing Raft Harness PASS/0;
-65. smoke Harness PASS/0.
+59. Missing Raft StructuredContextHash unchanged;
+60. Missing Raft RenderedContextHash unchanged;
+61. ECJ-1 9112 bytes/frozen hash unchanged;
+62. existing 211 Core tests green;
+63. Missing Raft Harness PASS/0;
+64. smoke Harness PASS/0.
 
 ## 35. E0-F compatibility
 
@@ -592,7 +588,7 @@ Restart after every correction:
 1. frozen Integrity law;
 2. H1 sequence;
 3. Integrity evaluation vs later acceptance authority;
-4. version-domain separation;
+4. version-domain minimality;
 5. Reject vs RequestAnotherTake minimality;
 6. statement/truth distinctions;
 7. concern-category semantics;
@@ -638,9 +634,9 @@ Approval would freeze only:
 
 1. Patch 0008 as next E0-A Integrity evaluation boundary after Patch 0007;
 2. IntegrityValidationEvaluation is deterministic calculation, not accepted-Take/State authority;
-3. four separate v1 contract/version domains for Input, Candidate-content identity, ConcernEvidence, and Validation;
+3. exactly three v1 contract domains: Candidate-content identity, ConcernEvidence, Validation; no unearned InputContract;
 4. least-privilege IntegrityCandidateInput is sole rich Context+Candidate binding surface;
-5. Input publicly carries only InputContract, source Context ID, Candidate content identity, Reject codes;
+5. Input publicly carries only source Context ID, Candidate content identity, Reject codes;
 6. hard Rejects short-circuit semantic review/disclosure;
 7. Validator receives no Character/Performance prose;
 8. versioned CandidateContentHash binds concern evidence to exact Candidate semantics;
@@ -650,7 +646,7 @@ Approval would freeze only:
 12. malformed source/unsupported Candidate contract is exception-domain;
 13. E0 Reject means deterministic Candidate/source hard mismatch; RequestAnotherTake means typed semantic concern on otherwise correctly bound Candidate;
 14. concern kinds preserve guess/claim/belief/intention versus unavailable knowledge/enacted authority distinctions;
-15. `IntegrityConcernEvidence` is structurally bound synthetic-capable evidence, not authenticated assessment;
+15. IntegrityConcernEvidence is structurally bound synthetic-capable evidence, not authenticated assessment;
 16. five concern kinds carry no rationale/confidence/assessor/authenticity claim;
 17. concern evidence cannot bind to Reject-coded Input;
 18. completed semantic uncertainty differs from assessor technical failure;
