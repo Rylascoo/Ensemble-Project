@@ -295,6 +295,44 @@ public sealed class ProductionState
             stateHash,
             _effectiveCommitIds.Add(commitId.Value),
             _committedTakeIds.Add(takeId.Value));
+
+    internal ProductionState WithEstablishedOpportunity(
+        CharacterId selectedCharacterId,
+        StateHash resultStateHash)
+    {
+        string selectedValue;
+        try
+        {
+            selectedValue = selectedCharacterId.Value;
+            _ = resultStateHash.Value;
+        }
+        catch (InvalidOperationException exception)
+        {
+            throw new ProductionStateException(
+                "Established opportunity identity is uninitialized.",
+                exception);
+        }
+
+        if (_projection.CurrentOpportunityCharacterId.HasValue)
+        {
+            throw new ProductionStateException(
+                "Established opportunity requires a Production state with no current opportunity.");
+        }
+
+        var rosterOccurrences = _projection.RosterCharacterIds.Count(
+            id => string.Equals(id.Value, selectedValue, StringComparison.Ordinal));
+        if (rosterOccurrences != 1)
+        {
+            throw new ProductionStateException(
+                "Established opportunity Character must resolve exactly once in the Scene roster.");
+        }
+
+        return new ProductionState(
+            _projection with { CurrentOpportunityCharacterId = selectedCharacterId },
+            resultStateHash,
+            _effectiveCommitIds,
+            _committedTakeIds);
+    }
 }
 
 public sealed class ProductionStateException : Exception
