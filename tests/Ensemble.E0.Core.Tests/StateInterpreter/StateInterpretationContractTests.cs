@@ -299,7 +299,7 @@ public sealed class StateInterpretationContractTests
     public void Parse_CommentsFail()
     {
         var source = AcceptedPipeline("No.").Source;
-        var json = ProposalJson().Replace("{", "{/*comment*/", 1, StringComparison.Ordinal);
+        var json = ProposalJson().Insert(1, "/*comment*/");
 
         Assert.Throws<StateInterpretationException>(() => Parse(source, json));
     }
@@ -421,7 +421,7 @@ public sealed class StateInterpretationContractTests
         var mutation = ParseSingle(
             Mutation("worldState", "add", text: "The hatch is open."));
 
-        Assert.IsInstanceOfType<GlobalStateMutationCandidate>(mutation);
+        Assert.IsTrue(mutation is GlobalStateMutationCandidate);
         var properties = PublicPropertyNames(mutation.GetType());
         Assert.IsFalse(properties.Contains("SubjectCharacterId"));
         Assert.IsFalse(properties.Contains("TargetCharacterId"));
@@ -437,7 +437,7 @@ public sealed class StateInterpretationContractTests
                 subjectCharacterId: "VOSS",
                 text: "Voss remembers the exchange."));
 
-        Assert.IsInstanceOfType<AddStateMutationChange>(mutation.Change);
+        Assert.IsTrue(mutation.Change is AddStateMutationChange);
         Assert.AreEqual("VOSS", mutation.SubjectCharacterId.Value);
     }
 
@@ -486,7 +486,7 @@ public sealed class StateInterpretationContractTests
         Assert.IsFalse(PublicPropertyNames(mutation.GetType()).Contains("ExistingRecordId"));
     }
 
-    [DataTestMethod]
+    [TestMethod]
     [DataRow("worldState")]
     [DataRow("sceneState")]
     [DataRow("unresolvedProposition")]
@@ -508,7 +508,7 @@ public sealed class StateInterpretationContractTests
         Assert.AreEqual(domain, DomainTransportName(result.Domain));
     }
 
-    [DataTestMethod]
+    [TestMethod]
     [DataRow("characterKnowledge", "supersede")]
     [DataRow("characterKnowledge", "deactivate")]
     [DataRow("characterMemory", "supersede")]
@@ -523,7 +523,7 @@ public sealed class StateInterpretationContractTests
         Assert.Throws<StateInterpretationException>(() => ParseSingle(mutation));
     }
 
-    [DataTestMethod]
+    [TestMethod]
     [DataRow("constitution")]
     [DataRow("historicalTruth")]
     [DataRow("observation")]
@@ -581,7 +581,7 @@ public sealed class StateInterpretationContractTests
                 subjectCharacterId: "VOSS")));
     }
 
-    [DataTestMethod]
+    [TestMethod]
     [DataRow("delete")]
     [DataRow("replace")]
     public void DeleteAndReplaceOperations_AreRejected(string operation)
@@ -702,7 +702,7 @@ public sealed class StateInterpretationContractTests
         Assert.AreEqual(text, ((AddStateMutationChange)mutation.Change).Text);
     }
 
-    [DataTestMethod]
+    [TestMethod]
     [DataRow("e\u0301")]
     [DataRow("\u0001visible")]
     [DataRow("\u200B")]
@@ -738,7 +738,7 @@ public sealed class StateInterpretationContractTests
             "deactivate",
             existingRecordId: "REC-A",
             text: null));
-        Assert.IsInstanceOfType<DeactivateStateMutationChange>(deactivate.Change);
+        Assert.IsTrue(deactivate.Change is DeactivateStateMutationChange);
     }
 
     [TestMethod]
