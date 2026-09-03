@@ -17,7 +17,8 @@ Updated: 2026-09-03
 - H1 Patch 0009 E0 State Interpreter Mutation-Proposal Contract Proposal 0.7 is APPROVED, canonical, implemented, and machine-validated for exercised gates.
 - H1 Patch 0010 E0 Deterministic State Authority Review/Decision Contract Proposal 0.6 is APPROVED, canonical, implemented, and machine-validated for exercised deterministic gates.
 - H1 Patch 0011 E0 Take Semantics Contract Proposal 0.15 is APPROVED, canonical, implemented, machine-validated for exercised Take gates at exact head `4250011c167cd9850ad891aaea4ee053216cf135`, and promoted to `main` by PR #24 squash merge `82e572d0f56a4e4a9791722a2352e39d62e3d59d`.
-- Patches 0006–0011 preserve probabilistic proposal versus deterministic authority separation and completed recursive architecture/static review before approval/closure.
+- H1 Patch 0012 E0 Atomic Causal Commit Contract Proposal 0.10 is APPROVED and canonical for implementation; implementation has not started and no Patch 0012 compiler/runtime claim exists yet.
+- Patches 0006–0012 preserve probabilistic proposal versus deterministic authority separation and completed recursive architecture/static review before approval/closure.
 - `docs/ENGINEERING_HYGIENE_CONSTITUTION.md` is project law unless stronger frozen authority explicitly overrides it.
 - GitHub `Rylascoo/Ensemble-Project` is authoritative current engineering state.
 - Google Drive `Ensemble Project` is design/research/supporting material, not executable validation authority.
@@ -28,7 +29,7 @@ Updated: 2026-09-03
 
 > Keep authority semantics precise; keep creative semantics open.
 
-Patch 0009/0010/0011 E0 authority semantics do not freeze the final creator-facing Production/Studio ontology or final Take/branch/rehearsal UX.
+Patch 0009–0012 authority semantics do not freeze the final creator-facing Production/Studio ontology, evolved Character Context disclosure model, or final Take/branch/rehearsal UX.
 
 ## Current phase
 
@@ -36,11 +37,11 @@ E0-A Harness Implementation — H1 Deterministic Spine.
 
 Current architecture checkpoint:
 
-`H1 Patch 0011 — E0 Take Semantics`
+`H1 Patch 0012 — E0 Atomic Causal Commit`
 
 Status:
 
-`IMPLEMENTED — MACHINE VALIDATED — PROMOTED TO MAIN`
+`BLUEPRINT APPROVED — READY FOR FRESH-CHAT IMPLEMENTATION`
 
 Latest machine-validated executable checkpoint:
 
@@ -54,295 +55,175 @@ Status:
 
 `COMPLETE FOR EXERCISED E0 TAKE SEMANTICS GATES`
 
-## Patch 0011 canonical authority
+Patch 0012 architecture approval does not supersede Patch 0011 as the latest executable/test authority. No Patch 0012 source or tests have yet been machine-validated.
+
+## Patch 0012 canonical authority
 
 Canonical blueprint:
-`docs/blueprint/H1_PATCH_0011_TAKE_SEMANTICS.md`
+`docs/blueprint/H1_PATCH_0012_ATOMIC_CAUSAL_COMMIT.md`
 
 Approved proposal:
-`0.15`
+`0.10`
 
-Exact recursively audited Proposal 0.15 head:
-`8e939c8efe100473f3409185e9de5fde65bcc8b1`
+Exact recursively audited Proposal 0.10 head:
+`ad1e84121653457454f6bf90e831e2064a79f224`
 
 Blueprint approval record:
-`docs/evidence/H1_PATCH_0011_BLUEPRINT_APPROVAL.md`
-
-Native ARM64 validation record:
-`docs/evidence/H1_PATCH_0011_ARM64_VALIDATION.md`
+`docs/evidence/H1_PATCH_0012_BLUEPRINT_APPROVAL.md`
 
 Fresh-chat implementation handoff:
-`docs/handoff/E0A_H1_PATCH_0011_IMPLEMENTATION_HANDOFF.md`
+`docs/handoff/E0A_H1_PATCH_0012_IMPLEMENTATION_HANDOFF.md`
+
+Blueprint branch:
+`h1-patch-0012-atomic-causal-commit-blueprint`
 
 Approval/promotion PR:
-`#23 — H1: approve E0 Take semantics contract`
+`#25 — H1: approve Atomic Causal Commit contract`
 
-Canonical blueprint promotion commit on `main`:
-`5ed7be9aec6c83616ab743da3081781fb97b41a2`
-
-Approval provenance completion commit:
-`c379beefbc8322a5a35ff78912412b1002ba820c`
-
-Implementation/promotion PR:
-`#24 — H1: implement and validate E0 Take semantics`
-
-Patch 0011 squash-merge commit on `main`:
-`82e572d0f56a4e4a9791722a2352e39d62e3d59d`
+Canonical blueprint promotion squash commit on `main`:
+`570061f0f035b06b752137bf091e70fedde331cc`
 
 Important status rule:
 
-The canonical Patch 0011 blueprint preserves its historical Proposal 0.15 audit-stage header at the exact approved bytes. Current approval status is established by this file plus `docs/evidence/H1_PATCH_0011_BLUEPRINT_APPROVAL.md`; do not edit the audited blueprint merely to turn its historical header into a live status field.
+The canonical Patch 0012 blueprint preserves its historical Proposal 0.10 audit-stage header at the exact approved bytes. Current approval status is established by this file plus `docs/evidence/H1_PATCH_0012_BLUEPRINT_APPROVAL.md`; do not edit the audited blueprint merely to turn its historical header into a live status field.
 
-PR #23 was documentation-only. The later Patch 0011 implementation was independently machine-validated at exact implementation-branch head `4250011c167cd9850ad891aaea4ee053216cf135` and promoted to `main` by PR #24. The squash-merge SHA records repository promotion and does not replace the exact tested-head machine authority.
+PR #25 is documentation-only. It introduces no Patch 0012 executable/test code and establishes no compiler, runtime, ARM64, NPU, WACK, packaging, or Store validation.
 
-## Validated Patch 0011 architecture boundary
+## Frozen Patch 0012 architecture boundary
 
-Proposal 0.15 establishes immutable E0 Take semantics only.
+Proposal 0.10 establishes the E0 atomic causal-commit contract only.
 
 Key frozen laws include:
 
-1. E0 ordering is `CandidatePerformance -> Integrity evaluation -> State Interpretation -> deterministic State Authority -> E0 Take -> later atomic causal commit`;
-2. there is no separate provisional Take object before State Interpreter / State Authority in E0;
-3. Patch 0011 owns namespace `Ensemble.E0.Core.Take`;
-4. `E0TakeContracts.ContractVersion` is exactly `ensemble.e0.take.v1`;
-5. the existing `TakeId` strong type is canonical; no second Take ID or Core allocator is introduced;
-6. `E0Take` is an immutable sealed package retaining exact `CandidatePerformance`, exact `StateInterpretationProposal`, fresh canonical `StateAuthorityEvaluation`, explicit TakeId, and explicit Take disposition;
-7. `E0Take.Bind(...)` is the sole rich reconciliation/construction boundary and the Take constructor is private;
-8. binding reuses `StateInterpretationSource.Bind`, `StateAuthorityInput.Bind`, and `DeterministicStateAuthority.Evaluate` rather than reimplementing upstream semantics;
-9. caller-supplied State Authority Status/Decisions are not independently trusted; fresh deterministic replay from the supplied Trace inputs is canonical for the Take;
-10. only fresh terminal `Complete` authority with no `RequiresReview` decision can bind a Take;
-11. `E0TakeDisposition.Unspecified = 0`; default/undefined disposition fails closed;
-12. Take disposition (`Accepted`, `Rejected`, `Alternate`) and consequence disposition (`Approved`, `Rejected`, `RequiresReview`) remain independent authorities;
-13. Accepted may coexist with zero, all-approved, mixed approved/rejected, or all-rejected terminal consequence sets;
-14. Accepted means selected for later commit eligibility only, never already historical/effective;
-15. later successful atomic commit under this Take must eventually make the exact Performance plus every retained Approved consequence effective together and no retained Rejected consequence effective;
-16. Rejected/Alternate Takes remain immutable non-effective provenance and do not advance effective state/history/opportunity/Director routing;
-17. Integrity Reject / RequestAnotherTake and technical/provider failures do not create an E0Take;
-18. the ordinary E0 reference orchestration rule is accept every Take-bindable package unless a separately labeled explicit intervention/test/control applies;
-19. Rejected/Alternate reference deviations must be attributable and are never model-authored or inferred from State Authority decisions;
-20. TakeId remains distinct from CandidateContentHash, ProposalContentHash, CommitId, RecordId, ContextPacketId, RunId, and future StateHash;
-21. Patch 0011 introduces no extra authority-decision content hash merely to duplicate immutable deterministic evaluation semantics;
-22. later freshness checking may validate/reject an immutable Take but may not silently substitute a different retained Approved/Rejected consequence package under the same Take identity;
-23. Patch 0011 does not claim a ProductionState/StateHash/common-state proof between ContextPacket and StateAuthoritySnapshot because no authoritative evolved-state identity exists yet;
-24. effective E0 orchestration must preserve fixture/current-authority provenance explaining why source Context and State Authority snapshot came from the same run-state source;
-25. `E0TakeException` is publicly catchable, sealed, and has no public constructors; expected structural failures are normalized without leaking Candidate/Context/mutation prose;
-26. C# `internal` remains assembly-wide; Patch 0011 does not falsely claim namespace-level constructor enforcement;
-27. unexpected runtime/programming failures are not converted into ordinary Take rejection/failure semantics;
-28. Patch 0011 remains deterministic and introduces no network/filesystem/clock/random/provider/GPU/NPU/global mutable state or background work;
-29. Patch 0011 introduces no ProductionState, StateHash, new RecordId allocation, mutation application, CommitId, atomic commit, stale-state runtime application, persistence, branch/rehearsal/retcon/alternate-promotion UX, provider execution, Scene loop, UI, Windows AI/NPU, packaging, WACK, or Store implementation.
+1. the exact Accepted Performance and every retained Approved consequence become effective together, or neither does;
+2. retained Rejected consequences never become effective;
+3. only Accepted Takes cross the commit-binding boundary; Rejected/Alternate Takes remain non-effective Patch 0011 provenance;
+4. `ProductionState` is an immutable current projection; causal events remain the conceptual creative-history source of truth;
+5. `ValidatedFixture` remains immutable genesis input and is never mutated into evolved state;
+6. `ProductionStateCheckpoint.Capture(...)` occurs before Access/Context/Performance, retains the exact immutable source-state reference, and is O(1) metadata/reference work without re-hashing or full-state revalidation;
+7. Patch 0012 introduces history-sensitive `StateHash` for genesis and causal-commit transitions only;
+8. binding performs one exact Production-derived StateAuthority snapshot association proof; Commit then uses exact StateHash equality as freshness authority and does not repeat that O(record-ledger) snapshot projection;
+9. Replay has no binding and therefore independently verifies its parent Production-derived StateAuthority snapshot against the retained event Take;
+10. `E0TakeStateBinding` is Accepted-only and retains the exact immutable E0Take reference it validated plus exact SourceStateHash;
+11. `DeterministicCausalCommit.Commit(...)` consumes the binding and accepts no separately substitutable Take parameter;
+12. stale/current-state mismatch fails closed and may not rewrite/substitute the immutable Take consequence package;
+13. existing `CommitId`, `RecordId`, and `TakeId` remain canonical; no second ID type or Core allocator/format is introduced;
+14. caller-supplied RecordId materializations exist exactly for retained Approved Add/Supersede mutations, never for Approved Deactivate or retained Rejected mutations;
+15. Add/Supersede/Deactivate application follows exact retained proposal/decision semantics and makes no second approval decision;
+16. Supersede/Deactivate ExistingRecordId remains transition lineage in the Take proposal and is not silently inserted into support Provenance;
+17. RecordIds are globally unique across active and inactive Production records and are never reused;
+18. Fixture and Production share one internal neutral RecordId provenance-DAG validation primitive rather than duplicate cycle algorithms;
+19. Production domain/lifecycle/protection enums have explicit `Unspecified = 0` values and map semantically to existing Patch 0010 enums; numeric enum casts are forbidden because their numeric layouts intentionally differ;
+20. existing fixture-derived StateAuthority snapshot behavior remains compatible while a new Production-derived snapshot overload maps evolved state without Text/provenance leakage;
+21. one internal exact StateAuthority snapshot semantic comparator owns Scene/roster/descriptor equality; no SnapshotHash is introduced;
+22. the causal event is minimal: CommitId, ParentStateHash, ResultStateHash, exact Accepted Take, and exact RecordMaterializations only;
+23. there is no AppliedEffects hierarchy or duplicated committed-opportunity/domain/kind/existing-target authority;
+24. successful commit consumes Current Opportunity and sets result CurrentOpportunityCharacterId to null; Patch 0012 does not choose/apply the next Director opportunity;
+25. zero-mutation and all-Rejected-consequence Accepted Takes remain valid commits and advance causal history/StateHash because the Performance became historical;
+26. canonical Production projection JSON, causal Take payload, materialization payload, invariant integer encoding, and StateHash envelopes have frozen byte-level rules;
+27. Patch 0012 reuses existing internal `CanonicalJson` rules and one shared Patch 0009 mutation-domain token mapping rather than competing serializers/token tables;
+28. derived effective CommitId/TakeId indexes are immutable duplicate-rejection caches and are intentionally excluded from canonical Production projection hashing;
+29. Commit and Replay share one deterministic transition/canonicalization engine;
+30. Replay guarantees exactly one commit-owned transition from an authoritative parent state; full multi-turn replay from genesis is explicitly not claimed;
+31. current Access remains fixture-based; evolved Production -> Access/Context integration is deferred because CharacterClaim/recent-Performance disclosure semantics and direct Context StateHash identity are not yet frozen;
+32. Patch 0012 does not define next-opportunity StateHash transitions, durable persistence/recovery, branch/canon, retcon/rehearsal, provider execution, Scene loop, Observation, World Resolver, UI, Windows AI/NPU, packaging, WACK, or Store behavior;
+33. `ProductionStateException` and `E0CausalCommitException` are public sealed typed domains with no public constructors and sanitized expected upstream normalization;
+34. unexpected programming/runtime failures are not catch-all relabeled as ordinary commit failure;
+35. Patch 0012 Core architecture introduces no network/filesystem/clock/random/provider/GPU/NPU/polling/background/global-mutable-state work and no idle work.
 
-## Patch 0011 implementation and machine authority
+## Patch 0012 implementation entry gate
 
-Implementation branch:
-`h1-patch-0011-take-semantics-implementation`
+Implementation must begin from the promoted approved `main` checkpoint, not from the historical architecture branch.
 
-Approved implementation baseline on `main`:
-`3e9de4f10828f330c0c79fbf76c010422d757b2b`
+Required first reads:
+
+1. `CURRENT_STATE.md`;
+2. `docs/handoff/E0A_H1_PATCH_0012_IMPLEMENTATION_HANDOFF.md`;
+3. `docs/blueprint/H1_PATCH_0012_ATOMIC_CAUSAL_COMMIT.md`;
+4. `docs/evidence/H1_PATCH_0012_BLUEPRINT_APPROVAL.md`;
+5. `docs/ENGINEERING_HYGIENE_CONSTITUTION.md`;
+6. only the exact upstream source/tests needed for the smallest implementation surface.
+
+Do not reopen approved Proposal 0.10 during routine implementation.
+
+Use patch-first implementation and recursively audit:
+
+`correctness -> consistency -> authority -> scope -> tests -> simplicity -> hygiene -> ARM64 suitability -> vision -> evidence`
+
+Restart the audit after every material correction until one full pass finds no material corrections or worthwhile improvements.
+
+Do not claim compilation/runtime validation until the user's native Windows ARM64 machine runs the required gate on the exact implementation head.
+
+## Patch 0011 executable and machine authority
+
+Canonical Patch 0011 blueprint:
+`docs/blueprint/H1_PATCH_0011_TAKE_SEMANTICS.md`
+
+Approval evidence:
+`docs/evidence/H1_PATCH_0011_BLUEPRINT_APPROVAL.md`
+
+Machine evidence:
+`docs/evidence/H1_PATCH_0011_ARM64_VALIDATION.md`
+
+Implementation/promotion PR:
+`#24 — H1: implement and validate E0 Take semantics`
 
 Exact native Windows ARM64 machine-tested executable/test head:
 `4250011c167cd9850ad891aaea4ee053216cf135`
 
-Implementation/promotion PR:
-`#24 — H1: implement and validate E0 Take semantics`
-
 Squash-merge commit on `main`:
 `82e572d0f56a4e4a9791722a2352e39d62e3d59d`
 
-Detailed machine evidence:
-`docs/evidence/H1_PATCH_0011_ARM64_VALIDATION.md`
+At exact machine-tested head `4250011c167cd9850ad891aaea4ee053216cf135`:
 
-The exact validated branch delta from the approved baseline contains only:
+- Core/Harness Debug native ARM64 build: PASS;
+- Harness output target: `net9.0\win-arm64`;
+- full Core tests: `430/430` PASS, `0` failed, `0` skipped;
+- Missing Raft Harness: PASS;
+- generic smoke Harness: PASS.
 
-1. `src/Ensemble.E0.Core/Take/TakeModels.cs`;
-2. `tests/Ensemble.E0.Core.Tests/Take/E0TakeTests.cs`;
-3. `tests/Ensemble.E0.Core.Tests/Take/E0TakeContractAuditTests.cs`;
-4. `docs/handoff/E0A_H1_PATCH_0011_IMPLEMENTATION_HANDOFF.md` with one corrected generic-smoke fixture path.
+This remains the current compiler/test/Harness authority until Patch 0012 is independently validated.
 
-Post-validation documentation-only checkpoint files are:
+## Prior patch evidence
 
-1. `docs/evidence/H1_PATCH_0011_ARM64_VALIDATION.md`;
-2. `CURRENT_STATE.md`.
+Detailed prior architecture, compiler-correction, and machine-validation histories remain authoritative in their dedicated files under `docs/evidence/` and approved blueprints/handoffs under `docs/blueprint/` and `docs/handoff/`.
 
-No pre-existing Access, Context, Performer, Director, Integrity, State Interpreter, State Authority, Fixture, Harness, project configuration, persistence, UI, Windows AI/NPU, packaging, WACK, or Store source changed in the validated Patch 0011 implementation delta.
+In particular:
 
-### Compiler correction history
+- Patch 0010 blueprint: `docs/blueprint/H1_PATCH_0010_DETERMINISTIC_STATE_AUTHORITY.md`;
+- Patch 0010 machine evidence: `docs/evidence/H1_PATCH_0010_ARM64_VALIDATION.md`;
+- Patch 0011 blueprint: `docs/blueprint/H1_PATCH_0011_TAKE_SEMANTICS.md`;
+- Patch 0011 machine evidence: `docs/evidence/H1_PATCH_0011_ARM64_VALIDATION.md`.
 
-First target-machine attempt head:
-`0231be52cce3c5f693e551b5d82f7fa1df619979`
-
-Observed:
-
-- native ARM64 Core/Harness build succeeded;
-- `dotnet test` stopped at six `MSTEST0032` analyzer-as-error diagnostics in the new Take tests;
-- the diagnostics were test-assertion analyzer findings, not production Take compile failures;
-- Missing Raft Harness validation succeeded after the successful build;
-- generic smoke failed because the implementation handoff used stale path `fixtures\smoke\smoke-0.1.0.json` rather than canonical `fixtures\smoke\e0-fixture-v1.json`.
-
-Smallest-surface corrections changed only the two Take test files plus that handoff command. No analyzer suppression and no production semantic correction were required.
-
-All required machine gates were rerun from exact final head `4250011c167cd9850ad891aaea4ee053216cf135`.
-
-### Latest native Windows ARM64 validation authority
-
-At exact head `4250011c167cd9850ad891aaea4ee053216cf135` on the user's native Windows ARM64 development machine:
-
-#### ARM64 Core/Harness build
-
-Command:
-`dotnet build .\src\Ensemble.E0.Harness\Ensemble.E0.Harness.csproj -c Debug`
-
-Observed:
-
-- `Ensemble.E0.Core` succeeded;
-- `Ensemble.E0.Harness` succeeded;
-- Harness output target `net9.0\win-arm64`;
-- build succeeded.
-
-#### Full Core tests
-
-Command:
-`dotnet test .\tests\Ensemble.E0.Core.Tests\Ensemble.E0.Core.Tests.csproj -c Debug`
-
-Observed:
-
-- total `430`;
-- succeeded `430`;
-- failed `0`;
-- skipped `0`;
-- test execution and build succeeded.
-
-Patch 0011 increases the latest full Core regression count from the Patch 0010 machine-validated baseline of 392 tests to 430 tests.
-
-#### Harness regressions
-
-Missing Raft:
-- `Fixture validated: ensemble.e0.missing-raft@0.1.0`.
-
-Generic smoke:
-- `Fixture validated: ensemble.e0.smoke@0.1.0`.
-
-These Harness runs occurred after the successful final Patch 0011 build and therefore exercised the rebuilt branch output.
+`CURRENT_STATE.md` is the live checkpoint, not a duplicate transcript of every historical compiler iteration.
 
 ## Immediate next action
 
-Begin H1 Patch 0012 Atomic Causal Commit architecture review from the promoted Patch 0011 `main` checkpoint.
+Create/use the fresh Patch 0012 implementation branch from the approved main checkpoint and implement Proposal 0.10 according to:
 
-Patch 0012 implementation is NOT STARTED. Recover any existing Patch 0012 roadmap/blueprint material first, then recursively audit architecture before approval or implementation.
+`docs/handoff/E0A_H1_PATCH_0012_IMPLEMENTATION_HANDOFF.md`
 
-Do not ask the user to restate established project state.
+Implementation status:
 
-## Patch 0010 canonical authority
+`NOT STARTED`
 
-Canonical blueprint:
-`docs/blueprint/H1_PATCH_0010_DETERMINISTIC_STATE_AUTHORITY.md`
-
-Exact recursively audited Proposal 0.6 head:
-`2188dfe7fe693c7644c0a7a74eb647974bba876d`
-
-Canonical blueprint promotion commit on `main`:
-`fbd3c7004c3f047ebb2b3244e4488f993390231b`
-
-Blueprint approval record:
-`docs/evidence/H1_PATCH_0010_BLUEPRINT_APPROVAL.md`
-
-Chat/bootstrap recovery audit:
-`docs/evidence/H1_PATCH_0010_CHAT_RECOVERY_AUDIT.md`
-
-## Patch 0010 implementation and machine authority
-
-Implementation PR:
-`#22 — H1: implement deterministic State Authority`
-
-Exact native Windows ARM64 machine-tested executable/test head:
-`b07c8e161d221bc9bf2e57802de0aae7b542ce5a`
-
-Squash-merge commit on `main`:
-`e2bc3a4130d768dca29698a32fcd6a40e63d5f5c`
-
-Detailed machine evidence:
-`docs/evidence/H1_PATCH_0010_ARM64_VALIDATION.md`
-
-The exact machine-tested implementation delta contains only four State Authority source/test files:
-
-1. `src/Ensemble.E0.Core/StateAuthority/StateAuthorityModels.cs`;
-2. `src/Ensemble.E0.Core/StateAuthority/DeterministicStateAuthority.cs`;
-3. `tests/Ensemble.E0.Core.Tests/StateAuthority/DeterministicStateAuthorityTests.cs`;
-4. `tests/Ensemble.E0.Core.Tests/StateAuthority/StateAuthorityContractAuditTests.cs`.
-
-No pre-existing Access, Context, Performer, Director, Integrity, State Interpreter, fixture, Harness, project configuration, persistence, UI, Windows AI/NPU, packaging, WACK, or Store source changed in PR #22.
-
-## Patch 0010 compiler correction history
-
-First target-machine attempt head:
-`401f6bf93aadd8879c1645876b63b729fc6ac962`
-
-Observed:
-
-- five C# `CS1503` errors in `DeterministicStateAuthority.cs` caused by `RecordId` versus string lookup-key typing;
-- Core build failed;
-- test build failed;
-- Harness commands run afterward with `--no-build` used older binaries and are not Patch 0010 evidence.
-
-Smallest-surface correction:
-`b07c8e161d221bc9bf2e57802de0aae7b542ce5a`
-
-Only `DeterministicStateAuthority.cs` changed: internal existing-record lookup normalized to the validated Record ID string used by string-keyed evaluator dictionaries/sets. Contract behavior did not change.
-
-All required machine gates were then rerun from the corrected exact head.
-
-## Patch 0010 native Windows ARM64 validation authority
-
-At exact Patch 0010 head `b07c8e161d221bc9bf2e57802de0aae7b542ce5a` on the user's native Windows ARM64 development machine:
-
-### ARM64 Core/Harness build
-
-Command:
-`dotnet build .\src\Ensemble.E0.Harness\Ensemble.E0.Harness.csproj -c Debug`
-
-Observed:
-
-- `Ensemble.E0.Core` succeeded;
-- `Ensemble.E0.Harness` succeeded;
-- Harness output target `net9.0\win-arm64`;
-- build succeeded.
-
-### Full Core tests
-
-Command:
-`dotnet test .\tests\Ensemble.E0.Core.Tests\Ensemble.E0.Core.Tests.csproj -c Debug`
-
-Observed:
-
-- total `392`;
-- succeeded `392`;
-- failed `0`;
-- skipped `0`;
-- test execution and build succeeded.
-
-### Harness regressions
-
-Missing Raft:
-- `Fixture validated: ensemble.e0.missing-raft@0.1.0`.
-
-Generic smoke:
-- `Fixture validated: ensemble.e0.smoke@0.1.0`.
-
-These Harness runs occurred after the successful Patch 0010 build and therefore exercised the rebuilt branch output.
+Do not enter later evolved Access/Context or next-opportunity integration scope during Patch 0012.
 
 ## Explicit validation limits
 
-Current repository state does not establish:
+Current repository state does not establish Patch 0012 implementation or any of the following:
 
-- evolved multi-turn ProductionState;
-- ProductionState / StateHash;
-- authoritative ContextPacket / StateAuthoritySnapshot common-state identity;
-- authoritative new RecordId allocation;
-- mutation application;
-- atomic causal Commit / CommitId;
-- stale-state runtime/freshness application;
+- implemented evolved ProductionState / StateHash semantics;
+- authoritative evolved ContextPacket / ProductionState common-state identity;
+- authoritative new RecordId allocation policy;
+- implemented atomic causal commit/replay behavior;
+- stale-state runtime application behavior beyond approved architecture;
+- full multi-turn state-transition replay;
+- next-opportunity ProductionState transition;
 - persistence/recovery;
 - authenticated provider/policy/review/Take-disposition provenance machinery;
 - provider/model State Interpreter execution;
+- evolved Production -> Access/Context execution;
 - Scene-loop execution;
 - World Resolver / Observation engine;
 - final branching/rehearsal/retcon/alternate-promotion UX;
