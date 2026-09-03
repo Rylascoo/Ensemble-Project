@@ -1,6 +1,6 @@
 # H1 Patch 0011 — E0 Take Semantics Contract
 
-Status: blueprint proposal 0.2 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; approval required; implementation not started
+Status: blueprint proposal 0.3 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; approval required; implementation not started
 Parent baseline: machine-validated H1 Patch 0010
 Branch: `h1-patch-0011-take-semantics-blueprint`
 
@@ -104,7 +104,7 @@ E0Take Accepted
     -> selected for later atomic commit; not yet Production history
 
 E0Take Rejected
-    -> valid fully evaluated package deliberately not selected for canon
+    -> valid fully evaluated package deliberately not selected for Production history
 
 E0Take Alternate
     -> valid fully evaluated noncanonical alternative retained for E0 provenance
@@ -282,12 +282,12 @@ State Authority
     decides whether each Interpreter-proposed consequence is approved
 
 Take disposition
-    decides whether the fully evaluated Performance package is selected as canonical, rejected, or retained as an alternate
+    decides whether the fully evaluated Performance package is selected for Production history, rejected, or retained as an alternate
 ```
 
 Therefore a State Authority `Rejected` mutation does **not** automatically reject the Performance.
 
-Examples of structurally valid outcomes include:
+Examples of structurally Take-eligible outcomes include:
 
 ```text
 accepted Take + zero proposed durable mutations
@@ -296,6 +296,8 @@ accepted Take + all Interpreter proposals rejected
 ```
 
 In these cases the accepted Performance may remain historical texture while only approved consequences are eligible for later projected-state application.
+
+However, **structurally Take-eligible is not a claim that every such package is a valid E0 run**. Frozen Blueprint 0.1 separately requires transcript/current-authority coherence and invalidates a run if a committed consequence required by an accepted Performance is absent, if Performance and approved consequences do not commit atomically, or if an Integrity violation escaped the earlier boundary. Patch 0011 cannot repair such a failure by inventing a second prose reviewer or silently promoting a rejected mutation. Any demonstrated coherence failure remains a hard-gate failure to diagnose at the responsible Integrity / interpretation-completeness / atomic-commit boundary before the run contributes experiential evidence.
 
 Rejected mutation text never becomes authoritative consequence merely because the Performance is accepted.
 
@@ -328,7 +330,7 @@ The Take disposition is explicit typed orchestration input. It is never inferred
 
 `Accepted` means:
 
-> This exact fully evaluated Performance package has been selected as the canonical Take that may proceed to the later atomic causal-commit boundary.
+> This exact fully evaluated Performance package has been selected as the Take that may proceed to the later atomic causal-commit boundary.
 
 It does **not** mean:
 
@@ -351,20 +353,20 @@ E0Take.Disposition == Accepted
 
 Only successful Patch 0012 atomic causal commit makes the accepted Performance and all Approved consequences effective together.
 
-If that commit fails, neither Performance history nor consequence state becomes effective.
+If that commit fails, neither Performance history nor consequence state becomes effective. The failed attempt and its Accepted-but-uncommitted Take remain E0 diagnostic/provenance material where the frozen run protocol requires them; they never masquerade as Production history.
 
 ## 15. Rejected
 
 `Rejected` means:
 
-> This exact Integrity-cleared, interpreted, fully State-Authority-evaluated Performance package is deliberately not selected for canonical history.
+> This exact Integrity-cleared, interpreted, fully State-Authority-evaluated Performance package is deliberately not selected for Production history.
 
 It is distinct from Patch 0008 Integrity Reject.
 
 A Rejected Take:
 
 - never enters Production history;
-- never applies Approved consequences despite those decisions being preserved as counterfactual/evaluated provenance;
+- never applies Approved consequences despite those decisions being preserved as non-effective evaluated provenance;
 - never updates recent-performance context;
 - never changes effective opportunity history;
 - never establishes Current Opportunity;
@@ -443,7 +445,7 @@ This preserves Blueprint 0.1 accepted-Take immutability without freezing post-E0
 
 Proposal 0.1 considered introducing an `AuthorityDecisionContentHash`.
 
-Proposal 0.2 removes it.
+Proposal 0.3 removes it.
 
 Reason:
 
@@ -672,22 +674,23 @@ Future implementation should prove at minimum:
 18. empty mutation proposal + Complete authority can bind;
 19. all-Approved decision set can bind;
 20. mixed Approved/Rejected decision set can bind;
-21. all-Rejected decision set can bind;
+21. all-Rejected decision set can bind structurally but carries no blanket E0 hard-gate-validity claim;
 22. Accepted Take applies no State and writes no history;
 23. Rejected Take applies no State/history/Director routing;
 24. Alternate Take applies no State/history/Director routing;
 25. Rejected/Alternate Take cannot make Candidate control effective;
 26. Accepted-but-uncommitted Take cannot make Candidate control effective;
-27. identical semantic Candidate/Proposal packages may bind under distinct TakeIds;
-28. TakeId is not equal/derived by contract from CandidateContentHash or ProposalContentHash;
-29. Take aggregate exposes no provider/model/confidence/rationale/chain-of-thought field;
-30. Take is immutable;
-31. no disposition mutation API exists;
-32. repeated Bind over identical semantic inputs and TakeId/disposition produces equivalent Take semantics;
-33. fixed Missing Raft Context/Candidate/State Authority regression identities remain unchanged;
-34. full Core regression suite remains green;
-35. Missing Raft Harness regression remains green;
-36. generic smoke Harness regression remains green.
+27. failed commit leaves Accepted Take outside Production history and preserves only required E0 provenance;
+28. identical semantic Candidate/Proposal packages may bind under distinct TakeIds;
+29. TakeId is not equal/derived by contract from CandidateContentHash or ProposalContentHash;
+30. Take aggregate exposes no provider/model/confidence/rationale/chain-of-thought field;
+31. Take is immutable;
+32. no disposition mutation API exists;
+33. repeated Bind over identical semantic inputs and TakeId/disposition produces equivalent Take semantics;
+34. fixed Missing Raft Context/Candidate/State Authority regression identities remain unchanged;
+35. full Core regression suite remains green;
+36. Missing Raft Harness regression remains green;
+37. generic smoke Harness regression remains green.
 
 Patch 0011 implementation must add no tests that falsely claim ProductionState, persistence, provider authentication, atomic commit, or runtime/hardware behavior.
 
@@ -754,7 +757,7 @@ This blueprint is architecture only.
 
 Before implementation:
 
-1. recursively adversarial-audit Proposal 0.2 against frozen Blueprint 0.1, approved Patches 0006–0010, current source/tests, engineering hygiene, E0 experiment isolation, provenance boundaries, and future Patch 0012 separation;
+1. recursively adversarial-audit Proposal 0.3 against frozen Blueprint 0.1, approved Patches 0006–0010, current source/tests, engineering hygiene, E0 experiment isolation, provenance boundaries, and future Patch 0012 separation;
 2. restart the audit after every material correction;
 3. require one complete final pass with zero material corrections and zero worthwhile architectural improvements;
 4. obtain explicit user approval;
