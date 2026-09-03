@@ -707,21 +707,22 @@ public sealed class DeterministicIntegrityValidatorTests
     [TestMethod]
     public void ContractConstants_AreExactAndVersionDomainsRemainOnlyThree()
     {
-        Assert.AreEqual(
-            "ensemble.e0.integrity.candidate-content.v1",
-            E0IntegrityContracts.CandidateContentIdentityContract);
-        Assert.AreEqual(
-            "ensemble.e0.integrity.concerns.v1",
-            E0IntegrityContracts.ConcernEvidenceContract);
-        Assert.AreEqual(
-            "ensemble.e0.integrity.validation.v1",
-            E0IntegrityContracts.ValidationContract);
-
-        var fields = typeof(E0IntegrityContracts)
+        var contractType = typeof(E0IntegrityContracts);
+        var fieldNames = contractType
             .GetFields(BindingFlags.Public | BindingFlags.Static)
             .Select(field => field.Name)
             .OrderBy(name => name, StringComparer.Ordinal)
             .ToArray();
+
+        Assert.AreEqual(
+            "ensemble.e0.integrity.candidate-content.v1",
+            PublicConstantValue(contractType, nameof(E0IntegrityContracts.CandidateContentIdentityContract)));
+        Assert.AreEqual(
+            "ensemble.e0.integrity.concerns.v1",
+            PublicConstantValue(contractType, nameof(E0IntegrityContracts.ConcernEvidenceContract)));
+        Assert.AreEqual(
+            "ensemble.e0.integrity.validation.v1",
+            PublicConstantValue(contractType, nameof(E0IntegrityContracts.ValidationContract)));
         CollectionAssert.AreEqual(
             new[]
             {
@@ -729,7 +730,7 @@ public sealed class DeterministicIntegrityValidatorTests
                 nameof(E0IntegrityContracts.ConcernEvidenceContract),
                 nameof(E0IntegrityContracts.ValidationContract)
             }.OrderBy(name => name, StringComparer.Ordinal).ToArray(),
-            fields);
+            fieldNames);
     }
 
     [TestMethod]
@@ -860,6 +861,14 @@ public sealed class DeterministicIntegrityValidatorTests
             .Select(method => method.Name)
             .OrderBy(name => name, StringComparer.Ordinal)
             .ToArray();
+
+    private static string PublicConstantValue(Type type, string fieldName)
+    {
+        var field = type.GetField(fieldName, BindingFlags.Public | BindingFlags.Static)
+            ?? throw new InvalidOperationException($"Missing expected public constant '{fieldName}'.");
+        return field.GetRawConstantValue() as string
+            ?? throw new InvalidOperationException($"Public constant '{fieldName}' is not a string.");
+    }
 
     private static HashSet<string> PublicPropertyNames(Type type) =>
         type.GetProperties(BindingFlags.Instance | BindingFlags.Public)
