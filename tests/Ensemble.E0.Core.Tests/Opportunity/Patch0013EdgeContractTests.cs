@@ -1,3 +1,4 @@
+using Ensemble.E0.Core.Director;
 using Ensemble.E0.Core.Fixture;
 using Ensemble.E0.Core.Opportunity;
 using Ensemble.E0.Core.Performer;
@@ -26,6 +27,24 @@ public sealed class Patch0013EdgeContractTests
         Assert.AreNotEqual(
             MissingRaftContract.VossId,
             fallback.Event.SelectedCharacterId);
+    }
+
+    [TestMethod]
+    public void DirectAddress_WithTwoNeverSeenCharactersUsesFrozenOrdinalTieBreak()
+    {
+        var result = Patch0013TestSupport.Establish(
+            Patch0013TestSupport.BuildScenario(
+                "DIRECT-TIE",
+                addressedCharacterIds: new[]
+                {
+                    MissingRaftContract.WrenCharacterId,
+                    MissingRaftContract.MarloweCharacterId
+                }));
+
+        Assert.AreEqual(
+            LeastInterventionDirectorRule.DirectAddress,
+            result.DirectorEvaluation.Trace.Rule);
+        Assert.AreEqual(MissingRaftContract.MarloweId, result.Event.SelectedCharacterId);
     }
 
     [TestMethod]
