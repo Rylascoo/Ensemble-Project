@@ -1,6 +1,6 @@
 # H1 Patch 0011 — E0 Take Semantics Contract
 
-Status: blueprint proposal 0.6 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; approval required; implementation not started
+Status: blueprint proposal 0.7 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; approval required; implementation not started
 Parent baseline: machine-validated H1 Patch 0010
 Branch: `h1-patch-0011-take-semantics-blueprint`
 
@@ -469,7 +469,7 @@ This preserves Blueprint 0.1 accepted-Take immutability without freezing post-E0
 
 Proposal 0.1 considered introducing an `AuthorityDecisionContentHash`.
 
-Proposal 0.6 removes it.
+Proposal 0.7 removes it.
 
 Reason:
 
@@ -679,9 +679,15 @@ The Take aggregate retains references to existing immutable semantic objects rat
 
 Patch 0011 introduces no background execution or polling. Therefore no idle work is attributable to this Core contract by design; this is not target-device power evidence.
 
-## 29. Fail closed
+## 29. Fail closed and exception-domain normalization
 
-Patch 0011 receives its own exception domain with sanitized structural messages only.
+Patch 0011 defines:
+
+```text
+E0TakeException
+```
+
+as the public expected contract-failure exception domain for `E0Take.Bind`.
 
 Failures include at minimum:
 
@@ -698,6 +704,16 @@ Failures include at minimum:
 - any fresh RequiresReview decision;
 - Accepted disposition paired with any fresh Rejected State Authority decision;
 - malformed fresh decision count/order.
+
+`E0Take.Bind` must normalize expected upstream contract failures crossing its public boundary:
+
+- `StateInterpretationException` from canonical source re-binding;
+- `StateAuthorityException` from fresh State Authority input binding/evaluation;
+- `InvalidOperationException` encountered only while safely reading an uninitialized supplied strong ID/property that Patch 0011 itself is validating.
+
+These become sanitized `E0TakeException` messages. Upstream exceptions may be retained as inner exceptions only because the existing upstream exception contracts are themselves sanitized structural domains; raw Candidate text, mutation Text, Context prose, unknown payload snippets, provider content, credentials, or arbitrary user text must not appear anywhere in the public exception representation (`Message`, inner chain/data, or `ToString()`).
+
+Patch 0011 must **not** catch and relabel arbitrary unexpected programming/runtime failures as ordinary Take rejection. Unexpected failures create no Take and remain technical failures for higher-level diagnostics.
 
 Failure creates no Take and no fallback disposition.
 
@@ -742,10 +758,13 @@ Future implementation should prove at minimum:
 35. Take is immutable;
 36. no disposition mutation API exists;
 37. repeated Bind over identical semantic inputs and TakeId/disposition produces equivalent Take semantics;
-38. fixed Missing Raft Context/Candidate/State Authority regression identities remain unchanged;
-39. full Core regression suite remains green;
-40. Missing Raft Harness regression remains green;
-41. generic smoke Harness regression remains green.
+38. expected upstream StateInterpretation/StateAuthority contract failures normalize to E0TakeException;
+39. Take exception messages/inner chains/data/ToString remain sanitized and do not expose Candidate/Context/mutation prose or arbitrary user/provider content;
+40. unexpected runtime/programming failures are not converted into a Take disposition;
+41. fixed Missing Raft Context/Candidate/State Authority regression identities remain unchanged;
+42. full Core regression suite remains green;
+43. Missing Raft Harness regression remains green;
+44. generic smoke Harness regression remains green.
 
 The reference disposition mapping and E0 Take provenance obligations are later Harness/orchestration invariants; Patch 0011 Core need not add implementation surfaces merely to restate them.
 
@@ -814,7 +833,7 @@ This blueprint is architecture only.
 
 Before implementation:
 
-1. recursively adversarial-audit Proposal 0.6 against frozen Blueprint 0.1, approved Patches 0006–0010, current source/tests, engineering hygiene, E0 experiment isolation, provenance boundaries, and future Patch 0012 separation;
+1. recursively adversarial-audit Proposal 0.7 against frozen Blueprint 0.1, approved Patches 0006–0010, current source/tests, engineering hygiene, E0 experiment isolation, provenance boundaries, exception boundaries, and future Patch 0012 separation;
 2. restart the audit after every material correction;
 3. require one complete final pass with zero material corrections and zero worthwhile architectural improvements;
 4. obtain explicit user approval;
