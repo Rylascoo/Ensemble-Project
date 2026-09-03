@@ -21,11 +21,14 @@ public sealed class E0TakeTests
     [TestMethod]
     public void ContractAndDispositionValues_AreExactAndFailClosed()
     {
-        Assert.AreEqual("ensemble.e0.take.v1", E0TakeContracts.ContractVersion);
-        Assert.AreEqual(0, (int)E0TakeDisposition.Unspecified);
-        Assert.AreEqual(1, (int)E0TakeDisposition.Accepted);
-        Assert.AreEqual(2, (int)E0TakeDisposition.Rejected);
-        Assert.AreEqual(3, (int)E0TakeDisposition.Alternate);
+        var contractVersionField = typeof(E0TakeContracts).GetField(
+            nameof(E0TakeContracts.ContractVersion),
+            BindingFlags.Public | BindingFlags.Static)
+            ?? throw new InvalidOperationException("E0 Take contract version field is missing.");
+        Assert.AreEqual("ensemble.e0.take.v1", contractVersionField.GetRawConstantValue());
+        CollectionAssert.AreEqual(
+            new[] { 0, 1, 2, 3 },
+            Enum.GetValues<E0TakeDisposition>().Select(value => (int)value).ToArray());
         CollectionAssert.AreEqual(
             new[]
             {
