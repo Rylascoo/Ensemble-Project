@@ -1,6 +1,6 @@
 # H1 Patch 0012 — E0 Atomic Causal Commit Contract
 
-Status: blueprint proposal 0.9 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; approval required; implementation not started
+Status: blueprint proposal 0.10 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; approval required; implementation not started
 Parent repository checkpoint: `main` at `20b26711ceffa17e0543ca3fc180c9acf69f5e45`
 Parent machine-tested executable/test authority: H1 Patch 0011 at `4250011c167cd9850ad891aaea4ee053216cf135`
 Branch: `h1-patch-0012-atomic-causal-commit-blueprint`
@@ -494,9 +494,13 @@ public sealed class ProductionStateException : Exception
 
 No public constructor/factory.
 
+`ProductionState.Initialize` normalizes expected current `FixtureValidationException` failures raised while reusing canonical fixture hash/provenance/genesis semantics into a sanitized `ProductionStateException`; the exact sanitized upstream FixtureValidationException may be retained as InnerException, but its message is never concatenated into the public Production message.
+
+Internal canonical-JSON failures must be translated into the owning Production exception domain and never leak `CanonicalJsonException` through the public boundary.
+
 Messages/inner chains/data remain structural and sanitized. Production failures must not expose arbitrary creative/provider content.
 
-## 15. ProductionStateCheckpoint
+## 15. ProductionStateCheckpoint is O(1) metadata capture
 
 Conceptual public surface:
 
@@ -513,7 +517,13 @@ Construction:
 ProductionStateCheckpoint.Capture(ProductionState sourceState)
 ```
 
-Capture fails if source state is null, structurally invalid, or has no Current Opportunity.
+Capture validates only the closed ProductionState prerequisites needed to start an opportunity pipeline:
+
+- sourceState is non-null;
+- source StateHash/SceneId/CurrentOpportunityCharacterId are initialized/readable;
+- Current Opportunity exists and belongs to the canonical roster.
+
+It does **not** reserialize/re-hash the ProductionState, rebuild a StateAuthority snapshot, rerun provenance-DAG validation, or perform another O(record-ledger) structural audit. `ProductionState` closed construction is the structural-state authority; Capture is an immutable source-reference/identity checkpoint, not a second state validator.
 
 Internally it retains the exact immutable ProductionState reference without exposing that reference publicly.
 
@@ -541,7 +551,7 @@ The Production overload maps exact:
 
 Record Text/provenance does not enter the StateAuthority descriptor, preserving Patch 0010's authority surface.
 
-Snapshot semantic equality required by Take binding/commit is exact field equality over Scene, canonical roster, ordered descriptor count/type/RecordId/domain/lifecycle/protection, and subject/target where applicable.
+Snapshot semantic equality required by Take binding/Replay is exact field equality over Scene, canonical roster, ordered descriptor count/type/RecordId/domain/lifecycle/protection, and subject/target where applicable.
 
 One shared internal StateAuthority semantic-comparison helper owns this equality. Patch 0012 introduces no redundant public SnapshotHash.
 
@@ -581,7 +591,7 @@ It fails closed unless:
 - source Character == checkpoint Current Opportunity;
 - source Context Scene == ProductionState Scene == proposal SourceSceneId;
 - source Context roster == ProductionState roster canonically;
-- fresh Production-derived StateAuthority snapshot semantically equals Take retained snapshot;
+- one fresh Production-derived StateAuthority snapshot semantically equals Take retained snapshot;
 - Take authority status Complete;
 - decision count/order exact;
 - no RequiresReview decision.
@@ -619,11 +629,17 @@ Successful commit requires:
 currentState.StateHash == binding.SourceStateHash
 ```
 
+The binding has already established exact Take/source StateAuthority-snapshot equality for `binding.SourceStateHash`. Because StateHash canonically binds the complete Production projection plus causal parentage, exact current/source StateHash equality is the commit-time freshness proof.
+
+Commit therefore does **not** rebuild/recompare the StateAuthority snapshot a second time after binding. That duplicate O(record-ledger) check would add no new authority under the frozen StateHash contract.
+
 Any causal/state-transition head change fails closed, even if durable record values later appear equal.
 
 Patch 0012 does not silently rerun StateAuthority against changed state, declare states "close enough," or substitute a different Approved/Rejected package under the same immutable Take.
 
 A changed state requires failure under the existing Take or a later explicitly approved new-evaluation/new-Take path.
+
+Replay has no `E0TakeStateBinding`; Replay therefore performs its own parent Production-derived StateAuthority snapshot comparison to the event Take as specified later.
 
 ## 20. Record materialization
 
@@ -820,11 +836,12 @@ Commit defensively validates at minimum:
 - retained authority terminal Complete/no RequiresReview;
 - currentState.StateHash == binding.SourceStateHash;
 - current opportunity exists and equals binding.Take Performance subject;
-- current Production-derived StateAuthority snapshot semantically equals binding.Take snapshot;
 - exact materialization set for binding.Take Approved Add/Supersede only;
 - no effective duplicate CommitId;
 - no effective duplicate binding.Take.TakeId;
 - deterministic transition/provenance invariants.
+
+Commit deliberately does not rebuild the StateAuthority snapshot after the exact StateHash equality check; Section 19 defines why that association has already been proven by binding and freshness.
 
 All candidate result objects/hash/event fields are constructed successfully before return.
 
@@ -849,7 +866,7 @@ Replay requires:
 - exact ParentStateHash equality;
 - exact Accepted event.Take structural invariants;
 - parent Current Opportunity == event.Take Performance subject;
-- parent Production-derived StateAuthority snapshot == event.Take snapshot;
+- one parent Production-derived StateAuthority snapshot semantically equals event.Take snapshot;
 - exact event.RecordMaterializations required by retained Approved Add/Supersede mutations;
 - no duplicate effective event.CommitId/event.Take.TakeId in parent indexes;
 - shared deterministic transition success;
@@ -983,7 +1000,7 @@ Rules:
 - authority status exactly `complete`;
 - CandidateContentHash already covers Candidate contract version, subject/context IDs, exact VisibleText, addressed IDs, and nomination under Patch 0008's frozen identity contract;
 - ProposalContentHash already covers proposal contract version, Candidate identity/hash, source Scene, exact mutation domain/operation/scope/existing ID/text/supporting IDs under Patch 0010's frozen proposal-content identity contract;
-- parent StateHash plus mandatory snapshot semantic equality binds the exact source authority snapshot without a redundant SnapshotHash.
+- parent StateHash plus the binding/replay snapshot-equality rule binds the exact source authority snapshot without a redundant SnapshotHash.
 
 `authorityPolicy` exact order:
 
@@ -1166,7 +1183,7 @@ Creative causal history remains independent from deletable provider diagnostics.
 
 ## 34. Protection and provenance preservation
 
-Checkpoint + Accepted binding + strict StateHash + exact StateAuthority snapshot equality ensure application occurs against the unchanged authority projection under which the Take was evaluated.
+Checkpoint + Accepted binding + strict StateHash freshness ensure application occurs against the exact canonical Production state under which the Take's authority snapshot was validated.
 
 CausalCommit cannot override SystemImmutable/CreatorLocked protection or invent an approval.
 
@@ -1208,11 +1225,13 @@ public sealed class E0CausalCommitException : Exception
 
 Both are public sealed/catchable with no public constructor/factory. C# `internal` remains assembly-wide; this is an approved-emitter review law, not namespace-level compiler security.
 
-Expected `StateAuthorityException` crossing a CausalCommit public boundary may be normalized to a sanitized `E0CausalCommitException` while retaining that sanitized upstream domain exception as InnerException.
+Expected `ProductionStateException` and `StateAuthorityException` crossing a CausalCommit public boundary are normalized to a sanitized `E0CausalCommitException`; the exact sanitized upstream domain exception may be retained as InnerException, but its message is never concatenated into the public CausalCommit message.
 
 Commit-owned uninitialized strong-ID/StateHash `InvalidOperationException` is normalized to a sanitized E0CausalCommitException without retaining that runtime exception.
 
 Expected shared provenance-graph validation failures are translated into the owning Fixture/Production/CausalCommit exception domain without leaking record text or arbitrary content.
+
+Internal `CanonicalJsonException` must never escape a Production or CausalCommit public boundary; canonicalization helpers translate it into the owning typed exception domain with a sanitized message.
 
 No arbitrary catch-all converts unexpected runtime/programming failures into ordinary commit failure semantics.
 
@@ -1224,7 +1243,9 @@ Failure returns no fallback state/event.
 
 Patch 0012 Core uses no network, filesystem, clock, randomness, provider API, GPU, NPU, polling, background thread, or global mutable state.
 
-Checkpoint retains one immutable source-state reference instead of cloning. Binding retains the exact immutable Accepted Take reference instead of inventing another Take identity hash.
+Checkpoint capture is O(1) metadata/reference work and does not clone or re-hash state. Binding performs the one required Production->StateAuthority snapshot projection/comparison for Take/source association. Commit uses exact StateHash equality for freshness and does not repeat that snapshot projection. Replay performs one snapshot projection because Replay has no binding.
+
+Binding retains the exact immutable Accepted Take reference instead of inventing another Take identity hash.
 
 Commit/Replay may structurally share unchanged immutable records and allocate only changed/new records plus bounded event/result metadata.
 
@@ -1251,7 +1272,7 @@ Future implementation must prove at minimum:
 11. invalid/duplicate/unknown creator-lock inputs preserve expected fail-closed behavior;
 12. global RecordId uniqueness across active+inactive ledger;
 13. exact genesis canonical JSON bytes and fixed StateHash oracle;
-14. checkpoint fails without Current Opportunity, retains exact source reference internally, exposes non-null opportunity;
+14. checkpoint rejects null/uninitialized/no-opportunity input but does not invoke state re-hash, provenance-DAG validation, or StateAuthority snapshot construction;
 15. fixture-derived and Production-derived StateAuthority snapshots equivalent at genesis;
 16. evolved snapshot exact lifecycle/protection/domain/scope mapping;
 17. one shared exact snapshot semantic comparator; no SnapshotHash duplication;
@@ -1259,46 +1280,48 @@ Future implementation must prove at minimum:
 19. binding validates checkpoint/Context/Accepted Take/snapshot and cannot rebase to a later state;
 20. binding retains exact Accepted E0Take and exposes no Take setter/rebind path;
 21. Commit accepts no separate Take parameter; changing/coarsely reusing TakeId cannot substitute another Take under an existing binding;
-22. full Context derivation from StateHash is explicitly not claimed;
-23. current fixture-based Access is not falsely presented as evolved Production Access;
-24. zero-mutation Accepted commits exact Performance with zero materializations and changed StateHash;
-25. all-Rejected Accepted likewise commits Performance only;
-26. Approved Add exact new active record and exact support provenance;
-27. Approved Supersede exact old inactive/new active, exact support provenance, transition ExistingRecordId retained only by Take semantics;
-28. Approved Deactivate exact inactive/no new record;
-29. mixed decisions apply every and only Approved mutation;
-30. materialization Bind rejects default/invalid form and accepts canonical empty set;
-31. commit materializations contain exactly Approved Add/Supersede items;
-32. missing/extra/duplicate/colliding/reused RecordId materialization fails;
-33. result support references resolve and provenance graph remains acyclic;
-34. stale SourceStateHash fails with no result;
-35. changed authoritative parent state cannot reuse old StateHash even if durable records match;
-36. duplicate effective CommitId/TakeId in supplied parent state fails;
-37. success consumes Current Opportunity and does not establish next opportunity;
-38. failure leaves caller state/opportunity unchanged;
-39. event exact surface is CommitId/ParentHash/ResultHash/exact Take/exact materializations only;
-40. no AppliedEffects hierarchy or duplicated committed opportunity/domain/kind/existing-target authority;
-41. existing Candidate/proposal content identities cover retained text/control/mutation semantics claimed by causal payload;
-42. shared Patch 0009 mutation-domain canonical token mapping is reused;
-43. Patch 0012 canonical integer encoding is invariant, minimal base-10 ASCII and culture-independent;
-44. exact canonical Production JSON property/order/string/null rules and no derived ID indexes;
-45. exact canonical Take/policy/review/decision payload bytes;
-46. exact canonical materialization payload bytes;
-47. fixed post-commit StateHash oracle;
-48. identical Commit semantic inputs/IDs produce equivalent event/state/hash;
-49. valid different CommitId or materialized RecordId changes StateHash;
-50. event.ResultStateHash == result.ResultState.StateHash on every success;
-51. one-step Replay exactly reproduces Commit result state/hash from exact parent;
-52. Replay rejects wrong parent, duplicate identities, invalid Take/materializations, transition failure, or ResultStateHash mismatch;
-53. Commit/Replay share one transition/canonicalization engine;
-54. paired result exposes event+state and no state-only commit API exists;
-55. no prior event rewrite/delete API;
-56. no full-session replay/persistence/provider/evolved-Access/next-Director/Scene-loop/UI/AI/NPU authority leaks;
-57. Production/CausalCommit exception constructors closed and representation sanitized; no arbitrary catch-all;
-58. frozen Patch 0003–0011 identities/regressions remain unchanged except intentional new Patch 0012 state/hash oracles;
-59. full Core regression suite green;
-60. Missing Raft Harness regression green;
-61. generic smoke Harness regression green.
+22. Commit freshness uses exact StateHash equality and does not rebuild/recompare StateAuthority snapshot after binding;
+23. full Context derivation from StateHash is explicitly not claimed;
+24. current fixture-based Access is not falsely presented as evolved Production Access;
+25. zero-mutation Accepted commits exact Performance with zero materializations and changed StateHash;
+26. all-Rejected Accepted likewise commits Performance only;
+27. Approved Add exact new active record and exact support provenance;
+28. Approved Supersede exact old inactive/new active, exact support provenance, transition ExistingRecordId retained only by Take semantics;
+29. Approved Deactivate exact inactive/no new record;
+30. mixed decisions apply every and only Approved mutation;
+31. materialization Bind rejects default/invalid form and accepts canonical empty set;
+32. commit materializations contain exactly Approved Add/Supersede items;
+33. missing/extra/duplicate/colliding/reused RecordId materialization fails;
+34. result support references resolve and provenance graph remains acyclic;
+35. stale SourceStateHash fails with no result;
+36. changed authoritative parent state cannot reuse old StateHash even if durable records match;
+37. duplicate effective CommitId/TakeId in supplied parent state fails;
+38. success consumes Current Opportunity and does not establish next opportunity;
+39. failure leaves caller state/opportunity unchanged;
+40. event exact surface is CommitId/ParentHash/ResultHash/exact Take/exact materializations only;
+41. no AppliedEffects hierarchy or duplicated committed opportunity/domain/kind/existing-target authority;
+42. existing Candidate/proposal content identities cover retained text/control/mutation semantics claimed by causal payload;
+43. shared Patch 0009 mutation-domain canonical token mapping is reused;
+44. Patch 0012 canonical integer encoding is invariant, minimal base-10 ASCII and culture-independent;
+45. exact canonical Production JSON property/order/string/null rules and no derived ID indexes;
+46. exact canonical Take/policy/review/decision payload bytes;
+47. exact canonical materialization payload bytes;
+48. fixed post-commit StateHash oracle;
+49. identical Commit semantic inputs/IDs produce equivalent event/state/hash;
+50. valid different CommitId or materialized RecordId changes StateHash;
+51. event.ResultStateHash == result.ResultState.StateHash on every success;
+52. one-step Replay exactly reproduces Commit result state/hash from exact parent;
+53. Replay performs its own parent snapshot semantic comparison and rejects wrong parent, duplicate identities, invalid Take/materializations, transition failure, or ResultStateHash mismatch;
+54. Commit/Replay share one transition/canonicalization engine;
+55. paired result exposes event+state and no state-only commit API exists;
+56. no prior event rewrite/delete API;
+57. Production initialization normalizes expected FixtureValidationException; CausalCommit normalizes expected ProductionStateException/StateAuthorityException; internal CanonicalJsonException does not leak;
+58. exception constructors are closed, representation sanitized, and no arbitrary catch-all exists;
+59. no full-session replay/persistence/provider/evolved-Access/next-Director/Scene-loop/UI/AI/NPU authority leaks;
+60. frozen Patch 0003–0011 identities/regressions remain unchanged except intentional new Patch 0012 state/hash oracles;
+61. full Core regression suite green;
+62. Missing Raft Harness regression green;
+63. generic smoke Harness regression green.
 
 ## 38. Explicit non-goals
 
@@ -1326,7 +1349,7 @@ Patch 0012 does not freeze or implement:
 
 ## 39. Principal law
 
-> An E0 causal commit can make history effective only from the exact immutable source Production checkpoint captured before the generative pipeline, only through an Accepted-only binding that retains the exact immutable Take it validated, and only while that history-sensitive StateHash remains current. It commits the exact Performance plus every retained Approved consequence together, creates no effect for retained Rejected consequences, consumes the source opportunity, and returns one immutable minimal causal event plus one current projection—or returns neither. The event retains only the exact Take and new RecordId materializations that cannot be recovered from that Take; Commit accepts the binding rather than a separately substitutable Take; Commit and one-step Replay share one deterministic transition engine; canonical JSON binds causal payload and result projection into StateHash; Production-to-StateAuthority mappings are explicit semantic mappings rather than numeric enum casts; Fixture and Production share one neutral provenance-DAG validation primitive. Patch 0012 does not falsely claim full multi-turn reconstruction: evolved Production -> Access/Context integration, next-opportunity state transition, full-session replay, and durable persistence remain later explicit authorities.
+> An E0 causal commit can make history effective only from the exact immutable source Production checkpoint captured before the generative pipeline, only through an Accepted-only binding that retains the exact immutable Take it validated, and only while that history-sensitive StateHash remains current. Binding performs the one exact source-snapshot association proof; Commit then uses StateHash equality as the freshness authority instead of repeating that O(record-ledger) projection. The commit makes the exact Performance plus every retained Approved consequence effective together, creates no effect for retained Rejected consequences, consumes the source opportunity, and returns one immutable minimal causal event plus one current projection—or returns neither. The event retains only the exact Take and new RecordId materializations that cannot be recovered from that Take; Commit accepts the binding rather than a separately substitutable Take; Commit and one-step Replay share one deterministic transition engine; Replay independently verifies the parent snapshot because it has no binding; canonical JSON binds causal payload and result projection into StateHash; Production-to-StateAuthority mappings are explicit semantic mappings rather than numeric enum casts; Fixture and Production share one neutral provenance-DAG validation primitive. Patch 0012 does not falsely claim full multi-turn reconstruction: evolved Production -> Access/Context integration, next-opportunity state transition, full-session replay, and durable persistence remain later explicit authorities.
 
 ## 40. Approval / implementation gate
 
@@ -1334,7 +1357,7 @@ This blueprint is architecture only.
 
 Before implementation:
 
-1. recursively adversarial-audit Proposal 0.9 against Blueprint 0.1, approved Patches 0003–0011, current source/tests, engineering hygiene, dependency direction, explicit enum mapping, neutral shared provenance-DAG validation, genesis mapping, StateAuthority ownership, Take immutability, Accepted-only exact binding ownership, checkpoint/freshness, current fixture-only Access boundary, Context identity limit, RecordId materialization, supporting provenance versus transition lineage, minimal event representation, canonical token ownership, canonical integer/JSON byte identity, StateHash history sensitivity, derived parent-state indexes, one-step replay, Current Opportunity consumption, reconstruction limits, provenance/authentication, invalid-state construction, exception normalization, memory/ARM64 suitability, experiment isolation, and future persistence/branch/integration separation;
+1. recursively adversarial-audit Proposal 0.10 against Blueprint 0.1, approved Patches 0003–0011, current source/tests, engineering hygiene, dependency direction, explicit enum mapping, neutral shared provenance-DAG validation, genesis mapping, StateAuthority ownership, Take immutability, Accepted-only exact binding ownership, O(1) checkpoint capture, single binding snapshot proof, StateHash freshness, Replay snapshot verification, current fixture-only Access boundary, Context identity limit, RecordId materialization, supporting provenance versus transition lineage, minimal event representation, canonical token ownership, canonical integer/JSON byte identity, StateHash history sensitivity, derived parent-state indexes, one-step replay, Current Opportunity consumption, reconstruction limits, provenance/authentication, invalid-state construction, exception normalization, memory/ARM64 suitability, experiment isolation, and future persistence/branch/integration separation;
 2. restart the audit after every material correction;
 3. require one complete final pass with zero material corrections and zero worthwhile architectural improvements;
 4. obtain explicit user approval;
