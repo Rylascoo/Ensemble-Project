@@ -325,6 +325,25 @@ internal static class ProductionGenesisProjection
         ImmutableArray<RecordId> creatorLockedRecordIds)
     {
         ArgumentNullException.ThrowIfNull(fixture);
+        return CreateCore(
+            fixture,
+            creatorLockedRecordIds,
+            FixtureHash.Compute(fixture));
+    }
+
+    internal static ProductionStateProjection CreateForAuthority(
+        ValidatedFixture fixture,
+        ImmutableArray<RecordId> creatorLockedRecordIds)
+    {
+        ArgumentNullException.ThrowIfNull(fixture);
+        return CreateCore(fixture, creatorLockedRecordIds, originFixtureHash: string.Empty);
+    }
+
+    private static ProductionStateProjection CreateCore(
+        ValidatedFixture fixture,
+        ImmutableArray<RecordId> creatorLockedRecordIds,
+        string originFixtureHash)
+    {
         if (creatorLockedRecordIds.IsDefault)
         {
             throw new ProductionGenesisProjectionException(
@@ -440,8 +459,8 @@ internal static class ProductionGenesisProjection
                     record.RecordId,
                     record.Provenance)));
 
-        var fixtureHash = FixtureHash.Compute(fixture);
-        if (!ProductionStateInvariants.IsLowerHexSha256(fixtureHash))
+        if (originFixtureHash.Length != 0 &&
+            !ProductionStateInvariants.IsLowerHexSha256(originFixtureHash))
         {
             throw new ProductionGenesisProjectionException(
                 "Fixture hash is invalid.");
@@ -451,7 +470,7 @@ internal static class ProductionGenesisProjection
             fixture.Id,
             fixture.FamilyId,
             fixture.Version,
-            fixtureHash,
+            originFixtureHash,
             fixture.Scene.Id,
             characters,
             roster,
