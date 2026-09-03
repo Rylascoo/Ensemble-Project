@@ -1,6 +1,6 @@
 # H1 Patch 0010 — E0 Deterministic State Authority Review/Decision Contract
 
-Status: blueprint proposal 0.5 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; implementation not started
+Status: blueprint proposal 0.6 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; implementation not started
 Parent baseline: machine-validated H1 Patch 0009
 Branch: `h1-patch-0010-state-authority-blueprint`
 
@@ -63,11 +63,7 @@ Blueprint 0.1 leaves consequence acceptance UX/modes open in ODR-19. Patch 0010 
 
 Current validated E0 authority has no ProductionState, StateHash, persisted active/inactive record lifecycle, authoritative new-RecordId allocator, TakeId, CommitId, or atomic event writer.
 
-Applying mutations now would collapse three later boundaries:
-
-- State Authority decision;
-- Take semantics;
-- atomic causal commit.
+Applying mutations now would collapse three later boundaries: State Authority decision, Take semantics, and atomic causal commit.
 
 Patch 0010 therefore produces deterministic decisions over an explicit authority-review snapshot while leaving effective state transition to the later atomic commit boundary.
 
@@ -79,11 +75,7 @@ The only rich boundary is:
 StateAuthorityInput.Bind(snapshot, source, proposal)
 ```
 
-Bind may inspect the full Patch 0009 semantic Proposal only to:
-
-- validate exact Source/Proposal association;
-- compute exact proposal semantic content identity;
-- project prose-free structural mutation metadata.
+Bind may inspect the full Patch 0009 semantic Proposal only to validate exact Source/Proposal association, compute exact proposal semantic content identity, and project prose-free structural mutation metadata.
 
 `DeterministicStateAuthority.Evaluate` never receives the Patch 0009 Proposal object and cannot access mutation Text.
 
@@ -129,28 +121,11 @@ Canonical semantic JSON shape is exactly:
 }
 ```
 
-Root property order is exactly:
+Root property order is exactly: `identityContract`, `contractVersion`, `candidateContentIdentityContract`, `candidateContentHash`, `sourceSceneId`, `mutations`.
 
-1. `identityContract`;
-2. `contractVersion`;
-3. `candidateContentIdentityContract`;
-4. `candidateContentHash`;
-5. `sourceSceneId`;
-6. `mutations`.
+Every mutation object has exactly, in order: `domain`, `operation`, `subjectCharacterId`, `targetCharacterId`, `existingRecordId`, `text`, `supportingRecordIds`.
 
-Every mutation object has exactly these properties in order:
-
-1. `domain`;
-2. `operation`;
-3. `subjectCharacterId`;
-4. `targetCharacterId`;
-5. `existingRecordId`;
-6. `text`;
-7. `supportingRecordIds`.
-
-Domain uniquely determines the Patch 0009 semantic variant family, so no redundant `kind` field is serialized.
-
-Domain/operation tokens are the exact Patch 0009 transport tokens. Absent scalar fields are canonical JSON `null`.
+Domain uniquely determines the Patch 0009 semantic variant family, so no redundant `kind` field is serialized. Domain/operation tokens are the exact Patch 0009 transport tokens. Absent scalar fields are canonical JSON `null`.
 
 Serialization law:
 
@@ -160,12 +135,12 @@ Serialization law:
 - mutation order preserved;
 - SupportingRecordIds emitted in Patch 0009 canonical ordinal order;
 - Text exact and unmodified;
-- use the existing Core `CanonicalJson.AppendString` / `CanonicalJson.EncodeUtf8` escaping/UTF-8 law already exercised by ECJ-1;
+- existing Core `CanonicalJson.AppendString` / `CanonicalJson.EncodeUtf8` escaping/UTF-8 law;
 - no reflection/property-order-dependent serializer.
 
-Identity is over validated semantic Proposal content, not raw AI JSON. Raw whitespace/property-order differences that parse to the same semantic Proposal therefore do not change identity.
+Identity is over validated semantic Proposal content, not raw AI JSON. Raw whitespace/property-order differences that parse to the same semantic Proposal do not change identity.
 
-This hash is content identity only. It is not Interpreter attempt identity, provider response identity, CandidateId, TakeId, CommitId, RecordId, or Production StateHash.
+This hash is content identity only, not Interpreter attempt identity, provider response identity, CandidateId, TakeId, CommitId, RecordId, or Production StateHash.
 
 ## 7. StateAuthoritySnapshot
 
@@ -200,15 +175,7 @@ StateAuthorityRecordDescriptor
     RelationshipStateAuthorityRecordDescriptor
 ```
 
-Common fields:
-
-```text
-RecordId
-RecordDomain
-Lifecycle
-Protection
-```
-
+Common fields: `RecordId`, `RecordDomain`, `Lifecycle`, `Protection`.
 Character descriptor adds `SubjectCharacterId`.
 Relationship descriptor adds `SubjectCharacterId` + `TargetCharacterId`.
 
@@ -260,17 +227,11 @@ StateAuthorityRecordProtection
 - CreatorLocked
 ```
 
-Initial fixture projection marks as SystemImmutable:
-
-- HistoricalTruth;
-- CharacterConstitution;
-- CharacterObservation.
+Initial fixture projection marks HistoricalTruth, CharacterConstitution, and CharacterObservation as SystemImmutable.
 
 Creator-lock overlay marks resolved non-SystemImmutable records CreatorLocked. Overlaying an already SystemImmutable record preserves SystemImmutable.
 
-Every lock ID must resolve; duplicates fail. Protected records remain valid support references but cannot be Supersede/Deactivate targets.
-
-The fixture dialect gains no lock field.
+Every lock ID must resolve; duplicates fail. Protected records remain valid support references but cannot be Supersede/Deactivate targets. The fixture dialect gains no lock field.
 
 Exact-record lock cannot prove whether a separate Add semantically contradicts a locked record. State Authority remains prose-blind; objective-reality additions are therefore MandatoryReview, and E0 canon requiring mechanical immutability should use already-protected authority distinctions where applicable.
 
@@ -278,11 +239,7 @@ Exact-record lock cannot prove whether a separate Add semantically contradicts a
 
 Bind requires initialized IDs, exactly three unique E0 roster Characters, globally unique RecordIds, valid relationship subject/target roster membership, and resolvable creator locks.
 
-Canonical order:
-
-- roster CharacterId ordinal;
-- records RecordId ordinal;
-- creator-lock input order irrelevant.
+Canonical order: roster CharacterId ordinal; records RecordId ordinal; creator-lock input order irrelevant.
 
 Snapshot binding does not rerun fixture semantic validation or alter fixture content.
 
@@ -336,15 +293,7 @@ StateAuthorityMutationInput
     RelationshipStateAuthorityMutationInput
 ```
 
-Common:
-
-```text
-MutationIndex
-Domain
-Transition
-SupportingRecordIds
-```
-
+Common: `MutationIndex`, `Domain`, `Transition`, `SupportingRecordIds`.
 Character adds `SubjectCharacterId`.
 Relationship adds `SubjectCharacterId` + `TargetCharacterId`.
 
@@ -367,20 +316,15 @@ StateAuthorityPolicy.Create(
     -> StateAuthorityPolicy
 ```
 
-Public shape:
-
-```text
-ContractVersion
-AutoApproveDomains
-```
+Public shape: `ContractVersion`, `AutoApproveDomains`.
 
 Policy is typed deterministic configuration only. It has no UI mode, model/provider field, free-form rationale, or numeric confidence threshold.
 
 Duplicate/undefined enum values fail. AutoApproveDomains canonicalize by contract enum order. Policy cannot waive hard rejection or the mandatory-review floor, including transition-specific mandatory review.
 
-An empty set means all structurally admissible mutations require review.
+An empty set means all structurally admissible mutations require review unless an explicit ReviewSet choice resolves them.
 
-Policy selection is itself authority configuration. It must not be authored by the Performer/Interpreter or untrusted creative content. Later effective orchestration must retain/authenticate configured policy provenance before relying on policy-auto-approved decisions.
+Policy selection is itself authority configuration. It must not be authored by the Performer/Interpreter or untrusted creative content. Later effective orchestration must retain/authenticate configured policy provenance before relying on policy-default decisions.
 
 Patch 0010 does not choose the E0-A reference policy; that experimental setting remains to be frozen separately if stronger authority has not already done so.
 
@@ -401,14 +345,7 @@ CharacterDisposition
 Relationship
 ```
 
-Additionally:
-
-```text
-UnresolvedProposition + Supersede
-UnresolvedProposition + Deactivate
-```
-
-are MandatoryReview.
+Additionally `UnresolvedProposition + Supersede` and `UnresolvedProposition + Deactivate` are MandatoryReview.
 
 Reason:
 
@@ -437,11 +374,9 @@ CharacterClaim + Add
 Pressure + any Patch 0009-valid transition
 ```
 
-Auto-approval remains an explicit recorded E0 authority-policy choice. It never changes the destination domain into fact.
+Auto-approval remains an explicit recorded E0 authority-policy default. It never changes the destination domain into fact.
 
 ## 20. Review choice and exact proposal binding
-
-Choice:
 
 ```text
 StateAuthorityReviewChoice
@@ -486,7 +421,7 @@ ReviewSet copies exact ProposalContent identity from Input. `Evaluate` rejects a
 
 ReviewSet is synthetic-capable and does **not** authenticate that a human/creator/authorized workflow made the choices. Later effective commit must retain/authenticate review provenance before relying on explicitly reviewed approvals/rejections.
 
-## 21. State Authority API
+## 21. State Authority API and authority hierarchy
 
 ```text
 DeterministicStateAuthority.Evaluate(
@@ -498,9 +433,19 @@ DeterministicStateAuthority.Evaluate(
 
 No overload accepts Patch 0009 Proposal, Candidate VisibleText, Context prose, fixture prose, provider/model settings, or mutation rationale.
 
+Decision authority hierarchy is exactly:
+
+```text
+hard deterministic rule
+    > explicit review choice
+        > policy default
+```
+
+Hard rules are unwaivable. For a structurally admissible mutation, an explicit review choice may confirm or override the configured policy default. This preserves creator/authorized-review authority without freezing final ODR-19 UX modes.
+
 ## 22. Hard-rule phase
 
-Hard rules execute before policy/review.
+Hard rules execute before explicit review or policy.
 
 Per mutation, collect applicable hard reasons from this ordered subset:
 
@@ -517,7 +462,7 @@ ConflictingExistingRecordTarget
 
 Any hard reason makes the mutation Rejected. Policy and review cannot waive it.
 
-If ReviewSet contains a choice for a hard-rejected mutation, the overall Evaluate call fails as miswired input rather than silently pretending the choice was authoritative.
+If ReviewSet contains a choice for a hard-rejected mutation, the overall Evaluate call fails as miswired/stale review input rather than silently pretending the choice could override deterministic authority.
 
 ## 23. Supporting-record rule
 
@@ -559,12 +504,9 @@ Multiple Adds are not structurally conflicting merely because they share domain/
 
 ## 27. Review classification and exact reason composition
 
-After hard rules, every surviving mutation follows exactly one path.
+After hard rules, every surviving mutation follows exactly one default classification path, then an explicit review choice—if present—has precedence over that default.
 
-A mutation is MandatoryReview when either:
-
-- its domain is one of the six always-mandatory domains in Section 18; or
-- it is `UnresolvedProposition` with Supersede or Deactivate.
+A mutation is MandatoryReview when either its domain is one of the six always-mandatory domains in Section 18 or it is `UnresolvedProposition` with Supersede/Deactivate.
 
 ### Mandatory-review mutation
 No choice:
@@ -589,11 +531,25 @@ Reasons = [MandatoryReview, ExplicitReviewRejected]
 ```
 
 ### Policy-eligible mutation whose domain is included in AutoApproveDomains
-No review choice is permitted:
+No choice:
 
 ```text
 Disposition = Approved
 Reasons = [PolicyAutoApproved]
+```
+
+Approve choice:
+
+```text
+Disposition = Approved
+Reasons = [PolicyAutoApproved, ExplicitReviewApproved]
+```
+
+Reject choice:
+
+```text
+Disposition = Rejected
+Reasons = [PolicyAutoApproved, ExplicitReviewRejected]
 ```
 
 ### Policy-eligible mutation whose domain is not auto-approved
@@ -618,9 +574,7 @@ Disposition = Rejected
 Reasons = [PolicyReviewRequired, ExplicitReviewRejected]
 ```
 
-A review choice for a policy-auto-approved mutation is miswired input and fails Evaluate.
-
-No review choice can alter a hard-rejected mutation.
+No explicit review choice can alter a hard-rejected mutation.
 
 ## 28. Full deterministic reason vocabulary/order
 
@@ -708,7 +662,7 @@ Superseding or deactivating an existing UnresolvedProposition always requires ex
 
 ## 33. Circumstance and lower-authority semantics
 
-Circumstance, Belief, Suspicion, Goal, Claim, UnresolvedProposition Add, and Pressure may be policy-auto-approved after hard rules.
+Circumstance, Belief, Suspicion, Goal, Claim, UnresolvedProposition Add, and Pressure may be policy-auto-approved after hard rules, but an explicit review choice can still reject or confirm the individual mutation.
 
 This is E0 review configuration, not final product UX or proof of semantic truth.
 
@@ -726,10 +680,7 @@ Later effective commit/orchestration must preserve and authenticate the authorit
 
 Patch 0010 evaluation is pure and may be speculative or repeated.
 
-A later atomic commit must either:
-
-- recompute State Authority against the then-current authoritative state; or
-- bind a completed evaluation to a future authoritative StateHash/current-state identity before application.
+A later atomic commit must either recompute State Authority against the then-current authoritative state or bind a completed evaluation to a future authoritative StateHash/current-state identity before application.
 
 Patch 0010 invents no StateHash/stale-state commit protocol.
 
@@ -788,13 +739,7 @@ E0-E single-playwright control is not forced through Candidate-specific Source/I
 
 ## 42. ARM64 / battery
 
-Tiny deterministic CPU work only:
-
-- one explicit semantic proposal canonicalization + SHA-256 at Bind;
-- immutable-array canonicalization;
-- dictionary/set RecordId lookup;
-- enum/domain checks;
-- bounded conflict detection.
+Tiny deterministic CPU work only: one explicit semantic proposal canonicalization + SHA-256 at Bind, immutable-array canonicalization, dictionary/set RecordId lookup, enum/domain checks, and bounded conflict detection.
 
 No NPU is appropriate. Use average-O(1) lookups rather than pairwise scans.
 
@@ -872,57 +817,59 @@ Use canonical upstream construction and public production paths. No public test 
 59. missing support -> Reject;
 60. known inactive support remains referenceable in future snapshot;
 61. same resolved ExistingRecord targeted twice -> all contenders Reject;
-62. no conflict winner/merge.
+62. no conflict winner/merge;
+63. explicit review choice for hard-rejected mutation fails Evaluate.
 
 ### Review algorithm
-63. each always-mandatory domain -> RequiresReview without choice;
-64. UnresolvedProposition Add follows policy classification;
-65. UnresolvedProposition Supersede -> MandatoryReview;
-66. UnresolvedProposition Deactivate -> MandatoryReview;
-67. mandatory + Approve -> Approved `[MandatoryReview, ExplicitReviewApproved]`;
-68. mandatory + Reject -> Rejected `[MandatoryReview, ExplicitReviewRejected]`;
-69. eligible absent policy + no choice -> RequiresReview `[PolicyReviewRequired]`;
-70. eligible absent policy + Approve -> Approved `[PolicyReviewRequired, ExplicitReviewApproved]`;
-71. eligible absent policy + Reject -> Rejected `[PolicyReviewRequired, ExplicitReviewRejected]`;
-72. eligible in policy -> Approved `[PolicyAutoApproved]`;
-73. UnresolvedProposition domain in policy does not auto-approve Supersede/Deactivate;
-74. review choice for hard-rejected mutation fails Evaluate;
-75. review choice for policy-auto-approved mutation fails Evaluate;
-76. hard reasons cannot be waived;
-77. ReviewSet choice order does not affect result.
+64. each always-mandatory domain -> RequiresReview without choice;
+65. UnresolvedProposition Add follows policy classification;
+66. UnresolvedProposition Supersede -> MandatoryReview;
+67. UnresolvedProposition Deactivate -> MandatoryReview;
+68. mandatory + Approve -> Approved `[MandatoryReview, ExplicitReviewApproved]`;
+69. mandatory + Reject -> Rejected `[MandatoryReview, ExplicitReviewRejected]`;
+70. eligible absent policy + no choice -> RequiresReview `[PolicyReviewRequired]`;
+71. eligible absent policy + Approve -> Approved `[PolicyReviewRequired, ExplicitReviewApproved]`;
+72. eligible absent policy + Reject -> Rejected `[PolicyReviewRequired, ExplicitReviewRejected]`;
+73. eligible in policy + no choice -> Approved `[PolicyAutoApproved]`;
+74. eligible in policy + Approve -> Approved `[PolicyAutoApproved, ExplicitReviewApproved]`;
+75. eligible in policy + Reject -> Rejected `[PolicyAutoApproved, ExplicitReviewRejected]`;
+76. UnresolvedProposition domain in policy does not auto-approve Supersede/Deactivate;
+77. explicit review takes precedence over policy but never hard rule;
+78. ReviewSet choice order does not affect result.
 
 ### Evaluation
-78. decision order exact MutationIndex/Proposal order;
-79. reason order exact contract order;
-80. any pending -> ReviewRequired status;
-81. all terminal -> Complete;
-82. empty mutations -> Complete / zero decisions;
-83. Evaluation/Decision/Trace constructors non-public;
-84. Trace contains exact prose-free Input/Policy/ReviewSet;
-85. Approved exposes no state-applied/Take/Commit authority;
-86. no creative Text in Input/Trace/reason messages.
+79. decision order exact MutationIndex/Proposal order;
+80. reason order exact contract order;
+81. any pending -> ReviewRequired status;
+82. all terminal -> Complete;
+83. empty mutations -> Complete / zero decisions;
+84. Evaluation/Decision/Trace constructors non-public;
+85. Trace contains exact prose-free Input/Policy/ReviewSet;
+86. Approved exposes no state-applied/Take/Commit authority;
+87. no creative Text in Input/Trace/reason messages.
 
 ### Truth / scope
-87. approved Claim remains Claim only;
-88. Belief/Suspicion/Memory approval cannot create WorldState/Knowledge;
-89. objective domains cannot policy-auto-approve;
-90. Disposition/Relationship/Memory cannot policy-auto-approve;
-91. unresolved uncertainty cannot be auto-removed/replaced;
-92. creator lock cannot be overridden by review;
-93. no State apply/NewRecordId/Take/Commit/provider API;
-94. no numeric psychology/confidence.
+88. approved Claim remains Claim only;
+89. Belief/Suspicion/Memory approval cannot create WorldState/Knowledge;
+90. objective domains cannot policy-auto-approve;
+91. Disposition/Relationship/Memory cannot policy-auto-approve;
+92. unresolved uncertainty cannot be auto-removed/replaced;
+93. creator lock cannot be overridden by review;
+94. explicit review may override policy auto-approval;
+95. no State apply/NewRecordId/Take/Commit/provider API;
+96. no numeric psychology/confidence.
 
 ### Regression
-95. existing 330 Core tests green;
-96. Patch 0008 Candidate hash oracle unchanged;
-97. Missing Raft Context hashes unchanged;
-98. Missing Raft ECJ-1 9112 bytes/hash unchanged;
-99. Missing Raft Harness PASS/0;
-100. smoke Harness PASS/0.
+97. existing 330 Core tests green;
+98. Patch 0008 Candidate hash oracle unchanged;
+99. Missing Raft Context hashes unchanged;
+100. Missing Raft ECJ-1 9112 bytes/hash unchanged;
+101. Missing Raft Harness PASS/0;
+102. smoke Harness PASS/0.
 
 ## 44. Explicit validation limit
 
-Patch 0010 machine validation, when implemented, can prove fixture-derived initial-snapshot State Authority review, exact proposal binding/prose-free evaluation, creator-lock overlay, deterministic policy/review decisions, operation-sensitive uncertainty protection, and regressions.
+Patch 0010 machine validation, when implemented, can prove fixture-derived initial-snapshot State Authority review, exact proposal binding/prose-free evaluation, creator-lock overlay, deterministic policy/review decisions and overrides, operation-sensitive uncertainty protection, and regressions.
 
 It cannot yet prove multi-turn evolved-state review because no ProductionState/evolved snapshot constructor exists. That higher validation level belongs to later state-application/atomic-commit work.
 
@@ -948,30 +895,31 @@ Restart after every material correction:
 12. Disposition/Relationship conservatism;
 13. Circumstance fluidity;
 14. ODR-19 policy openness;
-15. no fake confidence;
-16. causal evidence limits;
-17. support existence vs sufficiency;
-18. transition/domain/ownership rules;
-19. lifecycle;
-20. batch conflict;
-21. no semantic keyword judge;
-22. creator ontology guard;
-23. exact Source/Proposal/Snapshot binding;
-24. review choice exact proposal binding;
-25. stale-state/future StateHash;
-26. RequiresReview nonterminal semantics;
-27. policy/review provenance authentication limits;
-28. reconstruction/provenance;
-29. E0 control isolation;
-30. deterministic ordering;
-31. invalid-state representability;
-32. API minimality;
-33. exception safety;
-34. testability;
-35. current-vs-multiturn validation level;
-36. Hygiene Constitution;
-37. ARM64/battery;
-38. total scope/claims.
+15. explicit review vs policy authority hierarchy;
+16. no fake confidence;
+17. causal evidence limits;
+18. support existence vs sufficiency;
+19. transition/domain/ownership rules;
+20. lifecycle;
+21. batch conflict;
+22. no semantic keyword judge;
+23. creator ontology guard;
+24. exact Source/Proposal/Snapshot binding;
+25. review choice exact proposal binding;
+26. stale-state/future StateHash;
+27. RequiresReview nonterminal semantics;
+28. policy/review provenance authentication limits;
+29. reconstruction/provenance;
+30. E0 control isolation;
+31. deterministic ordering;
+32. invalid-state representability;
+33. API minimality;
+34. exception safety;
+35. testability;
+36. current-vs-multiturn validation level;
+37. Hygiene Constitution;
+38. ARM64/battery;
+39. total scope/claims.
 
 ## 47. Material approval decisions
 
@@ -987,21 +935,22 @@ Approval would freeze only:
 8. typed structural mutation projection;
 9. explicit E0 auto-approve-domain Policy, not final product mode;
 10. no confidence scalar;
-11. always-mandatory review for WorldState, SceneState, Knowledge, Memory, Disposition, Relationship;
-12. operation-sensitive mandatory review for UnresolvedProposition Supersede/Deactivate;
-13. policy-eligible UnresolvedProposition Add, Belief, Suspicion, Goal, Circumstance, Claim, Pressure;
-14. ReviewSet bound to exact ProposalContentHash;
-15. policy/review inputs are non-authenticating and cannot come from untrusted creative/model output;
-16. hard structural rules are unwaivable;
-17. support existence != semantic sufficiency;
-18. exact ExistingRecord active/domain/owner/pair/protection rules;
-19. same ExistingRecord batch conflict rejects all contenders;
-20. exact reason-composition algorithm;
-21. Approved/Rejected/RequiresReview + Complete/ReviewRequired semantics;
-22. Approved is later commit-eligible only;
-23. no StateHash yet; later commit must recompute or bind current state;
-24. executable validation limited to fixture-derived initial snapshots until evolved state exists;
-25. Take ordering remains open;
-26. no ProductionState/StateHash/RecordId allocation/application/Take/commit/persistence/provider/UI/NPU/Store scope.
+11. hard deterministic rules > explicit review choice > policy default;
+12. always-mandatory review for WorldState, SceneState, Knowledge, Memory, Disposition, Relationship;
+13. operation-sensitive mandatory review for UnresolvedProposition Supersede/Deactivate;
+14. policy-eligible UnresolvedProposition Add, Belief, Suspicion, Goal, Circumstance, Claim, Pressure;
+15. ReviewSet bound to exact ProposalContentHash;
+16. policy/review inputs are non-authenticating and cannot come from untrusted creative/model output;
+17. hard structural rules are unwaivable;
+18. support existence != semantic sufficiency;
+19. exact ExistingRecord active/domain/owner/pair/protection rules;
+20. same ExistingRecord batch conflict rejects all contenders;
+21. exact reason-composition algorithm including explicit review override of policy;
+22. Approved/Rejected/RequiresReview + Complete/ReviewRequired semantics;
+23. Approved is later commit-eligible only;
+24. no StateHash yet; later commit must recompute or bind current state;
+25. executable validation limited to fixture-derived initial snapshots until evolved state exists;
+26. Take ordering remains open;
+27. no ProductionState/StateHash/RecordId allocation/application/Take/commit/persistence/provider/UI/NPU/Store scope.
 
 Implementation remains blocked until recursive audit completes and the user explicitly approves the final proposal.
