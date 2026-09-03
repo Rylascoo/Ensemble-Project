@@ -12,7 +12,8 @@ Updated: 2026-09-02
 - H1 Patch 0005 Deterministic Context Composer + Dual Context Identity Blueprint 0.3 is APPROVED and canonical.
 - H1 Patch 0006 Performer Candidate Output Contract Proposal 1.7 is APPROVED and canonical.
 - H1 Patch 0007 E0 Director Opportunity Contract Proposal 1.5 is APPROVED and canonical.
-- Patch 0006 Proposal 1.7 and Patch 0007 Proposal 1.5 each completed recursive adversarial audit with a full zero-material-change pass before approval.
+- H1 Patch 0008 E0 Integrity Validator Contract Proposal 1.1 is APPROVED and canonical.
+- Patch 0006 Proposal 1.7, Patch 0007 Proposal 1.5, and Patch 0008 Proposal 1.1 each completed recursive adversarial audit with a full zero-material-change pass before approval.
 - `docs/ENGINEERING_HYGIENE_CONSTITUTION.md` is project law unless stronger frozen authority explicitly overrides it.
 - GitHub `Rylascoo/Ensemble-Project` is the authoritative engineering source.
 - Google Drive `Ensemble Project` is the design repository.
@@ -33,6 +34,45 @@ Machine-validated deterministic patches:
 - H1 Patch 0005 — COMPLETE;
 - H1 Patch 0006 — COMPLETE;
 - H1 Patch 0007 — COMPLETE for its exercised deterministic Director gates.
+
+H1 Patch 0008 is APPROVED FOR IMPLEMENTATION but has no executable validation yet.
+
+## Patch 0008 canonical specification and approval
+Canonical blueprint:
+`docs/blueprint/H1_PATCH_0008_INTEGRITY_VALIDATOR_CONTRACT.md`
+
+Exact recursively audited and user-approved proposal head:
+`07ccf1516af7c5d5572cac5790650d97d758467b`
+
+Approval PR #17 was squash-merged from that exact audited/approved head.
+
+Canonical blueprint promotion commit on `main`:
+`2e62f2b0ce10aaca18d20494844ef5f435b5a097`
+
+Approval record:
+`docs/evidence/H1_PATCH_0008_BLUEPRINT_APPROVAL.md`
+
+Approved architecture:
+1. Patch 0008 defines deterministic Integrity evaluation only; `Accept` is not accepted Take, State authority, causal commit, or Production-history authority;
+2. `IntegrityCandidateInput.Bind(ContextPacket, CandidatePerformance)` is the sole rich Context+Candidate boundary;
+3. Validator receives no Character/Performance prose;
+4. Candidate-content SHA-256 identity is versioned and binds concern evidence to exact Candidate semantics without becoming attempt/Candidate/Take/commit identity;
+5. deterministic Reject codes are exactly SubjectContextMismatch then ContextPacketIdentityMismatch;
+6. deterministic Reject short-circuits semantic concern review/disclosure;
+7. `IntegrityConcernEvidence` is structurally bound synthetic-capable evidence, not authenticated semantic-assessor provenance;
+8. five typed concern kinds preserve claim/belief/guess versus unavailable-knowledge/enacted-authority distinctions without truth policing;
+9. exact disposition grammar: Reject-coded Input + null evidence -> Reject; zero Reject + non-empty concerns -> RequestAnotherTake; zero Reject + empty concerns -> Accept; inconsistent/missing evidence -> Integrity exception/no disposition;
+10. assessor technical failure remains technical/orchestration failure and does not automatically become RequestAnotherTake;
+11. RequestAnotherTake has no retry/spend/provider authority;
+12. no secret/canon keyword scanner, objective-truth contradiction rejection, or hidden Performance rewrite;
+13. no authority-bearing eligibility/attestation object;
+14. later State/Take/orchestration must authenticate configured concern-review provenance before effective progression;
+15. immediate provisional-Take-versus-State-Interpreter ordering remains open for the later authority contract;
+16. Director is not Integrity input and Integrity Accept cannot promote precommit Director work;
+17. E0-E playwright control is not forced through the per-Character Candidate Integrity API, while frozen hard integrity gates remain required under its later control-compatible protocol;
+18. no semantic-assessor transport, provider execution, State Interpreter/Authority, Take, commit, persistence, opportunity application, Scene loop, World Resolver, WinUI, Windows AI/NPU, packaging, WACK, or Store machinery enters Patch 0008.
+
+Implementation approval checkpoint is the `main` commit produced by this CURRENT_STATE checkpoint and its immediately preceding Patch 0008 approval record; implementation must branch from that approved state.
 
 ## Patch 0007 canonical specification and approval
 Canonical blueprint:
@@ -145,10 +185,12 @@ Its corrected full Core test authority was 173/173 before Patch 0007 added 38 Di
 - WACK and Partner Center remain later independent authorities.
 
 ## Explicitly unvalidated / excluded
-Patch 0007 does not establish or implement:
-- authoritative opportunity-history authentication/persistence;
+Patch 0008 is approved but does not yet establish or implement:
+- executable IntegrityCandidateInput/content-hash/evidence/Validator behavior;
+- semantic assessor/provider behavior or bounded assessment packet;
+- concern-review provenance authentication;
+- retry/cost/cancellation execution;
 - accepted/rejected/alternate Take semantics or TakeId allocation;
-- Integrity Validator acceptance/rejection;
 - State Interpreter candidate mutations;
 - deterministic State Authority;
 - ProductionState / StateHash;
@@ -156,30 +198,37 @@ Patch 0007 does not establish or implement:
 - effective Current Opportunity mutation;
 - atomic opportunity establishment/history append;
 - next-Performer triggering or Scene loop;
-- live provider/model behavior or provider-attempt provenance;
 - observation engine / World Resolver;
 - E0-D round-robin execution;
+- E0-E playwright-control integrity protocol;
 - Windows AI or NPU execution/performance;
 - WinUI;
 - packaging/WACK;
 - Microsoft Store certification.
 
-Patch 0007 validation proves only the exercised deterministic Director input/proposal/evaluation boundary and its regressions.
+Patch 0007 remains the latest machine-validated deterministic execution boundary until Patch 0008 receives native validation evidence.
 
 ## Immediate next action
-Hold at the validated H1 Patch 0007 boundary until the next canonical H1 deterministic-spine contract is recovered from existing project authority.
+Implement the approved H1 Patch 0008 Integrity Validator contract on a dedicated implementation branch created from the exact approval checkpoint.
 
-Before new executable work:
-1. read this checkpoint first;
-2. read the frozen Blueprint 0.1 / approved E0-A and H1 authority only as needed to resolve the next boundary;
-3. search existing GitHub/project sources for an already-approved next contract before inventing one;
-4. if no implementation-complete contract exists, create a standalone blueprint and recursively adversarial-audit it to a zero-material-change pass before requesting approval;
-5. preserve the validated separation among Performer Candidate, Director proposal, later Integrity/Take/State authority, causal commit, and effective opportunity establishment;
-6. do not infer that the creator-facing ontology is closed merely because E0 uses explicit semantic categories;
-7. do not begin provider, persistence, Scene-loop, UI, Windows AI/NPU, or Store work merely as Patch 0007 cleanup.
+Implementation rules:
+1. keep the patch limited to deterministic Core binding/content identity/evidence/evaluation plus targeted tests;
+2. do not add semantic assessor/provider transport or fake assessor-authentication tokens;
+3. do not duplicate Patch 0006 parser/text/control validation;
+4. preserve least privilege so the Validator never receives Character/Performance prose;
+5. preserve hard-rule short-circuit before semantic concern review;
+6. preserve claim/belief/guess versus truth/authority distinctions;
+7. preserve RequestAnotherTake as evaluation only, with no retry/spend authority;
+8. preserve Accept as evaluation only, with no State/Take/history authority;
+9. keep the creator-facing ontology open as required by the extensibility guard;
+10. perform recursive implementation audit and native ARM64 build/test/regression validation before marking Patch 0008 COMPLETE.
 
 ## Continuity
 Fresh chats read this file first.
+
+Patch 0008:
+- `docs/evidence/H1_PATCH_0008_BLUEPRINT_APPROVAL.md`;
+- `docs/blueprint/H1_PATCH_0008_INTEGRITY_VALIDATOR_CONTRACT.md`.
 
 Patch 0007:
 - `docs/evidence/H1_PATCH_0007_ARM64_VALIDATION.md`;
@@ -190,7 +239,6 @@ Creator ontology guard:
 - `docs/blueprint/CREATOR_ONTOLOGY_EXTENSIBILITY_GUARD.md`.
 
 Immediate upstream authority:
-- `docs/evidence/H1_PATCH_0006_ARM64_VALIDATION.md`;
 - `docs/blueprint/H1_PATCH_0006_PERFORMER_CANDIDATE_CONTRACT.md`;
 - `docs/blueprint/H1_PATCH_0005_DETERMINISTIC_CONTEXT_COMPOSER.md`;
 - `docs/blueprint/H1_PATCH_0004_DETERMINISTIC_ACCESS_CONTROL.md`.
