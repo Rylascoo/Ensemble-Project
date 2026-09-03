@@ -397,6 +397,7 @@ public sealed class DeterministicCausalCommitTests
             Materials((0, "PRESSURE-PATCH-0012-DIFFERENT")));
         Assert.AreNotEqual(firstResult.ResultState.StateHash, differentRecord.ResultState.StateHash);
     }
+
     [TestMethod]
     public void OracleCommitPayloadAndPostCommitStateHash_MatchFixedCanonicalBytes()
     {
