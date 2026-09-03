@@ -1,6 +1,6 @@
 # H1 Patch 0011 — E0 Take Semantics Contract
 
-Status: blueprint proposal 0.4 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; approval required; implementation not started
+Status: blueprint proposal 0.5 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; approval required; implementation not started
 Parent baseline: machine-validated H1 Patch 0010
 Branch: `h1-patch-0011-take-semantics-blueprint`
 
@@ -19,7 +19,7 @@ ContextPacket
     -> E0Take.Bind
         -> exact immutable Performance
         -> exact interpreted consequence proposal
-        -> exact terminal deterministic State Authority evaluation
+        -> freshly verified terminal deterministic State Authority evaluation
         -> Accepted / Rejected / Alternate Take
             -> later atomic causal commit only for Accepted
 ```
@@ -107,7 +107,7 @@ E0Take Rejected
     -> valid fully evaluated package deliberately not selected for Production history
 
 E0Take Alternate
-    -> valid fully evaluated noncanonical alternative retained for E0 provenance
+    -> fully evaluated noncanonical alternative retained for E0 provenance
 
 successful atomic commit of Accepted Take
     -> effective accepted historical Performance + approved consequences
@@ -132,13 +132,17 @@ Patch 0011 must not introduce another Take identifier type.
 Patch 0011 defines TakeId **semantics**, not a global durable allocator:
 
 - every `E0Take` requires an initialized existing `TakeId`;
-- TakeId identifies one Take decision/package occurrence;
+- TakeId identifies one Take decision/package occurrence within the orchestration scope that supplies it;
 - TakeId is not content identity;
 - semantically identical Performer outputs may have distinct TakeIds;
 - TakeId is not CandidateContentHash, ProposalContentHash, CommitId, RecordId, ContextPacketId, RunId, or future StateHash;
 - Core Patch 0011 cannot prove global uniqueness because authoritative Production history/persistence does not exist yet;
 - effective E0 orchestration must not reuse a TakeId within one Run;
 - exact product-wide allocation/uniqueness/persistence rules remain later authority.
+
+`E0Take.Bind` therefore receives TakeId from trusted orchestration and validates only that it is initialized.
+
+Patch 0011 deliberately does **not** derive TakeId from RunId + ordinal or freeze another string format: RunId composition itself is not yet a frozen identity contract, and premature derivation would create compatibility debt without durable persistence authority. E0 orchestration must provide unique TakeIds and record them; the exact allocator/format remains an explicit later orchestration/persistence dependency rather than an implementation detail the Core coding chat may invent.
 
 No TakeId is derived from Candidate, proposal, authority-decision, clock, random, provider, or model data inside Core Patch 0011.
 
@@ -160,7 +164,7 @@ Where:
 
 - `Performance` is the exact immutable Patch 0006 `CandidatePerformance`;
 - `InterpretationProposal` is the exact immutable Patch 0009 `StateInterpretationProposal`;
-- `AuthorityEvaluation` is a freshly verified canonical Patch 0010 `StateAuthorityEvaluation` for that exact proposal and authority trace;
+- `AuthorityEvaluation` is the fresh canonical Patch 0010 `StateAuthorityEvaluation` recomputed from the supplied upstream evaluation Trace after exact source/proposal re-binding;
 - `Disposition` is Patch 0011 `Accepted`, `Rejected`, or `Alternate`.
 
 The Take therefore preserves the actual Performance rather than reducing accepted history to hashes.
@@ -197,14 +201,15 @@ This is the sole Patch 0011 rich-object reconciliation boundary.
 
 The Take object does not retain `ContextPacket` or `IntegrityValidationEvaluation`; those remain separate E0 provenance records.
 
-## 10. Canonical upstream re-binding rather than duplicated validation
+## 10. Canonical upstream re-binding and fresh State Authority replay
 
 `E0Take.Bind` verifies association by reusing existing canonical deterministic boundaries rather than reimplementing them.
 
 Conceptually:
 
 1. validate TakeId and current Take disposition;
-2. reconstruct a fresh Patch 0009 source:
+2. require supplied `authorityEvaluation` to expose the current Patch 0010 contract and structurally initialized Trace/Input/Policy/ReviewSet collections sufficient for safe canonical replay;
+3. reconstruct a fresh Patch 0009 source:
 
 ```text
 freshSource = StateInterpretationSource.Bind(
@@ -213,8 +218,7 @@ freshSource = StateInterpretationSource.Bind(
     integrityEvaluation)
 ```
 
-3. obtain the supplied authority evaluation Trace and its Patch 0010 Snapshot / Policy / ReviewSet;
-4. reconstruct a fresh Patch 0010 input:
+4. reconstruct a fresh Patch 0010 input using the exact Snapshot carried by the supplied evaluation Trace:
 
 ```text
 freshAuthorityInput = StateAuthorityInput.Bind(
@@ -223,7 +227,7 @@ freshAuthorityInput = StateAuthorityInput.Bind(
     interpretationProposal)
 ```
 
-5. deterministically re-evaluate Patch 0010 using the exact supplied Policy and ReviewSet:
+5. deterministically re-evaluate Patch 0010 using the exact Policy and ReviewSet carried by the supplied evaluation Trace:
 
 ```text
 freshAuthorityEvaluation = DeterministicStateAuthority.Evaluate(
@@ -232,24 +236,25 @@ freshAuthorityEvaluation = DeterministicStateAuthority.Evaluate(
     authorityEvaluation.Trace.ReviewSet)
 ```
 
-6. require the supplied and fresh Patch 0010 evaluation semantics to match exactly;
-7. require terminal complete State Authority result;
-8. enforce Patch 0011 disposition-specific rules;
-9. store the exact Performance, InterpretationProposal, and canonical fresh StateAuthorityEvaluation in the new E0Take.
+6. require the **fresh** evaluation to be terminal Complete;
+7. enforce Patch 0011 disposition-specific rules against the fresh ordered Decisions;
+8. store the exact Performance, exact InterpretationProposal, and fresh canonical StateAuthorityEvaluation in the new E0Take.
 
-The deterministic re-evaluation is verification, not a new authority layer. It prevents a Take from binding a Performance/proposal package to a substituted or stale State Authority result while preserving one canonical State Authority implementation.
+The supplied StateAuthorityEvaluation is the upstream carrier of the Patch 0010 Trace inputs needed for verification. Patch 0011 does not trust or copy its caller-supplied `Status` or `Decisions` as independent authority; the deterministic replay result is canonical for the Take. Under normal canonical Patch 0010 construction, supplied and fresh semantics are identical. If an internally forged/inconsistent evaluation carries a valid replayable Trace but fabricated Status/Decisions, those fabricated fields cannot influence Take semantics because they are discarded in favor of fresh Patch 0010 output.
+
+This replay is verification, not a new authority layer. It prevents a Take from binding a Performance/proposal package to stale/mismatched trace configuration while avoiding a second State Authority implementation or a bespoke evaluation-equality algorithm.
 
 Patch 0011 does not rerun any semantic Integrity assessor, call any provider, or reinterpret Performance prose.
 
 ## 11. Terminal State Authority requirement
 
-A Take may be created only when Patch 0010 State Authority is terminal:
+A Take may be created only when the fresh Patch 0010 replay is terminal:
 
 ```text
 StateAuthorityEvaluation.Status == Complete
 ```
 
-and no decision has disposition:
+and no fresh decision has disposition:
 
 ```text
 RequiresReview
@@ -257,7 +262,7 @@ RequiresReview
 
 `RequiresReview` means the consequence decision contract is incomplete. It cannot be treated as approved consequence authority and cannot enter a Take.
 
-A complete evaluation may contain any combination of:
+A complete fresh evaluation may contain any combination of:
 
 ```text
 Approved
@@ -341,15 +346,15 @@ The Take disposition is explicit typed orchestration input. It is never inferred
 
 Disposition-specific structural rules are deterministic:
 
-- `Accepted` requires terminal Complete authority with zero Rejected decisions;
-- `Rejected` may retain any terminal Complete decision set;
-- `Alternate` may retain any terminal Complete decision set.
+- `Accepted` requires fresh terminal Complete authority with zero Rejected decisions;
+- `Rejected` may retain any fresh terminal Complete decision set;
+- `Alternate` may retain any fresh terminal Complete decision set.
 
 ## 14. Accepted
 
 `Accepted` means:
 
-> This exact fully evaluated Performance package has been selected as the Take that may proceed to the later atomic causal-commit boundary, and every Interpreter-proposed consequence in the package is either absent because the proposal is empty or Approved by terminal State Authority.
+> This exact fully evaluated Performance package has been selected as the Take that may proceed to the later atomic causal-commit boundary, and every Interpreter-proposed consequence in the package is either absent because the proposal is empty or Approved by fresh terminal State Authority.
 
 It does **not** mean:
 
@@ -399,7 +404,7 @@ A Rejected Take:
 
 `Alternate` means:
 
-> Preserve this exact valid fully evaluated Take package as a noncanonical alternative for E0 comparison or later explicit creative use.
+> Preserve this exact fully evaluated Take package as a noncanonical alternative for E0 comparison or later explicit creative use.
 
 An Alternate Take:
 
@@ -435,9 +440,9 @@ The following do not create an E0Take:
 - missing/invalid Integrity evaluation;
 - State Interpretation technical/provider failure;
 - malformed/invalid StateInterpretationProposal;
-- State Authority structural failure;
-- State Authority evaluation with RequiresReview;
-- malformed/mismatched authority evaluation.
+- State Authority structural/replay failure;
+- fresh State Authority evaluation with RequiresReview;
+- malformed/mismatched State Authority Trace inputs.
 
 Technical failure remains technical failure.
 
@@ -464,16 +469,16 @@ This preserves Blueprint 0.1 accepted-Take immutability without freezing post-E0
 
 Proposal 0.1 considered introducing an `AuthorityDecisionContentHash`.
 
-Proposal 0.4 removes it.
+Proposal 0.5 removes it.
 
 Reason:
 
-- Patch 0010 already supplies an immutable `StateAuthorityEvaluation` with exact `Input`, `Policy`, `ReviewSet`, ordered Decisions, dispositions, and ordered reason codes in its Trace;
-- Patch 0011 can deterministically re-bind/re-evaluate and retain that canonical evaluation;
+- Patch 0010 already supplies immutable State Authority Trace inputs and deterministic evaluation semantics;
+- Patch 0011 can re-bind/replay those inputs and retain the fresh canonical evaluation;
 - a second content-identity contract would add an evolution axis before persistence/serialization demonstrates a need for it;
 - future Patch 0012 Commit identity may bind exact Take/evaluation semantics under its own causal-commit contract.
 
-No hash should be introduced merely to avoid retaining an already-immutable authoritative semantic object.
+No hash should be introduced merely to avoid retaining an already-immutable deterministic semantic object.
 
 ## 20. Identity distinctions
 
@@ -490,7 +495,7 @@ ProposalContentHash
     -> semantic StateInterpretationProposal content identity
 
 TakeId
-    -> identity of one Take decision/package occurrence
+    -> identity of one Take decision/package occurrence within its supplied orchestration identity scope
 
 CommitId
     -> future atomic causal-commit identity
@@ -505,7 +510,7 @@ Distinct TakeIds may legitimately contain semantically identical CandidatePerfor
 
 ## 21. State freshness remains Patch 0012
 
-Patch 0011 binds the exact State Authority evaluation that existed for the Take package.
+Patch 0011 binds the exact Snapshot/Policy/ReviewSet trace configuration used to freshly reproduce the Take's State Authority evaluation.
 
 It does not claim that the underlying StateAuthoritySnapshot is still current at commit time.
 
@@ -527,7 +532,8 @@ It does not authenticate:
 - concern-review provenance;
 - State Authority policy provenance;
 - explicit review-choice human/creator identity;
-- Take-disposition human/creator identity.
+- Take-disposition human/creator identity;
+- global TakeId uniqueness.
 
 This preserves the prior contracts rather than pretending typed objects are credentials.
 
@@ -594,11 +600,11 @@ Therefore the **reference E0 orchestration policy** is deterministic:
 
 ```text
 Take-bindable package
-+ terminal authority with zero Rejected decisions
++ fresh terminal authority with zero Rejected decisions
     -> Accepted
 
 Take-bindable package
-+ one or more Rejected authority decisions
++ fresh terminal authority with one or more Rejected decisions
     -> Rejected
 ```
 
@@ -607,6 +613,8 @@ Take-bindable package
 An explicitly labeled intervention may reject an otherwise Accepted-eligible package or retain it as Alternate. It may not override Patch 0011's E0 prohibition on `Accepted` when any State Authority decision is Rejected.
 
 The Take disposition is never model-authored.
+
+This reference mapping is an E0 orchestration rule, not a reason to introduce a second Core policy class, mode enum, or reference-disposition service in Patch 0011. Core only enforces the disposition invariants at `E0Take.Bind`; later Harness orchestration applies the frozen mapping when it owns a real run loop.
 
 This E0 reference policy is not the final product consequence-acceptance UX and does not close ODR-19 (`Autopilot`, `Review`, `Strict Creator`, or another model).
 
@@ -617,8 +625,8 @@ The purpose is experimental isolation and fail-closed causal integrity: ordinary
 For ordinary E0-A/C/D/G per-Character reference runs that reach this contract:
 
 - Take semantics remain identical across compared variants unless Take behavior itself is the named variable;
-- zero-Rejected terminal packages become Accepted;
-- any-Rejected terminal packages become Rejected;
+- zero-Rejected terminal packages become Accepted under reference orchestration;
+- any-Rejected terminal packages become Rejected under reference orchestration;
 - Alternate interventions must be labeled and attributable;
 - provider/model identity does not alter Take authority;
 - Take semantics do not inspect provider/model identity.
@@ -659,17 +667,16 @@ Failures include at minimum:
 - null/missing inputs;
 - uninitialized TakeId;
 - undefined Take disposition;
-- unsupported upstream contract versions;
+- unsupported supplied State Authority evaluation contract;
+- malformed supplied State Authority Trace/Input/Policy/ReviewSet required for safe replay;
 - Context/Candidate/Integrity mismatch;
 - Integrity disposition other than Accept;
 - malformed InterpretationProposal;
-- missing/malformed State Authority Trace/Input/Policy/ReviewSet;
-- fresh State Authority re-bind mismatch;
-- fresh deterministic re-evaluation mismatch;
-- State Authority status ReviewRequired;
-- any RequiresReview decision;
-- Accepted disposition paired with any Rejected State Authority decision;
-- malformed decision count/order.
+- fresh State Authority re-bind/replay failure;
+- fresh State Authority status ReviewRequired;
+- any fresh RequiresReview decision;
+- Accepted disposition paired with any fresh Rejected State Authority decision;
+- malformed fresh decision count/order.
 
 Failure creates no Take and no fallback disposition.
 
@@ -682,52 +689,53 @@ Future implementation should prove at minimum:
 3. Take contract/disposition exact and defined;
 4. exact CandidatePerformance object is retained;
 5. exact InterpretationProposal object is retained;
-6. State Authority evaluation is freshly and deterministically verified through canonical Patch 0010 logic;
-7. Integrity Reject cannot bind a Take;
-8. Integrity RequestAnotherTake cannot bind a Take;
-9. technical/provider failure has no Take construction path;
-10. mismatched Context/Candidate fails;
-11. mismatched Integrity evaluation fails;
-12. proposal Candidate identity mismatch fails;
-13. proposal Scene mismatch fails;
-14. State Authority proposal identity mismatch fails;
-15. State Authority evaluation substitution fails;
-16. State Authority ReviewRequired cannot bind;
-17. any RequiresReview decision cannot bind;
+6. supplied StateAuthorityEvaluation Status/Decisions are not independently trusted; fresh canonical Patch 0010 replay is retained;
+7. unsupported/malformed supplied State Authority trace configuration fails safely;
+8. Integrity Reject cannot bind a Take;
+9. Integrity RequestAnotherTake cannot bind a Take;
+10. technical/provider failure has no Take construction path;
+11. mismatched Context/Candidate fails;
+12. mismatched Integrity evaluation fails;
+13. proposal Candidate identity mismatch fails;
+14. proposal Scene mismatch fails;
+15. mismatched State Authority ReviewSet/proposal identity fails during fresh replay;
+16. fresh State Authority ReviewRequired cannot bind;
+17. any fresh RequiresReview decision cannot bind;
 18. empty mutation proposal + Complete authority can bind Accepted;
 19. all-Approved decision set can bind Accepted;
 20. mixed Approved/Rejected decision set cannot bind Accepted;
 21. all-Rejected decision set cannot bind Accepted;
 22. mixed/all-Rejected Complete decision sets can bind Rejected;
 23. mixed/all-Rejected Complete decision sets can bind Alternate;
-24. reference disposition maps zero-Rejected Complete -> Accepted;
-25. reference disposition maps any-Rejected Complete -> Rejected;
-26. Alternate requires explicit labeled orchestration rather than implicit reference selection;
-27. Accepted Take applies no State and writes no history;
-28. Rejected Take applies no State/history/Director routing;
-29. Alternate Take applies no State/history/Director routing;
-30. Rejected/Alternate Take cannot make Candidate control effective;
-31. Accepted-but-uncommitted Take cannot make Candidate control effective;
-32. failed commit leaves Accepted Take outside Production history and preserves only required E0 provenance;
-33. identical semantic Candidate/Proposal packages may bind under distinct TakeIds;
-34. TakeId is not equal/derived by contract from CandidateContentHash or ProposalContentHash;
-35. Take aggregate exposes no provider/model/confidence/rationale/chain-of-thought field;
-36. Take is immutable;
-37. no disposition mutation API exists;
-38. repeated Bind over identical semantic inputs and TakeId/disposition produces equivalent Take semantics;
-39. fixed Missing Raft Context/Candidate/State Authority regression identities remain unchanged;
-40. full Core regression suite remains green;
-41. Missing Raft Harness regression remains green;
-42. generic smoke Harness regression remains green.
+24. Alternate is never inferred by Core from authority decisions;
+25. Accepted Take applies no State and writes no history;
+26. Rejected Take applies no State/history/Director routing;
+27. Alternate Take applies no State/history/Director routing;
+28. Rejected/Alternate Take cannot make Candidate control effective;
+29. Accepted-but-uncommitted Take cannot make Candidate control effective;
+30. failed commit leaves Accepted Take outside Production history and preserves only required E0 provenance;
+31. identical semantic Candidate/Proposal packages may bind under distinct TakeIds;
+32. TakeId is not equal/derived by contract from CandidateContentHash or ProposalContentHash;
+33. Core defines no TakeId allocator/format beyond existing canonical strong-ID validation;
+34. Take aggregate exposes no provider/model/confidence/rationale/chain-of-thought field;
+35. Take is immutable;
+36. no disposition mutation API exists;
+37. repeated Bind over identical semantic inputs and TakeId/disposition produces equivalent Take semantics;
+38. fixed Missing Raft Context/Candidate/State Authority regression identities remain unchanged;
+39. full Core regression suite remains green;
+40. Missing Raft Harness regression remains green;
+41. generic smoke Harness regression remains green.
 
-Patch 0011 implementation must add no tests that falsely claim ProductionState, persistence, provider authentication, atomic commit, or runtime/hardware behavior.
+The reference disposition mapping in section 26 is a later Harness orchestration invariant; Patch 0011 Core need not add an implementation surface merely to restate it.
+
+Patch 0011 implementation must add no tests that falsely claim ProductionState, persistence, provider authentication, global TakeId allocation, atomic commit, or runtime/hardware behavior.
 
 ## 31. Explicit non-goals
 
 Patch 0011 does not implement or freeze:
 
 - new TakeId type;
-- global/durable TakeId allocator;
+- global/durable TakeId allocator or RunId-derived TakeId format;
 - CandidateId;
 - provider-attempt ID schema;
 - provider/model execution;
@@ -777,7 +785,7 @@ Access Control
 
 Patch 0011's principal law is:
 
-> A CandidatePerformance is the provisional generated Performance. An E0 Take exists only after that Performance has passed Integrity and its interpreted consequences have reached a terminal deterministic State Authority evaluation. The Take preserves the exact Performance, exact consequence proposal, exact authority evaluation, and an Accepted / Rejected / Alternate disposition under a distinct TakeId. E0 Accepted requires zero rejected consequence decisions and means selected for atomic commit, not already historical. Only later successful atomic commit makes the accepted Performance and all Approved consequences effective together.
+> A CandidatePerformance is the provisional generated Performance. An E0 Take exists only after that Performance has passed Integrity and its interpreted consequences have reached a terminal deterministic State Authority replay. The Take preserves the exact Performance, exact consequence proposal, fresh canonical authority evaluation, and an Accepted / Rejected / Alternate disposition under a distinct supplied TakeId. E0 Accepted requires zero rejected consequence decisions and means selected for atomic commit, not already historical. Only later successful atomic commit makes the accepted Performance and all Approved consequences effective together.
 
 ## 33. Approval / implementation gate
 
@@ -785,7 +793,7 @@ This blueprint is architecture only.
 
 Before implementation:
 
-1. recursively adversarial-audit Proposal 0.4 against frozen Blueprint 0.1, approved Patches 0006–0010, current source/tests, engineering hygiene, E0 experiment isolation, provenance boundaries, and future Patch 0012 separation;
+1. recursively adversarial-audit Proposal 0.5 against frozen Blueprint 0.1, approved Patches 0006–0010, current source/tests, engineering hygiene, E0 experiment isolation, provenance boundaries, and future Patch 0012 separation;
 2. restart the audit after every material correction;
 3. require one complete final pass with zero material corrections and zero worthwhile architectural improvements;
 4. obtain explicit user approval;
