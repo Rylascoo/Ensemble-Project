@@ -15,7 +15,8 @@ Updated: 2026-09-03
 - H1 Patch 0007 E0 Director Opportunity Contract Proposal 1.5 is APPROVED and machine-validated for exercised gates.
 - H1 Patch 0008 E0 Integrity Validator Contract Proposal 1.1 is APPROVED and machine-validated for exercised gates.
 - H1 Patch 0009 E0 State Interpreter Mutation-Proposal Contract Proposal 0.7 is APPROVED, canonical, implemented, and machine-validated for exercised gates.
-- H1 Patch 0010 E0 Deterministic State Authority Review/Decision Contract Proposal 0.6 is APPROVED and canonical; implementation exists on its implementation branch but is NOT yet machine-validated.
+- H1 Patch 0010 E0 Deterministic State Authority Review/Decision Contract Proposal 0.6 is APPROVED, canonical, implemented, and machine-validated for exercised deterministic gates.
+- Patches 0006/0007/0008/0009/0010 preserve probabilistic proposal versus deterministic authority separation and completed recursive architecture/static review before closure.
 - `docs/ENGINEERING_HYGIENE_CONSTITUTION.md` is project law unless stronger frozen authority explicitly overrides it.
 - GitHub `Rylascoo/Ensemble-Project` is authoritative current engineering state.
 - Google Drive `Ensemble Project` is design/research/supporting material, not executable validation authority.
@@ -32,13 +33,13 @@ Patch 0009/0010 E0 authority domains do not freeze the final creator-facing Prod
 
 E0-A Harness Implementation — H1 Deterministic Spine.
 
-Current patch:
+Current validated checkpoint:
 
-`H1 Patch 0010 — deterministic State Authority review/decision implementation`
+`H1 Patch 0010 — deterministic State Authority review/decision`
 
-Current implementation status:
+Status:
 
-`STATICALLY AUDITED; TARGET-MACHINE VALIDATION PENDING`
+`COMPLETE FOR EXERCISED DETERMINISTIC STATE AUTHORITY GATES`
 
 ## Patch 0010 canonical authority
 
@@ -51,10 +52,7 @@ Exact recursively audited Proposal 0.6 head:
 Canonical blueprint promotion commit on `main`:
 `fbd3c7004c3f047ebb2b3244e4488f993390231b`
 
-Original approval evidence checkpoint:
-`b179d4a1a324349d66dce6158fc89dba5ddf0e2f`
-
-Approval record:
+Blueprint approval record:
 `docs/evidence/H1_PATCH_0010_BLUEPRINT_APPROVAL.md`
 
 Chat/bootstrap recovery audit:
@@ -62,156 +60,188 @@ Chat/bootstrap recovery audit:
 
 Important status rule:
 
-The canonical blueprint preserves the historical Proposal 0.6 audit-stage header at its exact approved content. Do not infer current project status from that historical header. Current status is established by this file plus the approval/evidence records.
+The canonical blueprint preserves its historical Proposal 0.6 audit-stage header at the exact approved content. Current status is established by this file plus the approval/validation evidence records, not by that historical header.
 
-## Patch 0010 implementation
+## Patch 0010 implementation and machine authority
 
-Implementation branch:
-`h1-patch-0010-state-authority-implementation`
+Implementation PR:
+`#22 — H1: implement deterministic State Authority`
 
-Current recursively static-audited implementation head:
+Exact native Windows ARM64 machine-tested executable/test head:
+`b07c8e161d221bc9bf2e57802de0aae7b542ce5a`
+
+Squash-merge commit on `main`:
+`e2bc3a4130d768dca29698a32fcd6a40e63d5f5c`
+
+Detailed machine evidence:
+`docs/evidence/H1_PATCH_0010_ARM64_VALIDATION.md`
+
+The exact machine-tested implementation delta contains only four State Authority source/test files:
+
+1. `src/Ensemble.E0.Core/StateAuthority/StateAuthorityModels.cs`;
+2. `src/Ensemble.E0.Core/StateAuthority/DeterministicStateAuthority.cs`;
+3. `tests/Ensemble.E0.Core.Tests/StateAuthority/DeterministicStateAuthorityTests.cs`;
+4. `tests/Ensemble.E0.Core.Tests/StateAuthority/StateAuthorityContractAuditTests.cs`.
+
+No pre-existing Access, Context, Performer, Director, Integrity, State Interpreter, fixture, Harness, project configuration, persistence, UI, Windows AI/NPU, packaging, WACK, or Store source changed in PR #22.
+
+## Patch 0010 compiler correction history
+
+First target-machine attempt head:
 `401f6bf93aadd8879c1645876b63b729fc6ac962`
 
-Delta from approval checkpoint `b179d4a1...`:
-- six commits ahead;
-- zero commits behind;
-- exactly four added executable/test files:
-  1. `src/Ensemble.E0.Core/StateAuthority/StateAuthorityModels.cs`;
-  2. `src/Ensemble.E0.Core/StateAuthority/DeterministicStateAuthority.cs`;
-  3. `tests/Ensemble.E0.Core.Tests/StateAuthority/DeterministicStateAuthorityTests.cs`;
-  4. `tests/Ensemble.E0.Core.Tests/StateAuthority/StateAuthorityContractAuditTests.cs`.
+Observed:
+- five C# `CS1503` errors in `DeterministicStateAuthority.cs` caused by `RecordId` versus string lookup-key typing;
+- Core build failed;
+- test build failed;
+- Harness commands run afterward with `--no-build` used older binaries and are not Patch 0010 evidence.
 
-No pre-existing Access, Context, Performer, Director, Integrity, State Interpreter, fixture, Harness, project configuration, persistence, UI, Windows AI/NPU, packaging, WACK, or Store source is changed in that branch delta.
+Smallest-surface correction:
+`b07c8e161d221bc9bf2e57802de0aae7b542ce5a`
 
-## Patch 0010 static/adversarial audit result
+Only `DeterministicStateAuthority.cs` changed: internal existing-record lookup normalized to the validated Record ID string used by string-keyed evaluator dictionaries/sets. Contract behavior did not change.
 
-At exact head `401f6bf...`, recursive static review against Proposal 0.6 found no material architecture or contract defect in the four-file delta.
+All required machine gates were then rerun from the corrected exact head.
 
-Reviewed dimensions include:
+## Patch 0010 native Windows ARM64 validation
 
-1. Interpreter proposal vs deterministic State Authority separation;
-2. proposal-content semantic identity and cryptographic domain separation;
-3. prose-free least-privilege evaluator input/trace;
-4. fixture-derived structural snapshot and canonical ordering;
-5. SystemImmutable and exact-record CreatorLocked protection;
-6. typed mutation domain/transition invariants;
-7. ReviewSet exact proposal binding;
-8. hard deterministic rule > explicit review choice > policy default;
-9. mandatory-review floor and operation-sensitive UnresolvedProposition review;
-10. policy-eligible domains;
-11. support/reference/domain/ownership/protection/conflict hard rules;
-12. fixed reason ordering;
-13. Approved/Rejected/RequiresReview and Complete/ReviewRequired semantics;
-14. empty proposal behavior;
-15. truth/claim/belief/knowledge/objective-state separation;
-16. deterministic ordering/replay;
-17. immutable/non-public authority-produced construction surfaces;
-18. absence of ProductionState/StateHash/new RecordId allocation/mutation application/Take/Commit/provider/UI/NPU/Store authority;
-19. frozen upstream regression identities represented in tests;
-20. initial-fixture-only validation limit.
+At exact head `b07c8e161d221bc9bf2e57802de0aae7b542ce5a` on the user's native Windows ARM64 development machine:
 
-Static/adversarial review is advisory only.
+### ARM64 Core/Harness build
 
-## Patch 0010 validated architecture boundary
+Command:
+`dotnet build .\src\Ensemble.E0.Harness\Ensemble.E0.Harness.csproj -c Debug`
 
-Proposal 0.6 freezes only deterministic mutation review/decision logic.
+Observed:
+- `Ensemble.E0.Core` succeeded;
+- `Ensemble.E0.Harness` succeeded;
+- Harness output target `net9.0\win-arm64`;
+- build succeeded.
 
-Key laws:
+### Full Core tests
 
-- `StateAuthorityInput.Bind(snapshot, source, proposal)` is the sole rich Source/Proposal binding boundary;
-- exact semantic Interpreter ProposalContentHash binds review to proposal content;
-- evaluator input/trace is prose-free;
-- snapshot is fixture-derived structural authority state plus exact-record creator-lock overlay, not ProductionState;
-- HistoricalTruth, CharacterConstitution, and CharacterObservation are SystemImmutable;
-- hard structural rejection is unwaivable;
-- explicit review choice can override policy default but not a hard rejection;
-- WorldState, SceneState, CharacterKnowledge, CharacterMemory, CharacterDisposition, and Relationship are always MandatoryReview in this E0 contract;
-- UnresolvedProposition Supersede/Deactivate is MandatoryReview;
-- UnresolvedProposition Add, CharacterBelief, CharacterSuspicion, CharacterGoal, CharacterCircumstance, CharacterClaim Add, and Pressure are policy-eligible after hard rules;
-- evaluation returns ordered per-mutation Approved / Rejected / RequiresReview decisions;
-- Approved means later commit-eligible only, never already true/effective;
-- empty mutation proposal is valid and evaluates Complete with zero decisions;
-- same resolved ExistingRecord targeted by multiple Supersede/Deactivate mutations is a hard conflict for all contenders;
-- no confidence scalar or semantic keyword judge exists;
-- no StateHash/stale-state commit protocol exists yet;
-- provisional Take ordering remains OPEN for the dedicated Take contract;
-- no ProductionState, new RecordId allocation, mutation application, TakeId, CommitId, atomic commit, persistence, provider execution, UI, Windows AI/NPU, packaging, WACK, or Store machinery enters Patch 0010.
+Command:
+`dotnet test .\tests\Ensemble.E0.Core.Tests\Ensemble.E0.Core.Tests.csproj -c Debug`
 
-## Patch 0010 validation boundary
+Observed:
+- total `392`;
+- succeeded `392`;
+- failed `0`;
+- skipped `0`;
+- test execution and build succeeded.
 
-Patch 0010 has NOT yet established:
+Patch 0010 raises the latest validated full Core regression count from Patch 0009's 330 to 392.
 
-- Windows ARM64 compiler authority;
-- Patch 0010 test-execution authority;
-- target-device runtime authority;
-- multi-turn evolved-state review;
-- NPU behavior;
-- WACK or Store authority.
+### Harness regressions
 
-Do not call Patch 0010 COMPLETE until the target-machine gates below are observed against an exact commit.
+Missing Raft:
+- `Fixture validated: ensemble.e0.missing-raft@0.1.0`.
+
+Generic smoke:
+- `Fixture validated: ensemble.e0.smoke@0.1.0`.
+
+These Harness runs occurred after the successful Patch 0010 build and therefore exercised the rebuilt branch output.
+
+## Validated Patch 0010 architecture boundary
+
+Proposal 0.6 establishes deterministic mutation review/decision only.
+
+Key laws validated by the implementation/test boundary include:
+
+1. `StateAuthorityInput.Bind(snapshot, source, proposal)` is the sole rich Source/Proposal binding boundary;
+2. exact semantic Interpreter `ProposalContentHash` uses cryptographic domain separation and binds review choices to exact proposal identity;
+3. evaluator input and trace remain prose-free;
+4. `StateAuthoritySnapshot` is a fixture-derived structural authority projection plus exact-record creator-lock overlay, not ProductionState;
+5. HistoricalTruth, CharacterConstitution, and CharacterObservation records are SystemImmutable;
+6. hard structural rejection is unwaivable;
+7. explicit review choice can override policy default but not hard rejection;
+8. WorldState, SceneState, CharacterKnowledge, CharacterMemory, CharacterDisposition, and Relationship are mandatory-review domains in this E0 contract;
+9. UnresolvedProposition Supersede/Deactivate is mandatory review;
+10. UnresolvedProposition Add, CharacterBelief, CharacterSuspicion, CharacterGoal, CharacterCircumstance, CharacterClaim Add, and Pressure are policy-eligible after hard rules;
+11. evaluation returns ordered per-mutation Approved / Rejected / RequiresReview decisions;
+12. Approved means later commit-eligible under evaluated authority inputs only; it is not already effective state;
+13. empty mutation proposal is valid and evaluates Complete with zero decisions;
+14. multiple Supersede/Deactivate mutations targeting the same resolved existing record hard-reject all contenders;
+15. fixed deterministic reason ordering is preserved;
+16. no model confidence, prose keyword judgment, random choice, provider call, or hidden semantic inference enters State Authority;
+17. no StateHash/stale-state commit protocol exists yet;
+18. no ProductionState, new RecordId allocation, mutation application, TakeId, CommitId, atomic commit, persistence, Scene loop, UI, Windows AI/NPU, packaging, WACK, or Store machinery enters Patch 0010.
+
+## Explicit validation limits
+
+Patch 0010 does not establish:
+
+- evolved multi-turn ProductionState review;
+- ProductionState / StateHash;
+- authoritative new RecordId allocation;
+- mutation application;
+- accepted/rejected/alternate Take semantics or TakeId allocation;
+- provisional-Take ordering relative to State Interpreter / State Authority;
+- atomic causal Commit / CommitId;
+- persistence/recovery;
+- authenticated policy/review provenance;
+- provider/model State Interpreter execution;
+- Scene-loop execution;
+- World Resolver / Observation engine;
+- Windows AI / NPU execution or performance;
+- WinUI behavior;
+- packaging / WACK;
+- Microsoft Store certification.
+
+## Next-contract recovery result
+
+After Patch 0010 closure, repository continuity was checked before inventing a next patch.
+
+Searches found:
+
+- no active branch named for Patch `0011`;
+- no active branch named for `Take` or `Commit` work;
+- no existing Patch 0011 PR;
+- no dedicated Take-semantics PR or commit establishing the next implementation-complete contract.
+
+Existing frozen H1 authority consistently orders the remaining spine as:
+
+1. accepted/rejected/alternate Take semantics needed by E0;
+2. atomic causal commit.
+
+However, the immediate provisional-Take-versus-State-Interpreter/State-Authority ordering remains explicitly OPEN and must be resolved by the dedicated Take contract rather than inferred from earlier chat diagrams.
 
 ## Immediate next action
 
-Validate exact implementation head `401f6bf93aadd8879c1645876b63b729fc6ac962` on the user's native Windows ARM64 development machine unless the branch changes before validation.
+Prepare a standalone H1 Patch 0011 Take Semantics blueprint from canonical repository/project authority.
 
-Required gates:
+Before drafting:
 
-### 1. ARM64 Core/Harness build
+1. read this checkpoint first;
+2. resolve current `main` head;
+3. confirm again that no newer relevant branch/PR exists;
+4. read frozen Blueprint 0.1, approved H1 Deterministic Spine authority, and only the relevant Patch 0006/0007/0008/0009/0010 contracts/evidence needed to recover Take requirements;
+5. explicitly reconcile the open provisional-Take ordering rather than assuming `Interpreter -> Authority -> Take` or `Take -> Interpreter`;
+6. preserve Candidate/Integrity/Interpreter/State Authority identity and non-authority distinctions;
+7. keep Take identity distinct from CandidateContentHash, ProposalContentHash, CommitId, and StateHash;
+8. do not enter atomic commit, ProductionState application, persistence, provider execution, Scene loop, UI, Windows AI/NPU, packaging, WACK, or Store implementation merely as Take-semantics cleanup;
+9. recursively adversarial-audit the standalone blueprint to a full zero-material-change pass before requesting approval;
+10. do not write executable Patch 0011 code before blueprint approval.
 
-```powershell
-dotnet build .\src\Ensemble.E0.Harness\Ensemble.E0.Harness.csproj -c Debug
-```
+## Latest machine-validated regression authority
 
-Required observations:
-- `Ensemble.E0.Core` PASS;
-- `Ensemble.E0.Harness` PASS;
-- Harness target remains `net9.0\win-arm64`;
-- zero build errors.
+Patch 0010 exact machine-tested executable/test head:
+`b07c8e161d221bc9bf2e57802de0aae7b542ce5a`
 
-### 2. Full Core tests
-
-```powershell
-dotnet test .\tests\Ensemble.E0.Core.Tests\Ensemble.E0.Core.Tests.csproj -c Debug
-```
-
-Record exact total/succeeded/failed/skipped counts.
-
-Do not predict the new total before observing the machine result.
-
-### 3. Missing Raft Harness regression
-
-Run the existing canonical Missing Raft Harness command used by the prior patch evidence and require PASS / exit `0`.
-
-### 4. Generic smoke Harness regression
-
-Run the existing generic smoke Harness command used by the prior patch evidence and require PASS / exit `0`.
-
-If compiler/test/runtime feedback reveals a defect, patch only the smallest affected Patch 0010 surface, rerun recursive static review, and return to the exact failed machine gate.
-
-If all four gates pass, record exact machine-tested head and create Patch 0010 ARM64 validation evidence before merge/closure.
-
-## Retained machine-validated baseline
-
-Latest currently machine-validated full Core regression authority remains Patch 0009.
-
-Patch 0009 exact machine-tested executable/test head:
-`a257cf7553398a323d8ce790aa600950eb88c1b9`
-
-Observed on the user's native Windows ARM64 development machine:
-- Core/Harness build PASS;
+Observed:
+- ARM64 Core/Harness build PASS;
 - Harness target `net9.0\win-arm64`;
-- full Core tests `330/330` PASS;
-- Missing Raft Harness PASS / exit `0`;
-- generic smoke Harness PASS / exit `0`.
+- full Core tests `392/392` PASS;
+- Missing Raft Harness PASS;
+- generic smoke Harness PASS.
 
-Patch 0009 detailed evidence:
-`docs/evidence/H1_PATCH_0009_ARM64_VALIDATION.md`
+Detailed evidence:
+`docs/evidence/H1_PATCH_0010_ARM64_VALIDATION.md`
 
-Patch 0008 detailed evidence:
-`docs/evidence/H1_PATCH_0008_ARM64_VALIDATION.md`
-
-Patch 0007 detailed evidence:
-`docs/evidence/H1_PATCH_0007_ARM64_VALIDATION.md`
+Prior validation evidence:
+- `docs/evidence/H1_PATCH_0009_ARM64_VALIDATION.md`;
+- `docs/evidence/H1_PATCH_0008_ARM64_VALIDATION.md`;
+- `docs/evidence/H1_PATCH_0007_ARM64_VALIDATION.md`.
 
 ## Frozen regression identities
 
@@ -245,7 +275,7 @@ Fresh engineering chats must:
 
 1. read `CURRENT_STATE.md` first;
 2. resolve current `main` branch/commit;
-3. inspect relevant active branches/PRs/recent commits before concluding a next contract does not exist;
+3. inspect relevant active branches, PRs, and recent commits before concluding a next contract does not exist;
 4. read only the exact blueprint/evidence/source files needed for the current task;
 5. treat machine evidence supplied by the user as authoritative for that machine;
 6. patch the smallest affected surface;
