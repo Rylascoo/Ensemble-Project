@@ -1,6 +1,6 @@
 # H1 Patch 0013 — E0 Effective Opportunity Authority
 
-Status: blueprint proposal 0.5 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; approval required; implementation not started
+Status: blueprint proposal 0.6 — RECURSIVE ADVERSARIAL AUDIT COMPLETE; ZERO-MATERIAL-CHANGE PASS ACHIEVED; approval required; implementation not started
 Parent repository checkpoint: `main` at `8c89f998fe6f42e04a75b9090fbcc10f0574f5a2`
 Parent machine-tested executable/test authority: H1 Patch 0012 at `39bc078c130ab1165c6a81c1673dd5cd25da3724`
 Branch: `h1-patch-0013-effective-opportunity-authority-blueprint`
@@ -595,7 +595,7 @@ It must:
 11. reconstruct exact structural `DirectorOpportunityInput` from authoritative parent/source-commit/source-history facts;
 12. call `LeastInterventionDirector.Propose(reconstructedInput)`;
 13. require event StrategyContract exactly current least-intervention v1 StrategyContract;
-14. require recomputed selected Character equals event SelectedCharacterId;
+14. require recomputed selected Character equals event.SelectedCharacterId;
 15. recreate result projection with only Current Opportunity changed;
 16. recompute opportunity-transition StateHash;
 17. require it equals event.ResultStateHash;
@@ -1034,11 +1034,11 @@ Proposal 0.1 through 0.4 were not accepted unchanged.
 11. **SourceCommitId duplicated the parent causal pointer.**
     - Corrected: removed SourceCommitId from event/payload. `ParentStateHash` is the sole parent causal pointer and already binds exact source CommitId/Take/control/consequences through Patch 0012's hash preimage.
 
-Recursive audit continues from Proposal 0.5.
+## 42. Recursive adversarial audit — pass 5 zero-material-change result
 
-## 42. Remaining recursive audit checklist
+Proposal 0.5 was re-audited from the reduced event surface rather than presumed correct because prior passes converged.
 
-Before approval, continue until one complete pass finds no material correction or worthwhile simplification across:
+The pass rechecked:
 
 1. Patch 0007 lifecycle fidelity;
 2. Patch 0012 scope/oracle preservation;
@@ -1074,6 +1074,24 @@ Before approval, continue until one complete pass finds no material correction o
 32. naming/terminology consistency;
 33. whether any simpler design preserves all frozen laws with less authority surface.
 
+Result:
+
+```text
+ZERO MATERIAL CORRECTIONS FOUND
+ZERO WORTHWHILE SIMPLIFICATIONS FOUND
+ZERO SCOPE EXPANSIONS REQUIRED
+```
+
+The remaining open work is implementation detail within the frozen Patch 0013 boundary, not blueprint redesign.
+
+Blueprint audit result:
+
+```text
+RECURSIVE ADVERSARIAL AUDIT COMPLETE
+ZERO-MATERIAL-CHANGE PASS ACHIEVED
+APPROVAL REQUIRED BEFORE IMPLEMENTATION
+```
+
 ## 43. Current decision
 
 Current status:
@@ -1084,9 +1102,11 @@ COMPLETE / NATIVE ARM64 VALIDATED / PROMOTED
 
 Patch 0013:
 EFFECTIVE OPPORTUNITY AUTHORITY
-BLUEPRINT PROPOSAL 0.5
-RECURSIVE ADVERSARIAL AUDIT IN PROGRESS
+BLUEPRINT PROPOSAL 0.6
+RECURSIVE ADVERSARIAL AUDIT COMPLETE
+ZERO-MATERIAL-CHANGE PASS ACHIEVED
+APPROVAL REQUIRED
 IMPLEMENTATION NOT AUTHORIZED
 ```
 
-No implementation branch or production-source edit is authorized until this blueprint completes recursive audit and receives explicit user approval.
+No implementation branch or production-source edit is authorized until this blueprint receives explicit user approval.
