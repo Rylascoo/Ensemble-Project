@@ -610,20 +610,20 @@ internal static class ProductionGenesisProjection
                 "Record provenance is invalid.");
         }
 
-        var previous = string.Empty;
-        for (var index = 0; index < provenance.Length; index++)
+        var seen = new HashSet<string>(StringComparer.Ordinal);
+        foreach (var id in provenance)
         {
-            var value = RequireInitialized(provenance[index]);
-            if (index != 0 && string.CompareOrdinal(previous, value) >= 0)
+            var value = RequireInitialized(id);
+            if (!seen.Add(value))
             {
                 throw new ProductionGenesisProjectionException(
-                    "Record provenance is not canonical.");
+                    "Record provenance contains duplicate Record IDs.");
             }
-
-            previous = value;
         }
 
-        return provenance;
+        return provenance
+            .OrderBy(id => id.Value, StringComparer.Ordinal)
+            .ToImmutableArray();
     }
 
     private static void EnsureStrictUniqueCharacters(ImmutableArray<ProductionCharacter> characters)
