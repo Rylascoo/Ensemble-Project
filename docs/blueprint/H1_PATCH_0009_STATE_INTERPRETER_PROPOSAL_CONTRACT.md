@@ -1,6 +1,6 @@
 # H1 Patch 0009 — E0 State Interpreter Mutation-Proposal Contract
 
-Status: blueprint proposal 0.2 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; APPROVAL REQUIRED; implementation not started
+Status: blueprint proposal 0.3 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; APPROVAL REQUIRED; implementation not started
 Parent baseline: machine-validated H1 Patch 0008
 Branch: `h1-patch-0009-state-interpreter-blueprint`
 
@@ -18,18 +18,13 @@ ContextPacket + CandidatePerformance + Integrity Accept evaluation
                         -> later deterministic State Authority
 ```
 
-Patch 0009 defines only:
-
-1. the E0 semantic State Interpreter mutation-proposal vocabulary;
-2. a strict E0 AI JSON transport/parser;
-3. structural binding to the exact Candidate content identity and an Integrity `Accept` evaluation;
-4. bounded structural evidence references for later State Authority review.
+Patch 0009 defines only the E0 semantic State Interpreter mutation-proposal vocabulary, strict E0 AI JSON proposal parser, exact Candidate-content/Integrity structural binding, and bounded structural evidence references for later State Authority review.
 
 It does **not** call a model/provider, authenticate semantic-review provenance, allocate a Take, decide provisional-Take timing, approve/reject mutations, mutate Production state, commit history, persist anything, or trigger another Performer.
 
 ## 2. Recovered frozen authority
 
-Frozen Blueprint 0.1 / H1 sequence:
+Frozen sequence:
 
 1. Performer candidate output;
 2. Director opportunity selection;
@@ -41,80 +36,49 @@ Frozen Blueprint 0.1 / H1 sequence:
 
 Frozen law:
 
-- probabilistic systems may propose; deterministic authority decides;
+- probabilistic systems propose; deterministic authority decides;
 - `Integrity Validator -> State Interpreter -> deterministic State Authority`;
-- State Interpreter proposes what a Performance may mean but never mutates authority;
-- State Authority later decides under creator locks, type/transition rules, review policy, and causal evidence;
+- Interpreter proposes meaning/consequences and never directly mutates authority;
+- State Authority later decides under locks, type/transition rules, review policy, and causal evidence;
 - accepted Performance + approved consequences later form one atomic causal commit;
 - statement != fact; possibility != fact;
-- objective truth, observation, claim, belief, memory, rumor, and unresolved proposition remain distinct;
-- Constitution is read-only in E0;
-- Disposition mutation is rare/conservative;
-- Circumstance may change frequently when supported;
-- creator-locked canon cannot change;
+- truth, observation, claim, belief, memory, rumor, unresolved proposition remain distinct;
+- Constitution read-only in E0;
+- Disposition mutation rare/conservative;
+- Circumstance comparatively fluid;
+- locked canon cannot change;
 - technical failure cannot become fiction;
-- full Observation and World Resolver remain reserved/outside E0;
-- E0 provenance preserves proposed Interpreter mutations plus committed/rejected mutations with reasons.
+- Observation and World Resolver remain reserved/outside E0;
+- E0 preserves proposed Interpreter mutations plus committed/rejected mutation decisions.
 
-Patch 0008 additionally freezes:
+Blueprint 0.1 also excludes complete Scene Consolidation / memory-forgetting design from E0 and leaves selective/false memory behavior open in ODR-18.
 
-- Integrity `Accept` is evaluation only, not accepted Take or State authority;
-- synthetic concern evidence may produce synthetic Accept for tests;
-- later State/Take/orchestration must authenticate configured review provenance before effective progression;
-- provisional-Take-versus-Interpreter ordering remains open;
-- Patch 0008 creates no authority-bearing eligibility/attestation token.
+Patch 0008 freezes Integrity Accept as evaluation only, synthetic Accept testability, later review-provenance authentication, open provisional-Take/Interpreter ordering, and no authority-bearing eligibility token.
 
 ## 3. Why schema/parser comes before provider execution
 
-The frozen next requirement is a **candidate-mutation schema**, not an Interpreter provider integration.
-
-Provider execution would prematurely require unresolved contracts for Interpreter input disclosure, provider-attempt provenance, concern-review authentication, Take timing, retry/cost policy, current ProductionState, StateHash, and causal persistence.
-
-Patch 0009 therefore freezes the proposal boundary only.
+The frozen next requirement is candidate-mutation **schema**, not provider integration. Provider execution would prematurely require Interpreter disclosure composition, provider-attempt provenance, concern-review authentication, Take timing, retry/cost policy, ProductionState/StateHash, and persistence.
 
 ## 4. Creator Ontology Extensibility Guard revisit
 
-The guard requires a deliberate revisit before freezing broad State Interpreter mutation ontology.
-
 E0 decision:
 
-> Use an explicitly E0-scoped authority vocabulary containing only distinctions the frozen experiment already needs. Do not claim these domains are the final creator-facing or post-E0 storage ontology.
+> Use an explicitly E0-scoped authority vocabulary containing only distinctions the frozen experiment needs. Do not treat it as final creator-facing or post-E0 storage ontology.
 
-Therefore:
-
-- UI labels are not storage types;
-- creator-authored dramatic concepts remain open-ended;
-- no generalized meta-ontology is introduced prematurely;
-- current frozen E0 categories remain precise for E0;
-- post-E0 Production/Studio ontology remains open.
+UI labels remain projections; creator dramatic concepts remain open-ended; no speculative meta-ontology is introduced; post-E0 Production/Studio ontology remains open.
 
 ## 5. No provisional-Take ordering decision
 
-Patch 0009 does not decide whether a future orchestration contract creates a provisional Take before or after interpretation/State review.
+Patch 0009 freezes only that a structurally matching Integrity Accept evaluation exists before `StateInterpretationSource.Bind` succeeds. It does not decide when a provisional/accepted Take object exists.
 
-It freezes only:
-
-```text
-A structurally matching Integrity Accept evaluation must exist before
-StateInterpretationSource.Bind succeeds.
-```
-
-That does not mean the Candidate is an accepted Take.
-
-## 6. Contract domains
+## 6. Contracts
 
 ```text
 StateInterpretationContractVersion = ensemble.e0.state-interpreter.proposal.v1
 StateInterpretationJsonSchemaVersion = ensemble.e0.state-interpreter.proposal-json.v1
 ```
 
-Candidate content identity remains Patch 0008:
-
-```text
-ensemble.e0.integrity.candidate-content.v1
-```
-
-Patch 0009 does not redefine Candidate identity.
+Candidate identity remains `ensemble.e0.integrity.candidate-content.v1`.
 
 ## 7. Structurally bound source
 
@@ -126,11 +90,9 @@ StateInterpretationSource.Bind(
     -> StateInterpretationSource
 ```
 
-This is the only Patch 0009 rich-object binding boundary.
+Only Patch 0009 rich-object binding boundary.
 
-It verifies upstream structural identity/evaluation consistency and copies only narrow structural data.
-
-## 8. StateInterpretationSource public shape
+## 8. Source public shape
 
 ```text
 StateInterpretationSource
@@ -142,42 +104,27 @@ StateInterpretationSource
 - IntegrityValidationContract
 ```
 
-No public constructor.
-
-Roster IDs are canonical ordinal.
-
-No Candidate VisibleText, Character-private Context prose, rendering, access audit, provider/model data, Take identity, State mutation, or authority flag is exposed.
+No public constructor. Roster IDs canonical ordinal. No Candidate prose, private Context prose, rendering/access audit, provider/model, Take, State mutation, or authority flag.
 
 ## 9. Source Bind invariants
 
-Fail in the Patch 0009 exception domain unless:
+Fail closed unless:
 
-1. source Context/Candidate/evaluation are non-null and structurally initialized;
-2. Context subject == Context opportunity Character;
-3. fresh `IntegrityCandidateInput.Bind(sourceContext, sourceCandidate)` succeeds;
-4. fresh Integrity input has zero deterministic Reject codes;
-5. evaluation Disposition == `Accept`;
-6. evaluation trace ValidationContract == `ensemble.e0.integrity.validation.v1`;
-7. trace Input identity contract/hash/source ContextPacket identity exactly match the fresh Integrity input;
-8. concern evidence exists, is structurally bound to the same Candidate content, and contains zero concerns;
-9. source Context roster is initialized, exactly three unique E0 Characters, and contains the source Character exactly once.
+1. upstream objects non-null/structurally initialized;
+2. Context subject == Context opportunity;
+3. fresh `IntegrityCandidateInput.Bind` succeeds;
+4. fresh Integrity input has zero Reject codes;
+5. evaluation Disposition == Accept;
+6. evaluation ValidationContract exact current Patch 0008 contract;
+7. evaluation Input identity contract/hash/source Context identity exactly matches fresh input;
+8. concern evidence exists, matches same Candidate content, and contains zero concerns;
+9. source Context roster is exactly three unique initialized E0 Characters containing source once.
 
-Do not reimplement Patch 0006 Candidate validation or Patch 0008 concern semantics.
+Do not duplicate Patch 0006 Candidate validation or Patch 0008 concern semantics.
 
 ## 10. Structural Accept binding is not authentication
 
-A bound Source means only that the supplied semantic objects form a structurally consistent Patch 0008 Accept evaluation for the Candidate content.
-
-It does not prove:
-
-- configured concern review actually occurred;
-- provider/assessor identity;
-- real provider attempt;
-- accepted Take;
-- permission to spend/call a provider;
-- permission to commit State.
-
-Synthetic Accept may create synthetic Source objects for tests. Later orchestration must authenticate review/provider provenance before effective use.
+Bound Source means structural consistency only. It does not prove configured concern review/provider attempt, accepted Take, provider-spend permission, or State authority. Synthetic Accept may bind for tests. Effective orchestration later authenticates review/provider provenance.
 
 ## 11. Semantic proposal
 
@@ -189,19 +136,11 @@ StateInterpretationProposal
 - Mutations
 ```
 
-No public constructor. Strict ParseJson is the E0 construction path.
+No public constructor; strict parser is E0 public construction. No Take/Commit ID, authority disposition, provider/model, confidence, free-form rationale, Director/current-opportunity data, or authoritative new RecordId.
 
-Proposal identity must match the supplied Source exactly.
+## 12. Empty mutation proposal is valid
 
-No Take/Commit ID, acceptance flag, State Authority decision, provider/model, confidence, generated rationale, Director decision, Current Opportunity, or authoritative new RecordId exists.
-
-## 12. Empty mutations are valid
-
-`Mutations = []` means only:
-
-> No durable projected-state mutation is proposed for this Performance.
-
-Accepted historical texture may remain true/recoverable later without becoming durable projected state. Empty mutation output is not rejection and does not erase Performance.
+`Mutations = []` means no durable projected-state mutation proposed. It does not mean rejection or erase accepted historical texture. Performance-history acceptance remains later Take/commit authority.
 
 ## 13. E0 proposal domains
 
@@ -221,40 +160,29 @@ Relationship
 Pressure
 ```
 
-These are E0 authority-target domains, not final UI/storage ontology.
+E0 authority targets only, not final ontology.
 
 ## 14. Domain meanings
 
-- **WorldState** — possible durable world consequence of Character performance; never truth merely because proposed.
-- **SceneState** — possible current Scene-state consequence without creating an autonomous World Resolver.
-- **UnresolvedProposition** — preserves uncertainty as uncertainty.
-- **CharacterKnowledge** — proposed knowledge state; later authority must prevent claim/guess promotion.
-- **CharacterBelief** — proposed belief, possibly false.
-- **CharacterSuspicion** — proposed suspicion, possibly false/uncertain.
-- **CharacterMemory** — proposed durable recollection, which may differ from objective truth.
-- **CharacterGoal** — proposed current goal change.
-- **CharacterDisposition** — proposed persistent tendency; downstream authority must be conservative.
-- **CharacterCircumstance** — proposed fluid immediate Character state.
-- **CharacterClaim** — structured claim attributable to the source Character; claim != fact.
-- **Relationship** — directional semantic relationship effect/state; no numeric psychology.
-- **Pressure** — proposed current/durable pressure without hard-coding every dramatic concept.
+- WorldState — possible Character-caused durable world consequence; not truth merely because proposed.
+- SceneState — possible current Scene consequence; not autonomous World Resolver.
+- UnresolvedProposition — preserves uncertainty.
+- CharacterKnowledge — proposed new knowledge; later authority prevents claim/guess promotion.
+- CharacterBelief — proposed belief, potentially false.
+- CharacterSuspicion — proposed uncertainty/suspicion.
+- CharacterMemory — proposed new recollection; may differ from truth.
+- CharacterGoal — proposed current goal change.
+- CharacterDisposition — proposed persistent tendency; downstream conservative.
+- CharacterCircumstance — proposed fluid immediate state.
+- CharacterClaim — structured source-Character claim; claim != fact.
+- Relationship — directional semantic relationship state/effect; no numeric psychology.
+- Pressure — current/durable pressure without enumerating every dramatic concept.
 
-## 15. Domains the Interpreter cannot represent
+## 15. Absent domains
 
-No proposal domain for:
+No Constitution, HistoricalTruth/accepted Performance history, Observation, direct locked-Canon domain, PresentationPerspective, or Director opportunity mutation.
 
-- Constitution — E0 read-only;
-- HistoricalTruth / accepted Performance history — later Take/commit authority;
-- Observation — reserved observation-eligibility boundary;
-- creator-locked Canon as a direct mutable target;
-- Presentation Perspective — disclosure projection, not State;
-- Director opportunity — routing authority, not State mutation.
-
-## 16. Change semantics: typed semantic union
-
-The semantic Core contract must make invalid operation/text/reference combinations difficult to express.
-
-Freeze one abstract/read-only change concept with exactly three concrete immutable variants:
+## 16. Typed change union
 
 ```text
 StateMutationChange
@@ -269,19 +197,11 @@ StateMutationChange
         ExistingRecordId
 ```
 
-No public constructors; parser/internal invariant builder constructs valid variants.
+No public constructors. Parser/internal builder only.
 
-Semantics:
+Add introduces a new candidate record. Supersede explicitly replaces current semantic projection while preserving historical trace. Deactivate ends current projection while preserving history. No Delete/silent Replace.
 
-- **Add** introduces a new durable semantic record candidate.
-- **Supersede** proposes a new semantic record explicitly superseding an existing record while preserving history.
-- **Deactivate** proposes removal from current projection while preserving historical recoverability.
-
-No destructive Delete or silent in-place Replace exists.
-
-## 17. Typed mutation-candidate union
-
-Freeze one abstract/read-only base concept with exactly four immutable variants:
+## 17. Typed mutation union
 
 ```text
 StateMutationCandidate
@@ -291,7 +211,13 @@ StateMutationCandidate
         Change
         EvidenceRecordIds
 
-    CharacterStateMutationCandidate
+    AppendOnlyCharacterStateMutationCandidate
+        Domain
+        SubjectCharacterId
+        AddStateMutationChange
+        EvidenceRecordIds
+
+    MutableCharacterStateMutationCandidate
         Domain
         SubjectCharacterId
         Change
@@ -309,15 +235,13 @@ StateMutationCandidate
         EvidenceRecordIds
 ```
 
-No public constructors. Parser/internal invariant builder constructs valid variants.
+No public constructors. Flat AI transport converts into these immutable semantic variants.
 
-This is a semantic type boundary only. The AI JSON transport remains flat and discriminator-based for simplicity.
-
-## 18. Domain membership per semantic variant
+## 18. Domain membership and operation restrictions
 
 ### GlobalStateMutationCandidate
 
-Domain must be exactly one of:
+Domains:
 
 ```text
 WorldState
@@ -326,91 +250,80 @@ UnresolvedProposition
 Pressure
 ```
 
-### CharacterStateMutationCandidate
+Any Add/Supersede/Deactivate change may be proposed; later authority decides legality.
 
-Domain must be exactly one of:
+### AppendOnlyCharacterStateMutationCandidate
+
+Domains exactly:
 
 ```text
 CharacterKnowledge
+CharacterMemory
+```
+
+Requires roster SubjectCharacterId and **Add only**.
+
+Reason: E0 may model learning/new recollection, but Patch 0009 must not silently freeze forgetting, unlearning, memory deletion, or memory-rewrite semantics that Blueprint 0.1 explicitly leaves outside E0/ODR-18.
+
+A later contradictory/corrective recollection may be a new Memory proposal; it does not overwrite the historical existence of the earlier memory record in Patch 0009.
+
+### MutableCharacterStateMutationCandidate
+
+Domains:
+
+```text
 CharacterBelief
 CharacterSuspicion
-CharacterMemory
 CharacterGoal
 CharacterDisposition
 CharacterCircumstance
 ```
 
-SubjectCharacterId must be an exact current E0 roster member.
+Requires roster SubjectCharacterId; any Add/Supersede/Deactivate change may be proposed. State Authority later controls legality and conservatism.
 
 ### CharacterClaimMutationCandidate
 
-- implicit Domain = `CharacterClaim`;
-- implicit operation = Add;
-- SubjectCharacterId must equal SourceCharacterId;
-- claim Text required;
-- no ExistingRecordId exists in semantic shape.
+- implicit CharacterClaim domain;
+- source Character only;
+- Add-only;
+- Text required;
+- no ExistingRecordId semantic field.
 
-Later contradictory claims are new claims, never rewrites/deletions of earlier claims.
+Claims are historical assertions. Later contradictory statements are additional claims, never rewritten prior claims.
 
 ### RelationshipStateMutationCandidate
 
-- implicit Domain = `Relationship`;
-- subject + target must both be exact current roster members;
-- subject != target;
-- contains a typed Change.
-
-No semantic mutation variant contains nullable Character IDs merely to satisfy another domain's shape.
+- implicit Relationship domain;
+- distinct roster subject + target;
+- any typed Change candidate;
+- downstream authority controls durability.
 
 ## 19. ExistingRecordId semantics
 
-ExistingRecordId exists only inside Supersede/Deactivate change variants.
-
-Parser validates syntactic RecordId validity only.
-
-It does **not** prove existence, active status, ownership/domain, mutability, creator-lock status, or causal suitability.
-
-Later deterministic State Authority must validate all of those against authoritative state.
+Only Supersede/Deactivate contain ExistingRecordId. Parser validates syntax only—not existence, domain, ownership, active state, lock status, or causal fitness. State Authority later validates those.
 
 ## 20. Mutation text
 
-Add/Supersede text and CharacterClaim text:
-
-- non-null/non-empty;
-- exact decoded content preserved;
-- no trim/repair/normalization;
-- must already be NFC;
-- LF/TAB allowed;
-- other Unicode Control scalars rejected;
-- must contain a display-bearing Unicode scalar using the Patch 0006 category principle.
-
-Text is untrusted interpreted creative content, never instruction/authority.
-
-Deactivate has no Text property in semantic shape.
+Add/Supersede/Claim Text is non-null/non-empty, exact, already NFC, no trim/repair, LF/TAB allowed, other Control scalars rejected, and must include one display-bearing scalar under Patch 0006 category principle. Text is untrusted creative interpretation, not instruction authority. Deactivate semantic type has no Text property.
 
 ## 21. EvidenceRecordIds
 
-Each semantic mutation variant carries immutable EvidenceRecordIds:
+Every semantic mutation carries immutable EvidenceRecordIds:
 
-- syntactically valid RecordIds;
+- syntactically valid;
 - duplicate-free;
 - canonical ordinal order;
-- may be empty because Candidate content itself is always the root causal source;
-- may refer to supporting state the future Interpreter was shown;
-- never proves record existence, disclosure, relevance, or authority.
+- may be empty because Candidate content is root causal source;
+- may reference supporting state future Interpreter input disclosed;
+- does not prove existence/disclosure/relevance/authority.
 
-Provider/orchestration provenance later establishes actual Interpreter disclosure. State Authority later validates evidence references against authoritative State.
+Later provider provenance establishes actual disclosure. State Authority validates references. No free-form rationale, quote, score, confidence, or hidden reasoning.
 
-No free-form rationale, quote, numeric confidence, score, or hidden reasoning is part of the mutation contract.
+## 22. Candidate content root binding
 
-## 22. Candidate content is root binding
-
-Every proposal carries CandidateContentIdentityContract + CandidateContentHash matching StateInterpretationSource.
-
-Candidate hash is content identity only—not provider attempt, accepted Take, or commit identity.
+Proposal identity contract/hash must exactly match Source. Candidate hash remains content identity only—not provider attempt, Take, or commit identity.
 
 ## 23. Flat AI JSON transport
-
-The transport deliberately stays flat even though semantic Core types are stricter:
 
 ```json
 {
@@ -431,11 +344,11 @@ The transport deliberately stays flat even though semantic Core types are strict
 }
 ```
 
-All seven mutation properties are required in transport, using explicit null where semantically absent. Parser converts a valid flat object into the appropriate immutable semantic variant/change type.
+All seven mutation properties required with explicit nulls where absent. Transport stays flat for AI simplicity; semantic Core representation is typed.
 
-Property order/insignificant whitespace have no meaning.
+## 24. Transport strings
 
-## 24. Exact transport domain strings
+Domains:
 
 ```text
 worldState
@@ -453,53 +366,20 @@ relationship
 pressure
 ```
 
-Operation strings:
-
-```text
-add
-supersede
-deactivate
-```
-
-Exact case only; no aliases.
+Operations: `add | supersede | deactivate`. Exact case; no aliases.
 
 ## 25. Transport-to-semantic rules
 
-### Global domains
+- Global domains: subject/target null.
+- Knowledge/Memory: roster subject, target null, operation must add, existingRecordId null, Text valid.
+- Mutable Character domains: roster subject, target null, change combination exact.
+- Relationship: distinct roster subject+target, change exact.
+- CharacterClaim: operation add; subject == source; target/existingRecordId null; Text valid.
+- Add -> existingRecordId null + Text -> AddStateMutationChange.
+- Supersede -> ExistingRecordId + Text -> SupersedeStateMutationChange.
+- Deactivate -> ExistingRecordId + text null -> DeactivateStateMutationChange.
 
-Transport requires subjectCharacterId = null and targetCharacterId = null.
-
-### Character state domains
-
-Transport requires roster subjectCharacterId and targetCharacterId = null.
-
-### Relationship
-
-Transport requires distinct roster subject + target.
-
-### CharacterClaim
-
-Transport requires:
-
-- operation = `add`;
-- subject = source Character;
-- target = null;
-- existingRecordId = null;
-- text valid.
-
-### Add
-
-existingRecordId = null; text required -> AddStateMutationChange.
-
-### Supersede
-
-existingRecordId required; text required -> SupersedeStateMutationChange.
-
-### Deactivate
-
-existingRecordId required; text = null -> DeactivateStateMutationChange.
-
-Invalid field combinations fail before semantic object construction.
+Invalid combinations fail before semantic construction.
 
 ## 26. Strict parser
 
@@ -510,273 +390,216 @@ StateInterpretationContract.ParseJson(
     -> StateInterpretationProposal
 ```
 
-Requirements:
-
-- validate trusted Source before untrusted JSON;
+- validate trusted Source first;
 - non-empty UTF-8; BOM rejected;
 - max 1,048,576 bytes inclusive;
-- max JSON depth 8;
-- comments/trailing commas rejected;
-- malformed UTF-8/JSON rejected;
-- decoded duplicate property names rejected at every object;
+- max depth 8;
+- comments/trailing commas/malformed UTF-8/JSON rejected;
+- decoded duplicate properties rejected at every object;
 - unknown/missing properties rejected;
-- exact property name/case;
-- exact enum strings;
-- wrong JSON types/trailing content rejected;
-- candidate identity contract/hash must match Source exactly;
-- Character IDs must satisfy roster/cardinality rules;
-- RecordIds syntactically valid;
-- EvidenceRecordIds duplicates rejected then canonicalized ordinally;
-- exact duplicate semantic mutations rejected after canonical evidence ordering;
-- exceptions sanitized: no mutation Text, arbitrary unknown property names/values, raw snippets, or provider content.
+- exact names/case/enums/types;
+- trailing content rejected;
+- Candidate identity must match Source;
+- Character IDs must satisfy roster/domain rules;
+- RecordIds syntax checked;
+- Evidence duplicates rejected then ordinal canonicalization;
+- exact duplicate semantic mutations rejected after evidence canonicalization;
+- sanitized exceptions do not echo mutation Text, unknown names/values, raw snippets, provider content.
 
-No provider/model call occurs.
+No provider call.
 
 ## 27. Mutation array ordering
 
-Mutation array order is preserved exactly for experimental reconstruction.
+Array order preserved for reconstruction but confers no State Authority priority/sequential application. State Authority later defines whole-batch conflict/staleness behavior.
 
-Order grants no State Authority priority and does not define sequential application.
+## 28. Duplicates/conflicts
 
-Later State Authority must define deterministic complete-batch conflict/stale-state behavior.
-
-## 28. Duplicates versus conflicts
-
-Exact duplicate semantic mutations fail.
-
-Non-identical conflicting proposals remain representable because probabilistic interpretation may be inconsistent. Patch 0009 does not silently rank, merge, rewrite, or resolve them.
-
-Later deterministic State Authority owns that decision.
+Exact duplicate semantic mutations fail. Non-identical conflicts remain representable; Patch 0009 does not rank/merge/repair. State Authority later decides.
 
 ## 29. No hidden rewriting
 
-Parser does not rewrite/summarize mutation text; merge proposals; repair contradictions; convert claim/belief/suspicion into knowledge/fact; auto-promote WorldState; auto-resolve UnresolvedProposition; infer Observation; or manufacture social consequences absent output.
+No text rewrite/summarization, proposal merging, contradiction repair, claim/belief/suspicion->knowledge/fact conversion, WorldState promotion, UnresolvedProposition resolution, Observation inference, or manufactured social effects.
 
 ## 30. Proposal is not authority
 
-```text
-StateInterpretationProposal != approved mutations
-StateMutationCandidate != committed consequence
-StateInterpretationProposal != accepted Take
-```
+`StateInterpretationProposal != approved mutation != committed consequence` and `StateInterpretationProposal != accepted Take`.
 
-Only later State Authority may approve/reject mutation candidates. Only later Take/commit authority may make accepted Performance + approved consequences causal history.
+Only later State Authority may approve/reject. Only later Take/commit authority makes Performance + approved consequences causal history.
 
 ## 31. No direct mutation API
 
-Patch 0009 exposes no operation that takes ProductionState and returns mutated State, allocates authoritative RecordIds, modifies fixture/Character/Relationship/Pressure/World state, writes history, or persists files.
-
-Direct State mutation by Interpreter is an E0 hard-gate violation.
+No ProductionState-in/ProductionState-out, authoritative RecordId allocation, fixture/Character/Relationship/Pressure/World mutation, history write, or persistence. Direct Interpreter mutation is an E0 hard-gate violation.
 
 ## 32. No truth promotion
 
-Domain names describe proposed destination authority only if later approved.
+Domain names describe proposed destinations only if later approved. Claim does not justify WorldState; guess does not justify Knowledge; explicit physical action may justify a World/Scene proposal but State Authority still checks locks/possibility/transitions/causality.
 
-- a claim about the raft does not justify WorldState by itself;
-- a guess about Marlowe does not justify Knowledge;
-- an explicit physical action may lead to a World/Scene proposal, but State Authority still checks locks, possibility, transition legality, and causality.
+## 33. Disposition/Relationship conservatism downstream
 
-Parser has no truth-promotion authority.
+Interpreter may propose these domains; State Authority later enforces rare/conservative Disposition change, immediate-vs-durable distinction, semantic nonnumeric relationship representation, locks, and transitions. No score/threshold here.
 
-## 33. Disposition/Relationship conservatism is downstream
+## 34. Observation reserved
 
-Interpreter may propose Disposition/Relationship changes, but downstream State Authority must enforce rare/conservative durable Disposition change, avoid confusing immediate social effect with durable identity change, preserve semantic rather than numeric psychology, and enforce creator locks/transition rules.
+No CharacterObservation proposal. Memory/Belief/Suspicion never retroactively prove Observation.
 
-No score/threshold is invented here.
+## 35. World Resolver separate
 
-## 34. Observation remains reserved
+World/Scene proposals are interpreted consequences of Character Performance, not autonomous world evolution. Weather/scheduled/resource/non-Character possibility evolution remains future World Resolver.
 
-No CharacterObservation proposal exists. Memory/Belief/Suspicion proposals do not retroactively prove Observation.
+## 36. Interpreter input/provider disclosure open
 
-## 35. World Resolver remains separate
+Patch 0009 does not freeze Interpreter input. Future composition minimizes disclosure, preserves attempt provenance, separates trusted state from untrusted Performance, does not treat dialogue as instruction, avoids whole-Production disclosure by default, and preserves credentials/privacy. State Interpreter is not a Character; a separate bounded disclosure contract is later.
 
-WorldState/SceneState proposals here are consequences of interpreted Character Performance, not autonomous non-Character world evolution. Weather/scheduled/resource/possibility evolution without Character causation remains future World Resolver scope.
+## 37. E0 controls
 
-## 36. Interpreter input/provider disclosure remains open
-
-Patch 0009 does not freeze exact Interpreter provider input.
-
-Future input composition must minimize disclosure, preserve provider-attempt provenance, separate trusted State from untrusted Performance text, avoid treating dialogue as instruction, avoid assuming whole-Production disclosure, and preserve credentials/privacy.
-
-State Interpreter is not a Character, so Character Access Control is not automatically its policy; a separate bounded orchestration disclosure contract is later.
-
-## 37. E0 control isolation
-
-Applies directly to per-Character Candidate/Integrity paths (A and compatible B/C/D/G). E0-F may inject malformed/stale/conflicting Interpreter output.
-
-E0-E single-playwright control is not forced through this Candidate-specific parser. Its consequence protocol is later control-specific while still satisfying hard integrity/atomic-causality requirements.
+Directly applies to per-Character Candidate/Integrity paths (A and compatible B/C/D/G). E0-F may inject failures. E0-E playwright is not forced through this Candidate-specific parser; its consequence protocol is later control-specific while satisfying hard integrity/causality.
 
 ## 38. Determinism
 
-Identical valid Source + semantically equivalent valid JSON structure/content -> identical semantic proposal.
-
-No clock/random/culture/filesystem/network/provider/AI/GPU/NPU/global mutable state affects parsing.
-
-Property order/whitespace do not affect semantics. Mutation array order remains preserved. Evidence IDs canonicalize ordinally.
+Identical valid Source + semantically equivalent JSON structure/content -> identical semantic proposal. No clock/random/culture/filesystem/network/provider/AI/GPU/NPU/global mutable state. Property order/whitespace insignificant; mutation order preserved; evidence IDs canonicalized.
 
 ## 39. Failure domain
 
-One small State Interpreter contract exception type.
-
-Failure includes malformed Source, non-Accept/mismatched Integrity evaluation, malformed transport, unsupported schema/domain/operation, invalid field combination, invalid Character/Record IDs, invalid text, stale Candidate hash, or exact duplicate semantic mutation.
-
-Failure creates no fictional fallback consequence, State mutation, retry permission, or Take disposition.
+One small State Interpreter exception domain. Malformed Source, non-Accept/mismatch, bad transport/schema/domain/operation/field combination/ID/text/hash/duplicate -> exception. Failure creates no fictional consequence, State mutation, retry authorization, or Take disposition.
 
 ## 40. Required tests/review gates
 
-Use canonical upstream Missing Raft Context/Candidate/Integrity construction. Do not add public bypass constructors for impossible authority states.
+Use canonical upstream construction; no public test bypasses.
 
-### Source binding
-1. canonical Voss Context + Candidate + Patch 0008 Accept binds;
+### Source
+1. canonical Voss Context/Candidate/Patch 0008 Accept binds;
 2. Source constructor non-public;
-3. non-Accept fails;
-4. fresh deterministic Reject fails;
-5. evaluation/content hash mismatch fails;
-6. evaluation/source Context identity mismatch fails;
-7. unsupported Integrity ValidationContract fails;
-8. synthetic Accept may bind but Source exposes no auth/authority flag;
-9. Source public surface contains no Candidate text/private Context/Take/State/provider data;
-10. roster canonical ordinal/exactly three;
-11. impossible malformed upstream states handled by defensive/reflection review only.
+3. non-Accept/reject/mismatch/unsupported validation contract fail;
+4. synthetic Accept may bind but no auth/authority flag;
+5. Source public surface excludes prose/Take/State/provider;
+6. roster canonical exactly three;
+7. impossible upstream malformed states defensive/reflection review.
 
 ### Proposal/transport
-12. Proposal constructor non-public;
-13. exact proposal fields only;
-14. empty mutations valid;
-15. representative valid mutation parses;
-16. property order/whitespace insignificant;
-17. candidate hash/identity mismatch fails;
-18. unknown/missing/decoded-duplicate properties fail;
-19. wrong types/trailing content/comments/trailing comma/BOM fail;
-20. exact 1 MiB otherwise-valid envelope accepted; +1 rejected;
-21. depth >8 rejected;
-22. exception output does not echo mutation text/raw JSON.
+8. Proposal constructor non-public/exact fields;
+9. empty mutations valid;
+10. representative mutation parses;
+11. property order/whitespace insignificant;
+12. candidate identity mismatch fails;
+13. unknown/missing/decoded-duplicate/wrong type/trailing/comments/comma/BOM fail;
+14. 1 MiB inclusive valid envelope; +1 fails;
+15. depth >8 fails;
+16. errors do not echo creative text/raw JSON.
 
 ### Semantic type safety
-23. semantic base/variants/change variants constructors non-public;
-24. Global semantic variant cannot carry Character IDs by shape;
-25. Character semantic variant has one required SubjectCharacterId and no target by shape;
-26. Relationship semantic variant has required subject+target by shape;
-27. Claim semantic variant has no ExistingRecordId/Deactivate/Supersede shape;
-28. Deactivate change has no Text property;
-29. Add change has no ExistingRecordId property;
-30. Supersede has both ExistingRecordId + Text;
-31. parser cannot construct invalid variant/change combination.
+17. all semantic constructors non-public;
+18. Global variant cannot carry Character IDs by shape;
+19. append-only Character variant exposes Add change only;
+20. mutable Character variant has subject/no target;
+21. Relationship has required subject+target;
+22. Claim has no existing-record/change operation shape;
+23. Deactivate has no Text; Add no ExistingRecordId; Supersede has both;
+24. parser cannot construct invalid variant/change combination.
 
 ### Domains/operations
-32. every frozen E0 domain parses under valid rules;
-33. no Constitution/HistoricalTruth/Observation/PresentationPerspective/Director domain exists;
-34. non-roster Character target fails;
-35. Relationship self-target fails;
-36. Claim must be source Character/Add-only;
-37. Add/Supersede/Deactivate transport combinations exact;
-38. Delete/Replace operation strings rejected;
-39. RecordId syntax validated but existence/authority not claimed;
-40. Evidence ID duplicate fails and order canonicalizes;
-41. exact duplicate semantic mutation fails;
-42. conflicting non-identical mutations remain representable.
+25. all E0 domains valid under exact variant rules;
+26. Knowledge/Memory reject supersede/deactivate;
+27. no Constitution/HistoricalTruth/Observation/PresentationPerspective/Director domain;
+28. non-roster target/self-relationship fail;
+29. Claim source-only/Add-only;
+30. Delete/Replace strings rejected;
+31. RecordId syntax does not claim existence/authority;
+32. Evidence duplicate fails/order canonicalizes;
+33. exact duplicate mutation fails; non-identical conflict representable.
 
 ### Text/truth/authority
-43. text exact/no trim/rewrite;
-44. non-NFC/control/invisible-only text fails;
-45. empty mutation list means no durable mutation only;
-46. Claim remains distinct from WorldState/Knowledge;
-47. Belief/Suspicion/Memory may differ from truth without parser rejection;
-48. WorldState/Knowledge/Disposition proposal creates no authority;
-49. no confidence/score/rationale;
-50. no State apply/RecordId allocation;
-51. no Take/Commit API;
-52. no provider/retry/spend API;
-53. no Director/opportunity mutation.
+34. exact text/no rewrite; non-NFC/control/invisible-only fail;
+35. empty list means no durable mutation only;
+36. Claim distinct from WorldState/Knowledge;
+37. Belief/Suspicion/Memory may diverge from truth;
+38. WorldState/Knowledge/Disposition proposal creates no authority;
+39. no memory forgetting/unlearning proposal shape in E0;
+40. no confidence/score/rationale;
+41. no State apply/RecordId allocation;
+42. no Take/Commit/provider/retry/spend/Director mutation APIs.
 
 ### Regression
-54. Patch 0008 Candidate content hash oracle unchanged;
-55. Missing Raft StructuredContextHash unchanged;
-56. Missing Raft RenderedContextHash unchanged;
-57. Missing Raft ECJ-1 9112 bytes/hash unchanged;
-58. all existing 253 Core tests green;
-59. Missing Raft Harness PASS/0;
-60. smoke Harness PASS/0.
+43. Patch 0008 Candidate hash oracle unchanged;
+44. Missing Raft Structured/Rendered Context hashes unchanged;
+45. Missing Raft ECJ-1 9112 bytes/hash unchanged;
+46. existing 253 Core tests green;
+47. Missing Raft Harness PASS/0;
+48. smoke Harness PASS/0.
 
-## 41. ARM64/battery suitability
+## 41. ARM64/battery
 
-Tiny deterministic CPU work only: bounded UTF-8 JSON parsing, enum/ID validation, Unicode checks, immutable-array canonicalization.
-
-No network/provider/background/AI/GPU/NPU/filesystem/polling. No NPU claim.
+Tiny deterministic bounded parsing/ID/Unicode/immutable-array work. No network/provider/background/AI/GPU/NPU/filesystem/polling. No NPU claim.
 
 ## 42. Explicit exclusions
 
-No Interpreter provider call/input composer; assessor/provider auth; provider-attempt persistence; retry/spend/cancellation execution; provisional/accepted/rejected/alternate Take semantics; State Authority; ProductionState/StateHash; authoritative RecordId allocation; mutation application; atomic Performance+consequence commit; causal persistence/recovery; effective opportunity mutation/history append; Scene loop; full Observation; World Resolver; E0-E control protocol; post-E0 ontology; final Studio/Archive mutation UX; WinUI; Windows AI/NPU; packaging/WACK/Store.
+No Interpreter provider/input composer; review/provider authentication; provider-attempt persistence; retries/spend/cancellation; provisional/accepted/rejected/alternate Take semantics; State Authority; ProductionState/StateHash; authoritative RecordId allocation; mutation application; atomic causal commit; persistence/recovery; effective opportunity/history append; Scene loop; memory-forgetting design; full Observation; World Resolver; E0-E control protocol; post-E0 ontology; final mutation UX; WinUI/Windows AI/NPU/packaging/WACK/Store.
 
 ## 43. Recursive audit dimensions
 
-Restart after every material correction and test:
+Restart after each material correction:
 
-1. State Interpreter vs State Authority;
-2. Integrity -> Interpreter sequencing;
-3. Integrity Accept != accepted Take;
-4. provisional-Take ordering remains open;
-5. creator-ontology guard;
-6. E0 category fidelity;
-7. Constitution read-only;
-8. truth/claim/knowledge/belief/suspicion/memory separation;
+1. Interpreter vs State Authority;
+2. Integrity sequencing/Accept non-authority;
+3. Take ordering open;
+4. creator-ontology guard;
+5. E0 category fidelity;
+6. Constitution read-only;
+7. truth/claim/knowledge/belief/suspicion/memory separation;
+8. memory-forgetting ODR preservation;
 9. Observation boundary;
-10. World Resolver separation;
+10. World Resolver;
 11. historical texture vs durable consequence;
 12. append-only/supersession semantics;
-13. semantic invalid-state representability;
+13. invalid semantic state representability;
 14. proposal vs authority;
-15. creator locks deferred to State Authority;
-16. Disposition/Relationship conservatism;
-17. Candidate content binding;
-18. Integrity structural binding vs assessor auth;
-19. evidence/provenance sufficiency;
-20. stale/hallucinated RecordId non-authority;
-21. least-privilege public surface;
-22. untrusted text/hidden rewrite;
-23. transport strictness/resource bounds;
-24. deterministic ordering;
-25. conflicting proposal handling;
-26. E0 control compatibility/isolation;
-27. experimental provenance reconstruction;
-28. API non-forgeability/minimality;
-29. executable-vs-defensive testability;
-30. Hygiene Constitution;
-31. ARM64 suitability;
-32. scope/validation claims.
+15. locks/conservative change downstream;
+16. Candidate content/Integrity structural binding vs auth;
+17. evidence/provenance sufficiency;
+18. RecordId non-authority;
+19. least privilege;
+20. untrusted text/no rewrite;
+21. strict transport/resource bounds;
+22. deterministic ordering/conflicts;
+23. E0 control isolation;
+24. experimental reconstruction;
+25. API minimality/non-forgeability;
+26. testability;
+27. Hygiene Constitution;
+28. ARM64;
+29. scope/validation claims.
 
-Approval only after a complete restart finds zero material correction or worthwhile improvement.
+Approval only after a complete restart finds zero material correction/worthwhile improvement.
 
 ## 44. Material approval decisions
 
 Approval would freeze only:
 
-1. Patch 0009 is State Interpreter proposal schema/parser only;
-2. Source Bind structurally requires exact Patch 0008 Accept evaluation but authenticates neither assessor provenance nor Take status;
-3. provisional-Take ordering remains open;
-4. semantic contract `ensemble.e0.state-interpreter.proposal.v1`;
-5. JSON schema `ensemble.e0.state-interpreter.proposal-json.v1`;
-6. Source exposes Candidate content identity, source Character/Context IDs, canonical three-Character roster, Integrity ValidationContract only;
-7. empty mutation list valid = no durable projected mutation proposed;
-8. E0 domains: WorldState, SceneState, UnresolvedProposition, CharacterKnowledge, CharacterBelief, CharacterSuspicion, CharacterMemory, CharacterGoal, CharacterDisposition, CharacterCircumstance, CharacterClaim, Relationship, Pressure;
-9. domains are E0 authority vocabulary, not final creator-facing/post-E0 ontology;
-10. Constitution/HistoricalTruth/Observation/PresentationPerspective/Director opportunity absent;
-11. semantic mutations use typed Global/Character/Claim/Relationship variants and typed Add/Supersede/Deactivate changes, preventing invalid nullable discriminator states;
-12. no destructive Delete/silent Replace;
-13. Claim is source-Character Add-only and cannot be rewritten;
-14. ExistingRecordId/EvidenceRecordIds are syntactic proposal references only;
-15. Candidate hash is root content binding and not attempt/Take/commit identity;
-16. mutation text exact/NFC/display-bearing where required; no rewrite;
-17. Evidence IDs duplicate-free/canonical/may-empty and imply no auth/disclosure claim;
-18. mutation array order preserved for reconstruction but confers no commit priority;
-19. exact duplicate semantic mutations fail; conflicting non-identical proposals remain for State Authority;
-20. strict parser uses 1 MiB inclusive, depth 8, strict unknown/missing/duplicate/type/trailing rules;
-21. no confidence/rationale/score/provider/Take/State/commit/Director authority fields;
-22. proposal domain names never themselves create truth/knowledge/durable change;
-23. Observation and autonomous World evolution remain separate future authority paths;
+1. Patch 0009 schema/parser only;
+2. structural Source Bind requires exact Patch 0008 Accept but authenticates neither assessor nor Take;
+3. Take ordering remains open;
+4. semantic `ensemble.e0.state-interpreter.proposal.v1` and JSON `ensemble.e0.state-interpreter.proposal-json.v1`;
+5. Source is narrow Candidate identity/source Character/Context/roster/Integrity-contract data only;
+6. empty mutations valid = no durable projected mutation proposed;
+7. E0 domains exactly WorldState, SceneState, UnresolvedProposition, CharacterKnowledge, CharacterBelief, CharacterSuspicion, CharacterMemory, CharacterGoal, CharacterDisposition, CharacterCircumstance, CharacterClaim, Relationship, Pressure;
+8. E0 domains do not freeze final ontology;
+9. Constitution/HistoricalTruth/Observation/PresentationPerspective/Director absent;
+10. semantic typed variants make global/append-only-character/mutable-character/claim/relationship invalid states difficult to express;
+11. typed changes Add/Supersede/Deactivate; no Delete/Replace;
+12. CharacterKnowledge and CharacterMemory are Add-only in E0, preserving unresolved forgetting/unlearning design;
+13. Claim source-Character Add-only;
+14. Existing/Evidence RecordIds are syntactic proposal references only;
+15. Candidate hash root binding is not attempt/Take/commit identity;
+16. text exact/NFC/display-bearing; no rewrite;
+17. evidence IDs canonical/duplicate-free/may-empty and imply no auth/disclosure;
+18. mutation order preserved for reconstruction, no commit priority;
+19. exact duplicates fail; non-identical conflicts remain State Authority problem;
+20. parser 1 MiB inclusive/depth 8/strict structure;
+21. no scores/rationale/provider/Take/State/commit/Director authority fields;
+22. domain names do not create truth/knowledge/durable change;
+23. Observation/autonomous World evolution separate;
 24. E0-E not forced through Candidate-specific schema;
-25. later State Authority owns existence/domain/locks/transitions/staleness/conflict/causal-evidence/conservative-change review;
-26. post-E0 ontology remains open under Creator Ontology Extensibility Guard;
-27. no provider, Take, State Authority, commit, persistence, Scene-loop, UI, Windows AI/NPU, or Store scope enters Patch 0009.
+25. later State Authority owns existence/domain/locks/transitions/stale/conflict/evidence/conservative change;
+26. post-E0 ontology remains open;
+27. no provider, Take, State Authority, commit, persistence, Scene loop, UI, Windows AI/NPU, Store scope.
 
-Implementation remains blocked until recursive audit completes and the user explicitly approves the final proposal.
+Implementation remains blocked until recursive audit completes and user explicitly approves the final proposal.
