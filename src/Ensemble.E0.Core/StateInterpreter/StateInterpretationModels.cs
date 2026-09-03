@@ -322,7 +322,11 @@ public sealed class GlobalStateMutationCandidate : StateMutationCandidate
         StateMutationDomain domain,
         StateMutationChange change,
         ImmutableArray<RecordId> supportingRecordIds)
-        : base(domain, supportingRecordIds) => Change = change;
+        : base(domain, supportingRecordIds)
+    {
+        StateMutationSemanticInvariants.RequireGlobalDomain(domain);
+        Change = change;
+    }
 
     public StateMutationChange Change { get; }
 }
@@ -336,6 +340,7 @@ public sealed class AppendOnlyCharacterStateMutationCandidate : StateMutationCan
         ImmutableArray<RecordId> supportingRecordIds)
         : base(domain, supportingRecordIds)
     {
+        StateMutationSemanticInvariants.RequireAppendOnlyCharacterDomain(domain);
         SubjectCharacterId = subjectCharacterId;
         Change = change;
     }
@@ -353,6 +358,7 @@ public sealed class MutableCharacterStateMutationCandidate : StateMutationCandid
         ImmutableArray<RecordId> supportingRecordIds)
         : base(domain, supportingRecordIds)
     {
+        StateMutationSemanticInvariants.RequireMutableCharacterDomain(domain);
         SubjectCharacterId = subjectCharacterId;
         Change = change;
     }
@@ -406,6 +412,44 @@ public sealed class StateInterpretationException : Exception
     public StateInterpretationException(string message, Exception innerException)
         : base(message, innerException)
     {
+    }
+}
+
+internal static class StateMutationSemanticInvariants
+{
+    public static void RequireGlobalDomain(StateMutationDomain domain)
+    {
+        if (domain is not StateMutationDomain.WorldState and
+            not StateMutationDomain.SceneState and
+            not StateMutationDomain.UnresolvedProposition and
+            not StateMutationDomain.Pressure)
+        {
+            throw new StateInterpretationException(
+                "Global State mutation candidate contains an invalid domain family.");
+        }
+    }
+
+    public static void RequireAppendOnlyCharacterDomain(StateMutationDomain domain)
+    {
+        if (domain is not StateMutationDomain.CharacterKnowledge and
+            not StateMutationDomain.CharacterMemory)
+        {
+            throw new StateInterpretationException(
+                "Append-only Character State mutation candidate contains an invalid domain family.");
+        }
+    }
+
+    public static void RequireMutableCharacterDomain(StateMutationDomain domain)
+    {
+        if (domain is not StateMutationDomain.CharacterBelief and
+            not StateMutationDomain.CharacterSuspicion and
+            not StateMutationDomain.CharacterGoal and
+            not StateMutationDomain.CharacterDisposition and
+            not StateMutationDomain.CharacterCircumstance)
+        {
+            throw new StateInterpretationException(
+                "Mutable Character State mutation candidate contains an invalid domain family.");
+        }
     }
 }
 
