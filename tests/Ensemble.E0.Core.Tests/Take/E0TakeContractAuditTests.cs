@@ -45,26 +45,27 @@ public sealed class E0TakeContractAuditTests
                 nameof(E0TakeException)
             }.OrderBy(name => name, StringComparer.Ordinal).ToArray(),
             takeTypes.Select(type => type.Name).ToArray());
-        Assert.AreEqual("ensemble.e0.take.v1", E0TakeContracts.ContractVersion);
+        var contractVersionField = typeof(E0TakeContracts).GetField(
+            nameof(E0TakeContracts.ContractVersion),
+            BindingFlags.Public | BindingFlags.Static)
+            ?? throw new InvalidOperationException("E0 Take contract version field is missing.");
+        Assert.AreEqual("ensemble.e0.take.v1", contractVersionField.GetRawConstantValue());
     }
 
     [TestMethod]
     public void TakeConstructionSurface_IsSealedPrivateAndBindOnly()
     {
-        var takeType = typeof(E0TakeContracts).Assembly.GetType(
-            "Ensemble.E0.Core.Take.E0Take",
-            throwOnError: true)!;
-        Assert.IsTrue(takeType.IsSealed);
+        Assert.IsTrue(typeof(E0Take).IsSealed);
 
-        var constructors = takeType
+        var constructors = typeof(E0Take)
             .GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic);
         Assert.AreEqual(1, constructors.Length);
         Assert.IsTrue(constructors[0].IsPrivate);
         Assert.AreEqual(
             0,
-            takeType.GetConstructors(BindingFlags.Instance | BindingFlags.Public).Length);
+            typeof(E0Take).GetConstructors(BindingFlags.Instance | BindingFlags.Public).Length);
 
-        var operations = takeType
+        var operations = typeof(E0Take)
             .GetMethods(BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance | BindingFlags.DeclaredOnly)
             .Where(method => !method.IsSpecialName)
             .ToArray();
@@ -120,6 +121,7 @@ public sealed class E0TakeContractAuditTests
             },
             properties.Select(property => property.Name).ToArray());
         Assert.IsTrue(properties.All(property => property.SetMethod is null));
+
         CollectionAssert.AreEqual(
             new[]
             {
