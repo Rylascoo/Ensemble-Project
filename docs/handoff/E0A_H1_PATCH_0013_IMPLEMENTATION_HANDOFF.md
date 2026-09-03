@@ -77,7 +77,7 @@ Implement the exact approved public shapes from Proposal 0.6, including:
 - `E0OpportunityHistory`;
 - `E0OpportunityTransition`;
 - `E0OpportunityTransitionResult`;
-- `E0OpportunityException`;
+- `E0OpportunityTransitionException`;
 - `DeterministicOpportunityAuthority` live establishment and replay APIs;
 - approved Patch 0013 contract version string(s).
 
@@ -150,6 +150,7 @@ Replay is one opportunity transition only. Do not claim full session replay.
 - prove only approved public surface was added;
 - prove existing Patch 0012 hash oracles/preimages are untouched;
 - cover genesis history initialization, live transition, nomination/direct-address/recency paths, same-Character selection if valid, stale/spliced history, wrong source commit, wrong Context, malformed/default IDs, replay mismatch/tamper, one-field Production delta, cache preservation, deterministic repeatability, public API containment, and forbidden dependency checks;
+- if same-Character reselection is structurally unreachable under the frozen E0 v1 Candidate/Director contracts, prove that unreachability rather than weakening upstream contracts or fabricating a bypass merely to create a test case;
 - run every available repository/static check that does not pretend to be native Windows ARM64 compiler/runtime authority;
 - recursively audit until one complete pass finds no material correction or worthwhile improvement.
 
