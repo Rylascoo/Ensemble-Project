@@ -123,14 +123,20 @@ public sealed class StateInterpretationContractTests
         var traceConstructor = typeof(IntegrityValidationTrace)
             .GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic)
             .Single();
-        var trace = (IntegrityValidationTrace)traceConstructor.Invoke(
-            new object?[] { "unsupported.integrity.contract", input, evidence });
+        var trace = (IntegrityValidationTrace)(
+            traceConstructor.Invoke(
+                new object?[] { "unsupported.integrity.contract", input, evidence }) ??
+            throw new InvalidOperationException(
+                "IntegrityValidationTrace reflection construction returned null."));
 
         var evaluationConstructor = typeof(IntegrityValidationEvaluation)
             .GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic)
             .Single();
-        var evaluation = (IntegrityValidationEvaluation)evaluationConstructor.Invoke(
-            new object[] { IntegrityDisposition.Accept, trace });
+        var evaluation = (IntegrityValidationEvaluation)(
+            evaluationConstructor.Invoke(
+                new object[] { IntegrityDisposition.Accept, trace }) ??
+            throw new InvalidOperationException(
+                "IntegrityValidationEvaluation reflection construction returned null."));
 
         Assert.Throws<StateInterpretationException>(() =>
             StateInterpretationSource.Bind(packet, candidate, evaluation));
@@ -421,7 +427,7 @@ public sealed class StateInterpretationContractTests
         var mutation = ParseSingle(
             Mutation("worldState", "add", text: "The hatch is open."));
 
-        Assert.IsTrue(mutation is GlobalStateMutationCandidate);
+        Assert.IsInstanceOfType(mutation, typeof(GlobalStateMutationCandidate));
         var properties = PublicPropertyNames(mutation.GetType());
         Assert.IsFalse(properties.Contains("SubjectCharacterId"));
         Assert.IsFalse(properties.Contains("TargetCharacterId"));
@@ -437,7 +443,7 @@ public sealed class StateInterpretationContractTests
                 subjectCharacterId: "VOSS",
                 text: "Voss remembers the exchange."));
 
-        Assert.IsTrue(mutation.Change is AddStateMutationChange);
+        Assert.IsInstanceOfType(mutation.Change, typeof(AddStateMutationChange));
         Assert.AreEqual("VOSS", mutation.SubjectCharacterId.Value);
     }
 
@@ -738,7 +744,7 @@ public sealed class StateInterpretationContractTests
             "deactivate",
             existingRecordId: "REC-A",
             text: null));
-        Assert.IsTrue(deactivate.Change is DeactivateStateMutationChange);
+        Assert.IsInstanceOfType(deactivate.Change, typeof(DeactivateStateMutationChange));
     }
 
     [TestMethod]
