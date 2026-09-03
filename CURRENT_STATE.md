@@ -16,7 +16,7 @@ Updated: 2026-09-03
 - H1 Patch 0008 E0 Integrity Validator Contract Proposal 1.1 is APPROVED and machine-validated for exercised gates.
 - H1 Patch 0009 E0 State Interpreter Mutation-Proposal Contract Proposal 0.7 is APPROVED, canonical, implemented, and machine-validated for exercised gates.
 - H1 Patch 0010 E0 Deterministic State Authority Review/Decision Contract Proposal 0.6 is APPROVED, canonical, implemented, and machine-validated for exercised deterministic gates.
-- H1 Patch 0011 E0 Take Semantics Contract Proposal 0.15 is APPROVED, canonical, implemented, and machine-validated for exercised Take gates at exact implementation-branch head `4250011c167cd9850ad891aaea4ee053216cf135`; promotion to `main` remains pending.
+- H1 Patch 0011 E0 Take Semantics Contract Proposal 0.15 is APPROVED, canonical, implemented, machine-validated for exercised Take gates at exact head `4250011c167cd9850ad891aaea4ee053216cf135`, and promoted to `main` by PR #24 squash merge `82e572d0f56a4e4a9791722a2352e39d62e3d59d`.
 - Patches 0006–0011 preserve probabilistic proposal versus deterministic authority separation and completed recursive architecture/static review before approval/closure.
 - `docs/ENGINEERING_HYGIENE_CONSTITUTION.md` is project law unless stronger frozen authority explicitly overrides it.
 - GitHub `Rylascoo/Ensemble-Project` is authoritative current engineering state.
@@ -40,7 +40,7 @@ Current architecture checkpoint:
 
 Status:
 
-`IMPLEMENTED — MACHINE VALIDATED ON IMPLEMENTATION BRANCH — MAIN PROMOTION PENDING`
+`IMPLEMENTED — MACHINE VALIDATED — PROMOTED TO MAIN`
 
 Latest machine-validated executable checkpoint:
 
@@ -83,11 +83,17 @@ Canonical blueprint promotion commit on `main`:
 Approval provenance completion commit:
 `c379beefbc8322a5a35ff78912412b1002ba820c`
 
+Implementation/promotion PR:
+`#24 — H1: implement and validate E0 Take semantics`
+
+Patch 0011 squash-merge commit on `main`:
+`82e572d0f56a4e4a9791722a2352e39d62e3d59d`
+
 Important status rule:
 
 The canonical Patch 0011 blueprint preserves its historical Proposal 0.15 audit-stage header at the exact approved bytes. Current approval status is established by this file plus `docs/evidence/H1_PATCH_0011_BLUEPRINT_APPROVAL.md`; do not edit the audited blueprint merely to turn its historical header into a live status field.
 
-PR #23 was documentation-only. The later Patch 0011 implementation is independently machine-validated at exact implementation-branch head `4250011c167cd9850ad891aaea4ee053216cf135`; its promotion to `main` is a separate repository checkpoint.
+PR #23 was documentation-only. The later Patch 0011 implementation was independently machine-validated at exact implementation-branch head `4250011c167cd9850ad891aaea4ee053216cf135` and promoted to `main` by PR #24. The squash-merge SHA records repository promotion and does not replace the exact tested-head machine authority.
 
 ## Validated Patch 0011 architecture boundary
 
@@ -136,6 +142,12 @@ Approved implementation baseline on `main`:
 Exact native Windows ARM64 machine-tested executable/test head:
 `4250011c167cd9850ad891aaea4ee053216cf135`
 
+Implementation/promotion PR:
+`#24 — H1: implement and validate E0 Take semantics`
+
+Squash-merge commit on `main`:
+`82e572d0f56a4e4a9791722a2352e39d62e3d59d`
+
 Detailed machine evidence:
 `docs/evidence/H1_PATCH_0011_ARM64_VALIDATION.md`
 
@@ -145,6 +157,11 @@ The exact validated branch delta from the approved baseline contains only:
 2. `tests/Ensemble.E0.Core.Tests/Take/E0TakeTests.cs`;
 3. `tests/Ensemble.E0.Core.Tests/Take/E0TakeContractAuditTests.cs`;
 4. `docs/handoff/E0A_H1_PATCH_0011_IMPLEMENTATION_HANDOFF.md` with one corrected generic-smoke fixture path.
+
+Post-validation documentation-only checkpoint files are:
+
+1. `docs/evidence/H1_PATCH_0011_ARM64_VALIDATION.md`;
+2. `CURRENT_STATE.md`.
 
 No pre-existing Access, Context, Performer, Director, Integrity, State Interpreter, State Authority, Fixture, Harness, project configuration, persistence, UI, Windows AI/NPU, packaging, WACK, or Store source changed in the validated Patch 0011 implementation delta.
 
@@ -208,11 +225,9 @@ These Harness runs occurred after the successful final Patch 0011 build and ther
 
 ## Immediate next action
 
-Promote the validated Patch 0011 implementation checkpoint to `main` without altering the exact machine-tested implementation semantics.
+Begin H1 Patch 0012 Atomic Causal Commit architecture review from the promoted Patch 0011 `main` checkpoint.
 
-After `main` contains the promoted Patch 0011 checkpoint, begin H1 Patch 0012 Atomic Causal Commit architecture review only.
-
-Patch 0012 implementation is NOT STARTED and requires its own architecture/approval cycle before source changes.
+Patch 0012 implementation is NOT STARTED. Recover any existing Patch 0012 roadmap/blueprint material first, then recursively audit architecture before approval or implementation.
 
 Do not ask the user to restate established project state.
 
