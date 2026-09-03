@@ -17,7 +17,7 @@ Updated: 2026-09-03
 - H1 Patch 0009 E0 State Interpreter Mutation-Proposal Contract Proposal 0.7 is APPROVED, canonical, implemented, and machine-validated for exercised gates.
 - H1 Patch 0010 E0 Deterministic State Authority Review/Decision Contract Proposal 0.6 is APPROVED, canonical, implemented, and machine-validated for exercised deterministic gates.
 - H1 Patch 0011 E0 Take Semantics Contract Proposal 0.15 is APPROVED, canonical, implemented, machine-validated for exercised Take gates at exact head `4250011c167cd9850ad891aaea4ee053216cf135`, and promoted to `main` by PR #24 squash merge `82e572d0f56a4e4a9791722a2352e39d62e3d59d`.
-- H1 Patch 0012 E0 Atomic Causal Commit Contract Proposal 0.10 is APPROVED and canonical; implementation is statically converged at exact source/test head `48e7932c8ba8753709f2d37464ad366eebbddea7` and native Windows ARM64 validation is pending.
+- H1 Patch 0012 E0 Atomic Causal Commit Contract Proposal 0.10 is APPROVED and canonical; the first native Windows ARM64 validation attempt at `d8eb91a3bcf077fe8ce5b3bce4f59dbf493ad66d` passed the Core/Harness build but the Core test project failed to compile on four test-source diagnostics. Test-only compiler corrections are applied through exact source/test head `e91b2d30f52210cc65671329e361ae6b7407d2a3`; targeted native test rerun is pending.
 - Patches 0006–0012 preserve probabilistic proposal versus deterministic authority separation and completed recursive architecture/static review before approval/closure.
 - `docs/ENGINEERING_HYGIENE_CONSTITUTION.md` is project law unless stronger frozen authority explicitly overrides it.
 - GitHub `Rylascoo/Ensemble-Project` is authoritative current engineering state.
@@ -41,17 +41,21 @@ Current architecture checkpoint:
 
 Status:
 
-`IMPLEMENTATION STATICALLY CONVERGED — READY FOR NATIVE WINDOWS ARM64 VALIDATION`
+`NATIVE ARM64 CORE/HARNESS BUILD PASSED — TEST COMPILER CORRECTION APPLIED — TARGETED TEST RERUN PENDING`
 
-Exact statically audited Patch 0012 source/test head:
+Exact corrected Patch 0012 source/test head:
 
-`48e7932c8ba8753709f2d37464ad366eebbddea7`
+`e91b2d30f52210cc65671329e361ae6b7407d2a3`
 
-Static implementation audit:
+First native validation evidence:
+
+`docs/evidence/H1_PATCH_0012_NATIVE_VALIDATION_ATTEMPT_01.md`
+
+Historical static implementation audit:
 
 `docs/evidence/H1_PATCH_0012_STATIC_IMPLEMENTATION_AUDIT.md`
 
-Latest machine-validated executable checkpoint:
+Latest fully machine-validated executable checkpoint:
 
 `H1 Patch 0011 — E0 Take Semantics`
 
@@ -63,7 +67,7 @@ Status:
 
 `COMPLETE FOR EXERCISED E0 TAKE SEMANTICS GATES`
 
-Patch 0012 static implementation convergence does not supersede Patch 0011 as the latest compiler/test/Harness authority. No Patch 0012 source or tests have yet been machine-validated.
+Patch 0012 has partial machine evidence only: at `d8eb91a3bcf077fe8ce5b3bce4f59dbf493ad66d`, the native Windows ARM64 Core/Harness Debug build passed and produced the Harness under `net9.0\win-arm64`, while the Core test project failed during compilation. The two Harness fixture runs also succeeded, but Patch 0012 is not yet a complete compiler/test/Harness milestone because the test assembly did not compile. Patch 0011 therefore remains the latest fully machine-validated executable/test authority.
 
 ## Patch 0012 canonical authority
 
@@ -82,8 +86,11 @@ Blueprint approval record:
 Fresh-chat implementation handoff:
 `docs/handoff/E0A_H1_PATCH_0012_IMPLEMENTATION_HANDOFF.md`
 
-Static implementation audit:
+Historical static implementation audit:
 `docs/evidence/H1_PATCH_0012_STATIC_IMPLEMENTATION_AUDIT.md`
+
+First native validation attempt:
+`docs/evidence/H1_PATCH_0012_NATIVE_VALIDATION_ATTEMPT_01.md`
 
 Implementation branch:
 `h1-patch-0012-atomic-causal-commit-implementation`
@@ -91,8 +98,14 @@ Implementation branch:
 Approved implementation baseline:
 `163696f4a89aa3a3b1ea4975167c15b827328d1d`
 
-Exact statically audited source/test head:
+Historical statically audited source/test head:
 `48e7932c8ba8753709f2d37464ad366eebbddea7`
+
+First native-tested branch head:
+`d8eb91a3bcf077fe8ce5b3bce4f59dbf493ad66d`
+
+Corrected source/test head after native compiler feedback:
+`e91b2d30f52210cc65671329e361ae6b7407d2a3`
 
 Blueprint branch:
 `h1-patch-0012-atomic-causal-commit-blueprint`
@@ -107,9 +120,11 @@ Important status rule:
 
 The canonical Patch 0012 blueprint preserves its historical Proposal 0.10 audit-stage header at the exact approved bytes. Current approval status is established by this file plus `docs/evidence/H1_PATCH_0012_BLUEPRINT_APPROVAL.md`; do not edit the audited blueprint merely to turn its historical header into a live status field.
 
+The Patch 0012 static implementation audit is historical advisory evidence. The user's native compiler feedback supersedes any implication that static convergence proved test-project compilability.
+
 PR #25 is documentation-only. It introduced no Patch 0012 executable/test code and establishes no compiler, runtime, ARM64, NPU, WACK, packaging, or Store validation.
 
-The current implementation branch now contains Patch 0012 source/tests, but static review remains advisory until the native Windows ARM64 gate succeeds.
+The current implementation branch contains Patch 0012 source/tests and the test-only compiler correction. Complete machine validation still requires a successful test compile/execution and final grouped gate on the corrected branch.
 
 ## Frozen Patch 0012 architecture boundary
 
@@ -172,9 +187,11 @@ Recursive static audit order:
 
 `correctness -> consistency -> authority -> scope -> tests -> simplicity -> hygiene -> ARM64 suitability -> vision -> evidence`
 
-After every material correction the audit restarted from correctness. At exact source/test head `48e7932c8ba8753709f2d37464ad366eebbddea7`, one complete final pass found zero material corrections and zero worthwhile implementation improvements within Patch 0012 scope.
+At historical source/test head `48e7932c8ba8753709f2d37464ad366eebbddea7`, static review found no further material correction. Native test-project compilation then exposed four test-source diagnostics at branch head `d8eb91a3bcf077fe8ce5b3bce4f59dbf493ad66d`. Patch-first correction changed only the two affected test files and produced corrected source/test head `e91b2d30f52210cc65671329e361ae6b7407d2a3`.
 
-This is static evidence only. Do not claim compilation/runtime validation until the user's native Windows ARM64 machine runs the required gate on the final branch head.
+The correction preserves the frozen contract: one ambiguous BCL overload call was made explicit, and three compile-time-constant assertions were converted to reflection-based public constant-surface checks. No production semantics or architecture changed.
+
+Do not claim complete Patch 0012 compiler/test/runtime validation until the corrected branch passes the required native Windows ARM64 test and final grouped gates.
 
 ## Patch 0011 executable and machine authority
 
@@ -204,7 +221,7 @@ At exact machine-tested head `4250011c167cd9850ad891aaea4ee053216cf135`:
 - Missing Raft Harness: PASS;
 - generic smoke Harness: PASS.
 
-This remains the current compiler/test/Harness authority until Patch 0012 is independently validated.
+This remains the current fully machine-validated compiler/test/Harness authority until Patch 0012 independently closes its corrected validation gate.
 
 ## Prior patch evidence
 
@@ -215,39 +232,42 @@ In particular:
 - Patch 0010 blueprint: `docs/blueprint/H1_PATCH_0010_DETERMINISTIC_STATE_AUTHORITY.md`;
 - Patch 0010 machine evidence: `docs/evidence/H1_PATCH_0010_ARM64_VALIDATION.md`;
 - Patch 0011 blueprint: `docs/blueprint/H1_PATCH_0011_TAKE_SEMANTICS.md`;
-- Patch 0011 machine evidence: `docs/evidence/H1_PATCH_0011_ARM64_VALIDATION.md`.
+- Patch 0011 machine evidence: `docs/evidence/H1_PATCH_0011_ARM64_VALIDATION.md`;
+- Patch 0012 first native validation attempt: `docs/evidence/H1_PATCH_0012_NATIVE_VALIDATION_ATTEMPT_01.md`.
 
 `CURRENT_STATE.md` is the live checkpoint, not a duplicate transcript of every historical compiler iteration.
 
 ## Immediate next action
 
-Run the complete Patch 0012 native Windows ARM64 validation gate from the repository root on branch:
+Pull the corrected Patch 0012 implementation branch and rerun the Core test project first:
 
-`h1-patch-0012-atomic-causal-commit-implementation`
+```powershell
+git pull --ff-only
+git status --short
+git rev-parse HEAD
+dotnet test .\tests\Ensemble.E0.Core.Tests\Ensemble.E0.Core.Tests.csproj -c Debug
+```
 
-The exact tested branch head must be reported by `git rev-parse HEAD`, and `git status --short` must be reviewed with the validation output.
+The exact corrected source/test content head is `e91b2d30f52210cc65671329e361ae6b7407d2a3`; later documentation-only commits do not alter that executable/test content.
 
-If the build fails, later `--no-build` Harness results are not Patch 0012 evidence. Patch only the smallest compiler surface and rerun the complete final gate from the corrected exact head.
+If the targeted test rerun passes, run the complete Patch 0012 native Windows ARM64 grouped validation gate on the same branch before recording Patch 0012 as fully machine-validated. If another compiler/test failure appears, patch only the smallest affected surface and rerun the relevant gate.
 
 Implementation status:
 
-`STATICALLY CONVERGED — MACHINE VALIDATION PENDING`
+`TEST COMPILER CORRECTION APPLIED — TARGETED NATIVE TEST RERUN PENDING`
 
 Do not enter later evolved Access/Context or next-opportunity integration scope during Patch 0012.
 
 ## Explicit validation limits
 
-Current repository state statically establishes a Patch 0012 implementation candidate for:
+Current machine evidence establishes for Patch 0012 branch head `d8eb91a3bcf077fe8ce5b3bce4f59dbf493ad66d`:
 
-- immutable ProductionState / StateHash semantics;
-- genesis and causal-commit canonical hashing;
-- Accepted-only source-state binding;
-- atomic causal Commit behavior;
-- one-step Replay behavior;
-- evolved Production-derived StateAuthority snapshot projection;
-- RecordId materialization and duplicate-rejection semantics.
+- native Windows ARM64 Core/Harness Debug build: PASS;
+- Harness output target: `net9.0\win-arm64`;
+- Missing Raft Harness execution after that build: PASS;
+- smoke Harness execution after that build: PASS.
 
-Static review does **not** establish compiler/test/runtime authority for those behaviors.
+It does **not** establish successful Core test-project compilation or test execution. Those remain pending on the corrected source/test content through `e91b2d30f52210cc65671329e361ae6b7407d2a3`.
 
 Current repository state does not establish any of the following later or higher validation claims:
 
@@ -283,12 +303,12 @@ Missing Raft ECJ-1:
 - `9112` UTF-8 bytes;
 - SHA-256 `5556a02325e6a7f774e6997942b395d670741d494ea86f1a50b83633e26b6703`.
 
-Patch 0012 static test oracles pending machine execution:
+Patch 0012 test oracles pending successful native test execution:
 
 - genesis StateHash `6e5bb762614a6885721a5d160b99b8c67dc6d096a560e3f04a15fc10a7451376`;
 - oracle post-commit StateHash `59ae86a03a3aad544ca828406349c1b5cc148871a4b479ad8fff6101d2be71bf`.
 
-These Patch 0012 values remain test expectations until the native test gate executes successfully.
+These Patch 0012 values remain test expectations until the corrected native test gate executes successfully.
 
 ## Validation authority
 
