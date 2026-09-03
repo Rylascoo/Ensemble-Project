@@ -1,6 +1,6 @@
 # H1 Patch 0011 — E0 Take Semantics Contract
 
-Status: blueprint proposal 0.10 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; approval required; implementation not started
+Status: blueprint proposal 0.11 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; approval required; implementation not started
 Parent baseline: machine-validated H1 Patch 0010
 Branch: `h1-patch-0011-take-semantics-blueprint`
 
@@ -104,7 +104,7 @@ E0Take Accepted
     -> selected for later atomic commit; not yet Production history
 
 E0Take Rejected
-    -> fully evaluated package not selected for Production history
+    -> fully evaluated package not selected for later atomic commit into Production history
 
 E0Take Alternate
     -> fully evaluated noncanonical alternative retained for E0 provenance
@@ -140,7 +140,7 @@ Patch 0011 defines TakeId **semantics**, not a global durable allocator:
 - effective E0 orchestration must not reuse a TakeId within one Run;
 - exact product-wide allocation/uniqueness/persistence rules remain later authority.
 
-`E0Take.Bind` therefore receives TakeId from trusted orchestration and validates only that it is initialized.
+`E0Take.Bind` therefore receives TakeId from higher-level orchestration and validates only that it is initialized.
 
 Patch 0011 deliberately does **not** derive TakeId from RunId + ordinal or freeze another string format: RunId composition itself is not yet a frozen identity contract, and premature derivation would create compatibility debt without durable persistence authority. E0 orchestration must provide unique TakeIds and record them; the exact allocator/format remains an explicit later orchestration/persistence dependency rather than an implementation detail the Core coding chat may invent.
 
@@ -303,7 +303,7 @@ State Authority
     decides whether each Interpreter-proposed consequence is approved
 
 Take disposition
-    decides whether the fully evaluated Performance package is selected for Production history, rejected, or retained as an alternate
+    decides whether the fully evaluated Performance package is selected for later atomic commit, rejected, or retained as an alternate
 ```
 
 A State Authority `Rejected` mutation does not itself prove that the Performance prose is invalid. It proves only that the proposed consequence cannot become approved consequence authority under the evaluated Patch 0010 inputs.
@@ -395,7 +395,7 @@ If that commit fails, neither Performance history nor consequence state becomes 
 
 `Rejected` means:
 
-> This exact Integrity-cleared, interpreted, fully State-Authority-evaluated Performance package is not selected for Production history.
+> This exact Integrity-cleared, interpreted, fully State-Authority-evaluated Performance package is not selected for later atomic commit into Production history.
 
 This may occur because the reference E0 package contains one or more rejected consequence decisions, or because an explicitly labeled higher-level E0 test/intervention rejects an otherwise all-Approved package.
 
@@ -482,7 +482,7 @@ This preserves Blueprint 0.1 accepted-Take immutability without freezing post-E0
 
 Proposal 0.1 considered introducing an `AuthorityDecisionContentHash`.
 
-Proposal 0.10 removes it.
+Proposal 0.11 removes it.
 
 Reason:
 
@@ -858,7 +858,7 @@ This blueprint is architecture only.
 
 Before implementation:
 
-1. recursively adversarial-audit Proposal 0.10 against frozen Blueprint 0.1, approved Patches 0006–0010, current source/tests, engineering hygiene, E0 experiment isolation, provenance boundaries, exception boundaries, invalid-state construction, causal-coherence limitations, and future Patch 0012 separation;
+1. recursively adversarial-audit Proposal 0.11 against frozen Blueprint 0.1, approved Patches 0006–0010, current source/tests, engineering hygiene, E0 experiment isolation, provenance boundaries, exception boundaries, invalid-state construction, causal-coherence limitations, and future Patch 0012 separation;
 2. restart the audit after every material correction;
 3. require one complete final pass with zero material corrections and zero worthwhile architectural improvements;
 4. obtain explicit user approval;
