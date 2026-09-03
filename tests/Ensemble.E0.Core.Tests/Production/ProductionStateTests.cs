@@ -182,6 +182,33 @@ public sealed class ProductionStateTests
     }
 
     [TestMethod]
+    public void Genesis_CanonicalizesUnorderedFixtureProvenanceWithoutChangingEdgeSet()
+    {
+        var fixture = Patch0012TestSupport.LoadMissingRaft();
+        var source = fixture.Pressures.Single(
+            record => record.Id == RecordId.From(MissingRaftContract.PressureIsolationId));
+        CollectionAssert.AreEqual(
+            new[]
+            {
+                RecordId.From(MissingRaftContract.SceneRaftGoneId),
+                RecordId.From(MissingRaftContract.SceneProvisionsLimitedId)
+            },
+            source.Provenance.ToArray());
+
+        var state = Patch0012TestSupport.Genesis(fixture);
+        var projected = state.Records.Single(
+            record => record.RecordId == RecordId.From(MissingRaftContract.PressureIsolationId));
+        CollectionAssert.AreEqual(
+            new[]
+            {
+                RecordId.From(MissingRaftContract.SceneProvisionsLimitedId),
+                RecordId.From(MissingRaftContract.SceneRaftGoneId)
+            },
+            projected.Provenance.ToArray());
+        CollectionAssert.AreEquivalent(source.Provenance.ToArray(), projected.Provenance.ToArray());
+    }
+
+    [TestMethod]
     public void CreatorLocks_AreValidatedAndCannotWeakenSystemImmutable()
     {
         var fixture = Patch0012TestSupport.LoadMissingRaft();
