@@ -1,4 +1,5 @@
 using System.Collections.Immutable;
+using Ensemble.E0.Core.Domain;
 using Ensemble.E0.Core.Production;
 
 namespace Ensemble.E0.Core.StateAuthority;
@@ -12,7 +13,6 @@ internal static class ProductionStateAuthoritySnapshot
         try
         {
             _ = state.StateHash.Value;
-            StateAuthoritySnapshot.RequireInitialized(state.SceneId, "Production SceneId");
         }
         catch (InvalidOperationException exception)
         {
@@ -21,20 +21,28 @@ internal static class ProductionStateAuthoritySnapshot
                 exception);
         }
 
-        if (state.RosterCharacterIds.IsDefault || state.RosterCharacterIds.Length != 3)
+        return BindProjection(state.Projection);
+    }
+
+    internal static StateAuthoritySnapshot BindProjection(ProductionStateProjection projection)
+    {
+        ArgumentNullException.ThrowIfNull(projection);
+        StateAuthoritySnapshot.RequireInitialized(projection.SceneId, "Production SceneId");
+
+        if (projection.RosterCharacterIds.IsDefault || projection.RosterCharacterIds.Length != 3)
         {
             throw new StateAuthorityException(
                 "State Authority Production roster is invalid.");
         }
 
-        var roster = ValidateRoster(state.RosterCharacterIds);
-        if (state.Records.IsDefault)
+        var roster = ValidateRoster(projection.RosterCharacterIds);
+        if (projection.Records.IsDefault)
         {
             throw new StateAuthorityException(
                 "State Authority Production records are invalid.");
         }
 
-        var descriptors = state.Records
+        var descriptors = projection.Records
             .Select(ProjectRecord)
             .OrderBy(descriptor => descriptor.RecordId.Value, StringComparer.Ordinal)
             .ToImmutableArray();
@@ -54,11 +62,11 @@ internal static class ProductionStateAuthoritySnapshot
             previous = value;
         }
 
-        return new StateAuthoritySnapshot(state.SceneId, roster, descriptors);
+        return new StateAuthoritySnapshot(projection.SceneId, roster, descriptors);
     }
 
-    private static ImmutableArray<Domain.CharacterId> ValidateRoster(
-        ImmutableArray<Domain.CharacterId> roster)
+    private static ImmutableArray<CharacterId> ValidateRoster(
+        ImmutableArray<CharacterId> roster)
     {
         var previous = string.Empty;
         for (var index = 0; index < roster.Length; index++)
