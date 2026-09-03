@@ -119,7 +119,9 @@ public sealed class DeterministicCausalCommitTests
         Assert.Throws<E0CausalCommitException>(() =>
             E0RecordMaterializationSet.Bind(default));
         Assert.Throws<E0CausalCommitException>(() =>
-            E0RecordMaterializationSet.Bind(ImmutableArray.Create<E0RecordMaterialization>(null!)));
+            E0RecordMaterializationSet.Bind(
+                ImmutableArray.CreateRange<E0RecordMaterialization>(
+                    new E0RecordMaterialization[] { null! })));
         Assert.Throws<E0CausalCommitException>(() =>
             E0RecordMaterializationSet.Bind(
                 ImmutableArray.Create(
@@ -472,7 +474,13 @@ public sealed class DeterministicCausalCommitTests
     [TestMethod]
     public void EventAndCommitPublicSurfaces_AreMinimalAndPaired()
     {
-        Assert.AreEqual("ensemble.e0.causal-commit.v1", E0CausalCommitContracts.ContractVersion);
+        var contractVersion = typeof(E0CausalCommitContracts).GetField(
+            nameof(E0CausalCommitContracts.ContractVersion),
+            BindingFlags.Public | BindingFlags.Static)
+            ?? throw new InvalidOperationException("Causal commit contract version field is missing.");
+        Assert.AreEqual(
+            "ensemble.e0.causal-commit.v1",
+            contractVersion.GetRawConstantValue());
         CollectionAssert.AreEquivalent(
             new[]
             {
