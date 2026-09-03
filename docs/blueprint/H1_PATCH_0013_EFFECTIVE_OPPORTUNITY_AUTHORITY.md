@@ -1,6 +1,6 @@
 # H1 Patch 0013 — E0 Effective Opportunity Authority
 
-Status: blueprint proposal 0.2 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; approval required; implementation not started
+Status: blueprint proposal 0.3 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; approval required; implementation not started
 Parent repository checkpoint: `main` at `8c89f998fe6f42e04a75b9090fbcc10f0574f5a2`
 Parent machine-tested executable/test authority: H1 Patch 0012 at `39bc078c130ab1165c6a81c1673dd5cd25da3724`
 Branch: `h1-patch-0013-effective-opportunity-authority-blueprint`
@@ -181,7 +181,7 @@ No public append/add/update method.
 
 Only Core may derive a later history projection from a successful opportunity transition/replay.
 
-`CharacterIds` is the exact chronological sequence of effective Current Opportunity establishments for the current E0 Scene, beginning with the initial genesis opportunity.
+`CharacterIds` is the exact chronological sequence of effective Current Opportunity establishments for the current E0 Scene, beginning with the fixture-authored opening opportunity exactly once.
 
 `LastOpportunityStateHash` identifies the exact Production state in which `CharacterIds[^1]` became effective Current Opportunity.
 
@@ -210,7 +210,7 @@ CharacterIds = [ genesisState.CurrentOpportunityCharacterId ]
 HistoryHash = canonical genesis OpportunityHistory hash
 ```
 
-No separate synthetic genesis opportunity event is invented. The initial opportunity is already part of the frozen genesis Production projection and genesis StateHash.
+No separate synthetic genesis opportunity event is invented. The fixture-authored opening opportunity is the first authoritative history entry, matching Patch 0007.
 
 ## 9. OpportunityHistory hash chain
 
@@ -279,22 +279,23 @@ It must fail closed unless all of the following are true:
 
 1. all inputs are non-null and structurally initialized;
 2. `postCommitState.CurrentOpportunityCharacterId == null`;
-3. `sourceCommit.ContractVersion` is the current Patch 0012 contract;
-4. `sourceCommit.ResultStateHash == postCommitState.StateHash`;
-5. `postCommitState` contains the source CommitId as effective;
-6. `postCommitState` contains the source TakeId as committed;
-7. `sourceCommit.Take.Disposition == Accepted`;
-8. source Take Scene equals `postCommitState.SceneId`;
-9. source Take Character is in current roster;
-10. `sourceHistory.SceneId == postCommitState.SceneId`;
-11. source HistoryHash is exact canonical lower-hex SHA-256;
-12. source history is non-empty;
-13. every source-history Character is a current roster Character;
-14. `sourceHistory.LastOpportunityStateHash == sourceCommit.ParentStateHash`;
-15. `sourceHistory.CharacterIds[^1] == sourceCommit.Take.Performance.SubjectCharacterId`;
-16. source ContextPacket identity equals Accepted Performance ContextPacket identity;
-17. source Context Scene/subject/opportunity/roster remain structurally valid for Patch 0007 binding;
-18. current Production roster equals source Context roster canonically.
+3. postcommit roster is exactly three unique initialized E0 Characters;
+4. `sourceCommit.ContractVersion` is the current Patch 0012 contract;
+5. `sourceCommit.ResultStateHash == postCommitState.StateHash`;
+6. `postCommitState` contains the source CommitId as effective;
+7. `postCommitState` contains the source TakeId as committed;
+8. `sourceCommit.Take.Disposition == Accepted`;
+9. source Take Scene equals `postCommitState.SceneId`;
+10. source Take Character is in current roster;
+11. `sourceHistory.SceneId == postCommitState.SceneId`;
+12. source HistoryHash is exact canonical lower-hex SHA-256;
+13. source history is non-empty;
+14. every source-history Character is a current roster Character;
+15. `sourceHistory.LastOpportunityStateHash == sourceCommit.ParentStateHash`;
+16. `sourceHistory.CharacterIds[^1] == sourceCommit.Take.Performance.SubjectCharacterId`;
+17. source ContextPacket identity equals Accepted Performance ContextPacket identity;
+18. source Context Scene/subject/opportunity/roster remain structurally valid for Patch 0007 binding;
+19. current Production roster equals source Context roster canonically.
 
 The anti-splice chain is:
 
@@ -315,7 +316,7 @@ Patch 0013 does not claim that a source `ContextPacketId` proves every disclosed
 
 That common-state proof was deliberately deferred by Patch 0012 because current Access/Context remains fixture-rooted and has no StateHash/CharacterClaim/recent-Performance evolution contract.
 
-Patch 0013 needs the retained/reconstructed source Context only for the already-frozen Patch 0007 structural Director binding:
+Patch 0013 needs retained/reconstructed source Context only for the already-frozen Patch 0007 structural Director binding:
 
 - Scene;
 - source Character;
@@ -378,7 +379,38 @@ The selected Character must be exactly one roster Character.
 
 No generic Current Opportunity setter is introduced.
 
-## 16. Atomic authority result
+## 16. Narrow Production mutation helper
+
+Patch 0013 must not add an internal helper that accepts an arbitrary replacement `ProductionStateProjection` merely to preserve private commit/take caches.
+
+The smallest allowed Production-layer helper is conceptually:
+
+```text
+internal ProductionState WithEstablishedOpportunity(
+    CharacterId selectedCharacterId,
+    StateHash resultStateHash)
+```
+
+It must itself fail closed unless:
+
+- current Production opportunity is null;
+- selected Character ID is initialized;
+- selected Character is exactly one current roster member;
+- result StateHash is initialized.
+
+It internally derives:
+
+```text
+_projection with { CurrentOpportunityCharacterId = selectedCharacterId }
+```
+
+and preserves the exact existing effective CommitId/committed TakeId caches unchanged.
+
+Its signature contains only Production/Domain types and creates no Production -> Opportunity dependency.
+
+The Opportunity authority may separately construct the same one-field result projection for canonical hash computation using existing internal Production projection primitives, but it cannot ask Production to accept arbitrary record/roster/origin changes.
+
+## 17. Atomic authority result
 
 Proposed result:
 
@@ -404,7 +436,7 @@ In-memory atomicity means:
 
 Durable transactional persistence remains out of scope.
 
-## 17. Minimal opportunity transition event
+## 18. Minimal opportunity transition event
 
 Proposed immutable event:
 
@@ -429,7 +461,7 @@ The event does not duplicate `DirectorOpportunityInput`, Proposal, Trace, rule, 
 
 Calling Establish twice against the same immutable valid parent inputs deterministically yields the same event/result. Once the returned state becomes current, it has a non-null Current Opportunity and cannot accept the same transition again.
 
-## 18. Why the event stores HistoryHash rather than full history
+## 19. Why the event stores HistoryHash rather than full history
 
 The Director requires chronological OpportunityHistory, but every effective event does not need to copy all prior Character IDs.
 
@@ -438,15 +470,15 @@ If event N stored history `[0...N-1]`, cumulative opportunity-event history woul
 Patch 0013 instead stores `SourceOpportunityHistoryHash`:
 
 - live authority still receives full `E0OpportunityHistory.CharacterIds` and passes them to Director;
-- the compact HistoryHash binds that exact closed-construction history chain;
-- the result event records only the source HistoryHash plus selected Character;
-- result OpportunityHistory advances the hash chain after the result StateHash exists;
+- compact HistoryHash binds that exact closed-construction history chain;
+- result event records only source HistoryHash plus selected Character;
+- result OpportunityHistory advances the hash chain after result StateHash exists;
 - E0 diagnostic/provenance output may retain the full recomputed `DirectorEvaluation.Trace.Input` separately as required by the experiment;
 - later event-stream reconstruction can rebuild the full chronological history from genesis plus selected Characters in opportunity events.
 
-This preserves auditability without an avoidable O(N^2) event payload.
+This preserves auditability without avoidable O(N^2) event payload.
 
-## 19. StateHash compatibility law
+## 20. StateHash compatibility law
 
 Patch 0013 must preserve both already-validated Patch 0012 StateHash envelopes byte-for-byte:
 
@@ -473,7 +505,7 @@ This is an additive domain extension, not a rewrite of existing preimages. The e
 
 The existing `StateHash` strong type remains canonical. No second state-hash type is introduced.
 
-## 20. Exact opportunity payload
+## 21. Exact opportunity payload
 
 Contract:
 
@@ -508,7 +540,7 @@ The payload contains no:
 
 Source causal event + source HistoryHash + strategy contract + selected Character + parent/result StateHash are sufficient transition authority.
 
-## 21. Why the existing Production StateHash contract is extended
+## 22. Why the existing Production StateHash contract is extended
 
 `ProductionStateContracts.StateHashContractVersion` is a generic Production-state history hash contract, and Patch 0012 already uses an explicit `kind` discriminator for genesis vs causal commit.
 
@@ -522,7 +554,7 @@ Compatibility rule:
 
 Implementation tests must prove both Patch 0012 oracle hashes remain unchanged.
 
-## 22. Result history derivation
+## 23. Result history derivation
 
 On successful transition:
 
@@ -540,7 +572,7 @@ The append operation is Core-internal and can occur only while constructing a su
 
 No history element can be deleted, reordered, replaced, or edited.
 
-## 23. One-step deterministic replay
+## 24. One-step deterministic replay
 
 Proposed API:
 
@@ -560,25 +592,27 @@ It must:
 1. validate event contract/identities;
 2. require `parentState.StateHash == event.ParentStateHash`;
 3. require parent Current Opportunity is null;
-4. require source commit ResultStateHash equals parent StateHash;
-5. require event SourceCommitId equals supplied source commit CommitId;
-6. require parent effective CommitId/TakeId caches contain the source commit/take;
-7. require sourceHistory LastOpportunityStateHash equals source commit ParentStateHash;
-8. require sourceHistory HistoryHash equals event SourceOpportunityHistoryHash;
-9. require sourceHistory last Character equals Accepted Performance subject;
-10. require source History Scene equals parent/source Take Scene;
-11. require source history Characters are current roster Characters;
-12. reconstruct the exact structural `DirectorOpportunityInput` from authoritative parent/source-commit/source-history facts;
-13. call `LeastInterventionDirector.Propose(reconstructedInput)`;
-14. require event StrategyContract is exactly the current least-intervention strategy contract;
-15. require recomputed selected Character equals event SelectedCharacterId;
-16. recreate result projection with only Current Opportunity changed;
-17. recompute opportunity-transition StateHash;
-18. require it equals event ResultStateHash;
-19. derive result OpportunityHistory and HistoryHash;
-20. return coherent Event + State + History + fresh DirectorEvaluation.
+4. require parent roster is exactly three unique initialized E0 Characters;
+5. require source commit ResultStateHash equals parent StateHash;
+6. require event SourceCommitId equals supplied source commit CommitId;
+7. require parent effective CommitId/TakeId caches contain source commit/take;
+8. require sourceHistory LastOpportunityStateHash equals source commit ParentStateHash;
+9. require sourceHistory HistoryHash equals event SourceOpportunityHistoryHash;
+10. require sourceHistory last Character equals Accepted Performance subject;
+11. require source History Scene equals parent/source Take Scene;
+12. require source history Characters are current roster Characters;
+13. reconstruct exact structural `DirectorOpportunityInput` from authoritative parent/source-commit/source-history facts;
+14. call `LeastInterventionDirector.Propose(reconstructedInput)`;
+15. require event StrategyContract exactly current least-intervention strategy contract;
+16. require recomputed selected Character equals event SelectedCharacterId;
+17. recreate result projection with only Current Opportunity changed;
+18. recompute opportunity-transition StateHash;
+19. require it equals event ResultStateHash;
+20. derive result OpportunityHistory and HistoryHash;
+21. create result ProductionState only through the narrow `WithEstablishedOpportunity` helper;
+22. return coherent Event + State + History + fresh DirectorEvaluation.
 
-Replay reconstructs the Director input from:
+Replay reconstructs Director input from:
 
 - parent SceneId/roster;
 - accepted source Character/ContextPacketId;
@@ -587,19 +621,26 @@ Replay reconstructs the Director input from:
 
 Those are exactly the structural fields used by the frozen Patch 0007 reference Director.
 
-## 24. Live Bind vs replay reconstruction
+## 25. Live Bind vs replay reconstruction
 
 Live establishment must call `DirectorOpportunityInput.Bind(sourceContext, acceptedCandidate, history)` after successful source commit. This is frozen Patch 0007 law and is not weakened.
 
 Replay is different: it reconstructs an already-effective event from authoritative causal inputs and does not need to redisclose private source Context prose.
 
-Replay may construct the same internal `DirectorOpportunityInput` from already-validated structural facts before calling the existing `LeastInterventionDirector.Propose(...)` validator/strategy.
+Replay may use the existing internal `DirectorOpportunityInput` constructor only after recreating/canonicalizing the same structural fields from authoritative inputs, then must pass that input through the existing `LeastInterventionDirector.Propose(...)` validation/strategy.
+
+Replay must preserve Patch 0007 canonical input storage:
+
+- roster ordinal by CharacterId;
+- addressed IDs ordinal by CharacterId;
+- nominated scalar unchanged;
+- OpportunityHistory exact chronological order.
 
 It must not duplicate the least-intervention selection algorithm.
 
 No new public Director input construction bypass is introduced.
 
-## 25. No speculative Director promotion path
+## 26. No speculative Director promotion path
 
 The live Establish API accepts no `DirectorOpportunityProposal` or `LeastInterventionDirectorEvaluation` parameter.
 
@@ -609,7 +650,7 @@ Therefore a speculative precommit evaluation cannot be supplied and promoted to 
 
 The only live path is postcommit source proof -> `DirectorOpportunityInput.Bind` -> fresh strategy evaluation -> atomic authority transition.
 
-## 26. Stale/foreign source rejection
+## 27. Stale/foreign source rejection
 
 Fail closed for at least:
 
@@ -628,7 +669,7 @@ Fail closed for at least:
 
 No stale transition is rebased automatically.
 
-## 27. Failure semantics
+## 28. Failure semantics
 
 If Establish fails after the source causal commit already succeeded:
 
@@ -642,7 +683,7 @@ If Establish fails after the source causal commit already succeeded:
 
 This preserves Patch 0007's frozen failure law.
 
-## 28. No record/truth authority
+## 29. No record/truth authority
 
 Patch 0013 cannot create, supersede, deactivate, or reinterpret any ProductionRecord.
 
@@ -660,7 +701,7 @@ It cannot alter:
 
 Current Opportunity is routing state only.
 
-## 29. Dependency direction
+## 30. Dependency direction
 
 The new Opportunity integration layer may depend on:
 
@@ -673,13 +714,13 @@ The new Opportunity integration layer may depend on:
 
 Production must not depend on Opportunity.
 
-A small internal `ProductionState.WithOpportunityTransition(...)` helper may preserve existing commit/take caches while accepting a new Production projection/hash, but its signature must use only Production-layer types and must not reference Opportunity event types.
+The narrow internal `ProductionState.WithEstablishedOpportunity(CharacterId, StateHash)` helper uses only Production/Domain types and preserves private commit/take caches without accepting arbitrary projection state.
 
-Opportunity may use existing internal Production canonicalization primitives because all Core namespaces share one assembly; no reverse Production dependency is added.
+Opportunity may use existing internal Production canonicalization/projection primitives because all Core namespaces share one assembly; no reverse Production dependency is added.
 
-Replay may use the existing internal `DirectorOpportunityInput` constructor only after recreating/validating the same structural fields from authoritative inputs. No public Director bypass is introduced.
+Replay may use the existing internal `DirectorOpportunityInput` constructor only after recreating/validating its structural fields. No public Director bypass is introduced.
 
-## 30. Public surface discipline
+## 31. Public surface discipline
 
 Patch 0013 should add only the public surface required to express the authority boundary, likely:
 
@@ -709,7 +750,7 @@ No public:
 - provider/model abstraction;
 - async/background API.
 
-## 31. Smallest likely implementation surface if approved
+## 32. Smallest likely implementation surface if approved
 
 Likely production-source additions:
 
@@ -720,7 +761,7 @@ src/Ensemble.E0.Core/Opportunity/
     OpportunityCanonicalizer.cs
 
 src/Ensemble.E0.Core/Production/ProductionStateModels.cs
-    one internal opportunity-transition state helper
+    one narrow internal WithEstablishedOpportunity helper
 ```
 
 No existing Director selection semantic change is expected.
@@ -729,7 +770,7 @@ Do not edit Access, Context, Performer, Integrity, State Interpreter, State Auth
 
 Tests belong in focused Opportunity/Patch0013 files plus Patch 0012 oracle-regression assertions.
 
-## 32. Memory and ARM64/battery implications
+## 33. Memory and ARM64/battery implications
 
 Patch 0013 performs synchronous in-memory work only after a Character performance has committed and a next opportunity is requested.
 
@@ -738,7 +779,7 @@ Expected work:
 - validate immutable IDs/hashes/arrays;
 - one deterministic Director selection over the E0 three-Character roster and chronological OpportunityHistory;
 - one small history-chain hash;
-- one StateHash over a compact routing payload plus existing Production projection;
+- one StateHash over compact routing payload plus existing Production projection;
 - construct immutable event/state/history objects.
 
 There is no:
@@ -750,11 +791,11 @@ There is no:
 - GPU/NPU work;
 - persistent background allocation.
 
-`E0OpportunityHistory.CharacterIds` grows linearly with effective opportunities. Each event stores only the source HistoryHash rather than the full prior history, so event payload growth is linear rather than quadratic.
+`E0OpportunityHistory.CharacterIds` grows linearly with effective opportunities. Each event stores only source HistoryHash rather than full prior history, so event payload growth is linear rather than quadratic.
 
-E0 prioritizes behavioral provenance over premature compression of the active history array. This is architecturally compatible with the ARM64/low-idle discipline, but no measured power/performance claim is made.
+E0 prioritizes behavioral provenance over premature compression of the active history array. This is architecturally compatible with ARM64/low-idle discipline, but no measured power/performance claim is made.
 
-## 33. Determinism
+## 34. Determinism
 
 Identical valid:
 
@@ -775,14 +816,14 @@ must produce identical:
 
 No environment-dependent input participates.
 
-## 34. Integrity/authority invariants
+## 35. Integrity/authority invariants
 
 Patch 0013 hard invariants:
 
 1. effective opportunity requires an already-successful Accepted source causal commit;
-2. source commit must be the exact transition into supplied no-opportunity state;
-3. source opportunity history must chain to source commit's parent state;
-4. source HistoryHash must identify the exact closed-construction opportunity sequence;
+2. source commit must be exact transition into supplied no-opportunity state;
+3. source opportunity history must chain to source commit parent state;
+4. source HistoryHash must identify exact closed-construction opportunity sequence;
 5. history must end at source Accepted Performance Character;
 6. live source Context must match Accepted Candidate ContextPacket identity;
 7. live postcommit Director input must be freshly bound;
@@ -790,22 +831,23 @@ Patch 0013 hard invariants:
 9. Director proposal never mutates Production directly;
 10. only one roster Character may become Current Opportunity;
 11. Current Opportunity establishment and opportunity event/history advancement are atomic in memory;
-12. no ProductionRecord changes;
-13. routing history advances StateHash even though records do not;
-14. existing Patch 0012 hashes remain unchanged;
-15. no next Performer before success;
-16. replay rejects altered event semantics or wrong parent/source/history;
-17. opportunity event does not duplicate private Context or full prior history;
-18. the deferred Production/Context common-state proof is not falsely claimed complete.
+12. Production helper can change only null Current Opportunity -> selected roster Character;
+13. no ProductionRecord changes;
+14. routing history advances StateHash even though records do not;
+15. existing Patch 0012 hashes remain unchanged;
+16. no next Performer before success;
+17. replay rejects altered event semantics or wrong parent/source/history;
+18. opportunity event does not duplicate private Context or full prior history;
+19. deferred Production/Context common-state proof is not falsely claimed complete.
 
-## 35. Required implementation tests after approval
+## 36. Required implementation tests after approval
 
 At minimum:
 
 ### Genesis/history
 
 - exact genesis initializes history;
-- history contains exactly initial Current Opportunity;
+- history contains fixture-authored opening opportunity exactly once;
 - genesis HistoryHash exact byte/hash oracle;
 - postcommit state cannot initialize/reset history;
 - prior opportunity-transition result cannot initialize/reset history;
@@ -815,6 +857,7 @@ At minimum:
 ### Source causal binding
 
 - exact source commit/result state binds;
+- postcommit roster exact three-Character invariant enforced;
 - wrong ResultStateHash fails;
 - foreign CommitId/TakeId fails;
 - source history LastOpportunityStateHash mismatch fails;
@@ -828,15 +871,22 @@ At minimum:
 - nomination selects exact nominated Character;
 - direct-address selects exact least-recent addressed Character;
 - recency fallback selects exact least-recent roster Character;
-- no live API accepts a precomputed Director evaluation;
+- no live API accepts precomputed Director evaluation;
 - source Candidate control, not Performance prose, drives nomination/address input;
+
+### Narrow Production mutation
+
+- helper rejects non-null current opportunity;
+- helper rejects uninitialized/out-of-roster selected Character;
+- helper preserves every non-opportunity projection field;
+- helper preserves effective CommitId/TakeId caches;
+- no arbitrary `ProductionStateProjection` replacement helper is added for Patch 0013;
 
 ### Atomic transition
 
 - parent Current Opportunity must be null;
 - result Current Opportunity equals selected Character;
 - every non-opportunity Production projection field is semantically identical;
-- effective CommitId/TakeId caches remain effective and unchanged;
 - result StateHash differs from parent;
 - result History appends exactly selected Character;
 - result History LastOpportunityStateHash equals result StateHash;
@@ -847,12 +897,14 @@ At minimum:
 
 - event exposes no ContextPacket/Context prose;
 - event exposes no Candidate/Take payload;
+- event exposes no SourceTakeId;
 - event exposes no full OpportunityHistory array;
 - event exposes no least-intervention rule/diagnostic fields;
 - event SourceCommitId resolves to exact effective source commit in live/replay tests;
 
 ### Canonicalization/oracles
 
+- exact history-hash envelopes/property ordering oracle;
 - exact opportunity payload bytes/property order oracle;
 - exact opportunity result StateHash oracle;
 - culture independence;
@@ -863,6 +915,7 @@ At minimum:
 ### Replay
 
 - exact one-step replay returns semantically identical state/history/evaluation;
+- reconstructed Director input exactly matches live canonical structural input;
 - wrong parent StateHash fails;
 - wrong source causal event fails;
 - altered/mismatched source HistoryHash fails;
@@ -875,18 +928,18 @@ At minimum:
 
 - no Access/Context Production overload appears;
 - no CharacterClaim/recent-Performance context path appears;
-- no generic Current Opportunity setter appears;
+- no public or generic Current Opportunity setter appears;
 - no network/filesystem/clock/random/Windows/provider/GPU/NPU/background dependencies appear;
 - public Opportunity namespace contains only approved Patch 0013 types;
 - all pre-existing Core tests remain green.
 
-## 36. Harness/runtime validation boundary
+## 37. Harness/runtime validation boundary
 
 If implementation is later approved, static analysis by ChatGPT remains advisory.
 
 Required native authority remains the user's Windows ARM64 machine.
 
-At minimum the later validation gate should include:
+At minimum later validation should include:
 
 ```text
 dotnet test .\tests\Ensemble.E0.Core.Tests\Ensemble.E0.Core.Tests.csproj -c Debug
@@ -898,9 +951,9 @@ dotnet run --project .\src\Ensemble.E0.Harness\Ensemble.E0.Harness.csproj -c Deb
 dotnet run --project .\src\Ensemble.E0.Harness\Ensemble.E0.Harness.csproj -c Debug --no-build -- .\fixtures\smoke\e0-fixture-v1.json
 ```
 
-Patch 0013 architecture approval or static implementation review must not be described as compiler/runtime validation.
+Architecture approval or static implementation review must not be described as compiler/runtime validation.
 
-## 37. Explicit non-goals after Patch 0013
+## 38. Explicit non-goals after Patch 0013
 
 Even after successful Patch 0013 implementation, do not claim:
 
@@ -917,7 +970,7 @@ Even after successful Patch 0013 implementation, do not claim:
 
 Patch 0013 creates routing authority only.
 
-## 38. Expected next boundary after Patch 0013
+## 39. Expected next boundary after Patch 0013
 
 If Patch 0013 validates successfully, the next likely architecture boundary is the deliberately deferred evolved Production Access/Context bridge.
 
@@ -933,27 +986,38 @@ That later patch must resolve, rather than assume:
 
 Patch 0013 must not pre-solve those questions.
 
-## 39. Recursive adversarial audit — pass 1 corrections
+## 40. Recursive adversarial audit — corrections through pass 2
 
-Proposal 0.1 was not accepted unchanged.
+Proposal 0.1 and 0.2 were not accepted unchanged.
 
-Pass 1 found and corrected four material design weaknesses:
+### Pass 1 corrections
 
 1. **Full Director evaluation in every event duplicated derived strategy data.**
-   - Corrected: event now carries only compact transition authority; fresh evaluation is returned diagnostically and recomputed in replay.
+   - Corrected: event now carries compact transition authority; fresh evaluation is returned diagnostically and recomputed in replay.
 
 2. **Full OpportunityHistory in every event caused avoidable O(N^2) cumulative event payload.**
-   - Corrected: closed OpportunityHistory now has a canonical chain HistoryHash; events bind source HistoryHash instead of copying the entire prior sequence.
+   - Corrected: closed OpportunityHistory now has canonical chain HistoryHash; events bind source HistoryHash instead of copying entire prior sequence.
 
-3. **Proposal 0.1 did not explicitly preserve the deferred Context/Production common-state proof boundary.**
-   - Corrected: Patch 0013 explicitly refuses to claim Context record provenance/freshness beyond the frozen Director structural association.
+3. **Proposal 0.1 did not explicitly preserve deferred Context/Production common-state proof.**
+   - Corrected: Patch 0013 explicitly refuses to claim Context record provenance/freshness beyond frozen Director structural association.
 
 4. **SourceTakeId duplicated identity already owned by SourceCommitId.**
-   - Corrected: minimal opportunity event references only SourceCommitId; supplied source causal event supplies its exact Accepted Take during live/replay validation.
+   - Corrected: minimal opportunity event references SourceCommitId; supplied source causal event supplies exact Accepted Take during live/replay validation.
 
-Recursive audit continues from Proposal 0.2.
+### Pass 2 corrections
 
-## 40. Remaining recursive audit checklist
+5. **An arbitrary-projection Production helper would be too broad for a routing-only patch.**
+   - Corrected: only a narrow internal null->selected `WithEstablishedOpportunity(CharacterId, StateHash)` helper is permitted.
+
+6. **The source-state contract relied on downstream invariants without restating the E0 roster boundary.**
+   - Corrected: live/replay explicitly require exactly three unique initialized roster Characters before authority work.
+
+7. **Opening history wording could imply a synthetic Director event at genesis.**
+   - Corrected: history begins with the fixture-authored opening opportunity exactly once; no synthetic genesis opportunity event is invented.
+
+Recursive audit continues from Proposal 0.3.
+
+## 41. Remaining recursive audit checklist
 
 Before approval, continue until one complete pass finds no material correction or worthwhile simplification across:
 
@@ -967,29 +1031,30 @@ Before approval, continue until one complete pass finds no material correction o
 8. Director postcommit re-Bind/recompute;
 9. no speculative proposal promotion;
 10. state/event/history atomicity;
-11. StateHash history sensitivity;
-12. no duplicate state/hash authority;
-13. no duplicate event semantics;
-14. no new truth/record authority;
-15. one-step replay correctness;
-16. live Context vs replay structural provenance;
-17. stale/foreign event fail-closed behavior;
-18. dependency direction/no cycles;
-19. minimal public surface;
-20. E0 three-Character scope;
-21. canonicalization/property ordering;
-22. culture/environment independence;
-23. ARM64/no-idle-work suitability;
-24. linear history/event growth;
-25. no premature persistence/full replay;
-26. no premature Access/Context/CharacterClaim/recent-Performance work;
-27. no provider/Windows/UI/NPU scope leak;
-28. testability without public authority bypasses;
-29. validation claim discipline;
-30. naming/terminology consistency;
-31. whether any simpler design preserves all frozen laws with less authority surface.
+11. narrow Production mutation authority;
+12. StateHash history sensitivity;
+13. no duplicate state/hash authority;
+14. no duplicate event semantics;
+15. no new truth/record authority;
+16. one-step replay correctness;
+17. live Context vs replay structural provenance;
+18. stale/foreign event fail-closed behavior;
+19. dependency direction/no cycles;
+20. minimal public surface;
+21. E0 three-Character scope;
+22. canonicalization/property ordering;
+23. culture/environment independence;
+24. ARM64/no-idle-work suitability;
+25. linear history/event growth;
+26. no premature persistence/full replay;
+27. no premature Access/Context/CharacterClaim/recent-Performance work;
+28. no provider/Windows/UI/NPU scope leak;
+29. testability without public authority bypasses;
+30. validation claim discipline;
+31. naming/terminology consistency;
+32. whether any simpler design preserves all frozen laws with less authority surface.
 
-## 41. Current decision
+## 42. Current decision
 
 Current status:
 
@@ -999,7 +1064,7 @@ COMPLETE / NATIVE ARM64 VALIDATED / PROMOTED
 
 Patch 0013:
 EFFECTIVE OPPORTUNITY AUTHORITY
-BLUEPRINT PROPOSAL 0.2
+BLUEPRINT PROPOSAL 0.3
 RECURSIVE ADVERSARIAL AUDIT IN PROGRESS
 IMPLEMENTATION NOT AUTHORIZED
 ```
