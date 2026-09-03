@@ -297,74 +297,6 @@ public sealed class ProductionState
             _committedTakeIds.Add(takeId.Value));
 }
 
-public sealed class ProductionStateCheckpoint
-{
-    private readonly ProductionState _sourceState;
-
-    private ProductionStateCheckpoint(
-        ProductionState sourceState,
-        StateHash stateHash,
-        SceneId sceneId,
-        CharacterId currentOpportunityCharacterId)
-    {
-        _sourceState = sourceState;
-        StateHash = stateHash;
-        SceneId = sceneId;
-        CurrentOpportunityCharacterId = currentOpportunityCharacterId;
-    }
-
-    public StateHash StateHash { get; }
-    public SceneId SceneId { get; }
-    public CharacterId CurrentOpportunityCharacterId { get; }
-
-    internal ProductionState SourceState => _sourceState;
-
-    public static ProductionStateCheckpoint Capture(ProductionState sourceState)
-    {
-        if (sourceState is null)
-        {
-            throw new ProductionStateException("Production source state is required.");
-        }
-
-        try
-        {
-            _ = sourceState.StateHash.Value;
-            _ = sourceState.SceneId.Value;
-        }
-        catch (InvalidOperationException)
-        {
-            throw new ProductionStateException("Production source state identity is uninitialized.");
-        }
-
-        var opportunity = sourceState.CurrentOpportunityCharacterId;
-        if (!opportunity.HasValue)
-        {
-            throw new ProductionStateException("Production source state has no current opportunity.");
-        }
-
-        try
-        {
-            _ = opportunity.Value.Value;
-        }
-        catch (InvalidOperationException)
-        {
-            throw new ProductionStateException("Production current opportunity is uninitialized.");
-        }
-
-        if (!sourceState.RosterCharacterIds.Contains(opportunity.Value))
-        {
-            throw new ProductionStateException(
-                "Production current opportunity is not in the Scene roster.");
-        }
-
-        return new ProductionStateCheckpoint(
-            sourceState,
-            sourceState.StateHash,
-            sourceState.SceneId,
-            opportunity.Value);
-    }
-}
-
 public sealed class ProductionStateException : Exception
 {
     internal ProductionStateException(string message)
@@ -508,16 +440,7 @@ internal static class ProductionGenesisProjection
                     record.RecordId,
                     record.Provenance)));
 
-        string fixtureHash;
-        try
-        {
-            fixtureHash = FixtureHash.Compute(fixture);
-        }
-        catch (CanonicalJsonException)
-        {
-            throw;
-        }
-
+        var fixtureHash = FixtureHash.Compute(fixture);
         if (!ProductionStateInvariants.IsLowerHexSha256(fixtureHash))
         {
             throw new ProductionGenesisProjectionException(
