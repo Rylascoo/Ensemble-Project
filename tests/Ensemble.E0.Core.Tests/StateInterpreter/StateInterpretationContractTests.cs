@@ -170,13 +170,33 @@ public sealed class StateInterpretationContractTests
     [TestMethod]
     public void Parse_EmptyMutationListIsValidAndCopiesTrustedIdentity()
     {
-        var source = AcceptedPipeline("No.").Source;
-        var proposal = Parse(source, ProposalJson());
+        var firstPipeline = AcceptedPipeline("No.");
+        var secondPipeline = AcceptedPipeline("Different Candidate semantics.");
+        var json = ProposalJson();
 
-        Assert.AreEqual(0, proposal.Mutations.Length);
-        Assert.AreEqual(source.CandidateContentIdentityContract, proposal.CandidateContentIdentityContract);
-        Assert.AreEqual(source.CandidateContentHash, proposal.CandidateContentHash);
-        Assert.AreEqual(source.SourceSceneId, proposal.SourceSceneId);
+        var firstProposal = Parse(firstPipeline.Source, json);
+        var secondProposal = Parse(secondPipeline.Source, json);
+
+        Assert.AreEqual(0, firstProposal.Mutations.Length);
+        Assert.AreEqual(0, secondProposal.Mutations.Length);
+        Assert.AreEqual(
+            firstPipeline.Source.CandidateContentIdentityContract,
+            firstProposal.CandidateContentIdentityContract);
+        Assert.AreEqual(
+            firstPipeline.Source.CandidateContentHash,
+            firstProposal.CandidateContentHash);
+        Assert.AreEqual(
+            firstPipeline.Source.SourceSceneId,
+            firstProposal.SourceSceneId);
+        Assert.AreEqual(
+            secondPipeline.Source.CandidateContentHash,
+            secondProposal.CandidateContentHash);
+        Assert.AreEqual(
+            secondPipeline.Source.SourceSceneId,
+            secondProposal.SourceSceneId);
+        Assert.AreNotEqual(
+            firstProposal.CandidateContentHash,
+            secondProposal.CandidateContentHash);
     }
 
     [TestMethod]
