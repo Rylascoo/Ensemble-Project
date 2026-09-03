@@ -51,17 +51,20 @@ public sealed class E0TakeContractAuditTests
     [TestMethod]
     public void TakeConstructionSurface_IsSealedPrivateAndBindOnly()
     {
-        Assert.IsTrue(typeof(E0Take).IsSealed);
+        var takeType = typeof(E0TakeContracts).Assembly.GetType(
+            "Ensemble.E0.Core.Take.E0Take",
+            throwOnError: true)!;
+        Assert.IsTrue(takeType.IsSealed);
 
-        var constructors = typeof(E0Take)
+        var constructors = takeType
             .GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic);
         Assert.AreEqual(1, constructors.Length);
         Assert.IsTrue(constructors[0].IsPrivate);
         Assert.AreEqual(
             0,
-            typeof(E0Take).GetConstructors(BindingFlags.Instance | BindingFlags.Public).Length);
+            takeType.GetConstructors(BindingFlags.Instance | BindingFlags.Public).Length);
 
-        var operations = typeof(E0Take)
+        var operations = takeType
             .GetMethods(BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance | BindingFlags.DeclaredOnly)
             .Where(method => !method.IsSpecialName)
             .ToArray();
@@ -117,7 +120,6 @@ public sealed class E0TakeContractAuditTests
             },
             properties.Select(property => property.Name).ToArray());
         Assert.IsTrue(properties.All(property => property.SetMethod is null));
-
         CollectionAssert.AreEqual(
             new[]
             {
