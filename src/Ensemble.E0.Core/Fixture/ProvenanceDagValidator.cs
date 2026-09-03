@@ -1,5 +1,6 @@
 using System.Collections.Immutable;
 using Ensemble.E0.Core.Domain;
+using Ensemble.E0.Core.Provenance;
 
 namespace Ensemble.E0.Core.Fixture;
 
@@ -7,8 +8,9 @@ internal static class ProvenanceDagValidator
 {
     public static void Validate(ValidatedFixture fixture)
     {
-        var graph = new Dictionary<RecordId, ImmutableArray<RecordId>>();
+        ArgumentNullException.ThrowIfNull(fixture);
 
+        var graph = new List<KeyValuePair<RecordId, ImmutableArray<RecordId>>>();
         Add(graph, fixture.HistoricalTruth);
         Add(graph, fixture.UnresolvedPropositions);
         Add(graph, fixture.WorldState);
@@ -29,57 +31,39 @@ internal static class ProvenanceDagValidator
 
             foreach (var relationship in character.Relationships)
             {
-                graph.Add(relationship.Id, relationship.Provenance);
+                graph.Add(new KeyValuePair<RecordId, ImmutableArray<RecordId>>(
+                    relationship.Id,
+                    relationship.Provenance));
             }
         }
 
-        var indegree = graph.Keys.ToDictionary(id => id, _ => 0);
-
-        foreach (var (_, sources) in graph)
+        try
         {
-            foreach (var sourceId in sources)
+            RecordProvenanceGraphValidator.Validate(graph);
+        }
+        catch (RecordProvenanceGraphException exception)
+        {
+            throw exception.Failure switch
             {
-                if (!indegree.ContainsKey(sourceId))
-                {
-                    throw new FixtureValidationException(
-                        $"Fixture provenance cites unknown record '{sourceId}'.");
-                }
-
-                indegree[sourceId]++;
-            }
-        }
-
-        var ready = new Queue<RecordId>(indegree.Where(pair => pair.Value == 0).Select(pair => pair.Key));
-        var visitedCount = 0;
-
-        while (ready.Count > 0)
-        {
-            var id = ready.Dequeue();
-            visitedCount++;
-
-            foreach (var sourceId in graph[id])
-            {
-                indegree[sourceId]--;
-                if (indegree[sourceId] == 0)
-                {
-                    ready.Enqueue(sourceId);
-                }
-            }
-        }
-
-        if (visitedCount != graph.Count)
-        {
-            throw new FixtureValidationException("Fixture provenance must form an acyclic graph.");
+                RecordProvenanceGraphFailure.MissingSupportingRecord when exception.RecordIdValue is not null =>
+                    new FixtureValidationException(
+                        $"Fixture provenance cites unknown record '{exception.RecordIdValue}'."),
+                RecordProvenanceGraphFailure.Cycle =>
+                    new FixtureValidationException("Fixture provenance must form an acyclic graph."),
+                _ => new FixtureValidationException("Fixture provenance graph is invalid.")
+            };
         }
     }
 
     private static void Add(
-        Dictionary<RecordId, ImmutableArray<RecordId>> graph,
+        ICollection<KeyValuePair<RecordId, ImmutableArray<RecordId>>> graph,
         ImmutableArray<ValidatedRecord> records)
     {
         foreach (var record in records)
         {
-            graph.Add(record.Id, record.Provenance);
+            graph.Add(new KeyValuePair<RecordId, ImmutableArray<RecordId>>(
+                record.Id,
+                record.Provenance));
         }
     }
 }
