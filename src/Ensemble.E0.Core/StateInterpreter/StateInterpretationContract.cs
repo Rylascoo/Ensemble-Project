@@ -263,12 +263,12 @@ public static class StateInterpretationContract
         var roster = StateInterpretationInvariants.RosterValues(source);
         var mutations = ImmutableArray.CreateBuilder<StateMutationCandidate>(
             parsed.Mutations.Count);
+        var semanticKeys = new HashSet<string>(StringComparer.Ordinal);
 
         foreach (var parsedMutation in parsed.Mutations)
         {
             var mutation = BuildMutation(source, roster, parsedMutation);
-
-            if (mutations.Any(existing => AreExactDuplicates(existing, mutation)))
+            if (!semanticKeys.Add(BuildSemanticMutationKey(mutation)))
             {
                 throw new StateInterpretationException(
                     "State Interpreter proposal contains an exact duplicate semantic mutation.");
@@ -688,52 +688,94 @@ public static class StateInterpretationContract
         return text;
     }
 
-    private static bool AreExactDuplicates(
-        StateMutationCandidate left,
-        StateMutationCandidate right)
+    private static string BuildSemanticMutationKey(StateMutationCandidate mutation)
     {
-        if (left.GetType() != right.GetType() ||
-            left.Domain != right.Domain ||
-            !left.SupportingRecordIds.SequenceEqual(right.SupportingRecordIds))
+        var builder = new StringBuilder();
+        AppendKeySegment(
+            builder,
+            ((int)mutation.Domain).ToString(CultureInfo.InvariantCulture));
+
+        switch (mutation)
         {
-            return false;
+            case GlobalStateMutationCandidate global:
+                AppendKeySegment(builder, "global");
+                AppendChangeKey(builder, global.Change);
+                break;
+
+            case AppendOnlyCharacterStateMutationCandidate appendOnly:
+                AppendKeySegment(builder, "append-character");
+                AppendKeySegment(builder, appendOnly.SubjectCharacterId.Value);
+                AppendChangeKey(builder, appendOnly.Change);
+                break;
+
+            case MutableCharacterStateMutationCandidate mutable:
+                AppendKeySegment(builder, "mutable-character");
+                AppendKeySegment(builder, mutable.SubjectCharacterId.Value);
+                AppendChangeKey(builder, mutable.Change);
+                break;
+
+            case CharacterClaimMutationCandidate claim:
+                AppendKeySegment(builder, "claim");
+                AppendKeySegment(builder, claim.SubjectCharacterId.Value);
+                AppendKeySegment(builder, claim.Text);
+                break;
+
+            case RelationshipStateMutationCandidate relationship:
+                AppendKeySegment(builder, "relationship");
+                AppendKeySegment(builder, relationship.SubjectCharacterId.Value);
+                AppendKeySegment(builder, relationship.TargetCharacterId.Value);
+                AppendChangeKey(builder, relationship.Change);
+                break;
+
+            default:
+                throw new StateInterpretationException(
+                    "State Interpreter semantic mutation type is unsupported.");
         }
 
-        return (left, right) switch
+        AppendKeySegment(builder, "support");
+        foreach (var supportId in mutation.SupportingRecordIds)
         {
-            (GlobalStateMutationCandidate a, GlobalStateMutationCandidate b) =>
-                ChangesEqual(a.Change, b.Change),
-            (AppendOnlyCharacterStateMutationCandidate a,
-             AppendOnlyCharacterStateMutationCandidate b) =>
-                a.SubjectCharacterId == b.SubjectCharacterId &&
-                ChangesEqual(a.Change, b.Change),
-            (MutableCharacterStateMutationCandidate a,
-             MutableCharacterStateMutationCandidate b) =>
-                a.SubjectCharacterId == b.SubjectCharacterId &&
-                ChangesEqual(a.Change, b.Change),
-            (CharacterClaimMutationCandidate a, CharacterClaimMutationCandidate b) =>
-                a.SubjectCharacterId == b.SubjectCharacterId &&
-                string.Equals(a.Text, b.Text, StringComparison.Ordinal),
-            (RelationshipStateMutationCandidate a, RelationshipStateMutationCandidate b) =>
-                a.SubjectCharacterId == b.SubjectCharacterId &&
-                a.TargetCharacterId == b.TargetCharacterId &&
-                ChangesEqual(a.Change, b.Change),
-            _ => false
-        };
+            AppendKeySegment(builder, supportId.Value);
+        }
+
+        return builder.ToString();
     }
 
-    private static bool ChangesEqual(StateMutationChange left, StateMutationChange right) =>
-        (left, right) switch
+    private static void AppendChangeKey(
+        StringBuilder builder,
+        StateMutationChange change)
+    {
+        switch (change)
         {
-            (AddStateMutationChange a, AddStateMutationChange b) =>
-                string.Equals(a.Text, b.Text, StringComparison.Ordinal),
-            (SupersedeStateMutationChange a, SupersedeStateMutationChange b) =>
-                a.ExistingRecordId == b.ExistingRecordId &&
-                string.Equals(a.Text, b.Text, StringComparison.Ordinal),
-            (DeactivateStateMutationChange a, DeactivateStateMutationChange b) =>
-                a.ExistingRecordId == b.ExistingRecordId,
-            _ => false
-        };
+            case AddStateMutationChange add:
+                AppendKeySegment(builder, "add");
+                AppendKeySegment(builder, add.Text);
+                break;
+
+            case SupersedeStateMutationChange supersede:
+                AppendKeySegment(builder, "supersede");
+                AppendKeySegment(builder, supersede.ExistingRecordId.Value);
+                AppendKeySegment(builder, supersede.Text);
+                break;
+
+            case DeactivateStateMutationChange deactivate:
+                AppendKeySegment(builder, "deactivate");
+                AppendKeySegment(builder, deactivate.ExistingRecordId.Value);
+                break;
+
+            default:
+                throw new StateInterpretationException(
+                    "State Interpreter semantic change type is unsupported.");
+        }
+    }
+
+    private static void AppendKeySegment(StringBuilder builder, string value)
+    {
+        builder.Append(value.Length.ToString(CultureInfo.InvariantCulture));
+        builder.Append(':');
+        builder.Append(value);
+        builder.Append(';');
+    }
 
     private static void RequireNull(string? value, string fieldName)
     {
