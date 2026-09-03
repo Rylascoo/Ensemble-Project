@@ -1,6 +1,6 @@
 # H1 Patch 0011 — E0 Take Semantics Contract
 
-Status: blueprint proposal 0.5 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; approval required; implementation not started
+Status: blueprint proposal 0.6 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; approval required; implementation not started
 Parent baseline: machine-validated H1 Patch 0010
 Branch: `h1-patch-0011-take-semantics-blueprint`
 
@@ -469,7 +469,7 @@ This preserves Blueprint 0.1 accepted-Take immutability without freezing post-E0
 
 Proposal 0.1 considered introducing an `AuthorityDecisionContentHash`.
 
-Proposal 0.5 removes it.
+Proposal 0.6 removes it.
 
 Reason:
 
@@ -542,6 +542,27 @@ Before an Accepted Take becomes effective Production history, later E0 orchestra
 A hash or immutable object association is not authentication.
 
 Rejected/Alternate Takes and synthetic tests may use synthetic provenance without creating Production authority.
+
+### E0 Take provenance obligation
+
+The Core Take deliberately does not absorb Run/provider/request/assessor provenance, but effective E0 run records must make each Take attributable within the frozen experimental record.
+
+For every created E0Take, later Harness/orchestration provenance must retain enough information to associate at minimum:
+
+- RunId;
+- TakeId;
+- Take disposition;
+- source ContextPacketId;
+- Candidate content identity/hash;
+- Interpreter proposal identity/hash as established by Patch 0010 binding;
+- fresh State Authority ordered decisions/reasons and the policy/review provenance required by the run;
+- provider/attempt/context-disclosure provenance required by the configured E0 path.
+
+For an Accepted Take that successfully commits, the later causal-commit record must associate its CommitId with that TakeId.
+
+For Rejected, Alternate, failed-before-Take, or Accepted-but-failed-commit material, provenance must preserve the explicit **absence of an effective causal commit** rather than allocate or fabricate a CommitId that implies Production history.
+
+This supplements Blueprint 0.1's existing E0 provenance requirements without turning diagnostic provenance into Production history.
 
 ## 23. Current Opportunity and Director interaction
 
@@ -656,7 +677,7 @@ Association verification reuses existing deterministic binds/evaluation and is l
 
 The Take aggregate retains references to existing immutable semantic objects rather than copying Character Context or duplicating proposal/evaluation structures.
 
-No background execution exists; idle battery impact from this Core contract is effectively zero by architecture. This is not target-device power evidence.
+Patch 0011 introduces no background execution or polling. Therefore no idle work is attributable to this Core contract by design; this is not target-device power evidence.
 
 ## 29. Fail closed
 
@@ -717,7 +738,7 @@ Future implementation should prove at minimum:
 31. identical semantic Candidate/Proposal packages may bind under distinct TakeIds;
 32. TakeId is not equal/derived by contract from CandidateContentHash or ProposalContentHash;
 33. Core defines no TakeId allocator/format beyond existing canonical strong-ID validation;
-34. Take aggregate exposes no provider/model/confidence/rationale/chain-of-thought field;
+34. Take aggregate exposes no RunId/provider/model/confidence/rationale/chain-of-thought field;
 35. Take is immutable;
 36. no disposition mutation API exists;
 37. repeated Bind over identical semantic inputs and TakeId/disposition produces equivalent Take semantics;
@@ -726,7 +747,7 @@ Future implementation should prove at minimum:
 40. Missing Raft Harness regression remains green;
 41. generic smoke Harness regression remains green.
 
-The reference disposition mapping in section 26 is a later Harness orchestration invariant; Patch 0011 Core need not add an implementation surface merely to restate it.
+The reference disposition mapping and E0 Take provenance obligations are later Harness/orchestration invariants; Patch 0011 Core need not add implementation surfaces merely to restate them.
 
 Patch 0011 implementation must add no tests that falsely claim ProductionState, persistence, provider authentication, global TakeId allocation, atomic commit, or runtime/hardware behavior.
 
@@ -793,7 +814,7 @@ This blueprint is architecture only.
 
 Before implementation:
 
-1. recursively adversarial-audit Proposal 0.5 against frozen Blueprint 0.1, approved Patches 0006–0010, current source/tests, engineering hygiene, E0 experiment isolation, provenance boundaries, and future Patch 0012 separation;
+1. recursively adversarial-audit Proposal 0.6 against frozen Blueprint 0.1, approved Patches 0006–0010, current source/tests, engineering hygiene, E0 experiment isolation, provenance boundaries, and future Patch 0012 separation;
 2. restart the audit after every material correction;
 3. require one complete final pass with zero material corrections and zero worthwhile architectural improvements;
 4. obtain explicit user approval;
