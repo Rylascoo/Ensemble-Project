@@ -17,16 +17,26 @@ Exact recursively audited proposal head:
 Approval PR:
 `#21 — H1: define E0 deterministic State Authority contract`
 
-PR #21 was opened after recovery of the approved implementation handoff and squash-merged without changing the audited blueprint content.
+PR #21 squash-merged the exact audited blueprint content without executable changes.
 
 Canonical blueprint promotion commit on `main`:
 `fbd3c7004c3f047ebb2b3244e4488f993390231b`
 
-## Approval authority
+Original approval evidence checkpoint:
+`b179d4a1a324349d66dce6158fc89dba5ddf0e2f`
 
-The user explicitly supplied the fresh-chat implementation handoff with Architecture FROZEN, Blueprint APPROVED, Recursive Audits COMPLETE, Implementation Handoff READY, and Next Chat IMPLEMENTATION ONLY.
+## Approval authority and provenance
 
-That handoff follows Proposal 0.6's recursive adversarial audit sequence and authorizes implementation of the exact audited State Authority review/decision boundary rather than another architecture cycle.
+Patch 0010 entered implementation from the accepted project handoff state that recorded Architecture FROZEN, Blueprint APPROVED, Recursive Audits COMPLETE, Implementation Handoff READY, and Next Chat IMPLEMENTATION ONLY.
+
+A later fresh-chat bootstrap failed to discover the already-existing Patch 0010 blueprint branch and temporarily reconstructed a thinner substitute contract from stale `main` state. That later chat reconstruction is not approval authority and does not modify Proposal 0.6.
+
+The durable approval identity is therefore the exact audited Proposal 0.6 head and its repository promotion sequence above. Future continuity must cite repository evidence rather than reconstructing approval from the contaminated bootstrap chat.
+
+Recovery audit:
+`docs/evidence/H1_PATCH_0010_CHAT_RECOVERY_AUDIT.md`
+
+The canonical blueprint intentionally preserves its historical audit-stage header at the exact approved content. Current approval/implementation status is established by this evidence record and `CURRENT_STATE.md`; the blueprint header must not be read as a live status field.
 
 Approval freezes the Patch 0010 E0 Deterministic State Authority contract described by Proposal 0.6, including:
 
@@ -56,6 +66,6 @@ Approval freezes the Patch 0010 E0 Deterministic State Authority contract descri
 
 ## Validation boundary
 
-This is blueprint approval only. It does not claim compiler, test, runtime, NPU, WACK, or Store validation for a Patch 0010 implementation.
+This record establishes blueprint approval only. It does not claim compiler, test, runtime, NPU, WACK, or Store validation for a Patch 0010 implementation.
 
-Executable implementation must begin from a checkpoint containing this approved blueprint and return to the user's native Windows ARM64 machine for compiler/test/runtime authority before Patch 0010 can be marked COMPLETE.
+Executable implementation must return to the user's native Windows ARM64 machine for compiler/test/runtime authority before Patch 0010 can be marked COMPLETE.
