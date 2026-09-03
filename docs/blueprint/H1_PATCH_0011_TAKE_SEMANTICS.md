@@ -1,6 +1,6 @@
 # H1 Patch 0011 — E0 Take Semantics Contract
 
-Status: blueprint proposal 0.7 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; approval required; implementation not started
+Status: blueprint proposal 0.8 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; approval required; implementation not started
 Parent baseline: machine-validated H1 Patch 0010
 Branch: `h1-patch-0011-take-semantics-blueprint`
 
@@ -146,12 +146,12 @@ Patch 0011 deliberately does **not** derive TakeId from RunId + ordinal or freez
 
 No TakeId is derived from Candidate, proposal, authority-decision, clock, random, provider, or model data inside Core Patch 0011.
 
-## 7. E0 Take aggregate
+## 7. E0 Take aggregate and construction authority
 
 Conceptual public shape:
 
 ```text
-E0Take
+public sealed class E0Take
 - ContractVersion
 - TakeId
 - Disposition
@@ -170,6 +170,10 @@ Where:
 The Take therefore preserves the actual Performance rather than reducing accepted history to hashes.
 
 It introduces no rewritten Performance text, corrected control, merged proposal, confidence score, free-form rationale, provider/model field, or hidden reasoning.
+
+`E0Take` has a **private constructor**. `E0Take.Bind` is its sole construction path. Patch 0011 introduces no public or internal alternate constructor/factory that can bypass association replay, terminal-authority checks, disposition validation, or Accepted-specific invariants.
+
+This is an authority property, not cosmetic encapsulation: future Core code must not be able to manufacture an apparently valid Take by directly setting fields or calling a weaker constructor.
 
 ## 8. Why the Take retains the Performance
 
@@ -197,7 +201,7 @@ E0Take.Bind(
     -> E0Take
 ```
 
-This is the sole Patch 0011 rich-object reconciliation boundary.
+This is the sole Patch 0011 rich-object reconciliation and construction boundary.
 
 The Take object does not retain `ContextPacket` or `IntegrityValidationEvaluation`; those remain separate E0 provenance records.
 
@@ -323,14 +327,21 @@ If a Performance itself violates locked authority or impossible world law, that 
 
 ## 13. E0 Take disposition
 
+The exact enum is:
+
 ```text
 E0TakeDisposition
-- Accepted
-- Rejected
-- Alternate
+- Unspecified = 0
+- Accepted = 1
+- Rejected = 2
+- Alternate = 3
 ```
 
-All three values describe a fully evaluated, Integrity-cleared package.
+`Unspecified` is not a valid Take disposition and `E0Take.Bind` must reject it. Undefined numeric values also fail closed.
+
+This ordering is deliberate: `default(E0TakeDisposition)` must never mean Accepted, Rejected, or Alternate. Acceptance authority cannot arise from a zero-initialized enum.
+
+Only `Accepted`, `Rejected`, and `Alternate` describe a fully evaluated, Integrity-cleared Take.
 
 They do not replace Patch 0008 dispositions:
 
@@ -340,15 +351,14 @@ IntegrityDisposition.Reject
 IntegrityDisposition.RequestAnotherTake
 ```
 
-Undefined Take disposition fails closed.
-
-The Take disposition is explicit typed orchestration input. It is never inferred from Candidate prose, Interpreter text, provider/model output, State Authority reason wording, sentiment, confidence, hidden reasoning, or random choice.
+The Take disposition is explicit typed orchestration input. It is never inferred from Candidate prose, Interpreter text, provider/model output, State Authority reason wording, sentiment, confidence, hidden reasoning, random choice, or an uninitialized/default enum.
 
 Disposition-specific structural rules are deterministic:
 
 - `Accepted` requires fresh terminal Complete authority with zero Rejected decisions;
 - `Rejected` may retain any fresh terminal Complete decision set;
-- `Alternate` may retain any fresh terminal Complete decision set.
+- `Alternate` may retain any fresh terminal Complete decision set;
+- `Unspecified` or undefined values create no Take.
 
 ## 14. Accepted
 
@@ -442,7 +452,8 @@ The following do not create an E0Take:
 - malformed/invalid StateInterpretationProposal;
 - State Authority structural/replay failure;
 - fresh State Authority evaluation with RequiresReview;
-- malformed/mismatched State Authority Trace inputs.
+- malformed/mismatched State Authority Trace inputs;
+- Unspecified/undefined Take disposition.
 
 Technical failure remains technical failure.
 
@@ -469,7 +480,7 @@ This preserves Blueprint 0.1 accepted-Take immutability without freezing post-E0
 
 Proposal 0.1 considered introducing an `AuthorityDecisionContentHash`.
 
-Proposal 0.7 removes it.
+Proposal 0.8 removes it.
 
 Reason:
 
@@ -552,11 +563,15 @@ For every created E0Take, later Harness/orchestration provenance must retain eno
 - RunId;
 - TakeId;
 - Take disposition;
+- Take disposition source: deterministic reference mapping or explicitly labeled intervention/test/control;
+- the intervention/exception label when the disposition did not come from the reference mapping;
 - source ContextPacketId;
 - Candidate content identity/hash;
 - Interpreter proposal identity/hash as established by Patch 0010 binding;
 - fresh State Authority ordered decisions/reasons and the policy/review provenance required by the run;
 - provider/attempt/context-disclosure provenance required by the configured E0 path.
+
+Within one Run, the provenance layer must reject duplicate TakeIds rather than silently alias two Take occurrences.
 
 For an Accepted Take that successfully commits, the later causal-commit record must associate its CommitId with that TakeId.
 
@@ -693,7 +708,7 @@ Failures include at minimum:
 
 - null/missing inputs;
 - uninitialized TakeId;
-- undefined Take disposition;
+- Unspecified/undefined Take disposition;
 - unsupported supplied State Authority evaluation contract;
 - malformed supplied State Authority Trace/Input/Policy/ReviewSet required for safe replay;
 - Context/Candidate/Integrity mismatch;
@@ -711,7 +726,11 @@ Failures include at minimum:
 - `StateAuthorityException` from fresh State Authority input binding/evaluation;
 - `InvalidOperationException` encountered only while safely reading an uninitialized supplied strong ID/property that Patch 0011 itself is validating.
 
-These become sanitized `E0TakeException` messages. Upstream exceptions may be retained as inner exceptions only because the existing upstream exception contracts are themselves sanitized structural domains; raw Candidate text, mutation Text, Context prose, unknown payload snippets, provider content, credentials, or arbitrary user text must not appear anywhere in the public exception representation (`Message`, inner chain/data, or `ToString()`).
+For `StateInterpretationException` and `StateAuthorityException`, the exact upstream domain exception is retained as `InnerException`; those current upstream contracts contain sanitized structural messages. The public `E0TakeException.Message` is a new sanitized Take-boundary message and does not concatenate upstream message text.
+
+A Take-owned `InvalidOperationException` encountered while checking an uninitialized supplied strong ID/property is normalized to a sanitized `E0TakeException` **without** retaining that runtime exception as an inner exception.
+
+Patch 0011 copies no exception `Data` entries. Raw Candidate text, mutation Text, Context prose, unknown payload snippets, provider content, credentials, or arbitrary user text must not appear anywhere in the public Take exception representation (`Message`, retained upstream inner chain/data, or `ToString()`).
 
 Patch 0011 must **not** catch and relabel arbitrary unexpected programming/runtime failures as ordinary Take rejection. Unexpected failures create no Take and remain technical failures for higher-level diagnostics.
 
@@ -723,50 +742,52 @@ Future implementation should prove at minimum:
 
 1. existing `TakeId` strong type is reused; no new Take ID type exists;
 2. TakeId required/initialized;
-3. Take contract/disposition exact and defined;
-4. exact CandidatePerformance object is retained;
-5. exact InterpretationProposal object is retained;
-6. supplied StateAuthorityEvaluation Status/Decisions are not independently trusted; fresh canonical Patch 0010 replay is retained;
-7. unsupported/malformed supplied State Authority trace configuration fails safely;
-8. Integrity Reject cannot bind a Take;
-9. Integrity RequestAnotherTake cannot bind a Take;
-10. technical/provider failure has no Take construction path;
-11. mismatched Context/Candidate fails;
-12. mismatched Integrity evaluation fails;
-13. proposal Candidate identity mismatch fails;
-14. proposal Scene mismatch fails;
-15. mismatched State Authority ReviewSet/proposal identity fails during fresh replay;
-16. fresh State Authority ReviewRequired cannot bind;
-17. any fresh RequiresReview decision cannot bind;
-18. empty mutation proposal + Complete authority can bind Accepted;
-19. all-Approved decision set can bind Accepted;
-20. mixed Approved/Rejected decision set cannot bind Accepted;
-21. all-Rejected decision set cannot bind Accepted;
-22. mixed/all-Rejected Complete decision sets can bind Rejected;
-23. mixed/all-Rejected Complete decision sets can bind Alternate;
-24. Alternate is never inferred by Core from authority decisions;
-25. Accepted Take applies no State and writes no history;
-26. Rejected Take applies no State/history/Director routing;
-27. Alternate Take applies no State/history/Director routing;
-28. Rejected/Alternate Take cannot make Candidate control effective;
-29. Accepted-but-uncommitted Take cannot make Candidate control effective;
-30. failed commit leaves Accepted Take outside Production history and preserves only required E0 provenance;
-31. identical semantic Candidate/Proposal packages may bind under distinct TakeIds;
-32. TakeId is not equal/derived by contract from CandidateContentHash or ProposalContentHash;
-33. Core defines no TakeId allocator/format beyond existing canonical strong-ID validation;
-34. Take aggregate exposes no RunId/provider/model/confidence/rationale/chain-of-thought field;
-35. Take is immutable;
-36. no disposition mutation API exists;
-37. repeated Bind over identical semantic inputs and TakeId/disposition produces equivalent Take semantics;
-38. expected upstream StateInterpretation/StateAuthority contract failures normalize to E0TakeException;
-39. Take exception messages/inner chains/data/ToString remain sanitized and do not expose Candidate/Context/mutation prose or arbitrary user/provider content;
-40. unexpected runtime/programming failures are not converted into a Take disposition;
-41. fixed Missing Raft Context/Candidate/State Authority regression identities remain unchanged;
-42. full Core regression suite remains green;
-43. Missing Raft Harness regression remains green;
-44. generic smoke Harness regression remains green.
+3. `E0TakeDisposition.Unspecified == 0`, Accepted/Rejected/Alternate are explicit nonzero values, and default/undefined disposition fails closed;
+4. `E0Take` is sealed, its constructor is private, and `Bind` is its sole construction path;
+5. Take contract/disposition exact and defined;
+6. exact CandidatePerformance object is retained;
+7. exact InterpretationProposal object is retained;
+8. supplied StateAuthorityEvaluation Status/Decisions are not independently trusted; fresh canonical Patch 0010 replay is retained;
+9. unsupported/malformed supplied State Authority trace configuration fails safely;
+10. Integrity Reject cannot bind a Take;
+11. Integrity RequestAnotherTake cannot bind a Take;
+12. technical/provider failure has no Take construction path;
+13. mismatched Context/Candidate fails;
+14. mismatched Integrity evaluation fails;
+15. proposal Candidate identity mismatch fails;
+16. proposal Scene mismatch fails;
+17. mismatched State Authority ReviewSet/proposal identity fails during fresh replay;
+18. fresh State Authority ReviewRequired cannot bind;
+19. any fresh RequiresReview decision cannot bind;
+20. empty mutation proposal + Complete authority can bind Accepted;
+21. all-Approved decision set can bind Accepted;
+22. mixed Approved/Rejected decision set cannot bind Accepted;
+23. all-Rejected decision set cannot bind Accepted;
+24. mixed/all-Rejected Complete decision sets can bind Rejected;
+25. mixed/all-Rejected Complete decision sets can bind Alternate;
+26. Alternate is never inferred by Core from authority decisions;
+27. Accepted Take applies no State and writes no history;
+28. Rejected Take applies no State/history/Director routing;
+29. Alternate Take applies no State/history/Director routing;
+30. Rejected/Alternate Take cannot make Candidate control effective;
+31. Accepted-but-uncommitted Take cannot make Candidate control effective;
+32. failed commit leaves Accepted Take outside Production history and preserves only required E0 provenance;
+33. identical semantic Candidate/Proposal packages may bind under distinct TakeIds;
+34. TakeId is not equal/derived by contract from CandidateContentHash or ProposalContentHash;
+35. Core defines no TakeId allocator/format beyond existing canonical strong-ID validation;
+36. Take aggregate exposes no RunId/provider/model/confidence/rationale/chain-of-thought field;
+37. Take is immutable and exposes no disposition mutation API;
+38. repeated Bind over identical semantic inputs and TakeId/disposition produces equivalent Take semantics;
+39. expected upstream StateInterpretation/StateAuthority contract failures normalize to E0TakeException with the expected sanitized upstream domain exception retained as InnerException;
+40. Take-owned uninitialized-strong-ID InvalidOperationException is normalized without retaining that runtime exception;
+41. Take exception messages/inner chains/data/ToString remain sanitized and do not expose Candidate/Context/mutation prose or arbitrary user/provider content;
+42. unexpected runtime/programming failures are not converted into a Take disposition;
+43. fixed Missing Raft Context/Candidate/State Authority regression identities remain unchanged;
+44. full Core regression suite remains green;
+45. Missing Raft Harness regression remains green;
+46. generic smoke Harness regression remains green.
 
-The reference disposition mapping and E0 Take provenance obligations are later Harness/orchestration invariants; Patch 0011 Core need not add implementation surfaces merely to restate them.
+The reference disposition mapping, per-Run TakeId uniqueness, disposition-source attribution, and E0 Take provenance obligations are later Harness/orchestration invariants; Patch 0011 Core need not add implementation surfaces merely to restate them.
 
 Patch 0011 implementation must add no tests that falsely claim ProductionState, persistence, provider authentication, global TakeId allocation, atomic commit, or runtime/hardware behavior.
 
@@ -825,7 +846,7 @@ Access Control
 
 Patch 0011's principal law is:
 
-> A CandidatePerformance is the provisional generated Performance. An E0 Take exists only after that Performance has passed Integrity and its interpreted consequences have reached a terminal deterministic State Authority replay. The Take preserves the exact Performance, exact consequence proposal, fresh canonical authority evaluation, and an Accepted / Rejected / Alternate disposition under a distinct supplied TakeId. E0 Accepted requires zero rejected consequence decisions and means selected for atomic commit, not already historical. Only later successful atomic commit makes the accepted Performance and all Approved consequences effective together.
+> A CandidatePerformance is the provisional generated Performance. An E0 Take exists only after that Performance has passed Integrity and its interpreted consequences have reached a terminal deterministic State Authority replay. The Take preserves the exact Performance, exact consequence proposal, fresh canonical authority evaluation, and an explicit non-default Accepted / Rejected / Alternate disposition under a distinct supplied TakeId. E0 Accepted requires zero rejected consequence decisions and means selected for atomic commit, not already historical. Only later successful atomic commit makes the accepted Performance and all Approved consequences effective together.
 
 ## 33. Approval / implementation gate
 
@@ -833,7 +854,7 @@ This blueprint is architecture only.
 
 Before implementation:
 
-1. recursively adversarial-audit Proposal 0.7 against frozen Blueprint 0.1, approved Patches 0006–0010, current source/tests, engineering hygiene, E0 experiment isolation, provenance boundaries, exception boundaries, and future Patch 0012 separation;
+1. recursively adversarial-audit Proposal 0.8 against frozen Blueprint 0.1, approved Patches 0006–0010, current source/tests, engineering hygiene, E0 experiment isolation, provenance boundaries, exception boundaries, invalid-state construction, and future Patch 0012 separation;
 2. restart the audit after every material correction;
 3. require one complete final pass with zero material corrections and zero worthwhile architectural improvements;
 4. obtain explicit user approval;
