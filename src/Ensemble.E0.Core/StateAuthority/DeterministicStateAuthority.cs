@@ -176,13 +176,13 @@ public static class DeterministicStateAuthority
         foreach (var mutation in input.Mutations)
         {
             var existingRecordId = ExistingRecordId(mutation.Transition);
-            if (existingRecordId is null || !recordsById.ContainsKey(existingRecordId.Value))
+            if (existingRecordId is null || !recordsById.ContainsKey(existingRecordId))
             {
                 continue;
             }
 
-            counts.TryGetValue(existingRecordId.Value, out var count);
-            counts[existingRecordId.Value] = count + 1;
+            counts.TryGetValue(existingRecordId, out var count);
+            counts[existingRecordId] = count + 1;
         }
 
         return counts
@@ -210,7 +210,7 @@ public static class DeterministicStateAuthority
         var existingRecordId = ExistingRecordId(mutation.Transition);
         if (existingRecordId is not null)
         {
-            if (!recordsById.TryGetValue(existingRecordId.Value, out var existing))
+            if (!recordsById.TryGetValue(existingRecordId, out var existing))
             {
                 reasons.Add(StateAuthorityReasonCode.ExistingRecordMissing);
             }
@@ -233,7 +233,7 @@ public static class DeterministicStateAuthority
                     reasons.Add(StateAuthorityReasonCode.ExistingRecordProtected);
                 }
 
-                if (conflictTargets.Contains(existingRecordId.Value))
+                if (conflictTargets.Contains(existingRecordId))
                 {
                     reasons.Add(StateAuthorityReasonCode.ConflictingExistingRecordTarget);
                 }
@@ -374,12 +374,12 @@ public static class DeterministicStateAuthority
             mutation.Transition is not AddStateAuthorityTransition;
     }
 
-    private static RecordId? ExistingRecordId(StateAuthorityTransition transition) =>
+    private static string? ExistingRecordId(StateAuthorityTransition transition) =>
         transition switch
         {
             AddStateAuthorityTransition => null,
-            SupersedeStateAuthorityTransition supersede => supersede.ExistingRecordId,
-            DeactivateStateAuthorityTransition deactivate => deactivate.ExistingRecordId,
+            SupersedeStateAuthorityTransition supersede => supersede.ExistingRecordId.Value,
+            DeactivateStateAuthorityTransition deactivate => deactivate.ExistingRecordId.Value,
             _ => throw new StateAuthorityException(
                 "State Authority mutation contains an unsupported transition.")
         };
