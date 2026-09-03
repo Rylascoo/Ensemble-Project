@@ -1,6 +1,6 @@
 # H1 Patch 0011 — E0 Take Semantics Contract
 
-Status: blueprint proposal 0.8 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; approval required; implementation not started
+Status: blueprint proposal 0.9 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; approval required; implementation not started
 Parent baseline: machine-validated H1 Patch 0010
 Branch: `h1-patch-0011-take-semantics-blueprint`
 
@@ -104,7 +104,7 @@ E0Take Accepted
     -> selected for later atomic commit; not yet Production history
 
 E0Take Rejected
-    -> valid fully evaluated package deliberately not selected for Production history
+    -> fully evaluated package not selected for Production history
 
 E0Take Alternate
     -> fully evaluated noncanonical alternative retained for E0 provenance
@@ -321,6 +321,8 @@ This rule is deliberately E0-scoped. It does not close ODR-19 or require the fin
 
 Historical texture remains fully supported through the empty-proposal case: a valid Performance with `Mutations = []` can be Accepted and later committed as history with no durable projected-state mutation.
 
+The empty-proposal rule is **not** an escape hatch for an omitted required consequence. An empty proposal is safe only when the Performance does not require a durable projected-state change for transcript/current-authority coherence. If an E0 hard-gate audit or failure-injection case demonstrates that the Interpreter omitted a consequence required by the accepted Performance, that run is invalid and must be repaired before it contributes experiential evidence. Patch 0011 does not solve semantic completeness by inventing a hidden second prose reviewer.
+
 Rejected mutation text never becomes authoritative consequence merely because the package is retained.
 
 If a Performance itself violates locked authority or impossible world law, that belongs to the Integrity boundary; Patch 0011 does not create a hidden second prose-reviewer.
@@ -480,7 +482,7 @@ This preserves Blueprint 0.1 accepted-Take immutability without freezing post-E0
 
 Proposal 0.1 considered introducing an `AuthorityDecisionContentHash`.
 
-Proposal 0.8 removes it.
+Proposal 0.9 removes it.
 
 Reason:
 
@@ -571,7 +573,9 @@ For every created E0Take, later Harness/orchestration provenance must retain eno
 - fresh State Authority ordered decisions/reasons and the policy/review provenance required by the run;
 - provider/attempt/context-disclosure provenance required by the configured E0 path.
 
-Within one Run, the provenance layer must reject duplicate TakeIds rather than silently alias two Take occurrences.
+Within one Run, the run-orchestration/provenance gate must reject duplicate TakeIds rather than silently alias two Take occurrences.
+
+A disposition that deviates from the deterministic reference mapping without the required explicit intervention/test/control attribution is an **E0 experimental-provenance failure**. The Core Take may still be structurally non-effective, but that run may not contribute ordinary reference-comparison evidence until the provenance defect is corrected or the run is rerun with the deviation explicitly labeled.
 
 For an Accepted Take that successfully commits, the later causal-commit record must associate its CommitId with that TakeId.
 
@@ -854,7 +858,7 @@ This blueprint is architecture only.
 
 Before implementation:
 
-1. recursively adversarial-audit Proposal 0.8 against frozen Blueprint 0.1, approved Patches 0006–0010, current source/tests, engineering hygiene, E0 experiment isolation, provenance boundaries, exception boundaries, invalid-state construction, and future Patch 0012 separation;
+1. recursively adversarial-audit Proposal 0.9 against frozen Blueprint 0.1, approved Patches 0006–0010, current source/tests, engineering hygiene, E0 experiment isolation, provenance boundaries, exception boundaries, invalid-state construction, causal-coherence limitations, and future Patch 0012 separation;
 2. restart the audit after every material correction;
 3. require one complete final pass with zero material corrections and zero worthwhile architectural improvements;
 4. obtain explicit user approval;
