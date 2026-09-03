@@ -1,6 +1,6 @@
 # H1 Patch 0011 — E0 Take Semantics Contract
 
-Status: blueprint proposal 0.14 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; approval required; implementation not started
+Status: blueprint proposal 0.15 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; approval required; implementation not started
 Parent baseline: machine-validated H1 Patch 0010
 Branch: `h1-patch-0011-take-semantics-blueprint`
 
@@ -518,7 +518,7 @@ This preserves Blueprint 0.1 accepted-Take immutability without freezing post-E0
 
 Proposal 0.1 considered introducing an `AuthorityDecisionContentHash`.
 
-Proposal 0.14 removes it.
+Proposal 0.15 removes it.
 
 Reason:
 
@@ -752,7 +752,7 @@ Patch 0011 introduces no background execution or polling. Therefore no idle work
 
 ## 29. Fail closed and exception-domain normalization
 
-Patch 0011 defines a publicly catchable but subsystem-constructed expected contract-failure domain:
+Patch 0011 defines a publicly catchable expected contract-failure domain whose construction is not exposed outside the Core assembly:
 
 ```csharp
 public sealed class E0TakeException : Exception
@@ -769,7 +769,9 @@ public sealed class E0TakeException : Exception
 }
 ```
 
-`E0TakeException` has **no public constructor**. Callers can catch/inspect the typed failure, but only the Take subsystem can create canonical Take-boundary exceptions. This prevents arbitrary external code from manufacturing unsanitized exceptions that falsely present themselves as output from the Take contract.
+`E0TakeException` has **no public constructor**. External assemblies can catch/inspect the typed failure but cannot directly construct it through normal C# access.
+
+C# `internal` accessibility is assembly-wide, not namespace-restricted. Patch 0011 therefore does **not** claim that the compiler prevents other `Ensemble.E0.Core` code from calling these constructors. `E0Take.Bind` is the sole approved production emitter under this contract; implementation review must reject any unrelated Core production path that starts manufacturing Take exceptions as though they came from this boundary.
 
 `E0TakeException` is the public expected contract-failure exception emitted by `E0Take.Bind`.
 
@@ -814,7 +816,7 @@ Future implementation should prove at minimum:
 4. TakeId required/initialized;
 5. `E0TakeDisposition.Unspecified == 0`, Accepted/Rejected/Alternate are explicit nonzero values, and default/undefined disposition fails closed;
 6. `E0Take` is sealed, its constructor is private, and `Bind` is its sole construction path;
-7. `E0TakeException` is sealed, publicly catchable, has no public constructors, and is constructed only through non-public Take-subsystem constructors;
+7. `E0TakeException` is sealed, publicly catchable, and exposes no public constructor or public factory;
 8. `E0Take.ContractVersion == E0TakeContracts.ContractVersion`;
 9. exact CandidatePerformance object is retained;
 10. exact InterpretationProposal object is retained;
@@ -930,7 +932,7 @@ This blueprint is architecture only.
 
 Before implementation:
 
-1. recursively adversarial-audit Proposal 0.14 against frozen Blueprint 0.1, approved Patches 0006–0010, current source/tests, engineering hygiene, E0 experiment isolation, provenance boundaries, exception boundaries, invalid-state construction, source-state identity limits, causal-coherence limitations, immutable freshness boundaries, and future Patch 0012 separation;
+1. recursively adversarial-audit Proposal 0.15 against frozen Blueprint 0.1, approved Patches 0006–0010, current source/tests, engineering hygiene, E0 experiment isolation, provenance boundaries, exception boundaries, invalid-state construction, source-state identity limits, causal-coherence limitations, immutable freshness boundaries, and future Patch 0012 separation;
 2. restart the audit after every material correction;
 3. require one complete final pass with zero material corrections and zero worthwhile architectural improvements;
 4. obtain explicit user approval;
