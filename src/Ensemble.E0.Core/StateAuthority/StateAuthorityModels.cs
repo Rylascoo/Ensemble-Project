@@ -4,6 +4,8 @@ using System.Text;
 using Ensemble.E0.Core.Domain;
 using Ensemble.E0.Core.Fixture;
 using Ensemble.E0.Core.Integrity;
+using Ensemble.E0.Core.Production;
+using Ensemble.E0.Core.Provenance;
 using Ensemble.E0.Core.Serialization;
 using Ensemble.E0.Core.StateInterpreter;
 
@@ -172,190 +174,35 @@ public sealed class StateAuthoritySnapshot
             throw new StateAuthorityException("State Authority creator-lock input is required.");
         }
 
-        RequireInitialized(fixture.Scene.Id, "SceneId");
-        var roster = CanonicalizeRoster(fixture);
-        var descriptors = BuildRecordDescriptors(fixture);
-
-        var byRecordId = new Dictionary<string, StateAuthorityRecordDescriptor>(StringComparer.Ordinal);
-        foreach (var descriptor in descriptors)
+        try
         {
-            var recordValue = RequireInitialized(descriptor.RecordId, "RecordId");
-            if (!byRecordId.TryAdd(recordValue, descriptor))
-            {
-                throw new StateAuthorityException(
-                    "State Authority snapshot contains duplicate Record IDs.");
-            }
+            var projection = ProductionGenesisProjection.CreateForAuthority(
+                fixture,
+                creatorLockedRecordIds);
+            return ProductionStateAuthoritySnapshot.BindProjection(projection);
         }
-
-        var locks = new HashSet<string>(StringComparer.Ordinal);
-        foreach (var lockId in creatorLockedRecordIds)
-        {
-            var lockValue = RequireInitialized(lockId, "creator lock RecordId");
-            if (!locks.Add(lockValue))
-            {
-                throw new StateAuthorityException(
-                    "State Authority creator-lock input contains a duplicate Record ID.");
-            }
-
-            if (!byRecordId.ContainsKey(lockValue))
-            {
-                throw new StateAuthorityException(
-                    "State Authority creator-lock input contains an unknown Record ID.");
-            }
-        }
-
-        var protectedDescriptors = descriptors
-            .Select(descriptor =>
-            {
-                if (!locks.Contains(descriptor.RecordId.Value) ||
-                    descriptor.Protection == StateAuthorityRecordProtection.SystemImmutable)
-                {
-                    return descriptor;
-                }
-
-                return descriptor.WithProtection(StateAuthorityRecordProtection.CreatorLocked);
-            })
-            .OrderBy(descriptor => descriptor.RecordId.Value, StringComparer.Ordinal)
-            .ToImmutableArray();
-
-        return new StateAuthoritySnapshot(fixture.Scene.Id, roster, protectedDescriptors);
-    }
-
-    private static ImmutableArray<CharacterId> CanonicalizeRoster(ValidatedFixture fixture)
-    {
-        if (fixture.Scene.Roster.IsDefault || fixture.Scene.Roster.Length != 3)
+        catch (ProductionGenesisProjectionException exception)
         {
             throw new StateAuthorityException(
-                "State Authority snapshot roster must contain exactly three E0 Characters.");
+                "State Authority fixture projection is invalid.",
+                exception);
         }
-
-        var knownCharacters = fixture.Characters
-            .Select(character => RequireInitialized(character.Id, "fixture CharacterId"))
-            .ToHashSet(StringComparer.Ordinal);
-        var values = new HashSet<string>(StringComparer.Ordinal);
-        var roster = ImmutableArray.CreateBuilder<CharacterId>(fixture.Scene.Roster.Length);
-
-        foreach (var characterId in fixture.Scene.Roster)
+        catch (RecordProvenanceGraphException exception)
         {
-            var value = RequireInitialized(characterId, "roster CharacterId");
-            if (!values.Add(value))
-            {
-                throw new StateAuthorityException(
-                    "State Authority snapshot roster contains duplicate Character IDs.");
-            }
-
-            if (!knownCharacters.Contains(value))
-            {
-                throw new StateAuthorityException(
-                    "State Authority snapshot roster contains an unknown Character ID.");
-            }
-
-            roster.Add(characterId);
-        }
-
-        return roster
-            .ToImmutable()
-            .OrderBy(id => id.Value, StringComparer.Ordinal)
-            .ToImmutableArray();
-    }
-
-    private static ImmutableArray<StateAuthorityRecordDescriptor> BuildRecordDescriptors(
-        ValidatedFixture fixture)
-    {
-        var records = ImmutableArray.CreateBuilder<StateAuthorityRecordDescriptor>();
-
-        AddGlobal(records, fixture.HistoricalTruth, StateAuthorityRecordDomain.HistoricalTruth, true);
-        AddGlobal(records, fixture.UnresolvedPropositions, StateAuthorityRecordDomain.UnresolvedProposition, false);
-        AddGlobal(records, fixture.WorldState, StateAuthorityRecordDomain.WorldState, false);
-        AddGlobal(records, fixture.SceneState, StateAuthorityRecordDomain.SceneState, false);
-        AddGlobal(records, fixture.Pressures, StateAuthorityRecordDomain.Pressure, false);
-
-        var rosterValues = fixture.Scene.Roster
-            .Select(id => RequireInitialized(id, "roster CharacterId"))
-            .ToHashSet(StringComparer.Ordinal);
-
-        foreach (var character in fixture.Characters)
-        {
-            var subjectValue = RequireInitialized(character.Id, "CharacterId");
-            AddCharacter(records, character.Constitution, character.Id, StateAuthorityRecordDomain.CharacterConstitution, true);
-            AddCharacter(records, character.Disposition, character.Id, StateAuthorityRecordDomain.CharacterDisposition, false);
-            AddCharacter(records, character.Circumstance, character.Id, StateAuthorityRecordDomain.CharacterCircumstance, false);
-            AddCharacter(records, character.Observations, character.Id, StateAuthorityRecordDomain.CharacterObservation, true);
-            AddCharacter(records, character.Knowledge, character.Id, StateAuthorityRecordDomain.CharacterKnowledge, false);
-            AddCharacter(records, character.Beliefs, character.Id, StateAuthorityRecordDomain.CharacterBelief, false);
-            AddCharacter(records, character.Suspicions, character.Id, StateAuthorityRecordDomain.CharacterSuspicion, false);
-            AddCharacter(records, character.Memories, character.Id, StateAuthorityRecordDomain.CharacterMemory, false);
-            AddCharacter(records, character.Goals, character.Id, StateAuthorityRecordDomain.CharacterGoal, false);
-
-            foreach (var relationship in character.Relationships)
-            {
-                RequireInitialized(relationship.Id, "Relationship RecordId");
-                var targetValue = RequireInitialized(
-                    relationship.TargetCharacterId,
-                    "Relationship target CharacterId");
-                if (!rosterValues.Contains(subjectValue) || !rosterValues.Contains(targetValue))
-                {
-                    throw new StateAuthorityException(
-                        "State Authority relationship record references a Character outside the Scene roster.");
-                }
-
-                if (character.Id == relationship.TargetCharacterId)
-                {
-                    throw new StateAuthorityException(
-                        "State Authority relationship record cannot target its subject Character.");
-                }
-
-                records.Add(new RelationshipStateAuthorityRecordDescriptor(
-                    relationship.Id,
-                    character.Id,
-                    relationship.TargetCharacterId,
-                    StateAuthorityRecordLifecycle.Active,
-                    StateAuthorityRecordProtection.None));
-            }
-        }
-
-        return records.ToImmutable();
-    }
-
-    private static void AddGlobal(
-        ImmutableArray<StateAuthorityRecordDescriptor>.Builder target,
-        ImmutableArray<ValidatedRecord> records,
-        StateAuthorityRecordDomain domain,
-        bool systemImmutable)
-    {
-        foreach (var record in records)
-        {
-            RequireInitialized(record.Id, "RecordId");
-            target.Add(new GlobalStateAuthorityRecordDescriptor(
-                record.Id,
-                domain,
-                StateAuthorityRecordLifecycle.Active,
-                systemImmutable
-                    ? StateAuthorityRecordProtection.SystemImmutable
-                    : StateAuthorityRecordProtection.None));
+            throw new StateAuthorityException(
+                "State Authority fixture provenance graph is invalid.",
+                exception);
         }
     }
 
-    private static void AddCharacter(
-        ImmutableArray<StateAuthorityRecordDescriptor>.Builder target,
-        ImmutableArray<ValidatedRecord> records,
-        CharacterId subjectCharacterId,
-        StateAuthorityRecordDomain domain,
-        bool systemImmutable)
+    public static StateAuthoritySnapshot Bind(ProductionState state)
     {
-        RequireInitialized(subjectCharacterId, "subject CharacterId");
-        foreach (var record in records)
+        if (state is null)
         {
-            RequireInitialized(record.Id, "RecordId");
-            target.Add(new CharacterStateAuthorityRecordDescriptor(
-                record.Id,
-                domain,
-                subjectCharacterId,
-                StateAuthorityRecordLifecycle.Active,
-                systemImmutable
-                    ? StateAuthorityRecordProtection.SystemImmutable
-                    : StateAuthorityRecordProtection.None));
+            throw new StateAuthorityException("State Authority Production state is required.");
         }
+
+        return ProductionStateAuthoritySnapshot.Bind(state);
     }
 
     internal static string RequireInitialized(SceneId id, string fieldName)
@@ -1350,25 +1197,19 @@ internal static class StateAuthorityProposalCanonicalizer
                 "State Authority cannot canonicalize an unsupported mutation transition.")
         };
 
-    private static string DomainToken(StateMutationDomain domain) =>
-        domain switch
+    private static string DomainToken(StateMutationDomain domain)
+    {
+        try
         {
-            StateMutationDomain.WorldState => "worldState",
-            StateMutationDomain.SceneState => "sceneState",
-            StateMutationDomain.UnresolvedProposition => "unresolvedProposition",
-            StateMutationDomain.CharacterKnowledge => "characterKnowledge",
-            StateMutationDomain.CharacterBelief => "characterBelief",
-            StateMutationDomain.CharacterSuspicion => "characterSuspicion",
-            StateMutationDomain.CharacterMemory => "characterMemory",
-            StateMutationDomain.CharacterGoal => "characterGoal",
-            StateMutationDomain.CharacterDisposition => "characterDisposition",
-            StateMutationDomain.CharacterCircumstance => "characterCircumstance",
-            StateMutationDomain.CharacterClaim => "characterClaim",
-            StateMutationDomain.Relationship => "relationship",
-            StateMutationDomain.Pressure => "pressure",
-            _ => throw new StateAuthorityException(
-                "State Authority cannot canonicalize an undefined mutation domain.")
-        };
+            return StateMutationDomainCanonicalTokens.Get(domain);
+        }
+        catch (StateInterpretationException exception)
+        {
+            throw new StateAuthorityException(
+                "State Authority cannot canonicalize an undefined mutation domain.",
+                exception);
+        }
+    }
 
     private static void AppendStringProperty(
         StringBuilder builder,
