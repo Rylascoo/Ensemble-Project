@@ -22,7 +22,8 @@ public sealed class Patch0012StructuralImplementationTests
             .GetFields(BindingFlags.Public | BindingFlags.Static)
             .Where(field => field.FieldType == typeof(OpCode))
             .Select(field => (OpCode)field.GetValue(null)!)
-            .ToDictionary(opCode => opCode.Value);
+            .GroupBy(opCode => opCode.Value)
+            .ToDictionary(group => group.Key, group => group.First());
 
     [TestMethod]
     public void CheckpointCapture_IsShallowRetainsExactStateAndDoesNoLedgerScaleWork()
@@ -32,7 +33,7 @@ public sealed class Patch0012StructuralImplementationTests
 
         Assert.AreEqual(state.StateHash, checkpoint.StateHash);
         Assert.AreEqual(state.SceneId, checkpoint.SceneId);
-        Assert.AreEqual(state.CurrentOpportunityCharacterId, checkpoint.CurrentOpportunityCharacterId);
+        Assert.AreEqual(state.CurrentOpportunityCharacterId!.Value, checkpoint.CurrentOpportunityCharacterId);
         var sourceField = typeof(ProductionStateCheckpoint).GetField(
             "_sourceState",
             BindingFlags.Instance | BindingFlags.NonPublic)!;
