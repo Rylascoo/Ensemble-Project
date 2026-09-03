@@ -22,12 +22,20 @@ public sealed class ProductionStateTests
     [TestMethod]
     public void PublicContractsAndEnumValues_AreExact()
     {
+        var stateContractVersion = typeof(ProductionStateContracts).GetField(
+            nameof(ProductionStateContracts.StateContractVersion),
+            BindingFlags.Public | BindingFlags.Static)
+            ?? throw new InvalidOperationException("Production state contract version field is missing.");
+        var stateHashContractVersion = typeof(ProductionStateContracts).GetField(
+            nameof(ProductionStateContracts.StateHashContractVersion),
+            BindingFlags.Public | BindingFlags.Static)
+            ?? throw new InvalidOperationException("Production state hash contract version field is missing.");
         Assert.AreEqual(
             "ensemble.e0.production-state.v1",
-            ProductionStateContracts.StateContractVersion);
+            stateContractVersion.GetRawConstantValue());
         Assert.AreEqual(
             "ensemble.e0.production-state-hash.sha256.v1",
-            ProductionStateContracts.StateHashContractVersion);
+            stateHashContractVersion.GetRawConstantValue());
 
         CollectionAssert.AreEqual(
             Enumerable.Range(0, 17).ToArray(),
