@@ -16,7 +16,7 @@ Updated: 2026-09-03
 - H1 Patch 0008 E0 Integrity Validator Contract Proposal 1.1 is APPROVED and machine-validated for exercised gates.
 - H1 Patch 0009 E0 State Interpreter Mutation-Proposal Contract Proposal 0.7 is APPROVED, canonical, implemented, and machine-validated for exercised gates.
 - H1 Patch 0010 E0 Deterministic State Authority Review/Decision Contract Proposal 0.6 is APPROVED, canonical, implemented, and machine-validated for exercised deterministic gates.
-- H1 Patch 0011 E0 Take Semantics Contract Proposal 0.15 is APPROVED and canonical; implementation has not started and no Patch 0011 compiler/runtime claim exists yet.
+- H1 Patch 0011 E0 Take Semantics Contract Proposal 0.15 is APPROVED, canonical, implemented, and machine-validated for exercised Take gates at exact implementation-branch head `4250011c167cd9850ad891aaea4ee053216cf135`; promotion to `main` remains pending.
 - Patches 0006–0011 preserve probabilistic proposal versus deterministic authority separation and completed recursive architecture/static review before approval/closure.
 - `docs/ENGINEERING_HYGIENE_CONSTITUTION.md` is project law unless stronger frozen authority explicitly overrides it.
 - GitHub `Rylascoo/Ensemble-Project` is authoritative current engineering state.
@@ -40,15 +40,19 @@ Current architecture checkpoint:
 
 Status:
 
-`BLUEPRINT APPROVED — READY FOR FRESH-CHAT IMPLEMENTATION`
+`IMPLEMENTED — MACHINE VALIDATED ON IMPLEMENTATION BRANCH — MAIN PROMOTION PENDING`
 
-Latest machine-validated executable checkpoint remains:
+Latest machine-validated executable checkpoint:
 
-`H1 Patch 0010 — deterministic State Authority review/decision`
+`H1 Patch 0011 — E0 Take Semantics`
+
+Exact machine-tested head:
+
+`4250011c167cd9850ad891aaea4ee053216cf135`
 
 Status:
 
-`COMPLETE FOR EXERCISED DETERMINISTIC STATE AUTHORITY GATES`
+`COMPLETE FOR EXERCISED E0 TAKE SEMANTICS GATES`
 
 ## Patch 0011 canonical authority
 
@@ -63,6 +67,9 @@ Exact recursively audited Proposal 0.15 head:
 
 Blueprint approval record:
 `docs/evidence/H1_PATCH_0011_BLUEPRINT_APPROVAL.md`
+
+Native ARM64 validation record:
+`docs/evidence/H1_PATCH_0011_ARM64_VALIDATION.md`
 
 Fresh-chat implementation handoff:
 `docs/handoff/E0A_H1_PATCH_0011_IMPLEMENTATION_HANDOFF.md`
@@ -80,7 +87,7 @@ Important status rule:
 
 The canonical Patch 0011 blueprint preserves its historical Proposal 0.15 audit-stage header at the exact approved bytes. Current approval status is established by this file plus `docs/evidence/H1_PATCH_0011_BLUEPRINT_APPROVAL.md`; do not edit the audited blueprint merely to turn its historical header into a live status field.
 
-PR #23 was documentation-only. No executable source, tests, project configuration, fixture, Harness, UI, provider, Windows AI/NPU, packaging, WACK, or Store code changed when Patch 0011 architecture was promoted.
+PR #23 was documentation-only. The later Patch 0011 implementation is independently machine-validated at exact implementation-branch head `4250011c167cd9850ad891aaea4ee053216cf135`; its promotion to `main` is a separate repository checkpoint.
 
 ## Validated Patch 0011 architecture boundary
 
@@ -118,42 +125,94 @@ Key frozen laws include:
 28. Patch 0011 remains deterministic and introduces no network/filesystem/clock/random/provider/GPU/NPU/global mutable state or background work;
 29. Patch 0011 introduces no ProductionState, StateHash, new RecordId allocation, mutation application, CommitId, atomic commit, stale-state runtime application, persistence, branch/rehearsal/retcon/alternate-promotion UX, provider execution, Scene loop, UI, Windows AI/NPU, packaging, WACK, or Store implementation.
 
-## Patch 0011 implementation boundary
+## Patch 0011 implementation and machine authority
 
-Implementation has not started.
+Implementation branch:
+`h1-patch-0011-take-semantics-implementation`
 
-Expected smallest new source/test surface:
+Approved implementation baseline on `main`:
+`3e9de4f10828f330c0c79fbf76c010422d757b2b`
 
-- `src/Ensemble.E0.Core/Take/...`;
-- `tests/Ensemble.E0.Core.Tests/Take/...`.
+Exact native Windows ARM64 machine-tested executable/test head:
+`4250011c167cd9850ad891aaea4ee053216cf135`
 
-Physical `.cs` grouping is not frozen. Implement the smallest coherent file layout consistent with existing Core subsystem patterns.
+Detailed machine evidence:
+`docs/evidence/H1_PATCH_0011_ARM64_VALIDATION.md`
 
-Do not modify upstream Access, Context, Performer, Director, Integrity, State Interpreter, State Authority, Fixture, Harness, or project configuration for convenience. If compiler/contract evidence proves an upstream change genuinely necessary, patch the smallest affected surface and distinguish routine implementation correction from a semantic architecture change.
+The exact validated branch delta from the approved baseline contains only:
 
-The complete required implementation-test matrix is Section 30 of the canonical Patch 0011 blueprint and must not be silently narrowed.
+1. `src/Ensemble.E0.Core/Take/TakeModels.cs`;
+2. `tests/Ensemble.E0.Core.Tests/Take/E0TakeTests.cs`;
+3. `tests/Ensemble.E0.Core.Tests/Take/E0TakeContractAuditTests.cs`;
+4. `docs/handoff/E0A_H1_PATCH_0011_IMPLEMENTATION_HANDOFF.md` with one corrected generic-smoke fixture path.
+
+No pre-existing Access, Context, Performer, Director, Integrity, State Interpreter, State Authority, Fixture, Harness, project configuration, persistence, UI, Windows AI/NPU, packaging, WACK, or Store source changed in the validated Patch 0011 implementation delta.
+
+### Compiler correction history
+
+First target-machine attempt head:
+`0231be52cce3c5f693e551b5d82f7fa1df619979`
+
+Observed:
+
+- native ARM64 Core/Harness build succeeded;
+- `dotnet test` stopped at six `MSTEST0032` analyzer-as-error diagnostics in the new Take tests;
+- the diagnostics were test-assertion analyzer findings, not production Take compile failures;
+- Missing Raft Harness validation succeeded after the successful build;
+- generic smoke failed because the implementation handoff used stale path `fixtures\smoke\smoke-0.1.0.json` rather than canonical `fixtures\smoke\e0-fixture-v1.json`.
+
+Smallest-surface corrections changed only the two Take test files plus that handoff command. No analyzer suppression and no production semantic correction were required.
+
+All required machine gates were rerun from exact final head `4250011c167cd9850ad891aaea4ee053216cf135`.
+
+### Latest native Windows ARM64 validation authority
+
+At exact head `4250011c167cd9850ad891aaea4ee053216cf135` on the user's native Windows ARM64 development machine:
+
+#### ARM64 Core/Harness build
+
+Command:
+`dotnet build .\src\Ensemble.E0.Harness\Ensemble.E0.Harness.csproj -c Debug`
+
+Observed:
+
+- `Ensemble.E0.Core` succeeded;
+- `Ensemble.E0.Harness` succeeded;
+- Harness output target `net9.0\win-arm64`;
+- build succeeded.
+
+#### Full Core tests
+
+Command:
+`dotnet test .\tests\Ensemble.E0.Core.Tests\Ensemble.E0.Core.Tests.csproj -c Debug`
+
+Observed:
+
+- total `430`;
+- succeeded `430`;
+- failed `0`;
+- skipped `0`;
+- test execution and build succeeded.
+
+Patch 0011 increases the latest full Core regression count from the Patch 0010 machine-validated baseline of 392 tests to 430 tests.
+
+#### Harness regressions
+
+Missing Raft:
+- `Fixture validated: ensemble.e0.missing-raft@0.1.0`.
+
+Generic smoke:
+- `Fixture validated: ensemble.e0.smoke@0.1.0`.
+
+These Harness runs occurred after the successful final Patch 0011 build and therefore exercised the rebuilt branch output.
 
 ## Immediate next action
 
-Begin Patch 0011 implementation in a fresh project chat using:
+Promote the validated Patch 0011 implementation checkpoint to `main` without altering the exact machine-tested implementation semantics.
 
-`docs/handoff/E0A_H1_PATCH_0011_IMPLEMENTATION_HANDOFF.md`
+After `main` contains the promoted Patch 0011 checkpoint, begin H1 Patch 0012 Atomic Causal Commit architecture review only.
 
-Fresh implementation chat must:
-
-1. read this file first;
-2. resolve exact current `main`;
-3. read the approved Patch 0011 blueprint and approval record;
-4. read the engineering hygiene constitution;
-5. read the implementation handoff;
-6. inspect only the exact Patch 0006–0010 source/contracts needed for the current implementation slice;
-7. confirm no newer Patch 0011 implementation branch/PR already exists;
-8. create/use `h1-patch-0011-take-semantics-implementation` from the current approved `main` checkpoint;
-9. implement the smallest canonical Take source/test surface;
-10. recursively audit until one complete pass finds no material corrections or worthwhile improvements;
-11. do not claim compiler/runtime validation until the user's native Windows ARM64 machine actually runs the gates;
-12. after static readiness, request grouped ARM64 build/full-Core-test/Missing-Raft/generic-smoke validation;
-13. for compiler feedback, root cause -> smallest exact correction -> regression -> next action; do not regenerate archives or redesign the approved contract.
+Patch 0012 implementation is NOT STARTED and requires its own architecture/approval cycle before source changes.
 
 Do not ask the user to restate established project state.
 
@@ -216,7 +275,7 @@ Only `DeterministicStateAuthority.cs` changed: internal existing-record lookup n
 
 All required machine gates were then rerun from the corrected exact head.
 
-## Latest native Windows ARM64 validation authority
+## Patch 0010 native Windows ARM64 validation authority
 
 At exact Patch 0010 head `b07c8e161d221bc9bf2e57802de0aae7b542ce5a` on the user's native Windows ARM64 development machine:
 
@@ -255,13 +314,10 @@ Generic smoke:
 
 These Harness runs occurred after the successful Patch 0010 build and therefore exercised the rebuilt branch output.
 
-This remains the latest machine validation authority until Patch 0011 is actually built/tested on the user's machine.
-
 ## Explicit validation limits
 
 Current repository state does not establish:
 
-- Patch 0011 compiler/test/runtime validation;
 - evolved multi-turn ProductionState;
 - ProductionState / StateHash;
 - authoritative ContextPacket / StateAuthoritySnapshot common-state identity;
