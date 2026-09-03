@@ -1,6 +1,6 @@
 # H1 Patch 0008 — E0 Integrity Validator Contract
 
-Status: blueprint proposal 0.7 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; APPROVAL REQUIRED; implementation not started
+Status: blueprint proposal 0.8 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; APPROVAL REQUIRED; implementation not started
 Parent baseline: validated H1 Patch 0007
 Branch: `h1-patch-0008-integrity-validator-blueprint`
 
@@ -12,8 +12,8 @@ Define the next frozen E0-A calculation boundary after Performer Candidate and D
 ContextPacket + CandidatePerformance
     -> IntegrityCandidateInput.Bind
         -> deterministic Reject codes?
-            yes -> Reject without semantic concern assessment
-            no  -> completed bounded IntegrityConcernAssessment
+            yes -> Reject without semantic concern evidence
+            no  -> bounded IntegrityConcernEvidence
                     -> deterministic Integrity Validator
                         concern(s) -> RequestAnotherTake
                         none       -> Accept
@@ -21,7 +21,7 @@ ContextPacket + CandidatePerformance
 
 Patch 0008 defines deterministic candidate-integrity **evaluation** only.
 
-It does not create an accepted Take, an authority-bearing eligibility token, State interpretation, Production mutation, causal commit, provider retry/spend, Current Opportunity, semantic-assessor transport, or assessor-provenance authentication.
+It does not create an accepted Take, an authority-bearing eligibility/attestation token, State interpretation, Production mutation, causal commit, provider retry/spend, Current Opportunity, semantic-assessor transport, or assessor-provenance authentication.
 
 ## 2. Recovered frozen authority
 
@@ -33,13 +33,17 @@ It freezes:
 Integrity Validator -> State Interpreter -> deterministic State Authority
 ```
 
-Integrity Validator checks candidate Performance before acceptance; deterministic hard invariants have precedence; assisted semantic checks may flag concerns but cannot waive hard rules; dispositions are accept, reject, or request another take; hidden rewriting is forbidden.
+Integrity Validator checks candidate Performance before acceptance; deterministic hard invariants have precedence; model/human-assisted checks may flag semantic concerns but cannot waive hard rules; valid outcomes are accept, reject, or request another take; hidden rewriting is forbidden.
 
-Patch 0008 defines the evaluation result needed by that later sequence. It does not pretend that a structurally constructible assessment proves the configured assessor actually ran.
+The frozen source does not define a broader semantic taxonomy for Reject versus RequestAnotherTake. Patch 0008 therefore adopts the smallest E0 distinction required for execution:
+
+- deterministic source/Candidate hard mismatch -> Reject;
+- otherwise supplied semantic concern evidence -> RequestAnotherTake;
+- otherwise -> Accept.
+
+Reject means the evaluated Candidate/source pairing is invalid for this opportunity. It does not assign fictional blame to the Character.
 
 ## 3. Integrity evaluation is not acceptance authority
-
-Freeze this distinction:
 
 ```text
 IntegrityDisposition.Accept != accepted Take
@@ -47,13 +51,13 @@ IntegrityValidationEvaluation != Take authority
 IntegrityValidationEvaluation != State authority
 ```
 
-An `Accept` means only:
+Accept means only:
 
-> Under this Patch 0008 input and supplied structurally bound concern assessment, no deterministic Reject condition or reported semantic concern prevents progression.
+> Under this Patch 0008 Input and supplied structurally bound concern evidence, no deterministic Reject condition or reported semantic concern prevents progression.
 
-For later effective E0 processing, orchestration must additionally establish that the concern assessment came from the configured review path for the relevant attempt/batch and preserve that provenance.
+Later effective E0 processing must additionally establish that concern evidence came from the configured review path for the relevant provider attempt/batch and preserve that provenance.
 
-Synthetic concern assessments may therefore produce synthetic Accept evaluations for tests without creating authoritative Production eligibility.
+Synthetic concern evidence may produce synthetic evaluation results for tests without creating Production authority.
 
 No Patch 0008 object claims assessor authenticity.
 
@@ -65,13 +69,11 @@ Those are not automatically integrity failures.
 
 A statement becomes an authority violation only if later authority silently promotes it to truth, or when Performance credibly uses inaccessible information / purports to enact or establish something incompatible with locked authority rather than merely claiming, believing, intending, attempting, or failing.
 
-Patch 0008 therefore has no deterministic secret/canon keyword scanner, no objective-truth contradiction rejection rule, and no automatic rejection of false claims/beliefs.
+Patch 0008 has no deterministic secret/canon keyword scanner, objective-truth contradiction rejection rule, or automatic rejection of false claims/beliefs.
 
-Patch 0006 leaves non-empty Performance grammar open, so semantic distinctions belong to bounded concern assessment rather than deterministic prose parsing.
+Patch 0006 leaves non-empty Performance grammar open, so semantic distinctions belong to bounded concern review rather than deterministic prose parsing.
 
 ## 5. Rich-object binding boundary
-
-Freeze:
 
 ```text
 IntegrityCandidateInput.Bind(
@@ -80,9 +82,9 @@ IntegrityCandidateInput.Bind(
     -> IntegrityCandidateInput
 ```
 
-This is the only Patch 0008 operation that receives full ContextPacket + CandidatePerformance together.
+This is the only Patch 0008 operation receiving full ContextPacket + CandidatePerformance together.
 
-Bind validates trusted prerequisites, computes Candidate content identity and deterministic Reject codes, and returns a least-privilege immutable input.
+Bind validates trusted prerequisites, computes Candidate content identity and deterministic Reject codes, and returns a least-privilege immutable Input.
 
 The deterministic Validator itself receives no ContextPacket or raw CandidatePerformance.
 
@@ -98,9 +100,9 @@ IntegrityCandidateInput
 
 No public constructor.
 
-No Candidate VisibleText, Context prose, rendering, roster display names, private/denied records, provider data, or semantic rationale is publicly exposed.
+No Candidate VisibleText, Context prose, rendering, roster display names, private/denied records, provider data, or semantic rationale is exposed.
 
-Patch 0008 needs no hidden retained Candidate reference because it creates no later authority-bearing handoff object.
+Patch 0008 retains no hidden Candidate reference because it creates no downstream authority-bearing handoff object.
 
 ## 7. Bind trusted prerequisites
 
@@ -122,15 +124,13 @@ Frozen order:
 1. SubjectContextMismatch
 2. ContextPacketIdentityMismatch
 
-Each appears at most once.
+Each appears at most once; both may coexist.
 
 SubjectContextMismatch: Candidate subject != source Context subject.
 
 ContextPacketIdentityMismatch: Candidate ContextPacketId != source ContextPacketId.
 
-Both may coexist.
-
-These codes mean the independently valid Candidate cannot be evaluated as the Performance for this source Character opportunity.
+These codes reject the Candidate/source pairing for this Integrity evaluation. They do not convert the mismatch into fictional action or Character behavior.
 
 ## 9. Candidate content identity
 
@@ -161,20 +161,22 @@ Content identity only—not provider-attempt identity, CandidateId, TakeId, caus
 
 Distinct attempts with identical Candidate semantics intentionally share it.
 
-ContextPacketId in the preimage is structured semantic identity, not proof of exact rendered/provider disclosure. Exact disclosure/attempt facts remain separate provenance.
+ContextPacketId in the preimage is structured semantic identity, not proof of exact rendered/provider disclosure. Exact disclosure/provider-attempt facts remain separate provenance.
 
-## 11. Integrity concern assessment evidence
+## 11. Integrity concern evidence
+
+Freeze:
 
 ```text
-IntegrityConcernAssessment
-- AssessmentContract
+IntegrityConcernEvidence
+- EvidenceContract
 - CandidateContentIdentityContract
 - CandidateContentHash
 - Concerns
 ```
 
 ```text
-AssessmentContract = ensemble.e0.integrity.concerns.v1
+EvidenceContract = ensemble.e0.integrity.concerns.v1
 ```
 
 Frozen concern kinds/order:
@@ -185,61 +187,63 @@ Frozen concern kinds/order:
 4. PotentialTechnicalArtifactLeak
 5. IndeterminateSemanticIntegrity
 
-Assessment has no prose rationale, chain-of-thought, Character/private/forbidden text, confidence score, disposition authority, State mutation, retry/spend authority, assessor identity, or authenticity flag.
+`IntegrityConcernEvidence` is structurally bound evidence only. Its name intentionally does not imply that Patch 0008 authenticated who or what performed semantic review.
+
+It has no assessor identity/authenticity flag, prose rationale, chain-of-thought, Character/private/forbidden text, confidence score, disposition authority, State mutation, or retry/spend authority.
 
 PotentialLockedAuthorityViolation concerns Performance purporting to enact/establish a locked/world-law conflict, not mere false speech.
 
-IndeterminateSemanticIntegrity means a completed semantic review that cannot responsibly clear content, never assessor technical failure.
+IndeterminateSemanticIntegrity means a completed semantic review could not responsibly clear content. Effective orchestration may use that concern only when provenance establishes such a completed review actually occurred.
 
-## 12. Assessment binding
+## 12. Concern evidence binding
 
 ```text
-IntegrityConcernAssessment.Bind(
+IntegrityConcernEvidence.Bind(
     IntegrityCandidateInput input,
     ImmutableArray<IntegrityConcernKind> concerns)
-    -> IntegrityConcernAssessment
+    -> IntegrityConcernEvidence
 ```
 
 Bind requires:
 
 - non-null/initialized Input;
-- **zero deterministic Reject codes**;
+- zero deterministic Reject codes;
 - initialized concern array;
 - only defined frozen concern kinds;
 - no duplicates;
 - count <= 5.
 
-It copies Input identity contract/hash and stores concerns in frozen enum order.
+It copies Input identity contract/hash and stores concerns in frozen contract order.
 
-A zero-length initialized array is valid and means only that the supplied assessment evidence reports no concerns.
+A zero-length initialized array is valid and means only that this evidence object reports no concerns.
 
-Binding to an Input that already has Reject codes is an Integrity exception. This structurally preserves hard-rule short circuit and prevents unnecessary semantic-assessment artifacts from becoming part of the canonical Reject path.
+Binding to a Reject-coded Input is an Integrity exception. This structurally preserves hard-rule short circuit.
 
-Assessment binding proves structural association only; it does not authenticate assessor provenance.
+Binding proves structural association only; it does not authenticate assessor provenance or assert that a semantic review really occurred.
 
-Synthetic assessments remain valid for deterministic tests/E0-F injection on otherwise structurally eligible Inputs.
+Synthetic evidence remains valid for deterministic tests/E0-F injection on otherwise structurally eligible Inputs.
 
 ## 13. Deterministic hard-rule short circuit
 
 If `IntegrityCandidateInput.DeterministicRejectCodes` is non-empty:
 
-- semantic assessment is not required;
+- semantic concern evidence is not required;
 - canonical evaluation is Reject immediately;
-- canonical trace has no concern assessment;
-- concern assessment cannot be bound to that Input through the public binding path.
+- canonical trace has no concern evidence;
+- concern evidence cannot be bound to that Input through the public path.
 
-E0 orchestration should not invoke a semantic assessor because it cannot change the outcome and would add unnecessary disclosure/cost.
+E0 orchestration should not invoke semantic review because it cannot change the result and would add unnecessary disclosure/cost.
 
-## 14. Assessor technical failure is not semantic concern
+## 14. Semantic uncertainty versus assessor technical failure
 
 For an Input with zero deterministic Reject codes:
 
 ```text
 completed semantic review but cannot clear content
-    -> IndeterminateSemanticIntegrity
+    -> authenticated orchestration may supply IndeterminateSemanticIntegrity evidence
 
 assessor transport/provider/refusal/timeout/cancellation failure
-    -> no valid IntegrityConcernAssessment
+    -> no completed concern evidence from configured review path
     -> technical/orchestration failure
     -> no Integrity disposition
 ```
@@ -256,48 +260,46 @@ Exact assessor mechanism remains later scope.
 
 ## 16. E0 experimental isolation
 
-If E0 uses assisted review, mechanism/configuration must remain fixed and attributable across E0-A through E0-E comparison batches unless explicitly varied.
+If E0 uses assisted Integrity review, its mechanism/configuration must remain fixed and attributable across E0-A through E0-E comparison batches unless explicitly varied.
 
 No assessor prompt/rule tuning inside a frozen batch.
 
-Assessment results, dispositions, assessor technical failures, and resulting attempt/retry behavior belong in experimental provenance.
+Concern evidence, Integrity dispositions, assessor technical failures, and resulting attempt/retry behavior belong in experimental provenance.
 
 ## 17. Deterministic Validator API
-
-Freeze:
 
 ```text
 DeterministicIntegrityValidator.Validate(
     IntegrityCandidateInput input,
-    IntegrityConcernAssessment? concernAssessment)
+    IntegrityConcernEvidence? concernEvidence)
     -> IntegrityValidationEvaluation
 ```
 
-Nullable assessment exists only because deterministic Reject requires none.
+Nullable evidence exists only because deterministic Reject requires none.
 
 Exact rules:
 
 1. validate Input structural contract;
 2. if Reject codes non-empty:
-   - concernAssessment **must be null**;
-   - non-null assessment -> Integrity exception/no disposition;
+   - concernEvidence must be null;
+   - non-null evidence -> Integrity exception/no disposition;
    - null -> Reject;
 3. if Reject codes empty:
-   - matching valid concernAssessment is required;
+   - matching structurally valid concernEvidence is required;
    - null -> Integrity exception/no disposition;
-   - mismatch/unsupported/malformed -> Integrity exception/no disposition;
+   - mismatch/unsupported/malformed evidence -> Integrity exception/no disposition;
    - concerns non-empty -> RequestAnotherTake;
    - concerns empty -> Accept.
 
 Validator receives no rich Context/Candidate prose.
 
-## 18. Why non-null assessment on Reject is an error
+## 18. Why evidence on deterministic Reject is an error
 
-The public assessment binder cannot create assessment evidence for a Reject-coded Input.
+Public evidence binding cannot create concern evidence for a Reject-coded Input.
 
-Therefore a non-null assessment paired with such an Input indicates stale/mismatched/internal misuse rather than useful evidence.
+Therefore non-null evidence paired with such an Input indicates stale/mismatched/internal misuse rather than useful information.
 
-The Validator fails closed rather than ignoring it. This prevents accidental provenance suggesting semantic review influenced a deterministic Reject.
+Validator fails closed instead of ignoring it. Canonical provenance then cannot imply semantic review influenced a deterministic Reject.
 
 ## 19. Integrity disposition
 
@@ -310,7 +312,11 @@ IntegrityDisposition
 
 Disposition is a deterministic evaluation result only.
 
-Accept is not an acceptance token. Reject is not a fictional event. RequestAnotherTake is not retry authority.
+`Reject` is reserved in the E0 reference contract for deterministic Candidate/source hard mismatch.
+
+`RequestAnotherTake` is the E0 reference response to one or more structurally supplied semantic concern kinds on an otherwise correctly bound Candidate.
+
+This is a narrow provisional E0 distinction. It does not freeze final post-E0 creator-facing rejection/retry UX.
 
 ## 20. Evaluation shape
 
@@ -320,11 +326,11 @@ IntegrityValidationEvaluation
 - Trace
 ```
 
-No Candidate or eligibility token is emitted.
+No Candidate, Take, eligibility, or attestation token is emitted.
 
-Later E0 State/Take/orchestration authority must bind the original Candidate/attempt to this evaluation and authenticated assessment provenance under its own approved contract before progressing.
+Later E0 State/Take/orchestration authority must bind the original Candidate/provider attempt to this evaluation and authenticate concern-review provenance under its own approved contract before progressing.
 
-Patch 0008 deliberately does not freeze whether provisional Take selection or State Interpreter is the immediate downstream consumer.
+Patch 0008 does not freeze whether provisional Take selection or State Interpreter is the immediate downstream consumer.
 
 ## 21. RequestAnotherTake is not retry authority
 
@@ -332,7 +338,7 @@ RequestAnotherTake does not call a provider, authorize spend, increment retry bu
 
 Later deterministic orchestration/cost policy decides recovery.
 
-Candidate remains unaccepted diagnostics/provenance only.
+Candidate remains unaccepted diagnostic/provenance material only.
 
 ## 22. Reject is not fictional action
 
@@ -352,7 +358,7 @@ Candidate-provider refusal/timeout/transport error/cancellation/partial stream i
 
 No technical-word scanning in dialogue.
 
-PotentialTechnicalArtifactLeak exists only as typed concern evidence from completed assessment.
+PotentialTechnicalArtifactLeak exists only as typed concern evidence associated with a completed review path in effective orchestration.
 
 E0-F provider-failure gate remains later integration scope.
 
@@ -385,31 +391,31 @@ Exact provisional-Take-vs-State-Interpreter immediate ordering remains later aut
 IntegrityValidationTrace
 - ValidationContract
 - Input
-- ConcernAssessment
+- ConcernEvidence
 ```
 
 ```text
 ValidationContract = ensemble.e0.integrity.validation.v1
 ```
 
-ConcernAssessment is null only for canonical deterministic Reject.
+ConcernEvidence is null only for canonical deterministic Reject.
 
-Input owns source Context identity, Candidate content identity, Reject codes. Assessment owns concern evidence. No duplication.
+Input owns source Context identity, Candidate content identity, Reject codes. ConcernEvidence owns typed semantic concern evidence. No duplicated identity fields.
 
-Trace contains no Candidate/Context/protected prose, provider output, rationale, confidence, chain-of-thought, or assessor-authenticity claim.
+Trace contains no Candidate/Context/protected prose, provider output, rationale, confidence, chain-of-thought, assessor identity, or authenticity claim.
 
 ## 28. Evaluation invariants
 
-- Accept => zero Reject codes, non-null matching assessment, zero concerns;
-- RequestAnotherTake => zero Reject codes, non-null matching assessment, concerns non-empty;
-- Reject => Reject codes non-empty, null assessment;
+- Accept => zero Reject codes, non-null matching evidence, zero concerns;
+- RequestAnotherTake => zero Reject codes, non-null matching evidence, concerns non-empty;
+- Reject => Reject codes non-empty, null concern evidence;
 - exception/no disposition => no Evaluation object.
 
 ## 29. Determinism
 
-Identical bound Input + matching assessment where required + contract versions produce identical disposition/trace.
+Identical bound Input + matching concern evidence where required + contract versions produce identical disposition/trace.
 
-Bind deterministic from identical Context/Candidate semantics.
+Bind is deterministic from identical Context/Candidate semantics.
 
 No clock/filesystem/network/random/culture/provider/model/GPU/NPU/global mutable state.
 
@@ -425,20 +431,20 @@ Failure never becomes fallback disposition.
 IntegrityCandidateInput.Bind(ContextPacket, CandidatePerformance)
     -> IntegrityCandidateInput
 
-IntegrityConcernAssessment.Bind(
+IntegrityConcernEvidence.Bind(
     IntegrityCandidateInput,
     ImmutableArray<IntegrityConcernKind>)
-    -> IntegrityConcernAssessment
+    -> IntegrityConcernEvidence
 
 DeterministicIntegrityValidator.Validate(
     IntegrityCandidateInput,
-    IntegrityConcernAssessment?)
+    IntegrityConcernEvidence?)
     -> IntegrityValidationEvaluation
 ```
 
-Public models read-only with non-public constructors except approved Bind/Validate construction paths.
+Public models are read-only with non-public constructors except approved Bind/Validate paths.
 
-No authority-bearing eligibility token, commit, retry, or State mutation API.
+No authority-bearing assessment/eligibility token, commit, retry, or State-mutation API.
 
 ## 32. Required tests / review gates
 
@@ -446,7 +452,7 @@ No authority-bearing eligibility token, commit, retry, or State mutation API.
 1. valid Missing Raft Voss Context+Candidate -> Input;
 2. Input exact public structural fields only;
 3. no Context/Candidate prose/render/private record exposure;
-4. Validator API accepts Input + nullable Assessment only;
+4. Validator API accepts Input + nullable Evidence only;
 5. no ContextPacket/CandidatePerformance Validator overload;
 6. Input constructor non-public.
 
@@ -466,33 +472,33 @@ No authority-bearing eligibility token, commit, retry, or State mutation API.
 17. malformed source/unsupported Candidate contract -> exception;
 18. no duplicate Patch 0006 parser validation.
 
-### Assessment binding
+### Concern evidence binding
 19. zero initialized concerns valid on zero-Reject Input;
 20. default/undefined/duplicate/over-count invalid;
 21. five kinds frozen order;
 22. copied Input identity;
-23. no prose/confidence/authority/authenticity fields;
-24. Indeterminate completed uncertainty only;
-25. assessment Bind on Reject-coded Input -> exception.
+23. no prose/confidence/disposition/assessor/authenticity fields;
+24. evidence Bind on Reject-coded Input -> exception;
+25. synthetic evidence explicitly does not claim completed-review authenticity.
 
 ### Hard-rule short circuit
-26. Reject codes + null assessment -> Reject;
-27. Reject codes + non-null assessment -> exception/no disposition;
-28. canonical Reject trace assessment null;
+26. Reject codes + null evidence -> Reject;
+27. Reject codes + non-null evidence -> exception/no disposition;
+28. canonical Reject trace evidence null;
 29. reference flow has no assessor dependency for deterministic Reject.
 
-### Assessment-required path
-30. zero Reject + null assessment -> exception/no disposition;
-31. assessment for different hash/contract -> exception;
+### Evidence-required path
+30. zero Reject + null evidence -> exception/no disposition;
+31. evidence for different hash/contract -> exception;
 32. zero Reject + concern -> RequestAnotherTake;
 33. zero Reject + zero concerns -> Accept.
 
 ### Non-authority
-34. synthetic empty assessment may yield synthetic Accept evaluation but no authority-bearing eligibility object;
+34. synthetic empty evidence may yield synthetic Accept evaluation but no authority-bearing token;
 35. Evaluation exposes only Disposition + Trace;
 36. no accepted-Take/history/State flag/token;
 37. exact provisional-Take-vs-State-Interpreter ordering not frozen;
-38. later authority must authenticate assessment provenance separately.
+38. later authority must authenticate concern-review provenance separately.
 
 ### Creative law
 39. false claim not rejected solely for truth conflict;
@@ -506,8 +512,8 @@ No authority-bearing eligibility token, commit, retry, or State mutation API.
 47. PotentialLockedAuthorityViolation is supplied semantic evidence, not false-speech detector.
 
 ### Technical failure / E0 isolation
-48. semantic uncertainty concern -> RequestAnotherTake;
-49. assessor technical failure -> no assessment/no disposition, not Indeterminate;
+48. authenticated semantic uncertainty evidence -> RequestAnotherTake;
+49. assessor technical failure -> no authenticated evidence/no effective disposition, not Indeterminate;
 50. RequestAnotherTake no retry/spend;
 51. assessor config fixed/attributable across E0-A-E unless explicit variable.
 
@@ -540,7 +546,7 @@ Bind/hash/disposition are tiny deterministic CPU work. No background/AI/provider
 
 ## 35. Explicit exclusions
 
-No authority-bearing Integrity attestation/eligibility token; semantic-assessor implementation; bounded assessor packet; assessor provenance authentication/persistence; provider attempt/provenance; retry/cost/cancellation engine; Take semantics/identity/TakeId; State Interpreter implementation; State Authority; consequence proposal; ProductionState/StateHash; atomic commit; persistence/recovery; effective opportunity establishment; Scene loop; World Resolver/observation; E0-D round-robin; E0-E playwright; E0-F end-to-end harness; UI/WinUI; Windows AI/NPU; packaging/WACK/Store.
+No authenticated semantic-assessment artifact/attestation; semantic-assessor implementation; bounded assessor packet; assessor provenance authentication/persistence; provider attempt/provenance; retry/cost/cancellation engine; Take semantics/identity/TakeId; State Interpreter implementation; State Authority; consequence proposal; ProductionState/StateHash; atomic commit; persistence/recovery; effective opportunity establishment; Scene loop; World Resolver/observation; E0-D round-robin; E0-E playwright; E0-F end-to-end harness; UI/WinUI; Windows AI/NPU; packaging/WACK/Store.
 
 ## 36. Recursive adversarial audit dimensions
 
@@ -549,40 +555,41 @@ Restart after every correction:
 1. frozen Integrity law;
 2. H1 sequence;
 3. Integrity evaluation vs later acceptance authority;
-4. statement/truth distinctions;
-5. Performance vs consequence authority;
-6. Character vs Performer;
-7. Access/Context privacy;
-8. least-privilege Input;
-9. hard-rule-before-assessment precedence;
-10. Integrity vs Parser;
-11. Integrity vs Director;
-12. Integrity vs State/Take;
-13. no fabricated assessor attestation;
-14. Take/Interpreter ordering non-preemption;
-15. semantic evidence vs deterministic authority;
-16. uncertainty vs assessor technical failure;
-17. assessor disclosure/cost short circuit;
-18. E0 assessor control isolation;
-19. assessment privacy;
-20. stale assessment/content binding;
-21. content identity versioning;
-22. content vs attempt/Take/causal identity;
-23. technical failure vs fiction;
-24. exception vs Reject;
-25. no rewriting;
-26. RequestAnotherTake vs retry/spend;
-27. E0-F compatibility;
-28. creator ontology guard;
-29. API/non-forgeability/minimality;
-30. deterministic bounded canonicalization;
-31. fail closed/sanitization;
-32. tests without bypass;
-33. dependency direction;
-34. ARM64/battery;
-35. scope/hygiene;
-36. E0-A/B/C/D/E/F/G isolation;
-37. future State/Take/commit compatibility.
+4. Reject vs RequestAnotherTake minimality;
+5. statement/truth distinctions;
+6. Performance vs consequence authority;
+7. Character vs Performer;
+8. Access/Context privacy;
+9. least-privilege Input;
+10. hard-rule-before-semantic-review precedence;
+11. Integrity vs Parser;
+12. Integrity vs Director;
+13. Integrity vs State/Take;
+14. no fabricated assessor authentication;
+15. Take/Interpreter ordering non-preemption;
+16. semantic evidence vs deterministic authority;
+17. uncertainty vs assessor technical failure;
+18. assessor disclosure/cost short circuit;
+19. E0 assessor control isolation;
+20. concern-evidence privacy;
+21. stale evidence/content binding;
+22. content identity versioning;
+23. content vs attempt/Take/causal identity;
+24. technical failure vs fiction;
+25. exception vs Reject;
+26. no rewriting;
+27. RequestAnotherTake vs retry/spend;
+28. E0-F compatibility;
+29. creator ontology guard;
+30. API/non-forgeability/minimality;
+31. deterministic bounded canonicalization;
+32. fail closed/sanitization;
+33. tests without bypass;
+34. dependency direction;
+35. ARM64/battery;
+36. scope/hygiene;
+37. E0-A/B/C/D/E/F/G isolation;
+38. future State/Take/commit compatibility.
 
 Approval only after complete restart produces zero material corrections or worthwhile improvements.
 
@@ -594,29 +601,31 @@ Approval would freeze only:
 2. IntegrityValidationEvaluation is deterministic calculation, not accepted-Take/State authority;
 3. least-privilege IntegrityCandidateInput is sole rich Context+Candidate binding surface;
 4. Input publicly carries only source Context ID, Candidate content identity, Reject codes;
-5. hard Rejects short-circuit semantic assessment/disclosure;
+5. hard Rejects short-circuit semantic review/disclosure;
 6. Validator receives no Character/Performance prose;
-7. versioned CandidateContentHash binds assessment to exact Candidate semantics;
+7. versioned CandidateContentHash binds concern evidence to exact Candidate semantics;
 8. content hash not attempt/Candidate/Take/commit identity;
 9. Reject codes exactly subject mismatch then ContextPacket mismatch;
 10. malformed source/unsupported Candidate contract is exception-domain;
-11. five-kind ConcernAssessment is structurally bound non-authoritative evidence with no rationale/confidence/authenticity claim;
-12. ConcernAssessment cannot be bound to Reject-coded Input;
-13. completed semantic uncertainty differs from assessor technical failure;
-14. valid assessment required only when zero deterministic Reject codes;
-15. assessor failure on otherwise eligible Candidate yields no disposition;
-16. no semantic assessor/provider implementation in Patch 0008;
-17. future semantic review uses least-privilege packet and E0 assessor configuration/provenance stays fixed/attributable across E0-A-E;
-18. exact disposition: RejectCodes+null assessment -> Reject; zero Reject+concerns -> RequestAnotherTake; zero Reject+empty concerns -> Accept; inconsistent/missing evidence -> exception;
-19. Patch 0008 emits no authority-bearing eligibility/attestation object;
-20. synthetic evidence may produce synthetic evaluation but cannot itself authorize later Production change;
-21. later State/Take/orchestration must authenticate assessment provenance under its own contract before progression;
-22. immediate provisional-Take-vs-State-Interpreter ordering remains later;
-23. RequestAnotherTake does not authorize retry/spend;
-24. false claims not truth-policed; no keyword scan or hidden rewrite;
-25. candidate/assessor technical failures stay technical/orchestration concerns;
-26. Director not Integrity input and Accept cannot promote precommit Director work;
-27. Trace nests Input + optional Assessment and contains no Performance/private prose or authenticity claim;
-28. no State Interpreter/Authority, Take, commit, persistence, opportunity application, Scene loop, provider execution, UI, Windows AI/NPU, or Store machinery enters Patch 0008.
+11. E0 Reject means deterministic Candidate/source hard mismatch; RequestAnotherTake means typed semantic concern on otherwise correctly bound Candidate;
+12. `IntegrityConcernEvidence` is structurally bound synthetic-capable evidence, not an authenticated assessment artifact;
+13. five concern kinds carry no rationale/confidence/assessor/authenticity claim;
+14. concern evidence cannot bind to Reject-coded Input;
+15. completed semantic uncertainty differs from assessor technical failure;
+16. valid concern evidence required only when zero deterministic Reject codes;
+17. assessor failure on otherwise eligible Candidate yields no effective Integrity disposition until later deterministic fallback/review resolves it;
+18. no semantic assessor/provider implementation in Patch 0008;
+19. future semantic review uses least-privilege packet and E0 assessor configuration/provenance stays fixed/attributable across E0-A-E;
+20. exact disposition: RejectCodes+null evidence -> Reject; zero Reject+concerns -> RequestAnotherTake; zero Reject+empty concerns -> Accept; inconsistent/missing evidence -> exception;
+21. Patch 0008 emits no authority-bearing eligibility/attestation object;
+22. synthetic evidence may produce synthetic evaluation but cannot itself authorize Production change;
+23. later State/Take/orchestration must authenticate semantic-review provenance under its own contract before progression;
+24. immediate provisional-Take-vs-State-Interpreter ordering remains later;
+25. RequestAnotherTake does not authorize retry/spend;
+26. false claims not truth-policed; no keyword scan or hidden rewrite;
+27. candidate/assessor technical failures stay technical/orchestration concerns;
+28. Director not Integrity input and Accept cannot promote precommit Director work;
+29. Trace nests Input + optional ConcernEvidence and contains no Performance/private prose or assessor-authenticity claim;
+30. no State Interpreter/Authority, Take, commit, persistence, opportunity application, Scene loop, provider execution, UI, Windows AI/NPU, or Store machinery enters Patch 0008.
 
 Implementation remains blocked until recursive audit completes and user explicitly approves final proposal.
