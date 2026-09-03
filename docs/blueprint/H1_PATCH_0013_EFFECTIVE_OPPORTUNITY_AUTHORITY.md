@@ -1,6 +1,6 @@
 # H1 Patch 0013 — E0 Effective Opportunity Authority
 
-Status: blueprint proposal 0.4 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; approval required; implementation not started
+Status: blueprint proposal 0.5 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; approval required; implementation not started
 Parent repository checkpoint: `main` at `8c89f998fe6f42e04a75b9090fbcc10f0574f5a2`
 Parent machine-tested executable/test authority: H1 Patch 0012 at `39bc078c130ab1165c6a81c1673dd5cd25da3724`
 Branch: `h1-patch-0013-effective-opportunity-authority-blueprint`
@@ -458,7 +458,6 @@ public sealed class E0OpportunityTransition
 - ContractVersion
 - ParentStateHash
 - ResultStateHash
-- SourceCommitId
 - StrategyContract
 - SelectedCharacterId
 ```
@@ -467,9 +466,11 @@ No public constructor.
 
 No event ID is added in Patch 0013.
 
-`SourceCommitId` identifies the exact accepted causal event that produced the no-opportunity parent state. That event already owns the exact source Take/Candidate/control, so duplicated SourceTakeId or Candidate control is unnecessary.
+`ParentStateHash` is the sole parent causal pointer. Live/replay authority requires the supplied source `E0CausalCommit.ResultStateHash` to equal it, so the exact source commit is already transitively bound—including its CommitId, Accepted Take, Candidate control, State Authority decisions, and consequences.
 
-The event does not duplicate `DirectorOpportunityInput`, Proposal, Trace, rule, diagnostics, Context prose, Candidate prose, Take payload, or full OpportunityHistory.
+A separate `SourceCommitId` would duplicate identity already committed by `ParentStateHash` and would be analogous to adding a redundant ParentCommitId alongside the causal state pointer. It is therefore intentionally absent.
+
+The event does not duplicate `DirectorOpportunityInput`, Proposal, Trace, rule, diagnostics, Context prose, Candidate prose/control, Take payload, source CommitId/TakeId, or full OpportunityHistory.
 
 Calling Establish twice against the same immutable valid parent inputs deterministically yields the same event/result. Once the returned state becomes current, it has a non-null Current Opportunity and cannot accept the same transition again.
 
@@ -514,7 +515,6 @@ Exact canonical payload property order:
 ```json
 {
   "schemaVersion":"ensemble.e0.opportunity-transition.v1",
-  "sourceCommitId":"...",
   "strategyContract":"ensemble.e0.director.least-intervention.v1",
   "selectedCharacterId":"..."
 }
@@ -522,6 +522,7 @@ Exact canonical payload property order:
 
 The payload contains no:
 
+- source CommitId/TakeId duplicate;
 - full OpportunityHistory array/hash;
 - ContextPacket prose;
 - Candidate prose/control duplication;
@@ -532,7 +533,7 @@ The payload contains no:
 - floats/scores;
 - culture-sensitive values.
 
-`ParentStateHash` already binds source causal history; `SourceCommitId` provides the exact causal cross-reference; `StrategyContract` identifies deterministic selection semantics; `SelectedCharacterId` records the established routing result.
+`ParentStateHash` binds exact source causal history; `StrategyContract` identifies deterministic selection semantics; `SelectedCharacterId` records the established routing result.
 
 ## 23. Why the existing Production StateHash contract is extended
 
@@ -586,22 +587,21 @@ It must:
 3. require parent Current Opportunity is null;
 4. require parent roster is exactly three unique initialized E0 Characters;
 5. require source commit ResultStateHash equals parent StateHash;
-6. require event SourceCommitId equals supplied source commit CommitId;
-7. require parent effective CommitId/TakeId caches contain source commit/take;
-8. require sourceHistory LastOpportunityStateHash equals source commit ParentStateHash;
-9. require sourceHistory last Character equals Accepted Performance subject;
-10. require source History Scene equals parent/source Take Scene;
-11. require source history Characters are current roster Characters;
-12. reconstruct exact structural `DirectorOpportunityInput` from authoritative parent/source-commit/source-history facts;
-13. call `LeastInterventionDirector.Propose(reconstructedInput)`;
-14. require event StrategyContract exactly current least-intervention v1 StrategyContract;
-15. require recomputed selected Character equals event SelectedCharacterId;
-16. recreate result projection with only Current Opportunity changed;
-17. recompute opportunity-transition StateHash;
-18. require it equals event ResultStateHash;
-19. derive result OpportunityHistory;
-20. create result ProductionState only through narrow `WithEstablishedOpportunity` helper;
-21. return coherent Event + State + History + fresh DirectorEvaluation.
+6. require parent effective CommitId/TakeId caches contain source commit/take;
+7. require sourceHistory LastOpportunityStateHash equals source commit ParentStateHash;
+8. require sourceHistory last Character equals Accepted Performance subject;
+9. require source History Scene equals parent/source Take Scene;
+10. require source history Characters are current roster Characters;
+11. reconstruct exact structural `DirectorOpportunityInput` from authoritative parent/source-commit/source-history facts;
+12. call `LeastInterventionDirector.Propose(reconstructedInput)`;
+13. require event StrategyContract exactly current least-intervention v1 StrategyContract;
+14. require recomputed selected Character equals event SelectedCharacterId;
+15. recreate result projection with only Current Opportunity changed;
+16. recompute opportunity-transition StateHash;
+17. require it equals event.ResultStateHash;
+18. derive result OpportunityHistory;
+19. create result ProductionState only through narrow `WithEstablishedOpportunity` helper;
+20. return coherent Event + State + History + fresh DirectorEvaluation.
 
 Replay reconstructs Director input from:
 
@@ -654,7 +654,7 @@ Fail closed for at least:
 - source ContextPacketId does not match accepted Candidate ContextPacketId;
 - source Context Scene/roster does not match Production Scene/roster;
 - event is replayed against wrong parent;
-- event source CommitId/strategy/selected Character is changed;
+- event strategy/selected Character is changed;
 - result hash is changed.
 
 No stale transition is rebased automatically.
@@ -826,7 +826,7 @@ Patch 0013 hard invariants:
 15. accepted Candidate control used by Director is already causally bound through source Take/Candidate content identity;
 16. no next Performer before success;
 17. replay rejects altered event semantics or wrong parent/source/history;
-18. opportunity event does not duplicate private Context, Candidate control, or full prior history;
+18. opportunity event does not duplicate parent CommitId/TakeId, private Context, Candidate control, or full prior history;
 19. least-intervention v1 strategy semantics become replay-stable contract law;
 20. deferred Production/Context common-state proof is not falsely claimed complete.
 
@@ -847,7 +847,8 @@ At minimum:
 - exact source commit/result state binds;
 - postcommit roster exact three-Character invariant enforced;
 - wrong ResultStateHash fails;
-- foreign CommitId/TakeId fails;
+- foreign source causal event with nonmatching ResultStateHash fails;
+- source CommitId/TakeId must be effective in parent state;
 - source history LastOpportunityStateHash mismatch fails;
 - source history last Character mismatch fails;
 - Scene/roster mismatch fails;
@@ -891,17 +892,16 @@ At minimum:
 
 - event exposes no ContextPacket/Context prose;
 - event exposes no Candidate/Take payload;
-- event exposes no SourceTakeId;
+- event exposes no source CommitId/TakeId duplicate;
 - event exposes no full OpportunityHistory array/hash;
 - event exposes no Candidate control duplicate;
 - event exposes no least-intervention rule/diagnostic fields;
-- event SourceCommitId resolves to exact effective source commit in live/replay tests;
 
 ### Canonicalization/oracles
 
 - exact opportunity payload bytes/property order oracle;
 - exact opportunity result StateHash oracle;
-- opportunity StateHash changes when causally relevant source history/control/selected result changes through parent/event identity;
+- opportunity StateHash changes when causally relevant source history/control changes through ParentStateHash or selected result changes;
 - culture independence;
 - equivalent valid inputs produce byte-identical event/hash;
 - existing Patch 0012 genesis hash remains exactly `30041ae0dd287b9ef192aaf90c0cee4aedf85e4e8a9c3b31ad14094fbfda0104`;
@@ -928,6 +928,7 @@ At minimum:
 ### Architecture/hygiene
 
 - no OpportunityHistory hash type/parallel hash authority appears;
+- no SourceCommitId/SourceTakeId is added to the opportunity event;
 - no Access/Context Production overload appears;
 - no CharacterClaim/recent-Performance context path appears;
 - no public or generic Current Opportunity setter appears;
@@ -988,9 +989,9 @@ That later patch must resolve, rather than assume:
 
 Patch 0013 must not pre-solve those questions.
 
-## 41. Recursive adversarial audit — corrections through pass 3
+## 41. Recursive adversarial audit — corrections through pass 4
 
-Proposal 0.1, 0.2, and 0.3 were not accepted unchanged.
+Proposal 0.1 through 0.4 were not accepted unchanged.
 
 ### Pass 1 corrections
 
@@ -1003,8 +1004,8 @@ Proposal 0.1, 0.2, and 0.3 were not accepted unchanged.
 3. **Proposal 0.1 did not explicitly preserve deferred Context/Production common-state proof.**
    - Corrected: Patch 0013 explicitly refuses to claim Context record provenance/freshness beyond frozen Director structural association.
 
-4. **SourceTakeId duplicated identity already owned by SourceCommitId.**
-   - Corrected: minimal event references SourceCommitId; source causal event supplies exact Accepted Take during live/replay validation.
+4. **SourceTakeId duplicated identity already owned by source causal state.**
+   - Corrected initially by retaining only SourceCommitId; later pass removed that remaining duplicate too.
 
 ### Pass 2 corrections
 
@@ -1019,16 +1020,21 @@ Proposal 0.1, 0.2, and 0.3 were not accepted unchanged.
 
 ### Pass 3 corrections
 
-8. **Separate OpportunityHistory hash chain duplicated the already-history-sensitive Production StateHash chain.**
+8. **Separate OpportunityHistory hash chain duplicated already-history-sensitive Production StateHash chain.**
    - Corrected: removed HistoryHash type/contract/event field entirely. Closed history is anchored by LastOpportunityStateHash to source commit ParentStateHash.
 
 9. **Compact event causality needed confirmation that omitted Candidate control was not transient.**
-   - Confirmed and documented: source causal StateHash already binds CandidateContentHash, and CandidateContentHash includes exact addressed/nominated control.
+   - Confirmed/documented: source causal StateHash binds CandidateContentHash, and CandidateContentHash includes exact addressed/nominated control.
 
 10. **Effective events make Director strategy semantics replay-critical.**
-    - Corrected: least-intervention v1 StrategyContract is now explicitly frozen as replay law; semantic change requires a new contract or preserved v1 implementation.
+    - Corrected: least-intervention v1 StrategyContract is explicitly replay law; semantic change requires a new contract or preserved v1 implementation.
 
-Recursive audit continues from Proposal 0.4.
+### Pass 4 correction
+
+11. **SourceCommitId duplicated the parent causal pointer.**
+    - Corrected: removed SourceCommitId from event/payload. `ParentStateHash` is the sole parent causal pointer and already binds exact source CommitId/Take/control/consequences through Patch 0012's hash preimage.
+
+Recursive audit continues from Proposal 0.5.
 
 ## 42. Remaining recursive audit checklist
 
@@ -1037,7 +1043,7 @@ Before approval, continue until one complete pass finds no material correction o
 1. Patch 0007 lifecycle fidelity;
 2. Patch 0012 scope/oracle preservation;
 3. exact postcommit/no-opportunity ordering;
-4. source causal-event identity;
+4. source causal-event identity through ParentStateHash;
 5. history anti-splice proof;
 6. genesis history reset resistance;
 7. one StateHash authority chain/no redundant history hash;
@@ -1048,7 +1054,7 @@ Before approval, continue until one complete pass finds no material correction o
 12. state/event/history atomicity;
 13. narrow Production mutation authority;
 14. StateHash history sensitivity;
-15. no duplicate event semantics;
+15. minimal event/no duplicated parent identities;
 16. no new truth/record authority;
 17. one-step replay correctness;
 18. live Context vs replay structural provenance;
@@ -1078,7 +1084,7 @@ COMPLETE / NATIVE ARM64 VALIDATED / PROMOTED
 
 Patch 0013:
 EFFECTIVE OPPORTUNITY AUTHORITY
-BLUEPRINT PROPOSAL 0.4
+BLUEPRINT PROPOSAL 0.5
 RECURSIVE ADVERSARIAL AUDIT IN PROGRESS
 IMPLEMENTATION NOT AUTHORIZED
 ```
