@@ -1,6 +1,7 @@
 using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
+using Ensemble.E0.Core.Domain;
 using Ensemble.E0.Core.Production;
 using Ensemble.E0.Core.Serialization;
 using Ensemble.E0.Core.StateAuthority;
@@ -84,46 +85,14 @@ internal static class CausalCommitCanonicalizer
         AppendStringProperty(builder, ref first, "contractVersion", take.ContractVersion);
         AppendStringProperty(builder, ref first, "takeId", take.TakeId.Value);
         AppendStringProperty(builder, ref first, "disposition", "accepted");
-        AppendStringProperty(
-            builder,
-            ref first,
-            "performanceSubjectCharacterId",
-            take.Performance.SubjectCharacterId.Value);
-        AppendStringProperty(
-            builder,
-            ref first,
-            "performanceContextPacketId",
-            take.Performance.ContextPacketId.Value);
-        AppendStringProperty(
-            builder,
-            ref first,
-            "candidateContentIdentityContract",
-            take.InterpretationProposal.CandidateContentIdentityContract);
-        AppendStringProperty(
-            builder,
-            ref first,
-            "candidateContentHash",
-            take.InterpretationProposal.CandidateContentHash);
-        AppendStringProperty(
-            builder,
-            ref first,
-            "proposalContentIdentityContract",
-            trace.Input.ProposalContentIdentityContract);
-        AppendStringProperty(
-            builder,
-            ref first,
-            "proposalContentHash",
-            trace.Input.ProposalContentHash);
-        AppendStringProperty(
-            builder,
-            ref first,
-            "sourceSceneId",
-            take.InterpretationProposal.SourceSceneId.Value);
-        AppendStringProperty(
-            builder,
-            ref first,
-            "authorityContractVersion",
-            authority.ContractVersion);
+        AppendStringProperty(builder, ref first, "performanceSubjectCharacterId", take.Performance.SubjectCharacterId.Value);
+        AppendStringProperty(builder, ref first, "performanceContextPacketId", take.Performance.ContextPacketId.Value);
+        AppendStringProperty(builder, ref first, "candidateContentIdentityContract", take.InterpretationProposal.CandidateContentIdentityContract);
+        AppendStringProperty(builder, ref first, "candidateContentHash", take.InterpretationProposal.CandidateContentHash);
+        AppendStringProperty(builder, ref first, "proposalContentIdentityContract", trace.Input.ProposalContentIdentityContract);
+        AppendStringProperty(builder, ref first, "proposalContentHash", trace.Input.ProposalContentHash);
+        AppendStringProperty(builder, ref first, "sourceSceneId", take.InterpretationProposal.SourceSceneId.Value);
+        AppendStringProperty(builder, ref first, "authorityContractVersion", authority.ContractVersion);
         AppendStringProperty(builder, ref first, "authorityStatus", "complete");
 
         CanonicalJson.AppendSeparator(builder, ref first);
@@ -155,9 +124,7 @@ internal static class CausalCommitCanonicalizer
                 builder.Append(',');
             }
 
-            CanonicalJson.AppendString(
-                builder,
-                StateMutationDomainCanonicalTokens.Get(policy.AutoApproveDomains[index]));
+            CanonicalJson.AppendString(builder, StateMutationDomainCanonicalTokens.Get(policy.AutoApproveDomains[index]));
         }
 
         builder.Append(']');
@@ -169,16 +136,8 @@ internal static class CausalCommitCanonicalizer
         builder.Append('{');
         var first = true;
         AppendStringProperty(builder, ref first, "contractVersion", reviewSet.ContractVersion);
-        AppendStringProperty(
-            builder,
-            ref first,
-            "proposalContentIdentityContract",
-            reviewSet.ProposalContentIdentityContract);
-        AppendStringProperty(
-            builder,
-            ref first,
-            "proposalContentHash",
-            reviewSet.ProposalContentHash);
+        AppendStringProperty(builder, ref first, "proposalContentIdentityContract", reviewSet.ProposalContentIdentityContract);
+        AppendStringProperty(builder, ref first, "proposalContentHash", reviewSet.ProposalContentHash);
         CanonicalJson.AppendSeparator(builder, ref first);
         CanonicalJson.AppendPropertyName(builder, "choices");
         builder.Append('[');
@@ -201,8 +160,7 @@ internal static class CausalCommitCanonicalizer
                 {
                     StateAuthorityReviewChoiceKind.Approve => "approve",
                     StateAuthorityReviewChoiceKind.Reject => "reject",
-                    _ => throw new E0CausalCommitException(
-                        "Causal commit cannot canonicalize an undefined review choice.")
+                    _ => throw new E0CausalCommitException("Causal commit cannot canonicalize an undefined review choice.")
                 });
             builder.Append('}');
         }
@@ -211,9 +169,7 @@ internal static class CausalCommitCanonicalizer
         builder.Append('}');
     }
 
-    private static void AppendDecisions(
-        StringBuilder builder,
-        StateAuthorityEvaluation authority)
+    private static void AppendDecisions(StringBuilder builder, StateAuthorityEvaluation authority)
     {
         builder.Append('[');
         for (var index = 0; index < authority.Decisions.Length; index++)
@@ -226,11 +182,7 @@ internal static class CausalCommitCanonicalizer
             var decision = authority.Decisions[index];
             builder.Append('{');
             var decisionFirst = true;
-            AppendIntegerProperty(
-                builder,
-                ref decisionFirst,
-                "mutationIndex",
-                decision.MutationIndex);
+            AppendIntegerProperty(builder, ref decisionFirst, "mutationIndex", decision.MutationIndex);
             AppendStringProperty(
                 builder,
                 ref decisionFirst,
@@ -239,8 +191,7 @@ internal static class CausalCommitCanonicalizer
                 {
                     StateAuthorityDisposition.Approved => "approved",
                     StateAuthorityDisposition.Rejected => "rejected",
-                    _ => throw new E0CausalCommitException(
-                        "Causal commit cannot canonicalize a nonterminal authority decision.")
+                    _ => throw new E0CausalCommitException("Causal commit cannot canonicalize a nonterminal authority decision.")
                 });
             CanonicalJson.AppendSeparator(builder, ref decisionFirst);
             CanonicalJson.AppendPropertyName(builder, "reasons");
@@ -252,9 +203,7 @@ internal static class CausalCommitCanonicalizer
                     builder.Append(',');
                 }
 
-                CanonicalJson.AppendString(
-                    builder,
-                    ReasonToken(decision.Reasons[reasonIndex]));
+                CanonicalJson.AppendString(builder, ReasonToken(decision.Reasons[reasonIndex]));
             }
 
             builder.Append(']');
@@ -264,9 +213,7 @@ internal static class CausalCommitCanonicalizer
         builder.Append(']');
     }
 
-    private static void AppendMaterializations(
-        StringBuilder builder,
-        E0RecordMaterializationSet materializations)
+    private static void AppendMaterializations(StringBuilder builder, E0RecordMaterializationSet materializations)
     {
         builder.Append('[');
         for (var index = 0; index < materializations.Items.Length; index++)
@@ -303,31 +250,21 @@ internal static class CausalCommitCanonicalizer
             StateAuthorityReasonCode.PolicyAutoApproved => "policyAutoApproved",
             StateAuthorityReasonCode.ExplicitReviewApproved => "explicitReviewApproved",
             StateAuthorityReasonCode.ExplicitReviewRejected => "explicitReviewRejected",
-            _ => throw new E0CausalCommitException(
-                "Causal commit cannot canonicalize an undefined authority reason.")
+            _ => throw new E0CausalCommitException("Causal commit cannot canonicalize an undefined authority reason.")
         };
 
-    private static void AppendStringProperty(
-        StringBuilder builder,
-        ref bool first,
-        string name,
-        string value)
+    private static void AppendStringProperty(StringBuilder builder, ref bool first, string name, string value)
     {
         CanonicalJson.AppendSeparator(builder, ref first);
         CanonicalJson.AppendPropertyName(builder, name);
         CanonicalJson.AppendString(builder, value);
     }
 
-    private static void AppendIntegerProperty(
-        StringBuilder builder,
-        ref bool first,
-        string name,
-        int value)
+    private static void AppendIntegerProperty(StringBuilder builder, ref bool first, string name, int value)
     {
         if (value < 0)
         {
-            throw new E0CausalCommitException(
-                "Causal commit canonical integer must be nonnegative.");
+            throw new E0CausalCommitException("Causal commit canonical integer must be nonnegative.");
         }
 
         CanonicalJson.AppendSeparator(builder, ref first);
