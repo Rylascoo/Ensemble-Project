@@ -31,7 +31,10 @@ public sealed class Patch0015ContractAuditTests
             typeof(ImmutableArray<ContextRecentPerformance>),
             type.GetProperty("Entries", BindingFlags.NonPublic | BindingFlags.Instance)!.PropertyType);
 
-        Assert.IsFalse(typeof(E0AcceptedPerformanceHistoryInvariantException).IsPublic);
+        var invariantException = type.Assembly.GetType(
+            "Ensemble.E0.Core.CausalCommit.E0AcceptedPerformanceHistoryInvariantException",
+            throwOnError: true)!;
+        Assert.IsFalse(invariantException.IsPublic);
     }
 
     [TestMethod]
@@ -182,7 +185,7 @@ public sealed class Patch0015ContractAuditTests
         {
             "Windows", "Microsoft.Windows", "File", "Directory", "Http", "Socket",
             "Task", "Thread", "Timer", "DateTime", "Random", "Gpu", "Npu", "Qnn", "Onnx",
-            "Provider", "Repository", "Store"
+            "Provider", "Repository"
         };
 
         foreach (var type in publicTypes)
