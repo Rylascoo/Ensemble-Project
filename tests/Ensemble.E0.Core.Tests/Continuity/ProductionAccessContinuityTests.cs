@@ -75,6 +75,36 @@ public sealed class ProductionAccessContinuityTests
     }
 
     [TestMethod]
+    public void CommittedBeliefSupersede_ProjectsOnlyNewActiveSubjectBelief()
+    {
+        const string revisedText = "Voss now considers deliberate action plausible.";
+        var revisedId = RecordId.From("BEL-VOSS-PATCH-0014-REVISED");
+        var oldId = RecordId.From(MissingRaftContract.BelVossAccidentalLossPlausibleId);
+        var pipeline = Patch0012TestSupport.BuildPipeline(
+            new[] { Patch0012TestSupport.BeliefSupersede(revisedText) },
+            new[] { StateMutationDomain.CharacterBelief });
+        var state = Commit(
+            pipeline,
+            "BELIEF-SUPERSEDE",
+            E0RecordMaterialization.Create(0, revisedId));
+
+        var evaluation = CharacterBoundedAccessControl.Evaluate(
+            state,
+            MissingRaftContract.VossId);
+
+        Assert.IsFalse(evaluation.Projection.Beliefs.Any(record => record.RecordId == oldId));
+        Assert.IsTrue(evaluation.Projection.Beliefs.Any(record =>
+            record.RecordId == revisedId &&
+            string.Equals(record.Text, revisedText, StringComparison.Ordinal)));
+        Assert.AreEqual(
+            AccessReason.InactiveRecordExcluded,
+            evaluation.Decisions.Single(value => value.RecordId == oldId).Reason);
+        Assert.AreEqual(
+            AccessReason.OwnedBySubject,
+            evaluation.Decisions.Single(value => value.RecordId == revisedId).Reason);
+    }
+
+    [TestMethod]
     public void InactiveCommittedBelief_IsDeniedAndRemovedFromProjection()
     {
         var pipeline = Patch0012TestSupport.BuildPipeline(
