@@ -1,6 +1,4 @@
 using System.Collections.Immutable;
-using System.Globalization;
-using System.Text;
 using System.Text.Json;
 using Ensemble.E0.Core.Context;
 using Ensemble.E0.Core.Domain;
@@ -470,70 +468,28 @@ public static class PerformerCandidateContract
 
     private static void ValidateVisibleText(string? visibleText)
     {
-        if (visibleText is null)
+        switch (CharacterLegibleTextInvariants.Validate(visibleText))
         {
-            throw new PerformerCandidateException(
-                "Candidate performance text is required.");
-        }
-
-        if (visibleText.Length == 0)
-        {
-            return;
-        }
-
-        for (var index = 0; index < visibleText.Length; index++)
-        {
-            var character = visibleText[index];
-            if (char.IsHighSurrogate(character))
-            {
-                if (index + 1 >= visibleText.Length ||
-                    !char.IsLowSurrogate(visibleText[index + 1]))
-                {
-                    throw new PerformerCandidateException(
-                        "Candidate performance text contains invalid Unicode.");
-                }
-
-                index++;
-            }
-            else if (char.IsLowSurrogate(character))
-            {
+            case CharacterLegibleTextFailure.None:
+                return;
+            case CharacterLegibleTextFailure.Required:
+                throw new PerformerCandidateException(
+                    "Candidate performance text is required.");
+            case CharacterLegibleTextFailure.InvalidUnicode:
                 throw new PerformerCandidateException(
                     "Candidate performance text contains invalid Unicode.");
-            }
-        }
-
-        if (!visibleText.IsNormalized(NormalizationForm.FormC))
-        {
-            throw new PerformerCandidateException(
-                "Candidate performance text must already be Unicode NFC.");
-        }
-
-        var hasDisplayBearingScalar = false;
-        foreach (var rune in visibleText.EnumerateRunes())
-        {
-            var category = Rune.GetUnicodeCategory(rune);
-            if (category == UnicodeCategory.Control &&
-                rune.Value is not 0x09 and not 0x0A)
-            {
+            case CharacterLegibleTextFailure.NotNormalized:
+                throw new PerformerCandidateException(
+                    "Candidate performance text must already be Unicode NFC.");
+            case CharacterLegibleTextFailure.ForbiddenControl:
                 throw new PerformerCandidateException(
                     "Candidate performance text contains a forbidden control character.");
-            }
-
-            if (!Rune.IsWhiteSpace(rune) &&
-                category is not UnicodeCategory.Control and
-                not UnicodeCategory.Format and
-                not UnicodeCategory.NonSpacingMark and
-                not UnicodeCategory.SpacingCombiningMark and
-                not UnicodeCategory.EnclosingMark)
-            {
-                hasDisplayBearingScalar = true;
-            }
-        }
-
-        if (!hasDisplayBearingScalar)
-        {
-            throw new PerformerCandidateException(
-                "Non-silent CandidatePerformance must contain visible Character-legible content.");
+            case CharacterLegibleTextFailure.NoDisplayBearingScalar:
+                throw new PerformerCandidateException(
+                    "Non-silent CandidatePerformance must contain visible Character-legible content.");
+            default:
+                throw new PerformerCandidateException(
+                    "Candidate performance text is invalid.");
         }
     }
 
