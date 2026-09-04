@@ -1,6 +1,6 @@
 # H1 Patch 0014 — E0 Production Context Continuity
 
-Status: blueprint proposal 0.2 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; approval required; implementation not started
+Status: blueprint proposal 0.3 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; approval required; implementation not started
 Parent repository checkpoint: `main` at `e06668a2307433bf99b0501dc38a701db392c633`
 Parent promoted implementation: H1 Patch 0013 squash merge `15b85a25fa7969d6db69030fa712eea329471e6b`
 Parent full-Core-test authority: H1 Patch 0013 at `a3fae23dc4df302e834b031ecfc848a3bb2d37fc`
@@ -11,7 +11,7 @@ Branch: `h1-patch-0014-production-context-continuity-blueprint`
 
 Patch 0014 defines the smallest deterministic continuity boundary needed after H1 Patch 0013 so a newly established Current Opportunity can receive a Character-safe ContextPacket derived from the exact current ProductionState rather than from the immutable genesis fixture.
 
-The completed H1 deterministic spine now reaches:
+The completed H1 deterministic spine reaches:
 
 ```text
 source ProductionState with Current Opportunity
@@ -34,39 +34,38 @@ Patch 0013 effective-opportunity ProductionState
                     -> exact next-turn ContextPacket
 ```
 
-Patch 0014 closes only that boundary.
-
-It does not invoke a provider, generate a second Performance, orchestrate a complete Scene loop, persist causal history, or claim full multi-turn replay from genesis.
+Patch 0014 closes only that boundary. It does not invoke a provider, generate a second Performance, orchestrate a complete Scene loop, persist causal history, or claim full multi-turn replay from genesis.
 
 ## 2. Recovered frozen authority
 
-Patch 0014 preserves the already-approved laws that:
+Patch 0014 preserves these approved laws:
 
-- ProductionState is the authoritative current projection after genesis;
-- ValidatedFixture remains immutable genesis input and is never mutated into evolved state;
-- deterministic Access Control always precedes Context composition;
-- prohibited information must be removed before any relevance/composition stage can receive it;
-- Character-facing projections remain stripped of hidden provenance and creator-only authority metadata;
+- ProductionState is authoritative current projection after genesis;
+- ValidatedFixture remains immutable genesis input and is never evolved in place;
+- deterministic Access Control precedes Context composition;
+- prohibited information is removed before any relevance/composition stage can receive it;
+- Character-facing projections carry no hidden provenance or creator-only authority metadata;
 - objective truth, observation, claim, belief, memory, knowledge, and recent Performance remain distinct authority categories;
 - accepted Performance history and semantic Production state are distinct authorities;
-- recent fictional Performance is untrusted creative content and remains separate from trusted structured state/system authority;
+- recent fictional Performance is untrusted creative content separate from trusted structured state/system authority;
 - Patch 0005 reserved `recentPerformances` for later accepted-history authority;
-- ProductionStateCheckpoint is captured before a Performer-source Access/Context pipeline begins;
+- ProductionStateCheckpoint is captured before a Performer-source Access/Context pipeline;
 - StateHash is the history-sensitive identity of the exact Production source state;
-- Patch 0013 establishes Current Opportunity before any next Access/Context/Performer work begins;
-- a next ContextPacket must not silently rebase onto a different Production state;
-- deterministic authority, not a model, owns disclosure and association.
+- Patch 0013 establishes Current Opportunity before next Access/Context/Performer work;
+- next Context must not silently rebase onto another Production state;
+- deterministic authority, not a model, owns disclosure and source association;
+- exact empty Candidate VisibleText represents silence and Ensemble invents no narration for it.
 
 ## 3. Why Patch 0014 is next
 
-Patch 0013 explicitly deferred this boundary because current Access/Context still cannot:
+Current Access/Context still cannot:
 
 1. consume evolved ProductionState rather than only ValidatedFixture;
 2. carry exact source StateHash through Access/Context;
 3. preserve CharacterClaim as a distinct Character-facing category;
-4. populate the accepted-history `recentPerformances` layer.
+4. populate accepted-history `recentPerformances`.
 
-The frozen order is therefore:
+Frozen ordering is:
 
 ```text
 Patch 0012 causal commit
@@ -77,7 +76,7 @@ Patch 0014 Production -> Access -> Context continuity
     -> legal next-turn source ContextPacket
 ```
 
-A full Scene-loop orchestrator before this bridge would have to invent disclosure semantics, state association, or recent-history policy inside orchestration code. That would put constitutional authority in the wrong layer.
+A full Scene-loop orchestrator before this bridge would place disclosure/state-association/history authority in orchestration code, which is the wrong layer.
 
 ## 4. Scope boundary
 
@@ -85,38 +84,22 @@ Patch 0014 defines only:
 
 - Production-backed Character Access evaluation;
 - lifecycle-aware projection of active Production records;
-- explicit CharacterClaim disclosure semantics;
-- exact source StateHash identity on Production-backed Access/Context;
-- a new Production-bound Context schema/contract while preserving Patch 0005 v1 bytes;
-- one exact immutable accepted recent-Performance item type;
-- deterministic E0 immediate-recent-Performance disclosure from the immediately preceding Accepted causal commit;
-- a higher-level Continuity bridge proving Patch 0012 -> Patch 0013 -> current checkpoint adjacency;
-- exact next-turn source-StateHash association in E0TakeStateBinding;
-- exact genesis compatibility rules for the historical fixture/v1 path;
-- strict v1/v2 anti-downgrade and hybrid-shape rejection;
-- fixed canonical byte/hash tests for the new v2 format;
-- fail-closed stale/foreign/malformed/downgraded source tests.
+- CharacterClaim disclosure semantics;
+- source StateHash identity on Production-backed Access/Context;
+- Production-bound Context v2 while preserving Context v1 bytes;
+- one closed accepted recent-Performance item type;
+- E0 immediate-recent-Performance disclosure from the immediately preceding Accepted causal commit;
+- a higher Continuity bridge proving Patch0012 -> Patch0013 -> current checkpoint adjacency;
+- v2 source-StateHash association in E0TakeStateBinding;
+- safe historical v1 binding compatibility only after exact genesis and semantic source-equivalence proof;
+- strict v1/v2 anti-downgrade/hybrid-shape rejection;
+- fixed independent v2 canonical/hash oracles and fail-closed regression tests.
 
-Patch 0014 does not implement:
-
-- complete Scene-loop orchestration;
-- provider/model invocation, retry, cancellation, streaming, budget, or spend policy;
-- full multi-turn replay from genesis through an event sequence;
-- durable event store/database/recovery;
-- arbitrary history retrieval or semantic memory search;
-- more than the immediate Accepted recent Performance;
-- Observation / World Resolver;
-- broader spatial/hearing/channel visibility semantics;
-- audience/creator/Character perspective UX;
-- branch/canon/retcon/rehearsal/Alternate promotion;
-- final Production/Studio ontology;
-- WinUI, Windows AI Foundry, NPU/QNN, MSIX, WACK, or Store certification.
+Patch 0014 does not implement complete Scene-loop orchestration, provider/model invocation, retry/cancellation/streaming/spend policy, full replay, persistence, arbitrary history retrieval, semantic search, more than one immediate recent Performance, Observation/World Resolver, broad spatial/hearing/channel rules, perspective UX, branch/canon/retcon/rehearsal, final Production/Studio ontology, WinUI, Windows AI/NPU, MSIX, WACK, or Store certification.
 
 ## 5. Dependency direction
 
-Patch 0012 explicitly permits a later Access integration patch to depend on Production without reversing Production's dependency direction.
-
-Lower deterministic dependencies remain conceptually:
+Lower deterministic dependencies remain:
 
 ```text
 Domain / Fixture / internal Provenance
@@ -128,15 +111,11 @@ Domain / Fixture / internal Provenance
                         -> Opportunity
 ```
 
-Patch 0014 must not make Access depend on CausalCommit, Opportunity, or Continuity.
+Access must not depend on CausalCommit, Opportunity, or Continuity.
 
-An Access -> CausalCommit dependency is rejected because CausalCommit already consumes Context and would create:
+`Access -> CausalCommit` is rejected because CausalCommit already consumes Context and would create `Access -> CausalCommit -> Context -> Access`.
 
-```text
-Access -> CausalCommit -> Context -> Access
-```
-
-Instead one higher integration namespace owns continuity composition:
+Patch 0014 adds one higher integration layer:
 
 ```text
 Access + Context + CausalCommit + Opportunity
@@ -145,15 +124,17 @@ Access + Context + CausalCommit + Opportunity
 
 No lower layer depends on Continuity.
 
+CausalCommit may additionally depend directly on Access for the narrow legacy-v1 source-equivalence proof described below. That direction is legal because Access is lower than CausalCommit and creates no cycle.
+
 ## 6. Public Continuity surface
 
-Proposed namespace:
+Namespace:
 
 ```text
 Ensemble.E0.Core.Continuity
 ```
 
-Approved public surface is limited to:
+Public types:
 
 ```text
 public static class E0ProductionContextContinuity
@@ -172,11 +153,11 @@ public static ContextCompositionEvaluation ComposeNextTurn(
     E0OpportunityTransitionResult opportunityResult)
 ```
 
-There is no public mutable continuity/session object, generic arbitrary-history input, or overload accepting caller-created recent Performance data.
+No mutable session object, generic history input, or public recent-Performance injection overload exists.
 
 ## 7. Checkpoint-first law
 
-Patch 0012 freezes checkpoint capture before Access/Context/Performance. Patch 0014 preserves that ordering directly:
+Correct flow remains:
 
 ```text
 var checkpoint = ProductionStateCheckpoint.Capture(currentState);
@@ -185,13 +166,13 @@ var context = E0ProductionContextContinuity.Compose...(
     ...causal inputs...);
 ```
 
-The checkpoint remains O(1), retains the exact immutable source-state reference internally, exposes exact StateHash/SceneId/CurrentOpportunity, cannot be rebound, and performs no full-state rehash.
+Checkpoint capture stays O(1), retains the exact immutable source-state reference internally, exposes exact StateHash/SceneId/CurrentOpportunity, cannot rebind, and performs no full-state rehash.
 
-Patch 0014 reuses the already-computed StateHash rather than rehashing Production merely to bind Context.
+Normal v2 composition reuses the existing StateHash.
 
 ## 8. Production-backed Access overload
 
-Existing historical API remains:
+Historical API remains:
 
 ```text
 CharacterBoundedAccessControl.Evaluate(
@@ -207,19 +188,15 @@ CharacterBoundedAccessControl.Evaluate(
     CharacterId subjectCharacterId)
 ```
 
-The Production overload is deterministic, synchronous, side-effect free, and must not call Context, CausalCommit, Opportunity, Continuity, provider/model code, clock, randomness, network, GPU, or NPU work.
+Production Access is deterministic, synchronous, side-effect free, and performs no Context/CausalCommit/Opportunity/Continuity/provider/model/clock/random/network/GPU/NPU work.
 
-It fails closed unless `sourceState.ContractVersion` is exactly the inherited supported Production contract:
+It requires exact supported Production contract:
 
 ```text
 ensemble.e0.production-state.v1
 ```
 
-The Production Access policy is therefore explicitly bound to the supported Production representation rather than inferred from arbitrary in-memory objects.
-
 ## 9. CharacterAccessProjection evolution
-
-The existing Character-safe projection remains the only trusted state-information input to Context Composer.
 
 Patch 0014 adds:
 
@@ -228,25 +205,25 @@ SourceStateHash : StateHash?
 Claims : ImmutableArray<PermittedRecord>
 ```
 
-Exact shape law:
+Exact shape:
 
 ```text
-fixture/v1 projection:
+fixture-backed historical projection:
     SourceStateHash = null
     Claims = []
 
 Production-backed projection:
-    SourceStateHash = exact sourceState.StateHash
-    Claims = permitted active subject-owned CharacterClaim records
+    SourceStateHash = sourceState.StateHash
+    Claims = active permitted subject-owned CharacterClaim records
 ```
 
-No ProductionRecord lifecycle/protection/provenance object or raw ProductionRecord instance is exposed.
+No lifecycle/protection/provenance object or raw ProductionRecord is exposed.
 
 ## 10. Production record projection law
 
-Production-backed Access evaluates every retained Production record for audit disposition, but only Active permitted records enter Character-facing content.
+Production Access evaluates every retained record for an audit decision. Only Active permitted records enter Character-facing content.
 
-### Active global domains
+Active global domains:
 
 ```text
 HistoricalTruth          -> Deny / ProductionAuthorityExcluded
@@ -256,137 +233,96 @@ SceneState               -> Permit / SharedSceneState
 Pressure                 -> Permit / PublicPressure
 ```
 
-### Active Character-owned domains
-
-For the Access subject:
+Active subject-owned domains:
 
 ```text
-CharacterConstitution    -> Permit / OwnedBySubject
-CharacterDisposition     -> Permit / OwnedBySubject
-CharacterCircumstance    -> Permit / OwnedBySubject
-CharacterObservation     -> Permit / OwnedBySubject
-CharacterKnowledge       -> Permit / OwnedBySubject
-CharacterBelief          -> Permit / OwnedBySubject
-CharacterSuspicion       -> Permit / OwnedBySubject
-CharacterMemory          -> Permit / OwnedBySubject
-CharacterGoal            -> Permit / OwnedBySubject
-CharacterClaim           -> Permit / OwnedBySubject
-```
-
-The same domains owned by another Character are:
-
-```text
-Deny / OwnedByOtherCharacterExcluded
-```
-
-### Relationships
-
-```text
-active Relationship with subject == Access subject
+CharacterConstitution
+CharacterDisposition
+CharacterCircumstance
+CharacterObservation
+CharacterKnowledge
+CharacterBelief
+CharacterSuspicion
+CharacterMemory
+CharacterGoal
+CharacterClaim
     -> Permit / OwnedBySubject
+```
 
-active Relationship with another subject
+Those domains owned by another Character are `Deny / OwnedByOtherCharacterExcluded`.
+
+Relationships:
+
+```text
+active Relationship subject == Access subject
+    -> Permit / OwnedBySubject
+otherwise
     -> Deny / OwnedByOtherCharacterExcluded
 ```
 
-### Inactive records
-
-Any inactive retained record is:
-
-```text
-Deny / InactiveRecordExcluded
-```
-
-Lifecycle exclusion takes precedence because an inactive semantic record is no longer current effective state.
-
-Patch 0014 adds:
-
-```text
-AccessReason.InactiveRecordExcluded
-```
+Any inactive record is `Deny / InactiveRecordExcluded`, and Patch 0014 adds that AccessReason. Lifecycle exclusion takes precedence because inactive semantic state is not current effective state.
 
 ## 11. Production Access structural invariants
 
-The Production overload validates rather than trusting malformed in-memory state.
+Production Access fails closed unless:
 
-It fails closed unless:
-
-- source state is non-null and exact supported Production contract;
-- StateHash and SceneId are initialized;
-- roster is the frozen E0 three unique initialized Characters in canonical ordinal order;
-- subject resolves exactly once in Production Characters and exactly once in roster;
-- retained RecordIds are unique;
-- every record has initialized identity and canonical text;
-- runtime record subtype agrees with ProductionRecordDomain;
-- Character-owned record subjects belong to roster;
+- state is non-null and exact supported Production contract;
+- StateHash/SceneId are initialized;
+- roster is exactly three unique initialized E0 Characters in ordinal canonical order;
+- subject resolves exactly once in Production Characters and roster;
+- RecordIds are unique;
+- every record identity/text is valid and canonical;
+- runtime record subtype agrees with domain;
+- Character record subjects are roster members;
 - Relationship subject/target are distinct valid roster Characters;
-- lifecycle and protection enum values are defined;
-- no unsupported domain is accepted.
+- lifecycle/protection enums are defined;
+- no unsupported domain exists.
 
-Validation applies to inactive records too; lifecycle does not excuse malformed retained history.
+Inactive retained records are structurally validated too.
 
 ## 12. CharacterClaim disclosure law
 
-CharacterClaim remains a distinct epistemic category.
+A Production CharacterClaim is an accepted interpreted proposition attributable to that source Character. It is not objective truth, knowledge, belief, memory, or another Character's observation.
 
-A Production CharacterClaim means that the Production has accepted an interpreted proposition attributable to that source Character. It does not make the proposition objective truth, knowledge, belief, memory, or another Character's observation.
+Only the Access subject's own active CharacterClaim records enter that subject's `Claims` category.
 
-Patch 0014 therefore permits only the Access subject's own active CharacterClaim records into that subject's `Claims` category.
+Other Characters' durable claims are not automatically inserted into trusted state. Longer-lived knowledge/memory of another Character's claim requires separately committed semantic state representing that knowledge/memory.
 
-Other Characters' durable claims are not automatically inserted into trusted state merely because Production remembers that they made them.
+The immediate prior visible Performance is handled separately as recent creative history.
 
-Longer-lived knowledge/memory of another Character's claim requires separately committed semantic state representing that knowledge/memory. Patch 0014 does not synthesize it.
+## 13. Least-authority claim rationale
 
-The immediately preceding Accepted visible Performance is handled separately as recent creative history under the narrow E0 co-present rule below.
-
-## 13. Least-authority rationale for claims
-
-Automatically giving every Character every durable claim would collapse:
+The rule prevents:
 
 ```text
-Production remembers that Character A claimed P
+Production remembers Character A claimed P
 ```
 
-into:
+from silently becoming:
 
 ```text
-Character B currently receives P as trusted state
+Character B receives P as trusted state
 ```
 
-without observation, knowledge, or memory authority.
-
-The subject-owned claim rule preserves self-continuity while avoiding cross-Character omniscience.
+without observation/knowledge/memory authority.
 
 ## 14. Context v1 remains byte-frozen
 
-Patch 0005 v1 remains historical executable authority.
-
-Exact existing constants remain unchanged:
+Existing constants remain exactly:
 
 ```text
-E0ContextContracts.SchemaVersion
-= "ensemble.e0.context.v1"
-
-E0ContextContracts.CompositionContract
-= "ensemble.e0.context.full-authorized.v1"
-
-E0ContextContracts.RenderingContract
-= "ensemble.e0.context.render.v1"
+ensemble.e0.context.v1
+ensemble.e0.context.full-authorized.v1
+ensemble.e0.context.render.v1
 ```
 
-Existing v1 structured bytes, rendered bytes, ContextPacketId, StructuredContextHash, RenderedContextHash, and fixed reference oracles remain unchanged.
+Existing structured/rendered bytes, byte lengths, hashes, ContextPacketId, and fixed Patch0005 oracles remain unchanged.
 
-Existing v1 canonical root still contains exactly:
-
-```text
-"recentPerformances":[]
-```
-
-Patch 0014 does not retrofit sourceStateHash or claims into v1 canonical bytes.
+Existing v1 structured bytes still contain exactly `"recentPerformances":[]` and no sourceStateHash/claims fields.
 
 ## 15. Production-bound Context v2
 
-Patch 0014 adds:
+New constants:
 
 ```text
 E0ContextContracts.ProductionBoundSchemaVersion
@@ -399,13 +335,11 @@ E0ContextContracts.ProductionBoundRenderingContract
 = "ensemble.e0.context.render.v2"
 ```
 
-A new schema is required because sourceStateHash and claims add semantic fields not present in frozen v1 bytes.
+A new schema is required because sourceStateHash and claims change semantic bytes.
 
-## 16. Shared ContextPacket public model
+## 16. Shared ContextPacket model
 
-Patch 0014 extends the existing closed `ContextPacket` model rather than introducing a parallel packet hierarchy.
-
-New properties:
+The existing closed ContextPacket gains:
 
 ```text
 SourceStateHash : StateHash?
@@ -413,7 +347,7 @@ Claims : ImmutableArray<ContextRecord>
 RecentPerformances : ImmutableArray<ContextRecentPerformance>
 ```
 
-New closed immutable item:
+New closed item:
 
 ```text
 public sealed class ContextRecentPerformance
@@ -422,19 +356,13 @@ public sealed class ContextRecentPerformance
 - VisibleText
 ```
 
-`ContextRecentPerformance` has no public constructor or setter.
-
-It contains no provider/model identity, raw response, Candidate control, Director trace/rule, Integrity/Interpreter/Authority trace, Production provenance, credential, or secret.
-
-The shared model is safe only under the exact version/shape invariants in the next section.
+No public constructor/setter. No provider/model identity, raw response, Candidate control, Director trace, Integrity/Interpreter/Authority trace, Production provenance, credentials, or secrets.
 
 ## 17. Closed version/shape invariants
 
-Patch 0014 forbids hybrid Context shapes.
+Hybrid shapes are invalid.
 
-### v1 packet/projection
-
-A v1 composition/canonicalization path is valid only when:
+v1 requires exactly:
 
 ```text
 SchemaVersion == ensemble.e0.context.v1
@@ -445,63 +373,40 @@ Claims.Length == 0
 RecentPerformances.Length == 0
 ```
 
-The public historical v1 composer also requires its `CharacterAccessProjection` to have:
+Historical public v1 Compose also requires projection `SourceStateHash == null` and `Claims.Length == 0`.
 
-```text
-SourceStateHash == null
-Claims.Length == 0
-```
-
-A projection with a state hash or claims may not be silently downgraded to v1.
-
-### v2 packet/projection
-
-A v2 production-bound path is valid only when:
+v2 requires exactly:
 
 ```text
 SchemaVersion == ensemble.e0.context.v2
 CompositionContract == ensemble.e0.context.production-bound.v1
 Rendered.RenderingContract == ensemble.e0.context.render.v2
-SourceStateHash.HasValue
-SourceStateHash.Value is initialized
+SourceStateHash.HasValue with initialized value
 projection.SourceStateHash == packet.SourceStateHash
-Claims are initialized
-RecentPerformances.Length is 0 for ComposeGenesis or exactly 1 for ComposeNextTurn
+Claims initialized
+RecentPerformances.Length == 0 for ComposeGenesis
+RecentPerformances.Length == 1 for ComposeNextTurn
 ```
 
-No unsupported combination of schema/composition/rendering contracts is serialized.
+Unsupported contract combinations fail closed.
 
 ## 18. Public canonicalizer dispatch law
 
-`ContextPacketCanonicalizer.SerializeStructured(ContextPacket)` remains public for historical callers.
-
-It must validate the complete version/shape invariant before serializing and dispatch only to the exact supported canonical shape:
+`ContextPacketCanonicalizer.SerializeStructured(ContextPacket)` validates full version/shape before dispatch:
 
 ```text
-valid v1 -> exact historical v1 bytes
-valid v2 -> exact production-bound v2 bytes
-hybrid/unsupported -> fail closed
+valid v1 -> exact historical bytes
+valid v2 -> exact production-bound bytes
+anything else -> fail closed
 ```
 
-It must never:
+It never ignores populated Claims/RecentPerformances, infers a version from nullable fields, serializes v2 fields under v1 tokens, or serializes v1 bytes under v2 tokens.
 
-- infer v1 merely because SourceStateHash is null;
-- ignore non-empty Claims;
-- ignore populated RecentPerformances;
-- serialize v2 fields under the v1 schema token;
-- serialize v1 bytes under a v2 schema token.
-
-`SerializeRendered(RenderedContext)` similarly accepts only the exact supported rendering contract shapes and preserves v1 bytes unchanged.
-
-This closes a downgrade path where authority-bearing content could otherwise be silently omitted from canonical identity.
+`SerializeRendered` likewise accepts only supported rendering contracts and preserves historical v1 bytes exactly.
 
 ## 19. Recent Performance item law
 
-Candidate addressed/nominated control remains deterministic routing input already causally bound through the Accepted Take and Patch 0013 opportunity transition.
-
-It is not automatically diegetic Character knowledge.
-
-Therefore a recent Performance item contains only:
+Recent Character-facing history includes only:
 
 ```text
 TakeId
@@ -509,11 +414,11 @@ SubjectCharacterId
 VisibleText
 ```
 
-The next Performer receives the exact accepted visible fictional action, not hidden routing machinery.
+Addressed/nominated Candidate control remains routing authority and is not automatically diegetic knowledge.
 
 ## 20. Exact v2 structured canonical order
 
-Root property order is exactly:
+Root order:
 
 ```text
 schemaVersion
@@ -539,64 +444,34 @@ relationships
 recentPerformances
 ```
 
-Exact conceptual shape:
+Exact recent item order:
 
 ```json
-{
-  "schemaVersion":"ensemble.e0.context.v2",
-  "compositionContract":"ensemble.e0.context.production-bound.v1",
-  "sourceStateHash":"<64-lower-hex>",
-  "sceneId":"...",
-  "subjectCharacterId":"...",
-  "opportunityCharacterId":"...",
-  "roster":[{"characterId":"...","displayName":"..."}],
-  "sceneState":[{"recordId":"...","text":"..."}],
-  "pressures":[{"recordId":"...","text":"..."}],
-  "constitution":[{"recordId":"...","text":"..."}],
-  "disposition":[{"recordId":"...","text":"..."}],
-  "circumstance":[{"recordId":"...","text":"..."}],
-  "observations":[{"recordId":"...","text":"..."}],
-  "knowledge":[{"recordId":"...","text":"..."}],
-  "beliefs":[{"recordId":"...","text":"..."}],
-  "suspicions":[{"recordId":"...","text":"..."}],
-  "memories":[{"recordId":"...","text":"..."}],
-  "goals":[{"recordId":"...","text":"..."}],
-  "claims":[{"recordId":"...","text":"..."}],
-  "relationships":[{"recordId":"...","targetCharacterId":"...","text":"..."}],
-  "recentPerformances":[{"takeId":"...","subjectCharacterId":"...","visibleText":"..."}]
-}
+{"takeId":"...","subjectCharacterId":"...","visibleText":"..."}
 ```
 
-Set/projection arrays remain ordinally canonical. `recentPerformances` is chronological and is never sorted. Patch 0014 permits only zero or one item.
+Set/projection arrays remain ordinal. `recentPerformances` is chronological, unsorted, and Patch0014 allows zero or one item only.
 
-## 21. v2 identity
-
-Production-bound packet identity remains:
+## 21. v2 packet identity
 
 ```text
 StructuredContextHash = SHA256(canonical structured v2 bytes)
 ContextPacketId = "CTX:" + StructuredContextHash
 ```
 
-Because sourceStateHash is inside canonical structured bytes, otherwise identical Character context from different causal Production states cannot silently share a v2 ContextPacketId.
+sourceStateHash is part of canonical bytes, so otherwise identical context from different causal Production states has different v2 identity.
 
-No Production rehash is needed.
+## 22. Production-bound trusted-state rendering
 
-## 22. Production-bound rendering
-
-The v1 renderer remains byte-frozen.
-
-The v2 trusted-state renderer preserves existing sections and adds one semantically explicit claim section:
+The v2 trusted renderer preserves existing category order and inserts exactly one distinct section after `[WHAT YOU REMEMBER]`:
 
 ```text
 [WHAT YOU HAVE CLAIMED]
 ```
 
-Claim text must never render under Knowledge, World State, Observation, Belief, or another category that upgrades its authority.
+Claim text never renders as Knowledge, World State, Observation, Belief, or another upgraded category.
 
-The existing other trusted-state sections and order remain unchanged except for insertion of this distinct claim section after `[WHAT YOU REMEMBER]` and before `[WHO IS PRESENT]`.
-
-## 23. RecentPerformanceText rendering
+## 23. RecentPerformanceText and silence
 
 For v2 genesis:
 
@@ -604,7 +479,7 @@ For v2 genesis:
 RecentPerformanceText = ""
 ```
 
-For v2 next turn, exactly:
+For a non-empty immediately preceding Accepted VisibleText:
 
 ```text
 [WHAT JUST HAPPENED]
@@ -612,19 +487,19 @@ For v2 next turn, exactly:
 <exact Accepted VisibleText>
 ```
 
-Recent Performance is never concatenated into TrustedStateText.
-
-Accepted fictional Performance does not become system instruction authority merely because it is causally effective creative history.
-
-OpportunityText remains exactly:
+For an Accepted silent Performance where `VisibleText == ""`:
 
 ```text
-You have the current opportunity to act.
+RecentPerformanceText = ""
 ```
+
+The structured `RecentPerformances` array still contains the exact one Accepted item, including TakeId and empty VisibleText, so causal identity/history remains distinct. Rendering invents no narration, marker, placeholder, or dangling speaker label for silence.
+
+No recent Performance text enters TrustedStateText. OpportunityText remains exactly `You have the current opportunity to act.`
 
 ## 24. Trace evolution
 
-Patch 0014 extends ContextCompositionTrace with:
+ContextCompositionTrace adds:
 
 ```text
 SourceStateHash : StateHash?
@@ -634,24 +509,24 @@ IncludedRecentTakeIds : ImmutableArray<TakeId>
 Exact law:
 
 ```text
-fixture/v1:
+v1:
     SourceStateHash = null
     IncludedRecentTakeIds = []
 
-Production/v2 genesis:
+v2 genesis:
     SourceStateHash = checkpoint.StateHash
     IncludedRecentTakeIds = []
 
-Production/v2 next turn:
+v2 next turn:
     SourceStateHash = checkpoint.StateHash
-    IncludedRecentTakeIds = [ sourceCommit.Take.TakeId ]
+    IncludedRecentTakeIds = [sourceCommit.Take.TakeId]
 ```
 
-Claims are included in existing IncludedRecordIds.
+Claims are included in IncludedRecordIds.
 
-## 25. Composer API and anti-forgery law
+## 25. Composer API / anti-forgery law
 
-Existing public historical API remains the sole public composer:
+Historical public composer remains the sole public composer:
 
 ```text
 DeterministicContextComposer.Compose(
@@ -659,42 +534,27 @@ DeterministicContextComposer.Compose(
     CharacterId currentOpportunityCharacterId)
 ```
 
-It remains v1-only and enforces the exact v1 projection shape.
+It is v1-only and rejects v2-bearing projections.
 
-Patch 0014 adds an internal production-bound path, conceptually:
+Patch0014 adds only an internal production-bound composition path accepting the Production projection, current opportunity, and closed recent items. No public API accepts arbitrary recent Performance input.
 
-```text
-internal ComposeProductionBound(
-    CharacterAccessProjection projection,
-    CharacterId currentOpportunityCharacterId,
-    ImmutableArray<ContextRecentPerformance> recentPerformances)
-```
+## 26. Genesis continuity
 
-Only Continuity may supply causally derived recent items through normal Core flow.
+`ComposeGenesis(checkpoint)` succeeds only when:
 
-No public API accepts arbitrary recent Performance input.
-
-## 26. Genesis continuity path
-
-`ComposeGenesis(sourceCheckpoint)` succeeds only for an exact genesis Production source.
-
-It verifies:
-
-1. source checkpoint exists and identities are initialized;
-2. checkpoint source state contract is exact supported Production v1;
-3. checkpoint Current Opportunity exists exactly once in roster;
-4. recomputing the inherited exact genesis StateHash envelope over the checkpoint source Production projection equals checkpoint.StateHash;
-5. Production Access for checkpoint Current Opportunity succeeds;
+1. checkpoint/state identities are initialized;
+2. source Production contract is supported;
+3. Current Opportunity resolves exactly once in roster;
+4. inherited genesis-hash recomputation over checkpoint source projection equals checkpoint.StateHash;
+5. Production Access succeeds for checkpoint opportunity;
 6. Access SourceStateHash equals checkpoint.StateHash;
-7. v2 production-bound composition succeeds with no recent Performance.
+7. v2 composition succeeds with zero recent items.
 
-This provides a state-bound opening-turn context without deleting or rewriting the historical fixture/v1 path.
+This provides a state-bound opening Context without deleting the historical fixture/v1 surface.
 
-## 27. Next-turn continuity path
+## 27. Next-turn continuity adjacency
 
-`ComposeNextTurn(...)` accepts the exact current checkpoint, immediately preceding source causal commit, and immediately following Patch 0013 opportunity result.
-
-It must prove:
+`ComposeNextTurn(...)` proves:
 
 ```text
 sourceCommit.ResultStateHash
@@ -722,84 +582,43 @@ opportunityResult.History.CharacterIds[^2]
     == sourceCommit.Take.Performance.SubjectCharacterId
 ```
 
-The history must contain at least two entries before the penultimate check.
+History must contain at least two entries.
 
-The penultimate-Character law makes immediate accepted-history disclosure explicit: the Performance being disclosed must be the Character whose effective opportunity immediately preceded the newly established one.
+It additionally proves supported commit/Take/opportunity contracts, Accepted source Take, effective source CommitId/TakeId in current caches, source Take/current Scene match, source Character in roster, exact least-intervention v1 strategy, opportunity result State Scene/roster/current-opportunity agreement with checkpoint, and initialized identities.
 
-The bridge also proves:
+The penultimate-Character proof explicitly binds the disclosed recent Performance to the effective opportunity immediately preceding the newly established one.
 
-- supported commit/Take/opportunity contracts;
-- source commit contains an Accepted Take;
-- source CommitId and TakeId remain effective in current Production caches;
-- source Take Scene equals current Scene;
-- source Performance Character belongs to current roster;
-- opportunity strategy is exact least-intervention v1;
-- opportunity result State Scene/roster/current opportunity agree with checkpoint state;
-- all identities used by these comparisons are initialized.
+## 28. Immediate recent-Performance disclosure
 
-Any mismatch fails before Access/Context output exists.
-
-## 28. Immediate recent-Performance disclosure law
-
-Patch 0014 adopts one narrow E0 rule:
+Under the frozen E0 exactly-one co-present trio Scene:
 
 ```text
 The exact visible Performance from the immediately preceding Accepted source Take
-is permitted as recent Performance to the Character holding the newly established Current Opportunity.
+is permitted as recent Performance to the newly selected Current Opportunity Character.
 ```
 
-This is not a general product-wide observation law.
+This is not a general Observation law. Future Observation/World Resolver authority may replace it outside E0.
 
-It is justified only by the frozen E0 exactly-one co-present trio Scene. Future Observation/World Resolver contracts may replace this E0 rule for broader scenarios.
+## 29. Recent source authority
 
-## 29. Recent Performance source authority
+Recent history is derived only from `sourceCommit.Take` after full adjacency validation. Disposition must be Accepted.
 
-The one recent item is derived only from:
-
-```text
-sourceCommit.Take
-```
-
-after the complete adjacency proof succeeds.
-
-Required source disposition is exactly Accepted.
-
-Rejected, Alternate, failed, cancelled, malformed, uncommitted, merely generated, or caller-supplied Candidate output cannot enter recent Performance context.
+Rejected, Alternate, failed, cancelled, malformed, uncommitted, merely generated, or caller-supplied Candidate output cannot enter recent history.
 
 ## 30. State and creative history remain separate
 
-Patch 0014 preserves:
-
 ```text
-ProductionState
-    -> trusted current semantic projection
-
-E0CausalCommit
-    -> accepted creative Performance/consequence history
-
-Continuity
-    -> proves immediate adjacency
-    -> strips/permits one recent creative item
-
-Context v2
-    -> keeps trusted state and recent Performance in separate fields/layers
+ProductionState -> current trusted semantic projection
+E0CausalCommit  -> accepted creative Performance/consequence history
+Continuity      -> proves immediate adjacency and strips one recent item
+Context v2      -> keeps trusted state and recent creative history separate
 ```
 
-Raw accepted Performance text is not duplicated into Production records merely so Access can find it.
+No raw Performance text is copied into Production and no new Production StateHash kind exists.
 
-No ProductionState field or StateHash transition is added.
+## 31. E0TakeStateBinding v2 law
 
-## 31. E0TakeStateBinding v2 source-hash law
-
-Patch 0012 binding already receives:
-
-```text
-ProductionStateCheckpoint sourceCheckpoint
-ContextPacket sourceContext
-E0Take take
-```
-
-For v2 production-bound Context it additionally requires:
+For v2 source Context, binding additionally requires exact:
 
 ```text
 sourceContext.SourceStateHash.HasValue
@@ -809,68 +628,88 @@ sourceContext.CompositionContract == ensemble.e0.context.production-bound.v1
 sourceContext.Rendered.RenderingContract == ensemble.e0.context.render.v2
 ```
 
-This state-hash association is additive; it does not replace existing Scene/subject/opportunity/roster/StateAuthority-snapshot checks.
+This is additive to existing Scene/subject/opportunity/roster/StateAuthority-snapshot checks.
 
-## 32. Legacy v1 downgrade guard
+Closed construction plus internal-only v2 composition makes the StateHash a trusted derivation association in normal Core flow.
 
-A v1 Context has no source StateHash and therefore cannot safely represent an evolved post-genesis Performer source.
+## 32. Legacy v1 compatibility requires source-equivalence proof
 
-E0TakeStateBinding may accept v1 only when the checkpoint source ProductionState is provably exact genesis by inherited genesis-hash recomputation.
+A v1 Context carries no StateHash. Exact-genesis proof alone is insufficient because a caller can legally obtain a v1 Context from another ValidatedFixture.
+
+Therefore E0TakeStateBinding accepts v1 only after both:
+
+### A. exact genesis proof
+
+Recompute the inherited genesis StateHash envelope over the checkpoint source Production projection and require exact checkpoint.StateHash equality.
+
+### B. exact Production-backed disclosure equivalence
+
+Freshly evaluate Production Access for the checkpoint Current Opportunity and prove the supplied v1 Context's disclosed semantic content equals that exact Access projection for every historical v1 category:
+
+```text
+SceneId
+SubjectCharacterId
+OpportunityCharacterId
+Roster CharacterIds + display names
+SceneState
+Pressures
+Constitution
+Disposition
+Circumstance
+Observations
+Knowledge
+Beliefs
+Suspicions
+Memories
+Goals
+Relationships
+```
+
+Additionally require:
+
+```text
+fresh Production Access SourceStateHash == checkpoint.StateHash
+fresh Production Access Claims == []
+source v1 Context Claims == []
+source v1 Context RecentPerformances == []
+source v1 structured bytes/hash/ContextPacketId self-consistent
+source v1 rendered bytes/hash self-consistent
+```
+
+Only then is historical v1 binding permitted.
+
+This is an intentionally bounded O(n) compatibility path. Normal v2 binding is O(1) StateHash association and does not repeat Access projection comparison.
+
+CausalCommit may call lower-layer Production Access for this compatibility proof without creating a dependency cycle.
 
 Exact rule:
 
 ```text
-exact genesis checkpoint + exact valid v1 Context
-    -> historical compatibility permitted
-
-evolved checkpoint + v1 Context
-    -> reject
-
-evolved checkpoint + exact v2 Context bound to checkpoint StateHash
-    -> required
+exact genesis + semantically equivalent exact v1 Context -> permitted
+genesis + foreign/different v1 Context -> reject
+evolved source + any v1 Context -> reject
+evolved source + exact v2 state-bound Context -> required
 ```
 
-The v1 compatibility proof is intentionally O(n) only on the legacy genesis path. Normal Production-bound v2 binding uses O(1) StateHash equality and does not rehash Production.
-
-No automatic v1 fallback occurs when v2 validation fails.
+No automatic downgrade fallback occurs.
 
 ## 33. No new Production transition
 
-Patch 0014 is information composition, not Production mutation.
-
-It adds no:
-
-- Production mutation helper;
-- Production StateHash envelope kind;
-- causal event;
-- commit/event ID;
-- opportunity transition.
-
-Patch 0012 genesis/causalCommit StateHash oracles and Patch 0013 opportunityTransition oracle remain unchanged.
+Patch0014 adds no Production mutation helper, StateHash envelope kind, causal event, event ID, or opportunity transition. Patch0012 and Patch0013 fixed StateHash oracles remain unchanged.
 
 ## 34. Determinism
 
-Identical authoritative inputs must produce byte-identical output across repeats and ordinary supported cultures.
-
-No output may depend on clock/date, randomness, process/machine identity, thread scheduling, dictionary insertion order, filesystem/network/provider state, GPU/NPU state, or locale-sensitive sort/case behavior.
-
-All set-like canonical order remains ordinal.
+Identical authoritative inputs produce byte-identical output across repeats/cultures. No output depends on clock/date, randomness, process/machine identity, thread scheduling, dictionary insertion order, filesystem/network/provider/GPU/NPU state, or locale-sensitive ordering.
 
 ## 35. Failure atomicity
 
-Patch 0014 mutates no external state.
+Any source, Access, disclosure, canonicalization, version-shape, equivalence, or composition failure returns no ContextPacket and changes no Production/history input. No retry, alternate source, guessed repair, stale packet, or v1 downgrade is permitted.
 
-Any source, Access, disclosure, canonicalization, version-shape, or composition failure returns no ContextPacket and changes no Production/history input.
+Public Continuity failures are sanitized `E0ContextContinuityException`. Direct lower APIs retain their existing exception domains.
 
-No retry, alternate source, guessed repair, stale packet, or evolved-state v1 downgrade is permitted.
+## 36. Security / prompt-authority law
 
-Public Continuity failures are sanitized as `E0ContextContinuityException`.
-
-Existing direct Access/Context APIs retain their existing exception domains.
-
-## 36. Security and prompt-authority law
-
-Patch 0014 preserves:
+Patch0014 preserves:
 
 ```text
 system/application authority
@@ -879,267 +718,171 @@ system/application authority
 != future user/imported creative content
 ```
 
-Specifically:
-
-- denied Production authority records never enter the packet;
-- other Characters' private state never enters the packet;
-- inactive records never enter Character-facing content;
-- provenance/protection/lifecycle metadata never enters Character-facing content;
-- recent Performance never enters TrustedStateText;
-- recent Performance is not system instruction authority;
-- CharacterClaim remains labeled as claim rather than fact/knowledge;
-- no credentials/provider metadata enter the packet;
-- hybrid context shapes cannot canonicalize by dropping authority-bearing fields.
+Denied Production authority records, other Characters' private state, inactive records, provenance/protection/lifecycle metadata, credentials, and provider metadata never enter Character-facing content. Recent Performance never enters TrustedStateText. CharacterClaim remains explicitly a claim. Hybrid packets cannot canonicalize by dropping fields. Silent Performance causes no invented narration.
 
 ## 37. ARM64 / memory / battery implications
 
-Patch 0014 remains bounded deterministic CPU authority work.
-
-NPU offload is inappropriate for filtering, structural validation, ordinal ordering, and cryptographic identity association; accelerator dispatch would add complexity/energy cost without improving authority.
-
-Per explicit context boundary:
+Patch0014 is bounded deterministic CPU authority work. NPU offload is inappropriate for filtering/validation/ordinal ordering/hash association.
 
 - checkpoint capture remains O(1);
-- current StateHash reuse is O(1);
-- Production Access scans the bounded retained record set once;
-- recent accepted history is bounded to one Performance;
-- no whole-session history copy occurs;
-- Context hashing/rendering is proportional only to permitted content;
-- no background service/polling/network/provider/GPU/NPU work is added.
+- normal v2 source binding is O(1) StateHash equality;
+- Production Access scans bounded retained records once;
+- recent history is one item maximum;
+- no whole-session history copy;
+- no idle/background/network/provider/GPU/NPU work;
+- legacy v1 equivalence is O(n) only on exact genesis compatibility path.
 
-This preserves low idle battery impact on ARM64 Copilot+ PCs.
+## 38. Genesis Access equivalence
 
-## 38. Genesis Production-Access equivalence
+For exact genesis ProductionState, Production Access is semantically equivalent to fixture Access for roster, SceneState, Pressure, Constitution, Disposition, Circumstance, Observation, Knowledge, Belief, Suspicion, Memory, Goal, and Relationship.
 
-For exact genesis ProductionState derived from a ValidatedFixture, Production-backed Access is semantically equivalent to historical fixture Access for inherited categories:
-
-- roster;
-- SceneState;
-- Pressure;
-- Constitution;
-- Disposition;
-- Circumstance;
-- Observation;
-- Knowledge;
-- Belief;
-- Suspicion;
-- Memory;
-- Goal;
-- Relationship.
-
-Intentional additions are only SourceStateHash, Claims, and lifecycle-aware audit decisions.
+Intentional additions are SourceStateHash, empty Claims, and lifecycle-aware audit decisions.
 
 ## 39. v1 regression law
 
-Patch 0014 must explicitly assert inherited Patch 0005 exact v1:
+Patch0014 explicitly preserves Patch0005 exact v1 structured/rendered bytes and lengths, hashes, ContextPacketId, empty recentPerformances, and public Compose signature.
 
-- structured canonical JSON bytes and byte length;
-- rendered canonical JSON bytes and byte length;
-- StructuredContextHash;
-- RenderedContextHash;
-- ContextPacketId;
-- exact empty `recentPerformances`;
-- exact historical public Compose signature.
-
-No inherited digest may be updated merely because v2 exists.
-
-The Patch 0005 test that previously asserted there was no Context recent-Performance type is intentionally superseded only by Patch 0014's approved closed `ContextRecentPerformance` type; all other provider-neutral/no-provenance laws remain intact.
+The old test asserting no Context Performance type is intentionally superseded only by the approved closed ContextRecentPerformance type; all no-provenance/provider-neutral laws remain.
 
 ## 40. Independent v2 reference oracles
 
-Implementation must derive fixed v2 Context oracles independently from production canonicalizer code.
-
-Required paths:
+Implementation must derive fixed v2 oracles independently from production canonicalizer code for:
 
 ```text
-Missing Raft fixture
-    -> exact genesis ProductionState
-        -> checkpoint
-            -> ComposeGenesis
+Missing Raft genesis -> checkpoint -> ComposeGenesis
 ```
 
 and:
 
 ```text
 Missing Raft genesis
-    -> exact Patch 0012 accepted causal commit
-        -> exact Patch 0013 effective opportunity transition
-            -> checkpoint
-                -> ComposeNextTurn
+ -> exact Patch0012 Accepted causal commit
+ -> exact Patch0013 opportunity transition
+ -> checkpoint
+ -> ComposeNextTurn
 ```
 
-Independent derivation must first reproduce inherited fixture/v1 Context/Production/Patch0013 hashes before a new v2 digest is accepted.
+Independent derivation must first reproduce inherited fixture/v1 Context/Production/Patch0013 fixed hashes.
 
 ## 41. Required Production Access tests
 
 At minimum:
 
 1. genesis Production Access equals fixture Access for inherited categories;
-2. SourceStateHash is exact;
+2. SourceStateHash exact;
 3. unsupported Production contract fails;
-4. active post-commit state changes are visible only according to access policy;
-5. inactive records are absent and explicitly denied;
-6. subject-owned CharacterClaim appears only in Claims;
-7. other Character's claim is denied;
-8. claim is absent from Knowledge/Belief/Memory/World/Scene categories;
-9. subject-owned Relationship is visible and other-subject Relationship denied;
-10. HistoricalTruth/WorldState/Unresolved remain denied;
-11. lifecycle/protection/provenance are stripped;
-12. malformed roster/domain/subtype/relationship/record identity fails;
-13. inactive malformed records still fail structural validation;
-14. ordering is ordinal and deterministic;
-15. Access has no CausalCommit/Opportunity/Continuity dependency.
+4. active committed state changes follow policy;
+5. inactive records absent and denied;
+6. subject claim only in Claims;
+7. other claim denied;
+8. claim absent from upgraded epistemic/global categories;
+9. relationship ownership preserved;
+10. HistoricalTruth/World/Unresolved denied;
+11. lifecycle/protection/provenance stripped;
+12. malformed roster/domain/subtype/relationship/record fails;
+13. inactive malformed records fail;
+14. ordinal deterministic ordering;
+15. no Access dependency on CausalCommit/Opportunity/Continuity.
 
-## 42. Required Context version-shape tests
+## 42. Required Context version/shape tests
 
-At minimum:
-
-1. v1 projection with SourceStateHash fails;
-2. v1 projection with non-empty Claims fails;
-3. v1 packet with any v2-only field fails canonicalization;
-4. v2 packet requires initialized SourceStateHash;
-5. v2 packet requires exact v2 schema/composition/rendering triple;
-6. hybrid contract triples fail;
-7. canonicalizer never drops Claims or RecentPerformances;
+1. v1 projection with StateHash fails;
+2. v1 projection with Claims fails;
+3. v1 packet with v2-only fields fails serialization;
+4. v2 requires initialized SourceStateHash;
+5. v2 requires exact schema/composition/rendering triple;
+6. hybrid triples fail;
+7. canonicalizer never drops Claims/RecentPerformances;
 8. unsupported schema fails;
-9. v1 bytes/hashes remain exact;
-10. v2 exact property order is enforced;
-11. recent item exact property order is enforced;
-12. v2 repeat/culture determinism holds.
+9. v1 bytes/hashes exact;
+10. v2 property order exact;
+11. recent item property order exact;
+12. repeat/culture determinism.
 
 ## 43. Required Context v2 behavioral tests
 
-At minimum:
-
-1. genesis v2 carries exact SourceStateHash;
-2. genesis recentPerformances is empty;
-3. claims are structurally separate;
-4. `[WHAT YOU HAVE CLAIMED]` contains claims and no upgraded category does;
-5. genesis RecentPerformanceText is empty;
-6. ContextPacketId equals `CTX:` + StructuredContextHash;
-7. duplicate record IDs across categories fail;
-8. recent Character must belong to roster;
-9. recent TakeId must be initialized;
-10. recent text never enters TrustedStateText;
-11. no claim appears as world truth/knowledge;
-12. Trace SourceStateHash and recent Take IDs match packet inputs.
+1. genesis v2 SourceStateHash exact;
+2. genesis recent array empty;
+3. claims structurally separate;
+4. claim heading/category exact;
+5. genesis RecentPerformanceText empty;
+6. non-silent next Performance renders exact header/name/text;
+7. silent Accepted Performance keeps one structured recent item but exact empty RecentPerformanceText;
+8. ContextPacketId = CTX + structured hash;
+9. duplicate IDs fail;
+10. recent Character roster-bound;
+11. recent TakeId initialized;
+12. recent text absent from TrustedStateText;
+13. trace state/recent identities exact.
 
 ## 44. Required next-turn Continuity tests
 
-At minimum:
-
-1. valid Patch0012 -> Patch0013 -> checkpoint chain composes exactly one recent Performance;
-2. recent TakeId/Character/VisibleText equal exact Accepted source Take;
-3. current Context subject/opportunity equals checkpoint Current Opportunity;
-4. SourceStateHash equals checkpoint StateHash;
-5. stale/foreign source commit fails;
-6. stale/foreign opportunity result fails;
-7. commit result / opportunity parent mismatch fails;
-8. opportunity result / checkpoint hash mismatch fails;
-9. selected Character / checkpoint opportunity mismatch fails;
+1. valid Patch0012 -> Patch0013 -> checkpoint chain yields one recent item;
+2. recent TakeId/Character/VisibleText exact;
+3. subject/opportunity = checkpoint opportunity;
+4. SourceStateHash = checkpoint hash;
+5. foreign/stale commit fails;
+6. foreign/stale opportunity result fails;
+7. commit-result/opportunity-parent mismatch fails;
+8. opportunity-result/checkpoint mismatch fails;
+9. selected/current-opportunity mismatch fails;
 10. history Scene mismatch fails;
 11. history last hash mismatch fails;
 12. history last Character mismatch fails;
-13. history penultimate Character not equal source Performer fails;
-14. history shorter than two entries fails;
-15. source CommitId missing from effective cache fails;
-16. source TakeId missing from committed cache fails;
-17. non-Accepted source Take fails;
-18. Scene/roster/source Character mismatch fails;
-19. unsupported opportunity strategy fails;
-20. failure leaves all supplied immutable inputs unchanged.
+13. history penultimate source Character mismatch fails;
+14. history length < 2 fails;
+15. effective CommitId/TakeId absence fails;
+16. non-Accepted Take fails;
+17. Scene/roster/source Character mismatch fails;
+18. unsupported strategy fails;
+19. malformed identities fail;
+20. failure leaves inputs unchanged.
 
 ## 45. Required Take-binding tests
 
-At minimum:
-
-1. exact v2 Context SourceStateHash binds;
-2. foreign/uninitialized v2 SourceStateHash fails;
-3. v2 hybrid contract triple fails;
-4. evolved checkpoint + v1 Context fails downgrade guard;
-5. exact genesis checkpoint + exact legacy v1 Context remains compatible;
-6. existing Patch0012 Scene/subject/opportunity/roster/StateAuthority checks remain enforced;
-7. v2 SourceStateHash check is additive, not replacement authority.
+1. exact v2 StateHash binds;
+2. foreign/uninitialized v2 StateHash fails;
+3. hybrid v2 contract fails;
+4. evolved checkpoint + v1 fails;
+5. exact genesis + exact Production-equivalent v1 succeeds;
+6. exact genesis + semantically different v1 fixture Context fails;
+7. v1 roster/display-name mismatch fails;
+8. v1 record text/category mismatch fails;
+9. v1 structured/hash self-inconsistency fails;
+10. v1 rendered/hash self-inconsistency fails;
+11. existing Scene/subject/opportunity/roster/StateAuthority checks remain;
+12. v2 StateHash is additive authority, not replacement.
 
 ## 46. Required structural/reflection tests
 
-At minimum:
+- Continuity namespace exports only approved two types;
+- only ComposeGenesis/ComposeNextTurn public;
+- no mutable Continuity/session/history API;
+- ContextRecentPerformance no public ctor/setter;
+- Production Access overload exact;
+- Access projection additions exact;
+- ContextPacket/Trace additions immutable;
+- v1/v2 constants exact;
+- historical public Compose remains sole public composer;
+- production composer internal;
+- Access has no CausalCommit/Opportunity/Continuity reference;
+- Production has no Access/Context/Continuity reference;
+- CausalCommit's new Access dependency is limited to legacy v1 source-equivalence validation;
+- no Windows/network/random/time/provider/GPU/NPU public dependency.
 
-- Continuity namespace exports only approved two public types;
-- Continuity exposes only ComposeGenesis and ComposeNextTurn;
-- no public Continuity constructor/session/history mutation API;
-- ContextRecentPerformance has no public constructor/setter;
-- Production Access overload exact signature is frozen;
-- CharacterAccessProjection adds only approved fields;
-- ContextPacket/Trace v2 additions are immutable;
-- v1/v2 constants are exact;
-- historical public Compose signature remains exact and sole public composer;
-- production-bound composer is internal;
-- Access does not reference CausalCommit/Opportunity/Continuity;
-- Production does not reference Access/Context/Continuity;
-- no Windows/network/random/time/provider/GPU/NPU public dependency is introduced.
+## 47. Canonical preservation
 
-## 47. Canonical preservation tests
-
-Patch 0014 explicitly retains inherited fixed oracles including:
-
-- Patch 0003 fixture hash;
-- Patch 0005 v1 Context hashes;
-- Patch 0012 genesis Production StateHash;
-- Patch 0012 causal-commit StateHash;
-- Patch 0013 opportunity-transition StateHash.
-
-v2 Context identity is additive and rewrites none of them.
+Retain fixed Patch0003 fixture hash, Patch0005 v1 Context hashes, Patch0012 genesis/causal-commit StateHashes, and Patch0013 opportunity-transition StateHash. v2 identity is additive.
 
 ## 48. Simplicity guard
 
-Patch 0014 does not introduce:
+No event-store/session aggregate/repository locator/generic context-source hierarchy/background cache/vector search/model-assisted Access/observer framework/provider routing/unnecessary async/second Production representation.
 
-- general event-store abstraction;
-- session aggregate;
-- repository/service locator;
-- generic context-source interface hierarchy;
-- background caches;
-- semantic retrieval/vector search;
-- model-assisted access filtering;
-- observer framework;
-- provider routing;
-- async machinery where no asynchronous work exists;
-- second Production state representation.
+## 49. Explicit nonclaims
 
-The E0 Continuity bridge remains narrow and typed.
+Patch0014 does not establish a complete Scene loop, full multi-turn replay, Observation semantics beyond frozen E0 co-presence, or any provider/model/Windows AI/NPU/package/Store behavior.
 
-## 49. No full Scene-loop claim
-
-After Patch 0014 Core may deterministically create the next legal ContextPacket after one completed causal-commit/opportunity cycle.
-
-That is not a complete Scene loop.
-
-Repeated orchestration, stop/budget semantics, provider attempts, retry/failure policy, and arbitrary event-sequence replay remain later approved work.
-
-## 50. No full replay claim
-
-Patch 0014 output is deterministic and recomputable from supplied authoritative inputs, but Patch 0014 defines no persistent ordered event stream that automatically reconstructs arbitrary turns from genesis.
-
-Full multi-turn replay remains deferred.
-
-## 51. No Observation claim
-
-Immediate previous Accepted Performance disclosure is frozen only for the E0 co-present trio.
-
-Patch 0014 does not infer line of sight, hearing range, channel membership, concealment, private messages, spatial adjacency, or attention gating.
-
-Future Observation authority owns those broader semantics.
-
-## 52. No provider/model claim
-
-Patch 0014 produces a deterministic provider-neutral ContextPacket only.
-
-It does not choose model/provider/runtime, Windows AI versus cloud, NPU/GPU/CPU inference, generation parameters, prompt template, retries, token budget, or cost authorization.
-
-This keeps deterministic creative authority independent from replaceable inference infrastructure.
-
-## 53. Expected implementation surface
+## 50. Expected implementation surface
 
 Likely modified:
 
@@ -1158,23 +901,25 @@ Likely added:
 src/Ensemble.E0.Core/Continuity/E0ProductionContextContinuity.cs
 ```
 
-Plus focused Patch0014 tests/evidence.
+Plus focused tests/evidence. ProductionState projection/canonicalizer and Opportunity implementation should remain unchanged.
 
-ProductionState projection/canonicalizer and Opportunity implementation should not need modification.
+## 51. Proposal evolution
 
-## 54. Proposal 0.2 audit corrections
+### 0.2 corrections
 
-Proposal 0.2 makes three material authority corrections to 0.1 without expanding scope:
+- explicit OpportunityHistory Scene/penultimate source-Character proof;
+- closed v1/v2 version-shape invariants and canonicalizer downgrade rejection;
+- exact Production contract and retained-record validation.
 
-1. next-turn continuity explicitly proves OpportunityHistory Scene and penultimate source Character before disclosing recent Performance;
-2. v1/v2 shared models now have closed version/shape invariants, and public canonicalization must reject hybrid/downgraded shapes instead of silently omitting fields;
-3. Production-backed Access explicitly validates the supported ProductionState contract and all retained record structure, including inactive records.
+### 0.3 corrections
 
-These corrections restart the recursive audit from correctness.
+- legacy v1 binding now requires full Production-backed semantic disclosure equivalence in addition to exact-genesis proof;
+- CausalCommit may depend on lower Access only for that compatibility proof;
+- exact silent Accepted Performance remains present in structured recent history but renders as empty RecentPerformanceText with no invented narration.
 
-## 55. Recursive audit order
+These are material authority corrections, so the recursive audit restarts from correctness.
 
-Before approval, recursively audit:
+## 52. Recursive audit order
 
 ```text
 correctness
@@ -1192,21 +937,10 @@ correctness
 -> evidence
 ```
 
-Any material correction restarts the pass from correctness.
+Any material correction restarts from correctness.
 
-## 56. Approval gate
+## 53. Approval gate
 
-Implementation must not begin until one complete recursive pass finds zero material corrections or worthwhile improvements and the user explicitly approves the blueprint.
+Implementation must not begin until one complete recursive pass finds zero material corrections or worthwhile improvements and the user explicitly approves.
 
-Approval freezes:
-
-- Patch0014 purpose/scope;
-- Production-backed Access law;
-- CharacterClaim disclosure law;
-- immediate recent-Performance disclosure law;
-- Continuity dependency placement;
-- v1 preservation/v2 versioning and closed shape rules;
-- SourceStateHash propagation;
-- legacy v1 downgrade guard;
-- exact v2 canonical/rendering shape;
-- tests and non-goals.
+Approval freezes Patch0014 purpose/scope, Production Access law, CharacterClaim disclosure, immediate recent Performance rule, Continuity placement, v1 preservation/v2 versioning and shape rules, SourceStateHash propagation, safe v1 compatibility proof, exact v2 canonical/rendering behavior including silence, and tests/non-goals.
