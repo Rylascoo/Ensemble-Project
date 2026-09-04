@@ -1,3 +1,4 @@
+using System.Collections.Immutable;
 using System.Reflection;
 using Ensemble.E0.Core.Access;
 using Ensemble.E0.Core.CausalCommit;
@@ -65,29 +66,35 @@ public sealed class Patch0014ContractAuditTests
     }
 
     [TestMethod]
-    public void ContextAndTrace_AddOnlySourceStateHashAndNoHistorySurface()
+    public void ContextAndTrace_AddOnlyApprovedPatch0014AndPatch0015Surface()
     {
         Assert.AreEqual(typeof(StateHash?),
             typeof(ContextPacket).GetProperty("SourceStateHash")!.PropertyType);
         Assert.AreEqual(typeof(StateHash?),
             typeof(ContextCompositionTrace).GetProperty("SourceStateHash")!.PropertyType);
+        Assert.AreEqual(
+            typeof(ImmutableArray<ContextRecentPerformance>),
+            typeof(ContextPacket).GetProperty("RecentPerformances")!.PropertyType);
 
         Assert.IsNull(typeof(ContextPacket).GetProperty("Claims"));
-        Assert.IsNull(typeof(ContextPacket).GetProperty("RecentPerformances"));
         Assert.IsNull(typeof(ContextCompositionTrace).GetProperty("IncludedRecentTakeIds"));
 
-        var performanceTypes = typeof(ContextPacket).Assembly.GetTypes()
+        var performanceTypes = typeof(ContextPacket).Assembly.GetExportedTypes()
             .Where(type => string.Equals(
                 type.Namespace,
                 typeof(ContextPacket).Namespace,
                 StringComparison.Ordinal))
             .Where(type => type.Name.Contains("Performance", StringComparison.Ordinal))
+            .Select(type => type.Name)
+            .OrderBy(name => name, StringComparer.Ordinal)
             .ToArray();
-        Assert.AreEqual(0, performanceTypes.Length);
+        CollectionAssert.AreEqual(
+            new[] { nameof(ContextRecentPerformance) },
+            performanceTypes);
     }
 
     [TestMethod]
-    public void ContextContracts_AddOnlyProductionBoundSchemaAndCompositionTokens()
+    public void ContextContracts_AddOnlyApprovedVersionTokens()
     {
         var publicFields = typeof(E0ContextContracts)
             .GetFields(BindingFlags.Public | BindingFlags.Static)
@@ -98,6 +105,9 @@ public sealed class Patch0014ContractAuditTests
         CollectionAssert.AreEqual(
             new[]
             {
+                nameof(E0ContextContracts.AcceptedHistoryCompositionContract),
+                nameof(E0ContextContracts.AcceptedHistoryRenderingContract),
+                nameof(E0ContextContracts.AcceptedHistorySchemaVersion),
                 nameof(E0ContextContracts.CompositionContract),
                 nameof(E0ContextContracts.ProductionBoundCompositionContract),
                 nameof(E0ContextContracts.ProductionBoundSchemaVersion),
@@ -126,6 +136,12 @@ public sealed class Patch0014ContractAuditTests
             BindingFlags.NonPublic | BindingFlags.Static);
         Assert.IsNotNull(internalProductionBound);
         Assert.IsFalse(internalProductionBound!.IsPublic);
+
+        var internalHistoryBound = typeof(DeterministicContextComposer).GetMethod(
+            "ComposeProductionBoundWithAcceptedHistory",
+            BindingFlags.NonPublic | BindingFlags.Static);
+        Assert.IsNotNull(internalHistoryBound);
+        Assert.IsFalse(internalHistoryBound!.IsPublic);
     }
 
     [TestMethod]
@@ -140,12 +156,19 @@ public sealed class Patch0014ContractAuditTests
             .GetProperties(BindingFlags.Public | BindingFlags.Instance)
             .Any(property => property.SetMethod?.IsPublic == true));
 
-        var compose = typeof(E0ProductionContextContinuity)
+        var methods = typeof(E0ProductionContextContinuity)
             .GetMethods(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)
-            .Single();
-        CollectionAssert.AreEqual(
-            new[] { typeof(ProductionStateCheckpoint) },
-            compose.GetParameters().Select(parameter => parameter.ParameterType).ToArray());
+            .OrderBy(method => method.Name, StringComparer.Ordinal)
+            .ToArray();
+        Assert.AreEqual(2, methods.Length);
+        Assert.IsTrue(methods.Any(method =>
+            method.Name == nameof(E0ProductionContextContinuity.Compose) &&
+            method.GetParameters().Select(parameter => parameter.ParameterType).SequenceEqual(
+                new[] { typeof(ProductionStateCheckpoint) })));
+        Assert.IsTrue(methods.Any(method =>
+            method.Name == nameof(E0ProductionContextContinuity.ComposeWithAcceptedHistory) &&
+            method.GetParameters().Select(parameter => parameter.ParameterType).SequenceEqual(
+                new[] { typeof(ProductionStateCheckpoint), typeof(E0AcceptedPerformanceHistory) })));
     }
 
     private static string[] PublicPropertyNames(Type type) =>

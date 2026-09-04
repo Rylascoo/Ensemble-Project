@@ -85,7 +85,7 @@ public sealed class ProductionStateCheckpoint
     }
 }
 
-public sealed class E0TakeStateBinding
+public sealed partial class E0TakeStateBinding
 {
     private E0TakeStateBinding(StateHash sourceStateHash, E0Take take)
     {
@@ -99,7 +99,14 @@ public sealed class E0TakeStateBinding
     public static E0TakeStateBinding Bind(
         ProductionStateCheckpoint sourceCheckpoint,
         ContextPacket sourceContext,
-        E0Take take)
+        E0Take take) =>
+        BindCore(sourceCheckpoint, sourceContext, take, acceptedHistory: null);
+
+    private static E0TakeStateBinding BindCore(
+        ProductionStateCheckpoint sourceCheckpoint,
+        ContextPacket sourceContext,
+        E0Take take,
+        E0AcceptedPerformanceHistory? acceptedHistory)
     {
         if (sourceCheckpoint is null)
         {
@@ -168,7 +175,17 @@ public sealed class E0TakeStateBinding
                 "Causal commit Context roster does not match the source Production state.");
         }
 
-        ValidateExactSourceContext(sourceCheckpoint, sourceContext);
+        if (acceptedHistory is null)
+        {
+            ValidateExactSourceContext(sourceCheckpoint, sourceContext);
+        }
+        else
+        {
+            ValidateExactSourceContextWithAcceptedHistory(
+                sourceCheckpoint,
+                sourceContext,
+                acceptedHistory);
+        }
 
         var authority = take.AuthorityEvaluation;
         if (authority is null ||

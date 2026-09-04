@@ -285,6 +285,7 @@ public sealed class DeterministicContextComposerTests
                      typeof(ContextParticipant),
                      typeof(ContextRecord),
                      typeof(ContextRelationship),
+                     typeof(ContextRecentPerformance),
                      typeof(RenderedContext),
                      typeof(ContextPacket),
                      typeof(ContextCompositionTrace),
@@ -299,21 +300,33 @@ public sealed class DeterministicContextComposerTests
     }
 
     [TestMethod]
-    public void ContextBoundary_DoesNotExposeProvenanceAccessDecisionsOrRecentHistoryType()
+    public void ContextBoundary_ExposesOnlyApprovedRecentPerformanceSemanticType()
     {
         Assert.IsNull(typeof(ContextRecord).GetProperty("Provenance"));
         Assert.IsNull(typeof(ContextRelationship).GetProperty("Provenance"));
         Assert.IsNull(typeof(ContextPacket).GetProperty("AccessDecisions"));
         Assert.IsNull(typeof(ContextCompositionTrace).GetProperty("DeniedRecordIds"));
 
-        var recentHistoryTypes = typeof(ContextPacket).Assembly.GetTypes()
+        var recentHistoryTypes = typeof(ContextPacket).Assembly.GetExportedTypes()
             .Where(type => string.Equals(
                 type.Namespace,
                 typeof(ContextPacket).Namespace,
                 StringComparison.Ordinal))
             .Where(type => type.Name.Contains("Performance", StringComparison.Ordinal))
             .ToArray();
-        Assert.AreEqual(0, recentHistoryTypes.Length);
+        Assert.AreEqual(1, recentHistoryTypes.Length);
+        Assert.AreEqual(typeof(ContextRecentPerformance), recentHistoryTypes[0]);
+        CollectionAssert.AreEquivalent(
+            new[] { "SourceCharacterId", "VisibleText" },
+            typeof(ContextRecentPerformance)
+                .GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                .Select(property => property.Name)
+                .ToArray());
+        Assert.AreEqual(0, typeof(ContextRecentPerformance)
+            .GetConstructors(BindingFlags.Public | BindingFlags.Instance).Length);
+        Assert.IsFalse(typeof(ContextRecentPerformance)
+            .GetProperties(BindingFlags.Public | BindingFlags.Instance)
+            .Any(property => property.SetMethod?.IsPublic == true));
     }
 
     [TestMethod]

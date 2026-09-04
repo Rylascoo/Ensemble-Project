@@ -173,7 +173,9 @@ public sealed class ProductionContextContinuityTests
             {
                 nameof(E0ProductionContextContinuity),
                 nameof(E0ProductionContextContinuityResult),
-                nameof(E0ContextContinuityException)
+                nameof(E0ContextContinuityException),
+                nameof(E0AcceptedPerformanceHistoryContinuity),
+                nameof(E0AcceptedPerformanceHistoryException)
             },
             assembly.GetExportedTypes()
                 .Where(type => string.Equals(
@@ -187,14 +189,25 @@ public sealed class ProductionContextContinuityTests
             .GetConstructors(BindingFlags.Public | BindingFlags.Instance).Length);
         Assert.AreEqual(0, typeof(E0ContextContinuityException)
             .GetConstructors(BindingFlags.Public | BindingFlags.Instance).Length);
+        Assert.AreEqual(0, typeof(E0AcceptedPerformanceHistoryException)
+            .GetConstructors(BindingFlags.Public | BindingFlags.Instance).Length);
 
-        var compose = typeof(E0ProductionContextContinuity)
+        var methods = typeof(E0ProductionContextContinuity)
             .GetMethods(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)
-            .Single();
-        Assert.AreEqual(nameof(E0ProductionContextContinuity.Compose), compose.Name);
+            .ToArray();
+        Assert.AreEqual(2, methods.Length);
+
+        var compose = methods.Single(method => method.Name == nameof(E0ProductionContextContinuity.Compose));
         CollectionAssert.AreEqual(
             new[] { typeof(ProductionStateCheckpoint) },
             compose.GetParameters().Select(parameter => parameter.ParameterType).ToArray());
         Assert.AreEqual(typeof(E0ProductionContextContinuityResult), compose.ReturnType);
+
+        var composeHistory = methods.Single(method =>
+            method.Name == nameof(E0ProductionContextContinuity.ComposeWithAcceptedHistory));
+        CollectionAssert.AreEqual(
+            new[] { typeof(ProductionStateCheckpoint), typeof(E0AcceptedPerformanceHistory) },
+            composeHistory.GetParameters().Select(parameter => parameter.ParameterType).ToArray());
+        Assert.AreEqual(typeof(E0ProductionContextContinuityResult), composeHistory.ReturnType);
     }
 }

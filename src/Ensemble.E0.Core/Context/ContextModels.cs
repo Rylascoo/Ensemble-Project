@@ -11,6 +11,10 @@ public static class E0ContextContracts
     public const string RenderingContract = "ensemble.e0.context.render.v1";
     public const string ProductionBoundSchemaVersion = "ensemble.e0.context.v2";
     public const string ProductionBoundCompositionContract = "ensemble.e0.context.production-bound.v1";
+    public const string AcceptedHistorySchemaVersion = "ensemble.e0.context.v3";
+    public const string AcceptedHistoryCompositionContract =
+        "ensemble.e0.context.production-bound.accepted-history.v1";
+    public const string AcceptedHistoryRenderingContract = "ensemble.e0.context.render.v2";
 }
 
 public sealed class ContextParticipant
@@ -49,6 +53,18 @@ public sealed class ContextRelationship
     public RecordId RecordId { get; }
     public CharacterId TargetCharacterId { get; }
     public string Text { get; }
+}
+
+public sealed class ContextRecentPerformance
+{
+    internal ContextRecentPerformance(CharacterId sourceCharacterId, string visibleText)
+    {
+        SourceCharacterId = sourceCharacterId;
+        VisibleText = visibleText;
+    }
+
+    public CharacterId SourceCharacterId { get; }
+    public string VisibleText { get; }
 }
 
 public sealed class RenderedContext
@@ -94,6 +110,7 @@ public sealed class ContextPacket
         ImmutableArray<ContextRecord> memories,
         ImmutableArray<ContextRecord> goals,
         ImmutableArray<ContextRelationship> relationships,
+        ImmutableArray<ContextRecentPerformance> recentPerformances,
         string structuredContextHash,
         RenderedContext rendered,
         string renderedContextHash)
@@ -118,6 +135,7 @@ public sealed class ContextPacket
         Memories = memories;
         Goals = goals;
         Relationships = relationships;
+        RecentPerformances = recentPerformances;
         StructuredContextHash = structuredContextHash;
         Rendered = rendered;
         RenderedContextHash = renderedContextHash;
@@ -143,6 +161,7 @@ public sealed class ContextPacket
     public ImmutableArray<ContextRecord> Memories { get; }
     public ImmutableArray<ContextRecord> Goals { get; }
     public ImmutableArray<ContextRelationship> Relationships { get; }
+    public ImmutableArray<ContextRecentPerformance> RecentPerformances { get; }
     public string StructuredContextHash { get; }
     public RenderedContext Rendered { get; }
     public string RenderedContextHash { get; }

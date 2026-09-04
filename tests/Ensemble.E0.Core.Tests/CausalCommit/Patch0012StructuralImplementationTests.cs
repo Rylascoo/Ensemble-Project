@@ -72,19 +72,27 @@ public sealed class Patch0012StructuralImplementationTests
     [TestMethod]
     public void BindingOwnsTheSingleSourceSnapshotProofAndCommitDoesNotRepeatIt()
     {
-        var bindCalls = CalledMethods(typeof(E0TakeStateBinding).GetMethod(
+        var bind = typeof(E0TakeStateBinding).GetMethod(
             nameof(E0TakeStateBinding.Bind),
-            BindingFlags.Public | BindingFlags.Static)!);
-        Assert.AreEqual(
-            1,
-            bindCalls.Count(call =>
-                call.DeclaringType?.Name == "ProductionStateAuthoritySnapshot" &&
-                call.Name == "Bind"));
-        Assert.AreEqual(
-            1,
-            bindCalls.Count(call =>
-                call.DeclaringType?.Name == "StateAuthoritySnapshotSemanticComparer" &&
-                call.Name == "Equals"));
+            BindingFlags.Public | BindingFlags.Static)!;
+        var bindWithHistory = typeof(E0TakeStateBinding).GetMethod(
+            nameof(E0TakeStateBinding.BindWithAcceptedHistory),
+            BindingFlags.Public | BindingFlags.Static)!;
+        var bindCore = typeof(E0TakeStateBinding).GetMethod(
+            "BindCore",
+            BindingFlags.NonPublic | BindingFlags.Static)
+            ?? throw new InvalidOperationException("Shared causal binding core is missing.");
+
+        var bindCalls = CalledMethods(bind);
+        var historyBindCalls = CalledMethods(bindWithHistory);
+        var coreCalls = CalledMethods(bindCore);
+
+        Assert.AreEqual(1, CountCall(bindCalls, nameof(E0TakeStateBinding), "BindCore"));
+        Assert.AreEqual(1, CountCall(historyBindCalls, nameof(E0TakeStateBinding), "BindCore"));
+        Assert.AreEqual(0, CountCall(bindCalls, "ProductionStateAuthoritySnapshot", "Bind"));
+        Assert.AreEqual(0, CountCall(historyBindCalls, "ProductionStateAuthoritySnapshot", "Bind"));
+        Assert.AreEqual(1, CountCall(coreCalls, "ProductionStateAuthoritySnapshot", "Bind"));
+        Assert.AreEqual(1, CountCall(coreCalls, "StateAuthoritySnapshotSemanticComparer", "Equals"));
 
         var commitCalls = CalledMethods(typeof(DeterministicCausalCommit).GetMethod(
             nameof(DeterministicCausalCommit.Commit),
