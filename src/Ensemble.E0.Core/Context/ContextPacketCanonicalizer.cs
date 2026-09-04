@@ -1,5 +1,6 @@
 using System.Collections.Immutable;
 using System.Text;
+using Ensemble.E0.Core.Domain;
 using Ensemble.E0.Core.Production;
 using Ensemble.E0.Core.Serialization;
 
@@ -31,7 +32,8 @@ public static class ContextPacketCanonicalizer
             packet.Suspicions,
             packet.Memories,
             packet.Goals,
-            packet.Relationships);
+            packet.Relationships,
+            packet.RecentPerformances);
 
         return SerializeStructured(content);
     }
@@ -74,7 +76,7 @@ public static class ContextPacketCanonicalizer
     internal static byte[] SerializeStructured(ContextSemanticContent content)
     {
         ArgumentNullException.ThrowIfNull(content);
-        var isProductionBound = ValidateSemanticVersionShape(content);
+        var version = ValidateSemanticVersionShape(content);
 
         try
         {
@@ -86,7 +88,7 @@ public static class ContextPacketCanonicalizer
             AppendStringProperty(builder, "compositionContract", content.CompositionContract);
             builder.Append(',');
 
-            if (isProductionBound)
+            if (version is ContextSemanticVersion.V2 or ContextSemanticVersion.V3)
             {
                 AppendStringProperty(
                     builder,
@@ -155,7 +157,7 @@ public static class ContextPacketCanonicalizer
             builder.Append(',');
 
             CanonicalJson.AppendPropertyName(builder, "recentPerformances");
-            builder.Append("[]");
+            AppendRecentPerformances(builder, content.RecentPerformances);
 
             builder.Append('}');
             return CanonicalJson.EncodeUtf8(builder.ToString());
@@ -182,20 +184,7 @@ public static class ContextPacketCanonicalizer
                 "Context packet rendered content is required.");
         }
 
-        if (!string.Equals(
-                packet.Rendered.RenderingContract,
-                E0ContextContracts.RenderingContract,
-                StringComparison.Ordinal) ||
-            !string.Equals(
-                packet.Rendered.RecentPerformanceText,
-                string.Empty,
-                StringComparison.Ordinal))
-        {
-            throw new ContextCompositionException(
-                "Context packet rendering shape is unsupported.");
-        }
-
-        _ = ValidateSemanticVersionShape(new ContextSemanticContent(
+        var version = ValidateSemanticVersionShape(new ContextSemanticContent(
             packet.SchemaVersion,
             packet.CompositionContract,
             packet.SourceStateHash,
@@ -214,11 +203,42 @@ public static class ContextPacketCanonicalizer
             packet.Suspicions,
             packet.Memories,
             packet.Goals,
-            packet.Relationships));
+            packet.Relationships,
+            packet.RecentPerformances));
+
+        if (version is ContextSemanticVersion.V1 or ContextSemanticVersion.V2)
+        {
+            if (!string.Equals(
+                    packet.Rendered.RenderingContract,
+                    E0ContextContracts.RenderingContract,
+                    StringComparison.Ordinal) ||
+                !string.Equals(
+                    packet.Rendered.RecentPerformanceText,
+                    string.Empty,
+                    StringComparison.Ordinal))
+            {
+                throw new ContextCompositionException(
+                    "Context packet historical rendering shape is unsupported.");
+            }
+
+            return;
+        }
+
+        if (!string.Equals(
+                packet.Rendered.RenderingContract,
+                E0ContextContracts.AcceptedHistoryRenderingContract,
+                StringComparison.Ordinal) ||
+            string.IsNullOrEmpty(packet.Rendered.RecentPerformanceText))
+        {
+            throw new ContextCompositionException(
+                "Context packet accepted-history rendering shape is unsupported.");
+        }
     }
 
-    private static bool ValidateSemanticVersionShape(ContextSemanticContent content)
+    private static ContextSemanticVersion ValidateSemanticVersionShape(ContextSemanticContent content)
     {
+        ValidateRecentPerformances(content.RecentPerformances);
+
         var isV1 = string.Equals(
                 content.SchemaVersion,
                 E0ContextContracts.SchemaVersion,
@@ -235,42 +255,109 @@ public static class ContextPacketCanonicalizer
                 content.CompositionContract,
                 E0ContextContracts.ProductionBoundCompositionContract,
                 StringComparison.Ordinal);
+        var isV3 = string.Equals(
+                content.SchemaVersion,
+                E0ContextContracts.AcceptedHistorySchemaVersion,
+                StringComparison.Ordinal) &&
+            string.Equals(
+                content.CompositionContract,
+                E0ContextContracts.AcceptedHistoryCompositionContract,
+                StringComparison.Ordinal);
 
         if (isV1)
         {
-            if (content.SourceStateHash.HasValue)
+            if (content.SourceStateHash.HasValue || content.RecentPerformances.Length != 0)
             {
                 throw new ContextCompositionException(
-                    "Context v1 cannot carry Production source-state identity.");
+                    "Context v1 cannot carry Production source identity or accepted Performance history.");
             }
 
-            return false;
+            return ContextSemanticVersion.V1;
         }
 
         if (isV2)
         {
-            if (!content.SourceStateHash.HasValue)
+            ValidateProductionStateHash(content.SourceStateHash, "Production-bound Context v2");
+            if (content.RecentPerformances.Length != 0)
             {
                 throw new ContextCompositionException(
-                    "Production-bound Context v2 requires source-state identity.");
+                    "Production-bound Context v2 cannot carry accepted Performance history.");
             }
 
-            try
-            {
-                _ = content.SourceStateHash.Value.Value;
-            }
-            catch (InvalidOperationException exception)
+            return ContextSemanticVersion.V2;
+        }
+
+        if (isV3)
+        {
+            ValidateProductionStateHash(content.SourceStateHash, "Accepted-history Context v3");
+            if (content.RecentPerformances.Length == 0)
             {
                 throw new ContextCompositionException(
-                    "Production-bound Context v2 source-state identity is uninitialized.",
-                    exception);
+                    "Accepted-history Context v3 requires nonempty recent Performance history.");
             }
 
-            return true;
+            return ContextSemanticVersion.V3;
         }
 
         throw new ContextCompositionException(
             "Context schema/composition contract combination is unsupported.");
+    }
+
+    private static void ValidateProductionStateHash(StateHash? stateHash, string contextName)
+    {
+        if (!stateHash.HasValue)
+        {
+            throw new ContextCompositionException(
+                $"{contextName} requires source-state identity.");
+        }
+
+        try
+        {
+            _ = stateHash.Value.Value;
+        }
+        catch (InvalidOperationException exception)
+        {
+            throw new ContextCompositionException(
+                $"{contextName} source-state identity is uninitialized.",
+                exception);
+        }
+    }
+
+    private static void ValidateRecentPerformances(
+        ImmutableArray<ContextRecentPerformance> recentPerformances)
+    {
+        if (recentPerformances.IsDefault)
+        {
+            throw new ContextCompositionException(
+                "Context recent Performance history is uninitialized.");
+        }
+
+        foreach (var performance in recentPerformances)
+        {
+            if (performance is null)
+            {
+                throw new ContextCompositionException(
+                    "Context recent Performance history contains an invalid item.");
+            }
+
+            try
+            {
+                _ = performance.SourceCharacterId.Value;
+            }
+            catch (InvalidOperationException exception)
+            {
+                throw new ContextCompositionException(
+                    "Context recent Performance source Character is uninitialized.",
+                    exception);
+            }
+
+            if (CharacterLegibleTextInvariants.Validate(performance.VisibleText) !=
+                CharacterLegibleTextFailure.None)
+            {
+                throw new ContextCompositionException(
+                    "Context recent Performance text is invalid.");
+            }
+        }
     }
 
     private static void AppendStringProperty(StringBuilder builder, string name, string value)
@@ -342,6 +429,35 @@ public static class ContextPacketCanonicalizer
 
         builder.Append(']');
     }
+
+    private static void AppendRecentPerformances(
+        StringBuilder builder,
+        ImmutableArray<ContextRecentPerformance> recentPerformances)
+    {
+        builder.Append('[');
+        var first = true;
+        foreach (var performance in recentPerformances)
+        {
+            CanonicalJson.AppendSeparator(builder, ref first);
+            builder.Append('{');
+            AppendStringProperty(
+                builder,
+                "sourceCharacterId",
+                performance.SourceCharacterId.Value);
+            builder.Append(',');
+            AppendStringProperty(builder, "visibleText", performance.VisibleText);
+            builder.Append('}');
+        }
+
+        builder.Append(']');
+    }
+
+    private enum ContextSemanticVersion
+    {
+        V1,
+        V2,
+        V3
+    }
 }
 
 internal sealed class ContextSemanticContent
@@ -350,9 +466,9 @@ internal sealed class ContextSemanticContent
         string schemaVersion,
         string compositionContract,
         StateHash? sourceStateHash,
-        Ensemble.E0.Core.Domain.SceneId sceneId,
-        Ensemble.E0.Core.Domain.CharacterId subjectCharacterId,
-        Ensemble.E0.Core.Domain.CharacterId opportunityCharacterId,
+        SceneId sceneId,
+        CharacterId subjectCharacterId,
+        CharacterId opportunityCharacterId,
         ImmutableArray<ContextParticipant> roster,
         ImmutableArray<ContextRecord> sceneState,
         ImmutableArray<ContextRecord> pressures,
@@ -365,7 +481,8 @@ internal sealed class ContextSemanticContent
         ImmutableArray<ContextRecord> suspicions,
         ImmutableArray<ContextRecord> memories,
         ImmutableArray<ContextRecord> goals,
-        ImmutableArray<ContextRelationship> relationships)
+        ImmutableArray<ContextRelationship> relationships,
+        ImmutableArray<ContextRecentPerformance> recentPerformances)
     {
         SchemaVersion = schemaVersion;
         CompositionContract = compositionContract;
@@ -386,14 +503,15 @@ internal sealed class ContextSemanticContent
         Memories = memories;
         Goals = goals;
         Relationships = relationships;
+        RecentPerformances = recentPerformances;
     }
 
     public string SchemaVersion { get; }
     public string CompositionContract { get; }
     public StateHash? SourceStateHash { get; }
-    public Ensemble.E0.Core.Domain.SceneId SceneId { get; }
-    public Ensemble.E0.Core.Domain.CharacterId SubjectCharacterId { get; }
-    public Ensemble.E0.Core.Domain.CharacterId OpportunityCharacterId { get; }
+    public SceneId SceneId { get; }
+    public CharacterId SubjectCharacterId { get; }
+    public CharacterId OpportunityCharacterId { get; }
     public ImmutableArray<ContextParticipant> Roster { get; }
     public ImmutableArray<ContextRecord> SceneState { get; }
     public ImmutableArray<ContextRecord> Pressures { get; }
@@ -407,4 +525,5 @@ internal sealed class ContextSemanticContent
     public ImmutableArray<ContextRecord> Memories { get; }
     public ImmutableArray<ContextRecord> Goals { get; }
     public ImmutableArray<ContextRelationship> Relationships { get; }
+    public ImmutableArray<ContextRecentPerformance> RecentPerformances { get; }
 }
