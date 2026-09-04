@@ -1,6 +1,6 @@
 # Kymaean Architecture & Ship Plan
 
-Status: **PROGRAM ARCHITECTURE PROPOSAL 0.5 — RECURSIVE AUDIT IN PROGRESS; NOT IMPLEMENTATION AUTHORITY**
+Status: **PROGRAM ARCHITECTURE PROPOSAL 0.6 — RECURSIVE AUDIT IN PROGRESS; NOT IMPLEMENTATION AUTHORITY**
 
 Date: 2026-09-04
 
@@ -357,15 +357,19 @@ Legacy lessons eligible here: ARM64 project configuration, shallow build outputs
 - honest provider-specific reasoning/performance mapping;
 - understudy substitution only at explicit Performance boundaries.
 
-#### Windows managed local-model capability
+#### Windows managed on-device capability
 
 Do **not** assume that Phi Silica, Aion Instruct, or a future Windows-managed model is a Character Performer.
 
-Blueprint 0.1 leaves ODR-24 open: post-behavioral evidence must determine which local semantic tasks are sufficiently reliable and valuable for Windows/NPU execution. A local model may eventually support one or more bounded tasks—potentially creator assistance, derived semantic work, context/retrieval assistance, integrity support, or even selected portrayal roles—but none of those roles is frozen by this program plan.
+Blueprint 0.1 leaves ODR-24 open: post-behavioral evidence must determine which local semantic tasks are sufficiently reliable and valuable for Windows/NPU execution. A local model or On-Device AI API may eventually support one or more bounded text/vision tasks—creator assistance, derived semantic work, context/retrieval assistance, advisory integrity assessment, or selected portrayal roles are possibilities, not frozen commitments. Deterministic Integrity/State Authority remains authoritative regardless of any local advisory model.
 
 The architecture depends on capability contracts rather than model names.
 
 As of the plan date, Microsoft documents Phi Silica as transitioning to Aion Instruct, with testing/rollout beginning October 2026 and retail replacement targeted for November 2026. Phi-specific code is therefore a transition adapter, not Core/Application architecture.
+
+Where a launch-approved local task benefits from a supported model-specific LoRA, the adapter may use a native LoRA path with explicit compatibility checking, quarantine/fallback, and retraining/revalidation when the underlying Windows-managed model changes. A LoRA can never become required for deterministic correctness.
+
+The Windows adapter must explicitly map every supported readiness state to deterministic product behavior. In particular, `AIFeatureReadyState.CapabilityMissing` and `AIFeatureReadyState.NotCompatibleWithSystemHardware` must fail safely without disabling non-AI product authority. Other supported readiness states receive equally explicit handling rather than falling through to optimistic assumptions.
 
 UI/Application readiness remains model-neutral, for example:
 
@@ -378,8 +382,6 @@ Backoff
 Faulted
 ```
 
-Map real readiness states at the infrastructure edge, including `AIFeatureReadyState` where applicable.
-
 #### Windows ML / Qualcomm NPU lane
 
 For local workloads that Phase D actually approves:
@@ -387,6 +389,7 @@ For local workloads that Phase D actually approves:
 - `Microsoft.Windows.AI.MachineLearning` execution-provider discovery/acquisition/registration;
 - QNN execution provider on compatible Snapdragon hardware;
 - Qualcomm AI Engine Direct / Neural Processing SDK tooling where it materially improves model conversion, quantization, profiling or direct Hexagon-NPU optimization and remains compatible with Store/release constraints;
+- **heavy eligible local inference preferentially targets the Snapdragon Hexagon NPU through the supported ready QNN path** to minimize CPU/GPU overhead and battery cost; CPU/GPU execution is fallback or task-specific behavior, never a silent substitute for an NPU performance claim;
 - prefer Windows ML/ONNX Runtime + certified QNN execution provider as the retail interoperability path unless evidence justifies a lower-level direct runtime dependency;
 - event-driven heavy work only;
 - explicit acquisition consent where needed;
@@ -408,7 +411,7 @@ Eligible donor concepts: circuit breaker, bounded HMAC-keyed cache, memory-press
 Lane exit:
 
 - at least one production Performer backend works end-to-end for the launch path;
-- every launch-approved local Windows-AI capability has deterministic fallback/degradation;
+- every launch-approved local Windows-AI/On-Device AI capability has deterministic fallback/degradation;
 - provider/local-capability loss cannot corrupt Production;
 - target Snapdragon tests distinguish API availability from actual NPU execution;
 - no unsupported local task is presented as reliable merely because a model can technically run it.
@@ -587,7 +590,7 @@ Release engineering:
 - Windows App SDK deployment choice;
 - manifest/capability review;
 - ARM64/native payload purity inspection;
-- `IPackageValidator`-based validation where applicable;
+- required Windows App SDK 2.x `IPackageValidator` package-validation gate, including runtime support probing and the approved family/version/certificate validation policy before WACK;
 - clean install/upgrade/uninstall/reinstall;
 - Production/settings retention-policy checks;
 - App Actions testing if included;
@@ -609,6 +612,7 @@ Exit:
 
 - immutable Store RC commit/package;
 - exact dependency/package provenance recorded;
+- `IPackageValidator` gate passes on the exact candidate at the supported validation surface;
 - final security scan clean or accepted findings documented;
 - WACK passes exact candidate;
 - clean target-device install/runtime smoke passes;
@@ -742,7 +746,7 @@ Deterministic budgets, provenance, cancellation and understudies; provider-neutr
 
 ### NPU overclaim
 
-Measure actual device execution. NPU acceleration is a capability/optimization lane, not fictional authority.
+Prefer the Hexagon NPU for heavy eligible local work when the supported QNN capability is actually ready, and separately prove execution/performance on target hardware. API availability is not NPU evidence.
 
 ### Prerelease/Store risk
 
@@ -822,7 +826,9 @@ Approval of this program plan would freeze only the **major dependency ordering 
 - parallel productization after stable Phase D contracts: Production persistence, Windows shell, provider/local-AI/NPU, with UI code integration beginning once the minimum P2 shell exists;
 - Alpha blocked until launch-required lanes converge on real persisted Production and real target-device behavior;
 - local Windows/NPU tasks remain evidence-selected after E0 rather than assumed by this plan;
+- heavy eligible local inference preferentially targets supported ready QNN/Hexagon NPU execution, without unsupported TOPS claims;
 - provider/model neutrality;
+- mandatory graceful-degradation handling for Windows AI capability states;
 - Windows infrastructure at the edges;
 - Drive/GitHub design-engineering boundary;
 - Legacy Donor Quarantine Rule;
@@ -831,6 +837,7 @@ Approval of this program plan would freeze only the **major dependency ordering 
 - App Actions after stable package identity/Application commands;
 - MCP non-blocking unless later evidence promotes it;
 - explicit framework support-horizon decisions;
+- mandatory Windows App SDK 2.x `IPackageValidator` pre-WACK validation gate;
 - WACK vs Partner Center authority separation;
 - exact release dependency/provenance review.
 
