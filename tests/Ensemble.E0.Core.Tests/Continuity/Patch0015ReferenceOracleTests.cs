@@ -1,7 +1,13 @@
+using System.Reflection;
 using Ensemble.E0.Core.CausalCommit;
 using Ensemble.E0.Core.Context;
 using Ensemble.E0.Core.Continuity;
+using Ensemble.E0.Core.Domain;
 using Ensemble.E0.Core.Fixture;
+using Ensemble.E0.Core.Opportunity;
+using Ensemble.E0.Core.Production;
+using Ensemble.E0.Core.StateInterpreter;
+using Ensemble.E0.Core.Tests.Patch0012;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Ensemble.E0.Core.Tests.Continuity;
@@ -11,6 +17,8 @@ public sealed class Patch0015ReferenceOracleTests
 {
     private const string ExpectedGenesisStateHash =
         "30041ae0dd287b9ef192aaf90c0cee4aedf85e4e8a9c3b31ad14094fbfda0104";
+    private const string ExpectedHistoricalOpportunityStateHash =
+        "dc7e169fc52a0051525baf13cb579b87126ba55c77a3b972c4d5a6a6b3246310";
     private const string ExpectedGenesisV2StructuredHash =
         "27f20b78754132777adcc392199a2490c210fa99ad44150e527ceb4c3f22e565";
     private const string ExpectedGenesisV2RenderedHash =
@@ -73,6 +81,17 @@ public sealed class Patch0015ReferenceOracleTests
             new[] { MissingRaftContract.VossId, MissingRaftContract.MarloweId },
             first.Opportunity.History.CharacterIds.ToArray());
 
+        var historicalOpportunity = BuildHistoricalPatch0013OracleOpportunity();
+        Assert.AreEqual(
+            ExpectedHistoricalOpportunityStateHash,
+            historicalOpportunity.State.StateHash.Value);
+        CollectionAssert.AreEqual(
+            SerializeProductionProjection(historicalOpportunity.State),
+            SerializeProductionProjection(first.Opportunity.State));
+        Assert.AreNotEqual(
+            historicalOpportunity.State.StateHash,
+            first.Opportunity.State.StateHash);
+
         var nextContext = E0ProductionContextContinuity.ComposeWithAcceptedHistory(
             ProductionStateCheckpoint.Capture(first.Opportunity.State),
             first.HistoryAfterOpportunity).ContextEvaluation.Packet;
@@ -97,5 +116,48 @@ public sealed class Patch0015ReferenceOracleTests
         Assert.AreEqual(
             "[RECENT PERFORMANCES]\nDr. Voss:\n[PERFORMANCE]\n- No.",
             nextContext.Rendered.RecentPerformanceText);
+    }
+
+    private static E0OpportunityTransitionResult BuildHistoricalPatch0013OracleOpportunity()
+    {
+        var fixture = Patch0012TestSupport.LoadMissingRaft();
+        var genesis = Patch0012TestSupport.Genesis(fixture);
+        var history = E0OpportunityHistory.Initialize(genesis);
+        var pipeline = Patch0012TestSupport.BuildPipeline(
+            new[] { Patch0012TestSupport.PressureAdd() },
+            new[] { StateMutationDomain.Pressure },
+            fixture: fixture);
+        var take = Patch0012TestSupport.AcceptedTake(
+            pipeline,
+            "TAKE-PATCH-0012-ORACLE");
+        var binding = E0TakeStateBinding.Bind(
+            ProductionStateCheckpoint.Capture(genesis),
+            pipeline.Context,
+            take);
+        var commit = DeterministicCausalCommit.Commit(
+            CommitId.From("COMMIT-PATCH-0012-ORACLE"),
+            genesis,
+            binding,
+            Patch0015TestSupport.Materials((0, "PRESSURE-PATCH-0012-ORACLE")));
+
+        return DeterministicOpportunityAuthority.Establish(
+            commit.ResultState,
+            commit.Commit,
+            pipeline.Context,
+            history);
+    }
+
+    private static byte[] SerializeProductionProjection(ProductionState state)
+    {
+        var canonicalizer = typeof(ProductionState).Assembly.GetType(
+            "Ensemble.E0.Core.Production.ProductionStateCanonicalizer",
+            throwOnError: true)!;
+        var serialize = canonicalizer.GetMethod(
+            "SerializeProjection",
+            BindingFlags.Static | BindingFlags.NonPublic)
+            ?? throw new InvalidOperationException("Production projection serializer is unavailable.");
+
+        return (byte[])(serialize.Invoke(null, new object[] { state })
+            ?? throw new InvalidOperationException("Production projection serialization returned no bytes."));
     }
 }
