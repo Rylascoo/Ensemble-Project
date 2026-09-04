@@ -1,6 +1,6 @@
 # H1 Patch 0014 — E0 Production Context Continuity
 
-Status: blueprint proposal 0.7 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; approval required; implementation not started
+Status: blueprint proposal 0.8 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; approval required; implementation not started
 Parent repository checkpoint: `main` at `e06668a2307433bf99b0501dc38a701db392c633`
 Parent promoted implementation: H1 Patch 0013 squash merge `15b85a25fa7969d6db69030fa712eea329471e6b`
 Parent full-Core-test authority: H1 Patch 0013 at `a3fae23dc4df302e834b031ecfc848a3bb2d37fc`
@@ -238,6 +238,8 @@ Production-backed projection:
     SourceStateHash = sourceState.StateHash
 ```
 
+`SourceStateHash` is **non-diegetic system association metadata**. It binds deterministic Core stages to one exact Production source, but it is not fictional knowledge and must never be rendered into `TrustedStateText`, `RecentPerformanceText`, `OpportunityText`, Character prose, or a future provider creative-context layer merely because it exists on the projection/packet.
+
 No raw `ProductionRecord`, lifecycle, protection, provenance, origin fixture metadata, effective CommitId/TakeId cache, denied audit data, `CharacterClaim`, or recent history enters the projection.
 
 ## 10. Production Access policy
@@ -320,7 +322,10 @@ Production Access fails closed unless:
 
 - state is non-null and exact supported Production contract;
 - `StateHash`/`SceneId` are initialized;
+- `ProductionState.Characters` contains exactly three unique initialized Character IDs in ordinal canonical order;
+- every Production Character display name satisfies the inherited canonical text discipline;
 - roster contains exactly three unique initialized E0 Characters in ordinal canonical order;
+- Production Character IDs and roster IDs are exactly the same set;
 - subject resolves exactly once in Production Characters and roster;
 - retained `RecordId`s are unique and in ordinal canonical order;
 - every record identity/text is valid and canonical;
@@ -576,6 +581,7 @@ Therefore:
 - rendering contract remains `ensemble.e0.context.render.v1`;
 - `recentPerformanceText` remains exactly empty;
 - `OpportunityText` remains exactly `You have the current opportunity to act.`;
+- `SourceStateHash` is never rendered;
 - provider-neutral formatting remains unchanged.
 
 Strong genesis invariant:
@@ -749,6 +755,7 @@ Specifically:
 - inactive records remain denied;
 - `CharacterClaim` remains denied pending explicit disclosure authority;
 - provenance/protection/lifecycle/origin/cache metadata never enters Character-facing projection;
+- `SourceStateHash` is system association metadata only and never enters rendered Character text or a future creative provider frame by default;
 - co-presence/control/routing never becomes observation authority;
 - recent Performance remains empty;
 - v1/v2 hybrid shape cannot canonicalize by dropping state identity;
@@ -872,20 +879,22 @@ At minimum:
 
 1. genesis Production Access equals fixture Access for inherited permitted content;
 2. `SourceStateHash` exact;
-3. unsupported Production contract fails;
-4. active committed inherited-domain changes follow existing policy;
-5. inactive records absent from projection and explicitly denied;
-6. active subject-owned `CharacterClaim` denied with `CharacterClaimDisclosureDeferred`;
-7. active other-owned `CharacterClaim` uses the same deferred claim reason;
-8. inactive `CharacterClaim` uses `InactiveRecordExcluded` precedence;
-9. no `CharacterClaim` text/ID enters projection;
-10. subject-owned Relationship visible, other-subject Relationship denied;
-11. HistoricalTruth/WorldState/Unresolved denied;
-12. provenance/protection/lifecycle stripped;
-13. malformed roster/domain/subtype/relationship/record fails;
-14. inactive/claim-denied malformed records still fail structural validation;
-15. retained/output ordering ordinal;
-16. no Access dependency on Context/CausalCommit/Opportunity/Continuity.
+3. exact three Production Characters match exact three roster IDs;
+4. Production Character display names preserve canonical text and malformed names fail closed;
+5. active committed inherited-domain changes follow existing policy;
+6. inactive records absent from projection and explicitly denied;
+7. active subject-owned `CharacterClaim` denied with `CharacterClaimDisclosureDeferred`;
+8. active other-owned `CharacterClaim` uses the same deferred claim reason;
+9. inactive `CharacterClaim` uses `InactiveRecordExcluded` precedence;
+10. no `CharacterClaim` text/ID enters projection;
+11. subject-owned Relationship visible, other-subject Relationship denied;
+12. HistoricalTruth/WorldState/Unresolved denied;
+13. provenance/protection/lifecycle stripped;
+14. malformed roster/Character-set/domain/subtype/relationship/record fails;
+15. inactive/claim-denied malformed records still fail structural validation;
+16. retained/output ordering ordinal;
+17. supported Production contract constant remains exact and any future representable unsupported contract fails closed;
+18. no Access dependency on Context/CausalCommit/Opportunity/Continuity.
 
 ## 36. Required Context v2 tests
 
@@ -904,7 +913,8 @@ At minimum:
 11. duplicate IDs still fail existing Context validation;
 12. v2 repeat/culture determinism;
 13. Trace `SourceStateHash` exact;
-14. denied claim/provenance/audit IDs absent.
+14. denied claim/provenance/audit IDs absent;
+15. `SourceStateHash` absent from all rendered layers.
 
 ## 37. Required version/downgrade tests
 
@@ -1083,7 +1093,12 @@ ProductionState projection/canonicalizer, CausalCommit transition engine, Opport
 - corrected v2 binding complexity from O(1) to O(R + A);
 - explicitly declined an attestation/capability-token shortcut until profiling proves recomposition cost warrants more machinery.
 
-Proposal 0.7 materially strengthens authority and restarts recursive audit from correctness.
+### Proposal 0.8
+- tightened Production Access structural proof so the exact three Production Characters and roster must match as sets and Character display names remain canonically valid;
+- classified `SourceStateHash` explicitly as non-diegetic system association metadata that must never enter rendered Character text or future creative provider framing by default;
+- converted the currently non-representable unsupported Production contract test into a contract/future fail-closed requirement rather than pretending current sealed `ProductionState` can construct another contract version.
+
+Proposal 0.8 materially hardens safe-projection boundaries and restarts recursive audit from correctness.
 
 ## 46. Recursive audit order
 
@@ -1113,9 +1128,10 @@ Approval freezes:
 
 - Patch0014 Production->Access->Context boundary;
 - Production Access/lifecycle/`CharacterClaim`-deny law;
+- exact Production Character/roster/display-identity validation;
 - reserved Observation/recent-Performance boundary;
 - single checkpoint-only Continuity API;
-- `SourceStateHash`-only Access/Context/Trace evolution;
+- `SourceStateHash`-only Access/Context/Trace evolution and non-diegetic metadata law;
 - v1 preservation and structured v2 schema/composition versioning;
 - existing v1 rendering preservation;
 - exact Production-recomposed source-context proof for both v2 and legacy v1 binding;
