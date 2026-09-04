@@ -1,6 +1,6 @@
 # H1 Patch 0016 — Deterministic Accepted Take Advancement
 
-Status: **Blueprint Proposal 0.8 — EXPLORATORY; recursive adversarial audit restarted from correctness; implementation forbidden**
+Status: **Blueprint Proposal 0.9 — EXPLORATORY; recursive adversarial audit restarted from correctness; implementation forbidden**
 
 Date: 2026-09-04
 
@@ -16,7 +16,7 @@ Architecture branch: `h1-patch-0016-accepted-take-advancement-blueprint`
 
 ## 1. Purpose
 
-Patch 0016 closes the smallest deterministic composition seam still visible after Patch 0015:
+Patch 0016 closes the smallest deterministic causal-adoption seam still visible after Patch 0015:
 
 ```text
 opportunity-bearing Production state
@@ -37,9 +37,9 @@ opportunity-bearing Production state
 
 Patch 0015 proved every lower authority but intentionally left their live adoption composition in test support. `Patch0015TestSupport.RunTurn(...)` currently performs the primitive chain manually.
 
-Patch 0016 makes that approved sequence one canonical **production deterministic advancement boundary** without introducing provider execution, provider-attempt semantics, persistence, a new causal event, a new hash, or a full E0 run driver.
+Patch 0016 makes that approved sequence one canonical **Core causal-advancement boundary** without introducing provider execution, provider-attempt semantics, persistence, a new causal event/hash, Application-layer orchestration, or a full E0 run driver.
 
-Patch 0016 is an intermediate H1 seam. It does **not** by itself declare the H1 deterministic spine complete or trigger the mandatory end-of-H1 convergence audit; later attempt/run-driver architecture remains before that checkpoint.
+Patch 0016 is an intermediate H1 seam. It does not by itself declare H1 complete or trigger the mandatory end-of-H1 convergence audit; later attempt/run-driver architecture remains before that checkpoint.
 
 ---
 
@@ -89,7 +89,9 @@ Patch 0015 freezes:
 - `RecordOpportunity(...)` owns cross-history count/coupling + canonical Opportunity replay;
 - exact v2 -> commit -> Opportunity -> v3 reference lineage.
 
-Approved Ship Plan Phase A calls for deterministic run/turn orchestration while provider SDK execution remains outside Core.
+Approved Ship Plan Phase A calls for remaining deterministic seams, including ownership of synchronized Production/history/Opportunity across a live cycle. Its target product architecture reserves **capability-neutral Scene/run orchestration** for the future Application layer while Core owns fictional and causal authority.
+
+Patch 0016 therefore uses the Core term **Advancement**, not Core Orchestration. It owns one causal-authority composition; it does not own a use-case/run state machine.
 
 ---
 
@@ -114,9 +116,13 @@ Future callers must not be free to adopt postcommit Production early, establish/
 
 ---
 
-## 5. Highest deterministic E0 layer
+## 5. Highest deterministic causal-advancement layer
 
-Add `Ensemble.E0.Core.Orchestration`.
+Add:
+
+```text
+Ensemble.E0.Core.Advancement
+```
 
 It may depend downward on existing public boundaries in:
 
@@ -130,9 +136,9 @@ Continuity
 Opportunity
 ```
 
-No lower subsystem may depend upward on Orchestration.
+No lower subsystem may depend upward on `Advancement`.
 
-This layer is deterministic semantic advancement only, not provider/process/UI orchestration.
+The future Application layer may call Advancement as one Core authority while owning provider-attempt sequencing, Scene/run state machines, cancellation boundaries, and use-case coordination.
 
 No provider SDK, filesystem, network, clock, random, Task, thread, cancellation token, Windows API, GPU/NPU/QNN/ONNX, persistence, or package dependency enters Core.
 
@@ -140,10 +146,10 @@ No provider SDK, filesystem, network, clock, random, Task, thread, cancellation 
 
 ## 6. Exact public surface
 
-Proposal 0.8 adds exactly:
+Proposal 0.9 adds exactly:
 
 ```csharp
-namespace Ensemble.E0.Core.Orchestration;
+namespace Ensemble.E0.Core.Advancement;
 
 public static class DeterministicAcceptedTakeAdvancement
 {
@@ -206,7 +212,7 @@ Historical Context v1 remains compatible only in lower historical APIs/tests and
 
 ---
 
-## 9. Result immutability
+## 9. Result immutability/minimality
 
 `E0AcceptedTakeAdvancementResult` has no public constructor/setter and exactly:
 
@@ -216,9 +222,13 @@ AcceptedPerformanceHistory
 Opportunity
 ```
 
-It exposes no intermediate postcommit State/history, duplicate final State/History/Event fields, source Context/Access evaluation, provider data, cost/retry data, raw output, or hidden reasoning.
+Each is necessary for the next layer:
 
-Final state/history/Director evidence remain available through `Opportunity`; accepted Performance history and causal event remain direct properties.
+- `CausalCommit` preserves the effective Take, materializations, and canonical causal event required by provenance/replay/persistence work;
+- `AcceptedPerformanceHistory` is the opaque synchronized token needed for the next Full Ensemble Context;
+- `Opportunity` carries the final Production state, effective routing history, canonical Opportunity event, and Director evaluation.
+
+It exposes no intermediate postcommit State/history, duplicate final State/History/Event fields, source Context/Access evaluation, provider data, cost/retry data, raw output, or hidden reasoning.
 
 ---
 
@@ -232,16 +242,16 @@ Patch 0016 allocates no TakeId/CommitId/RecordId/RunId/AttemptId/request identit
 
 `Advance(...)` owns **ordering, stage-specific failure normalization, and final result exposure only**.
 
-It does not add even convenience/null/disposition validation when an existing canonical lower boundary already owns that invariant. In particular:
+It adds no convenience/null/disposition validation when an existing canonical lower boundary already owns the invariant:
 
-- `ProductionStateCheckpoint.Capture` validates the current state/current Opportunity;
-- `BindWithAcceptedHistory` validates source Context, Accepted Take disposition/association, accepted history, source-state snapshot, and Full Ensemble v2/v3 Context shape;
-- `Commit` validates CommitId/materializations/current commit identities;
+- `ProductionStateCheckpoint.Capture` validates current state/current Opportunity;
+- `BindWithAcceptedHistory` validates source Context, Accepted Take disposition/association, accepted history, source-state snapshot, and Full Ensemble v2/v3 shape;
+- `Commit` validates CommitId/materializations/effective identities;
 - `RecordCommit` validates accepted-history causal advancement;
 - `Establish` validates Opportunity source history + Director transition;
 - `RecordOpportunity` validates cross-history count/coupling + canonical Opportunity replay.
 
-The exact method sequence is:
+Exact sequence:
 
 ```text
 A. checkpoint = ProductionStateCheckpoint.Capture(currentState)
@@ -287,39 +297,24 @@ The no-opportunity postcommit state and history-after-commit token remain method
 
 ## 12. Stage-specific failure normalization
 
-The new abstraction is allowed to translate expected lower exceptions because callers of the high-level advancement should not need to know which internal composed boundary failed.
-
-Each stage is caught **narrowly at that stage**, never by one broad catch-all:
+Each expected lower exception is caught narrowly at the stage that calls it, never by a broad catch-all:
 
 ```text
 Capture / Bind / Commit
-    E0CausalCommitException
+ -> E0CausalCommitException
 
 RecordCommit / RecordOpportunity
-    E0AcceptedPerformanceHistoryException
+ -> E0AcceptedPerformanceHistoryException
 
 Establish
-    E0OpportunityTransitionException
+ -> E0OpportunityTransitionException
 ```
 
 Each becomes `E0AcceptedTakeAdvancementException` with a fixed stage-only message and original exception as `InnerException`.
 
-Examples of acceptable top-level message categories:
+Acceptable categories include source-checkpoint failure, source-Take-binding failure, causal-commit failure, accepted-history advancement failure, Opportunity-establishment failure, and accepted-history/Opportunity-coupling failure.
 
-```text
-source checkpoint failed
-source Take binding failed
-causal commit failed
-accepted Performance history advancement failed
-Opportunity establishment failed
-accepted-history/Opportunity coupling failed
-```
-
-The exact strings may be frozen during implementation only if tests need stable developer diagnostics; they are not a user-facing product contract.
-
-No top-level message may copy Candidate VisibleText, Context prose, record/mutation prose, provider output, credentials/secrets, or arbitrary untrusted text.
-
-Unexpected programming/runtime failures are not relabeled.
+No top-level message copies Candidate VisibleText, Context prose, record/mutation prose, provider output, credentials/secrets, or arbitrary untrusted text. Unexpected programming/runtime failures are not relabeled.
 
 ---
 
@@ -399,17 +394,17 @@ Identical valid immutable inputs produce equivalent causal event, Opportunity re
 
 ---
 
-## 19. Test-only primitive oracle vs production composition
+## 19. Test-only primitive oracle vs production advancement
 
 `Patch0015TestSupport.RunTurn(...)` remains an explicit test-only primitive-chain oracle because lower Patch 0015 tests intentionally inspect staged intermediates.
 
-Future production/harness Accepted-Take advancement uses Patch 0016 Orchestration. No second production implementation is permitted. Remove/narrow helper paths that cease serving lower-stage tests.
+Future production/harness Accepted-Take advancement uses Patch 0016 Advancement. No second production implementation is permitted. Remove/narrow helper paths that cease serving lower-stage tests.
 
 ---
 
 ## 20. Structural composition regression
 
-Because the new capability is specifically **composition ownership**, implementation must include a structural regression over `DeterministicAcceptedTakeAdvancement.Advance` proving exactly one call to each canonical boundary:
+Because the new capability exists to own **composition**, implementation must structurally prove `DeterministicAcceptedTakeAdvancement.Advance` calls exactly once:
 
 ```text
 ProductionStateCheckpoint.Capture
@@ -420,7 +415,7 @@ DeterministicOpportunityAuthority.Establish
 E0AcceptedPerformanceHistoryContinuity.RecordOpportunity
 ```
 
-and zero direct calls to:
+and directly calls none of:
 
 ```text
 CharacterBoundedAccessControl
@@ -430,9 +425,9 @@ DeterministicCausalCommit.Replay
 DeterministicOpportunityAuthority.Replay
 ```
 
-The test should also inspect exception clauses sufficiently to prove there is no `catch (Exception)`/catch-all normalization on `Advance`.
+Inspect exception clauses to prove no `catch (Exception)`/catch-all normalization.
 
-The repository already has IL call inspection in `Patch0012StructuralImplementationTests`. If reuse would otherwise duplicate that parser, implementation may extract the smallest **test-only** shared IL inspection helper and adapt Patch 0012 tests without weakening their assertions. The second concrete use earns that test abstraction; no production abstraction is created.
+The repository already has IL call inspection in `Patch0012StructuralImplementationTests`. If reuse would duplicate that parser, extract the smallest test-only shared IL helper and adapt Patch 0012 tests without weakening assertions. No production abstraction is created.
 
 ---
 
@@ -441,17 +436,17 @@ The repository already has IL call inspection in `Patch0012StructuralImplementat
 Preferred production source:
 
 ```text
-src/Ensemble.E0.Core/Orchestration/AcceptedTakeAdvancement.cs
+src/Ensemble.E0.Core/Advancement/AcceptedTakeAdvancement.cs
 ```
 
 Focused tests:
 
 ```text
-tests/Ensemble.E0.Core.Tests/Orchestration/AcceptedTakeAdvancementTests.cs
-tests/Ensemble.E0.Core.Tests/Orchestration/Patch0016ContractAuditTests.cs
+tests/Ensemble.E0.Core.Tests/Advancement/AcceptedTakeAdvancementTests.cs
+tests/Ensemble.E0.Core.Tests/Advancement/Patch0016ContractAuditTests.cs
 ```
 
-Optional test-only shared IL helper extraction only as described above. Narrow inherited exact-reflection/public-surface adaptations only if legitimately required.
+Optional test-only IL helper extraction as above. Narrow inherited exact-public-surface adaptations only if legitimately required.
 
 No semantic change expected in Domain, Access, Context, Performer, Director, Integrity, StateInterpreter, StateAuthority, Take, Production, CausalCommit, Opportunity, Continuity, Fixture, or Harness. If a lower semantic algorithm must change, reopen architecture.
 
@@ -459,53 +454,39 @@ No semantic change expected in Domain, Access, Context, Performer, Director, Int
 
 ## 22. Required test matrix
 
-### Surface/dependency
-1. Orchestration namespace exactly three approved public types.
+The wrapper tests prove the new composition contract; existing lower tests remain authority for lower algorithms. Do not mirror the entire Patch 0015 matrix through the wrapper.
+
+### Surface/composition
+1. Advancement namespace exactly three approved public types.
 2. `Advance` exactly seven approved parameters/result type and no overload.
-3. source Context required.
-4. result exactly `CausalCommit`, `AcceptedPerformanceHistory`, `Opportunity`.
-5. result/exception no public constructors/setters; static class only `Advance`.
-6. no persistence/provider/network/clock/random/Task/thread/cancellation/Windows/GPU/NPU/QNN/ONNX public dependency.
-7. no event/hash/version/allocator/replay surface.
-8. structural sequence/call ownership test from section 20 passes.
-9. exception clauses contain no catch-all and only expected lower exception types.
+3. result exactly `CausalCommit`, `AcceptedPerformanceHistory`, `Opportunity`; no public ctor/setter.
+4. no forbidden provider/platform/persistence/async dependency and no event/hash/version/allocator/replay surface.
+5. exact structural call ownership/order set from section 20 and no catch-all.
 
-### Live Context/source proof
-10. exact v2 succeeds at exact empty-history genesis.
-11. historical v1 rejected by Patch 0016 while lower historical APIs unchanged.
-12. exact v3 succeeds evolved.
-13. evolved v2 and genesis v3 fail.
-14. stale Context fails.
-15. structured tamper fails.
-16. rendered tamper fails.
-17. matching Candidate ContextPacketId cannot bypass mismatched source artifact.
+### Live success
+6. exact Patch 0015 v2-genesis oracle advances through wrapper with unchanged canonical identities.
+7. high-level output equals primitive-chain oracle for the same inputs, including DirectorEvaluation.
+8. evolved v3 source advances a second turn and returns synchronized final Production/accepted-history/Opportunity-history outputs.
+9. zero-mutation Accepted Take still advances historical Performance + Opportunity.
+10. all-durable-consequence-Rejected Accepted Take still advances historical Performance + Opportunity.
+11. multi-turn recurrence/repeated Performance behavior remains unchanged through at least one wrapper-driven sequence.
 
-### Successful reference behavior
-18. Patch 0015 first live oracle exact identities unchanged.
-19. high-level result equals primitive-chain oracle for same inputs.
-20. `Opportunity.DirectorEvaluation` equals primitive-chain evaluation.
-21. zero-mutation Accepted Take advances historical Performance + Opportunity.
-22. all-durable-consequence-Rejected Accepted Take still advances historical Performance + Opportunity.
-23. multi-turn v3 sequence remains synchronized/deterministic.
-24. repeated identical Performances + Character recurrence preserved.
+### Representative propagated failures
+12. historical v1 source Context fails through the inherited history-aware binder; lower v1 compatibility tests remain unchanged.
+13. one rendered/structured source-Context tamper representative fails through the wrapper; Patch 0015 remains authority for the exhaustive source-Context tamper matrix.
+14. one non-Accepted Take representative fails through the binder and produces no wrapper.
+15. stale/foreign Opportunity history fails through `Establish` with no wrapper.
+16. one Commit-stage identity/materialization failure fails with no wrapper.
+17. source immutable objects remain unchanged on failure.
+18. wrapper message is stage-only and does not echo untrusted Performance/Context/record/mutation prose.
 
-### Existing lower failures through composition
-25. null/current-state failure normalizes from Capture rather than Patch 0016 validator.
-26. null/stale accepted-history/source Context/non-Accepted Take failures normalize from Bind rather than Patch 0016 validator.
-27. stale/foreign Opportunity-history fails with no final wrapper.
-28. duplicate CommitId fails closed.
-29. duplicate effective TakeId fails closed.
-30. missing required RecordId materialization fails closed.
-31. source immutable objects unchanged after failure.
-32. errors do not echo untrusted Performance/Context/record/mutation prose.
-
-Do not duplicate lower validators, add dependency-injection seams, or forge impossible private state merely to force every internal stage. Existing lower tests remain authority for independently injectable lower failures.
+Do not forge impossible private state, add DI seams, or duplicate lower validators merely to exercise every internal branch.
 
 ### Determinism/compatibility
-33. identical repeated calls equivalent.
-34. culture change does not alter identity/order.
-35. historical Context v1/v2 + Patch 0015 v3 canonical values unchanged.
-36. no advancement Replay; lower replay remains canonical.
+19. identical repeated calls over same immutable inputs are equivalent.
+20. culture change does not alter canonical identities/order.
+21. historical Context v1/v2 and Patch 0015 v3 oracle values remain unchanged.
+22. no Advancement Replay method; lower replay remains canonical.
 
 ---
 
@@ -517,7 +498,7 @@ Patch 0016 composes existing synchronous deterministic work. New production over
 
 ## 24. Explicit non-scope
 
-No provider request/SDK/model assignment; no attempt/request/result provenance; no partial-stream storage; no retry/backoff/spend/cost/cancellation/timeout taxonomy; no RunId/AttemptId allocation; no full Scene/run loop; no repeated-attempt policy; no E0-A provider adapter; no transcript/blind-review package; no durable persistence/recovery/cross-Scene replay; no general Observation/CharacterClaim promotion; no World Resolver; no branching/Rehearsal/Another Take UX; no WinUI/Windows AI/Windows ML/QNN/NPU; no App Actions/MCP; no MSIX/IPackageValidator/WACK/Store.
+No provider request/SDK/model assignment; no attempt/request/result provenance; no partial-stream storage; no retry/backoff/spend/cost/cancellation/timeout taxonomy; no RunId/AttemptId allocation; no Application/Scene/run loop; no repeated-attempt policy; no E0-A provider adapter; no transcript/blind-review package; no durable persistence/recovery/cross-Scene replay; no general Observation/CharacterClaim promotion; no World Resolver; no branching/Rehearsal/Another Take UX; no WinUI/Windows AI/Windows ML/QNN/NPU; no App Actions/MCP; no MSIX/IPackageValidator/WACK/Store.
 
 ---
 
@@ -531,7 +512,7 @@ source Context + Accepted Take
      -> canonical Opportunity result + Director evidence
 ```
 
-Later provider-attempt architecture can remain technical until Candidate/Take exists and cannot own causal advancement. Patch 0016 does not yet close H1.
+The later provider-attempt/Application-run layer can remain technical until Candidate/Take exists and cannot own causal advancement. Patch 0016 does not yet close H1.
 
 ---
 
@@ -547,16 +528,19 @@ Reused `E0OpportunityTransitionResult` so Director evidence survives without dup
 Removed duplicate Opportunity-history precheck/final replay; existing Opportunity/Continuity authorities own those invariants.
 
 ### 0.4 -> 0.5
-Added Domain dependency, explicit Full Ensemble v2-genesis/v3-evolved live gate, historical-v1 compatibility distinction, and clarified Patch 0016 is not end-of-H1 convergence.
+Added Domain dependency, explicit Full Ensemble v2-genesis/v3-evolved gate, historical-v1 compatibility distinction, and clarified Patch 0016 is not end-of-H1 convergence.
 
 ### 0.5 -> 0.6
-Added structural composition regression and allowed minimal test-only IL helper extraction only if needed.
+Added structural composition regression and optional minimal test-only IL helper extraction.
 
 ### 0.6 -> 0.7
-Removed all Patch 0016 domain/null/disposition validation that existing lower authorities already own. Patch 0016 now owns only ordered composition, stage-specific narrow failure normalization, and final result exposure. Structural tests now also guard the Capture call and absence of catch-all relabeling.
+Removed redundant top-layer domain/null/disposition validation. Patch 0016 owns only ordered composition, narrow stage error normalization, and final result exposure.
 
 ### 0.7 -> 0.8
-Rebased the blueprint branch onto current `main` checkpoint `5186b0ab624165ab9872630592b164bf3764273d` after the approved Ship Plan promotion checkpoint was recorded. The new parent commit is documentation-only and changes no executable Patch 0015 semantics or machine authority; this correction updates architecture provenance only.
+Rebased onto current documentation-only ship-plan checkpoint `5186b0ab624165ab9872630592b164bf3764273d`; architecture provenance only.
+
+### 0.8 -> 0.9
+Renamed the Core top layer from `Orchestration` to `Advancement` so the approved Ship Plan can reserve capability-neutral Scene/run orchestration for the future Application layer. Also reduced wrapper tests to composition-specific coverage instead of redundantly rerunning the full Patch 0015 lower-layer matrix.
 
 ---
 
