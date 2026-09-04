@@ -1,6 +1,6 @@
 # Kymaean Architecture & Ship Plan
 
-Status: **PROGRAM ARCHITECTURE PROPOSAL 0.4 — RECURSIVE AUDIT IN PROGRESS; NOT IMPLEMENTATION AUTHORITY**
+Status: **PROGRAM ARCHITECTURE PROPOSAL 0.5 — RECURSIVE AUDIT IN PROGRESS; NOT IMPLEMENTATION AUTHORITY**
 
 Date: 2026-09-04
 
@@ -8,7 +8,7 @@ Authoritative starting `main`: `1238b568565bf704a6e6fff70828730982db4b3e`
 
 Purpose: define the dependency-ordered engineering path from the current Ensemble E0 deterministic spine to a native ARM64 Kymaean Microsoft Store release without allowing legacy inspiration, exploratory branches, UI work, provider APIs, or release tooling to become accidental domain authority.
 
-This is a program map. It does **not** override Blueprint 0.1, approved patch blueprints, `CURRENT_STATE.md`, the Engineering Hygiene Constitution, machine validation, Director approval, WACK, or Partner Center.
+This is a program map. It does **not** override Blueprint 0.1, approved patch blueprints, `CURRENT_STATE.md`, `docs/PROJECT_AUTHORITY.md`, the Engineering Hygiene Constitution, machine validation, Director approval, WACK, or Partner Center.
 
 ---
 
@@ -24,14 +24,7 @@ The current project is **not** the shelved DeskShifter/Kymaean Workspace/Routine
 
 The Drive document `Kymaean_Feature_Roadmap_and_Locked_Decisions_2026-08-20`, `Rylascoo/Kymaean-Project`, and archived DeskShifter V7 are legacy donor/reference material. Their ARM64, Windows, AI, privacy, packaging, project-system, and validation lessons may be reused selectively. Their old product domain must not enter this application without an explicit new product decision.
 
-Authority order remains:
-
-1. frozen Ensemble Blueprint and approved phase specifications;
-2. `CURRENT_STATE.md`;
-3. current GitHub source/tests/evidence;
-4. project authority/hygiene/reasoning protocols;
-5. Drive design/research material;
-6. donor repositories as immutable reference only.
+This plan does not restate or alter the canonical source-of-truth order in `docs/PROJECT_AUTHORITY.md`. That document and `CURRENT_STATE.md` remain the authority for fresh-chat/source resolution. `docs/ENGINEERING_HYGIENE_CONSTITUTION.md` and `docs/PROJECT_REASONING_TASK_SCOPE_OPTIMIZATION_PROTOCOL.md` govern engineering/process behavior without displacing higher product or validation authority.
 
 ---
 
@@ -116,7 +109,7 @@ Providers produce attempts/proposals and provenance. Provider/model identity sta
 
 ### Windows infrastructure
 
-WinUI, Windows AI, Windows ML/QNN, package APIs, secrets, power/memory signals, App Actions and MCP remain outside Core.
+WinUI, Windows AI, Windows ML/QNN, package APIs, secrets, ordinary settings, power/memory signals, App Actions and MCP remain outside Core and outside Production causal authority.
 
 ---
 
@@ -297,7 +290,7 @@ Required properties:
 
 Donor boundary:
 
-- legacy atomic settings-write ideas may inform settings/preferences;
+- legacy settings-store atomic-write ideas may inform ordinary settings elsewhere in the host;
 - legacy settings storage is **never** a Production event-store design.
 
 Lane exit:
@@ -347,7 +340,7 @@ Lane exit:
 - semantic view states are provider/model-neutral;
 - first Windows-baseline convergence audit passes.
 
-Legacy lessons eligible here: ARM64 project configuration, shallow build outputs, WinRT/AOT-safe MVVM patterns, power namespace/compiler regressions, static XAML/binding verification patterns.
+Legacy lessons eligible here: ARM64 project configuration, shallow build outputs, WinRT/AOT-safe MVVM patterns, power namespace/compiler regressions, ordinary settings atomic-write lessons, secret-storage hardening patterns, and static XAML/binding verification patterns.
 
 ---
 
@@ -436,7 +429,7 @@ Creator postures remain Watch, Direct, Perform/Take a Seat, and Write, with laun
 
 The UI binds to semantic Application state, not hashes, provider internals, model names, or NPU marketing states.
 
-P4 may begin against P2 test adapters after Phase D contracts are frozen; it must move to real P1/P3 paths before Alpha exit.
+Visual/interaction exploration continues in parallel now and throughout A-D. After Phase D freezes semantic presentation contracts, P2 first establishes the minimum real WinUI host/view-state surface; P4 implementation can then begin against that shell while P1/P3 continue. P4 may temporarily use P2 test adapters for unfinished ports, but it must move to real P1/P3 paths before Alpha exit.
 
 Lane exit before Alpha:
 
@@ -457,15 +450,17 @@ Lane exit before Alpha:
        +---------------+---------------+---------------+
        |               |               |               |
        v               v               v               v
- Persistence P1    WinUI shell P2   AI/NPU P3      UI/design P4
+ Persistence P1    WinUI shell P2   AI/NPU P3      visual work P4
        |               |               |               |
-       +---------------+---------------+---------------+
+       |               +---- enables UI code ----------+
+       |                               |
+       +---------------+---------------+
                        |
                        v
               RUNTIME-COMPLETE ALPHA
 ```
 
-This is intentionally not fully serialized. It maximizes useful parallel work after semantic contracts are stable while retaining hard convergence requirements at Alpha.
+The lanes are intentionally not fully serialized. P4 visual work is already parallel; P4 code integration begins when P2 exposes the minimum host surface. Alpha still requires real launch-required dependencies, not test substitutes.
 
 ---
 
@@ -652,8 +647,8 @@ Current donor disposition:
 | bounded non-authoritative cache | port closely if justified | P3 |
 | memory-pressure handling | rewrite behind generic resource policy | P2/P3 |
 | Energy Saver behavior | host-level resource policy | P2/P3 |
-| local secret store | rewrite/harden | P1/P3 |
-| atomic settings writes | settings only | P1/P2 |
+| local secret store | rewrite/harden | P2/P3 |
+| atomic settings writes | settings only | P2 |
 | Production persistence | design fresh | P1 |
 | Windows ML/QNN probe | current-API rewrite/hardware spike | P3 |
 | Windows language-model provider | architecture donor only | P3 |
@@ -739,7 +734,7 @@ Make the first explicit framework decision at Phase D before broad productizatio
 
 ### UI/backend mismatch
 
-Freeze semantic Application/view-state contracts in Phase D, then integrate P2/P4 in parallel rather than waiting for all infrastructure.
+Freeze semantic Application/view-state contracts in Phase D, bootstrap P2 early, and let P4 code integration begin against that shell while P1/P3 continue.
 
 ### Provider variability/cost
 
@@ -789,7 +784,7 @@ Launch scope frozen; security/performance/power/accessibility hardening complete
 
 **~30–42 focused engineering days.**
 
-Because P1/P2/P3/P4 may execute in parallel after Phase D and UI/visual design is already separate, a reasonable calendar planning center remains **roughly 5–8 weeks**, with E0 findings, persistence, platform/model churn and Store validation as the main uncertainty.
+Because P1/P2/P3 can execute concurrently after Phase D, P4 visual work is already parallel, and P4 code integration begins after the P2 shell bootstrap, a reasonable calendar planning center remains **roughly 5–8 weeks**, with E0 findings, persistence, platform/model churn and Store validation as the main uncertainty.
 
 The Sol High protocol should materially reduce conversational fragmentation. A provisional forecast is **~20–35 substantial Sol-High engineering work packages/chats** from this checkpoint to Store RC, plus short machine-feedback turns when native validation is required.
 
@@ -824,7 +819,7 @@ Approval of this program plan would freeze only the **major dependency ordering 
 
 - sequential H1 -> E0-A -> E0-B..G -> E0 convergence -> post-E0 product-runtime architecture;
 - Phase D resolves only launch-critical post-E0 questions and explicitly decides the framework baseline before broad productization;
-- four parallel productization lanes after stable Phase D contracts: Production persistence, Windows shell, provider/local-AI/NPU, UI/design implementation;
+- parallel productization after stable Phase D contracts: Production persistence, Windows shell, provider/local-AI/NPU, with UI code integration beginning once the minimum P2 shell exists;
 - Alpha blocked until launch-required lanes converge on real persisted Production and real target-device behavior;
 - local Windows/NPU tasks remain evidence-selected after E0 rather than assumed by this plan;
 - provider/model neutrality;
