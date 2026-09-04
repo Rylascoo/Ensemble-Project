@@ -40,6 +40,7 @@ public sealed class Patch0012ContractAuditTests
                 nameof(E0CausalCommitContracts),
                 nameof(ProductionStateCheckpoint),
                 nameof(E0TakeStateBinding),
+                nameof(E0AcceptedPerformanceHistory),
                 nameof(E0RecordMaterialization),
                 nameof(E0RecordMaterializationSet),
                 nameof(E0CausalCommit),
