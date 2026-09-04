@@ -1,6 +1,6 @@
 # Kymaean Architecture & Ship Plan
 
-Status: **PROGRAM ARCHITECTURE PROPOSAL 0.2 — RECURSIVE AUDIT IN PROGRESS; NOT IMPLEMENTATION AUTHORITY**
+Status: **PROGRAM ARCHITECTURE PROPOSAL 0.3 — RECURSIVE AUDIT IN PROGRESS; NOT IMPLEMENTATION AUTHORITY**
 
 Date: 2026-09-04
 
@@ -51,6 +51,7 @@ Authority order remains:
 12. **Validation levels never inflate:** static < compiler < runtime < hardware/NPU < package/WACK < Partner Center.
 13. **UI is projection, not authority:** Studio/Stage/Archive and Presentation Perspective cannot alter truth by displaying it.
 14. **One canonical implementation:** before release, obsolete internal paths are removed rather than preserved as imaginary compatibility debt.
+15. **Research is not product authority:** isolated platform spikes may run early, but cannot silently promote APIs, models, or UX into the retail architecture.
 
 ---
 
@@ -150,9 +151,11 @@ Still unproven/unimplemented:
 - Windows AI/NPU execution;
 - MSIX/WACK/Store certification.
 
+The existing unmerged branches named for E0 run orchestration and Performer-attempt/provenance currently resolve to the older Patch 0014 checkpoint and contain no newer authoritative design. They may not constrain the next patch.
+
 ---
 
-## 5. Program phases
+## 5. Sequential proof path to the product-runtime gate
 
 ### A — Close the H1 deterministic spine
 
@@ -162,9 +165,11 @@ Likely blueprint boundaries, each separately approved:
 
 - deterministic run/turn orchestration;
 - ownership of synchronized Production/history/Opportunity across one full live cycle;
-- technical attempt/result identity needed to distinguish provider activity from fictional history;
+- minimal technical attempt/result contract needed to distinguish provider activity from fictional history, if the run driver requires it;
 - cancellation/failure semantics that cannot become fictional action;
 - any remaining deterministic E0 reference-run invariants.
+
+The phase may define provider-neutral attempt/provenance **contracts** if required by deterministic orchestration. It must not introduce provider SDK execution into Core.
 
 Exit:
 
@@ -237,11 +242,12 @@ Resolve only launch-critical Open Design Register questions, including:
 - minimum observation eligibility beyond the E0 co-present rule;
 - consequence review/creator-authority mode for V1;
 - branch/Another Take/Rehearsal minimum, if any;
-- portable Production format/schema policy;
-- causal persistence/recovery contract;
-- provider casting/understudy/cost policy;
+- Production portable format/schema policy;
+- causal persistence/recovery contract and ports;
+- provider casting/understudy/cost policy and ports;
+- Application use-case/command/query contracts;
 - which Watch/Direct/Perform/Write capabilities are required at launch;
-- minimum Studio/Stage/Archive functional contracts;
+- minimum Studio/Stage/Archive semantic contracts;
 - Presentation Perspective requirements for V1;
 - content/governance requirements before Alpha.
 
@@ -250,14 +256,16 @@ Do not force every ODR item into V1.
 Exit:
 
 - approved product-runtime architecture;
-- dependency graph stable enough for implementation;
+- stable enough Application, persistence, provider and presentation contracts for parallel implementation;
 - UI layout remains owned by the design stream except for required semantic view-state contracts.
 
 ---
 
-### E — Implement durable Production persistence/recovery
+## 6. Parallel productization lanes after Phase D
 
-Production must become a real persistent creative object rather than an in-memory E0 state machine.
+Once Phase D freezes the contracts, four implementation lanes may begin in parallel. They may use test doubles/fakes **only as implementation scaffolding**; those doubles never become validation authority for a dependency that requires a real adapter. Runtime-complete Alpha cannot pass until all launch-required lanes converge on real Production and real target-device behavior.
+
+### P1 — Durable Production persistence and recovery
 
 Required properties:
 
@@ -279,7 +287,7 @@ Donor boundary:
 - legacy atomic settings-write ideas may inform settings/preferences;
 - legacy settings storage is **never** a Production event-store design.
 
-Exit:
+Lane exit:
 
 - multi-Turn Production closes/reopens and reconstructs exact authority;
 - corruption/failure paths fail safely;
@@ -287,13 +295,9 @@ Exit:
 
 ---
 
-## 6. Parallel productization lanes after persistence
+### P2 — First Windows application architecture baseline
 
-After D/E establish stable Application and persistence contracts, two major lanes should proceed **in parallel** and converge at Alpha.
-
-### F1 — First Windows application architecture baseline
-
-Goal: give the UI/design stream a real semantic integration target early, rather than making UI wait for AI/NPU productionization.
+Goal: give the UI/design stream a real semantic integration target as early as technically responsible.
 
 Plan-date baseline:
 
@@ -319,12 +323,14 @@ View
            -> dispatcher/view state
 ```
 
-ViewModels do not own P/Invoke, COM, model objects, provider clients, secrets, package APIs, persistence, or native pickers.
+ViewModels do not own P/Invoke, COM, model objects, provider clients, secrets, package APIs, persistence implementations, or native pickers.
 
-Exit:
+The shell may initially use deterministic test adapters for still-in-progress P1/P3 ports, but its final lane exit requires the real Production path.
+
+Lane exit:
 
 - packaged native ARM64 app launches on the target device;
-- shell can open/query a real Production through Application contracts;
+- shell opens/queries a real persisted Production through Application contracts;
 - semantic view states are provider/model-neutral;
 - first Windows-baseline convergence audit passes.
 
@@ -332,9 +338,7 @@ Legacy lessons eligible here: ARM64 project configuration, shallow build outputs
 
 ---
 
-### F2 — Production provider/runtime + Windows AI/NPU lane
-
-Goal: productionize model execution behind stable ports while F1 and UI work continue.
+### P3 — Production provider/runtime + Windows AI/NPU
 
 #### Frontier Performer backend
 
@@ -351,9 +355,9 @@ Goal: productionize model execution behind stable ports while F1 and UI work con
 
 Depend on a **capability**, never a model name.
 
-Microsoft currently documents Phi Silica as transitioning to Aion Instruct, with testing/rollout beginning October 2026 and retail replacement targeted for November 2026. Therefore Phi-specific code is a transition adapter, not Core/Application architecture.
+As of the plan date, Microsoft documents Phi Silica as transitioning to Aion Instruct, with testing/rollout beginning October 2026 and retail replacement targeted for November 2026. Phi-specific code is therefore a transition adapter, not Core/Application architecture.
 
-UI/Application readiness should remain model-neutral, e.g.:
+UI/Application readiness remains model-neutral, for example:
 
 ```text
 Ready
@@ -373,12 +377,12 @@ For custom/derived local workloads:
 - `Microsoft.Windows.AI.MachineLearning` execution-provider discovery/acquisition/registration;
 - QNN execution provider on compatible Snapdragon hardware;
 - Qualcomm AI Engine Direct / Neural Processing SDK tooling where it materially improves model conversion, quantization, profiling or direct Hexagon-NPU optimization and remains compatible with Store/release constraints;
-- prefer Windows ML/ONNX Runtime + certified QNN EP as the retail interoperability path unless evidence justifies a lower-level direct runtime dependency;
+- prefer Windows ML/ONNX Runtime + certified QNN execution provider as the retail interoperability path unless evidence justifies a lower-level direct runtime dependency;
 - event-driven heavy work only;
 - explicit acquisition consent where needed;
 - no NPU/TOPS claim without device evidence.
 
-Microsoft's current Windows ML documentation marks portions of `Microsoft.Windows.AI.MachineLearning` as prerelease-sensitive even while QNN is listed as an available Windows ML 2.x execution provider. Every actual API used must therefore be reverified at implementation time.
+Current Microsoft documentation marks portions of `Microsoft.Windows.AI.MachineLearning` as prerelease-sensitive. Every actual API used must be reverified at implementation time.
 
 #### Resource policy
 
@@ -389,9 +393,9 @@ Microsoft's current Windows ML documentation marks portions of `Microsoft.Window
 - memory-pressure pause/release at safe boundaries;
 - no routine forced full-GC policy.
 
-Eligible donor concepts here: circuit breaker, bounded HMAC-keyed cache, memory-pressure lessons, QNN probe patterns, secret-store hardening lessons, LoRA quarantine/fallback policy.
+Eligible donor concepts: circuit breaker, bounded HMAC-keyed cache, memory-pressure lessons, QNN probe patterns, secret-store hardening lessons, LoRA quarantine/fallback policy.
 
-Exit:
+Lane exit:
 
 - at least one production Performer backend works end-to-end;
 - Windows-managed local capability degrades correctly across supported readiness states;
@@ -400,7 +404,7 @@ Exit:
 
 ---
 
-### F3 — UI/design convergence lane
+### P4 — UI/design implementation convergence
 
 Drive remains canonical for visual/design exploration; GitHub receives approved semantic implementation requirements and shipping assets.
 
@@ -412,13 +416,15 @@ Frozen product spaces:
 
 Creator postures remain Watch, Direct, Perform/Take a Seat, and Write, with launch emphasis determined post-E0.
 
-The UI should bind to semantic application state, not hashes, provider internals, model names, or NPU marketing states.
+The UI binds to semantic Application state, not hashes, provider internals, model names, or NPU marketing states.
 
-Exit before Alpha:
+P4 may begin against P2 test adapters after Phase D contracts are frozen; it must move to real P1/P3 paths before Alpha exit.
+
+Lane exit before Alpha:
 
 - principal Studio -> Stage -> Archive journey runs against real persisted Production data;
 - Presentation Perspective cannot leak inaccessible information;
-- keyboard, screen-reader, scaling, high-contrast, reduced-motion and focus acceptance criteria exist.
+- keyboard, screen-reader, scaling, high-contrast, reduced-motion and focus acceptance criteria exist and are exercised on the real shell.
 
 ---
 
@@ -428,29 +434,24 @@ Exit before Alpha:
                  E0 CONVERGENCE
                        |
                        v
-           Product-runtime architecture
+           Product-runtime architecture (D)
                        |
-                       v
-              Persistence / Application
-                       |
-           +-----------+-----------+
-           |           |           |
-           v           v           v
-      WinUI shell   AI/NPU      UI/design
-        F1            F2           F3
-           \           |           /
-            \          |          /
-             +---------+---------+
+       +---------------+---------------+---------------+
+       |               |               |               |
+       v               v               v               v
+ Persistence P1    WinUI shell P2   AI/NPU P3      UI/design P4
+       |               |               |               |
+       +---------------+---------------+---------------+
                        |
                        v
               RUNTIME-COMPLETE ALPHA
 ```
 
-This is intentionally different from a fully serialized plan. It lets your UI/visual stream join as early as technically responsible without letting presentation drive domain authority.
+This is intentionally not fully serialized. It maximizes useful parallel work after semantic contracts are stable while retaining hard convergence requirements at Alpha.
 
 ---
 
-### G — Runtime-complete Alpha
+## 7. Runtime-complete Alpha
 
 Definition: first build recognizably functioning as Kymaean rather than harness/shell.
 
@@ -490,7 +491,7 @@ Alpha convergence audit must actively delete obsolete E0/product scaffolding tha
 
 ---
 
-### H — Alpha hardening and launch-scope closure
+## 8. Alpha hardening and launch-scope closure
 
 Close first-release decisions only:
 
@@ -511,7 +512,7 @@ Target Snapdragon evidence should include idle wake/CPU behavior, memory stabili
 
 ---
 
-### I — Beta / release architecture gate
+## 9. Beta / release architecture gate
 
 Conditions:
 
@@ -525,13 +526,13 @@ Conditions:
 - diagnostics/telemetry policy fixed;
 - launch claims match implemented behavior.
 
-#### .NET support-horizon gate
+### .NET support-horizon gate
 
-Microsoft currently lists .NET 9 end of support as **2026-11-10** and .NET 10 as active LTS.
+Microsoft currently lists .NET 9 end of support as **2026-11-10** and .NET 10 as active LTS through 2028.
 
 The current project mandate remains .NET 9 until the Director explicitly changes it. At Beta:
 
-- retain .NET 9 only if release/servicing timing remains acceptable under the approved product policy; or
+- retain .NET 9 only if release/servicing timing remains acceptable under approved product policy; or
 - explicitly approve a .NET 10 migration and rerun compiler/runtime/security/package validation before RC.
 
 No silent framework retarget during ordinary patch work.
@@ -540,9 +541,9 @@ Beta/release architecture convergence audit is mandatory.
 
 ---
 
-### J — Windows extensibility
+## 10. Windows extensibility
 
-#### App Actions
+### App Actions
 
 Candidate for first release only after stable Application commands and package identity exist.
 
@@ -554,7 +555,7 @@ Candidate for first release only after stable Application commands and package i
 
 Old Workspace action names are not reusable product semantics.
 
-#### MCP
+### MCP
 
 Non-blocking/optional for first Store release unless later platform maturity and product value justify promotion.
 
@@ -569,7 +570,7 @@ MCP must not become a release dependency merely because the architecture can sup
 
 ---
 
-### K — Packaging, WACK, and Store RC
+## 11. Packaging, WACK, and Store RC
 
 Release engineering:
 
@@ -604,7 +605,7 @@ WACK remains package authority, not Store certification.
 
 ---
 
-### L — Partner Center certification
+## 12. Partner Center certification
 
 Partner Center is final Store authority.
 
@@ -612,7 +613,7 @@ Certification rejection becomes a patch-first release work package against the e
 
 ---
 
-## 7. Legacy Donor Quarantine Rule
+## 13. Legacy Donor Quarantine Rule
 
 Before donor code enters current Kymaean:
 
@@ -629,22 +630,22 @@ Current donor disposition:
 
 | Donor area | Disposition | Eligible phase |
 |---|---|---|
-| inference circuit breaker | port closely + improve | F2 |
-| bounded non-authoritative cache | port closely if justified | F2 |
-| memory-pressure handling | rewrite behind generic resource policy | F1/F2 |
-| Energy Saver behavior | host-level resource policy | F1/F2 |
-| local secret store | rewrite/harden | E/F2 |
-| atomic settings writes | settings only | E/F1 |
-| Production persistence | design fresh | E |
-| Windows ML/QNN probe | current-API rewrite/hardware spike | F2 |
-| Windows language-model provider | architecture donor only | F2 |
-| LoRA manager | policy donor; transition-sensitive | F2 |
-| App Actions router | trust/activation pattern only | J |
-| MCP server | isolation concept only | J |
-| package validators | strong donor candidate | K |
-| PE ARM64 inspection | extract/improve | K |
-| deep/static verifier | verification-pattern donor | F1/K |
-| WinUI compiler lessons | regression checklist | F1 |
+| inference circuit breaker | port closely + improve | P3 |
+| bounded non-authoritative cache | port closely if justified | P3 |
+| memory-pressure handling | rewrite behind generic resource policy | P2/P3 |
+| Energy Saver behavior | host-level resource policy | P2/P3 |
+| local secret store | rewrite/harden | P1/P3 |
+| atomic settings writes | settings only | P1/P2 |
+| Production persistence | design fresh | P1 |
+| Windows ML/QNN probe | current-API rewrite/hardware spike | P3 |
+| Windows language-model provider | architecture donor only | P3 |
+| LoRA manager | policy donor; transition-sensitive | P3 |
+| App Actions router | trust/activation pattern only | Phase 10 |
+| MCP server | isolation concept only | Phase 10 |
+| package validators | strong donor candidate | Phase 11 |
+| PE ARM64 inspection | extract/improve | Phase 11 |
+| deep/static verifier | verification-pattern donor | P2/11 |
+| WinUI compiler lessons | regression checklist | P2 |
 | `AppServices` monolith | reject | never |
 | Shell STA implementation | reject direct reuse | only if a new justified STA requirement appears |
 | private virtual-desktop ABI | reject retail | never in baseline |
@@ -652,7 +653,7 @@ Current donor disposition:
 
 ---
 
-## 8. Sol High task-scope law for all remaining engineering
+## 14. Sol High task-scope law for all remaining engineering
 
 `docs/PROJECT_REASONING_TASK_SCOPE_OPTIMIZATION_PROTOCOL.md` governs the remainder of the project.
 
@@ -677,9 +678,11 @@ This applies to architecture, implementation, compiler/runtime diagnosis, persis
 
 Sol High is spent on reasoning density and dependency closure, not maximizing prose, code, file count, tokens, or unrelated scope. Simple tasks stay simple.
 
+After this plan is approved/promoted, `CURRENT_STATE.md` must gain a direct bootstrap pointer to `docs/PROJECT_REASONING_TASK_SCOPE_OPTIMIZATION_PROTOCOL.md` so fresh engineering chats discover the law even when starting from `CURRENT_STATE.md` alone.
+
 ---
 
-## 9. Validation ladder
+## 15. Validation ladder
 
 | Milestone | Authority required |
 |---|---|
@@ -698,7 +701,7 @@ Sol High is spent on reasoning density and dependency closure, not maximizing pr
 
 ---
 
-## 10. Main risks
+## 16. Main risks
 
 ### Behavioral falsification
 
@@ -706,7 +709,7 @@ If E0 does not outperform/sufficiently differ from simpler controls, simplify be
 
 ### Persistence error
 
-Causal persistence is a dedicated architecture phase; ordinary settings storage cannot substitute for it.
+Causal persistence is a dedicated authority lane; ordinary settings storage cannot substitute for it.
 
 ### Windows AI churn
 
@@ -714,11 +717,11 @@ Phi/Aion and Windows ML evolution stay behind adapter/capability boundaries; no 
 
 ### .NET 9 horizon
 
-Explicit Beta decision before 2026-11-10 support end; no silent retarget.
+Explicit Beta decision before the 2026-11-10 support end; no silent retarget.
 
 ### UI/backend mismatch
 
-Integrate through semantic Application/view-state contracts as soon as F1 exists.
+Freeze semantic Application/view-state contracts in Phase D, then integrate P2/P4 in parallel rather than waiting for all infrastructure.
 
 ### Provider variability/cost
 
@@ -742,13 +745,13 @@ Abstractions earn themselves; convergence audits actively delete.
 
 ---
 
-## 11. Planning range
+## 17. Planning range
 
-These are planning ranges, not delivery promises. Your UI/visual stream is assumed to continue in parallel.
+These are planning ranges, not delivery promises. The UI/visual stream is assumed to continue in parallel.
 
 ### Solid product-runtime foundation
 
-E0 converged, persistence/recovery coherent, product Application contracts approved, first Windows baseline available, UI has a durable semantic integration target.
+E0 converged, product-runtime contracts approved, persistence/recovery substantially established, first Windows baseline available, UI has a durable semantic integration target.
 
 **~15–23 focused engineering days from this checkpoint.**
 
@@ -764,7 +767,7 @@ Launch scope frozen; security/performance/power/accessibility hardening complete
 
 **~30–42 focused engineering days.**
 
-Because F1/F2/F3 run in parallel and UI/visual design is separate, a reasonable calendar planning center remains **roughly 5–8 weeks**, with E0 findings, persistence, platform/model churn and Store validation as the main uncertainty.
+Because P1/P2/P3/P4 may execute in parallel after Phase D and UI/visual design is already separate, a reasonable calendar planning center remains **roughly 5–8 weeks**, with E0 findings, persistence, platform/model churn and Store validation as the main uncertainty.
 
 The Sol High protocol should materially reduce conversational fragmentation. A provisional forecast is **~20–35 substantial Sol-High engineering work packages/chats** from this checkpoint to Store RC, plus short machine-feedback turns when native validation is required.
 
@@ -772,7 +775,7 @@ Token use is not a project KPI; durable dependency closure per Director turn is.
 
 ---
 
-## 12. Immediate next action after plan approval
+## 18. Immediate next action after plan approval
 
 Do **not** jump to WinUI, persistence, Aion/Phi, QNN, or Store work.
 
@@ -784,7 +787,7 @@ Work package:
 
 1. resolve current `main`;
 2. inspect the exact Patch 0015 boundary;
-3. inspect unmerged exploratory branches only as non-authoritative prior reasoning;
+3. treat the currently empty/stale exploratory orchestration/attempt branches as non-authoritative history only;
 4. identify the smallest next canonical boundary;
 5. design/falsify/recursively audit it;
 6. obtain explicit Director approval;
@@ -793,13 +796,13 @@ Work package:
 
 ---
 
-## 13. Approval boundary
+## 19. Approval boundary
 
 Approval of this program plan would freeze only the **major dependency ordering and delivery laws**:
 
-- E0 convergence before product architecture;
-- persistence before broad product feature dependence;
-- Windows/UI and AI/NPU productization in parallel after stable Application/persistence contracts;
+- sequential H1 -> E0-A -> E0-B..G -> E0 convergence -> post-E0 product-runtime architecture;
+- four parallel productization lanes after stable Phase D contracts: Production persistence, Windows shell, AI/NPU, UI/design implementation;
+- Alpha blocked until launch-required lanes converge on real persisted Production and real target-device behavior;
 - provider/model neutrality;
 - Windows infrastructure at the edges;
 - Drive/GitHub design-engineering boundary;
