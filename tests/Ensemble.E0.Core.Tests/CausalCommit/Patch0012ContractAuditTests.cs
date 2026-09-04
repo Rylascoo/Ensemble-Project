@@ -1,5 +1,4 @@
 using System.Reflection;
-using Ensemble.E0.Core.Access;
 using Ensemble.E0.Core.CausalCommit;
 using Ensemble.E0.Core.Domain;
 using Ensemble.E0.Core.Production;
@@ -204,14 +203,9 @@ public sealed class Patch0012ContractAuditTests
     }
 
     [TestMethod]
-    public void Patch0012_DoesNotCreateEvolvedAccessContextOrNextOpportunityPublicAPIs()
+    public void Patch0012_CausalCommitSurfaceRemainsNarrowAfterLaterAccessIntegration()
     {
         var assembly = typeof(ProductionState).Assembly;
-        var accessPublicMethods = typeof(CharacterBoundedAccessControl)
-            .GetMethods(BindingFlags.Public | BindingFlags.Static);
-        Assert.IsFalse(accessPublicMethods.Any(method =>
-            method.GetParameters().Any(parameter => parameter.ParameterType == typeof(ProductionState))));
-
         var contextComposer = assembly.GetType(
             "Ensemble.E0.Core.Context.DeterministicContextComposer",
             throwOnError: true)!;
