@@ -1,6 +1,6 @@
 # H1 Patch 0015 — E0 Accepted Performance History + Context Continuity
 
-Status: Blueprint Proposal 0.12 — EXPLORATORY; recursive adversarial audit restarted from correctness; implementation forbidden
+Status: Blueprint Proposal 0.13 — EXPLORATORY; recursive adversarial audit restarted from correctness; implementation forbidden
 Parent promoted `main` checkpoint: `7475a9397cff9063673908c666a729f0f3cd4525`
 Blueprint branch: `h1-patch-0015-blueprint`
 
@@ -34,9 +34,10 @@ Patch 0015 supplies that deterministic seam without provider/model invocation, d
 8. **Failure domains normalized.** History transition, Context continuity, and Take binding preserve their own expected public failure domains.
 9. **Exception ownership corrected.** Public history-transition exception belongs in Continuity; low CausalCommit history invariants use an internal-only exception.
 10. **Precommit live-path law added.** Approved Full Ensemble execution must prove history-aware Take binding before causal commit; `RecordCommit` independently rechecks after commit before projecting history.
-11. **Live APIs disambiguated.** The new history-bearing methods are not overloads named identically to historical history-omitting methods. They are explicitly named `ComposeWithAcceptedHistory(...)` and `BindWithAcceptedHistory(...)`. This preserves Patch 0014 APIs byte/source behavior while reducing accidental live-path omission in future orchestration and code review.
-12. **Opportunity adoption made fail-closed.** Opportunity establishment and accepted-history advancement form a coordinated immutable live transition. A future orchestrator must not adopt the opportunity-bearing Production result until `RecordOpportunity(...)` has replayed the exact transition and produced the matching advanced history. On failure, the previously synchronized no-opportunity postcommit Production/history pair remains the only supported live pair.
-13. **Inherited reflection-suite boundary corrected in Proposal 0.12.** Patch 0012 freezes the entire public `CausalCommit` namespace in `Patch0012ContractAuditTests`; adding the opaque public `E0AcceptedPerformanceHistory` necessarily supersedes exactly that historical type-list assertion. Patch 0015 must update it narrowly while preserving every enduring Patch 0012 CausalCommit restriction. Patch 0014 temporary Context/Continuity “not yet” assertions are likewise evolved narrowly. Historical evidence remains immutable.
+11. **Live APIs disambiguated.** The new history-bearing methods are explicitly named `ComposeWithAcceptedHistory(...)` and `BindWithAcceptedHistory(...)` rather than overloading historical history-omitting names.
+12. **Opportunity adoption made fail-closed.** A future orchestrator must not adopt the opportunity-bearing Production result until `RecordOpportunity(...)` replays it and produces the matching advanced history.
+13. **Inherited reflection-suite boundary corrected.** Patch 0012 freezes the entire public `CausalCommit` namespace; the exact type-list test must evolve narrowly for `E0AcceptedPerformanceHistory`. Patch 0014 temporary Context/Continuity “not yet” assertions likewise evolve narrowly.
+14. **Live oracle lineage corrected in Proposal 0.13.** The inherited `05703456… -> dc7e169f…` Production chain was generated from the historical fixture/v1 source Context. Patch 0015’s approved live genesis path uses Production-bound v2. Since CandidateContentHash and the causal commit StateHash bind the source `ContextPacketId`, the v2-sourced live commit must produce a new postcommit StateHash, and its Opportunity transition must chain to a new Opportunity StateHash. Those new values must be independently derived; the historical Patch 0012/0013 hashes remain immutable regression authority and must never be relabeled as the Patch 0015 live chain.
 
 ## 3. Authority basis
 
@@ -694,9 +695,11 @@ No reflection/runtime-corruption/durable-store authentication claim.
 
 V3 must traverse existing Candidate -> Integrity -> Interpreter -> State Authority -> Take without public semantic redesign. Any hidden implementation version gate is fixed narrowly only if encountered.
 
+Current source inspection confirms Candidate parsing and Integrity bind semantic packet identity/subject/opportunity rather than hard-coding Context v1/v2; the new history-aware CausalCommit binding is the deliberate v3 version gate. Implementation tests must still prove the complete path.
+
 ## 44. Historical canonical authority
 
-Must remain exact:
+These historical values remain exact and must not change or be reinterpreted as Patch 0015 live hashes:
 
 ```text
 v1 VOSS structured: 2569 / bbb82aa9400ea76290f9e3a62dcea3cb922f5d5b5a5677216a8922a6472e274b
@@ -704,32 +707,92 @@ v1 VOSS rendered:   1905 / ce99a0c5e525276c17b84ad86a21c335028d1a01791f27c223bae
 
 v2 genesis VOSS StateHash: 30041ae0dd287b9ef192aaf90c0cee4aedf85e4e8a9c3b31ad14094fbfda0104
 v2 genesis structured: 2655 / 27f20b78754132777adcc392199a2490c210fa99ad44150e527ceb4c3f22e565
+v2 genesis ContextPacketId: CTX:27f20b78754132777adcc392199a2490c210fa99ad44150e527ceb4c3f22e565
 v2 genesis rendered:   1905 / ce99a0c5e525276c17b84ad86a21c335028d1a01791f27c223bae4e5edd7cf88
 
-v2 evolved MARLOWE StateHash: dc7e169fc52a0051525baf13cb579b87126ba55c77a3b972c4d5a6a6b3246310
-v2 evolved structured: 3456 / 9a3cf788da23eece7497f16f2ff9ab62a588081496f0efde8035300cd0bb6f00
-v2 evolved rendered:   2389 / 9925327709d4a99697d4b65e5ad870e6e3ff5c5d573e25c61814e48d77163a2d
-
-Production chain:
-30041ae0dd287b9ef192aaf90c0cee4aedf85e4e8a9c3b31ad14094fbfda0104
+historical v1-sourced Patch0012 postcommit:
 057034560f8d97f648ed7ba66776ba7d1ced7ed694c2bd6561dd0ef1fac24c30
+
+historical v1-sourced Patch0013 opportunity:
 dc7e169fc52a0051525baf13cb579b87126ba55c77a3b972c4d5a6a6b3246310
+
+v2 evolved MARLOWE at that historical state:
+structured: 3456 / 9a3cf788da23eece7497f16f2ff9ab62a588081496f0efde8035300cd0bb6f00
+rendered:   2389 / 9925327709d4a99697d4b65e5ad870e6e3ff5c5d573e25c61814e48d77163a2d
 ```
 
-## 45. First v3 oracle
-
-Canonical chain:
+Why the historical Production chain differs from the future Patch 0015 live chain:
 
 ```text
-VOSS accepted VisibleText = "No."
-postcommit = 05703456...
-next Character = MARLOWE
-current StateHash = dc7e169f...
-history = [ { VOSS, "No." } ]
-Marlowe Context = v3
+historical Patch0012 oracle Candidate source Context
+    = fixture-derived v1 ContextPacket
+
+Patch0015 live genesis Candidate source Context
+    = Production-bound v2 ContextPacket
 ```
 
-Before native validation independently derive exact v3 structured/rendered byte counts + hashes after reproducing inherited oracles. Also prove multi-entry order and silence distinction.
+`CandidateContentHash` binds Candidate `ContextPacketId`, and the causal commit hash binds Candidate identity. Therefore changing only that exact source Context identity necessarily changes the causal commit StateHash (absent a cryptographic collision), and the next Opportunity StateHash changes because it chains from the new postcommit StateHash.
+
+## 45. First Patch 0015 live v3 oracle
+
+The implementation oracle must build a **new live chain from exact genesis**, not reuse the historical `05703456…/dc7e169f…` values.
+
+For maximum isolation, the independent oracle should reuse the same semantic inputs as the inherited Patch 0012/0013 oracle wherever legal:
+
+```text
+genesis Production StateHash
+    = 30041ae0dd287b9ef192aaf90c0cee4aedf85e4e8a9c3b31ad14094fbfda0104
+
+source Context
+    = exact Production-bound VOSS v2
+    ContextPacketId
+    = CTX:27f20b78754132777adcc392199a2490c210fa99ad44150e527ceb4c3f22e565
+
+VOSS Candidate VisibleText
+    = "No."
+
+Candidate control
+    = empty address / null nomination
+
+mutation/materialization semantics
+    = same canonical Pressure add "Pressure increases."
+      and same isolated record/materialization/Take/Commit identifiers as the historical oracle
+      when practical, so source-Context identity is the deliberate changed variable
+```
+
+Then independently derive and freeze:
+
+```text
+Patch0015LivePostCommitStateHash = <NEW VALUE>
+    MUST differ from 057034560f8d97f648ed7ba66776ba7d1ced7ed694c2bd6561dd0ef1fac24c30
+
+selected next Character = MARLOWE
+    expected from the unchanged Director semantics/control/routing history
+
+Patch0015LiveOpportunityStateHash = <NEW VALUE>
+    MUST differ from dc7e169fc52a0051525baf13cb579b87126ba55c77a3b972c4d5a6a6b3246310
+
+accepted history
+    = [ { sourceCharacterId: VOSS, visibleText: "No." } ]
+
+current MARLOWE Context
+    = v3
+    sourceStateHash = Patch0015LiveOpportunityStateHash
+```
+
+The v3 oracle must then independently derive exact:
+
+- canonical structured byte count;
+- StructuredContextHash;
+- ContextPacketId;
+- render-v2 byte count;
+- RenderedContextHash.
+
+The independent derivation must first reproduce all inherited historical v1/v2/Production values in Section 44 before deriving the new live values.
+
+Because the durable current projection after applying the same Pressure mutation and selecting MARLOWE is semantically the same apart from its history-sensitive StateHash, the trusted-state and opportunity rendering algorithms should remain byte-identical to the corresponding evolved MARLOWE semantics; v3 additionally carries the accepted `VOSS -> "No."` recent-Performance layer and render-v2 contract. This must be proven, not assumed.
+
+Also derive/prove multi-entry append order and the semantic-silence/literal-marker distinction.
 
 ## 46. Narrow inherited-test supersession
 
@@ -851,14 +914,22 @@ Historical Patch0012/Patch0014 evidence/docs remain immutable and truthful for t
 - v3 traverses existing Candidate/Integrity/Interpreter/Authority/Take;
 - second v3-sourced Accepted Take commits; RecordCommit rechecks exact expected Context source.
 
-### Determinism/dependency
+### Determinism/oracle
 - repeated/culture deterministic;
 - unordered source invariance preserved; history order intentionally sensitive;
-- independent first-v3 oracle;
+- independent oracle first reproduces inherited v1/v2/Production hashes;
+- new v2-sourced live postcommit StateHash is frozen and differs from historical v1-sourced `05703456…`;
+- new live Opportunity StateHash is frozen and differs from historical `dc7e169f…`;
+- MARLOWE remains selected under unchanged Director semantics;
+- first v3 structured/rendered exact bytes/hashes are derived from the new live Opportunity StateHash, not the historical one;
+- historical Patch0012/Patch0013/Patch0014 hashes remain unchanged;
+- no provider/network/Windows/NPU dependency.
+
+### Dependency
 - no Context higher dependency;
 - no CausalCommit -> Opportunity/Continuity;
 - Production/Opportunity public shapes unchanged;
-- no provider/network/Windows/NPU dependency.
+- no generic provider/event-store abstraction.
 
 ## 48. Expected implementation surface
 
@@ -908,7 +979,7 @@ Synchronous deterministic work only on explicit boundaries; no idle/background/n
 
 No general Observation engine, selective/private perception beyond E0 rule, CharacterClaim disclosure, epistemic promotion, history optimization, cross-Scene retrieval, provider execution/provenance, retry/spend/streaming, model-assisted Integrity/Interpreter call, full Scene-loop orchestration, Run/store, persistence/recovery, full genesis replay, branching/canon/retcon/rehearsal, World Resolver, WinUI, Windows AI/NPU, MSIX/WACK/Store.
 
-## 52. Proposal 0.12 resolved decisions
+## 52. Proposal 0.13 resolved decisions
 
 1. History is opaque live Context projection, not event/Take history API.
 2. Internal payload is exactly immutable `ContextRecentPerformance` items.
@@ -928,6 +999,7 @@ No general Observation engine, selective/private perception beyond E0 rule, Char
 16. Duplicate display-name ambiguity is inherited from existing display-name-only rendering; structured v3 source attribution remains exact by CharacterId, and Patch 0015 does not add a new uniqueness law solely for recent history.
 17. Legacy evolved v2 remains historical compatibility but cannot pass the approved live binder or RecordCommit projection after history exists.
 18. Patch0012 exact CausalCommit public-type reflection evolves only for `E0AcceptedPerformanceHistory`; enduring Patch0012 no-persistence/no-provider/no-state-only-commit restrictions remain exact.
+19. Historical Patch0012/Patch0013 state hashes are explicitly v1-source-context lineage and remain immutable; the Patch0015 v2-sourced live chain receives newly derived postcommit/opportunity StateHashes before the first v3 Context oracle is frozen.
 
 ## 53. Recursive audit order
 
@@ -953,7 +1025,7 @@ correctness
 -> evidence
 ```
 
-## 54. Proposal 0.12 audit status
+## 54. Proposal 0.13 audit status
 
 Run a complete fresh pass. Close only if it finds:
 
