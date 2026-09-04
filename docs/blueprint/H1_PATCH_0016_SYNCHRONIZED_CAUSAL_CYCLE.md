@@ -1,6 +1,6 @@
 # H1 Patch 0016 — Synchronized Causal Cycle
 
-Status: **Blueprint Proposal 0.2 — RECURSIVE ADVERSARIAL AUDIT RESTARTED; IMPLEMENTATION FORBIDDEN**
+Status: **Blueprint Proposal 0.3 — RECURSIVE ADVERSARIAL AUDIT RESTARTED; IMPLEMENTATION FORBIDDEN**
 
 Date: 2026-09-04
 
@@ -22,49 +22,42 @@ Latest completed executable authority:
 
 Patch 0016 closes the smallest deterministic orchestration seam immediately above Patch 0015.
 
-Patch 0015 already proves every lower authority needed for one accepted causal cycle, but the live sequence currently exists only as manually composed calls in tests:
+Patch 0015 already proves every lower authority required for one accepted causal cycle, but the live sequence is still manually composed in test support:
 
 ```text
 opportunity-bearing Production/history state
- -> capture checkpoint
- -> compose exact Character Context
- -> externally obtain/bind an Accepted Take
+ -> exact Character Context
+ -> externally obtain/bind Accepted Take
  -> history-aware precommit proof
  -> causal commit
  -> accepted-Performance history advancement
- -> adopt committed postcommit state/history pair
+ -> first adoption point: committed postcommit Production/history
  -> deterministic Opportunity establishment
  -> accepted-history/Opportunity-history coupling
- -> adopt next opportunity-bearing synchronized state
+ -> second adoption point: next opportunity-bearing synchronized state
 ```
 
-The next patch makes the **state adoption boundaries canonical** without introducing provider execution, retry policy, persistence, or the full E0 run driver.
+Patch 0016 makes those adoption boundaries canonical without provider execution, retry policy, persistence, or a full E0 runner.
 
-Patch 0015 freezes two distinct adoption points:
+The state machine is:
 
 ```text
-1. Accepted Take commits
-   + accepted Performance history advances
-      => postcommit Production/history pair is authoritative
-
-2. Opportunity subsequently establishes
-   + Opportunity/history coupling validates
-      => next opportunity-bearing synchronized state is authoritative
+E0OpportunityBearingCycleState
+   -- CommitAcceptedTake -->
+E0PostCommitCycleState
+   -- EstablishOpportunity -->
+E0OpportunityBearingCycleState
 ```
 
-Therefore Patch 0016 is not one atomic Accepted-Take-to-next-Opportunity call. It is a two-phase deterministic state machine:
+It is a **pure immutable value-state machine**. Core owns no hidden mutable current-cycle singleton. Each successful method returns a validated successor value; the caller adopts that successor by replacing its own current token.
 
-```text
-OpportunityBearing
-    -- CommitAcceptedTake -->
-PostCommitAwaitingOpportunity
-    -- EstablishOpportunity -->
-OpportunityBearing
-```
+This distinction matters:
 
-A later Opportunity failure must never semantically erase an Accepted Take whose causal commit/history advancement already succeeded.
+- a returned postcommit token has completed every proof required for Patch 0015's first adoption boundary and is safe to adopt;
+- it is not automatically installed into some global Core state;
+- if phase two later fails, the caller may retain the already-validated/adopted postcommit token rather than semantically rolling back the accepted causal commit.
 
-Patch 0016 composes existing authority. It invents no new fictional semantics or canonical identity.
+No new fictional semantics or canonical identity are introduced.
 
 ---
 
@@ -74,16 +67,14 @@ Patch 0016 composes existing authority. It invents no new fictional semantics or
 
 Blueprint 0.1 requires:
 
-- a generated Performance becomes Production history only through an Accepted Take;
-- technical provider failure/refusal/timeout/retry never becomes fictional action;
-- cancelled/rejected/failed partial output remains diagnostic only;
-- Accepted Performance and approved consequences commit atomically;
+- a generated Performance enters Production history only as an Accepted Take;
+- provider failure/refusal/timeout/retry cannot become fictional action;
+- cancelled/rejected/failed partial output is diagnostic only;
+- Accepted Performance + approved consequences commit atomically;
 - deterministic authority owns canonical state mutation;
-- Director manages attention/opportunity rather than world truth;
-- E0 uses a minimal developer harness and explicit provenance;
+- Director owns attention/opportunity rather than world truth;
+- E0 uses a minimal developer harness with explicit provenance;
 - E0 excludes WinUI, long-running cross-Scene persistence, Windows AI/NPU, Store work, full observation, and World Resolver.
-
-Patch 0016 remains wholly inside those boundaries.
 
 ### Patch 0015
 
@@ -99,103 +90,82 @@ DeterministicOpportunityAuthority.Establish
 E0AcceptedPerformanceHistoryContinuity.RecordOpportunity
 ```
 
-It explicitly states:
+Patch 0015 explicitly freezes:
 
-- Commit result is staged until `RecordCommit(...)` succeeds.
-- Opportunity result is staged until `RecordOpportunity(...)` succeeds.
-- Once Commit + `RecordCommit(...)` succeed, the committed no-Opportunity Production/history pair is a valid authority state even before the next Opportunity exists.
+```text
+Commit result staged
+ -> RecordCommit succeeds
+ -> postcommit Production/history may be adopted
 
-Patch 0016 preserves those laws exactly.
+Opportunity result staged
+ -> RecordOpportunity succeeds
+ -> opportunity-bearing Production/history/OpportunityHistory may be adopted
+```
+
+Patch 0016 preserves that two-adoption law exactly.
 
 ### Approved ship plan 0.7
 
-The ship plan requires H1 deterministic-spine closure before provider-backed E0-A experimentation. Provider-neutral attempt/provenance contracts may be added later when they can target a stable deterministic causal-cycle boundary.
+The approved program map requires deterministic-spine closure before provider-backed E0-A. Technical attempts/provenance should target a stable deterministic cycle rather than define its causal adoption order.
 
 ---
 
 ## 3. Alternatives rejected
 
-### A — provider-attempt/provenance first
+### Provider-attempt/provenance first
 
-Deferred.
+Deferred. Technical success/refusal/timeout/cancellation/partial/retry/spend semantics should drive a correct deterministic fictional state machine later.
 
-Provider attempts eventually need success/refusal/timeout/cancellation/malformed-or-partial output/retry/spend/provider-model identity/diagnostics. Those technical outcomes should drive an already-correct fictional state machine rather than define its adoption order.
+### Full E0 runner
 
-### B — full E0 run orchestrator
+Rejected as too broad. It would combine provider execution, retries, Candidate parsing, Integrity, Interpreter, State Authority, Take selection, causal transition, Opportunity transition, and run budgets/provenance.
 
-Rejected as too broad.
+### One-shot Accepted-Take-to-next-Opportunity call
 
-It would combine provider execution, retries/cancellation, Candidate parsing, Integrity, State Interpretation, State Authority, Take choice, causal commit, Opportunity advancement, and run-level provenance/budgets.
+Rejected as semantically wrong because it hides the first Patch 0015 adoption boundary.
 
-### C — one-shot Accepted-Take-to-next-Opportunity transition
+### One mutable state + phase enum
 
-Rejected as semantically wrong.
+Rejected because the phases have mutually exclusive invariants and invalid combinations would be conventionally expressible.
 
-It would hide Patch 0015's first authoritative adoption point. A failure during Opportunity establishment could then appear to roll back already-committed fiction.
+### Hidden mutable cycle coordinator
 
-### D — one mutable cycle-state type plus phase enum
-
-Rejected.
-
-The two phases have mutually exclusive invariants:
-
-```text
-Opportunity-bearing:
-current Opportunity exists
-OpportunityCount = AcceptedPerformanceCount + 1
-
-Postcommit:
-current Opportunity is null
-SourceOpportunityCount = AcceptedPerformanceCount
-```
-
-Two distinct closed types make illegal phase combinations difficult to express and follow the project's authority-in-types law.
+Rejected. It would make retries/testing/branch-like derivations depend on hidden mutation and would blur the project's explicit-input deterministic style.
 
 ### Selected
 
-Two-phase synchronized causal-cycle orchestration with distinct type states.
+Two closed immutable type states + pure deterministic transition functions.
 
 ---
 
 ## 4. Dependency direction
 
-Add one Core namespace:
+Add only:
 
 ```text
 Ensemble.E0.Core.Orchestration
 ```
 
-Dependency direction:
+Direction:
 
 ```text
-Domain / Production / Context / Performer / Integrity /
-Interpreter / StateAuthority / Take / CausalCommit /
-Opportunity / Continuity / Director
-                  ^
-                  |
-             Orchestration
+existing Core authorities
+        ^
+        |
+  Orchestration
 ```
 
-`Orchestration` may depend downward on existing deterministic authorities. No existing lower namespace may depend upward on `Orchestration`.
+`Orchestration` may depend downward on Production, Context, Continuity, Take, CausalCommit, Opportunity, Director, and Domain types already required by those contracts.
 
-Patch 0016 must add no dependency on:
+No lower namespace may depend upward on Orchestration.
 
-- Harness;
-- provider SDKs/network;
-- filesystem/persistence;
-- clock/randomness;
-- tasks/threads/timers/background work;
-- Windows APIs;
-- Windows AI;
-- GPU/NPU/QNN/ONNX;
-- UI;
-- package/Store APIs.
+No Patch 0016 dependency on Harness, provider/network, filesystem/persistence, clocks/randomness, Tasks/threads/timers, Windows, Windows AI, GPU/NPU/QNN/ONNX, UI, package, or Store APIs.
 
 ---
 
 ## 5. Exact public surface
 
-Proposal 0.2 permits exactly five new public types in `Ensemble.E0.Core.Orchestration`:
+Exactly five new public types:
 
 ```csharp
 public sealed class E0OpportunityBearingCycleState
@@ -205,13 +175,9 @@ public static class DeterministicE0CausalCycle
 public sealed class E0CausalCycleException : Exception
 ```
 
-No additional public Orchestration type is allowed in Patch 0016.
+### `E0OpportunityBearingCycleState`
 
-### 5.1 `E0OpportunityBearingCycleState`
-
-No public constructor or setter.
-
-Public read-only surface:
+Public read-only:
 
 ```text
 ProductionState : ProductionState
@@ -224,22 +190,20 @@ AcceptedPerformanceHistory : E0AcceptedPerformanceHistory
 OpportunityHistory         : E0OpportunityHistory
 ```
 
-The histories stay internal so callers do not carry three independently combinable values as if they were a validated live state.
+No public constructor/setter/declared instance method.
 
-### 5.2 `E0PostCommitCycleState`
+Construction is closed behind one internal validated factory owned by the type/cycle implementation. There is no raw internal construction path that bypasses the wrapper's cross-history invariant.
 
-Represents Patch 0015's **first adoption point**.
+### `E0PostCommitCycleState`
 
-No public constructor or setter.
-
-Public read-only surface:
+Public read-only:
 
 ```text
 ProductionState : ProductionState
 Commit          : E0CausalCommit
 ```
 
-Internal components retained only for phase two:
+Internal:
 
 ```text
 AcceptedPerformanceHistory : E0AcceptedPerformanceHistory
@@ -247,15 +211,13 @@ SourceContext               : ContextPacket
 SourceOpportunityHistory    : E0OpportunityHistory
 ```
 
-The public Production state is already-authoritative committed fiction and has no current Opportunity.
+No public constructor/setter/declared instance method.
 
-This token is not a staged transaction/rollback promise.
+It is the validated successor value at the first adoption boundary, not a staged transaction promise.
 
-### 5.3 `E0OpportunityBearingCycleResult`
+### `E0OpportunityBearingCycleResult`
 
-No public constructor or setter.
-
-Public read-only surface:
+Public read-only:
 
 ```text
 OpportunityBearingState : E0OpportunityBearingCycleState
@@ -263,11 +225,13 @@ OpportunityEvent        : E0OpportunityTransition
 DirectorEvaluation      : LeastInterventionDirectorEvaluation
 ```
 
-This preserves provenance-relevant Opportunity evidence without exposing the lower `E0OpportunityTransitionResult` raw State/history pair beside the canonical synchronized wrapper.
+No public constructor/setter/declared instance method.
 
-### 5.4 `DeterministicE0CausalCycle`
+It exposes provenance evidence without exposing the lower raw State/history result beside the synchronized wrapper.
 
-Exactly four public static methods, no overloads:
+### `DeterministicE0CausalCycle`
+
+Exactly four public static methods; no overloads:
 
 ```csharp
 E0OpportunityBearingCycleState Initialize(
@@ -287,48 +251,80 @@ E0OpportunityBearingCycleResult EstablishOpportunity(
     E0PostCommitCycleState source)
 ```
 
-The signatures themselves enforce phase legality:
+Signature-level phase law:
 
 ```text
-ComposeContext / CommitAcceptedTake
-    accept only Opportunity-bearing state
+ComposeContext + CommitAcceptedTake
+    only OpportunityBearing
 
 EstablishOpportunity
-    accepts only Postcommit state
+    only PostCommit
 ```
 
-There is no API to compose the next Character Context from a postcommit no-Opportunity state and no API to commit another Take before Opportunity re-establishment.
+### `E0CausalCycleException`
 
-### 5.5 `E0CausalCycleException`
+Public/catchable, no public constructor.
 
-Public/catchable; no public constructor.
-
-Expected lower-authority failures are normalized at the orchestration stage with fixed safe messages. Unexpected programming/runtime failures are not indiscriminately relabeled.
+It represents wrapper-owned synchronization/stage failure and normalizes expected lower boundary failures with safe stage messages.
 
 ---
 
-## 6. Opportunity-bearing invariant
+## 6. Construction-time invariant ownership
+
+Patch 0016 does **not** continuously rescan every wrapper invariant before every method merely to defend against unsupported reflection mutation.
+
+Instead:
+
+1. wrapper construction is closed;
+2. wrapper components are immutable existing objects;
+3. each wrapper validates the aggregate invariant once before construction succeeds;
+4. subsequent lower calls re-prove the lower inputs they own.
+
+This avoids adding redundant O(history) wrapper scans around lower operations that already validate accepted history/Context/Opportunity chain data.
+
+The wrapper's own invariant code must reuse existing neutral/lower owners rather than copy them:
+
+```text
+AcceptedPerformanceHistoryInvariants.ValidateAndProject(...)
+    owns accepted-history state/roster/text validation
+
+OpportunityInvariants.ValidateProductionRoster(...)
+OpportunityInvariants.RequireInitialized(...)
+    own current E0 Production roster/strong-ID validation
+```
+
+Patch 0016 adds only the cross-component facts no lower single authority owns:
+
+- Opportunity-history state-hash/current-Character coupling to the wrapper Production state;
+- accepted-history-count vs Opportunity-history-count phase induction;
+- postcommit retained-source coupling needed to safely enter phase two.
+
+No new lower invariant helper is created merely to duplicate existing logic.
+
+---
+
+## 7. Opportunity-bearing state invariant
 
 Let:
 
 ```text
 S = ProductionState
-H = accepted Performance history entry count
+H = accepted Performance history count
 O = OpportunityHistory.CharacterIds count
 ```
 
-An `E0OpportunityBearingCycleState` is valid only when:
+Validated at wrapper creation:
 
-1. `S` is initialized.
-2. `S.CurrentOpportunityCharacterId` exists and is initialized.
-3. current Opportunity belongs to the current roster.
-4. accepted Performance history is exactly synchronized to `S.SceneId`, `S.StateHash`, and current roster using the existing accepted-history invariant authority.
+1. Production roster is the existing canonical E0 roster.
+2. `S.StateHash`/`S.SceneId`/current Opportunity are initialized through existing strong-ID helpers.
+3. current Opportunity exists and belongs to roster.
+4. existing accepted-history invariant validates exact synchronization to `S.SceneId`, `S.StateHash`, and roster and yields H entries.
 5. Opportunity history Scene equals `S.SceneId`.
 6. Opportunity history `LastOpportunityStateHash == S.StateHash`.
-7. Opportunity history is initialized and nonempty.
-8. every Opportunity-history Character belongs to the roster.
-9. its last Character equals `S.CurrentOpportunityCharacterId`.
-10. exact count induction holds:
+7. Opportunity history is initialized/nonempty.
+8. every Opportunity-history Character is initialized and belongs to roster.
+9. final Opportunity-history Character equals current Opportunity.
+10. exact phase count:
 
 ```text
 O == H + 1
@@ -337,54 +333,44 @@ O == H + 1
 Genesis:
 
 ```text
-H = 0
-O = 1
+H=0, O=1
 ```
 
-After every completed cycle:
+Every completed cycle:
 
 ```text
-H = n
-O = n + 1
+H=n, O=n+1
 ```
 
-No additional state hash/canonical proof is invented here. Valid wrapper states are created only from exact genesis or from the existing lower deterministic authorities.
+No extra StateHash recomputation is added by the wrapper. It trusts only states produced by exact genesis/lower deterministic authorities and proves the cross-object bindings above.
 
 ---
 
-## 7. `Initialize(...)`
-
-Input: exact genesis `ProductionState`.
+## 8. `Initialize(...)`
 
 Algorithm:
 
-1. validate input through existing lower authorities;
+1. require genesis Production state;
 2. call `E0AcceptedPerformanceHistoryContinuity.Initialize(genesisState)`;
 3. call `E0OpportunityHistory.Initialize(genesisState)`;
-4. validate Section 6 synchronization;
-5. return the closed opportunity-bearing token.
+4. create `E0OpportunityBearingCycleState`, whose validated factory proves Section 7;
+5. return it.
 
-Patch 0016 deliberately adds no public arbitrary rebinding method such as:
+No arbitrary public `Bind(state, histories...)` exists.
 
-```text
-Bind(state, acceptedHistory, opportunityHistory)
-```
-
-E0 starts at genesis and valid later tokens are produced by this cycle. Persistence/recovery may later define a separate replay/recovery entry point after E0 evidence requires it.
-
-The duplicate genesis validation performed inside the two existing history initializers is accepted for bounded E0 rather than modifying lower authority solely to optimize this wrapper.
+The two lower history initializers both independently validate genesis today. Bounded duplicate genesis validation is accepted for E0; Patch 0016 does not modify lower authority just to remove it.
 
 ---
 
-## 8. `ComposeContext(...)`
+## 9. `ComposeContext(...)`
 
-Because synchronized histories are internal, the cycle provides the canonical live Context bridge.
+Input type itself proves the cycle is in the Opportunity-bearing phase.
 
 Algorithm:
 
-1. validate the opportunity-bearing token;
-2. `ProductionStateCheckpoint.Capture(source.ProductionState)`;
-3. call existing:
+1. reject null wrapper;
+2. capture checkpoint from `source.ProductionState`;
+3. call:
 
 ```text
 E0ProductionContextContinuity.ComposeWithAcceptedHistory(
@@ -392,34 +378,35 @@ E0ProductionContextContinuity.ComposeWithAcceptedHistory(
     source.AcceptedPerformanceHistory)
 ```
 
-4. return the existing `E0ProductionContextContinuityResult` unchanged.
+4. return exact existing `E0ProductionContextContinuityResult`.
 
-This deliberately preserves both:
+The lower Continuity authority freshly validates accepted-history/state synchronization and Access/Context derivation.
 
-- `AccessEvaluation` for E0 provenance;
-- `ContextEvaluation` for the exact bounded Character Context/trace.
-
-Expected schema behavior remains:
+It preserves:
 
 ```text
-exact empty genesis -> Production-bound Context v2
-synchronized nonempty evolved history -> Context v3
+AccessEvaluation
+ContextEvaluation
 ```
 
-No Context schema/rendering/canonicalization changes.
+for future E0 provenance.
+
+No Context version/bytes/hash changes:
+
+```text
+empty exact genesis -> v2
+nonempty evolved accepted history -> v3
+```
 
 ---
 
-## 9. `CommitAcceptedTake(...)` — phase one
-
-Input state type: `E0OpportunityBearingCycleState` only.
+## 10. `CommitAcceptedTake(...)` — phase one
 
 Algorithm:
 
-1. validate the source token;
-2. validate required explicit inputs without echoing content;
-3. capture a fresh Production checkpoint;
-4. call existing history-aware source proof:
+1. reject null wrapper/required inputs with safe fixed stage behavior;
+2. capture fresh checkpoint from `source.ProductionState`;
+3. call:
 
 ```text
 E0TakeStateBinding.BindWithAcceptedHistory(
@@ -429,7 +416,7 @@ E0TakeStateBinding.BindWithAcceptedHistory(
     source.AcceptedPerformanceHistory)
 ```
 
-5. call existing causal authority:
+4. call:
 
 ```text
 DeterministicCausalCommit.Commit(
@@ -439,8 +426,8 @@ DeterministicCausalCommit.Commit(
     materializations)
 ```
 
-6. keep that result staged;
-7. call existing history advancement/replay:
+5. keep lower commit result local/staged;
+6. call:
 
 ```text
 E0AcceptedPerformanceHistoryContinuity.RecordCommit(
@@ -449,77 +436,77 @@ E0AcceptedPerformanceHistoryContinuity.RecordCommit(
     commitResult.Commit)
 ```
 
-8. only after step 7 succeeds, validate the postcommit invariant;
-9. return `E0PostCommitCycleState` with:
+7. create `E0PostCommitCycleState` from:
 
 ```text
 commitResult.ResultState
 advanced accepted history
 commitResult.Commit
-exact source Context
-source Opportunity history
+sourceContext
+source.OpportunityHistory
 ```
 
-### First-adoption law
+8. postcommit factory proves Section 11;
+9. only then return the validated successor.
 
-The returned postcommit token is already authoritative:
+### First adoption boundary
 
-- Accepted Take happened;
-- approved consequences committed atomically;
-- accepted Performance history advanced;
-- Production has no current Opportunity yet.
+Before step 9, no Patch 0016 successor is available to adopt.
 
-Failure before the token is created authorizes no staged commit-result adoption.
+After success, the returned token has completed all existing commit + `RecordCommit` proof required for the first Patch 0015 adoption boundary. The caller may replace its current Opportunity-bearing token with this postcommit token.
+
+The method itself mutates no hidden global current state.
 
 ---
 
-## 10. Postcommit invariant
+## 11. Postcommit state invariant
 
 Let:
 
 ```text
 P  = postcommit ProductionState
-C  = committed E0CausalCommit
-H  = postcommit accepted Performance history count
+C  = E0CausalCommit
+H  = accepted history count after commit
 OH = retained source Opportunity-history count
 X  = retained source Context
 ```
 
-Requirements:
+Validated once at postcommit wrapper creation:
 
-1. `P.CurrentOpportunityCharacterId` is null.
-2. `C.ResultStateHash == P.StateHash`.
-3. `C.ParentStateHash` is initialized.
-4. `C.Take` is Accepted and structurally initialized under existing authority.
-5. accepted Performance history is synchronized to `P.SceneId`, `P.StateHash`, and current roster.
-6. accepted history is nonempty.
-7. its final semantic item equals `C.Take.Performance` subject plus exact `VisibleText`.
-8. retained source Opportunity-history Scene equals `P.SceneId`.
-9. retained source Opportunity-history `LastOpportunityStateHash == C.ParentStateHash`.
-10. retained source Opportunity history is initialized/nonempty and all Characters remain in roster.
-11. retained source Opportunity history ends at `C.Take.Performance.SubjectCharacterId`.
-12. exact count coupling holds:
+1. existing Production roster validation succeeds.
+2. `P.StateHash`/`P.SceneId` and relevant commit identities are initialized through existing helpers/lower event validation.
+3. `P.CurrentOpportunityCharacterId` is null.
+4. `C.ResultStateHash == P.StateHash`.
+5. `C.Take` is Accepted under existing causal authority.
+6. existing accepted-history invariant proves synchronization to `P.SceneId`, `P.StateHash`, roster and yields H entries.
+7. H is nonzero.
+8. final accepted-history semantic item equals `C.Take.Performance.SubjectCharacterId` + exact `VisibleText`.
+9. source Opportunity history Scene equals `P.SceneId`.
+10. source Opportunity history `LastOpportunityStateHash == C.ParentStateHash`.
+11. source Opportunity history is nonempty; every Character is initialized/in roster.
+12. its final Character equals the committed Performance subject.
+13. exact phase count:
 
 ```text
 OH == H
 ```
 
-13. retained source Context Scene equals `P.SceneId`.
-14. retained source Context ID equals `C.Take.Performance.ContextPacketId`.
-15. retained source Context subject equals `C.Take.Performance.SubjectCharacterId`.
+14. source Context Scene equals `P.SceneId`.
+15. source Context ID equals committed Performance `ContextPacketId`.
+16. source Context subject equals committed Performance subject.
 
-Patch 0016 does **not** add an executable rule that parent/result hashes must differ. Existing canonical authorities own hash semantics; the cycle only proves the required equality/binding relationships.
+No rule is added that parent/result hashes must differ. Existing canonical authorities remain sole hash authority.
+
+The exact source Context is retained internally because existing Opportunity authority intentionally recomputes Director input from that accepted Candidate's source Context identity/roster.
 
 ---
 
-## 11. `EstablishOpportunity(...)` — phase two
-
-Input state type: `E0PostCommitCycleState` only.
+## 12. `EstablishOpportunity(...)` — phase two
 
 Algorithm:
 
-1. validate the complete postcommit invariant;
-2. call existing Opportunity authority:
+1. reject null postcommit wrapper;
+2. call existing:
 
 ```text
 DeterministicOpportunityAuthority.Establish(
@@ -529,8 +516,8 @@ DeterministicOpportunityAuthority.Establish(
     source.SourceOpportunityHistory)
 ```
 
-3. keep that result staged;
-4. call existing history/Opportunity coupling replay:
+3. keep result local/staged;
+4. call existing:
 
 ```text
 E0AcceptedPerformanceHistoryContinuity.RecordOpportunity(
@@ -541,7 +528,7 @@ E0AcceptedPerformanceHistoryContinuity.RecordOpportunity(
     opportunity.Event)
 ```
 
-5. only after step 4 succeeds, combine:
+5. create `E0OpportunityBearingCycleState` from:
 
 ```text
 opportunity.State
@@ -549,118 +536,109 @@ returned accepted-history advancement
 opportunity.History
 ```
 
-6. validate Section 6 synchronization;
-7. return `E0OpportunityBearingCycleResult` with:
+6. its validated factory proves Section 7;
+7. construct result with:
 
 ```text
-OpportunityBearingState = canonical synchronized wrapper
-OpportunityEvent        = exact lower event
-DirectorEvaluation      = exact lower evaluation/trace
+OpportunityBearingState = validated wrapper
+OpportunityEvent        = opportunity.Event
+DirectorEvaluation      = opportunity.DirectorEvaluation
 ```
 
-### Second-phase failure law
+8. return result.
 
-If phase two fails, the caller still retains the already-authoritative postcommit token returned by phase one.
+### Second adoption boundary
 
-Patch 0016 does not yet define persistence, retry, repair, or crash recovery for that token. It only prevents Opportunity failure from being modeled as rollback of committed fiction.
+Before step 8, no next Opportunity-bearing Patch 0016 successor is available to adopt.
+
+After success, the caller may replace the postcommit token with `result.OpportunityBearingState`.
+
+If phase two fails, the previously returned postcommit token remains a valid first-boundary successor; Patch 0016 does not model the failure as rollback of committed fiction.
+
+The transition is pure/deterministic. Repeating `EstablishOpportunity` on the same immutable postcommit token with unchanged code/data is expected to derive the same canonical lower identities rather than mutate the token.
 
 ---
 
-## 12. Non-Accepted Takes cannot enter the causal cycle
+## 13. Non-Accepted Takes have no cycle commit path
 
-`CommitAcceptedTake(...)` accepts existing `E0Take` authority but requires:
+`CommitAcceptedTake(...)` accepts the existing `E0Take` authority package, but `BindWithAcceptedHistory`/causal authority require:
 
 ```text
 Disposition == Accepted
 ```
 
-Existing `BindWithAcceptedHistory(...)` and causal commit authority re-prove this.
+Rejected/Alternate Takes cannot cross phase one.
 
-`Rejected` and `Alternate` Takes cannot commit through Patch 0016.
-
-What a future runner does after reject/alternate/request-another-take belongs to the later technical attempt/run-orchestration boundary.
+Future request-another-take/reject/alternate/provider retry behavior remains outside Patch 0016.
 
 ---
 
-## 13. Technical attempts remain outside Patch 0016
+## 14. Pure derivation does not freeze branch semantics
 
-No Patch 0016 type or method defines:
+Because transitions are pure, callers can technically invoke a transition more than once from the same source value, just as current lower deterministic functions can be called more than once.
 
-- `RunId` / `AttemptId`;
-- provider/model identity;
-- provider request/result;
-- partial streaming buffer;
-- refusal/timeout/error status;
-- retry count;
-- token/cost/spend record;
-- understudy choice;
-- cancellation-token ownership.
+Patch 0016 does not create a branch store, canon-selection system, or multiple-live-head authority.
 
-Future attempt orchestration will use:
+For E0, the runner owns exactly one current cycle token and explicitly chooses/adopts one successful successor at each boundary. Alternative pure calculations that are never adopted are not automatically installed as the live E0 state.
+
+Future branch/rehearsal/canon policy remains post-E0 scope.
+
+---
+
+## 15. Technical attempts remain outside Patch 0016
+
+No Patch 0016 `RunId`, `AttemptId`, provider/model identity, request/result DTO, partial stream, refusal/timeout enum, retry counter, cost/spend record, understudy decision, or cancellation-token policy.
+
+Future flow:
 
 ```text
 OpportunityBearingCycleState
  -> ComposeContext
- -> technical provider attempt(s)
+ -> technical attempt(s)
  -> Candidate / Integrity / Interpreter / State Authority / Take
- -> if Accepted only:
-      CommitAcceptedTake
+ -> Accepted only
+ -> CommitAcceptedTake
 ```
 
-Thus provider failure has no causal-cycle path unless a later layer explicitly and incorrectly calls the accepted-commit boundary.
+Technical failure does not call the accepted-commit boundary and therefore has no fictional transition path in this layer.
 
 ---
 
-## 14. No new canonical identity or persistent authority
+## 16. No new canonical/persistent identity
 
-Patch 0016 adds no:
+No new persistent event, cycle event/hash, StateHash algorithm, ContextPacketId algorithm, CommitId/TakeId derivation, Opportunity canonicalizer, history hash, or Production orchestration field.
 
-- persistent event type;
-- cycle event;
-- cycle hash;
-- StateHash algorithm;
-- ContextPacketId algorithm;
-- CommitId/TakeId derivation;
-- Opportunity canonicalization;
-- history hash;
-- orchestration field in Production.
+Cycle wrappers are in-memory synchronization/capability values only.
 
-The wrapper types are in-memory synchronization/capability tokens only.
-
-Given identical lower inputs, all Patch 0015 reference identities remain exact, including:
+Frozen Patch 0015 identities must remain exact, including:
 
 ```text
-live postcommit StateHash
+postcommit StateHash
 a7e6e1d5e386b2f6b459f8432b85ee7b14c3b25dbfec6e228240f98e523fe96c
 
-live Opportunity StateHash
+Opportunity StateHash
 e935dc6c7a3359304d8d6732d07e7fdda401a45094264cc944e6fa7a925ef151
 
-first MARLOWE Context v3 hash
+MARLOWE v3 structured Context hash
 ebf3263c79fe4787c6827aa4331bc61f0e76d5907c2e200f0e020e7540b54f2f
 ```
 
 ---
 
-## 15. Failure domains and privacy
+## 17. Failure/privacy boundary
 
-Expected stage failures normalize to `E0CausalCycleException` with fixed top-level messages:
+`E0CausalCycleException` top-level messages are fixed by stage:
 
 ```text
-Initialize:
 E0 causal cycle initialization failed.
-
-ComposeContext:
 E0 causal cycle Context composition failed.
-
-CommitAcceptedTake:
 E0 causal cycle accepted Take commit failed.
-
-EstablishOpportunity:
 E0 causal cycle Opportunity establishment failed.
 ```
 
-Expected lower exception families are caught only where that stage can produce them, including narrowly:
+Wrapper-construction invariant failures use the corresponding stage message; implementation may use private/internal detail only as safe InnerException evidence.
+
+Expected lower exceptions are caught narrowly only where reachable, e.g.:
 
 ```text
 E0AcceptedPerformanceHistoryException
@@ -669,91 +647,50 @@ E0ContextContinuityException
 E0CausalCommitException
 ```
 
-The implementation audit must verify every retained `InnerException` path before approval. It may preserve the lower deterministic exception as `InnerException` only when that lower message is fixed/structural and does not contain forbidden payload. Otherwise the stage exception omits it.
-
-New top-level failure text must never contain:
-
-- `VisibleText`;
-- Character-private Context prose;
-- mutation prose;
-- provider output;
-- imported/user content;
-- credentials/secrets.
+Implementation audit must inspect every retained InnerException path. New public error text never contains VisibleText, Character-private Context prose, mutation prose, provider/user/imported payload, credentials, or secrets.
 
 Unexpected programming/runtime failures are not blanket-wrapped.
 
 ---
 
-## 16. Determinism, complexity, and memory
+## 18. Complexity/memory
 
-No new canonical bytes or semantic collections are created.
+### Wrapper validation
 
-### Complexity
-
-Each operation is bounded by existing lower authority:
+Validation occurs once per newly created cycle state:
 
 ```text
-Initialize
-  O(existing genesis validation)
-
-ComposeContext
-  O(existing Access + Context + accepted-history projection)
-
-CommitAcceptedTake
-  O(history-aware binding + causal commit + causal replay/history validation)
-
-EstablishOpportunity
-  O(Director proposal + Opportunity canonicalization/replay + history coupling)
+Opportunity-bearing factory: O(H + O)
+Postcommit factory:         O(H + O)
 ```
 
-No polling/retry/timer/parallel/background loop is added.
+where H/O are bounded E0 history lengths.
+
+Existing lower methods still perform their own required proofs. Patch 0016 does not add an extra full wrapper rescan before every `ComposeContext`, `CommitAcceptedTake`, or `EstablishOpportunity` call.
+
+Cumulative long-Scene behavior may remain superlinear because existing Patch 0015 full-history validation/composition is intentionally unoptimized in E0. Patch 0016 does not invent a quota/window/index merely to optimize the experiment.
 
 ### Memory
 
-Opportunity-bearing state retains references to:
+Wrappers retain references to immutable existing objects; no Production/event payload duplication.
 
-```text
-ProductionState
-accepted Performance history
-Opportunity history
-```
+Postcommit state temporarily retains source Context + source Opportunity history solely for exact phase-two authority. These are internal and can become unreachable after the caller adopts the next Opportunity-bearing state.
 
-Postcommit state temporarily retains references to:
-
-```text
-postcommit ProductionState
-accepted Performance history
-commit event
-source Context
-source Opportunity history
-```
-
-No Production/event payload is copied merely for the wrapper.
-
-Retaining the exact source Context through phase two is necessary because existing `DeterministicOpportunityAuthority.Establish(...)` intentionally binds Director recomputation to that accepted Candidate's Context identity/roster. It is kept internal and normally released when the caller replaces the postcommit token with the next opportunity-bearing token.
+No background work or cache is added.
 
 ---
 
-## 17. ARM64/battery suitability
+## 19. ARM64/battery suitability
 
-Patch 0016 is synchronous deterministic CPU/memory orchestration only.
+Synchronous deterministic CPU/memory only.
 
-It adds no:
+No x86/emulation, provider/network, filesystem, idle/background work, clock/randomness, Tasks/threads/timers, Windows APIs, or GPU/NPU wake.
 
-- x86 dependency/emulation;
-- network/provider SDK;
-- filesystem;
-- background/idle work;
-- clock/randomness;
-- Task/thread/timer;
-- GPU/NPU wake;
-- Windows API.
-
-This preserves the current ARM64/low-idle architecture by construction. No measured performance/battery claim is made.
+No measured performance/battery claim.
 
 ---
 
-## 18. Expected implementation surface
+## 20. Expected implementation surface
 
 Preferred source additions only:
 
@@ -762,8 +699,6 @@ src/Ensemble.E0.Core/Orchestration/
     E0CausalCycleModels.cs
     DeterministicE0CausalCycle.cs
 ```
-
-An internal invariant helper may live in one of those files. Do not create another project/assembly.
 
 Preferred test additions only:
 
@@ -774,224 +709,169 @@ tests/Ensemble.E0.Core.Tests/Orchestration/
     E0CausalCycleDeterminismTests.cs
 ```
 
-**Default implementation expectation:** no existing Patch 0015 source or test file changes.
+Default expectation: **zero existing Patch 0015 source/test edits and zero Harness edits**.
 
-Patch 0015 tests remain lower-layer authority and should not be rewritten merely to consume the new wrapper. New Patch 0016 tests independently reproduce/cross-check the frozen Patch 0015 oracle through the orchestration API.
+New tests cross-check frozen lower oracles independently through the new public orchestration surface. Patch 0015 tests remain lower-authority regression evidence.
 
-If implementation discovers a concrete inherited reflection/public-surface guard that necessarily rejects the new Orchestration namespace, adapt only that exact guard and record the reason. No such required inherited adaptation has been identified during Proposal 0.2 audit so far.
+If a concrete inherited reflection/public-surface guard necessarily fails because the new namespace exists, adapt only that exact guard and record why. None is currently identified.
 
-Any semantic change required in existing Context/CausalCommit/Opportunity/Continuity/Take authority reopens architecture rather than being silently patched.
-
-Harness remains unchanged in Patch 0016.
+Any semantic modification required in Context/CausalCommit/Opportunity/Continuity/Take reopens architecture.
 
 ---
 
-## 19. Required test matrix
+## 21. Required test matrix
 
-### Public/type-state surface
+### Public/type-state closure
 
-Prove exactly five public Orchestration types and exact signatures.
+- exactly five exported Orchestration types;
+- exact properties/method signatures;
+- no public constructors/setters/extra instance methods on state/result types;
+- no public exception constructor;
+- no provider/network/filesystem/Windows/clock/task/thread/timer/GPU/NPU/QNN/ONNX/persistence signature;
+- compile-time method parameter types enforce phase legality.
 
-Prove state/result classes:
+### Validated factories/invariants
 
-- no public constructors;
-- no public setters;
-- no extra declared public methods.
+Internal validated factories may be invoked via reflection in tests solely to prove they reject mismatched existing immutable components:
 
-Prove exception has no public constructor.
+- stale accepted history;
+- stale Opportunity history;
+- Scene mismatch;
+- current/last Opportunity mismatch;
+- history-count mismatch;
+- roster mismatch;
+- postcommit source-context/commit mismatch.
 
-Prove no public Orchestration signature contains provider/network/filesystem/Windows/clock/task/thread/timer/GPU/NPU/QNN/ONNX/persistence/repository types.
+No public arbitrary rebind API is added for these tests.
 
-Compile-time signatures themselves prove:
+### Initialize / Context
 
-- `ComposeContext`/`CommitAcceptedTake` cannot accept postcommit state;
-- `EstablishOpportunity` cannot accept opportunity-bearing state.
-
-### Initialize
-
-- Missing Raft exact genesis initializes;
-- null/non-genesis/invalid genesis fails closed;
-- initial current Opportunity is exact;
-- first `ComposeContext` preserves exact v2 identity.
-
-### Wrapper synchronization adversarial tests
-
-Using reflection only for test-only construction of otherwise impossible invalid wrappers where needed:
-
-- stale accepted history rejected;
-- stale Opportunity history rejected;
-- Scene mismatch rejected;
-- wrong last Opportunity Character rejected;
-- current Opportunity mismatch rejected;
-- count mismatch rejected;
-- roster mismatch rejected.
-
-### Context bridge
-
-- genesis -> exact existing v2 oracle;
-- evolved opportunity-bearing state -> exact existing v3 oracle;
-- repeated composition on identical state is byte/identity equivalent;
-- AccessEvaluation remains available;
-- no new schema/version/hash.
+- Missing Raft genesis initializes;
+- invalid/non-genesis fails;
+- genesis Context exact v2 oracle;
+- evolved Context exact v3 oracle;
+- repeated Context composition preserves bytes/identities;
+- AccessEvaluation remains returned.
 
 ### Commit phase
 
-- exact Patch 0015 first live Accepted Take -> exact existing postcommit StateHash;
-- returned postcommit state has no current Opportunity;
-- accepted history advances exactly once internally;
-- source Opportunity history does not advance in phase one;
-- Rejected/Alternate Takes fail;
-- stale/tampered Context fails through exact history-aware binding;
-- stale Production cannot commit;
-- duplicate CommitId/TakeId remains inherited;
-- record-materialization rules remain inherited;
-- zero-mutation and all-durable-consequence-Rejected Accepted Takes retain historical Performance semantics;
-- phase one never silently establishes the next Opportunity.
+- first live Accepted Take -> exact frozen postcommit StateHash;
+- postcommit has no Opportunity;
+- accepted history advances once;
+- retained source Opportunity history does not advance;
+- Rejected/Alternate fail;
+- stale/tampered Context fails through history-aware binding;
+- stale state/duplicate IDs/materialization rules stay inherited;
+- zero-mutation/all-durable-consequence-Rejected Accepted Take preserves historical Performance;
+- phase one never establishes Opportunity.
 
 ### Opportunity phase
 
-- exact first live oracle selects MARLOWE;
-- exact existing Opportunity StateHash preserved;
-- accepted history does not append in phase two;
-- Opportunity history advances exactly once;
-- final `O == H + 1`;
-- next `ComposeContext` is exact existing MARLOWE v3 oracle;
-- multi-turn reference route remains `VOSS -> MARLOWE -> WREN -> VOSS`;
-- repeated identical Performances, Character recurrence, and self-history remain unchanged.
+- first live route selects MARLOWE;
+- exact frozen Opportunity StateHash;
+- accepted history no append in phase two;
+- Opportunity history advances once;
+- final `O=H+1`;
+- next Context exact MARLOWE v3 oracle;
+- multi-turn `VOSS -> MARLOWE -> WREN -> VOSS` unchanged;
+- repeated identical Performance/Character recurrence/self-history unchanged.
 
-### Two-adoption proof
+### Two-adoption / purity
 
-Dedicated regression must prove:
-
-1. `CommitAcceptedTake(...)` returns an externally retainable `E0PostCommitCycleState` before any Opportunity call.
-2. Its Production state is the exact committed postcommit StateHash and has no Opportunity.
-3. `EstablishOpportunity(...)` consumes that different type later.
-4. A deliberately invalid phase-two wrapper/failure does not mutate or replace the already-returned postcommit Production object.
-5. No API returns a staged commit result as a live cycle state before accepted-history advancement succeeds.
-6. No API returns a staged Opportunity result as a live cycle state before `RecordOpportunity(...)` succeeds.
+- phase-one successor exists before phase-two invocation;
+- phase-one successor is exact postcommit/no-Opportunity state;
+- phase-two consumes only postcommit type;
+- phase-two failure/tampered test input cannot mutate the already-created phase-one Production object;
+- no staged lower commit result is exposed as a cycle successor before RecordCommit;
+- no staged Opportunity result is exposed before RecordOpportunity;
+- repeated call on identical immutable state/input yields equivalent canonical successor identities;
+- source wrapper remains unchanged after every call.
 
 ### Dependency/hygiene
 
-- exactly the new Orchestration source depends on the new namespace;
-- lower source remains unchanged by default;
-- no provider/persistence/platform dependency;
-- no new canonical serializer/event/hash;
-- no Harness change.
+- only new Orchestration source introduces Orchestration namespace;
+- lower source unchanged by default;
+- no new serializer/event/hash/platform/provider/persistence dependency;
+- Harness unchanged.
 
 ---
 
-## 20. Historical lower APIs remain exact
+## 22. Historical lower APIs remain exact
 
-Patch 0016 composes but does not replace/delete:
+Patch 0016 composes but does not replace/delete prior public lower APIs, including Context continuity, history-aware binding, causal Commit/Replay, accepted-history initialization/advancement, Opportunity Establish/Replay, and Opportunity-history initialization.
 
-```text
-E0ProductionContextContinuity.Compose
-E0ProductionContextContinuity.ComposeWithAcceptedHistory
-E0TakeStateBinding.Bind
-E0TakeStateBinding.BindWithAcceptedHistory
-DeterministicCausalCommit.Commit / Replay
-E0AcceptedPerformanceHistoryContinuity.Initialize
-E0AcceptedPerformanceHistoryContinuity.RecordCommit
-E0AcceptedPerformanceHistoryContinuity.RecordOpportunity
-DeterministicOpportunityAuthority.Establish / Replay
-E0OpportunityHistory.Initialize
-```
+These remain exact prior-patch authority/testing contracts.
 
-They remain necessary lower authority/testing contracts frozen by prior patches.
-
-No external compatibility obligation is created for the new Patch 0016 wrapper before shipping; if later evidence proves its representation wrong, the canonical pre-release design may still be corrected.
+No external compatibility obligation is created for Patch 0016 before shipping; later evidence may still justify correcting this new wrapper representation.
 
 ---
 
-## 21. Explicit non-scope
+## 23. Explicit non-scope
 
-Patch 0016 does not implement/decide:
-
-- provider/model invocation;
-- request/attempt/retry/spend/streaming provenance;
-- cancellation-token ownership;
-- refusal/timeout/backoff;
-- understudy selection;
-- Candidate generation;
-- model-assisted Integrity/Interpreter;
-- Take review UX;
-- rejection/alternate retry orchestration;
-- full Scene/run loop;
-- run termination;
-- run-level call/cost budgets;
-- immutable E0 run bundle;
-- transcript/blind-review package;
-- persistence/recovery;
-- cross-Scene history;
-- observation/CharacterClaim disclosure;
-- World Resolver;
-- branches/retcon/rehearsal;
-- WinUI;
-- Windows AI/Aion/Phi/LoRA;
-- Windows ML/QNN/NPU;
-- App Actions/MCP;
-- MSIX/IPackageValidator/WACK/Store.
+No provider/model invocation; request/attempt/retry/spend/streaming provenance; cancellation ownership; refusal/timeout/backoff; understudy selection; Candidate generation; model-assisted Integrity/Interpreter; Take review UX; rejection/alternate retry orchestration; full Scene/run loop; run termination/budgets; E0 run bundle/transcript package; persistence/recovery; cross-Scene history; observation/CharacterClaim disclosure; World Resolver; branch/canon/retcon/rehearsal; WinUI; Windows AI/Aion/Phi/LoRA; Windows ML/QNN/NPU; App Actions/MCP; MSIX/IPackageValidator/WACK/Store.
 
 ---
 
-## 22. What Patch 0016 unlocks
-
-After Patch 0016 is implemented/natively validated, a later H1/E0-A boundary can safely define technical Performer attempts against this deterministic target:
+## 24. What Patch 0016 unlocks
 
 ```text
 OpportunityBearingCycleState
  -> ComposeContext
- -> technical provider attempt(s)
+ -> future technical attempt orchestration
  -> Candidate / Integrity / Interpreter / State Authority / Take
- -> if Accepted:
+ -> Accepted only:
       CommitAcceptedTake
-      -> authoritative E0PostCommitCycleState
+      -> validated PostCommitCycleState
       -> EstablishOpportunity
-      -> next OpportunityBearingCycleState
- -> if not Accepted:
-      no causal-cycle commit
+      -> validated next OpportunityBearingCycleState
 ```
 
-This makes the separation between technical execution and fictional authority explicit in the call graph.
+Technical execution and fictional authority now meet at one explicit accepted-commit boundary.
 
 ---
 
-## 23. Proposal 0.2 corrections from the first audit pass
+## 25. Proposal correction history
 
-Relative to Proposal 0.1:
+### 0.1 -> 0.2
 
-1. made distinct type-state signatures an explicit architectural law rather than only a modeling consequence;
-2. renamed final result property from generic `State` to `OpportunityBearingState`;
-3. removed any implied executable requirement that parent/result StateHashes must differ; existing canonical authorities remain sole hash authority;
-4. strengthened privacy review for retained `InnerException` paths;
-5. clarified why exact source Context retention through phase two is necessary and internal;
-6. changed implementation expectation from optional Patch 0015 helper refactoring to **new-source/new-test additions only by default**;
-7. made semantic changes to lower Patch 0015 authority an architecture-reopen condition rather than an implementation convenience.
+- explicit type-state phase law;
+- clearer final result property name;
+- removed invented parent/result-hash inequality rule;
+- tightened InnerException/privacy audit;
+- removed default Patch 0015 test refactor.
 
-The recursive audit restarts from correctness at Proposal 0.2.
+### 0.2 -> 0.3
+
+- clarified pure value semantics vs hidden global adoption;
+- added explicit caller adoption law so repeated pure derivation does not silently create multiple live heads;
+- moved wrapper aggregate validation to closed construction rather than rescanning before every method;
+- required reuse of existing accepted-history and Opportunity invariant owners;
+- removed unsupported reflection-forgery defensive requirements from ordinary runtime paths while retaining targeted factory tests;
+- made added complexity/memory cost explicit.
+
+Audit restarts from correctness at Proposal 0.3.
 
 ---
 
-## 24. Recursive audit closure criterion
+## 26. Recursive audit closure criterion
 
-Implementation remains forbidden until one complete fresh pass finds:
+Implementation forbidden until one complete fresh pass finds:
 
 ```text
 0 material correctness corrections
-0 authority corrections
-0 Patch-0015 two-adoption corrections
+0 authority/adoption corrections
 0 dependency-direction corrections
-0 synchronization/invariant corrections
-0 failure-domain/privacy corrections
+0 synchronization/type-state corrections
+0 failure/privacy corrections
 0 canonical/hash/version corrections
 0 E0-scope corrections
 0 worthwhile public-surface simplifications
 0 worthwhile test improvements
 0 ARM64/battery/hygiene corrections
-0 program-plan inconsistencies
+0 ship-plan inconsistencies
 0 evidence corrections
 ```
 
-Any material/worthwhile correction restarts the audit from the relevant authority layer and increments the Proposal version.
+Any material/worthwhile correction increments Proposal version and restarts from the affected authority layer.
 
-Only after a clean pass may blueprint-audit evidence be created and explicit Director approval requested.
+Only a clean pass permits blueprint-audit evidence and explicit Director approval request.
