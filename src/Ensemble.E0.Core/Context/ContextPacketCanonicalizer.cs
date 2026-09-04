@@ -237,7 +237,7 @@ public static class ContextPacketCanonicalizer
 
     private static ContextSemanticVersion ValidateSemanticVersionShape(ContextSemanticContent content)
     {
-        ValidateRecentPerformances(content.RecentPerformances);
+        ValidateRecentPerformances(content.RecentPerformances, content.Roster);
 
         var isV1 = string.Equals(
                 content.SchemaVersion,
@@ -324,12 +324,48 @@ public static class ContextPacketCanonicalizer
     }
 
     private static void ValidateRecentPerformances(
-        ImmutableArray<ContextRecentPerformance> recentPerformances)
+        ImmutableArray<ContextRecentPerformance> recentPerformances,
+        ImmutableArray<ContextParticipant> roster)
     {
         if (recentPerformances.IsDefault)
         {
             throw new ContextCompositionException(
                 "Context recent Performance history is uninitialized.");
+        }
+
+        if (recentPerformances.Length == 0)
+        {
+            return;
+        }
+
+        if (roster.IsDefault || roster.Length == 0)
+        {
+            throw new ContextCompositionException(
+                "Context recent Performance roster is uninitialized.");
+        }
+
+        var rosterCounts = new Dictionary<string, int>(StringComparer.Ordinal);
+        foreach (var participant in roster)
+        {
+            if (participant is null)
+            {
+                throw new ContextCompositionException(
+                    "Context recent Performance roster contains an invalid participant.");
+            }
+
+            string participantId;
+            try
+            {
+                participantId = participant.CharacterId.Value;
+            }
+            catch (InvalidOperationException exception)
+            {
+                throw new ContextCompositionException(
+                    "Context recent Performance roster contains an uninitialized Character.",
+                    exception);
+            }
+
+            rosterCounts[participantId] = rosterCounts.GetValueOrDefault(participantId) + 1;
         }
 
         foreach (var performance in recentPerformances)
@@ -340,15 +376,22 @@ public static class ContextPacketCanonicalizer
                     "Context recent Performance history contains an invalid item.");
             }
 
+            string sourceCharacterId;
             try
             {
-                _ = performance.SourceCharacterId.Value;
+                sourceCharacterId = performance.SourceCharacterId.Value;
             }
             catch (InvalidOperationException exception)
             {
                 throw new ContextCompositionException(
                     "Context recent Performance source Character is uninitialized.",
                     exception);
+            }
+
+            if (!rosterCounts.TryGetValue(sourceCharacterId, out var occurrences) || occurrences != 1)
+            {
+                throw new ContextCompositionException(
+                    "Context recent Performance source Character must resolve exactly once in the roster.");
             }
 
             if (CharacterLegibleTextInvariants.Validate(performance.VisibleText) !=
