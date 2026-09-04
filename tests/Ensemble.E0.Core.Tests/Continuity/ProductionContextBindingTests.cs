@@ -50,6 +50,62 @@ public sealed class ProductionContextBindingTests
     }
 
     [TestMethod]
+    public void SameStructuredIdentity_WithTamperedRenderedBytes_FailsExactRecomposition()
+    {
+        var evolved = Patch0014TestSupport.Evolved("BIND-RENDER-TAMPER");
+        var original = evolved.Result.ContextEvaluation.Packet;
+        var tamperedRendered = ConstructNonPublic<RenderedContext>(
+            original.Rendered.RenderingContract,
+            original.Rendered.TrustedStateText,
+            original.Rendered.RecentPerformanceText,
+            original.Rendered.OpportunityText + " Tampered.");
+        var tampered = Clone(
+            original,
+            original.SchemaVersion,
+            original.CompositionContract,
+            original.SceneState,
+            rendered: tamperedRendered);
+        var take = Patch0014TestSupport.AcceptedTake(
+            evolved.Opportunity.State,
+            original,
+            "BIND-RENDER-TAMPER");
+
+        Assert.AreEqual(original.ContextPacketId, tampered.ContextPacketId);
+        Assert.AreEqual(original.StructuredContextHash, tampered.StructuredContextHash);
+        Assert.Throws<E0CausalCommitException>(() =>
+            E0TakeStateBinding.Bind(evolved.Checkpoint, tampered, take));
+    }
+
+    [TestMethod]
+    public void ExactBytes_WithTamperedStoredHashes_FailExactRecomposition()
+    {
+        var evolved = Patch0014TestSupport.Evolved("BIND-HASH-TAMPER");
+        var original = evolved.Result.ContextEvaluation.Packet;
+        var take = Patch0014TestSupport.AcceptedTake(
+            evolved.Opportunity.State,
+            original,
+            "BIND-HASH-TAMPER");
+
+        var structuredHashTamper = Clone(
+            original,
+            original.SchemaVersion,
+            original.CompositionContract,
+            original.SceneState,
+            structuredContextHash: new string('0', 64));
+        Assert.Throws<E0CausalCommitException>(() =>
+            E0TakeStateBinding.Bind(evolved.Checkpoint, structuredHashTamper, take));
+
+        var renderedHashTamper = Clone(
+            original,
+            original.SchemaVersion,
+            original.CompositionContract,
+            original.SceneState,
+            renderedContextHash: new string('0', 64));
+        Assert.Throws<E0CausalCommitException>(() =>
+            E0TakeStateBinding.Bind(evolved.Checkpoint, renderedHashTamper, take));
+    }
+
+    [TestMethod]
     public void EvolvedCheckpoint_RejectsHistoricalV1EvenWhenSubjectAndSceneMatch()
     {
         var evolved = Patch0014TestSupport.Evolved("BIND-V1-EVOLVED");
@@ -133,15 +189,27 @@ public sealed class ProductionContextBindingTests
             ContextPacketCanonicalizer.SerializeStructured(hybrid));
     }
 
+    [TestMethod]
+    public void UnsupportedSchemaCompositionCombination_FailsCanonicalization()
+    {
+        var v2 = Patch0014TestSupport.Genesis().Result.ContextEvaluation.Packet;
+        var hybrid = Clone(
+            v2,
+            schemaVersion: E0ContextContracts.ProductionBoundSchemaVersion,
+            compositionContract: E0ContextContracts.CompositionContract,
+            sceneState: v2.SceneState);
+
+        Assert.Throws<ContextCompositionException>(() =>
+            ContextPacketCanonicalizer.SerializeStructured(hybrid));
+    }
+
     private static ContextPacket CloneWithFirstSceneStateText(
         ContextPacket source,
         string replacementText)
     {
-        var recordConstructor = typeof(ContextRecord)
-            .GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic)
-            .Single();
-        var replacement = (ContextRecord)recordConstructor.Invoke(
-            new object[] { source.SceneState[0].RecordId, replacementText });
+        var replacement = ConstructNonPublic<ContextRecord>(
+            source.SceneState[0].RecordId,
+            replacementText);
         var builder = source.SceneState.ToBuilder();
         builder[0] = replacement;
         return Clone(
@@ -157,7 +225,10 @@ public sealed class ProductionContextBindingTests
         string compositionContract,
         ImmutableArray<ContextRecord> sceneState,
         Ensemble.E0.Core.Production.StateHash? sourceStateHash = null,
-        bool overrideSourceStateHash = false)
+        bool overrideSourceStateHash = false,
+        RenderedContext? rendered = null,
+        string? structuredContextHash = null,
+        string? renderedContextHash = null)
     {
         var constructor = typeof(ContextPacket)
             .GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic)
@@ -188,10 +259,18 @@ public sealed class ProductionContextBindingTests
             source.Memories,
             source.Goals,
             source.Relationships,
-            source.StructuredContextHash,
-            source.Rendered,
-            source.RenderedContextHash
+            structuredContextHash ?? source.StructuredContextHash,
+            rendered ?? source.Rendered,
+            renderedContextHash ?? source.RenderedContextHash
         });
+    }
+
+    private static T ConstructNonPublic<T>(params object?[] arguments)
+    {
+        var constructor = typeof(T)
+            .GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic)
+            .Single(candidate => candidate.GetParameters().Length == arguments.Length);
+        return (T)constructor.Invoke(arguments);
     }
 
     private static ValidatedFixture MutatedMissingRaftFixture()
