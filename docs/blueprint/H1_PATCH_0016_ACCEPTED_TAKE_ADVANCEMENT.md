@@ -1,10 +1,10 @@
 # H1 Patch 0016 — Deterministic Accepted Take Advancement
 
-Status: **Blueprint Proposal 0.7 — EXPLORATORY; recursive adversarial audit restarted from correctness; implementation forbidden**
+Status: **Blueprint Proposal 0.8 — EXPLORATORY; recursive adversarial audit restarted from correctness; implementation forbidden**
 
 Date: 2026-09-04
 
-Authoritative parent `main`: `a2b1458509e595847360aaa0729e90a99eb98063`
+Authoritative parent `main`: `5186b0ab624165ab9872630592b164bf3764273d`
 
 Parent executable authority: `H1 Patch 0015 — E0 Accepted Performance History + Context Continuity`
 
@@ -140,7 +140,7 @@ No provider SDK, filesystem, network, clock, random, Task, thread, cancellation 
 
 ## 6. Exact public surface
 
-Proposal 0.7 adds exactly:
+Proposal 0.8 adds exactly:
 
 ```csharp
 namespace Ensemble.E0.Core.Orchestration;
@@ -554,6 +554,9 @@ Added structural composition regression and allowed minimal test-only IL helper 
 
 ### 0.6 -> 0.7
 Removed all Patch 0016 domain/null/disposition validation that existing lower authorities already own. Patch 0016 now owns only ordered composition, stage-specific narrow failure normalization, and final result exposure. Structural tests now also guard the Capture call and absence of catch-all relabeling.
+
+### 0.7 -> 0.8
+Rebased the blueprint branch onto current `main` checkpoint `5186b0ab624165ab9872630592b164bf3764273d` after the approved Ship Plan promotion checkpoint was recorded. The new parent commit is documentation-only and changes no executable Patch 0015 semantics or machine authority; this correction updates architecture provenance only.
 
 ---
 
