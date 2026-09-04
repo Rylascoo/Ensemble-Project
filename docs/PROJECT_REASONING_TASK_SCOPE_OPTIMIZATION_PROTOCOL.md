@@ -2,7 +2,7 @@
 
 Status: ACTIVE CROSS-PROJECT WORKFLOW LAW
 
-Protocol version: 0.1
+Protocol version: 0.2
 
 Date: 2026-09-04
 
@@ -15,6 +15,21 @@ The optimization target is:
 > **Maximum useful reasoning, synthesis, falsification, and completed dependency closure per Director turn — not maximum response length, token use, code volume, artifact count, or number of simultaneous objectives.**
 
 This protocol changes collaboration granularity only. It does not alter product architecture, repository authority, validation authority, implementation approval boundaries, or Director creative authority.
+
+### Anti-churn clarification
+
+For this project, `churn` primarily means:
+
+- unnecessary clarifying questions when project authority or safe defaults already resolve the issue;
+- repeated requests to approve intermediate work that is already inside an approved objective or phase;
+- returning to the Director merely because one internal subartifact, critique, packet, patch or audit stage is complete;
+- splitting one causal work unit into multiple conversational turns without a real authority or external-dependency reason.
+
+It does **not** mean `do less work per turn`.
+
+Governing interpretation:
+
+> **Do more of the already-authorized coherent work before returning; ask fewer unnecessary questions; stop only when Director/external input is actually consequential or execution cannot continue without it.**
 
 ## 2. Mandatory task-scope optimization step
 
@@ -31,7 +46,10 @@ A well-optimized task scope should normally:
 5. include targeted contradiction, edge-case, and falsification analysis;
 6. recursively audit the completed work until a full pass finds no material correction or worthwhile improvement within scope;
 7. update durable project state when a meaningful checkpoint changes;
-8. stop at the next consequential Director, architecture, implementation, security, runtime, WACK, Store, or other external-validation gate.
+8. continue through already-authorized intermediate operations instead of returning for low-value approval;
+9. stop at the next **genuinely consequential** Director, architecture, implementation, security, runtime, WACK, Store, external-dependency or other external-validation gate.
+
+A `gate` is not consequential merely because a document calls it a gate. It is consequential when proceeding would require new authority, a creative/product selection, an architecture/scope change, user-machine execution, external evidence, or another dependency that cannot be completed safely from current authority.
 
 ## 3. What Sol High should be spent on
 
@@ -47,7 +65,8 @@ Prefer using the additional reasoning capacity for:
 - accessibility, privacy, ARM64/battery/quiescence, and capability-degradation implications;
 - adversarial review and recursive quality audits;
 - determining what should *not* be changed;
-- deciding the smallest justified next action after the current objective is complete.
+- deciding the smallest justified next action after the current objective is complete;
+- recognizing when the next action is already authorized and should be executed without asking again.
 
 Do not spend High reasoning merely producing more prose, more variants, larger code blocks, more files, or broader scope without a dependency reason.
 
@@ -59,7 +78,19 @@ Combine work because the pieces depend on one another, not because a larger repl
 
 ### Closure over fragmentation
 
-If source synthesis, a small correction, its targeted verification, checkpoint evidence, and continuity update are one causal work unit, complete them together instead of requesting repeated low-value approvals.
+If source synthesis, a small correction, its targeted verification, checkpoint evidence, continuity update and the next already-authorized internal operation are one causal work unit, complete them together instead of requesting repeated low-value approvals.
+
+### Questions are a last resort
+
+Do not ask the Director to choose or restate information when:
+
+- authoritative GitHub/Drive/project evidence already answers it;
+- a previously approved phase or proposal already supplies the needed authority;
+- the decision is an internal method choice that does not change product/creative authority;
+- a safe deterministic default can be used and documented;
+- the next step is merely archival, audit, packet preparation, targeted verification or another logically coupled operation.
+
+Ask only when proceeding would otherwise invent a material requirement, cross a real authority boundary, or risk doing the wrong irreversible/external action.
 
 ### Consequential gates remain explicit
 
@@ -74,13 +105,39 @@ Do not silently cross:
 - WACK or Store certification;
 - any other gate whose authority belongs to the Director, the user's machine, or an external validator.
 
+These boundaries prevent unauthorized decisions; they are **not** instructions to stop after every intermediate proposal or artifact.
+
+### Standing continuation within approved scope
+
+Once the Director approves a bounded phase/proposal or says `continue`, complete downstream logically coupled internal work until one of the consequential boundaries above is reached.
+
+Examples:
+
+- approved design method -> create its packet -> perform available archival/checkpoint work -> prepare the next non-convergent experiment if justified;
+- compiler evidence -> diagnose -> patch -> static/targeted checks -> checkpoint if meaningful -> return at the next native-machine gate;
+- visual evidence -> critique -> archive -> derive transferable law -> prepare the next lateral packet if no convergence decision is required.
+
+Do not request approval for each arrow in those chains.
+
+### Comparative micro-batches are allowed when they reduce churn
+
+When the bounded objective is comparative research and no intermediate result must be selected before the next comparison, a small micro-batch of independent experiments may be authorized in one Director work package.
+
+For isolated image research:
+
+- one image per fresh disposable Renderer Context remains the default isolation law;
+- one Director work package may authorize multiple separate clean Renderer Contexts when the images answer one comparative question;
+- each packet must remain isolated from the other results unless deliberate cross-conditioning is the experiment;
+- batch size should stay as small as needed for discriminating evidence;
+- a batch does not authorize convergence or refinement.
+
 ### Simple tasks stay simple
 
 A status check, exact factual lookup, narrow correction, or confirmation should remain compact even while Sol High reasoning is active. Optimization means appropriate scope, not mandatory complexity.
 
 ### One objective, multiple coupled operations
 
-A single optimized work package may contain many reads, comparisons, patches, tests, archival writes, and recursive audits if they all answer the same bounded objective.
+A single optimized work package may contain many reads, comparisons, patches, tests, archival writes, recursive audits, packet preparations and other internal operations if they all answer the same bounded objective.
 
 ### No background promises
 
@@ -96,25 +153,27 @@ Do not regenerate full archives or documentation sets for ordinary corrections.
 
 ### Architecture/design proposal
 
-`authority -> unresolved question -> alternatives -> implications -> adversarial/falsification pass -> recursive audit -> confident recommendation -> consequential Director gate`
+`authority -> unresolved question -> alternatives -> implications -> adversarial/falsification pass -> recursive audit -> confident recommendation -> execute already-authorized downstream internal work -> consequential Director gate`
 
 Do not split each analytical subsection into separate approval turns.
 
 ### Visual exploration
 
-`durable laws -> sterile experiment scope -> genuinely divergent work -> critique/falsification -> evidence archive -> transferable findings -> stop before unapproved convergence`
+`durable laws -> sterile experiment scope -> genuinely divergent work/evidence -> critique/falsification -> evidence archive -> transferable findings -> next lateral experiment/packet when already authorized -> stop before unapproved convergence or unavoidable renderer/external dependency`
 
 Do not equate polish, praise, recency, or renderer repetition with selection.
 
+Do not stop merely to ask permission to create the next non-convergent packet when the Director has already approved the active exploration phase and no creative-selection boundary is crossed.
+
 ### Artifact/checkpoint work
 
-`source truth -> artifact creation/update -> internal consistency audit -> provenance/archive -> CURRENT_STATE/handoff update when meaningful -> readback/recheck`
+`source truth -> artifact creation/update -> internal consistency audit -> provenance/archive -> CURRENT_STATE/handoff update when meaningful -> readback/recheck -> continue if the next operation is already authorized`
 
 Treat archival/checkpoint work as part of the same objective when it is causally required by the artifact.
 
 ### Research/verification
 
-`question -> authoritative project sources -> identify unsupported gaps -> current external verification only when materially needed -> synthesis -> decision/implication`
+`question -> authoritative project sources -> identify unsupported gaps -> current external verification only when materially needed -> synthesis -> decision/implication -> execute any already-authorized follow-through`
 
 Separate source-derived facts from inference or external research.
 
@@ -128,7 +187,8 @@ A work package is complete when one full pass finds:
 - no authority inconsistency;
 - no meaningful scope violation;
 - no unsupported validation claim;
-- no worthwhile improvement that belongs inside the current objective.
+- no worthwhile improvement that belongs inside the current objective;
+- no remaining already-authorized operation whose completion would avoid an unnecessary Director round trip.
 
 This does not require polishing forever. Improvements outside the bounded objective become later work rather than scope creep.
 
@@ -147,7 +207,7 @@ This protocol strengthens, rather than replaces:
 
 Required synthesis:
 
-> **The smallest unresolved question still defines the objective; GPT-5.6 Sol High determines how much logically coupled work should be completed around that objective before returning to the Director.**
+> **The smallest unresolved question still defines the objective; GPT-5.6 Sol High determines how much logically coupled work should be completed around that objective before returning to the Director. `Stop` means stop at the next consequential authority/external-dependency boundary—not after every intermediate step.**
 
 ## 8. Fresh-chat requirement
 
@@ -155,4 +215,6 @@ Fresh Ensemble/Kymaean project chats should treat this protocol as active workfl
 
 Do not ask the Director to restate this permission.
 
-For each substantive future turn, optimize task granularity deliberately before execution.
+Do not reinterpret `anti-churn` as reduced initiative or reduced in-scope work.
+
+For each substantive future turn, optimize task granularity deliberately before execution, minimize unnecessary questions, and complete already-authorized downstream work before returning.
