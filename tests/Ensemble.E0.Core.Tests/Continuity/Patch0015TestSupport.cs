@@ -41,13 +41,24 @@ internal static class Patch0015TestSupport
             materializations ?? EmptyMaterializations());
     }
 
-    internal static LiveTurn FirstOracleTurn() =>
-        FirstLiveTurn(
+    internal static LiveTurn FirstOracleTurn()
+    {
+        var fixture = Patch0012TestSupport.LoadMissingRaft();
+        var state = Patch0012TestSupport.Genesis(fixture);
+        var acceptedHistory = E0AcceptedPerformanceHistoryContinuity.Initialize(state);
+        var opportunityHistory = E0OpportunityHistory.Initialize(state);
+        return RunTurn(
+            state,
+            acceptedHistory,
+            opportunityHistory,
             suffix: "LIVE-ORACLE",
             visibleText: "No.",
             mutations: new[] { Patch0012TestSupport.PressureAdd() },
             autoApproveDomains: new[] { StateMutationDomain.Pressure },
-            materializations: Materials((0, "PRESSURE-PATCH-0015-LIVE-ORACLE")));
+            materializations: Materials((0, "PRESSURE-PATCH-0012-ORACLE")),
+            takeId: "TAKE-PATCH-0012-ORACLE",
+            commitId: "COMMIT-PATCH-0012-ORACLE");
+    }
 
     internal static LiveTurn RunNextTurn(
         LiveTurn previous,
@@ -74,7 +85,9 @@ internal static class Patch0015TestSupport
         string visibleText,
         IReadOnlyList<Dictionary<string, object?>> mutations,
         IReadOnlyList<StateMutationDomain> autoApproveDomains,
-        E0RecordMaterializationSet materializations)
+        E0RecordMaterializationSet materializations,
+        string? takeId = null,
+        string? commitId = null)
     {
         var checkpoint = ProductionStateCheckpoint.Capture(state);
         var contextResult = E0ProductionContextContinuity.ComposeWithAcceptedHistory(
@@ -87,14 +100,14 @@ internal static class Patch0015TestSupport
             visibleText,
             mutations,
             autoApproveDomains,
-            $"TAKE-PATCH-0015-{suffix}");
+            takeId ?? $"TAKE-PATCH-0015-{suffix}");
         var binding = E0TakeStateBinding.BindWithAcceptedHistory(
             checkpoint,
             context,
             take,
             acceptedHistory);
         var commitResult = DeterministicCausalCommit.Commit(
-            CommitId.From($"COMMIT-PATCH-0015-{suffix}"),
+            CommitId.From(commitId ?? $"COMMIT-PATCH-0015-{suffix}"),
             state,
             binding,
             materializations);
