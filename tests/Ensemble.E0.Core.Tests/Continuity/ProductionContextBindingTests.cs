@@ -259,6 +259,7 @@ public sealed class ProductionContextBindingTests
             source.Memories,
             source.Goals,
             source.Relationships,
+            source.RecentPerformances,
             structuredContextHash ?? source.StructuredContextHash,
             rendered ?? source.Rendered,
             renderedContextHash ?? source.RenderedContextHash
