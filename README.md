@@ -10,6 +10,8 @@ Blueprint 0.1 is frozen for E0. The active engineering phase is **E0-A Harness I
 
 Read [`CURRENT_STATE.md`](CURRENT_STATE.md) before modifying source.
 
+Then read [`docs/PROJECT_REASONING_TASK_SCOPE_OPTIMIZATION_PROTOCOL.md`](docs/PROJECT_REASONING_TASK_SCOPE_OPTIMIZATION_PROTOCOL.md) and deliberately optimize each substantive task scope for GPT-5.6 Sol High reasoning before execution.
+
 ## Repository roles
 
 - **GitHub:** authoritative engineering source, tests, fixtures, validation evidence, implementation checkpoints.
@@ -19,7 +21,15 @@ See [`docs/PROJECT_AUTHORITY.md`](docs/PROJECT_AUTHORITY.md), [`docs/ENGINEERING
 
 ## Engineering discipline
 
-Every accepted implementation must leave the active codebase at least as coherent as the validated baseline it replaces. Git preserves superseded work; the active tree preserves the best current architecture. New patches are reviewed for correctness, consistency, authority, scope, tests, simplicity, hygiene, ARM64 suitability, vision, and evidence.
+Every accepted implementation must leave the active codebase at least as coherent as the validated baseline it replaces. New patches are reviewed for correctness, consistency, authority, scope, tests, simplicity, hygiene, ARM64 suitability, vision, and evidence.
+
+For each substantive Director turn, choose the largest logically coupled, falsifiable work package that belongs to one objective and can be completed with current evidence/tools. Spend Sol High reasoning on source reconciliation, architecture/dependency analysis, root-cause diagnosis, smallest-surface patch planning, edge cases, regression strategy, privacy/accessibility/ARM64 implications, contradiction detection, and recursive audit—not on artificially larger replies, code blocks, file counts, or unrelated scope. Simple tasks remain simple. Consequential architecture, implementation, native runtime, WACK, Store, security, and other external-validation gates remain explicit.
+
+Use the patch-first flow for compiler/runtime feedback:
+
+`current authority -> failure evidence -> root cause -> smallest patch -> targeted regression/static checks -> checkpoint only if materially changed -> next machine gate`
+
+Do not regenerate full archives or documentation sets for ordinary corrections.
 
 ## Validation discipline
 
