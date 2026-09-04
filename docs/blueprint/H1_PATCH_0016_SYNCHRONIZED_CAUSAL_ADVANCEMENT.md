@@ -1,6 +1,6 @@
 # H1 Patch 0016 — Synchronized Causal Advancement
 
-Status: **BLUEPRINT PROPOSAL 0.5 — EXPLORATORY; RECURSIVE ADVERSARIAL AUDIT RESTARTED FROM CORRECTNESS; IMPLEMENTATION FORBIDDEN**
+Status: **BLUEPRINT PROPOSAL 0.5 — RECURSIVE ADVERSARIAL AUDIT COMPLETE; DIRECTOR APPROVAL REQUIRED; IMPLEMENTATION FORBIDDEN**
 
 Date: 2026-09-04
 
@@ -1008,13 +1008,13 @@ Reconciled parallel Advancement/Causal Cycle explorations and corrected the mate
 - removed redundant Advancement-level semantic revalidation of event + Director evaluation returned together by the same lower Opportunity result;
 - added direct tests for fixed null-stage failures and absence of duplicate Director/event validation.
 
-Audit restarts from correctness at Proposal 0.5.
+The complete fresh Proposal 0.5 pass then found zero material corrections and zero worthwhile in-scope improvements.
 
 ---
 
-## 31. Recursive audit closure criterion
+## 31. Recursive audit closure
 
-Implementation remains forbidden until one fresh complete pass over Proposal 0.5 or later finds:
+One fresh complete pass over Proposal 0.5 found:
 
 ```text
 0 material correctness corrections
@@ -1031,6 +1031,4 @@ Implementation remains forbidden until one fresh complete pass over Proposal 0.5
 0 evidence corrections
 ```
 
-Any material/worthwhile correction increments the proposal version and restarts from the affected authority layer.
-
-Only one clean full pass permits blueprint-audit evidence and explicit Director approval request.
+Implementation remains forbidden until explicit Director approval.
