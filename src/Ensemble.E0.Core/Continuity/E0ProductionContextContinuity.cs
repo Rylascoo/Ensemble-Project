@@ -1,6 +1,8 @@
 using Ensemble.E0.Core.Access;
 using Ensemble.E0.Core.CausalCommit;
 using Ensemble.E0.Core.Context;
+using Ensemble.E0.Core.Production;
+using Ensemble.E0.Core.Serialization;
 
 namespace Ensemble.E0.Core.Continuity;
 
@@ -21,7 +23,25 @@ public sealed class E0ProductionContextContinuityResult
 public static class E0ProductionContextContinuity
 {
     public static E0ProductionContextContinuityResult Compose(
-        ProductionStateCheckpoint sourceCheckpoint)
+        ProductionStateCheckpoint sourceCheckpoint) =>
+        ComposeCore(sourceCheckpoint, acceptedHistory: null);
+
+    public static E0ProductionContextContinuityResult ComposeWithAcceptedHistory(
+        ProductionStateCheckpoint sourceCheckpoint,
+        E0AcceptedPerformanceHistory history)
+    {
+        if (history is null)
+        {
+            throw new E0ContextContinuityException(
+                "Production Context continuity accepted Performance history is required.");
+        }
+
+        return ComposeCore(sourceCheckpoint, history);
+    }
+
+    private static E0ProductionContextContinuityResult ComposeCore(
+        ProductionStateCheckpoint sourceCheckpoint,
+        E0AcceptedPerformanceHistory? acceptedHistory)
     {
         if (sourceCheckpoint is null)
         {
@@ -71,9 +91,50 @@ public static class E0ProductionContextContinuity
                     "Production Context continuity Access source identity is inconsistent.");
             }
 
-            var context = DeterministicContextComposer.ComposeProductionBound(
-                access.Projection,
-                sourceCheckpoint.CurrentOpportunityCharacterId);
+            ContextCompositionEvaluation context;
+            if (acceptedHistory is null)
+            {
+                context = DeterministicContextComposer.ComposeProductionBound(
+                    access.Projection,
+                    sourceCheckpoint.CurrentOpportunityCharacterId);
+            }
+            else
+            {
+                var entries = AcceptedPerformanceHistoryInvariants.ValidateAndProject(
+                    acceptedHistory,
+                    sourceCheckpoint.SceneId,
+                    sourceCheckpoint.StateHash,
+                    sourceState.RosterCharacterIds);
+                var genesisHash = ProductionStateCanonicalizer.ComputeGenesisHash(
+                    sourceState.Projection);
+                var isGenesis = genesisHash == sourceCheckpoint.StateHash;
+
+                if (entries.Length == 0)
+                {
+                    if (!isGenesis)
+                    {
+                        throw new E0ContextContinuityException(
+                            "Production Context continuity empty accepted history is valid only at exact genesis.");
+                    }
+
+                    context = DeterministicContextComposer.ComposeProductionBound(
+                        access.Projection,
+                        sourceCheckpoint.CurrentOpportunityCharacterId);
+                }
+                else
+                {
+                    if (isGenesis)
+                    {
+                        throw new E0ContextContinuityException(
+                            "Production Context continuity nonempty accepted history cannot bind to genesis.");
+                    }
+
+                    context = DeterministicContextComposer.ComposeProductionBoundWithAcceptedHistory(
+                        access.Projection,
+                        sourceCheckpoint.CurrentOpportunityCharacterId,
+                        entries);
+                }
+            }
 
             if (!context.Packet.SourceStateHash.HasValue ||
                 context.Packet.SourceStateHash.Value != sourceCheckpoint.StateHash ||
@@ -90,6 +151,12 @@ public static class E0ProductionContextContinuity
         {
             throw;
         }
+        catch (E0AcceptedPerformanceHistoryInvariantException exception)
+        {
+            throw new E0ContextContinuityException(
+                "Production Context continuity accepted Performance history is invalid.",
+                exception);
+        }
         catch (CharacterAccessException exception)
         {
             throw new E0ContextContinuityException(
@@ -100,6 +167,12 @@ public static class E0ProductionContextContinuity
         {
             throw new E0ContextContinuityException(
                 "Production Context continuity Context composition failed.",
+                exception);
+        }
+        catch (CanonicalJsonException exception)
+        {
+            throw new E0ContextContinuityException(
+                "Production Context continuity genesis identity validation failed.",
                 exception);
         }
         catch (InvalidOperationException exception)
