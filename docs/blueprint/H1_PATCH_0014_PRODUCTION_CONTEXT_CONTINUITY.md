@@ -1,6 +1,6 @@
 # H1 Patch 0014 — E0 Production Context Continuity
 
-Status: blueprint proposal 0.8 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; approval required; implementation not started
+Status: blueprint proposal 0.9 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; approval required; implementation not started
 Parent repository checkpoint: `main` at `e06668a2307433bf99b0501dc38a701db392c633`
 Parent promoted implementation: H1 Patch 0013 squash merge `15b85a25fa7969d6db69030fa712eea329471e6b`
 Parent full-Core-test authority: H1 Patch 0013 at `a3fae23dc4df302e834b031ecfc848a3bb2d37fc`
@@ -30,7 +30,7 @@ current ProductionState with Current Opportunity
     -> exact pre-pipeline ProductionStateCheckpoint
         -> Production-backed deterministic Access Control
             -> Production-bound deterministic Context Composer
-                -> exact state-bound Character ContextPacket
+                -> exact Access audit + state-bound Character ContextPacket
 ```
 
 Patch 0014 closes only this seam.
@@ -47,6 +47,7 @@ Patch 0014 preserves these approved laws:
 - prohibited information is removed before any relevance/composition stage can receive it;
 - Access returns the maximal **currently authorized** set; relevance, token budgeting, summarization, and final prompt construction remain later concerns;
 - Character-facing projections strip provenance and creator-only authority metadata;
+- deterministic Access decisions remain separately available to trusted orchestration/provenance and are not supplied to Context Composer;
 - objective truth, observation, claim, belief, memory, knowledge, and recent Performance remain distinct authority categories;
 - `StateHash` is the history-sensitive identity of the exact Production source state;
 - `ProductionStateCheckpoint` is captured before Access/Context/Performance;
@@ -91,6 +92,7 @@ Patch 0014 defines only:
 - exact source `StateHash` identity on Production-backed Access projection and `ContextPacket`;
 - Context structured schema/composition v2 while preserving Patch 0005 v1 bytes and v1 rendering;
 - one narrow public Production-context continuity entry point using `ProductionStateCheckpoint`;
+- one immutable continuity result preserving the exact Access evaluation and Context evaluation from the same checkpoint;
 - exact fresh Production-derived Context equivalence proof in `E0TakeStateBinding` for v2;
 - safe historical v1 binding compatibility only after exact-genesis + exact Production-derived v1 recomposition proof;
 - strict v1/v2 anti-downgrade and hybrid-shape rejection;
@@ -163,15 +165,28 @@ Approved public types:
 
 ```text
 public static class E0ProductionContextContinuity
+public sealed class E0ProductionContextContinuityResult
 public sealed class E0ContextContinuityException : Exception
 ```
 
 Sole public method:
 
 ```text
-public static ContextCompositionEvaluation Compose(
+public static E0ProductionContextContinuityResult Compose(
     ProductionStateCheckpoint sourceCheckpoint)
 ```
+
+Exact immutable result shape:
+
+```text
+E0ProductionContextContinuityResult
+- AccessEvaluation : CharacterAccessEvaluation
+- ContextEvaluation : ContextCompositionEvaluation
+```
+
+No public constructor or setter.
+
+The returned Access evaluation and Context evaluation are produced by the same single continuity operation from the same exact checkpoint. Trusted orchestration may preserve `AccessEvaluation.Decisions` for E0 provenance, while only `AccessEvaluation.Projection` is consumed by Context Composer.
 
 There is no separate Genesis/NextTurn API because Context derives from authoritative **current state**, not from the historical route used to reach it.
 
@@ -183,7 +198,8 @@ Correct orchestration is:
 
 ```text
 var checkpoint = ProductionStateCheckpoint.Capture(currentState);
-var context = E0ProductionContextContinuity.Compose(checkpoint);
+var continuity = E0ProductionContextContinuity.Compose(checkpoint);
+var context = continuity.ContextEvaluation.Packet;
 ```
 
 Checkpoint capture remains O(1), retains the exact immutable source-state reference internally, exposes exact `StateHash`/`SceneId`/non-null CurrentOpportunity, cannot rebind, and performs no full-state rehash.
@@ -335,9 +351,11 @@ Production Access fails closed unless:
 - lifecycle/protection enum values are defined;
 - no unsupported/Unspecified domain is accepted.
 
-Inactive and denied `CharacterClaim` records are structurally validated too. Denial never turns malformed state into valid state.
+Inactive and denied `CharacterClaim` records are structurally validated too. Denial never turns malformed identity/text/domain/lifecycle/protection/ownership into valid state.
 
-Production Access must reuse existing canonical/domain helpers where practical rather than inventing a second incompatible text/identity law.
+Access does **not** traverse or revalidate the full Production provenance DAG on every Context boundary. Production genesis/causal-transition authority already owns provenance canonicality and DAG validity, and provenance never grants Access. Re-running the full graph validator here would duplicate authority and add history-proportional work without changing disclosure semantics.
+
+Production Access must reuse existing neutral/canonical primitives where dependency direction permits rather than inventing incompatible text/identity laws.
 
 ## 12. Observation and claim boundaries remain closed
 
@@ -613,6 +631,8 @@ All existing `IncludedRecordIds` and `IncludedRosterCharacterIds` semantics rema
 
 `CharacterClaim`/denied record IDs remain absent from Context trace because Context receives only `CharacterAccessProjection`, not Access decisions.
 
+The higher Continuity result preserves the separate `CharacterAccessEvaluation` precisely so trusted provenance can retain denied/permit audit decisions without making them a Context disclosure side channel.
+
 ## 22. Composer API / anti-forgery law
 
 Existing public API remains exactly:
@@ -638,19 +658,21 @@ Internal construction alone is not treated as sufficient source-derivation proof
 ```text
 checkpoint exact immutable source state
     -> validate checkpoint/current Production identities
-        -> Production Access for checkpoint CurrentOpportunity
+        -> one Production Access evaluation for checkpoint CurrentOpportunity
             -> require projection.SourceStateHash == checkpoint.StateHash
-                -> internal deterministic Context v2 composition
+                -> internal deterministic Context v2 composition from that exact projection
                     -> require Packet.SourceStateHash == checkpoint.StateHash
                     -> require Trace.SourceStateHash == checkpoint.StateHash
-                        -> return ContextCompositionEvaluation
+                        -> return immutable AccessEvaluation + ContextEvaluation result
 ```
+
+Continuity does not recompute Access a second time merely to expose decisions.
 
 Continuity does not consume source CausalCommit/Opportunity history because current `ProductionState` is the authority required for current-state disclosure.
 
 ## 24. E0TakeStateBinding v2 exact source-content law
 
-For a v2 source Context, binding first requires exact shape/identity:
+For a v2 source Context, binding first performs cheap structural/association checks and requires exact shape/identity:
 
 ```text
 sourceContext.SourceStateHash.HasValue
@@ -669,6 +691,8 @@ Binding must then prove exact Production derivation without trusting the packet'
 3. pass that fresh projection through the internal deterministic production-bound Context composer;
 4. compare expected and supplied v2 packet using exact canonical structured bytes, exact canonical rendered bytes, `ContextPacketId`, `StructuredContextHash`, and `RenderedContextHash`;
 5. continue all existing Scene/subject/opportunity/roster/StateAuthority-snapshot checks.
+
+Cheap deterministic mismatch checks should precede the history-proportional recomposition when possible, without changing authority semantics.
 
 Exact rule:
 
@@ -731,7 +755,7 @@ No output depends on clock/date, randomness, machine/process identity, thread sc
 
 Patch 0014 mutates no external state.
 
-Any checkpoint, Production, Access, canonicalization, version-shape, source-context equivalence, or Context failure returns no accepted binding/Context result and changes no Production/history input.
+Any checkpoint, Production, Access, canonicalization, version-shape, source-context equivalence, or Context failure returns no accepted binding/continuity result and changes no Production/history input.
 
 No retry, alternate source, guessed repair, stale packet, observation guess, claim disclosure fallback, or evolved-state v1 downgrade occurs.
 
@@ -756,44 +780,61 @@ Specifically:
 - `CharacterClaim` remains denied pending explicit disclosure authority;
 - provenance/protection/lifecycle/origin/cache metadata never enters Character-facing projection;
 - `SourceStateHash` is system association metadata only and never enters rendered Character text or a future creative provider frame by default;
+- Access deny/permit audit decisions remain on trusted orchestration/provenance surface and never enter Context Composer input;
 - co-presence/control/routing never becomes observation authority;
 - recent Performance remains empty;
 - v1/v2 hybrid shape cannot canonicalize by dropping state identity;
 - a matching state-hash field cannot authorize mismatched disclosed content.
 
-## 30. Growth and memory law
+## 30. Growth, runtime work, and memory law
 
 Let:
 
 ```text
 R = total retained Production records including inactive history
 A = active permitted records copied to this Character's projection
+B = total permitted text/metadata bytes materially rendered/canonicalized for Context
 ```
 
-Production Access is O(R) because it audits retained records.
+Production Access is O(R) because it validates/audits retained records and returns O(R) AccessDecision entries plus O(A) permitted projection entries.
 
-Lossless Production-bound Context composition is O(A).
+Under the current inherited Context implementation, permitted collections are canonically ordered during composition/serialization. Worst-case Context work is therefore approximately:
 
-Effective v2 Take/state binding performs a fresh source-context equivalence proof and is therefore O(R + A), not O(1).
+```text
+O(A log A + B)
+```
 
-Legacy exact-genesis v1 binding also performs O(R + A) recomposition.
+rather than a false O(A) claim.
 
-A can grow as Knowledge/Memory/etc. are added. `CharacterClaim` growth does not enlarge Context in Patch 0014 because claims are denied, but it still contributes to R.
+A successful continuity result retains roughly O(R + A + B) material across Access decisions, safe projection/Context objects, and rendered/canonical content, subject to ordinary immutable string/reference sharing and implementation allocation details.
 
-Patch 0014 does not add relevance ranking, token budgeting, summarization, compaction, active-record indexing, semantic retrieval, attestation tokens, or cache layers merely to avoid deterministic recomposition.
+Effective v2 Take/state binding performs a fresh source-context equivalence proof and is approximately:
+
+```text
+O(R + A log A + B)
+```
+
+plus the separately existing StateAuthority snapshot validation work.
+
+Legacy exact-genesis v1 binding additionally recomputes the genesis StateHash and is intentionally more expensive; it exists only for compatibility.
+
+A can grow as Knowledge/Memory/etc. are added. `CharacterClaim` growth does not enlarge Context in Patch 0014 because claims are denied, but it still contributes to R and Access audit size.
+
+Patch 0014 does not add relevance ranking, token budgeting, summarization, compaction, active-record indexing, semantic retrieval, attestation tokens, or cache layers merely to hide this cost.
 
 ## 31. ARM64 / battery implications
 
 Patch 0014 uses deterministic CPU work—not NPU inference—for Access filtering, validation, ordinal ordering, canonicalization, hashing, and source-context equivalence proof.
 
 - checkpoint capture O(1);
-- Context composition O(R + A) including Access;
-- v2 Take/state source-context proof O(R + A);
+- source Continuity performs one Access evaluation, not a second provenance-only rescan;
+- Context composition cost follows the `O(A log A + B)` inherited canonical/render path;
+- v2 Take/state source-context proof is approximately `O(R + A log A + B)`;
 - no whole causal-event history copy;
 - no idle/background/network/provider/GPU/NPU work;
 - legacy v1 recomposition only for exact-genesis compatibility.
 
-This supports low idle impact but is not a constant long-session turn-cost claim. If profiling later shows recomposition cost is material, any cache/attestation/index optimization must preserve the same exact authority law and receive separate design review.
+This supports low idle impact but is not a constant long-session turn-cost or fixed-memory claim. If profiling later shows retained-record scans, AccessDecision retention, sorting, or canonical byte construction are material, any cache/index/attestation optimization must preserve the same exact authority law and receive separate design review.
 
 Retail performance/battery claims require later device profiling.
 
@@ -891,18 +932,19 @@ At minimum:
 12. HistoricalTruth/WorldState/Unresolved denied;
 13. provenance/protection/lifecycle stripped;
 14. malformed roster/Character-set/domain/subtype/relationship/record fails;
-15. inactive/claim-denied malformed records still fail structural validation;
-16. retained/output ordering ordinal;
-17. supported Production contract constant remains exact and any future representable unsupported contract fails closed;
-18. no Access dependency on Context/CausalCommit/Opportunity/Continuity.
+15. inactive/claim-denied malformed identity/text/domain/lifecycle/protection/ownership still fails structural validation;
+16. Access does not traverse provenance to grant disclosure and does not duplicate full provenance-DAG validation;
+17. retained/output ordering ordinal;
+18. supported Production contract constant remains exact and any future representable unsupported contract fails closed;
+19. no Access dependency on Context/CausalCommit/Opportunity/Continuity.
 
 ## 36. Required Context v2 tests
 
 At minimum:
 
 1. `SourceStateHash` exact for genesis and evolved states;
-2. `ContextPacket` has no Claims or recent-history public property/type;
-3. exact `recentPerformances:[]`;
+2. `ContextPacket` has no Claims property, no structured `RecentPerformances` property, and Context namespace adds no `ContextRecentPerformance` type;
+3. exact canonical `recentPerformances:[]` remains reserved in structured bytes;
 4. `RecentPerformanceText` exact empty;
 5. rendering contract remains exact v1;
 6. genesis v1/v2 rendered canonical bytes identical;
@@ -930,16 +972,18 @@ At minimum:
 
 ## 38. Required Continuity tests
 
-1. exact genesis checkpoint composes v2;
+1. exact genesis checkpoint composes one coherent Access+Context result;
 2. exact Patch0013 evolved checkpoint composes v2 without source commit/opportunity inputs;
-3. Context subject/opportunity equals checkpoint CurrentOpportunity;
-4. Access/Packet/Trace `SourceStateHash` all equal checkpoint.StateHash;
-5. null/default/uninitialized checkpoint/source state fails;
-6. no-opportunity state cannot be checkpointed;
-7. malformed current Production fails through Access;
-8. repeated Compose byte-identical;
-9. failure leaves checkpoint/source state unchanged;
-10. Continuity exposes no recent-history/Observation/Director inputs.
+3. result Access subject and Context subject/opportunity equal checkpoint CurrentOpportunity;
+4. Access projection/Packet/Trace `SourceStateHash` all equal checkpoint.StateHash;
+5. result Context record IDs equal the permitted record IDs from the returned Access projection exactly once;
+6. result Access decisions remain available to trusted caller and are not embedded in Context/trace;
+7. null/default/uninitialized checkpoint/source state fails;
+8. no-opportunity state cannot be checkpointed;
+9. malformed current Production fails through Access;
+10. repeated Compose byte-identical and decision-identical;
+11. failure leaves checkpoint/source state unchanged;
+12. Continuity exposes no recent-history/Observation/Director inputs.
 
 ## 39. Required Take-binding tests
 
@@ -962,8 +1006,10 @@ At minimum:
 
 At minimum:
 
-- Continuity namespace exports only approved two types;
+- Continuity namespace exports only approved three types;
 - `E0ProductionContextContinuity` exposes only one public Compose;
+- Compose returns exact `E0ProductionContextContinuityResult`;
+- continuity result has only read-only `AccessEvaluation` + `ContextEvaluation` and no public constructor;
 - no Continuity history/Observation/Director inputs;
 - Production Access overload exact signature;
 - `AccessReason` appends only `InactiveRecordExcluded` and `CharacterClaimDisclosureDeferred`;
@@ -1014,9 +1060,11 @@ Patch 0014 does not introduce:
 - second Production representation;
 - new rendering contract.
 
+The one new Continuity result is justified because it preserves the already-computed Access audit required by frozen E0 provenance while keeping denied decisions out of Context Composer.
+
 ## 43. Explicit nonclaims
 
-After Patch 0014, Core can deterministically compose an exact-state-bound Character-safe `ContextPacket` from any legal current Production checkpoint and can re-prove, at Take/state binding, that a supplied source Context is byte-equivalent to fresh exact-source recomposition.
+After Patch 0014, Core can deterministically compose one coherent Access-audit + exact-state-bound Character-safe Context result from any legal current Production checkpoint and can re-prove, at Take/state binding, that a supplied source Context is byte-equivalent to fresh exact-source recomposition.
 
 It still cannot claim:
 
@@ -1052,6 +1100,8 @@ Likely added:
 ```text
 src/Ensemble.E0.Core/Continuity/E0ProductionContextContinuity.cs
 ```
+
+The Continuity result may live in that same narrow file unless implementation clarity materially benefits from a separate model file.
 
 Plus focused Patch0014 tests/evidence.
 
@@ -1090,7 +1140,7 @@ ProductionState projection/canonicalizer, CausalCommit transition engine, Opport
 - `SourceStateHash` equality is necessary but no longer treated as sufficient authority;
 - v2 Take/state binding fresh-recomposes exact Production Access + production-bound Context and compares canonical structured/rendered bytes and identities;
 - CausalCommit reuses lower Access + Context directly rather than depending on Continuity;
-- corrected v2 binding complexity from O(1) to O(R + A);
+- corrected v2 binding complexity from O(1) to history/content-proportional recomposition;
 - explicitly declined an attestation/capability-token shortcut until profiling proves recomposition cost warrants more machinery.
 
 ### Proposal 0.8
@@ -1098,7 +1148,14 @@ ProductionState projection/canonicalizer, CausalCommit transition engine, Opport
 - classified `SourceStateHash` explicitly as non-diegetic system association metadata that must never enter rendered Character text or future creative provider framing by default;
 - converted the currently non-representable unsupported Production contract test into a contract/future fail-closed requirement rather than pretending current sealed `ProductionState` can construct another contract version.
 
-Proposal 0.8 materially hardens safe-projection boundaries and restarts recursive audit from correctness.
+### Proposal 0.9
+- preserved the full deterministic Access evaluation in one immutable Continuity result instead of silently discarding its audit decisions and forcing a second source scan;
+- kept Context Composer input limited to the safe projection, preserving the denied-ID side-channel boundary;
+- clarified that Access trusts Production authority for provenance-DAG validity rather than duplicating full graph validation every turn;
+- corrected runtime/memory accounting to include AccessDecision retention, inherited sorting, and serialized/rendered byte size (`R`, `A`, `B`);
+- added fail-cheap-first guidance before expensive exact source-context recomposition.
+
+Proposal 0.9 materially improves provenance completeness and ARM64 accounting and restarts recursive audit from correctness.
 
 ## 46. Recursive audit order
 
@@ -1129,12 +1186,13 @@ Approval freezes:
 - Patch0014 Production->Access->Context boundary;
 - Production Access/lifecycle/`CharacterClaim`-deny law;
 - exact Production Character/roster/display-identity validation;
+- Production provenance-DAG ownership remains outside per-turn Access revalidation;
 - reserved Observation/recent-Performance boundary;
-- single checkpoint-only Continuity API;
+- single checkpoint-only Continuity API returning coherent AccessEvaluation + ContextEvaluation;
 - `SourceStateHash`-only Access/Context/Trace evolution and non-diegetic metadata law;
 - v1 preservation and structured v2 schema/composition versioning;
 - existing v1 rendering preservation;
 - exact Production-recomposed source-context proof for both v2 and legacy v1 binding;
 - canonical v2 structured packet behavior;
-- growth/nonclaim boundaries;
+- honest `R/A/B` growth, work, memory, and nonclaim boundaries;
 - tests and non-goals.
