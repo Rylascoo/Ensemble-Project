@@ -11,6 +11,15 @@
 ## Engineering authority
 GitHub is the canonical engineering workspace. Changes should be patch-first and reviewed against the smallest affected surface.
 
+## Reasoning / task-scope workflow authority
+`docs/PROJECT_REASONING_TASK_SCOPE_OPTIMIZATION_PROTOCOL.md` is active cross-project workflow law for the remainder of Ensemble/Kymaean project creation.
+
+For every substantive Director turn, GPT-5.6 Sol High reasoning should deliberately optimize task granularity before execution: choose the largest logically coupled, falsifiable scope that belongs to one objective, use the additional reasoning capacity for source reconciliation, architecture/dependency analysis, contradiction detection, falsification and recursive audit, and stop at the next consequential authority or external-validation gate.
+
+The optimization target is reasoning density and completed dependency closure per Director turn—not response length, token use, code volume, file count, or artificially broad scope. Simple tasks remain simple.
+
+This workflow protocol controls collaboration granularity only. It cannot override frozen architecture, `CURRENT_STATE.md`, source/test evidence, machine-validation authority, Director approval, security boundaries, WACK, Store certification, or any other higher authority defined by this project.
+
 ## Design authority
 The connected Google Drive `Ensemble Project` folder is the canonical visual/design workspace for:
 - UI/UX architecture
