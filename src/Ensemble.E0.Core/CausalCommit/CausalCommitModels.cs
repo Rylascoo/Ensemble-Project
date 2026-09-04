@@ -1,4 +1,5 @@
 using System.Collections.Immutable;
+using Ensemble.E0.Core.Access;
 using Ensemble.E0.Core.Context;
 using Ensemble.E0.Core.Domain;
 using Ensemble.E0.Core.Production;
@@ -167,6 +168,8 @@ public sealed class E0TakeStateBinding
                 "Causal commit Context roster does not match the source Production state.");
         }
 
+        ValidateExactSourceContext(sourceCheckpoint, sourceContext);
+
         var authority = take.AuthorityEvaluation;
         if (authority is null ||
             !string.Equals(
@@ -217,6 +220,150 @@ public sealed class E0TakeStateBinding
         }
 
         return new E0TakeStateBinding(sourceCheckpoint.StateHash, take);
+    }
+
+    private static void ValidateExactSourceContext(
+        ProductionStateCheckpoint sourceCheckpoint,
+        ContextPacket sourceContext)
+    {
+        try
+        {
+            if (IsProductionBoundV2(sourceContext))
+            {
+                if (!sourceContext.SourceStateHash.HasValue ||
+                    sourceContext.SourceStateHash.Value != sourceCheckpoint.StateHash)
+                {
+                    throw new E0CausalCommitException(
+                        "Causal commit production-bound Context source state does not match the checkpoint.");
+                }
+
+                var access = CharacterBoundedAccessControl.Evaluate(
+                    sourceCheckpoint.SourceState,
+                    sourceCheckpoint.CurrentOpportunityCharacterId);
+                var expected = DeterministicContextComposer.ComposeProductionBound(
+                    access.Projection,
+                    sourceCheckpoint.CurrentOpportunityCharacterId).Packet;
+                RequireExactContext(expected, sourceContext);
+                return;
+            }
+
+            if (IsHistoricalV1(sourceContext))
+            {
+                var genesisHash = ProductionStateCanonicalizer.ComputeGenesisHash(
+                    sourceCheckpoint.SourceState.Projection);
+                if (genesisHash != sourceCheckpoint.StateHash)
+                {
+                    throw new E0CausalCommitException(
+                        "Causal commit historical Context v1 is permitted only for exact genesis Production state.");
+                }
+
+                var access = CharacterBoundedAccessControl.Evaluate(
+                    sourceCheckpoint.SourceState,
+                    sourceCheckpoint.CurrentOpportunityCharacterId);
+                var compatibilityProjection = WithoutSourceStateHash(access.Projection);
+                var expected = DeterministicContextComposer.Compose(
+                    compatibilityProjection,
+                    sourceCheckpoint.CurrentOpportunityCharacterId).Packet;
+                RequireExactContext(expected, sourceContext);
+                return;
+            }
+
+            throw new E0CausalCommitException(
+                "Causal commit source Context contract combination is unsupported.");
+        }
+        catch (E0CausalCommitException)
+        {
+            throw;
+        }
+        catch (CharacterAccessException exception)
+        {
+            throw new E0CausalCommitException(
+                "Causal commit source Production Access proof failed.",
+                exception);
+        }
+        catch (ContextCompositionException exception)
+        {
+            throw new E0CausalCommitException(
+                "Causal commit source Context recomposition proof failed.",
+                exception);
+        }
+        catch (InvalidOperationException exception)
+        {
+            throw new E0CausalCommitException(
+                "Causal commit source Context derivation identity is invalid.",
+                exception);
+        }
+    }
+
+    private static bool IsHistoricalV1(ContextPacket context) =>
+        string.Equals(
+            context.SchemaVersion,
+            E0ContextContracts.SchemaVersion,
+            StringComparison.Ordinal) &&
+        string.Equals(
+            context.CompositionContract,
+            E0ContextContracts.CompositionContract,
+            StringComparison.Ordinal);
+
+    private static bool IsProductionBoundV2(ContextPacket context) =>
+        string.Equals(
+            context.SchemaVersion,
+            E0ContextContracts.ProductionBoundSchemaVersion,
+            StringComparison.Ordinal) &&
+        string.Equals(
+            context.CompositionContract,
+            E0ContextContracts.ProductionBoundCompositionContract,
+            StringComparison.Ordinal);
+
+    private static CharacterAccessProjection WithoutSourceStateHash(
+        CharacterAccessProjection projection) =>
+        new(
+            sourceStateHash: null,
+            projection.SceneId,
+            projection.SubjectCharacterId,
+            projection.Roster,
+            projection.SceneState,
+            projection.Pressures,
+            projection.Constitution,
+            projection.Disposition,
+            projection.Circumstance,
+            projection.Observations,
+            projection.Knowledge,
+            projection.Beliefs,
+            projection.Suspicions,
+            projection.Memories,
+            projection.Goals,
+            projection.Relationships);
+
+    private static void RequireExactContext(
+        ContextPacket expected,
+        ContextPacket actual)
+    {
+        if (expected.ContextPacketId != actual.ContextPacketId ||
+            !string.Equals(expected.SchemaVersion, actual.SchemaVersion, StringComparison.Ordinal) ||
+            !string.Equals(expected.CompositionContract, actual.CompositionContract, StringComparison.Ordinal) ||
+            expected.SourceStateHash != actual.SourceStateHash ||
+            expected.SceneId != actual.SceneId ||
+            expected.SubjectCharacterId != actual.SubjectCharacterId ||
+            expected.OpportunityCharacterId != actual.OpportunityCharacterId ||
+            !string.Equals(
+                expected.StructuredContextHash,
+                actual.StructuredContextHash,
+                StringComparison.Ordinal) ||
+            !string.Equals(
+                expected.RenderedContextHash,
+                actual.RenderedContextHash,
+                StringComparison.Ordinal) ||
+            !ContextPacketCanonicalizer.SerializeStructured(expected)
+                .AsSpan()
+                .SequenceEqual(ContextPacketCanonicalizer.SerializeStructured(actual)) ||
+            !ContextPacketCanonicalizer.SerializeRendered(expected.Rendered)
+                .AsSpan()
+                .SequenceEqual(ContextPacketCanonicalizer.SerializeRendered(actual.Rendered)))
+        {
+            throw new E0CausalCommitException(
+                "Causal commit source Context was not derived exactly from the checkpoint Production state.");
+        }
     }
 
     private static ImmutableArray<CharacterId> CanonicalizeContextRoster(ContextPacket context)

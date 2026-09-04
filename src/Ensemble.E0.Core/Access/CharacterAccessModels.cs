@@ -1,5 +1,6 @@
 using System.Collections.Immutable;
 using Ensemble.E0.Core.Domain;
+using Ensemble.E0.Core.Production;
 
 namespace Ensemble.E0.Core.Access;
 
@@ -44,6 +45,7 @@ public sealed class PermittedRelationship
 public sealed class CharacterAccessProjection
 {
     internal CharacterAccessProjection(
+        StateHash? sourceStateHash,
         SceneId sceneId,
         CharacterId subjectCharacterId,
         ImmutableArray<SceneParticipant> roster,
@@ -60,6 +62,7 @@ public sealed class CharacterAccessProjection
         ImmutableArray<PermittedRecord> goals,
         ImmutableArray<PermittedRelationship> relationships)
     {
+        SourceStateHash = sourceStateHash;
         SceneId = sceneId;
         SubjectCharacterId = subjectCharacterId;
         Roster = roster;
@@ -77,6 +80,7 @@ public sealed class CharacterAccessProjection
         Relationships = relationships;
     }
 
+    public StateHash? SourceStateHash { get; }
     public SceneId SceneId { get; }
     public CharacterId SubjectCharacterId { get; }
     public ImmutableArray<SceneParticipant> Roster { get; }
@@ -106,7 +110,9 @@ public enum AccessReason
     SharedSceneState,
     PublicPressure,
     ProductionAuthorityExcluded,
-    OwnedByOtherCharacterExcluded
+    OwnedByOtherCharacterExcluded,
+    InactiveRecordExcluded,
+    CharacterClaimDisclosureDeferred
 }
 
 public sealed class AccessDecision

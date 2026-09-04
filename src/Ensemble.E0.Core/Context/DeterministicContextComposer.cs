@@ -3,6 +3,7 @@ using System.Security.Cryptography;
 using Ensemble.E0.Core.Access;
 using Ensemble.E0.Core.Domain;
 using Ensemble.E0.Core.Fixture;
+using Ensemble.E0.Core.Production;
 
 namespace Ensemble.E0.Core.Context;
 
@@ -19,6 +20,61 @@ public static class DeterministicContextComposer
             throw new ContextCompositionException("Character Access projection is required.");
         }
 
+        if (projection.SourceStateHash.HasValue)
+        {
+            throw new ContextCompositionException(
+                "Historical Context v1 cannot compose a Production-backed Access projection.");
+        }
+
+        return ComposeCore(
+            projection,
+            currentOpportunityCharacterId,
+            E0ContextContracts.SchemaVersion,
+            E0ContextContracts.CompositionContract,
+            sourceStateHash: null);
+    }
+
+    internal static ContextCompositionEvaluation ComposeProductionBound(
+        CharacterAccessProjection projection,
+        CharacterId currentOpportunityCharacterId)
+    {
+        if (projection is null)
+        {
+            throw new ContextCompositionException("Character Access projection is required.");
+        }
+
+        if (!projection.SourceStateHash.HasValue)
+        {
+            throw new ContextCompositionException(
+                "Production-bound Context requires a Production-backed Access projection.");
+        }
+
+        try
+        {
+            _ = projection.SourceStateHash.Value.Value;
+        }
+        catch (InvalidOperationException exception)
+        {
+            throw new ContextCompositionException(
+                "Production-bound Access source-state identity is uninitialized.",
+                exception);
+        }
+
+        return ComposeCore(
+            projection,
+            currentOpportunityCharacterId,
+            E0ContextContracts.ProductionBoundSchemaVersion,
+            E0ContextContracts.ProductionBoundCompositionContract,
+            projection.SourceStateHash);
+    }
+
+    private static ContextCompositionEvaluation ComposeCore(
+        CharacterAccessProjection projection,
+        CharacterId currentOpportunityCharacterId,
+        string schemaVersion,
+        string compositionContract,
+        StateHash? sourceStateHash)
+    {
         try
         {
             _ = currentOpportunityCharacterId.Value;
@@ -82,8 +138,9 @@ public static class DeterministicContextComposer
             ValidateRelationshipTargets(roster, relationships);
 
             var content = new ContextSemanticContent(
-                E0ContextContracts.SchemaVersion,
-                E0ContextContracts.CompositionContract,
+                schemaVersion,
+                compositionContract,
+                sourceStateHash,
                 projection.SceneId,
                 projection.SubjectCharacterId,
                 currentOpportunityCharacterId,
@@ -124,6 +181,7 @@ public static class DeterministicContextComposer
                 packetId,
                 content.SchemaVersion,
                 content.CompositionContract,
+                content.SourceStateHash,
                 content.SceneId,
                 content.SubjectCharacterId,
                 content.OpportunityCharacterId,
@@ -147,6 +205,7 @@ public static class DeterministicContextComposer
             var trace = new ContextCompositionTrace(
                 content.CompositionContract,
                 rendered.RenderingContract,
+                content.SourceStateHash,
                 IncludedRecordIds(content),
                 content.Roster
                     .Select(participant => participant.CharacterId)
@@ -175,11 +234,22 @@ public static class DeterministicContextComposer
     private static ImmutableArray<ContextParticipant> CopyAndValidateRoster(
         CharacterAccessProjection projection)
     {
+        if (projection.Roster.IsDefault)
+        {
+            throw new ContextCompositionException("Context roster is uninitialized.");
+        }
+
         var seen = new HashSet<string>(StringComparer.Ordinal);
         var participants = projection.Roster
             .OrderBy(participant => participant.CharacterId.Value, StringComparer.Ordinal)
             .Select(participant =>
             {
+                if (participant is null)
+                {
+                    throw new ContextCompositionException(
+                        "Context roster contains an invalid participant.");
+                }
+
                 var id = participant.CharacterId.Value;
                 if (!seen.Add(id))
                 {
@@ -204,27 +274,61 @@ public static class DeterministicContextComposer
 
     private static ImmutableArray<ContextRecord> CopyRecords(
         ImmutableArray<PermittedRecord> records,
-        string fieldName) =>
-        records
+        string fieldName)
+    {
+        if (records.IsDefault)
+        {
+            throw new ContextCompositionException(
+                $"Context {fieldName} records are uninitialized.");
+        }
+
+        return records
             .OrderBy(record => record.RecordId.Value, StringComparer.Ordinal)
-            .Select(record => new ContextRecord(
-                record.RecordId,
-                CanonicalText.Required(
-                    record.Text,
-                    $"{fieldName} record '{record.RecordId.Value}'")))
+            .Select(record =>
+            {
+                if (record is null)
+                {
+                    throw new ContextCompositionException(
+                        $"Context {fieldName} contains an invalid record.");
+                }
+
+                return new ContextRecord(
+                    record.RecordId,
+                    CanonicalText.Required(
+                        record.Text,
+                        $"{fieldName} record '{record.RecordId.Value}'"));
+            })
             .ToImmutableArray();
+    }
 
     private static ImmutableArray<ContextRelationship> CopyRelationships(
-        ImmutableArray<PermittedRelationship> relationships) =>
-        relationships
+        ImmutableArray<PermittedRelationship> relationships)
+    {
+        if (relationships.IsDefault)
+        {
+            throw new ContextCompositionException(
+                "Context relationships are uninitialized.");
+        }
+
+        return relationships
             .OrderBy(relationship => relationship.RecordId.Value, StringComparer.Ordinal)
-            .Select(relationship => new ContextRelationship(
-                relationship.RecordId,
-                relationship.TargetCharacterId,
-                CanonicalText.Required(
-                    relationship.Text,
-                    $"Relationship '{relationship.RecordId.Value}'")))
+            .Select(relationship =>
+            {
+                if (relationship is null)
+                {
+                    throw new ContextCompositionException(
+                        "Context relationships contain an invalid record.");
+                }
+
+                return new ContextRelationship(
+                    relationship.RecordId,
+                    relationship.TargetCharacterId,
+                    CanonicalText.Required(
+                        relationship.Text,
+                        $"Relationship '{relationship.RecordId.Value}'"));
+            })
             .ToImmutableArray();
+    }
 
     private static void ValidateRelationshipTargets(
         ImmutableArray<ContextParticipant> roster,
