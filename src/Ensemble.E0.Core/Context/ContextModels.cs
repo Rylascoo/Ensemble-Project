@@ -1,5 +1,6 @@
 using System.Collections.Immutable;
 using Ensemble.E0.Core.Domain;
+using Ensemble.E0.Core.Production;
 
 namespace Ensemble.E0.Core.Context;
 
@@ -8,6 +9,8 @@ public static class E0ContextContracts
     public const string SchemaVersion = "ensemble.e0.context.v1";
     public const string CompositionContract = "ensemble.e0.context.full-authorized.v1";
     public const string RenderingContract = "ensemble.e0.context.render.v1";
+    public const string ProductionBoundSchemaVersion = "ensemble.e0.context.v2";
+    public const string ProductionBoundCompositionContract = "ensemble.e0.context.production-bound.v1";
 }
 
 public sealed class ContextParticipant
@@ -74,6 +77,7 @@ public sealed class ContextPacket
         ContextPacketId contextPacketId,
         string schemaVersion,
         string compositionContract,
+        StateHash? sourceStateHash,
         SceneId sceneId,
         CharacterId subjectCharacterId,
         CharacterId opportunityCharacterId,
@@ -97,6 +101,7 @@ public sealed class ContextPacket
         ContextPacketId = contextPacketId;
         SchemaVersion = schemaVersion;
         CompositionContract = compositionContract;
+        SourceStateHash = sourceStateHash;
         SceneId = sceneId;
         SubjectCharacterId = subjectCharacterId;
         OpportunityCharacterId = opportunityCharacterId;
@@ -121,6 +126,7 @@ public sealed class ContextPacket
     public ContextPacketId ContextPacketId { get; }
     public string SchemaVersion { get; }
     public string CompositionContract { get; }
+    public StateHash? SourceStateHash { get; }
     public SceneId SceneId { get; }
     public CharacterId SubjectCharacterId { get; }
     public CharacterId OpportunityCharacterId { get; }
@@ -147,6 +153,7 @@ public sealed class ContextCompositionTrace
     internal ContextCompositionTrace(
         string compositionContract,
         string renderingContract,
+        StateHash? sourceStateHash,
         ImmutableArray<RecordId> includedRecordIds,
         ImmutableArray<CharacterId> includedRosterCharacterIds,
         CharacterId opportunityCharacterId,
@@ -155,6 +162,7 @@ public sealed class ContextCompositionTrace
     {
         CompositionContract = compositionContract;
         RenderingContract = renderingContract;
+        SourceStateHash = sourceStateHash;
         IncludedRecordIds = includedRecordIds;
         IncludedRosterCharacterIds = includedRosterCharacterIds;
         OpportunityCharacterId = opportunityCharacterId;
@@ -164,6 +172,7 @@ public sealed class ContextCompositionTrace
 
     public string CompositionContract { get; }
     public string RenderingContract { get; }
+    public StateHash? SourceStateHash { get; }
     public ImmutableArray<RecordId> IncludedRecordIds { get; }
     public ImmutableArray<CharacterId> IncludedRosterCharacterIds { get; }
     public CharacterId OpportunityCharacterId { get; }
