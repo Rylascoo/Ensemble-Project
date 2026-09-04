@@ -1,6 +1,6 @@
 # H1 Patch 0014 — E0 Production Context Continuity
 
-Status: blueprint proposal 0.9 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; approval required; implementation not started
+Status: blueprint proposal 0.10 — RECURSIVE ADVERSARIAL AUDIT IN PROGRESS; approval required; implementation not started
 Parent repository checkpoint: `main` at `e06668a2307433bf99b0501dc38a701db392c633`
 Parent promoted implementation: H1 Patch 0013 squash merge `15b85a25fa7969d6db69030fa712eea329471e6b`
 Parent full-Core-test authority: H1 Patch 0013 at `a3fae23dc4df302e834b031ecfc848a3bb2d37fc`
@@ -796,7 +796,7 @@ A = active permitted records copied to this Character's projection
 B = total permitted text/metadata bytes materially rendered/canonicalized for Context
 ```
 
-Production Access is O(R) because it validates/audits retained records and returns O(R) AccessDecision entries plus O(A) permitted projection entries.
+Production Access is O(R) because it validates/audits retained records and returns O(R) `AccessDecision` entries plus O(A) permitted projection entries.
 
 Under the current inherited Context implementation, permitted collections are canonically ordered during composition/serialization. Worst-case Context work is therefore approximately:
 
@@ -816,7 +816,7 @@ O(R + A log A + B)
 
 plus the separately existing StateAuthority snapshot validation work.
 
-Legacy exact-genesis v1 binding additionally recomputes the genesis StateHash and is intentionally more expensive; it exists only for compatibility.
+Legacy exact-genesis v1 binding additionally recomputes the genesis `StateHash` and is intentionally more expensive; it exists only for compatibility.
 
 A can grow as Knowledge/Memory/etc. are added. `CharacterClaim` growth does not enlarge Context in Patch 0014 because claims are denied, but it still contributes to R and Access audit size.
 
@@ -936,7 +936,8 @@ At minimum:
 16. Access does not traverse provenance to grant disclosure and does not duplicate full provenance-DAG validation;
 17. retained/output ordering ordinal;
 18. supported Production contract constant remains exact and any future representable unsupported contract fails closed;
-19. no Access dependency on Context/CausalCommit/Opportunity/Continuity.
+19. no Access dependency on Context/CausalCommit/Opportunity/Continuity;
+20. generic smoke genesis Production Access preserves the same inherited access law outside Missing Raft.
 
 ## 36. Required Context v2 tests
 
@@ -983,7 +984,8 @@ At minimum:
 9. malformed current Production fails through Access;
 10. repeated Compose byte-identical and decision-identical;
 11. failure leaves checkpoint/source state unchanged;
-12. Continuity exposes no recent-history/Observation/Director inputs.
+12. Continuity exposes no recent-history/Observation/Director inputs;
+13. generic smoke genesis composes a valid v2 continuity result without Missing-Raft-specific logic.
 
 ## 39. Required Take-binding tests
 
@@ -1002,7 +1004,7 @@ At minimum:
 13. state hash is additive association, not replacement for exact source-content proof;
 14. source-content proof failure changes no Production/Take/history input.
 
-## 40. Required structural/reflection tests
+## 40. Required structural/reflection and inherited-contract tests
 
 At minimum:
 
@@ -1028,6 +1030,27 @@ At minimum:
 - CausalCommit has no Continuity dependency;
 - Opportunity source unchanged;
 - no Windows/network/random/time/provider/GPU/NPU public dependency.
+
+Two inherited historical contract-audit assertions must be **narrowly evolved** because Patch 0014 is the separately approved implementation of the exact capability they previously prohibited as “not yet” scope:
+
+```text
+tests/Ensemble.E0.Core.Tests/CausalCommit/Patch0012ContractAuditTests.cs
+tests/Ensemble.E0.Core.Tests/Opportunity/Patch0013ContractAuditTests.cs
+```
+
+Their assertions that no public `CharacterBoundedAccessControl` overload accepts `ProductionState` are superseded by Patch 0014 and must be removed/reframed.
+
+Their enduring laws remain and must continue to pass, including:
+
+- no public Context Composer overload accepting raw `ProductionState`;
+- no CausalCommit-owned next-opportunity API;
+- no Opportunity redesign caused by Context continuity;
+- no persistence/provider/Windows/hardware leakage;
+- all Patch0012/Patch0013 canonical contracts and hashes unchanged.
+
+Historical Patch0012/Patch0013 evidence documents remain immutable historical evidence and are not rewritten merely because a later patch intentionally implements their deferred non-scope.
+
+Testing hygiene: exact new compile-time contract constants should be inspected through runtime/reflection values where appropriate, rather than written as analyzer-provable constant-vs-literal assertions that could repeat the Patch0013 MSTest analyzer failure.
 
 ## 41. Canonical preservation
 
@@ -1084,7 +1107,7 @@ It still cannot claim:
 
 ## 44. Expected implementation surface
 
-Likely modified:
+Likely modified production source:
 
 ```text
 src/Ensemble.E0.Core/Access/CharacterAccessModels.cs
@@ -1095,7 +1118,7 @@ src/Ensemble.E0.Core/Context/DeterministicContextComposer.cs
 src/Ensemble.E0.Core/CausalCommit/CausalCommitModels.cs
 ```
 
-Likely added:
+Likely added production source:
 
 ```text
 src/Ensemble.E0.Core/Continuity/E0ProductionContextContinuity.cs
@@ -1103,7 +1126,14 @@ src/Ensemble.E0.Core/Continuity/E0ProductionContextContinuity.cs
 
 The Continuity result may live in that same narrow file unless implementation clarity materially benefits from a separate model file.
 
-Plus focused Patch0014 tests/evidence.
+Focused Patch0014 tests/evidence are expected, plus the narrow historical-test updates required in:
+
+```text
+tests/Ensemble.E0.Core.Tests/CausalCommit/Patch0012ContractAuditTests.cs
+tests/Ensemble.E0.Core.Tests/Opportunity/Patch0013ContractAuditTests.cs
+```
+
+No historical evidence rewrite is expected.
 
 `ContextPacketCanonicalizer.SerializeRendered` and the existing trusted-state renderer should preferably remain source-unchanged because rendering semantics do not change.
 
@@ -1122,7 +1152,7 @@ ProductionState projection/canonicalizer, CausalCommit transition engine, Opport
 
 ### Proposal 0.4
 - legacy proof reuse through Access + v1 Composer;
-- honest O(R)/O(A) growth accounting.
+- honest growth accounting.
 
 ### Proposal 0.5
 - removed automatic recent-Performance disclosure after Observation audit;
@@ -1155,7 +1185,13 @@ ProductionState projection/canonicalizer, CausalCommit transition engine, Opport
 - corrected runtime/memory accounting to include AccessDecision retention, inherited sorting, and serialized/rendered byte size (`R`, `A`, `B`);
 - added fail-cheap-first guidance before expensive exact source-context recomposition.
 
-Proposal 0.9 materially improves provenance completeness and ARM64 accounting and restarts recursive audit from correctness.
+### Proposal 0.10
+- identified the two inherited Patch0012/Patch0013 contract-audit assertions that deliberately forbid Production Access only because it was deferred at those historical checkpoints;
+- freezes narrow replacement of those superseded “not yet” assertions while preserving every enduring privacy/dependency/hash law and historical evidence;
+- added generic-smoke Production Access/Continuity coverage so the bridge is not Missing-Raft-specific;
+- added test-hygiene guidance to use runtime/reflection inspection for new exact constants and avoid repeating the prior MSTest compile-time analyzer failure.
+
+Proposal 0.10 materially closes inherited-suite compatibility and restarts recursive audit from correctness.
 
 ## 46. Recursive audit order
 
@@ -1193,6 +1229,7 @@ Approval freezes:
 - v1 preservation and structured v2 schema/composition versioning;
 - existing v1 rendering preservation;
 - exact Production-recomposed source-context proof for both v2 and legacy v1 binding;
+- narrow supersession of the two inherited “no Production Access yet” test assertions, with historical evidence preserved;
 - canonical v2 structured packet behavior;
 - honest `R/A/B` growth, work, memory, and nonclaim boundaries;
 - tests and non-goals.
