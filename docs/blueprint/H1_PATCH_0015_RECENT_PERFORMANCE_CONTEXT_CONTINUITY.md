@@ -1,6 +1,6 @@
 # H1 Patch 0015 — E0 Accepted Performance History + Context Continuity
 
-Status: Blueprint Proposal 0.5 — EXPLORATORY; recursive adversarial audit restarted from correctness; implementation forbidden
+Status: Blueprint Proposal 0.6 — EXPLORATORY; recursive adversarial audit restarted from correctness; implementation forbidden
 Parent promoted `main` checkpoint: `7475a9397cff9063673908c666a729f0f3cd4525`
 Blueprint branch: `h1-patch-0015-blueprint`
 
@@ -47,9 +47,9 @@ Patch 0006 already implements the semantic `ContextPacket -> CandidatePerformanc
 
 ### 2.2 Immediate-one-Performance-only Context — rejected
 
-Proposal 0.2 attempted to disclose only the immediately previous accepted Performance. That is too weak because Blueprint 0.1 explicitly permits accepted historical texture to remain true without promotion into durable projected state. One-turn-only history would lose earlier dialogue/action that may remain socially causal, or would pressure the system to promote every utterance/action into durable state.
+Proposal 0.2 attempted to disclose only the immediately previous accepted Performance. That is too weak because Blueprint 0.1 permits accepted historical texture to remain true without promotion into durable projected state. One-turn-only history would lose earlier dialogue/action that may remain socially causal, or pressure the system to promote every utterance/action into durable state.
 
-Patch 0005 intentionally reserved a plural array. Proposal 0.5 therefore uses the complete accepted Performance sequence of the current bounded E0 Scene. Later product context optimization may deliberately window/retrieve/summarize under a new contract; E0 excludes that optimization.
+Patch 0005 intentionally reserved a plural array. Proposal 0.6 therefore uses the complete accepted Performance sequence of the current bounded E0 Scene. Later product Context optimization may deliberately window/retrieve/summarize under a new contract; E0 excludes that optimization.
 
 ### 2.3 Provider-attempt provenance — deferred
 
@@ -57,7 +57,7 @@ Provider request framing, Run/Attempt attribution, retry/spend/cancellation, ext
 
 ### 2.4 Result-wrapper trust — corrected
 
-Proposal 0.3 proposed history advancement from `E0CausalCommitResult` and `E0OpportunityTransitionResult` wrappers. Proposal 0.4 replaced that with the deterministic replay authorities already implemented:
+Proposal 0.3 proposed history advancement from result wrappers. Proposal 0.4 replaced that with the deterministic replay authorities already implemented:
 
 ```text
 E0CausalCommit
@@ -67,29 +67,46 @@ E0OpportunityTransition
     -> DeterministicOpportunityAuthority.Replay(...)
 ```
 
-History must not duplicate commit mutation logic, Director selection logic, or opportunity StateHash logic.
+History must not duplicate commit mutation logic, Director selection logic, or Opportunity StateHash logic.
 
 ### 2.5 Redundant projected hashes — removed
 
-Proposal 0.3 history entries carried commit parent/result StateHashes and candidate-content identity/hash. Proposal 0.4 removed them. Those values remain authoritative on the causal commit/Take chain; duplicating them in a lightweight current-Scene Context projection creates public provenance surface without enabling independent event reconstruction.
+Proposal 0.3 history entries carried commit parent/result StateHashes and candidate-content identity/hash. Proposal 0.4 removed them. Those values remain authoritative on the causal commit/Take chain; duplicating them in a lightweight current-Scene Context projection creates surface without enabling independent event reconstruction.
 
 ### 2.6 Live source-Context omission — corrected
 
-Proposal 0.4 still had a critical authority gap: `DeterministicCausalCommit.Replay(...)` proves the causal transition, but it does not possess the source `ContextPacket` and therefore cannot prove that an evolved committed Take was generated from the accumulated accepted Performance history.
+Proposal 0.4 still allowed an evolved legacy v2 Take to replay into accepted history because causal replay does not possess the source ContextPacket.
 
-Without an additional check, a legacy history-omitting evolved v2 Take could replay successfully and then be appended to the new accepted-history chain.
-
-Proposal 0.5 closes that gap. Before replay/appending, `RecordCommit(...)` must freshly compose the exact history-aware source Context from the synchronized parent state + source history and require the committed Take’s Performance source identity to equal that exact packet. Only then may commit replay advance history.
-
-This makes history advancement a fail-closed live-chain gate while preserving historical Patch 0014 v2 compatibility APIs.
+Proposal 0.5 corrected this: before replay/appending, `RecordCommit(...)` freshly composes the exact history-aware source Context from synchronized parent Production + source history and requires the committed Take’s source Character/ContextPacketId to equal that exact packet.
 
 ### 2.7 Public history-entry surface — removed
 
-Proposal 0.4 exposed `E0AcceptedPerformanceHistoryEntry` publicly. Proposal 0.5 makes the entry type and entry array internal implementation detail.
+Proposal 0.4 exposed a history-entry type publicly. Proposal 0.5 made entries internal. External orchestration only needs to carry the closed history object. Character-safe history is inspectable on `ContextPacket.RecentPerformances`; Patch 0015 must not accidentally create a public transcript/event-store API.
 
-External callers need to carry the closed history object between deterministic boundaries; they do not need a new public transcript/event-store API. Character-safe semantic history is already inspectable on `ContextPacket.RecentPerformances`.
+### 2.8 Cross-boundary failure domains — normalized
 
-This reduces long-term public contract commitment and helps keep accepted history a derived projection rather than a competing event store.
+Proposal 0.5 did not freeze how malformed/stale history failures propagate through three public domains.
+
+Proposal 0.6 freezes one internal history invariant/projection implementation but preserves each existing public boundary’s failure type:
+
+```text
+history Initialize/RecordCommit/RecordOpportunity
+    -> E0AcceptedPerformanceHistoryException
+
+history-aware Production Context continuity
+    -> E0ContextContinuityException
+
+history-aware Take binding
+    -> E0CausalCommitException
+```
+
+History validation errors crossing Context/Take boundaries are normalized into those boundary-owned exception types. Raw Performance text is never copied into public exception messages, `Data`, or retained unexpected diagnostic payload.
+
+### 2.9 Public count removed
+
+Proposal 0.5 exposed `AcceptedPerformanceCount`. It has no external consumer and duplicates internal `Entries.Length`.
+
+Proposal 0.6 removes it. The history object publicly exposes only its Scene/state synchronization identity; internal transition logic uses the closed entry array length.
 
 ## 3. Frozen authority basis
 
@@ -101,9 +118,9 @@ This reduces long-term public contract commitment and helps keep accepted histor
 - The conceptual source of truth is append-only causal event history.
 - Accepted historical texture remains true even when it is not durable projected state.
 - Context packets conceptually include recent events / “what just happened.”
-- Imported text and fictional dialogue are untrusted creative content, separate from trusted state/system authority.
+- fictional dialogue/imported text are untrusted creative content, separate from trusted state/system authority.
 - Performance may be speech, action, silence, refusal, redirection, or another Character-legible response.
-- Partial/rejected/cancelled output must not enter Production history.
+- partial/rejected/cancelled output must not enter Production history.
 - Missing Raft E0 uses exactly three co-present Characters in one bounded Scene.
 - full observation/location/hearing/attention semantics remain reserved.
 
@@ -114,14 +131,14 @@ Patch 0005 freezes:
 - `recentPerformances` as a root semantic array;
 - v1 historical emptiness;
 - `RecentPerformanceText` as a separate rendered authority layer;
-- future non-empty item schema and causal ordering as responsibility of a later accepted-history/commit slice;
+- future non-empty item schema/causal ordering as responsibility of a later accepted-history/commit slice;
 - no fabricated transcript/history.
 
-Patch 0014 preserves those v1 bytes and adds Production-bound v2 while retaining empty recent Performance.
+Patch 0014 preserves v1 bytes and adds Production-bound v2 while retaining empty recent Performance.
 
 ### Patch 0006
 
-`CandidatePerformance.VisibleText` is the Character-legible Performance surface. Empty text is valid silence. Hidden reasoning and invisible pseudo-performance are outside CandidatePerformance. Typed address/nomination control is separate non-visible control and is explicitly not generic observation eligibility.
+`CandidatePerformance.VisibleText` is the Character-legible Performance surface. Empty text is valid silence. Hidden reasoning/invisible pseudo-performance are outside CandidatePerformance. Typed address/nomination control is separate non-visible control and is explicitly not generic observation eligibility.
 
 ### Patch 0011
 
@@ -129,11 +146,11 @@ Rejected/Alternate Takes never enter Production history or recent-performance Co
 
 ### Patch 0012
 
-Only an Accepted Take bound to exact source authority may commit. `E0CausalCommit` owns the exact Accepted `E0Take`; that Take owns the exact `CandidatePerformance`. The causal StateHash chain binds the accepted Take semantic identity and resulting Production projection. `DeterministicCausalCommit.Replay(...)` is the canonical closed replay authority for an established commit event.
+Only an Accepted Take bound to exact source authority may commit. `E0CausalCommit` owns the exact Accepted `E0Take`; that Take owns the exact `CandidatePerformance`. The causal StateHash chain binds accepted Take semantic identity and resulting Production projection. `DeterministicCausalCommit.Replay(...)` is canonical closed replay authority for an established commit event.
 
 ### Patch 0013
 
-The postcommit state receives one canonical effective Opportunity transition. `E0OpportunityHistory` is routing history, not transcript/Performance history. `DeterministicOpportunityAuthority.Replay(...)` is the canonical closed replay authority for an established Opportunity event.
+The postcommit state receives one canonical effective Opportunity transition. `E0OpportunityHistory` is routing history, not transcript/Performance history. `DeterministicOpportunityAuthority.Replay(...)` is canonical closed replay authority for an established Opportunity event.
 
 ### Patch 0014
 
@@ -141,7 +158,7 @@ Production-backed Context v2 is exact-state-bound. CharacterClaim and recent-Per
 
 ## 4. Exact Patch 0015 question
 
-> Can Ensemble maintain a closed deterministic projection of successfully committed Character-legible Performances for the current E0 Scene, synchronize that projection through the exact commit/opportunity StateHash chain, prove that each newly recorded commit actually consumed the exact accumulated history-aware Character Context, and compose that history into later Character Context without turning historical dialogue/action into projected truth, Observation, Memory, Belief, Claim, or provider state?
+> Can Ensemble maintain a closed deterministic projection of successfully committed Character-legible Performances for the current E0 Scene, synchronize that projection through the exact commit/Opportunity StateHash chain, prove that each newly recorded commit actually consumed the exact accumulated history-aware Character Context, and compose that history into later Character Context without turning historical dialogue/action into projected truth, Observation, Memory, Belief, Claim, or provider state?
 
 ## 5. Dependency direction
 
@@ -203,7 +220,6 @@ public sealed class E0AcceptedPerformanceHistoryException : Exception
 ```text
 SceneId : SceneId
 CurrentStateHash : StateHash
-AcceptedPerformanceCount : int
 ```
 
 Its ordered entry array is internal.
@@ -289,27 +305,27 @@ No public Context-history constructor/composer is added.
 
 ## 7. What history is — and is not
 
-`E0AcceptedPerformanceHistory` answers internally:
+`E0AcceptedPerformanceHistory` internally answers:
 
 > Which Character-legible Performances were successfully accepted into this bounded Scene’s causal history, in what causal order, and to which current Production StateHash has this live projection been advanced?
 
-Its public surface deliberately exposes only Scene/state synchronization plus count, not transcript/event details.
+Its public surface exposes only Scene/state synchronization identity, not transcript/event details.
 
 It does not answer:
 
-- whether propositions in a Performance are objectively true;
+- whether propositions in Performance are objectively true;
 - what any Character observed, remembers, knows, believes, suspects, or claims;
 - which consequences became durable state;
-- which Performance is relevant or important;
+- which Performance is relevant/important;
 - provider/model provenance;
-- raw attempts or diagnostics;
+- raw attempts/diagnostics;
 - durable event reconstruction.
 
 Authoritative current state remains `ProductionState`.
 
 Authoritative causal event remains `E0CausalCommit`.
 
-The new history object is a **closed in-memory derived projection for current-Scene Performance continuity**.
+The history object is a **closed in-memory derived projection for current-Scene Performance continuity**.
 
 ## 8. Why the internal history entry is intentionally small
 
@@ -325,10 +341,10 @@ VisibleText
 
 Rationale:
 
-- CommitId associates the projected entry with the authoritative causal event when event provenance exists.
+- CommitId associates the projection with its authoritative causal event when event provenance exists.
 - TakeId identifies the accepted Take occurrence.
 - SubjectCharacterId identifies who performed.
-- SourceContextPacketId identifies the exact semantic Context from which that Performance was produced.
+- SourceContextPacketId identifies the semantic Context from which that Performance was produced.
 - VisibleText is the Character-legible content later Context needs.
 
 Do not copy into the projection:
@@ -380,36 +396,29 @@ Authority comes from closed initialization/advancement plus canonical replay and
 
 ## 10. History initialization
 
-`E0AcceptedPerformanceHistoryContinuity.Initialize(genesisState)` must reuse existing exact genesis/routing authority rather than duplicate it.
+`E0AcceptedPerformanceHistoryContinuity.Initialize(genesisState)` reuses existing exact genesis/routing authority rather than duplicating it.
 
-Preferred proof:
+Required proof:
 
-```text
+```csharp
 E0OpportunityHistory.Initialize(genesisState)
 ```
 
-This already proves:
+This already proves non-null Production, initialized StateHash/SceneId, canonical E0 roster, one valid current opportunity, and exact genesis StateHash recomputation.
 
-- non-null Production state;
-- initialized StateHash/SceneId;
-- canonical E0 roster;
-- exactly one valid current opportunity;
-- exact genesis StateHash recomputation.
-
-History initialization then returns:
+History initialization returns internally:
 
 ```text
 SceneId = genesisState.SceneId
 CurrentStateHash = genesisState.StateHash
-AcceptedPerformanceCount = 0
-internal Entries = []
+Entries = []
 ```
 
 No opening transcript is invented.
 
-Do not add a Production-state public/internal history counter merely for this initialization.
+Initialization catches expected `E0OpportunityTransitionException`/identity failures and emits sanitized `E0AcceptedPerformanceHistoryException`. It does not concatenate source messages containing user/creative text.
 
-## 11. Commit advancement proves the exact history-aware source Context
+## 11. Commit advancement proves exact history-aware source Context
 
 Exact API:
 
@@ -425,14 +434,14 @@ Required sequence:
 1. validate non-null/initialized history/event association;
 2. require `sourceHistory.SceneId == parentState.SceneId`;
 3. require `sourceHistory.CurrentStateHash == parentState.StateHash`;
-4. defensively validate the source history closed shape;
+4. defensively validate source history closed shape;
 5. capture exact parent checkpoint:
 
 ```csharp
 var checkpoint = ProductionStateCheckpoint.Capture(parentState);
 ```
 
-6. freshly compose the exact expected live source Context:
+6. freshly compose exact expected live source Context:
 
 ```csharp
 var expected = E0ProductionContextContinuity.Compose(
@@ -456,34 +465,40 @@ Take.Performance.ContextPacketId
 DeterministicCausalCommit.Replay(parentState, committedEvent)
 ```
 
-9. use the fresh replayed state as causal transition authority;
-10. require replayed Scene association remains exact and postcommit state has no current opportunity;
-11. append exactly one internal history entry from the committed event’s CommitId, TakeId, Performance subject/source Context identity, and exact VisibleText;
-12. advance `CurrentStateHash` to the fresh replayed StateHash.
+9. use fresh replayed state as causal transition authority;
+10. require replayed Scene remains exact and postcommit state has no current opportunity;
+11. append exactly one internal entry from CommitId, TakeId, Performance subject/source Context identity, and exact VisibleText;
+12. advance `CurrentStateHash` to fresh replayed StateHash.
 
-### Why ContextPacketId equality is sufficient at this boundary
+### Why ContextPacketId equality is sufficient here
 
-`expected.ContextEvaluation.Packet` is freshly recomposed from the exact synchronized Production checkpoint + closed history using the appropriate v2/v3 deterministic composer. Its `ContextPacketId` is content-addressed from exact canonical structured semantic Context bytes.
+The expected packet is freshly recomposed from exact synchronized Production checkpoint + closed history. `ContextPacketId` is content-addressed from exact canonical structured semantic Context bytes.
 
-The committed Take’s Candidate/Integrity/Interpretation/Take chain already binds `CandidatePerformance.ContextPacketId` to its source Context identity. Therefore requiring exact equality to this freshly recomputed packet proves that the committed Performance was sourced from the exact expected semantic Character Context for this live history state.
+The committed Candidate/Integrity/Interpretation/Take chain already binds `CandidatePerformance.ContextPacketId` to its source Context identity. Exact equality therefore proves that the committed Performance was sourced from the exact expected semantic Character Context for this live history state.
 
-Patch 0015 does not claim provider transport/disclosure proof; exact provider request bytes remain future attempt-provenance scope.
+This does **not** prove exact provider transport/request disclosure; provider-attempt provenance remains later scope.
 
-### Compatibility effect
+### Compatibility firewall
 
-- first live commit from exact genesis may use the exact history-aware genesis v2 Context because no accepted history exists yet;
-- after the first accepted Performance, expected live Context is v3;
-- an evolved legacy history-omitting v2 commit may remain valid under historical Patch 0014 compatibility APIs, but `RecordCommit(...)` rejects it from the new accepted-history live chain because its source `ContextPacketId` differs from the freshly recomposed v3 packet.
+- first live commit from exact genesis uses exact history-aware genesis v2 because no accepted history exists;
+- after first accepted Performance, expected live Context is v3;
+- an evolved legacy history-omitting v2 commit may remain valid under Patch 0014 historical APIs, but `RecordCommit(...)` rejects it from the new accepted-history chain because its source `ContextPacketId` differs from freshly recomposed v3.
 
-This prevents legacy compatibility from becoming a Full Ensemble history-omission bypass.
+### Visible-text invariant reuse
 
-### Candidate visible-text validation
+The appended text comes only from successfully replayed Accepted `CandidatePerformance`.
 
-The appended text comes only from the successfully replayed Accepted Take’s closed `CandidatePerformance`.
+For defensive history validation, implementation may expose the exact existing Patch 0006 visible-text validator as internal-only reusable logic (helper accessibility/forwarder only). Do not create a second text grammar or alter Candidate public semantics.
 
-For defensive history validation, implementation may expose the already-existing Patch 0006 visible-text validator as **internal-only reusable logic** (for example by changing helper accessibility or adding an internal forwarding helper). It must not create a second text grammar and must not change public Candidate semantics or historical bytes.
+### Failure normalization
 
-## 12. Opportunity advancement reuses canonical Opportunity replay and couples routing/history counts
+`RecordCommit` owns the history-transition public boundary. Expected failures from checkpoint capture, history-aware Context composition, causal replay, and internal history validation are normalized to sanitized `E0AcceptedPerformanceHistoryException`.
+
+Retained inner exceptions are allowed only for current upstream exception domains whose messages are structural/sanitized; no raw Performance text, Context prose, mutation text, provider data, credentials, or arbitrary payload snippets may enter the public exception representation.
+
+Unexpected programming/runtime failures are not relabeled as ordinary history rejection.
+
+## 12. Opportunity advancement reuses canonical replay and couples routing/history counts
 
 Exact API:
 
@@ -501,17 +516,26 @@ Required sequence:
 1. validate non-null/initialized inputs;
 2. require `sourceHistory.CurrentStateHash == postCommitState.StateHash`;
 3. require exact Scene association;
-4. require source history non-empty;
-5. require the internal last accepted-history entry matches `sourceCommit.CommitId`, `sourceCommit.Take.TakeId`, source Character, and source ContextPacketId;
+4. require internal source history non-empty;
+5. require the internal last accepted-history entry equals the complete minimal source projection of `sourceCommit`:
+
+```text
+CommitId
+TakeId
+SubjectCharacterId
+SourceContextPacketId
+VisibleText
+```
+
 6. require `sourceCommit.ResultStateHash == postCommitState.StateHash`;
-7. require the normal alternating E0 chain relation before Opportunity replay:
+7. require normal alternating E0 chain relation before replay:
 
 ```text
 sourceOpportunityHistory.CharacterIds.Length
-    == sourceHistory.AcceptedPerformanceCount
+    == sourceHistory.Entries.Length
 ```
 
-At genesis the counts are `1 opportunity / 0 Performances`; after each accepted commit they are equal; after each successful Opportunity transition routing history advances by one while accepted Performance history does not.
+At genesis counts are `1 opportunity / 0 Performances`; after each accepted commit they are equal; after each successful Opportunity transition routing history advances by one while Performance history does not.
 
 8. call exactly:
 
@@ -523,16 +547,49 @@ DeterministicOpportunityAuthority.Replay(
     establishedEvent)
 ```
 
-9. use the fresh replay result as authority;
-10. require fresh result history count equals `sourceHistory.AcceptedPerformanceCount + 1` and fresh result routing history last Character equals the selected/current opportunity Character;
-11. append no Performance entry;
-12. advance only `CurrentStateHash` to the fresh replayed opportunity-bearing StateHash.
+9. use fresh replay result as authority;
+10. require fresh result routing-history length equals `sourceHistory.Entries.Length + 1`;
+11. require fresh result routing-history last Character == event selected Character == result Production current opportunity;
+12. append no Performance entry;
+13. advance only `CurrentStateHash` to fresh replayed opportunity-bearing StateHash.
 
 This reuses Patch 0013 source-chain validation, Director recomputation, event validation, canonical Opportunity StateHash recomputation, Production transition, and routing-history advancement.
 
-History does not duplicate Director or Opportunity logic and does not trust a caller-supplied `E0OpportunityTransitionResult` wrapper.
+### Failure normalization
 
-## 13. Failure and non-effective paths
+Expected history/input/replay failures are normalized to sanitized `E0AcceptedPerformanceHistoryException`; unexpected programming/runtime failures remain technical failures.
+
+## 13. Public exception-domain preservation outside history advancement
+
+The internal history validator/projector is shared, but public boundary ownership remains exact.
+
+### History-aware Context continuity
+
+`E0ProductionContextContinuity.Compose(checkpoint, history)` catches expected `E0AcceptedPerformanceHistoryException` and emits sanitized `E0ContextContinuityException` with the history exception retained only as a sanitized inner exception.
+
+It does not expose `E0AcceptedPerformanceHistoryException` as a second expected public failure domain from this method.
+
+### History-aware Take binding
+
+`E0TakeStateBinding.Bind(checkpoint, context, take, history)` catches expected `E0AcceptedPerformanceHistoryException` and emits sanitized `E0CausalCommitException`, preserving the established CausalCommit binding failure domain.
+
+It does not expose history exception as a second expected public failure domain from binding.
+
+### Sanitization
+
+No Patch 0015 public exception message, retained expected inner-exception chain, `Data`, or `ToString()` may contain:
+
+- Performance `VisibleText`;
+- trusted Context prose;
+- private record text;
+- mutation text;
+- unknown payload snippets;
+- provider content;
+- credentials/secrets.
+
+Do not catch/relabel arbitrary unexpected exceptions merely to satisfy this taxonomy.
+
+## 14. Failure and non-effective paths
 
 No accepted-history entry is created for:
 
@@ -553,7 +610,7 @@ A successfully Accepted zero-mutation Take **does** append its Performance becau
 
 A successfully Accepted Take whose proposed consequences are all authoritatively Rejected likewise appends its Performance because the accepted Performance entered causal history atomically with the terminal consequence decision package.
 
-## 14. Current-Scene causal order and E0 history window
+## 15. Current-Scene causal order and E0 history window
 
 For the bounded current E0 Scene:
 
@@ -563,46 +620,27 @@ recentPerformances = every internal accepted Performance history entry
 
 in exact append order.
 
-No:
-
-- sorting by Character/ID/time;
-- deduplication;
-- relevance scoring;
-- recency count;
-- truncation;
-- summarization;
-- paraphrase;
-- token budgeting;
-- model compression.
+No sorting, deduplication, relevance scoring, recency count, truncation, summarization, paraphrase, token budgeting, or model compression.
 
 Why complete current-Scene history:
 
-- Patch 0005 intentionally deferred causal ordering to accepted-history authority;
+- Patch 0005 deferred causal ordering to accepted-history authority;
 - Blueprint 0.1 preserves historical texture without state explosion;
-- E0 explicitly excludes context optimization;
-- Full Ensemble E0 needs multi-turn social causality without provider-session memory;
-- a one-Performance window discards accepted Scene texture too aggressively.
+- E0 excludes context optimization;
+- Full Ensemble E0 needs multi-turn social causality without hidden provider-session memory;
+- one-Performance history discards accepted Scene texture too aggressively.
 
-This is the deterministic E0 reference composer rule, not the final product long-context strategy.
+This is deterministic E0 reference composition, not the final product long-context strategy. A later version may narrow already-eligible history under a new composition contract and separately controlled experiment.
 
-A later version may deliberately window/retrieve/summarize only after preserving Access-before-relevance and accepted-history authority, under a new composition contract and separately controlled E0 comparison.
-
-## 15. Scene boundary
+## 16. Scene boundary
 
 History is scoped to exactly one current E0 Scene.
 
-Patch 0015 does not define:
-
-- cross-Scene transcript carryover;
-- archive retrieval into new Scenes;
-- scene-to-scene memory promotion;
-- branches/canon merging;
-- cross-Production Character history;
-- persistent history loading.
+Patch 0015 does not define cross-Scene transcript carryover, archive retrieval, scene-to-scene memory promotion, branches/canon merge, cross-Production Character history, or persistent history loading.
 
 A future Scene-transition architecture must explicitly decide what prior history becomes available under what Character-access/observation/memory law.
 
-## 16. E0 `copresent-trio.v1` recent-Performance eligibility
+## 17. E0 `copresent-trio.v1` recent-Performance eligibility
 
 Fixture Dialect v1 accepts exactly:
 
@@ -610,19 +648,18 @@ Fixture Dialect v1 accepts exactly:
 ensemble.e0.copresent-trio.v1
 ```
 
-and the canonical Missing Raft E0 fixture freezes exactly three co-present Characters for the bounded observation window.
+and canonical Missing Raft freezes exactly three co-present Characters for the bounded E0 observation window.
 
 Patch 0015 gives that E0-only reference contract one narrowly executable recent-Performance meaning:
 
 > Successfully committed `CandidatePerformance.VisibleText` is common Character-legible Scene-performance history for every current roster Character under `ensemble.e0.copresent-trio.v1`.
 
-This is newly specified Patch 0015 behavior. Earlier sources froze the token and co-presence but did not silently define this executable recent-history rule.
+This is newly specified Patch 0015 behavior. Earlier sources froze the token/co-presence but did not silently define this executable recent-history rule.
 
-The rule is deliberately narrow:
+The rule is limited to:
 
-- only successfully committed Accepted `VisibleText`;
-- only current E0 Scene;
-- only current roster;
+- successfully committed Accepted `VisibleText`;
+- current E0 Scene/current roster;
 - no typed control;
 - no hidden reasoning;
 - no provider diagnostics;
@@ -630,13 +667,13 @@ The rule is deliberately narrow:
 - no inferred consequences;
 - no claim-to-truth promotion.
 
-This is **not** a global ontology rule that co-presence always implies complete perception. Future spatial/private/inaudible/concealed Performance grammars require an explicit observation contract and may not inherit `copresent-trio.v1` behavior.
+This is **not** a global ontology rule that co-presence always implies complete perception. Future spatial/private/inaudible/concealed Performance grammars require an explicit observation contract and may not inherit this E0 behavior.
 
 For the E0 reference contract, a Performance cannot rely on private-performance semantics while also expecting selective recipient disclosure; selective perception is outside this contract.
 
-## 17. Recent Performance is not CharacterObservation
+## 18. Recent Performance is not CharacterObservation
 
-Patch 0015 preserves the frozen future epistemic path:
+Patch 0015 preserves the future epistemic path:
 
 ```text
 Event happened
@@ -647,26 +684,19 @@ Event happened
 
 Patch 0015 does not materialize `CharacterObservation` records.
 
-Seeing recent accepted Performance in Context does not itself mean:
+Recent accepted Performance in Context does not mean every proposition is true, Knowledge was gained, Belief formed, durable Memory created, a CharacterClaim record exists, or general hearing/location/attention semantics are solved.
 
-- every proposition in the prose is true;
-- the Character gained Knowledge;
-- the Character formed a Belief;
-- the content became durable Memory;
-- a spoken claim became a CharacterClaim record;
-- general hearing/location/attention semantics are solved.
+The recent layer records only that common Character-legible Performance occurred under the E0 reference disclosure contract. Epistemic consequences remain separately proposed/authorized.
 
-The E0 recent layer records only that common Character-legible Performance occurred under the E0 reference disclosure contract. Epistemic consequences remain separately proposed/authorized.
-
-## 18. Typed control remains non-visible
+## 19. Typed control remains non-visible
 
 Patch 0006 `AddressedCharacterIds` and `NominatedCharacterId` are routing/intent metadata, not generic observation eligibility.
 
 They never enter `ContextRecentPerformance` or `RecentPerformanceText`.
 
-Exposing typed control to later Performers as historical prose/metadata would create a new knowledge channel not authorized by Patch 0006.
+Exposing them as historical Character semantics would create a knowledge channel not authorized by Patch 0006.
 
-## 19. Context v3 semantic shape
+## 20. Context v3 semantic shape
 
 Add:
 
@@ -692,9 +722,9 @@ Rules:
 - text is copied exactly from accepted Candidate `VisibleText`, including valid silence;
 - no CommitId/TakeId/StateHash/ContextPacketId/candidate hash/control enters Character semantic recent history.
 
-Context receives only already-projected safe recent semantic items from the closed history layer. It does not accept raw arbitrary history/prose through a public composer.
+Context receives only projected safe recent semantic items from the closed history layer. No public raw-history/prose composer is added.
 
-## 20. Exact Context v3 contracts
+## 21. Exact Context v3 contracts
 
 Preserve historical constants/bytes:
 
@@ -740,30 +770,22 @@ v3 + production-bound.accepted-history.v1 + render.v2
 
 Every hybrid combination fails closed.
 
-## 21. Genesis behavior
+## 22. Genesis behavior
 
 Genesis has no accepted Performance history.
 
-Therefore the **history-aware live path** with exact initialized empty history emits the existing Patch 0014 v2 packet unchanged.
-
-No empty-history v3 packet exists.
-
-Meaning:
+The history-aware live path with exact initialized empty history emits existing Patch 0014 v2 unchanged. No empty-history v3 packet exists.
 
 ```text
 v2 = exact Production-bound Context with no accepted current-Scene Performance yet
 v3 = exact Production-bound Context plus non-empty accepted current-Scene Performance history
 ```
 
-A non-empty history paired with exact genesis fails.
+Non-empty history at exact genesis fails. Empty history at non-genesis history-aware continuation fails.
 
-An empty history paired with non-genesis history-aware continuation fails.
+## 23. Historical v1/v2 compatibility and live-path firewall
 
-## 22. Historical v1/v2 compatibility and the live-path boundary
-
-Patch 0015 must preserve machine-established v1/v2 bytes and compatibility behavior.
-
-Existing APIs remain:
+Preserve existing APIs:
 
 ```csharp
 DeterministicContextComposer.Compose(...)
@@ -771,15 +793,11 @@ E0ProductionContextContinuity.Compose(checkpoint)
 E0TakeStateBinding.Bind(checkpoint, context, take)
 ```
 
-The old one-argument Production Continuity path remains a **current-state-only compatibility path** and may still emit v2 for evolved Production because Patch 0014 explicitly established that behavior.
+The old one-argument Production Continuity path remains a current-state-only compatibility path and may emit v2 for evolved Production because Patch 0014 established that behavior.
 
-The old three-argument Take binding remains historical v1/v2 compatibility and must reject v3.
+The old three-argument Take binding remains v1/v2 compatibility and must reject v3.
 
-Patch 0015 does not retroactively break Patch 0014 executable behavior.
-
-However, the new Full Ensemble E0 accepted-history chain can advance only through `E0AcceptedPerformanceHistoryContinuity.RecordCommit(...)`, and that method freshly recomposes the required history-aware source Context. Therefore, after the first accepted Performance, a commit sourced from legacy evolved v2 cannot enter the new live history chain.
-
-This is a deliberate compatibility/firewall split:
+The new Full Ensemble accepted-history chain advances only through `RecordCommit(...)`, which freshly recomposes the required history-aware source Context. After the first accepted Performance, a legacy evolved-v2 commit therefore cannot enter the live chain.
 
 ```text
 historical/regression compatibility
@@ -789,9 +807,9 @@ new Full Ensemble live chain
     closed history advancement requires exact history-aware v2-at-genesis / v3-after-history source Context
 ```
 
-The future Harness Scene-loop patch must use the history-aware path, but Patch 0015 does not yet implement that orchestrator.
+The future Harness Scene-loop patch must use history-aware APIs; Patch 0015 does not falsely claim that orchestration is implemented yet.
 
-## 23. History-aware Production Context Continuity
+## 24. History-aware Production Context Continuity
 
 Add:
 
@@ -809,26 +827,20 @@ validate checkpoint/current Production
     -> require history Scene == checkpoint Scene
     -> require history CurrentStateHash == checkpoint StateHash
     -> fresh Production Access once
-    -> if history empty:
+    -> if internal history empty:
            require exact genesis
            compose existing internal v2
        else:
            require non-genesis
            project exact ordered ContextRecentPerformance[]
            compose internal v3
-    -> require packet/trace SourceStateHash == checkpoint StateHash
-    -> return existing Access + Context evaluation result shape
+    -> require Packet/Trace SourceStateHash == checkpoint StateHash
+    -> return existing Access + Context result shape
 ```
 
-The result type remains unchanged:
+Expected history failures are normalized to `E0ContextContinuityException` as frozen in section 13.
 
-```text
-E0ProductionContextContinuityResult
-- AccessEvaluation
-- ContextEvaluation
-```
-
-## 24. History-aware exact Take binding
+## 25. History-aware exact Take binding
 
 Add:
 
@@ -840,22 +852,22 @@ E0TakeStateBinding.Bind(
     E0AcceptedPerformanceHistory history)
 ```
 
-The four-argument live binding:
+Four-argument live binding:
 
-- accepts exact genesis v2 only with exact empty initialized history;
-- accepts v3 only with non-empty synchronized history;
+- exact genesis v2 only with exact empty initialized history;
+- v3 only with non-empty synchronized history;
 - rejects v1;
 - rejects evolved v2;
 - rejects empty-history evolved state;
 - rejects non-empty history at genesis.
 
-For v3 it must:
+For v3:
 
 1. validate checkpoint/current state identities;
 2. validate closed history shape;
 3. require history StateHash/Scene match checkpoint;
 4. fresh Production Access;
-5. project exact ordered recent Performance semantics from history;
+5. project exact ordered recent Performance semantics;
 6. fresh internal v3 Context composition;
 7. compare exact canonical structured bytes;
 8. compare exact canonical rendered bytes;
@@ -863,21 +875,22 @@ For v3 it must:
 10. compare StructuredContextHash;
 11. compare RenderedContextHash;
 12. compare SourceStateHash;
-13. then run the inherited exact Take/StateAuthority snapshot proof.
+13. then run inherited exact Take/StateAuthority snapshot proof.
 
 No arbitrary caller-supplied recent prose parameter exists.
 
-The existing three-argument binding retains Patch 0014 behavior and must not acquire a v3 bypass.
+Existing three-argument binding retains Patch 0014 behavior and cannot acquire a v3 bypass.
 
-## 25. Shared history validation
+Expected history failures are normalized to `E0CausalCommitException` as frozen in section 13.
 
-Use one internal CausalCommit-layer history validation/projection helper for history-aware Context continuity, history-aware Take binding, and history advancement preconditions.
+## 26. Shared internal history validation/projector
 
-It should defensively prove at minimum:
+Use one internal CausalCommit-layer helper for history-aware Context continuity, history-aware Take binding, and history advancement preconditions.
+
+It proves at minimum:
 
 - history non-null;
 - internal Entries not default;
-- `AcceptedPerformanceCount == Entries.Length`;
 - SceneId initialized;
 - CurrentStateHash initialized;
 - every entry non-null;
@@ -888,15 +901,15 @@ It should defensively prove at minimum:
 - VisibleText non-null and valid under the exact existing Candidate visible-text invariant;
 - CommitIds unique;
 - TakeIds unique;
-- when projecting for a current Context, every source Character resolves exactly once in current roster.
+- when projecting for current Context, every source Character resolves exactly once in current roster.
 
-Do not attempt full event replay from projected entries; the projection deliberately does not carry enough data for durable reconstruction.
+Internal entry count is always `Entries.Length`; no stored/public duplicate count exists.
 
-CurrentStateHash equality alone is not treated as authentication. Closed initialization/advancement is the authority assumption for this in-memory projection.
+Do not attempt full event replay from projected entries. CurrentStateHash equality alone is not authentication; closed initialization/advancement is the authority assumption for this in-memory projection.
 
-## 26. Structured v3 canonicalization
+## 27. Structured v3 canonicalization
 
-V3 preserves v2 root property order:
+V3 preserves v2 root order:
 
 ```text
 schemaVersion
@@ -921,31 +934,27 @@ relationships
 recentPerformances
 ```
 
-Each `recentPerformances` item property order:
+Recent item property order:
 
 ```text
 sourceCharacterId
 visibleText
 ```
 
-Recent Performance array order is causal append order and is never sorted.
-
-All historical roster/record/relationship canonical ordering stays unchanged.
-
-V3 identity:
+Recent array order is causal append order and never sorted. Historical roster/record/relationship ordering remains unchanged.
 
 ```text
 StructuredContextHash = SHA256(canonical v3 structured bytes)
 ContextPacketId = "CTX:" + StructuredContextHash
 ```
 
-Therefore different Performance text, source Character, causal order, or silence/non-silence changes structured Context identity even if current durable state records are otherwise identical.
+Different Performance text, source Character, causal order, or silence/non-silence therefore changes v3 structured identity even if durable current-state records are otherwise identical.
 
-## 27. Render-v2 exact recent-Performance shape
+## 28. Render-v2 exact recent-Performance shape
 
 A non-empty Character-visible recent layer changes rendering semantics, so v3 uses `ensemble.e0.context.render.v2`.
 
-`TrustedStateText` and `OpportunityText` preserve their existing v1 algorithms byte-for-byte. Only `RecentPerformanceText` gains non-empty behavior.
+`TrustedStateText` and `OpportunityText` preserve existing v1 algorithms byte-for-byte. Only `RecentPerformanceText` gains non-empty behavior.
 
 Exact non-silent form:
 
@@ -968,13 +977,15 @@ Rules:
 - exactly one blank line between entries;
 - no trailing LF;
 - source display name resolves from current packet roster;
-- source text is never trimmed, paraphrased, summarized, repaired, or reordered;
-- non-empty text uses the existing LF split / two-space continuation rendering discipline;
+- source text never trimmed/paraphrased/summarized/repaired/reordered;
+- non-empty text uses existing LF split / two-space continuation rendering discipline;
 - Character IDs and causal/provenance IDs are not rendered.
 
-## 28. Silence rendering
+Roster/display-name semantics remain inherited: the safe structured roster carries both CharacterId and DisplayName, while provider-neutral human-readable rendering uses display names only. Patch 0015 does not add a new display-name uniqueness law or alter Patch 0005 rendering conventions.
 
-Empty `CandidatePerformance.VisibleText` is valid silence.
+## 29. Silence rendering
+
+Empty Candidate `VisibleText` is valid silence.
 
 Structured v3 item:
 
@@ -989,45 +1000,33 @@ Rendered entry:
 [PERFORMANCE: SILENCE]
 ```
 
-No `[PERFORMANCE]` line or bullet body follows silence.
+No `[PERFORMANCE]` line/bullet body follows silence.
 
-Literal non-silent text equal to `[PERFORMANCE: SILENCE]` renders through the ordinary non-silent form and therefore cannot collide with semantic silence.
+Literal non-silent text `[PERFORMANCE: SILENCE]` renders through ordinary non-silent form, so it cannot collide with semantic silence.
 
-## 29. Recent Performance remains untrusted creative content
+## 30. Recent Performance remains untrusted creative content
 
 `RecentPerformanceText` remains separate from `TrustedStateText`.
 
-Future provider framing must preserve distinct authority layers for:
+Future provider framing must preserve distinct authority layers for system/Performer contract, trusted state, recent accepted fictional Performance, opportunity, and imported/user content where applicable.
 
-```text
-system/Performer contract
-trusted state
-recent accepted fictional Performance
-opportunity
-imported/user content where applicable
-```
+A prior accepted line containing prompt-like language gains no system authority by being retained in Scene history.
 
-A prior accepted line that contains prompt-like language does not gain system authority merely because it is retained in Scene history.
+Patch 0015 does not define provider request framing.
 
-Patch 0015 does not define the provider request envelope.
+## 31. Character self-history
 
-## 30. Character self-history
+The current Character receives prior accepted Performances from all roster Characters, including their own earlier Performances, on a later opportunity.
 
-The current Character receives prior accepted Performances from all roster Characters, including their own earlier Performances, when that Character later receives another opportunity.
+This is common E0 Scene-performance history under `copresent-trio.v1`; removing self history would introduce an unsupported special forgetting rule.
 
-Reason:
+It does not materialize durable Memory. Future memory fallibility/retention remains separate.
 
-- the history is common E0 Scene-performance history under `copresent-trio.v1`;
-- a Character’s own accepted prior action is not other-Character private state;
-- removing self history would create a special forgetting rule not authorized by Blueprint 0.1.
+## 32. Minimal-disclosure reconciliation
 
-This does not materialize durable Memory. Future memory fallibility/retention remains separate.
+Full current-Scene recent Performance does not authorize whole-Production disclosure.
 
-## 31. Minimal-disclosure reconciliation
-
-Full current-Scene recent Performance does not authorize disclosure of the whole Production.
-
-The E0 reference path still discloses only:
+The E0 reference path discloses only:
 
 ```text
 current Character-safe Access projection
@@ -1035,97 +1034,59 @@ current Character-safe Access projection
 + current opportunity
 ```
 
-It still excludes:
+It still excludes Production-only truth, other Characters’ private records, denied Access rows, fixture provenance, typed control, provider diagnostics, and creator-only data.
 
-- Production-only truth;
-- other Characters’ private records;
-- denied Access rows;
-- fixture provenance;
-- typed control;
-- provider diagnostics;
-- creator-only data.
+E0 uses complete accepted current-Scene Performance history because semantic relevance/windowing is intentionally outside the reference experiment. A later product composer may narrow already-eligible history under a new contract.
 
-E0 uses complete accepted current-Scene Performance history because semantic relevance/windowing is intentionally not part of the reference experiment. A later product composer may narrow this already-eligible history under a newly versioned contract.
+## 33. `ContextCompositionTrace` remains unchanged
 
-## 32. `ContextCompositionTrace` remains unchanged
+Do not add accepted-history count/source Characters/CommitIds/TakeIds to `ContextCompositionTrace`.
 
-Do not add accepted-history count, source Character IDs, CommitIds, or TakeIds to `ContextCompositionTrace`.
+Packet `RecentPerformances` exposes exact Character semantic items; structured/rendered hashes identify exact emitted bytes; causal provenance remains in the internal history projection. Adding trace fields would duplicate information without a current consumer.
 
-Reasons:
+## 34. No separate history hash
 
-- packet `RecentPerformances` already exposes the exact Character semantic items;
-- structured/rendered hashes already identify exact emitted bytes;
-- causal Commit/Take provenance remains in the separate internal history projection;
-- adding trace duplicates information without a current consumer.
+Do not add `PerformanceHistoryHash`.
 
-Existing trace source StateHash and dual hashes remain sufficient.
+Closed advancement is anchored to Production StateHash; each accepted commit already binds Take/Candidate identity; each v3 Context hashes exact disclosed history semantics. A second history hash would look like parallel authority without making the projection durably reconstructible.
 
-## 33. No separate history hash
+A future persisted history envelope may require its own canonical/authenticated identity. That is persistence scope.
 
-Do not add `PerformanceHistoryHash` in Patch 0015.
+## 35. Causal commit and Opportunity history stay authoritative in their domains
 
-Reasons:
+`E0CausalCommit` remains causal-event authority with exact Accepted Take, materializations, and parent/result StateHashes.
 
-- closed advancement is anchored to the existing Production StateHash chain;
-- each accepted commit already binds Take/Candidate semantic identity;
-- each v3 Context hashes exact disclosed history semantics directly;
-- a second standalone history hash would look like parallel authority without making the projection durably reconstructible.
+`E0OpportunityHistory` remains routing-only: who held effective opportunity in routing order?
 
-A future persisted history envelope may need its own canonical/authenticated identity. That is persistence scope.
+`E0AcceptedPerformanceHistory` internally answers: which Character-legible Performances were accepted in Scene causal order?
 
-## 34. Causal commit and Opportunity history remain authoritative in their own domains
+Do not add transcript semantics to Opportunity history or routing semantics to accepted Performance entries.
 
-`E0CausalCommit` remains the causal event authority and retains exact Accepted Take plus materializations and parent/result StateHashes.
+## 36. Production projection remains unchanged
 
-`E0OpportunityHistory` remains routing-only:
-
-```text
-who held effective opportunity in routing order?
-```
-
-`E0AcceptedPerformanceHistory` internally answers:
-
-```text
-which Character-legible Performances were accepted in Scene causal order?
-```
-
-Do not add transcript semantics to Opportunity history and do not add routing semantics to accepted Performance entries.
-
-## 35. Production projection remains unchanged
-
-Recent Performance history must not enter `ProductionStateProjection`.
-
-Doing so would:
-
-- duplicate event history into current state;
-- make historical texture look like durable projected state;
-- cause unnecessary state growth;
-- alter Patch 0012/0013 state-hash oracles;
-- undermine the frozen historical-texture/durable-consequence distinction.
+Recent Performance history must not enter `ProductionStateProjection`. Doing so would duplicate event history into current state, make historical texture look like durable state, cause unnecessary state growth, alter Patch 0012/0013 StateHash oracles, and undermine the frozen historical-texture/durable-consequence distinction.
 
 Trusted current consequences continue to reach Character Context only through committed Production records and current Access.
 
-## 36. CharacterClaim remains deferred
+## 37. CharacterClaim remains deferred
 
-A prior accepted Performance may contain a factual-sounding claim. That does not make the proposition a `CharacterClaim` record, Knowledge, Belief, Memory, or truth.
+A prior accepted Performance may contain a factual-sounding claim. That does not make it a `CharacterClaim` record, Knowledge, Belief, Memory, or truth.
 
-Patch 0014 `CharacterClaimDisclosureDeferred` remains exact for retained Production records.
+Patch 0014 `CharacterClaimDisclosureDeferred` remains exact for retained Production records. Patch 0015 adds only common accepted E0 Performance occurrence history.
 
-Patch 0015 adds only common accepted E0 Performance occurrence history.
+## 38. Observation-contract representation limitation
 
-## 37. Observation-contract representation limitation
+Current Production projection does not separately carry fixture `ObservationContract`.
 
-Current Production projection does not separately carry the fixture ObservationContract token.
-
-Patch 0015 does not add it merely for this E0-only behavior.
+Patch 0015 does not add it solely for this E0-only behavior.
 
 Fixture Dialect v1 validates exactly one observation token, `ensemble.e0.copresent-trio.v1`, and Production genesis can originate only from validated E0 v1 fixture authority.
 
 Therefore accepted-history disclosure is explicitly an **E0 Fixture Dialect v1 reference rule**, not a general future Production rule.
 
-If a later fixture dialect supports multiple observation contracts, active observation/disclosure authority must become explicit at the appropriate state/context boundary. This assumption must then be reopened rather than inherited silently.
+If a later dialect supports multiple observation contracts, active observation/disclosure authority must become explicit at the appropriate boundary and this assumption must be reopened rather than inherited silently.
 
-## 38. Multi-turn live proof without durable replay
+## 39. Multi-turn live proof without durable replay
 
 Patch 0015 supports multiple live E0 turns by induction:
 
@@ -1144,33 +1105,23 @@ closed history at current opportunity-bearing StateHash
 
 Repeat.
 
-No older causal event is rediscovered from current projected state. No durable history deserialization/reconstruction is claimed.
+No older causal event is rediscovered from current projection. No durable history deserialization/reconstruction is claimed.
 
 Full replay from genesis, persistence/recovery, branch reconstruction, and stored-event authentication remain later scope.
 
-## 39. Exact current-state association and limitations
+## 40. Exact current-state association and limitations
 
-Normal closed progression rejects:
+Normal supported closed progression rejects stale history, wrong Scene/branch, skipped commit/Opportunity advancement, wrong source ContextPacketId, foreign/tampered commit or Opportunity event, mismatched routing/performance counts, and evolved empty history.
 
-- stale history;
-- history from another Scene/current branch;
-- skipped commit advancement;
-- skipped Opportunity advancement;
-- a commit event whose source ContextPacketId does not equal the exact history-aware source Context;
-- foreign/tampered commit event;
-- foreign/tampered Opportunity event;
-- mismatched routing-history/performance-history counts;
-- evolved empty history.
+Because history constructors are closed and entries internal, ordinary external callers cannot manufacture alternate supported history contents through normal C# construction.
 
-Because public history constructors are closed and internal entries are not public, ordinary external callers cannot manufacture alternate supported history contents through normal C# construction.
+Patch 0015 does not claim resistance to arbitrary reflection/runtime corruption or durable-store authentication without the future causal event chain.
 
-Patch 0015 does **not** claim resistance to arbitrary reflection/runtime memory corruption, nor durable-store authentication without the future causal event chain.
+## 41. Existing downstream semantic contracts remain version-agnostic where designed
 
-## 40. Existing downstream semantic contracts remain version-agnostic where designed
+Patch 0006 intentionally does not gate Candidate parsing on specific Context schema/composition tokens. Integrity and State Interpretation rebind Candidate/source association; Take replays State Authority from those associations.
 
-Patch 0006 intentionally does not gate Candidate parsing on a specific Context schema/composition contract. Integrity and State Interpretation rebind semantic Candidate/source associations, and Take replays State Authority from those associations.
-
-Patch 0015 must prove by tests that an exact v3 packet can flow through the existing:
+Patch 0015 must prove exact v3 can flow through:
 
 ```text
 PerformerCandidateContract
@@ -1180,13 +1131,13 @@ PerformerCandidateContract
 -> E0Take.Bind
 ```
 
-without changing their public semantic contracts, before the new history-aware `E0TakeStateBinding` performs exact source-history proof.
+without changing public semantics, before history-aware `E0TakeStateBinding` proves exact source history.
 
-If implementation discovers a hidden v1/v2 gate in a downstream surface, patch only the smallest version-assumption surface while preserving semantics; do not redesign the pipeline.
+If implementation discovers a hidden v1/v2 gate, patch only the smallest version-assumption surface while preserving semantics; do not redesign the pipeline.
 
-## 41. Historical canonical compatibility authority
+## 42. Historical canonical compatibility authority
 
-Implementation must preserve these machine-established identities exactly.
+Preserve exactly:
 
 ### Context v1 Missing Raft / VOSS
 
@@ -1227,17 +1178,11 @@ Patch 0012 postcommit = 057034560f8d97f648ed7ba66776ba7d1ced7ed694c2bd6561dd0ef1
 Patch 0013 opportunity result = dc7e169fc52a0051525baf13cb579b87126ba55c77a3b972c4d5a6a6b3246310
 ```
 
-Patch 0015 must not change any of those historical bytes/hashes.
+Patch 0015 must not change any historical bytes/hashes.
 
-## 42. Canonical first v3 oracle
+## 43. Canonical first v3 oracle
 
-Use the already-frozen Patch 0012 -> Patch 0013 independent oracle chain whose Candidate visible text is exactly:
-
-```text
-No.
-```
-
-Reference:
+Use the frozen Patch 0012 -> Patch 0013 oracle chain whose Candidate visible text is exactly `No.`:
 
 ```text
 VOSS accepted Performance = "No."
@@ -1248,23 +1193,15 @@ history = [ VOSS -> "No." ]
 current Context = MARLOWE v3
 ```
 
-Before native validation, an independent implementation-oracle derivation must produce exact:
+Before native validation, an independent implementation-oracle derivation must produce exact v3 structured byte count/hash/ContextPacketId and render-v2 byte count/hash, after first reproducing inherited v1/v2/Production oracles.
 
-- v3 structured byte count;
-- v3 StructuredContextHash;
-- v3 ContextPacketId;
-- render-v2 byte count;
-- v3 RenderedContextHash.
+A multi-entry test/oracle proves append order. A silence test/oracle distinguishes accepted silence from empty history and literal marker text.
 
-The independent derivation must first reproduce the inherited v1/v2/Production oracle values above.
+## 44. Narrow inherited-test supersession
 
-A multi-entry oracle/test must prove append order, and a silence oracle/test must distinguish one accepted silent Performance from empty history and literal marker text.
+Patch 0014 intentionally asserted at that checkpoint that Context had no recent-Performance public type/property and only v1/v2 constants/one Production Continuity overload existed.
 
-## 43. Narrow inherited-test supersession
-
-Patch 0014 intentionally asserted at that checkpoint that Context had no recent-Performance public type/property and that only v1/v2 constants existed.
-
-Patch 0015 explicitly supersedes only those temporary “not yet” assertions in:
+Patch 0015 supersedes only those temporary “not yet” assertions in:
 
 ```text
 tests/Ensemble.E0.Core.Tests/Continuity/Patch0014ContractAuditTests.cs
@@ -1272,129 +1209,130 @@ tests/Ensemble.E0.Core.Tests/Continuity/Patch0014ContractAuditTests.cs
 
 Expected narrow updates:
 
-- `ContextPacket.RecentPerformances` now exists;
+- `ContextPacket.RecentPerformances` exists;
 - exactly one new `ContextRecentPerformance` public Context type exists;
 - exactly three v3/render-v2 constants are added;
-- Production Continuity now has two public `Compose` overloads.
+- Production Continuity has two public `Compose` overloads.
 
-Historical Patch 0014 evidence/docs remain immutable and truthful for their checkpoint.
+Historical Patch 0014 evidence/docs remain immutable and truthful for their checkpoint. No unrelated earlier contract assertion is weakened.
 
-No unrelated earlier contract assertion should be weakened merely to make Patch 0015 pass.
+## 45. Required implementation tests if approved
 
-## 44. Required implementation tests if approved
+### History construction/public surface
 
-### History initialization/closed construction
-
-- exact genesis initialization succeeds with count zero;
+- exact genesis initialization succeeds with internal empty history;
 - non-genesis initialization rejects;
-- no public history constructor or setter;
-- no public history-entry type/property exposing transcript/event details;
-- history exception is publicly catchable with no public constructor;
-- initialization reuses exact genesis/routing authority and invents no transcript.
+- history exposes only SceneId + CurrentStateHash publicly;
+- no public history constructor/setter;
+- no public history-entry/transcript collection/type;
+- history exception publicly catchable with no public constructor;
+- initialization invents no transcript.
 
-### Commit advancement / source-history proof
+### Commit advancement/source-history proof
 
-- exact genesis history + exact genesis v2-sourced established commit replays and appends exactly one entry;
+- exact genesis history + exact genesis v2-sourced commit replays/appends once;
 - state anchor advances to replayed postcommit StateHash;
-- stale history/current parent mismatch rejects before append;
-- foreign/tampered commit event rejects through replay;
+- stale history/parent rejects before append;
+- foreign/tampered commit rejects through replay;
 - after one accepted Performance, exact v3-sourced next commit appends;
 - after one accepted Performance, legacy evolved-v2-sourced commit is rejected from `RecordCommit` even if otherwise replayable;
-- changed/dropped/reordered/extra source history changes expected ContextPacketId and prevents commit-history advancement;
+- changed/dropped/reordered/extra source history changes expected ContextPacketId and blocks advancement;
 - zero-mutation Accepted commit appends;
 - all-consequence-Rejected Accepted commit appends;
 - Rejected/Alternate/noncommit paths cannot append;
-- duplicate CommitId/TakeId cannot enter through normal replay progression;
-- internal appended entry contains exact CommitId/TakeId/subject/source Context/VisibleText only.
+- duplicate CommitId/TakeId cannot enter normal replay progression;
+- internal entry exact shape only.
 
 ### Opportunity advancement
 
-- exact established event replays through `DeterministicOpportunityAuthority.Replay`;
-- accepted-history last entry must match source commit;
-- pre-transition OpportunityHistory count equals accepted Performance count;
-- post-transition routing-history count equals accepted Performance count + 1;
-- state anchor advances to fresh Opportunity result StateHash;
-- no Performance entry is appended;
-- stale/foreign source routing history rejects;
+- exact event replays through `DeterministicOpportunityAuthority.Replay`;
+- last internal history entry equals source commit across all five minimal fields, including exact VisibleText;
+- pre-transition OpportunityHistory length == internal Performance-entry length;
+- post-transition routing length == Performance-entry length + 1;
+- state anchor advances to fresh Opportunity StateHash;
+- no Performance entry appended;
+- stale/foreign routing history rejects;
 - foreign/tampered Opportunity event rejects;
 - skipped commit/Opportunity advancement causes later history-aware Context failure.
 
+### Failure-domain normalization/privacy
+
+- history APIs emit `E0AcceptedPerformanceHistoryException` for expected history/upstream contract failures;
+- history-aware Context emits `E0ContextContinuityException`, not history exception;
+- history-aware Take binding emits `E0CausalCommitException`, not history exception;
+- raw Performance/Context/mutation/provider/secret text absent from Message/inner chain/Data/ToString for expected failures;
+- unexpected programming/runtime failures are not swallowed as ordinary history rejection.
+
 ### Multi-turn
 
-- two and three accepted commits yield exact two/three-entry causal order internally and in Context recent semantics;
-- same Character may appear multiple times without deduplication;
-- history remains synchronized across commit -> Opportunity -> commit -> Opportunity;
-- earlier accepted text remains present even if it created no durable Production record;
-- self prior Performance remains present when that Character receives a later opportunity;
-- no provider-session memory is required for the Context packet to retain accepted Scene history.
+- two/three accepted commits yield exact causal order internally and in Context recent semantics;
+- same Character can recur without deduplication;
+- synchronization holds across commit -> Opportunity -> commit -> Opportunity;
+- earlier accepted text remains when it created no durable Production record;
+- self prior Performance is present on later opportunity;
+- no provider-session memory required.
 
 ### V1/v2 compatibility
 
-- all historical v1 byte/hash oracles unchanged;
+- historical v1 byte/hash oracles unchanged;
 - genesis v2 oracle unchanged;
 - evolved Patch 0014 v2 oracle unchanged;
-- old one-argument Production Continuity remains v2 behavior;
-- old three-argument Take binding retains v1/v2 behavior and rejects v3.
+- old one-argument Continuity retains v2 behavior;
+- old three-argument Take binding retains v1/v2 and rejects v3.
 
-### V3/history-aware version matrix
+### V3/history-aware matrix
 
 - history-aware exact genesis emits v2;
-- four-argument live Take binding accepts that exact genesis v2 only with empty exact history;
-- non-empty accepted history emits v3;
-- evolved empty history rejects in history-aware path;
+- four-argument live binder accepts exact genesis v2 only with exact empty history;
+- non-empty history emits v3;
+- evolved empty history rejects;
 - v3 requires render-v2;
-- v1/v2 require empty RecentPerformances/RecentPerformanceText;
+- v1/v2 require empty recent semantics/text;
 - v3 requires non-empty recent semantics/text;
-- every hybrid schema/composition/render combination rejects;
-- exact v3 root/item property order.
+- every hybrid version combination rejects;
+- exact v3 root/item order.
 
 ### Disclosure/privacy/epistemic separation
 
 - Context recent item contains only source CharacterId + exact VisibleText;
 - typed address/nomination absent;
-- CommitId/TakeId/StateHash/ContextPacketId/candidate hashes absent from Character recent semantics/rendered recent text;
+- causal IDs/hashes absent from Character recent semantics/rendered recent text;
 - prior private Context state absent;
 - CharacterClaim remains denied;
 - no CharacterObservation/Knowledge/Belief/Memory record generated;
-- factual-sounding accepted speech remains historical Performance, not truth;
-- current Character receives own earlier accepted Performance under E0 shared Scene history.
+- factual-sounding speech remains historical Performance, not truth;
+- self history included under E0 common Scene rule.
 
 ### Rendering
 
-- exact single-entry render;
-- exact multi-entry blank-line/order behavior;
-- multiline LF/two-space continuation exact;
-- Unicode/NFC visible-text invariant reused exactly from Candidate semantics;
-- exact silence rendering;
-- literal `[PERFORMANCE: SILENCE]` cannot collide with semantic silence;
+- exact single/multi-entry render;
+- blank-line/order/LF/two-space continuation exact;
+- exact Candidate Unicode/NFC invariant reused;
+- silence render exact;
+- literal marker cannot collide with semantic silence;
 - no trailing LF;
 - render-v2 canonical envelope exact.
 
 ### Exact Take binding
 
 - exact synchronized v3 history/context/take accepts;
-- stale history rejects;
-- changed entry text rejects exact Context equivalence;
-- changed source Character rejects;
-- reordered/dropped/extra entries reject;
-- tampered structured bytes/hash/ContextPacketId rejects;
-- tampered rendered bytes/hash rejects;
-- SourceStateHash metadata alone cannot rescue mismatched history;
-- old binding cannot bypass v3 history proof.
+- stale/changed/reordered/dropped/extra history rejects;
+- tampered structured/rendered bytes/IDs/hashes reject;
+- SourceStateHash alone cannot rescue mismatched history;
+- old binding cannot bypass v3 proof.
 
 ### Downstream semantic compatibility
 
-- v3 Context -> Candidate parser succeeds without Candidate-contract change;
-- v3 Candidate -> Integrity -> Interpreter -> State Authority -> Take succeeds under existing public contracts;
-- second accepted v3-sourced Take can bind/commit through history-aware source proof;
-- `RecordCommit` then independently verifies the same expected history-aware ContextPacketId before appending;
+- v3 Context -> Candidate -> Integrity -> Interpreter -> State Authority -> Take works without public semantic contract change;
+- second v3-sourced Accepted Take binds/commits via history-aware proof;
+- `RecordCommit` independently rechecks expected history-aware ContextPacketId before appending;
 - no provider/model execution required.
 
 ### Determinism/oracle
 
-- repeat byte determinism;
-- source collection order invariance remains where semantically unordered;
-- accepted-history order remains intentionally order-sensitive;
+- repeated byte determinism;
+- unordered source collection invariance remains;
+- history order intentionally order-sensitive;
 - culture invariance (`ar-SA` or equivalent);
 - canonical `No.` Patch0012->0013 v3 independent oracle;
 - inherited Production/Context hashes preserved;
@@ -1402,23 +1340,24 @@ No unrelated earlier contract assertion should be weakened merely to make Patch 
 
 ### Public/dependency audit
 
-- only approved public history/Context additions exist;
-- no public history entry/transcript array exists;
-- Context has no dependency on CausalCommit/Opportunity/Continuity;
+- only approved new public types/methods/properties;
+- no public history entry/count/transcript collection;
+- Context has no CausalCommit/Opportunity/Continuity dependency;
 - CausalCommit history data has no Opportunity/Continuity behavior;
 - CausalCommit does not depend on Opportunity for Take binding;
-- history advancement alone depends upward on Context continuity/CausalCommit/Opportunity inside Continuity;
+- advancement alone depends upward inside Continuity;
 - Opportunity history public shape unchanged;
-- Production projection public/internal semantic shape unchanged;
-- no generic PerformerInput/provider abstraction/event bus/store interface appears.
+- Production projection shape unchanged;
+- no generic PerformerInput/provider abstraction/event bus/store interface.
 
-## 45. Expected implementation surface
+## 46. Expected implementation surface
 
-Patch-first source surface should remain approximately:
+Patch-first source surface:
 
 ```text
 src/Ensemble.E0.Core/CausalCommit/
-    public opaque E0AcceptedPerformanceHistory + internal entries/invariants/projection
+    opaque public E0AcceptedPerformanceHistory
+    internal entries/invariant+projection helper
     history-aware E0TakeStateBinding overload
 
 src/Ensemble.E0.Core/Continuity/
@@ -1434,29 +1373,17 @@ src/Ensemble.E0.Core/Context/
     render-v2 recent Performance rendering
 
 src/Ensemble.E0.Core/Performer/
-    at most a private->internal/nonpublic reuse of the exact existing VisibleText validator; no semantic change
+    at most internal reuse of exact existing VisibleText validator; no semantic change
 
 focused Patch 0015 tests
 narrow Patch0014ContractAuditTests supersession
 ```
 
-Preferred no-change semantics:
+Preferred no-change semantics: Fixture JSON/dialect, Access policy, Production projection/transitions, Candidate public contract/parser behavior, Director selection policy, Opportunity canonicalizer/hash, Integrity, Interpreter, State Authority, Take semantics, Harness provider/runtime execution.
 
-- Fixture JSON/dialect;
-- Access policy;
-- Production projection and transition semantics;
-- Candidate public contract/parser behavior;
-- Director selection policy;
-- Opportunity canonicalizer/hash;
-- Integrity semantics;
-- State Interpreter semantics;
-- State Authority semantics;
-- Take semantics;
-- Harness runtime/provider execution.
+If implementation requires changing those semantics rather than wiring new history/context behavior, stop and reopen architecture.
 
-If implementation requires changing those semantics rather than merely wiring the new history/context version, stop and reopen architecture.
-
-## 46. Complexity and memory
+## 47. Complexity and memory
 
 Let:
 
@@ -1466,10 +1393,9 @@ A = permitted current records
 B = permitted current-state bytes
 H = accepted Performance count in current E0 Scene
 P = total accepted VisibleText bytes in current E0 Scene
-M = current commit mutation/materialization work
 ```
 
-Approximate explicit-boundary costs:
+Approximate boundary costs:
 
 ```text
 History validation:        O(H)
@@ -1480,34 +1406,25 @@ History-aware Context:     O(A log A + B + H + P)
 History-aware Take proof:  fresh Access/Context + inherited StateAuthority proof
 ```
 
-Repeated full-history rendering/immutable append can make total long-Scene work superlinear. That is accepted for the bounded E0 reference harness; product-scale history storage/context optimization is not claimed.
+Repeated full-history rendering/immutable append can make total long-Scene work superlinear. That is accepted for bounded E0 reference work; product-scale history storage/context optimization is not claimed.
 
-Do not invent a hard Scene-turn/history byte ceiling in Patch 0015 without separate run-protocol authority.
+Do not invent a hard Scene-turn/history byte ceiling without separate run-protocol authority.
 
-## 47. ARM64/battery suitability
+## 48. ARM64/battery suitability
 
-Patch 0015 adds synchronous deterministic CPU/memory work only at explicit commit/opportunity/context/binding boundaries.
+Patch 0015 adds synchronous deterministic CPU/memory work only at explicit commit/Opportunity/Context/binding boundaries.
 
-No:
+No idle polling, background loop, provider/network call, filesystem requirement, GPU/NPU work, Windows AI API, timer/random source, or emulation path.
 
-- idle polling;
-- background loop;
-- provider/network call;
-- filesystem requirement;
-- GPU/NPU work;
-- Windows AI API;
-- timer/random source;
-- emulation path.
+The design is compatible with current native ARM64 deterministic Core/Harness architecture by construction, without making measured power/performance claims.
 
-The design is compatible with the current native ARM64 deterministic Core/Harness approach by construction, while making no measured power/performance claim.
-
-## 48. Explicit non-scope
+## 49. Explicit non-scope
 
 Patch 0015 does not implement:
 
 - general CharacterObservation generation;
 - general location/hearing/attention/concealment observation engine;
-- selective private Performance disclosure beyond the E0 `copresent-trio.v1` reference rule;
+- selective private Performance disclosure beyond E0 `copresent-trio.v1`;
 - CharacterClaim Context disclosure;
 - Memory/Belief/Knowledge promotion from recent Performance;
 - history relevance/windowing/summarization;
@@ -1527,22 +1444,24 @@ Patch 0015 does not implement:
 - Windows AI Foundry/NPU;
 - MSIX/WACK/Store certification.
 
-## 49. Proposal 0.5 resolved questions
+## 50. Proposal 0.6 resolved questions
 
-1. **History name** — `E0AcceptedPerformanceHistory`, not TakeHistory. The projection intentionally retains only accepted Character-legible Performance semantics plus internal minimal event references.
-2. **Public entry type** — removed. Internal-only entries prevent the live Context projection from becoming a public transcript/event-store API.
-3. **CandidateContentHash in history** — removed as redundant. The causal commit/Take chain owns candidate identity.
-4. **Commit validation** — exact expected history-aware source Context is freshly recomposed first; its ContextPacketId/subject must match the committed Performance; canonical causal replay then proves the transition.
-5. **Opportunity validation** — source commit + source OpportunityHistory + established event are replayed through `DeterministicOpportunityAuthority.Replay`; history/routing counts are coupled before/after replay.
-6. **Take binding dependency** — direct four-argument binding consumes only the low CausalCommit-layer history data type; no higher Continuity token is added.
-7. **CurrentStateHash** — retained strictly as synchronization anchor to existing Production authority; not a history identity/authentication claim.
-8. **Context trace** — unchanged; packet semantics + dual hashes already identify emitted recent content.
-9. **Self history** — included on later turns; no special forgetting rule.
-10. **Minimal disclosure** — complete current-Scene accepted Performance is justified only inside the explicit E0 common Character-legible `copresent-trio.v1` reference contract; Production/private state remains filtered.
-11. **Future optimization** — a later newly versioned composer may narrow/summarize already-eligible history; E0 v3 remains the unoptimized reference baseline.
-12. **Legacy evolved v2** — retained for historical compatibility but cannot enter the new live history chain after history exists because `RecordCommit` requires the exact freshly recomposed history-aware ContextPacketId.
+1. `E0AcceptedPerformanceHistory` remains the name; it is not a Take/event store.
+2. History entries and ordered transcript remain internal-only.
+3. Public `AcceptedPerformanceCount` is removed as unnecessary duplication.
+4. Candidate-content hash is not duplicated into history.
+5. Commit advancement first proves exact expected history-aware source ContextPacketId/subject, then replays the canonical commit.
+6. Opportunity advancement compares the entire minimal last history entry to source commit, including exact VisibleText, couples routing/performance counts, then replays canonical Opportunity authority.
+7. Direct four-argument Take binding consumes low history data only; no higher verified-token abstraction.
+8. CurrentStateHash is synchronization metadata only.
+9. Context trace remains unchanged.
+10. Self history remains included.
+11. Full current-Scene Performance history is E0-only eligible content under explicit common Character-legible `copresent-trio.v1`; Production/private state remains filtered.
+12. Later newly versioned Context may optimize eligible history; E0 v3 remains unoptimized reference.
+13. Legacy evolved v2 remains historical compatibility but cannot enter new live history after history exists.
+14. Boundary-specific exception domains are preserved; history validator errors are normalized at Context/Take boundaries and creative/private text never enters expected public exceptions.
 
-## 50. Recursive audit order
+## 51. Recursive audit order
 
 Every material correction restarts from correctness:
 
@@ -1566,17 +1485,17 @@ correctness
 -> evidence
 ```
 
-## 51. Proposal 0.5 audit status
+## 52. Proposal 0.6 audit status
 
-Proposal 0.5 closes the live source-history omission found after Proposal 0.4 and removes the public history-entry surface.
+Proposal 0.6 resolves the failure-domain and remaining obvious public-surface issues found after Proposal 0.5.
 
-The next full pass must still attack the complete architecture from correctness, especially:
+The next complete pass must attack the whole design again, especially:
 
-1. whether common Character-legible `copresent-trio.v1` history is narrow enough to coexist with the reserved full Observation boundary;
-2. whether the new live-chain firewall is sufficient despite intentionally preserved legacy v1/v2 APIs;
-3. whether the opaque history projection can remain minimal without losing deterministic validation power;
-4. whether exact v3 render/version semantics preserve all historical v1/v2 bytes;
-5. whether the commit/opportunity induction admits any skipped, duplicated, reordered, or cross-branch transition through normal supported APIs;
-6. whether any additional public type/property/method can still be removed without breaking exact live multi-turn proof.
+1. E0 common Character-legible history versus the still-reserved general Observation boundary;
+2. live-chain induction and all skip/duplicate/reorder/cross-branch cases;
+3. v1/v2 byte immutability under the added `RecentPerformances` property and v3 serializer;
+4. whether any internal history provenance field is still redundant or insufficient;
+5. whether exception normalization can preserve privacy without hiding unexpected failures;
+6. whether any public surface remains removable without losing exact live proof.
 
-No implementation, approval evidence, implementation handoff, `CURRENT_STATE.md` update, or promotion is permitted until a complete recursive pass finds no material correction or worthwhile simplification and the user explicitly approves the resulting blueprint.
+No implementation, approval evidence, implementation handoff, `CURRENT_STATE.md` update, or promotion is permitted until one full recursive pass finds no material correction or worthwhile simplification and the user explicitly approves the resulting blueprint.
