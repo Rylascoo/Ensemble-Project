@@ -31,12 +31,50 @@ public static class DeterministicContextComposer
             currentOpportunityCharacterId,
             E0ContextContracts.SchemaVersion,
             E0ContextContracts.CompositionContract,
-            sourceStateHash: null);
+            sourceStateHash: null,
+            ImmutableArray<ContextRecentPerformance>.Empty,
+            E0ContextContracts.RenderingContract);
     }
 
     internal static ContextCompositionEvaluation ComposeProductionBound(
         CharacterAccessProjection projection,
         CharacterId currentOpportunityCharacterId)
+    {
+        ValidateProductionBoundProjection(projection);
+
+        return ComposeCore(
+            projection,
+            currentOpportunityCharacterId,
+            E0ContextContracts.ProductionBoundSchemaVersion,
+            E0ContextContracts.ProductionBoundCompositionContract,
+            projection.SourceStateHash,
+            ImmutableArray<ContextRecentPerformance>.Empty,
+            E0ContextContracts.RenderingContract);
+    }
+
+    internal static ContextCompositionEvaluation ComposeProductionBoundWithAcceptedHistory(
+        CharacterAccessProjection projection,
+        CharacterId currentOpportunityCharacterId,
+        ImmutableArray<ContextRecentPerformance> recentPerformances)
+    {
+        ValidateProductionBoundProjection(projection);
+        if (recentPerformances.IsDefaultOrEmpty)
+        {
+            throw new ContextCompositionException(
+                "Accepted-history Context requires nonempty recent Performance history.");
+        }
+
+        return ComposeCore(
+            projection,
+            currentOpportunityCharacterId,
+            E0ContextContracts.AcceptedHistorySchemaVersion,
+            E0ContextContracts.AcceptedHistoryCompositionContract,
+            projection.SourceStateHash,
+            recentPerformances,
+            E0ContextContracts.AcceptedHistoryRenderingContract);
+    }
+
+    private static void ValidateProductionBoundProjection(CharacterAccessProjection projection)
     {
         if (projection is null)
         {
@@ -59,13 +97,6 @@ public static class DeterministicContextComposer
                 "Production-bound Access source-state identity is uninitialized.",
                 exception);
         }
-
-        return ComposeCore(
-            projection,
-            currentOpportunityCharacterId,
-            E0ContextContracts.ProductionBoundSchemaVersion,
-            E0ContextContracts.ProductionBoundCompositionContract,
-            projection.SourceStateHash);
     }
 
     private static ContextCompositionEvaluation ComposeCore(
@@ -73,7 +104,9 @@ public static class DeterministicContextComposer
         CharacterId currentOpportunityCharacterId,
         string schemaVersion,
         string compositionContract,
-        StateHash? sourceStateHash)
+        StateHash? sourceStateHash,
+        ImmutableArray<ContextRecentPerformance> recentPerformances,
+        string renderingContract)
     {
         try
         {
@@ -121,6 +154,7 @@ public static class DeterministicContextComposer
             var memories = CopyRecords(projection.Memories, nameof(projection.Memories));
             var goals = CopyRecords(projection.Goals, nameof(projection.Goals));
             var relationships = CopyRelationships(projection.Relationships);
+            var acceptedHistory = CopyRecentPerformances(recentPerformances, roster);
 
             ValidateUniqueRecordIds(
                 sceneState,
@@ -156,13 +190,14 @@ public static class DeterministicContextComposer
                 suspicions,
                 memories,
                 goals,
-                relationships);
+                relationships,
+                acceptedHistory);
 
             var structuredBytes = ContextPacketCanonicalizer.SerializeStructured(content);
             var structuredHash = Sha256Lower(structuredBytes);
             var packetId = ContextPacketId.From($"CTX:{structuredHash}");
 
-            var rendered = Render(content);
+            var rendered = Render(content, renderingContract);
             var renderedBytes = ContextPacketCanonicalizer.SerializeRendered(rendered);
             var renderedHash = Sha256Lower(renderedBytes);
 
@@ -198,6 +233,7 @@ public static class DeterministicContextComposer
                 content.Memories,
                 content.Goals,
                 content.Relationships,
+                content.RecentPerformances,
                 structuredHash,
                 rendered,
                 renderedHash);
@@ -330,6 +366,63 @@ public static class DeterministicContextComposer
             .ToImmutableArray();
     }
 
+    private static ImmutableArray<ContextRecentPerformance> CopyRecentPerformances(
+        ImmutableArray<ContextRecentPerformance> recentPerformances,
+        ImmutableArray<ContextParticipant> roster)
+    {
+        if (recentPerformances.IsDefault)
+        {
+            throw new ContextCompositionException(
+                "Context recent Performance history is uninitialized.");
+        }
+
+        var rosterValues = roster
+            .Select(participant => participant.CharacterId.Value)
+            .ToHashSet(StringComparer.Ordinal);
+        var result = ImmutableArray.CreateBuilder<ContextRecentPerformance>(
+            recentPerformances.Length);
+
+        foreach (var performance in recentPerformances)
+        {
+            if (performance is null)
+            {
+                throw new ContextCompositionException(
+                    "Context recent Performance history contains an invalid item.");
+            }
+
+            string sourceCharacterId;
+            try
+            {
+                sourceCharacterId = performance.SourceCharacterId.Value;
+            }
+            catch (InvalidOperationException exception)
+            {
+                throw new ContextCompositionException(
+                    "Context recent Performance source Character is uninitialized.",
+                    exception);
+            }
+
+            if (!rosterValues.Contains(sourceCharacterId))
+            {
+                throw new ContextCompositionException(
+                    "Context recent Performance source Character is outside the roster.");
+            }
+
+            if (CharacterLegibleTextInvariants.Validate(performance.VisibleText) !=
+                CharacterLegibleTextFailure.None)
+            {
+                throw new ContextCompositionException(
+                    "Context recent Performance text is invalid.");
+            }
+
+            result.Add(new ContextRecentPerformance(
+                performance.SourceCharacterId,
+                performance.VisibleText));
+        }
+
+        return result.ToImmutable();
+    }
+
     private static void ValidateRelationshipTargets(
         ImmutableArray<ContextParticipant> roster,
         ImmutableArray<ContextRelationship> relationships)
@@ -392,7 +485,9 @@ public static class DeterministicContextComposer
         }
     }
 
-    private static RenderedContext Render(ContextSemanticContent content)
+    private static RenderedContext Render(
+        ContextSemanticContent content,
+        string renderingContract)
     {
         var namesById = content.Roster.ToDictionary(
             participant => participant.CharacterId,
@@ -432,10 +527,38 @@ public static class DeterministicContextComposer
         };
 
         return new RenderedContext(
-            E0ContextContracts.RenderingContract,
+            renderingContract,
             string.Join("\n\n", sections),
-            string.Empty,
+            RenderRecentPerformances(content.RecentPerformances, namesById),
             OpportunityText);
+    }
+
+    private static string RenderRecentPerformances(
+        ImmutableArray<ContextRecentPerformance> recentPerformances,
+        IReadOnlyDictionary<CharacterId, string> namesById)
+    {
+        if (recentPerformances.IsDefaultOrEmpty)
+        {
+            return string.Empty;
+        }
+
+        var entries = recentPerformances.Select(performance =>
+        {
+            if (!namesById.TryGetValue(performance.SourceCharacterId, out var displayName))
+            {
+                throw new ContextCompositionException(
+                    "Recent Performance source Character cannot be rendered.");
+            }
+
+            if (performance.VisibleText.Length == 0)
+            {
+                return $"{displayName}:\n[PERFORMANCE: SILENCE]";
+            }
+
+            return $"{displayName}:\n[PERFORMANCE]\n{RenderBullet(performance.VisibleText)}";
+        });
+
+        return "[RECENT PERFORMANCES]\n" + string.Join("\n\n", entries);
     }
 
     private static string RenderSection(string heading, IEnumerable<string> entries) =>
