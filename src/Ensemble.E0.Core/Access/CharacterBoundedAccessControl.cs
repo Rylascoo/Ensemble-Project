@@ -60,7 +60,7 @@ public static class CharacterBoundedAccessControl
             .ToImmutableArray();
 
         var projection = new CharacterAccessProjection(
-            sourceStateHash: null,
+            null,
             fixture.Scene.Id,
             subject.Id,
             roster,
@@ -94,14 +94,25 @@ public static class CharacterBoundedAccessControl
         string subjectValue;
         try
         {
-            subjectValue = subjectCharacterId.Value;
-            _ = sourceState.StateHash.Value;
-            _ = sourceState.SceneId.Value;
+            subjectValue = RequireCharacterId(subjectCharacterId);
+            var stateHash = sourceState.StateHash.Value;
+            if (!ProductionStateInvariants.IsLowerHexSha256(stateHash))
+            {
+                throw new CharacterAccessException(
+                    "Production Access source StateHash is invalid.");
+            }
+
+            _ = SceneId.From(sourceState.SceneId.Value);
         }
-        catch (InvalidOperationException exception)
+        catch (CharacterAccessException)
+        {
+            throw;
+        }
+        catch (Exception exception) when (
+            exception is InvalidOperationException or ArgumentException)
         {
             throw new CharacterAccessException(
-                "Production Access source identity is uninitialized.",
+                "Production Access source identity is invalid.",
                 exception);
         }
 
@@ -641,12 +652,24 @@ public static class CharacterBoundedAccessControl
     {
         try
         {
-            return id.Value;
+            var value = id.Value;
+            if (CharacterId.From(value) != id)
+            {
+                throw new CharacterAccessException(
+                    "Production Access Character ID is not canonical.");
+            }
+
+            return value;
         }
-        catch (InvalidOperationException exception)
+        catch (CharacterAccessException)
+        {
+            throw;
+        }
+        catch (Exception exception) when (
+            exception is InvalidOperationException or ArgumentException)
         {
             throw new CharacterAccessException(
-                "Production Access contains an uninitialized Character ID.",
+                "Production Access contains an invalid Character ID.",
                 exception);
         }
     }
@@ -655,12 +678,24 @@ public static class CharacterBoundedAccessControl
     {
         try
         {
-            return id.Value;
+            var value = id.Value;
+            if (RecordId.From(value) != id)
+            {
+                throw new CharacterAccessException(
+                    "Production Access Record ID is not canonical.");
+            }
+
+            return value;
         }
-        catch (InvalidOperationException exception)
+        catch (CharacterAccessException)
+        {
+            throw;
+        }
+        catch (Exception exception) when (
+            exception is InvalidOperationException or ArgumentException)
         {
             throw new CharacterAccessException(
-                "Production Access contains an uninitialized Record ID.",
+                "Production Access contains an invalid Record ID.",
                 exception);
         }
     }
