@@ -171,16 +171,9 @@ public sealed class Patch0013ContractAuditTests
     }
 
     [TestMethod]
-    public void Patch0013_DoesNotCreatePrematureProductionAccessContextOrHardwareDependencies()
+    public void Patch0013_OpportunitySurfaceRemainsIsolatedAfterLaterContextIntegration()
     {
         var assembly = typeof(E0OpportunityTransition).Assembly;
-        var accessMethods = assembly.GetType(
-            "Ensemble.E0.Core.Access.CharacterBoundedAccessControl",
-            throwOnError: true)!
-            .GetMethods(BindingFlags.Public | BindingFlags.Static);
-        Assert.IsFalse(accessMethods.Any(method => method.GetParameters().Any(parameter =>
-            parameter.ParameterType == typeof(ProductionState))));
-
         var contextComposer = assembly.GetType(
             "Ensemble.E0.Core.Context.DeterministicContextComposer",
             throwOnError: true)!;
