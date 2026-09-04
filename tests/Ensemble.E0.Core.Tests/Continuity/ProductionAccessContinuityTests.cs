@@ -165,10 +165,16 @@ public sealed class ProductionAccessContinuityTests
     }
 
     private static string ProjectionSignature(CharacterAccessProjection projection) =>
-        string.Join("|", ProjectionRecordIds(projection)) +
+        string.Join(
+            "|",
+            ProjectionRecordIds(projection).OrderBy(value => value, StringComparer.Ordinal)) +
         "#" +
-        string.Join(",", projection.Roster.Select(participant =>
-            $"{participant.CharacterId.Value}:{participant.DisplayName}"));
+        string.Join(
+            ",",
+            projection.Roster
+                .OrderBy(participant => participant.CharacterId.Value, StringComparer.Ordinal)
+                .Select(participant =>
+                    $"{participant.CharacterId.Value}:{participant.DisplayName}"));
 
     private static HashSet<string> ProjectionRecordIds(CharacterAccessProjection projection) =>
         projection.SceneState.Select(record => record.RecordId.Value)
