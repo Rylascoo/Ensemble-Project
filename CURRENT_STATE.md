@@ -11,6 +11,44 @@ Updated: 2026-09-04
 5. Google Drive `Ensemble Project` is supporting design/research material, not executable validation authority.
 6. Archived DeskShifter V7 material is immutable regression/reference material only.
 
+## Program architecture authority
+
+Approved program map:
+
+`docs/roadmap/KYMAEAN_ARCHITECTURE_AND_SHIP_PLAN.md`
+
+Approved proposal:
+
+`0.7`
+
+Exact recursively audited plan commit:
+
+`c2687b4905f6f5eddcd7744c14643421f7ff79e4`
+
+Exact audited plan content SHA:
+
+`ed33ef60ebd7becb09857b8b7e172f2b1c51d711`
+
+Audit evidence:
+
+`docs/evidence/KYMAEAN_ARCHITECTURE_SHIP_PLAN_AUDIT.md`
+
+Director approval evidence:
+
+`docs/evidence/KYMAEAN_ARCHITECTURE_SHIP_PLAN_APPROVAL.md`
+
+The approved plan freezes major dependency ordering from H1/E0 through productization, Alpha/Beta, ARM64/Windows AI/NPU integration, packaging/WACK, and Partner Center while preserving patch-level architecture/implementation approval gates.
+
+## Mandatory Sol High task-scope protocol
+
+After reading this file, every fresh engineering chat must read:
+
+`docs/PROJECT_REASONING_TASK_SCOPE_OPTIMIZATION_PROTOCOL.md`
+
+For every substantive Director turn, deliberately optimize the work package for GPT-5.6 Sol High: choose the largest logically coupled, falsifiable objective that can be completed with current authority/tools; perform all directly dependent source synthesis, contradiction/falsification analysis, authorized implementation, targeted verification, and recursive audit; then stop at the next consequential Director, machine, security, WACK, Store, or other external-validation gate.
+
+This protocol changes collaboration granularity only. It does not override product architecture, validation authority, Director approval, or external gates.
+
 ## Validation authority
 
 Do not promote a lower validation level into a higher one.
@@ -473,21 +511,23 @@ Do not reload or summarize all historical patches in fresh chats unless required
 For the next Kymaean engineering chat:
 
 1. read this `CURRENT_STATE.md` first;
-2. resolve current `main` before changing source;
-3. treat PR #29 as merged and Patch 0015 as complete;
-4. preserve exact full-Core-test machine authority `b890b7eca66c391fae3ec30af0442dcc0e9f6aec`;
-5. preserve exact native Harness/fixture authority `5cb055e6dddea721aee98fee7f633191543e6490`;
-6. do not replace those machine-observed SHAs with later squash-merge/checkpoint SHAs;
-7. preserve all frozen Context v1/v2 identities and Patch 0015 v3 reference-oracle identities;
-8. read `docs/evidence/H1_PATCH_0015_DOCUMENTATION_ERRATA.md` if consulting the historical Patch 0015 handoff or blueprint-audit arrow shorthand;
-9. do not reopen approved Proposal 0.15 or redesign completed Patch 0015;
-10. do not silently enter Patch 0015 deferred non-scope;
-11. read only the canonical roadmap and source files needed to identify the next patch boundary;
-12. before substantial new implementation, recursively audit the next blueprint and obtain explicit approval;
-13. use the same patch-first, machine-authority, recursive-audit, PR-review, and promotion discipline for the next approved implementation.
+2. read `docs/PROJECT_REASONING_TASK_SCOPE_OPTIMIZATION_PROTOCOL.md` and optimize every substantive task scope for GPT-5.6 Sol High;
+3. read `docs/roadmap/KYMAEAN_ARCHITECTURE_AND_SHIP_PLAN.md` only as needed for the current program boundary;
+4. resolve current `main` before changing source;
+5. treat PR #29 as merged and Patch 0015 as complete;
+6. preserve exact full-Core-test machine authority `b890b7eca66c391fae3ec30af0442dcc0e9f6aec`;
+7. preserve exact native Harness/fixture authority `5cb055e6dddea721aee98fee7f633191543e6490`;
+8. do not replace those machine-observed SHAs with later squash-merge/checkpoint SHAs;
+9. preserve all frozen Context v1/v2 identities and Patch 0015 v3 reference-oracle identities;
+10. read `docs/evidence/H1_PATCH_0015_DOCUMENTATION_ERRATA.md` if consulting the historical Patch 0015 handoff or blueprint-audit arrow shorthand;
+11. do not reopen approved Proposal 0.15 or redesign completed Patch 0015;
+12. do not silently enter Patch 0015 deferred non-scope;
+13. read only the canonical roadmap and source files needed to identify the next patch boundary;
+14. before substantial new implementation, recursively audit the next blueprint and obtain explicit approval;
+15. use the same patch-first, machine-authority, recursive-audit, PR-review, and promotion discipline for the next approved implementation.
 
 ## Next action
 
-Patch 0015 architecture, implementation, native validation, recursive audit, reference-oracle evidence, PR review, documentation clarification, and promotion are complete.
+The Kymaean Architecture & Ship Plan Proposal 0.7 is Director-approved as the program map. Patch 0015 remains the latest completed executable patch.
 
-Next engineering work must begin as a new patch from the canonical Kymaean roadmap rather than by extending Patch 0015 opportunistically.
+Next engineering work is to identify and blueprint the smallest remaining H1/E0-A deterministic boundary required to reach a complete run driver from current Patch 0015 authority. No implementation begins until that next blueprint is recursively audited and explicitly approved.
