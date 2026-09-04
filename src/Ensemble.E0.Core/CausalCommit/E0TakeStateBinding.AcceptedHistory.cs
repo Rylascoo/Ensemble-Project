@@ -102,6 +102,7 @@ public sealed partial class E0TakeStateBinding
     }
 
     private static bool IsAcceptedHistoryV3(ContextPacket context) =>
+        context.Rendered is not null &&
         string.Equals(
             context.SchemaVersion,
             E0ContextContracts.AcceptedHistorySchemaVersion,
