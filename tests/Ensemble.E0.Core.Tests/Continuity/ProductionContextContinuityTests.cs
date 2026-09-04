@@ -5,6 +5,7 @@ using Ensemble.E0.Core.CausalCommit;
 using Ensemble.E0.Core.Context;
 using Ensemble.E0.Core.Continuity;
 using Ensemble.E0.Core.Domain;
+using Ensemble.E0.Core.Fixture;
 using Ensemble.E0.Core.Production;
 using Ensemble.E0.Core.Tests.Patch0012;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
