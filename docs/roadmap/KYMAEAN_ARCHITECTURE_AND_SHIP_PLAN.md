@@ -1,6 +1,6 @@
 # Kymaean Architecture & Ship Plan
 
-Status: **PROGRAM ARCHITECTURE PROPOSAL 0.6 — RECURSIVE AUDIT IN PROGRESS; NOT IMPLEMENTATION AUTHORITY**
+Status: **PROGRAM ARCHITECTURE PROPOSAL 0.7 — RECURSIVE AUDIT COMPLETE; DIRECTOR APPROVAL REQUIRED; NOT IMPLEMENTATION AUTHORITY**
 
 Date: 2026-09-04
 
@@ -37,7 +37,7 @@ This plan does not restate or alter the canonical source-of-truth order in `docs
 5. **Accepted Performance is immutable causal history.**
 6. **Accepted Performance + approved consequence commit atomically.**
 7. **Infrastructure stays at the edges:** Core does not depend on WinUI, provider SDKs, Windows AI, QNN, filesystem, package, or Store machinery.
-8. **Local sovereignty:** Production authority and credentials remain locally controlled; remote providers receive temporary bounded packets only.
+8. **Local sovereignty:** Production authority and credentials remain locally controlled; remote providers receive temporary bounded packets only; no Kymaean cloud account is required as a core architectural assumption.
 9. **Graceful degradation preserves correctness:** provider/model/NPU failure may reduce quality or automation, never corrupt canon or invent fictional action.
 10. **ARM64-native retail path:** no x86 native dependency or emulation requirement.
 11. **Low idle cost:** event-driven work, bounded resources, no hidden high-frequency polling.
@@ -251,7 +251,9 @@ Do not force every ODR item into V1.
 
 The current project mandate remains .NET 9 unless the Director approves otherwise. Microsoft currently lists .NET 9 end of support as **2026-11-10**, while .NET 10 is active LTS through 2028.
 
-Because the current planning window approaches that support boundary, Phase D must re-evaluate the projected Store-RC/servicing window **before** the WinUI product baseline is committed:
+Phase D is the **latest normal decision point** for this support-horizon review, not a reason to ignore the date before then. If schedule slippage makes the .NET 9 support horizon materially affect productization sooner, elevate the same Director platform gate immediately.
+
+Before the WinUI product baseline is committed:
 
 - if .NET 9 remains an acceptable first-release/support choice under the Director's release policy, P2 retains the validated .NET 9 baseline;
 - if projected release or near-term servicing makes that choice unreasonable, stop at an explicit Director platform gate and decide whether to migrate to .NET 10 before broad WinUI/product integration.
@@ -361,13 +363,13 @@ Legacy lessons eligible here: ARM64 project configuration, shallow build outputs
 
 Do **not** assume that Phi Silica, Aion Instruct, or a future Windows-managed model is a Character Performer.
 
-Blueprint 0.1 leaves ODR-24 open: post-behavioral evidence must determine which local semantic tasks are sufficiently reliable and valuable for Windows/NPU execution. A local model or On-Device AI API may eventually support one or more bounded text/vision tasks—creator assistance, derived semantic work, context/retrieval assistance, advisory integrity assessment, or selected portrayal roles are possibilities, not frozen commitments. Deterministic Integrity/State Authority remains authoritative regardless of any local advisory model.
+Blueprint 0.1 leaves ODR-24 open: post-behavioral evidence must determine which local semantic tasks are sufficiently reliable and valuable for Windows/NPU execution. A local model or Windows AI API may eventually support one or more bounded text/vision tasks—creator assistance, derived semantic work, context/retrieval assistance, advisory integrity assessment, or selected portrayal roles are possibilities, not frozen commitments. Deterministic Integrity/State Authority remains authoritative regardless of any local advisory model.
 
 The architecture depends on capability contracts rather than model names.
 
 As of the plan date, Microsoft documents Phi Silica as transitioning to Aion Instruct, with testing/rollout beginning October 2026 and retail replacement targeted for November 2026. Phi-specific code is therefore a transition adapter, not Core/Application architecture.
 
-Where a launch-approved local task benefits from a supported model-specific LoRA, the adapter may use a native LoRA path with explicit compatibility checking, quarantine/fallback, and retraining/revalidation when the underlying Windows-managed model changes. A LoRA can never become required for deterministic correctness.
+Where a launch-approved local task benefits from a supported model-specific LoRA, the adapter may use the supported native LoRA path with explicit compatibility checking, quarantine/fallback, and retraining/revalidation when the underlying Windows-managed model changes. A LoRA can never become required for deterministic correctness.
 
 The Windows adapter must explicitly map every supported readiness state to deterministic product behavior. In particular, `AIFeatureReadyState.CapabilityMissing` and `AIFeatureReadyState.NotCompatibleWithSystemHardware` must fail safely without disabling non-AI product authority. Other supported readiness states receive equally explicit handling rather than falling through to optimistic assumptions.
 
@@ -387,10 +389,10 @@ Faulted
 For local workloads that Phase D actually approves:
 
 - `Microsoft.Windows.AI.MachineLearning` execution-provider discovery/acquisition/registration;
-- QNN execution provider on compatible Snapdragon hardware;
+- supported QNN execution provider on compatible Snapdragon hardware;
 - Qualcomm AI Engine Direct / Neural Processing SDK tooling where it materially improves model conversion, quantization, profiling or direct Hexagon-NPU optimization and remains compatible with Store/release constraints;
 - **heavy eligible local inference preferentially targets the Snapdragon Hexagon NPU through the supported ready QNN path** to minimize CPU/GPU overhead and battery cost; CPU/GPU execution is fallback or task-specific behavior, never a silent substitute for an NPU performance claim;
-- prefer Windows ML/ONNX Runtime + certified QNN execution provider as the retail interoperability path unless evidence justifies a lower-level direct runtime dependency;
+- prefer Windows ML/ONNX Runtime + the supported QNN execution provider as the retail interoperability path unless evidence justifies a lower-level direct runtime dependency;
 - event-driven heavy work only;
 - explicit acquisition consent where needed;
 - no NPU/TOPS claim without device evidence.
@@ -411,7 +413,7 @@ Eligible donor concepts: circuit breaker, bounded HMAC-keyed cache, memory-press
 Lane exit:
 
 - at least one production Performer backend works end-to-end for the launch path;
-- every launch-approved local Windows-AI/On-Device AI capability has deterministic fallback/degradation;
+- every launch-approved local Windows-AI capability has deterministic fallback/degradation;
 - provider/local-capability loss cannot corrupt Production;
 - target Snapdragon tests distinguish API availability from actual NPU execution;
 - no unsupported local task is presented as reliable merely because a model can technically run it.
@@ -734,7 +736,7 @@ Phi/Aion and Windows ML evolution stay behind adapter/capability boundaries; no 
 
 ### Framework support horizon
 
-Make the first explicit framework decision at Phase D before broad productization, then recheck at Beta. No silent retarget.
+Phase D is the latest normal support-horizon decision point; escalate earlier if schedule slippage makes the risk material. Recheck at Beta. No silent retarget.
 
 ### UI/backend mismatch
 
