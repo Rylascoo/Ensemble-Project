@@ -1,4 +1,6 @@
+using System.Collections.Immutable;
 using Ensemble.E0.Core.CausalCommit;
+using Ensemble.E0.Core.Context;
 using Ensemble.E0.Core.Opportunity;
 using Ensemble.E0.Core.Production;
 using Ensemble.E0.Core.Take;
@@ -29,7 +31,7 @@ public static class E0AcceptedPerformanceHistoryContinuity
             return AcceptedPerformanceHistoryInvariants.Create(
                 genesisState.SceneId,
                 genesisState.StateHash,
-                System.Collections.Immutable.ImmutableArray<Context.ContextRecentPerformance>.Empty);
+                ImmutableArray<ContextRecentPerformance>.Empty);
         }
         catch (E0AcceptedPerformanceHistoryException)
         {
