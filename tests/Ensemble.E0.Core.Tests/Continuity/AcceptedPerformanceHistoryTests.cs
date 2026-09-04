@@ -5,7 +5,9 @@ using Ensemble.E0.Core.Context;
 using Ensemble.E0.Core.Continuity;
 using Ensemble.E0.Core.Fixture;
 using Ensemble.E0.Core.Opportunity;
+using Ensemble.E0.Core.StateAuthority;
 using Ensemble.E0.Core.Tests.Opportunity;
+using Ensemble.E0.Core.Tests.Patch0012;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Ensemble.E0.Core.Tests.Continuity;
@@ -54,6 +56,54 @@ public sealed class AcceptedPerformanceHistoryTests
     }
 
     [TestMethod]
+    public void RecordCommit_RejectsStaleHistoryAndWrongParentEventWithoutMutatingSource()
+    {
+        var first = Patch0015TestSupport.FirstLiveTurn("COMMIT-FAIL-1", "First.");
+        var second = Patch0015TestSupport.RunNextTurn(first, "COMMIT-FAIL-2", "Second.");
+        var originalHash = InternalStateHash(first.SourceAcceptedHistory);
+        var originalEntries = Entries(first.SourceAcceptedHistory);
+
+        Assert.Throws<E0AcceptedPerformanceHistoryException>(() =>
+            E0AcceptedPerformanceHistoryContinuity.RecordCommit(
+                first.HistoryAfterOpportunity,
+                first.SourceState,
+                first.Commit.Commit));
+
+        Assert.Throws<E0AcceptedPerformanceHistoryException>(() =>
+            E0AcceptedPerformanceHistoryContinuity.RecordCommit(
+                first.SourceAcceptedHistory,
+                first.SourceState,
+                second.Commit.Commit));
+
+        Assert.AreEqual(originalHash, InternalStateHash(first.SourceAcceptedHistory));
+        CollectionAssert.AreEqual(originalEntries.ToArray(), Entries(first.SourceAcceptedHistory).ToArray());
+    }
+
+    [TestMethod]
+    public void AcceptedTakeWithRejectedConsequence_StillAppendsPerformanceWithoutDurableRecordChange()
+    {
+        var turn = Patch0015TestSupport.FirstLiveTurn(
+            suffix: "REJECTED-CONSEQUENCE",
+            visibleText: "I said it.",
+            mutations: new[] { Patch0012TestSupport.InvalidBeliefSupersede() },
+            autoApproveDomains: Array.Empty<Ensemble.E0.Core.StateInterpreter.StateMutationDomain>(),
+            materializations: Patch0015TestSupport.EmptyMaterializations());
+
+        Assert.AreEqual(1, turn.Take.AuthorityEvaluation.Decisions.Length);
+        Assert.AreEqual(
+            StateAuthorityDisposition.Rejected,
+            turn.Take.AuthorityEvaluation.Decisions[0].Disposition);
+        CollectionAssert.AreEqual(
+            turn.SourceState.Records.Select(record => record.RecordId).ToArray(),
+            turn.Commit.ResultState.Records.Select(record => record.RecordId).ToArray());
+
+        var entries = Entries(turn.HistoryAfterCommit);
+        Assert.AreEqual(1, entries.Length);
+        Assert.AreEqual(MissingRaftContract.VossId, entries[0].SourceCharacterId);
+        Assert.AreEqual("I said it.", entries[0].VisibleText);
+    }
+
+    [TestMethod]
     public void RecordOpportunity_AppendsNothingAndCouplesRoutingCount()
     {
         var turn = Patch0015TestSupport.FirstLiveTurn("OPPORTUNITY", "No.");
@@ -66,6 +116,34 @@ public sealed class AcceptedPerformanceHistoryTests
         Assert.AreEqual(turn.Opportunity.State.StateHash, InternalStateHash(turn.HistoryAfterOpportunity));
         Assert.AreEqual(afterOpportunity.Length + 1, turn.Opportunity.History.CharacterIds.Length);
         Assert.AreEqual(turn.Opportunity.Event.SelectedCharacterId, turn.Opportunity.History.CharacterIds[^1]);
+    }
+
+    [TestMethod]
+    public void RecordOpportunity_RejectsWrongRoutingHistoryAndForeignEventWithoutMutatingPostCommitHistory()
+    {
+        var first = Patch0015TestSupport.FirstLiveTurn("OPPORTUNITY-FAIL-1", "First.");
+        var foreign = Patch0015TestSupport.FirstLiveTurn("OPPORTUNITY-FAIL-FOREIGN", "Foreign.");
+        var originalHash = InternalStateHash(first.HistoryAfterCommit);
+        var originalEntries = Entries(first.HistoryAfterCommit);
+
+        Assert.Throws<E0AcceptedPerformanceHistoryException>(() =>
+            E0AcceptedPerformanceHistoryContinuity.RecordOpportunity(
+                first.HistoryAfterCommit,
+                first.Commit.ResultState,
+                first.Commit.Commit,
+                first.Opportunity.History,
+                first.Opportunity.Event));
+
+        Assert.Throws<E0AcceptedPerformanceHistoryException>(() =>
+            E0AcceptedPerformanceHistoryContinuity.RecordOpportunity(
+                first.HistoryAfterCommit,
+                first.Commit.ResultState,
+                first.Commit.Commit,
+                first.SourceOpportunityHistory,
+                foreign.Opportunity.Event));
+
+        Assert.AreEqual(originalHash, InternalStateHash(first.HistoryAfterCommit));
+        CollectionAssert.AreEqual(originalEntries.ToArray(), Entries(first.HistoryAfterCommit).ToArray());
     }
 
     [TestMethod]
