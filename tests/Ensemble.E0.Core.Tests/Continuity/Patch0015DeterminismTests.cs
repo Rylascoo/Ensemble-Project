@@ -84,10 +84,10 @@ public sealed class Patch0015DeterminismTests
         Assert.AreEqual(2, packet.RecentPerformances.Length);
         var reversed = packet.RecentPerformances.Reverse().ToImmutableArray();
         var reorderedPacket = CloneWithRecentPerformances(packet, reversed);
+        var canonical = ContextPacketCanonicalizer.SerializeStructured(packet);
+        var reordered = ContextPacketCanonicalizer.SerializeStructured(reorderedPacket);
 
-        CollectionAssert.AreNotEqual(
-            ContextPacketCanonicalizer.SerializeStructured(packet),
-            ContextPacketCanonicalizer.SerializeStructured(reorderedPacket));
+        Assert.IsFalse(canonical.AsSpan().SequenceEqual(reordered));
     }
 
     private static ContextPacket CloneWithRecentPerformances(
