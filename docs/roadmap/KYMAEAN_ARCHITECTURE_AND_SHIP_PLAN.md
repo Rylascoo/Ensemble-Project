@@ -1,6 +1,6 @@
 # Kymaean Architecture & Ship Plan
 
-Status: **PROGRAM ARCHITECTURE PROPOSAL 0.3 — RECURSIVE AUDIT IN PROGRESS; NOT IMPLEMENTATION AUTHORITY**
+Status: **PROGRAM ARCHITECTURE PROPOSAL 0.4 — RECURSIVE AUDIT IN PROGRESS; NOT IMPLEMENTATION AUTHORITY**
 
 Date: 2026-09-04
 
@@ -76,8 +76,8 @@ Exact project names and assembly count remain post-E0 implementation decisions. 
           |                   |                   |
           v                   v                   v
  DETERMINISTIC CORE      PERSISTENCE PORTS     AI/PROVIDER PORTS
- Character / World       causal event store    Performer backend
- Knowledge / Pressure    replay/projections    local semantic work
+ Character / World       causal event store    Performer backends
+ Knowledge / Pressure    replay/projections    optional local tasks
  Access / Context        recovery / branches   provenance/budgets
  Director / Integrity    portable Production   readiness/health
  Interpreter / State
@@ -112,7 +112,7 @@ Production causal persistence is separate from settings/preferences. Rebuildable
 
 ### AI/provider layer
 
-Providers produce attempts/proposals and provenance. Provider/model identity stays beneath model-neutral Application/UI states.
+Providers produce attempts/proposals and provenance. Provider/model identity stays beneath model-neutral Application/UI states. A local model is not assumed to be a Character Performer merely because it exists; post-E0 evidence decides which local semantic tasks are reliable and valuable enough to earn a production role.
 
 ### Windows infrastructure
 
@@ -188,7 +188,7 @@ Goal: make the smallest real experimental system capable of Same-Model Isolated 
 
 Add only what Blueprint 0.1 requires:
 
-- official frontier-provider adapter for the reference model;
+- official reference provider/model adapter;
 - request/attempt/result provenance;
 - streaming as provisional output only;
 - cancellation/refusal/error behavior;
@@ -249,13 +249,26 @@ Resolve only launch-critical Open Design Register questions, including:
 - which Watch/Direct/Perform/Write capabilities are required at launch;
 - minimum Studio/Stage/Archive semantic contracts;
 - Presentation Perspective requirements for V1;
+- which local semantic workloads, if any, E0/post-E0 evidence justifies for Windows/NPU execution;
 - content/governance requirements before Alpha.
 
 Do not force every ODR item into V1.
 
+### Platform support-horizon decision before productization
+
+The current project mandate remains .NET 9 unless the Director approves otherwise. Microsoft currently lists .NET 9 end of support as **2026-11-10**, while .NET 10 is active LTS through 2028.
+
+Because the current planning window approaches that support boundary, Phase D must re-evaluate the projected Store-RC/servicing window **before** the WinUI product baseline is committed:
+
+- if .NET 9 remains an acceptable first-release/support choice under the Director's release policy, P2 retains the validated .NET 9 baseline;
+- if projected release or near-term servicing makes that choice unreasonable, stop at an explicit Director platform gate and decide whether to migrate to .NET 10 before broad WinUI/product integration.
+
+No ordinary implementation patch may silently retarget the framework.
+
 Exit:
 
 - approved product-runtime architecture;
+- explicit current framework decision for the coming productization lanes;
 - stable enough Application, persistence, provider and presentation contracts for parallel implementation;
 - UI layout remains owned by the design stream except for required semantic view-state contracts.
 
@@ -303,10 +316,10 @@ Plan-date baseline:
 
 - Windows 11 Copilot+ PC;
 - ARM64-native retail path;
-- current project-approved .NET 9 baseline;
+- the framework baseline explicitly confirmed at Phase D (currently .NET 9 unless the Director changes it);
 - C#;
 - WinUI 3;
-- Windows App SDK 2.4 stable line unless separately validated servicing changes it;
+- Windows App SDK 2.4 stable line at the plan date, with the exact stable servicing version reverified at implementation time;
 - packaged/MSIX identity from the product-shell baseline where practical.
 
 Logical separation should preserve Core, Application, Persistence, AI/provider contracts, Windows infrastructure, Presentation, package/release verification, and tests without creating one assembly per noun.
@@ -338,9 +351,9 @@ Legacy lessons eligible here: ARM64 project configuration, shallow build outputs
 
 ---
 
-### P3 — Production provider/runtime + Windows AI/NPU
+### P3 — Production provider runtime + local-AI/NPU capability lane
 
-#### Frontier Performer backend
+#### Frontier/reference Performer backend
 
 - official provider APIs only;
 - protected local credentials;
@@ -351,9 +364,13 @@ Legacy lessons eligible here: ARM64 project configuration, shallow build outputs
 - honest provider-specific reasoning/performance mapping;
 - understudy substitution only at explicit Performance boundaries.
 
-#### Windows managed language-model backend
+#### Windows managed local-model capability
 
-Depend on a **capability**, never a model name.
+Do **not** assume that Phi Silica, Aion Instruct, or a future Windows-managed model is a Character Performer.
+
+Blueprint 0.1 leaves ODR-24 open: post-behavioral evidence must determine which local semantic tasks are sufficiently reliable and valuable for Windows/NPU execution. A local model may eventually support one or more bounded tasks—potentially creator assistance, derived semantic work, context/retrieval assistance, integrity support, or even selected portrayal roles—but none of those roles is frozen by this program plan.
+
+The architecture depends on capability contracts rather than model names.
 
 As of the plan date, Microsoft documents Phi Silica as transitioning to Aion Instruct, with testing/rollout beginning October 2026 and retail replacement targeted for November 2026. Phi-specific code is therefore a transition adapter, not Core/Application architecture.
 
@@ -372,7 +389,7 @@ Map real readiness states at the infrastructure edge, including `AIFeatureReadyS
 
 #### Windows ML / Qualcomm NPU lane
 
-For custom/derived local workloads:
+For local workloads that Phase D actually approves:
 
 - `Microsoft.Windows.AI.MachineLearning` execution-provider discovery/acquisition/registration;
 - QNN execution provider on compatible Snapdragon hardware;
@@ -397,10 +414,11 @@ Eligible donor concepts: circuit breaker, bounded HMAC-keyed cache, memory-press
 
 Lane exit:
 
-- at least one production Performer backend works end-to-end;
-- Windows-managed local capability degrades correctly across supported readiness states;
-- provider loss cannot corrupt Production;
-- target Snapdragon tests distinguish API availability from actual NPU execution.
+- at least one production Performer backend works end-to-end for the launch path;
+- every launch-approved local Windows-AI capability has deterministic fallback/degradation;
+- provider/local-capability loss cannot corrupt Production;
+- target Snapdragon tests distinguish API availability from actual NPU execution;
+- no unsupported local task is presented as reliable merely because a model can technically run it.
 
 ---
 
@@ -474,13 +492,15 @@ Create/open Production
 Alpha also exercises:
 
 - provider refusal/error/cancellation;
-- local capability unavailable/not-ready states;
+- every launch-approved local capability's unavailable/not-ready states;
 - credential absence/revocation;
 - interrupted/corrupt persistence recovery;
 - suspend/resume and lifecycle;
 - memory pressure and Energy Saver;
 - accessibility basics;
 - no high-frequency idle polling.
+
+Content/governance requirements identified at Phase D must be resolved to the level required by Blueprint ODR-27 before Alpha is treated as a release-foundation milestone.
 
 Security milestone:
 
@@ -526,16 +546,9 @@ Conditions:
 - diagnostics/telemetry policy fixed;
 - launch claims match implemented behavior.
 
-### .NET support-horizon gate
+### Framework support-horizon recheck
 
-Microsoft currently lists .NET 9 end of support as **2026-11-10** and .NET 10 as active LTS through 2028.
-
-The current project mandate remains .NET 9 until the Director explicitly changes it. At Beta:
-
-- retain .NET 9 only if release/servicing timing remains acceptable under approved product policy; or
-- explicitly approve a .NET 10 migration and rerun compiler/runtime/security/package validation before RC.
-
-No silent framework retarget during ordinary patch work.
+Recheck the Phase D framework decision against the actual RC date and currently supported Microsoft runtime versions. Any framework migration still requires explicit Director approval and complete affected-surface revalidation.
 
 Beta/release architecture convergence audit is mandatory.
 
@@ -588,6 +601,10 @@ Release engineering:
 - privacy policy/listing consistency;
 - approved screenshots/assets;
 - accessibility evidence;
+- deterministic dependency/version inventory for the submitted build;
+- third-party package/license/notice review;
+- dependency vulnerability/security review and no embedded credentials/secrets;
+- symbol/crash-diagnostic release policy;
 - final security scan;
 - final runtime smoke on exact candidate.
 
@@ -596,6 +613,7 @@ Eligible donor material: validated-package staging concept, PE architecture rule
 Exit:
 
 - immutable Store RC commit/package;
+- exact dependency/package provenance recorded;
 - final security scan clean or accepted findings documented;
 - WACK passes exact candidate;
 - clean target-device install/runtime smoke passes;
@@ -713,11 +731,11 @@ Causal persistence is a dedicated authority lane; ordinary settings storage cann
 
 ### Windows AI churn
 
-Phi/Aion and Windows ML evolution stay behind adapter/capability boundaries; no model name enters Core authority.
+Phi/Aion and Windows ML evolution stay behind adapter/capability boundaries; no model name enters Core authority and no local task is assumed before evidence earns it.
 
-### .NET 9 horizon
+### Framework support horizon
 
-Explicit Beta decision before the 2026-11-10 support end; no silent retarget.
+Make the first explicit framework decision at Phase D before broad productization, then recheck at Beta. No silent retarget.
 
 ### UI/backend mismatch
 
@@ -738,6 +756,10 @@ Preview APIs do not become launch dependencies without explicit approval and exa
 ### Legacy contamination
 
 Donor quarantine + new tests + provenance.
+
+### Supply-chain/release drift
+
+Record exact dependency versions/provenance, review licenses/vulnerabilities, and validate the exact submitted package rather than a nearby development build.
 
 ### Overengineering
 
@@ -801,8 +823,10 @@ Work package:
 Approval of this program plan would freeze only the **major dependency ordering and delivery laws**:
 
 - sequential H1 -> E0-A -> E0-B..G -> E0 convergence -> post-E0 product-runtime architecture;
-- four parallel productization lanes after stable Phase D contracts: Production persistence, Windows shell, AI/NPU, UI/design implementation;
+- Phase D resolves only launch-critical post-E0 questions and explicitly decides the framework baseline before broad productization;
+- four parallel productization lanes after stable Phase D contracts: Production persistence, Windows shell, provider/local-AI/NPU, UI/design implementation;
 - Alpha blocked until launch-required lanes converge on real persisted Production and real target-device behavior;
+- local Windows/NPU tasks remain evidence-selected after E0 rather than assumed by this plan;
 - provider/model neutrality;
 - Windows infrastructure at the edges;
 - Drive/GitHub design-engineering boundary;
@@ -811,8 +835,9 @@ Approval of this program plan would freeze only the **major dependency ordering 
 - validation hierarchy;
 - App Actions after stable package identity/Application commands;
 - MCP non-blocking unless later evidence promotes it;
-- explicit .NET support-horizon decision;
-- WACK vs Partner Center authority separation.
+- explicit framework support-horizon decisions;
+- WACK vs Partner Center authority separation;
+- exact release dependency/provenance review.
 
 Approval would **not** freeze:
 
@@ -821,6 +846,7 @@ Approval would **not** freeze:
 - final UI layout/visual identity;
 - final provider lineup;
 - exact Phi/Aion implementation;
+- exact local semantic tasks;
 - exact NPU workloads or direct-vs-Windows-ML QNN choice;
 - every Open Design Register item;
 - exact launch date;
