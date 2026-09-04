@@ -1,6 +1,6 @@
 # H1 Patch 0015 — E0 Accepted Performance History + Context Continuity
 
-Status: Blueprint Proposal 0.11 — EXPLORATORY; recursive adversarial audit restarted from correctness; implementation forbidden
+Status: Blueprint Proposal 0.12 — EXPLORATORY; recursive adversarial audit restarted from correctness; implementation forbidden
 Parent promoted `main` checkpoint: `7475a9397cff9063673908c666a729f0f3cd4525`
 Blueprint branch: `h1-patch-0015-blueprint`
 
@@ -35,7 +35,8 @@ Patch 0015 supplies that deterministic seam without provider/model invocation, d
 9. **Exception ownership corrected.** Public history-transition exception belongs in Continuity; low CausalCommit history invariants use an internal-only exception.
 10. **Precommit live-path law added.** Approved Full Ensemble execution must prove history-aware Take binding before causal commit; `RecordCommit` independently rechecks after commit before projecting history.
 11. **Live APIs disambiguated.** The new history-bearing methods are not overloads named identically to historical history-omitting methods. They are explicitly named `ComposeWithAcceptedHistory(...)` and `BindWithAcceptedHistory(...)`. This preserves Patch 0014 APIs byte/source behavior while reducing accidental live-path omission in future orchestration and code review.
-12. **Opportunity adoption made fail-closed in Proposal 0.11.** Opportunity establishment and accepted-history advancement form a coordinated immutable live transition. A future orchestrator must not adopt the opportunity-bearing Production result until `RecordOpportunity(...)` has replayed the exact transition and produced the matching advanced history. On failure, the previously synchronized no-opportunity postcommit Production/history pair remains the only supported live pair.
+12. **Opportunity adoption made fail-closed.** Opportunity establishment and accepted-history advancement form a coordinated immutable live transition. A future orchestrator must not adopt the opportunity-bearing Production result until `RecordOpportunity(...)` has replayed the exact transition and produced the matching advanced history. On failure, the previously synchronized no-opportunity postcommit Production/history pair remains the only supported live pair.
+13. **Inherited reflection-suite boundary corrected in Proposal 0.12.** Patch 0012 freezes the entire public `CausalCommit` namespace in `Patch0012ContractAuditTests`; adding the opaque public `E0AcceptedPerformanceHistory` necessarily supersedes exactly that historical type-list assertion. Patch 0015 must update it narrowly while preserving every enduring Patch 0012 CausalCommit restriction. Patch 0014 temporary Context/Continuity “not yet” assertions are likewise evolved narrowly. Historical evidence remains immutable.
 
 ## 3. Authority basis
 
@@ -432,6 +433,8 @@ Excluded: typed control, hidden reasoning, provider diagnostics, creator-only st
 
 This is not a global “co-presence means everyone perceives everything” law. Future private/spatial/inaudible/concealed semantics require explicit observation authority. Selective recipient perception is outside E0 reference scope.
 
+The token previously had structural/dialect identity but no executable recent-Performance consumer. Patch 0015 is the first contract to give it this narrowly scoped E0 history-disclosure behavior; no prior historical packet bytes or observation records are reinterpreted.
+
 ## 20. Recent Performance != CharacterObservation
 
 Future path remains `Event -> observation eligibility -> CharacterObservation -> possible Memory/Belief/Claim`.
@@ -728,17 +731,35 @@ Marlowe Context = v3
 
 Before native validation independently derive exact v3 structured/rendered byte counts + hashes after reproducing inherited oracles. Also prove multi-entry order and silence distinction.
 
-## 46. Narrow Patch 0014 test supersession
+## 46. Narrow inherited-test supersession
 
-Update only temporary Patch0014 “not yet” reflection assertions:
+Patch 0015 intentionally evolves only assertions whose historical exact-public-surface or “not yet” premise is superseded by this separately approved boundary.
 
-- ContextPacket.RecentPerformances exists;
-- one ContextRecentPerformance public type exists;
-- three v3/render-v2 constants added;
-- E0ProductionContextContinuity additionally has `ComposeWithAcceptedHistory`;
-- E0TakeStateBinding additionally has `BindWithAcceptedHistory`.
+### Patch 0012
 
-Historical Patch0014 evidence remains immutable.
+`tests/Ensemble.E0.Core.Tests/CausalCommit/Patch0012ContractAuditTests.cs`
+
+Narrowly update `NewPublicNamespaces_ContainOnlyApprovedPatch0012Surface` so the CausalCommit namespace expected public types additionally contains exactly:
+
+```text
+E0AcceptedPerformanceHistory
+```
+
+Do not weaken the same test's Production namespace exact list. Do not weaken `Patch0012_PublicSurface_HasNoPersistenceProviderWindowsOrHardwareDependencies`, `CausalCommit_ExposesNoStateOnlyCommitOrEventRewriteDeleteAPI`, or other enduring Patch 0012 invariants. The new history type must satisfy those enduring restrictions automatically.
+
+### Patch 0014
+
+`tests/Ensemble.E0.Core.Tests/Continuity/Patch0014ContractAuditTests.cs`
+
+Narrowly evolve only the temporary assertions that history/render-v2/live history APIs did not yet exist:
+
+- `ContextPacket.RecentPerformances` now exists;
+- one `ContextRecentPerformance` public Context type exists;
+- three v3/render-v2 constants are added;
+- `E0ProductionContextContinuity` additionally has `ComposeWithAcceptedHistory`;
+- `E0TakeStateBinding` additionally has `BindWithAcceptedHistory` where reflected by Patch 0015 tests.
+
+Historical Patch0012/Patch0014 evidence/docs remain immutable and truthful for their checkpoints. No unrelated earlier contract assertion is weakened merely to make Patch 0015 pass.
 
 ## 47. Required implementation tests if approved
 
@@ -747,7 +768,8 @@ Historical Patch0014 evidence remains immutable.
 - history public properties exactly SceneId + CurrentStateHash;
 - no public constructor/setter/Entries/count/entry type;
 - internal Entries exactly `ImmutableArray<ContextRecentPerformance>`;
-- public history-transition exception only in Continuity; internal invariant exception nonpublic.
+- public history-transition exception only in Continuity; internal invariant exception nonpublic;
+- Patch0012 exact CausalCommit public-type list changes only by `E0AcceptedPerformanceHistory` and all enduring Patch0012 dependency/hardware/persistence restrictions still pass.
 
 ### API disambiguation/precommit
 - historical `Compose` remains one-argument only; live method exact name `ComposeWithAcceptedHistory`;
@@ -857,7 +879,9 @@ Performer:
     at most internal exact VisibleText-validator reuse
 
 tests:
-    focused Patch0015 + narrow Patch0014 temporary assertion supersession
+    focused Patch0015
+    narrow Patch0012 CausalCommit public-type-list supersession
+    narrow Patch0014 temporary history/render/API assertion supersession
 ```
 
 No semantic changes expected to fixture, Access, Production projection/transitions, Candidate public behavior, Director, Opportunity hash, Integrity, Interpreter, State Authority, Take, or Harness runtime.
@@ -884,7 +908,7 @@ Synchronous deterministic work only on explicit boundaries; no idle/background/n
 
 No general Observation engine, selective/private perception beyond E0 rule, CharacterClaim disclosure, epistemic promotion, history optimization, cross-Scene retrieval, provider execution/provenance, retry/spend/streaming, model-assisted Integrity/Interpreter call, full Scene-loop orchestration, Run/store, persistence/recovery, full genesis replay, branching/canon/retcon/rehearsal, World Resolver, WinUI, Windows AI/NPU, MSIX/WACK/Store.
 
-## 52. Proposal 0.11 resolved decisions
+## 52. Proposal 0.12 resolved decisions
 
 1. History is opaque live Context projection, not event/Take history API.
 2. Internal payload is exactly immutable `ContextRecentPerformance` items.
@@ -900,9 +924,10 @@ No general Observation engine, selective/private perception beyond E0 rule, Char
 12. No history hash or Context trace expansion.
 13. Trusted durable consequence and recent Performance are separate layers and may coexist without deduplication.
 14. Self history included.
-15. E0 full current-Scene accepted history is unoptimized common Character-legible reference behavior under `copresent-trio.v1`.
+15. E0 full current-Scene accepted history is unoptimized common Character-legible reference behavior under `copresent-trio.v1`; Patch 0015 explicitly creates that narrow consumer behavior rather than pretending it was previously executable.
 16. Duplicate display-name ambiguity is inherited from existing display-name-only rendering; structured v3 source attribution remains exact by CharacterId, and Patch 0015 does not add a new uniqueness law solely for recent history.
 17. Legacy evolved v2 remains historical compatibility but cannot pass the approved live binder or RecordCommit projection after history exists.
+18. Patch0012 exact CausalCommit public-type reflection evolves only for `E0AcceptedPerformanceHistory`; enduring Patch0012 no-persistence/no-provider/no-state-only-commit restrictions remain exact.
 
 ## 53. Recursive audit order
 
@@ -928,7 +953,7 @@ correctness
 -> evidence
 ```
 
-## 54. Proposal 0.11 audit status
+## 54. Proposal 0.12 audit status
 
 Run a complete fresh pass. Close only if it finds:
 
