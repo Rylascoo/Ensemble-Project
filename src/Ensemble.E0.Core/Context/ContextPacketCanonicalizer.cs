@@ -1,5 +1,6 @@
 using System.Collections.Immutable;
 using System.Text;
+using Ensemble.E0.Core.Production;
 using Ensemble.E0.Core.Serialization;
 
 namespace Ensemble.E0.Core.Context;
@@ -9,10 +10,12 @@ public static class ContextPacketCanonicalizer
     public static byte[] SerializeStructured(ContextPacket packet)
     {
         ArgumentNullException.ThrowIfNull(packet);
+        ValidatePacketVersionShape(packet);
 
         var content = new ContextSemanticContent(
             packet.SchemaVersion,
             packet.CompositionContract,
+            packet.SourceStateHash,
             packet.SceneId,
             packet.SubjectCharacterId,
             packet.OpportunityCharacterId,
@@ -71,6 +74,7 @@ public static class ContextPacketCanonicalizer
     internal static byte[] SerializeStructured(ContextSemanticContent content)
     {
         ArgumentNullException.ThrowIfNull(content);
+        var isProductionBound = ValidateSemanticVersionShape(content);
 
         try
         {
@@ -81,6 +85,16 @@ public static class ContextPacketCanonicalizer
             builder.Append(',');
             AppendStringProperty(builder, "compositionContract", content.CompositionContract);
             builder.Append(',');
+
+            if (isProductionBound)
+            {
+                AppendStringProperty(
+                    builder,
+                    "sourceStateHash",
+                    content.SourceStateHash!.Value.Value);
+                builder.Append(',');
+            }
+
             AppendStringProperty(builder, "sceneId", content.SceneId.Value);
             builder.Append(',');
             AppendStringProperty(builder, "subjectCharacterId", content.SubjectCharacterId.Value);
@@ -152,6 +166,111 @@ public static class ContextPacketCanonicalizer
                 $"Structured Context canonicalization failed: {exception.Message}",
                 exception);
         }
+        catch (InvalidOperationException exception)
+        {
+            throw new ContextCompositionException(
+                "Structured Context source-state identity is invalid.",
+                exception);
+        }
+    }
+
+    private static void ValidatePacketVersionShape(ContextPacket packet)
+    {
+        if (packet.Rendered is null)
+        {
+            throw new ContextCompositionException(
+                "Context packet rendered content is required.");
+        }
+
+        if (!string.Equals(
+                packet.Rendered.RenderingContract,
+                E0ContextContracts.RenderingContract,
+                StringComparison.Ordinal) ||
+            !string.Equals(
+                packet.Rendered.RecentPerformanceText,
+                string.Empty,
+                StringComparison.Ordinal))
+        {
+            throw new ContextCompositionException(
+                "Context packet rendering shape is unsupported.");
+        }
+
+        _ = ValidateSemanticVersionShape(new ContextSemanticContent(
+            packet.SchemaVersion,
+            packet.CompositionContract,
+            packet.SourceStateHash,
+            packet.SceneId,
+            packet.SubjectCharacterId,
+            packet.OpportunityCharacterId,
+            packet.Roster,
+            packet.SceneState,
+            packet.Pressures,
+            packet.Constitution,
+            packet.Disposition,
+            packet.Circumstance,
+            packet.Observations,
+            packet.Knowledge,
+            packet.Beliefs,
+            packet.Suspicions,
+            packet.Memories,
+            packet.Goals,
+            packet.Relationships));
+    }
+
+    private static bool ValidateSemanticVersionShape(ContextSemanticContent content)
+    {
+        var isV1 = string.Equals(
+                content.SchemaVersion,
+                E0ContextContracts.SchemaVersion,
+                StringComparison.Ordinal) &&
+            string.Equals(
+                content.CompositionContract,
+                E0ContextContracts.CompositionContract,
+                StringComparison.Ordinal);
+        var isV2 = string.Equals(
+                content.SchemaVersion,
+                E0ContextContracts.ProductionBoundSchemaVersion,
+                StringComparison.Ordinal) &&
+            string.Equals(
+                content.CompositionContract,
+                E0ContextContracts.ProductionBoundCompositionContract,
+                StringComparison.Ordinal);
+
+        if (isV1)
+        {
+            if (content.SourceStateHash.HasValue)
+            {
+                throw new ContextCompositionException(
+                    "Context v1 cannot carry Production source-state identity.");
+            }
+
+            return false;
+        }
+
+        if (isV2)
+        {
+            if (!content.SourceStateHash.HasValue)
+            {
+                throw new ContextCompositionException(
+                    "Production-bound Context v2 requires source-state identity.");
+            }
+
+            try
+            {
+                _ = content.SourceStateHash.Value.Value;
+            }
+            catch (InvalidOperationException exception)
+            {
+                throw new ContextCompositionException(
+                    "Production-bound Context v2 source-state identity is uninitialized.",
+                    exception);
+            }
+
+            return true;
+        }
+
+        throw new ContextCompositionException(
+            "Context schema/composition contract combination is unsupported.");
     }
 
     private static void AppendStringProperty(StringBuilder builder, string name, string value)
@@ -230,6 +349,7 @@ internal sealed class ContextSemanticContent
     public ContextSemanticContent(
         string schemaVersion,
         string compositionContract,
+        StateHash? sourceStateHash,
         Ensemble.E0.Core.Domain.SceneId sceneId,
         Ensemble.E0.Core.Domain.CharacterId subjectCharacterId,
         Ensemble.E0.Core.Domain.CharacterId opportunityCharacterId,
@@ -249,6 +369,7 @@ internal sealed class ContextSemanticContent
     {
         SchemaVersion = schemaVersion;
         CompositionContract = compositionContract;
+        SourceStateHash = sourceStateHash;
         SceneId = sceneId;
         SubjectCharacterId = subjectCharacterId;
         OpportunityCharacterId = opportunityCharacterId;
@@ -269,6 +390,7 @@ internal sealed class ContextSemanticContent
 
     public string SchemaVersion { get; }
     public string CompositionContract { get; }
+    public StateHash? SourceStateHash { get; }
     public Ensemble.E0.Core.Domain.SceneId SceneId { get; }
     public Ensemble.E0.Core.Domain.CharacterId SubjectCharacterId { get; }
     public Ensemble.E0.Core.Domain.CharacterId OpportunityCharacterId { get; }
