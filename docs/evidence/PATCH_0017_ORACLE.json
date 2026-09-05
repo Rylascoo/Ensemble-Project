@@ -1,0 +1,29 @@
+{
+  "patch": "0017",
+  "architecture": "Provider-Neutral Performer Attempt Boundary Proposal 0.2",
+  "expected": {
+    "publicTypes": [
+      "DeterministicE0PerformerAttemptBoundary",
+      "E0PerformerAttemptDisposition",
+      "E0PerformerAttemptException",
+      "E0PerformerAttemptResult"
+    ],
+    "dispositions": {
+      "CandidateReady": 1,
+      "TechnicalFailure": 2,
+      "Cancelled": 3
+    },
+    "resultProperties": [
+      "Disposition",
+      "SourceContextPacketId",
+      "Candidate"
+    ],
+    "candidateFailureMessage": "E0 Performer attempt candidate binding failed.",
+    "technicalFailureMessage": "E0 Performer attempt technical outcome binding failed.",
+    "candidateReadyRequiresCandidate": true,
+    "technicalOutcomesRequireNullCandidate": true,
+    "exactProviderDisclosureClaimed": false
+  },
+  "inheritedPatch0016Oracle": "docs/evidence/PATCH_0016_ORACLE.json",
+  "nativeArm64Validation": "pending"
+}
