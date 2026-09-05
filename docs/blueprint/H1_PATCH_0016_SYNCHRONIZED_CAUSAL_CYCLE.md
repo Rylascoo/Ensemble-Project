@@ -1,6 +1,6 @@
 # H1 Patch 0016 — Synchronized Causal Cycle
 
-Status: **BLUEPRINT PROPOSAL 0.5 — RECURSIVELY AUDITED; DIRECTOR APPROVAL REQUIRED; IMPLEMENTATION FORBIDDEN**
+Status: **APPROVED — PROPOSAL 0.5; IMPLEMENTATION AUTHORIZED**
 
 Date: 2026-09-05
 
@@ -9,6 +9,8 @@ Authoritative parent `main`: `99e0b9fc7fc346a7276928df8f92a6e133f58c2f`
 Latest executable authority: H1 Patch 0015 — Proposal 0.15
 
 Supersedes only the unapproved Patch 0016 blueprint branches based on the earlier `5186b0ab...` checkpoint. No approved implementation is superseded.
+
+Director approval: 2026-09-05 project conversation continuation after the clean Proposal 0.5 recommendation.
 
 ## 1. Falsification and purpose
 
@@ -328,7 +330,7 @@ After implementation and native validation, the next architecture question is wh
 
 ## 16. Implementation handoff after approval
 
-Only after explicit Director approval:
+After explicit Director approval:
 
 1. create an implementation branch from the then-current approved parent;
 2. implement patch-first on the source/test surface above;
@@ -357,4 +359,4 @@ Fresh review against current `main`, Blueprint 0.1, Ship Plan 0.7, Patch 0015 so
 0 worthwhile in-scope public-surface simplifications
 ```
 
-Implementation remains forbidden until explicit Director approval.
+Proposal 0.5 is approved for implementation. Native Windows ARM64 validation remains a separate external authority gate.
