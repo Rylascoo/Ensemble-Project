@@ -1,6 +1,6 @@
 # H1 Patch 0018 — Deterministic Turn Orchestration
 
-Status: **BLUEPRINT PROPOSAL 0.6 — RECURSIVELY AUDITED; DIRECTOR APPROVAL REQUIRED; IMPLEMENTATION FORBIDDEN**
+Status: **APPROVED — PROPOSAL 0.6; IMPLEMENTATION AUTHORIZED**
 
 Date: 2026-09-05
 Parent `main`: `0548078a060267e136968c2bf97b384356b50554`
@@ -329,4 +329,4 @@ Final convergence pass:
 0 blueprint-cap violations
 ```
 
-**Director approval is required before implementation.**
+**Director approval granted in this project conversation on 2026-09-05. Implementation is authorized only for this exact Proposal 0.6 scope.**
