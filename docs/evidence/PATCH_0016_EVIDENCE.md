@@ -1,6 +1,6 @@
 # Patch 0016 Evidence — Synchronized Causal Cycle
 
-Status: **IMPLEMENTED / NATIVE ARM64 ATTEMPT 01 PARTIAL PASS / TEST-ONLY CORRECTION PENDING REVALIDATION**
+Status: **IMPLEMENTED / STATIC AUDIT CLEAN / NATIVE ARM64 VALIDATED FOR EXERCISED CORE/TEST/HARNESS/FIXTURE GATES**
 
 Date: 2026-09-05
 
@@ -18,7 +18,7 @@ Machine-readable inherited oracle: `docs/evidence/PATCH_0016_ORACLE.json`.
 
 Patch 0016 would be unnecessary if production source already owned the synchronized Production/accepted-history/Opportunity state and advanced one accepted causal cycle without caller stitching.
 
-It did not. Patch 0015 test support manually sequenced checkpoint -> Context -> Accepted Take binding -> causal commit -> accepted-history commit advancement -> Opportunity establishment -> accepted-history/Opportunity advancement.
+It did not. Patch 0015 test support manually sequenced checkpoint -> Context -> Accepted Take binding -> causal commit -> accepted-history advancement -> Opportunity establishment -> synchronized next-turn history.
 
 ## Implemented surface
 
@@ -38,21 +38,21 @@ Public Cycle surface is exactly five types and four phase-typed operations: `Ini
 
 ## Authority behavior
 
-The implementation preserves two explicit adoption boundaries:
+The implementation preserves two adoption boundaries:
 
 ```text
 Opportunity-bearing synchronized state
  -> bounded Context
  -> externally prepared Accepted Take
  -> atomic commit + accepted-history proof
- -> validated no-Opportunity postcommit state
+ -> valid no-Opportunity postcommit state
  -> deterministic Opportunity + history coupling
  -> next synchronized Opportunity-bearing state
 ```
 
-Cycle states use private constructors. Their internal factories freshly prove cross-authority synchronization before construction. The only additional nonpublic Cycle type is `E0CausalCycleInvariantException`.
+Cycle states use private constructors. Internal factories freshly prove cross-authority synchronization. The only additional nonpublic Cycle type is `E0CausalCycleInvariantException`.
 
-The public Cycle boundary emits fixed structural errors without retaining lower `InnerException` chains. Rejected/Alternate Takes cannot cross the first boundary. A phase-two Opportunity failure cannot erase or mutate the already valid postcommit predecessor.
+The public Cycle boundary emits fixed structural errors without lower `InnerException` chains. Rejected/Alternate Takes cannot cross commit adoption. A phase-two Opportunity failure cannot erase or mutate the already valid postcommit predecessor.
 
 ## Five-property audit
 
@@ -62,9 +62,11 @@ The public Cycle boundary emits fixed structural errors without retaining lower 
 - **Causal persistence:** accepted Performance + approved consequences remain atomic; phase-two failure cannot roll them back.
 - **Creator sovereignty:** review policy, Take choice, IDs/materializations, provider attempts, retry/spend, and later recovery remain outside Cycle authority.
 
-## Tests/oracles added
+Static recursive audit reached a zero-material-correction pass after three implementation corrections: missing test import; closed state construction; removal of redundant invariant-helper authority. A later mixed-token test was added without changing production semantics.
 
-Test design covers:
+## Tests/oracles
+
+Coverage includes:
 
 - exact public surface and phase signatures;
 - no provider/platform/persistence/allocation public contract;
@@ -73,89 +75,87 @@ Test design covers:
 - exact next MARLOWE v3 Context hashes;
 - Rejected/Alternate fail-closed behavior;
 - stale prior Context/Take rejection;
-- mixed otherwise-valid state/history tokens fail closed through the public Context boundary;
+- mixed otherwise-valid state/history tokens rejected through the public Context boundary;
 - deterministic replay from identical explicit inputs;
 - three-cycle `VOSS -> MARLOWE -> WREN -> VOSS` recurrence;
 - phase-two failure preserving the valid postcommit predecessor.
 
-Inherited reference values were copied from the frozen Patch 0015 reference oracle; no lower oracle assertion was removed or weakened.
+Inherited reference-oracle assertions were preserved.
 
-## Recursive corrections before machine validation
+## Native Windows ARM64 validation
 
-1. Added the missing `Ensemble.E0.Core.Fixture` import in the determinism tests.
-2. Replaced bypassable internal state constructors with private constructors plus validated internal factories.
-3. Removed the extra invariant-helper type and moved validation ownership into the closed state types, leaving one internal invariant exception only.
-4. Added an explicit mixed-token fail-closed case.
-
-Each material correction restarted the audit from the affected authority layer.
-
-## Native Windows ARM64 validation attempt 01
-
-Exact attempted head:
-
-`09bf644f75de875870ba3d625dd381d83e4ff4c8`
-
-Observed machine authority supplied by the Director:
-
-- `PROCESSOR_ARCHITECTURE=ARM64`;
-- Windows `10.0.26200`;
-- RID `win-arm64`;
-- repository-selected .NET SDK `9.0.317`;
-- .NET host `10.0.11`, architecture `arm64`;
-- tracked diff clean: `TRACKED_DIFF_EXIT=0`;
-- staged diff clean: `STAGED_DIFF_EXIT=0`.
-
-Core production compiled successfully during `dotnet test`, but the test project failed compilation with exactly three errors, all in `E0CausalCycleDeterminismTests.cs`:
+Machine authority supplied by the Director:
 
 ```text
-CS0122 E0CausalCycleInvariantException is inaccessible
-CS1061 E0OpportunityBearingCycleState.AcceptedPerformanceHistory is inaccessible
-CS1061 E0OpportunityBearingCycleState.OpportunityHistory is inaccessible
+PROCESSOR_ARCHITECTURE = ARM64
+OS = Windows 10.0.26200
+RID = win-arm64
+repository-selected .NET SDK = 9.0.317
+.NET host = 10.0.11 arm64
 ```
 
-`CORE_TEST_EXIT=1`.
+### Attempt 01
 
-Harness/runtime gates at the same exact head passed:
+Exact head: `09bf644f75de875870ba3d625dd381d83e4ff4c8`
 
-- Harness build: PASS, `HARNESS_BUILD_EXIT=0`;
+Observed:
+
+- tracked/staged diff clean;
+- Core production compilation: PASS during `dotnet test`;
+- Core test-project compilation: FAIL with three test-only accessibility errors in `E0CausalCycleDeterminismTests.cs`;
+- `CORE_TEST_EXIT=1`;
+- Harness Debug build: PASS, `HARNESS_BUILD_EXIT=0`;
 - Missing Raft fixture: PASS, `MISSING_RAFT_EXIT=0`;
 - generic smoke fixture: PASS, `GENERIC_SMOKE_EXIT=0`.
 
-Therefore attempt 01 establishes native ARM64 Core **production compilation**, Harness compilation, and both fixture runtime validations for the executable source at `09bf644f...`, but does not establish Core test-project compilation or Core test execution.
+Root cause: the new test directly referenced internal Cycle members/types from the separate test assembly. Production semantics were not implicated.
 
-## Patch-first correction after attempt 01
+Patch-first correction commit: `d199a1ea2f38a658c226b8191c29ba296c69748a`.
 
-Correction commit:
+The correction changed only `tests/Ensemble.E0.Core.Tests/Cycle/E0CausalCycleDeterminismTests.cs`: reflection is now construction plumbing only, and rejection is proven through public `DeterministicE0CausalCycle.ComposeContext(...)`. No `src/`, Harness, fixture, framework, SDK, canonicalizer, or oracle change occurred.
 
-`d199a1ea2f38a658c226b8191c29ba296c69748a`
+### Attempt 02 — successful Core gate
 
-Changed executable/test surface from attempted head `09bf644f...`:
+Exact machine-tested head:
 
-- one test file only: `tests/Ensemble.E0.Core.Tests/Cycle/E0CausalCycleDeterminismTests.cs`.
+`aa1346964aeb0f27b9d9ff609514150f438d4474`
 
-No `src/`, Harness, fixture, framework, SDK, canonicalizer, or oracle change was made.
+Observed before test execution:
 
-The mixed-token test now uses reflection only as test construction plumbing to forge an otherwise unreachable mixed state, then proves rejection through the public `DeterministicE0CausalCycle.ComposeContext(...)` boundary. It no longer references any internal Cycle type/member at compile time.
-
-## Advisory side findings retained
-
-Structural tests: current exact-main GitHub code search resolves `BindingFlags` in 26 test files. Literal-use totals 202 vs 456 were not independently reproduced by an executable checkout here, so neither count is promoted as fact or used for Patch 0016 decisions. Future structural-test work must count the actual checkout and classify by member visibility/assertion semantics, not filename.
-
-E5c: no authority-sensitive production path was found that accepts an exception from an untrusted boundary and treats runtime type as provenance. Status remains **open question / no verified defect / no fix authorized**.
-
-## Remaining validation gate
-
-Because the post-attempt correction is test-only, the successful Harness/fixture authority at `09bf644f...` remains applicable to unchanged executable source. The required next machine gate is the full Core test suite at the latest branch head after pulling the correction/evidence commits.
-
-Run:
-
-```powershell
-git pull --ff-only
-git rev-parse HEAD
-git diff --quiet; "TRACKED_DIFF_EXIT=$LASTEXITCODE"
-git diff --cached --quiet; "STAGED_DIFF_EXIT=$LASTEXITCODE"
-dotnet test .\tests\Ensemble.E0.Core.Tests\Ensemble.E0.Core.Tests.csproj -c Debug
-"CORE_TEST_EXIT=$LASTEXITCODE"
+```text
+git rev-parse HEAD = aa1346964aeb0f27b9d9ff609514150f438d4474
+TRACKED_DIFF_EXIT=0
+STAGED_DIFF_EXIT=0
 ```
 
-Only observed output from that gate may promote Patch 0016 to full native Core test authority.
+Observed `dotnet test .\tests\Ensemble.E0.Core.Tests\Ensemble.E0.Core.Tests.csproj -c Debug`:
+
+```text
+Ensemble.E0.Core succeeded
+Ensemble.E0.Core.Tests succeeded
+Test summary: total: 584, failed: 0, succeeded: 584, skipped: 0
+Build succeeded
+CORE_TEST_EXIT=0
+```
+
+This establishes native Windows ARM64 compiler and full Core-test execution authority for the exercised Patch 0016 source/test tree at `aa134696...`.
+
+Because the only executable/test change after Attempt 01 was the single test-file correction above, the successful Harness build and both fixture runtime executions observed at `09bf644f...` remain applicable to unchanged `src/`, Harness, and fixtures.
+
+## Validation conclusion
+
+For exercised Patch 0016 gates:
+
+- Core production compilation: **PASS**;
+- Core test-project compilation: **PASS**;
+- full Core suite: **584/584 PASS**;
+- Harness ARM64 build: **PASS**;
+- Missing Raft fixture runtime: **PASS**;
+- generic smoke fixture runtime: **PASS**.
+
+Not established by this patch: WinUI runtime behavior, Windows AI/NPU execution, measured TOPS, MSIX/WACK, or Store certification.
+
+## Advisory findings retained
+
+- Structural-test review: exact-main GitHub search resolves `BindingFlags` in 26 test files; disputed literal totals 202 vs 456 remain unpromoted until counted from an executable current checkout.
+- E5c: no authority-sensitive production path has been found that accepts an exception from an untrusted boundary and treats runtime exception type as provenance. Status remains open question / no verified defect / no fix authorized.
