@@ -68,9 +68,7 @@ public sealed class E0PerformerAttemptTests
         var source = DeterministicE0CausalCycle.Initialize(Patch0012TestSupport.Genesis());
         var context = DeterministicE0CausalCycle.ComposeContext(source).ContextEvaluation.Packet;
         var valid = Candidate(context, "PRIVATE-CANDIDATE-TEXT");
-        var constructor = typeof(CandidatePerformance)
-            .GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic)
-            .Single();
+        var constructor = CandidateConstructor();
         var forged = (CandidatePerformance)constructor.Invoke(new object[]
         {
             valid.ContractVersion,
@@ -85,6 +83,28 @@ public sealed class E0PerformerAttemptTests
 
         Assert.AreEqual("E0 Performer attempt candidate binding failed.", exception.Message);
         Assert.IsFalse(exception.ToString().Contains("PRIVATE-CANDIDATE-TEXT", StringComparison.Ordinal));
+        Assert.IsNull(exception.InnerException);
+    }
+
+    [TestMethod]
+    public void WrongCandidateContractVersion_FailsClosed()
+    {
+        var source = DeterministicE0CausalCycle.Initialize(Patch0012TestSupport.Genesis());
+        var context = DeterministicE0CausalCycle.ComposeContext(source).ContextEvaluation.Packet;
+        var valid = Candidate(context, "No.");
+        var forged = (CandidatePerformance)CandidateConstructor().Invoke(new object[]
+        {
+            "ensemble.e0.performer.candidate.invalid",
+            valid.SubjectCharacterId,
+            valid.ContextPacketId,
+            valid.VisibleText,
+            valid.Control
+        });
+
+        var exception = Assert.Throws<E0PerformerAttemptException>(() =>
+            DeterministicE0PerformerAttemptBoundary.BindCandidate(context, forged));
+
+        Assert.AreEqual("E0 Performer attempt candidate binding failed.", exception.Message);
         Assert.IsNull(exception.InnerException);
     }
 
@@ -177,6 +197,11 @@ public sealed class E0PerformerAttemptTests
                     null!,
                     E0PerformerAttemptDisposition.TechnicalFailure)).Message);
     }
+
+    private static ConstructorInfo CandidateConstructor() =>
+        typeof(CandidatePerformance)
+            .GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic)
+            .Single();
 
     private static CandidatePerformance Candidate(ContextPacket context, string text) =>
         PerformerCandidateContract.ParseJson(
