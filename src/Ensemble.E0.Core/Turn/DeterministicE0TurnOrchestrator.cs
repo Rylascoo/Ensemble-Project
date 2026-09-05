@@ -1,5 +1,6 @@
 using System.Collections.Immutable;
 using Ensemble.E0.Core.CausalCommit;
+using Ensemble.E0.Core.Context;
 using Ensemble.E0.Core.Cycle;
 using Ensemble.E0.Core.Domain;
 using Ensemble.E0.Core.Integrity;
@@ -277,7 +278,7 @@ public static class DeterministicE0TurnOrchestrator
 
     private static E0TurnProgress GateCandidate(
         E0OpportunityBearingCycleState source,
-        Context.ContextPacket context,
+        ContextPacket context,
         E0PerformerAttemptResult attemptResult)
     {
         if (attemptResult.Candidate is null)
@@ -301,7 +302,7 @@ public static class DeterministicE0TurnOrchestrator
 
     private static E0TurnProgress GateTechnical(
         E0OpportunityBearingCycleState source,
-        Context.ContextPacket context,
+        ContextPacket context,
         E0PerformerAttemptResult attemptResult,
         E0TurnProgressDisposition disposition)
     {
