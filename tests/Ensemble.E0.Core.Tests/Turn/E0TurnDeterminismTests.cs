@@ -97,6 +97,82 @@ public sealed class E0TurnDeterminismTests
         Assert.AreNotEqual(current.ContextPacketId, forgedContext.ContextPacketId);
     }
 
+    [TestMethod]
+    public void StaleTechnicalOutcome_CannotEnterNextCycle()
+    {
+        var source = NewCycle();
+        var context = Context(source);
+        var stale = DeterministicE0PerformerAttemptBoundary.BindTechnicalOutcome(
+            context,
+            E0PerformerAttemptDisposition.TechnicalFailure);
+        var accepted = Patch0015TestSupport.AcceptedTake(
+            source.ProductionState,
+            context,
+            "No.",
+            Array.Empty<Dictionary<string, object?>>(),
+            Array.Empty<StateMutationDomain>(),
+            "TAKE-PATCH-0018-STALE-TECHNICAL");
+        var post = DeterministicE0CausalCycle.CommitAcceptedTake(
+            CommitId.From("COMMIT-PATCH-0018-STALE-TECHNICAL"),
+            source,
+            context,
+            accepted,
+            Patch0015TestSupport.EmptyMaterializations());
+        var next = DeterministicE0CausalCycle.EstablishOpportunity(post).State;
+
+        var exception = Assert.Throws<E0TurnOrchestrationException>(() =>
+            DeterministicE0TurnOrchestrator.GateAttempt(next, stale));
+
+        Assert.AreEqual("E0 turn attempt gate failed.", exception.Message);
+        Assert.IsNull(exception.InnerException);
+    }
+
+    [TestMethod]
+    public void MismatchedInterpreterProposal_FailsBeforeStateAuthorityAdoption()
+    {
+        var ready = ReadyForInterpretation(NewCycle(), "No.");
+        var different = ReadyForInterpretation(NewCycle(), "Different candidate.");
+        var mismatchedProposal = Proposal(different);
+
+        var exception = Assert.Throws<E0TurnOrchestrationException>(() =>
+            DeterministicE0TurnOrchestrator.EvaluateAuthority(
+                ready,
+                mismatchedProposal,
+                StateAuthorityPolicy.Create(ImmutableArray<StateMutationDomain>.Empty),
+                ImmutableArray<StateAuthorityReviewChoice>.Empty));
+
+        Assert.AreEqual("E0 turn State Authority evaluation failed.", exception.Message);
+        Assert.IsNull(exception.InnerException);
+    }
+
+    [TestMethod]
+    public void DefaultTakeAndCommitIds_FailAtTheirApprovedStages()
+    {
+        var source = NewCycle();
+        var ready = ReadyForInterpretation(source, "No.");
+        var bindable = DeterministicE0TurnOrchestrator.EvaluateAuthority(
+            ready,
+            Proposal(ready),
+            StateAuthorityPolicy.Create(ImmutableArray<StateMutationDomain>.Empty),
+            ImmutableArray<StateAuthorityReviewChoice>.Empty);
+
+        var takeException = Assert.Throws<E0TurnOrchestrationException>(() =>
+            DeterministicE0TurnOrchestrator.BindAcceptedTake(default, bindable));
+        Assert.AreEqual("E0 turn accepted Take binding failed.", takeException.Message);
+        Assert.IsNull(takeException.InnerException);
+
+        var accepted = DeterministicE0TurnOrchestrator.BindAcceptedTake(
+            TakeId.From("TAKE-PATCH-0018-DEFAULT-COMMIT"),
+            bindable);
+        var commitException = Assert.Throws<E0TurnOrchestrationException>(() =>
+            DeterministicE0TurnOrchestrator.CommitAccepted(
+                default,
+                accepted,
+                Patch0015TestSupport.EmptyMaterializations()));
+        Assert.AreEqual("E0 turn accepted commit failed.", commitException.Message);
+        Assert.IsNull(commitException.InnerException);
+    }
+
     private static TurnRun RunTurn(
         E0OpportunityBearingCycleState source,
         string visibleText,
@@ -132,6 +208,19 @@ public sealed class E0TurnDeterminismTests
             accepted,
             post,
             next);
+    }
+
+    private static E0TurnProgress ReadyForInterpretation(
+        E0OpportunityBearingCycleState source,
+        string visibleText)
+    {
+        var context = Context(source);
+        var candidate = Candidate(context, visibleText);
+        var attempt = DeterministicE0PerformerAttemptBoundary.BindCandidate(context, candidate);
+        var gated = DeterministicE0TurnOrchestrator.GateAttempt(source, attempt);
+        return DeterministicE0TurnOrchestrator.EvaluateIntegrity(
+            gated,
+            ImmutableArray<IntegrityConcernKind>.Empty);
     }
 
     private static E0OpportunityBearingCycleState NewCycle() =>
