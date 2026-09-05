@@ -1,0 +1,47 @@
+{
+  "patch": "0017",
+  "architecture": "Provider-Neutral Performer Attempt Boundary Proposal 0.2",
+  "expected": {
+    "publicTypes": [
+      "DeterministicE0PerformerAttemptBoundary",
+      "E0PerformerAttemptDisposition",
+      "E0PerformerAttemptException",
+      "E0PerformerAttemptResult"
+    ],
+    "dispositions": {
+      "CandidateReady": 1,
+      "TechnicalFailure": 2,
+      "Cancelled": 3
+    },
+    "resultProperties": [
+      "Disposition",
+      "SourceContextPacketId",
+      "Candidate"
+    ],
+    "candidateFailureMessage": "E0 Performer attempt candidate binding failed.",
+    "technicalFailureMessage": "E0 Performer attempt technical outcome binding failed.",
+    "candidateReadyRequiresCandidate": true,
+    "technicalOutcomesRequireNullCandidate": true,
+    "exactProviderDisclosureClaimed": false
+  },
+  "inheritedPatch0016Oracle": "docs/evidence/PATCH_0016_ORACLE.json",
+  "nativeArm64Validation": {
+    "source": "Director machine",
+    "checkout": "2c64502a05388206c698d3f04f0eeb8389545afe",
+    "architecture": "ARM64",
+    "rid": "win-arm64",
+    "sdk": "9.0.317",
+    "coreTests": {
+      "total": 598,
+      "succeeded": 598,
+      "failed": 0,
+      "skipped": 0,
+      "exit": 0
+    },
+    "harnessBuildExit": 0,
+    "missingRaftExit": 0,
+    "genericSmokeExit": 0,
+    "trackedDiffExit": 0,
+    "stagedDiffExit": 0
+  }
+}
