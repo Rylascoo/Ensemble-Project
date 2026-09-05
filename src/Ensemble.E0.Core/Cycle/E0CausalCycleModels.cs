@@ -11,7 +11,7 @@ namespace Ensemble.E0.Core.Cycle;
 
 public sealed class E0OpportunityBearingCycleState
 {
-    internal E0OpportunityBearingCycleState(
+    private E0OpportunityBearingCycleState(
         ProductionState productionState,
         E0AcceptedPerformanceHistory acceptedPerformanceHistory,
         E0OpportunityHistory opportunityHistory)
@@ -24,11 +24,26 @@ public sealed class E0OpportunityBearingCycleState
     public ProductionState ProductionState { get; }
     internal E0AcceptedPerformanceHistory AcceptedPerformanceHistory { get; }
     internal E0OpportunityHistory OpportunityHistory { get; }
+
+    internal static E0OpportunityBearingCycleState Create(
+        ProductionState productionState,
+        E0AcceptedPerformanceHistory acceptedPerformanceHistory,
+        E0OpportunityHistory opportunityHistory)
+    {
+        E0CausalCycleInvariants.ValidateOpportunityBearing(
+            productionState,
+            acceptedPerformanceHistory,
+            opportunityHistory);
+        return new E0OpportunityBearingCycleState(
+            productionState,
+            acceptedPerformanceHistory,
+            opportunityHistory);
+    }
 }
 
 public sealed class E0PostCommitCycleState
 {
-    internal E0PostCommitCycleState(
+    private E0PostCommitCycleState(
         ProductionState productionState,
         E0AcceptedPerformanceHistory acceptedPerformanceHistory,
         E0CausalCommit commit,
@@ -47,11 +62,32 @@ public sealed class E0PostCommitCycleState
     internal E0AcceptedPerformanceHistory AcceptedPerformanceHistory { get; }
     internal ContextPacket SourceContext { get; }
     internal E0OpportunityHistory SourceOpportunityHistory { get; }
+
+    internal static E0PostCommitCycleState Create(
+        ProductionState productionState,
+        E0AcceptedPerformanceHistory acceptedPerformanceHistory,
+        E0CausalCommit commit,
+        ContextPacket sourceContext,
+        E0OpportunityHistory sourceOpportunityHistory)
+    {
+        E0CausalCycleInvariants.ValidatePostCommit(
+            productionState,
+            acceptedPerformanceHistory,
+            commit,
+            sourceContext,
+            sourceOpportunityHistory);
+        return new E0PostCommitCycleState(
+            productionState,
+            acceptedPerformanceHistory,
+            commit,
+            sourceContext,
+            sourceOpportunityHistory);
+    }
 }
 
 public sealed class E0OpportunityBearingCycleResult
 {
-    internal E0OpportunityBearingCycleResult(
+    private E0OpportunityBearingCycleResult(
         E0OpportunityBearingCycleState state,
         E0OpportunityTransition opportunityEvent,
         LeastInterventionDirectorEvaluation directorEvaluation)
@@ -64,6 +100,23 @@ public sealed class E0OpportunityBearingCycleResult
     public E0OpportunityBearingCycleState State { get; }
     public E0OpportunityTransition OpportunityEvent { get; }
     public LeastInterventionDirectorEvaluation DirectorEvaluation { get; }
+
+    internal static E0OpportunityBearingCycleResult Create(
+        E0OpportunityBearingCycleState state,
+        E0OpportunityTransition opportunityEvent,
+        LeastInterventionDirectorEvaluation directorEvaluation)
+    {
+        if (state is null || opportunityEvent is null || directorEvaluation is null)
+        {
+            throw new E0CausalCycleInvariantException(
+                "Opportunity-bearing cycle result components are required.");
+        }
+
+        return new E0OpportunityBearingCycleResult(
+            state,
+            opportunityEvent,
+            directorEvaluation);
+    }
 }
 
 public sealed class E0CausalCycleException : Exception
@@ -89,7 +142,7 @@ internal sealed class E0CausalCycleInvariantException : Exception
 
 internal static class E0CausalCycleInvariants
 {
-    internal static E0OpportunityBearingCycleState CreateOpportunityBearing(
+    internal static void ValidateOpportunityBearing(
         ProductionState productionState,
         E0AcceptedPerformanceHistory acceptedPerformanceHistory,
         E0OpportunityHistory opportunityHistory)
@@ -149,11 +202,6 @@ internal static class E0CausalCycleInvariants
                 throw new E0CausalCycleInvariantException(
                     "Opportunity-bearing cycle histories are not synchronized.");
             }
-
-            return new E0OpportunityBearingCycleState(
-                productionState,
-                acceptedPerformanceHistory,
-                opportunityHistory);
         }
         catch (E0CausalCycleInvariantException)
         {
@@ -173,7 +221,7 @@ internal static class E0CausalCycleInvariants
         }
     }
 
-    internal static E0PostCommitCycleState CreatePostCommit(
+    internal static void ValidatePostCommit(
         ProductionState productionState,
         E0AcceptedPerformanceHistory acceptedPerformanceHistory,
         E0CausalCommit commit,
@@ -216,6 +264,10 @@ internal static class E0CausalCycleInvariants
                     StringComparison.Ordinal) ||
                 commit.ResultStateHash != productionState.StateHash ||
                 commit.Take is null ||
+                !string.Equals(
+                    commit.Take.ContractVersion,
+                    E0TakeContracts.ContractVersion,
+                    StringComparison.Ordinal) ||
                 commit.Take.Disposition != E0TakeDisposition.Accepted)
             {
                 throw new E0CausalCycleInvariantException(
@@ -289,13 +341,6 @@ internal static class E0CausalCycleInvariants
                 performance.SubjectCharacterId,
                 performance.ContextPacketId,
                 roster);
-
-            return new E0PostCommitCycleState(
-                productionState,
-                acceptedPerformanceHistory,
-                commit,
-                sourceContext,
-                sourceOpportunityHistory);
         }
         catch (E0CausalCycleInvariantException)
         {
