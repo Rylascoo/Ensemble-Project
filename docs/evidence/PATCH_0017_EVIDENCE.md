@@ -16,6 +16,10 @@ Machine-readable oracle: `docs/evidence/PATCH_0017_ORACLE.json`.
 
 Latest executable authority before this patch: H1 Patch 0016 — Synchronized Causal Cycle Proposal 0.5.
 
+Latest source/test static checkpoint before this evidence-only refresh:
+
+`b71b1c2e8f403987753f0168471f5c59af8f711b`
+
 ## Falsification
 
 Patch 0017 would be unnecessary if current source already exposed one closed provider-neutral boundary binding either a valid `CandidatePerformance` or non-fictional technical non-performance to the exact semantic `ContextPacket`.
@@ -104,6 +108,7 @@ Added behavior coverage for:
 - exact Context + Candidate -> `CandidateReady` with same Candidate reference;
 - stale Candidate rejected against next-cycle Context;
 - forged wrong-subject Candidate fails closed without text leakage;
+- forged wrong semantic Candidate contract version fails closed;
 - `TechnicalFailure` and `Cancelled` produce null Candidate and preserve source state;
 - `CandidateReady`, default, and undefined enum values cannot enter technical binding;
 - invalid Candidate transport may be mapped externally to payload-free `TechnicalFailure`;
