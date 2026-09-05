@@ -3,6 +3,7 @@ using Ensemble.E0.Core.CausalCommit;
 using Ensemble.E0.Core.Continuity;
 using Ensemble.E0.Core.Cycle;
 using Ensemble.E0.Core.Domain;
+using Ensemble.E0.Core.Fixture;
 using Ensemble.E0.Core.Opportunity;
 using Ensemble.E0.Core.StateInterpreter;
 using Ensemble.E0.Core.Tests.Continuity;
