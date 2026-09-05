@@ -1,6 +1,6 @@
 # H1 Patch 0018 — Deterministic Turn Orchestration
 
-Status: **BLUEPRINT PROPOSAL 0.6 — RECURSIVE AUDIT IN PROGRESS; IMPLEMENTATION FORBIDDEN**
+Status: **BLUEPRINT PROPOSAL 0.6 — RECURSIVELY AUDITED; DIRECTOR APPROVAL REQUIRED; IMPLEMENTATION FORBIDDEN**
 
 Date: 2026-09-05
 Parent `main`: `0548078a060267e136968c2bf97b384356b50554`
@@ -307,13 +307,26 @@ Prove:
 
 Reflection only for public-surface assertions or impossible construction plumbing.
 
-## 15. Non-scope / audit status
+## 15. Non-scope / audit result
 
 No provider/model execution/request framing; raw Performer/Integrity/Interpreter output; streaming; cancellation primitive; retry/backoff; spend/budget; provider/model/version/settings/metrics; AttemptId/RunId; authenticated provenance; secret storage; automatic reviewer/Interpreter; Rejected/Alternate reference Take selection; Scene termination; repeated run loop; persistence; branch/concurrency arbitration; cross-Scene continuity; ODR-12/13/30/32; WinUI; Windows AI/NPU; MSIX/WACK/Store.
 
 Recursive audit corrections through Proposal 0.6: preserved Patch 0016 postcommit adoption; recomposed/replayed stale-sensitive boundaries; kept probabilistic execution outside Core; removed unreachable Integrity Reject state; bound review to one proposal/policy; exposed proposal for creator review; aligned terminal State Authority -> TakeBindable -> TakeId/Take with Patch 0011; and projected AcceptedTakeReady from E0Take's fresh replayed Authority.
 
-Remaining audit:
-`correctness -> authority -> stale closure -> privacy -> dependency -> surface -> tests -> simplicity -> hygiene -> ARM64 -> five-property fit -> evidence`.
+Final convergence pass:
 
-**Implementation remains forbidden pending clean recursive closure and explicit Director approval.**
+```text
+0 material correctness corrections outstanding
+0 authority contradictions
+0 stale-token gaps within Patch 0018 scope
+0 Character/Performer or technical/fiction conflations
+0 review-package identity gaps
+0 premature Take/TakeId states
+0 causal-adoption collapses
+0 privacy/dependency violations
+0 provider/platform dependencies
+0 worthwhile in-scope public-surface simplifications
+0 blueprint-cap violations
+```
+
+**Director approval is required before implementation.**
