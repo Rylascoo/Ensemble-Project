@@ -71,7 +71,7 @@ public sealed class E0CausalCycleDeterminismTests
     }
 
     [TestMethod]
-    public void MixedOtherwiseValidHistoryTokens_CannotCreateOpportunityBearingState()
+    public void MixedOtherwiseValidHistoryTokens_FailClosedAtPublicContextBoundary()
     {
         var genesis = Patch0012TestSupport.Genesis();
         var source = DeterministicE0CausalCycle.Initialize(genesis);
@@ -91,11 +91,27 @@ public sealed class E0CausalCycleDeterminismTests
             Patch0015TestSupport.EmptyMaterializations());
         var next = DeterministicE0CausalCycle.EstablishOpportunity(post).State;
 
-        Assert.Throws<E0CausalCycleInvariantException>(() =>
-            E0OpportunityBearingCycleState.Create(
-                next.ProductionState,
-                source.AcceptedPerformanceHistory,
-                next.OpportunityHistory));
+        var acceptedHistory = typeof(E0OpportunityBearingCycleState)
+            .GetProperty("AcceptedPerformanceHistory", BindingFlags.Instance | BindingFlags.NonPublic)!
+            .GetValue(source)!;
+        var opportunityHistory = typeof(E0OpportunityBearingCycleState)
+            .GetProperty("OpportunityHistory", BindingFlags.Instance | BindingFlags.NonPublic)!
+            .GetValue(next)!;
+        var constructor = typeof(E0OpportunityBearingCycleState)
+            .GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic)
+            .Single();
+        var forged = (E0OpportunityBearingCycleState)constructor.Invoke(new[]
+        {
+            next.ProductionState,
+            acceptedHistory,
+            opportunityHistory
+        });
+
+        var exception = Assert.Throws<E0CausalCycleException>(() =>
+            DeterministicE0CausalCycle.ComposeContext(forged));
+
+        Assert.AreEqual("E0 causal cycle Context composition failed.", exception.Message);
+        Assert.IsNull(exception.InnerException);
     }
 
     [TestMethod]
