@@ -71,6 +71,34 @@ public sealed class E0CausalCycleDeterminismTests
     }
 
     [TestMethod]
+    public void MixedOtherwiseValidHistoryTokens_CannotCreateOpportunityBearingState()
+    {
+        var genesis = Patch0012TestSupport.Genesis();
+        var source = DeterministicE0CausalCycle.Initialize(genesis);
+        var context = DeterministicE0CausalCycle.ComposeContext(source).ContextEvaluation.Packet;
+        var take = Patch0015TestSupport.AcceptedTake(
+            source.ProductionState,
+            context,
+            "No.",
+            Array.Empty<Dictionary<string, object?>>(),
+            Array.Empty<StateMutationDomain>(),
+            "TAKE-PATCH-0016-MIXED");
+        var post = DeterministicE0CausalCycle.CommitAcceptedTake(
+            CommitId.From("COMMIT-PATCH-0016-MIXED"),
+            source,
+            context,
+            take,
+            Patch0015TestSupport.EmptyMaterializations());
+        var next = DeterministicE0CausalCycle.EstablishOpportunity(post).State;
+
+        Assert.Throws<E0CausalCycleInvariantException>(() =>
+            E0OpportunityBearingCycleState.Create(
+                next.ProductionState,
+                source.AcceptedPerformanceHistory,
+                next.OpportunityHistory));
+    }
+
+    [TestMethod]
     public void ThreeAcceptedCycles_PreserveLeastInterventionRecurrenceAndHistoryContinuity()
     {
         var current = DeterministicE0CausalCycle.Initialize(Patch0012TestSupport.Genesis());
