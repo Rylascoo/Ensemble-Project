@@ -85,6 +85,7 @@ public sealed class E0TurnOrchestrationTests
     public void CandidateReady_EmptyIntegrityConcerns_BecomesReadyForInterpretation()
     {
         var (source, context, candidate, gated) = CandidateReady();
+        var stateHash = source.ProductionState.StateHash;
 
         var ready = DeterministicE0TurnOrchestrator.EvaluateIntegrity(
             gated,
@@ -99,7 +100,7 @@ public sealed class E0TurnOrchestrationTests
         Assert.IsNull(ready.InterpretationProposal);
         Assert.IsNull(ready.AuthorityEvaluation);
         Assert.IsNull(ready.AcceptedTake);
-        Assert.AreEqual(source.ProductionState.StateHash, source.ProductionState.StateHash);
+        Assert.AreEqual(stateHash, source.ProductionState.StateHash);
     }
 
     [TestMethod]
@@ -128,16 +129,14 @@ public sealed class E0TurnOrchestrationTests
         var (_, _, _, gated) = CandidateReady();
 
         var exception = Assert.Throws<E0TurnOrchestrationException>(() =>
-            DeterministicE0TurnOrchestrator.EvaluateIntegrity(
-                gated,
-                default));
+            DeterministicE0TurnOrchestrator.EvaluateIntegrity(gated, default));
 
         Assert.AreEqual("E0 turn Integrity evaluation failed.", exception.Message);
         Assert.IsNull(exception.InnerException);
     }
 
     [TestMethod]
-    public void MandatoryReview_RemainsBoundToExactProposalAndPolicyUntilResolved()
+    public void ReviewRequired_RemainsBoundToExactProposalAndPolicyUntilResolved()
     {
         var ready = ReadyForInterpretation();
         var proposal = Proposal(ready, Patch0012TestSupport.PressureAdd());
@@ -235,7 +234,7 @@ public sealed class E0TurnOrchestrationTests
     [TestMethod]
     public void CommitAccepted_MatchesInheritedCycleCommitAndDoesNotEstablishOpportunity()
     {
-        var accepted = AcceptedReady("TAKE-PATCH-0018-COMMIT");
+        var (source, accepted) = AcceptedReady("TAKE-PATCH-0018-COMMIT");
         var materials = Patch0015TestSupport.EmptyMaterializations();
         var commitId = CommitId.From("COMMIT-PATCH-0018-COMMIT");
 
@@ -245,7 +244,7 @@ public sealed class E0TurnOrchestrationTests
             materials);
         var direct = DeterministicE0CausalCycle.CommitAcceptedTake(
             commitId,
-            SourceCycle(accepted),
+            source,
             accepted.SourceContext,
             accepted.AcceptedTake!,
             materials);
@@ -325,15 +324,21 @@ public sealed class E0TurnOrchestrationTests
             () => DeterministicE0TurnOrchestrator.GateAttempt(source, null!));
         AssertMessage(
             "E0 turn Integrity evaluation failed.",
-            () => DeterministicE0TurnOrchestrator.EvaluateIntegrity(null!, ImmutableArray<IntegrityConcernKind>.Empty));
+            () => DeterministicE0TurnOrchestrator.EvaluateIntegrity(
+                null!,
+                ImmutableArray<IntegrityConcernKind>.Empty));
         AssertMessage(
             "E0 turn State Authority evaluation failed.",
             () => DeterministicE0TurnOrchestrator.EvaluateAuthority(
-                null!, null!, null!, ImmutableArray<StateAuthorityReviewChoice>.Empty));
+                null!,
+                null!,
+                null!,
+                ImmutableArray<StateAuthorityReviewChoice>.Empty));
         AssertMessage(
             "E0 turn State Authority review resolution failed.",
             () => DeterministicE0TurnOrchestrator.ResolveAuthorityReview(
-                null!, ImmutableArray<StateAuthorityReviewChoice>.Empty));
+                null!,
+                ImmutableArray<StateAuthorityReviewChoice>.Empty));
         AssertMessage(
             "E0 turn accepted Take binding failed.",
             () => DeterministicE0TurnOrchestrator.BindAcceptedTake(default, null!));
@@ -380,19 +385,26 @@ public sealed class E0TurnOrchestrationTests
             ImmutableArray<StateAuthorityReviewChoice>.Empty);
     }
 
-    private static E0TurnProgress AcceptedReady(string takeId)
+    private static (E0OpportunityBearingCycleState Source, E0TurnProgress Progress) AcceptedReady(string takeId)
     {
-        var bindable = TakeBindable();
-        return DeterministicE0TurnOrchestrator.BindAcceptedTake(
-            TakeId.From(takeId),
-            bindable);
-    }
-
-    private static E0OpportunityBearingCycleState SourceCycle(E0TurnProgress progress)
-    {
-        var field = typeof(E0TurnProgress)
-            .GetProperty("SourceCycle", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
-        return (E0OpportunityBearingCycleState)field!.GetValue(progress)!;
+        var source = NewCycle();
+        var context = Context(source);
+        var candidate = Candidate(context, "No.");
+        var attempt = DeterministicE0PerformerAttemptBoundary.BindCandidate(context, candidate);
+        var gated = DeterministicE0TurnOrchestrator.GateAttempt(source, attempt);
+        var ready = DeterministicE0TurnOrchestrator.EvaluateIntegrity(
+            gated,
+            ImmutableArray<IntegrityConcernKind>.Empty);
+        var bindable = DeterministicE0TurnOrchestrator.EvaluateAuthority(
+            ready,
+            Proposal(ready),
+            StateAuthorityPolicy.Create(ImmutableArray<StateMutationDomain>.Empty),
+            ImmutableArray<StateAuthorityReviewChoice>.Empty);
+        return (
+            source,
+            DeterministicE0TurnOrchestrator.BindAcceptedTake(
+                TakeId.From(takeId),
+                bindable));
     }
 
     private static CandidatePerformance Candidate(ContextPacket context, string text) =>
