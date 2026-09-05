@@ -1,0 +1,88 @@
+{
+  "patch": "0018",
+  "architecture": "Deterministic Turn Orchestration Proposal 0.6",
+  "authority": {
+    "parentMain": "0548078a060267e136968c2bf97b384356b50554",
+    "approvedBlueprintHead": "36e2bab519962a3de430d2e6f718b07405052f02",
+    "executableTestCheckpoint": "7e94614dc484aff8cb9b8e39c1a74a7b04ea3238"
+  },
+  "expected": {
+    "publicTypes": [
+      "DeterministicE0TurnOrchestrator",
+      "E0TurnOrchestrationException",
+      "E0TurnProgress",
+      "E0TurnProgressDisposition"
+    ],
+    "dispositions": {
+      "TechnicalFailure": 1,
+      "Cancelled": 2,
+      "CandidateReady": 3,
+      "RequestAnotherTake": 4,
+      "ReadyForInterpretation": 5,
+      "AuthorityReviewRequired": 6,
+      "TakeBindable": 7,
+      "AcceptedTakeReady": 8
+    },
+    "progressProperties": [
+      "Disposition",
+      "SourceContext",
+      "Candidate",
+      "IntegrityEvaluation",
+      "InterpretationSource",
+      "InterpretationProposal",
+      "AuthorityEvaluation",
+      "AcceptedTake"
+    ],
+    "operations": [
+      "GateAttempt",
+      "EvaluateIntegrity",
+      "EvaluateAuthority",
+      "ResolveAuthorityReview",
+      "BindAcceptedTake",
+      "CommitAccepted"
+    ],
+    "failureMessages": [
+      "E0 turn attempt gate failed.",
+      "E0 turn Integrity evaluation failed.",
+      "E0 turn State Authority evaluation failed.",
+      "E0 turn State Authority review resolution failed.",
+      "E0 turn accepted Take binding failed.",
+      "E0 turn accepted commit failed."
+    ],
+    "commitReturnsPostCommitBeforeOpportunity": true,
+    "takeIdIntroducedOnlyAfterTerminalAuthority": true,
+    "technicalOutcomesCreateFiction": false,
+    "referenceTakeDisposition": "Accepted",
+    "newPatchTests": 24,
+    "inheritedCoreTests": 598,
+    "expectedCoreTestTotalIfInheritedCountUnchanged": 622
+  },
+  "inherited": {
+    "patch0016Oracle": "docs/evidence/PATCH_0016_ORACLE.json",
+    "patch0017Oracle": "docs/evidence/PATCH_0017_ORACLE.json"
+  },
+  "nativeArm64Validation": {
+    "status": "passed",
+    "source": "Director machine",
+    "checkout": "023b469b801239c2b0d597aec1e7712aa4a8faa7",
+    "architecture": "ARM64",
+    "osVersion": "10.0.26200",
+    "rid": "win-arm64",
+    "sdk": "9.0.317",
+    "sdkCommit": "26570c2743",
+    "msbuild": "17.14.51+25f168cee",
+    "host": "10.0.11 arm64",
+    "coreTests": {
+      "total": 622,
+      "succeeded": 622,
+      "failed": 0,
+      "skipped": 0,
+      "exit": 0
+    },
+    "harnessBuildExit": 0,
+    "missingRaftExit": 0,
+    "genericSmokeExit": 0,
+    "trackedDiffExit": 0,
+    "stagedDiffExit": 0
+  }
+}
