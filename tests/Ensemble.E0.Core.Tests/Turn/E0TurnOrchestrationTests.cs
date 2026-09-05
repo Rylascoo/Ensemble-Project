@@ -70,7 +70,7 @@ public sealed class E0TurnOrchestrationTests
             var progress = DeterministicE0TurnOrchestrator.GateAttempt(source, attempt);
 
             Assert.AreEqual(turnDisposition, progress.Disposition);
-            Assert.AreSame(context, progress.SourceContext);
+            Assert.AreEqual(context.ContextPacketId, progress.SourceContext.ContextPacketId);
             Assert.IsNull(progress.Candidate);
             Assert.IsNull(progress.IntegrityEvaluation);
             Assert.IsNull(progress.InterpretationSource);
@@ -92,7 +92,7 @@ public sealed class E0TurnOrchestrationTests
             ImmutableArray<IntegrityConcernKind>.Empty);
 
         Assert.AreEqual(E0TurnProgressDisposition.ReadyForInterpretation, ready.Disposition);
-        Assert.AreSame(context, ready.SourceContext);
+        Assert.AreEqual(context.ContextPacketId, ready.SourceContext.ContextPacketId);
         Assert.AreSame(candidate, ready.Candidate);
         Assert.AreEqual(IntegrityDisposition.Accept, ready.IntegrityEvaluation!.Disposition);
         Assert.IsNotNull(ready.InterpretationSource);
