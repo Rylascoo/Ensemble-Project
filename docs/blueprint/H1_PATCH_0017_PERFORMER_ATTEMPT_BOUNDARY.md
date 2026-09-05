@@ -1,10 +1,11 @@
 # H1 Patch 0017 — Provider-Neutral Performer Attempt Boundary
 
-Status: **BLUEPRINT PROPOSAL 0.2 — RECURSIVELY AUDITED; DIRECTOR APPROVAL REQUIRED; IMPLEMENTATION FORBIDDEN**
+Status: **APPROVED — PROPOSAL 0.2; IMPLEMENTATION AUTHORIZED**
 
 Date: 2026-09-05
 Parent `main`: `b85baf70f1b93c5d7d368c78b9faff55082351cd`
 Latest executable authority: H1 Patch 0016 — Synchronized Causal Cycle Proposal 0.5.
+Director approval: explicit project-conversation approval on 2026-09-05.
 
 ## 1. Falsification
 
@@ -325,4 +326,4 @@ Result:
 0 worthwhile in-scope public-surface simplifications
 ```
 
-**Implementation remains forbidden pending explicit Director approval.**
+Implementation is authorized only within this approved boundary; native validation and promotion remain separate gates.
