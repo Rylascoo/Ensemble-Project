@@ -71,21 +71,7 @@ public sealed class E0TurnProgress
         }
 
         ValidateBase(sourceCycle, sourceContext);
-        var performerDisposition = disposition == E0TurnProgressDisposition.TechnicalFailure
-            ? E0PerformerAttemptDisposition.TechnicalFailure
-            : E0PerformerAttemptDisposition.Cancelled;
-
-        try
-        {
-            _ = DeterministicE0PerformerAttemptBoundary.BindTechnicalOutcome(
-                sourceContext,
-                performerDisposition);
-        }
-        catch (E0PerformerAttemptException exception)
-        {
-            throw new E0TurnInvariantException("Turn technical source is invalid.", exception);
-        }
-
+        ReplayTechnical(sourceContext, disposition);
         return new E0TurnProgress(
             disposition,
             sourceCycle,
@@ -105,26 +91,7 @@ public sealed class E0TurnProgress
         CandidatePerformance candidate)
     {
         ValidateBase(sourceCycle, sourceContext);
-        if (candidate is null)
-        {
-            throw new E0TurnInvariantException("Turn Candidate is required.");
-        }
-
-        try
-        {
-            var replay = DeterministicE0PerformerAttemptBoundary.BindCandidate(
-                sourceContext,
-                candidate);
-            if (!ReferenceEquals(replay.Candidate, candidate))
-            {
-                throw new E0TurnInvariantException("Turn Candidate replay changed the Candidate.");
-            }
-        }
-        catch (E0PerformerAttemptException exception)
-        {
-            throw new E0TurnInvariantException("Turn Candidate source is invalid.", exception);
-        }
-
+        ValidateCandidate(sourceContext, candidate);
         return new E0TurnProgress(
             E0TurnProgressDisposition.CandidateReady,
             sourceCycle,
@@ -151,11 +118,7 @@ public sealed class E0TurnProgress
             throw new E0TurnInvariantException("Turn Integrity source is invalid.");
         }
 
-        ValidateIntegrityEvaluation(
-            source.SourceContext,
-            source.Candidate,
-            integrityEvaluation);
-
+        ValidateIntegrityEvaluation(source.SourceContext, source.Candidate, integrityEvaluation);
         if (integrityEvaluation.Disposition == IntegrityDisposition.RequestAnotherTake)
         {
             if (interpretationSource is not null)
@@ -187,7 +150,6 @@ public sealed class E0TurnProgress
             source.Candidate,
             integrityEvaluation,
             interpretationSource);
-
         return new E0TurnProgress(
             E0TurnProgressDisposition.ReadyForInterpretation,
             source.SourceCycle,
@@ -233,7 +195,6 @@ public sealed class E0TurnProgress
             proposal,
             policy,
             authorityEvaluation);
-
         var disposition = authorityEvaluation.Status switch
         {
             StateAuthorityEvaluationStatus.ReviewRequired =>
@@ -266,7 +227,6 @@ public sealed class E0TurnProgress
             source.IntegrityEvaluation is null ||
             source.InterpretationSource is null ||
             source.InterpretationProposal is null ||
-            source.AuthorityEvaluation is null ||
             source.AuthorityPolicy is null ||
             acceptedTake is null ||
             acceptedTake.Disposition != E0TakeDisposition.Accepted ||
@@ -288,7 +248,6 @@ public sealed class E0TurnProgress
             acceptedTake.InterpretationProposal,
             source.AuthorityPolicy,
             acceptedTake.AuthorityEvaluation);
-
         return new E0TurnProgress(
             E0TurnProgressDisposition.AcceptedTakeReady,
             source.SourceCycle,
@@ -319,23 +278,13 @@ public sealed class E0TurnProgress
         {
             case E0TurnProgressDisposition.TechnicalFailure:
             case E0TurnProgressDisposition.Cancelled:
-                if (progress.Candidate is not null ||
-                    progress.IntegrityEvaluation is not null ||
-                    progress.InterpretationSource is not null ||
-                    progress.InterpretationProposal is not null ||
-                    progress.AuthorityEvaluation is not null ||
-                    progress.AuthorityPolicy is not null ||
-                    progress.AcceptedTake is not null)
-                {
-                    throw new E0TurnInvariantException("Turn technical progress carries forbidden semantic state.");
-                }
-
-                break;
-
+                RequireAllLaterNull(progress);
+                ReplayTechnical(progress.SourceContext, progress.Disposition);
+                return;
             case E0TurnProgressDisposition.CandidateReady:
-                RequireCandidateOnly(progress);
-                break;
-
+                RequireCandidate(progress);
+                RequireLaterNullAfterCandidate(progress);
+                return;
             case E0TurnProgressDisposition.RequestAnotherTake:
                 RequireCandidate(progress);
                 if (progress.IntegrityEvaluation is null ||
@@ -353,29 +302,38 @@ public sealed class E0TurnProgress
                     progress.SourceContext,
                     progress.Candidate!,
                     progress.IntegrityEvaluation);
-                break;
-
+                return;
             case E0TurnProgressDisposition.ReadyForInterpretation:
                 RequireReadyForInterpretation(progress);
-                break;
-
+                return;
             case E0TurnProgressDisposition.AuthorityReviewRequired:
             case E0TurnProgressDisposition.TakeBindable:
                 RequireAuthorityProgress(progress);
-                break;
-
+                return;
             case E0TurnProgressDisposition.AcceptedTakeReady:
                 RequireAcceptedTake(progress);
-                break;
-
+                return;
             default:
                 throw new E0TurnInvariantException("Turn progress disposition is unsupported.");
         }
     }
 
-    private static void RequireCandidateOnly(E0TurnProgress progress)
+    private static void RequireAllLaterNull(E0TurnProgress progress)
     {
-        RequireCandidate(progress);
+        if (progress.Candidate is not null ||
+            progress.IntegrityEvaluation is not null ||
+            progress.InterpretationSource is not null ||
+            progress.InterpretationProposal is not null ||
+            progress.AuthorityEvaluation is not null ||
+            progress.AuthorityPolicy is not null ||
+            progress.AcceptedTake is not null)
+        {
+            throw new E0TurnInvariantException("Turn technical progress carries forbidden semantic state.");
+        }
+    }
+
+    private static void RequireLaterNullAfterCandidate(E0TurnProgress progress)
+    {
         if (progress.IntegrityEvaluation is not null ||
             progress.InterpretationSource is not null ||
             progress.InterpretationProposal is not null ||
@@ -384,17 +342,6 @@ public sealed class E0TurnProgress
             progress.AcceptedTake is not null)
         {
             throw new E0TurnInvariantException("Turn Candidate-ready progress carries later semantic state.");
-        }
-
-        try
-        {
-            _ = DeterministicE0PerformerAttemptBoundary.BindCandidate(
-                progress.SourceContext,
-                progress.Candidate!);
-        }
-        catch (E0PerformerAttemptException exception)
-        {
-            throw new E0TurnInvariantException("Turn Candidate-ready progress is invalid.", exception);
         }
     }
 
@@ -493,22 +440,56 @@ public sealed class E0TurnProgress
             progress.AuthorityEvaluation);
     }
 
-    private static void RequireCandidate(E0TurnProgress progress)
+    private static void RequireCandidate(E0TurnProgress progress) =>
+        ValidateCandidate(
+            progress.SourceContext,
+            progress.Candidate ?? throw new E0TurnInvariantException("Turn Candidate is required."));
+
+    private static void ReplayTechnical(
+        ContextPacket sourceContext,
+        E0TurnProgressDisposition disposition)
     {
-        if (progress.Candidate is null)
+        var performerDisposition = disposition switch
+        {
+            E0TurnProgressDisposition.TechnicalFailure => E0PerformerAttemptDisposition.TechnicalFailure,
+            E0TurnProgressDisposition.Cancelled => E0PerformerAttemptDisposition.Cancelled,
+            _ => throw new E0TurnInvariantException("Turn technical disposition is invalid.")
+        };
+
+        try
+        {
+            _ = DeterministicE0PerformerAttemptBoundary.BindTechnicalOutcome(
+                sourceContext,
+                performerDisposition);
+        }
+        catch (E0PerformerAttemptException exception)
+        {
+            throw new E0TurnInvariantException("Turn technical source is invalid.", exception);
+        }
+    }
+
+    private static void ValidateCandidate(
+        ContextPacket sourceContext,
+        CandidatePerformance candidate)
+    {
+        if (candidate is null)
         {
             throw new E0TurnInvariantException("Turn Candidate is required.");
         }
 
         try
         {
-            _ = DeterministicE0PerformerAttemptBoundary.BindCandidate(
-                progress.SourceContext,
-                progress.Candidate);
+            var replay = DeterministicE0PerformerAttemptBoundary.BindCandidate(
+                sourceContext,
+                candidate);
+            if (!ReferenceEquals(replay.Candidate, candidate))
+            {
+                throw new E0TurnInvariantException("Turn Candidate replay changed the Candidate.");
+            }
         }
         catch (E0PerformerAttemptException exception)
         {
-            throw new E0TurnInvariantException("Turn Candidate binding is invalid.", exception);
+            throw new E0TurnInvariantException("Turn Candidate source is invalid.", exception);
         }
     }
 
@@ -529,9 +510,13 @@ public sealed class E0TurnProgress
             _ = sourceContext.SceneId.Value;
             _ = sourceContext.SubjectCharacterId.Value;
             _ = sourceContext.OpportunityCharacterId.Value;
+            if (!sourceContext.SourceStateHash.HasValue)
+            {
+                throw new E0TurnInvariantException("Turn source Context has no source StateHash.");
+            }
 
-            if (!sourceContext.SourceStateHash.HasValue ||
-                sourceContext.SourceStateHash.Value != sourceCycle.ProductionState.StateHash ||
+            _ = sourceContext.SourceStateHash.Value.Value;
+            if (sourceContext.SourceStateHash.Value != sourceCycle.ProductionState.StateHash ||
                 sourceContext.SceneId != sourceCycle.ProductionState.SceneId ||
                 !sourceCycle.ProductionState.CurrentOpportunityCharacterId.HasValue ||
                 sourceContext.SubjectCharacterId != sourceCycle.ProductionState.CurrentOpportunityCharacterId.Value ||
@@ -539,10 +524,23 @@ public sealed class E0TurnProgress
             {
                 throw new E0TurnInvariantException("Turn source Context does not match the source Cycle.");
             }
+
+            var freshContext = DeterministicE0CausalCycle
+                .ComposeContext(sourceCycle)
+                .ContextEvaluation
+                .Packet;
+            if (freshContext.ContextPacketId != sourceContext.ContextPacketId)
+            {
+                throw new E0TurnInvariantException("Turn source Context is not the exact current Cycle Context.");
+            }
         }
         catch (InvalidOperationException exception)
         {
             throw new E0TurnInvariantException("Turn source identity is uninitialized.", exception);
+        }
+        catch (E0CausalCycleException exception)
+        {
+            throw new E0TurnInvariantException("Turn source Cycle Context cannot be recomposed.", exception);
         }
     }
 
@@ -556,7 +554,8 @@ public sealed class E0TurnProgress
             var input = IntegrityCandidateInput.Bind(sourceContext, candidate);
             if (input.DeterministicRejectCodes.Length != 0)
             {
-                throw new E0TurnInvariantException("Turn Candidate has an impossible deterministic Integrity rejection.");
+                throw new E0TurnInvariantException(
+                    "Turn Candidate has an impossible deterministic Integrity rejection.");
             }
 
             var trace = integrityEvaluation.Trace
@@ -628,7 +627,6 @@ public sealed class E0TurnProgress
             var input = StateAuthorityInput.Bind(snapshot, interpretationSource, proposal);
             var reviewSet = StateAuthorityReviewSet.Bind(input, trace.ReviewSet.Choices);
             var replay = DeterministicStateAuthority.Evaluate(input, policy, reviewSet);
-
             if (replay.Status != authorityEvaluation.Status ||
                 replay.Decisions.Length != authorityEvaluation.Decisions.Length)
             {
