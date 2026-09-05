@@ -1,0 +1,21 @@
+{
+  "patch": "0016",
+  "architecture": "Synchronized Causal Cycle Proposal 0.5",
+  "fixture": {
+    "id": "ensemble.e0.missing-raft@0.1.0",
+    "hash": "5556a02325e6a7f774e6997942b395d670741d494ea86f1a50b83633e26b6703"
+  },
+  "expected": {
+    "genesisOpportunityCharacterId": "VOSS",
+    "genesisV2StructuredContextHash": "27f20b78754132777adcc392199a2490c210fa99ad44150e527ceb4c3f22e565",
+    "genesisV2RenderedContextHash": "ce99a0c5e525276c17b84ad86a21c335028d1a01791f27c223bae4e5edd7cf88",
+    "acceptedPerformanceText": "No.",
+    "postCommitStateHash": "a7e6e1d5e386b2f6b459f8432b85ee7b14c3b25dbfec6e228240f98e523fe96c",
+    "postCommitHasCurrentOpportunity": false,
+    "nextOpportunityCharacterId": "MARLOWE",
+    "opportunityStateHash": "e935dc6c7a3359304d8d6732d07e7fdda401a45094264cc944e6fa7a925ef151",
+    "nextV3StructuredContextHash": "ebf3263c79fe4787c6827aa4331bc61f0e76d5907c2e200f0e020e7540b54f2f",
+    "nextV3RenderedContextHash": "668c632ebdb4e4a2de838cbc5ae49b17005984880345ed28ec0c6eaa2bfcef16",
+    "threeCycleOpportunitySequence": ["MARLOWE", "WREN", "VOSS"]
+  }
+}
