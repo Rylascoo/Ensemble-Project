@@ -1,6 +1,6 @@
 # Patch 0017 Evidence — Provider-Neutral Performer Attempt Boundary
 
-Status: **IMPLEMENTED / STATIC AUDIT CLEAN / NATIVE ARM64 VALIDATION PENDING**
+Status: **IMPLEMENTED / DIRECTOR-MACHINE ARM64 VALIDATED / PROMOTION READY**
 
 Date: 2026-09-05
 
@@ -16,9 +16,13 @@ Machine-readable oracle: `docs/evidence/PATCH_0017_ORACLE.json`.
 
 Latest executable authority before this patch: H1 Patch 0016 — Synchronized Causal Cycle Proposal 0.5.
 
-Latest source/test static checkpoint before this evidence-only refresh:
+Last source/test checkpoint before evidence-only refreshes:
 
 `b71b1c2e8f403987753f0168471f5c59af8f711b`
+
+Exact checkout validated on the Director's native Windows ARM64 machine:
+
+`2c64502a05388206c698d3f04f0eeb8389545afe`
 
 ## Falsification
 
@@ -116,13 +120,63 @@ Added behavior coverage for:
 
 All inherited Patch 0016/reference tests remain untouched.
 
+## Director-machine native ARM64 validation
+
+Evidence source: **Director machine**, not the engineering assistant environment.
+
+Observed environment:
+
+```text
+PROCESSOR_ARCHITECTURE = ARM64
+Windows = 10.0.26200
+RID = win-arm64
+repository-selected SDK = 9.0.317
+SDK commit = 26570c2743
+MSBuild = 17.14.51+25f168cee
+host = 10.0.11 arm64
+```
+
+Observed repository state at exact checkout `2c64502a05388206c698d3f04f0eeb8389545afe`:
+
+```text
+TRACKED_DIFF_EXIT=0
+STAGED_DIFF_EXIT=0
+```
+
+Observed Core gate:
+
+```text
+Ensemble.E0.Core compile PASS
+Ensemble.E0.Core.Tests compile PASS
+total: 598
+succeeded: 598
+failed: 0
+skipped: 0
+CORE_TEST_EXIT=0
+```
+
+Observed Harness/runtime gates:
+
+```text
+Harness build PASS
+HARNESS_BUILD_EXIT=0
+
+Fixture validated: ensemble.e0.missing-raft@0.1.0
+MISSING_RAFT_EXIT=0
+
+Fixture validated: ensemble.e0.smoke@0.1.0
+GENERIC_SMOKE_EXIT=0
+```
+
+These are target-device observations from the Director's native Windows ARM64 machine. They do not establish WinUI runtime, Windows AI/NPU execution, MSIX/WACK, or Store certification.
+
 ## Scope audit
 
 No provider SDK, provider request construction, exact disclosure proof, raw/partial output, streaming, `CancellationToken`, retry/backoff, spend/budget, provider/model/version/settings, latency/token/cost metrics, AttemptId/RunId, authenticated attempt provenance, secret storage, real Integrity/Interpreter provider execution, Take review policy, run/Scene orchestration, persistence, cross-Scene continuity, ODR resolution, WinUI, Windows AI/NPU, MSIX/WACK, or Store behavior is added.
 
-## Recursive static audit
+## Recursive convergence audit
 
-Final static pass checked:
+Final static + Director-machine evidence pass checked:
 
 ```text
 correctness
@@ -160,8 +214,4 @@ Result:
 0 worthwhile in-scope simplifications found in the final pass
 ```
 
-## Validation gate
-
-No compiler, test, Harness, runtime, or native ARM64 claim is made from the engineering assistant environment.
-
-Native Windows ARM64 validation remains required on the Director machine before promotion.
+Patch 0017 is ready for promotion. Any commits after the exact validated checkout must remain documentation-only for this native validation authority to carry forward without a rerun.
