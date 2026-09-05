@@ -12,7 +12,7 @@ Approved architecture: `docs/blueprint/H1_PATCH_0016_SYNCHRONIZED_CAUSAL_CYCLE.m
 
 Director approval: 2026-09-05 project-conversation continuation after the clean Proposal 0.5 audit/recommendation.
 
-Executable/test static checkpoint before evidence-only commits: `dfbbe4ea349dada682be28a4691adb741535a91b` on `h1-patch-0016-causal-cycle-implementation`.
+Executable/test static checkpoint before this evidence refresh: `dfa4b13cf9316c1134d1be6008f4983909593758` on `h1-patch-0016-causal-cycle-implementation`.
 
 Machine-readable inherited oracle: `docs/evidence/PATCH_0016_ORACLE.json`.
 
@@ -77,6 +77,7 @@ Static test design covers:
 - exact next MARLOWE v3 Context hashes;
 - Rejected/Alternate fail-closed behavior;
 - stale prior Context/Take rejection;
+- mixed otherwise-valid state/history tokens rejected by closed factories;
 - deterministic replay from identical explicit inputs;
 - three-cycle `VOSS -> MARLOWE -> WREN -> VOSS` recurrence;
 - phase-two failure preserving the valid postcommit predecessor.
@@ -89,7 +90,7 @@ Inherited reference values were copied from the frozen Patch 0015 reference orac
 2. Replaced bypassable internal state constructors with private constructors plus validated internal factories.
 3. Removed the extra invariant-helper type and moved validation ownership into the closed state types, leaving one internal invariant exception only.
 
-Each material correction restarted the audit from the affected authority layer.
+Each material correction restarted the audit from the affected authority layer. The final test pass design then added an explicit mixed-token factory rejection case without changing production semantics.
 
 ## Advisory side findings retained
 
