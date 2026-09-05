@@ -1,6 +1,6 @@
 # Patch 0016 Evidence — Synchronized Causal Cycle
 
-Status: **IMPLEMENTED / STATIC AUDIT CLEAN / NATIVE ARM64 VALIDATION PENDING**
+Status: **IMPLEMENTED / NATIVE ARM64 ATTEMPT 01 PARTIAL PASS / TEST-ONLY CORRECTION PENDING REVALIDATION**
 
 Date: 2026-09-05
 
@@ -11,8 +11,6 @@ Parent `main`: `99e0b9fc7fc346a7276928df8f92a6e133f58c2f`
 Approved architecture: `docs/blueprint/H1_PATCH_0016_SYNCHRONIZED_CAUSAL_CYCLE.md`, Proposal 0.5.
 
 Director approval: 2026-09-05 project-conversation continuation after the clean Proposal 0.5 audit/recommendation.
-
-Executable/test static checkpoint before this evidence refresh: `dfa4b13cf9316c1134d1be6008f4983909593758` on `h1-patch-0016-causal-cycle-implementation`.
 
 Machine-readable inherited oracle: `docs/evidence/PATCH_0016_ORACLE.json`.
 
@@ -64,11 +62,9 @@ The public Cycle boundary emits fixed structural errors without retaining lower 
 - **Causal persistence:** accepted Performance + approved consequences remain atomic; phase-two failure cannot roll them back.
 - **Creator sovereignty:** review policy, Take choice, IDs/materializations, provider attempts, retry/spend, and later recovery remain outside Cycle authority.
 
-Result: static recursive audit found no remaining material correction or worthwhile in-scope simplification.
-
 ## Tests/oracles added
 
-Static test design covers:
+Test design covers:
 
 - exact public surface and phase signatures;
 - no provider/platform/persistence/allocation public contract;
@@ -77,20 +73,69 @@ Static test design covers:
 - exact next MARLOWE v3 Context hashes;
 - Rejected/Alternate fail-closed behavior;
 - stale prior Context/Take rejection;
-- mixed otherwise-valid state/history tokens rejected by closed factories;
+- mixed otherwise-valid state/history tokens fail closed through the public Context boundary;
 - deterministic replay from identical explicit inputs;
 - three-cycle `VOSS -> MARLOWE -> WREN -> VOSS` recurrence;
 - phase-two failure preserving the valid postcommit predecessor.
 
 Inherited reference values were copied from the frozen Patch 0015 reference oracle; no lower oracle assertion was removed or weakened.
 
-## Recursive corrections made before the clean pass
+## Recursive corrections before machine validation
 
 1. Added the missing `Ensemble.E0.Core.Fixture` import in the determinism tests.
 2. Replaced bypassable internal state constructors with private constructors plus validated internal factories.
 3. Removed the extra invariant-helper type and moved validation ownership into the closed state types, leaving one internal invariant exception only.
+4. Added an explicit mixed-token fail-closed case.
 
-Each material correction restarted the audit from the affected authority layer. The final test pass design then added an explicit mixed-token factory rejection case without changing production semantics.
+Each material correction restarted the audit from the affected authority layer.
+
+## Native Windows ARM64 validation attempt 01
+
+Exact attempted head:
+
+`09bf644f75de875870ba3d625dd381d83e4ff4c8`
+
+Observed machine authority supplied by the Director:
+
+- `PROCESSOR_ARCHITECTURE=ARM64`;
+- Windows `10.0.26200`;
+- RID `win-arm64`;
+- repository-selected .NET SDK `9.0.317`;
+- .NET host `10.0.11`, architecture `arm64`;
+- tracked diff clean: `TRACKED_DIFF_EXIT=0`;
+- staged diff clean: `STAGED_DIFF_EXIT=0`.
+
+Core production compiled successfully during `dotnet test`, but the test project failed compilation with exactly three errors, all in `E0CausalCycleDeterminismTests.cs`:
+
+```text
+CS0122 E0CausalCycleInvariantException is inaccessible
+CS1061 E0OpportunityBearingCycleState.AcceptedPerformanceHistory is inaccessible
+CS1061 E0OpportunityBearingCycleState.OpportunityHistory is inaccessible
+```
+
+`CORE_TEST_EXIT=1`.
+
+Harness/runtime gates at the same exact head passed:
+
+- Harness build: PASS, `HARNESS_BUILD_EXIT=0`;
+- Missing Raft fixture: PASS, `MISSING_RAFT_EXIT=0`;
+- generic smoke fixture: PASS, `GENERIC_SMOKE_EXIT=0`.
+
+Therefore attempt 01 establishes native ARM64 Core **production compilation**, Harness compilation, and both fixture runtime validations for the executable source at `09bf644f...`, but does not establish Core test-project compilation or Core test execution.
+
+## Patch-first correction after attempt 01
+
+Correction commit:
+
+`d199a1ea2f38a658c226b8191c29ba296c69748a`
+
+Changed executable/test surface from attempted head `09bf644f...`:
+
+- one test file only: `tests/Ensemble.E0.Core.Tests/Cycle/E0CausalCycleDeterminismTests.cs`.
+
+No `src/`, Harness, fixture, framework, SDK, canonicalizer, or oracle change was made.
+
+The mixed-token test now uses reflection only as test construction plumbing to forge an otherwise unreachable mixed state, then proves rejection through the public `DeterministicE0CausalCycle.ComposeContext(...)` boundary. It no longer references any internal Cycle type/member at compile time.
 
 ## Advisory side findings retained
 
@@ -98,28 +143,19 @@ Structural tests: current exact-main GitHub code search resolves `BindingFlags` 
 
 E5c: no authority-sensitive production path was found that accepts an exception from an untrusted boundary and treats runtime type as provenance. Status remains **open question / no verified defect / no fix authorized**.
 
-## Validation authority
+## Remaining validation gate
 
-Not claimed here: compilation, test execution, Harness runtime, native ARM64 behavior, WinUI, Windows AI/NPU, package/WACK, or Store certification.
+Because the post-attempt correction is test-only, the successful Harness/fixture authority at `09bf644f...` remains applicable to unchanged executable source. The required next machine gate is the full Core test suite at the latest branch head after pulling the correction/evidence commits.
 
-The available execution environment has no usable local .NET compiler/runtime for this repository. Native Windows ARM64 remains the next gate.
-
-Run from the repository root on the Director's native Windows ARM64 machine, after switching to the exact implementation branch/head and confirming tracked/staged cleanliness:
+Run:
 
 ```powershell
-$env:PROCESSOR_ARCHITECTURE
-dotnet --info
+git pull --ff-only
 git rev-parse HEAD
 git diff --quiet; "TRACKED_DIFF_EXIT=$LASTEXITCODE"
 git diff --cached --quiet; "STAGED_DIFF_EXIT=$LASTEXITCODE"
 dotnet test .\tests\Ensemble.E0.Core.Tests\Ensemble.E0.Core.Tests.csproj -c Debug
 "CORE_TEST_EXIT=$LASTEXITCODE"
-dotnet build .\src\Ensemble.E0.Harness\Ensemble.E0.Harness.csproj -c Debug
-"HARNESS_BUILD_EXIT=$LASTEXITCODE"
-dotnet run --project .\src\Ensemble.E0.Harness\Ensemble.E0.Harness.csproj -c Debug --no-build -- .\fixtures\missing-raft\missing-raft-0.1.0.json
-"MISSING_RAFT_EXIT=$LASTEXITCODE"
-dotnet run --project .\src\Ensemble.E0.Harness\Ensemble.E0.Harness.csproj -c Debug --no-build -- .\fixtures\smoke\e0-fixture-v1.json
-"GENERIC_SMOKE_EXIT=$LASTEXITCODE"
 ```
 
-Only observed output from that gate may promote Patch 0016 to compiler/runtime/native authority.
+Only observed output from that gate may promote Patch 0016 to full native Core test authority.
