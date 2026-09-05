@@ -25,5 +25,23 @@
     "exactProviderDisclosureClaimed": false
   },
   "inheritedPatch0016Oracle": "docs/evidence/PATCH_0016_ORACLE.json",
-  "nativeArm64Validation": "pending"
+  "nativeArm64Validation": {
+    "source": "Director machine",
+    "checkout": "2c64502a05388206c698d3f04f0eeb8389545afe",
+    "architecture": "ARM64",
+    "rid": "win-arm64",
+    "sdk": "9.0.317",
+    "coreTests": {
+      "total": 598,
+      "succeeded": 598,
+      "failed": 0,
+      "skipped": 0,
+      "exit": 0
+    },
+    "harnessBuildExit": 0,
+    "missingRaftExit": 0,
+    "genericSmokeExit": 0,
+    "trackedDiffExit": 0,
+    "stagedDiffExit": 0
+  }
 }
