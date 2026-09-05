@@ -23,7 +23,7 @@ public static class DeterministicE0CausalCycle
         {
             var acceptedHistory = E0AcceptedPerformanceHistoryContinuity.Initialize(genesisState);
             var opportunityHistory = E0OpportunityHistory.Initialize(genesisState);
-            return E0CausalCycleInvariants.CreateOpportunityBearing(
+            return E0OpportunityBearingCycleState.Create(
                 genesisState,
                 acceptedHistory,
                 opportunityHistory);
@@ -107,7 +107,7 @@ public static class DeterministicE0CausalCycle
                 source.ProductionState,
                 commitResult.Commit);
 
-            return E0CausalCycleInvariants.CreatePostCommit(
+            return E0PostCommitCycleState.Create(
                 commitResult.ResultState,
                 acceptedHistory,
                 commitResult.Commit,
@@ -153,12 +153,12 @@ public static class DeterministicE0CausalCycle
                 source.Commit,
                 source.SourceOpportunityHistory,
                 opportunity.Event);
-            var nextState = E0CausalCycleInvariants.CreateOpportunityBearing(
+            var nextState = E0OpportunityBearingCycleState.Create(
                 opportunity.State,
                 acceptedHistory,
                 opportunity.History);
 
-            return new E0OpportunityBearingCycleResult(
+            return E0OpportunityBearingCycleResult.Create(
                 nextState,
                 opportunity.Event,
                 opportunity.DirectorEvaluation);
