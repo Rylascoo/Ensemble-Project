@@ -1,6 +1,6 @@
 # H1 Patch 0018 — Deterministic Turn Orchestration
 
-Status: **BLUEPRINT PROPOSAL 0.1 — RECURSIVE AUDIT IN PROGRESS; IMPLEMENTATION FORBIDDEN**
+Status: **BLUEPRINT PROPOSAL 0.2 — RECURSIVE AUDIT IN PROGRESS; IMPLEMENTATION FORBIDDEN**
 
 Date: 2026-09-05
 Parent `main`: `0548078a060267e136968c2bf97b384356b50554`
@@ -8,21 +8,21 @@ Latest executable authority: H1 Patch 0017 — Provider-Neutral Performer Attemp
 
 ## 1. Falsification
 
-**This patch is unnecessary if current Core already exposes one closed deterministic turn-state machine that binds the current synchronized Cycle state to a Patch 0017 attempt, distinguishes non-Take outcomes, advances accepted Candidate semantics through Integrity/Interpreter/State Authority/Take, and commits an Accepted Take without collapsing Patch 0016's postcommit adoption boundary.**
+**This patch is unnecessary if current Core already exposes one closed deterministic turn-state machine that binds current synchronized Cycle state to a Patch 0017 attempt, distinguishes non-Take outcomes, advances accepted Candidate semantics through Integrity/Interpreter/State Authority/Take, and commits an Accepted Take without collapsing Patch 0016's postcommit adoption boundary.**
 
-It does not. Current source has every individual deterministic semantic authority plus Patch 0017 fictional ingress, but tests/Harness still stitch those authorities manually.
+It does not. Current source has every individual deterministic semantic authority plus Patch 0017 fictional ingress, but tests/Harness still stitch them manually.
 
 ## 2. Exact purpose
 
-Patch 0018 closes only the deterministic semantic orchestration seam:
+Patch 0018 closes only this deterministic semantic seam:
 
 ```text
 Opportunity-bearing Cycle state
   -> exact fresh Context
-  -> Patch 0017 Performer attempt result
-  -> Candidate-ready gate OR technical/cancelled terminal result
-  -> deterministic Integrity evaluation
-  -> Reject / RequestAnotherTake OR ReadyForInterpretation
+  -> Patch 0017 Performer attempt
+  -> CandidateReady OR TechnicalFailure/Cancelled
+  -> deterministic Integrity
+  -> RequestAnotherTake OR ReadyForInterpretation
   -> supplied semantic StateInterpretationProposal
   -> deterministic State Authority
   -> ReviewRequired OR reference Accepted Take
@@ -30,7 +30,7 @@ Opportunity-bearing Cycle state
   -> VALID POSTCOMMIT STATE
 ```
 
-Opportunity establishment remains the existing explicit Patch 0016 second phase:
+Opportunity establishment remains Patch 0016's explicit second phase:
 
 ```text
 VALID POSTCOMMIT STATE
@@ -38,28 +38,29 @@ VALID POSTCOMMIT STATE
   -> next Opportunity-bearing state
 ```
 
-Patch 0018 does not execute any provider/model, construct provider requests, retry, spend, stream, persist, terminate Scenes, or establish Opportunity itself.
+Patch 0018 executes no provider/model, builds no provider request, and owns no retry, spend, streaming, persistence, Scene termination, or Opportunity establishment.
 
 ## 3. Critical adoption law
 
-Patch 0018 must **not** expose a one-call `ExecuteTurn` that commits and then establishes Opportunity.
+Patch 0018 must **not** expose one `ExecuteTurn` that commits and then establishes Opportunity.
 
-Patch 0016 intentionally makes accepted causal commit authoritative before later Opportunity establishment. If a wrapper committed and then threw during Opportunity establishment without returning the postcommit token, the caller could lose the authoritative adopted state.
+Patch 0016 intentionally makes accepted causal commit authoritative before later Opportunity establishment. A wrapper that committed and then threw during Opportunity establishment without returning the postcommit token could hide an already-authoritative adopted state.
 
-Therefore Patch 0018 ends at `E0PostCommitCycleState`. The caller must invoke the existing Patch 0016 Opportunity phase explicitly. If that later phase fails, the returned postcommit state remains valid and authoritative.
+Patch 0018 therefore ends at `E0PostCommitCycleState`. The caller explicitly invokes the existing Opportunity phase. If that later phase fails, the returned postcommit state remains valid and authoritative.
 
 ## 4. Existing laws preserved
 
 1. Character != Performer.
 2. Access Control and Context composition precede Performer use.
 3. Technical failure/cancellation never becomes Character behavior.
-4. Integrity Reject / RequestAnotherTake produces no `E0Take`.
-5. State Authority consequence decisions do not determine Take disposition.
-6. Reference E0 orchestration accepts every Take-bindable package; Rejected/Alternate are explicit labeled deviations outside this reference path.
-7. Only an Accepted Take may enter causal commit.
-8. Accepted Performance + approved consequences remain one atomic causal commit.
-9. State Authority `ReviewRequired` is a normal non-Take outcome, not a technical exception.
-10. Provider/runtime failure in later Integrity/Interpreter execution remains outside this semantic orchestrator and produces no call that could create fiction.
+4. Integrity `RequestAnotherTake` produces no `E0Take`.
+5. A lawful Patch 0017 Candidate freshly gated to the same current Context cannot produce Patch 0008 deterministic Reject codes; such a result is an invariant failure, not a normal turn state.
+6. State Authority consequence decisions do not determine Take disposition.
+7. Reference E0 orchestration accepts every Take-bindable package; Rejected/Alternate are explicit labeled deviations outside this path.
+8. Only an Accepted Take may enter causal commit.
+9. Accepted Performance + approved consequences remain one atomic causal commit.
+10. State Authority `ReviewRequired` is a normal non-Take outcome.
+11. Provider/runtime failure in later Integrity/Interpreter execution remains outside this semantic orchestrator and cannot create fiction.
 
 ## 5. Namespace and exact public surface
 
@@ -85,14 +86,13 @@ No other public Patch 0018 type.
 Exact values:
 
 ```csharp
-TechnicalFailure      = 1,
-Cancelled             = 2,
-CandidateReady        = 3,
-IntegrityRejected     = 4,
-RequestAnotherTake    = 5,
-ReadyForInterpretation= 6,
-AuthorityReviewRequired = 7,
-AcceptedTakeReady     = 8
+TechnicalFailure        = 1,
+Cancelled               = 2,
+CandidateReady          = 3,
+RequestAnotherTake      = 4,
+ReadyForInterpretation  = 5,
+AuthorityReviewRequired = 6,
+AcceptedTakeReady       = 7
 ```
 
 Default `0` and undefined values are invalid.
@@ -115,7 +115,7 @@ AcceptedTake         : E0Take?
 
 No public constructor, setter, or declared instance method.
 
-Every constructed token internally retains the exact source `E0OpportunityBearingCycleState`; it is not exposed as a new mutable authority.
+Every token internally retains the exact source `E0OpportunityBearingCycleState`; this is not exposed as a new mutable authority.
 
 Construction invariants:
 
@@ -131,14 +131,14 @@ CandidateReady
   Candidate!=null
   later fields null
 
-IntegrityRejected / RequestAnotherTake
+RequestAnotherTake
   Candidate!=null
-  Integrity!=null with matching disposition
+  Integrity.Disposition=RequestAnotherTake
   later fields null
 
 ReadyForInterpretation
   Candidate!=null
-  Integrity=Accept
+  Integrity.Disposition=Accept
   InterpretationSource!=null and exactly bound
   Authority=null
   AcceptedTake=null
@@ -159,7 +159,7 @@ AcceptedTakeReady
   AcceptedTake.Disposition=Accepted
 ```
 
-All factories must prove their own full invariant at the actual construction point. No internal factory may accept a preselected enum/payload combination without revalidation.
+Every nonpublic factory must prove its own complete invariant at the actual construction point. No factory may accept a preselected enum/payload combination without revalidation.
 
 ## 7. Exact public operations
 
@@ -172,7 +172,7 @@ E0TurnProgress GateAttempt(
 
 E0TurnProgress EvaluateIntegrity(
     E0TurnProgress source,
-    ImmutableArray<IntegrityConcernKind>? concernKinds);
+    ImmutableArray<IntegrityConcernKind> concernKinds);
 
 E0TurnProgress PrepareTake(
     TakeId takeId,
@@ -191,19 +191,18 @@ No async/task/cancellation/provider overload.
 
 ## 8. `GateAttempt`
 
-`GateAttempt` first recomposes the exact current Context from the supplied Opportunity-bearing Cycle state by calling the existing `DeterministicE0CausalCycle.ComposeContext(source)`.
+`GateAttempt` recomposes the exact current Context by calling existing `DeterministicE0CausalCycle.ComposeContext(source)`.
 
-It does not trust a caller-supplied Context.
+It never trusts caller-supplied Context.
 
 It fails closed unless:
 
-- source is valid;
-- attempt result is valid;
-- `attemptResult.SourceContextPacketId` equals the exact freshly composed `ContextPacketId`.
+- source and attempt are valid;
+- `attemptResult.SourceContextPacketId` equals the fresh current `ContextPacketId`.
 
-This satisfies Patch 0017's stale-result obligation. A stale technical failure is rejected just as a stale Candidate is rejected.
+Thus stale technical failure is rejected exactly as stale Candidate output is rejected.
 
-Disposition mapping:
+Mapping:
 
 ```text
 Patch0017 TechnicalFailure -> Turn TechnicalFailure
@@ -211,9 +210,9 @@ Patch0017 Cancelled        -> Turn Cancelled
 Patch0017 CandidateReady   -> Turn CandidateReady
 ```
 
-For CandidateReady, the exact Candidate reference from the attempt result is retained. Patch 0017 already proves semantic Candidate/Context association; GateAttempt additionally proves current-Cycle freshness.
+CandidateReady retains the exact Candidate reference from Patch 0017. Patch 0017 proves semantic Candidate/Context association; GateAttempt additionally proves current-Cycle freshness.
 
-No Integrity work occurs yet. This leaves an explicit boundary where an external configured Integrity advisory path may run without Core pretending to execute it.
+No Integrity work occurs here, preserving an explicit boundary for external configured Integrity advisory execution.
 
 ## 9. `EvaluateIntegrity`
 
@@ -221,37 +220,36 @@ Valid only from `CandidateReady`.
 
 It builds a fresh `IntegrityCandidateInput` from the token's exact Context + Candidate.
 
-If deterministic Reject codes are present:
+Patch 0008's only deterministic Reject codes are `SubjectContextMismatch` and `ContextPacketIdentityMismatch`. Patch 0017 plus GateAttempt already prove both associations. Therefore:
 
-- `concernKinds` must be null;
-- `DeterministicIntegrityValidator.Validate(input, null)` is used.
+```text
+freshInput.DeterministicRejectCodes.Length must equal 0
+```
 
-Otherwise:
+Any nonzero result fails the Patch 0018 Integrity stage as an invariant contradiction; it is not represented as a normal progress disposition.
 
-- `concernKinds` must be present and non-default;
-- empty means no semantic concerns;
-- non-empty contains the configured advisory concern kinds;
-- Core binds them through existing `IntegrityConcernEvidence.Bind` and calls the existing validator.
+`concernKinds` must be initialized/non-default. Empty is valid and means no semantic concerns. Non-empty values are bound through existing `IntegrityConcernEvidence.Bind` and evaluated by `DeterministicIntegrityValidator.Validate`.
 
-This patch does not authenticate where the advisory concern kinds came from. Later operational provenance must establish configured reviewer/provider identity and raw evidence when applicable.
+Patch 0018 does not authenticate where advisory concern kinds came from. Later operational provenance must establish configured reviewer/provider identity and raw evidence when applicable.
 
 Mapping:
 
 ```text
-Integrity Reject             -> IntegrityRejected
 Integrity RequestAnotherTake -> RequestAnotherTake
 Integrity Accept             -> ReadyForInterpretation
 ```
 
-On Accept, `StateInterpretationSource.Bind` is executed immediately and retained. That public source is the exact semantic token for later State Interpreter parsing/provider orchestration.
+Any unexpected Integrity Reject fails closed.
 
-Reject and RequestAnotherTake create no `E0Take` and leave source Cycle state unchanged.
+On Accept, `StateInterpretationSource.Bind` runs immediately and is retained. That public source is the exact semantic token for later State Interpreter parsing/provider orchestration.
+
+RequestAnotherTake creates no `E0Take` and leaves source Cycle state unchanged.
 
 ## 10. State Interpreter boundary
 
-Patch 0018 does not receive raw Interpreter bytes and does not call a provider.
+Patch 0018 receives no raw Interpreter bytes and calls no provider.
 
-After `ReadyForInterpretation`, external orchestration may invoke its configured State Interpreter and then use existing:
+After `ReadyForInterpretation`, external orchestration may invoke its configured State Interpreter and use existing:
 
 ```text
 StateInterpretationContract.ParseJson(
@@ -265,15 +263,15 @@ Provider refusal/error/timeout/cancellation at this external stage produces no `
 
 ## 11. `PrepareTake`
 
-Valid from `ReadyForInterpretation` or `AuthorityReviewRequired` only. Allowing a fresh call after ReviewRequired makes each review attempt an explicit deterministic reevaluation over newly supplied semantic inputs; no prior review result has state authority.
+Valid from `ReadyForInterpretation` or `AuthorityReviewRequired` only. Each call is a fresh deterministic reevaluation over explicitly supplied semantic inputs; a prior ReviewRequired result has no state authority.
 
 Requirements:
 
 - TakeId initialized;
-- proposal non-null and exactly compatible with retained `InterpretationSource`;
+- proposal non-null and compatible with retained `InterpretationSource`;
 - policy non-null;
-- `reviewChoices` initialized (empty valid);
-- fresh `StateAuthoritySnapshot` captured from the retained source Cycle Production;
+- `reviewChoices` initialized; empty valid;
+- fresh `StateAuthoritySnapshot` captured from retained source Cycle Production;
 - fresh `StateAuthorityInput.Bind(snapshot, interpretationSource, proposal)` succeeds;
 - fresh `StateAuthorityReviewSet.Bind(input, reviewChoices)` succeeds;
 - existing `DeterministicStateAuthority.Evaluate` runs.
@@ -286,9 +284,9 @@ AuthorityEvaluation = exact fresh evaluation
 AcceptedTake = null
 ```
 
-This is a normal deterministic non-Take result. Caller may inspect the evaluation and rerun `PrepareTake` with explicit review choices.
+This is a normal non-Take result. Caller may inspect the evaluation and reevaluate with explicit review choices.
 
-If evaluation is `Complete`, Patch 0018 applies the already-approved **reference E0 Take policy**:
+If evaluation is `Complete`, Patch 0018 applies the approved reference E0 Take policy:
 
 ```text
 E0Take.Bind(..., E0TakeDisposition.Accepted)
@@ -302,7 +300,7 @@ State Authority mutation dispositions never silently alter Take disposition.
 
 ## 12. `CommitAccepted`
 
-Valid only from a fully proven `AcceptedTakeReady` token.
+Valid only from fully proven `AcceptedTakeReady`.
 
 It delegates exactly to:
 
@@ -315,15 +313,13 @@ DeterministicE0CausalCycle.CommitAcceptedTake(
     materializations)
 ```
 
-and returns the resulting `E0PostCommitCycleState` unchanged.
+and returns the `E0PostCommitCycleState` unchanged.
 
-No duplicate commit, binding, history, or state-hash algorithm is introduced.
+No duplicate commit, binding, history, or StateHash algorithm is introduced. `CommitAccepted` does **not** establish Opportunity.
 
-`CommitAccepted` does **not** establish the next Opportunity.
+After successful return, accepted causal history is authoritative. Caller then explicitly invokes existing `DeterministicE0CausalCycle.EstablishOpportunity(postCommit)`.
 
-After successful return, accepted causal history is authoritative. The caller then explicitly invokes existing `DeterministicE0CausalCycle.EstablishOpportunity(postCommit)`.
-
-## 13. Failure/privacy contract
+## 13. Failure/privacy
 
 Exact public failure messages:
 
@@ -338,9 +334,7 @@ No public Patch 0018 exception retains lower inner exceptions.
 
 Failure representation must not expose Context prose, Candidate text/control, Interpreter proposal prose, review payload, provider/model/raw output, credentials, or arbitrary untrusted values.
 
-No blanket `catch (Exception)`.
-
-Known lower semantic exceptions are converted only at the corresponding Patch 0018 stage boundary.
+No blanket `catch (Exception)`. Known lower semantic exceptions are converted only at their Patch 0018 stage boundary.
 
 ## 14. Purity, authority, and adoption
 
@@ -350,7 +344,7 @@ No clock, randomness, network, filesystem, environment state, task/thread, `Canc
 
 Before `CommitAccepted`, every progress token has zero Production mutation authority.
 
-`TechnicalFailure`, `Cancelled`, `IntegrityRejected`, `RequestAnotherTake`, and `AuthorityReviewRequired` do not consume Opportunity, mutate Production, or enter accepted history.
+`TechnicalFailure`, `Cancelled`, `RequestAnotherTake`, and `AuthorityReviewRequired` do not consume Opportunity, mutate Production, or enter accepted history.
 
 Only successful `CommitAccepted` crosses the causal adoption boundary.
 
@@ -373,7 +367,7 @@ tests/Ensemble.E0.Core.Tests/Turn/
   E0TurnDeterminismTests.cs
 ```
 
-Expected edits to existing Core/Harness source: **zero**.
+Expected existing Core/Harness edits: **zero**.
 
 If implementation requires changing Patch 0017, Integrity, Interpreter, State Authority, Take, Cycle, Opportunity, continuity, canonicalization, framework, or SDK semantics, reopen the blueprint.
 
@@ -382,26 +376,28 @@ If implementation requires changing Patch 0017, Integrity, Interpreter, State Au
 Gating tests must prove:
 
 - exact four-type Turn namespace surface;
-- exact eight non-default progress dispositions;
+- exact seven non-default progress dispositions;
 - progress token closed/immutable with exact seven public properties;
 - exact four public orchestrator methods/signatures;
 - exception catchable but not publicly constructible;
 - GateAttempt recomposes current Context and rejects stale Candidate/technical results;
 - technical failure/cancellation retain no Candidate and mutate nothing;
 - CandidateReady retains exact Candidate reference;
-- Integrity Reject / RequestAnotherTake create no Take and leave Cycle unchanged;
+- lawful gated Candidate produces zero deterministic Integrity Reject codes;
+- any impossible forged nonzero Reject-code path fails sanitized rather than creating a progress state;
+- RequestAnotherTake creates no Take and leaves Cycle unchanged;
 - Integrity Accept creates exact `StateInterpretationSource`;
-- malformed/default concern input fails sanitized;
+- default/invalid concern input fails sanitized;
 - State Authority ReviewRequired is typed, carries evaluation, creates no Take;
-- Complete authority produces only an Accepted Take under reference policy;
+- Complete authority produces only Accepted Take under reference policy;
 - mutation rejection does not reject the Take;
 - repeated equivalent explicit inputs produce equivalent progress/Take semantics;
 - stale/mismatched proposal/review inputs fail closed;
-- CommitAccepted rejects every non-AcceptedTakeReady progress state;
-- AcceptedTakeReady commit reproduces inherited Patch 0016 causal hashes/history semantics;
+- CommitAccepted rejects every non-AcceptedTakeReady state;
+- AcceptedTakeReady commit reproduces inherited Patch 0016 causal hashes/history;
 - commit returns postcommit state and does not establish Opportunity;
 - explicit later Opportunity establishment reproduces inherited Patch 0016 successor semantics;
-- phase-two Opportunity failure can never erase the returned postcommit token;
+- phase-two Opportunity failure can never erase returned postcommit token;
 - public surface contains no provider/model/network/task/cancellation/persistence/retry/spend/RunId/AttemptId contract;
 - exact sanitized messages leak no semantic/provider payload;
 - all 598 inherited Core tests remain intact before new-test count is observed.
@@ -412,17 +408,27 @@ Reflection is permitted only for public-surface assertions or impossible constru
 
 No provider/model execution; provider request/framing; raw Performer/Integrity/Interpreter output; streaming; cancellation primitive; retry/backoff; spend/budget; provider/model/version/settings/metrics; AttemptId/RunId; authenticated provenance; secret storage; automatic Integrity reviewer; automatic State Interpreter; Rejected/Alternate reference Take selection; Scene termination; run-loop repetition; persistence; cross-Scene continuity; ODR-12/13/30/32 resolution; WinUI; Windows AI/NPU; MSIX/WACK/Store.
 
-## 18. Why this is the smallest useful orchestrator
+## 18. Why this is smallest
 
-A full provider-driven run loop would reverse dependency order and collapse operational evidence into Core. A one-call complete turn would violate Patch 0016's postcommit adoption boundary. Another generic wrapper around already-bound `E0Take` would add no missing authority.
+A full provider-driven run loop would reverse dependency order and collapse operational evidence into Core. A one-call complete turn would violate Patch 0016's postcommit adoption boundary. A wrapper around an already-bound `E0Take` adds no missing authority.
 
-This state machine closes only the repeated deterministic stitching currently performed manually while preserving explicit external boundaries where real Performer, Integrity advisory, and State Interpreter execution will later occur.
+This state machine closes only deterministic stitching currently performed manually while preserving external boundaries where real Performer, Integrity advisory, and State Interpreter execution later occur.
 
-After Patch 0018 is implemented/native-validated, the next architecture seam can be the minimal E0-A Application/Harness run driver that sequences those external executions around this deterministic state machine and records authenticated attempt provenance without changing Core causal law.
+After Patch 0018 implementation/native validation, the next seam can be the minimal E0-A Application/Harness run driver that sequences those external executions around this state machine and records authenticated attempt provenance without changing Core causal law.
 
-## 19. Recursive audit target
+## 19. Recursive audit status
 
-Before approval, audit:
+Proposal 0.2 corrections so far:
+
+1. rejected one-call commit+Opportunity orchestration because it could hide Patch 0016's valid postcommit adoption state;
+2. recomposes Context from retained Cycle rather than accepting caller Context;
+3. keeps State Interpreter provider execution outside Core;
+4. keeps State Authority ReviewRequired as typed non-Take progress;
+5. hardcodes only the already-approved reference `Accepted` Take policy;
+6. removed `IntegrityRejected` from normal progress after proving Patch 0017 + GateAttempt already exclude both Patch 0008 deterministic reject conditions;
+7. made concern evidence mandatory/initialized for lawful CandidateReady Integrity evaluation instead of carrying an unreachable nullable branch.
+
+Continue audit:
 
 ```text
 correctness -> current authority -> stale-token closure -> Character/Performer separation
