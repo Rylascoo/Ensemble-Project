@@ -29,13 +29,35 @@ public sealed class E0AEvidenceTests
             Assert.AreEqual(E0AEvidenceContracts.ApprovedBlueprintCommit, manifest.GetProperty("approvedBlueprintCommit").GetString());
             Assert.AreEqual("E0A-P0.15:CREATIVE-NONE", manifest.GetProperty("referenceConfigurationIdentity").GetString());
             Assert.AreEqual(E0AEvidenceContracts.HardGateChecklistVersion, manifest.GetProperty("hardGateChecklistVersion").GetString());
+            CollectionAssert.AreEqual(
+                E0AEvidenceContracts.HardGateChecklist.ToArray(),
+                manifest.GetProperty("hardGateChecklist").EnumerateArray().Select(x => x.GetString()).ToArray());
             Assert.AreEqual(state.OriginFixtureVersion.Value, manifest.GetProperty("fixtureVersion").GetString());
+            Assert.AreEqual(E0ATestSupport.TestExecutableCommit, manifest.GetProperty("executableCommit").GetString());
             Assert.AreEqual(1m, manifest.GetProperty("pricing").GetProperty("inputUsdPerMillionTokens").GetDecimal());
             Assert.AreEqual(0.25m, manifest.GetProperty("pricing").GetProperty("cachedInputUsdPerMillionTokens").GetDecimal());
             Assert.AreEqual(2m, manifest.GetProperty("pricing").GetProperty("outputUsdPerMillionTokens").GetDecimal());
             Assert.AreEqual(3, manifest.GetProperty("roles").GetArrayLength());
             Assert.AreEqual(1, manifest.GetProperty("attemptsPerRoleInvocation").GetInt32());
             Assert.IsTrue(manifest.GetProperty("host").TryGetProperty("processArchitecture", out _));
+
+            var authority = manifest.GetProperty("stateAuthority");
+            CollectionAssert.AreEqual(
+                new[]
+                {
+                    "UnresolvedProposition",
+                    "CharacterBelief",
+                    "CharacterSuspicion",
+                    "CharacterGoal",
+                    "CharacterCircumstance",
+                    "CharacterClaim",
+                    "Pressure"
+                },
+                authority.GetProperty("autoApproveDomains").EnumerateArray().Select(x => x.GetString()).ToArray());
+            Assert.AreEqual(
+                E0AEvidenceContracts.MandatoryReviewResolution,
+                authority.GetProperty("mandatoryReviewResolution").GetString());
+
             Assert.IsFalse(text.Contains("OPENAI_API_KEY", StringComparison.Ordinal));
             Assert.IsFalse(text.Contains("Bearer ", StringComparison.Ordinal));
         }
@@ -43,6 +65,26 @@ public sealed class E0AEvidenceTests
         {
             Delete(root);
         }
+    }
+
+    [TestMethod]
+    public void EvidenceStore_RejectsMalformedExecutableCommitBeforeCreatingRunDirectory()
+    {
+        var root = E0ATestSupport.TempRunRoot();
+        var state = E0ATestSupport.Genesis();
+        var envelope = E0ARunEnvelope.CreativeNone(E0ATestSupport.Pricing());
+
+        Assert.Throws<E0AHarnessException>(() =>
+            new E0AFileEvidenceStore(
+                root,
+                RunId.From("E0A-BAD-COMMIT"),
+                envelope,
+                state.OriginFixtureId.Value,
+                state.OriginFixtureVersion.Value,
+                state.OriginFixtureHash,
+                "not-a-commit",
+                state.RosterCharacterIds));
+        Assert.IsFalse(Directory.Exists(root));
     }
 
     [TestMethod]
@@ -61,13 +103,13 @@ public sealed class E0AEvidenceTests
             store.RecordPrepared(attempt);
             store.RecordReceipt(attempt, receipt);
 
-            var request = JsonDocument.Parse(File.ReadAllBytes(
-                Directory.GetFiles(root, "request.json", SearchOption.AllDirectories).Single())).RootElement;
-            var terminal = JsonDocument.Parse(File.ReadAllBytes(
-                Directory.GetFiles(root, "terminal.json", SearchOption.AllDirectories).Single())).RootElement;
+            using var request = JsonDocument.Parse(File.ReadAllBytes(
+                Directory.GetFiles(root, "request.json", SearchOption.AllDirectories).Single()));
+            using var terminal = JsonDocument.Parse(File.ReadAllBytes(
+                Directory.GetFiles(root, "terminal.json", SearchOption.AllDirectories).Single()));
             Assert.AreEqual(
-                request.GetProperty("preparedIdentityHash").GetString(),
-                terminal.GetProperty("preparedIdentityHash").GetString());
+                request.RootElement.GetProperty("preparedIdentityHash").GetString(),
+                terminal.RootElement.GetProperty("preparedIdentityHash").GetString());
         }
         finally
         {
