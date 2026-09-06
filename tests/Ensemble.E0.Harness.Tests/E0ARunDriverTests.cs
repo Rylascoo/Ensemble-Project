@@ -82,6 +82,56 @@ public sealed class E0ARunDriverTests
     }
 
     [TestMethod]
+    public async Task DuplicateIntegrityConcerns_TerminateAsInvalidOutputBeforeInterpreterAndSealEvidence()
+    {
+        var root = E0ATestSupport.TempRunRoot();
+        try
+        {
+            var runId = RunId.From("E0A-INTEGRITY-DUPLICATE");
+            var state = E0ATestSupport.Genesis();
+            var envelope = E0ARunEnvelope.CreativeNone(E0ATestSupport.Pricing());
+            var concern = nameof(IntegrityConcernKind.PotentialTechnicalArtifactLeak);
+            var provider = new ScriptedProvider((attempt, _) =>
+                E0ATestSupport.Success(
+                    attempt,
+                    attempt.Profile.Role == E0ARole.Performer
+                        ? E0ATestSupport.PerformerOutput()
+                        : E0ATestSupport.IntegrityOutput(concern, concern)));
+            var driver = new E0AReferenceRunDriver(
+                envelope,
+                provider,
+                new FixedTokenCounter(),
+                E0ATestSupport.Evidence(root, runId, envelope, state));
+
+            var result = await driver.RunAsync(runId, state, CancellationToken.None);
+
+            Assert.AreEqual(E0ARunTerminalStatus.InvalidOutput, result.Status);
+            Assert.AreEqual(0, result.AcceptedTurns);
+            Assert.AreEqual(2, provider.Calls);
+            CollectionAssert.AreEqual(new[] { E0ARole.Performer, E0ARole.Integrity }, provider.Roles);
+            Assert.AreEqual(state.StateHash, result.State.ProductionState.StateHash);
+
+            var events = File.ReadAllText(Path.Combine(root, "events.ndjson"));
+            Assert.IsTrue(events.Contains("integrity.rejected", StringComparison.Ordinal));
+            Assert.IsFalse(events.Contains("interpreter.proposal", StringComparison.Ordinal));
+            Assert.IsFalse(events.Contains("turn.committed", StringComparison.Ordinal));
+            Assert.IsTrue(events.Contains("run.terminal", StringComparison.Ordinal));
+
+            var finalPath = Path.Combine(root, "run.final.json");
+            Assert.IsTrue(File.Exists(finalPath));
+            using var final = JsonDocument.Parse(File.ReadAllBytes(finalPath));
+            Assert.AreEqual("InvalidOutput", final.RootElement.GetProperty("terminalStatus").GetString());
+            var runtimeRoot = final.RootElement.GetProperty("runtimeRoot").GetString();
+            Assert.IsNotNull(runtimeRoot);
+            Assert.AreEqual(64, runtimeRoot!.Length);
+        }
+        finally
+        {
+            Delete(root);
+        }
+    }
+
+    [TestMethod]
     public async Task BudgetRefusal_HappensBeforeProviderAndCreatesNoProviderTerminalReceipt()
     {
         var root = E0ATestSupport.TempRunRoot();
