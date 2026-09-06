@@ -10,7 +10,7 @@ The Director owns product constitution, Open Design Register resolution, provide
 
 ## Checkpoint
 
-Phase: **E0-A Experimental Harness — Gemini normative-reference amendment implementation complete; recursive static audit CLOSED; exact source/test checkpoint frozen; Director-machine native Windows ARM64 validation pending; real Gemini network execution still gated**.
+Phase: **E0-A Experimental Harness — Gemini normative-reference amendment repaired after Director-machine native Attempt 01 exposed a Harness syntax defect; post-repair static audit complete; exact repaired source/test checkpoint frozen; native Windows ARM64 rerun pending; real Gemini network execution still gated**.
 
 Active work branch:
 
@@ -20,13 +20,21 @@ Promoted `main` before this amendment:
 
 `f9cb1a79ad7923b640ff1a97c46d8fd6ab9dac25`
 
-Frozen Gemini amendment executable/source/test checkpoint:
+Repaired Gemini amendment executable/source/test checkpoint pending native rerun:
 
-`39e7984b9ff59228d7d0c424ef7d113582d38bc7`
+`117635d820792420cf0c30d987f3e0f534afeda0`
 
-The recursive static audit closed at that checkpoint after one complete pass found no material correction, authority inconsistency, scope violation, unsupported validation claim, or remaining worthwhile in-scope improvement. This is a **static-audit closure only**; it is not compiler, test, native-runtime, or provider validation.
+Director-machine Attempt 01 falsified the earlier static-closure checkpoint `39e7984b9ff59228d7d0c424ef7d113582d38bc7`: Core passed 622/622, but the Harness failed to compile with `E0AEvidenceStore.cs(546,2): error CS1513: } expected`. The same compiler defect reproduced after synchronizing the active branch to `a78bae72ec0f259b3123b968dc5135829c6443b9`.
 
-Post-freeze continuity/evidence descendants on the active branch are documentation-only and do not replace `39e7984b...` as the executable/source/test authority for the pending native run. Pending-native record: `docs/evidence/E0A_PHASE_B_GEMINI_NORMATIVE_REFERENCE_PENDING_NATIVE_VALIDATION.md`.
+Repository audit traced the defect to commit `435ca9c1e410ec8014dcd9ccea3c6ccf3412e32d`, which accidentally deleted the closing brace of the `foreach` loop in `E0AFileEvidenceStore.IsLowerHex` while adding Gemini evidence-manifest logic. The smallest repair at `117635d...` restores exactly one brace: comparison from `a78bae72...` to `117635d...` is one modified Harness file, one insertion, zero deletions, with no Core change.
+
+Post-repair static audit found no further material correction, authority inconsistency, scope violation, unsupported validation claim, or worthwhile in-scope improvement in the repair delta. This is **static evidence only**. Compiler, Harness-test, native ARM64 build, fixture-smoke, and credentialless Gemini-host validation remain pending for `117635d...`.
+
+Failure evidence:
+
+`docs/evidence/E0A_PHASE_B_GEMINI_NATIVE_ARM64_VALIDATION_ATTEMPT_01.md`
+
+The earlier pre-attempt record `docs/evidence/E0A_PHASE_B_GEMINI_NORMATIVE_REFERENCE_PENDING_NATIVE_VALIDATION.md` is historical setup evidence and is superseded for current validation state by Attempt 01 plus this `CURRENT_STATE.md`.
 
 H1 Phase A remains **CLOSED** by `docs/evidence/H1_CONVERGENCE_AUDIT.md`; promotion `28371ea4bcd9709b771413100af4dcec5a05dc6e`.
 
@@ -36,7 +44,7 @@ The current bounded provider amendment is:
 
 - blueprint: `docs/blueprint/E0A_PHASE_B_GEMINI_NORMATIVE_REFERENCE_AMENDMENT.md`;
 - approval/evidence: `docs/evidence/E0A_PHASE_B_GEMINI_NORMATIVE_REFERENCE_AMENDMENT_APPROVAL.md`;
-- pending-native evidence: `docs/evidence/E0A_PHASE_B_GEMINI_NORMATIVE_REFERENCE_PENDING_NATIVE_VALIDATION.md`.
+- failed native attempt: `docs/evidence/E0A_PHASE_B_GEMINI_NATIVE_ARM64_VALIDATION_ATTEMPT_01.md`.
 
 The amendment changes only the next normative E0-A provider route. It does not reopen Core/H1 causal authority, E0-B+, product UI/persistence, NPU, packaging, Store, or later scope.
 
@@ -62,13 +70,45 @@ Observed: Windows `10.0.26200`, `PROCESSOR_ARCHITECTURE=ARM64`, `dotnet --info` 
 
 That checkpoint remains the exact machine-tested authority for the historical OpenAI live-host implementation. It does **not** validate the current Gemini amendment.
 
-### Current Gemini amendment validation state
+### Gemini native Attempt 01 — FAILED
 
-Exact frozen executable/source/test checkout pending native validation:
+Attempt 01 began at exact checkout:
 
 `39e7984b9ff59228d7d0c424ef7d113582d38bc7`
 
-The Gemini executable/test surface has **not yet received Director-machine native Windows ARM64 validation**. Do not infer compiler, test, native runtime, credentialless Gemini-host, or provider behavior from static review.
+Observed checkout/environment authority:
+
+- `origin/main = f9cb1a79ad7923b640ff1a97c46d8fd6ab9dac25`;
+- tracked diff clean;
+- staged diff clean;
+- unrelated root-level `patch0012-local-edit.txt` only;
+- `PROCESSOR_ARCHITECTURE=ARM64`;
+- `dotnet --info` RID `win-arm64`;
+- Host Architecture `arm64`;
+- SDK `9.0.317`;
+- Windows `10.0.26200`.
+
+Valid result from that attempted checkout:
+
+- **Core tests PASS 622/622**.
+
+Blocking result:
+
+- Harness compilation FAIL: `E0AEvidenceStore.cs(546,2): error CS1513: } expected`;
+- Harness tests were not executed;
+- Harness native ARM64 build failed with the same compiler error.
+
+Fixture-smoke and credentialless output produced after that failed build are **non-authoritative stale-binary output** because a pre-existing Harness DLL remained on disk. The stale credentialless invocation emitted the historical `OPENAI_API_KEY` refusal; it is not evidence about the Gemini source path.
+
+The same compiler defect reproduced after the local amendment branch was fast-forwarded to `a78bae72ec0f259b3123b968dc5135829c6443b9`, while Core again passed 622/622. Attempt 01 is therefore classified overall **FAIL — compiler defect — rerun required**.
+
+### Current Gemini amendment validation state
+
+Exact repaired executable/source/test checkout pending native rerun:
+
+`117635d820792420cf0c30d987f3e0f534afeda0`
+
+No compiler, Harness-test, native ARM64 build, fixture-smoke, credentialless Gemini-host, or provider-runtime PASS is claimed for this repaired checkpoint yet.
 
 No real Gemini request, `GEMINI_API_KEY` inference use, provider-network execution, or provider spend has been performed or authorized by the current implementation work.
 
@@ -84,11 +124,11 @@ The approved current live route is:
 Provider              Google Gemini API
 Model                 gemini-2.5-flash
 Transport             native generateContent / streamGenerateContent REST
-Credential             GEMINI_API_KEY
-Live variant           CREATIVE-NONE only
-Performer thinking     thinkingBudget=0
-Interpreter thinking   thinkingBudget=0
-Integrity control      thinkingBudget=3584
+Credential            GEMINI_API_KEY
+Live variant          CREATIVE-NONE only
+Performer thinking    thinkingBudget=0
+Interpreter thinking  thinkingBudget=0
+Integrity control     thinkingBudget=3584
 ```
 
 `CREATIVE-LOW`, `CREATIVE-MEDIUM`, and `CREATIVE-HIGH` remain deferred for Gemini until a later provider-specific resource-normalization amendment. Their historical OpenAI definitions are not silently mapped to Gemini.
@@ -167,6 +207,7 @@ Known host facts include:
 - Windows PowerShell `RuntimeInformation.OSArchitecture`, `.ProcessArchitecture`, and `.RuntimeIdentifier` have returned blank and are not trusted architecture gates on this host.
 - Trusted architecture probes are `PROCESSOR_ARCHITECTURE=ARM64` plus parsed `dotnet --info` showing `RID: win-arm64` and Host `Architecture: arm64`.
 - Expected native stderr can surface as `NativeCommandError` under `$ErrorActionPreference='Stop'`; expected-failure probes must isolate stderr, capture `$LASTEXITCODE` immediately, and assert exit/message/filesystem effects independently.
+- After any failed Harness build, fixture or credentialless smokes must not reuse an existing output DLL. Smokes count only after a successful native build of the exact checkout under validation.
 
 The existing host-behavior document's `OPENAI_API_KEY` credentialless example is historical apparatus evidence. The Gemini native validation packet must apply the same wrapper discipline while expecting `GEMINI_API_KEY` on the active branch.
 
@@ -190,9 +231,11 @@ Remain inside **E0-A Phase B**. Do not enter E0-B..G, product Application/persis
 
 Current engineering sequence:
 
-1. native-validate exact frozen checkpoint `39e7984b9ff59228d7d0c424ef7d113582d38bc7` on the Director's Windows ARM64 host;
-2. require a clean exact checkout, trusted ARM64 probes, Core/Harness tests, Harness native ARM64 build, Missing Raft and generic fixture smokes, and the credentialless `CREATIVE-NONE` host gate with `GEMINI_API_KEY` absent;
-3. record the exact native validation evidence without promoting static claims or replacing `39e7984b...` with a documentation-only descendant;
-4. only after validation, return to the Director for a **separate explicit authorization** before any Gemini `countTokens`, inference, credential use, or provider-network execution.
+1. native-rerun exact repaired source/test checkpoint `117635d820792420cf0c30d987f3e0f534afeda0` on the Director's Windows ARM64 host;
+2. require exact checkout and clean tracked/staged state, trusted ARM64 probes, Core tests, Harness tests, and successful Harness native ARM64 build;
+3. only after that exact build succeeds, run Missing Raft and generic fixture smokes from the newly built `net9.0\win-arm64` Harness output;
+4. run the credentialless `CREATIVE-NONE` host gate with `GEMINI_API_KEY` absent, requiring native exit `1`, the exact Gemini missing-key refusal, and no evidence root;
+5. record the exact rerun evidence without promoting static claims or replacing the machine-tested executable checkpoint with a documentation-only descendant;
+6. only after successful native validation, return to the Director for a **separate explicit authorization** before any Gemini `countTokens`, inference, credential use, or provider-network execution.
 
 The prior explicit OpenAI first-run authorization was superseded by the Director's later Gemini-provider correction and does not authorize Gemini network execution.
