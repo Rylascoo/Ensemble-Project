@@ -26,6 +26,8 @@ This evidence is sourced from commands executed by the Director on the native Wi
 
 The PowerShell expressions using `[System.Runtime.InteropServices.RuntimeInformation]` returned blank values in this Windows PowerShell host and therefore caused two custom probe exceptions. This is a validation-command defect, not contrary architecture evidence: `dotnet --info` and `PROCESSOR_ARCHITECTURE` independently establish the required native ARM64 environment. Future validation must use the authoritative `dotnet --info`/environment checks rather than the broken PowerShell reflection probe.
 
+These host behaviors are now recorded in `docs/evidence/DIRECTOR_WINDOWS_ARM64_VALIDATION_HOST_BEHAVIORS.md`, which is the command-generation authority for later Director-machine validation on this host.
+
 ## Credential state
 
 `OPENAI_API_KEY` was explicitly removed before tests and the live-host smoke. No provider credential was present or introduced by the validation.
@@ -51,10 +53,12 @@ FAIL TO COMPILE due to test-oracle analyzer diagnostics.
 - Harness production project compiled successfully as a dependency.
 - Harness test project produced seven `MSTEST0032` errors in `E0ALiveHostReadinessTests.cs`, lines 99–105.
 - The seven diagnostics correspond to direct `Assert.AreEqual` comparisons between literals and C# `const` pricing-policy fields in `PricingPolicy_FreezesSourcePromotionAndConservativeRates`.
-- This is the same analyzer class previously encountered when direct assertions compare compile-time constants; it does not establish a production-code failure.
+- `MSTEST0032` is correct here: those direct assertions are compile-time tautologies and therefore do not constitute meaningful runtime assertions.
 - Harness test exit: `1`.
 
-Required correction: replace the seven direct compile-time tautological assertions with a non-tautological collection/runtime oracle without suppressing MSTest analyzers and without changing production behavior.
+Required correction: replace the seven direct compile-time tautological assertions with a collection-based constant-freeze tripwire without suppressing MSTest analyzers and without changing production behavior.
+
+**Coverage classification of that correction:** the replacement `CollectionAssert` test is a **constant-freeze tripwire only**. It detects drift between the frozen expected pricing/provenance tuple and the compiled policy constants. It does **not** verify provider pricing, live pricing freshness, cache behavior, spend reconciliation behavior, or any other runtime behavior. A later Harness pass count must not be cited as behavioral validation merely because this tripwire passes; behavioral pricing/spend coverage comes from the separate runtime tests and provider/evidence gates.
 
 ### Harness native ARM64 build
 
@@ -91,7 +95,7 @@ However, the scripted oracle is **not counted as PASS** because `$ErrorActionPre
 - `$LASTEXITCODE` was observed as `-1` rather than the executable's intended exit code;
 - the subsequent message-capture assertion could not evaluate the emitted refusal text.
 
-This is a validation-command/wrapper defect. Future validation must temporarily use non-terminating native-command error handling while capturing `2>&1`, then restore the prior PowerShell error preference and assert the actual native exit code, refusal text, absent credential, and absent evidence root.
+This is a validation-command/wrapper defect. Future validation must use the expected-failure native stderr/exit-code rules in `docs/evidence/DIRECTOR_WINDOWS_ARM64_VALIDATION_HOST_BEHAVIORS.md`, then assert the actual native exit code, refusal text, absent credential, and absent evidence root.
 
 The observed console refusal and absent evidence root are supporting evidence that the intended host gate fired, but they do not satisfy the scripted oracle on Attempt 01.
 
@@ -106,4 +110,4 @@ The observed console refusal and absent evidence root are supporting evidence th
 
 Attempt 01 is **partial native evidence only**. It does not establish native-validation completion because the Harness test project did not compile and the credentialless live-host assertion wrapper was defective.
 
-The production Harness itself built successfully for native Windows ARM64, both fixture smokes passed, and Core remained 622/622. The correction must remain test/validation-oracle only unless a later native run reveals a production defect.
+The production Harness itself built successfully for native Windows ARM64, both fixture smokes passed, and Core remained 622/622. The correction remains test/validation-oracle only unless a later native run reveals a production defect.
