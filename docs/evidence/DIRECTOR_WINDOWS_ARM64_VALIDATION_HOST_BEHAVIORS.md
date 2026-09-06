@@ -57,7 +57,7 @@ For expected-failure probes, stdout/stderr capture and exit-code capture must be
 
 ## 4. Credentialless E0-A host probe
 
-The credentialless live-host smoke is expected to:
+The historical OpenAI credentialless live-host smoke was expected to:
 
 - run with `OPENAI_API_KEY` absent;
 - invoke the explicit `e0a-run` command;
@@ -65,6 +65,8 @@ The credentialless live-host smoke is expected to:
 - emit `OPENAI_API_KEY is required at the E0-A provider edge.`;
 - create no evidence root;
 - perform no provider inference, network call, or spend.
+
+The active Gemini amendment applies the same apparatus rule while expecting `GEMINI_API_KEY` and the Gemini missing-key refusal instead.
 
 The wrapper must use the native-stderr handling rule above. Visible refusal text without captured exit code and filesystem assertions does not count as a complete pass.
 
@@ -82,7 +84,25 @@ Known unrelated root-level scratch files such as `patch0012-local-edit.txt` may 
 
 Post-validation, the command set must re-check exact HEAD plus tracked/staged cleanliness.
 
-## 6. Command-generation rule
+## 6. Failed-build stale-output rule
+
+Director-machine Gemini validation Attempt 01 established an additional apparatus hazard: a failed `dotnet build` can leave an older `bin\...\Ensemble.E0.Harness.dll` on disk from a prior successful build. `Test-Path` on that DLL can therefore succeed even though the current checkout did not compile.
+
+Consequences:
+
+- fixture smokes or credentialless probes run after a failed build may execute a stale historical binary;
+- output from that stale binary is not evidence about the current checkout;
+- a stale binary can expose historical behavior, such as an `OPENAI_API_KEY` refusal, even when the current source is intended to use Gemini.
+
+Future validation packets must therefore:
+
+1. treat a failed Harness build as an immediate hard stop for all executable smokes;
+2. never infer a successful current build from the existence of an output DLL alone;
+3. preferably remove the target `bin\Debug\net9.0\win-arm64` Harness output directory before the validation build, or otherwise prove the executable was produced by the successful current build;
+4. run fixture and credentialless smokes only after the exact-checkout Harness ARM64 build returns native exit `0`;
+5. classify any smoke output produced after a failed build as non-authoritative stale-binary output unless independent evidence proves otherwise.
+
+## 7. Command-generation rule
 
 Future Director-machine Windows ARM64 validation command sets should be generated from this document rather than reintroducing unverified host assumptions.
 
@@ -93,6 +113,7 @@ At minimum they must:
 - capture native exit codes immediately;
 - isolate expected-failure stderr from `$ErrorActionPreference = 'Stop'`;
 - assert credentialless failure by native exit code, message, and filesystem effects;
+- hard-stop executable smokes after any failed current-checkout Harness build;
 - preserve the credential/network/spend gate as closed unless separately authorized.
 
 If later Director-machine evidence contradicts any item here, update this document first and then regenerate the validation command set from the revised host contract.
