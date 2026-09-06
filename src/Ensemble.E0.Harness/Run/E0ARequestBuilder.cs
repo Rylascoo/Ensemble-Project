@@ -1,0 +1,125 @@
+using System.Text.Json;
+using Ensemble.E0.Core.Context;
+using Ensemble.E0.Core.Performer;
+using Ensemble.E0.Core.StateInterpreter;
+
+namespace Ensemble.E0.Harness.Run;
+
+internal static class E0ARequestBuilder
+{
+    internal static PreparedRoleAttempt Performer(
+        Ensemble.E0.Core.Domain.RunId runId,
+        int turn,
+        E0ARoleProfile profile,
+        ContextPacket context)
+    {
+        var data = JsonSerializer.Serialize(new { context = E0APromptContracts.ContextData(context) });
+        var body = BuildBody(profile, E0APromptContracts.PerformerInstructions, data, "e0a_performer_candidate", E0APromptContracts.PerformerSchemaJson);
+        return New(runId, turn, profile, context, null, E0APromptContracts.PerformerPromptHash, E0APromptContracts.PerformerSchemaHash, null, body);
+    }
+
+    internal static PreparedRoleAttempt Integrity(
+        Ensemble.E0.Core.Domain.RunId runId,
+        int turn,
+        E0ARoleProfile profile,
+        ContextPacket context,
+        string candidateContentHash,
+        E0AIntegrityAssessmentPacket packet)
+    {
+        var data = JsonSerializer.Serialize(packet.ToTransport());
+        var body = BuildBody(profile, E0APromptContracts.IntegrityInstructions, data, "e0a_integrity_concerns", E0APromptContracts.IntegritySchemaJson);
+        return New(runId, turn, profile, context, candidateContentHash, E0APromptContracts.IntegrityPromptHash, E0APromptContracts.IntegritySchemaHash, packet.PacketHash, body);
+    }
+
+    internal static PreparedRoleAttempt Interpreter(
+        Ensemble.E0.Core.Domain.RunId runId,
+        int turn,
+        E0ARoleProfile profile,
+        ContextPacket context,
+        CandidatePerformance candidate,
+        StateInterpretationSource source)
+    {
+        var data = JsonSerializer.Serialize(new
+        {
+            context = E0APromptContracts.ContextData(context),
+            candidate = new
+            {
+                candidateContentHash = source.CandidateContentHash,
+                subjectCharacterId = candidate.SubjectCharacterId.Value,
+                contextPacketId = candidate.ContextPacketId.Value,
+                visibleText = candidate.VisibleText,
+                addressedCharacterIds = candidate.Control.AddressedCharacterIds.Select(x => x.Value).ToArray(),
+                nominatedCharacterId = candidate.Control.NominatedCharacterId.HasValue ? candidate.Control.NominatedCharacterId.Value.Value : null
+            }
+        });
+        var body = BuildBody(profile, E0APromptContracts.InterpreterInstructions, data, "e0a_state_interpretation", E0APromptContracts.InterpreterSchemaJson);
+        return New(runId, turn, profile, context, source.CandidateContentHash, E0APromptContracts.InterpreterPromptHash, E0APromptContracts.InterpreterSchemaHash, null, body);
+    }
+
+    private static PreparedRoleAttempt New(
+        Ensemble.E0.Core.Domain.RunId runId,
+        int turn,
+        E0ARoleProfile profile,
+        ContextPacket context,
+        string? candidateContentHash,
+        string promptHash,
+        string schemaHash,
+        string? integrityPacketHash,
+        byte[] body) =>
+        new(
+            runId,
+            E0ADeterministicIds.Attempt(runId, profile.Role, turn, 1),
+            profile,
+            turn,
+            context.SubjectCharacterId,
+            context.ContextPacketId,
+            context.StructuredContextHash,
+            context.RenderedContextHash,
+            candidateContentHash,
+            promptHash,
+            schemaHash,
+            integrityPacketHash,
+            body);
+
+    private static byte[] BuildBody(
+        E0ARoleProfile profile,
+        string instructions,
+        string data,
+        string schemaName,
+        string schemaJson)
+    {
+        using var schema = JsonDocument.Parse(schemaJson);
+        var body = new Dictionary<string, object?>
+        {
+            ["model"] = profile.Model,
+            ["reasoning"] = new Dictionary<string, object?> { ["effort"] = Reasoning(profile.Reasoning) },
+            ["stream"] = profile.Stream,
+            ["store"] = false,
+            ["service_tier"] = profile.ServiceTier,
+            ["truncation"] = "disabled",
+            ["max_output_tokens"] = profile.MaxOutputTokens,
+            ["instructions"] = instructions,
+            ["input"] = data,
+            ["text"] = new Dictionary<string, object?>
+            {
+                ["format"] = new Dictionary<string, object?>
+                {
+                    ["type"] = "json_schema",
+                    ["name"] = schemaName,
+                    ["strict"] = true,
+                    ["schema"] = schema.RootElement.Clone()
+                }
+            }
+        };
+        return JsonSerializer.SerializeToUtf8Bytes(body);
+    }
+
+    private static string Reasoning(E0AReasoningLevel value) => value switch
+    {
+        E0AReasoningLevel.None => "none",
+        E0AReasoningLevel.Low => "low",
+        E0AReasoningLevel.Medium => "medium",
+        E0AReasoningLevel.High => "high",
+        _ => throw new E0AHarnessException("E0-A reasoning level is invalid.")
+    };
+}
