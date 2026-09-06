@@ -19,6 +19,20 @@ How should Scene endings emerge from pressure resolution while deterministic bud
 
 Current E0 does not freeze a product Scene-ending mechanism. Experimental run limits may remain deterministic without being promoted into dramatic-ending authority.
 
+### ODR-26 — Cost governance, background-character economy, adaptive performance depth
+
+What cost governance, background-character economy, and adaptive performance depth are understandable without turning Stage into a billing dashboard?
+
+Working falsification and provider-admission structure has been developed but is **not frozen, not ODR-26 resolution, and not project law**. Manual resource allocation must earn its existence under matched spend; population numeric thresholds remain deliberately unfrozen.
+
+Provider eligibility is being separated into **Gate P — Policy Admissibility** and **Gate C — Scene Capacity** before ODR-09 capability presentation or ODR-25 degradation behavior applies. Admission is by current criteria applied to a dated exact route snapshot, never by a frozen named-provider list.
+
+This work cannot falsify Blueprint 0.1's frozen deterministic user cost limits, call limits, cancellation, retry/failure enforcement, spend authority, or eventual cost/token attribution. It does not alter, reopen, select, or provide evidence for the E0-A reference provider/model configuration or any later E0-B provider pin.
+
+See:
+
+`docs/ODR_26_COST_GOVERNANCE_AND_PROVIDER_ADMISSION_WORKING_CONTRACT.md`
+
 ### ODR-30 — Active Scene size
 
 Is the tentative V1 active Scene limit of five correct after real UX observation?
@@ -52,4 +66,4 @@ See:
 
 ## Resolution timing
 
-ODR-12, ODR-13, ODR-30, and ODR-32 do not block the current H1/E0-A deterministic reference path. ODR-33 is resolved and has no engineering effect.
+ODR-12, ODR-13, ODR-26, ODR-30, and ODR-32 do not block the current H1/E0-A deterministic reference path. ODR-33 is resolved and has no engineering effect.

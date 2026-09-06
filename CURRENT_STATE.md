@@ -4,7 +4,7 @@ Updated: 2026-09-06
 
 ## Authority
 
-Frozen Blueprint 0.1 + approved patch/phase blueprints govern architecture. `Rylascoo/Ensemble-Project` is engineering authority. Resolve `main`; never overstate validation. Workflow: `docs/PROJECT_REASONING_TASK_SCOPE_OPTIMIZATION_PROTOCOL.md`. Product/policy authority and lane boundaries are governed by `docs/PROJECT_AUTHORITY.md`.
+Frozen Blueprint 0.1 + approved phase/patch blueprints govern architecture. `Rylascoo/Ensemble-Project` is engineering authority. Resolve `main`; never promote or overstate validation. Workflow: `docs/PROJECT_REASONING_TASK_SCOPE_OPTIMIZATION_PROTOCOL.md`. Open questions: `docs/OPEN_DESIGN_REGISTER_CONTINUATION.md`. Plan: `docs/roadmap/KYMAEAN_ARCHITECTURE_AND_SHIP_PLAN.md`. Product/policy authority and lane boundaries: `docs/PROJECT_AUTHORITY.md`.
 
 The Director owns product constitution, Open Design Register resolution, provider admissibility, and decisions about what the product may do. Engineering/design surfaces supply inputs within their lanes. ODR proposals/resolutions live in `Ensemble-Project/docs` following the ODR-33 precedent.
 
@@ -21,6 +21,8 @@ Original Phase-B implementation evidence: `docs/evidence/E0A_PHASE_B_REFERENCE_R
 Live-host completion native evidence: `docs/evidence/E0A_PHASE_B_LIVE_HOST_NATIVE_ARM64_VALIDATION.md`. Attempt 01 partial evidence: `docs/evidence/E0A_PHASE_B_LIVE_HOST_NATIVE_VALIDATION_ATTEMPT_01.md`. Director-host apparatus contract: `docs/evidence/DIRECTOR_WINDOWS_ARM64_VALIDATION_HOST_BEHAVIORS.md`.
 
 Program map: `docs/roadmap/KYMAEAN_ARCHITECTURE_AND_SHIP_PLAN.md`.
+
+This state reconciles former `main` `a3b5126dad440d2f75bef655fdc6e4ac7098b839` with former live-host branch head `9228c77a5b789c4c6a1e0417f889851c6b92730e` as a union. Their merge base was `13ffde90f78a8bf40a04381b136e846d1cf64d1c`. Parallel-main ODR-26 continuity and the live-host validation/authority continuity both survive.
 
 ## Native validation
 
@@ -42,9 +44,9 @@ Exact validated executable/test checkout:
 
 Observed: Windows `10.0.26200`, `PROCESSOR_ARCHITECTURE=ARM64`, `dotnet --info` RID `win-arm64`, Host Architecture `arm64`, SDK `9.0.317`; clean tracked/staged tree; no material untracked source/test/fixture files; **622/622 Core tests PASS**; **54/54 Harness tests PASS**; Harness native ARM64 build PASS; Missing Raft PASS; generic smoke PASS; credentialless explicit `e0a-run` PASS with native exit `1`, expected `OPENAI_API_KEY` refusal, no evidence root, and credential remaining absent.
 
-The Harness pricing-policy tuple test is a **constant-freeze tripwire**, not behavioral pricing validation. Its contribution to the 54/54 count must not be cited as proof of live provider pricing freshness or runtime billing behavior.
+Coverage caveat: the pricing-policy tuple test `PricingPolicy_FreezesSourcePromotionAndConservativeRates` is a **constant-freeze tripwire**, not behavioral pricing validation. Its pass contributes to the suite count but only proves that the compiled frozen constants match the independently maintained expected tuple in the test. It does not establish live provider pricing freshness, provider cache behavior, or runtime spend correctness. Those claims require separate runtime/provider evidence and remain subject to the known pricing-snapshot limitation.
 
-Commits after `1cfdb3aa22abce62a5bd48e80706407670d1c6a9` that record host quirks, evidence, authority, current state, or handoff are documentation-only unless a later comparison proves otherwise. They do not replace `1cfdb3aa...` as the exact machine-tested executable/test authority.
+The comparison from `1cfdb3aa22abce62a5bd48e80706407670d1c6a9` to former branch head `9228c77a5b789c4c6a1e0417f889851c6b92730e` contains documentation only: `CURRENT_STATE.md`, `docs/PROJECT_AUTHORITY.md`, four live-host evidence/host records, and this handoff. The four parallel-main commits after merge base are also documentation-only. The reconciliation therefore changes no executable, test, fixture, or Core surface and does not replace `1cfdb3aa...` as the machine-tested live-host executable/test authority.
 
 No real provider request, provider credential use, provider-network execution, or provider spend has been executed or authorized by this validation. No WinUI, Windows AI/NPU, MSIX/WACK, or Store authority.
 
@@ -67,7 +69,9 @@ The live host validates exact clean checkout, evidence-root absence, fixture/Mis
 
 Prompt caching is explicit-mode to disable the provider's implicit breakpoint. Cache-write usage is retained for provenance; spend reconciliation prices all reported input tokens conservatively and a nonzero cache-write count terminates technical after usage/spend recording but before semantic consumption.
 
-Pricing snapshot verified 2026-09-06 against OpenAI GPT-5.6 Sol promotional pricing. The host's `RequireNonStaleSnapshot` is a **date-validity guard, not live pricing verification**: it fails closed after 2026-11-21 UTC but cannot detect provider pricing-rule changes inside that window. Closing that residual requires a trusted short-lived pricing attestation or equivalent stable machine-readable provider source. Director authorization for any real run must treat live pricing re-verification as an external gate consideration.
+The live host's `RequireNonStaleSnapshot` remains a date-validity guard, not live pricing verification. It fails closed after the published promotional-guarantee date, but it cannot detect provider changes to pricing terms, cache-write multiplier, long-context threshold, or related billing rules that occur earlier within that date window.
+
+Closing that residual still requires the previously identified short-lived trusted pricing attestation or an equivalent stable machine-readable provider pricing source. This native PASS does not erase or narrow that known limit.
 
 Preserved laws include Access before Context, exact configured-path request/receipt provenance, diagnostic-only streamed deltas, closed-response semantic authority, spend reconciliation before semantic use, fail-closed cancellation/timeout/usage handling, deterministic Integrity/State Authority rejection, atomic accepted causal commit followed immediately by next Opportunity establishment, immutable evidence sealing, and blind-output isolation.
 
@@ -87,17 +91,17 @@ Known host facts include:
 - `IPackageValidator` is not a mandatory first-release gate.
 - E5c exception-runtime provenance: open, no verified defect/fix.
 - Stage remains design-lane authority.
-- ODR-12/13/30/32 remain open; none blocks E0-A.
+- ODR-12/13/26/30/32 remain open; none blocks E0-A.
+- ODR-26 working structure: `docs/ODR_26_COST_GOVERNANCE_AND_PROVIDER_ADMISSION_WORKING_CONTRACT.md`. **Not frozen/resolved/project law; no E0-A/E0-B provider-selection effect.**
+- The ODR-26 working contract is preserved unchanged from parallel `main`. It was drafted outside its authoring surface's lane and is reported for Director disposition rather than adjudicated or corrected by engineering.
 - ODR proposal/resolution authority belongs to the Director and is filed in `Ensemble-Project/docs` regardless of originating lane.
 - Real provider credentials/network execution/spend require a separate explicit Director gate.
 - `e0a-phase-b-live-host-completion-2` is a strict stale ancestor with no unique commits and remains untouched for Director disposition.
 
 ## Next
 
-Remain inside **E0-A Phase B**. Do not redesign Proposal 0.15 and do not enter E0-B..G, product Application/persistence/UI, Scene-ending semantics, Context optimization, Windows AI/NPU, MSIX/WACK/Store, or later scope.
+Remain inside **E0-A Phase B**. Do not redesign Proposal 0.15 or enter E0-B..G, product Application/persistence/UI, Scene endings, Context optimization, Windows AI/NPU, MSIX/WACK/Store, or later scope.
 
-The active work branch is `e0a-phase-b-live-host-completion`. Before promotion, resolve current `main`, recursively audit the final branch diff/evidence/current-state/handoff for correctness, consistency, authority, scope, validation wording, pricing residual, and hygiene, and confirm no executable/test changes occurred after machine-tested checkpoint `1cfdb3aa...`.
+The former `main`/work-branch divergence has been reconciled as a documentation-only union. The reconciled head may be promoted through the normal reviewed GitHub path without another native run because no executable/test/fixture surface changed after `1cfdb3aa...`. If this state is already on `main`, that promotion step is complete.
 
-If that audit is clean, promote the live-host completion branch to `main` through the normal reviewed GitHub path. Documentation-only closure commits after `1cfdb3aa...` do not require another native run unless the executable/test surface changed.
-
-After promotion, the next consequential product action remains the first real reference-provider run using the frozen envelope and evidence package. That action requires **separate explicit Director authorization** for credentials, network execution, and spend. Nothing in fake-only native validation or promotion opens that gate.
+After promotion, the next consequential product action remains the first real reference-provider run under the frozen envelope/evidence package. It requires **separate explicit Director authorization** for `OPENAI_API_KEY`, provider credentials, network inference, and spend. Nothing in fake-only native validation, reconciliation, or promotion opens that gate.
