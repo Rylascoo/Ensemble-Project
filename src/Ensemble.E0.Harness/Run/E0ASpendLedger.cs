@@ -50,6 +50,7 @@ internal sealed class E0ASpendLedger
         var reservationExceeded =
             usage.InputTokens > reservation.InputTokens ||
             usage.OutputTokens > reservation.MaxOutputTokens ||
+            usage.CacheWriteTokens != 0 ||
             actual > reservation.ReservedUsd;
 
         _estimatedCommittedUsd += actual;
