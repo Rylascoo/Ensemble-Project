@@ -92,12 +92,25 @@ public sealed class E0ALiveHostReadinessTests
     }
 
     [TestMethod]
-    public void HostPricing_IsConservativeForPublishedLongContextAndCacheWriteTier()
+    public void HostPricing_IsConservativeForPermittedStandardTierAndCacheWrites()
     {
-        Assert.AreEqual(10.00m, E0AReferenceRunHost.ConservativePricing.InputUsdPerMillionTokens);
-        Assert.AreEqual(0.80m, E0AReferenceRunHost.ConservativePricing.CachedInputUsdPerMillionTokens);
-        Assert.AreEqual(30.00m, E0AReferenceRunHost.ConservativePricing.OutputUsdPerMillionTokens);
+        Assert.AreEqual(5.00m, E0AReferenceRunHost.ConservativePricing.InputUsdPerMillionTokens);
+        Assert.AreEqual(0.40m, E0AReferenceRunHost.ConservativePricing.CachedInputUsdPerMillionTokens);
+        Assert.AreEqual(20.00m, E0AReferenceRunHost.ConservativePricing.OutputUsdPerMillionTokens);
         E0AReferenceRunHost.ConservativePricing.Validate();
+    }
+
+    [TestMethod]
+    public void SpendPreflight_BlocksLongContextPricingTierBeforeInference()
+    {
+        var ledger = new E0ASpendLedger(E0AReferenceRunHost.ConservativePricing);
+        var boundary = ledger.Reserve(E0ASpendLedger.StandardPricingInputTokenLimit, 1);
+        Assert.AreEqual(E0ASpendLedger.StandardPricingInputTokenLimit, boundary.InputTokens);
+        ledger.Release(boundary);
+
+        Assert.Throws<E0ABudgetExceededException>(() =>
+            ledger.Reserve(E0ASpendLedger.StandardPricingInputTokenLimit + 1, 1));
+        Assert.AreEqual(0m, ledger.ReservedUsd);
     }
 
     [TestMethod]
