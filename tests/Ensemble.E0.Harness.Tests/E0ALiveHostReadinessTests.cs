@@ -26,7 +26,7 @@ public sealed class E0ALiveHostReadinessTests
 
         using var body = JsonDocument.Parse(attempt.RequestBody);
         var options = body.RootElement.GetProperty("prompt_cache_options");
-        Assert.AreEqual("explicit", options.GetProperty("mode").GetString());
+        Assert.AreEqual(E0AProviderTransportPolicy.PromptCacheMode, options.GetProperty("mode").GetString());
     }
 
     [TestMethod]
@@ -47,7 +47,7 @@ public sealed class E0ALiveHostReadinessTests
     }
 
     [TestMethod]
-    public async Task UnexpectedCacheWriteUsage_FailsClosedAsTechnicalReceipt()
+    public async Task CacheWriteUsage_IsPreservedForSpendReconciliation()
     {
         var output = Encoding.UTF8.GetString(E0ATestSupport.IntegrityOutput());
         var responseJson = JsonSerializer.Serialize(new
@@ -70,10 +70,25 @@ public sealed class E0ALiveHostReadinessTests
 
         var receipt = await port.ExecuteAsync(attempt, new CollectingDiagnosticSink(), CancellationToken.None);
 
-        Assert.AreEqual(E0ARoleAttemptOutcome.TechnicalFailure, receipt.Outcome);
-        Assert.IsNull(receipt.StructuredOutput);
-        Assert.IsNull(receipt.Usage);
-        Assert.AreEqual("provider-response-incomplete", receipt.DiagnosticCode);
+        Assert.AreEqual(E0ARoleAttemptOutcome.Success, receipt.Outcome);
+        Assert.AreEqual(4L, receipt.Usage!.CacheWriteTokens);
+        CollectionAssert.AreEqual(E0ATestSupport.IntegrityOutput(), receipt.StructuredOutput!);
+    }
+
+    [TestMethod]
+    public void CacheWriteUsage_ReconcilesSpendThenMarksReservationMismatch()
+    {
+        var ledger = new E0ASpendLedger(E0AReferenceRunHost.ConservativePricing);
+        var reservation = ledger.Reserve(10, E0ARunEnvelope.RoleMaxOutputTokens);
+
+        var reconciliation = ledger.Reconcile(
+            reservation,
+            new E0AUsage(10, 5, 0, 3, 4));
+
+        Assert.IsTrue(reconciliation.ReservationExceeded);
+        Assert.IsTrue(reconciliation.ActualUsd > 0m);
+        Assert.AreEqual(reconciliation.ActualUsd, ledger.EstimatedCommittedUsd);
+        Assert.AreEqual(0m, ledger.ReservedUsd);
     }
 
     [TestMethod]
