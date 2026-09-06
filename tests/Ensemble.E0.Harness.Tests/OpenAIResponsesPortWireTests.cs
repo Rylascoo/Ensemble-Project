@@ -76,21 +76,11 @@ public sealed class OpenAIResponsesPortWireTests
     }
 
     [TestMethod]
-    public async Task StreamingCompletedResponse_UsesSemanticDeltasAndRecordsDiagnostics()
+    public async Task StreamingCompletedResponse_UsesCompletedSemanticOutputAndRecordsProvisionalDiagnostics()
     {
         var output = Encoding.UTF8.GetString(E0ATestSupport.PerformerOutput());
         var delta = JsonSerializer.Serialize(new { type = "response.output_text.delta", delta = output });
-        var completed = JsonSerializer.Serialize(new
-        {
-            type = "response.completed",
-            response = new
-            {
-                status = "completed",
-                id = "resp-stream",
-                model = "gpt-5.6-sol",
-                usage = new { input_tokens = 8, output_tokens = 4 }
-            }
-        });
+        var completed = StreamingCompletedEvent("resp-stream", output, inputTokens: 8, outputTokens: 4);
         var sse = $"data: {delta}\n\ndata: {completed}\n\n";
         var handler = new RecordingHandler(_ => new HttpResponseMessage(HttpStatusCode.OK)
         {
@@ -107,6 +97,30 @@ public sealed class OpenAIResponsesPortWireTests
         Assert.AreEqual("resp-stream", receipt.ResponseId);
         CollectionAssert.AreEqual(E0ATestSupport.PerformerOutput(), receipt.StructuredOutput!);
         Assert.AreEqual(2, diagnostics.Events.Count);
+    }
+
+    [TestMethod]
+    public async Task StreamingDeltaMismatchWithCompletedResponse_FailsClosed()
+    {
+        var provisional = Encoding.UTF8.GetString(E0ATestSupport.PerformerOutput("Provisional."));
+        var final = Encoding.UTF8.GetString(E0ATestSupport.PerformerOutput("Final."));
+        var delta = JsonSerializer.Serialize(new { type = "response.output_text.delta", delta = provisional });
+        var completed = StreamingCompletedEvent("resp-stream-mismatch", final, inputTokens: 8, outputTokens: 4);
+        var sse = $"data: {delta}\n\ndata: {completed}\n\n";
+        var handler = new RecordingHandler(_ => new HttpResponseMessage(HttpStatusCode.OK)
+        {
+            Content = new StringContent(sse, Encoding.UTF8, "text/event-stream")
+        });
+        using var http = new HttpClient(handler);
+        var port = new OpenAIResponsesPort(http, "test-secret");
+        var attempt = PerformerAttempt("E0A-WIRE-STREAM-MISMATCH");
+
+        var receipt = await port.ExecuteAsync(attempt, new CollectingDiagnosticSink(), CancellationToken.None);
+
+        Assert.AreEqual(E0ARoleAttemptOutcome.TechnicalFailure, receipt.Outcome);
+        Assert.IsNull(receipt.StructuredOutput);
+        Assert.IsNull(receipt.Usage);
+        Assert.AreEqual("stream-final-mismatch", receipt.DiagnosticCode);
     }
 
     [TestMethod]
@@ -131,7 +145,37 @@ public sealed class OpenAIResponsesPortWireTests
         Assert.AreEqual(E0ARoleAttemptOutcome.TechnicalFailure, receipt.Outcome);
         Assert.IsNull(receipt.StructuredOutput);
         Assert.IsNull(receipt.Usage);
-        Assert.AreEqual("malformed-or-transport", receipt.DiagnosticCode);
+        Assert.AreEqual("provider-response-incomplete", receipt.DiagnosticCode);
+    }
+
+    [TestMethod]
+    public async Task ReasoningUsageAboveOutputUsage_FailsClosedAsTechnicalReceipt()
+    {
+        var output = Encoding.UTF8.GetString(E0ATestSupport.IntegrityOutput());
+        var responseJson = JsonSerializer.Serialize(new
+        {
+            status = "completed",
+            id = "resp-invalid-reasoning-usage",
+            model = "gpt-5.6-sol",
+            output_text = output,
+            usage = new
+            {
+                input_tokens = 10,
+                output_tokens = 5,
+                output_tokens_details = new { reasoning_tokens = 6 }
+            }
+        });
+        var handler = new RecordingHandler(_ => JsonResponse(responseJson));
+        using var http = new HttpClient(handler);
+        var port = new OpenAIResponsesPort(http, "test-secret");
+        var attempt = IntegrityAttempt("E0A-WIRE-REASONING-USAGE");
+
+        var receipt = await port.ExecuteAsync(attempt, new CollectingDiagnosticSink(), CancellationToken.None);
+
+        Assert.AreEqual(E0ARoleAttemptOutcome.TechnicalFailure, receipt.Outcome);
+        Assert.IsNull(receipt.StructuredOutput);
+        Assert.IsNull(receipt.Usage);
+        Assert.AreEqual("provider-response-incomplete", receipt.DiagnosticCode);
     }
 
     [TestMethod]
@@ -169,6 +213,34 @@ public sealed class OpenAIResponsesPortWireTests
             input.CandidateContentHash,
             packet);
     }
+
+    private static string StreamingCompletedEvent(
+        string responseId,
+        string output,
+        long inputTokens,
+        long outputTokens) =>
+        JsonSerializer.Serialize(new
+        {
+            type = "response.completed",
+            response = new
+            {
+                status = "completed",
+                id = responseId,
+                model = "gpt-5.6-sol",
+                output = new[]
+                {
+                    new
+                    {
+                        type = "message",
+                        content = new[]
+                        {
+                            new { type = "output_text", text = output }
+                        }
+                    }
+                },
+                usage = new { input_tokens = inputTokens, output_tokens = outputTokens }
+            }
+        });
 
     private static HttpResponseMessage JsonResponse(string json) => new(HttpStatusCode.OK)
     {
