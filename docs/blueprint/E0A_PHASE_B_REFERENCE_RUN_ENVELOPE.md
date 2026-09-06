@@ -1,6 +1,6 @@
 # E0-A Phase B — Reference Run Envelope
 
-Status: **PROPOSAL 0.10 — EXPLORATORY; IMPLEMENTATION NOT AUTHORIZED**
+Status: **PROPOSAL 0.11 — EXPLORATORY; IMPLEMENTATION NOT AUTHORIZED**
 Date: 2026-09-05
 Parent `main`: `2b628c2d97eb39f4d96ce3e81eafefe93ba28b09`
 Branch: `e0a-reference-run-envelope-blueprint`
@@ -28,9 +28,7 @@ Interpreter reasoning none
 Integrity reasoning   high
 ```
 
-Three Performers use `none`; Interpreter also `none`. Integrity uses the same model/provider at `high` because it applies a rubric rather than portraying a Character. It emits concern evidence only; Patch 0018/Patch 0008 remain deterministic disposition authority.
-
-Director, Access, State Authority, Take, commit and Opportunity remain deterministic Core authority.
+Three Performers use `none`; Interpreter also `none`. Integrity uses the same model/provider at `high` because it applies a rubric rather than portrays a Character. It emits concern evidence only; Patch 0018/Patch 0008 remain deterministic disposition authority. Director, Access, State Authority, Take, commit and Opportunity remain deterministic Core authority.
 
 ## 3. Reasoning characterization
 
@@ -43,9 +41,7 @@ PERFORMER-MEDIUM  Performer medium  / Integrity high / Interpreter none
 PERFORMER-HIGH    Performer high    / Integrity high / Interpreter none
 ```
 
-Everything else stays matched; `xhigh`/`max` deferred. A later Interpreter-only sweep may hold Performers at `none`; neither replaces NONE as E0-C/D/E reference.
-
-Future E0-B records `LeastDeliberativeSupported` plus exact provider-native control; `none`, disabled, `minimal`, or low are never claimed equivalent.
+Everything else stays matched; `xhigh`/`max` deferred. A later Interpreter-only sweep may hold Performers at `none`; neither replaces NONE as E0-C/D/E reference. Future E0-B records `LeastDeliberativeSupported` plus exact provider-native control; different providers' low/off modes are never claimed equivalent.
 
 ## 4. Harness boundary
 
@@ -59,7 +55,7 @@ OpenAI     HTTP adapter
 Host       CLI + credential/cancellation edge
 ```
 
-Harness references Core only; network/filesystem/provider/secrets never enter Core. Add a Harness test project. No product Application layer or post-E0 compatibility promise.
+Harness references Core only; network/filesystem/provider/secrets never enter Core. Add a Harness test project. No product Application layer/post-E0 compatibility promise.
 
 ## 5. OpenAI transport
 
@@ -71,13 +67,15 @@ Integrity    stream=false  reasoning=high   max_output_tokens=4096
 Interpreter  stream=true   reasoning=none   max_output_tokens=4096
 ```
 
-Sweep changes only Performer reasoning. Freeze a snapshot only if an immutable provider identifier is actually exposed/usable; otherwise record requested alias + all returned model/version identifiers and make no snapshot-stability claim. Observable in-batch identity change fails closed.
+Sweep changes only Performer reasoning. Freeze a snapshot only if an immutable provider identifier is exposed/usable; otherwise record requested alias + returned model/version identifiers and make no stability claim. Observable in-batch identity change fails closed.
 
-Provider schemas stay inside the supported Structured Outputs subset. Schema enforcement proves shape only; existing Core parsers/binders retain semantic authority.
+Provider schemas stay inside the supported Structured Outputs subset. Shape enforcement never replaces existing Core semantic parsers/binders.
 
-## 6. Prompts / bounded disclosure
+## 6. Prompt/disclosure law
 
 Freeze exact UTF-8 + SHA-256 for `PerformerPromptContract`, `IntegrityAssessorPromptContract`, `StateInterpreterPromptContract`; no in-batch tuning.
+
+Provider instructions live only in the fixed instruction portion. Every dynamic fixture/Context/Candidate/record value is deterministically serialized as **untrusted data** and explicitly non-instructional. A Character line or hidden record saying “ignore instructions” is content to portray/assess/interpret, never provider control. No dynamic content may be interpolated into the instruction channel.
 
 Performer receives exact Character-bounded rendered Context + Candidate schema only.
 
@@ -96,13 +94,11 @@ five Patch 0008 concern definitions
 
 Denied records derive from exact current Production + current Access decisions; inactive excluded; protected deduplicated. No unrelated provenance graph/commit history/credentials/creator metadata. Integrity disclosure never becomes Character knowledge.
 
-Integrity provider output is strict root object `{"concerns":[...]}`; items are the five Patch 0008 concern names. Do not depend on provider array uniqueness/order constraints. Core binding remains authority for duplicate/defined/canonical concern semantics. No rationale/confidence/free text.
+Integrity output is strict root object `{"concerns":[...]}` with only the five Patch 0008 concern names. Do not depend on provider array uniqueness/order; Core binding owns duplicate/defined/canonical concern semantics. No rationale/confidence/free text.
 
 ## 7. Configured-path receipts
 
-Provenance is prerequisite to semantic consumption.
-
-Each invocation starts as closed `PreparedRoleAttempt` containing:
+Provenance is prerequisite to semantic consumption. Each invocation starts as closed `PreparedRoleAttempt` containing:
 
 ```text
 RunId / attempt / role / turn / CharacterId if applicable
@@ -114,17 +110,15 @@ request-body SHA-256 / max output / service tier
 Integrity packet hash + denied/protected RecordIds when applicable
 ```
 
-For Integrity, canonical `IntegrityCandidateInput.Bind` may be used before disclosure only to obtain Candidate content identity and prove the current H1 candidate has zero deterministic reject codes; it creates no evaluation. Any impossible reject-coded Candidate fails closed without semantic review.
+For Integrity, canonical `IntegrityCandidateInput.Bind` may run before disclosure only to obtain Candidate content identity/prove zero reject codes; it creates no evaluation. Any impossible reject-coded Candidate fails without semantic review.
 
-Write exact request evidence before disclosure. Configured provider port returns only closed `RoleAttemptReceipt` bound to the prepared attempt: terminal outcome, response ID, observable model identity, usage, raw-output hash, and raw structured bytes only on success.
+Write request evidence before disclosure. Configured provider port returns only closed `RoleAttemptReceipt` bound to the prepared attempt: terminal outcome, response ID, observable model identity, usage, raw-output hash, raw structured bytes only on success.
 
-Driver consumes bytes only if receipt RunId/role/turn/source/profile/request identity equals current prepared attempt. Cross-run/turn/Context/profile receipts fail; technical/cancelled receipts carry no semantic payload.
-
-Candidate parsing requires Performer receipt; Integrity concerns require receipt bound to exact Candidate identity + assessment packet; proposal parsing requires Interpreter receipt bound to current InterpretationSource/Candidate. This is Harness configured-path coupling, not Core cryptographic attestation. Secrets never enter receipts.
+Driver consumes bytes only if receipt RunId/role/turn/source/profile/request identity equals current prepared attempt. Cross-run/turn/Context/profile receipts fail; technical/cancelled receipts carry no semantic payload. Candidate parsing requires Performer receipt; Integrity concerns require receipt bound to Candidate + assessment packet; proposal parsing requires Interpreter receipt bound to current InterpretationSource/Candidate. This is Harness coupling, not Core cryptographic attestation. Secrets never enter receipts.
 
 ## 8. Identity / fixed envelope
 
-Manifest supplies one Core `RunId`; fail if run directory already exists.
+Manifest supplies one Core `RunId`; fail if run directory exists.
 
 ```text
 TakeId   = {RunId}:TAKE:{turn:D3}
@@ -133,7 +127,7 @@ RecordId = {RunId}:RECORD:{turn:D3}:{mutationIndex:D3}
 Attempt  = {RunId}:ATTEMPT:{role}:{turn:D3}:{attempt:D2}
 ```
 
-Constrain RunId for Core 128-character CanonicalId limit.
+Constrain RunId for Core's 128-character CanonicalId limit.
 
 ```text
 accepted-Turn cap                     12
@@ -145,9 +139,11 @@ estimated model-token spend ceiling     USD 5.00/run
 
 After Turn 12 establish next Patch 0016 Opportunity, then stop `AcceptedTurnCapReached`; experimental stop only, ODR-13 open. Any role timeout/refusal/provider/transport/incomplete-invalid/cancellation terminates without replacement. E0-F may later vary failure/retry.
 
+External cancellation is checked before/while provider work and before beginning another Turn. Once `CommitAccepted` succeeds, the driver completes the immediate deterministic `EstablishOpportunity` adoption attempt before honoring cancellation; no costly/external work occurs in that gap. If deterministic establishment itself fails, Patch 0016 valid-postcommit semantics remain authoritative and the run is noncontributing.
+
 ## 9. Spend gate
 
-Manifest freezes assumptions for **estimated model-token cost**; provider billing remains external authority. Before inference: prepare exact request; obtain supported Responses input-token count; reserve worst-case uncached input + 4096 output; refuse before inference if cumulative estimate would exceed USD 5.00. After response replace reservation with estimated actual usage charge, distinguishing cached/reasoning classes where supported. Token-count calls are preflight evidence, not role attempts. `BudgetExceeded` is non-fictional terminal evidence.
+Manifest freezes assumptions for **estimated model-token cost**; provider billing remains external authority. Before inference: prepare exact request; obtain supported Responses input-token count; reserve worst-case uncached input + 4096 output; refuse if cumulative estimate would exceed USD 5.00. After response replace reservation with estimated actual usage charge, distinguishing cached/reasoning classes where supported. Token-count calls are preflight evidence, not role attempts. `BudgetExceeded` is non-fictional terminal evidence.
 
 ## 10. Integrity / State Authority
 
@@ -157,11 +153,9 @@ After successful configured Integrity receipt, parse `concerns`, verify receipt/
 DeterministicE0TurnOrchestrator.EvaluateIntegrity(candidateReady, concerns)
 ```
 
-Turn re-binds `IntegrityCandidateInput`, binds `IntegrityConcernEvidence`, runs Patch 0008 deterministic validation, and constructs the InterpretationSource on Accept. Harness does not create a parallel evaluation path.
+Turn re-binds Input/evidence, runs Patch 0008 deterministic validation, and constructs InterpretationSource on Accept. Harness creates no parallel evaluation path. No concerns -> Accept. Any concern -> `RequestAnotherTake`; zero retries terminate before Interpreter/Take/commit. Assessor technical/schema failure produces no concern set/disposition. Synthetic empty concern evidence stays test-only.
 
-No concerns -> Accept. Any concern -> `RequestAnotherTake`; zero retries terminate before Interpreter/Take/commit. Assessor technical/schema failure produces no concern set/Integrity disposition and terminates. Synthetic empty concern evidence remains test-only, never contributing-run provenance.
-
-Reference State Authority policy includes Patch 0010 policy-eligible domains:
+Reference State Authority policy contains Patch 0010 policy-eligible domains:
 
 ```text
 UnresolvedProposition, CharacterBelief, CharacterSuspicion,
@@ -174,7 +168,7 @@ Patch 0010 owns hard rejection/mandatory review. On `ReviewRequired`, explicitly
 
 Successful Performer receipt -> diagnostics -> `PerformerCandidateContract.ParseJson(exact Context)` -> Patch 0017 BindCandidate -> Turn GateAttempt. Failure/refusal/timeout/incomplete/invalid -> TechnicalFailure; explicit cancel -> Cancelled; partial output diagnostic only.
 
-Successful Interpreter receipt -> diagnostics -> `StateInterpretationContract.ParseJson(exact InterpretationSource)` -> Turn EvaluateAuthority. Technical/cancel/refusal/timeout/incomplete/schema failure stops before Take. Provider schemas use required nullable fields where Core transport permits null; semantically invalid combinations remain canonical-parser failures.
+Successful Interpreter receipt -> diagnostics -> `StateInterpretationContract.ParseJson(exact InterpretationSource)` -> Turn EvaluateAuthority. Technical/cancel/refusal/timeout/incomplete/schema failure stops before Take. Provider schemas use required nullable fields where Core permits null; semantically invalid combinations remain parser failures.
 
 Each terminal Approved Add gets one derived RecordId/materialization; rejected gets none; Supersede/Deactivate use existing targets. Provider never chooses IDs.
 
@@ -184,15 +178,11 @@ Cycle.ComposeContext
  -> Integrity packet + spend/receipt -> Turn.EvaluateIntegrity
  -> Interpreter spend/receipt -> strict parse
  -> Turn.EvaluateAuthority -> deterministic review rejects if required
- -> Turn.BindAcceptedTake(derived TakeId)
- -> materializations -> Turn.CommitAccepted(derived CommitId)
- -> VALID POSTCOMMIT -> Patch 0016 EstablishOpportunity
- -> next synchronized state
+ -> Turn.BindAcceptedTake -> materializations -> Turn.CommitAccepted
+ -> VALID POSTCOMMIT -> Patch 0016 EstablishOpportunity -> next state
 ```
 
-No provider call occurs between accepted commit and Opportunity establishment.
-
-## 12. Immutable evidence
+## 12. Immutable evidence / blindness
 
 Evidence is local experimental provenance, **not Production persistence**:
 
@@ -208,32 +198,30 @@ blind/transcript.json
 blind/mapping.json
 ```
 
-Manifest precedes inference/immutable; attempts write-once; events append-only; finalization hashes every artifact. Credentials never enter evidence. Partial/rejected/technical output never enters accepted history; hidden reasoning neither requested nor stored.
+Manifest precedes inference/immutable; attempts write-once; events append-only; finalization hashes artifacts. Credentials never enter evidence. Partial/rejected/technical output never enters accepted history; hidden reasoning neither requested nor stored.
 
-Record Blueprint/fixture/hash; executable Git commit + host OS/arch/.NET; variant; prompt/schema hashes; Access/Context; every role profile/disclosure/receipt; Integrity packet/concerns; Performer/control; Director/Integrity/Interpreter/Authority; mutation decisions; Take/commit/Opportunity; latency; usage/cost; failures; blind mapping.
+Record Blueprint/fixture/hash; executable Git commit + host OS/arch/.NET; variant; prompt/schema hashes; Access/Context; every role profile/disclosure/receipt; Integrity packet/concerns; Performer/control; Director/Integrity/Interpreter/Authority; mutations; Take/commit/Opportunity; latency; usage/cost; failures; blind mapping.
 
-Initial fixture + accepted Take/commit/Opportunity evidence must replay supported H1 transitions; `run.final.json` is checkpoint/projection only. Blind transcript hides variant/provider/reasoning/RunId/hashes/implementation metadata and uses stable neutral speakers; mapping separate.
+Initial fixture + accepted Take/commit/Opportunity evidence must replay supported H1 transitions; `run.final.json` is checkpoint only. Blind transcript contains only evaluation-appropriate Character-visible accepted Performance material with stable neutral speaker labels; it never contains denied/protected Integrity material, assessor diagnostics, provider/reasoning/RunId/hashes/implementation metadata. Mapping stays separate/private.
 
-## 13. Contribution / reasoning sweep
+## 13. Contribution / sweep
 
-Reference contributes only if manifest preceded execution; configured receipts complete; observable model identity stayed frozen; all 12 Turns reached accepted commit + next Opportunity; no technical/cancel/budget/Integrity terminal; evidence finalized; independent post-run hard-gate review finds no Blueprint violation. Post-run failure invalidates contribution but never rewrites it.
+Reference contributes only if manifest preceded execution; receipts complete; observable model identity stayed frozen; all 12 Turns reached accepted commit + next Opportunity; no technical/cancel/budget/Integrity terminal; evidence finalized; independent post-run hard-gate review finds no Blueprint violation. Post-run failure invalidates contribution but never rewrites it.
 
-Failed/noncontributing runs remain immutable; RunId never reused.
-
-PERFORMER LOW/MEDIUM/HIGH reuse exact envelope except Performer reasoning; Integrity high/Interpreter none fixed. Same role ceilings and USD 5.00 run ceiling remain; extra reasoning cost/truncation/timeout is observable, not compensated.
+Failed/noncontributing runs remain immutable; RunId never reused. PERFORMER LOW/MEDIUM/HIGH reuse exact envelope except Performer reasoning; Integrity high/Interpreter none fixed. Same ceilings/$5 run ceiling remain; extra reasoning cost/truncation/timeout is observable, not compensated.
 
 ## 14. Credentials / pre-spend validation
 
 Adapter reads `OPENAI_API_KEY` only as process-injected secret; missing secret fails before execution. Never persist/echo/hash/pass below provider edge. E0 only, not product secret storage.
 
-Before real spend, fake-adapter tests prove: Core unchanged/dependencies clean; role profiles/reasoning isolation; exact Context/request/receipt coupling; stale/cross-run receipt rejection; Integrity packet derivation + configured concern provenance; no parallel Integrity evaluation; one attempt/zero retry; technical outcomes never fiction; cost refusal precedes inference; mandatory-review reject-only behavior; deterministic IDs/materializations; 12-turn synchronization; partial streams diagnostic only; no-overwrite/replay-capable/secret-free evidence; blind identity removal.
+Before real spend, fake-adapter tests prove: Core unchanged/dependencies clean; role profiles/reasoning isolation; dynamic data cannot alter fixed instruction bytes; exact request/receipt coupling; stale/cross-run receipt rejection; Integrity packet/provenance; no parallel Integrity path; one attempt/zero retry; technical outcomes never fiction; cost refusal precedes inference; mandatory-review reject-only behavior; deterministic IDs/materializations; commit→Opportunity cancellation rule; 12-turn synchronization; partial streams diagnostic; secret-free replay evidence; blind output excludes denied material.
 
 Native Windows ARM64 compile/tests/Harness smoke must pass before first real provider request.
 
 ## 15. Exclusions / approval
 
-No Core redesign; product Application/persistence; provider conversation; retry/backoff; understudy; E0-B; E0-E implementation; E0-F implementation; Context optimization; Scene ending; ODR-12/13/30/32; WinUI; Windows AI/NPU; MSIX/WACK/Store.
+No Core redesign; product Application/persistence; provider conversation; retry/backoff; understudy; E0-B; E0-E/F implementation; Context optimization; Scene ending; ODR-12/13/30/32; WinUI; Windows AI/NPU; MSIX/WACK/Store.
 
-Approval freezes: GPT-5.6 Sol; Performers NONE + Interpreter NONE + Integrity HIGH; isolated Performer LOW/MEDIUM/HIGH sweep; bounded prompts + Integrity packet; closed configured receipts; REST/stateless/no-tools/strict output; 12 accepted Turns; one attempt/zero retry/300s per role; 4096 max output per role; USD 5.00 estimated run-token ceiling; deterministic authority/review-reject policy and IDs; immutable replay-capable evidence/blind package; Harness-only provider edge, Core unchanged.
+Approval freezes: GPT-5.6 Sol; Performers NONE + Interpreter NONE + Integrity HIGH; isolated Performer LOW/MEDIUM/HIGH sweep; bounded/instruction-separated prompts + Integrity packet; configured receipts; REST/stateless/no-tools/strict output; 12 accepted Turns; one attempt/zero retry/300s; 4096 max output each role; USD 5.00 estimated run-token ceiling; deterministic authority/review-reject policy/IDs; commit→Opportunity cancellation boundary; immutable replay evidence/blind package; Harness-only provider edge, Core unchanged.
 
 Approval **does not authorize provider requests, credential use, or spend**. Implementation remains fake-first and returns to native ARM64 validation before first real provider call.
