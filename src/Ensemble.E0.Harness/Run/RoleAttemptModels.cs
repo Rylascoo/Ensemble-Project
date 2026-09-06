@@ -173,8 +173,12 @@ internal sealed record E0AUsage(
 {
     internal void Validate()
     {
-        if (InputTokens < 0 || OutputTokens < 0 || CachedInputTokens < 0 || ReasoningTokens < 0 ||
-            CachedInputTokens > InputTokens)
+        if (InputTokens < 0 ||
+            OutputTokens < 0 ||
+            CachedInputTokens < 0 ||
+            ReasoningTokens < 0 ||
+            CachedInputTokens > InputTokens ||
+            ReasoningTokens > OutputTokens)
         {
             throw new E0AHarnessException("E0-A provider usage is invalid.");
         }
