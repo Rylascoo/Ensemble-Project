@@ -157,9 +157,16 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
                 continue;
             }
             var utf8 = Encoding.UTF8.GetBytes(data);
-            diagnostics.RecordStreamEvent(attempt, utf8);
             using var eventDoc = JsonDocument.Parse(utf8);
             var root = eventDoc.RootElement;
+
+            // Thought material is outside E0-A evidence authority. Reject it before
+            // raw diagnostic bytes can be persisted by the evidence sink.
+            if (ContainsThoughtMaterial(root))
+            {
+                return RoleAttemptReceipt.TechnicalFailure(attempt, "gemini-thought-material-returned");
+            }
+            diagnostics.RecordStreamEvent(attempt, utf8);
 
             if (PromptBlocked(root))
             {
@@ -281,6 +288,34 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
         }
         return string.Equals(responseId, id, StringComparison.Ordinal) &&
                string.Equals(modelVersion, model, StringComparison.Ordinal);
+    }
+
+    private static bool ContainsThoughtMaterial(JsonElement element)
+    {
+        if (element.ValueKind == JsonValueKind.Object)
+        {
+            foreach (var property in element.EnumerateObject())
+            {
+                if (property.NameEquals("thoughtSignature") ||
+                    (property.NameEquals("thought") && property.Value.ValueKind == JsonValueKind.True) ||
+                    ContainsThoughtMaterial(property.Value))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        if (element.ValueKind == JsonValueKind.Array)
+        {
+            foreach (var item in element.EnumerateArray())
+            {
+                if (ContainsThoughtMaterial(item))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     private static bool AppendCandidateText(
