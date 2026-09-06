@@ -9,12 +9,26 @@ internal sealed class OpenAIResponsesPort : IE0AProviderRolePort, IE0AInputToken
 {
     private static readonly Uri ResponsesUri = new("https://api.openai.com/v1/responses");
     private static readonly Uri InputTokensUri = new("https://api.openai.com/v1/responses/input_tokens");
+    private static readonly string[] InputTokenRequestFields =
+    {
+        "model",
+        "instructions",
+        "input",
+        "reasoning",
+        "text",
+        "truncation"
+    };
+
     private readonly HttpClient _http;
     private readonly string _apiKey;
 
     internal OpenAIResponsesPort(HttpClient http, string apiKey)
     {
         _http = http ?? throw new ArgumentNullException(nameof(http));
+        if (string.IsNullOrWhiteSpace(apiKey))
+        {
+            throw new E0AHarnessException("OPENAI_API_KEY is required at the E0-A provider edge.");
+        }
         _apiKey = apiKey;
     }
 
@@ -35,7 +49,8 @@ internal sealed class OpenAIResponsesPort : IE0AProviderRolePort, IE0AInputToken
         ArgumentNullException.ThrowIfNull(attempt);
         try
         {
-            using var request = CreateRequest(HttpMethod.Post, InputTokensUri, attempt.RequestBody);
+            var body = BuildInputTokenRequestBody(attempt.RequestBody);
+            using var request = CreateRequest(HttpMethod.Post, InputTokensUri, body);
             using var response = await _http.SendAsync(request, HttpCompletionOption.ResponseContentRead, cancellationToken).ConfigureAwait(false);
             if (!response.IsSuccessStatusCode)
             {
@@ -51,13 +66,17 @@ internal sealed class OpenAIResponsesPort : IE0AProviderRolePort, IE0AInputToken
             }
             return tokens;
         }
-        catch (HttpRequestException)
+        catch (OperationCanceledException)
+        {
+            throw;
+        }
+        catch (E0AHarnessException)
+        {
+            throw;
+        }
+        catch (Exception exception) when (exception is HttpRequestException or IOException or JsonException)
         {
             throw new E0AHarnessException("E0-A provider input-token preflight failed.");
-        }
-        catch (JsonException)
-        {
-            throw new E0AHarnessException("E0-A provider input-token response is invalid.");
         }
     }
 
@@ -74,13 +93,17 @@ internal sealed class OpenAIResponsesPort : IE0AProviderRolePort, IE0AInputToken
                 ? await ExecuteStreamingAsync(attempt, diagnostics, cancellationToken).ConfigureAwait(false)
                 : await ExecuteBufferedAsync(attempt, cancellationToken).ConfigureAwait(false);
         }
-        catch (HttpRequestException)
+        catch (OperationCanceledException)
         {
-            return RoleAttemptReceipt.TechnicalFailure(attempt, "transport");
+            throw;
         }
-        catch (JsonException)
+        catch (Exception exception) when (
+            exception is HttpRequestException or
+            IOException or
+            JsonException or
+            E0AHarnessException)
         {
-            return RoleAttemptReceipt.TechnicalFailure(attempt, "invalid-provider-json");
+            return RoleAttemptReceipt.TechnicalFailure(attempt, "malformed-or-transport");
         }
     }
 
@@ -273,7 +296,10 @@ internal sealed class OpenAIResponsesPort : IE0AProviderRolePort, IE0AInputToken
             inputDetails.ValueKind == JsonValueKind.Object &&
             inputDetails.TryGetProperty("cached_tokens", out var cachedElement))
         {
-            _ = cachedElement.TryGetInt64(out cached);
+            if (!cachedElement.TryGetInt64(out cached))
+            {
+                return null;
+            }
         }
 
         long reasoning = 0;
@@ -281,12 +307,41 @@ internal sealed class OpenAIResponsesPort : IE0AProviderRolePort, IE0AInputToken
             outputDetails.ValueKind == JsonValueKind.Object &&
             outputDetails.TryGetProperty("reasoning_tokens", out var reasoningElement))
         {
-            _ = reasoningElement.TryGetInt64(out reasoning);
+            if (!reasoningElement.TryGetInt64(out reasoning))
+            {
+                return null;
+            }
         }
 
         var result = new E0AUsage(inputTokens, outputTokens, cached, reasoning);
         result.Validate();
         return result;
+    }
+
+    private static byte[] BuildInputTokenRequestBody(byte[] responseRequestBody)
+    {
+        using var source = JsonDocument.Parse(responseRequestBody);
+        if (source.RootElement.ValueKind != JsonValueKind.Object)
+        {
+            throw new E0AHarnessException("E0-A prepared provider request body is invalid.");
+        }
+
+        var projected = new Dictionary<string, JsonElement>(StringComparer.Ordinal);
+        foreach (var field in InputTokenRequestFields)
+        {
+            if (source.RootElement.TryGetProperty(field, out var value))
+            {
+                projected[field] = value.Clone();
+            }
+        }
+
+        if (!projected.ContainsKey("model") ||
+            !projected.ContainsKey("input") ||
+            !projected.ContainsKey("instructions"))
+        {
+            throw new E0AHarnessException("E0-A prepared provider request cannot be projected for input-token counting.");
+        }
+        return JsonSerializer.SerializeToUtf8Bytes(projected);
     }
 
     private HttpRequestMessage CreateRequest(HttpMethod method, Uri uri, byte[] body)
