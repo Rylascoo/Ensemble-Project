@@ -28,6 +28,23 @@ public sealed class E0ALiveHostReadinessTests
     }
 
     [TestMethod]
+    public async Task InputTokenPreflight_DoesNotForwardPromptCacheControl()
+    {
+        var handler = new StaticResponseHandler("{\"input_tokens\":7}");
+        using var http = new HttpClient(handler);
+        var port = new OpenAIResponsesPort(http, "test-secret");
+        var envelope = E0ARunEnvelope.CreativeNone(E0ATestSupport.Pricing());
+        var context = DeterministicE0CausalCycle.ComposeContext(E0ATestSupport.Cycle()).ContextEvaluation.Packet;
+        var attempt = E0ARequestBuilder.Performer(RunId.From("E0A-CACHE-PREFLIGHT"), 1, envelope.Performer, context);
+
+        var count = await port.CountInputTokensAsync(attempt, CancellationToken.None);
+
+        Assert.AreEqual(7L, count);
+        using var body = JsonDocument.Parse(handler.LastBody!);
+        Assert.IsFalse(body.RootElement.TryGetProperty("prompt_cache_options", out _));
+    }
+
+    [TestMethod]
     public async Task UnexpectedCacheWriteUsage_FailsClosedAsTechnicalReceipt()
     {
         var output = Encoding.UTF8.GetString(E0ATestSupport.IntegrityOutput());
@@ -182,13 +199,19 @@ public sealed class E0ALiveHostReadinessTests
     {
         private readonly string _json;
         internal StaticResponseHandler(string json) => _json = json;
+        internal string? LastBody { get; private set; }
 
-        protected override Task<HttpResponseMessage> SendAsync(
+        protected override async Task<HttpResponseMessage> SendAsync(
             HttpRequestMessage request,
-            CancellationToken cancellationToken) =>
-            Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK)
+            CancellationToken cancellationToken)
+        {
+            LastBody = request.Content is null
+                ? null
+                : await request.Content.ReadAsStringAsync(cancellationToken);
+            return new HttpResponseMessage(HttpStatusCode.OK)
             {
                 Content = new StringContent(_json, Encoding.UTF8, "application/json")
-            });
+            };
+        }
     }
 }
