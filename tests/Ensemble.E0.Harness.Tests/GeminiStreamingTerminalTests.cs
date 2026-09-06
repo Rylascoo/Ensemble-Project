@@ -14,7 +14,7 @@ namespace Ensemble.E0.Harness.Tests;
 public sealed class GeminiStreamingTerminalTests
 {
     [TestMethod]
-    public async Task SemanticBytesAfterStopAreRejectedWhileMetadataOnlyCompletionRemainsAllowed()
+    public async Task SemanticBytesAfterStopAreRejected()
     {
         var first = JsonSerializer.Serialize(new
         {
@@ -45,25 +45,72 @@ public sealed class GeminiStreamingTerminalTests
             modelVersion = "gemini-2.5-flash-20260901",
             responseId = "resp-after-stop"
         });
+        var receipt = await ExecuteAsync(
+            $"data: {first}\n\ndata: {second}\n\n",
+            "E0A-GEMINI-AFTER-STOP");
+
+        Assert.AreEqual(E0ARoleAttemptOutcome.TechnicalFailure, receipt.Outcome);
+        Assert.AreEqual("gemini-content-after-stop", receipt.DiagnosticCode);
+        Assert.IsNull(receipt.StructuredOutput);
+    }
+
+    [TestMethod]
+    public async Task MetadataOnlyChunkAfterStopCanSupplyFinalUsage()
+    {
+        var output = Encoding.UTF8.GetString(E0ATestSupport.PerformerOutput());
+        var first = JsonSerializer.Serialize(new
+        {
+            candidates = new[]
+            {
+                new
+                {
+                    content = new { parts = new[] { new { text = output } } },
+                    finishReason = "STOP"
+                }
+            },
+            modelVersion = "gemini-2.5-flash-20260901",
+            responseId = "resp-metadata-after-stop"
+        });
+        var second = JsonSerializer.Serialize(new
+        {
+            usageMetadata = new
+            {
+                promptTokenCount = 10,
+                candidatesTokenCount = 4,
+                thoughtsTokenCount = 0,
+                cachedContentTokenCount = 0,
+                toolUsePromptTokenCount = 0,
+                totalTokenCount = 14
+            },
+            modelVersion = "gemini-2.5-flash-20260901",
+            responseId = "resp-metadata-after-stop"
+        });
+        var receipt = await ExecuteAsync(
+            $"data: {first}\n\ndata: {second}\n\n",
+            "E0A-GEMINI-METADATA-AFTER-STOP");
+
+        Assert.AreEqual(E0ARoleAttemptOutcome.Success, receipt.Outcome);
+        Assert.AreEqual("resp-metadata-after-stop", receipt.ResponseId);
+        CollectionAssert.AreEqual(E0ATestSupport.PerformerOutput(), receipt.StructuredOutput!);
+    }
+
+    private static async Task<RoleAttemptReceipt> ExecuteAsync(string sse, string runId)
+    {
         var handler = new SingleResponseHandler(new HttpResponseMessage(HttpStatusCode.OK)
         {
-            Content = new StringContent($"data: {first}\n\ndata: {second}\n\n", Encoding.UTF8, "text/event-stream")
+            Content = new StringContent(sse, Encoding.UTF8, "text/event-stream")
         });
         using var http = new HttpClient(handler);
         var port = new GeminiGenerateContentPort(http, "test-key");
         var envelope = E0AReferenceRunHost.CreateEnvelope("CREATIVE-NONE");
         var context = DeterministicE0CausalCycle.ComposeContext(E0ATestSupport.Cycle()).ContextEvaluation.Packet;
         var attempt = E0ARequestBuilder.Performer(
-            RunId.From("E0A-GEMINI-AFTER-STOP"),
+            RunId.From(runId),
             1,
             envelope.Performer,
             context);
 
-        var receipt = await port.ExecuteAsync(attempt, new CollectingDiagnosticSink(), CancellationToken.None);
-
-        Assert.AreEqual(E0ARoleAttemptOutcome.TechnicalFailure, receipt.Outcome);
-        Assert.AreEqual("gemini-content-after-stop", receipt.DiagnosticCode);
-        Assert.IsNull(receipt.StructuredOutput);
+        return await port.ExecuteAsync(attempt, new CollectingDiagnosticSink(), CancellationToken.None);
     }
 
     private sealed class SingleResponseHandler : HttpMessageHandler
