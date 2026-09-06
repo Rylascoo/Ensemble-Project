@@ -32,7 +32,7 @@ internal sealed class E0ASpendLedger
         return new E0ASpendReservation(inputTokens, maxOutputTokens, reservation);
     }
 
-    internal decimal Reconcile(E0ASpendReservation reservation, E0AUsage usage)
+    internal E0ASpendReconciliation Reconcile(E0ASpendReservation reservation, E0AUsage usage)
     {
         ArgumentNullException.ThrowIfNull(reservation);
         ArgumentNullException.ThrowIfNull(usage);
@@ -42,24 +42,22 @@ internal sealed class E0ASpendLedger
         {
             throw new E0AHarnessException("E0-A spend reservation is not current.");
         }
-        if (usage.InputTokens > reservation.InputTokens ||
-            usage.OutputTokens > reservation.MaxOutputTokens)
-        {
-            throw new E0AHarnessException("E0-A reported usage exceeds its reserved token ceilings.");
-        }
 
         var actual = Cost(
             usage.InputTokens - usage.CachedInputTokens,
             usage.CachedInputTokens,
             usage.OutputTokens);
-        if (actual > reservation.ReservedUsd)
-        {
-            throw new E0AHarnessException("E0-A reported usage exceeds its conservative reservation.");
-        }
+        var reservationExceeded =
+            usage.InputTokens > reservation.InputTokens ||
+            usage.OutputTokens > reservation.MaxOutputTokens ||
+            actual > reservation.ReservedUsd;
 
         _estimatedCommittedUsd += actual;
         _reservedUsd = 0m;
-        return actual;
+        return new E0ASpendReconciliation(
+            actual,
+            reservationExceeded,
+            _estimatedCommittedUsd > E0ARunEnvelope.EstimatedSpendCeilingUsd);
     }
 
     internal void Release(E0ASpendReservation reservation)
@@ -80,6 +78,11 @@ internal sealed class E0ASpendLedger
 }
 
 internal sealed record E0ASpendReservation(long InputTokens, int MaxOutputTokens, decimal ReservedUsd);
+
+internal sealed record E0ASpendReconciliation(
+    decimal ActualUsd,
+    bool ReservationExceeded,
+    bool RunCeilingExceeded);
 
 internal sealed class E0ABudgetExceededException : Exception
 {
