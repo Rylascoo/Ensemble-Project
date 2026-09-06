@@ -129,6 +129,19 @@ internal static class E0ARequestBuilder
         string schemaName,
         string schemaJson)
     {
+        ArgumentNullException.ThrowIfNull(profile);
+        return string.Equals(profile.Provider, E0AGeminiProviderPolicy.Provider, StringComparison.Ordinal)
+            ? BuildGeminiBody(profile, instructions, data, schemaJson)
+            : BuildOpenAIBody(profile, instructions, data, schemaName, schemaJson);
+    }
+
+    private static byte[] BuildOpenAIBody(
+        E0ARoleProfile profile,
+        string instructions,
+        string data,
+        string schemaName,
+        string schemaJson)
+    {
         using var schema = JsonDocument.Parse(schemaJson);
         var body = new Dictionary<string, object?>
         {
@@ -152,6 +165,50 @@ internal static class E0ARequestBuilder
                     ["schema"] = schema.RootElement.Clone()
                 }
             }
+        };
+        return JsonSerializer.SerializeToUtf8Bytes(body);
+    }
+
+    private static byte[] BuildGeminiBody(
+        E0ARoleProfile profile,
+        string instructions,
+        string data,
+        string schemaJson)
+    {
+        if (!string.Equals(profile.Model, E0AGeminiProviderPolicy.Model, StringComparison.Ordinal) ||
+            !string.Equals(profile.ServiceTier, E0AGeminiProviderPolicy.ServiceTier, StringComparison.Ordinal))
+        {
+            throw new E0AHarnessException("E0-A Gemini request profile is outside the approved normative route.");
+        }
+
+        using var schema = JsonDocument.Parse(schemaJson);
+        var body = new Dictionary<string, object?>
+        {
+            ["systemInstruction"] = new
+            {
+                parts = new[] { new { text = instructions } }
+            },
+            ["contents"] = new[]
+            {
+                new
+                {
+                    role = "user",
+                    parts = new[] { new { text = data } }
+                }
+            },
+            ["generationConfig"] = new Dictionary<string, object?>
+            {
+                ["maxOutputTokens"] = profile.MaxOutputTokens,
+                ["responseMimeType"] = "application/json",
+                ["responseJsonSchema"] = schema.RootElement.Clone(),
+                ["thinkingConfig"] = new Dictionary<string, object?>
+                {
+                    ["thinkingBudget"] = E0AGeminiProviderPolicy.ThinkingBudgetTokens(profile)
+                }
+            },
+            // Standard inference is the provider default. The profile records the
+            // resolved semantic tier while omitting an unnecessary provider field.
+            ["store"] = false
         };
         return JsonSerializer.SerializeToUtf8Bytes(body);
     }
