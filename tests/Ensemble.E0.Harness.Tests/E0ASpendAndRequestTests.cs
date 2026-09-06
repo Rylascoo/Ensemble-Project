@@ -14,25 +14,25 @@ public sealed class E0ASpendAndRequestTests
     public void SpendReservation_IsWorstCaseAndReconcilesCachedUsageConservatively()
     {
         var ledger = new E0ASpendLedger(E0ATestSupport.Pricing());
-        var reservation = ledger.Reserve(1_000_000, 500_000);
-        Assert.AreEqual(2.0m, reservation.ReservedUsd);
-        Assert.AreEqual(2.0m, ledger.ReservedUsd);
+        var reservation = ledger.Reserve(100_000, 50_000);
+        Assert.AreEqual(0.2m, reservation.ReservedUsd);
+        Assert.AreEqual(0.2m, ledger.ReservedUsd);
 
         var reconciliation = ledger.Reconcile(
             reservation,
-            new E0AUsage(1_000_000, 500_000, 100_000, 0));
-        Assert.AreEqual(2.0m, reconciliation.ActualUsd);
+            new E0AUsage(100_000, 50_000, 10_000, 0));
+        Assert.AreEqual(0.2m, reconciliation.ActualUsd);
         Assert.IsFalse(reconciliation.ReservationExceeded);
         Assert.IsFalse(reconciliation.RunCeilingExceeded);
-        Assert.AreEqual(2.0m, ledger.EstimatedCommittedUsd);
+        Assert.AreEqual(0.2m, ledger.EstimatedCommittedUsd);
         Assert.AreEqual(0m, ledger.ReservedUsd);
     }
 
     [TestMethod]
     public void SpendReservation_RefusesBeforeCrossingRunCeiling()
     {
-        var ledger = new E0ASpendLedger(E0ATestSupport.Pricing());
-        Assert.Throws<E0ABudgetExceededException>(() => ledger.Reserve(5_000_000, E0ARunEnvelope.RoleMaxOutputTokens));
+        var ledger = new E0ASpendLedger(new E0APricingAssumptions(20m, 0m, 2m));
+        Assert.Throws<E0ABudgetExceededException>(() => ledger.Reserve(250_000, 1));
         Assert.AreEqual(0m, ledger.EstimatedCommittedUsd);
         Assert.AreEqual(0m, ledger.ReservedUsd);
     }
