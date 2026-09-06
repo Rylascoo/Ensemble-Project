@@ -42,6 +42,11 @@ internal sealed class E0ASpendLedger
         {
             throw new E0AHarnessException("E0-A spend reservation is not current.");
         }
+        if (usage.InputTokens > reservation.InputTokens ||
+            usage.OutputTokens > reservation.MaxOutputTokens)
+        {
+            throw new E0AHarnessException("E0-A reported usage exceeds its reserved token ceilings.");
+        }
 
         var actual = Cost(
             usage.InputTokens - usage.CachedInputTokens,
