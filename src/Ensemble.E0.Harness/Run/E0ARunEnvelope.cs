@@ -61,7 +61,7 @@ internal static class E0AGeminiProviderPolicy
     internal const string ServiceTier = "standard";
     internal const int CreativeThinkingBudgetTokens = 0;
     internal const int IntegrityThinkingBudgetTokens = 3_584;
-    internal const int IntegrityCandidateMaxOutputTokens = 512;
+    internal const int IntegrityCandidateMaxOutputTokens = 4_096;
     internal const int IntendedGeneratedTokenCeiling = 4_096;
     internal const long ModelInputTokenLimit = 1_048_576;
     internal const int ModelOutputTokenLimit = 65_536;
