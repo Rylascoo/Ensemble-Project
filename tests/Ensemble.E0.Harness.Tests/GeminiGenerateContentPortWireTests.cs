@@ -33,10 +33,14 @@ public sealed class GeminiGenerateContentPortWireTests
         Assert.IsFalse(root.GetProperty("store").GetBoolean());
         Assert.AreEqual(E0APromptContracts.PerformerInstructions, system.GetProperty("parts")[0].GetProperty("text").GetString());
         Assert.AreEqual("user", contents[0].GetProperty("role").GetString());
+        Assert.AreEqual(1, config.GetProperty("candidateCount").GetInt32());
         Assert.AreEqual(E0ARunEnvelope.RoleMaxOutputTokens, config.GetProperty("maxOutputTokens").GetInt32());
-        Assert.AreEqual("application/json", config.GetProperty("responseMimeType").GetString());
         Assert.AreEqual(0, config.GetProperty("thinkingConfig").GetProperty("thinkingBudget").GetInt32());
-        Assert.AreEqual(JsonValueKind.Object, config.GetProperty("responseJsonSchema").ValueKind);
+        var responseFormat = config.GetProperty("responseFormat").GetProperty("text");
+        Assert.AreEqual("application/json", responseFormat.GetProperty("mimeType").GetString());
+        Assert.AreEqual(JsonValueKind.Object, responseFormat.GetProperty("schema").ValueKind);
+        Assert.IsFalse(config.TryGetProperty("responseMimeType", out _));
+        Assert.IsFalse(config.TryGetProperty("responseJsonSchema", out _));
     }
 
     [TestMethod]
@@ -47,6 +51,7 @@ public sealed class GeminiGenerateContentPortWireTests
 
         using var body = JsonDocument.Parse(attempt.RequestBody);
         var config = body.RootElement.GetProperty("generationConfig");
+        Assert.AreEqual(1, config.GetProperty("candidateCount").GetInt32());
         Assert.AreEqual(E0AGeminiProviderPolicy.IntegrityCandidateMaxOutputTokens, config.GetProperty("maxOutputTokens").GetInt32());
         Assert.AreEqual(E0AGeminiProviderPolicy.IntegrityThinkingBudgetTokens, config.GetProperty("thinkingConfig").GetProperty("thinkingBudget").GetInt32());
         Assert.AreEqual(envelope.Integrity.MaxOutputTokens, attempt.Profile.MaxOutputTokens);
