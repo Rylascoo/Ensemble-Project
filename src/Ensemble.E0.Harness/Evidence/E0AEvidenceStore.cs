@@ -14,6 +14,7 @@ internal static class E0AEvidenceContracts
     internal const string ReferenceEnvelopeBlueprint = "E0A_PHASE_B_REFERENCE_RUN_ENVELOPE_PROPOSAL_0.15";
     internal const string ApprovedBlueprintCommit = "e1d0b4aea0f7ba29cf85e765bea33d14eab35fde";
     internal const string HardGateChecklistVersion = "ensemble.e0a.hard-gates.v1";
+    internal const string MandatoryReviewResolution = "deterministic-reject-all";
 
     internal static ImmutableArray<string> HardGateChecklist { get; } = ImmutableArray.Create(
         "No secret or inaccessible-information leakage into Character Performance.",
@@ -79,8 +80,8 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
         }
         if (string.IsNullOrWhiteSpace(fixtureId) ||
             string.IsNullOrWhiteSpace(fixtureVersion) ||
-            !IsLowerHexSha256(fixtureHash) ||
-            string.IsNullOrWhiteSpace(executableCommit))
+            !IsLowerHex(fixtureHash, 64) ||
+            !IsGitCommitIdentity(executableCommit))
         {
             throw new E0AHarnessException("E0-A run manifest identity is invalid.");
         }
@@ -140,6 +141,11 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
                 inputUsdPerMillionTokens = envelope.Pricing.InputUsdPerMillionTokens,
                 cachedInputUsdPerMillionTokens = envelope.Pricing.CachedInputUsdPerMillionTokens,
                 outputUsdPerMillionTokens = envelope.Pricing.OutputUsdPerMillionTokens
+            },
+            stateAuthority = new
+            {
+                autoApproveDomains = envelope.AutoApproveDomains.Select(x => x.ToString()).ToArray(),
+                mandatoryReviewResolution = E0AEvidenceContracts.MandatoryReviewResolution
             },
             host = new
             {
@@ -286,7 +292,7 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
         if (string.IsNullOrWhiteSpace(terminalStatus) ||
             acceptedTurns is < 0 or > E0ARunEnvelope.AcceptedTurnCap ||
             estimatedSpendUsd < 0m ||
-            !IsLowerHexSha256(finalStateHash) ||
+            !IsLowerHex(finalStateHash, 64) ||
             !_blindLabels.ContainsKey(finalOpportunity))
         {
             throw new E0AHarnessException("E0-A runtime seal summary is invalid.");
@@ -419,9 +425,12 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
 
     private static string Safe(string value) => value.Replace(':', '_');
 
-    private static bool IsLowerHexSha256(string? value)
+    private static bool IsGitCommitIdentity(string? value) =>
+        IsLowerHex(value, 40) || IsLowerHex(value, 64);
+
+    private static bool IsLowerHex(string? value, int length)
     {
-        if (value is null || value.Length != 64)
+        if (value is null || value.Length != length)
         {
             return false;
         }
