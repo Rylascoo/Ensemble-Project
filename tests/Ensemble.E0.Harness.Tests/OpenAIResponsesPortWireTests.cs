@@ -100,12 +100,12 @@ public sealed class OpenAIResponsesPortWireTests
     }
 
     [TestMethod]
-    public async Task StreamingDeltaMismatchWithCompletedResponse_FailsClosed()
+    public async Task StreamingProvisionalDeltaCannotOverrideCompletedSemanticOutput()
     {
         var provisional = Encoding.UTF8.GetString(E0ATestSupport.PerformerOutput("Provisional."));
         var final = Encoding.UTF8.GetString(E0ATestSupport.PerformerOutput("Final."));
         var delta = JsonSerializer.Serialize(new { type = "response.output_text.delta", delta = provisional });
-        var completed = StreamingCompletedEvent("resp-stream-mismatch", final, inputTokens: 8, outputTokens: 4);
+        var completed = StreamingCompletedEvent("resp-stream-final", final, inputTokens: 8, outputTokens: 4);
         var sse = $"data: {delta}\n\ndata: {completed}\n\n";
         var handler = new RecordingHandler(_ => new HttpResponseMessage(HttpStatusCode.OK)
         {
@@ -113,14 +113,14 @@ public sealed class OpenAIResponsesPortWireTests
         });
         using var http = new HttpClient(handler);
         var port = new OpenAIResponsesPort(http, "test-secret");
-        var attempt = PerformerAttempt("E0A-WIRE-STREAM-MISMATCH");
+        var attempt = PerformerAttempt("E0A-WIRE-STREAM-FINAL");
 
         var receipt = await port.ExecuteAsync(attempt, new CollectingDiagnosticSink(), CancellationToken.None);
 
-        Assert.AreEqual(E0ARoleAttemptOutcome.TechnicalFailure, receipt.Outcome);
-        Assert.IsNull(receipt.StructuredOutput);
-        Assert.IsNull(receipt.Usage);
-        Assert.AreEqual("stream-final-mismatch", receipt.DiagnosticCode);
+        Assert.AreEqual(E0ARoleAttemptOutcome.Success, receipt.Outcome);
+        CollectionAssert.AreEqual(E0ATestSupport.PerformerOutput("Final."), receipt.StructuredOutput!);
+        Assert.AreEqual(8L, receipt.Usage!.InputTokens);
+        Assert.AreEqual(4L, receipt.Usage.OutputTokens);
     }
 
     [TestMethod]
