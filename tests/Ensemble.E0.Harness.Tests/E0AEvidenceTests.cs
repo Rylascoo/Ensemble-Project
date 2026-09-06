@@ -54,9 +54,20 @@ public sealed class E0AEvidenceTests
 
             Assert.AreEqual(state.OriginFixtureVersion.Value, manifest.GetProperty("fixtureVersion").GetString());
             Assert.AreEqual(E0ATestSupport.TestExecutableCommit, manifest.GetProperty("executableCommit").GetString());
-            Assert.AreEqual(1m, manifest.GetProperty("pricing").GetProperty("inputUsdPerMillionTokens").GetDecimal());
-            Assert.AreEqual(0.25m, manifest.GetProperty("pricing").GetProperty("cachedInputUsdPerMillionTokens").GetDecimal());
-            Assert.AreEqual(2m, manifest.GetProperty("pricing").GetProperty("outputUsdPerMillionTokens").GetDecimal());
+            var pricing = manifest.GetProperty("pricing");
+            Assert.AreEqual(E0APricingPolicy.SourceUri, pricing.GetProperty("sourceUri").GetString());
+            Assert.AreEqual(E0APricingPolicy.VerifiedOn, pricing.GetProperty("verifiedOn").GetString());
+            Assert.AreEqual(E0APricingPolicy.PromotionalPricingGuaranteedThrough, pricing.GetProperty("promotionalPricingGuaranteedThrough").GetString());
+            Assert.AreEqual(E0APricingPolicy.PublishedInputUsdPerMillionTokens, pricing.GetProperty("publishedInputUsdPerMillionTokens").GetDecimal());
+            Assert.AreEqual(E0APricingPolicy.PublishedCachedInputUsdPerMillionTokens, pricing.GetProperty("publishedCachedInputUsdPerMillionTokens").GetDecimal());
+            Assert.AreEqual(E0APricingPolicy.PublishedOutputUsdPerMillionTokens, pricing.GetProperty("publishedOutputUsdPerMillionTokens").GetDecimal());
+            Assert.AreEqual(E0APricingPolicy.CacheWriteMultiplier, pricing.GetProperty("cacheWriteMultiplier").GetDecimal());
+            Assert.AreEqual(E0APricingPolicy.StandardTierMaxInputTokens, pricing.GetProperty("standardTierMaxInputTokens").GetInt64());
+            Assert.AreEqual("all-reported-input-at-conservative-cache-write-capable-rate", pricing.GetProperty("accountingMethod").GetString());
+            Assert.AreEqual(1m, pricing.GetProperty("inputUsdPerMillionTokens").GetDecimal());
+            Assert.AreEqual(0.25m, pricing.GetProperty("cachedInputUsdPerMillionTokens").GetDecimal());
+            Assert.AreEqual(2m, pricing.GetProperty("outputUsdPerMillionTokens").GetDecimal());
+            Assert.AreEqual(E0AProviderTransportPolicy.PromptCacheMode, manifest.GetProperty("providerTransport").GetProperty("promptCacheMode").GetString());
             Assert.AreEqual(3, manifest.GetProperty("roles").GetArrayLength());
             Assert.AreEqual(1, manifest.GetProperty("attemptsPerRoleInvocation").GetInt32());
             Assert.IsTrue(manifest.GetProperty("host").TryGetProperty("processArchitecture", out _));
