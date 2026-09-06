@@ -1,0 +1,56 @@
+{
+  "phase": "E0-A Phase B",
+  "architecture": "Reference Run Envelope Proposal 0.15",
+  "status": "static-audit-clean-native-validation-pending",
+  "authority": {
+    "parentMain": "2b628c2d97eb39f4d96ce3e81eafefe93ba28b09",
+    "approvedArchitectureCommit": "e1d0b4aea0f7ba29cf85e765bea33d14eab35fde",
+    "preHandoffExecutableCheckpoint": "74305ce3c501d5da0762bd88598d6bd83f627d14",
+    "resumedAuditExecutableTestCheckpoint": "81f199e51ea636c2cd9ad0350d815fa52dd6373f"
+  },
+  "scope": {
+    "coreChanged": false,
+    "applicationPersistenceUiEntered": false,
+    "laterE0PhasesEntered": false,
+    "providerExecutionAuthorized": false,
+    "credentialsAuthorized": false,
+    "spendAuthorized": false
+  },
+  "referenceConfiguration": {
+    "provider": "OpenAI",
+    "model": "gpt-5.6-sol",
+    "performerReasoning": "none",
+    "integrityReasoning": "high",
+    "interpreterReasoning": "none",
+    "acceptedTurnCap": 12,
+    "attemptsPerRoleInvocation": 1,
+    "automaticRetries": 0,
+    "attemptTimeoutSeconds": 300,
+    "maxOutputTokensPerRole": 4096,
+    "estimatedRunCeilingUsd": 5.00
+  },
+  "expected": {
+    "accessBeforeContext": true,
+    "configuredReceiptAssociationBeforeSemanticConsumption": true,
+    "streamedDeltasAreDiagnosticOnly": true,
+    "completedResponseSuppliesStreamingSemanticOutput": true,
+    "cachedInputTokensCannotExceedInputTokens": true,
+    "reasoningTokensCannotExceedOutputTokens": true,
+    "spendReconciledBeforeSemanticConsumption": true,
+    "integrityConcernStopsBeforeInterpreterCommit": true,
+    "mandatoryStateAuthorityReviewRejectedDeterministically": true,
+    "commitImmediatelyEstablishesNextOpportunity": true,
+    "partialRejectedTechnicalOutputExcludedFromAcceptedTranscript": true,
+    "runtimeAndEvaluationEvidenceSealedSeparately": true,
+    "hardGateChecklistFrozenBeforeRun": true,
+    "nativeCoreTestTotal": null,
+    "nativeHarnessTestTotal": null
+  },
+  "nativeArm64Validation": {
+    "status": "pending",
+    "requiredSource": "Director machine",
+    "requiredArchitecture": "ARM64",
+    "requiredRid": "win-arm64",
+    "providerRequestRequired": false
+  }
+}
