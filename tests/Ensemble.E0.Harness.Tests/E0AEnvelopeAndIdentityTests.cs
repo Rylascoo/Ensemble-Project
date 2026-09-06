@@ -39,12 +39,18 @@ public sealed class E0AEnvelopeAndIdentityTests
     [TestMethod]
     public void ApprovedEnvelopeConstants_AreExact()
     {
-        Assert.AreEqual(12, E0ARunEnvelope.AcceptedTurnCap);
-        Assert.AreEqual(1, E0ARunEnvelope.AttemptsPerRoleInvocation);
-        Assert.AreEqual(0, E0ARunEnvelope.AutomaticRetries);
-        Assert.AreEqual(300, E0ARunEnvelope.AttemptTimeoutSeconds);
-        Assert.AreEqual(5.00m, E0ARunEnvelope.EstimatedSpendCeilingUsd);
-        Assert.AreEqual(4096, E0ARunEnvelope.RoleMaxOutputTokens);
+        object[] expected = { 12, 1, 0, 300, 5.00m, 4096 };
+        object[] actual =
+        {
+            E0ARunEnvelope.AcceptedTurnCap,
+            E0ARunEnvelope.AttemptsPerRoleInvocation,
+            E0ARunEnvelope.AutomaticRetries,
+            E0ARunEnvelope.AttemptTimeoutSeconds,
+            E0ARunEnvelope.EstimatedSpendCeilingUsd,
+            E0ARunEnvelope.RoleMaxOutputTokens
+        };
+
+        CollectionAssert.AreEqual(expected, actual);
     }
 
     [TestMethod]
