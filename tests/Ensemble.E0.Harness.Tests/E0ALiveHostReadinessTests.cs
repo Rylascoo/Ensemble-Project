@@ -18,7 +18,7 @@ public sealed class E0ALiveHostReadinessTests
     private const string ExpectedCommit = "0123456789abcdef0123456789abcdef01234567";
 
     [TestMethod]
-    public void PreparedRequest_DisablesImplicitPromptCaching()
+    public void HistoricalOpenAIPreparedRequest_DisablesImplicitPromptCaching()
     {
         var envelope = E0ARunEnvelope.CreativeNone(E0ATestSupport.Pricing());
         var context = DeterministicE0CausalCycle.ComposeContext(E0ATestSupport.Cycle()).ContextEvaluation.Packet;
@@ -30,7 +30,7 @@ public sealed class E0ALiveHostReadinessTests
     }
 
     [TestMethod]
-    public async Task InputTokenPreflight_DoesNotForwardPromptCacheControl()
+    public async Task HistoricalOpenAIInputTokenPreflight_DoesNotForwardPromptCacheControl()
     {
         var handler = new StaticResponseHandler("{\"input_tokens\":7}");
         using var http = new HttpClient(handler);
@@ -47,7 +47,7 @@ public sealed class E0ALiveHostReadinessTests
     }
 
     [TestMethod]
-    public async Task CacheWriteUsage_IsInputDetailAndOverlapIsPreservedForConservativeReconciliation()
+    public async Task HistoricalOpenAICacheWriteUsage_IsInputDetailAndOverlapIsPreservedForConservativeReconciliation()
     {
         var output = Encoding.UTF8.GetString(E0ATestSupport.IntegrityOutput());
         var responseJson = JsonSerializer.Serialize(new
@@ -66,7 +66,7 @@ public sealed class E0ALiveHostReadinessTests
         });
         using var http = new HttpClient(new StaticResponseHandler(responseJson));
         var port = new OpenAIResponsesPort(http, "test-secret");
-        var attempt = IntegrityAttempt("E0A-CACHE-WRITE");
+        var attempt = HistoricalIntegrityAttempt("E0A-CACHE-WRITE");
 
         var receipt = await port.ExecuteAsync(attempt, new CollectingDiagnosticSink(), CancellationToken.None);
 
@@ -78,9 +78,9 @@ public sealed class E0ALiveHostReadinessTests
     }
 
     [TestMethod]
-    public void CacheWriteUsage_ReconcilesConservativelyThenMarksReservationMismatch()
+    public void HistoricalOpenAICacheWriteUsage_ReconcilesConservativelyThenMarksReservationMismatch()
     {
-        var ledger = new E0ASpendLedger(E0AReferenceRunHost.ConservativePricing);
+        var ledger = new E0ASpendLedger(E0APricingPolicy.ConservativePricing);
         var reservation = ledger.Reserve(10, E0ARunEnvelope.RoleMaxOutputTokens);
 
         var reconciliation = ledger.Reconcile(
@@ -94,7 +94,47 @@ public sealed class E0ALiveHostReadinessTests
     }
 
     [TestMethod]
-    public void PricingPolicy_FreezesSourcePromotionAndConservativeRates()
+    public void GeminiPricingPolicy_FreezesSourceFreshnessAndConservativeShadowRates()
+    {
+        object[] expected =
+        {
+            "https://ai.google.dev/gemini-api/docs/pricing",
+            "2026-09-06",
+            "2026-09-13",
+            0.30m,
+            0.03m,
+            2.50m,
+            0.30m,
+            0.30m,
+            2.50m
+        };
+        object[] actual =
+        {
+            E0AGeminiPricingPolicy.SourceUri,
+            E0AGeminiPricingPolicy.VerifiedOn,
+            E0AGeminiPricingPolicy.SnapshotValidThrough,
+            E0AGeminiPricingPolicy.PublishedPaidInputUsdPerMillionTokens,
+            E0AGeminiPricingPolicy.PublishedPaidCachedInputUsdPerMillionTokens,
+            E0AGeminiPricingPolicy.PublishedPaidOutputUsdPerMillionTokens,
+            E0AReferenceRunHost.ConservativePricing.InputUsdPerMillionTokens,
+            E0AReferenceRunHost.ConservativePricing.CachedInputUsdPerMillionTokens,
+            E0AReferenceRunHost.ConservativePricing.OutputUsdPerMillionTokens
+        };
+
+        CollectionAssert.AreEqual(expected, actual);
+        E0AReferenceRunHost.ConservativePricing.Validate();
+    }
+
+    [TestMethod]
+    public void GeminiPricingPolicy_FailsClosedAfterShortExperimentalSnapshot()
+    {
+        E0AGeminiPricingPolicy.RequireNonStaleSnapshot(new DateTimeOffset(2026, 9, 13, 23, 59, 59, TimeSpan.Zero));
+        Assert.Throws<E0AHarnessException>(() =>
+            E0AGeminiPricingPolicy.RequireNonStaleSnapshot(new DateTimeOffset(2026, 9, 14, 0, 0, 0, TimeSpan.Zero)));
+    }
+
+    [TestMethod]
+    public void HistoricalOpenAIPricingPolicy_RemainsFrozenForValidatedEvidenceLineage()
     {
         object[] expected =
         {
@@ -118,56 +158,81 @@ public sealed class E0ALiveHostReadinessTests
             E0APricingPolicy.PublishedCachedInputUsdPerMillionTokens,
             E0APricingPolicy.PublishedOutputUsdPerMillionTokens,
             E0APricingPolicy.CacheWriteMultiplier,
-            E0AReferenceRunHost.ConservativePricing.InputUsdPerMillionTokens,
-            E0AReferenceRunHost.ConservativePricing.CachedInputUsdPerMillionTokens,
-            E0AReferenceRunHost.ConservativePricing.OutputUsdPerMillionTokens
+            E0APricingPolicy.ConservativePricing.InputUsdPerMillionTokens,
+            E0APricingPolicy.ConservativePricing.CachedInputUsdPerMillionTokens,
+            E0APricingPolicy.ConservativePricing.OutputUsdPerMillionTokens
         };
 
         CollectionAssert.AreEqual(expected, actual);
-        E0AReferenceRunHost.ConservativePricing.Validate();
     }
 
     [TestMethod]
-    public void PricingPolicy_FailsClosedAfterPublishedPromotionalGuarantee()
+    public void GeminiSpendPreflight_BlocksBeyondModelInputLimitBeforeInference()
     {
-        E0APricingPolicy.RequireNonStaleSnapshot(new DateTimeOffset(2026, 11, 21, 23, 59, 59, TimeSpan.Zero));
-        Assert.Throws<E0AHarnessException>(() =>
-            E0APricingPolicy.RequireNonStaleSnapshot(new DateTimeOffset(2026, 11, 22, 0, 0, 0, TimeSpan.Zero)));
-    }
-
-    [TestMethod]
-    public void SpendPreflight_BlocksLongContextPricingTierBeforeInference()
-    {
-        var ledger = new E0ASpendLedger(E0AReferenceRunHost.ConservativePricing);
-        var boundary = ledger.Reserve(E0APricingPolicy.StandardTierMaxInputTokens, 1);
-        Assert.AreEqual(E0APricingPolicy.StandardTierMaxInputTokens, boundary.InputTokens);
+        var ledger = new E0ASpendLedger(
+            E0AReferenceRunHost.ConservativePricing,
+            E0AGeminiProviderPolicy.ModelInputTokenLimit);
+        var boundary = ledger.Reserve(E0AGeminiProviderPolicy.ModelInputTokenLimit, 1);
+        Assert.AreEqual(E0AGeminiProviderPolicy.ModelInputTokenLimit, boundary.InputTokens);
         ledger.Release(boundary);
 
         Assert.Throws<E0ABudgetExceededException>(() =>
-            ledger.Reserve(E0APricingPolicy.StandardTierMaxInputTokens + 1, 1));
+            ledger.Reserve(E0AGeminiProviderPolicy.ModelInputTokenLimit + 1, 1));
         Assert.AreEqual(0m, ledger.ReservedUsd);
     }
 
     [TestMethod]
-    public void LiveHost_ExposesExactlyTheFourApprovedPhaseBVariants()
+    public void LiveHost_ExposesOnlyApprovedGeminiNormativeVariant()
     {
         var none = E0AReferenceRunHost.CreateEnvelope("CREATIVE-NONE");
-        var low = E0AReferenceRunHost.CreateEnvelope("CREATIVE-LOW");
-        var medium = E0AReferenceRunHost.CreateEnvelope("CREATIVE-MEDIUM");
-        var high = E0AReferenceRunHost.CreateEnvelope("CREATIVE-HIGH");
 
+        Assert.AreEqual("CREATIVE-NONE", none.Variant);
+        Assert.AreEqual(E0AGeminiProviderPolicy.Provider, none.Performer.Provider);
+        Assert.AreEqual(E0AGeminiProviderPolicy.Model, none.Performer.Model);
         Assert.AreEqual(E0AReasoningLevel.None, none.Performer.Reasoning);
-        Assert.AreEqual(E0AReasoningLevel.Low, low.Performer.Reasoning);
-        Assert.AreEqual(E0AReasoningLevel.Medium, medium.Performer.Reasoning);
-        Assert.AreEqual(E0AReasoningLevel.High, high.Performer.Reasoning);
-        foreach (var envelope in new[] { none, low, medium, high })
-        {
-            Assert.AreEqual(envelope.Performer.Reasoning, envelope.Interpreter.Reasoning);
-            Assert.AreEqual(E0AReasoningLevel.High, envelope.Integrity.Reasoning);
-            Assert.AreEqual("OpenAI", envelope.Performer.Provider);
-            Assert.AreEqual("gpt-5.6-sol", envelope.Performer.Model);
-        }
+        Assert.AreEqual(E0AReasoningLevel.High, none.Integrity.Reasoning);
+        Assert.AreEqual(E0AReasoningLevel.None, none.Interpreter.Reasoning);
+        Assert.AreEqual(0, E0AGeminiProviderPolicy.ThinkingBudgetTokens(none.Performer));
+        Assert.AreEqual(E0AGeminiProviderPolicy.IntegrityThinkingBudgetTokens, E0AGeminiProviderPolicy.ThinkingBudgetTokens(none.Integrity));
+        Assert.AreEqual(E0AGeminiProviderPolicy.IntegrityCandidateMaxOutputTokens, none.Integrity.MaxOutputTokens);
+        Assert.Throws<E0AHarnessException>(() => E0AReferenceRunHost.CreateEnvelope("CREATIVE-LOW"));
+        Assert.Throws<E0AHarnessException>(() => E0AReferenceRunHost.CreateEnvelope("CREATIVE-MEDIUM"));
+        Assert.Throws<E0AHarnessException>(() => E0AReferenceRunHost.CreateEnvelope("CREATIVE-HIGH"));
         Assert.Throws<E0AHarnessException>(() => E0AReferenceRunHost.CreateEnvelope("CREATIVE-XHIGH"));
+    }
+
+    [TestMethod]
+    public void GeminiIntegrityBudget_ReservesAgainstPublishedModelOutputLimit()
+    {
+        var envelope = E0AReferenceRunHost.CreateEnvelope("CREATIVE-NONE");
+
+        Assert.AreEqual(
+            E0ARunEnvelope.RoleMaxOutputTokens,
+            E0AProviderBudgetPolicy.ReservationOutputTokens(envelope.Performer));
+        Assert.AreEqual(
+            E0AGeminiProviderPolicy.ModelOutputTokenLimit,
+            E0AProviderBudgetPolicy.ReservationOutputTokens(envelope.Integrity));
+        Assert.AreEqual(
+            E0ARunEnvelope.RoleMaxOutputTokens,
+            E0AProviderBudgetPolicy.ReservationOutputTokens(envelope.Interpreter));
+    }
+
+    [TestMethod]
+    public void GeminiUsagePolicy_FailsClosedOnThinkingCacheAndGeneratedOverrun()
+    {
+        var envelope = E0AReferenceRunHost.CreateEnvelope("CREATIVE-NONE");
+
+        Assert.IsNull(E0AProviderUsagePolicy.Violation(envelope.Performer, new E0AUsage(100, 100, 0, 0, 0)));
+        Assert.AreEqual(
+            "gemini-thinking-not-disabled",
+            E0AProviderUsagePolicy.Violation(envelope.Performer, new E0AUsage(100, 101, 0, 1, 0)));
+        Assert.AreEqual(
+            "gemini-implicit-cache-hit",
+            E0AProviderUsagePolicy.Violation(envelope.Performer, new E0AUsage(100, 100, 1, 0, 0)));
+        Assert.IsNull(E0AProviderUsagePolicy.Violation(envelope.Integrity, new E0AUsage(100, 4096, 0, 3584, 0)));
+        Assert.AreEqual(
+            "gemini-generated-token-overrun",
+            E0AProviderUsagePolicy.Violation(envelope.Integrity, new E0AUsage(100, 4097, 0, 3584, 0)));
     }
 
     [TestMethod]
@@ -306,7 +371,7 @@ public sealed class E0ALiveHostReadinessTests
             new E0AGitCommandResult(0, ""),
             new E0AGitCommandResult(0, untracked));
 
-    private static PreparedRoleAttempt IntegrityAttempt(string runId)
+    private static PreparedRoleAttempt HistoricalIntegrityAttempt(string runId)
     {
         var envelope = E0ARunEnvelope.CreativeNone(E0ATestSupport.Pricing());
         var cycle = E0ATestSupport.Cycle();
