@@ -11,7 +11,7 @@ namespace Ensemble.E0.Harness.Tests;
 public sealed class E0AEvidenceTests
 {
     [TestMethod]
-    public void Manifest_FreezesPricingProfilesHostAndContainsNoCredentialField()
+    public void Manifest_FreezesArchitectureChecklistFixturePricingProfilesHostAndContainsNoCredentialField()
     {
         var root = E0ATestSupport.TempRunRoot();
         try
@@ -24,6 +24,12 @@ public sealed class E0AEvidenceTests
             var text = File.ReadAllText(Path.Combine(root, "manifest.json"));
             using var document = JsonDocument.Parse(text);
             var manifest = document.RootElement;
+            Assert.AreEqual(E0AEvidenceContracts.FrozenBlueprintVersion, manifest.GetProperty("frozenBlueprintVersion").GetString());
+            Assert.AreEqual(E0AEvidenceContracts.ReferenceEnvelopeBlueprint, manifest.GetProperty("referenceEnvelopeBlueprint").GetString());
+            Assert.AreEqual(E0AEvidenceContracts.ApprovedBlueprintCommit, manifest.GetProperty("approvedBlueprintCommit").GetString());
+            Assert.AreEqual("E0A-P0.15:CREATIVE-NONE", manifest.GetProperty("referenceConfigurationIdentity").GetString());
+            Assert.AreEqual(E0AEvidenceContracts.HardGateChecklistVersion, manifest.GetProperty("hardGateChecklistVersion").GetString());
+            Assert.AreEqual(state.OriginFixtureVersion.Value, manifest.GetProperty("fixtureVersion").GetString());
             Assert.AreEqual(1m, manifest.GetProperty("pricing").GetProperty("inputUsdPerMillionTokens").GetDecimal());
             Assert.AreEqual(0.25m, manifest.GetProperty("pricing").GetProperty("cachedInputUsdPerMillionTokens").GetDecimal());
             Assert.AreEqual(2m, manifest.GetProperty("pricing").GetProperty("outputUsdPerMillionTokens").GetDecimal());
@@ -89,7 +95,43 @@ public sealed class E0AEvidenceTests
             File.AppendAllText(Path.Combine(root, "manifest.json"), " ");
             Assert.Throws<E0AHarnessException>(() =>
                 store.SealEvaluation(new E0AHardGateEvaluation(
-                    "CHECKLIST-V1", "REVIEWER", "METHOD", true, Array.Empty<string>())));
+                    E0AEvidenceContracts.HardGateChecklistVersion,
+                    "REVIEWER",
+                    "METHOD",
+                    true,
+                    Array.Empty<string>())));
+        }
+        finally
+        {
+            Delete(root);
+        }
+    }
+
+    [TestMethod]
+    public void EvaluationSeal_RejectsChecklistChosenAfterRun()
+    {
+        var root = E0ATestSupport.TempRunRoot();
+        try
+        {
+            var runId = RunId.From("E0A-CHECKLIST");
+            var state = E0ATestSupport.Genesis();
+            var envelope = E0ARunEnvelope.CreativeNone(E0ATestSupport.Pricing());
+            var store = E0ATestSupport.Evidence(root, runId, envelope, state);
+            store.SealRuntime(
+                "Synthetic",
+                0,
+                0m,
+                state.StateHash.Value,
+                state.CurrentOpportunityCharacterId!.Value);
+
+            Assert.Throws<E0AHarnessException>(() =>
+                store.SealEvaluation(new E0AHardGateEvaluation(
+                    "post-hoc-checklist",
+                    "REVIEWER",
+                    "METHOD",
+                    true,
+                    Array.Empty<string>())));
+            Assert.IsFalse(File.Exists(Path.Combine(root, "evaluation", "hard-gates.json")));
         }
         finally
         {
