@@ -8,6 +8,9 @@
 5. Google Drive design repository for visual/design evidence and assets.
 6. Historical chat/source material only when a narrow continuity ambiguity requires it.
 
+## Product and policy authority
+The Director owns product constitution, Open Design Register resolution, provider admissibility, and any decision about what the product may do. Engineering and design surfaces supply inputs within their own lanes and do not author in this one. ODR proposals and resolutions are filed in `Ensemble-Project/docs` following the ODR-33 precedent, regardless of which lane raised the question. An input drafted outside its authoring surface's lane must say so in the document.
+
 ## Engineering authority
 GitHub is the canonical engineering workspace. Changes should be patch-first and reviewed against the smallest affected surface.
 
