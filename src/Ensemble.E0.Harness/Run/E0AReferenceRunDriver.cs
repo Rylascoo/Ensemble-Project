@@ -325,17 +325,10 @@ internal sealed class E0AReferenceRunDriver
         }
         catch (OperationCanceledException)
         {
-            _spend.Release(reservation);
             var external = cancellationToken.IsCancellationRequested;
             raw = external
                 ? RoleAttemptReceipt.Cancelled(attempt, "cancelled")
                 : RoleAttemptReceipt.TechnicalFailure(attempt, "timeout");
-            _evidence.RecordEvent("spend.released", new
-            {
-                attemptId = attempt.AttemptId,
-                reservedUsd = reservation.ReservedUsd,
-                reason = external ? "cancelled" : "timeout"
-            });
         }
         providerClock.Stop();
         _evidence.RecordEvent("provider.completed", new
@@ -408,7 +401,7 @@ internal sealed class E0AReferenceRunDriver
             {
                 attemptId = attempt.AttemptId,
                 reservedUsd = reservation.ReservedUsd,
-                reason = receipt.Outcome.ToString()
+                reason = receipt.DiagnosticCode ?? receipt.Outcome.ToString()
             });
         }
 
