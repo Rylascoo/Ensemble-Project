@@ -10,12 +10,11 @@ namespace Ensemble.E0.Harness.Host;
 
 internal static class E0AReferenceRunHost
 {
-    // Conservative bound verified against GPT-5.6 Sol pricing on 2026-09-06:
-    // base promotional text rates are 4.00 / 0.40 / 20.00 USD per 1M tokens;
-    // requests above 272K input are 2x input and 1.5x output. The host uses
-    // the larger rates for every request so the run ledger cannot under-reserve
-    // solely because a request crosses that provider pricing tier.
-    internal static E0APricingAssumptions ConservativePricing { get; } = new(8.00m, 0.80m, 30.00m);
+    // Conservative bound verified against GPT-5.6 Sol pricing on 2026-09-06.
+    // Base promotional rates are 4.00 / 0.40 / 20.00 USD per 1M text tokens.
+    // Above 272K input, input is 2x and output 1.5x; cache writes are 1.25x
+    // uncached input. We therefore use 10.00 / 0.80 / 30.00 for every request.
+    internal static E0APricingAssumptions ConservativePricing { get; } = new(10.00m, 0.80m, 30.00m);
 
     internal static async Task<int> RunAsync(string[] args, CancellationToken cancellationToken)
     {
@@ -31,15 +30,18 @@ internal static class E0AReferenceRunHost
         var executableCommit = args[3];
         E0ADeterministicIds.ValidateRunId(runId);
 
-        // Credential access is deliberately confined to this explicit live-run path.
-        // Missing credentials fail before any run evidence directory is created.
-        using var http = new HttpClient();
-        var provider = OpenAIResponsesPort.FromEnvironment(http);
+        // Bind manifest provenance to the exact clean checkout before secret access.
+        E0ARepositoryCheckoutGuard.Validate(executableCommit);
 
         var bytes = await File.ReadAllBytesAsync(fixturePath, cancellationToken).ConfigureAwait(false);
         var fixture = GenericE0FixtureValidator.Validate(FixtureLoader.Load(bytes));
         MissingRaftContract.Validate(fixture);
         var genesis = ProductionState.Initialize(fixture, ImmutableArray<RecordId>.Empty);
+
+        // Credential access is deliberately confined to this explicit live-run path.
+        // Missing credentials fail before any run evidence directory is created.
+        using var http = new HttpClient();
+        var provider = OpenAIResponsesPort.FromEnvironment(http);
 
         var envelope = E0ARunEnvelope.CreativeNone(ConservativePricing);
         var evidence = new E0AFileEvidenceStore(
