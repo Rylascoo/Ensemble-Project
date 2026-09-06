@@ -26,6 +26,51 @@ public sealed class GeminiMalformedResponseTests
     }
 
     [TestMethod]
+    public async Task CountTokensRejectsNonObjectRootWithoutEscapingProviderBoundary()
+    {
+        var handler = new QueueHandler(Json("[37]"));
+        using var http = new HttpClient(handler);
+        var port = new GeminiGenerateContentPort(http, "test-key");
+        var attempt = PerformerAttempt("E0A-GEMINI-BAD-COUNT-ROOT");
+
+        await Assert.ThrowsAsync<E0AHarnessException>(() =>
+            port.CountInputTokensAsync(attempt, CancellationToken.None));
+    }
+
+    [TestMethod]
+    public async Task BufferedResponseRejectsNonObjectRootAsTechnicalFailure()
+    {
+        var handler = new QueueHandler(Json("[]"));
+        using var http = new HttpClient(handler);
+        var port = new GeminiGenerateContentPort(http, "test-key");
+        var attempt = IntegrityAttempt("E0A-GEMINI-BAD-BUFFERED-ROOT");
+
+        var receipt = await port.ExecuteAsync(attempt, new CollectingDiagnosticSink(), CancellationToken.None);
+
+        Assert.AreEqual(E0ARoleAttemptOutcome.TechnicalFailure, receipt.Outcome);
+        Assert.AreEqual("gemini-response-shape-invalid", receipt.DiagnosticCode);
+    }
+
+    [TestMethod]
+    public async Task StreamingResponseRejectsNonObjectRootAsTechnicalFailure()
+    {
+        var handler = new QueueHandler(new HttpResponseMessage(HttpStatusCode.OK)
+        {
+            Content = new StringContent("data: []\n\n", Encoding.UTF8, "text/event-stream")
+        });
+        using var http = new HttpClient(handler);
+        var port = new GeminiGenerateContentPort(http, "test-key");
+        var attempt = PerformerAttempt("E0A-GEMINI-BAD-STREAM-ROOT");
+        var diagnostics = new CollectingDiagnosticSink();
+
+        var receipt = await port.ExecuteAsync(attempt, diagnostics, CancellationToken.None);
+
+        Assert.AreEqual(E0ARoleAttemptOutcome.TechnicalFailure, receipt.Outcome);
+        Assert.AreEqual("gemini-response-shape-invalid", receipt.DiagnosticCode);
+        Assert.AreEqual(0, diagnostics.Events.Count);
+    }
+
+    [TestMethod]
     public async Task BufferedResponseRejectsWrongTypedIdentityAsTechnicalFailure()
     {
         var response = JsonSerializer.Serialize(new
