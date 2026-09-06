@@ -2,6 +2,8 @@ namespace Ensemble.E0.Harness.Run;
 
 internal sealed class E0ASpendLedger
 {
+    internal const long StandardPricingInputTokenLimit = 272_000;
+
     private readonly E0APricingAssumptions _pricing;
     private decimal _estimatedCommittedUsd;
     private decimal _reservedUsd;
@@ -20,6 +22,10 @@ internal sealed class E0ASpendLedger
         if (inputTokens < 0 || maxOutputTokens <= 0 || _reservedUsd != 0m)
         {
             throw new E0AHarnessException("E0-A spend reservation input is invalid.");
+        }
+        if (inputTokens > StandardPricingInputTokenLimit)
+        {
+            throw new E0ABudgetExceededException();
         }
 
         var reservation = Cost(inputTokens, 0, maxOutputTokens);
