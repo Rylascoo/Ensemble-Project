@@ -1,7 +1,6 @@
 using System.Net;
 using System.Text;
 using System.Text.Json;
-using Ensemble.E0.Core.Cycle;
 using Ensemble.E0.Core.Domain;
 using Ensemble.E0.Harness.Gemini;
 using Ensemble.E0.Harness.Host;
@@ -59,7 +58,7 @@ public sealed class GeminiUsageContractTests
             {
                 new
                 {
-                    content = new { parts = new[] { new { text = Encoding.UTF8.GetString(E0ATestSupport.PerformerOutput()) } } },
+                    content = new { parts = new[] { new { text = Encoding.UTF8.GetString(E0ATestSupport.IntegrityOutput()) } } },
                     finishReason = "STOP"
                 }
             },
@@ -76,29 +75,32 @@ public sealed class GeminiUsageContractTests
         });
         using var http = new HttpClient(handler);
         var port = new GeminiGenerateContentPort(http, "test-key");
+        var attempt = IntegrityAttempt(runId);
+
+        return await port.ExecuteAsync(attempt, new CollectingDiagnosticSink(), CancellationToken.None);
+    }
+
+    private static PreparedRoleAttempt IntegrityAttempt(string runId)
+    {
         var envelope = E0AReferenceRunHost.CreateEnvelope("CREATIVE-NONE");
-        var context = DeterministicE0CausalCycle.ComposeContext(E0ATestSupport.Cycle()).ContextEvaluation.Packet;
-        var attempt = E0ARequestBuilder.Performer(RunId.From(runId), 1, envelope.Performer, context);
+        var cycle = E0ATestSupport.Cycle();
+        var continuity = Ensemble.E0.Core.Cycle.DeterministicE0CausalCycle.ComposeContext(cycle);
+        var context = continuity.ContextEvaluation.Packet;
+        var candidate = E0ATestSupport.Candidate(context, "No.");
+        var input = IntegrityCandidateInput.Bind(context, candidate);
+        var packet = E0AIntegrityAssessmentPacketBuilder.Build(
+            cycle.ProductionState,
+            continuity.AccessEvaluation,
+            context,
+            candidate);
 
-        // Force the buffered transport while preserving the approved Gemini role
-        // profile so the response parser can be tested independently of SSE.
-        var bufferedProfile = envelope.Integrity;
-        var integrityAttempt = new PreparedRoleAttempt(
+        return E0ARequestBuilder.Integrity(
             RunId.From(runId),
-            E0ADeterministicIds.Attempt(RunId.From(runId), E0ARole.Integrity, 1, 1),
-            bufferedProfile,
             1,
-            context.SubjectCharacterId,
-            context.ContextPacketId,
-            context.StructuredContextHash,
-            context.RenderedContextHash,
-            new string('a', 64),
-            new string('b', 64),
-            new string('c', 64),
-            new string('d', 64),
-            attempt.RequestBody);
-
-        return await port.ExecuteAsync(bufferedProfile.Stream ? attempt : integrityAttempt, new CollectingDiagnosticSink(), CancellationToken.None);
+            envelope.Integrity,
+            context,
+            input.CandidateContentHash,
+            packet);
     }
 
     private sealed class SingleResponseHandler : HttpMessageHandler
