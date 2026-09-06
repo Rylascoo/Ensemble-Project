@@ -1,12 +1,12 @@
 # E0-A Phase B — Reference Run Envelope
 
-Status: **PROPOSAL 0.14 — RECURSIVELY AUDITED; DIRECTOR APPROVAL REQUIRED; IMPLEMENTATION FORBIDDEN**
+Status: **PROPOSAL 0.15 — RECURSIVELY AUDITED; DIRECTOR APPROVAL REQUIRED; IMPLEMENTATION FORBIDDEN**
 Parent `main`: `2b628c2d97eb39f4d96ce3e81eafefe93ba28b09`
 Branch: `e0a-reference-run-envelope-blueprint`
 
 ## 1. Question
 
-Can one E0-A envelope drive the closed H1 spine through Same-Model Isolated Cast while provider execution/provenance/spend stays outside Core and semantic results remain bound to configured attempts?
+Can one E0-A envelope drive the closed H1 spine through Same-Model Isolated Cast while provider execution/provenance/spend stays outside Core and results stay bound to configured attempts?
 
 ```text
 fixture -> Cycle/Context -> Performer
@@ -15,7 +15,7 @@ fixture -> Cycle/Context -> Performer
  -> Opportunity -> repeat
 ```
 
-Blueprint 0.1 remains authority: E0-A precedes E0-B; three Characters share fixed frontier model/settings; E0-C/D/E return to that reference unless varied; provenance is complete; technical failure never becomes fiction; LLMs never own authority.
+Blueprint 0.1 remains authority: E0-A precedes E0-B; three Characters share fixed frontier model/settings; E0-C/D/E return to reference unless varied; provenance is complete; technical failure never becomes fiction; LLMs never own authority.
 
 ## 2. Fixed probabilistic roles
 
@@ -27,13 +27,11 @@ Interpreter reasoning none
 Integrity reasoning   high
 ```
 
-Performers and Interpreter use `none`. Integrity uses the same model/provider at `high` as fixed safety control; it emits concern evidence only, while Patch 0008 owns disposition.
-
-Director, Access, State Authority, Take, commit and Opportunity remain deterministic.
+Performers and Interpreter use `none`. Integrity uses the same model/provider at `high` as fixed safety control and emits concern evidence only; Patch 0008 owns disposition. Director, Access, State Authority, Take, commit and Opportunity remain deterministic.
 
 ## 3. Reasoning characterization
 
-`CREATIVE-NONE` is normative. First characterization varies the two creative generative roles together while Integrity stays fixed at `high` as a safety control:
+`CREATIVE-NONE` is normative. First characterization varies both creative generative roles together while Integrity stays fixed at `high`:
 
 ```text
 CREATIVE-NONE    Performer none    / Integrity high / Interpreter none
@@ -42,13 +40,13 @@ CREATIVE-MEDIUM  Performer medium  / Integrity high / Interpreter medium
 CREATIVE-HIGH    Performer high    / Integrity high / Interpreter high
 ```
 
-`xhigh`/`max` deferred. If warranted, later role-isolation may vary Performer or Interpreter alone. CREATIVE-NONE remains E0-C/D/E reference.
+`xhigh`/`max` deferred. Later role-isolation may vary Performer or Interpreter alone. CREATIVE-NONE remains E0-C/D/E reference.
 
 Later E0-B records semantic intent `LeastDeliberativeSupported` plus exact provider-native control. Provider `none`, disabled, `minimal`, or low modes are never claimed equivalent.
 
 ## 4. Harness boundary
 
-Core stays unchanged. Harness gains logical components:
+Core stays unchanged. Harness gains:
 
 ```text
 Run        run policy/driver + fakeable provider-role port
@@ -72,7 +70,7 @@ Interpreter  stream=true   reasoning=none   max_output_tokens=4096
 
 Characterization changes Performer and Interpreter reasoning together; Integrity remains `high`.
 
-Use an immutable provider snapshot if exposed/usable; otherwise record requested/returned identifiers without claiming stability. Observable in-batch identity change fails. Schemas stay within verified Structured Outputs; Core parsers retain semantic authority.
+Use an immutable provider snapshot if exposed/usable; otherwise record requested/returned identifiers without a stability claim. Observable in-batch identity change fails. Schemas stay within verified Structured Outputs; Core parsers retain semantic authority.
 
 ## 6. Versioned prompts and bounded disclosure
 
@@ -84,7 +82,7 @@ IntegrityAssessorPromptContract
 StateInterpreterPromptContract
 ```
 
-Fixed instructions remain separate from deterministic serialization of dynamic fixture/Context/Candidate/record values as **untrusted, non-instructional data**; dynamic content never enters the instruction channel.
+Fixed instructions remain separate from dynamic fixture/Context/Candidate/record values serialized as **untrusted, non-instructional data**; dynamic content never enters the instruction channel.
 
 Performer receives exact Character-bounded rendered Context + Candidate schema only.
 
@@ -101,15 +99,13 @@ active SystemImmutable/CreatorLocked records
 five Patch 0008 concern definitions
 ```
 
-Denied records come from exact current Production + Access decisions; inactive excluded; protected deduplicated by RecordId. No unrelated provenance, credentials or creator metadata. Integrity disclosure is never Character knowledge and is recorded separately.
+Denied records come from current Production + Access decisions; inactive excluded; protected deduplicated by RecordId. No unrelated provenance, credentials or creator metadata. Integrity disclosure is never Character knowledge.
 
 Integrity output is strict root object `{"concerns":[...]}` containing only Patch 0008 concern names; do not rely on provider uniqueness/order constraints. Core binding owns defined/duplicate/canonical semantics. No rationale/confidence/free text.
 
 ## 7. Configured-path receipts
 
-Provenance is a precondition to semantic consumption.
-
-Every provider invocation starts as a closed `PreparedRoleAttempt` containing:
+Provenance precedes semantic consumption. Every provider invocation starts as closed `PreparedRoleAttempt` containing:
 
 ```text
 RunId / attempt / role / turn / CharacterId when applicable
@@ -127,17 +123,11 @@ Write exact request evidence before disclosure. The provider port returns only a
 
 Accept semantic bytes only from a successful receipt matching current RunId/role/turn/source/profile/request hash. Cross-run/turn/Context/profile receipts fail; technical/cancelled receipts carry no semantic payload.
 
-Thus:
-
-- Candidate parsing requires an exact successful Performer receipt;
-- Integrity concern binding requires an exact successful Integrity receipt bound to the Candidate content identity and assessment packet;
-- Interpreter proposal parsing requires an exact successful Interpreter receipt bound to the current InterpretationSource/Candidate identity.
-
-Configured-path provenance is not Core attestation; secrets never enter evidence.
+Thus Candidate parsing requires the Performer receipt; Integrity concern binding requires the Integrity receipt bound to Candidate identity + assessment packet; Interpreter parsing requires the Interpreter receipt bound to current InterpretationSource + Candidate. Configured-path provenance is Harness coupling, not Core attestation; secrets never enter evidence.
 
 ## 8. Run identity / no overwrite
 
-Manifest supplies one Core `RunId`; run fails if that directory already exists.
+Manifest supplies one Core `RunId`; fail if its run directory exists.
 
 ```text
 TakeId   = {RunId}:TAKE:{turn:D3}
@@ -146,7 +136,7 @@ RecordId = {RunId}:RECORD:{turn:D3}:{mutationIndex:D3}
 Attempt  = {RunId}:ATTEMPT:{role}:{turn:D3}:{attempt:D2}
 ```
 
-Constrain RunId to at most 96 canonical characters so all derived Core IDs remain below the 128-character ceiling. Attempt is Harness metadata.
+RunId is at most 96 canonical characters so derived Core IDs remain below the 128-character ceiling. Attempt is Harness metadata.
 
 ## 9. Fixed envelope / spend
 
@@ -158,11 +148,11 @@ attempt timeout                         300 seconds each
 estimated model-token spend ceiling     USD 5.00/run
 ```
 
-After Turn 12 establish the next Patch 0016 Opportunity, then stop `AcceptedTurnCapReached`; this is technical truncation, not Scene ending (ODR-13).
+After Turn 12 establish the next Patch 0016 Opportunity, then stop `AcceptedTurnCapReached`; technical truncation, not Scene ending (ODR-13).
 
 Timeout/refusal/provider/transport/incomplete-invalid output/cancellation of any role terminates without replacement. E0-F may later vary failures/retries. Honor cancellation before/while provider work and before another Turn; after commit, attempt immediate deterministic Opportunity establishment before honoring it, with no external work in that gap.
 
-Manifest freezes assumptions for **estimated model-token cost**; provider billing remains external authority. Before inference reserve worst-case input + role max output using a verified supported count or conservative bound; otherwise block real execution. Refuse if cumulative estimate exceeds USD 5.00 and reconcile reported usage afterward. `BudgetExceeded` is non-fictional.
+Manifest freezes **estimated model-token cost** assumptions; provider billing remains external authority. Before inference reserve worst-case input + role max output using a verified supported count or conservative bound; otherwise block real execution. Refuse if cumulative estimate exceeds USD 5.00 and reconcile reported usage afterward. `BudgetExceeded` is non-fictional.
 
 ## 10. Integrity / State Authority behavior
 
@@ -202,7 +192,7 @@ Cycle.ComposeContext
  -> next synchronized state
 ```
 
-No provider call occurs between accepted commit and Opportunity establishment.
+No provider call occurs between commit and Opportunity establishment.
 
 ## 12. Immutable evidence
 
@@ -222,13 +212,13 @@ evaluation/hard-gates.json
 evaluation.final.json
 ```
 
-Manifest precedes inference/immutable; attempts write-once; events append-only. `run.final.json` seals the runtime artifact set with a canonical digest list/root that excludes itself. Independent post-run hard-gate review under a versioned checklist fixed before the batch writes `evaluation/hard-gates.json`; `evaluation.final.json` seals it to the runtime root. In-run probabilistic roles cannot perform it; reviewer/method identity is recorded. Review may invalidate contribution but cannot rewrite runtime evidence. Credentials never enter evidence. Partial/rejected/technical output never enters accepted history. Hidden reasoning is neither requested nor stored.
+Manifest precedes inference/immutable; attempts write-once; events append-only. `run.final.json` seals the runtime artifact set with a canonical digest list/root excluding itself. Independent post-run hard-gate review under a versioned checklist fixed before the batch writes `evaluation/hard-gates.json`; in-run probabilistic roles cannot perform it and reviewer/method identity is recorded. `evaluation.final.json` hashes `run.final.json` + hard-gate evaluation and binds both to the recomputed runtime root. Review may invalidate contribution but cannot rewrite runtime evidence. Credentials never enter evidence. Partial/rejected/technical output never enters accepted history. Hidden reasoning is neither requested nor stored.
 
 Record Blueprint/fixture/hash; executable commit + host; variant; prompt/schema hashes; Access/Context; role profiles/disclosures/receipts; Integrity packet/concerns; Performer/control; Director/Interpreter/Authority; mutations; causal IDs/Opportunity; latency/usage/cost/failures; blind mapping.
 
 Fixture + accepted Take/commit/Opportunity evidence must replay the H1 transition chain; `run.final.json` is checkpoint/projection only.
 
-Blind transcript hides variant/provider/reasoning/RunId/hashes/implementation metadata and uses stable neutral speaker labels; mapping remains separate.
+Blind transcript contains **accepted Character-visible Performance material only**, under stable neutral speaker labels. It excludes denied/protected Integrity material, partial/rejected/technical output, assessor/authority diagnostics, and variant/provider/reasoning/RunId/hash/implementation metadata. Mapping remains separate/private.
 
 ## 13. Contribution / reasoning sweep
 
@@ -242,7 +232,7 @@ CREATIVE-LOW/MEDIUM/HIGH reuse the exact envelope except matched Performer+Inter
 
 Adapter reads `OPENAI_API_KEY` only as process-injected secret. Missing secret fails before provider execution. Never persist/echo/hash/pass below Harness provider edge. E0 only, not product secret storage.
 
-Before real spend, fake-adapter tests prove Core unchanged; role/reasoning isolation; Context/request/receipt coupling; stale receipt rejection; Integrity packet/provenance with no parallel evaluation; deterministic hard-rule supremacy; one attempt/zero retry; cost preflight; reject-only review; IDs/materializations; 12-turn synchronization; partial-output exclusion; sealed secret-free replay evidence; blind identity removal.
+Before real spend, fake-adapter tests prove Core unchanged; role/reasoning isolation; Context/request/receipt coupling; stale receipt rejection; Integrity packet/provenance with no parallel evaluation; deterministic hard-rule supremacy; one attempt/zero retry; cost preflight; reject-only review; IDs/materializations; 12-turn synchronization; partial-output exclusion; two-stage secret-free replay sealing; blind-content exclusion.
 
 Native Windows ARM64 compile/tests/Harness smoke must pass before first real provider request.
 
@@ -250,6 +240,6 @@ Native Windows ARM64 compile/tests/Harness smoke must pass before first real pro
 
 No Core redesign; product Application/persistence; provider conversation; retry/backoff; understudy; E0-B mixed model; E0-E playwright implementation; E0-F failure implementation; Context optimization; Scene ending; ODR-12/13/30/32; WinUI; Windows AI/NPU; MSIX/WACK/Store.
 
-Approval freezes: GPT-5.6 Sol; CREATIVE-NONE (Performer+Interpreter none) + fixed Integrity HIGH; matched CREATIVE-LOW/MEDIUM/HIGH characterization; bounded role prompts + Integrity packet; closed configured-path attempt receipts; REST/stateless/no-tools/strict output; 12 accepted Turns; one attempt/zero retry/300s per role; 4096 max output each role; USD 5.00 estimated run-token ceiling; deterministic authority/review-reject policy and IDs; immutable replay-capable evidence/blind package; Harness-only provider edge, Core unchanged.
+Approval freezes: GPT-5.6 Sol; CREATIVE-NONE (Performer+Interpreter none) + fixed Integrity HIGH; matched CREATIVE-LOW/MEDIUM/HIGH characterization; bounded role prompts + Integrity packet; closed configured-path receipts; REST/stateless/no-tools/strict output; 12 accepted Turns; one attempt/zero retry/300s per role; 4096 max output each role; USD 5.00 estimated run-token ceiling; deterministic authority/review-reject policy and IDs; Add+Supersede materialization; two-stage immutable replay/blind evidence; Harness-only provider edge, Core unchanged.
 
 Approval **does not authorize provider requests, credential use, or spend**. Implementation remains fake-first and returns to native ARM64 validation before first real provider call.
