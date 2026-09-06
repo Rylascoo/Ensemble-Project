@@ -145,6 +145,12 @@ internal static class E0AProviderUsagePolicy
             return null;
         }
 
+        if (profile.Role == E0ARole.Integrity &&
+            usage.OutputTokens > E0AGeminiProviderPolicy.IntendedGeneratedTokenCeiling)
+        {
+            return "gemini-generated-token-overrun";
+        }
+
         var candidateTokens = usage.OutputTokens - usage.ReasoningTokens;
         if (candidateTokens > profile.MaxOutputTokens)
         {
@@ -163,11 +169,6 @@ internal static class E0AProviderUsagePolicy
             return usage.ReasoningTokens == 0
                 ? null
                 : "gemini-thinking-not-disabled";
-        }
-        if (profile.Role == E0ARole.Integrity &&
-            usage.OutputTokens > E0AGeminiProviderPolicy.IntendedGeneratedTokenCeiling)
-        {
-            return "gemini-generated-token-overrun";
         }
         return null;
     }
