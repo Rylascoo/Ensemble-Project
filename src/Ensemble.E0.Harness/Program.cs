@@ -38,7 +38,7 @@ try
     if (args.Length != 1)
     {
         Console.Error.WriteLine("Usage: Ensemble.E0.Harness <fixture.json>");
-        Console.Error.WriteLine("   or: Ensemble.E0.Harness e0a-run <fixture.json> <run-id> <evidence-root> <executable-commit>");
+        Console.Error.WriteLine("   or: Ensemble.E0.Harness e0a-run <CREATIVE-NONE|CREATIVE-LOW|CREATIVE-MEDIUM|CREATIVE-HIGH> <fixture.json> <run-id> <evidence-root> <executable-commit>");
         Console.Error.WriteLine("   or: Ensemble.E0.Harness e0a-evaluate <evidence-root> <reviewer-id> <method-id> <pass|fail> [finding ...]");
         return 2;
     }
