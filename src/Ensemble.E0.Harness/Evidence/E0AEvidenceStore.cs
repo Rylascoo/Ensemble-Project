@@ -7,6 +7,17 @@ using Ensemble.E0.Harness.Run;
 
 namespace Ensemble.E0.Harness.Evidence;
 
+internal static class E0AEvidenceContracts
+{
+    internal const string FrozenBlueprintVersion = "0.1";
+    internal const string ReferenceEnvelopeBlueprint = "E0A_PHASE_B_REFERENCE_RUN_ENVELOPE_PROPOSAL_0.15";
+    internal const string ApprovedBlueprintCommit = "e1d0b4aea0f7ba29cf85e765bea33d14eab35fde";
+    internal const string HardGateChecklistVersion = "ensemble.e0a.hard-gates.v1";
+
+    internal static string ReferenceConfigurationIdentity(E0ARunEnvelope envelope) =>
+        $"E0A-P0.15:{envelope.Variant}";
+}
+
 internal sealed record E0AHardGateEvaluation(
     string ChecklistVersion,
     string ReviewerIdentity,
@@ -42,6 +53,7 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
         RunId runId,
         E0ARunEnvelope envelope,
         string fixtureId,
+        string fixtureVersion,
         string fixtureHash,
         string executableCommit,
         IReadOnlyList<CharacterId> roster)
@@ -55,6 +67,7 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
             throw new E0AHarnessException("E0-A run evidence directory already exists.");
         }
         if (string.IsNullOrWhiteSpace(fixtureId) ||
+            string.IsNullOrWhiteSpace(fixtureVersion) ||
             !IsLowerHexSha256(fixtureHash) ||
             string.IsNullOrWhiteSpace(executableCommit))
         {
@@ -95,7 +108,13 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
         {
             contract = "ensemble.e0a.run-manifest.v1",
             runId = runId.Value,
+            frozenBlueprintVersion = E0AEvidenceContracts.FrozenBlueprintVersion,
+            referenceEnvelopeBlueprint = E0AEvidenceContracts.ReferenceEnvelopeBlueprint,
+            approvedBlueprintCommit = E0AEvidenceContracts.ApprovedBlueprintCommit,
+            referenceConfigurationIdentity = E0AEvidenceContracts.ReferenceConfigurationIdentity(envelope),
+            hardGateChecklistVersion = E0AEvidenceContracts.HardGateChecklistVersion,
             fixtureId,
+            fixtureVersion,
             fixtureHash,
             executableCommit,
             variant = envelope.Variant,
@@ -304,7 +323,10 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
             throw new E0AHarnessException("E0-A evaluation sealing state is invalid.");
         }
         ArgumentNullException.ThrowIfNull(evaluation);
-        if (string.IsNullOrWhiteSpace(evaluation.ChecklistVersion) ||
+        if (!string.Equals(
+                evaluation.ChecklistVersion,
+                E0AEvidenceContracts.HardGateChecklistVersion,
+                StringComparison.Ordinal) ||
             string.IsNullOrWhiteSpace(evaluation.ReviewerIdentity) ||
             string.IsNullOrWhiteSpace(evaluation.MethodIdentity) ||
             evaluation.Findings is null)
