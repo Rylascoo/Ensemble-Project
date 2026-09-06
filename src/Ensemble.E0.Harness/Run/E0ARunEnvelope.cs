@@ -21,7 +21,6 @@ internal enum E0AReasoningLevel
 internal static class E0AProviderTransportPolicy
 {
     internal const string PromptCacheMode = "explicit";
-    internal const string UnexpectedCacheWriteDisposition = "technical-failure";
 }
 
 internal sealed record E0APricingAssumptions(
