@@ -100,6 +100,33 @@ public sealed class OpenAIResponsesPortWireTests
     }
 
     [TestMethod]
+    public async Task StreamingStalledBody_CancelsWithoutSynchronousEofProbe()
+    {
+        var stream = new CancellableStalledStream();
+        var handler = new RecordingHandler(_ =>
+        {
+            var content = new StreamContent(stream);
+            content.Headers.ContentType = new MediaTypeHeaderValue("text/event-stream");
+            return new HttpResponseMessage(HttpStatusCode.OK) { Content = content };
+        });
+        using var http = new HttpClient(handler);
+        var port = new OpenAIResponsesPort(http, "test-secret");
+        var attempt = PerformerAttempt("E0A-WIRE-STREAM-CANCEL");
+        using var cancellation = new CancellationTokenSource(TimeSpan.FromMilliseconds(100));
+
+        try
+        {
+            _ = await port.ExecuteAsync(attempt, new CollectingDiagnosticSink(), cancellation.Token);
+            Assert.Fail("A stalled streaming body must remain cancellable.");
+        }
+        catch (OperationCanceledException) when (cancellation.IsCancellationRequested)
+        {
+        }
+
+        Assert.AreEqual(0, stream.SynchronousReadCount);
+    }
+
+    [TestMethod]
     public async Task StreamingProvisionalDeltaCannotOverrideCompletedSemanticOutput()
     {
         var provisional = Encoding.UTF8.GetString(E0ATestSupport.PerformerOutput("Provisional."));
@@ -266,6 +293,53 @@ public sealed class OpenAIResponsesPortWireTests
                 ? null
                 : await request.Content.ReadAsStringAsync(cancellationToken);
             return _response(request);
+        }
+    }
+
+    private sealed class CancellableStalledStream : Stream
+    {
+        internal int SynchronousReadCount { get; private set; }
+
+        public override bool CanRead => true;
+        public override bool CanSeek => false;
+        public override bool CanWrite => false;
+        public override long Length => throw new NotSupportedException();
+        public override long Position
+        {
+            get => throw new NotSupportedException();
+            set => throw new NotSupportedException();
+        }
+
+        public override void Flush()
+        {
+        }
+
+        public override int Read(byte[] buffer, int offset, int count)
+        {
+            SynchronousReadCount++;
+            throw new InvalidOperationException("Synchronous reads are forbidden for this test stream.");
+        }
+
+        public override Task<int> ReadAsync(
+            byte[] buffer,
+            int offset,
+            int count,
+            CancellationToken cancellationToken) =>
+            WaitForCancellationAsync(cancellationToken);
+
+        public override ValueTask<int> ReadAsync(
+            Memory<byte> buffer,
+            CancellationToken cancellationToken = default) =>
+            new(WaitForCancellationAsync(cancellationToken));
+
+        public override long Seek(long offset, SeekOrigin origin) => throw new NotSupportedException();
+        public override void SetLength(long value) => throw new NotSupportedException();
+        public override void Write(byte[] buffer, int offset, int count) => throw new NotSupportedException();
+
+        private static async Task<int> WaitForCancellationAsync(CancellationToken cancellationToken)
+        {
+            await Task.Delay(Timeout.InfiniteTimeSpan, cancellationToken).ConfigureAwait(false);
+            return 0;
         }
     }
 }
