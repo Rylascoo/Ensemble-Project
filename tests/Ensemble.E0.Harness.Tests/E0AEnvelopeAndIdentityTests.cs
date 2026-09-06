@@ -25,7 +25,9 @@ public sealed class E0AEnvelopeAndIdentityTests
             Assert.AreEqual(item.Reasoning, item.Envelope.Performer.Reasoning);
             Assert.AreEqual(E0AReasoningLevel.High, item.Envelope.Integrity.Reasoning);
             Assert.AreEqual(item.Reasoning, item.Envelope.Interpreter.Reasoning);
+            Assert.AreEqual("OpenAI", item.Envelope.Performer.Provider);
             Assert.AreEqual("gpt-5.6-sol", item.Envelope.Performer.Model);
+            Assert.AreEqual("default", item.Envelope.Performer.ServiceTier);
             Assert.AreEqual(item.Envelope.Performer.Model, item.Envelope.Integrity.Model);
             Assert.AreEqual(item.Envelope.Performer.Model, item.Envelope.Interpreter.Model);
             Assert.IsTrue(item.Envelope.Performer.Stream);
@@ -61,7 +63,7 @@ public sealed class E0AEnvelopeAndIdentityTests
     }
 
     [TestMethod]
-    public void PreparedAttempt_IdentityBindsRequestAndProfile()
+    public void PreparedAttempt_IdentityBindsRequestAndDefendsBytes()
     {
         var runId = RunId.From("E0A-IDENTITY");
         var context = DeterministicContext();
@@ -71,14 +73,20 @@ public sealed class E0AEnvelopeAndIdentityTests
 
         Assert.AreNotEqual(first.AttemptId, second.AttemptId);
         Assert.AreNotEqual(first.IdentityHash, second.IdentityHash);
-        Assert.AreEqual(first.RequestBodyHash, PreparedRoleAttempt.LowerSha256(first.RequestBody));
+        var originalHash = first.RequestBodyHash;
+        var copy = first.RequestBody;
+        copy[0] ^= 0x01;
+
+        Assert.AreEqual(originalHash, first.RequestBodyHash);
+        Assert.AreEqual(originalHash, PreparedRoleAttempt.LowerSha256(first.RequestBody));
+        Assert.AreNotEqual(copy[0], first.RequestBody[0]);
 
         using var body = JsonDocument.Parse(first.RequestBody);
         Assert.AreEqual("gpt-5.6-sol", body.RootElement.GetProperty("model").GetString());
     }
 
     [TestMethod]
-    public void ConfiguredReceipt_RejectsCrossAttemptReuseAndTechnicalPayloadIsEmpty()
+    public void ConfiguredReceipt_RejectsCrossAttemptReuseAndDefendsOutputBytes()
     {
         var runId = RunId.From("E0A-RECEIPT");
         var context = DeterministicContext();
@@ -86,7 +94,12 @@ public sealed class E0AEnvelopeAndIdentityTests
         var first = E0ARequestBuilder.Performer(runId, 1, envelope.Performer, context);
         var second = E0ARequestBuilder.Performer(runId, 2, envelope.Performer, context);
         var success = E0ATestSupport.Success(first, E0ATestSupport.PerformerOutput());
+        var originalHash = success.StructuredOutputHash;
+        var outputCopy = success.StructuredOutput!;
+        outputCopy[0] ^= 0x01;
 
+        Assert.AreEqual(originalHash, success.StructuredOutputHash);
+        Assert.AreEqual(originalHash, PreparedRoleAttempt.LowerSha256(success.StructuredOutput!));
         Assert.AreSame(success, ConfiguredRoleAttemptBoundary.Accept(first, success));
         Assert.Throws<E0AHarnessException>(() => ConfiguredRoleAttemptBoundary.Accept(second, success));
 
