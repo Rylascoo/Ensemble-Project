@@ -1,4 +1,3 @@
-using System.Collections.Immutable;
 using Ensemble.E0.Core.Access;
 using Ensemble.E0.Core.Cycle;
 using Ensemble.E0.Core.Domain;
@@ -66,14 +65,14 @@ public sealed class E0AIntegrityAndAuthorityTests
     }
 
     [TestMethod]
-    public void ConcernParser_PreservesDuplicatesForCoreCanonicalAuthority()
+    public void ConcernParser_PreservesDuplicatesForCoreRejection()
     {
         var name = nameof(IntegrityConcernKind.PotentialTechnicalArtifactLeak);
         var parsed = E0AIntegrityConcernParser.Parse(E0ATestSupport.IntegrityOutput(name, name));
         Assert.AreEqual(2, parsed.Length);
         Assert.AreEqual(parsed[0], parsed[1]);
 
-        var progress = E0ATestSupport.ReadyCandidateOnly();
+        var progress = E0ATestSupport.CandidateReady(E0ATestSupport.Cycle());
         Assert.Throws<E0TurnOrchestrationException>(() =>
             DeterministicE0TurnOrchestrator.EvaluateIntegrity(progress, parsed));
     }
