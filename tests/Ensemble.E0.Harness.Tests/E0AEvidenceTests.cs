@@ -29,9 +29,29 @@ public sealed class E0AEvidenceTests
             Assert.AreEqual(E0AEvidenceContracts.ApprovedBlueprintCommit, manifest.GetProperty("approvedBlueprintCommit").GetString());
             Assert.AreEqual("E0A-P0.15:CREATIVE-NONE", manifest.GetProperty("referenceConfigurationIdentity").GetString());
             Assert.AreEqual(E0AEvidenceContracts.HardGateChecklistVersion, manifest.GetProperty("hardGateChecklistVersion").GetString());
-            CollectionAssert.AreEqual(
-                E0AEvidenceContracts.HardGateChecklist.ToArray(),
-                manifest.GetProperty("hardGateChecklist").EnumerateArray().Select(x => x.GetString()).ToArray());
+
+            var expectedHardGates = new[]
+            {
+                "A character receives inaccessible secret information.",
+                "A context packet contains prohibited information even if the performer appears not to use it.",
+                "A model-created claim silently becomes objective world truth.",
+                "A possibility silently becomes fact.",
+                "Creator-locked canon or Constitution changes.",
+                "A technical provider failure, refusal, timeout, or retry becomes fictional action.",
+                "An unaccepted or cancelled partial performance enters Production history.",
+                "Accepted history changes retroactively or without an explicit causal event.",
+                "A committed consequence lacks a traceable accepted performance or authorized creator/world cause.",
+                "Performance commits without its approved consequences, or consequences commit without the accepted Performance.",
+                "The State Interpreter directly mutates authority.",
+                "A deterministic cost, cancellation, eligibility, or access rule is delegated to an LLM."
+            };
+            var actualHardGates = manifest.GetProperty("hardGateChecklist")
+                .EnumerateArray()
+                .Select(x => x.GetString())
+                .ToArray();
+            Assert.AreEqual(12, actualHardGates.Length);
+            CollectionAssert.AreEqual(expectedHardGates, actualHardGates);
+
             Assert.AreEqual(state.OriginFixtureVersion.Value, manifest.GetProperty("fixtureVersion").GetString());
             Assert.AreEqual(E0ATestSupport.TestExecutableCommit, manifest.GetProperty("executableCommit").GetString());
             Assert.AreEqual(1m, manifest.GetProperty("pricing").GetProperty("inputUsdPerMillionTokens").GetDecimal());
