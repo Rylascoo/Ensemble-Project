@@ -1,6 +1,6 @@
 # E0-A Phase B — Reference Run Envelope
 
-Status: **PROPOSAL 0.12 — EXPLORATORY; IMPLEMENTATION NOT AUTHORIZED**
+Status: **PROPOSAL 0.12 — RECURSIVE AUDIT COMPLETE; DIRECTOR APPROVAL REQUIRED; IMPLEMENTATION NOT AUTHORIZED**
 Date: 2026-09-05
 Parent `main`: `2b628c2d97eb39f4d96ce3e81eafefe93ba28b09`
 Branch: `e0a-reference-run-envelope-blueprint`
@@ -221,3 +221,5 @@ No Core redesign; product Application/persistence; provider conversation; retry/
 Approval freezes: GPT-5.6 Sol; Performers NONE + Interpreter NONE + Integrity HIGH; Performer LOW/MEDIUM/HIGH sweep; bounded instruction-separated prompts + Integrity packet; configured receipts; REST/stateless/no-tools/strict output; 12 accepted Turns; one attempt/zero retry/300s; 4096 max output each role; USD 5.00 estimated run-token ceiling; deterministic authority/review-reject policy/IDs; commit→Opportunity cancellation boundary; immutable replay evidence/blind package; Harness-only provider edge, Core unchanged.
 
 Approval **does not authorize provider requests, credential use, or spend**. Implementation remains fake-first and returns to native ARM64 validation before first real provider call.
+
+Final recursive pass: 0 material corrections, 0 authority/privacy/dependency/scope contradictions, 0 worthwhile in-scope simplifications.
