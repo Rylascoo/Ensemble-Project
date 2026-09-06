@@ -3,13 +3,21 @@ namespace Ensemble.E0.Harness.Run;
 internal sealed class E0ASpendLedger
 {
     private readonly E0APricingAssumptions _pricing;
+    private readonly long _maxInputTokens;
     private decimal _estimatedCommittedUsd;
     private decimal _reservedUsd;
 
-    internal E0ASpendLedger(E0APricingAssumptions pricing)
+    internal E0ASpendLedger(
+        E0APricingAssumptions pricing,
+        long maxInputTokens = E0APricingPolicy.StandardTierMaxInputTokens)
     {
         _pricing = pricing ?? throw new ArgumentNullException(nameof(pricing));
         _pricing.Validate();
+        if (maxInputTokens <= 0)
+        {
+            throw new E0AHarnessException("E0-A maximum input-token limit is invalid.");
+        }
+        _maxInputTokens = maxInputTokens;
     }
 
     internal decimal EstimatedCommittedUsd => _estimatedCommittedUsd;
@@ -21,7 +29,7 @@ internal sealed class E0ASpendLedger
         {
             throw new E0AHarnessException("E0-A spend reservation input is invalid.");
         }
-        if (inputTokens > E0APricingPolicy.StandardTierMaxInputTokens)
+        if (inputTokens > _maxInputTokens)
         {
             throw new E0ABudgetExceededException();
         }
@@ -47,10 +55,9 @@ internal sealed class E0ASpendLedger
             throw new E0AHarnessException("E0-A spend reservation is not current.");
         }
 
-        // The provider documents cached/cache-write counts as input-token details,
-        // but does not promise that those two detail categories are mutually exclusive.
-        // Cost every reported input token at the conservative cache-write-capable rate
-        // rather than depending on a partition that the provider does not document.
+        // Conservative reconciliation intentionally does not depend on provider
+        // cache categories being a disjoint partition. All reported input is
+        // charged at the envelope's full conservative input rate.
         var estimated = ConservativeCost(usage.InputTokens, usage.OutputTokens);
         var reservationExceeded =
             usage.InputTokens > reservation.InputTokens ||
