@@ -47,7 +47,7 @@ public sealed class E0ALiveHostReadinessTests
     }
 
     [TestMethod]
-    public async Task CacheWriteUsage_IsPreservedForSpendReconciliation()
+    public async Task CacheWriteUsage_IsInputDetailAndOverlapIsPreservedForConservativeReconciliation()
     {
         var output = Encoding.UTF8.GetString(E0ATestSupport.IntegrityOutput());
         var responseJson = JsonSerializer.Serialize(new
@@ -60,7 +60,7 @@ public sealed class E0ALiveHostReadinessTests
             {
                 input_tokens = 10,
                 output_tokens = 5,
-                input_tokens_details = new { cached_tokens = 0, cache_write_tokens = 4 },
+                input_tokens_details = new { cached_tokens = 7, cache_write_tokens = 4 },
                 output_tokens_details = new { reasoning_tokens = 3 }
             }
         });
@@ -71,29 +71,38 @@ public sealed class E0ALiveHostReadinessTests
         var receipt = await port.ExecuteAsync(attempt, new CollectingDiagnosticSink(), CancellationToken.None);
 
         Assert.AreEqual(E0ARoleAttemptOutcome.Success, receipt.Outcome);
-        Assert.AreEqual(4L, receipt.Usage!.CacheWriteTokens);
+        Assert.AreEqual(10L, receipt.Usage!.InputTokens);
+        Assert.AreEqual(7L, receipt.Usage.CachedInputTokens);
+        Assert.AreEqual(4L, receipt.Usage.CacheWriteTokens);
         CollectionAssert.AreEqual(E0ATestSupport.IntegrityOutput(), receipt.StructuredOutput!);
     }
 
     [TestMethod]
-    public void CacheWriteUsage_ReconcilesSpendThenMarksReservationMismatch()
+    public void CacheWriteUsage_ReconcilesConservativelyThenMarksReservationMismatch()
     {
         var ledger = new E0ASpendLedger(E0AReferenceRunHost.ConservativePricing);
         var reservation = ledger.Reserve(10, E0ARunEnvelope.RoleMaxOutputTokens);
 
         var reconciliation = ledger.Reconcile(
             reservation,
-            new E0AUsage(10, 5, 0, 3, 4));
+            new E0AUsage(10, 5, 7, 3, 4));
 
         Assert.IsTrue(reconciliation.ReservationExceeded);
-        Assert.IsTrue(reconciliation.ActualUsd > 0m);
+        Assert.AreEqual(0.00015m, reconciliation.ActualUsd);
         Assert.AreEqual(reconciliation.ActualUsd, ledger.EstimatedCommittedUsd);
         Assert.AreEqual(0m, ledger.ReservedUsd);
     }
 
     [TestMethod]
-    public void HostPricing_IsConservativeForPermittedStandardTierAndCacheWrites()
+    public void PricingPolicy_FreezesSourcePromotionAndConservativeRates()
     {
+        Assert.AreEqual("https://developers.openai.com/api/docs/models/gpt-5.6-sol", E0APricingPolicy.SourceUri);
+        Assert.AreEqual("2026-09-06", E0APricingPolicy.VerifiedOn);
+        Assert.AreEqual("2026-11-21", E0APricingPolicy.PromotionalPricingGuaranteedThrough);
+        Assert.AreEqual(4.00m, E0APricingPolicy.PublishedInputUsdPerMillionTokens);
+        Assert.AreEqual(0.40m, E0APricingPolicy.PublishedCachedInputUsdPerMillionTokens);
+        Assert.AreEqual(20.00m, E0APricingPolicy.PublishedOutputUsdPerMillionTokens);
+        Assert.AreEqual(1.25m, E0APricingPolicy.CacheWriteMultiplier);
         Assert.AreEqual(5.00m, E0AReferenceRunHost.ConservativePricing.InputUsdPerMillionTokens);
         Assert.AreEqual(0.40m, E0AReferenceRunHost.ConservativePricing.CachedInputUsdPerMillionTokens);
         Assert.AreEqual(20.00m, E0AReferenceRunHost.ConservativePricing.OutputUsdPerMillionTokens);
@@ -101,16 +110,46 @@ public sealed class E0ALiveHostReadinessTests
     }
 
     [TestMethod]
+    public void PricingPolicy_FailsClosedAfterPublishedPromotionalGuarantee()
+    {
+        E0APricingPolicy.RequireNonStaleSnapshot(new DateTimeOffset(2026, 11, 21, 23, 59, 59, TimeSpan.Zero));
+        Assert.Throws<E0AHarnessException>(() =>
+            E0APricingPolicy.RequireNonStaleSnapshot(new DateTimeOffset(2026, 11, 22, 0, 0, 0, TimeSpan.Zero)));
+    }
+
+    [TestMethod]
     public void SpendPreflight_BlocksLongContextPricingTierBeforeInference()
     {
         var ledger = new E0ASpendLedger(E0AReferenceRunHost.ConservativePricing);
-        var boundary = ledger.Reserve(E0ASpendLedger.StandardPricingInputTokenLimit, 1);
-        Assert.AreEqual(E0ASpendLedger.StandardPricingInputTokenLimit, boundary.InputTokens);
+        var boundary = ledger.Reserve(E0APricingPolicy.StandardTierMaxInputTokens, 1);
+        Assert.AreEqual(E0APricingPolicy.StandardTierMaxInputTokens, boundary.InputTokens);
         ledger.Release(boundary);
 
         Assert.Throws<E0ABudgetExceededException>(() =>
-            ledger.Reserve(E0ASpendLedger.StandardPricingInputTokenLimit + 1, 1));
+            ledger.Reserve(E0APricingPolicy.StandardTierMaxInputTokens + 1, 1));
         Assert.AreEqual(0m, ledger.ReservedUsd);
+    }
+
+    [TestMethod]
+    public void LiveHost_ExposesExactlyTheFourApprovedPhaseBVariants()
+    {
+        var none = E0AReferenceRunHost.CreateEnvelope("CREATIVE-NONE");
+        var low = E0AReferenceRunHost.CreateEnvelope("CREATIVE-LOW");
+        var medium = E0AReferenceRunHost.CreateEnvelope("CREATIVE-MEDIUM");
+        var high = E0AReferenceRunHost.CreateEnvelope("CREATIVE-HIGH");
+
+        Assert.AreEqual(E0AReasoningLevel.None, none.Performer.Reasoning);
+        Assert.AreEqual(E0AReasoningLevel.Low, low.Performer.Reasoning);
+        Assert.AreEqual(E0AReasoningLevel.Medium, medium.Performer.Reasoning);
+        Assert.AreEqual(E0AReasoningLevel.High, high.Performer.Reasoning);
+        foreach (var envelope in new[] { none, low, medium, high })
+        {
+            Assert.AreEqual(envelope.Performer.Reasoning, envelope.Interpreter.Reasoning);
+            Assert.AreEqual(E0AReasoningLevel.High, envelope.Integrity.Reasoning);
+            Assert.AreEqual("OpenAI", envelope.Performer.Provider);
+            Assert.AreEqual("gpt-5.6-sol", envelope.Performer.Model);
+        }
+        Assert.Throws<E0AHarnessException>(() => E0AReferenceRunHost.CreateEnvelope("CREATIVE-XHIGH"));
     }
 
     [TestMethod]
