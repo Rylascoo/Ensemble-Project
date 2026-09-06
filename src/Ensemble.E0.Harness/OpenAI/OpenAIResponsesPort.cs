@@ -136,7 +136,7 @@ internal sealed class OpenAIResponsesPort : IE0AProviderRolePort, IE0AInputToken
 
         await using var body = await response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
         using var reader = new StreamReader(body, Encoding.UTF8, false, 4096, leaveOpen: false);
-        var output = new StringBuilder();
+        var provisionalOutput = new StringBuilder();
         JsonElement? completed = null;
         var refused = false;
         var failed = false;
@@ -166,7 +166,7 @@ internal sealed class OpenAIResponsesPort : IE0AProviderRolePort, IE0AInputToken
                 case "response.output_text.delta":
                     if (root.TryGetProperty("delta", out var delta) && delta.ValueKind == JsonValueKind.String)
                     {
-                        output.Append(delta.GetString());
+                        provisionalOutput.Append(delta.GetString());
                     }
                     break;
                 case "response.refusal.delta":
@@ -196,13 +196,25 @@ internal sealed class OpenAIResponsesPort : IE0AProviderRolePort, IE0AInputToken
             return RoleAttemptReceipt.TechnicalFailure(attempt, "provider-incomplete");
         }
 
-        return ReceiptFromResponse(attempt, completed.Value, output.Length == 0 ? null : output.ToString());
+        var receipt = ReceiptFromResponse(attempt, completed.Value);
+        if (receipt.Outcome != E0ARoleAttemptOutcome.Success || provisionalOutput.Length == 0)
+        {
+            return receipt;
+        }
+
+        var finalOutput = receipt.StructuredOutput;
+        if (finalOutput is null ||
+            !string.Equals(provisionalOutput.ToString(), Encoding.UTF8.GetString(finalOutput), StringComparison.Ordinal))
+        {
+            return RoleAttemptReceipt.TechnicalFailure(attempt, "stream-final-mismatch");
+        }
+
+        return receipt;
     }
 
     private static RoleAttemptReceipt ReceiptFromResponse(
         PreparedRoleAttempt attempt,
-        JsonElement response,
-        string? streamedOutput = null)
+        JsonElement response)
     {
         var status = response.TryGetProperty("status", out var statusElement) ? statusElement.GetString() : null;
         if (!string.Equals(status, "completed", StringComparison.Ordinal))
@@ -217,7 +229,7 @@ internal sealed class OpenAIResponsesPort : IE0AProviderRolePort, IE0AInputToken
 
         var id = response.TryGetProperty("id", out var idElement) ? idElement.GetString() : null;
         var model = response.TryGetProperty("model", out var modelElement) ? modelElement.GetString() : null;
-        var text = streamedOutput ?? ExtractOutputText(response);
+        var text = ExtractOutputText(response);
         var usage = ParseUsage(response);
         if (string.IsNullOrWhiteSpace(id) ||
             string.IsNullOrWhiteSpace(model) ||
@@ -315,7 +327,8 @@ internal sealed class OpenAIResponsesPort : IE0AProviderRolePort, IE0AInputToken
             outputTokens < 0 ||
             cached < 0 ||
             reasoning < 0 ||
-            cached > inputTokens)
+            cached > inputTokens ||
+            reasoning > outputTokens)
         {
             return null;
         }
