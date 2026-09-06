@@ -53,25 +53,32 @@ Performer and Interpreter stream for diagnostics only. Integrity remains buffere
 
 The provider-neutral intended generated-token ceiling remains **4,096 tokens per role invocation**.
 
-Gemini exposes visible candidate tokens and thinking tokens separately, so the configured controls are:
+Gemini exposes visible candidate tokens and thinking tokens as separate usage fields. The configured controls are:
 
 ```text
-Performer    thinkingBudget=0      candidate maxOutputTokens=4096
-Integrity    thinkingBudget=3584   candidate maxOutputTokens=512
-Interpreter  thinkingBudget=0      candidate maxOutputTokens=4096
+Performer    thinkingBudget=0      maxOutputTokens=4096
+Integrity    thinkingBudget=3584   maxOutputTokens=4096
+Interpreter  thinkingBudget=0      maxOutputTokens=4096
 ```
 
-The Integrity response schema contains only the bounded `concerns` array over the five existing concern names. A 512-token candidate ceiling is intentionally far above the valid response payload while reserving most of the 4,096 intended generated-token budget for the fixed Integrity control.
+The Integrity response schema contains only the bounded `concerns` array over the five existing concern names. `maxOutputTokens=4096` deliberately preserves the original E0-A role ceiling at the provider request boundary and avoids depending on an ambiguous provider interaction between thinking allocation and visible-output allowance.
 
-Google documents `thinkingBudget` as guidance and notes that actual thinking may overflow or underflow it. Therefore:
+Google's formal API reference describes `maxOutputTokens` as the maximum tokens in a response candidate, while the thinking guide reports thinking separately and states that `thinkingBudget` may overflow or underflow. Recent operational evidence has also shown that constraining `maxOutputTokens` too tightly can starve visible output when thinking is enabled. The E0-A contract therefore does not infer a hidden provider accounting rule from field names.
+
+Instead, the authoritative post-response rule is explicit:
 
 - successful Gemini usage records candidate and thought tokens separately;
 - Ensemble maps billable/generated output as `candidate + thought` tokens;
 - any observed generated total above 4,096 is a technical/noncontributing overrun before semantic consumption;
 - Performer/Interpreter must report zero thought tokens for a contributing normative call;
-- Integrity may vary around its configured thinking budget only while the observed generated total remains within 4,096.
+- Integrity may vary around its configured thinking budget only while the observed generated total remains within 4,096;
+- candidate output itself may never exceed the configured 4,096 request limit.
 
-For pre-spend risk accounting, Integrity reserves against Gemini 2.5 Flash's published 65,536 output-token model limit rather than treating `thinkingBudget=3584` as a hard provider cap. This protects the USD ceiling even if provider thinking exceeds the configured budget.
+For pre-spend risk accounting, Integrity reserves against Gemini 2.5 Flash's published 65,536 output-token model limit rather than treating `thinkingBudget=3584` as a hard provider cap. That reservation exceeds the worst expected generated total for the configured request and keeps the USD ceiling fail-closed even if provider thinking exceeds the requested budget.
+
+### Recursive implementation-audit correction
+
+The initially approved draft used `maxOutputTokens=512` for Integrity in an attempt to partition a 4,096 total into 3,584 thinking + 512 visible output. During implementation audit, current provider documentation and operational evidence showed that this partition relies on an unsafe assumption about how Gemini applies `maxOutputTokens` relative to thinking. The implementation therefore restores the original 4,096 request cap and enforces the 4,096 **combined observed** generated-token law after usage is returned and before semantics. This is a corrective preservation of the approved E0-A ceiling, not a new reasoning arm or broader scope.
 
 ## 5. Input counting and model limits
 
@@ -179,6 +186,6 @@ Official Google sources verified 2026-09-06:
 - Gemini structured output: `https://ai.google.dev/gemini-api/docs/generate-content/structured-output`
 - Gemini context caching: `https://ai.google.dev/gemini-api/docs/caching/`
 - Gemini pricing: `https://ai.google.dev/gemini-api/docs/pricing`
-- Gemini 2.5 Flash model limits/version status: `https://ai.google.dev/gemini-api/docs/models/gemini-2.5-flash-preview-09-2025`
+- Gemini 2.5 Flash model limits/version status: `https://ai.google.dev/gemini-api/docs/models/gemini-2.5-flash`
 
 Any later provider change must be reverified rather than inferred from this snapshot.
