@@ -19,7 +19,10 @@ internal static class E0AExistingEvidenceEvaluationSealer
                 StringComparison.Ordinal) ||
             string.IsNullOrWhiteSpace(evaluation.ReviewerIdentity) ||
             string.IsNullOrWhiteSpace(evaluation.MethodIdentity) ||
-            evaluation.Findings is null)
+            evaluation.Findings is null ||
+            evaluation.Findings.Any(string.IsNullOrWhiteSpace) ||
+            (evaluation.Passed && evaluation.Findings.Length != 0) ||
+            (!evaluation.Passed && evaluation.Findings.Length == 0))
         {
             throw new E0AHarnessException("E0-A hard-gate evaluation identity is invalid.");
         }
@@ -37,18 +40,7 @@ internal static class E0AExistingEvidenceEvaluationSealer
         }
 
         var runFinalBytes = File.ReadAllBytes(runFinalPath);
-        string recordedRoot;
-        try
-        {
-            using var runFinal = JsonDocument.Parse(runFinalBytes);
-            recordedRoot = runFinal.RootElement.GetProperty("runtimeRoot").GetString()
-                ?? throw new E0AHarnessException("E0-A runtime seal root is missing.");
-        }
-        catch (JsonException)
-        {
-            throw new E0AHarnessException("E0-A runtime seal is invalid.");
-        }
-
+        var recordedRoot = ReadRuntimeRoot(runFinalBytes);
         var recomputedRoot = RootDigest(RuntimeDigests(root));
         if (!string.Equals(recordedRoot, recomputedRoot, StringComparison.Ordinal))
         {
@@ -71,6 +63,34 @@ internal static class E0AExistingEvidenceEvaluationSealer
         WriteNew(evaluationFinalPath, evaluationFinalBytes);
     }
 
+    private static string ReadRuntimeRoot(byte[] runFinalBytes)
+    {
+        try
+        {
+            using var runFinal = JsonDocument.Parse(runFinalBytes);
+            var root = runFinal.RootElement;
+            if (root.ValueKind != JsonValueKind.Object ||
+                !root.TryGetProperty("contract", out var contract) ||
+                !string.Equals(contract.GetString(), "ensemble.e0a.runtime-seal.v1", StringComparison.Ordinal) ||
+                !root.TryGetProperty("runtimeRoot", out var runtimeRoot) ||
+                runtimeRoot.ValueKind != JsonValueKind.String)
+            {
+                throw new E0AHarnessException("E0-A runtime seal is invalid.");
+            }
+
+            var value = runtimeRoot.GetString();
+            if (!IsLowerHex(value, 64))
+            {
+                throw new E0AHarnessException("E0-A runtime seal root is invalid.");
+            }
+            return value!;
+        }
+        catch (JsonException)
+        {
+            throw new E0AHarnessException("E0-A runtime seal is invalid.");
+        }
+    }
+
     private static (string Path, string Hash)[] RuntimeDigests(string root) =>
         Directory.GetFiles(root, "*", SearchOption.AllDirectories)
             .Select(path => Path.GetRelativePath(root, path).Replace('\\', '/'))
@@ -88,6 +108,23 @@ internal static class E0AExistingEvidenceEvaluationSealer
     {
         var canonical = string.Concat(digests.Select(x => $"{x.Path}\0{x.Hash}\n"));
         return PreparedRoleAttempt.LowerSha256(Encoding.UTF8.GetBytes(canonical));
+    }
+
+    private static bool IsLowerHex(string? value, int length)
+    {
+        if (value is null || value.Length != length)
+        {
+            return false;
+        }
+        foreach (var character in value)
+        {
+            if (!((character >= '0' && character <= '9') ||
+                  (character >= 'a' && character <= 'f')))
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     private static void WriteNew(string path, byte[] bytes)
