@@ -15,6 +15,8 @@ internal sealed record E0AIntegrityConstraint(
     AccessReason? DenialReason,
     ProductionRecordProtection Protection);
 
+internal sealed record E0AIntegrityConcernDefinition(string Name, string Meaning);
+
 internal sealed class E0AIntegrityAssessmentPacket
 {
     internal E0AIntegrityAssessmentPacket(
@@ -63,7 +65,11 @@ internal sealed class E0AIntegrityAssessmentPacket
             denialReason = x.DenialReason?.ToString(),
             protection = x.Protection.ToString()
         }).ToArray(),
-        concernDefinitions = E0AIntegrityConcernParser.AllowedNames
+        concernDefinitions = E0AIntegrityConcernParser.Definitions.Select(x => new
+        {
+            name = x.Name,
+            meaning = x.Meaning
+        }).ToArray()
     };
 }
 
@@ -156,12 +162,25 @@ internal static class E0AIntegrityAssessmentPacketBuilder
 
 internal static class E0AIntegrityConcernParser
 {
-    internal static readonly ImmutableArray<string> AllowedNames = ImmutableArray.Create(
-        nameof(IntegrityConcernKind.PotentialInaccessibleInformationUse),
-        nameof(IntegrityConcernKind.PotentialProtectedInformationExposure),
-        nameof(IntegrityConcernKind.PotentialLockedAuthorityViolation),
-        nameof(IntegrityConcernKind.PotentialTechnicalArtifactLeak),
-        nameof(IntegrityConcernKind.IndeterminateSemanticIntegrity));
+    internal static readonly ImmutableArray<E0AIntegrityConcernDefinition> Definitions = ImmutableArray.Create(
+        new E0AIntegrityConcernDefinition(
+            nameof(IntegrityConcernKind.PotentialInaccessibleInformationUse),
+            "Evidence suggests Performance relies on information unavailable to the Character as knowledge or agency. Mere coincidence with hidden truth, a guess, question, suspicion, lie, or unsupported claim is insufficient by itself."),
+        new E0AIntegrityConcernDefinition(
+            nameof(IntegrityConcernKind.PotentialProtectedInformationExposure),
+            "Evidence suggests protected creator- or system-only material surfaced through Performance in a way requiring review. Generic wording overlap is not a deterministic leak test."),
+        new E0AIntegrityConcernDefinition(
+            nameof(IntegrityConcernKind.PotentialLockedAuthorityViolation),
+            "Evidence suggests Performance purports to enact or establish a locked canon or world-law conflict. Mere false speech, belief, intent, or failed attempt is insufficient by itself."),
+        new E0AIntegrityConcernDefinition(
+            nameof(IntegrityConcernKind.PotentialTechnicalArtifactLeak),
+            "Evidence suggests provider, system, or transport artifacts leaked into fictional Performance. Legitimate technical wording is insufficient by itself."),
+        new E0AIntegrityConcernDefinition(
+            nameof(IntegrityConcernKind.IndeterminateSemanticIntegrity),
+            "A completed semantic review cannot responsibly clear the Candidate under its configured review contract."));
+
+    internal static readonly ImmutableArray<string> AllowedNames =
+        Definitions.Select(x => x.Name).ToImmutableArray();
 
     internal static ImmutableArray<IntegrityConcernKind> Parse(ReadOnlySpan<byte> utf8)
     {
