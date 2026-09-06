@@ -10,24 +10,21 @@ namespace Ensemble.E0.Harness.Host;
 
 internal static class E0AReferenceRunHost
 {
-    // Conservative standard-tier bound verified against GPT-5.6 Sol pricing on
-    // 2026-09-06. Base promotional rates are 4.00 / 0.40 / 20.00 USD per 1M
-    // text tokens and cache writes are 1.25x uncached input, so 5.00 / 0.40 /
-    // 20.00 safely covers every permitted <=272K-input reference invocation.
-    internal static E0APricingAssumptions ConservativePricing { get; } = new(5.00m, 0.40m, 20.00m);
+    internal static E0APricingAssumptions ConservativePricing => E0APricingPolicy.ConservativePricing;
 
     internal static async Task<int> RunAsync(string[] args, CancellationToken cancellationToken)
     {
-        if (args.Length != 4 || args.Any(string.IsNullOrWhiteSpace))
+        if (args.Length != 5 || args.Any(string.IsNullOrWhiteSpace))
         {
             throw new E0AHarnessException(
-                "Usage: Ensemble.E0.Harness e0a-run <fixture.json> <run-id> <evidence-root> <executable-commit>");
+                "Usage: Ensemble.E0.Harness e0a-run <CREATIVE-NONE|CREATIVE-LOW|CREATIVE-MEDIUM|CREATIVE-HIGH> <fixture.json> <run-id> <evidence-root> <executable-commit>");
         }
 
-        var fixturePath = args[0];
-        var runId = RunId.From(args[1]);
-        var evidenceRoot = args[2];
-        var executableCommit = args[3];
+        var variant = args[0];
+        var fixturePath = args[1];
+        var runId = RunId.From(args[2]);
+        var evidenceRoot = args[3];
+        var executableCommit = args[4];
         E0ADeterministicIds.ValidateRunId(runId);
 
         // Bind manifest provenance to the exact clean checkout before secret access.
@@ -42,12 +39,17 @@ internal static class E0AReferenceRunHost
         MissingRaftContract.Validate(fixture);
         var genesis = ProductionState.Initialize(fixture, ImmutableArray<RecordId>.Empty);
 
+        // The published promotional rate is only frozen through its provider-guaranteed
+        // date. After that date the host refuses inference until pricing is re-verified
+        // and these implementation/evidence constants are deliberately updated.
+        E0APricingPolicy.RequireNonStaleSnapshot(DateTimeOffset.UtcNow);
+
         // Credential access is deliberately confined to this explicit live-run path.
         // Missing credentials fail before any run evidence directory is created.
         using var http = new HttpClient();
         var provider = OpenAIResponsesPort.FromEnvironment(http);
 
-        var envelope = E0ARunEnvelope.CreativeNone(ConservativePricing);
+        var envelope = CreateEnvelope(variant);
         var evidence = new E0AFileEvidenceStore(
             evidenceRoot,
             runId,
@@ -61,10 +63,19 @@ internal static class E0AReferenceRunHost
         var result = await driver.RunAsync(runId, genesis, cancellationToken).ConfigureAwait(false);
 
         Console.WriteLine(
-            $"E0-A run terminal: {result.Status}; acceptedTurns={result.AcceptedTurns}; estimatedSpendUsd={result.EstimatedSpendUsd:0.000000}");
+            $"E0-A {envelope.Variant} run terminal: {result.Status}; acceptedTurns={result.AcceptedTurns}; estimatedSpendUsd={result.EstimatedSpendUsd:0.000000}");
         Console.WriteLine($"Evidence root: {evidence.RootPath}");
         return result.Status == E0ARunTerminalStatus.AcceptedTurnCapReached ? 0 : 3;
     }
+
+    internal static E0ARunEnvelope CreateEnvelope(string variant) => variant switch
+    {
+        "CREATIVE-NONE" => E0ARunEnvelope.CreativeNone(ConservativePricing),
+        "CREATIVE-LOW" => E0ARunEnvelope.CreativeLow(ConservativePricing),
+        "CREATIVE-MEDIUM" => E0ARunEnvelope.CreativeMedium(ConservativePricing),
+        "CREATIVE-HIGH" => E0ARunEnvelope.CreativeHigh(ConservativePricing),
+        _ => throw new E0AHarnessException("E0-A live-run variant is not one of the four approved Phase-B variants.")
+    };
 
     internal static int SealEvaluation(string[] args)
     {
