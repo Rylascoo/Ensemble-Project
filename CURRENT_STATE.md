@@ -10,7 +10,7 @@ The Director owns product constitution, Open Design Register resolution, provide
 
 ## Checkpoint
 
-Phase: **E0-A Experimental Harness — Phase B reference-run implementation plus live-host completion native-validated for fake-only/credentialless scope; real provider run still gated**.
+Phase: **E0-A Experimental Harness — Phase B post-audit hardening in progress on `e0a-phase-b-post-audit-hardening`; Patch Group 1 implemented and recursively static-audited; hardening native validation pending; real provider run still gated**.
 
 H1 Phase A: **CLOSED** by `docs/evidence/H1_CONVERGENCE_AUDIT.md`; promotion `28371ea4bcd9709b771413100af4dcec5a05dc6e`.
 
@@ -19,6 +19,8 @@ Approved Phase-B architecture: `docs/blueprint/E0A_PHASE_B_REFERENCE_RUN_ENVELOP
 Original Phase-B implementation evidence: `docs/evidence/E0A_PHASE_B_REFERENCE_RUN_ENVELOPE_IMPLEMENTATION_EVIDENCE.md`; native evidence: `docs/evidence/E0A_PHASE_B_REFERENCE_RUN_ENVELOPE_NATIVE_ARM64_VALIDATION.md`; oracle: `docs/evidence/E0A_PHASE_B_REFERENCE_RUN_ENVELOPE_ORACLE.json`.
 
 Live-host completion native evidence: `docs/evidence/E0A_PHASE_B_LIVE_HOST_NATIVE_ARM64_VALIDATION.md`. Attempt 01 partial evidence: `docs/evidence/E0A_PHASE_B_LIVE_HOST_NATIVE_VALIDATION_ATTEMPT_01.md`. Director-host apparatus contract: `docs/evidence/DIRECTOR_WINDOWS_ARM64_VALIDATION_HOST_BEHAVIORS.md`.
+
+Post-audit hardening Patch Group 1 implementation evidence: `docs/evidence/E0A_POST_AUDIT_HARDENING_PATCH_GROUP_1_IMPLEMENTATION.md`.
 
 Program map: `docs/roadmap/KYMAEAN_ARCHITECTURE_AND_SHIP_PLAN.md`.
 
@@ -50,9 +52,35 @@ The comparison from `1cfdb3aa22abce62a5bd48e80706407670d1c6a9` to former branch 
 
 No real provider request, provider credential use, provider-network execution, or provider spend has been executed or authorized by this validation. No WinUI, Windows AI/NPU, MSIX/WACK, or Store authority.
 
+## Post-audit hardening branch
+
+Authoritative hardening branch:
+
+`e0a-phase-b-post-audit-hardening`
+
+Audited `main` baseline / merge base:
+
+`f9cb1a79ad7923b640ff1a97c46d8fd6ab9dac25`
+
+Patch Group 1 exact executable/test checkpoint:
+
+`171881c1247e1c466fec6abd3e92335a055eb4f2`
+
+Patch Group 1 contains only E-01 Integrity failure terminal sealing and E-02 streaming cancellation boundary. It changes exactly four Harness/Harness-test files and zero Core files. The implementation and recursive static audit are complete. No compiler, test-runtime, Windows ARM64, fixture-smoke, or live-host validation claim applies to this hardening executable/test checkpoint yet.
+
+The E-01 correction routes known `E0TurnOrchestrationException` failures from the configured Integrity evaluation call through the existing `InvalidOutput -> Finish(...)` terminal/runtime-seal path. It adds no broad exception handling and no parallel Harness Integrity semantic validator. The regression proves duplicate concerns fail before Interpreter, no accepted Performance or commit occurs, provider terminal receipts remain evidenced, and runtime evidence seals normally.
+
+The E-02 correction removes synchronous `StreamReader.EndOfStream` probing before cancellable reads. Streaming now reads through `ReadLineAsync(cancellationToken)` and treats `null` as EOF. Existing diagnostic streaming and `response.completed` semantic authority remain unchanged. The regression uses a stalling stream that signals asynchronous read start, cancels deterministically, and proves zero synchronous reads.
+
+Recursive audit removed two unnecessary intermediate choices: a new `integrity.rejected` evidence event and a duplicate-specific Harness catch filter. The final implementation uses the existing typed Core orchestration failure boundary and existing run terminal/evidence lifecycle.
+
+Draft review surface: PR #39. `main` remains untouched by the hardening implementation.
+
+Per the hardening branch strategy, later hardening groups remain isolated on this branch and grouped native Windows ARM64 validation occurs before merge to `main`. Patch Group 2 is not implemented by the Patch Group 1 record.
+
 ## Phase-B live-host truth
 
-The Harness owns the approved reference-run envelope outside Core while reusing the closed H1 Cycle/Turn authority unchanged. Core remains unchanged by the live-host completion.
+The Harness owns the approved reference-run envelope outside Core while reusing the closed H1 Cycle/Turn authority unchanged. Core remains unchanged by the live-host completion and by Patch Group 1 hardening.
 
 Frozen provider/model control: **OpenAI / `gpt-5.6-sol` only** for E0-A under Blueprint law #35. This is an E0-A reference-envelope configuration constraint; provider/token-counter interfaces are not themselves pinned to those literals, though `E0ARequestBuilder` intentionally emits the OpenAI Responses request shape.
 
@@ -71,7 +99,7 @@ Prompt caching is explicit-mode to disable the provider's implicit breakpoint. C
 
 The live host's `RequireNonStaleSnapshot` remains a date-validity guard, not live pricing verification. It fails closed after the published promotional-guarantee date, but it cannot detect provider changes to pricing terms, cache-write multiplier, long-context threshold, or related billing rules that occur earlier within that date window.
 
-Closing that residual still requires the previously identified short-lived trusted pricing attestation or an equivalent stable machine-readable provider pricing source. This native PASS does not erase or narrow that known limit.
+Closing that residual still requires the previously identified short-lived trusted pricing attestation or an equivalent stable machine-readable provider pricing source. The prior native PASS does not erase or narrow that known limit.
 
 Preserved laws include Access before Context, exact configured-path request/receipt provenance, diagnostic-only streamed deltas, closed-response semantic authority, spend reconciliation before semantic use, fail-closed cancellation/timeout/usage handling, deterministic Integrity/State Authority rejection, atomic accepted causal commit followed immediately by next Opportunity establishment, immutable evidence sealing, and blind-output isolation.
 
@@ -102,6 +130,8 @@ Known host facts include:
 
 Remain inside **E0-A Phase B**. Do not redesign Proposal 0.15 or enter E0-B..G, product Application/persistence/UI, Scene endings, Context optimization, Windows AI/NPU, MSIX/WACK/Store, or later scope.
 
-The former `main`/work-branch divergence has been reconciled as a documentation-only union. The reconciled head may be promoted through the normal reviewed GitHub path without another native run because no executable/test/fixture surface changed after `1cfdb3aa...`. If this state is already on `main`, that promotion step is complete.
+Continue post-audit hardening only on `e0a-phase-b-post-audit-hardening`. Patch Group 1 is implemented and recursively static-audited. Patch Group 2 requires its separately established audit scope; do not infer or redesign it from Patch Group 1.
 
-After promotion, the next consequential product action remains the first real reference-provider run under the frozen envelope/evidence package. It requires **separate explicit Director authorization** for `OPENAI_API_KEY`, provider credentials, network inference, and spend. Nothing in fake-only native validation, reconciliation, or promotion opens that gate.
+After the authorized hardening groups and recursive audits are complete, run the grouped native Windows ARM64 validation gate on the exact final executable/test checkout, using `docs/evidence/DIRECTOR_WINDOWS_ARM64_VALIDATION_HOST_BEHAVIORS.md` as the validation-host contract. Only that later native evidence may replace `1cfdb3aa...` as executable/test authority.
+
+The first real reference-provider run is no longer the immediate next executable action while hardening is in progress. It remains separately gated and requires explicit Director authorization for `OPENAI_API_KEY`, provider credentials, network inference, and spend after the hardening branch is validated and promoted. Nothing in prior fake-only native validation, Patch Group 1 implementation, static audit, or draft PR #39 opens that gate.
