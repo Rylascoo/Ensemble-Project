@@ -1,6 +1,6 @@
 # E0-A Phase B — Reference Run Envelope
 
-Status: **PROPOSAL 0.15 — RECURSIVELY AUDITED; DIRECTOR APPROVAL REQUIRED; IMPLEMENTATION FORBIDDEN**
+Status: **APPROVED — PROPOSAL 0.15; FAKE-FIRST IMPLEMENTATION AUTHORIZED**
 Parent `main`: `2b628c2d97eb39f4d96ce3e81eafefe93ba28b09`
 Branch: `e0a-reference-run-envelope-blueprint`
 
