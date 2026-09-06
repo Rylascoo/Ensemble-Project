@@ -192,12 +192,6 @@ internal sealed class E0AReferenceRunDriver
             }
             catch (E0TurnOrchestrationException) when (concerns.Length != concerns.Distinct().Count())
             {
-                _evidence.RecordEvent("integrity.rejected", new
-                {
-                    turn,
-                    candidateContentHash = integrityInput.CandidateContentHash,
-                    concerns = concerns.Select(x => x.ToString()).ToArray()
-                });
                 return Finish(E0ARunTerminalStatus.InvalidOutput, acceptedTurns, state);
             }
             _evidence.RecordEvent("integrity.evaluated", new
