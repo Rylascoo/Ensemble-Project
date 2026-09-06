@@ -274,8 +274,19 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
         ref string? responseId,
         ref string? modelVersion)
     {
-        var id = response.TryGetProperty("responseId", out var idElement) ? idElement.GetString() : null;
-        var model = response.TryGetProperty("modelVersion", out var modelElement) ? modelElement.GetString() : null;
+        var hasId = response.TryGetProperty("responseId", out var idElement);
+        var hasModel = response.TryGetProperty("modelVersion", out var modelElement);
+        if (!hasId && !hasModel)
+        {
+            return true;
+        }
+        if (!hasId || !hasModel)
+        {
+            return false;
+        }
+
+        var id = idElement.GetString();
+        var model = modelElement.GetString();
         if (string.IsNullOrWhiteSpace(id) || string.IsNullOrWhiteSpace(model))
         {
             return false;
