@@ -112,11 +112,15 @@ public sealed class OpenAIResponsesPortWireTests
         using var http = new HttpClient(handler);
         var port = new OpenAIResponsesPort(http, "test-secret");
         var attempt = PerformerAttempt("E0A-WIRE-STREAM-CANCEL");
-        using var cancellation = new CancellationTokenSource(TimeSpan.FromMilliseconds(100));
+        using var cancellation = new CancellationTokenSource();
+
+        var execution = port.ExecuteAsync(attempt, new CollectingDiagnosticSink(), cancellation.Token);
+        await stream.ReadStarted.WaitAsync(TimeSpan.FromSeconds(2));
+        cancellation.Cancel();
 
         try
         {
-            _ = await port.ExecuteAsync(attempt, new CollectingDiagnosticSink(), cancellation.Token);
+            _ = await execution;
             Assert.Fail("A stalled streaming body must remain cancellable.");
         }
         catch (OperationCanceledException) when (cancellation.IsCancellationRequested)
@@ -298,7 +302,11 @@ public sealed class OpenAIResponsesPortWireTests
 
     private sealed class CancellableStalledStream : Stream
     {
+        private readonly TaskCompletionSource<bool> _readStarted =
+            new(TaskCreationOptions.RunContinuationsAsynchronously);
+
         internal int SynchronousReadCount { get; private set; }
+        internal Task ReadStarted => _readStarted.Task;
 
         public override bool CanRead => true;
         public override bool CanSeek => false;
@@ -336,8 +344,9 @@ public sealed class OpenAIResponsesPortWireTests
         public override void SetLength(long value) => throw new NotSupportedException();
         public override void Write(byte[] buffer, int offset, int count) => throw new NotSupportedException();
 
-        private static async Task<int> WaitForCancellationAsync(CancellationToken cancellationToken)
+        private async Task<int> WaitForCancellationAsync(CancellationToken cancellationToken)
         {
+            _readStarted.TrySetResult(true);
             await Task.Delay(Timeout.InfiniteTimeSpan, cancellationToken).ConfigureAwait(false);
             return 0;
         }
