@@ -1,6 +1,6 @@
 # E0-A Phase B — Reference Run Envelope
 
-Status: **PROPOSAL 0.8 — EXPLORATORY; IMPLEMENTATION NOT AUTHORIZED**
+Status: **PROPOSAL 0.9 — EXPLORATORY; IMPLEMENTATION NOT AUTHORIZED**
 Date: 2026-09-05
 Parent `main`: `2b628c2d97eb39f4d96ce3e81eafefe93ba28b09`
 Branch: `e0a-reference-run-envelope-blueprint`
@@ -67,11 +67,13 @@ Use official Responses REST API through `HttpClient`; reverify API/model immedia
 
 ```text
 Performer    stream=true   reasoning=none   max_output_tokens=4096
-Integrity    stream=false  reasoning=high   max_output_tokens=2048
+Integrity    stream=false  reasoning=high   max_output_tokens=4096
 Interpreter  stream=true   reasoning=none   max_output_tokens=4096
 ```
 
 The sweep changes only Performer reasoning. Freeze a provider snapshot only if an immutable identifier is actually exposed/usable; otherwise record requested alias and all returned model/version identifiers, with no snapshot-stability claim. Observable in-batch identity change fails closed.
+
+Provider schemas must stay inside the currently supported Structured Outputs subset. Provider schema enforcement guarantees transport shape only; existing Core parsers/binders remain semantic authority.
 
 ## 6. Versioned prompts and bounded disclosure
 
@@ -94,7 +96,13 @@ five Patch 0008 concern definitions
 
 Denied records come from exact current Production + current Access decisions; inactive records excluded; protected records deduplicated. No unrelated provenance graph/commit history/credentials/creator metadata. This Integrity-only disclosure never becomes Character knowledge.
 
-Integrity strict output is only an ordered unique Patch 0008 concern-name array; no rationale/confidence/free text.
+Integrity provider output is a strict root object:
+
+```json
+{"concerns":["PotentialInaccessibleInformationUse"]}
+```
+
+`concerns` items are limited to the five Patch 0008 enum names. The provider schema does not rely on unsupported array-uniqueness/order keywords; duplicate/defined-value/canonical-order semantics remain deterministic `IntegrityConcernEvidence.Bind` authority. No rationale/confidence/free text.
 
 ## 7. Configured-path attempt receipts
 
@@ -149,12 +157,12 @@ Manifest freezes assumptions for **estimated model-token cost**; provider billin
 
 ```text
 successful configured Integrity receipt
- -> strict concern array
+ -> parse root object / concerns
  -> IntegrityConcernEvidence.Bind
  -> Patch 0008 deterministic Validate / Patch 0018 EvaluateIntegrity
 ```
 
-No concerns -> Accept. Any concern -> `RequestAnotherTake`; zero retries then terminate before Interpreter/Take/commit. Deterministic Reject short-circuits before semantic review. Assessor technical failure produces no concern evidence/disposition and terminates. Synthetic empty evidence remains test-only, never contributing-run authority.
+No concerns -> Accept. Any concern -> `RequestAnotherTake`; zero retries then terminate before Interpreter/Take/commit. Deterministic Reject short-circuits before semantic review. Assessor technical/schema failure produces no concern evidence/disposition and terminates. Synthetic empty evidence remains test-only, never contributing-run authority.
 
 Reference `StateAuthorityPolicy` contains Patch 0010 policy-eligible domains:
 
@@ -169,7 +177,7 @@ Patch 0010 still owns hard rejection/mandatory review. On `ReviewRequired`, expl
 
 Successful Performer receipt -> diagnostics -> `PerformerCandidateContract.ParseJson(exact Context)` -> Patch 0017 BindCandidate -> Turn GateAttempt. Failure/refusal/timeout/incomplete/invalid -> TechnicalFailure; explicit cancel -> Cancelled; partial output diagnostics only.
 
-Successful Interpreter receipt -> diagnostics -> `StateInterpretationContract.ParseJson(exact InterpretationSource)` -> Turn EvaluateAuthority. Any technical/cancel/refusal/timeout/incomplete/schema failure stops before Take.
+Successful Interpreter receipt -> diagnostics -> `StateInterpretationContract.ParseJson(exact InterpretationSource)` -> Turn EvaluateAuthority. Any technical/cancel/refusal/timeout/incomplete/schema failure stops before Take. Provider Structured Output schemas use required nullable fields where the existing Core transport permits null; any semantically invalid domain/operation combination is still rejected by the canonical parser.
 
 Each terminal Approved Add gets one derived RecordId/materialization; rejected gets none; Supersede/Deactivate use existing targets. Provider never chooses IDs.
 
@@ -221,7 +229,7 @@ PERFORMER LOW/MEDIUM/HIGH reuse exact envelope except Performer reasoning; Integ
 
 Adapter reads `OPENAI_API_KEY` only as process-injected secret; missing secret fails before provider execution. Never persist/echo/hash/pass below provider edge. E0 only, not product secret storage.
 
-Before real spend, fake-adapter tests prove: Core unchanged/dependencies clean; role profiles/reasoning isolation; exact Context/request/receipt coupling; stale/cross-run receipt rejection; exact Integrity-packet derivation; configured concern provenance required; assessor cannot waive deterministic Reject; one attempt/zero retry; technical outcomes never fiction; cost refusal precedes inference; mandatory-review reject-only policy; deterministic IDs/materializations; 12-turn synchronization; partial streams diagnostic only; no-overwrite/replay-capable/secret-free evidence; blind identity removal.
+Before real spend, fake-adapter tests prove: Core unchanged/dependencies clean; role profiles/reasoning isolation; provider schemas compile/are accepted by a no-spend request-construction/schema-validation path where available; exact Context/request/receipt coupling; stale/cross-run receipt rejection; exact Integrity-packet derivation; configured concern provenance required; assessor cannot waive deterministic Reject; one attempt/zero retry; technical outcomes never fiction; cost refusal precedes inference; mandatory-review reject-only behavior; deterministic IDs/materializations; 12-turn synchronization; partial streams diagnostic only; no-overwrite/replay-capable/secret-free evidence; blind identity removal.
 
 Native Windows ARM64 compile/tests/Harness smoke must pass before first real provider request.
 
@@ -229,6 +237,6 @@ Native Windows ARM64 compile/tests/Harness smoke must pass before first real pro
 
 No Core redesign; product Application/persistence; provider conversation; retry/backoff; understudy; E0-B mixed model; E0-E playwright implementation; E0-F failure implementation; Context optimization; Scene ending; ODR-12/13/30/32; WinUI; Windows AI/NPU; MSIX/WACK/Store.
 
-Approval freezes: GPT-5.6 Sol; Performers NONE + Interpreter NONE + Integrity HIGH; isolated Performer LOW/MEDIUM/HIGH characterization; bounded role prompts + Integrity packet; closed configured-path receipts; REST/stateless/no-tools/strict output; 12 accepted Turns; one attempt/zero retry/300s per role; Performer/Interpreter 4096 and Integrity 2048 output ceilings; USD 5.00 estimated run-token ceiling; deterministic authority/review-reject policy and IDs; immutable replay-capable evidence/blind package; Harness-only provider edge, Core unchanged.
+Approval freezes: GPT-5.6 Sol; Performers NONE + Interpreter NONE + Integrity HIGH; isolated Performer LOW/MEDIUM/HIGH characterization; bounded role prompts + Integrity packet; closed configured-path receipts; REST/stateless/no-tools/strict output; 12 accepted Turns; one attempt/zero retry/300s per role; 4096 max output per role; USD 5.00 estimated run-token ceiling; deterministic authority/review-reject policy and IDs; immutable replay-capable evidence/blind package; Harness-only provider edge, Core unchanged.
 
 Approval **does not authorize provider requests, credential use, or spend**. Implementation remains fake-first and returns to native ARM64 validation before first real provider call.
