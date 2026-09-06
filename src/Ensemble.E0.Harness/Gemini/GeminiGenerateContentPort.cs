@@ -146,13 +146,17 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
         {
             cancellationToken.ThrowIfCancellationRequested();
             var line = await reader.ReadLineAsync(cancellationToken).ConfigureAwait(false);
-            if (string.IsNullOrWhiteSpace(line) || !line.StartsWith("data: ", StringComparison.Ordinal))
+            if (string.IsNullOrWhiteSpace(line) || !line.StartsWith("data:", StringComparison.Ordinal))
             {
                 continue;
             }
 
-            var data = line[6..];
-            if (string.Equals(data, "[DONE]", StringComparison.Ordinal))
+            var data = line[5..];
+            if (data.StartsWith(' '))
+            {
+                data = data[1..];
+            }
+            if (string.IsNullOrWhiteSpace(data) || string.Equals(data, "[DONE]", StringComparison.Ordinal))
             {
                 continue;
             }
