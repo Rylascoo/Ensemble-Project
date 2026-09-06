@@ -15,6 +15,8 @@ namespace Ensemble.E0.Harness.Tests;
 [TestClass]
 public sealed class E0ALiveHostReadinessTests
 {
+    private const string ExpectedCommit = "0123456789abcdef0123456789abcdef01234567";
+
     [TestMethod]
     public void PreparedRequest_DisablesImplicitPromptCaching()
     {
@@ -75,12 +77,58 @@ public sealed class E0ALiveHostReadinessTests
     }
 
     [TestMethod]
-    public void HostPricing_IsConservativeForPublishedLongContextTier()
+    public void HostPricing_IsConservativeForPublishedLongContextAndCacheWriteTier()
     {
-        Assert.AreEqual(8.00m, E0AReferenceRunHost.ConservativePricing.InputUsdPerMillionTokens);
+        Assert.AreEqual(10.00m, E0AReferenceRunHost.ConservativePricing.InputUsdPerMillionTokens);
         Assert.AreEqual(0.80m, E0AReferenceRunHost.ConservativePricing.CachedInputUsdPerMillionTokens);
         Assert.AreEqual(30.00m, E0AReferenceRunHost.ConservativePricing.OutputUsdPerMillionTokens);
         E0AReferenceRunHost.ConservativePricing.Validate();
+    }
+
+    [TestMethod]
+    public void CheckoutGuard_AcceptsExactCleanAuthorityWithNonMaterialUntrackedFile()
+    {
+        var runner = CleanGitRunner("patch0012-local-edit.txt");
+
+        E0ARepositoryCheckoutGuard.Validate(ExpectedCommit, runner);
+
+        Assert.AreEqual(5, runner.Calls.Count);
+    }
+
+    [TestMethod]
+    public void CheckoutGuard_RejectsWrongHead()
+    {
+        var runner = new ScriptedGitRunner(
+            new E0AGitCommandResult(0, "true"),
+            new E0AGitCommandResult(0, new string('a', 40)));
+
+        Assert.Throws<E0AHarnessException>(() => E0ARepositoryCheckoutGuard.Validate(ExpectedCommit, runner));
+        Assert.AreEqual(2, runner.Calls.Count);
+    }
+
+    [TestMethod]
+    public void CheckoutGuard_RejectsTrackedOrStagedChanges()
+    {
+        var tracked = new ScriptedGitRunner(
+            new E0AGitCommandResult(0, "true"),
+            new E0AGitCommandResult(0, ExpectedCommit),
+            new E0AGitCommandResult(1, ""));
+        Assert.Throws<E0AHarnessException>(() => E0ARepositoryCheckoutGuard.Validate(ExpectedCommit, tracked));
+
+        var staged = new ScriptedGitRunner(
+            new E0AGitCommandResult(0, "true"),
+            new E0AGitCommandResult(0, ExpectedCommit),
+            new E0AGitCommandResult(0, ""),
+            new E0AGitCommandResult(1, ""));
+        Assert.Throws<E0AHarnessException>(() => E0ARepositoryCheckoutGuard.Validate(ExpectedCommit, staged));
+    }
+
+    [TestMethod]
+    public void CheckoutGuard_RejectsMaterialUntrackedFiles()
+    {
+        var runner = CleanGitRunner("src/Ensemble.E0.Harness/local.cs\nnotes.txt");
+
+        Assert.Throws<E0AHarnessException>(() => E0ARepositoryCheckoutGuard.Validate(ExpectedCommit, runner));
     }
 
     [TestMethod]
@@ -165,6 +213,14 @@ public sealed class E0ALiveHostReadinessTests
         Assert.IsFalse(Directory.Exists(root));
     }
 
+    private static ScriptedGitRunner CleanGitRunner(string untracked = "") =>
+        new(
+            new E0AGitCommandResult(0, "true"),
+            new E0AGitCommandResult(0, ExpectedCommit),
+            new E0AGitCommandResult(0, ""),
+            new E0AGitCommandResult(0, ""),
+            new E0AGitCommandResult(0, untracked));
+
     private static PreparedRoleAttempt IntegrityAttempt(string runId)
     {
         var envelope = E0ARunEnvelope.CreativeNone(E0ATestSupport.Pricing());
@@ -192,6 +248,20 @@ public sealed class E0ALiveHostReadinessTests
         if (Directory.Exists(root))
         {
             Directory.Delete(root, recursive: true);
+        }
+    }
+
+    private sealed class ScriptedGitRunner : IE0AGitCommandRunner
+    {
+        private readonly Queue<E0AGitCommandResult> _results;
+
+        internal ScriptedGitRunner(params E0AGitCommandResult[] results) => _results = new Queue<E0AGitCommandResult>(results);
+        internal List<string[]> Calls { get; } = new();
+
+        public E0AGitCommandResult Run(params string[] arguments)
+        {
+            Calls.Add(arguments);
+            return _results.Dequeue();
         }
     }
 
