@@ -31,14 +31,18 @@ internal static class E0ATestSupport
     internal static E0OpportunityBearingCycleState Cycle() =>
         DeterministicE0CausalCycle.Initialize(Genesis());
 
-    internal static E0TurnProgress Ready(E0OpportunityBearingCycleState cycle, string text = "No.")
+    internal static E0TurnProgress CandidateReady(E0OpportunityBearingCycleState cycle, string text = "No.")
     {
         var context = DeterministicE0CausalCycle.ComposeContext(cycle).ContextEvaluation.Packet;
         var candidate = Candidate(context, text);
         var attempt = DeterministicE0PerformerAttemptBoundary.BindCandidate(context, candidate);
-        var gated = DeterministicE0TurnOrchestrator.GateAttempt(cycle, attempt);
-        return DeterministicE0TurnOrchestrator.EvaluateIntegrity(gated, ImmutableArray<IntegrityConcernKind>.Empty);
+        return DeterministicE0TurnOrchestrator.GateAttempt(cycle, attempt);
     }
+
+    internal static E0TurnProgress Ready(E0OpportunityBearingCycleState cycle, string text = "No.") =>
+        DeterministicE0TurnOrchestrator.EvaluateIntegrity(
+            CandidateReady(cycle, text),
+            ImmutableArray<IntegrityConcernKind>.Empty);
 
     internal static CandidatePerformance Candidate(ContextPacket context, string text) =>
         PerformerCandidateContract.ParseJson(
