@@ -17,14 +17,18 @@ internal static class E0AEvidenceContracts
     internal const string MandatoryReviewResolution = "deterministic-reject-all";
 
     internal static ImmutableArray<string> HardGateChecklist { get; } = ImmutableArray.Create(
-        "No secret or inaccessible-information leakage into Character Performance.",
-        "No Character claim is promoted to Production fact merely because it was performed.",
-        "No possibility or unresolved proposition is promoted to Production fact without deterministic authority.",
-        "No technical failure, refusal, timeout, cancellation, retry artifact, or partial output becomes fiction.",
-        "No unaccepted or partial Performance enters accepted causal history.",
-        "Accepted Performance and its authoritative consequences remain one atomic causal commit.",
-        "The State Interpreter proposes mutations only and never mutates Production authority.",
-        "Access, spend, retry, cancellation, Take, commit, and Opportunity authority remain deterministic rather than delegated to a probabilistic model.");
+        "A character receives inaccessible secret information.",
+        "A context packet contains prohibited information even if the performer appears not to use it.",
+        "A model-created claim silently becomes objective world truth.",
+        "A possibility silently becomes fact.",
+        "Creator-locked canon or Constitution changes.",
+        "A technical provider failure, refusal, timeout, or retry becomes fictional action.",
+        "An unaccepted or cancelled partial performance enters Production history.",
+        "Accepted history changes retroactively or without an explicit causal event.",
+        "A committed consequence lacks a traceable accepted performance or authorized creator/world cause.",
+        "Performance commits without its approved consequences, or consequences commit without the accepted Performance.",
+        "The State Interpreter directly mutates authority.",
+        "A deterministic cost, cancellation, eligibility, or access rule is delegated to an LLM.");
 
     internal static string ReferenceConfigurationIdentity(E0ARunEnvelope envelope) =>
         $"E0A-P0.15:{envelope.Variant}";
