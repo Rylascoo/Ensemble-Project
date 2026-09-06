@@ -21,7 +21,7 @@ public sealed class E0ASpendAndRequestTests
         var reconciliation = ledger.Reconcile(
             reservation,
             new E0AUsage(100_000, 50_000, 10_000, 0));
-        Assert.AreEqual(0.2m, reconciliation.ActualUsd);
+        Assert.AreEqual(0.2m, reconciliation.EstimatedUsd);
         Assert.IsFalse(reconciliation.ReservationExceeded);
         Assert.IsFalse(reconciliation.RunCeilingExceeded);
         Assert.AreEqual(0.2m, ledger.EstimatedCommittedUsd);
@@ -57,9 +57,9 @@ public sealed class E0ASpendAndRequestTests
             inputReservation,
             new E0AUsage(101, 1, 101, 0));
         Assert.IsTrue(inputOverrun.ReservationExceeded);
-        Assert.IsTrue(inputOverrun.ActualUsd > 0m);
+        Assert.IsTrue(inputOverrun.EstimatedUsd > 0m);
         Assert.AreEqual(0m, inputLedger.ReservedUsd);
-        Assert.AreEqual(inputOverrun.ActualUsd, inputLedger.EstimatedCommittedUsd);
+        Assert.AreEqual(inputOverrun.EstimatedUsd, inputLedger.EstimatedCommittedUsd);
 
         var outputLedger = new E0ASpendLedger(E0ATestSupport.Pricing());
         var outputReservation = outputLedger.Reserve(100, 100);
@@ -67,9 +67,9 @@ public sealed class E0ASpendAndRequestTests
             outputReservation,
             new E0AUsage(100, 101, 0, 0));
         Assert.IsTrue(outputOverrun.ReservationExceeded);
-        Assert.IsTrue(outputOverrun.ActualUsd > outputReservation.ReservedUsd);
+        Assert.IsTrue(outputOverrun.EstimatedUsd > outputReservation.ReservedUsd);
         Assert.AreEqual(0m, outputLedger.ReservedUsd);
-        Assert.AreEqual(outputOverrun.ActualUsd, outputLedger.EstimatedCommittedUsd);
+        Assert.AreEqual(outputOverrun.EstimatedUsd, outputLedger.EstimatedCommittedUsd);
     }
 
     [TestMethod]
