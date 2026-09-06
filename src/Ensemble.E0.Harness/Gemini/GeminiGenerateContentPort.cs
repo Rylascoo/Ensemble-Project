@@ -58,6 +58,7 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
             var bytes = await response.Content.ReadAsByteArrayAsync(cancellationToken).ConfigureAwait(false);
             using var document = JsonDocument.Parse(bytes);
             if (!document.RootElement.TryGetProperty("totalTokens", out var count) ||
+                count.ValueKind != JsonValueKind.Number ||
                 !count.TryGetInt64(out var tokens) || tokens < 0)
             {
                 throw new E0AHarnessException("E0-A Gemini input-token response is invalid.");
@@ -225,8 +226,15 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
             return RoleAttemptReceipt.TechnicalFailure(attempt, "gemini-prompt-blocked");
         }
 
-        var responseId = response.TryGetProperty("responseId", out var idElement) ? idElement.GetString() : null;
-        var modelVersion = response.TryGetProperty("modelVersion", out var modelElement) ? modelElement.GetString() : null;
+        if (!response.TryGetProperty("responseId", out var idElement) ||
+            idElement.ValueKind != JsonValueKind.String ||
+            !response.TryGetProperty("modelVersion", out var modelElement) ||
+            modelElement.ValueKind != JsonValueKind.String)
+        {
+            return RoleAttemptReceipt.TechnicalFailure(attempt, "gemini-response-identity-missing");
+        }
+        var responseId = idElement.GetString();
+        var modelVersion = modelElement.GetString();
         if (string.IsNullOrWhiteSpace(responseId) || string.IsNullOrWhiteSpace(modelVersion))
         {
             return RoleAttemptReceipt.TechnicalFailure(attempt, "gemini-response-identity-missing");
@@ -284,7 +292,9 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
         {
             return true;
         }
-        if (!hasId || !hasModel)
+        if (!hasId || !hasModel ||
+            idElement.ValueKind != JsonValueKind.String ||
+            modelElement.ValueKind != JsonValueKind.String)
         {
             return false;
         }
@@ -424,6 +434,7 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
     {
         value = 0;
         return root.TryGetProperty(name, out var element) &&
+               element.ValueKind == JsonValueKind.Number &&
                element.TryGetInt64(out value) &&
                value >= 0;
     }
@@ -435,7 +446,9 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
         {
             return true;
         }
-        return element.TryGetInt64(out value) && value >= 0;
+        return element.ValueKind == JsonValueKind.Number &&
+               element.TryGetInt64(out value) &&
+               value >= 0;
     }
 
     private HttpRequestMessage CreateRequest(Uri uri, byte[] body)
