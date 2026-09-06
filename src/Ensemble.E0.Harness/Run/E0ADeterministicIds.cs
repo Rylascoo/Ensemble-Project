@@ -39,9 +39,9 @@ internal static class E0ADeterministicIds
     internal static RecordId Record(RunId runId, int turn, int mutationIndex)
     {
         ValidateTurn(runId, turn);
-        if (mutationIndex < 0 || mutationIndex > 999)
+        if (mutationIndex < 0)
         {
-            throw new E0AHarnessException("E0-A mutation index is outside the approved ID range.");
+            throw new E0AHarnessException("E0-A mutation index must be nonnegative.");
         }
 
         return RecordId.From($"{runId.Value}:RECORD:{turn:D3}:{mutationIndex:D3}");
@@ -50,7 +50,7 @@ internal static class E0ADeterministicIds
     internal static string Attempt(RunId runId, E0ARole role, int turn, int attempt)
     {
         ValidateTurn(runId, turn);
-        if (!Enum.IsDefined(role) || attempt is < 1 or > 99)
+        if (!Enum.IsDefined(role) || attempt != E0ARunEnvelope.AttemptsPerRoleInvocation)
         {
             throw new E0AHarnessException("E0-A attempt identity input is invalid.");
         }
