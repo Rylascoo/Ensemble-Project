@@ -88,8 +88,8 @@ public sealed class E0ALiveHostReadinessTests
             new E0AUsage(10, 5, 7, 3, 4));
 
         Assert.IsTrue(reconciliation.ReservationExceeded);
-        Assert.AreEqual(0.00015m, reconciliation.ActualUsd);
-        Assert.AreEqual(reconciliation.ActualUsd, ledger.EstimatedCommittedUsd);
+        Assert.AreEqual(0.00015m, reconciliation.EstimatedUsd);
+        Assert.AreEqual(reconciliation.EstimatedUsd, ledger.EstimatedCommittedUsd);
         Assert.AreEqual(0m, ledger.ReservedUsd);
     }
 
