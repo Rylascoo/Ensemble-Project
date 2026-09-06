@@ -377,26 +377,28 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
     {
         if (usage.ValueKind != JsonValueKind.Object ||
             !TryNonNegativeInt64(usage, "promptTokenCount", out var input) ||
-            !TryNonNegativeInt64(usage, "candidatesTokenCount", out var candidate))
-        {
-            return null;
-        }
-        if (!TryOptionalNonNegativeInt64(usage, "thoughtsTokenCount", out var thoughts) ||
-            !TryOptionalNonNegativeInt64(usage, "cachedContentTokenCount", out var cached))
+            !TryNonNegativeInt64(usage, "candidatesTokenCount", out var candidate) ||
+            !TryNonNegativeInt64(usage, "totalTokenCount", out var providerTotal) ||
+            !TryOptionalNonNegativeInt64(usage, "thoughtsTokenCount", out var thoughts) ||
+            !TryOptionalNonNegativeInt64(usage, "cachedContentTokenCount", out var cached) ||
+            !TryOptionalNonNegativeInt64(usage, "toolUsePromptTokenCount", out var toolUsePromptTokens) ||
+            toolUsePromptTokens != 0)
         {
             return null;
         }
 
         long output;
+        long expectedTotal;
         try
         {
             output = checked(candidate + thoughts);
+            expectedTotal = checked(input + output);
         }
         catch (OverflowException)
         {
             return null;
         }
-        if (cached > input)
+        if (cached > input || providerTotal != expectedTotal)
         {
             return null;
         }
