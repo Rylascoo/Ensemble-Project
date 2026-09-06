@@ -1,3 +1,4 @@
+using System.Text.Json;
 using Ensemble.E0.Core.Domain;
 using Ensemble.E0.Core.Integrity;
 using Ensemble.E0.Harness.Run;
@@ -133,6 +134,49 @@ public sealed class E0ARunDriverTests
             Assert.AreEqual(1, counter.Calls);
             Assert.AreEqual(0, provider.Calls);
             Assert.AreEqual(0, Directory.GetFiles(root, "terminal.json", SearchOption.AllDirectories).Length);
+        }
+        finally
+        {
+            Delete(root);
+        }
+    }
+
+    [TestMethod]
+    public async Task ProviderUsageOverrun_IsRecordedAndSealedAsTechnicalFailure()
+    {
+        var root = E0ATestSupport.TempRunRoot();
+        try
+        {
+            var runId = RunId.From("E0A-USAGE-OVERRUN");
+            var state = E0ATestSupport.Genesis();
+            var envelope = E0ARunEnvelope.CreativeNone(E0ATestSupport.Pricing());
+            var provider = new ScriptedProvider((attempt, _) =>
+                RoleAttemptReceipt.Success(
+                    attempt,
+                    "resp-usage-overrun",
+                    "gpt-5.6-sol",
+                    new E0AUsage(6_000_000, 1, 0, 0),
+                    E0ATestSupport.PerformerOutput("This must never be consumed as fiction.")));
+            var driver = new E0AReferenceRunDriver(
+                envelope,
+                provider,
+                new FixedTokenCounter(100),
+                E0ATestSupport.Evidence(root, runId, envelope, state));
+
+            var result = await driver.RunAsync(runId, state, CancellationToken.None);
+
+            Assert.AreEqual(E0ARunTerminalStatus.TechnicalFailure, result.Status);
+            Assert.AreEqual(0, result.AcceptedTurns);
+            Assert.AreEqual(1, provider.Calls);
+            Assert.IsTrue(result.EstimatedSpendUsd > E0ARunEnvelope.EstimatedSpendCeilingUsd);
+            Assert.AreEqual(1, Directory.GetFiles(root, "terminal.json", SearchOption.AllDirectories).Length);
+            Assert.IsTrue(File.Exists(Path.Combine(root, "run.final.json")));
+            Assert.IsFalse(File.ReadAllText(Path.Combine(root, "transcript.json"))
+                .Contains("This must never be consumed as fiction.", StringComparison.Ordinal));
+
+            using var final = JsonDocument.Parse(File.ReadAllBytes(Path.Combine(root, "run.final.json")));
+            Assert.AreEqual("TechnicalFailure", final.RootElement.GetProperty("terminalStatus").GetString());
+            Assert.IsTrue(final.RootElement.GetProperty("estimatedSpendUsd").GetDecimal() > 5m);
         }
         finally
         {
