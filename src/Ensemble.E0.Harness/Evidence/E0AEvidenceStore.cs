@@ -142,9 +142,22 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
             estimatedSpendCeilingUsd = E0ARunEnvelope.EstimatedSpendCeilingUsd,
             pricing = new
             {
+                sourceUri = E0APricingPolicy.SourceUri,
+                verifiedOn = E0APricingPolicy.VerifiedOn,
+                promotionalPricingGuaranteedThrough = E0APricingPolicy.PromotionalPricingGuaranteedThrough,
+                publishedInputUsdPerMillionTokens = E0APricingPolicy.PublishedInputUsdPerMillionTokens,
+                publishedCachedInputUsdPerMillionTokens = E0APricingPolicy.PublishedCachedInputUsdPerMillionTokens,
+                publishedOutputUsdPerMillionTokens = E0APricingPolicy.PublishedOutputUsdPerMillionTokens,
+                cacheWriteMultiplier = E0APricingPolicy.CacheWriteMultiplier,
+                standardTierMaxInputTokens = E0APricingPolicy.StandardTierMaxInputTokens,
+                accountingMethod = "all-reported-input-at-conservative-cache-write-capable-rate",
                 inputUsdPerMillionTokens = envelope.Pricing.InputUsdPerMillionTokens,
                 cachedInputUsdPerMillionTokens = envelope.Pricing.CachedInputUsdPerMillionTokens,
                 outputUsdPerMillionTokens = envelope.Pricing.OutputUsdPerMillionTokens
+            },
+            providerTransport = new
+            {
+                promptCacheMode = E0AProviderTransportPolicy.PromptCacheMode
             },
             stateAuthority = new
             {

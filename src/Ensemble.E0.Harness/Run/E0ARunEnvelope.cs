@@ -18,6 +18,39 @@ internal enum E0AReasoningLevel
     High = 4
 }
 
+internal static class E0AProviderTransportPolicy
+{
+    internal const string PromptCacheMode = "explicit";
+}
+
+internal static class E0APricingPolicy
+{
+    internal const string SourceUri = "https://developers.openai.com/api/docs/models/gpt-5.6-sol";
+    internal const string VerifiedOn = "2026-09-06";
+    internal const string PromotionalPricingGuaranteedThrough = "2026-11-21";
+    internal const decimal PublishedInputUsdPerMillionTokens = 4.00m;
+    internal const decimal PublishedCachedInputUsdPerMillionTokens = 0.40m;
+    internal const decimal PublishedOutputUsdPerMillionTokens = 20.00m;
+    internal const decimal CacheWriteMultiplier = 1.25m;
+    internal const long StandardTierMaxInputTokens = 272_000;
+
+    internal static E0APricingAssumptions ConservativePricing { get; } = new(
+        PublishedInputUsdPerMillionTokens * CacheWriteMultiplier,
+        PublishedCachedInputUsdPerMillionTokens,
+        PublishedOutputUsdPerMillionTokens);
+
+    internal static void RequireNonStaleSnapshot(DateTimeOffset now)
+    {
+        var guaranteedThrough = new DateOnly(2026, 11, 21);
+        var currentDate = DateOnly.FromDateTime(now.UtcDateTime);
+        if (currentDate > guaranteedThrough)
+        {
+            throw new E0AHarnessException(
+                "E0-A pricing snapshot is outside the provider's published promotional guarantee and must be re-verified before inference.");
+        }
+    }
+}
+
 internal sealed record E0APricingAssumptions(
     decimal InputUsdPerMillionTokens,
     decimal CachedInputUsdPerMillionTokens,

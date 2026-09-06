@@ -11,28 +11,28 @@ namespace Ensemble.E0.Harness.Tests;
 public sealed class E0ASpendAndRequestTests
 {
     [TestMethod]
-    public void SpendReservation_IsWorstCaseAndReconcilesCachedUsage()
+    public void SpendReservation_IsWorstCaseAndReconcilesCachedUsageConservatively()
     {
         var ledger = new E0ASpendLedger(E0ATestSupport.Pricing());
-        var reservation = ledger.Reserve(1_000_000, 500_000);
-        Assert.AreEqual(2.0m, reservation.ReservedUsd);
-        Assert.AreEqual(2.0m, ledger.ReservedUsd);
+        var reservation = ledger.Reserve(100_000, 50_000);
+        Assert.AreEqual(0.2m, reservation.ReservedUsd);
+        Assert.AreEqual(0.2m, ledger.ReservedUsd);
 
         var reconciliation = ledger.Reconcile(
             reservation,
-            new E0AUsage(1_000_000, 500_000, 100_000, 0));
-        Assert.AreEqual(1.925m, reconciliation.ActualUsd);
+            new E0AUsage(100_000, 50_000, 10_000, 0));
+        Assert.AreEqual(0.2m, reconciliation.EstimatedUsd);
         Assert.IsFalse(reconciliation.ReservationExceeded);
         Assert.IsFalse(reconciliation.RunCeilingExceeded);
-        Assert.AreEqual(1.925m, ledger.EstimatedCommittedUsd);
+        Assert.AreEqual(0.2m, ledger.EstimatedCommittedUsd);
         Assert.AreEqual(0m, ledger.ReservedUsd);
     }
 
     [TestMethod]
     public void SpendReservation_RefusesBeforeCrossingRunCeiling()
     {
-        var ledger = new E0ASpendLedger(E0ATestSupport.Pricing());
-        Assert.Throws<E0ABudgetExceededException>(() => ledger.Reserve(5_000_000, E0ARunEnvelope.RoleMaxOutputTokens));
+        var ledger = new E0ASpendLedger(new E0APricingAssumptions(20m, 0m, 2m));
+        Assert.Throws<E0ABudgetExceededException>(() => ledger.Reserve(250_000, 1));
         Assert.AreEqual(0m, ledger.EstimatedCommittedUsd);
         Assert.AreEqual(0m, ledger.ReservedUsd);
     }
@@ -57,9 +57,9 @@ public sealed class E0ASpendAndRequestTests
             inputReservation,
             new E0AUsage(101, 1, 101, 0));
         Assert.IsTrue(inputOverrun.ReservationExceeded);
-        Assert.IsTrue(inputOverrun.ActualUsd > 0m);
+        Assert.IsTrue(inputOverrun.EstimatedUsd > 0m);
         Assert.AreEqual(0m, inputLedger.ReservedUsd);
-        Assert.AreEqual(inputOverrun.ActualUsd, inputLedger.EstimatedCommittedUsd);
+        Assert.AreEqual(inputOverrun.EstimatedUsd, inputLedger.EstimatedCommittedUsd);
 
         var outputLedger = new E0ASpendLedger(E0ATestSupport.Pricing());
         var outputReservation = outputLedger.Reserve(100, 100);
@@ -67,9 +67,9 @@ public sealed class E0ASpendAndRequestTests
             outputReservation,
             new E0AUsage(100, 101, 0, 0));
         Assert.IsTrue(outputOverrun.ReservationExceeded);
-        Assert.IsTrue(outputOverrun.ActualUsd > outputReservation.ReservedUsd);
+        Assert.IsTrue(outputOverrun.EstimatedUsd > outputReservation.ReservedUsd);
         Assert.AreEqual(0m, outputLedger.ReservedUsd);
-        Assert.AreEqual(outputOverrun.ActualUsd, outputLedger.EstimatedCommittedUsd);
+        Assert.AreEqual(outputOverrun.EstimatedUsd, outputLedger.EstimatedCommittedUsd);
     }
 
     [TestMethod]

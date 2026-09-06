@@ -418,8 +418,8 @@ internal sealed class E0AReferenceRunDriver
             _evidence.RecordEvent("spend.reconciled", new
             {
                 attemptId = attempt.AttemptId,
-                actualUsd = reconciliation.ActualUsd,
-                committedUsd = _spend.EstimatedCommittedUsd,
+                estimatedUsd = reconciliation.EstimatedUsd,
+                committedEstimatedUsd = _spend.EstimatedCommittedUsd,
                 reservationExceeded = reconciliation.ReservationExceeded,
                 runCeilingExceeded = reconciliation.RunCeilingExceeded
             });
@@ -433,7 +433,7 @@ internal sealed class E0AReferenceRunDriver
                     reservedMaxOutputTokens = reservation.MaxOutputTokens,
                     reportedOutputTokens = receipt.Usage.OutputTokens,
                     reservedUsd = reservation.ReservedUsd,
-                    actualUsd = reconciliation.ActualUsd,
+                    estimatedUsd = reconciliation.EstimatedUsd,
                     runCeilingExceeded = reconciliation.RunCeilingExceeded
                 });
                 return new RoleCall(receipt, E0ARunTerminalStatus.TechnicalFailure);
