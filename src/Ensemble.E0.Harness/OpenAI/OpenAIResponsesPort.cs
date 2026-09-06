@@ -317,15 +317,16 @@ internal sealed class OpenAIResponsesPort : IE0AProviderRolePort, IE0AInputToken
         if (inputTokens < 0 ||
             outputTokens < 0 ||
             cached < 0 ||
-            cacheWrite != 0 ||
+            cacheWrite < 0 ||
             reasoning < 0 ||
             cached > inputTokens ||
+            cacheWrite > inputTokens - cached ||
             reasoning > outputTokens)
         {
             return null;
         }
 
-        return new E0AUsage(inputTokens, outputTokens, cached, reasoning);
+        return new E0AUsage(inputTokens, outputTokens, cached, reasoning, cacheWrite);
     }
 
     private static byte[] BuildInputTokenRequestBody(byte[] responseRequestBody)
