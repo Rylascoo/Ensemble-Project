@@ -190,7 +190,7 @@ internal sealed class E0AReferenceRunDriver
             {
                 progress = DeterministicE0TurnOrchestrator.EvaluateIntegrity(progress, concerns);
             }
-            catch (E0TurnOrchestrationException) when (concerns.Length != concerns.Distinct().Count())
+            catch (E0TurnOrchestrationException)
             {
                 return Finish(E0ARunTerminalStatus.InvalidOutput, acceptedTurns, state);
             }
