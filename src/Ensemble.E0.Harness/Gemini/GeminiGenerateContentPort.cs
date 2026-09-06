@@ -182,13 +182,19 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
                 return RoleAttemptReceipt.TechnicalFailure(attempt, "gemini-response-identity-changed");
             }
 
+            var alreadyStopped = string.Equals(finishReason, "STOP", StringComparison.Ordinal);
+            var textLengthBefore = text.Length;
             if (!AppendCandidateText(root, text, ref finishReason, out var candidateError))
             {
                 return RoleAttemptReceipt.TechnicalFailure(attempt, candidateError!);
             }
+            if (alreadyStopped && text.Length != textLengthBefore)
+            {
+                return RoleAttemptReceipt.TechnicalFailure(attempt, "gemini-content-after-stop");
+            }
 
-            // Intermediate SSE chunks may expose partial usage metadata. Only the
-            // STOP chunk is authoritative for the complete cumulative usage tuple.
+            // Intermediate SSE chunks may expose partial usage metadata. Once STOP
+            // is observed, a later metadata-only chunk may supply the final tuple.
             if (string.Equals(finishReason, "STOP", StringComparison.Ordinal) &&
                 root.TryGetProperty("usageMetadata", out var usageElement))
             {
