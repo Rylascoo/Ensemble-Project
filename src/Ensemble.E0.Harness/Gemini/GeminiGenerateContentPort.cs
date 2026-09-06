@@ -57,7 +57,8 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
 
             var bytes = await response.Content.ReadAsByteArrayAsync(cancellationToken).ConfigureAwait(false);
             using var document = JsonDocument.Parse(bytes);
-            if (!document.RootElement.TryGetProperty("totalTokens", out var count) ||
+            if (document.RootElement.ValueKind != JsonValueKind.Object ||
+                !document.RootElement.TryGetProperty("totalTokens", out var count) ||
                 count.ValueKind != JsonValueKind.Number ||
                 !count.TryGetInt64(out var tokens) || tokens < 0)
             {
@@ -120,6 +121,10 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
 
         var bytes = await response.Content.ReadAsByteArrayAsync(cancellationToken).ConfigureAwait(false);
         using var document = JsonDocument.Parse(bytes);
+        if (document.RootElement.ValueKind != JsonValueKind.Object)
+        {
+            return RoleAttemptReceipt.TechnicalFailure(attempt, "gemini-response-shape-invalid");
+        }
         return ReceiptFromResponse(attempt, document.RootElement);
     }
 
@@ -164,6 +169,10 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
             var utf8 = Encoding.UTF8.GetBytes(data);
             using var eventDoc = JsonDocument.Parse(utf8);
             var root = eventDoc.RootElement;
+            if (root.ValueKind != JsonValueKind.Object)
+            {
+                return RoleAttemptReceipt.TechnicalFailure(attempt, "gemini-response-shape-invalid");
+            }
 
             // Thought material is outside E0-A evidence authority. Reject it before
             // raw diagnostic bytes can be persisted by the evidence sink.
