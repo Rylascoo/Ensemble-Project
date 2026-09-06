@@ -1,6 +1,6 @@
 # E0-A Phase B — Reference Run Envelope
 
-Status: **PROPOSAL 0.4 — EXPLORATORY; IMPLEMENTATION NOT AUTHORIZED**
+Status: **PROPOSAL 0.5 — EXPLORATORY; IMPLEMENTATION NOT AUTHORIZED**
 Date: 2026-09-05
 Parent `main`: `2b628c2d97eb39f4d96ce3e81eafefe93ba28b09`
 Branch: `e0a-reference-run-envelope-blueprint`
@@ -24,34 +24,30 @@ Blueprint 0.1 remains authority: E0-A precedes E0-B; all three Characters use th
 Provider                 OpenAI official API
 Model                    gpt-5.6-sol
 Deliberation intent      LeastDeliberativeSupported
-Provider-native setting  reasoning.effort = none
+Performer setting        reasoning.effort = none
+Interpreter setting      reasoning.effort = none
 ```
 
-Use the same profile for Voss, Marlowe, Wren and State Interpreter. Director, Access, Integrity hard checks, State Authority, Take, commit and Opportunity remain deterministic Core authority.
+Use the same model for Voss, Marlowe, Wren and State Interpreter. Director, Access, Integrity hard checks, State Authority, Take, commit and Opportunity remain deterministic Core authority.
 
 No model-assisted Integrity assessor is used in the primary reference. Later hard-gate/blind evaluation may invalidate a run but cannot rewrite it.
 
 ## 3. Reasoning characterization
 
-`none` is the normative reference. Separately labeled characterization may later change only reasoning:
+`none` is the normative reference. The **first** reasoning characterization varies Performer reasoning only while Interpreter remains `none`:
 
 ```text
-NONE    gpt-5.6-sol / none   <- reference
-LOW     gpt-5.6-sol / low
-MEDIUM  gpt-5.6-sol / medium
-HIGH    gpt-5.6-sol / high
+PERFORMER-NONE    Performer none    / Interpreter none  <- reference
+PERFORMER-LOW     Performer low     / Interpreter none
+PERFORMER-MEDIUM  Performer medium  / Interpreter none
+PERFORMER-HIGH    Performer high    / Interpreter none
 ```
 
-Fixture, prompts, Context, model, deterministic authority, service tier, timeout, output ceiling, spend ceiling and run protocol stay matched. `xhigh`/`max` are deferred. E0-C/D/E continue to use `none` unless explicitly varied.
+Thus a difference is attributable to Performer deliberation rather than simultaneous Interpreter improvement. Fixture, prompts, Context, model, deterministic authority, service tier, timeout, output ceiling, spend ceiling and run protocol stay matched. `xhigh`/`max` are deferred.
 
-Later E0-B uses:
+If Interpreter reliability later warrants study, run a separate Interpreter-only reasoning characterization with Performers fixed at `none`. Neither characterization replaces `PERFORMER-NONE` as the E0-C/D/E reference.
 
-```text
-DeliberationIntent = LeastDeliberativeSupported
-ProviderNativeSetting = exact native control sent
-```
-
-Provider `none`, disabled, `minimal`, or low modes are recorded exactly and never claimed computationally equivalent.
+Later E0-B uses a provider-native mapping of `LeastDeliberativeSupported` for each probabilistic role and records exact settings. Provider `none`, disabled, `minimal`, or low modes are never claimed computationally equivalent.
 
 ## 4. Harness boundary
 
@@ -72,6 +68,8 @@ Harness references Core only. Provider/network/filesystem/secrets never enter Co
 
 Use official Responses REST API via `HttpClient`, avoiding provider SDK architecture. Reverify API/model surface immediately before implementation and contributing batch.
 
+For the primary reference both probabilistic roles use:
+
 ```text
 model              gpt-5.6-sol
 reasoning.effort   none
@@ -82,6 +80,8 @@ tools              []
 truncation          disabled
 max_output_tokens  4096
 ```
+
+Reasoning characterization changes only the Performer request's `reasoning.effort` field. Interpreter stays `none`.
 
 No provider conversation/`previous_response_id`; no tools; omit `temperature`/`top_p`; use strict Structured Outputs for Candidate and Interpreter proposal. Request no reasoning summary/encrypted reasoning/chain-of-thought.
 
@@ -104,7 +104,7 @@ Before network execution record:
 
 ```text
 RunId / attempt / role / turn / CharacterId if Performer
-provider / requested model / reasoning
+provider / requested model / role-specific reasoning
 ContextPacketId / structured + rendered hashes
 prompt + response-schema hashes
 request-body SHA-256 / max output / service tier
@@ -238,7 +238,7 @@ blind/mapping.json
 
 Manifest precedes inference and is immutable; attempt artifacts write-once; events append-only; finalization SHA-256 hashes all artifacts. Credentials never enter evidence. Partial/rejected/technical output never enters accepted history. Hidden reasoning is neither requested nor stored.
 
-Record Blueprint/fixture/hash; repository executable commit + host OS/architecture/.NET runtime; variant/reference identity; prompt/schema hashes; access/context; provider/model/native settings; Performer output/control; Director/Integrity/Interpreter/Authority; accepted/rejected mutations/reasons; Take/commit/Opportunity; latency; token usage/cost estimate; technical outcomes; blind mapping.
+Record Blueprint/fixture/hash; repository executable commit + host OS/architecture/.NET runtime; variant/reference identity; prompt/schema hashes; access/context; provider/model/role-specific reasoning; Performer output/control; Director/Integrity/Interpreter/Authority; accepted/rejected mutations/reasons; Take/commit/Opportunity; latency; token usage/cost estimate; technical outcomes; blind mapping.
 
 Initial fixture plus accepted Take/commit/Opportunity evidence must replay the supported H1 transition chain; `run.final.json` is projection/checkpoint, not competing causal authority.
 
@@ -250,13 +250,13 @@ Reference run contributes experiential evidence only if manifest preceded execut
 
 Failed/noncontributing runs remain immutable and never silently reuse RunId.
 
-LOW/MEDIUM/HIGH reuse the exact envelope except native reasoning. Keep 4096 output and USD 5.00 estimated-token ceiling matched. Extra reasoning cost/truncation/timeout is observable behavior, not silently compensated. These variants never replace NONE as reference.
+PERFORMER-LOW/MEDIUM/HIGH reuse the exact envelope except Performer-native reasoning; Interpreter stays `none`. Keep 4096 output and USD 5.00 estimated-token ceiling matched. Extra reasoning cost/truncation/timeout is observable behavior, not silently compensated. These variants never replace PERFORMER-NONE as reference.
 
 ## 15. Credentials / pre-spend validation
 
 Adapter may consume `OPENAI_API_KEY` only as process-injected secret. Missing secret fails before provider execution. Never persist/echo/hash/pass it below Harness provider edge. This is E0, not product secret-store architecture.
 
-Before real spend, fake-adapter tests prove: Core unchanged/dependencies clean; same model/profile for three Performers + Interpreter; reasoning mappings; exact Context/request/stale-result behavior; one attempt/zero retry; technical outcomes never fiction; cost refusal before inference; mandatory-review reject-only behavior; deterministic IDs/materializations; 12-turn synchronization; partial-stream diagnostics only; no-overwrite/replay-capable/secret-free evidence; blind identity removal.
+Before real spend, fake-adapter tests prove: Core unchanged/dependencies clean; same model for three Performers + Interpreter; reference role settings and isolated Performer reasoning mappings; exact Context/request/stale-result behavior; one attempt/zero retry; technical outcomes never fiction; cost refusal before inference; mandatory-review reject-only behavior; deterministic IDs/materializations; 12-turn synchronization; partial-stream diagnostics only; no-overwrite/replay-capable/secret-free evidence; blind identity removal.
 
 Native Windows ARM64 compile/tests/Harness smoke must pass before first real provider call.
 
@@ -264,6 +264,6 @@ Native Windows ARM64 compile/tests/Harness smoke must pass before first real pro
 
 No Core redesign; product Application/persistence; provider conversation state; retry/backoff; understudy; E0-B mixed model; E0-E playwright implementation; E0-F failure implementation; semantic Integrity model; Context optimization; Scene ending; ODR-12/13/30/32; WinUI; Windows AI/NPU; MSIX/WACK/Store.
 
-Approval freezes: GPT-5.6 Sol/NONE reference; LOW/MEDIUM/HIGH characterization; same profile for Performers + Interpreter; REST/stateless/no-tools/strict-output transport; 12 accepted Turns; one attempt/zero retry/300s timeout; 4096 output; USD 5.00 estimated model-token ceiling; deterministic authority/review-reject policy; deterministic IDs; immutable replay-capable evidence/blind package; Harness-only provider edge with Core unchanged.
+Approval freezes: GPT-5.6 Sol with Performer+Interpreter NONE reference; isolated Performer LOW/MEDIUM/HIGH characterization; REST/stateless/no-tools/strict-output transport; 12 accepted Turns; one attempt/zero retry/300s timeout; 4096 output; USD 5.00 estimated model-token ceiling; deterministic authority/review-reject policy; deterministic IDs; immutable replay-capable evidence/blind package; Harness-only provider edge with Core unchanged.
 
 Approval **does not authorize provider request, credential use, or spend**. Implementation remains fake-first and returns to native ARM64 validation before the first real call.
