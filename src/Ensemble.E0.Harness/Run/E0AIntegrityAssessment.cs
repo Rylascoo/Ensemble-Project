@@ -1,0 +1,215 @@
+using System.Collections.Immutable;
+using System.Text.Json;
+using Ensemble.E0.Core.Access;
+using Ensemble.E0.Core.Context;
+using Ensemble.E0.Core.Domain;
+using Ensemble.E0.Core.Integrity;
+using Ensemble.E0.Core.Performer;
+using Ensemble.E0.Core.Production;
+
+namespace Ensemble.E0.Harness.Run;
+
+internal sealed record E0AIntegrityConstraint(
+    RecordId RecordId,
+    string Text,
+    AccessReason? DenialReason,
+    ProductionRecordProtection Protection);
+
+internal sealed record E0AIntegrityConcernDefinition(string Name, string Meaning);
+
+internal sealed class E0AIntegrityAssessmentPacket
+{
+    internal E0AIntegrityAssessmentPacket(
+        ContextPacket context,
+        CandidatePerformance candidate,
+        ImmutableArray<E0AIntegrityConstraint> constraints)
+    {
+        Context = context ?? throw new ArgumentNullException(nameof(context));
+        Candidate = candidate ?? throw new ArgumentNullException(nameof(candidate));
+        Constraints = constraints;
+        if (constraints.IsDefault)
+        {
+            throw new E0AHarnessException("E0-A Integrity constraints are invalid.");
+        }
+
+        PacketHash = PreparedRoleAttempt.LowerSha256(JsonSerializer.SerializeToUtf8Bytes(ToTransport()));
+    }
+
+    internal ContextPacket Context { get; }
+    internal CandidatePerformance Candidate { get; }
+    internal ImmutableArray<E0AIntegrityConstraint> Constraints { get; }
+    internal string PacketHash { get; }
+
+    internal object ToTransport() => new
+    {
+        source = new
+        {
+            contextPacketId = Context.ContextPacketId.Value,
+            characterId = Context.SubjectCharacterId.Value,
+            structuredContextHash = Context.StructuredContextHash,
+            renderedContextHash = Context.RenderedContextHash
+        },
+        candidate = new
+        {
+            visibleText = Candidate.VisibleText,
+            addressedCharacterIds = Candidate.Control.AddressedCharacterIds.Select(x => x.Value).ToArray(),
+            nominatedCharacterId = Candidate.Control.NominatedCharacterId.HasValue
+                ? Candidate.Control.NominatedCharacterId.Value.Value
+                : null
+        },
+        characterVisibleContext = E0APromptContracts.ContextData(Context),
+        authoritativeConstraints = Constraints.Select(x => new
+        {
+            recordId = x.RecordId.Value,
+            text = x.Text,
+            denialReason = x.DenialReason?.ToString(),
+            protection = x.Protection.ToString()
+        }).ToArray(),
+        concernDefinitions = E0AIntegrityConcernParser.Definitions.Select(x => new
+        {
+            name = x.Name,
+            meaning = x.Meaning
+        }).ToArray()
+    };
+}
+
+internal static class E0AIntegrityAssessmentPacketBuilder
+{
+    internal static E0AIntegrityAssessmentPacket Build(
+        ProductionState state,
+        CharacterAccessEvaluation access,
+        ContextPacket context,
+        CandidatePerformance candidate)
+    {
+        ArgumentNullException.ThrowIfNull(state);
+        ArgumentNullException.ThrowIfNull(access);
+        ArgumentNullException.ThrowIfNull(context);
+        ArgumentNullException.ThrowIfNull(candidate);
+        ValidateAssociation(state, access, context, candidate);
+
+        if (access.Decisions.IsDefault || access.Decisions.Length != state.Records.Length)
+        {
+            throw new E0AHarnessException("E0-A Integrity Access decisions are incomplete for the source Production state.");
+        }
+
+        Dictionary<string, AccessDecision> decisions;
+        try
+        {
+            decisions = access.Decisions.ToDictionary(x => x.RecordId.Value, StringComparer.Ordinal);
+        }
+        catch (ArgumentException)
+        {
+            throw new E0AHarnessException("E0-A Integrity Access decisions contain duplicate RecordIds.");
+        }
+
+        var constraints = new Dictionary<string, E0AIntegrityConstraint>(StringComparer.Ordinal);
+        foreach (var record in state.Records)
+        {
+            if (!decisions.TryGetValue(record.RecordId.Value, out var decision))
+            {
+                throw new E0AHarnessException("E0-A Integrity Access decisions do not cover the source Production state.");
+            }
+
+            if (record.Lifecycle != ProductionRecordLifecycle.Active)
+            {
+                continue;
+            }
+
+            var denied = decision.Disposition == AccessDisposition.Deny;
+            var protectedRecord = record.Protection is ProductionRecordProtection.SystemImmutable or ProductionRecordProtection.CreatorLocked;
+            if (!denied && !protectedRecord)
+            {
+                continue;
+            }
+
+            constraints[record.RecordId.Value] = new E0AIntegrityConstraint(
+                record.RecordId,
+                record.Text,
+                denied ? decision.Reason : null,
+                record.Protection);
+        }
+
+        var ordered = constraints.Values
+            .OrderBy(x => x.RecordId.Value, StringComparer.Ordinal)
+            .ToImmutableArray();
+        return new E0AIntegrityAssessmentPacket(context, candidate, ordered);
+    }
+
+    private static void ValidateAssociation(
+        ProductionState state,
+        CharacterAccessEvaluation access,
+        ContextPacket context,
+        CandidatePerformance candidate)
+    {
+        var opportunity = state.CurrentOpportunityCharacterId;
+        if (!context.SourceStateHash.HasValue ||
+            context.SourceStateHash.Value != state.StateHash ||
+            context.SceneId != state.SceneId ||
+            !opportunity.HasValue ||
+            context.SubjectCharacterId != opportunity.Value ||
+            context.OpportunityCharacterId != opportunity.Value ||
+            candidate.ContextPacketId != context.ContextPacketId ||
+            candidate.SubjectCharacterId != context.SubjectCharacterId ||
+            !access.Projection.SourceStateHash.HasValue ||
+            access.Projection.SourceStateHash.Value != state.StateHash ||
+            access.Projection.SceneId != state.SceneId ||
+            access.Projection.SubjectCharacterId != context.SubjectCharacterId)
+        {
+            throw new E0AHarnessException("E0-A Integrity disclosure inputs are not bound to one exact source state and Character.");
+        }
+    }
+}
+
+internal static class E0AIntegrityConcernParser
+{
+    internal static readonly ImmutableArray<E0AIntegrityConcernDefinition> Definitions = ImmutableArray.Create(
+        new E0AIntegrityConcernDefinition(
+            nameof(IntegrityConcernKind.PotentialInaccessibleInformationUse),
+            "Evidence suggests Performance relies on information unavailable to the Character as knowledge or agency. Mere coincidence with hidden truth, a guess, question, suspicion, lie, or unsupported claim is insufficient by itself."),
+        new E0AIntegrityConcernDefinition(
+            nameof(IntegrityConcernKind.PotentialProtectedInformationExposure),
+            "Evidence suggests protected creator- or system-only material surfaced through Performance in a way requiring review. Generic wording overlap is not a deterministic leak test."),
+        new E0AIntegrityConcernDefinition(
+            nameof(IntegrityConcernKind.PotentialLockedAuthorityViolation),
+            "Evidence suggests Performance purports to enact or establish a locked canon or world-law conflict. Mere false speech, belief, intent, or failed attempt is insufficient by itself."),
+        new E0AIntegrityConcernDefinition(
+            nameof(IntegrityConcernKind.PotentialTechnicalArtifactLeak),
+            "Evidence suggests provider, system, or transport artifacts leaked into fictional Performance. Legitimate technical wording is insufficient by itself."),
+        new E0AIntegrityConcernDefinition(
+            nameof(IntegrityConcernKind.IndeterminateSemanticIntegrity),
+            "A completed semantic review cannot responsibly clear the Candidate under its configured review contract."));
+
+    internal static readonly ImmutableArray<string> AllowedNames =
+        Definitions.Select(x => x.Name).ToImmutableArray();
+
+    internal static ImmutableArray<IntegrityConcernKind> Parse(ReadOnlySpan<byte> utf8)
+    {
+        try
+        {
+            using var document = JsonDocument.Parse(utf8.ToArray());
+            var root = document.RootElement;
+            if (root.ValueKind != JsonValueKind.Object || root.EnumerateObject().Count() != 1 ||
+                !root.TryGetProperty("concerns", out var concerns) || concerns.ValueKind != JsonValueKind.Array)
+            {
+                throw new E0AHarnessException("E0-A Integrity response shape is invalid.");
+            }
+
+            var result = ImmutableArray.CreateBuilder<IntegrityConcernKind>();
+            foreach (var item in concerns.EnumerateArray())
+            {
+                if (item.ValueKind != JsonValueKind.String ||
+                    !Enum.TryParse<IntegrityConcernKind>(item.GetString(), false, out var parsed) ||
+                    !Enum.IsDefined(parsed))
+                {
+                    throw new E0AHarnessException("E0-A Integrity response contains an unsupported concern.");
+                }
+                result.Add(parsed);
+            }
+            return result.ToImmutable();
+        }
+        catch (JsonException)
+        {
+            throw new E0AHarnessException("E0-A Integrity response JSON is invalid.");
+        }
+    }
+}

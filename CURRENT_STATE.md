@@ -1,38 +1,46 @@
 # Ensemble Current State
 
-Updated: 2026-09-05
+Updated: 2026-09-06
 
 ## Authority
 
-Frozen Blueprint 0.1 + approved patch blueprints govern architecture. `Rylascoo/Ensemble-Project` is engineering authority. Resolve `main`; never overstate validation. Workflow: `docs/PROJECT_REASONING_TASK_SCOPE_OPTIMIZATION_PROTOCOL.md`.
+Frozen Blueprint 0.1 + approved patch/phase blueprints govern architecture. `Rylascoo/Ensemble-Project` is engineering authority. Resolve `main`; never overstate validation. Workflow: `docs/PROJECT_REASONING_TASK_SCOPE_OPTIMIZATION_PROTOCOL.md`.
 
 ## Checkpoint
 
-Phase: **E0-A Experimental Harness — Phase B Architecture**.
+Phase: **E0-A Experimental Harness — Phase B reference-run implementation validated; behavioral provider run still gated**.
 
 H1 Phase A: **CLOSED** by `docs/evidence/H1_CONVERGENCE_AUDIT.md`; promotion `28371ea4bcd9709b771413100af4dcec5a05dc6e`.
 
-Latest executable: **H1 Patch 0018 — Deterministic Turn Orchestration 0.6**; PR #33, promotion `d85904617c361f34cdb31a10d2e0200e3becc83c`.
+Approved Phase-B architecture: `docs/blueprint/E0A_PHASE_B_REFERENCE_RUN_ENVELOPE.md`, Proposal 0.15; approval: `docs/evidence/E0A_PHASE_B_REFERENCE_RUN_ENVELOPE_APPROVAL.md`.
+
+Validated implementation evidence: `docs/evidence/E0A_PHASE_B_REFERENCE_RUN_ENVELOPE_IMPLEMENTATION_EVIDENCE.md`; native evidence: `docs/evidence/E0A_PHASE_B_REFERENCE_RUN_ENVELOPE_NATIVE_ARM64_VALIDATION.md`; oracle: `docs/evidence/E0A_PHASE_B_REFERENCE_RUN_ENVELOPE_ORACLE.json`.
 
 Program map: `docs/roadmap/KYMAEAN_ARCHITECTURE_AND_SHIP_PLAN.md`.
 
 ## Native validation
 
-Patch 0018 evidence is **Director-machine-sourced** from the Director's native Windows ARM64 machine, not the engineering assistant environment.
+Phase-B evidence is **Director-machine-sourced** from the Director's native Windows ARM64 machine, not the engineering assistant environment.
 
-Validated `023b469b801239c2b0d597aec1e7712aa4a8faa7`; executable/test checkpoint `7e94614dc484aff8cb9b8e39c1a74a7b04ea3238`.
+Exact validated executable/test checkout:
 
-Observed: Windows `10.0.26200`, ARM64, `win-arm64`, SDK `9.0.317`; clean tree; Core + tests compile PASS; **622/622 PASS**; Harness ARM64 build PASS; Missing Raft PASS; generic smoke PASS. Later H1-convergence changes are docs-only.
+`3749210393282f6aa2ac4ceb0176b6adb5df189e`
 
-No WinUI, Windows AI/NPU, MSIX/WACK, or Store authority.
+Observed: Windows `10.0.26200`, ARM64, `win-arm64`, SDK `9.0.317`; clean tracked/staged tree; **622/622 Core tests PASS**; **39/39 Harness tests PASS**; Harness ARM64 build PASS; Missing Raft PASS; generic smoke PASS.
 
-## Closed H1 spine
+Commits after the validated checkout that record/reconcile evidence or current-state documentation are docs-only and do not replace the exact machine-tested executable/test authority.
 
-Fixture/domain -> Access -> Context -> Performer Candidate -> Director Opportunity -> Integrity -> State Interpreter -> State Authority -> Take -> atomic causal commit -> effective Opportunity -> Production Context -> accepted Performance history -> synchronized cycle -> provider-neutral attempt -> deterministic Turn.
+No real provider request, provider credential use, or provider spend has been executed or authorized by this validation. No WinUI, Windows AI/NPU, MSIX/WACK, or Store authority.
 
-Canonical live progression reaches valid postcommit state then explicit next synchronized Opportunity state. Technical failure/cancellation never becomes fiction; stale Context/attempt fails closed; no provider SDK enters Core.
+## Phase-B implementation truth
 
-H1 convergence removed six stale handoffs. Historical no-history `Compose`/`Bind` remain only because Patch 0015 freezes their regression role; Cycle uses history-aware live calls. `RunId` is reserved for frozen E0 provenance.
+The Harness now owns the approved reference-run envelope outside Core while reusing the closed H1 Cycle/Turn authority unchanged.
+
+Frozen reference configuration: OpenAI official Responses API boundary; `gpt-5.6-sol`; Performer/Interpreter reasoning `none`, Integrity `high`; 12 accepted-Turn cap; one attempt per probabilistic invocation; zero automatic retries; 300-second attempt timeout; 4096 max output tokens per role; estimated model-token spend ceiling USD 5.00/run; `store=false`; no tools/provider conversation/hidden reasoning.
+
+Preserved laws include Access before Context, exact configured-path request/receipt provenance, diagnostic-only streamed deltas, closed-response semantic authority, spend reconciliation before semantic use, fail-closed cancellation/timeout/usage handling, deterministic Integrity/State Authority rejection, atomic accepted causal commit followed immediately by next Opportunity establishment, immutable evidence sealing, and blind-output isolation.
+
+Core remains unchanged by Phase B; provider/network/filesystem/secrets remain Harness-edge concerns.
 
 ## Standing decisions
 
@@ -41,7 +49,12 @@ H1 convergence removed six stale handoffs. Historical no-history `Compose`/`Bind
 - E5c exception-runtime provenance: open, no verified defect/fix.
 - Stage remains design-lane authority.
 - ODR-12/13/30/32 remain open; none blocks E0-A.
+- Real provider credentials/network execution/spend require a separate explicit Director gate.
 
 ## Next
 
-Blueprint the **smallest Phase-B E0-A Harness boundary** for real provider execution/provenance outside Core while reusing H1 Cycle/Turn unchanged: RunId/run evidence, Context disclosure attribution, attempt provenance, provisional output, deterministic retry/spend/cancel authority, and one official reference provider/model adapter boundary. Stop before implementation/provider spend until architecture and any consequential provider/model/credential choice receive Director authority.
+Remain inside **E0-A Phase B**. Do not redesign Proposal 0.15 and do not enter E0-B..G, product Application/persistence/UI, Scene-ending semantics, Context optimization, Windows AI/NPU, MSIX/WACK/Store, or later scope.
+
+The next consequential step is the first real reference-provider run using the already frozen envelope and evidence package. That step requires explicit Director authorization for credentials/network execution and spend. Until that gate is granted, only non-spend audit/evidence/promotion work is authorized.
+
+The roadmap's older instruction to blueprint the smallest Phase-B Harness boundary is superseded by this checkpoint; the dependency ordering and Phase-B exit criteria remain authoritative.
