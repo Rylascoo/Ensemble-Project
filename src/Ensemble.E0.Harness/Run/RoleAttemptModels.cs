@@ -180,7 +180,7 @@ internal sealed record E0AUsage(
             ReasoningTokens < 0 ||
             CacheWriteTokens < 0 ||
             CachedInputTokens > InputTokens ||
-            CacheWriteTokens > InputTokens - CachedInputTokens ||
+            CacheWriteTokens > InputTokens ||
             ReasoningTokens > OutputTokens)
         {
             throw new E0AHarnessException("E0-A provider usage is invalid.");
