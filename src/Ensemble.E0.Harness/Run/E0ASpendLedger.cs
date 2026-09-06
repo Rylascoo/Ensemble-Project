@@ -2,8 +2,6 @@ namespace Ensemble.E0.Harness.Run;
 
 internal sealed class E0ASpendLedger
 {
-    internal const long StandardPricingInputTokenLimit = 272_000;
-
     private readonly E0APricingAssumptions _pricing;
     private decimal _estimatedCommittedUsd;
     private decimal _reservedUsd;
@@ -23,12 +21,12 @@ internal sealed class E0ASpendLedger
         {
             throw new E0AHarnessException("E0-A spend reservation input is invalid.");
         }
-        if (inputTokens > StandardPricingInputTokenLimit)
+        if (inputTokens > E0APricingPolicy.StandardTierMaxInputTokens)
         {
             throw new E0ABudgetExceededException();
         }
 
-        var reservation = Cost(inputTokens, 0, maxOutputTokens);
+        var reservation = ConservativeCost(inputTokens, maxOutputTokens);
         if (_estimatedCommittedUsd + reservation > E0ARunEnvelope.EstimatedSpendCeilingUsd)
         {
             throw new E0ABudgetExceededException();
@@ -49,20 +47,21 @@ internal sealed class E0ASpendLedger
             throw new E0AHarnessException("E0-A spend reservation is not current.");
         }
 
-        var actual = Cost(
-            usage.InputTokens - usage.CachedInputTokens,
-            usage.CachedInputTokens,
-            usage.OutputTokens);
+        // The provider documents cached/cache-write counts as input-token details,
+        // but does not promise that those two detail categories are mutually exclusive.
+        // Cost every reported input token at the conservative cache-write-capable rate
+        // rather than depending on a partition that the provider does not document.
+        var reconciled = ConservativeCost(usage.InputTokens, usage.OutputTokens);
         var reservationExceeded =
             usage.InputTokens > reservation.InputTokens ||
             usage.OutputTokens > reservation.MaxOutputTokens ||
             usage.CacheWriteTokens != 0 ||
-            actual > reservation.ReservedUsd;
+            reconciled > reservation.ReservedUsd;
 
-        _estimatedCommittedUsd += actual;
+        _estimatedCommittedUsd += reconciled;
         _reservedUsd = 0m;
         return new E0ASpendReconciliation(
-            actual,
+            reconciled,
             reservationExceeded,
             _estimatedCommittedUsd > E0ARunEnvelope.EstimatedSpendCeilingUsd);
     }
@@ -78,9 +77,8 @@ internal sealed class E0ASpendLedger
         _reservedUsd = 0m;
     }
 
-    private decimal Cost(long uncachedInputTokens, long cachedInputTokens, long outputTokens) =>
-        (uncachedInputTokens / 1_000_000m * _pricing.InputUsdPerMillionTokens) +
-        (cachedInputTokens / 1_000_000m * _pricing.CachedInputUsdPerMillionTokens) +
+    private decimal ConservativeCost(long inputTokens, long outputTokens) =>
+        (inputTokens / 1_000_000m * _pricing.InputUsdPerMillionTokens) +
         (outputTokens / 1_000_000m * _pricing.OutputUsdPerMillionTokens);
 }
 
