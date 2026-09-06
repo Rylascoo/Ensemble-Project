@@ -44,7 +44,7 @@ public sealed class GeminiRunDriverPolicyTests
             using (var terminal = JsonDocument.Parse(File.ReadAllBytes(terminalFiles[0])))
             {
                 Assert.AreEqual("Success", terminal.RootElement.GetProperty("outcome").GetString());
-                Assert.AreEqual(1L, terminal.RootElement.GetProperty("usage").GetProperty("cachedInputTokens").GetInt64());
+                Assert.AreEqual(1L, terminal.RootElement.GetProperty("usage").GetProperty("CachedInputTokens").GetInt64());
             }
 
             var events = File.ReadAllText(Path.Combine(root, "events.ndjson"));
