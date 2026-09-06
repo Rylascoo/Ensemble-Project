@@ -11,7 +11,8 @@ This record covers only the E0-A Phase B reference-run live-host completion. It 
 - Repository: `Rylascoo/Ensemble-Project`
 - Current `main` resolved during this audit: `13ffde90f78a8bf40a04381b136e846d1cf64d1c`
 - Active branch: `e0a-phase-b-live-host-completion`
-- Static implementation checkpoint immediately before this evidence-only commit: `fc7fde0c8e6aa652d9d08f657d7150d2601985d6`
+- Static implementation checkpoint immediately before this evidence-only record lineage: `fc7fde0c8e6aa652d9d08f657d7150d2601985d6`
+- Corrected executable/test surface pending rerun: `1cfdb3aa22abce62a5bd48e80706407670d1c6a9`
 - Approved architecture: `docs/blueprint/E0A_PHASE_B_REFERENCE_RUN_ENVELOPE.md`
 - Approved architecture commit: `e1d0b4aea0f7ba29cf85e765bea33d14eab35fde`
 - Blueprint law #35 remains intact: E0-A is one provider and one model only — `OpenAI` / `gpt-5.6-sol`.
@@ -56,6 +57,12 @@ It now fails closed on the frozen snapshot's published validity boundary: after 
 A stricter immediate-before-run live-pricing gate would require a new trusted pricing-attestation input or a stable machine-readable provider pricing source. No documented machine-readable pricing endpoint was identified in this verification. The safer implementation, if such a gate becomes required, is a short-lived Director/provider pricing attestation containing at minimum model ID, official source URI, observed input/cached/output rates, cache-write multiplier, long-context threshold/multipliers, verification timestamp, and a content/hash identity; the host would reject a missing, stale, mismatched, or differently sourced attestation before credential access or inference. Scraping a human-facing documentation page inside the Harness would be a brittle new network dependency and is not added here.
 
 The run manifest now freezes the pricing source URI, verification date, promotional guarantee date, published rates, cache-write multiplier, standard-tier threshold, conservative accounting method, and effective envelope rates.
+
+### Pricing-constant oracle classification
+
+`PricingPolicy_FreezesSourcePromotionAndConservativeRates` is intentionally a **constant-freeze tripwire**, not a behavioral pricing test. Its collection-based expected/actual tuple detects edits to the frozen source URI/date/rates/multiplier without matching updates to the test expectation. It does not establish that OpenAI's live pricing is unchanged, that the date guard is live verification, that cache behavior is correct, or that spend reconciliation behaves correctly at runtime.
+
+Accordingly, a later Harness test-suite pass count must not be cited as behavioral pricing validation solely because this tripwire passes. Runtime pricing/spend behavior is covered by separate boundary/reconciliation tests and, for any real run, by the provider/evidence gates and the known stale-snapshot limitation above.
 
 ## Cache-write semantics
 
@@ -112,6 +119,14 @@ No multi-provider support is implemented in this branch.
 
 The stale branch is intentionally left untouched for Director disposition. No branch ref was moved to make it appear current.
 
+## Director validation host contract
+
+Known Director-machine validation-host behavior is recorded in:
+
+`docs/evidence/DIRECTOR_WINDOWS_ARM64_VALIDATION_HOST_BEHAVIORS.md`
+
+Future native Windows ARM64 command sets for this host must be generated from that document. In particular, they must not use the blank-returning PowerShell `RuntimeInformation` property probes as architecture gates and must isolate expected native stderr from `$ErrorActionPreference = 'Stop'` while capturing `$LASTEXITCODE` immediately.
+
 ## Static convergence result
 
 A complete post-correction static pass found no remaining material correction or worthwhile simplification within the approved Phase-B live-host scope across:
@@ -136,8 +151,10 @@ A complete post-correction static pass found no remaining material correction or
 
 ## Native validation still required
 
-No compiler, test runner, native Windows ARM64 executable, provider API, or credential was used by this static audit.
+Attempt 01 at `bd04749a20141d1f7d221700ad3f1d3ee9f33eb1` is partial evidence only. The Harness test project did not compile there and the credentialless failure wrapper was defective.
 
-Before this branch can be treated as native-validated, the exact final branch head containing this record must be resolved and tested on the Director's native Windows ARM64 machine with `OPENAI_API_KEY` absent. Validation must cover Core tests, Harness tests, Harness ARM64 build, existing fixture smokes, and a credentialless live-host refusal proving the explicit run path fails before inference and creates no evidence root.
+The corrected executable/test surface is `1cfdb3aa22abce62a5bd48e80706407670d1c6a9`. Subsequent commits in this record lineage are documentation-only and do not alter that executable/test surface.
+
+Before this branch can be treated as native-validated, the exact current branch head containing these records must be tested on the Director's native Windows ARM64 machine with `OPENAI_API_KEY` absent. Validation must cover Core tests, Harness tests, Harness ARM64 build, existing fixture smokes, and a credentialless live-host refusal proving the explicit run path fails before inference and creates no evidence root.
 
 Real provider execution remains a separate Director credential/network/spend gate and is **not authorized by this record**.
