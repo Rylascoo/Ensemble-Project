@@ -51,17 +51,17 @@ internal sealed class E0ASpendLedger
         // but does not promise that those two detail categories are mutually exclusive.
         // Cost every reported input token at the conservative cache-write-capable rate
         // rather than depending on a partition that the provider does not document.
-        var reconciled = ConservativeCost(usage.InputTokens, usage.OutputTokens);
+        var estimated = ConservativeCost(usage.InputTokens, usage.OutputTokens);
         var reservationExceeded =
             usage.InputTokens > reservation.InputTokens ||
             usage.OutputTokens > reservation.MaxOutputTokens ||
             usage.CacheWriteTokens != 0 ||
-            reconciled > reservation.ReservedUsd;
+            estimated > reservation.ReservedUsd;
 
-        _estimatedCommittedUsd += reconciled;
+        _estimatedCommittedUsd += estimated;
         _reservedUsd = 0m;
         return new E0ASpendReconciliation(
-            reconciled,
+            estimated,
             reservationExceeded,
             _estimatedCommittedUsd > E0ARunEnvelope.EstimatedSpendCeilingUsd);
     }
@@ -85,7 +85,7 @@ internal sealed class E0ASpendLedger
 internal sealed record E0ASpendReservation(long InputTokens, int MaxOutputTokens, decimal ReservedUsd);
 
 internal sealed record E0ASpendReconciliation(
-    decimal ActualUsd,
+    decimal EstimatedUsd,
     bool ReservationExceeded,
     bool RunCeilingExceeded);
 
