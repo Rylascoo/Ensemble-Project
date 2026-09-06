@@ -140,11 +140,15 @@ internal sealed class OpenAIResponsesPort : IE0AProviderRolePort, IE0AInputToken
         var refused = false;
         var failed = false;
 
-        while (!reader.EndOfStream)
+        while (true)
         {
             cancellationToken.ThrowIfCancellationRequested();
             var line = await reader.ReadLineAsync(cancellationToken).ConfigureAwait(false);
-            if (line is null || !line.StartsWith("data: ", StringComparison.Ordinal))
+            if (line is null)
+            {
+                break;
+            }
+            if (!line.StartsWith("data: ", StringComparison.Ordinal))
             {
                 continue;
             }
