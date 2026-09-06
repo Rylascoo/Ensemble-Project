@@ -217,6 +217,55 @@ public sealed class E0ARunDriverTests
     }
 
     [TestMethod]
+    public async Task CancellationAfterInterpreterReceipt_StopsBeforeAuthorityAndCommit()
+    {
+        var root = E0ATestSupport.TempRunRoot();
+        using var cancellation = new CancellationTokenSource();
+        try
+        {
+            var runId = RunId.From("E0A-CANCEL-BEFORE-AUTHORITY");
+            var state = E0ATestSupport.Genesis();
+            var envelope = E0ARunEnvelope.CreativeNone(E0ATestSupport.Pricing());
+            var provider = new ScriptedProvider((attempt, call) =>
+            {
+                var output = attempt.Profile.Role switch
+                {
+                    E0ARole.Performer => E0ATestSupport.PerformerOutput(),
+                    E0ARole.Integrity => E0ATestSupport.IntegrityOutput(),
+                    E0ARole.Interpreter => E0ATestSupport.EmptyInterpreterOutput(),
+                    _ => throw new InvalidOperationException()
+                };
+                var receipt = E0ATestSupport.Success(attempt, output);
+                if (call == 3)
+                {
+                    cancellation.Cancel();
+                }
+                return receipt;
+            });
+            var driver = new E0AReferenceRunDriver(
+                envelope,
+                provider,
+                new FixedTokenCounter(),
+                E0ATestSupport.Evidence(root, runId, envelope, state));
+
+            var result = await driver.RunAsync(runId, state, cancellation.Token);
+
+            Assert.AreEqual(E0ARunTerminalStatus.Cancelled, result.Status);
+            Assert.AreEqual(0, result.AcceptedTurns);
+            Assert.AreEqual(3, provider.Calls);
+            Assert.AreEqual(state.StateHash, result.State.ProductionState.StateHash);
+            var events = File.ReadAllText(Path.Combine(root, "events.ndjson"));
+            Assert.IsFalse(events.Contains("authority.evaluated", StringComparison.Ordinal));
+            Assert.IsFalse(events.Contains("turn.committed", StringComparison.Ordinal));
+            Assert.IsTrue(events.Contains("run.terminal", StringComparison.Ordinal));
+        }
+        finally
+        {
+            Delete(root);
+        }
+    }
+
+    [TestMethod]
     public async Task ObservableModelIdentityChange_StopsBeforeSecondReceiptSemanticConsumption()
     {
         var root = E0ATestSupport.TempRunRoot();
