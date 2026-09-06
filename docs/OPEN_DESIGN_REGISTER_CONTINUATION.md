@@ -1,7 +1,7 @@
 # Open Design Register — Post-Freeze Continuation
 
 Status: OPEN QUESTIONS ONLY
-Updated: 2026-09-05
+Updated: 2026-09-06
 
 Blueprint 0.1 remains frozen. ODR-01 through ODR-31 retain their exact frozen wording and status. This file records questions raised after the freeze without editing the frozen blueprint.
 
@@ -38,6 +38,12 @@ Current E0 reference behavior is already explicit:
 
 Post-E0 scaling remains open. Any future window/retrieval/summarization contract must preserve Access-Control-before-relevance, causal history as source of truth, and the distinction between derived context representation and authoritative Production state. A summary must never acquire truth/Knowledge/Memory/Belief/Claim authority merely because the Context Composer produced or used it.
 
+### ODR-33 — Website hero causal-observability burden
+
+Should the website hero artwork itself be required to make a specific earlier human author directly recoverable from the hero image, or should that authorship burden be carried by subsequent deterministic site sections while the hero carries a different level of causal meaning?
+
+Current design evidence does not resolve this question. TEO-01 and TEO-02 demonstrated visible authorship through two-moment temporal comparison; later single-still hero experiments tested whether that burden could be transferred into aftermath-only artwork. This ODR records the product/design question without selecting either burden allocation.
+
 ## Resolution timing
 
-ODR-12, ODR-13, ODR-30, and ODR-32 do not block the current H1/E0-A deterministic reference path. They become decision gates only when later work would otherwise encode their unresolved product behavior into durable architecture.
+ODR-12, ODR-13, ODR-30, and ODR-32 do not block the current H1/E0-A deterministic reference path. ODR-33 does not block engineering and becomes a design decision gate only before the website hero is treated as requiring or not requiring direct specific-authorship recovery.
