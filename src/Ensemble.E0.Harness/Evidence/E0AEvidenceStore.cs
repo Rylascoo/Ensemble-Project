@@ -255,7 +255,6 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
         if (string.IsNullOrWhiteSpace(terminalStatus) ||
             acceptedTurns is < 0 or > E0ARunEnvelope.AcceptedTurnCap ||
             estimatedSpendUsd < 0m ||
-            estimatedSpendUsd > E0ARunEnvelope.EstimatedSpendCeilingUsd ||
             !IsLowerHexSha256(finalStateHash) ||
             !_blindLabels.ContainsKey(finalOpportunity))
         {
