@@ -110,12 +110,15 @@ public sealed class E0ARunDriverTests
             Assert.AreEqual(2, provider.Calls);
             CollectionAssert.AreEqual(new[] { E0ARole.Performer, E0ARole.Integrity }, provider.Roles);
             Assert.AreEqual(state.StateHash, result.State.ProductionState.StateHash);
+            Assert.AreEqual(2, Directory.GetFiles(root, "terminal.json", SearchOption.AllDirectories).Length);
 
             var events = File.ReadAllText(Path.Combine(root, "events.ndjson"));
-            Assert.IsTrue(events.Contains("integrity.rejected", StringComparison.Ordinal));
             Assert.IsFalse(events.Contains("interpreter.proposal", StringComparison.Ordinal));
             Assert.IsFalse(events.Contains("turn.committed", StringComparison.Ordinal));
             Assert.IsTrue(events.Contains("run.terminal", StringComparison.Ordinal));
+
+            using var transcript = JsonDocument.Parse(File.ReadAllBytes(Path.Combine(root, "transcript.json")));
+            Assert.AreEqual(0, transcript.RootElement.GetProperty("performances").GetArrayLength());
 
             var finalPath = Path.Combine(root, "run.final.json");
             Assert.IsTrue(File.Exists(finalPath));
