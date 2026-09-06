@@ -320,7 +320,7 @@ internal sealed class OpenAIResponsesPort : IE0AProviderRolePort, IE0AInputToken
             cacheWrite < 0 ||
             reasoning < 0 ||
             cached > inputTokens ||
-            cacheWrite > inputTokens - cached ||
+            cacheWrite > inputTokens ||
             reasoning > outputTokens)
         {
             return null;
