@@ -395,7 +395,7 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
         foreach (var character in value)
         {
             if (!((character >= '0' && character <= '9') ||
-                  (character >= 'a' && character <= 'f'))
+                  (character >= 'a' && character <= 'f')))
             {
                 return false;
             }
