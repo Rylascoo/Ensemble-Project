@@ -246,15 +246,23 @@ internal sealed class E0AReferenceRunDriver
         CancellationToken cancellationToken)
     {
         _evidence.RecordPrepared(attempt);
+        using var attemptTimeout = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+        attemptTimeout.CancelAfter(TimeSpan.FromSeconds(E0ARunEnvelope.AttemptTimeoutSeconds));
+
         long inputTokens;
         try
         {
-            inputTokens = await _tokenCounter.CountInputTokensAsync(attempt, cancellationToken).ConfigureAwait(false);
+            inputTokens = await _tokenCounter.CountInputTokensAsync(attempt, attemptTimeout.Token).ConfigureAwait(false);
         }
-        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+        catch (OperationCanceledException)
         {
-            _evidence.RecordEvent("preflight.cancelled", new { attemptId = attempt.AttemptId });
-            return new RoleCall(null, E0ARunTerminalStatus.Cancelled);
+            var external = cancellationToken.IsCancellationRequested;
+            _evidence.RecordEvent(
+                external ? "preflight.cancelled" : "preflight.timeout",
+                new { attemptId = attempt.AttemptId });
+            return new RoleCall(
+                null,
+                external ? E0ARunTerminalStatus.Cancelled : E0ARunTerminalStatus.TechnicalFailure);
         }
         catch (E0AHarnessException)
         {
@@ -280,11 +288,9 @@ internal sealed class E0AReferenceRunDriver
         }
 
         RoleAttemptReceipt raw;
-        using var timeout = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
-        timeout.CancelAfter(TimeSpan.FromSeconds(E0ARunEnvelope.AttemptTimeoutSeconds));
         try
         {
-            raw = await _provider.ExecuteAsync(attempt, _evidence, timeout.Token).ConfigureAwait(false);
+            raw = await _provider.ExecuteAsync(attempt, _evidence, attemptTimeout.Token).ConfigureAwait(false);
         }
         catch (OperationCanceledException)
         {
@@ -306,25 +312,42 @@ internal sealed class E0AReferenceRunDriver
             _evidence.RecordEvent("configured-receipt.rejected", new { attemptId = attempt.AttemptId });
             return new RoleCall(null, E0ARunTerminalStatus.TechnicalFailure);
         }
+
         if (receipt.Outcome == E0ARoleAttemptOutcome.Success)
         {
-            _spend.Reconcile(reservation, receipt.Usage!);
+            var reconciliation = _spend.Reconcile(reservation, receipt.Usage!);
+            _evidence.RecordReceipt(attempt, receipt);
+            if (reconciliation.ReservationExceeded || reconciliation.RunCeilingExceeded)
+            {
+                _evidence.RecordEvent("usage.reservation-mismatch", new
+                {
+                    attemptId = attempt.AttemptId,
+                    reservedInputTokens = reservation.InputTokens,
+                    reportedInputTokens = receipt.Usage!.InputTokens,
+                    reservedMaxOutputTokens = reservation.MaxOutputTokens,
+                    reportedOutputTokens = receipt.Usage.OutputTokens,
+                    reservedUsd = reservation.ReservedUsd,
+                    actualUsd = reconciliation.ActualUsd,
+                    runCeilingExceeded = reconciliation.RunCeilingExceeded
+                });
+                return new RoleCall(receipt, E0ARunTerminalStatus.TechnicalFailure);
+            }
+
             if (_observedModel is null)
             {
                 _observedModel = receipt.ReturnedModel;
             }
             else if (!string.Equals(_observedModel, receipt.ReturnedModel, StringComparison.Ordinal))
             {
-                _evidence.RecordReceipt(attempt, receipt);
                 return new RoleCall(receipt, E0ARunTerminalStatus.ModelIdentityChanged);
             }
         }
         else
         {
             _spend.Release(reservation);
+            _evidence.RecordReceipt(attempt, receipt);
         }
 
-        _evidence.RecordReceipt(attempt, receipt);
         var terminal = receipt.Outcome switch
         {
             E0ARoleAttemptOutcome.Success => (E0ARunTerminalStatus?)null,
