@@ -186,7 +186,20 @@ internal sealed class E0AReferenceRunDriver
                 return Finish(E0ARunTerminalStatus.InvalidOutput, acceptedTurns, state);
             }
 
-            progress = DeterministicE0TurnOrchestrator.EvaluateIntegrity(progress, concerns);
+            try
+            {
+                progress = DeterministicE0TurnOrchestrator.EvaluateIntegrity(progress, concerns);
+            }
+            catch (E0TurnOrchestrationException)
+            {
+                _evidence.RecordEvent("integrity.rejected", new
+                {
+                    turn,
+                    candidateContentHash = integrityInput.CandidateContentHash,
+                    concerns = concerns.Select(x => x.ToString()).ToArray()
+                });
+                return Finish(E0ARunTerminalStatus.InvalidOutput, acceptedTurns, state);
+            }
             _evidence.RecordEvent("integrity.evaluated", new
             {
                 turn,
