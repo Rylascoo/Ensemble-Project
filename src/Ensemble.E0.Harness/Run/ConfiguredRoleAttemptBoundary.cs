@@ -22,11 +22,16 @@ internal static class ConfiguredRoleAttemptBoundary
 
         if (receipt.Outcome == E0ARoleAttemptOutcome.Success)
         {
-            if (receipt.StructuredOutput is null ||
+            var output = receipt.StructuredOutput;
+            if (output is null ||
                 receipt.Usage is null ||
                 string.IsNullOrWhiteSpace(receipt.ResponseId) ||
                 string.IsNullOrWhiteSpace(receipt.ReturnedModel) ||
                 string.IsNullOrWhiteSpace(receipt.StructuredOutputHash) ||
+                !string.Equals(
+                    receipt.StructuredOutputHash,
+                    PreparedRoleAttempt.LowerSha256(output),
+                    StringComparison.Ordinal) ||
                 receipt.DiagnosticCode is not null)
             {
                 throw new E0AHarnessException("E0-A successful provider receipt is incomplete.");
