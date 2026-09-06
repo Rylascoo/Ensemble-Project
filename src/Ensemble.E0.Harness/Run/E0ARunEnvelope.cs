@@ -25,9 +25,9 @@ internal sealed record E0APricingAssumptions(
 {
     internal void Validate()
     {
-        if (InputUsdPerMillionTokens < 0m ||
+        if (InputUsdPerMillionTokens <= 0m ||
             CachedInputUsdPerMillionTokens < 0m ||
-            OutputUsdPerMillionTokens < 0m ||
+            OutputUsdPerMillionTokens <= 0m ||
             CachedInputUsdPerMillionTokens > InputUsdPerMillionTokens)
         {
             throw new E0AHarnessException("E0-A pricing assumptions are invalid.");
@@ -125,10 +125,15 @@ internal sealed class E0ARunEnvelope
         Interpreter.Validate();
         Pricing.Validate();
 
-        if (!string.Equals(Performer.Provider, Integrity.Provider, StringComparison.Ordinal) ||
+        if (!string.Equals(Performer.Provider, "OpenAI", StringComparison.Ordinal) ||
+            !string.Equals(Performer.Provider, Integrity.Provider, StringComparison.Ordinal) ||
             !string.Equals(Performer.Provider, Interpreter.Provider, StringComparison.Ordinal) ||
+            !string.Equals(Performer.Model, "gpt-5.6-sol", StringComparison.Ordinal) ||
             !string.Equals(Performer.Model, Integrity.Model, StringComparison.Ordinal) ||
             !string.Equals(Performer.Model, Interpreter.Model, StringComparison.Ordinal) ||
+            !string.Equals(Performer.ServiceTier, "default", StringComparison.Ordinal) ||
+            !string.Equals(Performer.ServiceTier, Integrity.ServiceTier, StringComparison.Ordinal) ||
+            !string.Equals(Performer.ServiceTier, Interpreter.ServiceTier, StringComparison.Ordinal) ||
             Performer.Reasoning != Interpreter.Reasoning ||
             Integrity.Reasoning != E0AReasoningLevel.High ||
             Performer.MaxOutputTokens != RoleMaxOutputTokens ||
@@ -145,6 +150,7 @@ internal sealed class E0ARunEnvelope
         E0AReasoningLevel creativeReasoning,
         E0APricingAssumptions pricing)
     {
+        ArgumentNullException.ThrowIfNull(pricing);
         var envelope = new E0ARunEnvelope(
             variant,
             new E0ARoleProfile(E0ARole.Performer, "OpenAI", "gpt-5.6-sol", creativeReasoning, true, RoleMaxOutputTokens, "default"),
