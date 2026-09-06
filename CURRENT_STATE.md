@@ -10,7 +10,7 @@ The Director owns product constitution, Open Design Register resolution, provide
 
 ## Checkpoint
 
-Phase: **E0-A Experimental Harness — Gemini normative-reference amendment implemented on the active work branch and under recursive static audit; native Gemini validation not yet performed; real Gemini network execution still gated**.
+Phase: **E0-A Experimental Harness — Gemini normative-reference amendment implementation complete; recursive static audit CLOSED; exact source/test checkpoint frozen; Director-machine native Windows ARM64 validation pending; real Gemini network execution still gated**.
 
 Active work branch:
 
@@ -20,6 +20,14 @@ Promoted `main` before this amendment:
 
 `f9cb1a79ad7923b640ff1a97c46d8fd6ab9dac25`
 
+Frozen Gemini amendment executable/source/test checkpoint:
+
+`39e7984b9ff59228d7d0c424ef7d113582d38bc7`
+
+The recursive static audit closed at that checkpoint after one complete pass found no material correction, authority inconsistency, scope violation, unsupported validation claim, or remaining worthwhile in-scope improvement. This is a **static-audit closure only**; it is not compiler, test, native-runtime, or provider validation.
+
+Post-freeze continuity/evidence descendants on the active branch are documentation-only and do not replace `39e7984b...` as the executable/source/test authority for the pending native run. Pending-native record: `docs/evidence/E0A_PHASE_B_GEMINI_NORMATIVE_REFERENCE_PENDING_NATIVE_VALIDATION.md`.
+
 H1 Phase A remains **CLOSED** by `docs/evidence/H1_CONVERGENCE_AUDIT.md`; promotion `28371ea4bcd9709b771413100af4dcec5a05dc6e`.
 
 Historical E0-A Phase-B architecture remains `docs/blueprint/E0A_PHASE_B_REFERENCE_RUN_ENVELOPE.md`, Proposal 0.15, with approval at `docs/evidence/E0A_PHASE_B_REFERENCE_RUN_ENVELOPE_APPROVAL.md`.
@@ -27,7 +35,8 @@ Historical E0-A Phase-B architecture remains `docs/blueprint/E0A_PHASE_B_REFEREN
 The current bounded provider amendment is:
 
 - blueprint: `docs/blueprint/E0A_PHASE_B_GEMINI_NORMATIVE_REFERENCE_AMENDMENT.md`;
-- approval/evidence: `docs/evidence/E0A_PHASE_B_GEMINI_NORMATIVE_REFERENCE_AMENDMENT_APPROVAL.md`.
+- approval/evidence: `docs/evidence/E0A_PHASE_B_GEMINI_NORMATIVE_REFERENCE_AMENDMENT_APPROVAL.md`;
+- pending-native evidence: `docs/evidence/E0A_PHASE_B_GEMINI_NORMATIVE_REFERENCE_PENDING_NATIVE_VALIDATION.md`.
 
 The amendment changes only the next normative E0-A provider route. It does not reopen Core/H1 causal authority, E0-B+, product UI/persistence, NPU, packaging, Store, or later scope.
 
@@ -54,6 +63,10 @@ Observed: Windows `10.0.26200`, `PROCESSOR_ARCHITECTURE=ARM64`, `dotnet --info` 
 That checkpoint remains the exact machine-tested authority for the historical OpenAI live-host implementation. It does **not** validate the current Gemini amendment.
 
 ### Current Gemini amendment validation state
+
+Exact frozen executable/source/test checkout pending native validation:
+
+`39e7984b9ff59228d7d0c424ef7d113582d38bc7`
 
 The Gemini executable/test surface has **not yet received Director-machine native Windows ARM64 validation**. Do not infer compiler, test, native runtime, credentialless Gemini-host, or provider behavior from static review.
 
@@ -119,9 +132,11 @@ Gemini-specific manifests bind the approved amendment rather than the historical
 
 Runtime provenance records the configured route, exact request bytes/hash, returned `responseId`, returned `modelVersion`, usage, candidate/thought/cached token counts, shadow cost, and deterministic terminal path without recording the credential.
 
-Thought summaries/signatures are outside E0-A evidence authority. Buffered thought material is rejected before semantic receipt; streamed thought material is rejected **before raw diagnostic persistence**.
+Thought summaries/signatures are outside E0-A evidence authority. Requests explicitly set `includeThoughts=false`; buffered thought material is rejected before semantic receipt; streamed thought material is rejected **before raw diagnostic persistence**.
 
-Observable `modelVersion` must remain stable across a contributing run. Prompt blocking, refusal/safety termination, missing/invalid candidate, non-STOP finish, malformed structured output, transport failure, timeout, cancellation, usage-policy overrun, implicit-cache hit, or model identity change cannot become fiction.
+The hashed Gemini request explicitly pins one candidate and the current structured-output format rather than relying on mutable provider defaults. Observable `modelVersion` must remain stable across a contributing run. Prompt blocking, refusal/safety termination, missing/invalid candidate, non-STOP finish, malformed structured output, transport failure, timeout, cancellation, usage-policy overrun, implicit-cache hit, or model identity change cannot become fiction.
+
+Gemini usage accounting fails closed on malformed or inconsistent provider totals and on nonzero tool-use prompt tokens. Streamed semantic bytes after an observed `STOP` are rejected; a later metadata-only completion chunk may supply the final cumulative usage tuple.
 
 Gemini 2.5 implicit caching is provider-managed and cannot be disabled through the current API. The normative reference condition therefore treats any nonzero `cachedContentTokenCount` as technical/noncontributing after usage/spend evidence is recorded but before semantic consumption. No explicit Gemini cache object is created.
 
@@ -175,10 +190,9 @@ Remain inside **E0-A Phase B**. Do not enter E0-B..G, product Application/persis
 
 Current engineering sequence:
 
-1. complete recursive static audit of the Gemini amendment until one full pass finds no material correction or worthwhile improvement;
-2. freeze the exact amendment implementation checkpoint;
-3. run Director-machine native Windows ARM64 Core/Harness tests, Harness ARM64 build, fixture smokes, and credentialless `CREATIVE-NONE` host gate with `GEMINI_API_KEY` absent;
-4. record the exact native validation evidence without promoting static claims;
-5. only after validation, return to the Director for a **separate explicit authorization** before any Gemini `countTokens`, inference, credential use, or provider-network execution.
+1. native-validate exact frozen checkpoint `39e7984b9ff59228d7d0c424ef7d113582d38bc7` on the Director's Windows ARM64 host;
+2. require a clean exact checkout, trusted ARM64 probes, Core/Harness tests, Harness native ARM64 build, Missing Raft and generic fixture smokes, and the credentialless `CREATIVE-NONE` host gate with `GEMINI_API_KEY` absent;
+3. record the exact native validation evidence without promoting static claims or replacing `39e7984b...` with a documentation-only descendant;
+4. only after validation, return to the Director for a **separate explicit authorization** before any Gemini `countTokens`, inference, credential use, or provider-network execution.
 
 The prior explicit OpenAI first-run authorization was superseded by the Director's later Gemini-provider correction and does not authorize Gemini network execution.
