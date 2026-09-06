@@ -1,5 +1,7 @@
 using System.Runtime.InteropServices;
 using Ensemble.E0.Core.Fixture;
+using Ensemble.E0.Harness.Host;
+using Ensemble.E0.Harness.Run;
 
 if (!OperatingSystem.IsWindows() || RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
 {
@@ -7,14 +9,40 @@ if (!OperatingSystem.IsWindows() || RuntimeInformation.ProcessArchitecture != Ar
     return 2;
 }
 
-if (args.Length != 1)
-{
-    Console.Error.WriteLine("Usage: Ensemble.E0.Harness <fixture.json>");
-    return 2;
-}
-
 try
 {
+    if (args.Length > 0 && string.Equals(args[0], "e0a-run", StringComparison.Ordinal))
+    {
+        using var cancellation = new CancellationTokenSource();
+        ConsoleCancelEventHandler handler = (_, eventArgs) =>
+        {
+            eventArgs.Cancel = true;
+            cancellation.Cancel();
+        };
+        Console.CancelKeyPress += handler;
+        try
+        {
+            return await E0AReferenceRunHost.RunAsync(args[1..], cancellation.Token);
+        }
+        finally
+        {
+            Console.CancelKeyPress -= handler;
+        }
+    }
+
+    if (args.Length > 0 && string.Equals(args[0], "e0a-evaluate", StringComparison.Ordinal))
+    {
+        return E0AReferenceRunHost.SealEvaluation(args[1..]);
+    }
+
+    if (args.Length != 1)
+    {
+        Console.Error.WriteLine("Usage: Ensemble.E0.Harness <fixture.json>");
+        Console.Error.WriteLine("   or: Ensemble.E0.Harness e0a-run <fixture.json> <run-id> <evidence-root> <executable-commit>");
+        Console.Error.WriteLine("   or: Ensemble.E0.Harness e0a-evaluate <evidence-root> <reviewer-id> <method-id> <pass|fail> [finding ...]");
+        return 2;
+    }
+
     var bytes = await File.ReadAllBytesAsync(args[0]);
     var document = FixtureLoader.Load(bytes);
     var fixture = GenericE0FixtureValidator.Validate(document);
@@ -27,7 +55,17 @@ try
     Console.WriteLine($"Fixture validated: {fixture.Id}");
     return 0;
 }
-catch (Exception exception) when (exception is FixtureValidationException or IOException or UnauthorizedAccessException)
+catch (OperationCanceledException)
+{
+    Console.Error.WriteLine("E0-A operation cancelled.");
+    return 3;
+}
+catch (Exception exception) when (
+    exception is FixtureValidationException or
+    E0AHarnessException or
+    IOException or
+    UnauthorizedAccessException or
+    ArgumentException)
 {
     Console.Error.WriteLine(exception.Message);
     return 1;
