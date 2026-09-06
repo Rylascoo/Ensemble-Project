@@ -210,6 +210,7 @@ internal static class E0ARequestBuilder
                 },
                 ["thinkingConfig"] = new Dictionary<string, object?>
                 {
+                    ["includeThoughts"] = false,
                     ["thinkingBudget"] = E0AGeminiProviderPolicy.ThinkingBudgetTokens(profile)
                 }
             },
