@@ -4,31 +4,38 @@ Updated: 2026-09-06
 
 ## Authority
 
-Frozen Blueprint 0.1 + approved phase/patch blueprints govern architecture. `Rylascoo/Ensemble-Project` is engineering authority. Resolve `main`; never promote or overstate validation. Workflow: `docs/PROJECT_REASONING_TASK_SCOPE_OPTIMIZATION_PROTOCOL.md`. Open questions: `docs/OPEN_DESIGN_REGISTER_CONTINUATION.md`. Plan: `docs/roadmap/KYMAEAN_ARCHITECTURE_AND_SHIP_PLAN.md`. Product/policy authority and lane boundaries: `docs/PROJECT_AUTHORITY.md`.
+Frozen Blueprint 0.1 + approved phase/patch blueprints govern architecture. `Rylascoo/Ensemble-Project` is engineering authority. Resolve `main` for promoted project truth and any named active work branch for its bounded in-progress state; never promote or overstate validation. Workflow: `docs/PROJECT_REASONING_TASK_SCOPE_OPTIMIZATION_PROTOCOL.md`. Open questions: `docs/OPEN_DESIGN_REGISTER_CONTINUATION.md`. Plan: `docs/roadmap/KYMAEAN_ARCHITECTURE_AND_SHIP_PLAN.md`. Product/policy authority and lane boundaries: `docs/PROJECT_AUTHORITY.md`.
 
 The Director owns product constitution, Open Design Register resolution, provider admissibility, and decisions about what the product may do. Engineering/design surfaces supply inputs within their lanes. ODR proposals/resolutions live in `Ensemble-Project/docs` following the ODR-33 precedent.
 
 ## Checkpoint
 
-Phase: **E0-A Experimental Harness — Phase B reference-run implementation plus live-host completion native-validated for fake-only/credentialless scope; real provider run still gated**.
+Phase: **E0-A Experimental Harness — Gemini normative-reference amendment implemented on the active work branch and under recursive static audit; native Gemini validation not yet performed; real Gemini network execution still gated**.
 
-H1 Phase A: **CLOSED** by `docs/evidence/H1_CONVERGENCE_AUDIT.md`; promotion `28371ea4bcd9709b771413100af4dcec5a05dc6e`.
+Active work branch:
 
-Approved Phase-B architecture: `docs/blueprint/E0A_PHASE_B_REFERENCE_RUN_ENVELOPE.md`, Proposal 0.15; approval: `docs/evidence/E0A_PHASE_B_REFERENCE_RUN_ENVELOPE_APPROVAL.md`.
+`e0a-gemini-normative-reference-amendment`
 
-Original Phase-B implementation evidence: `docs/evidence/E0A_PHASE_B_REFERENCE_RUN_ENVELOPE_IMPLEMENTATION_EVIDENCE.md`; native evidence: `docs/evidence/E0A_PHASE_B_REFERENCE_RUN_ENVELOPE_NATIVE_ARM64_VALIDATION.md`; oracle: `docs/evidence/E0A_PHASE_B_REFERENCE_RUN_ENVELOPE_ORACLE.json`.
+Promoted `main` before this amendment:
 
-Live-host completion native evidence: `docs/evidence/E0A_PHASE_B_LIVE_HOST_NATIVE_ARM64_VALIDATION.md`. Attempt 01 partial evidence: `docs/evidence/E0A_PHASE_B_LIVE_HOST_NATIVE_VALIDATION_ATTEMPT_01.md`. Director-host apparatus contract: `docs/evidence/DIRECTOR_WINDOWS_ARM64_VALIDATION_HOST_BEHAVIORS.md`.
+`f9cb1a79ad7923b640ff1a97c46d8fd6ab9dac25`
 
-Program map: `docs/roadmap/KYMAEAN_ARCHITECTURE_AND_SHIP_PLAN.md`.
+H1 Phase A remains **CLOSED** by `docs/evidence/H1_CONVERGENCE_AUDIT.md`; promotion `28371ea4bcd9709b771413100af4dcec5a05dc6e`.
 
-This state reconciles former `main` `a3b5126dad440d2f75bef655fdc6e4ac7098b839` with former live-host branch head `9228c77a5b789c4c6a1e0417f889851c6b92730e` as a union. Their merge base was `13ffde90f78a8bf40a04381b136e846d1cf64d1c`. Parallel-main ODR-26 continuity and the live-host validation/authority continuity both survive.
+Historical E0-A Phase-B architecture remains `docs/blueprint/E0A_PHASE_B_REFERENCE_RUN_ENVELOPE.md`, Proposal 0.15, with approval at `docs/evidence/E0A_PHASE_B_REFERENCE_RUN_ENVELOPE_APPROVAL.md`.
 
-## Native validation
+The current bounded provider amendment is:
 
-All native evidence below is **Director-machine-sourced** from the Director's native Windows ARM64 machine, not the engineering assistant environment.
+- blueprint: `docs/blueprint/E0A_PHASE_B_GEMINI_NORMATIVE_REFERENCE_AMENDMENT.md`;
+- approval/evidence: `docs/evidence/E0A_PHASE_B_GEMINI_NORMATIVE_REFERENCE_AMENDMENT_APPROVAL.md`.
 
-### Original Phase-B implementation checkpoint
+The amendment changes only the next normative E0-A provider route. It does not reopen Core/H1 causal authority, E0-B+, product UI/persistence, NPU, packaging, Store, or later scope.
+
+## Native validation authority
+
+All completed native evidence below is **Director-machine-sourced** from the Director's native Windows ARM64 machine, not the engineering assistant environment.
+
+### Historical original Phase-B implementation checkpoint
 
 Exact validated executable/test checkout:
 
@@ -36,7 +43,7 @@ Exact validated executable/test checkout:
 
 Observed: Windows `10.0.26200`, ARM64, `win-arm64`, SDK `9.0.317`; clean tracked/staged tree; **622/622 Core tests PASS**; **39/39 Harness tests PASS**; Harness ARM64 build PASS; Missing Raft PASS; generic smoke PASS.
 
-### Live-host completion checkpoint
+### Historical OpenAI live-host completion checkpoint
 
 Exact validated executable/test checkout:
 
@@ -44,36 +51,97 @@ Exact validated executable/test checkout:
 
 Observed: Windows `10.0.26200`, `PROCESSOR_ARCHITECTURE=ARM64`, `dotnet --info` RID `win-arm64`, Host Architecture `arm64`, SDK `9.0.317`; clean tracked/staged tree; no material untracked source/test/fixture files; **622/622 Core tests PASS**; **54/54 Harness tests PASS**; Harness native ARM64 build PASS; Missing Raft PASS; generic smoke PASS; credentialless explicit `e0a-run` PASS with native exit `1`, expected `OPENAI_API_KEY` refusal, no evidence root, and credential remaining absent.
 
-Coverage caveat: the pricing-policy tuple test `PricingPolicy_FreezesSourcePromotionAndConservativeRates` is a **constant-freeze tripwire**, not behavioral pricing validation. Its pass contributes to the suite count but only proves that the compiled frozen constants match the independently maintained expected tuple in the test. It does not establish live provider pricing freshness, provider cache behavior, or runtime spend correctness. Those claims require separate runtime/provider evidence and remain subject to the known pricing-snapshot limitation.
+That checkpoint remains the exact machine-tested authority for the historical OpenAI live-host implementation. It does **not** validate the current Gemini amendment.
 
-The comparison from `1cfdb3aa22abce62a5bd48e80706407670d1c6a9` to former branch head `9228c77a5b789c4c6a1e0417f889851c6b92730e` contains documentation only: `CURRENT_STATE.md`, `docs/PROJECT_AUTHORITY.md`, four live-host evidence/host records, and this handoff. The four parallel-main commits after merge base are also documentation-only. The reconciliation therefore changes no executable, test, fixture, or Core surface and does not replace `1cfdb3aa...` as the machine-tested live-host executable/test authority.
+### Current Gemini amendment validation state
 
-No real provider request, provider credential use, provider-network execution, or provider spend has been executed or authorized by this validation. No WinUI, Windows AI/NPU, MSIX/WACK, or Store authority.
+The Gemini executable/test surface has **not yet received Director-machine native Windows ARM64 validation**. Do not infer compiler, test, native runtime, credentialless Gemini-host, or provider behavior from static review.
 
-## Phase-B live-host truth
+No real Gemini request, `GEMINI_API_KEY` inference use, provider-network execution, or provider spend has been performed or authorized by the current implementation work.
 
-The Harness owns the approved reference-run envelope outside Core while reusing the closed H1 Cycle/Turn authority unchanged. Core remains unchanged by the live-host completion.
+## Current E0-A live-provider truth on this branch
 
-Frozen provider/model control: **OpenAI / `gpt-5.6-sol` only** for E0-A under Blueprint law #35. This is an E0-A reference-envelope configuration constraint; provider/token-counter interfaces are not themselves pinned to those literals, though `E0ARequestBuilder` intentionally emits the OpenAI Responses request shape.
+The Harness continues to own the reference-run envelope outside Core while reusing the closed H1 Cycle/Turn authority unchanged. Core is a hard no-change boundary for this amendment.
 
-Approved live variants are exactly:
+Proposal 0.15's OpenAI / `gpt-5.6-sol` four-arm configuration remains historical architecture and regression evidence. It is **not the active live provider route on this branch**.
 
-- `CREATIVE-NONE` — Performer/Interpreter `none`, Integrity `high`; normative reference run.
-- `CREATIVE-LOW` — Performer/Interpreter `low`, Integrity `high`; matched characterization.
-- `CREATIVE-MEDIUM` — Performer/Interpreter `medium`, Integrity `high`; matched characterization.
-- `CREATIVE-HIGH` — Performer/Interpreter `high`, Integrity `high`; matched characterization.
+The approved current live route is:
 
-Frozen operational limits remain: 12 accepted-Turn cap; one attempt per probabilistic invocation; zero automatic retries; 300-second attempt timeout; 4096 max output tokens per role; estimated model-token spend ceiling USD 5.00/run; `store=false`; `service_tier=default`; truncation disabled; no tools/provider conversation/hidden reasoning.
+```text
+Provider              Google Gemini API
+Model                 gemini-2.5-flash
+Transport             native generateContent / streamGenerateContent REST
+Credential             GEMINI_API_KEY
+Live variant           CREATIVE-NONE only
+Performer thinking     thinkingBudget=0
+Interpreter thinking   thinkingBudget=0
+Integrity control      thinkingBudget=3584
+```
 
-The live host validates exact clean checkout, evidence-root absence, fixture/Missing-Raft contract, and pricing date validity before credential access. It exposes explicit `e0a-run` and independent post-run `e0a-evaluate` paths and preserves write-once/runtime-root evidence sealing.
+`CREATIVE-LOW`, `CREATIVE-MEDIUM`, and `CREATIVE-HIGH` remain deferred for Gemini until a later provider-specific resource-normalization amendment. Their historical OpenAI definitions are not silently mapped to Gemini.
 
-Prompt caching is explicit-mode to disable the provider's implicit breakpoint. Cache-write usage is retained for provenance; spend reconciliation prices all reported input tokens conservatively and a nonzero cache-write count terminates technical after usage/spend recording but before semantic consumption.
+The amendment does not claim that Gemini-native controls are semantically equivalent to OpenAI `none/low/medium/high` labels.
 
-The live host's `RequireNonStaleSnapshot` remains a date-validity guard, not live pricing verification. It fails closed after the published promotional-guarantee date, but it cannot detect provider changes to pricing terms, cache-write multiplier, long-context threshold, or related billing rules that occur earlier within that date window.
+## Gemini operational envelope
 
-Closing that residual still requires the previously identified short-lived trusted pricing attestation or an equivalent stable machine-readable provider pricing source. This native PASS does not erase or narrow that known limit.
+Preserved deterministic laws:
 
-Preserved laws include Access before Context, exact configured-path request/receipt provenance, diagnostic-only streamed deltas, closed-response semantic authority, spend reconciliation before semantic use, fail-closed cancellation/timeout/usage handling, deterministic Integrity/State Authority rejection, atomic accepted causal commit followed immediately by next Opportunity establishment, immutable evidence sealing, and blind-output isolation.
+- 12 accepted-Turn cap;
+- one attempt per probabilistic invocation;
+- zero automatic retries;
+- 300-second attempt timeout;
+- 4,096 requested `maxOutputTokens` per role;
+- 4,096 contributing generated-token ceiling per role after Gemini candidate + thought accounting;
+- estimated shadow model-token ceiling USD 5.00/run;
+- `store=false`;
+- standard service tier through the provider's documented default;
+- no tools;
+- no provider conversation/history identifier;
+- Access before Context;
+- exact configured-path request/receipt provenance;
+- streamed deltas diagnostic-only;
+- closed-response semantic authority;
+- spend reconciliation before semantic use;
+- fail-closed cancellation/timeout/usage handling;
+- deterministic Integrity/State Authority rejection;
+- atomic accepted causal commit followed immediately by next Opportunity;
+- immutable runtime/evaluation sealing and blind-output isolation.
+
+Performer and Interpreter must report zero thought tokens for a contributing normative call. Integrity uses a fixed elevated `thinkingBudget=3584`, but the provider budget is advisory; observed `candidatesTokenCount + thoughtsTokenCount > 4096` terminates technical before semantic consumption.
+
+Integrity pre-spend risk reservation uses Gemini 2.5 Flash's published 65,536 model output-token limit so the USD ceiling remains fail-closed even if provider thinking exceeds its requested budget.
+
+Gemini `models.countTokens` is invoked against the exact prepared `GenerateContentRequest` before inference. The current model input ceiling frozen for this amendment is 1,048,576 tokens.
+
+## Gemini evidence and provider behavior
+
+Gemini-specific manifests bind the approved amendment rather than the historical OpenAI Proposal 0.15 pricing/cache tuple.
+
+Runtime provenance records the configured route, exact request bytes/hash, returned `responseId`, returned `modelVersion`, usage, candidate/thought/cached token counts, shadow cost, and deterministic terminal path without recording the credential.
+
+Thought summaries/signatures are outside E0-A evidence authority. Buffered thought material is rejected before semantic receipt; streamed thought material is rejected **before raw diagnostic persistence**.
+
+Observable `modelVersion` must remain stable across a contributing run. Prompt blocking, refusal/safety termination, missing/invalid candidate, non-STOP finish, malformed structured output, transport failure, timeout, cancellation, usage-policy overrun, implicit-cache hit, or model identity change cannot become fiction.
+
+Gemini 2.5 implicit caching is provider-managed and cannot be disabled through the current API. The normative reference condition therefore treats any nonzero `cachedContentTokenCount` as technical/noncontributing after usage/spend evidence is recorded but before semantic consumption. No explicit Gemini cache object is created.
+
+## Gemini pricing/data-use snapshot
+
+Snapshot verified 2026-09-06 against Google's Gemini API documentation:
+
+```text
+Gemini 2.5 Flash standard paid text input       $0.30 / 1M tokens
+Gemini 2.5 Flash standard paid output           $2.50 / 1M tokens
+output pricing includes thinking tokens
+```
+
+The current AI Studio free tier is expected to bill USD 0 for the permitted test route, but free-tier content may be used by Google to improve products. Therefore the free-tier E0 route is **synthetic-fixture-only** and is not Production-provider admission.
+
+The deterministic USD 5 ceiling remains active using paid standard-tier pricing as a conservative shadow estimate. All input, including any reported cached input, is shadow-priced at the full uncached input rate.
+
+`E0AGeminiPricingPolicy.RequireNonStaleSnapshot` is a **date-validity guard, not live pricing verification**. The current short experimental snapshot fails closed after 2026-09-13 UTC, but any material provider change discovered earlier reopens verification immediately.
+
+Before a real Gemini network run, separately reverify the exact AI Studio project/model quota, account tier, key type, model availability, current API contract, pricing, and data-use terms.
 
 ## Validation-host continuity
 
@@ -85,6 +153,8 @@ Known host facts include:
 - Trusted architecture probes are `PROCESSOR_ARCHITECTURE=ARM64` plus parsed `dotnet --info` showing `RID: win-arm64` and Host `Architecture: arm64`.
 - Expected native stderr can surface as `NativeCommandError` under `$ErrorActionPreference='Stop'`; expected-failure probes must isolate stderr, capture `$LASTEXITCODE` immediately, and assert exit/message/filesystem effects independently.
 
+The existing host-behavior document's `OPENAI_API_KEY` credentialless example is historical apparatus evidence. The Gemini native validation packet must apply the same wrapper discipline while expecting `GEMINI_API_KEY` on the active branch.
+
 ## Standing decisions
 
 - .NET 10 requires later Director approval.
@@ -92,16 +162,23 @@ Known host facts include:
 - E5c exception-runtime provenance: open, no verified defect/fix.
 - Stage remains design-lane authority.
 - ODR-12/13/26/30/32 remain open; none blocks E0-A.
-- ODR-26 working structure: `docs/ODR_26_COST_GOVERNANCE_AND_PROVIDER_ADMISSION_WORKING_CONTRACT.md`. **Not frozen/resolved/project law; no E0-A/E0-B provider-selection effect.**
-- The ODR-26 working contract is preserved unchanged from parallel `main`. It was drafted outside its authoring surface's lane and is reported for Director disposition rather than adjudicated or corrected by engineering.
+- ODR-26 working structure: `docs/ODR_26_COST_GOVERNANCE_AND_PROVIDER_ADMISSION_WORKING_CONTRACT.md`. **Not frozen/resolved/project law.** It does not silently select or reopen an E0-A/E0-B route.
+- The ODR-26 working contract predates the later outside-lane disclosure rule in the same session; Director disposition controls whether historical disclosure is added or exempted. Engineering takes no action on it absent that disposition.
 - ODR proposal/resolution authority belongs to the Director and is filed in `Ensemble-Project/docs` regardless of originating lane.
 - Real provider credentials/network execution/spend require a separate explicit Director gate.
-- `e0a-phase-b-live-host-completion-2` is a strict stale ancestor with no unique commits and remains untouched for Director disposition.
+- The previously stale `e0a-phase-b-live-host-completion-2` remote branch was deleted after explicit Director authorization; no documentation-only cleanup commit was made solely for that action.
+- The promoted `e0a-phase-b-live-host-completion`, `e0a-reference-run-envelope-blueprint`, and `e0a-reference-run-envelope-implementation` remote refs were also deleted after explicit Director authorization because they had zero unique commits and durable evidence already pins their historical checkpoints.
 
 ## Next
 
-Remain inside **E0-A Phase B**. Do not redesign Proposal 0.15 or enter E0-B..G, product Application/persistence/UI, Scene endings, Context optimization, Windows AI/NPU, MSIX/WACK/Store, or later scope.
+Remain inside **E0-A Phase B**. Do not enter E0-B..G, product Application/persistence/UI, Scene endings, Context optimization, Windows AI/NPU, MSIX/WACK/Store, or later scope.
 
-The former `main`/work-branch divergence has been reconciled as a documentation-only union. The reconciled head may be promoted through the normal reviewed GitHub path without another native run because no executable/test/fixture surface changed after `1cfdb3aa...`. If this state is already on `main`, that promotion step is complete.
+Current engineering sequence:
 
-After promotion, the next consequential product action remains the first real reference-provider run under the frozen envelope/evidence package. It requires **separate explicit Director authorization** for `OPENAI_API_KEY`, provider credentials, network inference, and spend. Nothing in fake-only native validation, reconciliation, or promotion opens that gate.
+1. complete recursive static audit of the Gemini amendment until one full pass finds no material correction or worthwhile improvement;
+2. freeze the exact amendment implementation checkpoint;
+3. run Director-machine native Windows ARM64 Core/Harness tests, Harness ARM64 build, fixture smokes, and credentialless `CREATIVE-NONE` host gate with `GEMINI_API_KEY` absent;
+4. record the exact native validation evidence without promoting static claims;
+5. only after validation, return to the Director for a **separate explicit authorization** before any Gemini `countTokens`, inference, credential use, or provider-network execution.
+
+The prior explicit OpenAI first-run authorization was superseded by the Director's later Gemini-provider correction and does not authorize Gemini network execution.
