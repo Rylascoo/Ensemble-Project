@@ -32,6 +32,10 @@ internal static class E0AReferenceRunHost
 
         // Bind manifest provenance to the exact clean checkout before secret access.
         E0ARepositoryCheckoutGuard.Validate(executableCommit);
+        if (Directory.Exists(evidenceRoot) || File.Exists(evidenceRoot))
+        {
+            throw new E0AHarnessException("E0-A run evidence directory already exists.");
+        }
 
         var bytes = await File.ReadAllBytesAsync(fixturePath, cancellationToken).ConfigureAwait(false);
         var fixture = GenericE0FixtureValidator.Validate(FixtureLoader.Load(bytes));
