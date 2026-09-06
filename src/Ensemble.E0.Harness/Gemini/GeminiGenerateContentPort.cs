@@ -174,7 +174,11 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
             {
                 return RoleAttemptReceipt.TechnicalFailure(attempt, candidateError!);
             }
-            if (root.TryGetProperty("usageMetadata", out var usageElement))
+
+            // Intermediate SSE chunks may expose partial usage metadata. Only the
+            // STOP chunk is authoritative for the complete cumulative usage tuple.
+            if (string.Equals(finishReason, "STOP", StringComparison.Ordinal) &&
+                root.TryGetProperty("usageMetadata", out var usageElement))
             {
                 usage = ParseUsage(usageElement);
                 if (usage is null)
