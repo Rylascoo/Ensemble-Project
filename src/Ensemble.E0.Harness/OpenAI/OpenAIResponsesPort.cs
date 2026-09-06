@@ -136,7 +136,6 @@ internal sealed class OpenAIResponsesPort : IE0AProviderRolePort, IE0AInputToken
 
         await using var body = await response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
         using var reader = new StreamReader(body, Encoding.UTF8, false, 4096, leaveOpen: false);
-        var provisionalOutput = new StringBuilder();
         JsonElement? completed = null;
         var refused = false;
         var failed = false;
@@ -163,12 +162,6 @@ internal sealed class OpenAIResponsesPort : IE0AProviderRolePort, IE0AInputToken
             var type = root.TryGetProperty("type", out var typeElement) ? typeElement.GetString() : null;
             switch (type)
             {
-                case "response.output_text.delta":
-                    if (root.TryGetProperty("delta", out var delta) && delta.ValueKind == JsonValueKind.String)
-                    {
-                        provisionalOutput.Append(delta.GetString());
-                    }
-                    break;
                 case "response.refusal.delta":
                 case "response.refusal.done":
                     refused = true;
@@ -196,20 +189,7 @@ internal sealed class OpenAIResponsesPort : IE0AProviderRolePort, IE0AInputToken
             return RoleAttemptReceipt.TechnicalFailure(attempt, "provider-incomplete");
         }
 
-        var receipt = ReceiptFromResponse(attempt, completed.Value);
-        if (receipt.Outcome != E0ARoleAttemptOutcome.Success || provisionalOutput.Length == 0)
-        {
-            return receipt;
-        }
-
-        var finalOutput = receipt.StructuredOutput;
-        if (finalOutput is null ||
-            !string.Equals(provisionalOutput.ToString(), Encoding.UTF8.GetString(finalOutput), StringComparison.Ordinal))
-        {
-            return RoleAttemptReceipt.TechnicalFailure(attempt, "stream-final-mismatch");
-        }
-
-        return receipt;
+        return ReceiptFromResponse(attempt, completed.Value);
     }
 
     private static RoleAttemptReceipt ReceiptFromResponse(
