@@ -11,6 +11,7 @@ using Ensemble.E0.Core.PerformerAttempt;
 using Ensemble.E0.Core.Production;
 using Ensemble.E0.Core.StateInterpreter;
 using Ensemble.E0.Core.Turn;
+using Ensemble.E0.Harness.Evidence;
 using Ensemble.E0.Harness.Run;
 
 namespace Ensemble.E0.Harness.Tests;
@@ -61,13 +62,79 @@ internal static class E0ATestSupport
         JsonSerializer.SerializeToUtf8Bytes(new { concerns });
 
     internal static byte[] EmptyInterpreterOutput() =>
+        ProposalOutput();
+
+    internal static byte[] ProposalOutput(params Dictionary<string, object?>[] mutations) =>
         JsonSerializer.SerializeToUtf8Bytes(new
         {
             schemaVersion = StateInterpretationContract.JsonSchemaVersion,
-            mutations = Array.Empty<object>()
+            mutations
         });
 
+    internal static Dictionary<string, object?> Mutation(
+        string domain,
+        string operation,
+        string? subjectCharacterId = null,
+        string? targetCharacterId = null,
+        string? existingRecordId = null,
+        string? text = "Proposed state.",
+        string[]? supportingRecordIds = null) =>
+        new(StringComparer.Ordinal)
+        {
+            ["domain"] = domain,
+            ["operation"] = operation,
+            ["subjectCharacterId"] = subjectCharacterId,
+            ["targetCharacterId"] = targetCharacterId,
+            ["existingRecordId"] = existingRecordId,
+            ["text"] = text,
+            ["supportingRecordIds"] = supportingRecordIds ?? Array.Empty<string>()
+        };
+
+    internal static Dictionary<string, object?> PressureAdd(string text = "Pressure increases.") =>
+        Mutation("pressure", "add", text: text);
+
+    internal static Dictionary<string, object?> BeliefSupersede(string text = "Voss revises the working theory.") =>
+        Mutation(
+            "characterBelief",
+            "supersede",
+            subjectCharacterId: MissingRaftContract.VossCharacterId,
+            existingRecordId: MissingRaftContract.BelVossAccidentalLossPlausibleId,
+            text: text);
+
+    internal static Dictionary<string, object?> BeliefDeactivate() =>
+        Mutation(
+            "characterBelief",
+            "deactivate",
+            subjectCharacterId: MissingRaftContract.VossCharacterId,
+            existingRecordId: MissingRaftContract.BelVossAccidentalLossPlausibleId,
+            text: null);
+
     internal static string TempRunRoot() => Path.Combine(Path.GetTempPath(), "ensemble-e0a-tests", Guid.NewGuid().ToString("N"));
+
+    internal static E0AFileEvidenceStore Evidence(
+        string root,
+        RunId runId,
+        E0ARunEnvelope envelope,
+        ProductionState state) =>
+        new(
+            root,
+            runId,
+            envelope,
+            state.OriginFixtureId.Value,
+            state.OriginFixtureHash,
+            "TEST-EXECUTABLE-COMMIT",
+            state.RosterCharacterIds);
+
+    internal static RoleAttemptReceipt Success(
+        PreparedRoleAttempt attempt,
+        byte[] output,
+        string model = "gpt-5.6-sol") =>
+        RoleAttemptReceipt.Success(
+            attempt,
+            $"resp-{attempt.AttemptId}",
+            model,
+            new E0AUsage(10, 10, 0, 0),
+            output);
 }
 
 internal sealed class FixedTokenCounter : IE0AInputTokenCounter
@@ -101,11 +168,8 @@ internal sealed class ScriptedProvider : IE0AProviderRolePort
     }
 
     private static RoleAttemptReceipt Default(PreparedRoleAttempt attempt, int _) =>
-        RoleAttemptReceipt.Success(
+        E0ATestSupport.Success(
             attempt,
-            $"resp-{attempt.AttemptId}",
-            "gpt-5.6-sol",
-            new E0AUsage(10, 10, 0, 0),
             attempt.Profile.Role switch
             {
                 E0ARole.Performer => E0ATestSupport.PerformerOutput(),
@@ -124,4 +188,11 @@ internal sealed class FailingTokenCounter : IE0AInputTokenCounter
         cancellationToken.ThrowIfCancellationRequested();
         throw new E0AHarnessException("synthetic preflight failure");
     }
+}
+
+internal sealed class CollectingDiagnosticSink : IE0AProviderDiagnosticSink
+{
+    internal List<string> Events { get; } = new();
+    public void RecordStreamEvent(PreparedRoleAttempt attempt, ReadOnlyMemory<byte> utf8Event) =>
+        Events.Add(Encoding.UTF8.GetString(utf8Event.Span));
 }
