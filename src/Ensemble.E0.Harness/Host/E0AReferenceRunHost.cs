@@ -10,11 +10,11 @@ namespace Ensemble.E0.Harness.Host;
 
 internal static class E0AReferenceRunHost
 {
-    // Conservative bound verified against GPT-5.6 Sol pricing on 2026-09-06.
-    // Base promotional rates are 4.00 / 0.40 / 20.00 USD per 1M text tokens.
-    // Above 272K input, input is 2x and output 1.5x; cache writes are 1.25x
-    // uncached input. We therefore use 10.00 / 0.80 / 30.00 for every request.
-    internal static E0APricingAssumptions ConservativePricing { get; } = new(10.00m, 0.80m, 30.00m);
+    // Conservative standard-tier bound verified against GPT-5.6 Sol pricing on
+    // 2026-09-06. Base promotional rates are 4.00 / 0.40 / 20.00 USD per 1M
+    // text tokens and cache writes are 1.25x uncached input, so 5.00 / 0.40 /
+    // 20.00 safely covers every permitted <=272K-input reference invocation.
+    internal static E0APricingAssumptions ConservativePricing { get; } = new(5.00m, 0.40m, 20.00m);
 
     internal static async Task<int> RunAsync(string[] args, CancellationToken cancellationToken)
     {
