@@ -11,7 +11,7 @@ namespace Ensemble.E0.Harness.Tests;
 public sealed class E0ASpendAndRequestTests
 {
     [TestMethod]
-    public void SpendReservation_IsWorstCaseAndReconcilesCachedUsage()
+    public void SpendReservation_IsWorstCaseAndReconcilesCachedUsageConservatively()
     {
         var ledger = new E0ASpendLedger(E0ATestSupport.Pricing());
         var reservation = ledger.Reserve(1_000_000, 500_000);
@@ -21,10 +21,10 @@ public sealed class E0ASpendAndRequestTests
         var reconciliation = ledger.Reconcile(
             reservation,
             new E0AUsage(1_000_000, 500_000, 100_000, 0));
-        Assert.AreEqual(1.925m, reconciliation.ActualUsd);
+        Assert.AreEqual(2.0m, reconciliation.ActualUsd);
         Assert.IsFalse(reconciliation.ReservationExceeded);
         Assert.IsFalse(reconciliation.RunCeilingExceeded);
-        Assert.AreEqual(1.925m, ledger.EstimatedCommittedUsd);
+        Assert.AreEqual(2.0m, ledger.EstimatedCommittedUsd);
         Assert.AreEqual(0m, ledger.ReservedUsd);
     }
 
