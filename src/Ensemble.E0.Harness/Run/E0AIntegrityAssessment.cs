@@ -79,19 +79,37 @@ internal static class E0AIntegrityAssessmentPacketBuilder
         ArgumentNullException.ThrowIfNull(access);
         ArgumentNullException.ThrowIfNull(context);
         ArgumentNullException.ThrowIfNull(candidate);
+        ValidateAssociation(state, access, context, candidate);
 
-        var decisions = access.Decisions.ToDictionary(x => x.RecordId.Value, StringComparer.Ordinal);
+        if (access.Decisions.IsDefault || access.Decisions.Length != state.Records.Length)
+        {
+            throw new E0AHarnessException("E0-A Integrity Access decisions are incomplete for the source Production state.");
+        }
+
+        Dictionary<string, AccessDecision> decisions;
+        try
+        {
+            decisions = access.Decisions.ToDictionary(x => x.RecordId.Value, StringComparer.Ordinal);
+        }
+        catch (ArgumentException)
+        {
+            throw new E0AHarnessException("E0-A Integrity Access decisions contain duplicate RecordIds.");
+        }
+
         var constraints = new Dictionary<string, E0AIntegrityConstraint>(StringComparer.Ordinal);
-
         foreach (var record in state.Records)
         {
+            if (!decisions.TryGetValue(record.RecordId.Value, out var decision))
+            {
+                throw new E0AHarnessException("E0-A Integrity Access decisions do not cover the source Production state.");
+            }
+
             if (record.Lifecycle != ProductionRecordLifecycle.Active)
             {
                 continue;
             }
 
-            decisions.TryGetValue(record.RecordId.Value, out var decision);
-            var denied = decision?.Disposition == AccessDisposition.Deny;
+            var denied = decision.Disposition == AccessDisposition.Deny;
             var protectedRecord = record.Protection is ProductionRecordProtection.SystemImmutable or ProductionRecordProtection.CreatorLocked;
             if (!denied && !protectedRecord)
             {
@@ -101,7 +119,7 @@ internal static class E0AIntegrityAssessmentPacketBuilder
             constraints[record.RecordId.Value] = new E0AIntegrityConstraint(
                 record.RecordId,
                 record.Text,
-                denied ? decision!.Reason : null,
+                denied ? decision.Reason : null,
                 record.Protection);
         }
 
@@ -110,18 +128,40 @@ internal static class E0AIntegrityAssessmentPacketBuilder
             .ToImmutableArray();
         return new E0AIntegrityAssessmentPacket(context, candidate, ordered);
     }
+
+    private static void ValidateAssociation(
+        ProductionState state,
+        CharacterAccessEvaluation access,
+        ContextPacket context,
+        CandidatePerformance candidate)
+    {
+        var opportunity = state.CurrentOpportunityCharacterId;
+        if (!context.SourceStateHash.HasValue ||
+            context.SourceStateHash.Value != state.StateHash ||
+            context.SceneId != state.SceneId ||
+            !opportunity.HasValue ||
+            context.SubjectCharacterId != opportunity.Value ||
+            context.OpportunityCharacterId != opportunity.Value ||
+            candidate.ContextPacketId != context.ContextPacketId ||
+            candidate.SubjectCharacterId != context.SubjectCharacterId ||
+            !access.Projection.SourceStateHash.HasValue ||
+            access.Projection.SourceStateHash.Value != state.StateHash ||
+            access.Projection.SceneId != state.SceneId ||
+            access.Projection.SubjectCharacterId != context.SubjectCharacterId)
+        {
+            throw new E0AHarnessException("E0-A Integrity disclosure inputs are not bound to one exact source state and Character.");
+        }
+    }
 }
 
 internal static class E0AIntegrityConcernParser
 {
-    internal static readonly string[] AllowedNames =
-    {
+    internal static readonly ImmutableArray<string> AllowedNames = ImmutableArray.Create(
         nameof(IntegrityConcernKind.PotentialInaccessibleInformationUse),
         nameof(IntegrityConcernKind.PotentialProtectedInformationExposure),
         nameof(IntegrityConcernKind.PotentialLockedAuthorityViolation),
         nameof(IntegrityConcernKind.PotentialTechnicalArtifactLeak),
-        nameof(IntegrityConcernKind.IndeterminateSemanticIntegrity)
-    };
+        nameof(IntegrityConcernKind.IndeterminateSemanticIntegrity));
 
     internal static ImmutableArray<IntegrityConcernKind> Parse(ReadOnlySpan<byte> utf8)
     {
