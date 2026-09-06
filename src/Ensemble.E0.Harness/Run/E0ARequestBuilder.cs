@@ -198,9 +198,16 @@ internal static class E0ARequestBuilder
             },
             ["generationConfig"] = new Dictionary<string, object?>
             {
+                ["candidateCount"] = 1,
                 ["maxOutputTokens"] = profile.MaxOutputTokens,
-                ["responseMimeType"] = "application/json",
-                ["responseJsonSchema"] = schema.RootElement.Clone(),
+                ["responseFormat"] = new Dictionary<string, object?>
+                {
+                    ["text"] = new Dictionary<string, object?>
+                    {
+                        ["mimeType"] = "application/json",
+                        ["schema"] = schema.RootElement.Clone()
+                    }
+                },
                 ["thinkingConfig"] = new Dictionary<string, object?>
                 {
                     ["thinkingBudget"] = E0AGeminiProviderPolicy.ThinkingBudgetTokens(profile)
