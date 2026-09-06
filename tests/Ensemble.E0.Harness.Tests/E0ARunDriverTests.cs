@@ -1,0 +1,188 @@
+using Ensemble.E0.Core.Domain;
+using Ensemble.E0.Core.Integrity;
+using Ensemble.E0.Harness.Run;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace Ensemble.E0.Harness.Tests;
+
+[TestClass]
+public sealed class E0ARunDriverTests
+{
+    [TestMethod]
+    public async Task FullFakeRun_CompletesTwelveAcceptedTurnsAndSynchronizedOpportunity()
+    {
+        var root = E0ATestSupport.TempRunRoot();
+        try
+        {
+            var runId = RunId.From("E0A-FULL-FAKE");
+            var state = E0ATestSupport.Genesis();
+            var envelope = E0ARunEnvelope.CreativeNone(E0ATestSupport.Pricing());
+            var evidence = E0ATestSupport.Evidence(root, runId, envelope, state);
+            var provider = new ScriptedProvider();
+            var counter = new FixedTokenCounter();
+            var driver = new E0AReferenceRunDriver(envelope, provider, counter, evidence);
+
+            var result = await driver.RunAsync(runId, state, CancellationToken.None);
+
+            Assert.AreEqual(E0ARunTerminalStatus.AcceptedTurnCapReached, result.Status);
+            Assert.AreEqual(12, result.AcceptedTurns);
+            Assert.AreEqual(36, provider.Calls);
+            Assert.AreEqual(36, counter.Calls);
+            Assert.AreEqual("VOSS", result.State.ProductionState.CurrentOpportunityCharacterId!.Value.Value);
+            Assert.AreEqual(12, Directory.GetFiles(root, "terminal.json", SearchOption.AllDirectories)
+                .Count(path => path.Contains("ATTEMPT_PERFORMER", StringComparison.Ordinal)));
+            for (var index = 0; index < provider.Roles.Count; index += 3)
+            {
+                Assert.AreEqual(E0ARole.Performer, provider.Roles[index]);
+                Assert.AreEqual(E0ARole.Integrity, provider.Roles[index + 1]);
+                Assert.AreEqual(E0ARole.Interpreter, provider.Roles[index + 2]);
+            }
+        }
+        finally
+        {
+            Delete(root);
+        }
+    }
+
+    [TestMethod]
+    public async Task IntegrityConcern_StopsBeforeInterpreterAndCommit()
+    {
+        var root = E0ATestSupport.TempRunRoot();
+        try
+        {
+            var runId = RunId.From("E0A-INTEGRITY-STOP");
+            var state = E0ATestSupport.Genesis();
+            var envelope = E0ARunEnvelope.CreativeNone(E0ATestSupport.Pricing());
+            var concern = nameof(IntegrityConcernKind.PotentialTechnicalArtifactLeak);
+            var provider = new ScriptedProvider((attempt, _) =>
+                E0ATestSupport.Success(
+                    attempt,
+                    attempt.Profile.Role == E0ARole.Performer
+                        ? E0ATestSupport.PerformerOutput()
+                        : E0ATestSupport.IntegrityOutput(concern)));
+            var driver = new E0AReferenceRunDriver(
+                envelope,
+                provider,
+                new FixedTokenCounter(),
+                E0ATestSupport.Evidence(root, runId, envelope, state));
+
+            var result = await driver.RunAsync(runId, state, CancellationToken.None);
+
+            Assert.AreEqual(E0ARunTerminalStatus.IntegrityConcern, result.Status);
+            Assert.AreEqual(0, result.AcceptedTurns);
+            Assert.AreEqual(2, provider.Calls);
+            CollectionAssert.AreEqual(new[] { E0ARole.Performer, E0ARole.Integrity }, provider.Roles);
+            Assert.AreEqual(state.StateHash, result.State.ProductionState.StateHash);
+        }
+        finally
+        {
+            Delete(root);
+        }
+    }
+
+    [TestMethod]
+    public async Task BudgetRefusal_HappensBeforeProviderAndCreatesNoProviderTerminalReceipt()
+    {
+        var root = E0ATestSupport.TempRunRoot();
+        try
+        {
+            var runId = RunId.From("E0A-BUDGET-STOP");
+            var state = E0ATestSupport.Genesis();
+            var envelope = E0ARunEnvelope.CreativeNone(E0ATestSupport.Pricing());
+            var provider = new ScriptedProvider();
+            var driver = new E0AReferenceRunDriver(
+                envelope,
+                provider,
+                new FixedTokenCounter(5_000_000),
+                E0ATestSupport.Evidence(root, runId, envelope, state));
+
+            var result = await driver.RunAsync(runId, state, CancellationToken.None);
+
+            Assert.AreEqual(E0ARunTerminalStatus.BudgetExceeded, result.Status);
+            Assert.AreEqual(0, result.AcceptedTurns);
+            Assert.AreEqual(0, provider.Calls);
+            Assert.AreEqual(0, Directory.GetFiles(root, "terminal.json", SearchOption.AllDirectories).Length);
+            Assert.AreEqual(1, Directory.GetFiles(root, "request.json", SearchOption.AllDirectories).Length);
+        }
+        finally
+        {
+            Delete(root);
+        }
+    }
+
+    [TestMethod]
+    public async Task TokenPreflightFailure_HappensBeforeProviderAndCreatesNoProviderTerminalReceipt()
+    {
+        var root = E0ATestSupport.TempRunRoot();
+        try
+        {
+            var runId = RunId.From("E0A-PREFLIGHT-STOP");
+            var state = E0ATestSupport.Genesis();
+            var envelope = E0ARunEnvelope.CreativeNone(E0ATestSupport.Pricing());
+            var provider = new ScriptedProvider();
+            var counter = new FailingTokenCounter();
+            var driver = new E0AReferenceRunDriver(
+                envelope,
+                provider,
+                counter,
+                E0ATestSupport.Evidence(root, runId, envelope, state));
+
+            var result = await driver.RunAsync(runId, state, CancellationToken.None);
+
+            Assert.AreEqual(E0ARunTerminalStatus.TechnicalFailure, result.Status);
+            Assert.AreEqual(1, counter.Calls);
+            Assert.AreEqual(0, provider.Calls);
+            Assert.AreEqual(0, Directory.GetFiles(root, "terminal.json", SearchOption.AllDirectories).Length);
+        }
+        finally
+        {
+            Delete(root);
+        }
+    }
+
+    [TestMethod]
+    public async Task ObservableModelIdentityChange_StopsBeforeSecondReceiptSemanticConsumption()
+    {
+        var root = E0ATestSupport.TempRunRoot();
+        try
+        {
+            var runId = RunId.From("E0A-MODEL-CHANGE");
+            var state = E0ATestSupport.Genesis();
+            var envelope = E0ARunEnvelope.CreativeNone(E0ATestSupport.Pricing());
+            var provider = new ScriptedProvider((attempt, call) =>
+            {
+                var output = attempt.Profile.Role == E0ARole.Performer
+                    ? E0ATestSupport.PerformerOutput()
+                    : E0ATestSupport.IntegrityOutput();
+                return E0ATestSupport.Success(
+                    attempt,
+                    output,
+                    call == 1 ? "gpt-5.6-sol" : "gpt-5.6-sol-changed");
+            });
+            var driver = new E0AReferenceRunDriver(
+                envelope,
+                provider,
+                new FixedTokenCounter(),
+                E0ATestSupport.Evidence(root, runId, envelope, state));
+
+            var result = await driver.RunAsync(runId, state, CancellationToken.None);
+
+            Assert.AreEqual(E0ARunTerminalStatus.ModelIdentityChanged, result.Status);
+            Assert.AreEqual(0, result.AcceptedTurns);
+            Assert.AreEqual(2, provider.Calls);
+            Assert.AreEqual(state.StateHash, result.State.ProductionState.StateHash);
+        }
+        finally
+        {
+            Delete(root);
+        }
+    }
+
+    private static void Delete(string root)
+    {
+        if (Directory.Exists(root))
+        {
+            Directory.Delete(root, recursive: true);
+        }
+    }
+}
