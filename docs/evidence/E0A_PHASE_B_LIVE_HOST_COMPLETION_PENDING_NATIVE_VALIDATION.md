@@ -1,10 +1,14 @@
 # E0-A Phase B Live-Host Completion — Pending Native Validation
 
-Status: **STATIC AUDIT CLEAN — NATIVE WINDOWS ARM64 VALIDATION PENDING**
+Status: **SUPERSEDED — DIRECTOR-MACHINE NATIVE WINDOWS ARM64 VALIDATION PASSED**
 
 Date: 2026-09-06
 
-This record covers only the E0-A Phase B reference-run live-host completion. It does not authorize credentials, provider requests, network inference, or spend.
+This record preserves the pre-validation audit and assumptions for the E0-A Phase B reference-run live-host completion. Native validation subsequently passed at the exact executable/test checkout recorded below. This record does not authorize credentials, provider requests, network inference, or spend.
+
+Canonical native validation evidence:
+
+`docs/evidence/E0A_PHASE_B_LIVE_HOST_NATIVE_ARM64_VALIDATION.md`
 
 ## Authority
 
@@ -12,12 +16,14 @@ This record covers only the E0-A Phase B reference-run live-host completion. It 
 - Current `main` resolved during this audit: `13ffde90f78a8bf40a04381b136e846d1cf64d1c`
 - Active branch: `e0a-phase-b-live-host-completion`
 - Static implementation checkpoint immediately before this evidence-only record lineage: `fc7fde0c8e6aa652d9d08f657d7150d2601985d6`
-- Corrected executable/test surface pending rerun: `1cfdb3aa22abce62a5bd48e80706407670d1c6a9`
+- Exact Director-machine-validated executable/test checkout: `1cfdb3aa22abce62a5bd48e80706407670d1c6a9`
 - Approved architecture: `docs/blueprint/E0A_PHASE_B_REFERENCE_RUN_ENVELOPE.md`
 - Approved architecture commit: `e1d0b4aea0f7ba29cf85e765bea33d14eab35fde`
 - Blueprint law #35 remains intact: E0-A is one provider and one model only — `OpenAI` / `gpt-5.6-sol`.
 
 No `Ensemble.E0.Core` file is changed by this live-host completion branch.
+
+Later documentation-only descendants do not replace `1cfdb3aa22abce62a5bd48e80706407670d1c6a9` as the machine-tested executable/test authority.
 
 ## Pricing provenance and stale-snapshot behavior
 
@@ -50,19 +56,19 @@ Any prepared invocation whose provider input-token preflight reports more than *
 
 **No.** The host does not perform a remote pricing-page fetch immediately before each run.
 
-It now fails closed on the frozen snapshot's published validity boundary: after **2026-11-21 UTC**, the live host refuses inference until the pricing constants/provenance are deliberately re-verified and updated. Inside that provider-guaranteed promotional window, the run uses the frozen audited snapshot.
+It fails closed on the frozen snapshot's published validity boundary: after **2026-11-21 UTC**, the live host refuses inference until the pricing constants/provenance are deliberately re-verified and updated. Inside that provider-guaranteed promotional window, the run uses the frozen audited snapshot.
 
 **Known limit of this gate:** `RequireNonStaleSnapshot` is a **date-validity guard, not a live pricing-verification guard**. If OpenAI changes a pricing dimension that the ceiling depends on before 2026-11-21 — for example the cache-write multiplier, the 272,000-token long-context threshold, or another relevant rate/tier rule — the current host will not detect that change automatically. The promotional date floor is therefore not evidence that every pricing term remains unchanged throughout the window. Closing this residual requires the trusted short-lived pricing attestation described below, or an equivalent stable machine-readable provider pricing source. Until such a mechanism exists, Director authorization for a real run should treat the frozen snapshot as an audited assumption whose live terms may still require human/provider re-verification.
 
 A stricter immediate-before-run live-pricing gate would require a new trusted pricing-attestation input or a stable machine-readable provider pricing source. No documented machine-readable pricing endpoint was identified in this verification. The safer implementation, if such a gate becomes required, is a short-lived Director/provider pricing attestation containing at minimum model ID, official source URI, observed input/cached/output rates, cache-write multiplier, long-context threshold/multipliers, verification timestamp, and a content/hash identity; the host would reject a missing, stale, mismatched, or differently sourced attestation before credential access or inference. Scraping a human-facing documentation page inside the Harness would be a brittle new network dependency and is not added here.
 
-The run manifest now freezes the pricing source URI, verification date, promotional guarantee date, published rates, cache-write multiplier, standard-tier threshold, conservative accounting method, and effective envelope rates.
+The run manifest freezes the pricing source URI, verification date, promotional guarantee date, published rates, cache-write multiplier, standard-tier threshold, conservative accounting method, and effective envelope rates.
 
 ### Pricing-constant oracle classification
 
 `PricingPolicy_FreezesSourcePromotionAndConservativeRates` is intentionally a **constant-freeze tripwire**, not a behavioral pricing test. Its collection-based expected/actual tuple detects edits to the frozen source URI/date/rates/multiplier without matching updates to the test expectation. It does not establish that OpenAI's live pricing is unchanged, that the date guard is live verification, that cache behavior is correct, or that spend reconciliation behaves correctly at runtime.
 
-Accordingly, a later Harness test-suite pass count must not be cited as behavioral pricing validation solely because this tripwire passes. Runtime pricing/spend behavior is covered by separate boundary/reconciliation tests and, for any real run, by the provider/evidence gates and the known stale-snapshot limitation above.
+Accordingly, the native Harness pass count must not be cited as behavioral pricing validation solely because this tripwire passes. Runtime pricing/spend behavior is covered by separate boundary/reconciliation tests and, for any real run, by the provider/evidence gates and the known stale-snapshot limitation above.
 
 ## Cache-write semantics
 
@@ -88,7 +94,7 @@ Spend enforcement does not rely on those detail categories forming a partition. 
 
 The approved architecture places `CREATIVE-LOW`, `CREATIVE-MEDIUM`, and `CREATIVE-HIGH` in Phase-B characterization rather than deferring them to a later phase.
 
-The live host therefore now requires one explicit variant selector:
+The live host therefore requires one explicit variant selector:
 
 - `CREATIVE-NONE` — Performer `none`, Interpreter `none`, Integrity `high`;
 - `CREATIVE-LOW` — Performer `low`, Interpreter `low`, Integrity `high`;
@@ -127,34 +133,25 @@ Known Director-machine validation-host behavior is recorded in:
 
 Future native Windows ARM64 command sets for this host must be generated from that document. In particular, they must not use the blank-returning PowerShell `RuntimeInformation` property probes as architecture gates and must isolate expected native stderr from `$ErrorActionPreference = 'Stop'` while capturing `$LASTEXITCODE` immediately.
 
-## Static convergence result
+## Native validation result
 
-A complete post-correction static pass found no remaining material correction or worthwhile simplification within the approved Phase-B live-host scope across:
+Attempt 01 at `bd04749a20141d1f7d221700ad3f1d3ee9f33eb1` remains partial evidence only because the Harness test project did not compile and the credentialless failure wrapper was defective.
 
-- Blueprint authority and law #35;
-- no-Core-change boundary;
-- exact clean-checkout provenance before secret access;
-- fixture validation before secret access;
-- explicit four-variant Phase-B selection;
-- pricing provenance and promotional-expiry fail-closed behavior;
-- >272K long-context pricing refusal before inference;
-- prompt-cache implicit-breakpoint suppression;
-- cache-write usage preservation and conservative spend reconciliation;
-- estimated-versus-actual spend terminology;
-- configured receipt association;
-- technical/cancellation isolation from fiction;
-- spend reconciliation before semantic consumption;
-- independent post-run runtime-root verification and evaluation sealing;
-- blind/evidence separation;
-- provider/model pin locality and E0-B forward-compatibility boundary;
-- ARM64-targeted Harness scope and hygiene.
+The corrected executable/test surface `1cfdb3aa22abce62a5bd48e80706407670d1c6a9` was subsequently validated on the Director's native Windows ARM64 machine with `OPENAI_API_KEY` absent:
 
-## Native validation still required
+- Core: **622/622 PASS**;
+- Harness: **54/54 PASS**;
+- native ARM64 Harness build: **PASS**;
+- Missing Raft fixture smoke: **PASS**;
+- generic fixture smoke: **PASS**;
+- credentialless `e0a-run`: **PASS** — native exit `1`, expected refusal text captured, no evidence root created;
+- post-validation HEAD unchanged at `1cfdb3aa22abce62a5bd48e80706407670d1c6a9`;
+- post tracked/staged diff exits: `0` / `0`.
 
-Attempt 01 at `bd04749a20141d1f7d221700ad3f1d3ee9f33eb1` is partial evidence only. The Harness test project did not compile there and the credentialless failure wrapper was defective.
+Canonical detailed evidence is `docs/evidence/E0A_PHASE_B_LIVE_HOST_NATIVE_ARM64_VALIDATION.md`.
 
-The corrected executable/test surface is `1cfdb3aa22abce62a5bd48e80706407670d1c6a9`. Subsequent commits in this record lineage are documentation-only and do not alter that executable/test surface.
+## Classification
 
-Before this branch can be treated as native-validated, the exact current branch head containing these records must be tested on the Director's native Windows ARM64 machine with `OPENAI_API_KEY` absent. Validation must cover Core tests, Harness tests, Harness ARM64 build, existing fixture smokes, and a credentialless live-host refusal proving the explicit run path fails before inference and creates no evidence root.
+The E0-A Phase B live-host completion is **native Windows ARM64 validated for the fake-only/credentialless scope at exact checkout `1cfdb3aa22abce62a5bd48e80706407670d1c6a9`**.
 
 Real provider execution remains a separate Director credential/network/spend gate and is **not authorized by this record**.
