@@ -20,7 +20,12 @@ internal interface IE0AEvidenceSink : IE0AProviderDiagnosticSink
     void RecordReceipt(PreparedRoleAttempt attempt, RoleAttemptReceipt receipt);
     void RecordEvent(string kind, object data);
     void RecordAcceptedPerformance(int turn, CharacterId characterId, CandidatePerformance candidate);
-    void SealRuntime(string terminalStatus, int acceptedTurns, decimal estimatedSpendUsd);
+    void SealRuntime(
+        string terminalStatus,
+        int acceptedTurns,
+        decimal estimatedSpendUsd,
+        string finalStateHash,
+        CharacterId finalOpportunityCharacterId);
     void SealEvaluation(E0AHardGateEvaluation evaluation);
 }
 
@@ -230,13 +235,29 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
         _accepted.Add(new { turn, characterId = id, text = candidate.VisibleText });
     }
 
-    public void SealRuntime(string terminalStatus, int acceptedTurns, decimal estimatedSpendUsd)
+    public void SealRuntime(
+        string terminalStatus,
+        int acceptedTurns,
+        decimal estimatedSpendUsd,
+        string finalStateHash,
+        CharacterId finalOpportunityCharacterId)
     {
         EnsureRuntimeOpen();
+        string finalOpportunity;
+        try
+        {
+            finalOpportunity = finalOpportunityCharacterId.Value;
+        }
+        catch (InvalidOperationException)
+        {
+            throw new E0AHarnessException("E0-A runtime seal final Opportunity is uninitialized.");
+        }
         if (string.IsNullOrWhiteSpace(terminalStatus) ||
             acceptedTurns is < 0 or > E0ARunEnvelope.AcceptedTurnCap ||
             estimatedSpendUsd < 0m ||
-            estimatedSpendUsd > E0ARunEnvelope.EstimatedSpendCeilingUsd)
+            estimatedSpendUsd > E0ARunEnvelope.EstimatedSpendCeilingUsd ||
+            !IsLowerHexSha256(finalStateHash) ||
+            !_blindLabels.ContainsKey(finalOpportunity))
         {
             throw new E0AHarnessException("E0-A runtime seal summary is invalid.");
         }
@@ -269,6 +290,8 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
             terminalStatus,
             acceptedTurns,
             estimatedSpendUsd,
+            finalStateHash,
+            finalOpportunityCharacterId = finalOpportunity,
             artifacts = digests.Select(x => new { path = x.Path, sha256 = x.Hash }).ToArray(),
             runtimeRoot = root
         });
@@ -372,7 +395,7 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
         foreach (var character in value)
         {
             if (!((character >= '0' && character <= '9') ||
-                  (character >= 'a' && character <= 'f')))
+                  (character >= 'a' && character <= 'f'))
             {
                 return false;
             }
