@@ -540,6 +540,7 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
                   (character >= 'a' && character <= 'f')))
             {
                 return false;
+            }
         }
         return true;
     }
