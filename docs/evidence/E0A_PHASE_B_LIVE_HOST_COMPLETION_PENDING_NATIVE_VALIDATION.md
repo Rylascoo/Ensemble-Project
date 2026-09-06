@@ -51,6 +51,8 @@ Any prepared invocation whose provider input-token preflight reports more than *
 
 It now fails closed on the frozen snapshot's published validity boundary: after **2026-11-21 UTC**, the live host refuses inference until the pricing constants/provenance are deliberately re-verified and updated. Inside that provider-guaranteed promotional window, the run uses the frozen audited snapshot.
 
+**Known limit of this gate:** `RequireNonStaleSnapshot` is a **date-validity guard, not a live pricing-verification guard**. If OpenAI changes a pricing dimension that the ceiling depends on before 2026-11-21 — for example the cache-write multiplier, the 272,000-token long-context threshold, or another relevant rate/tier rule — the current host will not detect that change automatically. The promotional date floor is therefore not evidence that every pricing term remains unchanged throughout the window. Closing this residual requires the trusted short-lived pricing attestation described below, or an equivalent stable machine-readable provider pricing source. Until such a mechanism exists, Director authorization for a real run should treat the frozen snapshot as an audited assumption whose live terms may still require human/provider re-verification.
+
 A stricter immediate-before-run live-pricing gate would require a new trusted pricing-attestation input or a stable machine-readable provider pricing source. No documented machine-readable pricing endpoint was identified in this verification. The safer implementation, if such a gate becomes required, is a short-lived Director/provider pricing attestation containing at minimum model ID, official source URI, observed input/cached/output rates, cache-write multiplier, long-context threshold/multipliers, verification timestamp, and a content/hash identity; the host would reject a missing, stale, mismatched, or differently sourced attestation before credential access or inference. Scraping a human-facing documentation page inside the Harness would be a brittle new network dependency and is not added here.
 
 The run manifest now freezes the pricing source URI, verification date, promotional guarantee date, published rates, cache-write multiplier, standard-tier threshold, conservative accounting method, and effective envelope rates.
@@ -108,7 +110,7 @@ No multi-provider support is implemented in this branch.
 
 `e0a-phase-b-live-host-completion-2` was compared against the active branch. It is a strict stale ancestor with no unique commits of its own; the active branch is ahead and contains all of its reachable history plus subsequent corrections. It is **not authoritative** for E0-A live-host work.
 
-The available GitHub connector in this session does not expose a delete-branch action, so the stale branch was evaluated rather than deleted. No branch ref was moved to make it appear current.
+The stale branch is intentionally left untouched for Director disposition. No branch ref was moved to make it appear current.
 
 ## Static convergence result
 
