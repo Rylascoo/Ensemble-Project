@@ -45,8 +45,16 @@ internal sealed class PreparedRoleAttempt
             throw new E0AHarnessException("E0-A prepared role attempt is invalid.");
         }
 
-        _ = contextPacketId.Value;
-        _ = characterId.Value.Value;
+        try
+        {
+            _ = contextPacketId.Value;
+            _ = characterId.Value.Value;
+        }
+        catch (InvalidOperationException)
+        {
+            throw new E0AHarnessException("E0-A prepared role attempt identity is uninitialized.");
+        }
+
         var expectedAttemptId = E0ADeterministicIds.Attempt(
             runId,
             profile.Role,
@@ -145,7 +153,7 @@ internal sealed class PreparedRoleAttempt
         foreach (var character in value)
         {
             if (!((character >= '0' && character <= '9') ||
-                  (character >= 'a' && character <= 'f'))
+                  (character >= 'a' && character <= 'f')))
             {
                 return false;
             }
