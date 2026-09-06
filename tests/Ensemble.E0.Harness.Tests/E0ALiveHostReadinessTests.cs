@@ -96,16 +96,34 @@ public sealed class E0ALiveHostReadinessTests
     [TestMethod]
     public void PricingPolicy_FreezesSourcePromotionAndConservativeRates()
     {
-        Assert.AreEqual("https://developers.openai.com/api/docs/models/gpt-5.6-sol", E0APricingPolicy.SourceUri);
-        Assert.AreEqual("2026-09-06", E0APricingPolicy.VerifiedOn);
-        Assert.AreEqual("2026-11-21", E0APricingPolicy.PromotionalPricingGuaranteedThrough);
-        Assert.AreEqual(4.00m, E0APricingPolicy.PublishedInputUsdPerMillionTokens);
-        Assert.AreEqual(0.40m, E0APricingPolicy.PublishedCachedInputUsdPerMillionTokens);
-        Assert.AreEqual(20.00m, E0APricingPolicy.PublishedOutputUsdPerMillionTokens);
-        Assert.AreEqual(1.25m, E0APricingPolicy.CacheWriteMultiplier);
-        Assert.AreEqual(5.00m, E0AReferenceRunHost.ConservativePricing.InputUsdPerMillionTokens);
-        Assert.AreEqual(0.40m, E0AReferenceRunHost.ConservativePricing.CachedInputUsdPerMillionTokens);
-        Assert.AreEqual(20.00m, E0AReferenceRunHost.ConservativePricing.OutputUsdPerMillionTokens);
+        object[] expected =
+        {
+            "https://developers.openai.com/api/docs/models/gpt-5.6-sol",
+            "2026-09-06",
+            "2026-11-21",
+            4.00m,
+            0.40m,
+            20.00m,
+            1.25m,
+            5.00m,
+            0.40m,
+            20.00m
+        };
+        object[] actual =
+        {
+            E0APricingPolicy.SourceUri,
+            E0APricingPolicy.VerifiedOn,
+            E0APricingPolicy.PromotionalPricingGuaranteedThrough,
+            E0APricingPolicy.PublishedInputUsdPerMillionTokens,
+            E0APricingPolicy.PublishedCachedInputUsdPerMillionTokens,
+            E0APricingPolicy.PublishedOutputUsdPerMillionTokens,
+            E0APricingPolicy.CacheWriteMultiplier,
+            E0AReferenceRunHost.ConservativePricing.InputUsdPerMillionTokens,
+            E0AReferenceRunHost.ConservativePricing.CachedInputUsdPerMillionTokens,
+            E0AReferenceRunHost.ConservativePricing.OutputUsdPerMillionTokens
+        };
+
+        CollectionAssert.AreEqual(expected, actual);
         E0AReferenceRunHost.ConservativePricing.Validate();
     }
 
