@@ -18,10 +18,12 @@ public sealed class E0ASpendAndRequestTests
         Assert.AreEqual(2.0m, reservation.ReservedUsd);
         Assert.AreEqual(2.0m, ledger.ReservedUsd);
 
-        var actual = ledger.Reconcile(
+        var reconciliation = ledger.Reconcile(
             reservation,
             new E0AUsage(1_000_000, 500_000, 100_000, 0));
-        Assert.AreEqual(1.925m, actual);
+        Assert.AreEqual(1.925m, reconciliation.ActualUsd);
+        Assert.IsFalse(reconciliation.ReservationExceeded);
+        Assert.IsFalse(reconciliation.RunCeilingExceeded);
         Assert.AreEqual(1.925m, ledger.EstimatedCommittedUsd);
         Assert.AreEqual(0m, ledger.ReservedUsd);
     }
@@ -47,16 +49,27 @@ public sealed class E0ASpendAndRequestTests
     }
 
     [TestMethod]
-    public void SpendReconcile_RejectsReportedTokenCountsBeyondReservation()
+    public void SpendReconcile_RecordsReportedOverrunInsteadOfLosingObservedCost()
     {
-        var ledger = new E0ASpendLedger(E0ATestSupport.Pricing());
-        var reservation = ledger.Reserve(100, 100);
+        var inputLedger = new E0ASpendLedger(E0ATestSupport.Pricing());
+        var inputReservation = inputLedger.Reserve(100, 100);
+        var inputOverrun = inputLedger.Reconcile(
+            inputReservation,
+            new E0AUsage(101, 1, 101, 0));
+        Assert.IsTrue(inputOverrun.ReservationExceeded);
+        Assert.IsTrue(inputOverrun.ActualUsd > 0m);
+        Assert.AreEqual(0m, inputLedger.ReservedUsd);
+        Assert.AreEqual(inputOverrun.ActualUsd, inputLedger.EstimatedCommittedUsd);
 
-        Assert.Throws<E0AHarnessException>(() =>
-            ledger.Reconcile(reservation, new E0AUsage(101, 1, 101, 0)));
-        Assert.Throws<E0AHarnessException>(() =>
-            ledger.Reconcile(reservation, new E0AUsage(100, 101, 0, 0)));
-        Assert.AreEqual(reservation.ReservedUsd, ledger.ReservedUsd);
+        var outputLedger = new E0ASpendLedger(E0ATestSupport.Pricing());
+        var outputReservation = outputLedger.Reserve(100, 100);
+        var outputOverrun = outputLedger.Reconcile(
+            outputReservation,
+            new E0AUsage(100, 101, 0, 0));
+        Assert.IsTrue(outputOverrun.ReservationExceeded);
+        Assert.IsTrue(outputOverrun.ActualUsd > outputReservation.ReservedUsd);
+        Assert.AreEqual(0m, outputLedger.ReservedUsd);
+        Assert.AreEqual(outputOverrun.ActualUsd, outputLedger.EstimatedCommittedUsd);
     }
 
     [TestMethod]
