@@ -1,4 +1,5 @@
 using System.Collections.Immutable;
+using System.Diagnostics;
 using Ensemble.E0.Core.Cycle;
 using Ensemble.E0.Core.Domain;
 using Ensemble.E0.Core.Integrity;
@@ -250,31 +251,52 @@ internal sealed class E0AReferenceRunDriver
         attemptTimeout.CancelAfter(TimeSpan.FromSeconds(E0ARunEnvelope.AttemptTimeoutSeconds));
 
         long inputTokens;
+        var preflightClock = Stopwatch.StartNew();
         try
         {
             inputTokens = await _tokenCounter.CountInputTokensAsync(attempt, attemptTimeout.Token).ConfigureAwait(false);
         }
         catch (OperationCanceledException)
         {
+            preflightClock.Stop();
             var external = cancellationToken.IsCancellationRequested;
             _evidence.RecordEvent(
                 external ? "preflight.cancelled" : "preflight.timeout",
-                new { attemptId = attempt.AttemptId });
+                new { attemptId = attempt.AttemptId, elapsedMs = preflightClock.Elapsed.TotalMilliseconds });
             return new RoleCall(
                 null,
                 external ? E0ARunTerminalStatus.Cancelled : E0ARunTerminalStatus.TechnicalFailure);
         }
         catch (E0AHarnessException)
         {
-            _evidence.RecordEvent("preflight.failed", new { attemptId = attempt.AttemptId, code = "input-token-count-failed" });
+            preflightClock.Stop();
+            _evidence.RecordEvent("preflight.failed", new
+            {
+                attemptId = attempt.AttemptId,
+                code = "input-token-count-failed",
+                elapsedMs = preflightClock.Elapsed.TotalMilliseconds
+            });
             return new RoleCall(null, E0ARunTerminalStatus.TechnicalFailure);
         }
+        preflightClock.Stop();
 
         if (inputTokens < 0)
         {
-            _evidence.RecordEvent("preflight.failed", new { attemptId = attempt.AttemptId, code = "input-token-count-invalid" });
+            _evidence.RecordEvent("preflight.failed", new
+            {
+                attemptId = attempt.AttemptId,
+                code = "input-token-count-invalid",
+                inputTokens,
+                elapsedMs = preflightClock.Elapsed.TotalMilliseconds
+            });
             return new RoleCall(null, E0ARunTerminalStatus.TechnicalFailure);
         }
+        _evidence.RecordEvent("preflight.input-tokens", new
+        {
+            attemptId = attempt.AttemptId,
+            inputTokens,
+            elapsedMs = preflightClock.Elapsed.TotalMilliseconds
+        });
 
         E0ASpendReservation reservation;
         try
@@ -286,8 +308,17 @@ internal sealed class E0AReferenceRunDriver
             _evidence.RecordEvent("budget.exceeded", new { attemptId = attempt.AttemptId, inputTokens });
             return new RoleCall(null, E0ARunTerminalStatus.BudgetExceeded);
         }
+        _evidence.RecordEvent("spend.reserved", new
+        {
+            attemptId = attempt.AttemptId,
+            inputTokens = reservation.InputTokens,
+            maxOutputTokens = reservation.MaxOutputTokens,
+            reservedUsd = reservation.ReservedUsd,
+            committedUsdBeforeCall = _spend.EstimatedCommittedUsd
+        });
 
         RoleAttemptReceipt raw;
+        var providerClock = Stopwatch.StartNew();
         try
         {
             raw = await _provider.ExecuteAsync(attempt, _evidence, attemptTimeout.Token).ConfigureAwait(false);
@@ -299,7 +330,20 @@ internal sealed class E0AReferenceRunDriver
             raw = external
                 ? RoleAttemptReceipt.Cancelled(attempt, "cancelled")
                 : RoleAttemptReceipt.TechnicalFailure(attempt, "timeout");
+            _evidence.RecordEvent("spend.released", new
+            {
+                attemptId = attempt.AttemptId,
+                reservedUsd = reservation.ReservedUsd,
+                reason = external ? "cancelled" : "timeout"
+            });
         }
+        providerClock.Stop();
+        _evidence.RecordEvent("provider.completed", new
+        {
+            attemptId = attempt.AttemptId,
+            outcome = raw.Outcome.ToString(),
+            elapsedMs = providerClock.Elapsed.TotalMilliseconds
+        });
 
         RoleAttemptReceipt receipt;
         try
@@ -309,6 +353,12 @@ internal sealed class E0AReferenceRunDriver
         catch (E0AHarnessException)
         {
             _spend.Release(reservation);
+            _evidence.RecordEvent("spend.released", new
+            {
+                attemptId = attempt.AttemptId,
+                reservedUsd = reservation.ReservedUsd,
+                reason = "configured-receipt-rejected"
+            });
             _evidence.RecordEvent("configured-receipt.rejected", new { attemptId = attempt.AttemptId });
             return new RoleCall(null, E0ARunTerminalStatus.TechnicalFailure);
         }
@@ -317,6 +367,14 @@ internal sealed class E0AReferenceRunDriver
         {
             var reconciliation = _spend.Reconcile(reservation, receipt.Usage!);
             _evidence.RecordReceipt(attempt, receipt);
+            _evidence.RecordEvent("spend.reconciled", new
+            {
+                attemptId = attempt.AttemptId,
+                actualUsd = reconciliation.ActualUsd,
+                committedUsd = _spend.EstimatedCommittedUsd,
+                reservationExceeded = reconciliation.ReservationExceeded,
+                runCeilingExceeded = reconciliation.RunCeilingExceeded
+            });
             if (reconciliation.ReservationExceeded || reconciliation.RunCeilingExceeded)
             {
                 _evidence.RecordEvent("usage.reservation-mismatch", new
@@ -346,6 +404,12 @@ internal sealed class E0AReferenceRunDriver
         {
             _spend.Release(reservation);
             _evidence.RecordReceipt(attempt, receipt);
+            _evidence.RecordEvent("spend.released", new
+            {
+                attemptId = attempt.AttemptId,
+                reservedUsd = reservation.ReservedUsd,
+                reason = receipt.Outcome.ToString()
+            });
         }
 
         var terminal = receipt.Outcome switch
