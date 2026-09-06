@@ -100,8 +100,7 @@ internal sealed class OpenAIResponsesPort : IE0AProviderRolePort, IE0AInputToken
         catch (Exception exception) when (
             exception is HttpRequestException or
             IOException or
-            JsonException or
-            E0AHarnessException)
+            JsonException)
         {
             return RoleAttemptReceipt.TechnicalFailure(attempt, "malformed-or-transport");
         }
@@ -220,7 +219,10 @@ internal sealed class OpenAIResponsesPort : IE0AProviderRolePort, IE0AInputToken
         var model = response.TryGetProperty("model", out var modelElement) ? modelElement.GetString() : null;
         var text = streamedOutput ?? ExtractOutputText(response);
         var usage = ParseUsage(response);
-        if (string.IsNullOrWhiteSpace(id) || string.IsNullOrWhiteSpace(model) || text is null || usage is null)
+        if (string.IsNullOrWhiteSpace(id) ||
+            string.IsNullOrWhiteSpace(model) ||
+            string.IsNullOrEmpty(text) ||
+            usage is null)
         {
             return RoleAttemptReceipt.TechnicalFailure(attempt, "provider-response-incomplete");
         }
@@ -294,28 +296,31 @@ internal sealed class OpenAIResponsesPort : IE0AProviderRolePort, IE0AInputToken
         long cached = 0;
         if (usage.TryGetProperty("input_tokens_details", out var inputDetails) &&
             inputDetails.ValueKind == JsonValueKind.Object &&
-            inputDetails.TryGetProperty("cached_tokens", out var cachedElement))
+            inputDetails.TryGetProperty("cached_tokens", out var cachedElement) &&
+            !cachedElement.TryGetInt64(out cached))
         {
-            if (!cachedElement.TryGetInt64(out cached))
-            {
-                return null;
-            }
+            return null;
         }
 
         long reasoning = 0;
         if (usage.TryGetProperty("output_tokens_details", out var outputDetails) &&
             outputDetails.ValueKind == JsonValueKind.Object &&
-            outputDetails.TryGetProperty("reasoning_tokens", out var reasoningElement))
+            outputDetails.TryGetProperty("reasoning_tokens", out var reasoningElement) &&
+            !reasoningElement.TryGetInt64(out reasoning))
         {
-            if (!reasoningElement.TryGetInt64(out reasoning))
-            {
-                return null;
-            }
+            return null;
         }
 
-        var result = new E0AUsage(inputTokens, outputTokens, cached, reasoning);
-        result.Validate();
-        return result;
+        if (inputTokens < 0 ||
+            outputTokens < 0 ||
+            cached < 0 ||
+            reasoning < 0 ||
+            cached > inputTokens)
+        {
+            return null;
+        }
+
+        return new E0AUsage(inputTokens, outputTokens, cached, reasoning);
     }
 
     private static byte[] BuildInputTokenRequestBody(byte[] responseRequestBody)
