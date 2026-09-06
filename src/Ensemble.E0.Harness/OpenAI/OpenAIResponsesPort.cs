@@ -286,12 +286,23 @@ internal sealed class OpenAIResponsesPort : IE0AProviderRolePort, IE0AInputToken
         }
 
         long cached = 0;
-        if (usage.TryGetProperty("input_tokens_details", out var inputDetails) &&
-            inputDetails.ValueKind == JsonValueKind.Object &&
-            inputDetails.TryGetProperty("cached_tokens", out var cachedElement) &&
-            !cachedElement.TryGetInt64(out cached))
+        long cacheWrite = 0;
+        if (usage.TryGetProperty("input_tokens_details", out var inputDetails))
         {
-            return null;
+            if (inputDetails.ValueKind != JsonValueKind.Object)
+            {
+                return null;
+            }
+            if (inputDetails.TryGetProperty("cached_tokens", out var cachedElement) &&
+                !cachedElement.TryGetInt64(out cached))
+            {
+                return null;
+            }
+            if (inputDetails.TryGetProperty("cache_write_tokens", out var cacheWriteElement) &&
+                !cacheWriteElement.TryGetInt64(out cacheWrite))
+            {
+                return null;
+            }
         }
 
         long reasoning = 0;
@@ -306,6 +317,7 @@ internal sealed class OpenAIResponsesPort : IE0AProviderRolePort, IE0AInputToken
         if (inputTokens < 0 ||
             outputTokens < 0 ||
             cached < 0 ||
+            cacheWrite != 0 ||
             reasoning < 0 ||
             cached > inputTokens ||
             reasoning > outputTokens)
