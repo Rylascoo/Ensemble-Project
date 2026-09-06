@@ -69,6 +69,11 @@ internal sealed class E0AReferenceRunDriver
         var state = DeterministicE0CausalCycle.Initialize(genesis);
         var policy = E0AReferenceAuthority.Policy(_envelope);
         var acceptedTurns = 0;
+        _evidence.RecordEvent("run.started", new
+        {
+            stateHash = state.ProductionState.StateHash.Value,
+            opportunityCharacterId = state.ProductionState.CurrentOpportunityCharacterId!.Value.Value
+        });
 
         for (var turn = 1; turn <= E0ARunEnvelope.AcceptedTurnCap; turn++)
         {
@@ -108,6 +113,10 @@ internal sealed class E0AReferenceRunDriver
                 }
                 return Finish(performerCall.TerminalStatus.Value, acceptedTurns, state);
             }
+            if (cancellationToken.IsCancellationRequested)
+            {
+                return Finish(E0ARunTerminalStatus.Cancelled, acceptedTurns, state);
+            }
 
             var performerReceipt = performerCall.Receipt
                 ?? throw new E0AHarnessException("E0-A successful Performer call has no provider receipt.");
@@ -121,10 +130,23 @@ internal sealed class E0AReferenceRunDriver
                 return Finish(E0ARunTerminalStatus.InvalidOutput, acceptedTurns, state);
             }
 
+            var integrityInput = IntegrityCandidateInput.Bind(context, candidate);
+            _evidence.RecordEvent("performer.candidate", new
+            {
+                turn,
+                candidateContentHash = integrityInput.CandidateContentHash,
+                subjectCharacterId = candidate.SubjectCharacterId.Value,
+                contextPacketId = candidate.ContextPacketId.Value,
+                visibleText = candidate.VisibleText,
+                addressedCharacterIds = candidate.Control.AddressedCharacterIds.Select(x => x.Value).ToArray(),
+                nominatedCharacterId = candidate.Control.NominatedCharacterId.HasValue
+                    ? candidate.Control.NominatedCharacterId.Value.Value
+                    : null
+            });
+
             var performerResult = DeterministicE0PerformerAttemptBoundary.BindCandidate(context, candidate);
             var progress = DeterministicE0TurnOrchestrator.GateAttempt(state, performerResult);
 
-            var integrityInput = IntegrityCandidateInput.Bind(context, candidate);
             if (integrityInput.DeterministicRejectCodes.Length != 0)
             {
                 throw new E0AHarnessException("E0-A configured candidate unexpectedly failed deterministic Integrity binding.");
@@ -147,6 +169,10 @@ internal sealed class E0AReferenceRunDriver
             {
                 return Finish(integrityCall.TerminalStatus.Value, acceptedTurns, state);
             }
+            if (cancellationToken.IsCancellationRequested)
+            {
+                return Finish(E0ARunTerminalStatus.Cancelled, acceptedTurns, state);
+            }
 
             ImmutableArray<IntegrityConcernKind> concerns;
             try
@@ -161,14 +187,16 @@ internal sealed class E0AReferenceRunDriver
             }
 
             progress = DeterministicE0TurnOrchestrator.EvaluateIntegrity(progress, concerns);
+            _evidence.RecordEvent("integrity.evaluated", new
+            {
+                turn,
+                candidateContentHash = integrityInput.CandidateContentHash,
+                concerns = concerns.Select(x => x.ToString()).ToArray(),
+                disposition = progress.IntegrityEvaluation?.Disposition.ToString(),
+                turnDisposition = progress.Disposition.ToString()
+            });
             if (progress.Disposition == E0TurnProgressDisposition.RequestAnotherTake)
             {
-                _evidence.RecordEvent("integrity.concern", new
-                {
-                    turn,
-                    candidateContentHash = integrityInput.CandidateContentHash,
-                    concerns = concerns.Select(x => x.ToString()).ToArray()
-                });
                 return Finish(E0ARunTerminalStatus.IntegrityConcern, acceptedTurns, state);
             }
             if (progress.Disposition != E0TurnProgressDisposition.ReadyForInterpretation ||
@@ -189,12 +217,16 @@ internal sealed class E0AReferenceRunDriver
             {
                 return Finish(interpreterCall.TerminalStatus.Value, acceptedTurns, state);
             }
+            if (cancellationToken.IsCancellationRequested)
+            {
+                return Finish(E0ARunTerminalStatus.Cancelled, acceptedTurns, state);
+            }
 
             StateInterpretationProposal proposal;
+            var interpreterReceipt = interpreterCall.Receipt
+                ?? throw new E0AHarnessException("E0-A successful Interpreter call has no provider receipt.");
             try
             {
-                var interpreterReceipt = interpreterCall.Receipt
-                    ?? throw new E0AHarnessException("E0-A successful Interpreter call has no provider receipt.");
                 proposal = StateInterpretationContract.ParseJson(
                     progress.InterpretationSource,
                     interpreterReceipt.StructuredOutput!);
@@ -203,12 +235,35 @@ internal sealed class E0AReferenceRunDriver
             {
                 return Finish(E0ARunTerminalStatus.InvalidOutput, acceptedTurns, state);
             }
+            _evidence.RecordEvent("interpreter.proposal", new
+            {
+                turn,
+                candidateContentHash = progress.InterpretationSource.CandidateContentHash,
+                structuredOutputHash = interpreterReceipt.StructuredOutputHash,
+                mutationCount = proposal.Mutations.Length
+            });
 
             progress = E0AReferenceAuthority.EvaluateAndRejectMandatoryReview(progress, proposal, policy);
             if (progress.Disposition != E0TurnProgressDisposition.TakeBindable ||
                 progress.AuthorityEvaluation is null)
             {
                 throw new E0AHarnessException("E0-A State Authority did not reach Take-bindable terminal state.");
+            }
+            _evidence.RecordEvent("authority.evaluated", new
+            {
+                turn,
+                status = progress.AuthorityEvaluation.Status.ToString(),
+                decisions = progress.AuthorityEvaluation.Decisions.Select(x => new
+                {
+                    mutationIndex = x.MutationIndex,
+                    disposition = x.Disposition.ToString(),
+                    reasons = x.Reasons.Select(reason => reason.ToString()).ToArray()
+                }).ToArray()
+            });
+
+            if (cancellationToken.IsCancellationRequested)
+            {
+                return Finish(E0ARunTerminalStatus.Cancelled, acceptedTurns, state);
             }
 
             progress = DeterministicE0TurnOrchestrator.BindAcceptedTake(
