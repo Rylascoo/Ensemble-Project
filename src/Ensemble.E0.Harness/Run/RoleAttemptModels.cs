@@ -12,6 +12,8 @@ internal enum E0ARoleAttemptOutcome
 
 internal sealed class PreparedRoleAttempt
 {
+    private readonly byte[] _requestBody;
+
     internal PreparedRoleAttempt(
         RunId runId,
         string attemptId,
@@ -33,20 +35,29 @@ internal sealed class PreparedRoleAttempt
         profile.Validate();
 
         if (turn is < 1 or > E0ARunEnvelope.AcceptedTurnCap ||
-            string.IsNullOrWhiteSpace(attemptId) ||
-            string.IsNullOrWhiteSpace(structuredContextHash) ||
-            string.IsNullOrWhiteSpace(renderedContextHash) ||
-            string.IsNullOrWhiteSpace(promptHash) ||
-            string.IsNullOrWhiteSpace(responseSchemaHash))
+            requestBody.Length == 0 ||
+            !characterId.HasValue ||
+            !IsLowerSha256(structuredContextHash) ||
+            !IsLowerSha256(renderedContextHash) ||
+            !IsLowerSha256(promptHash) ||
+            !IsLowerSha256(responseSchemaHash))
         {
             throw new E0AHarnessException("E0-A prepared role attempt is invalid.");
         }
 
         _ = contextPacketId.Value;
-        if (characterId.HasValue)
+        _ = characterId.Value.Value;
+        var expectedAttemptId = E0ADeterministicIds.Attempt(
+            runId,
+            profile.Role,
+            turn,
+            E0ARunEnvelope.AttemptsPerRoleInvocation);
+        if (!string.Equals(attemptId, expectedAttemptId, StringComparison.Ordinal))
         {
-            _ = characterId.Value.Value;
+            throw new E0AHarnessException("E0-A prepared role attempt identity is not canonical.");
         }
+
+        ValidateRoleSpecificHashes(profile.Role, candidateContentHash, integrityPacketHash);
 
         RunId = runId;
         AttemptId = attemptId;
@@ -60,8 +71,8 @@ internal sealed class PreparedRoleAttempt
         PromptHash = promptHash;
         ResponseSchemaHash = responseSchemaHash;
         IntegrityPacketHash = integrityPacketHash;
-        RequestBody = requestBody.ToArray();
-        RequestBodyHash = LowerSha256(RequestBody);
+        _requestBody = requestBody.ToArray();
+        RequestBodyHash = LowerSha256(_requestBody);
         IdentityHash = ComputeIdentityHash();
     }
 
@@ -77,7 +88,7 @@ internal sealed class PreparedRoleAttempt
     internal string PromptHash { get; }
     internal string ResponseSchemaHash { get; }
     internal string? IntegrityPacketHash { get; }
-    internal byte[] RequestBody { get; }
+    internal byte[] RequestBody => _requestBody.ToArray();
     internal string RequestBodyHash { get; }
     internal string IdentityHash { get; }
 
@@ -95,7 +106,7 @@ internal sealed class PreparedRoleAttempt
             Profile.MaxOutputTokens,
             Profile.ServiceTier,
             Turn,
-            CharacterId.HasValue ? CharacterId.Value.Value : string.Empty,
+            CharacterId!.Value.Value,
             ContextPacketId.Value,
             StructuredContextHash,
             RenderedContextHash,
@@ -105,6 +116,41 @@ internal sealed class PreparedRoleAttempt
             IntegrityPacketHash ?? string.Empty,
             RequestBodyHash);
         return LowerSha256(System.Text.Encoding.UTF8.GetBytes(value));
+    }
+
+    private static void ValidateRoleSpecificHashes(
+        E0ARole role,
+        string? candidateContentHash,
+        string? integrityPacketHash)
+    {
+        var valid = role switch
+        {
+            E0ARole.Performer => candidateContentHash is null && integrityPacketHash is null,
+            E0ARole.Integrity => IsLowerSha256(candidateContentHash) && IsLowerSha256(integrityPacketHash),
+            E0ARole.Interpreter => IsLowerSha256(candidateContentHash) && integrityPacketHash is null,
+            _ => false
+        };
+        if (!valid)
+        {
+            throw new E0AHarnessException("E0-A prepared role attempt provenance shape is invalid for its role.");
+        }
+    }
+
+    private static bool IsLowerSha256(string? value)
+    {
+        if (value is null || value.Length != 64)
+        {
+            return false;
+        }
+        foreach (var character in value)
+        {
+            if (!((character >= '0' && character <= '9') ||
+                  (character >= 'a' && character <= 'f'))
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     internal static string LowerSha256(ReadOnlySpan<byte> bytes) =>
@@ -129,6 +175,8 @@ internal sealed record E0AUsage(
 
 internal sealed class RoleAttemptReceipt
 {
+    private readonly byte[]? _structuredOutput;
+
     private RoleAttemptReceipt(
         string attemptId,
         string preparedIdentityHash,
@@ -145,10 +193,10 @@ internal sealed class RoleAttemptReceipt
         ResponseId = responseId;
         ReturnedModel = returnedModel;
         Usage = usage;
-        StructuredOutput = structuredOutput?.ToArray();
-        StructuredOutputHash = structuredOutput is null
+        _structuredOutput = structuredOutput?.ToArray();
+        StructuredOutputHash = _structuredOutput is null
             ? null
-            : PreparedRoleAttempt.LowerSha256(structuredOutput);
+            : PreparedRoleAttempt.LowerSha256(_structuredOutput);
         DiagnosticCode = diagnosticCode;
     }
 
@@ -158,7 +206,7 @@ internal sealed class RoleAttemptReceipt
     internal string? ResponseId { get; }
     internal string? ReturnedModel { get; }
     internal E0AUsage? Usage { get; }
-    internal byte[]? StructuredOutput { get; }
+    internal byte[]? StructuredOutput => _structuredOutput?.ToArray();
     internal string? StructuredOutputHash { get; }
     internal string? DiagnosticCode { get; }
 
