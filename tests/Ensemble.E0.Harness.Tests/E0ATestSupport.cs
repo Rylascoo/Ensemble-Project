@@ -125,6 +125,7 @@ internal static class E0ATestSupport
             runId,
             envelope,
             state.OriginFixtureId.Value,
+            state.OriginFixtureVersion.Value,
             state.OriginFixtureHash,
             "TEST-EXECUTABLE-COMMIT",
             state.RosterCharacterIds);
