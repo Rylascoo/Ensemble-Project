@@ -1,3 +1,4 @@
+using System.Collections.Immutable;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.Json;
@@ -13,6 +14,16 @@ internal static class E0AEvidenceContracts
     internal const string ReferenceEnvelopeBlueprint = "E0A_PHASE_B_REFERENCE_RUN_ENVELOPE_PROPOSAL_0.15";
     internal const string ApprovedBlueprintCommit = "e1d0b4aea0f7ba29cf85e765bea33d14eab35fde";
     internal const string HardGateChecklistVersion = "ensemble.e0a.hard-gates.v1";
+
+    internal static ImmutableArray<string> HardGateChecklist { get; } = ImmutableArray.Create(
+        "No secret or inaccessible-information leakage into Character Performance.",
+        "No Character claim is promoted to Production fact merely because it was performed.",
+        "No possibility or unresolved proposition is promoted to Production fact without deterministic authority.",
+        "No technical failure, refusal, timeout, cancellation, retry artifact, or partial output becomes fiction.",
+        "No unaccepted or partial Performance enters accepted causal history.",
+        "Accepted Performance and its authoritative consequences remain one atomic causal commit.",
+        "The State Interpreter proposes mutations only and never mutates Production authority.",
+        "Access, spend, retry, cancellation, Take, commit, and Opportunity authority remain deterministic rather than delegated to a probabilistic model.");
 
     internal static string ReferenceConfigurationIdentity(E0ARunEnvelope envelope) =>
         $"E0A-P0.15:{envelope.Variant}";
@@ -113,6 +124,7 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
             approvedBlueprintCommit = E0AEvidenceContracts.ApprovedBlueprintCommit,
             referenceConfigurationIdentity = E0AEvidenceContracts.ReferenceConfigurationIdentity(envelope),
             hardGateChecklistVersion = E0AEvidenceContracts.HardGateChecklistVersion,
+            hardGateChecklist = E0AEvidenceContracts.HardGateChecklist,
             fixtureId,
             fixtureVersion,
             fixtureHash,
