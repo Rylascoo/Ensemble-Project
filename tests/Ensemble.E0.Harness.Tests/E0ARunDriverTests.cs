@@ -142,6 +142,38 @@ public sealed class E0ARunDriverTests
     }
 
     [TestMethod]
+    public async Task ProviderTimeout_ReleasesReservationExactlyOnceAndSealsTechnicalFailure()
+    {
+        var root = E0ATestSupport.TempRunRoot();
+        try
+        {
+            var runId = RunId.From("E0A-PROVIDER-TIMEOUT");
+            var state = E0ATestSupport.Genesis();
+            var envelope = E0ARunEnvelope.CreativeNone(E0ATestSupport.Pricing());
+            var provider = new ScriptedProvider((_, _) => throw new OperationCanceledException());
+            var driver = new E0AReferenceRunDriver(
+                envelope,
+                provider,
+                new FixedTokenCounter(),
+                E0ATestSupport.Evidence(root, runId, envelope, state));
+
+            var result = await driver.RunAsync(runId, state, CancellationToken.None);
+
+            Assert.AreEqual(E0ARunTerminalStatus.TechnicalFailure, result.Status);
+            Assert.AreEqual(0, result.AcceptedTurns);
+            Assert.AreEqual(1, provider.Calls);
+            Assert.AreEqual(1, Directory.GetFiles(root, "terminal.json", SearchOption.AllDirectories).Length);
+            Assert.IsTrue(File.Exists(Path.Combine(root, "run.final.json")));
+            Assert.IsTrue(File.ReadAllText(Directory.GetFiles(root, "terminal.json", SearchOption.AllDirectories).Single())
+                .Contains("timeout", StringComparison.Ordinal));
+        }
+        finally
+        {
+            Delete(root);
+        }
+    }
+
+    [TestMethod]
     public async Task ProviderUsageOverrun_IsRecordedAndSealedAsTechnicalFailure()
     {
         var root = E0ATestSupport.TempRunRoot();
