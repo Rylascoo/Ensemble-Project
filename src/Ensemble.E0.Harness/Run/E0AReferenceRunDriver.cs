@@ -36,6 +36,7 @@ internal sealed class E0AReferenceRunDriver
     private readonly IE0AEvidenceSink _evidence;
     private readonly E0ASpendLedger _spend;
     private string? _observedModel;
+    private bool _started;
 
     internal E0AReferenceRunDriver(
         E0ARunEnvelope envelope,
@@ -58,6 +59,12 @@ internal sealed class E0AReferenceRunDriver
     {
         ArgumentNullException.ThrowIfNull(genesis);
         E0ADeterministicIds.ValidateRunId(runId);
+        if (_started)
+        {
+            throw new E0AHarnessException("E0-A reference run driver is single-use.");
+        }
+        _started = true;
+
         var state = DeterministicE0CausalCycle.Initialize(genesis);
         var policy = E0AReferenceAuthority.Policy(_envelope);
         var acceptedTurns = 0;
@@ -333,8 +340,21 @@ internal sealed class E0AReferenceRunDriver
         int acceptedTurns,
         E0OpportunityBearingCycleState state)
     {
-        _evidence.RecordEvent("run.terminal", new { status = status.ToString(), acceptedTurns });
-        _evidence.SealRuntime(status.ToString(), acceptedTurns, _spend.EstimatedCommittedUsd);
+        var opportunity = state.ProductionState.CurrentOpportunityCharacterId
+            ?? throw new E0AHarnessException("E0-A terminal state has no synchronized Opportunity.");
+        _evidence.RecordEvent("run.terminal", new
+        {
+            status = status.ToString(),
+            acceptedTurns,
+            finalStateHash = state.ProductionState.StateHash.Value,
+            finalOpportunityCharacterId = opportunity.Value
+        });
+        _evidence.SealRuntime(
+            status.ToString(),
+            acceptedTurns,
+            _spend.EstimatedCommittedUsd,
+            state.ProductionState.StateHash.Value,
+            opportunity);
         return new E0ARunResult(status, acceptedTurns, _spend.EstimatedCommittedUsd, state);
     }
 
