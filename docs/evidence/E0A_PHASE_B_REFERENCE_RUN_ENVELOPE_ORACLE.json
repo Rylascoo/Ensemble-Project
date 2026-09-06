@@ -1,12 +1,14 @@
 {
   "phase": "E0-A Phase B",
   "architecture": "Reference Run Envelope Proposal 0.15",
-  "status": "static-audit-clean-native-validation-pending",
+  "status": "static-audit-clean-native-validation-passed",
   "authority": {
     "parentMain": "2b628c2d97eb39f4d96ce3e81eafefe93ba28b09",
     "approvedArchitectureCommit": "e1d0b4aea0f7ba29cf85e765bea33d14eab35fde",
     "preHandoffExecutableCheckpoint": "74305ce3c501d5da0762bd88598d6bd83f627d14",
-    "resumedAuditExecutableTestCheckpoint": "81f199e51ea636c2cd9ad0350d815fa52dd6373f"
+    "resumedAuditExecutableTestCheckpoint": "81f199e51ea636c2cd9ad0350d815fa52dd6373f",
+    "nativeValidationAttempt01Checkout": "a456a74ff6995ecfebc25a6134b2ca25d6260432",
+    "validatedExecutableTestCheckout": "3749210393282f6aa2ac4ceb0176b6adb5df189e"
   },
   "scope": {
     "coreChanged": false,
@@ -43,14 +45,39 @@
     "partialRejectedTechnicalOutputExcludedFromAcceptedTranscript": true,
     "runtimeAndEvaluationEvidenceSealedSeparately": true,
     "hardGateChecklistFrozenBeforeRun": true,
-    "nativeCoreTestTotal": null,
-    "nativeHarnessTestTotal": null
+    "nativeCoreTestTotal": 622,
+    "nativeHarnessTestTotal": 39
   },
   "nativeArm64Validation": {
-    "status": "pending",
-    "requiredSource": "Director machine",
-    "requiredArchitecture": "ARM64",
-    "requiredRid": "win-arm64",
-    "providerRequestRequired": false
+    "status": "passed",
+    "source": "Director machine",
+    "validatedCheckout": "3749210393282f6aa2ac4ceb0176b6adb5df189e",
+    "processorArchitecture": "ARM64",
+    "rid": "win-arm64",
+    "dotnetSdk": "9.0.317",
+    "dotnetHostArchitecture": "arm64",
+    "coreTests": {
+      "total": 622,
+      "succeeded": 622,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0
+    },
+    "harnessTests": {
+      "total": 39,
+      "succeeded": 39,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0
+    },
+    "harnessBuildExitCode": 0,
+    "missingRaftFixtureExitCode": 0,
+    "genericSmokeFixtureExitCode": 0,
+    "trackedTreeCleanBeforeAndAfter": true,
+    "stagedTreeCleanBeforeAndAfter": true,
+    "materialUntrackedFilesPresent": false,
+    "providerRequestExecuted": false,
+    "providerCredentialPresent": false,
+    "providerSpendOccurred": false
   }
 }
