@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.Json;
 using Ensemble.E0.Core.Domain;
@@ -40,20 +41,49 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
         string executableCommit,
         IReadOnlyList<CharacterId> roster)
     {
+        if (string.IsNullOrWhiteSpace(root))
+        {
+            throw new E0AHarnessException("E0-A run evidence root is required.");
+        }
         if (Directory.Exists(root) || File.Exists(root))
         {
             throw new E0AHarnessException("E0-A run evidence directory already exists.");
+        }
+        if (string.IsNullOrWhiteSpace(fixtureId) ||
+            !IsLowerHexSha256(fixtureHash) ||
+            string.IsNullOrWhiteSpace(executableCommit))
+        {
+            throw new E0AHarnessException("E0-A run manifest identity is invalid.");
         }
 
         ArgumentNullException.ThrowIfNull(envelope);
         ArgumentNullException.ThrowIfNull(roster);
         E0ADeterministicIds.ValidateRunId(runId);
         envelope.Validate();
+        if (roster.Count != 3)
+        {
+            throw new E0AHarnessException("E0-A evidence roster must contain exactly three Characters.");
+        }
+
+        string[] rosterValues;
+        try
+        {
+            rosterValues = roster.Select(x => x.Value).ToArray();
+        }
+        catch (InvalidOperationException)
+        {
+            throw new E0AHarnessException("E0-A evidence roster contains an uninitialized CharacterId.");
+        }
+        if (rosterValues.Distinct(StringComparer.Ordinal).Count() != rosterValues.Length)
+        {
+            throw new E0AHarnessException("E0-A evidence roster contains duplicate Characters.");
+        }
+
         _root = root;
         Directory.CreateDirectory(_root);
-        _blindLabels = roster
-            .OrderBy(x => x.Value, StringComparer.Ordinal)
-            .Select((id, index) => new { id = id.Value, label = $"SPEAKER-{index + 1:D2}" })
+        _blindLabels = rosterValues
+            .OrderBy(x => x, StringComparer.Ordinal)
+            .Select((id, index) => new { id, label = $"SPEAKER-{index + 1:D2}" })
             .ToDictionary(x => x.id, x => x.label, StringComparer.Ordinal);
 
         WriteNew("manifest.json", new
@@ -65,9 +95,22 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
             executableCommit,
             variant = envelope.Variant,
             acceptedTurnCap = E0ARunEnvelope.AcceptedTurnCap,
+            attemptsPerRoleInvocation = E0ARunEnvelope.AttemptsPerRoleInvocation,
             automaticRetries = E0ARunEnvelope.AutomaticRetries,
             attemptTimeoutSeconds = E0ARunEnvelope.AttemptTimeoutSeconds,
             estimatedSpendCeilingUsd = E0ARunEnvelope.EstimatedSpendCeilingUsd,
+            pricing = new
+            {
+                inputUsdPerMillionTokens = envelope.Pricing.InputUsdPerMillionTokens,
+                cachedInputUsdPerMillionTokens = envelope.Pricing.CachedInputUsdPerMillionTokens,
+                outputUsdPerMillionTokens = envelope.Pricing.OutputUsdPerMillionTokens
+            },
+            host = new
+            {
+                osDescription = RuntimeInformation.OSDescription,
+                processArchitecture = RuntimeInformation.ProcessArchitecture.ToString(),
+                frameworkDescription = RuntimeInformation.FrameworkDescription
+            },
             roles = new[]
             {
                 RoleManifest(envelope.Performer),
@@ -109,6 +152,7 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
     public void RecordPrepared(PreparedRoleAttempt attempt)
     {
         EnsureRuntimeOpen();
+        ArgumentNullException.ThrowIfNull(attempt);
         var relative = $"attempts/{Safe(attempt.AttemptId)}/request.json";
         WriteNew(relative, new
         {
@@ -120,6 +164,9 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
             provider = attempt.Profile.Provider,
             requestedModel = attempt.Profile.Model,
             reasoning = attempt.Profile.Reasoning.ToString(),
+            stream = attempt.Profile.Stream,
+            maxOutputTokens = attempt.Profile.MaxOutputTokens,
+            serviceTier = attempt.Profile.ServiceTier,
             contextPacketId = attempt.ContextPacketId.Value,
             structuredContextHash = attempt.StructuredContextHash,
             renderedContextHash = attempt.RenderedContextHash,
@@ -135,17 +182,19 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
     public void RecordReceipt(PreparedRoleAttempt attempt, RoleAttemptReceipt receipt)
     {
         EnsureRuntimeOpen();
+        var verified = ConfiguredRoleAttemptBoundary.Accept(attempt, receipt);
         var relative = $"attempts/{Safe(attempt.AttemptId)}/terminal.json";
         WriteNew(relative, new
         {
-            attemptId = receipt.AttemptId,
-            outcome = receipt.Outcome.ToString(),
-            responseId = receipt.ResponseId,
-            returnedModel = receipt.ReturnedModel,
-            usage = receipt.Usage,
-            structuredOutputHash = receipt.StructuredOutputHash,
-            structuredOutputUtf8 = receipt.StructuredOutput is null ? null : Encoding.UTF8.GetString(receipt.StructuredOutput),
-            diagnosticCode = receipt.DiagnosticCode
+            attemptId = verified.AttemptId,
+            preparedIdentityHash = verified.PreparedIdentityHash,
+            outcome = verified.Outcome.ToString(),
+            responseId = verified.ResponseId,
+            returnedModel = verified.ReturnedModel,
+            usage = verified.Usage,
+            structuredOutputHash = verified.StructuredOutputHash,
+            structuredOutputUtf8 = verified.StructuredOutput is null ? null : Encoding.UTF8.GetString(verified.StructuredOutput),
+            diagnosticCode = verified.DiagnosticCode
         });
     }
 
@@ -156,6 +205,7 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
         {
             throw new E0AHarnessException("E0-A evidence event kind is required.");
         }
+        ArgumentNullException.ThrowIfNull(data);
 
         var line = JsonSerializer.Serialize(new { kind, data });
         File.AppendAllText(Path.Combine(_root, "events.ndjson"), line + "\n", new UTF8Encoding(false));
@@ -165,6 +215,12 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
     {
         EnsureRuntimeOpen();
         ArgumentNullException.ThrowIfNull(candidate);
+        if (turn is < 1 or > E0ARunEnvelope.AcceptedTurnCap ||
+            candidate.SubjectCharacterId != characterId)
+        {
+            throw new E0AHarnessException("E0-A accepted Performance evidence is not bound to its turn and Character.");
+        }
+
         var id = characterId.Value;
         if (!_blindLabels.ContainsKey(id))
         {
@@ -177,6 +233,14 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
     public void SealRuntime(string terminalStatus, int acceptedTurns, decimal estimatedSpendUsd)
     {
         EnsureRuntimeOpen();
+        if (string.IsNullOrWhiteSpace(terminalStatus) ||
+            acceptedTurns is < 0 or > E0ARunEnvelope.AcceptedTurnCap ||
+            estimatedSpendUsd < 0m ||
+            estimatedSpendUsd > E0ARunEnvelope.EstimatedSpendCeilingUsd)
+        {
+            throw new E0AHarnessException("E0-A runtime seal summary is invalid.");
+        }
+
         WriteNew("transcript.json", new { performances = _accepted });
 
         var blind = _accepted.Select(item =>
@@ -218,11 +282,18 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
             throw new E0AHarnessException("E0-A evaluation sealing state is invalid.");
         }
         ArgumentNullException.ThrowIfNull(evaluation);
+        if (string.IsNullOrWhiteSpace(evaluation.ChecklistVersion) ||
+            string.IsNullOrWhiteSpace(evaluation.ReviewerIdentity) ||
+            string.IsNullOrWhiteSpace(evaluation.MethodIdentity) ||
+            evaluation.Findings is null)
+        {
+            throw new E0AHarnessException("E0-A hard-gate evaluation identity is invalid.");
+        }
         WriteNew("evaluation/hard-gates.json", evaluation);
 
         var runFinalBytes = File.ReadAllBytes(Path.Combine(_root, "run.final.json"));
-        var runFinal = JsonDocument.Parse(runFinalBytes).RootElement;
-        var recordedRoot = runFinal.GetProperty("runtimeRoot").GetString()
+        using var runFinalDocument = JsonDocument.Parse(runFinalBytes);
+        var recordedRoot = runFinalDocument.RootElement.GetProperty("runtimeRoot").GetString()
             ?? throw new E0AHarnessException("E0-A runtime seal root is missing.");
         var recomputedRoot = RootDigest(RuntimeDigests());
         if (!string.Equals(recordedRoot, recomputedRoot, StringComparison.Ordinal))
@@ -291,4 +362,21 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
     }
 
     private static string Safe(string value) => value.Replace(':', '_');
+
+    private static bool IsLowerHexSha256(string? value)
+    {
+        if (value is null || value.Length != 64)
+        {
+            return false;
+        }
+        foreach (var character in value)
+        {
+            if (!((character >= '0' && character <= '9') ||
+                  (character >= 'a' && character <= 'f')))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
 }
