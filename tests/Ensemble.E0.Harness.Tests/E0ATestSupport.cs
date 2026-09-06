@@ -18,6 +18,8 @@ namespace Ensemble.E0.Harness.Tests;
 
 internal static class E0ATestSupport
 {
+    internal const string TestExecutableCommit = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+
     internal static E0APricingAssumptions Pricing() => new(1m, 0.25m, 2m);
 
     internal static ProductionState Genesis()
@@ -127,7 +129,7 @@ internal static class E0ATestSupport
             state.OriginFixtureId.Value,
             state.OriginFixtureVersion.Value,
             state.OriginFixtureHash,
-            "TEST-EXECUTABLE-COMMIT",
+            TestExecutableCommit,
             state.RosterCharacterIds);
 
     internal static RoleAttemptReceipt Success(
