@@ -139,6 +139,7 @@ internal static class E0ARequestBuilder
             ["service_tier"] = profile.ServiceTier,
             ["truncation"] = "disabled",
             ["max_output_tokens"] = profile.MaxOutputTokens,
+            ["prompt_cache_options"] = new Dictionary<string, object?> { ["mode"] = "explicit" },
             ["instructions"] = instructions,
             ["input"] = data,
             ["text"] = new Dictionary<string, object?>
