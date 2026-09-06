@@ -46,13 +46,15 @@ public sealed class E0AEnvelopeAndIdentityTests
     }
 
     [TestMethod]
-    public void DerivedIds_AreDeterministicAndBounded()
+    public void DerivedIds_AreDeterministicAndBoundedWithoutArtificialMutationCeiling()
     {
         var runId = RunId.From("E0A-RUN-001");
         Assert.AreEqual("E0A-RUN-001:TAKE:007", E0ADeterministicIds.Take(runId, 7).Value);
         Assert.AreEqual("E0A-RUN-001:COMMIT:007", E0ADeterministicIds.Commit(runId, 7).Value);
         Assert.AreEqual("E0A-RUN-001:RECORD:007:003", E0ADeterministicIds.Record(runId, 7, 3).Value);
+        Assert.AreEqual("E0A-RUN-001:RECORD:007:1234", E0ADeterministicIds.Record(runId, 7, 1234).Value);
         Assert.AreEqual("E0A-RUN-001:ATTEMPT:PERFORMER:007:01", E0ADeterministicIds.Attempt(runId, E0ARole.Performer, 7, 1));
+        Assert.Throws<E0AHarnessException>(() => E0ADeterministicIds.Attempt(runId, E0ARole.Performer, 7, 2));
 
         var tooLong = RunId.From(new string('R', 97));
         Assert.Throws<E0AHarnessException>(() => E0ADeterministicIds.ValidateRunId(tooLong));
