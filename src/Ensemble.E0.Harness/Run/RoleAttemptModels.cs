@@ -169,7 +169,8 @@ internal sealed record E0AUsage(
     long InputTokens,
     long OutputTokens,
     long CachedInputTokens = 0,
-    long ReasoningTokens = 0)
+    long ReasoningTokens = 0,
+    long CacheWriteTokens = 0)
 {
     internal void Validate()
     {
@@ -177,7 +178,9 @@ internal sealed record E0AUsage(
             OutputTokens < 0 ||
             CachedInputTokens < 0 ||
             ReasoningTokens < 0 ||
+            CacheWriteTokens < 0 ||
             CachedInputTokens > InputTokens ||
+            CacheWriteTokens > InputTokens - CachedInputTokens ||
             ReasoningTokens > OutputTokens)
         {
             throw new E0AHarnessException("E0-A provider usage is invalid.");
