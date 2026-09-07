@@ -28,9 +28,8 @@ jobs:
       - run: dotnet build tests/Ensemble.E0.Harness.Tests/Ensemble.E0.Harness.Tests.csproj -c Release
 
   core-tests:
-    name: Core tests (advisory, x64, non-authoritative)
+    name: Core tests (required x64 regression, non-authoritative)
     runs-on: ubuntu-latest
-    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v4
