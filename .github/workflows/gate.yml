@@ -18,8 +18,8 @@ jobs:
     # Compiler authority only: this proves the checkout builds for the pinned
     # win-arm64 / ARM64 target. Native Windows ARM64 execution is a later rung.
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-dotnet@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
         with:
           dotnet-version: '9.0.317'
       - run: dotnet build src/Ensemble.E0.Core/Ensemble.E0.Core.csproj -c Release
@@ -31,23 +31,34 @@ jobs:
     name: Core tests (required x64 regression, non-authoritative)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-dotnet@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
         with:
           dotnet-version: '9.0.317'
       - run: dotnet test tests/Ensemble.E0.Core.Tests/Ensemble.E0.Core.Tests.csproj -c Release
 
-  oracle-documentation-drift:
-    name: Oracle documentation drift
+  repository-laws:
+    name: Repository law enforcement
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: '3.12'
-      - name: Regenerate index and reject drift or lost assertions
+      - name: Enforce objective repository laws
+        run: python tools/repository-law-check.py
+
+  oracle-assertion-coverage:
+    name: Oracle assertion coverage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+      - name: Reject lost documented-oracle assertion coverage
         env:
           BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
         run: |
@@ -58,14 +69,14 @@ jobs:
           python tools/oracle-index.py --check --baseline "$baseline"
 
   document-census:
-    name: Document reference census
+    name: Document authority census
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: '3.12'
-      - name: Report documentation inbound references
-        run: python tools/document-census.py --summary
+      - name: Enforce active-evidence authority reachability
+        run: python tools/document-census.py --summary --check

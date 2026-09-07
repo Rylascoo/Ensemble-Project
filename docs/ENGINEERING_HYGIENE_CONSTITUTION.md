@@ -32,6 +32,14 @@ Law 5 extends from the active source tree to the repository surface. Git history
 
 This section extends Law 5; it creates no separate workflow or approval gate.
 
+## Engineering artifact lifecycle
+
+- **Smallest sufficient patch record.** Future patch documentation normally uses one compact architecture/decision contract, one evidence record, and a machine-readable oracle only when objective oracle values warrant one. Do not multiply documents merely to mirror workflow stages.
+- **Handoffs are temporary.** A handoff is optional and active only when `CURRENT_STATE.md` names its exact `docs/handoff/...` path as the live transition artifact. Remove completed handoffs from the active tree after convergence; Git history preserves them.
+- **Historical blueprints may remain historical.** A blueprint can remain under `docs/blueprint/` for architectural provenance without becoming current merely by existing there or appearing in a navigation index. Current authority still derives from the project authority chain.
+- **Do not normalize history cosmetically.** Do not mass-rewrite frozen or historical artifacts to add generic status headers, disclaimers, or current terminology. Make only narrow corrections needed to resolve a present ambiguity.
+- **Navigation is not promotion.** Document indexes may help discovery but cannot confer phase, architecture, product, policy, or validation authority.
+
 ## Patch Hygiene Gate
 Every patch is reviewed in this order:
 
