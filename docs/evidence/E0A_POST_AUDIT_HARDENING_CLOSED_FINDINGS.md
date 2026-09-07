@@ -1,264 +1,235 @@
 # E0-A Post-Audit Hardening — Closed Findings Continuity
 
-Status: **AUDIT CLOSED — ZERO-NEW-FINDING PASS ACHIEVED; REMAINING HARDENING AUTHORIZED**
+Status: **ALL AUTHORIZED FINDINGS IMPLEMENTED — FINAL STATIC AUDIT CLOSED; ZERO-NEW-MATERIAL-CORRECTION PASS ACHIEVED; NATIVE VALIDATION PENDING**
 
-Date: 2026-09-06
+Original audit closure date: 2026-09-06
 
-## Purpose
+## Purpose and authority
 
-This record preserves the complete closed-audit correction set for E0-A Phase B after Patch Group 1. It is continuity evidence, not a new architecture blueprint and not a reinterpretation of Proposal 0.15.
+This record preserves the complete closed-audit correction set for E0-A Phase B and its final implementation disposition. It is continuity evidence, not a new architecture blueprint and not a reinterpretation of Proposal 0.15.
 
 Repository: `Rylascoo/Ensemble-Project`
 
 Hardening branch: `e0a-phase-b-post-audit-hardening`
 
-Audited source HEAD / `main` baseline:
+Audited `main` baseline / merge base:
 
 `f9cb1a79ad7923b640ff1a97c46d8fd6ab9dac25`
 
-The comprehensive post-implementation Astra/Codex audit covered 143 relevant source/test/configuration/fixture/state files plus applicable authority documents. The recursive audit reached **AUDIT CLOSED** and then achieved a **zero-new-finding pass**.
+Exact final hardening executable/test checkpoint:
 
-## Patch Group 1 disposition
+`d18ec637bb8881a38db9cfeb1420f093a994ac17`
 
-Patch Group 1 is already implemented and recursively static-audited:
+The original comprehensive Astra/Codex audit covered 143 relevant source/test/configuration/fixture/state files plus applicable authority documents, reached **AUDIT CLOSED**, and then achieved a **zero-new-finding pass**. Engineering implemented that frozen correction set in six dependency-ordered patch groups and performed a final cross-component recursive audit.
 
-- **E-01 — Integrity failure terminal sealing**
-- **E-02 — streaming cancellation boundary**
+Final static closure evidence:
 
-Exact Patch Group 1 executable/test checkpoint:
+`docs/evidence/E0A_POST_AUDIT_HARDENING_FINAL_STATIC_CLOSURE.md`
 
-`171881c1247e1c466fec6abd3e92335a055eb4f2`
+Grouped native Windows ARM64 validation handoff:
 
-Implementation evidence:
+`docs/handoff/E0A_POST_AUDIT_HARDENING_GROUPED_NATIVE_ARM64_VALIDATION_HANDOFF.md`
 
-`docs/evidence/E0A_POST_AUDIT_HARDENING_PATCH_GROUP_1_IMPLEMENTATION.md`
+Proposal 0.15 remains unchanged. Provider execution, credentials, network inference, and spend remain unauthorized.
 
-Patch Group 1 has not yet received the grouped native Windows ARM64 validation planned after all authorized hardening groups are complete.
+## Complete closed finding set and final disposition
 
-## Remaining closed-audit findings
+### E-01 — P2 — Integrity failure terminal sealing — CLOSED
 
-### E-03 — P2 — Provider parsing
+Original defect: known deterministic Integrity orchestration rejection could escape before the normal terminal/runtime-evidence seal.
 
-Location at audited snapshot:
+Implemented: catch only the established `E0TurnOrchestrationException` at configured Integrity evaluation and terminate through the existing `InvalidOutput -> Finish(...)` path. Duplicate concern authority remains in Core; Interpreter/Take/commit are not entered.
 
-`src/Ensemble.E0.Harness/OpenAI/OpenAIResponsesPort.cs`
+Evidence: `docs/evidence/E0A_POST_AUDIT_HARDENING_PATCH_GROUP_1_IMPLEMENTATION.md`.
 
-Finding: wrong JSON types and malformed Unicode can escape expected failure translation across token preflight, buffered responses, streaming responses, and Integrity concern parsing.
+### E-02 — P2 — Streaming cancellation boundary — CLOSED
 
-Correction intent:
+Original defect: `StreamReader.EndOfStream` could synchronously probe before the intended cancellable read.
 
-- validate JSON `ValueKind` before typed access;
-- narrowly translate provider-data decoding failures;
-- preserve distinction between malformed external input and unexpected programming defects;
-- do not add broad `catch (Exception)` relabeling.
+Implemented: streaming uses `ReadLineAsync(cancellationToken)` as the only input read and treats `null` as EOF. Diagnostic streaming remains provisional and `response.completed` remains semantic authority.
 
-### E-04 — P2 — Fixture parsing
+Evidence: Patch Group 1.
 
-Location:
+### E-03 — P2 — Provider parsing — CLOSED
 
-`src/Ensemble.E0.Core/Fixture/StrictJsonPreflight.cs`
+Original defect: wrong JSON types and malformed Unicode could escape expected external-provider failure translation across token preflight, buffered/streaming responses, and Integrity concern decoding.
 
-Finding: an escaped unpaired-surrogate property name can bypass normal fixture-error handling.
+Implemented: explicit `ValueKind` checks, narrow external-decoding translation, strict UTF-8 SSE decoding, well-formed provider-string validation, and no malformed semantic adoption. `OperationCanceledException` remains owned by the caller deadline.
 
-Correction intent: translate property-name decoding failure into the established sanitized fixture-validation failure domain without weakening strict JSON validation.
+Evidence: `docs/evidence/E0A_POST_AUDIT_HARDENING_PATCH_GROUP_2_IMPLEMENTATION.md`.
 
-### E-05 — P3 — Integrity concern contract consistency
+### E-04 — P2 — Fixture parsing — CLOSED
 
-Location:
+Original defect: an escaped unpaired-surrogate JSON property name could bypass the normal fixture-validation domain.
 
-`src/Ensemble.E0.Harness/Run/E0AIntegrityAssessment.cs`
+Implemented: only property-name decoding at the established strict fixture preflight boundary is narrowly translated into sanitized `FixtureValidationException`; all frozen fixture-dialect rules remain unchanged.
 
-Finding: enum parsing accepts numeric and padded strings beyond the five exact approved Integrity concern names.
+Evidence: `docs/evidence/E0A_POST_AUDIT_HARDENING_PATCH_GROUP_5_IMPLEMENTATION.md`.
 
-Correction intent: use an exact ordinal allowlist for the five frozen concern names. Do not broaden the Integrity contract.
+### E-05 — P3 — Integrity concern contract consistency — CLOSED
 
-### E-06 — P2 — Spend / provenance
+Original defect: enum coercion admitted numeric/padded/noncanonical strings beyond the five approved concern names.
 
-Location:
+Implemented: exact ordinal decoding of only the five frozen names. Duplicate exact names remain preserved for Core deterministic duplicate rejection.
 
-`src/Ensemble.E0.Harness/Run/E0AReferenceRunDriver.cs`
+Evidence: Patch Group 5.
 
-Finding: refusal/incomplete provider handling can discard available response identity and usage and then release the reservation.
+### E-06 — P2 — Spend / provenance — CLOSED
 
-Correction intent:
+Original defect: refusal/incomplete provider handling could discard available response identity/usage and release the spend reservation as though the call were costless.
 
-- preserve validated nonsemantic provider metadata and reported usage where available;
-- reconcile usage/spend correctly;
-- explicitly represent unavailable/unknown usage rather than fabricating it;
-- no refused/incomplete semantic output may enter fiction or authority.
+Implemented: non-success receipts may retain validated nonsemantic response/model/usage metadata while carrying no structured semantic output; known usage is reconciled, unavailable usage is explicitly unknown and commits the reserved fallback amount, and configured-receipt rejection also falls back conservatively.
 
-### E-07 — P2 — Timeout configuration
+Evidence: `docs/evidence/E0A_POST_AUDIT_HARDENING_PATCH_GROUP_3_IMPLEMENTATION.md`.
 
-Location:
+### E-07 — P2 — Timeout configuration — CLOSED
 
-`src/Ensemble.E0.Harness/Host/E0AReferenceRunHost.cs`
+Original defect: default `HttpClient` timeout could preempt the frozen 300-second E0-A attempt deadline.
 
-Finding: default `HttpClient` timeout can terminate buffered Integrity/token-preflight work around 100 seconds despite the frozen E0-A attempt envelope being 300 seconds.
+Implemented: provider `HttpClient.Timeout = Timeout.InfiniteTimeSpan`; the run driver's linked 300-second cancellation token remains sole attempt-deadline authority across token preflight and provider execution.
 
-Correction intent: make HTTP transport timeout composition consistent with the explicit attempt deadline so the deterministic attempt timeout remains authoritative. Do not silently create a second shorter timeout policy.
+Evidence: Patch Group 2.
 
-### I-02 — P2 — Evaluation ordering
+### I-02 — P2 — Evaluation ordering — CLOSED
 
-Location:
+Original defect: legacy evaluation could publish hard-gate evidence before validating runtime integrity and leave a partial write-once artifact.
 
-`src/Ensemble.E0.Harness/Evidence/E0AEvidenceStore.cs`
+Implemented: both in-process and reopened evaluation use one shared seal authority; runtime validation occurs before publication and again after exclusive publication ownership; final-seal failure removes the staged hard-gate publication so clean retry remains possible.
 
-Finding: the legacy evaluation path writes hard-gate evidence before verifying runtime integrity. Failure can leave a partial write-once evaluation artifact and prevent clean retry/review.
+Evidence: `docs/evidence/E0A_POST_AUDIT_HARDENING_PATCH_GROUP_4_IMPLEMENTATION.md`.
 
-Correction intent:
+Independent-process reopening was not promoted into a new blueprint requirement.
 
-- consolidate evaluation behavior where practical;
-- validate sealed runtime integrity before publishing evaluation artifacts;
-- publish evaluation evidence atomically/write-once.
+### I-03 — P2 — Evidence ownership — CLOSED
 
-Independent-process reopening itself was **not** established as a missing blueprint requirement and must not be resurrected as one.
+Original defect: check-then-write behavior allowed local overwrite/race windows and same-namespace `RunId` reuse across fresh roots.
 
-### I-03 — P2 — Evidence ownership
+Implemented: local namespace claims use create-new files for both RunId and normalized root identity; authoritative JSON artifacts use create-new semantics. No global/cloud or Production persistence was introduced.
 
-Location:
+Evidence: Patch Group 4.
 
-`src/Ensemble.E0.Harness/Evidence/E0AEvidenceStore.cs`
+### I-04 — P2 — Seal integrity — CLOSED
 
-Finding: check-then-write behavior permits concurrent overwrite/race conditions, and separate fresh evidence roots can permit reuse of the same `RunId` without a stronger namespace claim.
+Original defect: `run.final.json` summary claims could be altered while retaining the recorded runtime root and then be endorsed by evaluation.
 
-Correction intent: provide exclusive evidence/run identity ownership within the applicable evidence namespace and create authoritative artifacts without overwrite races. Do not invent global/cloud persistence or later Production persistence.
+Implemented: `run.summary.json` is itself runtime-rooted; runtime seal identity binds the rooted summary and runtime root; evaluation recomputes artifact digests/root/seal identity and compares repeated final claims against the rooted summary before endorsement.
 
-### I-04 — P2 — Seal integrity
+Evidence: Patch Group 4.
 
-Locations:
+### I-05 — P2 — Checkout verification — CLOSED
 
-- `src/Ensemble.E0.Harness/Evidence/E0AEvidenceStore.cs`
-- `src/Ensemble.E0.Harness/Evidence/E0AExistingEvidenceEvaluationSealer.cs`
+Original defect: untracked-path filtering depended on invocation location and could miss repository-root material paths.
 
-Finding: `run.final.json` summary fields can be changed while retaining the same recorded `runtimeRoot`, after which evaluation can endorse the changed summary.
+Implemented: discover repository root with `rev-parse --show-toplevel`; perform all subsequent checks through `git -C <root>`; request untracked paths with `--full-name` before root-relative `src/`, `tests/`, `fixtures/` filtering.
 
-Correction intent: verify original runtime-seal identity and bind all endorsed summary claims to immutable/root-covered runtime evidence. Preserve the two-stage runtime/evaluation authority model.
+Evidence: Patch Group 5.
 
-### I-05 — P2 — Checkout verification
+### P-01 — P3 — Test coupling — CLOSED
 
-Location:
+Original defect: Patch 0012 structural tests gated behavior-preserving refactors on private names, direct IL call graphs, catch layout, and declaration order.
 
-`src/Ensemble.E0.Harness/Host/E0ARepositoryCheckoutGuard.cs`
+Implemented: incidental gates were removed while frozen behavioral, public-surface, canonical-byte, replay/commit, identity, and exact-source-reference laws remain tested. Reflection is retained only as test plumbing where the frozen behavior cannot otherwise be represented/observed.
 
-Finding: untracked-path filtering assumes repository-root paths, but Git path output depends on invocation context; launches from a subdirectory can miss material code paths.
+Evidence: `docs/evidence/E0A_POST_AUDIT_HARDENING_PATCH_GROUP_6_IMPLEMENTATION.md`.
 
-Correction intent: perform checkout inspection from the verified repository root and use unambiguous root-relative paths.
+### P-02 — P3 — Numeric/spend robustness — CLOSED
 
-### P-01 — P3 — Test coupling
+Original defect: extreme prices could overflow cost arithmetic or positive rates could round single-token cost to zero; monetary zero also doubled as reservation-state sentinel.
 
-Location:
+Implemented: pricing validates representability over the supported usage domain; spend arithmetic is checked; reservation activity is explicit; each reservation has a monotonic identity so stale same-amount reservations cannot alias a current one.
 
-`tests/Ensemble.E0.Core.Tests/CausalCommit/Patch0012StructuralImplementationTests.cs`
+Evidence: Patch Group 3.
 
-Finding: some private-name, direct IL-call, catch-layout, and declaration-order assertions reject behavior-preserving correct refactors.
+### P-03 — P3 — Documentation continuity — CLOSED
 
-Correction intent: remove only incidental private implementation coupling.
+Original defect: README still identified H1 as the active phase.
 
-Preserve:
+Implemented: README delegates live phase/checkpoint/validation/next-action truth to `CURRENT_STATE.md` and no longer acts as a competing state authority.
 
-- behavioral tests;
-- reference oracles;
-- public-surface architecture assertions;
-- reflection used as test plumbing;
-- implementation structure explicitly frozen by an approved architecture contract.
+Evidence: Patch Group 6.
 
-Do not perform blanket reflection-test deletion.
+### P-04 — P3 — Evaluation parsing — CLOSED
 
-### P-02 — P3 — Numeric/spend robustness
+Original defect: wrongly typed evaluation/runtime seal values or malformed Unicode could escape normal Harness evaluation failure translation.
 
-Location:
+Implemented: explicit external JSON type validation, well-formed Unicode checks, exact spend-status names, and narrow JSON failure translation before evaluation publication.
 
-`src/Ensemble.E0.Harness/Run/E0ASpendLedger.cs`
+Evidence: Patch Group 4.
 
-Finding: allowed extreme prices can overflow calculations or round reservations to zero, while zero can also represent “no reservation.”
+### P-05 — P3 — Spend robustness / pricing assumptions — CLOSED
 
-Correction intent: validate representable numeric bounds and distinguish reservation activity from monetary amount.
+Original defect: reported usage above the verified long-context threshold could be priced under standard-tier assumptions.
 
-### P-03 — P3 — Documentation
+Implemented: out-of-tier input usage is explicitly `OutsideVerifiedInputTier`; reported usage remains known provenance; the reservation is committed as fallback without inventing provider rates; semantic consumption terminates. Unrepresentable usage receives its own invalid-estimate status.
 
-Location:
+Evidence: Patch Group 3.
 
-`README.md`
+## Dependency-ordered implementation checkpoints
 
-Finding: README phase summary still identifies H1 as active despite recorded H1 closure and current E0-A Phase B work.
+1. Patch Group 1 — E-01/E-02: **COMPLETE** — executable/test checkpoint `171881c1247e1c466fec6abd3e92335a055eb4f2`.
+2. Patch Group 2 — E-03/E-07: **COMPLETE** — executable/test checkpoint `f37cb8ec41e50d50aba027286326a10677db1040`.
+3. Patch Group 3 — E-06/P-02/P-05: **COMPLETE** — executable/test checkpoint `c3a6846d267ce3f93a3e80a297057d4a7a14d99d`.
+4. Patch Group 4 — I-02/I-03/I-04/P-04: **COMPLETE** — executable/test checkpoint `2a55319820587b63da13377a775150b90c24b107`.
+5. Patch Group 5 — E-04/E-05/I-05: **COMPLETE** — executable/test checkpoint `f79bc36bf72d3db49b703bf98919534fef9673b5`.
+6. Patch Group 6 — P-01/P-03 + final regression-gap review: **COMPLETE** — final executable/test checkpoint `d18ec637bb8881a38db9cfeb1420f093a994ac17`.
 
-Correction intent: align the summary with authoritative current state or defer phase-state detail to `CURRENT_STATE.md`. Do not turn README into another competing state authority.
-
-### P-04 — P3 — Evaluation parsing
-
-Location:
-
-`src/Ensemble.E0.Harness/Evidence/E0AExistingEvidenceEvaluationSealer.cs`
-
-Finding: wrongly typed contract values or malformed Unicode can escape the normal CLI/evaluation failure translation.
-
-Correction intent: validate field types and narrowly translate decoding failures before any evaluation artifact is written.
-
-### P-05 — P3 — Spend robustness / pricing assumptions
-
-Location:
-
-`src/Ensemble.E0.Harness/Run/E0ASpendLedger.cs`
-
-Finding: unexpected reported usage above the long-context threshold terminates the run but may still be estimated using standard-tier pricing assumptions.
-
-Correction intent: either apply the relevant verified pricing tier or explicitly mark the estimate outside its valid pricing assumptions. Do not invent current provider prices. Pricing facts remain subject to the existing provider-pricing verification/staleness discipline.
-
-## Final dependency order
-
-With Patch Group 1 already complete, remaining implementation order is:
-
-1. **Patch Group 2 — Provider decoding and timeout:** E-03, E-07.
-2. **Patch Group 3 — Receipt provenance and spend:** E-06, P-02, P-05.
-3. **Patch Group 4 — Evidence authority and evaluation:** I-02, I-03, I-04, P-04.
-4. **Patch Group 5 — Parser and checkout hardening:** E-04, E-05, I-05.
-5. **Patch Group 6 — Test hygiene and continuity cleanup:** P-01, P-03, followed by the final regression-gap review.
-
-Patch Group 4 is the third remaining implementation group after Patch Group 1; the project deletion quota applies there only when the correction naturally makes genuinely superseded/redundant material obsolete. Useful material must not be deleted merely to satisfy a numeric quota.
-
-## Implementation progress
-
-- Patch Group 1 — E-01/E-02: **IMPLEMENTED; RECURSIVE STATIC AUDIT COMPLETE**. Executable/test checkpoint `171881c1247e1c466fec6abd3e92335a055eb4f2`.
-- Patch Group 2 — E-03/E-07: **IMPLEMENTED; RECURSIVE STATIC AUDIT COMPLETE**. Executable/test checkpoint `f37cb8ec41e50d50aba027286326a10677db1040`. Evidence: `docs/evidence/E0A_POST_AUDIT_HARDENING_PATCH_GROUP_2_IMPLEMENTATION.md`.
-- Patch Group 3 — E-06/P-02/P-05: **IMPLEMENTED; RECURSIVE STATIC AUDIT COMPLETE**. Executable/test checkpoint `c3a6846d267ce3f93a3e80a297057d4a7a14d99d`. Evidence: `docs/evidence/E0A_POST_AUDIT_HARDENING_PATCH_GROUP_3_IMPLEMENTATION.md`.
-- Patch Group 4 — I-02/I-03/I-04/P-04: **IMPLEMENTED; RECURSIVE STATIC AUDIT COMPLETE**. Executable/test checkpoint `2a55319820587b63da13377a775150b90c24b107`. Evidence: `docs/evidence/E0A_POST_AUDIT_HARDENING_PATCH_GROUP_4_IMPLEMENTATION.md`.
-- Patch Group 5 — E-04/E-05/I-05: **NEXT**.
-- Grouped native Windows ARM64 validation: **PENDING AFTER ALL AUTHORIZED GROUPS**.
+All six per-group recursive static audits are complete.
 
 ## Final regression-gap obligations
 
-Before hardening can be declared complete, ensure the test surface covers where still applicable and not already proven by an exact existing test:
+The original final-gap list is fully mapped to exact existing or added regression coverage:
 
-- three-role failure matrix;
-- failures after previously accepted Turns;
-- malformed receipts;
-- duplicate Integrity concerns;
-- refusal/incomplete responses;
-- malformed Unicode;
-- cancellation boundaries;
-- genuinely stalled-stream cancellation;
-- host timeout composition;
-- failed-response usage preservation;
-- extreme pricing;
-- out-of-tier reported usage;
-- concurrent run creation;
-- `RunId` reuse;
-- runtime-summary tampering;
-- evaluation failure behavior;
-- full causal replay from saved run artifacts including nonempty controls and Add/Supersede/Deactivate;
-- checkout verification from subdirectories;
-- malformed evaluation-seal inputs.
+- three-role failure matrix — Group 6 final-gap suite;
+- failures after previously accepted Turns — Group 6 final-gap suite;
+- malformed/mismatched configured receipts — Group 6 final-gap suite plus configured-boundary coverage;
+- duplicate Integrity concerns — Group 1 run-driver coverage;
+- refusal/incomplete responses — Groups 2–3 provider/receipt coverage;
+- malformed Unicode — Groups 2, 4, 5;
+- cancellation boundaries — Groups 1–2 and existing driver coverage;
+- genuinely stalled-stream cancellation — Group 1 wire regression;
+- host timeout composition — Group 2 readiness regression;
+- failed-response usage preservation — Group 3;
+- extreme pricing — Group 3;
+- out-of-tier reported usage — Group 3;
+- concurrent run creation — Group 4;
+- `RunId` reuse — Group 4;
+- runtime-summary/runtime-artifact tampering — Group 4;
+- evaluation failure behavior — Group 4;
+- saved causal reconstruction including nonempty controls and Add/Supersede/Deactivate — Group 6 final-gap suite;
+- checkout verification from subdirectories — Group 5;
+- malformed evaluation-seal inputs — Group 4.
+
+No redundant duplicate tests were added where an exact existing regression already proved the obligation.
+
+## Final static audit result
+
+The final all-group cross-component/falsification audit is recorded in:
+
+`docs/evidence/E0A_POST_AUDIT_HARDENING_FINAL_STATIC_CLOSURE.md`
+
+Result:
+
+- all authorized findings implemented;
+- all listed final regression obligations mapped;
+- one complete recursive cross-component pass found zero new material correctness defects, zero authority conflicts, and zero worthwhile in-scope source/test simplifications;
+- cumulative Core-source hardening delta is exactly `src/Ensemble.E0.Core/Fixture/StrictJsonPreflight.cs` for E-04;
+- Proposal 0.15 remains unchanged.
+
+This is static evidence only.
 
 ## Validation boundary
 
-This record makes no compiler, runtime, native Windows ARM64, package, Store, or provider-execution claim.
+No compiler, test-runtime, native Windows ARM64, package, Store, or provider-execution claim is made for `d18ec637bb8881a38db9cfeb1420f093a994ac17` by this record.
+
+No GitHub Actions workflow result exists for that executable/test checkpoint.
+
+Grouped native validation is now the sole next executable-authority gate and must use:
+
+- `docs/evidence/DIRECTOR_WINDOWS_ARM64_VALIDATION_HOST_BEHAVIORS.md`;
+- `docs/handoff/E0A_POST_AUDIT_HARDENING_GROUPED_NATIVE_ARM64_VALIDATION_HANDOFF.md`.
+
+Only successful Director-machine evidence may replace the prior machine-tested executable authority `1cfdb3aa22abce62a5bd48e80706407670d1c6a9` or make PR #39 eligible for final merge review.
 
 Real provider execution remains prohibited. Do not access or use `OPENAI_API_KEY`; do not authorize network inference or provider spend.
 
 Do not enter E0-B through E0-G, product Application/persistence/UI, Stage/Scene-ending semantics, Context optimization, Windows AI/NPU, MSIX/WACK, Store/Partner Center, or later ODR scope.
-
-After all hardening groups complete recursive static audit, the exact final executable/test checkout must undergo grouped native Windows ARM64 validation on the Director machine using:
-
-`docs/evidence/DIRECTOR_WINDOWS_ARM64_VALIDATION_HOST_BEHAVIORS.md`
-
-Only that later native evidence may replace the prior machine-tested executable authority or permit promotion of this hardening branch toward `main`.
