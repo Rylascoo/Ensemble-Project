@@ -36,7 +36,7 @@ These remain subject to `CURRENT_STATE.md`; this index does not independently ma
 ## Repository tooling / history
 
 - `.github/workflows/README.md` — CI authority explanation.
-- `docs/ORACLE_INDEX_GUARD.md` and `docs/evidence/ORACLE_INDEX.md` — oracle-documentation drift mechanism.
+- `docs/ORACLE_INDEX_GUARD.md` and `tools/oracle-index.py` — documented-oracle assertion-coverage regression guard.
 - `tools/document-census.py` — active/archive reference census.
 - `docs/evidence/archive/README.md` — evidence archive semantics.
 - `docs/handoff/README.md` — temporary handoff semantics; no live handoff unless current authority names one.

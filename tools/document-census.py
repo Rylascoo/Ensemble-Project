@@ -15,9 +15,7 @@ GENERATED_OUTPUTS = {
     "docs/DOCUMENT_INDEX.md",
     "docs/DOCUMENT_INDEX.json",
 }
-REFERENCE_EXCLUDED = GENERATED_OUTPUTS | {
-    "docs/evidence/ORACLE_INDEX.md",
-}
+REFERENCE_EXCLUDED = GENERATED_OUTPUTS
 ARCHIVE_PREFIXES = ("docs/evidence/archive/",)
 
 
@@ -126,7 +124,7 @@ def build() -> dict[str, object]:
     active = [entry for entry in entries if entry["surface"] == "active"]
     archive = [entry for entry in entries if entry["surface"] == "archive"]
     return {
-        "schema": "ensemble.repository-document-census.v4",
+        "schema": "ensemble.repository-document-census.v5",
         "head": git("rev-parse", "HEAD"),
         "inventory_count": len(entries),
         "active_inventory_count": len(active),

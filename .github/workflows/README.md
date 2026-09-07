@@ -6,8 +6,8 @@ Job 1, **Compiler gate (ARM64 cross-compile)**, IS compiler authority and may be
 
 Job 2, **Core tests (required x64 regression, non-authoritative)**, is a required semantic regression gate executed on Linux x64. A failure blocks the workflow; a success means only `Core did not regress on x64`. It may never be promoted to native Windows ARM64 runtime evidence and does not substitute for, or inflate, another validation rung.
 
-Job 3, **Oracle documentation drift**, guards the generated oracle inventory and rejects lost scanned assertion coverage. It is repository-integrity evidence only; it supplies no behavioral, compiler, runtime, hardware, packaging, or Store authority.
+Job 3, **Oracle assertion coverage**, scans documented 64-hex oracle values and the existing lexical MSTest equality-assertion pattern, then rejects loss of previously scanned assertion coverage against the first parent and push/PR baseline. It does not maintain a committed document-path inventory, so evidence archive moves do not create meaningless oracle-path drift. It is repository-integrity evidence only; it supplies no behavioral, compiler, runtime, hardware, packaging, or Store authority.
 
-Job 4, **Document reference census**, deterministically reports repository-document inventory, last-modifying commits, and exact inbound path references using `tools/document-census.py`. It supports evidence/archive hygiene and document-system audits. It is repository-integrity information only and supplies no behavioral or validation authority.
+Job 4, **Document reference census**, deterministically reports repository-document inventory, last-modifying commits, active/archive inbound references, and conservative evidence-archive candidates using `tools/document-census.py`. It supports evidence/archive hygiene and document-system audits. It is repository-integrity information only and supplies no behavioral or validation authority.
 
 Target execution of the pinned Harness remains a native Windows ARM64 validation rung. None of these CI jobs substitutes for that execution evidence.

@@ -37,8 +37,8 @@ jobs:
           dotnet-version: '9.0.317'
       - run: dotnet test tests/Ensemble.E0.Core.Tests/Ensemble.E0.Core.Tests.csproj -c Release
 
-  oracle-documentation-drift:
-    name: Oracle documentation drift
+  oracle-assertion-coverage:
+    name: Oracle assertion coverage
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -47,7 +47,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Regenerate index and reject drift or lost assertions
+      - name: Reject lost documented-oracle assertion coverage
         env:
           BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
         run: |

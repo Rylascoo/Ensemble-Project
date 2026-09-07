@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""Index documented hashes and lexical MSTest equality assertions; no test execution."""
+"""Fail closed if a documented 64-hex oracle loses scanned MSTest assertion coverage."""
+
+from __future__ import annotations
 
 import argparse
 import collections
@@ -9,40 +11,40 @@ import subprocess
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-OUTPUT = 'docs/evidence/ORACLE_INDEX.md'
 HASH = re.compile(r'(?<![0-9a-fA-F])[0-9a-fA-F]{64}(?![0-9a-fA-F])')
-# Keep strings intact and discard comments before examining assertion operands.
 TOKEN = re.compile(
     r'//[^\n]*|/\*.*?\*/|@"(?:""|[^"])*"|"(?:\\.|[^"\\])*"'
     r"|'(?:\\.|[^'\\])*'|[A-Za-z_][A-Za-z_0-9]*|[^\s]", re.S)
 
 
-def git(*args):
+def git(*args: str) -> bytes:
     return subprocess.check_output(['git', *args], cwd=ROOT)
 
 
-def hashes(text):
+def hashes(text: str) -> set[str]:
     return {match.group().lower() for match in HASH.finditer(text)}
 
 
-def asserted_hashes(text):
+def asserted_hashes(text: str) -> set[str]:
     """Recognize literal/const-string operands of MSTest AreEqual calls.
 
-    This deliberately is a lexical inventory, not a C# compiler or a claim that
-    a test executes. Other assertion styles require a scanner extension.
+    This is deliberately lexical inventory, not C# semantic analysis or proof
+    that a test executes. Other assertion styles require a scanner extension.
     """
-    tokens = [m.group() for m in TOKEN.finditer(text)
-              if not m.group().startswith(('//', '/*'))]
-    constants = {}
-    for i in range(len(tokens) - 4):
-        if tokens[i:i + 2] == ['const', 'string'] and tokens[i + 3] == '=':
-            end = i + 4
+    tokens = [
+        match.group() for match in TOKEN.finditer(text)
+        if not match.group().startswith(('//', '/*'))
+    ]
+    constants: dict[str, list[str]] = {}
+    for index in range(len(tokens) - 4):
+        if tokens[index:index + 2] == ['const', 'string'] and tokens[index + 3] == '=':
+            end = index + 4
             while end < len(tokens) and tokens[end] != ';':
                 end += 1
-            constants[tokens[i + 2]] = tokens[i + 4:end]
+            constants[tokens[index + 2]] = tokens[index + 4:end]
 
-    def resolve(operands, seen=frozenset()):
-        found = set()
+    def resolve(operands: list[str], seen: frozenset[str] = frozenset()) -> set[str]:
+        found: set[str] = set()
         for token in operands:
             if token.startswith(('"', '@"')):
                 found.update(hashes(token))
@@ -50,15 +52,17 @@ def asserted_hashes(text):
                 found.update(resolve(constants[token], seen | {token}))
         return found
 
-    found = set()
-    for i in range(len(tokens) - 4):
-        if (tokens[i] not in ('Assert', 'CollectionAssert')
-                or tokens[i + 1:i + 4] != ['.', 'AreEqual', '(']):
+    found: set[str] = set()
+    for index in range(len(tokens) - 4):
+        if (
+            tokens[index] not in ('Assert', 'CollectionAssert')
+            or tokens[index + 1:index + 4] != ['.', 'AreEqual', '(']
+        ):
             continue
         depth = 0
-        argument = []
-        arguments = []
-        for token in tokens[i + 4:]:
+        argument: list[str] = []
+        arguments: list[list[str]] = []
+        for token in tokens[index + 4:]:
             if token == ')' and depth == 0:
                 arguments.append(argument)
                 break
@@ -71,114 +75,123 @@ def asserted_hashes(text):
             elif token in (')', ']', '}'):
                 depth -= 1
             argument.append(token)
-        # Message arguments are not assertions of an oracle value.
         for operand in arguments[:2]:
             found.update(resolve(operand))
     return found
 
 
-def scan():
-    documents = collections.defaultdict(set)
-    assertions = collections.defaultdict(set)
-    paths = git('ls-files', '-z', '--cached', '--others', '--exclude-standard',
-                '--', 'docs/', 'tests/').decode().split('\0')
-    for name in sorted(set(paths) - {'', OUTPUT}):
-        path = ROOT / name
-        if not path.is_file() or {'bin', 'obj'} & set(path.parts):
-            continue
-        try:
-            text = path.read_text(encoding='utf-8-sig')
-        except UnicodeDecodeError:
-            continue
-        if '\0' in text:
+def resolve_commit(ref: str) -> str:
+    return git('rev-parse', '--verify', f'{ref}^{{commit}}').decode().strip()
+
+
+def worktree_paths() -> list[str]:
+    raw = git(
+        'ls-files', '-z', '--cached', '--others', '--exclude-standard',
+        '--', 'docs/', 'tests/'
+    )
+    return sorted({name for name in raw.decode().split('\0') if name})
+
+
+def ref_paths(commit: str) -> list[str]:
+    raw = git('ls-tree', '-r', '--name-only', '-z', commit, '--', 'docs/', 'tests/')
+    return sorted({name for name in raw.decode().split('\0') if name})
+
+
+def read_text(name: str, commit: str | None) -> str | None:
+    try:
+        parts = set(pathlib.PurePosixPath(name).parts)
+        if {'bin', 'obj'} & parts:
+            return None
+        if commit is None:
+            path = ROOT / name
+            if not path.is_file():
+                return None
+            data = path.read_bytes()
+        else:
+            data = git('show', f'{commit}:{name}')
+        text = data.decode('utf-8-sig')
+    except (OSError, UnicodeDecodeError, subprocess.CalledProcessError):
+        return None
+    return None if '\0' in text else text
+
+
+def scan(ref: str | None = None) -> dict[str, tuple[set[str], set[str]]]:
+    commit = resolve_commit(ref) if ref is not None else None
+    names = worktree_paths() if commit is None else ref_paths(commit)
+    documents: collections.defaultdict[str, set[str]] = collections.defaultdict(set)
+    assertions: collections.defaultdict[str, set[str]] = collections.defaultdict(set)
+    for name in names:
+        text = read_text(name, commit)
+        if text is None:
             continue
         if name.startswith('docs/'):
             for value in hashes(text):
                 documents[value].add(name)
-        elif path.suffix == '.cs':
+        elif name.startswith('tests/') and name.endswith('.cs'):
             for value in asserted_hashes(text):
                 assertions[value].add(name)
-    return {value: (documents[value], assertions[value]) for value in documents}
+    values = documents.keys() | assertions.keys()
+    return {value: (documents[value], assertions[value]) for value in values}
 
 
-def render(rows):
-    lines = ['# Oracle index', '',
-             'Generated by `python tools/oracle-index.py`; do not edit by hand.',
-             'ASSERTED denotes a scanned equality assertion, not execution or validation authority.',
-             '', '| hash (first 16 chars) | full hash | documents containing it | test files asserting it | status |',
-             '| --- | --- | --- | --- | --- |']
-    for value, (documents, tests) in sorted(rows.items()):
-        cells = [' <br> '.join(f'`{p}`' for p in sorted(paths)) or '-'
-                 for paths in (documents, tests)]
-        status = 'ASSERTED' if tests else 'DOCUMENT-ONLY'
-        lines.append(f'| `{value[:16]}` | `{value}` | {cells[0]} | {cells[1]} | {status} |')
-    return '\n'.join(lines) + '\n'
-
-
-def parse_index(text):
-    rows = {}
-    for line in text.splitlines():
-        if not line.startswith('| `'):
+def assertion_regressions(
+    before: dict[str, tuple[set[str], set[str]]],
+    after: dict[str, tuple[set[str], set[str]]],
+    label: str,
+) -> list[str]:
+    failures: list[str] = []
+    for value, (before_documents, before_tests) in sorted(before.items()):
+        if not before_documents or not before_tests:
             continue
-        cells = [cell.strip() for cell in line.strip('|').split('|')]
-        if len(cells) != 5 or not HASH.fullmatch(cells[1].strip('`')):
-            raise ValueError(f'Malformed index row: {line}')
-        value = cells[1].strip('`').lower()
-        documents, tests = [set(re.findall(r'`([^`]+)`', cell)) for cell in cells[2:4]]
-        if value in rows or cells[4] != ('ASSERTED' if tests else 'DOCUMENT-ONLY'):
-            raise ValueError(f'Inconsistent index row: {value}')
-        rows[value] = (documents, tests)
-    return rows
-
-
-def committed_index(ref, required=False):
-    # Resolve the revision separately: a missing revision must not bypass checks.
-    commit = git('rev-parse', '--verify', f'{ref}^{{commit}}').decode().strip()
-    exists = git('ls-tree', '--name-only', commit, '--', OUTPUT).decode().strip()
-    if not exists:
-        if required:
-            raise ValueError(f'{OUTPUT} is not committed at {ref}')
-        return None
-    return git('show', f'{commit}:{OUTPUT}').decode('utf-8-sig').replace('\r\n', '\n')
-
-
-def differences(old, new, regressions_only=False):
-    failures = []
-    for value in sorted(old.keys() | new.keys()):
-        before = old.get(value, (set(), set()))
-        after = new.get(value, (set(), set()))
-        regressed = bool(before[1]) and not after[1]
-        if before == after or (regressions_only and not regressed):
+        _, after_tests = after.get(value, (set(), set()))
+        if after_tests:
             continue
-        files = (before[0] ^ after[0]) | (before[1] ^ after[1])
-        reason = 'ASSERTED lost its assertion coverage' if regressed else 'index drift'
-        for path in sorted(files):
-            failures.append(f'{reason}: hash {value}; changed file {path}')
+        failures.append(
+            f'{label}: documented ASSERTED hash {value} lost all scanned assertion coverage'
+        )
     return failures
 
 
-def main():
+def parent_ref() -> str | None:
+    try:
+        return resolve_commit('HEAD^')
+    except subprocess.CalledProcessError:
+        return None
+
+
+def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--check', action='store_true', help='regenerate and compare with HEAD')
-    parser.add_argument('--baseline', help='also reject assertion loss against this prior Git revision')
+    parser.add_argument(
+        '--check', action='store_true',
+        help='reject assertion-coverage loss against the first parent of HEAD'
+    )
+    parser.add_argument(
+        '--baseline',
+        help='also reject assertion-coverage loss against this prior Git revision'
+    )
     args = parser.parse_args()
-    rows = scan()
-    generated = render(rows)
-    failures = []
+
+    current = scan()
+    failures: list[str] = []
+
     if args.check:
-        committed = committed_index('HEAD', required=True)
-        failures.extend(differences(parse_index(committed), rows))
-        if committed != generated and not failures:
-            failures.append(f'Index formatting drift: changed file {OUTPUT}')
+        parent = parent_ref()
+        if parent is not None:
+            failures.extend(assertion_regressions(scan(parent), current, f'parent {parent}'))
+
     if args.baseline:
-        previous = committed_index(args.baseline)
-        if previous is not None:
-            failures.extend(differences(parse_index(previous), rows, regressions_only=True))
-    destination = ROOT / OUTPUT
-    destination.parent.mkdir(parents=True, exist_ok=True)
-    destination.write_text(generated, encoding='utf-8', newline='\n')
-    asserted = sum(bool(tests) for _, tests in rows.values())
-    print(f'{asserted} ASSERTED, {len(rows) - asserted} DOCUMENT-ONLY')
+        baseline = resolve_commit(args.baseline)
+        if baseline != resolve_commit('HEAD'):
+            failures.extend(assertion_regressions(scan(baseline), current, f'baseline {baseline}'))
+
+    documented = {value for value, (documents, _) in current.items() if documents}
+    asserted = {
+        value for value, (documents, tests) in current.items()
+        if documents and tests
+    }
+    print(f'ORACLE_GUARD_DOCUMENTED_HASHES={len(documented)}')
+    print(f'ORACLE_GUARD_ASSERTED={len(asserted)}')
+    print(f'ORACLE_GUARD_DOCUMENT_ONLY={len(documented - asserted)}')
     for failure in sorted(set(failures)):
         print(f'ERROR: {failure}', file=sys.stderr)
     return 1 if failures else 0
@@ -186,7 +199,7 @@ def main():
 
 if __name__ == '__main__':
     try:
-        sys.exit(main())
+        raise SystemExit(main())
     except (OSError, ValueError, subprocess.CalledProcessError) as error:
         print(f'ERROR: {error}', file=sys.stderr)
-        sys.exit(1)
+        raise SystemExit(1)
