@@ -26,9 +26,9 @@ Contract: `docs/E_R1_REPOSITORY_TOOLING_WORKFLOW_RESTRUCTURE.md`.
 
 Phase 0 **COMPLETE**: baseline/tooling/document assumptions reconciled and falsified against the repository.
 
-Phase 1 **COMPLETE** at `0b267f9eadec603e934b55283c6d2801953a87ae`: navigation, validation, hypothesis, and archive roles separated; evidence lifecycle normalized by authority-root reachability. Validation gate run `34168768724` PASS; document census reports `UNREACHABLE_EVIDENCE=0`. Active evidence is limited to the current native validation, its Director-host contract, and H1 convergence evidence reachable through the program roadmap.
+Phase 1 **COMPLETE** at `0b267f9eadec603e934b55283c6d2801953a87ae`: navigation, validation, hypothesis, and archive roles separated; evidence lifecycle normalized by authority-root reachability. Validation gate `34168768724` PASS; census `UNREACHABLE_EVIDENCE=0`. Active evidence is the current native validation, its Director-host contract, and H1 convergence evidence reachable through the program roadmap.
 
-Phase 2 **ACTIVE**: convert objective repository/project hygiene laws into deterministic source/static checks and make violations CI-blocking without claiming runtime authority.
+Phase 2 **ACTIVE**: make objective repository/project hygiene laws deterministic and CI-blocking without inflating validation authority.
 
 Completed pre-restructure branch is archived at `archive/repo-pre-restructure-closure`; GitHub plan-dependent `main` protection remains deferred.
 
