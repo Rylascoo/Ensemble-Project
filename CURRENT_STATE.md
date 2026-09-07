@@ -12,28 +12,30 @@ Runtime: **E0-A Experimental Harness — Phase B.** Engineering: **E-R1 reposito
 
 Current E0-A architecture: `docs/blueprint/E0A_PHASE_B_REFERENCE_RUN_ENVELOPE.md` plus `docs/blueprint/E0A_PHASE_B_GEMINI_NORMATIVE_REFERENCE_AMENDMENT.md`.
 
-Exact machine-tested checkout: `cc395a25162a0a682796bffb44060c799df0db32`; tag `validation/e0a-pre-restructure-closure-native-arm64`; evidence `docs/evidence/E0A_PRE_RESTRUCTURE_CLOSURE_NATIVE_ARM64_VALIDATION.md`.
-
-Director Windows ARM64: Core 622/622 PASS; Harness 103/103 PASS; fresh `win-arm64` build and fixture smokes PASS; credentialless Gemini refusal PASS; no provider-network execution, inference, or spend. Cloud ARM64-target builds are compiler authority only; x64 Core tests are required regressions, not native-runtime authority.
+Machine-tested checkout: `cc395a25162a0a682796bffb44060c799df0db32`; tag `validation/e0a-pre-restructure-closure-native-arm64`; evidence `docs/evidence/E0A_PRE_RESTRUCTURE_CLOSURE_NATIVE_ARM64_VALIDATION.md`. Director Windows ARM64: Core 622/622, Harness 103/103, fresh build/smokes and credentialless Gemini refusal PASS; no provider network/inference/spend.
 
 ## Provider boundary
 
-Google Gemini API is the sole current E0-A provider method; historical OpenAI executable support is retired. Only `CREATIVE-NONE` is authorized on the Gemini live path. Real credentials, `countTokens`, provider-network execution, inference, and spend remain **NOT AUTHORIZED**. Provider/account tier, availability, quota, pricing, and data-use terms require fresh verification before any authorized live run.
+Google Gemini API is the sole current E0-A provider method; historical OpenAI executable support is retired. Only `CREATIVE-NONE` is authorized on the Gemini live path. Real credentials, `countTokens`, provider-network execution, inference, and spend remain **NOT AUTHORIZED**. Volatile provider facts require fresh verification before any authorized live run.
 
 ## E-R1
 
 Contract: `docs/E_R1_REPOSITORY_TOOLING_WORKFLOW_RESTRUCTURE.md`.
 
-Phase 0 **COMPLETE**: baseline/tooling/document assumptions reconciled and falsified against the repository.
+Phase 0 **COMPLETE**: baseline/tooling/document assumptions reconciled.
 
-Phase 1 **COMPLETE** at `0b267f9eadec603e934b55283c6d2801953a87ae`: navigation, validation, hypothesis, and archive roles separated; evidence lifecycle normalized by authority-root reachability. Validation gate `34168768724` PASS; census `UNREACHABLE_EVIDENCE=0`. Active evidence is the current native validation, its Director-host contract, and H1 convergence evidence reachable through the program roadmap.
+Phase 1 **COMPLETE** at `0b267f9eadec603e934b55283c6d2801953a87ae`; gate `34168768724` PASS; active evidence authority-root reachability clean.
 
-Phase 2 **ACTIVE**: make objective repository/project hygiene laws deterministic and CI-blocking without inflating validation authority.
+Phase 2 **COMPLETE** at `5723d567291860e9c9192976a82a4f53a70ece4e`; gate `34169337847` PASS. Project graph, ARM64 Harness identity, warnings/determinism, current-state cap, retired OpenAI source/test surface, scaffolding, handoff authority, oracle coverage, and evidence reachability are CI-blocking.
 
-Completed pre-restructure branch is archived at `archive/repo-pre-restructure-closure`; GitHub plan-dependent `main` protection remains deferred.
+Phase 3 **COMPLETE** at `e5df6381513b1730cfc7db895e8cb23462567ba0`; gate `34169478970` PASS. Minimal artifact lifecycle, historical/non-authoritative navigation, and temporary-handoff rules are normalized without mass-rewriting history.
+
+Phase 4 **ACTIVE**: reviewed GitHub Actions are being migrated from deprecated Node-20 major tags to exact Node-24 commit pins; .NET remains 9.0.317.
+
+Pre-restructure branch is archived at `archive/repo-pre-restructure-closure`; plan-dependent `main` protection remains deferred.
 
 ## Boundary / next
 
-E-R1 may change docs, repository structure, static law checks, and CI/tooling. It does not authorize runtime/product/provider-policy changes, .NET 10, real Gemini execution, E0-B+, app/UI/persistence, Windows AI/NPU, packaging, WACK, Store, or design-lane decisions.
+E-R1 may change docs, repository structure, static checks, and CI/tooling. It does not authorize runtime/provider-policy changes, .NET 10, real Gemini execution, E0-B+, app/UI/persistence, Windows AI/NPU, packaging, WACK, Store, or design-lane decisions.
 
-Next: complete and recursively falsify Phase 2 mechanical repository-law enforcement, then proceed to Phase 3 workflow/artifact normalization.
+Next: finish/falsify Phase 4 CI hygiene, then enter Phase 5 recursive closure and promotion audit.
