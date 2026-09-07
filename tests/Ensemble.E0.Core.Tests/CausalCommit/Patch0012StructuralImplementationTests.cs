@@ -154,19 +154,17 @@ public sealed class Patch0012StructuralImplementationTests
             pipeline,
             E0TakeDisposition.Rejected,
             "TAKE-REPLAY-REJECTED");
-        var rejectedEvent = ConstructNonPublic<E0CausalCommit>(
+        var rejectedEvent = ConstructInvalidEvent(
+            state.StateHash,
             result.Commit.CommitId,
-            result.Commit.ParentStateHash,
-            result.Commit.ResultStateHash,
             rejected,
             result.Commit.RecordMaterializations);
         Assert.Throws<E0CausalCommitException>(() =>
             DeterministicCausalCommit.Replay(state, rejectedEvent));
 
-        var missingMaterializationEvent = ConstructNonPublic<E0CausalCommit>(
+        var missingMaterializationEvent = ConstructInvalidEvent(
+            state.StateHash,
             result.Commit.CommitId,
-            result.Commit.ParentStateHash,
-            result.Commit.ResultStateHash,
             result.Commit.Take,
             E0RecordMaterializationSet.Bind(ImmutableArray<E0RecordMaterialization>.Empty));
         Assert.Throws<E0CausalCommitException>(() =>
@@ -309,6 +307,39 @@ public sealed class Patch0012StructuralImplementationTests
         return (ProductionState)constructor.Invoke(arguments);
     }
 
+    private static E0CausalCommit ConstructInvalidEvent(
+        StateHash sourceStateHash,
+        CommitId commitId,
+        E0Take take,
+        E0RecordMaterializationSet materializations)
+    {
+        // The forged cases are rejected before result-hash verification. Supplying the
+        // same source hash for every StateHash constructor slot lets this plumbing bind
+        // by parameter type rather than private constructor declaration order.
+        var constructor = typeof(E0CausalCommit)
+            .GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic)
+            .Single(candidate =>
+            {
+                var types = candidate.GetParameters().Select(parameter => parameter.ParameterType).ToArray();
+                return types.Length == 5 &&
+                       types.Count(type => type == typeof(StateHash)) == 2 &&
+                       types.Contains(typeof(CommitId)) &&
+                       types.Contains(typeof(E0Take)) &&
+                       types.Contains(typeof(E0RecordMaterializationSet));
+            });
+        var arguments = constructor.GetParameters()
+            .Select(parameter =>
+                parameter.ParameterType == typeof(StateHash)
+                    ? (object)sourceStateHash
+                    : parameter.ParameterType == typeof(CommitId)
+                        ? commitId
+                        : parameter.ParameterType == typeof(E0Take)
+                            ? take
+                            : materializations)
+            .ToArray();
+        return (E0CausalCommit)constructor.Invoke(arguments);
+    }
+
     private static byte[] InvokeCanonicalCommitPayload(
         CommitId commitId,
         E0Take take,
@@ -332,13 +363,5 @@ public sealed class Patch0012StructuralImplementationTests
                        });
             });
         return (byte[])method.Invoke(null, new object[] { commitId, take, materializations })!;
-    }
-
-    private static T ConstructNonPublic<T>(params object[] args)
-    {
-        var constructor = typeof(T)
-            .GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic)
-            .Single(candidate => candidate.GetParameters().Length == args.Length);
-        return (T)constructor.Invoke(args);
     }
 }
