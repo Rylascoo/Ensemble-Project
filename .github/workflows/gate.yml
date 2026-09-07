@@ -1,0 +1,33 @@
+name: Validation gate
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  oracle-documentation-drift:
+    name: Oracle documentation drift
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Regenerate index and reject drift or lost assertions
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+        run: |
+          baseline="$BASE_SHA"
+          if [[ -z "$baseline" || "$baseline" =~ ^0+$ ]]; then
+            baseline=origin/main
+          fi
+          python tools/oracle-index.py --check --baseline "$baseline"
