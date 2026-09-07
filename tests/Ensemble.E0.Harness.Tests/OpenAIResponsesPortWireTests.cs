@@ -49,8 +49,14 @@ public sealed class OpenAIResponsesPortWireTests
         var port = new OpenAIResponsesPort(http, "test-secret");
         var attempt = PerformerAttempt("E0A-WIRE-TOKENS-WRONG-TYPE");
 
-        await Assert.ThrowsAsync<E0AHarnessException>(async () =>
-            _ = await port.CountInputTokensAsync(attempt, CancellationToken.None));
+        try
+        {
+            _ = await port.CountInputTokensAsync(attempt, CancellationToken.None);
+            Assert.Fail("Wrongly typed provider token counts must fail inside the Harness domain.");
+        }
+        catch (E0AHarnessException)
+        {
+        }
     }
 
     [TestMethod]
