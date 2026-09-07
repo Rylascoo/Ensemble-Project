@@ -9,11 +9,14 @@ import subprocess
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-GENERATED = {
+GENERATED_OUTPUTS = {
     "docs/DOCUMENT_CENSUS.md",
     "docs/DOCUMENT_CENSUS.json",
     "docs/DOCUMENT_INDEX.md",
     "docs/DOCUMENT_INDEX.json",
+}
+REFERENCE_EXCLUDED = GENERATED_OUTPUTS | {
+    "docs/evidence/ORACLE_INDEX.md",
 }
 ARCHIVE_PREFIXES = ("docs/evidence/archive/",)
 
@@ -37,7 +40,7 @@ def inventory(paths: list[str]) -> list[str]:
     wanted = []
     for path in paths:
         if path in {"README.md", "CURRENT_STATE.md"} or path.startswith("docs/"):
-            if path not in GENERATED:
+            if path not in GENERATED_OUTPUTS:
                 wanted.append(path)
     return sorted(wanted)
 
@@ -68,7 +71,7 @@ def build() -> dict[str, object]:
     docs = inventory(tracked)
     text_sources: dict[str, str] = {}
     for source in tracked:
-        if source in GENERATED:
+        if source in REFERENCE_EXCLUDED:
             continue
         text = read_text(source)
         if text is not None:
@@ -107,6 +110,7 @@ def build() -> dict[str, object]:
                 "bytes": len(raw),
                 "lines": len(text.splitlines()),
                 "last_commit": last_commit(path),
+                "reference_source_excluded": path in REFERENCE_EXCLUDED,
                 "inbound_exact_path_count": len(full_sources),
                 "inbound_exact_path_sources": full_sources,
                 "inbound_active_exact_path_count": len(active_full_sources),
@@ -125,13 +129,22 @@ def build() -> dict[str, object]:
     active = [entry for entry in entries if entry["surface"] == "active"]
     archive = [entry for entry in entries if entry["surface"] == "archive"]
     return {
-        "schema": "ensemble.repository-document-census.v2",
+        "schema": "ensemble.repository-document-census.v3",
         "head": git("rev-parse", "HEAD"),
         "inventory_count": len(entries),
         "active_inventory_count": len(active),
         "archive_inventory_count": len(archive),
+        "reference_excluded_sources": sorted(REFERENCE_EXCLUDED),
         "entries": entries,
     }
+
+
+def is_archive_candidate(entry: dict[str, object]) -> bool:
+    return (
+        entry["surface"] == "active"
+        and entry["inbound_active_exact_path_count"] == 0
+        and entry["inbound_active_unique_basename_count"] == 0
+    )
 
 
 def print_summary(report: dict[str, object]) -> None:
@@ -139,13 +152,13 @@ def print_summary(report: dict[str, object]) -> None:
     assert isinstance(entries, list)
     active = [entry for entry in entries if entry["surface"] == "active"]
     archive = [entry for entry in entries if entry["surface"] == "archive"]
-    zero_active = [entry for entry in active if entry["inbound_active_exact_path_count"] == 0]
+    candidates = [entry for entry in active if is_archive_candidate(entry)]
     print(f"DOCUMENT_CENSUS_HEAD\t{report['head']}")
     print(f"DOCUMENT_CENSUS_SCHEMA\t{report['schema']}")
     print(f"DOCUMENT_CENSUS_INVENTORY\t{report['inventory_count']}")
     print(f"DOCUMENT_CENSUS_ACTIVE\t{len(active)}")
     print(f"DOCUMENT_CENSUS_ARCHIVE\t{len(archive)}")
-    print(f"DOCUMENT_CENSUS_ZERO_ACTIVE_EXACT\t{len(zero_active)}")
+    print(f"DOCUMENT_CENSUS_ARCHIVE_CANDIDATES\t{len(candidates)}")
     for entry in active:
         path = str(entry["path"])
         if path.startswith("docs/evidence/"):
@@ -154,11 +167,12 @@ def print_summary(report: dict[str, object]) -> None:
             print(
                 "ACTIVE_EVIDENCE_CENSUS\t"
                 f"{entry['inbound_active_exact_path_count']}\t"
+                f"{entry['inbound_active_unique_basename_count']}\t"
                 f"{entry['inbound_archive_exact_path_count']}\t"
                 f"{path}\t{active_sources}\t{archive_sources}"
             )
-    for entry in zero_active:
-        print(f"ZERO_ACTIVE_EXACT\t{entry['path']}")
+    for entry in candidates:
+        print(f"ARCHIVE_CANDIDATE\t{entry['path']}")
     for entry in archive:
         print(f"ARCHIVE_DOCUMENT\t{entry['path']}")
 
