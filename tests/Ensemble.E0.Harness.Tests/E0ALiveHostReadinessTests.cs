@@ -171,6 +171,14 @@ public sealed class E0ALiveHostReadinessTests
     }
 
     [TestMethod]
+    public void LiveHost_HttpTransportCannotPreemptFrozenAttemptDeadline()
+    {
+        using var http = E0AReferenceRunHost.CreateProviderHttpClient();
+
+        Assert.AreEqual(Timeout.InfiniteTimeSpan, http.Timeout);
+    }
+
+    [TestMethod]
     public void CheckoutGuard_AcceptsExactCleanAuthorityWithNonMaterialUntrackedFile()
     {
         var runner = CleanGitRunner("patch0012-local-edit.txt");

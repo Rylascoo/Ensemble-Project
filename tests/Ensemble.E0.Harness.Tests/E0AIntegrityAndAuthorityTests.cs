@@ -1,3 +1,4 @@
+using System.Text;
 using Ensemble.E0.Core.Access;
 using Ensemble.E0.Core.Cycle;
 using Ensemble.E0.Core.Domain;
@@ -75,6 +76,14 @@ public sealed class E0AIntegrityAndAuthorityTests
         var progress = E0ATestSupport.CandidateReady(E0ATestSupport.Cycle());
         Assert.Throws<E0TurnOrchestrationException>(() =>
             DeterministicE0TurnOrchestrator.EvaluateIntegrity(progress, parsed));
+    }
+
+    [TestMethod]
+    public void ConcernParser_MalformedUnicodeFailsInsideHarnessDomain()
+    {
+        var malformed = Encoding.UTF8.GetBytes("{\"concerns\":[\"\\uD800\"]}");
+
+        Assert.Throws<E0AHarnessException>(() => E0AIntegrityConcernParser.Parse(malformed));
     }
 
     [TestMethod]

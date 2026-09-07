@@ -39,14 +39,18 @@ internal static class ConfiguredRoleAttemptBoundary
 
             receipt.Usage.Validate();
         }
-        else if (receipt.StructuredOutput is not null ||
-                 receipt.StructuredOutputHash is not null ||
-                 receipt.Usage is not null ||
-                 receipt.ResponseId is not null ||
-                 receipt.ReturnedModel is not null ||
-                 string.IsNullOrWhiteSpace(receipt.DiagnosticCode))
+        else
         {
-            throw new E0AHarnessException("E0-A technical provider receipt carries semantic payload.");
+            if (receipt.StructuredOutput is not null ||
+                receipt.StructuredOutputHash is not null ||
+                string.IsNullOrWhiteSpace(receipt.DiagnosticCode) ||
+                (receipt.ResponseId is not null && string.IsNullOrWhiteSpace(receipt.ResponseId)) ||
+                (receipt.ReturnedModel is not null && string.IsNullOrWhiteSpace(receipt.ReturnedModel)))
+            {
+                throw new E0AHarnessException("E0-A technical provider receipt metadata is invalid.");
+            }
+
+            receipt.Usage?.Validate();
         }
 
         return receipt;

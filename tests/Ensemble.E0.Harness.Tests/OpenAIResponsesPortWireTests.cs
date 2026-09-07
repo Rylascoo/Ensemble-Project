@@ -42,6 +42,24 @@ public sealed class OpenAIResponsesPortWireTests
     }
 
     [TestMethod]
+    public async Task InputTokenPreflight_WrongJsonTypeFailsInsideHarnessDomain()
+    {
+        var handler = new RecordingHandler(_ => JsonResponse("{\"input_tokens\":\"321\"}"));
+        using var http = new HttpClient(handler);
+        var port = new OpenAIResponsesPort(http, "test-secret");
+        var attempt = PerformerAttempt("E0A-WIRE-TOKENS-WRONG-TYPE");
+
+        try
+        {
+            _ = await port.CountInputTokensAsync(attempt, CancellationToken.None);
+            Assert.Fail("Wrongly typed provider token counts must fail inside the Harness domain.");
+        }
+        catch (E0AHarnessException)
+        {
+        }
+    }
+
+    [TestMethod]
     public async Task BufferedCompletedResponse_ProducesClosedSuccessReceipt()
     {
         var output = Encoding.UTF8.GetString(E0ATestSupport.IntegrityOutput());
@@ -76,6 +94,37 @@ public sealed class OpenAIResponsesPortWireTests
     }
 
     [TestMethod]
+    public async Task BufferedWrongJsonType_FailsClosedAsTechnicalReceipt()
+    {
+        var responseJson = "{\"status\":7,\"id\":\"resp-wrong-type\",\"model\":\"gpt-5.6-sol\",\"output_text\":\"{}\",\"usage\":{\"input_tokens\":1,\"output_tokens\":1}}";
+        var handler = new RecordingHandler(_ => JsonResponse(responseJson));
+        using var http = new HttpClient(handler);
+        var port = new OpenAIResponsesPort(http, "test-secret");
+        var attempt = IntegrityAttempt("E0A-WIRE-BUFFERED-WRONG-TYPE");
+
+        var receipt = await port.ExecuteAsync(attempt, new CollectingDiagnosticSink(), CancellationToken.None);
+
+        Assert.AreEqual(E0ARoleAttemptOutcome.TechnicalFailure, receipt.Outcome);
+        Assert.IsNull(receipt.StructuredOutput);
+        Assert.AreEqual("malformed-provider-response", receipt.DiagnosticCode);
+    }
+
+    [TestMethod]
+    public async Task BufferedMalformedUnicode_FailsClosedAsTechnicalReceipt()
+    {
+        var responseJson = "{\"status\":\"completed\",\"id\":\"\\uD800\",\"model\":\"gpt-5.6-sol\",\"output_text\":\"{}\",\"usage\":{\"input_tokens\":1,\"output_tokens\":1}}";
+        var handler = new RecordingHandler(_ => JsonResponse(responseJson));
+        using var http = new HttpClient(handler);
+        var port = new OpenAIResponsesPort(http, "test-secret");
+        var attempt = IntegrityAttempt("E0A-WIRE-BUFFERED-UNICODE");
+
+        var receipt = await port.ExecuteAsync(attempt, new CollectingDiagnosticSink(), CancellationToken.None);
+
+        Assert.AreEqual(E0ARoleAttemptOutcome.TechnicalFailure, receipt.Outcome);
+        Assert.IsNull(receipt.StructuredOutput);
+    }
+
+    [TestMethod]
     public async Task StreamingCompletedResponse_UsesCompletedSemanticOutputAndRecordsProvisionalDiagnostics()
     {
         var output = Encoding.UTF8.GetString(E0ATestSupport.PerformerOutput());
@@ -97,6 +146,83 @@ public sealed class OpenAIResponsesPortWireTests
         Assert.AreEqual("resp-stream", receipt.ResponseId);
         CollectionAssert.AreEqual(E0ATestSupport.PerformerOutput(), receipt.StructuredOutput!);
         Assert.AreEqual(2, diagnostics.Events.Count);
+    }
+
+    [TestMethod]
+    public async Task StreamingWrongJsonType_FailsClosedAsTechnicalReceipt()
+    {
+        var sse = "data: {\"type\":7}\n\n";
+        var handler = new RecordingHandler(_ => new HttpResponseMessage(HttpStatusCode.OK)
+        {
+            Content = new StringContent(sse, Encoding.UTF8, "text/event-stream")
+        });
+        using var http = new HttpClient(handler);
+        var port = new OpenAIResponsesPort(http, "test-secret");
+        var attempt = PerformerAttempt("E0A-WIRE-STREAM-WRONG-TYPE");
+
+        var receipt = await port.ExecuteAsync(attempt, new CollectingDiagnosticSink(), CancellationToken.None);
+
+        Assert.AreEqual(E0ARoleAttemptOutcome.TechnicalFailure, receipt.Outcome);
+        Assert.IsNull(receipt.StructuredOutput);
+        Assert.AreEqual("malformed-provider-event", receipt.DiagnosticCode);
+    }
+
+    [TestMethod]
+    public async Task StreamingMalformedUtf8_FailsClosedAsTechnicalReceipt()
+    {
+        var prefix = Encoding.ASCII.GetBytes("data: ");
+        var suffix = Encoding.ASCII.GetBytes("\n\n");
+        var body = new byte[prefix.Length + 1 + suffix.Length];
+        prefix.CopyTo(body, 0);
+        body[prefix.Length] = 0xff;
+        suffix.CopyTo(body, prefix.Length + 1);
+
+        var handler = new RecordingHandler(_ =>
+        {
+            var content = new ByteArrayContent(body);
+            content.Headers.ContentType = new MediaTypeHeaderValue("text/event-stream");
+            return new HttpResponseMessage(HttpStatusCode.OK) { Content = content };
+        });
+        using var http = new HttpClient(handler);
+        var port = new OpenAIResponsesPort(http, "test-secret");
+        var attempt = PerformerAttempt("E0A-WIRE-STREAM-UNICODE");
+
+        var receipt = await port.ExecuteAsync(attempt, new CollectingDiagnosticSink(), CancellationToken.None);
+
+        Assert.AreEqual(E0ARoleAttemptOutcome.TechnicalFailure, receipt.Outcome);
+        Assert.IsNull(receipt.StructuredOutput);
+        Assert.AreEqual("malformed-or-transport", receipt.DiagnosticCode);
+    }
+
+    [TestMethod]
+    public async Task StreamingStalledBody_CancelsWithoutSynchronousEofProbe()
+    {
+        var stream = new CancellableStalledStream();
+        var handler = new RecordingHandler(_ =>
+        {
+            var content = new StreamContent(stream);
+            content.Headers.ContentType = new MediaTypeHeaderValue("text/event-stream");
+            return new HttpResponseMessage(HttpStatusCode.OK) { Content = content };
+        });
+        using var http = new HttpClient(handler);
+        var port = new OpenAIResponsesPort(http, "test-secret");
+        var attempt = PerformerAttempt("E0A-WIRE-STREAM-CANCEL");
+        using var cancellation = new CancellationTokenSource();
+
+        var execution = port.ExecuteAsync(attempt, new CollectingDiagnosticSink(), cancellation.Token);
+        await stream.ReadStarted.WaitAsync(TimeSpan.FromSeconds(2));
+        cancellation.Cancel();
+
+        try
+        {
+            _ = await execution;
+            Assert.Fail("A stalled streaming body must remain cancellable.");
+        }
+        catch (OperationCanceledException) when (cancellation.IsCancellationRequested)
+        {
+        }
+
+        Assert.AreEqual(0, stream.SynchronousReadCount);
     }
 
     [TestMethod]
@@ -266,6 +392,58 @@ public sealed class OpenAIResponsesPortWireTests
                 ? null
                 : await request.Content.ReadAsStringAsync(cancellationToken);
             return _response(request);
+        }
+    }
+
+    private sealed class CancellableStalledStream : Stream
+    {
+        private readonly TaskCompletionSource<bool> _readStarted =
+            new(TaskCreationOptions.RunContinuationsAsynchronously);
+
+        internal int SynchronousReadCount { get; private set; }
+        internal Task ReadStarted => _readStarted.Task;
+
+        public override bool CanRead => true;
+        public override bool CanSeek => false;
+        public override bool CanWrite => false;
+        public override long Length => throw new NotSupportedException();
+        public override long Position
+        {
+            get => throw new NotSupportedException();
+            set => throw new NotSupportedException();
+        }
+
+        public override void Flush()
+        {
+        }
+
+        public override int Read(byte[] buffer, int offset, int count)
+        {
+            SynchronousReadCount++;
+            throw new InvalidOperationException("Synchronous reads are forbidden for this test stream.");
+        }
+
+        public override Task<int> ReadAsync(
+            byte[] buffer,
+            int offset,
+            int count,
+            CancellationToken cancellationToken) =>
+            WaitForCancellationAsync(cancellationToken);
+
+        public override ValueTask<int> ReadAsync(
+            Memory<byte> buffer,
+            CancellationToken cancellationToken = default) =>
+            new(WaitForCancellationAsync(cancellationToken));
+
+        public override long Seek(long offset, SeekOrigin origin) => throw new NotSupportedException();
+        public override void SetLength(long value) => throw new NotSupportedException();
+        public override void Write(byte[] buffer, int offset, int count) => throw new NotSupportedException();
+
+        private async Task<int> WaitForCancellationAsync(CancellationToken cancellationToken)
+        {
+            _readStarted.TrySetResult(true);
+            await Task.Delay(Timeout.InfiniteTimeSpan, cancellationToken).ConfigureAwait(false);
+            return 0;
         }
     }
 }

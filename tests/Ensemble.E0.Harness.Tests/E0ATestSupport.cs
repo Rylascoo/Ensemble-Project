@@ -19,6 +19,10 @@ namespace Ensemble.E0.Harness.Tests;
 internal static class E0ATestSupport
 {
     internal const string TestExecutableCommit = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+    private static readonly string TestSessionRoot = Path.Combine(
+        Path.GetTempPath(),
+        "ensemble-e0a-tests",
+        Guid.NewGuid().ToString("N"));
 
     internal static E0APricingAssumptions Pricing() => new(1m, 0.25m, 2m);
 
@@ -115,7 +119,7 @@ internal static class E0ATestSupport
             existingRecordId: MissingRaftContract.BelVossAccidentalLossPlausibleId,
             text: null);
 
-    internal static string TempRunRoot() => Path.Combine(Path.GetTempPath(), "ensemble-e0a-tests", Guid.NewGuid().ToString("N"));
+    internal static string TempRunRoot() => Path.Combine(TestSessionRoot, Guid.NewGuid().ToString("N"));
 
     internal static E0AFileEvidenceStore Evidence(
         string root,
