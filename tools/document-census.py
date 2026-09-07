@@ -12,6 +12,8 @@ ROOT = Path(__file__).resolve().parents[1]
 GENERATED = {
     "docs/DOCUMENT_CENSUS.md",
     "docs/DOCUMENT_CENSUS.json",
+    "docs/DOCUMENT_INDEX.md",
+    "docs/DOCUMENT_INDEX.json",
 }
 ARCHIVE_PREFIXES = ("docs/evidence/archive/",)
 
@@ -55,6 +57,12 @@ def last_commit(path: str) -> str:
     return git("log", "-1", "--format=%H", "--", path)
 
 
+def split_sources(sources: list[str]) -> tuple[list[str], list[str]]:
+    active = [source for source in sources if not is_archive(source)]
+    archive = [source for source in sources if is_archive(source)]
+    return active, archive
+
+
 def build() -> dict[str, object]:
     tracked = tracked_paths()
     docs = inventory(tracked)
@@ -78,6 +86,8 @@ def build() -> dict[str, object]:
             for source, text in text_sources.items()
             if source != path and path in text
         )
+        active_full_sources, archive_full_sources = split_sources(full_sources)
+
         name = Path(path).name
         basename_sources: list[str] = []
         if basenames[name] == 1:
@@ -86,6 +96,8 @@ def build() -> dict[str, object]:
                 for source, text in text_sources.items()
                 if source != path and name in text and source not in full_sources
             )
+        active_basename_sources, archive_basename_sources = split_sources(basename_sources)
+
         raw = (ROOT / path).read_bytes()
         text = raw.decode("utf-8")
         entries.append(
@@ -97,15 +109,23 @@ def build() -> dict[str, object]:
                 "last_commit": last_commit(path),
                 "inbound_exact_path_count": len(full_sources),
                 "inbound_exact_path_sources": full_sources,
+                "inbound_active_exact_path_count": len(active_full_sources),
+                "inbound_active_exact_path_sources": active_full_sources,
+                "inbound_archive_exact_path_count": len(archive_full_sources),
+                "inbound_archive_exact_path_sources": archive_full_sources,
                 "inbound_unique_basename_count": len(basename_sources),
                 "inbound_unique_basename_sources": basename_sources,
+                "inbound_active_unique_basename_count": len(active_basename_sources),
+                "inbound_active_unique_basename_sources": active_basename_sources,
+                "inbound_archive_unique_basename_count": len(archive_basename_sources),
+                "inbound_archive_unique_basename_sources": archive_basename_sources,
             }
         )
 
     active = [entry for entry in entries if entry["surface"] == "active"]
     archive = [entry for entry in entries if entry["surface"] == "archive"]
     return {
-        "schema": "ensemble.repository-document-census.v1",
+        "schema": "ensemble.repository-document-census.v2",
         "head": git("rev-parse", "HEAD"),
         "inventory_count": len(entries),
         "active_inventory_count": len(active),
@@ -119,24 +139,26 @@ def print_summary(report: dict[str, object]) -> None:
     assert isinstance(entries, list)
     active = [entry for entry in entries if entry["surface"] == "active"]
     archive = [entry for entry in entries if entry["surface"] == "archive"]
-    zero_exact_active = [entry for entry in active if entry["inbound_exact_path_count"] == 0]
+    zero_active = [entry for entry in active if entry["inbound_active_exact_path_count"] == 0]
     print(f"DOCUMENT_CENSUS_HEAD\t{report['head']}")
+    print(f"DOCUMENT_CENSUS_SCHEMA\t{report['schema']}")
     print(f"DOCUMENT_CENSUS_INVENTORY\t{report['inventory_count']}")
     print(f"DOCUMENT_CENSUS_ACTIVE\t{len(active)}")
     print(f"DOCUMENT_CENSUS_ARCHIVE\t{len(archive)}")
-    print(f"DOCUMENT_CENSUS_ZERO_EXACT_ACTIVE\t{len(zero_exact_active)}")
+    print(f"DOCUMENT_CENSUS_ZERO_ACTIVE_EXACT\t{len(zero_active)}")
     for entry in active:
         path = str(entry["path"])
         if path.startswith("docs/evidence/"):
-            sources = ",".join(entry["inbound_exact_path_sources"])
+            active_sources = ",".join(entry["inbound_active_exact_path_sources"])
+            archive_sources = ",".join(entry["inbound_archive_exact_path_sources"])
             print(
                 "ACTIVE_EVIDENCE_CENSUS\t"
-                f"{entry['inbound_exact_path_count']}\t"
-                f"{entry['inbound_unique_basename_count']}\t"
-                f"{path}\t{sources}"
+                f"{entry['inbound_active_exact_path_count']}\t"
+                f"{entry['inbound_archive_exact_path_count']}\t"
+                f"{path}\t{active_sources}\t{archive_sources}"
             )
-    for entry in zero_exact_active:
-        print(f"ZERO_EXACT_ACTIVE\t{entry['path']}")
+    for entry in zero_active:
+        print(f"ZERO_ACTIVE_EXACT\t{entry['path']}")
     for entry in archive:
         print(f"ARCHIVE_DOCUMENT\t{entry['path']}")
 
