@@ -172,40 +172,38 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
             {
                 continue;
             }
+
             var utf8 = Encoding.UTF8.GetBytes(data);
             using var eventDoc = JsonDocument.Parse(utf8);
             var root = eventDoc.RootElement;
             if (root.ValueKind != JsonValueKind.Object)
             {
-                return TechnicalFromAccumulated(
+                return RoleAttemptReceipt.TechnicalFailure(
                     attempt,
                     "gemini-response-shape-invalid",
                     responseId,
-                    modelVersion,
-                    usage);
+                    modelVersion);
             }
 
             // Thought material is outside E0-A evidence authority. Reject it before
             // raw diagnostic bytes can be persisted by the evidence sink.
             if (ContainsThoughtMaterial(root))
             {
-                return TechnicalFromAccumulated(
+                return RoleAttemptReceipt.TechnicalFailure(
                     attempt,
                     "gemini-thought-material-returned",
                     responseId,
-                    modelVersion,
-                    usage);
+                    modelVersion);
             }
             diagnostics.RecordStreamEvent(attempt, utf8);
 
             if (!TryPromptBlocked(root, out var promptBlocked))
             {
-                return TechnicalFromAccumulated(
+                return RoleAttemptReceipt.TechnicalFailure(
                     attempt,
                     "gemini-response-shape-invalid",
                     responseId,
-                    modelVersion,
-                    usage);
+                    modelVersion);
             }
             if (!BindStableIdentity(root, ref responseId, ref modelVersion))
             {
@@ -213,53 +211,48 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
             }
             if (promptBlocked)
             {
-                return TechnicalFromStreamingTerminal(
+                return RoleAttemptReceipt.TechnicalFailure(
                     attempt,
-                    root,
                     "gemini-prompt-blocked",
                     responseId,
-                    modelVersion,
-                    usage);
+                    modelVersion);
             }
 
             var alreadyStopped = string.Equals(finishReason, "STOP", StringComparison.Ordinal);
             var textLengthBefore = text.Length;
             if (!AppendCandidateText(root, text, ref finishReason, out var candidateError))
             {
-                return TechnicalFromStreamingTerminal(
+                return RoleAttemptReceipt.TechnicalFailure(
                     attempt,
-                    root,
                     candidateError!,
                     responseId,
-                    modelVersion,
-                    usage);
+                    modelVersion);
             }
             if (alreadyStopped && text.Length != textLengthBefore)
             {
-                return TechnicalFromStreamingTerminal(
+                return RoleAttemptReceipt.TechnicalFailure(
                     attempt,
-                    root,
                     "gemini-content-after-stop",
                     responseId,
-                    modelVersion,
-                    usage);
+                    modelVersion);
             }
 
-            // Intermediate SSE chunks may expose partial usage metadata. Only once
-            // a finish reason has been observed is usage eligible as terminal
-            // provenance; metadata-only chunks after STOP may supply the final tuple.
+            // Streaming usage is authoritative for spend only after the full stream
+            // has been consumed. A later malformed/identity/semantic event can mean
+            // an earlier tuple was provisional. Keep the latest valid terminal tuple
+            // while reading, but any early technical return above deliberately omits
+            // usage so the hardened driver commits the full reserved fallback amount.
             if (!string.IsNullOrWhiteSpace(finishReason) &&
                 root.TryGetProperty("usageMetadata", out var usageElement))
             {
                 usage = ParseUsage(usageElement);
                 if (usage is null)
                 {
-                    return TechnicalFromAccumulated(
+                    return RoleAttemptReceipt.TechnicalFailure(
                         attempt,
                         "gemini-usage-invalid",
                         responseId,
-                        modelVersion,
-                        null);
+                        modelVersion);
                 }
             }
         }
@@ -270,7 +263,7 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
             text.Length == 0 ||
             usage is null)
         {
-            return TechnicalFromAccumulated(
+            return RoleAttemptReceipt.TechnicalFailure(
                 attempt,
                 "gemini-response-incomplete",
                 responseId,
@@ -290,10 +283,29 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
         PreparedRoleAttempt attempt,
         JsonElement response)
     {
-        if (!TryProviderMetadata(response, out var responseId, out var modelVersion, out var usage))
+        // Match the streaming evidence law: thought material is never eligible for
+        // semantic adoption and must not be allowed to hide behind another malformed
+        // provider field when the closed response itself exposes it.
+        if (ContainsThoughtMaterial(response))
         {
-            return RoleAttemptReceipt.TechnicalFailure(attempt, "gemini-response-shape-invalid");
+            return RoleAttemptReceipt.TechnicalFailure(attempt, "gemini-thought-material-returned");
         }
+
+        var metadataDiagnostic = ReadProviderMetadata(
+            response,
+            out var responseId,
+            out var modelVersion,
+            out var usage);
+        if (metadataDiagnostic is not null)
+        {
+            return RoleAttemptReceipt.TechnicalFailure(
+                attempt,
+                metadataDiagnostic,
+                responseId,
+                modelVersion,
+                usage);
+        }
+
         if (!TryPromptBlocked(response, out var promptBlocked))
         {
             return RoleAttemptReceipt.TechnicalFailure(
@@ -346,56 +358,7 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
             Encoding.UTF8.GetBytes(text.ToString()));
     }
 
-    private static RoleAttemptReceipt TechnicalFromStreamingTerminal(
-        PreparedRoleAttempt attempt,
-        JsonElement response,
-        string diagnosticCode,
-        string? responseId,
-        string? modelVersion,
-        E0AUsage? priorUsage)
-    {
-        if (response.TryGetProperty("usageMetadata", out var usageElement))
-        {
-            var parsed = ParseUsage(usageElement);
-            if (parsed is null)
-            {
-                return TechnicalFromAccumulated(
-                    attempt,
-                    "gemini-usage-invalid",
-                    responseId,
-                    modelVersion,
-                    priorUsage);
-            }
-            return TechnicalFromAccumulated(
-                attempt,
-                diagnosticCode,
-                responseId,
-                modelVersion,
-                parsed);
-        }
-
-        return TechnicalFromAccumulated(
-            attempt,
-            diagnosticCode,
-            responseId,
-            modelVersion,
-            priorUsage);
-    }
-
-    private static RoleAttemptReceipt TechnicalFromAccumulated(
-        PreparedRoleAttempt attempt,
-        string diagnosticCode,
-        string? responseId,
-        string? modelVersion,
-        E0AUsage? usage) =>
-        RoleAttemptReceipt.TechnicalFailure(
-            attempt,
-            diagnosticCode,
-            responseId,
-            modelVersion,
-            usage);
-
-    private static bool TryProviderMetadata(
+    private static string? ReadProviderMetadata(
         JsonElement response,
         out string? responseId,
         out string? modelVersion,
@@ -406,33 +369,32 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
         usage = null;
         if (response.ValueKind != JsonValueKind.Object)
         {
-            return false;
+            return "gemini-response-shape-invalid";
         }
 
-        if (response.TryGetProperty("responseId", out var idElement))
+        string? diagnostic = null;
+        if (response.TryGetProperty("responseId", out var idElement) &&
+            (!TryDecodeString(idElement, out responseId) || string.IsNullOrWhiteSpace(responseId)))
         {
-            if (!TryDecodeString(idElement, out responseId) || string.IsNullOrWhiteSpace(responseId))
-            {
-                return false;
-            }
+            responseId = null;
+            diagnostic ??= "gemini-response-identity-missing";
         }
-        if (response.TryGetProperty("modelVersion", out var modelElement))
+        if (response.TryGetProperty("modelVersion", out var modelElement) &&
+            (!TryDecodeString(modelElement, out modelVersion) || string.IsNullOrWhiteSpace(modelVersion)))
         {
-            if (!TryDecodeString(modelElement, out modelVersion) || string.IsNullOrWhiteSpace(modelVersion))
-            {
-                return false;
-            }
+            modelVersion = null;
+            diagnostic ??= "gemini-response-identity-missing";
         }
         if (response.TryGetProperty("usageMetadata", out var usageElement))
         {
             usage = ParseUsage(usageElement);
             if (usage is null)
             {
-                return false;
+                diagnostic ??= "gemini-usage-invalid";
             }
         }
 
-        return true;
+        return diagnostic;
     }
 
     private static bool TryPromptBlocked(JsonElement response, out bool blocked)
