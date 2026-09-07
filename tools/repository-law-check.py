@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import re
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
@@ -40,6 +41,8 @@ TEXT_SUFFIXES = {
     ".targets",
     ".config",
 }
+ACTION_USE_RE = re.compile(r"^\s*-?\s*uses:\s*([^\s#]+)")
+FULL_SHA_RE = re.compile(r"^[0-9a-fA-F]{40}$")
 
 
 def rel(path: Path) -> str:
@@ -179,6 +182,28 @@ def check_handoff_authority(errors: list[str]) -> None:
             )
 
 
+def check_remote_action_pins(errors: list[str]) -> None:
+    workflow_dir = ROOT / ".github/workflows"
+    for pattern in ("*.yml", "*.yaml"):
+        for path in sorted(workflow_dir.glob(pattern)):
+            for line_number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
+                match = ACTION_USE_RE.match(line)
+                if match is None:
+                    continue
+                target = match.group(1)
+                if target.startswith(("./", "docker://")):
+                    continue
+                if "@" not in target:
+                    errors.append(f"remote action reference lacks revision at {rel(path)}:{line_number}: {target}")
+                    continue
+                action, revision = target.rsplit("@", 1)
+                if "/" not in action or not FULL_SHA_RE.fullmatch(revision):
+                    errors.append(
+                        f"remote action must use a full 40-hex commit SHA at "
+                        f"{rel(path)}:{line_number}: {target}"
+                    )
+
+
 def main() -> int:
     errors: list[str] = []
     check_project_graph(errors)
@@ -187,6 +212,7 @@ def main() -> int:
     check_retired_provider_surface(errors)
     check_dead_scaffolding(errors)
     check_handoff_authority(errors)
+    check_remote_action_pins(errors)
 
     if errors:
         print("REPOSITORY_LAW_CHECK=FAIL")
@@ -203,6 +229,7 @@ def main() -> int:
     print("RETIRED_OPENAI_EXECUTABLE_SURFACE=PASS")
     print("DEAD_IMPLEMENTATION_SCAFFOLDING=PASS")
     print("LIVE_HANDOFF_AUTHORITY=PASS")
+    print("REMOTE_ACTION_SHA_PINS=PASS")
     return 0
 
 
