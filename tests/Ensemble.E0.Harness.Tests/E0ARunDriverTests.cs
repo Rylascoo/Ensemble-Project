@@ -195,7 +195,7 @@ public sealed class E0ARunDriverTests
     }
 
     [TestMethod]
-    public async Task ProviderTimeout_ReleasesReservationExactlyOnceAndSealsTechnicalFailure()
+    public async Task ProviderTimeout_CommitsUnknownReservationFallbackAndSealsTechnicalFailure()
     {
         var root = E0ATestSupport.TempRunRoot();
         try
@@ -215,10 +215,14 @@ public sealed class E0ARunDriverTests
             Assert.AreEqual(E0ARunTerminalStatus.TechnicalFailure, result.Status);
             Assert.AreEqual(0, result.AcceptedTurns);
             Assert.AreEqual(1, provider.Calls);
+            Assert.IsTrue(result.HasUnknownProviderUsage);
+            Assert.IsTrue(result.EstimatedSpendUsd > 0m);
             Assert.AreEqual(1, Directory.GetFiles(root, "terminal.json", SearchOption.AllDirectories).Length);
             Assert.IsTrue(File.Exists(Path.Combine(root, "run.final.json")));
             Assert.IsTrue(File.ReadAllText(Directory.GetFiles(root, "terminal.json", SearchOption.AllDirectories).Single())
                 .Contains("timeout", StringComparison.Ordinal));
+            Assert.IsFalse(File.ReadAllText(Path.Combine(root, "events.ndjson"))
+                .Contains("spend.released", StringComparison.Ordinal));
         }
         finally
         {
@@ -227,7 +231,7 @@ public sealed class E0ARunDriverTests
     }
 
     [TestMethod]
-    public async Task ProviderUsageOverrun_IsRecordedAndSealedAsTechnicalFailure()
+    public async Task ProviderUsageOverrun_IsMarkedOutsideVerifiedPricingAndNeverConsumedAsFiction()
     {
         var root = E0ATestSupport.TempRunRoot();
         try
@@ -253,15 +257,17 @@ public sealed class E0ARunDriverTests
             Assert.AreEqual(E0ARunTerminalStatus.TechnicalFailure, result.Status);
             Assert.AreEqual(0, result.AcceptedTurns);
             Assert.AreEqual(1, provider.Calls);
-            Assert.IsTrue(result.EstimatedSpendUsd > E0ARunEnvelope.EstimatedSpendCeilingUsd);
+            Assert.AreEqual(E0ASpendEstimateStatus.OutsideVerifiedInputTier, result.SpendEstimateStatus);
+            Assert.IsTrue(result.EstimatedSpendUsd > 0m);
+            Assert.IsTrue(result.EstimatedSpendUsd < E0ARunEnvelope.EstimatedSpendCeilingUsd);
             Assert.AreEqual(1, Directory.GetFiles(root, "terminal.json", SearchOption.AllDirectories).Length);
             Assert.IsTrue(File.Exists(Path.Combine(root, "run.final.json")));
             Assert.IsFalse(File.ReadAllText(Path.Combine(root, "transcript.json"))
                 .Contains("This must never be consumed as fiction.", StringComparison.Ordinal));
 
-            using var final = JsonDocument.Parse(File.ReadAllBytes(Path.Combine(root, "run.final.json")));
-            Assert.AreEqual("TechnicalFailure", final.RootElement.GetProperty("terminalStatus").GetString());
-            Assert.IsTrue(final.RootElement.GetProperty("estimatedSpendUsd").GetDecimal() > 5m);
+            var events = File.ReadAllText(Path.Combine(root, "events.ndjson"));
+            Assert.IsTrue(events.Contains("pricing.assumptions-invalid", StringComparison.Ordinal));
+            Assert.IsTrue(events.Contains("OutsideVerifiedInputTier", StringComparison.Ordinal));
         }
         finally
         {
