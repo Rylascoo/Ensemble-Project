@@ -1,12 +1,6 @@
-using System.Net;
-using System.Text;
-using System.Text.Json;
-using Ensemble.E0.Core.Cycle;
 using Ensemble.E0.Core.Domain;
-using Ensemble.E0.Core.Integrity;
 using Ensemble.E0.Harness.Evidence;
 using Ensemble.E0.Harness.Host;
-using Ensemble.E0.Harness.OpenAI;
 using Ensemble.E0.Harness.Run;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -16,82 +10,6 @@ namespace Ensemble.E0.Harness.Tests;
 public sealed class E0ALiveHostReadinessTests
 {
     private const string ExpectedCommit = "0123456789abcdef0123456789abcdef01234567";
-
-    [TestMethod]
-    public void HistoricalOpenAIPreparedRequest_DisablesImplicitPromptCaching()
-    {
-        var envelope = E0ARunEnvelope.CreativeNone(E0ATestSupport.Pricing());
-        var context = DeterministicE0CausalCycle.ComposeContext(E0ATestSupport.Cycle()).ContextEvaluation.Packet;
-        var attempt = E0ARequestBuilder.Performer(RunId.From("E0A-CACHE-MODE"), 1, envelope.Performer, context);
-
-        using var body = JsonDocument.Parse(attempt.RequestBody);
-        var options = body.RootElement.GetProperty("prompt_cache_options");
-        Assert.AreEqual(E0AProviderTransportPolicy.PromptCacheMode, options.GetProperty("mode").GetString());
-    }
-
-    [TestMethod]
-    public async Task HistoricalOpenAIInputTokenPreflight_DoesNotForwardPromptCacheControl()
-    {
-        var handler = new StaticResponseHandler("{\"input_tokens\":7}");
-        using var http = new HttpClient(handler);
-        var port = new OpenAIResponsesPort(http, "test-secret");
-        var envelope = E0ARunEnvelope.CreativeNone(E0ATestSupport.Pricing());
-        var context = DeterministicE0CausalCycle.ComposeContext(E0ATestSupport.Cycle()).ContextEvaluation.Packet;
-        var attempt = E0ARequestBuilder.Performer(RunId.From("E0A-CACHE-PREFLIGHT"), 1, envelope.Performer, context);
-
-        var count = await port.CountInputTokensAsync(attempt, CancellationToken.None);
-
-        Assert.AreEqual(7L, count);
-        using var body = JsonDocument.Parse(handler.LastBody!);
-        Assert.IsFalse(body.RootElement.TryGetProperty("prompt_cache_options", out _));
-    }
-
-    [TestMethod]
-    public async Task HistoricalOpenAICacheWriteUsage_IsInputDetailAndOverlapIsPreservedForConservativeReconciliation()
-    {
-        var output = Encoding.UTF8.GetString(E0ATestSupport.IntegrityOutput());
-        var responseJson = JsonSerializer.Serialize(new
-        {
-            status = "completed",
-            id = "resp-cache-write",
-            model = "gpt-5.6-sol",
-            output_text = output,
-            usage = new
-            {
-                input_tokens = 10,
-                output_tokens = 5,
-                input_tokens_details = new { cached_tokens = 7, cache_write_tokens = 4 },
-                output_tokens_details = new { reasoning_tokens = 3 }
-            }
-        });
-        using var http = new HttpClient(new StaticResponseHandler(responseJson));
-        var port = new OpenAIResponsesPort(http, "test-secret");
-        var attempt = HistoricalIntegrityAttempt("E0A-CACHE-WRITE");
-
-        var receipt = await port.ExecuteAsync(attempt, new CollectingDiagnosticSink(), CancellationToken.None);
-
-        Assert.AreEqual(E0ARoleAttemptOutcome.Success, receipt.Outcome);
-        Assert.AreEqual(10L, receipt.Usage!.InputTokens);
-        Assert.AreEqual(7L, receipt.Usage.CachedInputTokens);
-        Assert.AreEqual(4L, receipt.Usage.CacheWriteTokens);
-        CollectionAssert.AreEqual(E0ATestSupport.IntegrityOutput(), receipt.StructuredOutput!);
-    }
-
-    [TestMethod]
-    public void HistoricalOpenAICacheWriteUsage_ReconcilesConservativelyThenMarksReservationMismatch()
-    {
-        var ledger = new E0ASpendLedger(E0APricingPolicy.ConservativePricing);
-        var reservation = ledger.Reserve(10, E0ARunEnvelope.RoleMaxOutputTokens);
-
-        var reconciliation = ledger.Reconcile(
-            reservation,
-            new E0AUsage(10, 5, 7, 3, 4));
-
-        Assert.IsTrue(reconciliation.ReservationExceeded);
-        Assert.AreEqual(0.00015m, reconciliation.EstimatedUsd);
-        Assert.AreEqual(reconciliation.EstimatedUsd, ledger.EstimatedCommittedUsd);
-        Assert.AreEqual(0m, ledger.ReservedUsd);
-    }
 
     [TestMethod]
     public void GeminiPricingPolicy_FreezesSourceFreshnessAndConservativeShadowRates()
@@ -131,39 +49,6 @@ public sealed class E0ALiveHostReadinessTests
         E0AGeminiPricingPolicy.RequireNonStaleSnapshot(new DateTimeOffset(2026, 9, 13, 23, 59, 59, TimeSpan.Zero));
         Assert.Throws<E0AHarnessException>(() =>
             E0AGeminiPricingPolicy.RequireNonStaleSnapshot(new DateTimeOffset(2026, 9, 14, 0, 0, 0, TimeSpan.Zero)));
-    }
-
-    [TestMethod]
-    public void HistoricalOpenAIPricingPolicy_RemainsFrozenForValidatedEvidenceLineage()
-    {
-        object[] expected =
-        {
-            "https://developers.openai.com/api/docs/models/gpt-5.6-sol",
-            "2026-09-06",
-            "2026-11-21",
-            4.00m,
-            0.40m,
-            20.00m,
-            1.25m,
-            5.00m,
-            0.40m,
-            20.00m
-        };
-        object[] actual =
-        {
-            E0APricingPolicy.SourceUri,
-            E0APricingPolicy.VerifiedOn,
-            E0APricingPolicy.PromotionalPricingGuaranteedThrough,
-            E0APricingPolicy.PublishedInputUsdPerMillionTokens,
-            E0APricingPolicy.PublishedCachedInputUsdPerMillionTokens,
-            E0APricingPolicy.PublishedOutputUsdPerMillionTokens,
-            E0APricingPolicy.CacheWriteMultiplier,
-            E0APricingPolicy.ConservativePricing.InputUsdPerMillionTokens,
-            E0APricingPolicy.ConservativePricing.CachedInputUsdPerMillionTokens,
-            E0APricingPolicy.ConservativePricing.OutputUsdPerMillionTokens
-        };
-
-        CollectionAssert.AreEqual(expected, actual);
     }
 
     [TestMethod]
@@ -297,6 +182,8 @@ public sealed class E0ALiveHostReadinessTests
                 "Synthetic",
                 0,
                 0m,
+                E0ASpendEstimateStatus.WithinVerifiedPricingAssumptions,
+                false,
                 state.StateHash.Value,
                 state.CurrentOpportunityCharacterId!.Value);
 
@@ -334,6 +221,8 @@ public sealed class E0ALiveHostReadinessTests
                 "Synthetic",
                 0,
                 0m,
+                E0ASpendEstimateStatus.WithinVerifiedPricingAssumptions,
+                false,
                 state.StateHash.Value,
                 state.CurrentOpportunityCharacterId!.Value);
             File.AppendAllText(Path.Combine(root, "manifest.json"), " ");
@@ -371,28 +260,6 @@ public sealed class E0ALiveHostReadinessTests
             new E0AGitCommandResult(0, ""),
             new E0AGitCommandResult(0, untracked));
 
-    private static PreparedRoleAttempt HistoricalIntegrityAttempt(string runId)
-    {
-        var envelope = E0ARunEnvelope.CreativeNone(E0ATestSupport.Pricing());
-        var cycle = E0ATestSupport.Cycle();
-        var continuity = DeterministicE0CausalCycle.ComposeContext(cycle);
-        var context = continuity.ContextEvaluation.Packet;
-        var candidate = E0ATestSupport.Candidate(context, "No.");
-        var input = IntegrityCandidateInput.Bind(context, candidate);
-        var packet = E0AIntegrityAssessmentPacketBuilder.Build(
-            cycle.ProductionState,
-            continuity.AccessEvaluation,
-            context,
-            candidate);
-        return E0ARequestBuilder.Integrity(
-            RunId.From(runId),
-            1,
-            envelope.Integrity,
-            context,
-            input.CandidateContentHash,
-            packet);
-    }
-
     private static void Delete(string root)
     {
         if (Directory.Exists(root))
@@ -412,26 +279,6 @@ public sealed class E0ALiveHostReadinessTests
         {
             Calls.Add(arguments);
             return _results.Dequeue();
-        }
-    }
-
-    private sealed class StaticResponseHandler : HttpMessageHandler
-    {
-        private readonly string _json;
-        internal StaticResponseHandler(string json) => _json = json;
-        internal string? LastBody { get; private set; }
-
-        protected override async Task<HttpResponseMessage> SendAsync(
-            HttpRequestMessage request,
-            CancellationToken cancellationToken)
-        {
-            LastBody = request.Content is null
-                ? null
-                : await request.Content.ReadAsStringAsync(cancellationToken);
-            return new HttpResponseMessage(HttpStatusCode.OK)
-            {
-                Content = new StringContent(_json, Encoding.UTF8, "application/json")
-            };
         }
     }
 }

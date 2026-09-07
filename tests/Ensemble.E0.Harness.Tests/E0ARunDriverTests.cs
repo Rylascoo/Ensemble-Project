@@ -243,8 +243,8 @@ public sealed class E0ARunDriverTests
                 RoleAttemptReceipt.Success(
                     attempt,
                     "resp-usage-overrun",
-                    "gpt-5.6-sol",
-                    new E0AUsage(6_000_000, 1, 0, 0),
+                    E0AGeminiProviderPolicy.Model,
+                    new E0AUsage(E0AGeminiProviderPolicy.ModelInputTokenLimit + 1, 1, 0, 0),
                     E0ATestSupport.PerformerOutput("This must never be consumed as fiction.")));
             var driver = new E0AReferenceRunDriver(
                 envelope,
@@ -341,7 +341,7 @@ public sealed class E0ARunDriverTests
                 return E0ATestSupport.Success(
                     attempt,
                     output,
-                    call == 1 ? "gpt-5.6-sol" : "gpt-5.6-sol-changed");
+                    call == 1 ? E0AGeminiProviderPolicy.Model : E0AGeminiProviderPolicy.Model + "-changed");
             });
             var driver = new E0AReferenceRunDriver(
                 envelope,

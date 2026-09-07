@@ -21,7 +21,7 @@ internal sealed class E0ASpendLedger
 
     internal E0ASpendLedger(
         E0APricingAssumptions pricing,
-        long maxInputTokens = E0APricingPolicy.StandardTierMaxInputTokens)
+        long maxInputTokens = E0AGeminiProviderPolicy.ModelInputTokenLimit)
     {
         _pricing = pricing ?? throw new ArgumentNullException(nameof(pricing));
         _pricing.Validate();

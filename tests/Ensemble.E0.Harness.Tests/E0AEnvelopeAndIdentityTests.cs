@@ -9,31 +9,24 @@ namespace Ensemble.E0.Harness.Tests;
 public sealed class E0AEnvelopeAndIdentityTests
 {
     [TestMethod]
-    public void ApprovedVariants_PinRoleReasoningAndSharedModel()
+    public void ApprovedEnvelope_PinsSoleGeminiVariantAndRoleProfiles()
     {
-        var variants = new[]
-        {
-            (Envelope: E0ARunEnvelope.CreativeNone(E0ATestSupport.Pricing()), Reasoning: E0AReasoningLevel.None),
-            (Envelope: E0ARunEnvelope.CreativeLow(E0ATestSupport.Pricing()), Reasoning: E0AReasoningLevel.Low),
-            (Envelope: E0ARunEnvelope.CreativeMedium(E0ATestSupport.Pricing()), Reasoning: E0AReasoningLevel.Medium),
-            (Envelope: E0ARunEnvelope.CreativeHigh(E0ATestSupport.Pricing()), Reasoning: E0AReasoningLevel.High)
-        };
+        var envelope = E0ARunEnvelope.CreativeNone(E0ATestSupport.Pricing());
 
-        foreach (var item in variants)
-        {
-            item.Envelope.Validate();
-            Assert.AreEqual(item.Reasoning, item.Envelope.Performer.Reasoning);
-            Assert.AreEqual(E0AReasoningLevel.High, item.Envelope.Integrity.Reasoning);
-            Assert.AreEqual(item.Reasoning, item.Envelope.Interpreter.Reasoning);
-            Assert.AreEqual("OpenAI", item.Envelope.Performer.Provider);
-            Assert.AreEqual("gpt-5.6-sol", item.Envelope.Performer.Model);
-            Assert.AreEqual("default", item.Envelope.Performer.ServiceTier);
-            Assert.AreEqual(item.Envelope.Performer.Model, item.Envelope.Integrity.Model);
-            Assert.AreEqual(item.Envelope.Performer.Model, item.Envelope.Interpreter.Model);
-            Assert.IsTrue(item.Envelope.Performer.Stream);
-            Assert.IsFalse(item.Envelope.Integrity.Stream);
-            Assert.IsTrue(item.Envelope.Interpreter.Stream);
-        }
+        envelope.Validate();
+        Assert.AreEqual("CREATIVE-NONE", envelope.Variant);
+        Assert.AreEqual(E0AGeminiProviderPolicy.Provider, envelope.Performer.Provider);
+        Assert.AreEqual(E0AGeminiProviderPolicy.Model, envelope.Performer.Model);
+        Assert.AreEqual(E0AGeminiProviderPolicy.ServiceTier, envelope.Performer.ServiceTier);
+        Assert.AreEqual(E0AReasoningLevel.None, envelope.Performer.Reasoning);
+        Assert.AreEqual(E0AReasoningLevel.High, envelope.Integrity.Reasoning);
+        Assert.AreEqual(E0AReasoningLevel.None, envelope.Interpreter.Reasoning);
+        Assert.AreEqual(envelope.Performer.Model, envelope.Integrity.Model);
+        Assert.AreEqual(envelope.Performer.Model, envelope.Interpreter.Model);
+        Assert.IsTrue(envelope.Performer.Stream);
+        Assert.IsFalse(envelope.Integrity.Stream);
+        Assert.IsTrue(envelope.Interpreter.Stream);
+        Assert.AreEqual(E0AGeminiProviderPolicy.ModelInputTokenLimit, envelope.MaxInputTokens);
     }
 
     [TestMethod]
@@ -86,9 +79,13 @@ public sealed class E0AEnvelopeAndIdentityTests
         Assert.AreEqual(originalHash, first.RequestBodyHash);
         Assert.AreEqual(originalHash, PreparedRoleAttempt.LowerSha256(first.RequestBody));
         Assert.AreNotEqual(copy[0], first.RequestBody[0]);
+        Assert.AreEqual(E0AGeminiProviderPolicy.Model, first.Profile.Model);
 
         using var body = JsonDocument.Parse(first.RequestBody);
-        Assert.AreEqual("gpt-5.6-sol", body.RootElement.GetProperty("model").GetString());
+        Assert.IsTrue(body.RootElement.TryGetProperty("systemInstruction", out _));
+        Assert.IsTrue(body.RootElement.TryGetProperty("contents", out _));
+        Assert.IsTrue(body.RootElement.TryGetProperty("generationConfig", out _));
+        Assert.IsFalse(body.RootElement.TryGetProperty("model", out _));
     }
 
     [TestMethod]

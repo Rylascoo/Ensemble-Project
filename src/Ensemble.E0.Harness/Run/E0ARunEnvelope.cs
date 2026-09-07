@@ -13,45 +13,7 @@ internal enum E0ARole
 internal enum E0AReasoningLevel
 {
     None = 1,
-    Low = 2,
-    Medium = 3,
-    High = 4
-}
-
-internal static class E0AProviderTransportPolicy
-{
-    internal const string PromptCacheMode = "explicit";
-}
-
-// Historical Proposal 0.15 OpenAI pricing snapshot. It remains evidence for the
-// validated OpenAI implementation lineage but is no longer the active live-host
-// pricing authority after the approved Gemini normative amendment.
-internal static class E0APricingPolicy
-{
-    internal const string SourceUri = "https://developers.openai.com/api/docs/models/gpt-5.6-sol";
-    internal const string VerifiedOn = "2026-09-06";
-    internal const string PromotionalPricingGuaranteedThrough = "2026-11-21";
-    internal const decimal PublishedInputUsdPerMillionTokens = 4.00m;
-    internal const decimal PublishedCachedInputUsdPerMillionTokens = 0.40m;
-    internal const decimal PublishedOutputUsdPerMillionTokens = 20.00m;
-    internal const decimal CacheWriteMultiplier = 1.25m;
-    internal const long StandardTierMaxInputTokens = 272_000;
-
-    internal static E0APricingAssumptions ConservativePricing { get; } = new(
-        PublishedInputUsdPerMillionTokens * CacheWriteMultiplier,
-        PublishedCachedInputUsdPerMillionTokens,
-        PublishedOutputUsdPerMillionTokens);
-
-    internal static void RequireNonStaleSnapshot(DateTimeOffset now)
-    {
-        var guaranteedThrough = new DateOnly(2026, 11, 21);
-        var currentDate = DateOnly.FromDateTime(now.UtcDateTime);
-        if (currentDate > guaranteedThrough)
-        {
-            throw new E0AHarnessException(
-                "E0-A pricing snapshot is outside the provider's published promotional guarantee and must be re-verified before inference.");
-        }
-    }
+    High = 2
 }
 
 internal static class E0AGeminiProviderPolicy
@@ -120,8 +82,8 @@ internal static class E0AProviderBudgetPolicy
     internal static int ReservationOutputTokens(E0ARoleProfile profile)
     {
         ArgumentNullException.ThrowIfNull(profile);
-        if (string.Equals(profile.Provider, E0AGeminiProviderPolicy.Provider, StringComparison.Ordinal) &&
-            profile.Role == E0ARole.Integrity)
+        RequireCurrentProvider(profile);
+        if (profile.Role == E0ARole.Integrity)
         {
             // Gemini thinkingBudget is advisory and may overflow. Reserve against
             // the model's published output-token limit rather than the requested
@@ -129,6 +91,15 @@ internal static class E0AProviderBudgetPolicy
             return E0AGeminiProviderPolicy.ModelOutputTokenLimit;
         }
         return profile.MaxOutputTokens;
+    }
+
+    private static void RequireCurrentProvider(E0ARoleProfile profile)
+    {
+        if (!string.Equals(profile.Provider, E0AGeminiProviderPolicy.Provider, StringComparison.Ordinal) ||
+            !string.Equals(profile.Model, E0AGeminiProviderPolicy.Model, StringComparison.Ordinal))
+        {
+            throw new E0AHarnessException("E0-A budget policy received an unsupported provider profile.");
+        }
     }
 }
 
@@ -140,9 +111,10 @@ internal static class E0AProviderUsagePolicy
         ArgumentNullException.ThrowIfNull(usage);
         usage.Validate();
 
-        if (!string.Equals(profile.Provider, E0AGeminiProviderPolicy.Provider, StringComparison.Ordinal))
+        if (!string.Equals(profile.Provider, E0AGeminiProviderPolicy.Provider, StringComparison.Ordinal) ||
+            !string.Equals(profile.Model, E0AGeminiProviderPolicy.Model, StringComparison.Ordinal))
         {
-            return null;
+            throw new E0AHarnessException("E0-A usage policy received an unsupported provider profile.");
         }
 
         if (profile.Role == E0ARole.Integrity &&
@@ -277,25 +249,12 @@ internal sealed class E0ARunEnvelope
     internal E0ARoleProfile Interpreter { get; }
     internal E0APricingAssumptions Pricing { get; }
     internal ImmutableArray<StateMutationDomain> AutoApproveDomains => AutoApprove;
-    internal long MaxInputTokens =>
-        string.Equals(Performer.Provider, E0AGeminiProviderPolicy.Provider, StringComparison.Ordinal)
-            ? E0AGeminiProviderPolicy.ModelInputTokenLimit
-            : E0APricingPolicy.StandardTierMaxInputTokens;
+    internal long MaxInputTokens => E0AGeminiProviderPolicy.ModelInputTokenLimit;
 
-    // Proposal 0.15 historical constructors remain available for fake regression
-    // coverage and evidence replay. They are not live-host authorization after the
-    // Gemini normative amendment.
+    // CREATIVE-NONE is the sole active E0-A variant. This compact factory remains
+    // for provider-neutral harness tests and delegates to the current Gemini route.
     internal static E0ARunEnvelope CreativeNone(E0APricingAssumptions pricing) =>
-        CreateOpenAI("CREATIVE-NONE", E0AReasoningLevel.None, pricing);
-
-    internal static E0ARunEnvelope CreativeLow(E0APricingAssumptions pricing) =>
-        CreateOpenAI("CREATIVE-LOW", E0AReasoningLevel.Low, pricing);
-
-    internal static E0ARunEnvelope CreativeMedium(E0APricingAssumptions pricing) =>
-        CreateOpenAI("CREATIVE-MEDIUM", E0AReasoningLevel.Medium, pricing);
-
-    internal static E0ARunEnvelope CreativeHigh(E0APricingAssumptions pricing) =>
-        CreateOpenAI("CREATIVE-HIGH", E0AReasoningLevel.High, pricing);
+        GeminiNormativeReference(pricing);
 
     internal static E0ARunEnvelope GeminiNormativeReference(E0APricingAssumptions pricing)
     {
@@ -348,41 +307,13 @@ internal sealed class E0ARunEnvelope
             throw new E0AHarnessException("E0-A reference provider/model/tier configuration is inconsistent.");
         }
 
-        if (string.Equals(Performer.Provider, "OpenAI", StringComparison.Ordinal))
-        {
-            ValidateHistoricalOpenAI();
-            return;
-        }
-        if (string.Equals(Performer.Provider, E0AGeminiProviderPolicy.Provider, StringComparison.Ordinal))
-        {
-            ValidateGeminiNormative();
-            return;
-        }
-        throw new E0AHarnessException("E0-A reference provider is not approved.");
-    }
-
-    private void ValidateHistoricalOpenAI()
-    {
-        if (Variant is not "CREATIVE-NONE" and
-            not "CREATIVE-LOW" and
-            not "CREATIVE-MEDIUM" and
-            not "CREATIVE-HIGH" ||
-            !string.Equals(Performer.Model, "gpt-5.6-sol", StringComparison.Ordinal) ||
-            !string.Equals(Performer.ServiceTier, "default", StringComparison.Ordinal) ||
-            Performer.Reasoning != Interpreter.Reasoning ||
-            Integrity.Reasoning != E0AReasoningLevel.High ||
-            Performer.MaxOutputTokens != RoleMaxOutputTokens ||
-            Integrity.MaxOutputTokens != RoleMaxOutputTokens ||
-            Interpreter.MaxOutputTokens != RoleMaxOutputTokens ||
-            !Performer.Stream || Integrity.Stream || !Interpreter.Stream)
-        {
-            throw new E0AHarnessException("E0-A historical OpenAI role configuration is inconsistent.");
-        }
+        ValidateGeminiNormative();
     }
 
     private void ValidateGeminiNormative()
     {
         if (Variant != "CREATIVE-NONE" ||
+            !string.Equals(Performer.Provider, E0AGeminiProviderPolicy.Provider, StringComparison.Ordinal) ||
             !string.Equals(Performer.Model, E0AGeminiProviderPolicy.Model, StringComparison.Ordinal) ||
             !string.Equals(Performer.ServiceTier, E0AGeminiProviderPolicy.ServiceTier, StringComparison.Ordinal) ||
             Performer.Reasoning != E0AReasoningLevel.None ||
@@ -398,22 +329,6 @@ internal sealed class E0ARunEnvelope
         {
             throw new E0AHarnessException("E0-A Gemini normative role configuration is inconsistent.");
         }
-    }
-
-    private static E0ARunEnvelope CreateOpenAI(
-        string variant,
-        E0AReasoningLevel creativeReasoning,
-        E0APricingAssumptions pricing)
-    {
-        ArgumentNullException.ThrowIfNull(pricing);
-        var envelope = new E0ARunEnvelope(
-            variant,
-            new E0ARoleProfile(E0ARole.Performer, "OpenAI", "gpt-5.6-sol", creativeReasoning, true, RoleMaxOutputTokens, "default"),
-            new E0ARoleProfile(E0ARole.Integrity, "OpenAI", "gpt-5.6-sol", E0AReasoningLevel.High, false, RoleMaxOutputTokens, "default"),
-            new E0ARoleProfile(E0ARole.Interpreter, "OpenAI", "gpt-5.6-sol", creativeReasoning, true, RoleMaxOutputTokens, "default"),
-            pricing);
-        envelope.Validate();
-        return envelope;
     }
 }
 

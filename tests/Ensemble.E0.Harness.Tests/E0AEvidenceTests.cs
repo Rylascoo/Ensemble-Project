@@ -11,7 +11,7 @@ namespace Ensemble.E0.Harness.Tests;
 public sealed class E0AEvidenceTests
 {
     [TestMethod]
-    public void Manifest_FreezesArchitectureChecklistFixturePricingProfilesHostAndContainsNoCredentialField()
+    public void Manifest_FreezesArchitectureChecklistFixtureAuthorityAndContainsNoCredentialField()
     {
         var root = E0ATestSupport.TempRunRoot();
         try
@@ -25,9 +25,9 @@ public sealed class E0AEvidenceTests
             using var document = JsonDocument.Parse(text);
             var manifest = document.RootElement;
             Assert.AreEqual(E0AEvidenceContracts.FrozenBlueprintVersion, manifest.GetProperty("frozenBlueprintVersion").GetString());
-            Assert.AreEqual(E0AEvidenceContracts.ReferenceEnvelopeBlueprint, manifest.GetProperty("referenceEnvelopeBlueprint").GetString());
-            Assert.AreEqual(E0AEvidenceContracts.ApprovedBlueprintCommit, manifest.GetProperty("approvedBlueprintCommit").GetString());
-            Assert.AreEqual("E0A-P0.15:CREATIVE-NONE", manifest.GetProperty("referenceConfigurationIdentity").GetString());
+            Assert.AreEqual(E0AEvidenceContracts.GeminiReferenceAmendment, manifest.GetProperty("referenceEnvelopeBlueprint").GetString());
+            Assert.AreEqual(E0AEvidenceContracts.GeminiApprovedAmendmentCommit, manifest.GetProperty("approvedBlueprintCommit").GetString());
+            Assert.AreEqual("E0A-GEMINI-NORMATIVE-2026-09-06:CREATIVE-NONE", manifest.GetProperty("referenceConfigurationIdentity").GetString());
             Assert.AreEqual(E0AEvidenceContracts.HardGateChecklistVersion, manifest.GetProperty("hardGateChecklistVersion").GetString());
 
             var expectedHardGates = new[]
@@ -54,20 +54,6 @@ public sealed class E0AEvidenceTests
 
             Assert.AreEqual(state.OriginFixtureVersion.Value, manifest.GetProperty("fixtureVersion").GetString());
             Assert.AreEqual(E0ATestSupport.TestExecutableCommit, manifest.GetProperty("executableCommit").GetString());
-            var pricing = manifest.GetProperty("pricing");
-            Assert.AreEqual(E0APricingPolicy.SourceUri, pricing.GetProperty("sourceUri").GetString());
-            Assert.AreEqual(E0APricingPolicy.VerifiedOn, pricing.GetProperty("verifiedOn").GetString());
-            Assert.AreEqual(E0APricingPolicy.PromotionalPricingGuaranteedThrough, pricing.GetProperty("promotionalPricingGuaranteedThrough").GetString());
-            Assert.AreEqual(E0APricingPolicy.PublishedInputUsdPerMillionTokens, pricing.GetProperty("publishedInputUsdPerMillionTokens").GetDecimal());
-            Assert.AreEqual(E0APricingPolicy.PublishedCachedInputUsdPerMillionTokens, pricing.GetProperty("publishedCachedInputUsdPerMillionTokens").GetDecimal());
-            Assert.AreEqual(E0APricingPolicy.PublishedOutputUsdPerMillionTokens, pricing.GetProperty("publishedOutputUsdPerMillionTokens").GetDecimal());
-            Assert.AreEqual(E0APricingPolicy.CacheWriteMultiplier, pricing.GetProperty("cacheWriteMultiplier").GetDecimal());
-            Assert.AreEqual(E0APricingPolicy.StandardTierMaxInputTokens, pricing.GetProperty("standardTierMaxInputTokens").GetInt64());
-            Assert.AreEqual("all-reported-input-at-conservative-cache-write-capable-rate", pricing.GetProperty("accountingMethod").GetString());
-            Assert.AreEqual(1m, pricing.GetProperty("inputUsdPerMillionTokens").GetDecimal());
-            Assert.AreEqual(0.25m, pricing.GetProperty("cachedInputUsdPerMillionTokens").GetDecimal());
-            Assert.AreEqual(2m, pricing.GetProperty("outputUsdPerMillionTokens").GetDecimal());
-            Assert.AreEqual(E0AProviderTransportPolicy.PromptCacheMode, manifest.GetProperty("providerTransport").GetProperty("promptCacheMode").GetString());
             Assert.AreEqual(3, manifest.GetProperty("roles").GetArrayLength());
             Assert.AreEqual(1, manifest.GetProperty("attemptsPerRoleInvocation").GetInt32());
             Assert.IsTrue(manifest.GetProperty("host").TryGetProperty("processArchitecture", out _));
@@ -90,7 +76,9 @@ public sealed class E0AEvidenceTests
                 authority.GetProperty("mandatoryReviewResolution").GetString());
 
             Assert.IsFalse(text.Contains("OPENAI_API_KEY", StringComparison.Ordinal));
+            Assert.IsFalse(text.Contains("GEMINI_API_KEY", StringComparison.Ordinal));
             Assert.IsFalse(text.Contains("Bearer ", StringComparison.Ordinal));
+            Assert.IsFalse(text.Contains("x-goog-api-key", StringComparison.OrdinalIgnoreCase));
         }
         finally
         {
@@ -237,7 +225,7 @@ public sealed class E0AEvidenceTests
             Assert.IsTrue(blind.Contains("Only accepted visible text.", StringComparison.Ordinal));
             Assert.IsFalse(blind.Contains(candidate.SubjectCharacterId.Value, StringComparison.Ordinal));
             Assert.IsFalse(blind.Contains(runId.Value, StringComparison.Ordinal));
-            Assert.IsFalse(blind.Contains("gpt-5.6-sol", StringComparison.Ordinal));
+            Assert.IsFalse(blind.Contains(E0AGeminiProviderPolicy.Model, StringComparison.Ordinal));
             Assert.IsFalse(blind.Contains("reasoning", StringComparison.OrdinalIgnoreCase));
         }
         finally

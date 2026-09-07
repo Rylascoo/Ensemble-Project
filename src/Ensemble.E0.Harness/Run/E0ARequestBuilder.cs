@@ -16,7 +16,7 @@ internal static class E0ARequestBuilder
     {
         RequireContext(context);
         var data = JsonSerializer.Serialize(new { context = E0APromptContracts.ContextData(context) });
-        var body = BuildBody(profile, E0APromptContracts.PerformerInstructions, data, "e0a_performer_candidate", E0APromptContracts.PerformerSchemaJson);
+        var body = BuildBody(profile, E0APromptContracts.PerformerInstructions, data, E0APromptContracts.PerformerSchemaJson);
         return New(runId, turn, profile, context, null, E0APromptContracts.PerformerPromptHash, E0APromptContracts.PerformerSchemaHash, null, body);
     }
 
@@ -47,7 +47,7 @@ internal static class E0ARequestBuilder
         }
 
         var data = JsonSerializer.Serialize(packet.ToTransport());
-        var body = BuildBody(profile, E0APromptContracts.IntegrityInstructions, data, "e0a_integrity_concerns", E0APromptContracts.IntegritySchemaJson);
+        var body = BuildBody(profile, E0APromptContracts.IntegrityInstructions, data, E0APromptContracts.IntegritySchemaJson);
         return New(runId, turn, profile, context, candidateContentHash, E0APromptContracts.IntegrityPromptHash, E0APromptContracts.IntegritySchemaHash, packet.PacketHash, body);
     }
 
@@ -93,7 +93,7 @@ internal static class E0ARequestBuilder
                 nominatedCharacterId = candidate.Control.NominatedCharacterId.HasValue ? candidate.Control.NominatedCharacterId.Value.Value : null
             }
         });
-        var body = BuildBody(profile, E0APromptContracts.InterpreterInstructions, data, "e0a_state_interpretation", E0APromptContracts.InterpreterSchemaJson);
+        var body = BuildBody(profile, E0APromptContracts.InterpreterInstructions, data, E0APromptContracts.InterpreterSchemaJson);
         return New(runId, turn, profile, context, source.CandidateContentHash, E0APromptContracts.InterpreterPromptHash, E0APromptContracts.InterpreterSchemaHash, null, body);
     }
 
@@ -126,47 +126,16 @@ internal static class E0ARequestBuilder
         E0ARoleProfile profile,
         string instructions,
         string data,
-        string schemaName,
         string schemaJson)
     {
         ArgumentNullException.ThrowIfNull(profile);
-        return string.Equals(profile.Provider, E0AGeminiProviderPolicy.Provider, StringComparison.Ordinal)
-            ? BuildGeminiBody(profile, instructions, data, schemaJson)
-            : BuildOpenAIBody(profile, instructions, data, schemaName, schemaJson);
-    }
-
-    private static byte[] BuildOpenAIBody(
-        E0ARoleProfile profile,
-        string instructions,
-        string data,
-        string schemaName,
-        string schemaJson)
-    {
-        using var schema = JsonDocument.Parse(schemaJson);
-        var body = new Dictionary<string, object?>
+        if (!string.Equals(profile.Provider, E0AGeminiProviderPolicy.Provider, StringComparison.Ordinal) ||
+            !string.Equals(profile.Model, E0AGeminiProviderPolicy.Model, StringComparison.Ordinal) ||
+            !string.Equals(profile.ServiceTier, E0AGeminiProviderPolicy.ServiceTier, StringComparison.Ordinal))
         {
-            ["model"] = profile.Model,
-            ["reasoning"] = new Dictionary<string, object?> { ["effort"] = Reasoning(profile.Reasoning) },
-            ["stream"] = profile.Stream,
-            ["store"] = false,
-            ["service_tier"] = profile.ServiceTier,
-            ["truncation"] = "disabled",
-            ["max_output_tokens"] = profile.MaxOutputTokens,
-            ["prompt_cache_options"] = new Dictionary<string, object?> { ["mode"] = E0AProviderTransportPolicy.PromptCacheMode },
-            ["instructions"] = instructions,
-            ["input"] = data,
-            ["text"] = new Dictionary<string, object?>
-            {
-                ["format"] = new Dictionary<string, object?>
-                {
-                    ["type"] = "json_schema",
-                    ["name"] = schemaName,
-                    ["strict"] = true,
-                    ["schema"] = schema.RootElement.Clone()
-                }
-            }
-        };
-        return JsonSerializer.SerializeToUtf8Bytes(body);
+            throw new E0AHarnessException("E0-A request profile is outside the approved Gemini normative route.");
+        }
+        return BuildGeminiBody(profile, instructions, data, schemaJson);
     }
 
     private static byte[] BuildGeminiBody(
@@ -175,12 +144,6 @@ internal static class E0ARequestBuilder
         string data,
         string schemaJson)
     {
-        if (!string.Equals(profile.Model, E0AGeminiProviderPolicy.Model, StringComparison.Ordinal) ||
-            !string.Equals(profile.ServiceTier, E0AGeminiProviderPolicy.ServiceTier, StringComparison.Ordinal))
-        {
-            throw new E0AHarnessException("E0-A Gemini request profile is outside the approved normative route.");
-        }
-
         using var schema = JsonDocument.Parse(schemaJson);
         var body = new Dictionary<string, object?>
         {
@@ -242,13 +205,4 @@ internal static class E0ARequestBuilder
             throw new E0AHarnessException("E0-A provider request Context subject does not hold the current Opportunity.");
         }
     }
-
-    private static string Reasoning(E0AReasoningLevel value) => value switch
-    {
-        E0AReasoningLevel.None => "none",
-        E0AReasoningLevel.Low => "low",
-        E0AReasoningLevel.Medium => "medium",
-        E0AReasoningLevel.High => "high",
-        _ => throw new E0AHarnessException("E0-A reasoning level is invalid.")
-    };
 }

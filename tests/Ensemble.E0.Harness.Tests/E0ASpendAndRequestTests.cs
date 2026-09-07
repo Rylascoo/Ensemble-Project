@@ -81,17 +81,25 @@ public sealed class E0ASpendAndRequestTests
 
         using var document = JsonDocument.Parse(attempt.RequestBody);
         var root = document.RootElement;
-        Assert.AreEqual(E0APromptContracts.PerformerInstructions, root.GetProperty("instructions").GetString());
-        Assert.AreEqual(JsonValueKind.String, root.GetProperty("input").ValueKind);
+        var systemPart = root.GetProperty("systemInstruction").GetProperty("parts")[0];
+        Assert.AreEqual(E0APromptContracts.PerformerInstructions, systemPart.GetProperty("text").GetString());
+        var content = root.GetProperty("contents")[0];
+        Assert.AreEqual("user", content.GetProperty("role").GetString());
+        Assert.AreEqual(JsonValueKind.String, content.GetProperty("parts")[0].GetProperty("text").ValueKind);
         Assert.IsFalse(root.GetProperty("store").GetBoolean());
-        Assert.AreEqual("default", root.GetProperty("service_tier").GetString());
-        Assert.AreEqual("disabled", root.GetProperty("truncation").GetString());
-        Assert.AreEqual(4096, root.GetProperty("max_output_tokens").GetInt32());
+
+        var generation = root.GetProperty("generationConfig");
+        Assert.AreEqual(1, generation.GetProperty("candidateCount").GetInt32());
+        Assert.AreEqual(E0ARunEnvelope.RoleMaxOutputTokens, generation.GetProperty("maxOutputTokens").GetInt32());
+        Assert.AreEqual(0, generation.GetProperty("thinkingConfig").GetProperty("thinkingBudget").GetInt32());
+        Assert.IsFalse(generation.GetProperty("thinkingConfig").GetProperty("includeThoughts").GetBoolean());
+        Assert.AreEqual("application/json", generation.GetProperty("responseFormat").GetProperty("text").GetProperty("mimeType").GetString());
+
         Assert.IsFalse(root.TryGetProperty("tools", out _));
         Assert.IsFalse(root.TryGetProperty("conversation", out _));
         Assert.IsFalse(root.TryGetProperty("previous_response_id", out _));
-        Assert.IsFalse(root.TryGetProperty("temperature", out _));
-        Assert.IsFalse(root.TryGetProperty("top_p", out _));
+        Assert.IsFalse(generation.TryGetProperty("temperature", out _));
+        Assert.IsFalse(generation.TryGetProperty("topP", out _));
     }
 
     [TestMethod]
