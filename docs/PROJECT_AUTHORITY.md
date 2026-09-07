@@ -27,7 +27,7 @@ GitHub is the canonical engineering workspace. Changes should be patch-first and
 - `docs/VALIDATION_LEDGER.md` records validation facts and durable validation tags. It cannot advance the current checkpoint or inflate a validation rung.
 - `docs/HYPOTHESIS_LEDGER.md` records explicitly unverified assumptions and their verification triggers. A hypothesis never becomes a decision or fact merely by being listed.
 - `docs/evidence/archive/` preserves historical provenance. Archive references do not establish current authority for active evidence.
-- `docs/handoff/` contains temporary transition artifacts only when `CURRENT_STATE.md` identifies one as live.
+- `docs/handoff/README.md` defines temporary handoff semantics. A handoff is live only when `CURRENT_STATE.md` identifies its exact path.
 
 For repository-document hygiene, `CURRENT_STATE.md` and this file are the durable authority-graph roots. Other active documents must derive their continuing role through explicit references from those roots or their reachable descendants; `docs/DOCUMENT_INDEX.md` may aid navigation but cannot confer authority reachability.
 
