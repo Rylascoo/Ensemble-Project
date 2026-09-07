@@ -3,21 +3,21 @@ using Ensemble.E0.Core.Domain;
 using Ensemble.E0.Core.Fixture;
 using Ensemble.E0.Core.Production;
 using Ensemble.E0.Harness.Evidence;
-using Ensemble.E0.Harness.OpenAI;
+using Ensemble.E0.Harness.Gemini;
 using Ensemble.E0.Harness.Run;
 
 namespace Ensemble.E0.Harness.Host;
 
 internal static class E0AReferenceRunHost
 {
-    internal static E0APricingAssumptions ConservativePricing => E0APricingPolicy.ConservativePricing;
+    internal static E0APricingAssumptions ConservativePricing => E0AGeminiPricingPolicy.ConservativeShadowPricing;
 
     internal static async Task<int> RunAsync(string[] args, CancellationToken cancellationToken)
     {
         if (args.Length != 5 || args.Any(string.IsNullOrWhiteSpace))
         {
             throw new E0AHarnessException(
-                "Usage: Ensemble.E0.Harness e0a-run <CREATIVE-NONE|CREATIVE-LOW|CREATIVE-MEDIUM|CREATIVE-HIGH> <fixture.json> <run-id> <evidence-root> <executable-commit>");
+                "Usage: Ensemble.E0.Harness e0a-run CREATIVE-NONE <fixture.json> <run-id> <evidence-root> <executable-commit>");
         }
 
         var variant = args[0];
@@ -39,15 +39,15 @@ internal static class E0AReferenceRunHost
         MissingRaftContract.Validate(fixture);
         var genesis = ProductionState.Initialize(fixture, ImmutableArray<RecordId>.Empty);
 
-        // The published promotional rate is only frozen through its provider-guaranteed
-        // date. After that date the host refuses inference until pricing is re-verified
-        // and these implementation/evidence constants are deliberately updated.
-        E0APricingPolicy.RequireNonStaleSnapshot(DateTimeOffset.UtcNow);
+        // This is a short-lived experimental snapshot guard, not live provider
+        // verification or ODR-26 policy law. A material provider change inside the
+        // window still requires re-verification before inference.
+        E0AGeminiPricingPolicy.RequireNonStaleSnapshot(DateTimeOffset.UtcNow);
 
-        // Credential access is deliberately confined to this explicit live-run path.
-        // Missing credentials fail before any run evidence directory is created.
+        // Credential access is confined to this explicit live-run path. Missing
+        // credentials fail before any run evidence directory is created.
         using var http = CreateProviderHttpClient();
-        var provider = OpenAIResponsesPort.FromEnvironment(http);
+        var provider = GeminiGenerateContentPort.FromEnvironment(http);
 
         var envelope = CreateEnvelope(variant);
         var evidence = new E0AFileEvidenceStore(
@@ -63,7 +63,7 @@ internal static class E0AReferenceRunHost
         var result = await driver.RunAsync(runId, genesis, cancellationToken).ConfigureAwait(false);
 
         Console.WriteLine(
-            $"E0-A {envelope.Variant} run terminal: {result.Status}; acceptedTurns={result.AcceptedTurns}; estimatedSpendUsd={result.EstimatedSpendUsd:0.000000}");
+            $"E0-A {envelope.Variant} run terminal: {result.Status}; acceptedTurns={result.AcceptedTurns}; estimatedShadowSpendUsd={result.EstimatedSpendUsd:0.000000}");
         Console.WriteLine($"Evidence root: {evidence.RootPath}");
         return result.Status == E0ARunTerminalStatus.AcceptedTurnCapReached ? 0 : 3;
     }
@@ -82,11 +82,10 @@ internal static class E0AReferenceRunHost
 
     internal static E0ARunEnvelope CreateEnvelope(string variant) => variant switch
     {
-        "CREATIVE-NONE" => E0ARunEnvelope.CreativeNone(ConservativePricing),
-        "CREATIVE-LOW" => E0ARunEnvelope.CreativeLow(ConservativePricing),
-        "CREATIVE-MEDIUM" => E0ARunEnvelope.CreativeMedium(ConservativePricing),
-        "CREATIVE-HIGH" => E0ARunEnvelope.CreativeHigh(ConservativePricing),
-        _ => throw new E0AHarnessException("E0-A live-run variant is not one of the four approved Phase-B variants.")
+        "CREATIVE-NONE" => E0ARunEnvelope.GeminiNormativeReference(ConservativePricing),
+        "CREATIVE-LOW" or "CREATIVE-MEDIUM" or "CREATIVE-HIGH" =>
+            throw new E0AHarnessException("E0-A Gemini LOW/MEDIUM/HIGH characterization is deferred pending a provider-specific resource-normalization amendment."),
+        _ => throw new E0AHarnessException("E0-A live-run variant is not approved by the Gemini normative amendment.")
     };
 
     internal static int SealEvaluation(string[] args)
