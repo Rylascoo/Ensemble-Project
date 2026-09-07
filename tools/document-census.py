@@ -167,7 +167,7 @@ def build() -> dict[str, object]:
     active = [entry for entry in entries if entry["surface"] == "active"]
     archive = [entry for entry in entries if entry["surface"] == "archive"]
     return {
-        "schema": "ensemble.repository-document-census.v6",
+        "schema": "ensemble.repository-document-census.v7",
         "head": git("rev-parse", "HEAD"),
         "authority_roots": list(AUTHORITY_ROOTS),
         "inventory_count": len(entries),
@@ -181,12 +181,18 @@ def is_archive_candidate(entry: dict[str, object]) -> bool:
     return is_active_evidence(str(entry["path"])) and not bool(entry["authority_reachable"])
 
 
+def archive_candidates(report: dict[str, object]) -> list[dict[str, object]]:
+    entries = report["entries"]
+    assert isinstance(entries, list)
+    return [entry for entry in entries if is_archive_candidate(entry)]
+
+
 def print_summary(report: dict[str, object]) -> None:
     entries = report["entries"]
     assert isinstance(entries, list)
     active = [entry for entry in entries if entry["surface"] == "active"]
     archive = [entry for entry in entries if entry["surface"] == "archive"]
-    candidates = [entry for entry in active if is_archive_candidate(entry)]
+    candidates = archive_candidates(report)
     unreachable_other = [
         entry for entry in active
         if not entry["authority_reachable"] and not is_archive_candidate(entry)
@@ -217,9 +223,28 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--json", action="store_true")
     parser.add_argument("--summary", action="store_true")
+    parser.add_argument(
+        "--check",
+        action="store_true",
+        help="fail when active evidence is unreachable from durable authority roots",
+    )
     args = parser.parse_args()
     report = build()
-    print(json.dumps(report, indent=2, sort_keys=True) if args.json else "") if args.json else print_summary(report)
+
+    if args.json:
+        print(json.dumps(report, indent=2, sort_keys=True))
+    else:
+        print_summary(report)
+
+    if args.check:
+        candidates = archive_candidates(report)
+        if candidates:
+            print("DOCUMENT_AUTHORITY_CHECK=FAIL")
+            for entry in candidates:
+                print(f"ERROR\tunreachable active evidence: {entry['path']}")
+            return 1
+        print("DOCUMENT_AUTHORITY_CHECK=PASS")
+
     return 0
 
 
