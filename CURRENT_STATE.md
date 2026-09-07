@@ -4,165 +4,277 @@ Updated: 2026-09-07
 
 ## Authority
 
-Frozen Blueprint 0.1 + approved phase/patch blueprints govern architecture. `Rylascoo/Ensemble-Project` is engineering authority. Resolve `main`; never promote or overstate validation. Workflow: `docs/PROJECT_REASONING_TASK_SCOPE_OPTIMIZATION_PROTOCOL.md`. Open questions: `docs/OPEN_DESIGN_REGISTER_CONTINUATION.md`. Plan: `docs/roadmap/KYMAEAN_ARCHITECTURE_AND_SHIP_PLAN.md`. Product/policy authority and lane boundaries: `docs/PROJECT_AUTHORITY.md`.
+Frozen Blueprint 0.1 plus approved phase/patch blueprints govern architecture. `Rylascoo/Ensemble-Project` is engineering authority. `CURRENT_STATE.md` is the only phase/checkpoint/validation/next-action authority. Evidence and handoff documents supply detail but do not independently advance project state.
 
-The Director owns product constitution, Open Design Register resolution, provider admissibility, and decisions about what the product may do. Engineering/design surfaces supply inputs within their lanes. ODR proposals/resolutions live in `Ensemble-Project/docs` following the ODR-33 precedent.
+Product/policy authority and lane boundaries: `docs/PROJECT_AUTHORITY.md`. The Director owns product constitution, Open Design Register resolution, provider admissibility, and decisions about what the product may do. Engineering/design surfaces supply inputs only within their lanes. ODR proposals/resolutions live in `Ensemble-Project/docs` following the ODR-33 precedent.
 
-## Checkpoint
+Engineering workflow discipline: `docs/PROJECT_REASONING_TASK_SCOPE_OPTIMIZATION_PROTOCOL.md`. Fresh engineering chats must resolve repository state before acting, use the strongest available project-relevant reasoning/capabilities, maximize useful task completion per reply, avoid unnecessary conversational overhead, and recursively audit material work for errors, inconsistencies, ambiguity, regressions, scope drift, and worthwhile improvements until one complete pass finds none.
 
-Phase: **E0-A Experimental Harness — post-audit hardening is promoted on `main` with credentialless native Windows ARM64 authority at its exact tagged checkout; the separately approved Gemini normative-reference amendment has its own credentialless native PASS and is the next integration target onto the hardened baseline; real provider execution remains gated**.
+Program plan: `docs/roadmap/KYMAEAN_ARCHITECTURE_AND_SHIP_PLAN.md`. Open design questions: `docs/OPEN_DESIGN_REGISTER_CONTINUATION.md`.
 
-Current promoted `main` hardening merge:
+## Current checkpoint
+
+Phase: **E0-A Experimental Harness — post-audit hardening is promoted and natively validated; the approved Gemini normative-reference amendment has been semantically composed onto hardened `main`, recursively statically closed, compiler-gated, and has PASSed fresh Director-machine native Windows ARM64 fake-only/credentialless validation at the exact combined executable/test checkout. The required annotated validation tag now exists, so the combined checkpoint has durable machine-tested runtime authority and is ready for promotion review. Real Gemini network execution remains separately gated.**
+
+Current promoted `main` continuity head:
+
+`aa9a3d0dfbba9e882b67a7d0d9d1d510374103fd`
+
+Promoted hardening merge:
 
 `6f211ffe1238c065ad093eaff7e3cedaa3067f66`
 
-H1 Phase A: **CLOSED** by `docs/evidence/H1_CONVERGENCE_AUDIT.md`; promotion `28371ea4bcd9709b771413100af4dcec5a05dc6e`.
+Active integration branch:
 
-Approved Phase-B architecture: `docs/blueprint/E0A_PHASE_B_REFERENCE_RUN_ENVELOPE.md`, Proposal 0.15; approval: `docs/evidence/E0A_PHASE_B_REFERENCE_RUN_ENVELOPE_APPROVAL.md`.
+`e0a-gemini-on-hardened-main`
 
-Post-audit hardening evidence: `docs/evidence/E0A_POST_AUDIT_HARDENING_FINAL_STATIC_CLOSURE.md`; native validation: `docs/evidence/E0A_POST_AUDIT_HARDENING_NATIVE_ARM64_VALIDATION.md`; Attempt 01 diagnosis: `docs/evidence/E0A_POST_AUDIT_HARDENING_NATIVE_ARM64_VALIDATION_ATTEMPT_01.md`.
+Exact combined executable/test checkpoint:
 
-Director-host apparatus contract: `docs/evidence/DIRECTOR_WINDOWS_ARM64_VALIDATION_HOST_BEHAVIORS.md`.
+`5f286e8cfa896d38d85d4611f69a224fae5b55fd`
 
-Program map: `docs/roadmap/KYMAEAN_ARCHITECTURE_AND_SHIP_PLAN.md`.
+Combined static closure:
 
-## Repository renovation and hardening promotion
+`docs/evidence/E0A_GEMINI_ON_HARDENED_MAIN_INTEGRATION_STATIC_CLOSURE.md`
 
-Repository-renovation integration PR #40 was promoted to `main` at `175aa1f360aa8458fb571ac21295df13f59fdd8b`; post-renovation continuity PR #41 was promoted at `62769b3af3e4309204b89bffa3e9e5e24afc5bf7`. Together they integrate C1 branch archival records, C2 CI authority separation, C3 shared build surface, C4 oracle-documentation drift guard, bootstrap-surface reconciliation, the Repository Surface extension of Engineering Hygiene Law 5, and `PROJECT_REASONING_TASK_SCOPE_OPTIMIZATION_PROTOCOL.md` version 0.3.
+Combined native validation evidence:
 
-Post-audit hardening was then integrated onto renovated `main` in PR #42. The mechanical integration commit was `502e8c10fbaf8873566aab850fbf88a4449211aa`; final continuity head `3c0cf625077d7f57734d229486fa5de404834e74`; PR #42 merge commit `6f211ffe1238c065ad093eaff7e3cedaa3067f66`.
+`docs/evidence/E0A_GEMINI_ON_HARDENED_MAIN_NATIVE_ARM64_VALIDATION.md`
 
-The integration tree was constructed so renovated `main` supplied repository/continuity surfaces while the hardening parent supplied its complete `src/`, `tests/`, evidence, and handoff surface. Recursive two-parent comparison established that no hardening executable/test byte changed during integration and no renovation artifact was dropped. From the hardening common baseline to renovated `main`, no `.csproj`, source, test, or fixture file changed; `.editorconfig` adds advisory/suggestion formatting/style guidance only.
+Annotated validation tag:
 
-Final PR #42 head `3c0cf625...` passed the repository validation workflow: ARM64 cross-compile compiler gate PASS for Core, Harness, Core tests, and Harness tests; Oracle documentation drift PASS; advisory x64 Core tests PASS. This is compiler/CI authority only for the integration head; it does not replace the exact Director-machine runtime checkpoint below.
+`validation/e0a-phase-b-gemini-on-hardened-native-arm64`
 
-## Native validation
+Native validation handoff:
 
-All native evidence below is **Director-machine-sourced** from the Director's native Windows ARM64 machine, not the engineering assistant environment.
+`docs/handoff/E0A_GEMINI_ON_HARDENED_MAIN_NATIVE_ARM64_VALIDATION_HANDOFF.md`
 
-Durable annotated validation tags include:
+Director-host apparatus contract:
+
+`docs/evidence/DIRECTOR_WINDOWS_ARM64_VALIDATION_HOST_BEHAVIORS.md`
+
+The combined checkpoint is now durable machine-tested runtime authority for its exact fake-only/credentialless scope. Promotion to `main` remains a separate repository-integration decision and must not be conflated with real-provider authorization.
+
+## Phase-B architecture and boundary
+
+H1 Phase A is **CLOSED** by `docs/evidence/H1_CONVERGENCE_AUDIT.md`; promotion `28371ea4bcd9709b771413100af4dcec5a05dc6e`.
+
+Approved Phase-B parent architecture: `docs/blueprint/E0A_PHASE_B_REFERENCE_RUN_ENVELOPE.md`, Proposal 0.15; approval: `docs/evidence/E0A_PHASE_B_REFERENCE_RUN_ENVELOPE_APPROVAL.md`.
+
+Approved Gemini amendment: `docs/blueprint/E0A_PHASE_B_GEMINI_NORMATIVE_REFERENCE_AMENDMENT.md`; approval: `docs/evidence/E0A_PHASE_B_GEMINI_NORMATIVE_REFERENCE_AMENDMENT_APPROVAL.md`.
+
+The Harness owns the approved reference-run envelope outside Core while reusing closed H1 Cycle/Turn authority. The Gemini amendment changes only the next normative provider route and preserves deterministic Core authority, evidence laws, causal authority, retry/cancellation rules, RunId law, blind-review isolation, and later-phase exclusions except where expressly amended.
+
+Remain inside **E0-A Phase B**. Do not enter E0-B..G, Application/persistence/UI, Scene endings, Context optimization, Windows AI/NPU, MSIX/WACK/Store, or later scope.
+
+## Repository renovation and hardening authority
+
+Repository-renovation PR #40 was promoted at `175aa1f360aa8458fb571ac21295df13f59fdd8b`; post-renovation continuity PR #41 at `62769b3af3e4309204b89bffa3e9e5e24afc5bf7`. These integrated branch archival records, CI authority separation, shared build surface, oracle-documentation drift protection, bootstrap reconciliation, Repository Surface hygiene, and reasoning/task optimization protocol continuity.
+
+Post-audit hardening was integrated through PR #42. Mechanical integration commit: `502e8c10fbaf8873566aab850fbf88a4449211aa`; final PR head: `3c0cf625077d7f57734d229486fa5de404834e74`; merge commit: `6f211ffe1238c065ad093eaff7e3cedaa3067f66`.
+
+Hardening static authority: `docs/evidence/E0A_POST_AUDIT_HARDENING_FINAL_STATIC_CLOSURE.md` and `docs/evidence/E0A_POST_AUDIT_HARDENING_CLOSED_FINDINGS.md`.
+
+Hardening native authority: `docs/evidence/E0A_POST_AUDIT_HARDENING_NATIVE_ARM64_VALIDATION.md`.
+
+Hardening strengthened fail-closed response handling, receipt/usage provenance, spend robustness, evidence ownership/sealing, checkout behavior, evaluation authority, cancellation, provider parsing, timeout authority, and regression coverage without redesigning Proposal 0.15. The one Core-source hardening change remains the narrow E-04 parser normalization in `src/Ensemble.E0.Core/Fixture/StrictJsonPreflight.cs`; Gemini-on-hardened composition adds no further Core source change relative to hardened `main`.
+
+## Durable native validation authorities
+
+All native evidence is Director-machine-sourced from the Director's Windows ARM64 machine.
+
+Annotated validation tags:
 
 - `validation/e0a-phase-b-reference-run-native-arm64` -> `3749210393282f6aa2ac4ceb0176b6adb5df189e`.
 - `validation/e0a-phase-b-live-host-native-arm64` -> `1cfdb3aa22abce62a5bd48e80706407670d1c6a9`.
 - `validation/e0a-phase-b-post-audit-hardening-native-arm64` -> `5c70f619d6e951d89bb527a5945b014998573dab`.
 - `validation/e0a-phase-b-gemini-native-arm64` -> `9bb65a8461c0963d9a9c6e9647633ca5c6d5df24`.
+- `validation/e0a-phase-b-gemini-on-hardened-native-arm64` -> `5f286e8cfa896d38d85d4611f69a224fae5b55fd`.
 
-### Current promoted hardening runtime authority
+Current promoted `main` runtime authority remains the hardening line until combined promotion completes. The combined checkout `5f286e8c...` is independently durable machine-tested authority for its exact fake-only/credentialless scope and is the promotion candidate.
 
-Exact machine-tested executable/test checkout:
+Historical original-Gemini native authority remains exact checkout `9bb65a8461c0963d9a9c6e9647633ca5c6d5df24`; it does not supersede the composed checkpoint.
 
-`5c70f619d6e951d89bb527a5945b014998573dab`
+## Gemini-on-hardened integration — composition authority
 
-Annotated validation tag: `validation/e0a-phase-b-post-audit-hardening-native-arm64`.
+Composition order is frozen: **hardened promoted baseline first, Gemini amendment second**. The original Gemini branch was not merged wholesale over hardened `main`; overlapping Harness/test surfaces were semantically reconciled so the approved Gemini route and all closed hardening laws survive together.
 
-Observed on the Director's Windows ARM64 host: exact detached checkout; clean tracked/staged tree; no material untracked source/test/fixture files; `PROCESSOR_ARCHITECTURE=ARM64`; Windows `10.0.26200`; SDK `9.0.317`; RID `win-arm64`; Host Architecture `arm64`; **622/622 Core tests PASS**; **88/88 Harness tests PASS** after clearing Harness/test build outputs; fresh explicit Harness native ARM64 build PASS after clearing target output again; Missing Raft PASS; generic smoke PASS; credentialless explicit OpenAI-edge `e0a-run CREATIVE-NONE` PASS with native exit `1`, exact expected missing-`OPENAI_API_KEY` refusal, no evidence root, and both provider credentials absent; post-validation exact checkout and cleanliness PASS.
+Exact executable/test checkpoint:
 
-Native Attempt 01 had first closed the earlier MSTEST0032 compiler blocker, then failed only `BufferedWrongJsonType_FailsClosedAsTechnicalReceipt` at 87/88 because the test retained the older `provider-incomplete` diagnostic after E-06 intentionally refined malformed response handling to `malformed-provider-response`. Repair `5c70f619...` changed that one expected diagnostic string only; no runtime source changed. Rerun 02 then passed the complete sequence.
+`5f286e8cfa896d38d85d4611f69a224fae5b55fd`
 
-The interactive Rerun 02 transcript contained two standalone PowerShell `else` parser messages caused by entering multi-line `if`/`else` assignments as separate interactive commands. Those messages occurred after each `if` assignment had completed and do not invalidate the credentialless gate: the subsequent assertions for exit, exact refusal message, absent evidence root, absent credentials, and post-cleanliness all passed. The filed canonical handoff uses single-line `if ... else ...` assignments.
+Hardened composition base:
 
-### Historical Phase-B runtime checkpoints
+`aa9a3d0dfbba9e882b67a7d0d9d1d510374103fd`
 
-Original Phase-B implementation checkpoint `3749210393282f6aa2ac4ceb0176b6adb5df189e`: **622/622 Core**, **39/39 Harness**, native ARM64 build, Missing Raft, generic smoke PASS.
+The recursive composition audit found and corrected these material cross-branch conflicts before closure:
 
-Live-host completion checkpoint `1cfdb3aa22abce62a5bd48e80706407670d1c6a9`: **622/622 Core**, **54/54 Harness**, native ARM64 build, Missing Raft, generic smoke, credentialless explicit OpenAI provider-edge PASS.
+- **E-02 streaming cancellation:** removed Gemini's synchronous `EndOfStream` probe; cancellable `ReadLineAsync(cancellationToken)` owns stream input and `null` is EOF.
+- **E-03 provider parsing:** strict UTF-8 streaming decode, consumed-field JSON type checks, and well-formed provider-string validation prevent malformed provider material from becoming semantics.
+- **E-06 spend/provenance:** buffered closed technical outcomes may retain independently validated nonsemantic metadata; streaming usage becomes spend authority only after full stream consumption. Early streaming failures omit usage and trigger hardened full-reservation fallback; fully consumed non-STOP streams may retain validated usage while remaining nonsemantic.
+- **E-07 timeout authority:** provider `HttpClient.Timeout = Timeout.InfiniteTimeSpan`; the run driver's linked 300-second attempt token remains sole attempt deadline.
+- hardened pricing representability, reservation identity, unknown-usage state, fallback accounting, evidence namespace ownership, write-once publication, runtime/evaluation seals, checkout guard, deterministic Core authority, and blind-evidence laws remain preserved.
 
-These remain historical machine-tested checkpoints and do not supersede current hardened runtime authority.
+Dedicated regression coverage includes cancellation-first streaming, malformed UTF-8, malformed optional fields and Unicode identity, technical provenance retention, later-invalid-stream-usage fallback, and fully consumed non-STOP known usage.
 
-### Gemini amendment checkpoint — native PASS on original Gemini branch, not yet hardened-composed
+The final recursive static pass found no additional material correction, inconsistency, ambiguity, or worthwhile improvement inside the authorized boundary.
 
-Exact validated executable/test checkout:
+## Compiler / CI authority of combined executable checkpoint
 
-`9bb65a8461c0963d9a9c6e9647633ca5c6d5df24`
+GitHub Actions Validation gate run `34152340592` ran at exact checkout `5f286e8cfa896d38d85d4611f69a224fae5b55fd`.
 
-Annotated validation tag: `validation/e0a-phase-b-gemini-native-arm64`.
+PASS:
 
-Branch evidence: `docs/evidence/E0A_PHASE_B_GEMINI_NATIVE_ARM64_VALIDATION.md` on `e0a-gemini-normative-reference-amendment`.
+- Core Release build — 0 warnings / 0 errors;
+- Harness Release `win-arm64` build — 0 warnings / 0 errors;
+- Core test-project Release build — 0 warnings / 0 errors;
+- Harness test-project Release build — 0 warnings / 0 errors;
+- Oracle documentation drift gate;
+- advisory x64 Core tests.
 
-Observed on the Director's Windows ARM64 host: exact checkout and clean tracked/staged tree with only the known nonmaterial root file; `PROCESSOR_ARCHITECTURE=ARM64`; Windows `10.0.26200`; SDK `9.0.317`; RID `win-arm64`; Host Architecture `arm64`; **622/622 Core tests PASS**; **81/81 Harness tests PASS**; fresh clean-output Harness native ARM64 build PASS; Missing Raft PASS; generic smoke PASS; credentialless explicit Gemini `e0a-run CREATIVE-NONE` PASS with native exit `1`, expected `GEMINI_API_KEY` refusal, no evidence root, and both provider credentials absent.
+This is ARM64-target cross-compile/compiler authority only; the runner was Ubuntu x64.
 
-This establishes native credentialless/fake-only authority only for exact original Gemini checkout `9bb65a846...`. It is not native authority for the future combined hardening+Gemini checkout and does not authorize Gemini `countTokens`, inference, credential use, provider-network execution, or spend.
+## Combined native Windows ARM64 validation — PASS
 
-Coverage caveat: pricing-policy constant tests are constant-freeze tripwires, not live provider-pricing validation. Native fake-only/credentialless validation does not establish live pricing freshness, provider cache billing, provider spend correctness, or real provider behavior.
+Exact Director-machine validated checkout:
 
-No real provider request, provider credential use, provider-network execution, or provider spend has been executed or authorized by these native validations. No WinUI, Windows AI/NPU, MSIX/WACK, or Store authority.
+`5f286e8cfa896d38d85d4611f69a224fae5b55fd`
 
-## Phase-B truth
+Observed baseline `origin/main`:
 
-The Harness owns the approved reference-run envelope outside Core while reusing the closed H1 Cycle/Turn authority unchanged.
+`aa9a3d0dfbba9e882b67a7d0d9d1d510374103fd`
 
-Post-audit hardening strengthens fail-closed response handling, receipt/usage provenance, spend robustness, evidence ownership/sealing, deterministic authority, checkout behavior, and regression coverage without redesigning Proposal 0.15. Exactly one Core source file changed in hardening, `src/Ensemble.E0.Core/Fixture/StrictJsonPreflight.cs`, for the narrow E-04 parser normalization; all other executable hardening corrections are Harness-side.
+Host authority:
 
-The separately approved Gemini normative-reference amendment changes only the next normative E0-A provider route. Its blueprint explicitly preserves existing deterministic H1/Core authority, evidence laws, causal authority, retry/cancellation rules, RunId law, blind-review isolation, and later-phase exclusions unless specifically amended. Because post-audit hardening strengthens those preserved laws, the correct composition order is **hardened promoted baseline first, Gemini amendment second**.
+- Windows `10.0.26200`;
+- `PROCESSOR_ARCHITECTURE=ARM64`;
+- repository-selected SDK `9.0.317`;
+- RID `win-arm64`;
+- Host Architecture `arm64`.
 
-The original Gemini branch must therefore not be merged wholesale over hardened `main` where overlapping files would discard hardening. The next implementation task is a semantic three-way reconciliation of the Gemini amendment onto current hardened `main`, followed by recursive audit and fresh native validation of the combined executable/test checkout.
+Native results:
 
-Historical OpenAI approved variants were:
+```text
+Exact checkout / tracked+staged cleanliness PASS
+Material-untracked source/test/fixture check  PASS
+Core tests                                    PASS 622/622
+Harness tests                                 PASS 125/125
+Fresh native ARM64 Harness build              PASS
+Missing Raft smoke                            PASS
+Generic fixture smoke                         PASS
+Credentialless Gemini provider edge           PASS expected refusal
+Evidence-root absence                         PASS
+Post-validation checkout/cleanliness          PASS
+OPENAI_API_KEY                                absent
+GEMINI_API_KEY                                absent
+Gemini credential use                         NOT PERFORMED
+Gemini countTokens network request             NOT PERFORMED
+Gemini inference                               NOT PERFORMED
+Gemini provider-network execution              NOT PERFORMED
+Gemini spend                                   NOT PERFORMED
+```
 
-- `CREATIVE-NONE` — Performer/Interpreter `none`, Integrity `high`; normative reference run.
-- `CREATIVE-LOW` — Performer/Interpreter `low`, Integrity `high`; matched characterization.
-- `CREATIVE-MEDIUM` — Performer/Interpreter `medium`, Integrity `high`; matched characterization.
-- `CREATIVE-HIGH` — Performer/Interpreter `high`, Integrity `high`; matched characterization.
+Only nonmaterial untracked file observed: root-level `patch0012-local-edit.txt`.
 
-The Gemini amendment authorizes only `CREATIVE-NONE` on the Gemini live path and defers provider-specific mappings for LOW/MEDIUM/HIGH.
+The credentialless run exited `1` with the exact required refusal `GEMINI_API_KEY is required at the E0-A provider edge.` and created no evidence root. The host's known `NativeCommandError` stderr presentation does not invalidate the gate because stderr was isolated, native exit captured immediately, and exit/message/filesystem/credential assertions all passed independently.
 
-Frozen cross-provider envelope laws remain: 12 accepted-Turn cap; one attempt per probabilistic invocation; zero automatic retries; 300-second attempt timeout; 4096 intended generated-token ceiling per role; estimated model-token spend ceiling USD 5.00/run; no tools/provider conversation/hidden reasoning. Provider-specific request, pricing, caching, token-count, reasoning-budget, and credential controls are governed by the exact approved route rather than generalized across providers.
+Evidence: `docs/evidence/E0A_GEMINI_ON_HARDENED_MAIN_NATIVE_ARM64_VALIDATION.md`.
 
-Date-validity guards are not live provider verification. Provider/account tier, model availability, key type, pricing, quota, and data-use terms require re-verification before any real network run.
+Annotated validation tag: `validation/e0a-phase-b-gemini-on-hardened-native-arm64`.
 
-Preserved laws include Access before Context, exact configured-path request/receipt provenance, diagnostic-only streamed deltas, closed-response semantic authority, spend reconciliation before semantic use, fail-closed cancellation/timeout/usage handling, deterministic Integrity/State Authority rejection, atomic accepted causal commit followed immediately by next Opportunity establishment, immutable evidence sealing, and blind-output isolation.
+This establishes fake-only/credentialless native runtime validity for the exact combined checkout. It does **not** establish live Gemini API compatibility, `countTokens` network behavior, model/project availability, account tier/quota/key type, current provider pricing/data-use state, real implicit-cache behavior, provider usage-accounting correctness under real responses, inference correctness, or provider spend.
+
+## Current Gemini route truth
+
+Only `CREATIVE-NONE` is authorized on the Gemini live path. LOW/MEDIUM/HIGH remain deferred pending provider-specific resource-normalization authority.
+
+```text
+Provider                    Google Gemini API
+Model                       gemini-2.5-flash
+Transport                   generateContent / streamGenerateContent REST
+Credential                  GEMINI_API_KEY
+Performer thinking          0
+Interpreter thinking        0
+Integrity thinking          3584
+Request candidate cap       4096
+Observed generated ceiling  4096 candidate + thought
+Model input limit           1,048,576
+Model output limit          65,536
+```
+
+Integrity pre-spend risk reserves against the model's 65,536 output-token limit because thinking budget is not treated as a hard provider cap. Successful usage maps candidate + thought tokens to generated/output usage. Nonzero implicit-cache usage is recorded and terminates contribution before semantic use. All input is shadow-estimated at the uncached reference rate.
+
+Provider/account tier, model availability, key type, quota, pricing, and data-use terms require fresh verification immediately before any real network run. Date-validity guards are not live provider verification.
+
+No real Gemini request has been made by the integration or native validation work.
+
+## Preserved E0-A laws
+
+Preserved laws include:
+
+- Access before Context;
+- exact configured-path request/receipt provenance;
+- single-turn/stateless provider requests;
+- no provider tools or conversation/history identity;
+- diagnostic-only streaming until closed semantic authority exists;
+- technical/refusal/timeout/malformed/non-STOP/usage-policy failures cannot become fiction;
+- spend reconciliation or conservative fallback before semantic consumption;
+- deterministic Integrity and State Authority;
+- atomic accepted causal commit followed immediately by next Opportunity establishment;
+- immutable/write-once runtime evidence and separate blind hard-gate evaluation;
+- one attempt per probabilistic invocation, zero automatic retries, 300-second attempt deadline;
+- 12 accepted-Turn cap and USD 5.00 shadow-estimate run ceiling.
 
 ## Validation-host continuity
 
-Future Director Windows ARM64 command sets must be generated from `docs/evidence/DIRECTOR_WINDOWS_ARM64_VALIDATION_HOST_BEHAVIORS.md`.
+Future Director Windows ARM64 command sets must follow `docs/evidence/DIRECTOR_WINDOWS_ARM64_VALIDATION_HOST_BEHAVIORS.md`.
 
-Known host facts include:
+Known host rules include:
 
-- Windows PowerShell `RuntimeInformation.OSArchitecture`, `.ProcessArchitecture`, and `.RuntimeIdentifier` have returned blank and are not trusted architecture gates on this host.
-- Trusted architecture probes are `PROCESSOR_ARCHITECTURE=ARM64` plus parsed `dotnet --info` showing `RID: win-arm64` and Host `Architecture: arm64`.
-- Expected native stderr can surface as `NativeCommandError` under `$ErrorActionPreference='Stop'`; expected-failure probes must isolate stderr, capture `$LASTEXITCODE` immediately, and assert exit/message/filesystem effects independently.
-- After any failed Harness build, later fixture or credentialless output cannot be counted unless a fresh successful build for the exact checkout precedes it.
-- When PowerShell expressions containing `if ... else ...` are intended for interactive entry, keep the complete expression on one submitted command or otherwise ensure the parser receives the `else` as part of the same statement.
+- trust `PROCESSOR_ARCHITECTURE=ARM64` plus parsed `dotnet --info` (`RID: win-arm64`, Host `Architecture: arm64`), not known blank PowerShell `RuntimeInformation` property probes;
+- capture `$LASTEXITCODE` immediately after native commands whose status is an oracle;
+- isolate expected-failure stderr from `$ErrorActionPreference='Stop'` using temporary stdout/stderr files and temporary `Continue`;
+- clear Harness/test outputs before the native test rung when stale checkout output could exist;
+- clear the target Harness output again before the authoritative explicit native build;
+- hard-stop executable smokes after any failed current-checkout build;
+- submit complete interactive `if ... else ...` assignment expressions together.
 
-## Live implementation / integration branches
+## Live branches
+
+- `e0a-gemini-on-hardened-main`
+  - **ACTIVE — static/compiler/native fake-only validation PASS at exact executable/test checkpoint `5f286e8c...`; durable validation tag exists; promotion review is the only remaining branch gate.**
+  - static closure: `docs/evidence/E0A_GEMINI_ON_HARDENED_MAIN_INTEGRATION_STATIC_CLOSURE.md`.
+  - native validation: `docs/evidence/E0A_GEMINI_ON_HARDENED_MAIN_NATIVE_ARM64_VALIDATION.md`.
+  - native tag: `validation/e0a-phase-b-gemini-on-hardened-native-arm64`.
 
 - `e0a-gemini-normative-reference-amendment`
-  - Original amendment evidence head: `1810292ff3d14f78d80c4e5064e7a7495f718a6d`.
-  - Exact machine-tested source/test checkpoint: `9bb65a8461c0963d9a9c6e9647633ca5c6d5df24`.
-  - Native tag: `validation/e0a-phase-b-gemini-native-arm64`.
-  - **OPEN — original Gemini branch credentialless native PASS; semantic reconciliation onto hardened `main` required next.**
-  - Its existing native PASS validates only `9bb65a846...`, not the future combined hardening+Gemini checkout.
+  - historical original-Gemini line; exact native checkpoint `9bb65a846...`; tag `validation/e0a-phase-b-gemini-native-arm64`.
+  - no longer the implementation target; do not merge wholesale over hardened `main`.
 
 - `e0a-phase-b-post-audit-hardening`
-  - Implementation/evidence history is now promoted through PR #42 and no longer represents open implementation work. Its branch ref is eligible for Repository Surface archival after an annotated `archive/...` tag is created at its final head.
+  - promoted implementation/evidence history; branch is archival material after its required archive tag.
 
 - `e0a-hardening-main-integration`
-  - PR #42 integration branch is merged and likewise eligible for Repository Surface archival after its annotated archive tag is created at its final head.
+  - merged PR #42 integration history; likewise archival material after its required archive tag.
 
 ## Standing decisions
 
 - .NET 10 requires later Director approval.
 - `IPackageValidator` is not a mandatory first-release gate.
-- E5c exception-runtime provenance: open, no verified defect/fix.
+- E5c exception-runtime provenance remains open with no verified defect/fix.
 - Stage remains design-lane authority.
 - ODR-12/13/26/30/32 remain open; none blocks E0-A.
-- ODR-26 working structure: `docs/ODR_26_COST_GOVERNANCE_AND_PROVIDER_ADMISSION_WORKING_CONTRACT.md`. **Not frozen/resolved/project law; no E0-A/E0-B provider-selection effect.**
-- The ODR-26 working contract was drafted outside its authoring surface's lane and is reported for Director disposition rather than adjudicated or corrected by engineering.
+- `docs/ODR_26_COST_GOVERNANCE_AND_PROVIDER_ADMISSION_WORKING_CONTRACT.md` remains a working structure only: not frozen/resolved/project law and no E0-A/E0-B provider-selection effect.
+- The ODR-26 working contract was drafted outside its authoring surface's lane and is reported for Director disposition rather than adjudicated by engineering.
 - ODR proposal/resolution authority belongs to the Director and is filed in `Ensemble-Project/docs` regardless of originating lane.
 - Real provider credentials/network execution/spend require a separate explicit Director gate.
 
 ## Next
 
-Remain inside **E0-A Phase B**. Do not redesign Proposal 0.15 or enter E0-B..G, product Application/persistence/UI, Scene endings, Context optimization, Windows AI/NPU, MSIX/WACK/Store, or later scope.
-
 Immediate sequence:
 
-1. create a Gemini-on-hardened-main integration branch from current promoted `main`;
-2. reconcile the approved Gemini amendment semantically onto the hardened overlapping Harness/test files rather than replacing them wholesale;
-3. preserve Gemini-only source/tests/blueprint/evidence and hardened laws simultaneously;
-4. recursively audit the combined source/test/evidence surface for semantic conflicts, stale provider assumptions, test-oracle drift, regressions, scope violations, and repository hygiene until one complete pass finds no material correction or worthwhile improvement;
-5. obtain CI ARM64 cross-compile/compiler evidence for the exact combined candidate;
-6. require fresh Director-machine native Windows ARM64 validation of the exact combined executable/test checkout before it becomes machine-tested authority or can be promoted;
-7. only after combined validation and promotion consider the separately gated first real Gemini reference-provider run.
+1. recursively audit `e0a-gemini-on-hardened-main` against current `main`, open/finalize its promotion PR, and require all repository gates on the final promotion head;
+2. merge the combined Gemini-on-hardened line only after that promotion audit is clean;
+3. reconcile `main` continuity and archive superseded merged implementation branches under Repository Surface law;
+4. only after combined promotion may the first real Gemini reference-provider run become the next product action, and it still requires a separate explicit Director authorization plus immediate project/model/account/quota/pricing/data-use re-verification.
 
-The existing Gemini native PASS does not eliminate step 6 because it predates hardening composition. The existing hardening native PASS does not authorize Gemini network execution. No real provider credential, provider-network inference, provider spend, E0-B+, product UI/persistence, NPU, packaging, WACK, or Store work is authorized by the current state.
+No real provider credential, provider-network inference, provider spend, E0-B+, product UI/persistence, NPU, packaging, WACK, or Store work is authorized by the current state.

@@ -57,7 +57,7 @@ For expected-failure probes, stdout/stderr capture and exit-code capture must be
 
 ## 4. Credentialless E0-A host probe
 
-The credentialless live-host smoke is expected to:
+The historical OpenAI credentialless live-host smoke was expected to:
 
 - run with `OPENAI_API_KEY` absent;
 - invoke the explicit `e0a-run` command;
@@ -65,6 +65,14 @@ The credentialless live-host smoke is expected to:
 - emit `OPENAI_API_KEY is required at the E0-A provider edge.`;
 - create no evidence root;
 - perform no provider inference, network call, or spend.
+
+The active Gemini amendment applies the same apparatus rule while requiring both provider credentials absent and expecting:
+
+- `GEMINI_API_KEY` absent;
+- exit code `1`;
+- `GEMINI_API_KEY is required at the E0-A provider edge.`;
+- no evidence root;
+- no provider inference, network call, or spend.
 
 The wrapper must use the native-stderr handling rule above. Visible refusal text without captured exit code and filesystem assertions does not count as a complete pass.
 
@@ -80,9 +88,45 @@ Validation command sets must establish before testing:
 
 Known unrelated root-level scratch files such as `patch0012-local-edit.txt` may be reported but are not material to the source/test/fixture authority check.
 
-Post-validation, the command set must re-check exact HEAD plus tracked/staged cleanliness.
+Post-validation, the command set must re-check exact HEAD plus tracked/staged cleanliness and again reject material untracked source/test/fixture files.
 
-## 6. Command-generation rule
+## 6. Fresh-output / failed-build rule
+
+Director-machine Gemini validation Attempt 01 established an additional apparatus hazard: a failed `dotnet build` can leave an older `bin\...\Ensemble.E0.Harness.dll` on disk from a prior successful build. `Test-Path` on that DLL can therefore succeed even though the current checkout did not compile.
+
+Consequences:
+
+- fixture smokes or credentialless probes run after a failed build may execute a stale historical binary;
+- output from that stale binary is not evidence about the current checkout;
+- a stale binary can expose historical behavior, such as an `OPENAI_API_KEY` refusal, even when current source is intended to use Gemini.
+
+Future validation packets must therefore:
+
+1. clear Harness and Harness-test `bin/` and `obj/` output roots before authoritative native test execution when the packet is intended to exclude stale test/build artifacts;
+2. treat a failed Harness test build or explicit Harness build as an immediate hard stop for later executable smokes;
+3. never infer a successful current build from the existence of an output DLL alone;
+4. clear the target `bin\Debug\net9.0\win-arm64` and corresponding target-specific `obj` output before the explicit Harness build used for executable smokes, or otherwise prove the executable was produced by the successful current build;
+5. run fixture and credentialless smokes only after the exact-checkout Harness ARM64 build returns native exit `0`;
+6. classify any smoke output produced after a failed build as non-authoritative stale-binary output unless independent evidence proves otherwise.
+
+## 7. Interactive PowerShell compound-statement rule
+
+Director-machine Hardening Rerun 02 established that a multi-line PowerShell expression can be accidentally submitted as separate interactive commands. In particular, entering:
+
+```powershell
+$value = if (Test-Path $path) {
+    Get-Content $path -Raw
+}
+else {
+    ''
+}
+```
+
+as separate submissions can leave the `if` assignment successfully completed while the later standalone `else` token produces `else : The term 'else' is not recognized`.
+
+Therefore command packets intended for manual interactive entry must keep an `if ... else ...` expression in one submitted statement (for example, one line), or otherwise structure it so the parser receives the `else` as part of the same compound statement. A parser message of this kind must be classified from the surrounding assertions and side effects rather than treated as either product failure or automatic pass.
+
+## 8. Command-generation rule
 
 Future Director-machine Windows ARM64 validation command sets should be generated from this document rather than reintroducing unverified host assumptions.
 
@@ -93,6 +137,9 @@ At minimum they must:
 - capture native exit codes immediately;
 - isolate expected-failure stderr from `$ErrorActionPreference = 'Stop'`;
 - assert credentialless failure by native exit code, message, and filesystem effects;
+- hard-stop executable smokes after any failed current-checkout Harness build;
+- use fresh-output discipline when stale artifacts could contaminate evidence;
+- keep interactive compound statements parser-safe;
 - preserve the credential/network/spend gate as closed unless separately authorized.
 
 If later Director-machine evidence contradicts any item here, update this document first and then regenerate the validation command set from the revised host contract.
