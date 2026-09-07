@@ -238,8 +238,10 @@ internal sealed class OpenAIResponsesPort : IE0AProviderRolePort, IE0AInputToken
             return RoleAttemptReceipt.TechnicalFailure(attempt, "provider-refusal");
         }
 
-        var hasId = response.TryGetProperty("id", out var idElement) && TryDecodeString(idElement, out var id);
-        var hasModel = response.TryGetProperty("model", out var modelElement) && TryDecodeString(modelElement, out var model);
+        string? id = null;
+        string? model = null;
+        var hasId = response.TryGetProperty("id", out var idElement) && TryDecodeString(idElement, out id);
+        var hasModel = response.TryGetProperty("model", out var modelElement) && TryDecodeString(modelElement, out model);
         var hasText = TryExtractOutputText(response, out var text);
         var usage = ParseUsage(response);
         if (!hasId || !hasModel || !hasText ||
@@ -251,7 +253,7 @@ internal sealed class OpenAIResponsesPort : IE0AProviderRolePort, IE0AInputToken
             return RoleAttemptReceipt.TechnicalFailure(attempt, "provider-response-incomplete");
         }
 
-        return RoleAttemptReceipt.Success(attempt, id!, model!, usage, Encoding.UTF8.GetBytes(text!));
+        return RoleAttemptReceipt.Success(attempt, id, model, usage, Encoding.UTF8.GetBytes(text));
     }
 
     private static bool TryContainsRefusal(JsonElement response, out bool refused)
@@ -435,7 +437,11 @@ internal sealed class OpenAIResponsesPort : IE0AProviderRolePort, IE0AInputToken
         {
             value = element.GetString();
         }
-        catch (Exception exception) when (exception is InvalidOperationException or JsonException)
+        catch (InvalidOperationException)
+        {
+            return false;
+        }
+        catch (JsonException)
         {
             return false;
         }
