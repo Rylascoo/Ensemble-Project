@@ -3,21 +3,19 @@
 Status: COMPLETE — PROMOTED 2026-09-07
 Entered: 2026-09-07
 Baseline: `db4bb1c5d5cb6f6de230da88f1c0352fb75aac23`
-Historical work branch: `repo-restructure-e-r1`
+Branch: `repo-restructure-e-r1`
 Promotion: PR #46 merge `21a10aff823734418f36284744a1fd26aef3bcf6`
 Closure evidence: `docs/evidence/E_R1_REPOSITORY_TOOLING_WORKFLOW_RESTRUCTURE_EVIDENCE.md`
 
 ## Completion
 
-E-R1 completed Phases 0–5 without changing any file under `src/`, `tests/`, or `fixtures/` relative to its entry baseline. The exact native Windows ARM64 machine-tested checkpoint therefore remains `cc395a25162a0a682796bffb44060c799df0db32` under `validation/e0a-pre-restructure-closure-native-arm64`.
-
-Audited implementation/tooling head `fd655bae81064378a0c58fc627e43dbdd88fef58` passed gate `34169804442`; documentation-inclusive head `d0141d5cf51c3fb88fd400362a70c5ce1f9ff501` passed branch gate `34170023136` and PR gate `34170086319`. PR #46 then promoted E-R1 to `main` at merge `21a10aff823734418f36284744a1fd26aef3bcf6`.
+E-R1 completed Phases 0–5 without changing any file under `src/`, `tests/`, or `fixtures/` relative to its entry baseline. Audited implementation/tooling head `fd655bae81064378a0c58fc627e43dbdd88fef58` passed gate `34169804442`; documentation-inclusive head `d0141d5cf51c3fb88fd400362a70c5ce1f9ff501` passed branch gate `34170023136` and PR gate `34170086319`. The exact native Windows ARM64 machine-tested checkpoint therefore remains `cc395a25162a0a682796bffb44060c799df0db32` under `validation/e0a-pre-restructure-closure-native-arm64`.
 
 Post-merge continuity and branch retirement are repository-surface administration only; they do not reopen E-R1 or authorize runtime/provider work. The completed branch must be preserved by annotated `archive/repo-restructure-e-r1` at its final head before deletion.
 
 ## Authority and purpose
 
-`CURRENT_STATE.md` identified E-R1 as the approved next engineering action. A repository search at E-R1 entry found no earlier E-R1 work-package artifact on `main`; this document made the corrected work-package boundary durable so future engineering chats do not depend on chat history.
+`CURRENT_STATE.md` identifies E-R1 as the approved next engineering action. A repository search at E-R1 entry found no earlier E-R1 work-package artifact on `main`; this document makes the corrected work-package boundary durable so future engineering chats do not depend on chat history.
 
 E-R1 improves repository structure, authority clarity, documentation lifecycle, mechanical hygiene enforcement, and CI/tooling coherence. It does **not** redesign Ensemble runtime architecture or provider policy.
 
@@ -27,35 +25,35 @@ Higher authority remains unchanged: frozen Blueprint/approved phase specificatio
 
 At the exact E-R1 baseline:
 
-- pre-restructure closure and continuity were promoted;
-- the exact native Windows ARM64 machine-tested executable/test checkpoint was `cc395a25162a0a682796bffb44060c799df0db32` under `validation/e0a-pre-restructure-closure-native-arm64`;
-- completed branch `repo-pre-restructure-closure` was archived and retired;
+- pre-restructure closure and continuity are promoted;
+- the exact native Windows ARM64 machine-tested executable/test checkpoint is `cc395a25162a0a682796bffb44060c799df0db32` under `validation/e0a-pre-restructure-closure-native-arm64`;
+- completed branch `repo-pre-restructure-closure` is archived and retired;
 - prior to creating this work branch, the remote branch surface contained only `main`;
-- `CURRENT_STATE.md` was compact and remained the sole phase/checkpoint/validation/next-action authority;
-- the solution had four projects: Core, Harness, Core.Tests, Harness.Tests;
-- CI already contained ARM64-target compiler checks, required x64 Core regression tests, oracle-documentation drift protection, and a document-reference census;
-- `docs/evidence/archive/` existed and contained explicitly historical E0-A evidence;
-- historical OpenAI executable/test support was retired; Gemini was the sole current E0-A provider method;
-- real Gemini credentials/network execution/inference/spend remained unauthorized;
-- GitHub plan-dependent `main` protection was deferred and did not block E-R1.
+- `CURRENT_STATE.md` is compact and remains the sole phase/checkpoint/validation/next-action authority;
+- the solution has four projects: Core, Harness, Core.Tests, Harness.Tests;
+- CI already contains ARM64-target compiler checks, required x64 Core regression tests, oracle-documentation drift protection, and a document-reference census;
+- `docs/evidence/archive/` exists and contains explicitly historical E0-A evidence;
+- historical OpenAI executable/test support is retired; Gemini is the sole current E0-A provider method;
+- real Gemini credentials/network execution/inference/spend remain unauthorized;
+- GitHub plan-dependent `main` protection is deferred and does not block E-R1.
 
 ## Corrections to the originally discussed restructure shape
 
-Current repository facts superseded stale assumptions. E-R1 therefore followed these corrections:
+Current repository facts supersede stale assumptions. E-R1 therefore follows these corrections:
 
-1. There was no two-live-branch cleanup problem at entry. Branch state was resolved dynamically, not encoded as a supposedly stable committed branch inventory.
+1. There is no two-live-branch cleanup problem at entry. Branch state is resolved dynamically, not encoded as a supposedly stable committed branch inventory.
 2. `CURRENT_STATE.md` remains compact: target <= 3 KiB and <= 80 lines. Historical prose belongs in durable evidence/history, not in current state.
-3. Validation ledgers contain validation facts only; they are not a dumping ground for removed current-state prose.
-4. E-R1 did not add a fifth .NET test project merely to enforce repository laws. Existing tests/checks were mapped first; small static/source guards were used where they were the simpler canonical enforcement mechanism.
-5. Dependency, forbidden-surface, repository-layout, and documentation checks use deterministic source/static checks where unit tests would be brittle or semantically misplaced.
-6. The established patch artifact discipline was preserved: compact blueprint/contract + one evidence record + machine-readable oracle when an oracle is warranted. E-R1 did not impose a mandatory PATCH/VALIDATION/CLOSE document trio.
-7. Historical documents were not mass-rewritten to add status headers or generic disclaimer sections. Historical artifacts remain historically accurate unless a current ambiguity requires a narrow correction.
-8. Generated document navigation is excluded from authority traversal. Archive references do not falsely establish current authority for active evidence.
-9. Historical evidence is archived by role and current authority, not to hit an arbitrary document-count target. Git history and archive paths preserve provenance.
-10. README remains explanatory only and never carries phase authority.
-11. Drive remains design authority, not engineering phase-status authority.
-12. The hypothesis ledger cleanly separates unverified assumptions from decisions and validation facts.
-13. GitHub Actions dependency/runtime modernization used reviewed official versions/SHAs; no version was adopted by name plausibility.
+3. Validation ledgers, if introduced, contain validation facts only; they are not a dumping ground for removed current-state prose.
+4. Do not add a fifth .NET test project merely to enforce repository laws. Map existing tests/checks first; use small static/source guards where they are the simpler canonical enforcement mechanism.
+5. Dependency, forbidden-surface, repository-layout, and documentation checks should be deterministic source/static checks when unit tests would be brittle or semantically misplaced.
+6. Preserve the established patch artifact discipline: compact blueprint/contract + one evidence record + machine-readable oracle when an oracle is warranted. Do not impose a new mandatory PATCH/VALIDATION/CLOSE document trio.
+7. Do not mass-rewrite historical documents to add status headers or generic disclaimer sections. Historical artifacts remain historically accurate unless a current ambiguity requires a narrow correction.
+8. A generated document index/census must exclude its own generated references from inbound-reference calculations. Archive references must not falsely establish current authority for active evidence.
+9. Historical evidence is archived by role and current inbound authority, not to hit an arbitrary document-count target. Git history and archive paths preserve provenance.
+10. README is explanatory only and should change only when it materially improves navigation or accurately reflects current work; it never carries phase authority.
+11. Drive remains design authority, not engineering phase-status authority. Phase truth is not expanded into an artificial fixed count of “active sources.”
+12. A hypothesis/assumption ledger is useful if it cleanly separates unverified assumptions from decisions and validation facts.
+13. GitHub Actions dependency/runtime modernization is in E-R1 scope, but reviewed versions/SHAs must be verified before adoption; no version is adopted by name plausibility.
 
 ## Phase 0 — repository inventory and falsification
 
@@ -77,13 +75,13 @@ Exit criterion: one recursive pass finds no material Phase-0 factual error, stal
 
 Goal: make active authority small, explicit, navigable, and mechanically auditable.
 
-Authorized work included:
+Authorized work includes:
 
 - keep `CURRENT_STATE.md` inside its compact cap;
 - correct active-vs-archive inbound-reference semantics in the document census;
 - add a concise document index only if it improves navigation without becoming a second phase authority;
-- add validation/hypothesis ledgers only with sharply separated roles;
-- archive evidence demonstrably historical under Repository Surface law after checking current authority role;
+- add a validation ledger and/or hypothesis ledger only with sharply separated roles;
+- archive evidence that is demonstrably historical under Repository Surface law, after checking current inbound role;
 - keep active handoff surface empty unless `CURRENT_STATE.md` names a real live transition artifact.
 
 ## Phase 2 — mechanical repository-law enforcement
@@ -98,33 +96,35 @@ Process:
 4. integrate checks into CI;
 5. ensure failures are actionable and do not claim runtime authority.
 
-Implemented guards include project dependency direction, ARM64 Harness identity, warnings/determinism, current-state compactness, retired provider source/test surface, dead scaffolding, live handoff authority, exact-SHA action pins, oracle assertion coverage, and active-evidence authority reachability.
+Candidate objective guards include repository/project dependency direction, forbidden obsolete provider source, source TODO/dead-scaffolding markers, and other laws that can be checked without encoding domain judgment as brittle string dictionaries.
 
 ## Phase 3 — workflow and artifact normalization
 
 Goal: make future patches easier to author, review, validate, and retire.
 
-E-R1 normalized concise documentation conventions, navigation, evidence/archive lifecycle rules, and explicit current/historical roles without imposing a generic template on JSON, frozen historical artifacts, or every document type.
+Authorized work includes concise documentation conventions, generated navigation where useful, evidence/archive lifecycle rules, and explicit active/historical roles. Do not impose one generic template on JSON, frozen historical artifacts, or every document type.
 
-Future patch documentation remains the smallest set that carries architecture/decision, evidence, and oracle truth. Handoffs remain temporary transition artifacts.
+Future patch documentation should normally remain the smallest set that carries architecture/decision, evidence, and oracle truth. Handoffs remain temporary transition artifacts.
 
 ## Phase 4 — CI/toolchain hygiene
 
 Goal: remove avoidable workflow debt without changing Ensemble runtime policy.
 
-E-R1 reviewed GitHub Actions releases/runtime metadata, migrated from mutable Node-20 major tags to exact reviewed Node-24 commit pins, made full-SHA remote action references a repository law, kept required semantic regressions blocking, and preserved the distinction between Linux x64 regression/compiler evidence and native Windows ARM64 runtime evidence.
+Authorized work includes reviewing GitHub Actions versions/runtime deprecations, pinning reviewed action revisions where appropriate, keeping required semantic regressions blocking, and preserving the distinction between Linux x64 regression/compiler evidence and native Windows ARM64 runtime evidence.
 
-.NET 10 remained outside E-R1; the SDK remains `9.0.317`.
+.NET 10 remains outside E-R1 without Director approval.
 
 ## Phase 5 — closure
 
-The recursive repository audit covered correctness, consistency, authority, scope, tests/checks, simplicity, hygiene, ARM64 suitability, vision, evidence, documentation lifecycle, and branch/tag hygiene.
+Perform a recursive repository audit across correctness, consistency, authority, scope, tests/checks, simplicity, hygiene, ARM64 suitability, vision, evidence, documentation lifecycle, and branch/tag hygiene.
 
-Because E-R1 changed only docs/scripts/CI/repository structure and not executable/test/fixture semantics, no fresh native Windows ARM64 rerun was required. Promotion used reviewable PR #46 while preserving the E-R1 work branch for continuity.
+If E-R1 changes only docs/scripts/CI/repository structure and not executable/test/fixture semantics, native Windows ARM64 rerun is not automatically required. Any executable/test/fixture change must be classified against validation law and may require a fresh native gate before promotion.
+
+Promote through reviewable PR(s) while preserving one E-R1 work branch. Before deleting the completed branch, create an annotated `archive/...` tag at its final head per Repository Surface law.
 
 ## Non-goals / closed gates
 
-E-R1 did not authorize:
+E-R1 does not authorize:
 
 - real Gemini credentials, `countTokens`, inference, provider-network execution, or spend;
 - provider admission or provider-policy changes;
@@ -137,4 +137,4 @@ E-R1 did not authorize:
 - packaging, WACK, or Store work;
 - design-lane decisions.
 
-Any newly discovered product/policy ambiguity returns to the Director. Engineering may resolve repository/tooling implementation choices inside this completed contract only as historical interpretation; new work requires current authority.
+Any newly discovered product/policy ambiguity returns to the Director. Engineering may resolve repository/tooling implementation choices inside this contract after recursive audit.
