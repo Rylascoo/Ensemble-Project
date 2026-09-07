@@ -5,6 +5,7 @@ using Ensemble.E0.Core.Domain;
 using Ensemble.E0.Core.Integrity;
 using Ensemble.E0.Core.Performer;
 using Ensemble.E0.Core.PerformerAttempt;
+using Ensemble.E0.Core.Production;
 using Ensemble.E0.Core.StateInterpreter;
 using Ensemble.E0.Core.Turn;
 using Ensemble.E0.Harness.Run;
