@@ -29,7 +29,7 @@ GitHub is the canonical engineering workspace. Changes should be patch-first and
 - `docs/evidence/archive/` preserves historical provenance. Archive references do not establish current authority for active evidence.
 - `docs/handoff/README.md` defines temporary handoff semantics. A handoff is live only when `CURRENT_STATE.md` identifies its exact path.
 
-For repository-document hygiene, `CURRENT_STATE.md` and this file are the durable authority-graph roots. Other active documents must derive their continuing role through explicit references from those roots or their reachable descendants; `docs/DOCUMENT_INDEX.md` may aid navigation but cannot confer authority reachability.
+For repository-document hygiene, `CURRENT_STATE.md` and this file are the durable authority-graph roots. Any document intended to carry continuing current authority must derive that role through explicit references from those roots or their reachable descendants. Historical/support documents may remain outside that graph when their non-authoritative role is clear; `docs/DOCUMENT_INDEX.md` may aid navigation but cannot confer authority reachability. Active evidence remains subject to the stricter fail-closed reachability rule enforced by CI.
 
 ## Reasoning / task-scope workflow authority
 
