@@ -10,6 +10,7 @@ internal enum E0ASpendEstimateStatus
 internal sealed class E0ASpendLedger
 {
     private readonly E0APricingAssumptions _pricing;
+    private readonly long _maxInputTokens;
     private decimal _estimatedCommittedUsd;
     private decimal _reservedUsd;
     private bool _reservationActive;
@@ -18,10 +19,17 @@ internal sealed class E0ASpendLedger
     private bool _hasUnknownProviderUsage;
     private E0ASpendEstimateStatus _estimateStatus = E0ASpendEstimateStatus.WithinVerifiedPricingAssumptions;
 
-    internal E0ASpendLedger(E0APricingAssumptions pricing)
+    internal E0ASpendLedger(
+        E0APricingAssumptions pricing,
+        long maxInputTokens = E0APricingPolicy.StandardTierMaxInputTokens)
     {
         _pricing = pricing ?? throw new ArgumentNullException(nameof(pricing));
         _pricing.Validate();
+        if (maxInputTokens <= 0)
+        {
+            throw new E0AHarnessException("E0-A maximum input-token limit is invalid.");
+        }
+        _maxInputTokens = maxInputTokens;
     }
 
     internal decimal EstimatedCommittedUsd => _estimatedCommittedUsd;
@@ -36,7 +44,7 @@ internal sealed class E0ASpendLedger
         {
             throw new E0AHarnessException("E0-A spend reservation input is invalid.");
         }
-        if (inputTokens > E0APricingPolicy.StandardTierMaxInputTokens)
+        if (inputTokens > _maxInputTokens)
         {
             throw new E0ABudgetExceededException();
         }
@@ -86,7 +94,7 @@ internal sealed class E0ASpendLedger
         usage.Validate();
         ValidateCurrent(reservation);
 
-        if (usage.InputTokens > E0APricingPolicy.StandardTierMaxInputTokens)
+        if (usage.InputTokens > _maxInputTokens)
         {
             return CommitFallback(
                 reservation,
