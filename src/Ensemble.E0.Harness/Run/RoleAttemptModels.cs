@@ -256,32 +256,53 @@ internal sealed class RoleAttemptReceipt
 
     internal static RoleAttemptReceipt TechnicalFailure(
         PreparedRoleAttempt attempt,
-        string diagnosticCode) =>
-        Technical(attempt, E0ARoleAttemptOutcome.TechnicalFailure, diagnosticCode);
+        string diagnosticCode,
+        string? responseId = null,
+        string? returnedModel = null,
+        E0AUsage? usage = null) =>
+        Technical(
+            attempt,
+            E0ARoleAttemptOutcome.TechnicalFailure,
+            diagnosticCode,
+            responseId,
+            returnedModel,
+            usage);
 
     internal static RoleAttemptReceipt Cancelled(
         PreparedRoleAttempt attempt,
         string diagnosticCode) =>
-        Technical(attempt, E0ARoleAttemptOutcome.Cancelled, diagnosticCode);
+        Technical(
+            attempt,
+            E0ARoleAttemptOutcome.Cancelled,
+            diagnosticCode,
+            null,
+            null,
+            null);
 
     private static RoleAttemptReceipt Technical(
         PreparedRoleAttempt attempt,
         E0ARoleAttemptOutcome outcome,
-        string diagnosticCode)
+        string diagnosticCode,
+        string? responseId,
+        string? returnedModel,
+        E0AUsage? usage)
     {
         ArgumentNullException.ThrowIfNull(attempt);
-        if (string.IsNullOrWhiteSpace(diagnosticCode))
+        if (string.IsNullOrWhiteSpace(diagnosticCode) ||
+            (responseId is not null && string.IsNullOrWhiteSpace(responseId)) ||
+            (returnedModel is not null && string.IsNullOrWhiteSpace(returnedModel)))
         {
-            throw new E0AHarnessException("E0-A technical receipt diagnostic code is required.");
+            throw new E0AHarnessException("E0-A technical receipt metadata is invalid.");
         }
+        usage?.Validate();
 
         return new RoleAttemptReceipt(
             attempt.AttemptId,
             attempt.IdentityHash,
             outcome,
-            null,
-            null,
-            null,
+            responseId,
+            returnedModel,
+            usage,
             null,
             diagnosticCode);
     }
