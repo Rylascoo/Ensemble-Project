@@ -61,9 +61,7 @@ public static class StrictJsonPreflight
                             throw new FixtureValidationException("Property encountered outside an object.");
                         }
 
-                        var propertyName = reader.GetString()
-                            ?? throw new FixtureValidationException("Fixture contains a null property name.");
-
+                        var propertyName = DecodePropertyName(ref reader);
                         if (!objectProperties.Peek().Add(propertyName))
                         {
                             throw new FixtureValidationException(
@@ -100,6 +98,31 @@ public static class StrictJsonPreflight
         if (!sawRoot || !rootClosed || objectProperties.Count != 0)
         {
             throw new FixtureValidationException("Fixture JSON ended before the root object was complete.");
+        }
+    }
+
+    private static string DecodePropertyName(ref Utf8JsonReader reader)
+    {
+        try
+        {
+            return reader.GetString()
+                ?? throw new FixtureValidationException("Fixture contains a null property name.");
+        }
+        catch (FixtureValidationException)
+        {
+            throw;
+        }
+        catch (JsonException exception)
+        {
+            throw new FixtureValidationException("Fixture contains an invalid JSON property name.", exception);
+        }
+        catch (InvalidOperationException exception)
+        {
+            throw new FixtureValidationException("Fixture contains an invalid JSON property name.", exception);
+        }
+        catch (ArgumentException exception)
+        {
+            throw new FixtureValidationException("Fixture contains an invalid JSON property name.", exception);
         }
     }
 }

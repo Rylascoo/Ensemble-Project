@@ -27,6 +27,8 @@ internal sealed record E0ARunResult(
     E0ARunTerminalStatus Status,
     int AcceptedTurns,
     decimal EstimatedSpendUsd,
+    E0ASpendEstimateStatus SpendEstimateStatus,
+    bool HasUnknownProviderUsage,
     E0OpportunityBearingCycleState State);
 
 internal sealed class E0AReferenceRunDriver
@@ -186,7 +188,14 @@ internal sealed class E0AReferenceRunDriver
                 return Finish(E0ARunTerminalStatus.InvalidOutput, acceptedTurns, state);
             }
 
-            progress = DeterministicE0TurnOrchestrator.EvaluateIntegrity(progress, concerns);
+            try
+            {
+                progress = DeterministicE0TurnOrchestrator.EvaluateIntegrity(progress, concerns);
+            }
+            catch (E0TurnOrchestrationException)
+            {
+                return Finish(E0ARunTerminalStatus.InvalidOutput, acceptedTurns, state);
+            }
             _evidence.RecordEvent("integrity.evaluated", new
             {
                 turn,
@@ -400,45 +409,50 @@ internal sealed class E0AReferenceRunDriver
         }
         catch (E0AHarnessException)
         {
-            _spend.Release(reservation);
-            _evidence.RecordEvent("spend.released", new
-            {
-                attemptId = attempt.AttemptId,
-                reservedUsd = reservation.ReservedUsd,
-                reason = "configured-receipt-rejected"
-            });
+            var fallback = _spend.CommitUnknown(reservation);
+            RecordSpendReconciliation(attempt, fallback, "configured-receipt-rejected");
             _evidence.RecordEvent("configured-receipt.rejected", new { attemptId = attempt.AttemptId });
             return new RoleCall(null, E0ARunTerminalStatus.TechnicalFailure);
         }
 
-        if (receipt.Outcome == E0ARoleAttemptOutcome.Success)
+        _evidence.RecordReceipt(attempt, receipt);
+        var reconciliation = receipt.Usage is null
+            ? _spend.CommitUnknown(reservation)
+            : _spend.Reconcile(reservation, receipt.Usage);
+        RecordSpendReconciliation(attempt, reconciliation, receipt.DiagnosticCode);
+
+        if (!reconciliation.PricingAssumptionsValid)
         {
-            var reconciliation = _spend.Reconcile(reservation, receipt.Usage!);
-            _evidence.RecordReceipt(attempt, receipt);
-            _evidence.RecordEvent("spend.reconciled", new
+            _evidence.RecordEvent("pricing.assumptions-invalid", new
             {
                 attemptId = attempt.AttemptId,
+                estimateStatus = reconciliation.EstimateStatus.ToString(),
+                reportedInputTokens = receipt.Usage?.InputTokens,
+                reportedOutputTokens = receipt.Usage?.OutputTokens,
+                fallbackEstimatedUsd = reconciliation.EstimatedUsd
+            });
+            return new RoleCall(receipt, E0ARunTerminalStatus.TechnicalFailure);
+        }
+
+        if (reconciliation.ReservationExceeded || reconciliation.RunCeilingExceeded)
+        {
+            _evidence.RecordEvent("usage.reservation-mismatch", new
+            {
+                attemptId = attempt.AttemptId,
+                reservedInputTokens = reservation.InputTokens,
+                reportedInputTokens = receipt.Usage?.InputTokens,
+                reservedMaxOutputTokens = reservation.MaxOutputTokens,
+                reportedOutputTokens = receipt.Usage?.OutputTokens,
+                reservedUsd = reservation.ReservedUsd,
                 estimatedUsd = reconciliation.EstimatedUsd,
-                committedEstimatedUsd = _spend.EstimatedCommittedUsd,
-                reservationExceeded = reconciliation.ReservationExceeded,
+                usageKnown = reconciliation.UsageKnown,
                 runCeilingExceeded = reconciliation.RunCeilingExceeded
             });
-            if (reconciliation.ReservationExceeded || reconciliation.RunCeilingExceeded)
-            {
-                _evidence.RecordEvent("usage.reservation-mismatch", new
-                {
-                    attemptId = attempt.AttemptId,
-                    reservedInputTokens = reservation.InputTokens,
-                    reportedInputTokens = receipt.Usage!.InputTokens,
-                    reservedMaxOutputTokens = reservation.MaxOutputTokens,
-                    reportedOutputTokens = receipt.Usage.OutputTokens,
-                    reservedUsd = reservation.ReservedUsd,
-                    estimatedUsd = reconciliation.EstimatedUsd,
-                    runCeilingExceeded = reconciliation.RunCeilingExceeded
-                });
-                return new RoleCall(receipt, E0ARunTerminalStatus.TechnicalFailure);
-            }
+            return new RoleCall(receipt, E0ARunTerminalStatus.TechnicalFailure);
+        }
 
+        if (receipt.Outcome == E0ARoleAttemptOutcome.Success)
+        {
             if (_observedModel is null)
             {
                 _observedModel = receipt.ReturnedModel;
@@ -447,17 +461,6 @@ internal sealed class E0AReferenceRunDriver
             {
                 return new RoleCall(receipt, E0ARunTerminalStatus.ModelIdentityChanged);
             }
-        }
-        else
-        {
-            _spend.Release(reservation);
-            _evidence.RecordReceipt(attempt, receipt);
-            _evidence.RecordEvent("spend.released", new
-            {
-                attemptId = attempt.AttemptId,
-                reservedUsd = reservation.ReservedUsd,
-                reason = receipt.DiagnosticCode ?? receipt.Outcome.ToString()
-            });
         }
 
         var terminal = receipt.Outcome switch
@@ -468,6 +471,25 @@ internal sealed class E0AReferenceRunDriver
             _ => throw new E0AHarnessException("E0-A provider outcome is invalid.")
         };
         return new RoleCall(receipt, terminal);
+    }
+
+    private void RecordSpendReconciliation(
+        PreparedRoleAttempt attempt,
+        E0ASpendReconciliation reconciliation,
+        string? reason)
+    {
+        _evidence.RecordEvent("spend.reconciled", new
+        {
+            attemptId = attempt.AttemptId,
+            estimatedUsd = reconciliation.EstimatedUsd,
+            committedEstimatedUsd = _spend.EstimatedCommittedUsd,
+            usageKnown = reconciliation.UsageKnown,
+            estimateStatus = reconciliation.EstimateStatus.ToString(),
+            pricingAssumptionsValid = reconciliation.PricingAssumptionsValid,
+            reservationExceeded = reconciliation.ReservationExceeded,
+            runCeilingExceeded = reconciliation.RunCeilingExceeded,
+            reason
+        });
     }
 
     private E0ARunResult Finish(
@@ -481,6 +503,9 @@ internal sealed class E0AReferenceRunDriver
         {
             status = status.ToString(),
             acceptedTurns,
+            estimatedSpendUsd = _spend.EstimatedCommittedUsd,
+            spendEstimateStatus = _spend.EstimateStatus.ToString(),
+            hasUnknownProviderUsage = _spend.HasUnknownProviderUsage,
             finalStateHash = state.ProductionState.StateHash.Value,
             finalOpportunityCharacterId = opportunity.Value
         });
@@ -488,9 +513,17 @@ internal sealed class E0AReferenceRunDriver
             status.ToString(),
             acceptedTurns,
             _spend.EstimatedCommittedUsd,
+            _spend.EstimateStatus,
+            _spend.HasUnknownProviderUsage,
             state.ProductionState.StateHash.Value,
             opportunity);
-        return new E0ARunResult(status, acceptedTurns, _spend.EstimatedCommittedUsd, state);
+        return new E0ARunResult(
+            status,
+            acceptedTurns,
+            _spend.EstimatedCommittedUsd,
+            _spend.EstimateStatus,
+            _spend.HasUnknownProviderUsage,
+            state);
     }
 
     private sealed record RoleCall(RoleAttemptReceipt? Receipt, E0ARunTerminalStatus? TerminalStatus);

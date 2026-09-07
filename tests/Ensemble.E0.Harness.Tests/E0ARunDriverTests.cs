@@ -82,6 +82,59 @@ public sealed class E0ARunDriverTests
     }
 
     [TestMethod]
+    public async Task DuplicateIntegrityConcerns_TerminateAsInvalidOutputBeforeInterpreterAndSealEvidence()
+    {
+        var root = E0ATestSupport.TempRunRoot();
+        try
+        {
+            var runId = RunId.From("E0A-INTEGRITY-DUPLICATE");
+            var state = E0ATestSupport.Genesis();
+            var envelope = E0ARunEnvelope.CreativeNone(E0ATestSupport.Pricing());
+            var concern = nameof(IntegrityConcernKind.PotentialTechnicalArtifactLeak);
+            var provider = new ScriptedProvider((attempt, _) =>
+                E0ATestSupport.Success(
+                    attempt,
+                    attempt.Profile.Role == E0ARole.Performer
+                        ? E0ATestSupport.PerformerOutput()
+                        : E0ATestSupport.IntegrityOutput(concern, concern)));
+            var driver = new E0AReferenceRunDriver(
+                envelope,
+                provider,
+                new FixedTokenCounter(),
+                E0ATestSupport.Evidence(root, runId, envelope, state));
+
+            var result = await driver.RunAsync(runId, state, CancellationToken.None);
+
+            Assert.AreEqual(E0ARunTerminalStatus.InvalidOutput, result.Status);
+            Assert.AreEqual(0, result.AcceptedTurns);
+            Assert.AreEqual(2, provider.Calls);
+            CollectionAssert.AreEqual(new[] { E0ARole.Performer, E0ARole.Integrity }, provider.Roles);
+            Assert.AreEqual(state.StateHash, result.State.ProductionState.StateHash);
+            Assert.AreEqual(2, Directory.GetFiles(root, "terminal.json", SearchOption.AllDirectories).Length);
+
+            var events = File.ReadAllText(Path.Combine(root, "events.ndjson"));
+            Assert.IsFalse(events.Contains("interpreter.proposal", StringComparison.Ordinal));
+            Assert.IsFalse(events.Contains("turn.committed", StringComparison.Ordinal));
+            Assert.IsTrue(events.Contains("run.terminal", StringComparison.Ordinal));
+
+            using var transcript = JsonDocument.Parse(File.ReadAllBytes(Path.Combine(root, "transcript.json")));
+            Assert.AreEqual(0, transcript.RootElement.GetProperty("performances").GetArrayLength());
+
+            var finalPath = Path.Combine(root, "run.final.json");
+            Assert.IsTrue(File.Exists(finalPath));
+            using var final = JsonDocument.Parse(File.ReadAllBytes(finalPath));
+            Assert.AreEqual("InvalidOutput", final.RootElement.GetProperty("terminalStatus").GetString());
+            var runtimeRoot = final.RootElement.GetProperty("runtimeRoot").GetString();
+            Assert.IsNotNull(runtimeRoot);
+            Assert.AreEqual(64, runtimeRoot!.Length);
+        }
+        finally
+        {
+            Delete(root);
+        }
+    }
+
+    [TestMethod]
     public async Task BudgetRefusal_HappensBeforeProviderAndCreatesNoProviderTerminalReceipt()
     {
         var root = E0ATestSupport.TempRunRoot();
@@ -142,7 +195,7 @@ public sealed class E0ARunDriverTests
     }
 
     [TestMethod]
-    public async Task ProviderTimeout_ReleasesReservationExactlyOnceAndSealsTechnicalFailure()
+    public async Task ProviderTimeout_CommitsUnknownReservationFallbackAndSealsTechnicalFailure()
     {
         var root = E0ATestSupport.TempRunRoot();
         try
@@ -162,10 +215,14 @@ public sealed class E0ARunDriverTests
             Assert.AreEqual(E0ARunTerminalStatus.TechnicalFailure, result.Status);
             Assert.AreEqual(0, result.AcceptedTurns);
             Assert.AreEqual(1, provider.Calls);
+            Assert.IsTrue(result.HasUnknownProviderUsage);
+            Assert.IsTrue(result.EstimatedSpendUsd > 0m);
             Assert.AreEqual(1, Directory.GetFiles(root, "terminal.json", SearchOption.AllDirectories).Length);
             Assert.IsTrue(File.Exists(Path.Combine(root, "run.final.json")));
             Assert.IsTrue(File.ReadAllText(Directory.GetFiles(root, "terminal.json", SearchOption.AllDirectories).Single())
                 .Contains("timeout", StringComparison.Ordinal));
+            Assert.IsFalse(File.ReadAllText(Path.Combine(root, "events.ndjson"))
+                .Contains("spend.released", StringComparison.Ordinal));
         }
         finally
         {
@@ -174,7 +231,7 @@ public sealed class E0ARunDriverTests
     }
 
     [TestMethod]
-    public async Task ProviderUsageOverrun_IsRecordedAndSealedAsTechnicalFailure()
+    public async Task ProviderUsageOverrun_IsMarkedOutsideVerifiedPricingAndNeverConsumedAsFiction()
     {
         var root = E0ATestSupport.TempRunRoot();
         try
@@ -200,15 +257,17 @@ public sealed class E0ARunDriverTests
             Assert.AreEqual(E0ARunTerminalStatus.TechnicalFailure, result.Status);
             Assert.AreEqual(0, result.AcceptedTurns);
             Assert.AreEqual(1, provider.Calls);
-            Assert.IsTrue(result.EstimatedSpendUsd > E0ARunEnvelope.EstimatedSpendCeilingUsd);
+            Assert.AreEqual(E0ASpendEstimateStatus.OutsideVerifiedInputTier, result.SpendEstimateStatus);
+            Assert.IsTrue(result.EstimatedSpendUsd > 0m);
+            Assert.IsTrue(result.EstimatedSpendUsd < E0ARunEnvelope.EstimatedSpendCeilingUsd);
             Assert.AreEqual(1, Directory.GetFiles(root, "terminal.json", SearchOption.AllDirectories).Length);
             Assert.IsTrue(File.Exists(Path.Combine(root, "run.final.json")));
             Assert.IsFalse(File.ReadAllText(Path.Combine(root, "transcript.json"))
                 .Contains("This must never be consumed as fiction.", StringComparison.Ordinal));
 
-            using var final = JsonDocument.Parse(File.ReadAllBytes(Path.Combine(root, "run.final.json")));
-            Assert.AreEqual("TechnicalFailure", final.RootElement.GetProperty("terminalStatus").GetString());
-            Assert.IsTrue(final.RootElement.GetProperty("estimatedSpendUsd").GetDecimal() > 5m);
+            var events = File.ReadAllText(Path.Combine(root, "events.ndjson"));
+            Assert.IsTrue(events.Contains("pricing.assumptions-invalid", StringComparison.Ordinal));
+            Assert.IsTrue(events.Contains("OutsideVerifiedInputTier", StringComparison.Ordinal));
         }
         finally
         {

@@ -197,9 +197,7 @@ internal static class E0AIntegrityConcernParser
             var result = ImmutableArray.CreateBuilder<IntegrityConcernKind>();
             foreach (var item in concerns.EnumerateArray())
             {
-                if (item.ValueKind != JsonValueKind.String ||
-                    !Enum.TryParse<IntegrityConcernKind>(item.GetString(), false, out var parsed) ||
-                    !Enum.IsDefined(parsed))
+                if (!TryDecodeConcern(item, out var name) || !TryParseExactConcern(name!, out var parsed))
                 {
                     throw new E0AHarnessException("E0-A Integrity response contains an unsupported concern.");
                 }
@@ -211,5 +209,73 @@ internal static class E0AIntegrityConcernParser
         {
             throw new E0AHarnessException("E0-A Integrity response JSON is invalid.");
         }
+    }
+
+    private static bool TryParseExactConcern(string name, out IntegrityConcernKind concern)
+    {
+        concern = name switch
+        {
+            nameof(IntegrityConcernKind.PotentialInaccessibleInformationUse) =>
+                IntegrityConcernKind.PotentialInaccessibleInformationUse,
+            nameof(IntegrityConcernKind.PotentialProtectedInformationExposure) =>
+                IntegrityConcernKind.PotentialProtectedInformationExposure,
+            nameof(IntegrityConcernKind.PotentialLockedAuthorityViolation) =>
+                IntegrityConcernKind.PotentialLockedAuthorityViolation,
+            nameof(IntegrityConcernKind.PotentialTechnicalArtifactLeak) =>
+                IntegrityConcernKind.PotentialTechnicalArtifactLeak,
+            nameof(IntegrityConcernKind.IndeterminateSemanticIntegrity) =>
+                IntegrityConcernKind.IndeterminateSemanticIntegrity,
+            _ => default
+        };
+
+        return name is
+            nameof(IntegrityConcernKind.PotentialInaccessibleInformationUse) or
+            nameof(IntegrityConcernKind.PotentialProtectedInformationExposure) or
+            nameof(IntegrityConcernKind.PotentialLockedAuthorityViolation) or
+            nameof(IntegrityConcernKind.PotentialTechnicalArtifactLeak) or
+            nameof(IntegrityConcernKind.IndeterminateSemanticIntegrity);
+    }
+
+    private static bool TryDecodeConcern(JsonElement item, out string? value)
+    {
+        value = null;
+        if (item.ValueKind != JsonValueKind.String)
+        {
+            return false;
+        }
+
+        try
+        {
+            value = item.GetString();
+        }
+        catch (InvalidOperationException)
+        {
+            return false;
+        }
+        catch (JsonException)
+        {
+            return false;
+        }
+
+        if (value is null)
+        {
+            return false;
+        }
+        for (var index = 0; index < value.Length; index++)
+        {
+            if (char.IsHighSurrogate(value[index]))
+            {
+                if (index + 1 >= value.Length || !char.IsLowSurrogate(value[index + 1]))
+                {
+                    return false;
+                }
+                index++;
+            }
+            else if (char.IsLowSurrogate(value[index]))
+            {
+                return false;
+            }
+        }
+        return true;
     }
 }

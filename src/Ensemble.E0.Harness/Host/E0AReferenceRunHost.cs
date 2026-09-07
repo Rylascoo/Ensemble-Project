@@ -46,7 +46,7 @@ internal static class E0AReferenceRunHost
 
         // Credential access is deliberately confined to this explicit live-run path.
         // Missing credentials fail before any run evidence directory is created.
-        using var http = new HttpClient();
+        using var http = CreateProviderHttpClient();
         var provider = OpenAIResponsesPort.FromEnvironment(http);
 
         var envelope = CreateEnvelope(variant);
@@ -66,6 +66,18 @@ internal static class E0AReferenceRunHost
             $"E0-A {envelope.Variant} run terminal: {result.Status}; acceptedTurns={result.AcceptedTurns}; estimatedSpendUsd={result.EstimatedSpendUsd:0.000000}");
         Console.WriteLine($"Evidence root: {evidence.RootPath}");
         return result.Status == E0ARunTerminalStatus.AcceptedTurnCapReached ? 0 : 3;
+    }
+
+    internal static HttpClient CreateProviderHttpClient()
+    {
+        var http = new HttpClient
+        {
+            // The run driver owns the frozen 300-second attempt deadline through its
+            // linked cancellation token. The transport must not introduce a shorter
+            // independent timeout that can preempt token preflight or provider work.
+            Timeout = Timeout.InfiniteTimeSpan
+        };
+        return http;
     }
 
     internal static E0ARunEnvelope CreateEnvelope(string variant) => variant switch

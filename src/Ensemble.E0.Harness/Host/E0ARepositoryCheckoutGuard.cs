@@ -56,22 +56,38 @@ internal static class E0ARepositoryCheckoutGuard
         }
 
         runner ??= new E0AProcessGitCommandRunner();
-        RequireExact(runner.Run("rev-parse", "--is-inside-work-tree"), 0, "true", "Git worktree");
-        RequireExact(runner.Run("rev-parse", "HEAD"), 0, expectedCommit, "Git HEAD");
+        var rootResult = runner.Run("rev-parse", "--show-toplevel");
+        if (rootResult.ExitCode != 0 || string.IsNullOrWhiteSpace(rootResult.Output))
+        {
+            throw new E0AHarnessException("E0-A Git worktree does not match the live-run authority.");
+        }
+        var repositoryRoot = rootResult.Output;
 
-        var tracked = runner.Run("diff", "--quiet");
+        RequireExact(
+            runner.Run("-C", repositoryRoot, "rev-parse", "HEAD"),
+            0,
+            expectedCommit,
+            "Git HEAD");
+
+        var tracked = runner.Run("-C", repositoryRoot, "diff", "--quiet");
         if (tracked.ExitCode != 0)
         {
             throw new E0AHarnessException("E0-A live run requires a clean tracked working tree.");
         }
 
-        var staged = runner.Run("diff", "--cached", "--quiet");
+        var staged = runner.Run("-C", repositoryRoot, "diff", "--cached", "--quiet");
         if (staged.ExitCode != 0)
         {
             throw new E0AHarnessException("E0-A live run requires a clean staged index.");
         }
 
-        var untracked = runner.Run("ls-files", "--others", "--exclude-standard");
+        var untracked = runner.Run(
+            "-C",
+            repositoryRoot,
+            "ls-files",
+            "--others",
+            "--exclude-standard",
+            "--full-name");
         if (untracked.ExitCode != 0)
         {
             throw new E0AHarnessException("E0-A could not inspect untracked files.");

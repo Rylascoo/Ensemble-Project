@@ -51,6 +51,8 @@ internal interface IE0AEvidenceSink : IE0AProviderDiagnosticSink
         string terminalStatus,
         int acceptedTurns,
         decimal estimatedSpendUsd,
+        E0ASpendEstimateStatus spendEstimateStatus,
+        bool hasUnknownProviderUsage,
         string finalStateHash,
         CharacterId finalOpportunityCharacterId);
     void SealEvaluation(E0AHardGateEvaluation evaluation);
@@ -77,10 +79,6 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
         if (string.IsNullOrWhiteSpace(root))
         {
             throw new E0AHarnessException("E0-A run evidence root is required.");
-        }
-        if (Directory.Exists(root) || File.Exists(root))
-        {
-            throw new E0AHarnessException("E0-A run evidence directory already exists.");
         }
         if (string.IsNullOrWhiteSpace(fixtureId) ||
             string.IsNullOrWhiteSpace(fixtureVersion) ||
@@ -113,8 +111,7 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
             throw new E0AHarnessException("E0-A evidence roster contains duplicate Characters.");
         }
 
-        _root = root;
-        Directory.CreateDirectory(_root);
+        _root = E0AEvidenceNamespaceAuthority.Claim(root, runId);
         _blindLabels = rosterValues
             .OrderBy(x => x, StringComparer.Ordinal)
             .Select((id, index) => new { id, label = $"SPEAKER-{index + 1:D2}" })
@@ -293,6 +290,8 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
         string terminalStatus,
         int acceptedTurns,
         decimal estimatedSpendUsd,
+        E0ASpendEstimateStatus spendEstimateStatus,
+        bool hasUnknownProviderUsage,
         string finalStateHash,
         CharacterId finalOpportunityCharacterId)
     {
@@ -309,6 +308,7 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
         if (string.IsNullOrWhiteSpace(terminalStatus) ||
             acceptedTurns is < 0 or > E0ARunEnvelope.AcceptedTurnCap ||
             estimatedSpendUsd < 0m ||
+            !Enum.IsDefined(spendEstimateStatus) ||
             !IsLowerHex(finalStateHash, 64) ||
             !_blindLabels.ContainsKey(finalOpportunity))
         {
@@ -335,18 +335,34 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
                 .Select(x => new { speaker = x.Value, characterId = x.Key }).ToArray()
         });
 
-        var digests = RuntimeDigests();
-        var root = RootDigest(digests);
+        WriteNew(
+            "run.summary.json",
+            E0AEvidenceSealAuthority.RuntimeSummary(
+                terminalStatus,
+                acceptedTurns,
+                estimatedSpendUsd,
+                spendEstimateStatus,
+                hasUnknownProviderUsage,
+                finalStateHash,
+                finalOpportunity));
+
+        var summaryBytes = File.ReadAllBytes(Path.Combine(_root, "run.summary.json"));
+        var digests = E0AEvidenceSealAuthority.RuntimeDigests(_root);
+        var runtimeRoot = E0AEvidenceSealAuthority.RootDigest(digests);
+        var runtimeSealIdentity = E0AEvidenceSealAuthority.RuntimeSealIdentity(runtimeRoot, summaryBytes);
         WriteNew("run.final.json", new
         {
             contract = "ensemble.e0a.runtime-seal.v1",
             terminalStatus,
             acceptedTurns,
             estimatedSpendUsd,
+            spendEstimateStatus = spendEstimateStatus.ToString(),
+            hasUnknownProviderUsage,
             finalStateHash,
             finalOpportunityCharacterId = finalOpportunity,
             artifacts = digests.Select(x => new { path = x.Path, sha256 = x.Hash }).ToArray(),
-            runtimeRoot = root
+            runtimeRoot,
+            runtimeSealIdentity
         });
         _runtimeSealed = true;
     }
@@ -357,38 +373,8 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
         {
             throw new E0AHarnessException("E0-A evaluation sealing state is invalid.");
         }
-        ArgumentNullException.ThrowIfNull(evaluation);
-        if (!string.Equals(
-                evaluation.ChecklistVersion,
-                E0AEvidenceContracts.HardGateChecklistVersion,
-                StringComparison.Ordinal) ||
-            string.IsNullOrWhiteSpace(evaluation.ReviewerIdentity) ||
-            string.IsNullOrWhiteSpace(evaluation.MethodIdentity) ||
-            evaluation.Findings is null)
-        {
-            throw new E0AHarnessException("E0-A hard-gate evaluation identity is invalid.");
-        }
-        WriteNew("evaluation/hard-gates.json", evaluation);
 
-        var runFinalBytes = File.ReadAllBytes(Path.Combine(_root, "run.final.json"));
-        using var runFinalDocument = JsonDocument.Parse(runFinalBytes);
-        var recordedRoot = runFinalDocument.RootElement.GetProperty("runtimeRoot").GetString()
-            ?? throw new E0AHarnessException("E0-A runtime seal root is missing.");
-        var recomputedRoot = RootDigest(RuntimeDigests());
-        if (!string.Equals(recordedRoot, recomputedRoot, StringComparison.Ordinal))
-        {
-            throw new E0AHarnessException("E0-A runtime evidence changed after sealing.");
-        }
-
-        var hardGateBytes = File.ReadAllBytes(Path.Combine(_root, "evaluation", "hard-gates.json"));
-        WriteNew("evaluation.final.json", new
-        {
-            contract = "ensemble.e0a.evaluation-seal.v1",
-            runtimeRoot = recordedRoot,
-            runFinalSha256 = PreparedRoleAttempt.LowerSha256(runFinalBytes),
-            hardGatesSha256 = PreparedRoleAttempt.LowerSha256(hardGateBytes),
-            passed = evaluation.Passed
-        });
+        E0AEvidenceSealAuthority.SealEvaluation(_root, evaluation);
         _evaluationSealed = true;
     }
 
@@ -403,33 +389,23 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
         serviceTier = profile.ServiceTier
     };
 
-    private (string Path, string Hash)[] RuntimeDigests()
-    {
-        return Directory.GetFiles(_root, "*", SearchOption.AllDirectories)
-            .Select(path => Path.GetRelativePath(_root, path).Replace('\\', '/'))
-            .Where(path => !string.Equals(path, "run.final.json", StringComparison.Ordinal) &&
-                           !string.Equals(path, "evaluation.final.json", StringComparison.Ordinal) &&
-                           !path.StartsWith("evaluation/", StringComparison.Ordinal))
-            .OrderBy(path => path, StringComparer.Ordinal)
-            .Select(path => (Path: path, Hash: PreparedRoleAttempt.LowerSha256(File.ReadAllBytes(Path.Combine(_root, path.Replace('/', Path.DirectorySeparatorChar))))))
-            .ToArray();
-    }
-
-    private static string RootDigest(IEnumerable<(string Path, string Hash)> digests)
-    {
-        var canonical = string.Concat(digests.Select(x => $"{x.Path}\0{x.Hash}\n"));
-        return PreparedRoleAttempt.LowerSha256(Encoding.UTF8.GetBytes(canonical));
-    }
-
     private void WriteNew(string relative, object value)
     {
         var path = Path.Combine(_root, relative.Replace('/', Path.DirectorySeparatorChar));
-        if (File.Exists(path))
+        Directory.CreateDirectory(Path.GetDirectoryName(path)!);
+        var bytes = JsonSerializer.SerializeToUtf8Bytes(
+            value,
+            new JsonSerializerOptions { WriteIndented = true });
+        try
+        {
+            using var stream = new FileStream(path, FileMode.CreateNew, FileAccess.Write, FileShare.Read);
+            stream.Write(bytes);
+            stream.Flush(flushToDisk: true);
+        }
+        catch (IOException)
         {
             throw new E0AHarnessException("E0-A evidence artifact is write-once.");
         }
-        Directory.CreateDirectory(Path.GetDirectoryName(path)!);
-        File.WriteAllBytes(path, JsonSerializer.SerializeToUtf8Bytes(value, new JsonSerializerOptions { WriteIndented = true }));
     }
 
     private void EnsureRuntimeOpen()
