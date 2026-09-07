@@ -37,6 +37,17 @@ jobs:
           dotnet-version: '9.0.317'
       - run: dotnet test tests/Ensemble.E0.Core.Tests/Ensemble.E0.Core.Tests.csproj -c Release
 
+  repository-laws:
+    name: Repository law enforcement
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Enforce objective repository laws
+        run: python tools/repository-law-check.py
+
   oracle-assertion-coverage:
     name: Oracle assertion coverage
     runs-on: ubuntu-latest
@@ -58,7 +69,7 @@ jobs:
           python tools/oracle-index.py --check --baseline "$baseline"
 
   document-census:
-    name: Document reference census
+    name: Document authority census
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -67,5 +78,5 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Report documentation inbound references
-        run: python tools/document-census.py --summary
+      - name: Enforce active-evidence authority reachability
+        run: python tools/document-census.py --summary --check
