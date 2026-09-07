@@ -1,6 +1,6 @@
 # E0-A Post-Audit Hardening — Native Windows ARM64 Validation Attempt 01
 
-Status: **DIRECTOR-MACHINE-SOURCED — FAIL — 1 OF 88 HARNESS TESTS FAILED; DIAGNOSTIC IDENTIFICATION PENDING**
+Status: **DIRECTOR-MACHINE-SOURCED — FAIL — STALE TEST ORACLE IDENTIFIED AND REPAIRED; FULL RERUN REQUIRED**
 
 Date: **2026-09-07**
 
@@ -52,11 +52,61 @@ Native Harness test result:
 - skipped: `0`;
 - test command exit: `1`.
 
-The command output named the generated test log path but did not include the failing test name or assertion text in the returned transcript. That diagnostic must be retrieved before any repair is designed. No failing-test identity is inferred by this record.
+The failing test was later retrieved from the exact native test log:
 
-## Later validation stages
+`BufferedWrongJsonType_FailsClosedAsTechnicalReceipt`
 
-The validation function throws immediately when the Harness test exit is nonzero. Therefore the following hardening stages were **NOT EXECUTED** in Attempt 01:
+Failure:
+
+```text
+Expected: "provider-incomplete"
+Actual:   "malformed-provider-response"
+```
+
+The failing assertion was at `tests/Ensemble.E0.Harness.Tests/OpenAIResponsesPortWireTests.cs:109` in the attempted checkout.
+
+## Diagnosis
+
+Repository history shows this is a stale test oracle, not a product-behavior defect.
+
+Patch Group 2 / E-03 originally added the wrong-type buffered-response regression and required wrong provider JSON types to fail closed as a technical receipt with no semantic adoption. At that point the implementation classified the wrong-typed `status` case under the coarser `provider-incomplete` diagnostic.
+
+Later Patch Group 3 / E-06 intentionally refined failed-response provenance in commit:
+
+`ce23987c12431295ac78726d36c7cf570ffd02ad` — `Retain failed provider response provenance`
+
+That change separates two cases:
+
+- valid provider refusal/incomplete responses may retain validated nonsemantic identity/model/usage provenance under their corresponding diagnostic;
+- malformed provider response structure, including a wrongly typed `status`, is classified `malformed-provider-response` and is not allowed to masquerade as validated incomplete-response provenance.
+
+The E-03 behavioral obligation is therefore still satisfied: wrong-typed provider data terminates as a technical receipt with no semantic output. The later E-06 diagnostic refinement is the stronger/current contract. The test's exact diagnostic string did not follow that later refinement.
+
+No provider source change is justified by this failure.
+
+## Repair
+
+Smallest correction committed on the hardening branch:
+
+`5c70f619d6e951d89bb527a5945b014998573dab` — `Align buffered wrong-type diagnostic oracle`
+
+The repair changes exactly one expected string in `OpenAIResponsesPortWireTests.cs`:
+
+```text
+provider-incomplete
+```
+
+to:
+
+```text
+malformed-provider-response
+```
+
+Comparison from the Attempt 01 branch/evidence head to the repair commit is one test-file modification, one addition, one deletion. No `src/**`, Core, fixture, provider implementation, project configuration, or runtime behavior changes.
+
+## Later validation stages in Attempt 01
+
+The validation function threw immediately when the Harness test exit was nonzero. Therefore the following hardening stages were **NOT EXECUTED** in Attempt 01:
 
 - explicit clean-output native ARM64 Harness build;
 - Missing Raft fixture smoke;
@@ -76,16 +126,22 @@ Native Windows ARM64 host probes         PASS
 Core tests                               PASS 622/622
 Harness compilation                      PASS to native test execution
 Harness tests                            FAIL 87/88
+Failure cause                            STALE TEST ORACLE
+Product-source defect                    NOT FOUND
 Fresh explicit Harness build             NOT EXECUTED
 Missing Raft smoke                       NOT EXECUTED
 Generic fixture smoke                    NOT EXECUTED
 Credentialless provider-edge probe       NOT EXECUTED
 Provider execution                       NOT AUTHORIZED / NOT PERFORMED
-Overall hardening native validation      FAIL — DIAGNOSE 1 HARNESS TEST
+Overall hardening native validation      FAIL — REPAIRED CANDIDATE REQUIRES FULL RERUN
 ```
 
 ## Next gate
 
-Retrieve the exact failing Harness test name, failure message, and stack/assertion output from the emitted native test log for this exact attempt. Engineering must diagnose that evidence against the repository before changing source or tests.
+Run the complete native Windows ARM64 validation sequence from the beginning against exact repaired source/test checkpoint:
 
-Any correction creates a new executable/test checkpoint and requires a fresh full native validation run from the beginning. The historical live-host machine-tested authority remains unchanged until such a later candidate passes completely.
+`5c70f619d6e951d89bb527a5945b014998573dab`
+
+A focused rerun of only the previously failing test is insufficient for promotion. Successful grouped validation must again establish exact checkout/cleanliness, trusted native ARM64 host probes, Core tests, all Harness tests, a fresh clean-output native Harness build, both fixture smokes, the credentialless provider-edge refusal with no evidence root, and post-validation cleanliness.
+
+The historical live-host machine-tested authority remains unchanged until that repaired checkpoint passes completely.
