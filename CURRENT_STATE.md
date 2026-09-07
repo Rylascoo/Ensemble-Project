@@ -14,7 +14,7 @@ Program plan: `docs/roadmap/KYMAEAN_ARCHITECTURE_AND_SHIP_PLAN.md`. Open design 
 
 ## Current checkpoint
 
-Phase: **E0-A Experimental Harness — post-audit hardening is promoted and natively validated; the approved Gemini normative-reference amendment has been semantically composed onto hardened `main`, recursively statically closed, compiler-gated, and has now PASSed fresh Director-machine native Windows ARM64 fake-only/credentialless validation at the exact combined executable/test checkout. Durable validation tag is the only remaining validation-authority gate before promotion review. Real Gemini network execution remains separately gated.**
+Phase: **E0-A Experimental Harness — post-audit hardening is promoted and natively validated; the approved Gemini normative-reference amendment has been semantically composed onto hardened `main`, recursively statically closed, compiler-gated, and has PASSed fresh Director-machine native Windows ARM64 fake-only/credentialless validation at the exact combined executable/test checkout. The required annotated validation tag now exists, so the combined checkpoint has durable machine-tested runtime authority and is ready for promotion review. Real Gemini network execution remains separately gated.**
 
 Current promoted `main` continuity head:
 
@@ -40,6 +40,10 @@ Combined native validation evidence:
 
 `docs/evidence/E0A_GEMINI_ON_HARDENED_MAIN_NATIVE_ARM64_VALIDATION.md`
 
+Annotated validation tag:
+
+`validation/e0a-phase-b-gemini-on-hardened-native-arm64`
+
 Native validation handoff:
 
 `docs/handoff/E0A_GEMINI_ON_HARDENED_MAIN_NATIVE_ARM64_VALIDATION_HANDOFF.md`
@@ -48,7 +52,7 @@ Director-host apparatus contract:
 
 `docs/evidence/DIRECTOR_WINDOWS_ARM64_VALIDATION_HOST_BEHAVIORS.md`
 
-**Repository Surface gate still pending:** an annotated validation tag must be created at exactly `5f286e8c...` before this checkpoint is treated as durable machine-tested runtime authority or promoted.
+The combined checkpoint is now durable machine-tested runtime authority for its exact fake-only/credentialless scope. Promotion to `main` remains a separate repository-integration decision and must not be conflated with real-provider authorization.
 
 ## Phase-B architecture and boundary
 
@@ -74,20 +78,21 @@ Hardening native authority: `docs/evidence/E0A_POST_AUDIT_HARDENING_NATIVE_ARM64
 
 Hardening strengthened fail-closed response handling, receipt/usage provenance, spend robustness, evidence ownership/sealing, checkout behavior, evaluation authority, cancellation, provider parsing, timeout authority, and regression coverage without redesigning Proposal 0.15. The one Core-source hardening change remains the narrow E-04 parser normalization in `src/Ensemble.E0.Core/Fixture/StrictJsonPreflight.cs`; Gemini-on-hardened composition adds no further Core source change relative to hardened `main`.
 
-## Durable historical native validation authorities
+## Durable native validation authorities
 
 All native evidence is Director-machine-sourced from the Director's Windows ARM64 machine.
 
-Existing annotated validation tags:
+Annotated validation tags:
 
 - `validation/e0a-phase-b-reference-run-native-arm64` -> `3749210393282f6aa2ac4ceb0176b6adb5df189e`.
 - `validation/e0a-phase-b-live-host-native-arm64` -> `1cfdb3aa22abce62a5bd48e80706407670d1c6a9`.
 - `validation/e0a-phase-b-post-audit-hardening-native-arm64` -> `5c70f619d6e951d89bb527a5945b014998573dab`.
 - `validation/e0a-phase-b-gemini-native-arm64` -> `9bb65a8461c0963d9a9c6e9647633ca5c6d5df24`.
+- `validation/e0a-phase-b-gemini-on-hardened-native-arm64` -> `5f286e8cfa896d38d85d4611f69a224fae5b55fd`.
 
-Current promoted hardening runtime authority remains exact checkout `5c70f619d6e951d89bb527a5945b014998573dab` until the combined checkpoint receives its required durable tag and promotion.
+Current promoted `main` runtime authority remains the hardening line until combined promotion completes. The combined checkout `5f286e8c...` is independently durable machine-tested authority for its exact fake-only/credentialless scope and is the promotion candidate.
 
-Historical original-Gemini native authority remains exact checkout `9bb65a8461c0963d9a9c6e9647633ca5c6d5df24`; it does not supersede or independently validate the newly composed checkout.
+Historical original-Gemini native authority remains exact checkout `9bb65a8461c0963d9a9c6e9647633ca5c6d5df24`; it does not supersede the composed checkpoint.
 
 ## Gemini-on-hardened integration — composition authority
 
@@ -174,6 +179,8 @@ The credentialless run exited `1` with the exact required refusal `GEMINI_API_KE
 
 Evidence: `docs/evidence/E0A_GEMINI_ON_HARDENED_MAIN_NATIVE_ARM64_VALIDATION.md`.
 
+Annotated validation tag: `validation/e0a-phase-b-gemini-on-hardened-native-arm64`.
+
 This establishes fake-only/credentialless native runtime validity for the exact combined checkout. It does **not** establish live Gemini API compatibility, `countTokens` network behavior, model/project availability, account tier/quota/key type, current provider pricing/data-use state, real implicit-cache behavior, provider usage-accounting correctness under real responses, inference correctness, or provider spend.
 
 ## Current Gemini route truth
@@ -234,9 +241,10 @@ Known host rules include:
 ## Live branches
 
 - `e0a-gemini-on-hardened-main`
-  - **ACTIVE — static/compiler/native fake-only validation PASS at exact executable/test checkpoint `5f286e8c...`; annotated validation tag pending before promotion review.**
+  - **ACTIVE — static/compiler/native fake-only validation PASS at exact executable/test checkpoint `5f286e8c...`; durable validation tag exists; promotion review is the only remaining branch gate.**
   - static closure: `docs/evidence/E0A_GEMINI_ON_HARDENED_MAIN_INTEGRATION_STATIC_CLOSURE.md`.
   - native validation: `docs/evidence/E0A_GEMINI_ON_HARDENED_MAIN_NATIVE_ARM64_VALIDATION.md`.
+  - native tag: `validation/e0a-phase-b-gemini-on-hardened-native-arm64`.
 
 - `e0a-gemini-normative-reference-amendment`
   - historical original-Gemini line; exact native checkpoint `9bb65a846...`; tag `validation/e0a-phase-b-gemini-native-arm64`.
@@ -264,11 +272,9 @@ Known host rules include:
 
 Immediate sequence:
 
-1. create and push an annotated validation tag at exact checkout `5f286e8cfa896d38d85d4611f69a224fae5b55fd`, recording native Windows ARM64 fake-only/credentialless scope and evidence path `docs/evidence/E0A_GEMINI_ON_HARDENED_MAIN_NATIVE_ARM64_VALIDATION.md`;
-2. verify the tag remotely and then promote the combined checkpoint in `CURRENT_STATE.md` from PASS-pending-tag to durable machine-tested runtime authority;
-3. recursively audit the branch against current `main`, open/finalize its promotion PR, and require all repository gates on the final documentation/promotion head;
-4. merge the combined Gemini-on-hardened line only after that promotion audit is clean;
-5. reconcile `main` continuity and archive superseded merged implementation branches under Repository Surface law;
-6. only after combined promotion may the first real Gemini reference-provider run become the next product action, and it still requires a separate explicit Director authorization plus immediate project/model/account/quota/pricing/data-use re-verification.
+1. recursively audit `e0a-gemini-on-hardened-main` against current `main`, open/finalize its promotion PR, and require all repository gates on the final promotion head;
+2. merge the combined Gemini-on-hardened line only after that promotion audit is clean;
+3. reconcile `main` continuity and archive superseded merged implementation branches under Repository Surface law;
+4. only after combined promotion may the first real Gemini reference-provider run become the next product action, and it still requires a separate explicit Director authorization plus immediate project/model/account/quota/pricing/data-use re-verification.
 
 No real provider credential, provider-network inference, provider spend, E0-B+, product UI/persistence, NPU, packaging, WACK, or Store work is authorized by the current state.
