@@ -2,6 +2,7 @@ using System.Net;
 using System.Text;
 using System.Text.Json;
 using Ensemble.E0.Core.Domain;
+using Ensemble.E0.Core.Integrity;
 using Ensemble.E0.Harness.Gemini;
 using Ensemble.E0.Harness.Host;
 using Ensemble.E0.Harness.Run;
