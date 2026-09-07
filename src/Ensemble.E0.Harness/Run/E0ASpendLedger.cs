@@ -13,6 +13,8 @@ internal sealed class E0ASpendLedger
     private decimal _estimatedCommittedUsd;
     private decimal _reservedUsd;
     private bool _reservationActive;
+    private long _nextReservationId;
+    private long _activeReservationId;
     private bool _hasUnknownProviderUsage;
     private E0ASpendEstimateStatus _estimateStatus = E0ASpendEstimateStatus.WithinVerifiedPricingAssumptions;
 
@@ -58,9 +60,23 @@ internal sealed class E0ASpendLedger
             throw new E0AHarnessException("E0-A spend reservation is not representable as a positive amount.");
         }
 
+        try
+        {
+            _nextReservationId = checked(_nextReservationId + 1);
+        }
+        catch (OverflowException)
+        {
+            throw new E0AHarnessException("E0-A spend reservation identity space is exhausted.");
+        }
+
         _reservedUsd = reservation;
+        _activeReservationId = _nextReservationId;
         _reservationActive = true;
-        return new E0ASpendReservation(inputTokens, maxOutputTokens, reservation);
+        return new E0ASpendReservation(
+            _activeReservationId,
+            inputTokens,
+            maxOutputTokens,
+            reservation);
     }
 
     internal E0ASpendReconciliation Reconcile(E0ASpendReservation reservation, E0AUsage usage)
@@ -186,7 +202,9 @@ internal sealed class E0ASpendLedger
 
     private void ValidateCurrent(E0ASpendReservation reservation)
     {
-        if (!_reservationActive || reservation.ReservedUsd != _reservedUsd)
+        if (!_reservationActive ||
+            reservation.ReservationId != _activeReservationId ||
+            reservation.ReservedUsd != _reservedUsd)
         {
             throw new E0AHarnessException("E0-A spend reservation is not current.");
         }
@@ -195,6 +213,7 @@ internal sealed class E0ASpendLedger
     private void ClearReservation()
     {
         _reservedUsd = 0m;
+        _activeReservationId = 0;
         _reservationActive = false;
     }
 
@@ -212,7 +231,11 @@ internal sealed class E0ASpendLedger
             (outputTokens / 1_000_000m * _pricing.OutputUsdPerMillionTokens));
 }
 
-internal sealed record E0ASpendReservation(long InputTokens, int MaxOutputTokens, decimal ReservedUsd);
+internal sealed record E0ASpendReservation(
+    long ReservationId,
+    long InputTokens,
+    int MaxOutputTokens,
+    decimal ReservedUsd);
 
 internal sealed record E0ASpendReconciliation(
     decimal EstimatedUsd,
