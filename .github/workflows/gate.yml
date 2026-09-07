@@ -1,0 +1,39 @@
+name: Validation gate
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  compiler:
+    name: Compiler gate (ARM64 cross-compile)
+    runs-on: ubuntu-latest
+    # This is compiler authority under the project's validation ladder, including
+    # the Harness, even though it cannot be executed off an ARM64 Windows host.
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.317'
+      - run: dotnet build src/Ensemble.E0.Core/Ensemble.E0.Core.csproj -c Release
+      - run: dotnet build src/Ensemble.E0.Harness/Ensemble.E0.Harness.csproj -c Release
+      - run: dotnet build tests/Ensemble.E0.Core.Tests/Ensemble.E0.Core.Tests.csproj -c Release
+      - run: dotnet build tests/Ensemble.E0.Harness.Tests/Ensemble.E0.Harness.Tests.csproj -c Release
+
+  core-tests:
+    name: Core tests (advisory, x64, non-authoritative)
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.317'
+      - run: dotnet test tests/Ensemble.E0.Core.Tests/Ensemble.E0.Core.Tests.csproj -c Release
