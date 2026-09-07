@@ -10,7 +10,7 @@ The Director owns product constitution, Open Design Register resolution, provide
 
 ## Checkpoint
 
-Phase: **E0-A Experimental Harness — Phase B post-audit hardening in progress on `e0a-phase-b-post-audit-hardening`; Patch Group 1 implemented and recursively static-audited; remaining closed-audit hardening scope recorded and authorized; grouped native validation pending; real provider run still gated**.
+Phase: **E0-A Experimental Harness — Phase B post-audit hardening in progress on `e0a-phase-b-post-audit-hardening`; Patch Groups 1-2 implemented and recursively static-audited; grouped native validation pending; real provider run still gated**.
 
 H1 Phase A: **CLOSED** by `docs/evidence/H1_CONVERGENCE_AUDIT.md`; promotion `28371ea4bcd9709b771413100af4dcec5a05dc6e`.
 
@@ -20,7 +20,7 @@ Original Phase-B implementation evidence: `docs/evidence/E0A_PHASE_B_REFERENCE_R
 
 Live-host completion native evidence: `docs/evidence/E0A_PHASE_B_LIVE_HOST_NATIVE_ARM64_VALIDATION.md`. Attempt 01 partial evidence: `docs/evidence/E0A_PHASE_B_LIVE_HOST_NATIVE_VALIDATION_ATTEMPT_01.md`. Director-host apparatus contract: `docs/evidence/DIRECTOR_WINDOWS_ARM64_VALIDATION_HOST_BEHAVIORS.md`.
 
-Post-audit hardening Patch Group 1 implementation evidence: `docs/evidence/E0A_POST_AUDIT_HARDENING_PATCH_GROUP_1_IMPLEMENTATION.md`.
+Post-audit hardening implementation evidence: `docs/evidence/E0A_POST_AUDIT_HARDENING_PATCH_GROUP_1_IMPLEMENTATION.md`; `docs/evidence/E0A_POST_AUDIT_HARDENING_PATCH_GROUP_2_IMPLEMENTATION.md`.
 
 Closed-audit remaining hardening authority/continuity: `docs/evidence/E0A_POST_AUDIT_HARDENING_CLOSED_FINDINGS.md`.
 
@@ -68,15 +68,17 @@ Patch Group 1 exact executable/test checkpoint:
 
 `171881c1247e1c466fec6abd3e92335a055eb4f2`
 
-Patch Group 1 contains only E-01 Integrity failure terminal sealing and E-02 streaming cancellation boundary. It changes exactly four Harness/Harness-test files and zero Core files. The implementation and recursive static audit are complete. No compiler, test-runtime, Windows ARM64, fixture-smoke, or live-host validation claim applies to this hardening executable/test checkpoint yet.
+Patch Group 2 exact executable/test checkpoint:
 
-The E-01 correction routes known `E0TurnOrchestrationException` failures from the configured Integrity evaluation call through the existing `InvalidOutput -> Finish(...)` terminal/runtime-seal path. It adds no broad exception handling and no parallel Harness Integrity semantic validator. The regression proves duplicate concerns fail before Interpreter, no accepted Performance or commit occurs, provider terminal receipts remain evidenced, and runtime evidence seals normally.
+`f37cb8ec41e50d50aba027286326a10677db1040`
 
-The E-02 correction removes synchronous `StreamReader.EndOfStream` probing before cancellable reads. Streaming now reads through `ReadLineAsync(cancellationToken)` and treats `null` as EOF. Existing diagnostic streaming and `response.completed` semantic authority remain unchanged. The regression uses a stalling stream that signals asynchronous read start, cancels deterministically, and proves zero synchronous reads.
+Patch Group 1 contains E-01 Integrity failure terminal sealing and E-02 streaming cancellation boundary. Patch Group 2 contains E-03 provider decoding and E-07 timeout composition. Both groups are implemented and recursively static-audited. Patch Groups 1-2 change Harness/Harness-test surfaces only; no Core file has changed through Patch Group 2. No compiler, test-runtime, Windows ARM64, fixture-smoke, or live-host validation claim applies to either hardening executable/test checkpoint yet.
 
-Recursive audit removed two unnecessary intermediate choices: a new `integrity.rejected` evidence event and a duplicate-specific Harness catch filter. The final implementation uses the existing typed Core orchestration failure boundary and existing run terminal/evidence lifecycle.
+E-01 routes known `E0TurnOrchestrationException` failures from configured Integrity evaluation through the existing `InvalidOutput -> Finish(...)` terminal/runtime-seal path without adding parallel Harness Integrity semantics. E-02 removes synchronous `StreamReader.EndOfStream` probing before cancellable reads while preserving diagnostic-only streaming and `response.completed` semantic authority.
 
-The comprehensive post-implementation audit is closed and achieved a zero-new-finding pass. The complete remaining correction set, dependency order, regression-gap obligations, and grouped-validation boundary are preserved without reinterpretation in `docs/evidence/E0A_POST_AUDIT_HARDENING_CLOSED_FINDINGS.md`. Authorized remaining groups are: Group 2 E-03/E-07; Group 3 E-06/P-02/P-05; Group 4 I-02/I-03/I-04/P-04; Group 5 E-04/E-05/I-05; Group 6 P-01/P-03 plus final regression-gap review.
+E-03 validates external provider JSON kinds before typed access, narrowly translates malformed provider decoding, uses strict UTF-8 for streamed SSE data, and rejects malformed provider strings without adopting semantic payload. Integrity concern decoding now fails malformed Unicode through the Harness failure domain while exact concern-name canonicalization remains reserved for E-05. E-07 disables the independent `HttpClient` timeout so the run driver's linked 300-second attempt cancellation token remains the authoritative deadline across preflight and provider work.
+
+The comprehensive post-implementation audit is closed and achieved a zero-new-finding pass. The complete remaining correction set, dependency order, regression-gap obligations, and grouped-validation boundary are preserved without reinterpretation in `docs/evidence/E0A_POST_AUDIT_HARDENING_CLOSED_FINDINGS.md`. Remaining groups are: Group 3 E-06/P-02/P-05; Group 4 I-02/I-03/I-04/P-04; Group 5 E-04/E-05/I-05; Group 6 P-01/P-03 plus final regression-gap review.
 
 Draft review surface: PR #39. `main` remains untouched by the hardening implementation.
 
@@ -84,7 +86,7 @@ Per the hardening branch strategy, remaining hardening groups stay isolated on t
 
 ## Phase-B live-host truth
 
-The Harness owns the approved reference-run envelope outside Core while reusing the closed H1 Cycle/Turn authority unchanged. Core remains unchanged by the live-host completion and by Patch Group 1 hardening.
+The Harness owns the approved reference-run envelope outside Core while reusing the closed H1 Cycle/Turn authority unchanged. Core remains unchanged by the live-host completion and through Patch Group 2 hardening.
 
 Frozen provider/model control: **OpenAI / `gpt-5.6-sol` only** for E0-A under Blueprint law #35. This is an E0-A reference-envelope configuration constraint; provider/token-counter interfaces are not themselves pinned to those literals, though `E0ARequestBuilder` intentionally emits the OpenAI Responses request shape.
 
@@ -134,8 +136,8 @@ Known host facts include:
 
 Remain inside **E0-A Phase B**. Do not redesign Proposal 0.15 or enter E0-B..G, product Application/persistence/UI, Scene endings, Context optimization, Windows AI/NPU, MSIX/WACK/Store, or later scope.
 
-Continue post-audit hardening only on `e0a-phase-b-post-audit-hardening` in the dependency order recorded by `docs/evidence/E0A_POST_AUDIT_HARDENING_CLOSED_FINDINGS.md`. Patch Group 1 is complete; Patch Group 2 is E-03 provider decoding plus E-07 timeout composition.
+Continue post-audit hardening only on `e0a-phase-b-post-audit-hardening` in the dependency order recorded by `docs/evidence/E0A_POST_AUDIT_HARDENING_CLOSED_FINDINGS.md`. Patch Groups 1-2 are complete; Patch Group 3 is E-06 receipt provenance plus P-02/P-05 spend robustness.
 
 After all authorized hardening groups and recursive audits are complete, run the grouped native Windows ARM64 validation gate on the exact final executable/test checkout, using `docs/evidence/DIRECTOR_WINDOWS_ARM64_VALIDATION_HOST_BEHAVIORS.md` as the validation-host contract. Only that later native evidence may replace `1cfdb3aa...` as executable/test authority.
 
-The first real reference-provider run is not an authorized action while hardening is in progress. It remains separately gated and requires explicit Director authorization for `OPENAI_API_KEY`, provider credentials, network inference, and spend after the hardening branch is validated and promoted. Nothing in prior fake-only native validation, Patch Group 1 implementation, static audit, or draft PR #39 opens that gate.
+The first real reference-provider run is not an authorized action while hardening is in progress. It remains separately gated and requires explicit Director authorization for `OPENAI_API_KEY`, provider credentials, network inference, and spend after the hardening branch is validated and promoted. Nothing in prior fake-only native validation, current hardening implementation, static audit, or draft PR #39 opens that gate.
