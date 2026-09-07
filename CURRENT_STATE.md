@@ -24,6 +24,19 @@ Program map: `docs/roadmap/KYMAEAN_ARCHITECTURE_AND_SHIP_PLAN.md`.
 
 This state reconciles former `main` `a3b5126dad440d2f75bef655fdc6e4ac7098b839` with former live-host branch head `9228c77a5b789c4c6a1e0417f889851c6b92730e` as a union. Their merge base was `13ffde90f78a8bf40a04381b136e846d1cf64d1c`. Parallel-main ODR-26 continuity and the live-host validation/authority continuity both survive.
 
+## Repository renovation checkpoint
+
+Repository-renovation integration PR #40 was promoted to `main` at `175aa1f360aa8458fb571ac21295df13f59fdd8b`. It integrates C1 branch archival records, C2 CI authority separation, C3 shared build surface, C4 oracle-documentation drift guard, bootstrap-surface reconciliation, the Repository Surface extension of Engineering Hygiene Law 5, and `PROJECT_REASONING_TASK_SCOPE_OPTIMIZATION_PROTOCOL.md` version 0.3.
+
+The exact integration head `45022b945b52143843bb7c565a14267a653b36d8` passed the GitHub validation workflow: **`win-arm64` cross-compile/build PASS** for all four projects, Oracle documentation drift PASS, and advisory x64 Core tests PASS. The cross-compile result is **compiler authority only**; it is not native Windows ARM64 execution/runtime authority and does not replace either Director-machine native checkpoint below.
+
+Existing machine-validated checkpoints now have durable annotated validation tags:
+
+- `validation/e0a-phase-b-reference-run-native-arm64` -> `3749210393282f6aa2ac4ceb0176b6adb5df189e`.
+- `validation/e0a-phase-b-live-host-native-arm64` -> `1cfdb3aa22abce62a5bd48e80706407670d1c6a9`.
+
+The seven merged renovation/documentation branches `docs-bootstrap-surface-reconciliation`, `docs/repository-surface-constitution`, `renovation/c1-branch-archive`, `renovation/c2-core-ci`, `renovation/c3-build-surface`, `renovation/c4-oracle-guard`, and `renovation/integrate-c1-c4-docs` are now archivable under Repository Surface law. They remain present until annotated `archive/...` tags are created at their final heads and the branch refs are deleted; their continued presence does not make them active engineering work.
+
 ## Native validation
 
 All native evidence below is **Director-machine-sourced** from the Director's native Windows ARM64 machine, not the engineering assistant environment.
@@ -34,6 +47,8 @@ Exact validated executable/test checkout:
 
 `3749210393282f6aa2ac4ceb0176b6adb5df189e`
 
+Annotated validation tag: `validation/e0a-phase-b-reference-run-native-arm64`.
+
 Observed: Windows `10.0.26200`, ARM64, `win-arm64`, SDK `9.0.317`; clean tracked/staged tree; **622/622 Core tests PASS**; **39/39 Harness tests PASS**; Harness ARM64 build PASS; Missing Raft PASS; generic smoke PASS.
 
 ### Live-host completion checkpoint
@@ -41,6 +56,8 @@ Observed: Windows `10.0.26200`, ARM64, `win-arm64`, SDK `9.0.317`; clean tracked
 Exact validated executable/test checkout:
 
 `1cfdb3aa22abce62a5bd48e80706407670d1c6a9`
+
+Annotated validation tag: `validation/e0a-phase-b-live-host-native-arm64`.
 
 Observed: Windows `10.0.26200`, `PROCESSOR_ARCHITECTURE=ARM64`, `dotnet --info` RID `win-arm64`, Host Architecture `arm64`, SDK `9.0.317`; clean tracked/staged tree; no material untracked source/test/fixture files; **622/622 Core tests PASS**; **54/54 Harness tests PASS**; Harness native ARM64 build PASS; Missing Raft PASS; generic smoke PASS; credentialless explicit `e0a-run` PASS with native exit `1`, expected `OPENAI_API_KEY` refusal, no evidence root, and credential remaining absent.
 
@@ -85,17 +102,17 @@ Known host facts include:
 - Trusted architecture probes are `PROCESSOR_ARCHITECTURE=ARM64` plus parsed `dotnet --info` showing `RID: win-arm64` and Host `Architecture: arm64`.
 - Expected native stderr can surface as `NativeCommandError` under `$ErrorActionPreference='Stop'`; expected-failure probes must isolate stderr, capture `$LASTEXITCODE` immediately, and assert exit/message/filesystem effects independently.
 
-## Live branches
+## Live implementation branches
 
 - `e0a-phase-b-post-audit-hardening`
   - HEAD: `8f5e9a0983beafe247a11f62922b8d2bd5974faa`
-  - Divergence from `main` `f9cb1a79ad7923b640ff1a97c46d8fd6ab9dac25`: **65 ahead / 0 behind**.
+  - Divergence from `main` `175aa1f360aa8458fb571ac21295df13f59fdd8b`: **65 ahead / 9 behind**.
   - **OPEN — AWAITING DIRECTOR DISPOSITION, COMPILER GATE FAILING.**
   - COMPILER GATE: **FAIL** — MSTEST0032 at `tests/Ensemble.E0.Harness.Tests/E0ALiveHostReadinessTests.cs:179`. `Assert.AreEqual(300, E0ARunEnvelope.AttemptTimeoutSeconds)` compares a literal with the compile-time constant `AttemptTimeoutSeconds = 300`; with `TreatWarningsAsErrors=true`, the analyzer warning fails Debug and Release compilation. Introduced by `2ff81d471ce62217ec9380b361ed4ec2af4a3ab1`.
 
 - `e0a-gemini-normative-reference-amendment`
   - HEAD: `00b9052fdd4c65cc200ed01c61f3f2a80c10dc62`
-  - Divergence from `main` `f9cb1a79ad7923b640ff1a97c46d8fd6ab9dac25`: **48 ahead / 0 behind**.
+  - Divergence from `main` `175aa1f360aa8458fb571ac21295df13f59fdd8b`: **48 ahead / 9 behind**.
   - **OPEN — AWAITING DIRECTOR DISPOSITION, COMPILER GATE FAILING.**
   - COMPILER GATE: **FAIL** — CS0103 at `tests/Ensemble.E0.Harness.Tests/GeminiUsageContractTests.cs:90`, `GeminiThinkingDisclosureTests.cs:22`, and `GeminiMalformedResponseTests.cs:155`. Each references `IntegrityCandidateInput` without importing its namespace, `Ensemble.E0.Core.Integrity`.
 
@@ -115,6 +132,8 @@ Known host facts include:
 
 Remain inside **E0-A Phase B**. Do not redesign Proposal 0.15 or enter E0-B..G, product Application/persistence/UI, Scene endings, Context optimization, Windows AI/NPU, MSIX/WACK/Store, or later scope.
 
-The former `main`/work-branch divergence has been reconciled as a documentation-only union. The reconciled head may be promoted through the normal reviewed GitHub path without another native run because no executable/test/fixture surface changed after `1cfdb3aa...`. If this state is already on `main`, that promotion step is complete.
+Repository renovation C1-C4 and the continuity-law updates are promoted to `main`. Their CI cross-compile evidence is compiler authority only and does not replace native runtime evidence. The seven merged renovation/documentation branches are archivable but remain present until their required annotated archive tags are created and the branch refs are deleted.
 
-After promotion, the next consequential product action remains the first real reference-provider run under the frozen envelope/evidence package. It requires **separate explicit Director authorization** for `OPENAI_API_KEY`, provider credentials, network inference, and spend. Nothing in fake-only native validation, reconciliation, or promotion opens that gate.
+The next unresolved engineering decision is Director disposition of the two divergent implementation branches recorded above. Neither may be silently merged, discarded, or used as validation authority while its compiler gate is failing.
+
+The next consequential product action remains the first real reference-provider run under the frozen envelope/evidence package. It requires **separate explicit Director authorization** for `OPENAI_API_KEY`, provider credentials, network inference, and spend. Nothing in fake-only native validation, repository renovation, CI cross-compilation, or promotion opens that gate.
