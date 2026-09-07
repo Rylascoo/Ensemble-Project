@@ -3,7 +3,6 @@
 
 from __future__ import annotations
 
-import sys
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
@@ -107,9 +106,11 @@ def check_global_build_hygiene(errors: list[str]) -> None:
         errors.append("Directory.Build.props is missing")
         return
     root = read_xml(props)
-    if property_value(root, "TreatWarningsAsErrors").lower() != "true":
+    warnings_as_errors = (property_value(root, "TreatWarningsAsErrors") or "").lower()
+    deterministic = (property_value(root, "Deterministic") or "").lower()
+    if warnings_as_errors != "true":
         errors.append("TreatWarningsAsErrors must remain true in Directory.Build.props")
-    if property_value(root, "Deterministic").lower() != "true":
+    if deterministic != "true":
         errors.append("Deterministic must remain true in Directory.Build.props")
 
 
