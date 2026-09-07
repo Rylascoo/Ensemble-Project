@@ -56,3 +56,16 @@ jobs:
             baseline=origin/main
           fi
           python tools/oracle-index.py --check --baseline "$baseline"
+
+  document-census:
+    name: Document reference census
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Report documentation inbound references
+        run: python tools/document-census.py --summary
