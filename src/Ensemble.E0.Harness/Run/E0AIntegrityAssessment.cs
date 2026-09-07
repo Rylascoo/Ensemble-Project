@@ -197,9 +197,7 @@ internal static class E0AIntegrityConcernParser
             var result = ImmutableArray.CreateBuilder<IntegrityConcernKind>();
             foreach (var item in concerns.EnumerateArray())
             {
-                if (!TryDecodeConcern(item, out var name) ||
-                    !Enum.TryParse<IntegrityConcernKind>(name, false, out var parsed) ||
-                    !Enum.IsDefined(parsed))
+                if (!TryDecodeConcern(item, out var name) || !TryParseExactConcern(name!, out var parsed))
                 {
                     throw new E0AHarnessException("E0-A Integrity response contains an unsupported concern.");
                 }
@@ -211,6 +209,31 @@ internal static class E0AIntegrityConcernParser
         {
             throw new E0AHarnessException("E0-A Integrity response JSON is invalid.");
         }
+    }
+
+    private static bool TryParseExactConcern(string name, out IntegrityConcernKind concern)
+    {
+        concern = name switch
+        {
+            nameof(IntegrityConcernKind.PotentialInaccessibleInformationUse) =>
+                IntegrityConcernKind.PotentialInaccessibleInformationUse,
+            nameof(IntegrityConcernKind.PotentialProtectedInformationExposure) =>
+                IntegrityConcernKind.PotentialProtectedInformationExposure,
+            nameof(IntegrityConcernKind.PotentialLockedAuthorityViolation) =>
+                IntegrityConcernKind.PotentialLockedAuthorityViolation,
+            nameof(IntegrityConcernKind.PotentialTechnicalArtifactLeak) =>
+                IntegrityConcernKind.PotentialTechnicalArtifactLeak,
+            nameof(IntegrityConcernKind.IndeterminateSemanticIntegrity) =>
+                IntegrityConcernKind.IndeterminateSemanticIntegrity,
+            _ => default
+        };
+
+        return name is
+            nameof(IntegrityConcernKind.PotentialInaccessibleInformationUse) or
+            nameof(IntegrityConcernKind.PotentialProtectedInformationExposure) or
+            nameof(IntegrityConcernKind.PotentialLockedAuthorityViolation) or
+            nameof(IntegrityConcernKind.PotentialTechnicalArtifactLeak) or
+            nameof(IntegrityConcernKind.IndeterminateSemanticIntegrity);
     }
 
     private static bool TryDecodeConcern(JsonElement item, out string? value)
