@@ -10,7 +10,7 @@ The Director owns product constitution, Open Design Register resolution, provide
 
 ## Checkpoint
 
-Phase: **E0-A Experimental Harness — Phase B post-audit hardening in progress on `e0a-phase-b-post-audit-hardening`; Patch Group 1 implemented and recursively static-audited; hardening native validation pending; real provider run still gated**.
+Phase: **E0-A Experimental Harness — Phase B post-audit hardening in progress on `e0a-phase-b-post-audit-hardening`; Patch Group 1 implemented and recursively static-audited; remaining closed-audit hardening scope recorded and authorized; grouped native validation pending; real provider run still gated**.
 
 H1 Phase A: **CLOSED** by `docs/evidence/H1_CONVERGENCE_AUDIT.md`; promotion `28371ea4bcd9709b771413100af4dcec5a05dc6e`.
 
@@ -21,6 +21,8 @@ Original Phase-B implementation evidence: `docs/evidence/E0A_PHASE_B_REFERENCE_R
 Live-host completion native evidence: `docs/evidence/E0A_PHASE_B_LIVE_HOST_NATIVE_ARM64_VALIDATION.md`. Attempt 01 partial evidence: `docs/evidence/E0A_PHASE_B_LIVE_HOST_NATIVE_VALIDATION_ATTEMPT_01.md`. Director-host apparatus contract: `docs/evidence/DIRECTOR_WINDOWS_ARM64_VALIDATION_HOST_BEHAVIORS.md`.
 
 Post-audit hardening Patch Group 1 implementation evidence: `docs/evidence/E0A_POST_AUDIT_HARDENING_PATCH_GROUP_1_IMPLEMENTATION.md`.
+
+Closed-audit remaining hardening authority/continuity: `docs/evidence/E0A_POST_AUDIT_HARDENING_CLOSED_FINDINGS.md`.
 
 Program map: `docs/roadmap/KYMAEAN_ARCHITECTURE_AND_SHIP_PLAN.md`.
 
@@ -74,9 +76,11 @@ The E-02 correction removes synchronous `StreamReader.EndOfStream` probing befor
 
 Recursive audit removed two unnecessary intermediate choices: a new `integrity.rejected` evidence event and a duplicate-specific Harness catch filter. The final implementation uses the existing typed Core orchestration failure boundary and existing run terminal/evidence lifecycle.
 
+The comprehensive post-implementation audit is closed and achieved a zero-new-finding pass. The complete remaining correction set, dependency order, regression-gap obligations, and grouped-validation boundary are preserved without reinterpretation in `docs/evidence/E0A_POST_AUDIT_HARDENING_CLOSED_FINDINGS.md`. Authorized remaining groups are: Group 2 E-03/E-07; Group 3 E-06/P-02/P-05; Group 4 I-02/I-03/I-04/P-04; Group 5 E-04/E-05/I-05; Group 6 P-01/P-03 plus final regression-gap review.
+
 Draft review surface: PR #39. `main` remains untouched by the hardening implementation.
 
-Per the hardening branch strategy, later hardening groups remain isolated on this branch and grouped native Windows ARM64 validation occurs before merge to `main`. Patch Group 2 is not implemented by the Patch Group 1 record.
+Per the hardening branch strategy, remaining hardening groups stay isolated on this branch and grouped native Windows ARM64 validation occurs before merge to `main`.
 
 ## Phase-B live-host truth
 
@@ -130,8 +134,8 @@ Known host facts include:
 
 Remain inside **E0-A Phase B**. Do not redesign Proposal 0.15 or enter E0-B..G, product Application/persistence/UI, Scene endings, Context optimization, Windows AI/NPU, MSIX/WACK/Store, or later scope.
 
-Continue post-audit hardening only on `e0a-phase-b-post-audit-hardening`. Patch Group 1 is implemented and recursively static-audited. Patch Group 2 requires its separately established audit scope; do not infer or redesign it from Patch Group 1.
+Continue post-audit hardening only on `e0a-phase-b-post-audit-hardening` in the dependency order recorded by `docs/evidence/E0A_POST_AUDIT_HARDENING_CLOSED_FINDINGS.md`. Patch Group 1 is complete; Patch Group 2 is E-03 provider decoding plus E-07 timeout composition.
 
-After the authorized hardening groups and recursive audits are complete, run the grouped native Windows ARM64 validation gate on the exact final executable/test checkout, using `docs/evidence/DIRECTOR_WINDOWS_ARM64_VALIDATION_HOST_BEHAVIORS.md` as the validation-host contract. Only that later native evidence may replace `1cfdb3aa...` as executable/test authority.
+After all authorized hardening groups and recursive audits are complete, run the grouped native Windows ARM64 validation gate on the exact final executable/test checkout, using `docs/evidence/DIRECTOR_WINDOWS_ARM64_VALIDATION_HOST_BEHAVIORS.md` as the validation-host contract. Only that later native evidence may replace `1cfdb3aa...` as executable/test authority.
 
-The first real reference-provider run is no longer the immediate next executable action while hardening is in progress. It remains separately gated and requires explicit Director authorization for `OPENAI_API_KEY`, provider credentials, network inference, and spend after the hardening branch is validated and promoted. Nothing in prior fake-only native validation, Patch Group 1 implementation, static audit, or draft PR #39 opens that gate.
+The first real reference-provider run is not an authorized action while hardening is in progress. It remains separately gated and requires explicit Director authorization for `OPENAI_API_KEY`, provider credentials, network inference, and spend after the hardening branch is validated and promoted. Nothing in prior fake-only native validation, Patch Group 1 implementation, static audit, or draft PR #39 opens that gate.
