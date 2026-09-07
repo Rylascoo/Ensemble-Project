@@ -13,6 +13,8 @@ internal static class E0AEvidenceContracts
     internal const string FrozenBlueprintVersion = "0.1";
     internal const string ReferenceEnvelopeBlueprint = "E0A_PHASE_B_REFERENCE_RUN_ENVELOPE_PROPOSAL_0.15";
     internal const string ApprovedBlueprintCommit = "e1d0b4aea0f7ba29cf85e765bea33d14eab35fde";
+    internal const string GeminiReferenceAmendment = "E0A_PHASE_B_GEMINI_NORMATIVE_REFERENCE_AMENDMENT";
+    internal const string GeminiApprovedAmendmentCommit = "267575a1c024ea1e43c699994ce68fd6daefd68c";
     internal const string HardGateChecklistVersion = "ensemble.e0a.hard-gates.v1";
     internal const string MandatoryReviewResolution = "deterministic-reject-all";
 
@@ -30,8 +32,22 @@ internal static class E0AEvidenceContracts
         "The State Interpreter directly mutates authority.",
         "A deterministic cost, cancellation, eligibility, or access rule is delegated to an LLM.");
 
+    internal static string ReferenceEnvelopeBlueprintFor(E0ARunEnvelope envelope) =>
+        IsGemini(envelope) ? GeminiReferenceAmendment : ReferenceEnvelopeBlueprint;
+
+    internal static string ApprovedBlueprintCommitFor(E0ARunEnvelope envelope) =>
+        IsGemini(envelope) ? GeminiApprovedAmendmentCommit : ApprovedBlueprintCommit;
+
     internal static string ReferenceConfigurationIdentity(E0ARunEnvelope envelope) =>
-        $"E0A-P0.15:{envelope.Variant}";
+        IsGemini(envelope)
+            ? $"E0A-GEMINI-NORMATIVE-2026-09-06:{envelope.Variant}"
+            : $"E0A-P0.15:{envelope.Variant}";
+
+    private static bool IsGemini(E0ARunEnvelope envelope) =>
+        string.Equals(
+            envelope.Performer.Provider,
+            E0AGeminiProviderPolicy.Provider,
+            StringComparison.Ordinal);
 }
 
 internal sealed record E0AHardGateEvaluation(
@@ -122,8 +138,8 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
             contract = "ensemble.e0a.run-manifest.v1",
             runId = runId.Value,
             frozenBlueprintVersion = E0AEvidenceContracts.FrozenBlueprintVersion,
-            referenceEnvelopeBlueprint = E0AEvidenceContracts.ReferenceEnvelopeBlueprint,
-            approvedBlueprintCommit = E0AEvidenceContracts.ApprovedBlueprintCommit,
+            referenceEnvelopeBlueprint = E0AEvidenceContracts.ReferenceEnvelopeBlueprintFor(envelope),
+            approvedBlueprintCommit = E0AEvidenceContracts.ApprovedBlueprintCommitFor(envelope),
             referenceConfigurationIdentity = E0AEvidenceContracts.ReferenceConfigurationIdentity(envelope),
             hardGateChecklistVersion = E0AEvidenceContracts.HardGateChecklistVersion,
             hardGateChecklist = E0AEvidenceContracts.HardGateChecklist,
@@ -137,25 +153,8 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
             automaticRetries = E0ARunEnvelope.AutomaticRetries,
             attemptTimeoutSeconds = E0ARunEnvelope.AttemptTimeoutSeconds,
             estimatedSpendCeilingUsd = E0ARunEnvelope.EstimatedSpendCeilingUsd,
-            pricing = new
-            {
-                sourceUri = E0APricingPolicy.SourceUri,
-                verifiedOn = E0APricingPolicy.VerifiedOn,
-                promotionalPricingGuaranteedThrough = E0APricingPolicy.PromotionalPricingGuaranteedThrough,
-                publishedInputUsdPerMillionTokens = E0APricingPolicy.PublishedInputUsdPerMillionTokens,
-                publishedCachedInputUsdPerMillionTokens = E0APricingPolicy.PublishedCachedInputUsdPerMillionTokens,
-                publishedOutputUsdPerMillionTokens = E0APricingPolicy.PublishedOutputUsdPerMillionTokens,
-                cacheWriteMultiplier = E0APricingPolicy.CacheWriteMultiplier,
-                standardTierMaxInputTokens = E0APricingPolicy.StandardTierMaxInputTokens,
-                accountingMethod = "all-reported-input-at-conservative-cache-write-capable-rate",
-                inputUsdPerMillionTokens = envelope.Pricing.InputUsdPerMillionTokens,
-                cachedInputUsdPerMillionTokens = envelope.Pricing.CachedInputUsdPerMillionTokens,
-                outputUsdPerMillionTokens = envelope.Pricing.OutputUsdPerMillionTokens
-            },
-            providerTransport = new
-            {
-                promptCacheMode = E0AProviderTransportPolicy.PromptCacheMode
-            },
+            pricing = PricingManifest(envelope),
+            providerTransport = ProviderTransportManifest(envelope),
             stateAuthority = new
             {
                 autoApproveDomains = envelope.AutoApproveDomains.Select(x => x.ToString()).ToArray(),
@@ -378,16 +377,100 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
         _evaluationSealed = true;
     }
 
-    private static object RoleManifest(E0ARoleProfile profile) => new
+    private static object PricingManifest(E0ARunEnvelope envelope)
     {
-        role = profile.Role.ToString(),
-        provider = profile.Provider,
-        model = profile.Model,
-        reasoning = profile.Reasoning.ToString(),
-        stream = profile.Stream,
-        maxOutputTokens = profile.MaxOutputTokens,
-        serviceTier = profile.ServiceTier
-    };
+        if (string.Equals(envelope.Performer.Provider, E0AGeminiProviderPolicy.Provider, StringComparison.Ordinal))
+        {
+            return new
+            {
+                sourceUri = E0AGeminiPricingPolicy.SourceUri,
+                verifiedOn = E0AGeminiPricingPolicy.VerifiedOn,
+                snapshotValidThrough = E0AGeminiPricingPolicy.SnapshotValidThrough,
+                actualRouteBillingExpectation = "ai-studio-free-tier-expected-zero-pending-pre-run-tier-verification",
+                shadowEstimateOnly = true,
+                shadowPricingBasis = "gemini-2.5-flash-standard-paid-tier",
+                publishedInputUsdPerMillionTokens = E0AGeminiPricingPolicy.PublishedPaidInputUsdPerMillionTokens,
+                publishedCachedInputUsdPerMillionTokens = E0AGeminiPricingPolicy.PublishedPaidCachedInputUsdPerMillionTokens,
+                publishedOutputUsdPerMillionTokens = E0AGeminiPricingPolicy.PublishedPaidOutputUsdPerMillionTokens,
+                modelInputTokenLimit = E0AGeminiProviderPolicy.ModelInputTokenLimit,
+                modelOutputTokenLimit = E0AGeminiProviderPolicy.ModelOutputTokenLimit,
+                accountingMethod = "all-reported-input-at-full-uncached-shadow-rate; output-includes-thinking",
+                inputUsdPerMillionTokens = envelope.Pricing.InputUsdPerMillionTokens,
+                cachedInputUsdPerMillionTokens = envelope.Pricing.CachedInputUsdPerMillionTokens,
+                outputUsdPerMillionTokens = envelope.Pricing.OutputUsdPerMillionTokens
+            };
+        }
+
+        return new
+        {
+            sourceUri = E0APricingPolicy.SourceUri,
+            verifiedOn = E0APricingPolicy.VerifiedOn,
+            promotionalPricingGuaranteedThrough = E0APricingPolicy.PromotionalPricingGuaranteedThrough,
+            publishedInputUsdPerMillionTokens = E0APricingPolicy.PublishedInputUsdPerMillionTokens,
+            publishedCachedInputUsdPerMillionTokens = E0APricingPolicy.PublishedCachedInputUsdPerMillionTokens,
+            publishedOutputUsdPerMillionTokens = E0APricingPolicy.PublishedOutputUsdPerMillionTokens,
+            cacheWriteMultiplier = E0APricingPolicy.CacheWriteMultiplier,
+            standardTierMaxInputTokens = E0APricingPolicy.StandardTierMaxInputTokens,
+            accountingMethod = "all-reported-input-at-conservative-cache-write-capable-rate",
+            inputUsdPerMillionTokens = envelope.Pricing.InputUsdPerMillionTokens,
+            cachedInputUsdPerMillionTokens = envelope.Pricing.CachedInputUsdPerMillionTokens,
+            outputUsdPerMillionTokens = envelope.Pricing.OutputUsdPerMillionTokens
+        };
+    }
+
+    private static object ProviderTransportManifest(E0ARunEnvelope envelope)
+    {
+        if (string.Equals(envelope.Performer.Provider, E0AGeminiProviderPolicy.Provider, StringComparison.Ordinal))
+        {
+            return new
+            {
+                api = "generateContent/streamGenerateContent",
+                inputTokenCounter = "models.countTokens(generateContentRequest)",
+                requestStore = false,
+                serviceTier = E0AGeminiProviderPolicy.ServiceTier,
+                serviceTierRequestField = "omitted-provider-default-standard",
+                explicitCacheObject = false,
+                implicitCachingProviderManaged = true,
+                implicitCacheContributionPolicy = "nonzero-cachedContentTokenCount-technical-before-semantic-consumption",
+                intendedGeneratedTokenCeiling = E0AGeminiProviderPolicy.IntendedGeneratedTokenCeiling
+            };
+        }
+
+        return new
+        {
+            promptCacheMode = E0AProviderTransportPolicy.PromptCacheMode
+        };
+    }
+
+    private static object RoleManifest(E0ARoleProfile profile)
+    {
+        if (string.Equals(profile.Provider, E0AGeminiProviderPolicy.Provider, StringComparison.Ordinal))
+        {
+            return new
+            {
+                role = profile.Role.ToString(),
+                provider = profile.Provider,
+                model = profile.Model,
+                reasoning = profile.Reasoning.ToString(),
+                thinkingBudgetTokens = E0AGeminiProviderPolicy.ThinkingBudgetTokens(profile),
+                stream = profile.Stream,
+                maxOutputTokens = profile.MaxOutputTokens,
+                serviceTier = profile.ServiceTier,
+                reservationOutputTokens = E0AProviderBudgetPolicy.ReservationOutputTokens(profile)
+            };
+        }
+
+        return new
+        {
+            role = profile.Role.ToString(),
+            provider = profile.Provider,
+            model = profile.Model,
+            reasoning = profile.Reasoning.ToString(),
+            stream = profile.Stream,
+            maxOutputTokens = profile.MaxOutputTokens,
+            serviceTier = profile.ServiceTier
+        };
+    }
 
     private void WriteNew(string relative, object value)
     {
