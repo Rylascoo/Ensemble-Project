@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Deterministic documentation inbound-reference census for repository hygiene."""
+"""Deterministic documentation authority/reference census for repository hygiene."""
 
 from __future__ import annotations
 
 import argparse
+import collections
 import json
 import subprocess
 from pathlib import Path
@@ -16,6 +17,7 @@ GENERATED_OUTPUTS = {
     "docs/DOCUMENT_INDEX.json",
 }
 REFERENCE_EXCLUDED = GENERATED_OUTPUTS
+AUTHORITY_ROOTS = ("CURRENT_STATE.md", "docs/PROJECT_AUTHORITY.md")
 ARCHIVE_PREFIXES = ("docs/evidence/archive/",)
 
 
@@ -26,14 +28,13 @@ def git(*args: str) -> str:
 
 
 def tracked_paths() -> list[str]:
-    output = subprocess.check_output(["git", "ls-files", "-z"], cwd=ROOT)
-    return [item.decode("utf-8") for item in output.split(b"\0") if item]
+    raw = subprocess.check_output(["git", "ls-files", "-z"], cwd=ROOT)
+    return [item.decode("utf-8") for item in raw.split(b"\0") if item]
 
 
 def inventory(paths: list[str]) -> list[str]:
     return sorted(
-        path
-        for path in paths
+        path for path in paths
         if (path in {"README.md", "CURRENT_STATE.md"} or path.startswith("docs/"))
         and path not in GENERATED_OUTPUTS
     )
@@ -58,11 +59,63 @@ def last_commit(path: str) -> str:
     return git("log", "-1", "--format=%H", "--", path)
 
 
-def split_sources(sources: list[str]) -> tuple[list[str], list[str]]:
-    return (
-        [source for source in sources if not is_archive(source)],
-        [source for source in sources if is_archive(source)],
-    )
+def references_for(
+    source: str,
+    text: str,
+    active_docs: set[str],
+    basenames: dict[str, int],
+) -> set[str]:
+    if source in REFERENCE_EXCLUDED:
+        return set()
+    found: set[str] = set()
+    for target in active_docs:
+        if source == target:
+            continue
+        if target in text:
+            found.add(target)
+            continue
+        name = Path(target).name
+        if basenames.get(name) == 1 and name in text:
+            found.add(target)
+    return found
+
+
+def authority_graph(
+    docs: list[str], text_sources: dict[str, str], basenames: dict[str, int]
+) -> tuple[dict[str, set[str]], dict[str, str | None]]:
+    active_docs = {path for path in docs if not is_archive(path)}
+    edges: dict[str, set[str]] = {path: set() for path in active_docs}
+    for source in active_docs:
+        text = text_sources.get(source)
+        if text is not None:
+            edges[source] = references_for(source, text, active_docs, basenames)
+
+    parent: dict[str, str | None] = {}
+    queue: collections.deque[str] = collections.deque()
+    for root in AUTHORITY_ROOTS:
+        if root not in active_docs:
+            raise ValueError(f"authority root is missing: {root}")
+        parent[root] = None
+        queue.append(root)
+    while queue:
+        source = queue.popleft()
+        for target in sorted(edges[source]):
+            if target not in parent:
+                parent[target] = source
+                queue.append(target)
+    return edges, parent
+
+
+def authority_path(path: str, parent: dict[str, str | None]) -> list[str]:
+    if path not in parent:
+        return []
+    result = [path]
+    cursor = path
+    while parent[cursor] is not None:
+        cursor = parent[cursor]  # type: ignore[assignment]
+        result.append(cursor)
+    result.reverse()
+    return result
 
 
 def build() -> dict[str, object]:
@@ -76,19 +129,16 @@ def build() -> dict[str, object]:
         if text is not None:
             text_sources[source] = text
 
-    basenames: dict[str, int] = {}
-    for path in docs:
-        name = Path(path).name
-        basenames[name] = basenames.get(name, 0) + 1
-
+    basenames: dict[str, int] = collections.Counter(Path(path).name for path in docs)
+    edges, reachable_parent = authority_graph(docs, text_sources, basenames)
     entries = []
     for path in docs:
         full_sources = sorted(
             source for source, text in text_sources.items()
             if source != path and path in text
         )
-        active_full_sources, archive_full_sources = split_sources(full_sources)
-
+        active_full = [source for source in full_sources if not is_archive(source)]
+        archive_full = [source for source in full_sources if is_archive(source)]
         name = Path(path).name
         basename_sources: list[str] = []
         if basenames[name] == 1:
@@ -96,54 +146,39 @@ def build() -> dict[str, object]:
                 source for source, text in text_sources.items()
                 if source != path and name in text and source not in full_sources
             )
-        active_basename_sources, archive_basename_sources = split_sources(basename_sources)
-
+        active_basename = [source for source in basename_sources if not is_archive(source)]
+        archive_basename = [source for source in basename_sources if is_archive(source)]
         raw = (ROOT / path).read_bytes()
-        text = raw.decode("utf-8")
         entries.append({
             "path": path,
             "surface": "archive" if is_archive(path) else "active",
             "bytes": len(raw),
-            "lines": len(text.splitlines()),
+            "lines": len(raw.decode("utf-8").splitlines()),
             "last_commit": last_commit(path),
-            "reference_source_excluded": path in REFERENCE_EXCLUDED,
-            "inbound_exact_path_count": len(full_sources),
-            "inbound_exact_path_sources": full_sources,
-            "inbound_active_exact_path_count": len(active_full_sources),
-            "inbound_active_exact_path_sources": active_full_sources,
-            "inbound_archive_exact_path_count": len(archive_full_sources),
-            "inbound_archive_exact_path_sources": archive_full_sources,
-            "inbound_unique_basename_count": len(basename_sources),
-            "inbound_unique_basename_sources": basename_sources,
-            "inbound_active_unique_basename_count": len(active_basename_sources),
-            "inbound_active_unique_basename_sources": active_basename_sources,
-            "inbound_archive_unique_basename_count": len(archive_basename_sources),
-            "inbound_archive_unique_basename_sources": archive_basename_sources,
+            "authority_reachable": path in reachable_parent,
+            "authority_path": authority_path(path, reachable_parent),
+            "outbound_active_document_references": sorted(edges.get(path, set())),
+            "inbound_active_exact_path_sources": active_full,
+            "inbound_archive_exact_path_sources": archive_full,
+            "inbound_active_unique_basename_sources": active_basename,
+            "inbound_archive_unique_basename_sources": archive_basename,
         })
 
     active = [entry for entry in entries if entry["surface"] == "active"]
     archive = [entry for entry in entries if entry["surface"] == "archive"]
     return {
-        "schema": "ensemble.repository-document-census.v5",
+        "schema": "ensemble.repository-document-census.v6",
         "head": git("rev-parse", "HEAD"),
+        "authority_roots": list(AUTHORITY_ROOTS),
         "inventory_count": len(entries),
         "active_inventory_count": len(active),
         "archive_inventory_count": len(archive),
-        "reference_excluded_sources": sorted(REFERENCE_EXCLUDED),
         "entries": entries,
     }
 
 
-def has_no_active_reference(entry: dict[str, object]) -> bool:
-    return (
-        entry["surface"] == "active"
-        and entry["inbound_active_exact_path_count"] == 0
-        and entry["inbound_active_unique_basename_count"] == 0
-    )
-
-
 def is_archive_candidate(entry: dict[str, object]) -> bool:
-    return is_active_evidence(str(entry["path"])) and has_no_active_reference(entry)
+    return is_active_evidence(str(entry["path"])) and not bool(entry["authority_reachable"])
 
 
 def print_summary(report: dict[str, object]) -> None:
@@ -152,48 +187,39 @@ def print_summary(report: dict[str, object]) -> None:
     active = [entry for entry in entries if entry["surface"] == "active"]
     archive = [entry for entry in entries if entry["surface"] == "archive"]
     candidates = [entry for entry in active if is_archive_candidate(entry)]
-    unreferenced_other = [
+    unreachable_other = [
         entry for entry in active
-        if has_no_active_reference(entry) and not is_archive_candidate(entry)
+        if not entry["authority_reachable"] and not is_archive_candidate(entry)
     ]
     print(f"DOCUMENT_CENSUS_HEAD\t{report['head']}")
     print(f"DOCUMENT_CENSUS_SCHEMA\t{report['schema']}")
+    print(f"DOCUMENT_CENSUS_AUTHORITY_ROOTS\t{','.join(report['authority_roots'])}")
     print(f"DOCUMENT_CENSUS_INVENTORY\t{report['inventory_count']}")
     print(f"DOCUMENT_CENSUS_ACTIVE\t{len(active)}")
     print(f"DOCUMENT_CENSUS_ARCHIVE\t{len(archive)}")
-    print(f"DOCUMENT_CENSUS_EVIDENCE_ARCHIVE_CANDIDATES\t{len(candidates)}")
-    print(f"DOCUMENT_CENSUS_UNREFERENCED_OTHER\t{len(unreferenced_other)}")
+    print(f"DOCUMENT_CENSUS_UNREACHABLE_EVIDENCE\t{len(candidates)}")
+    print(f"DOCUMENT_CENSUS_UNREACHABLE_OTHER\t{len(unreachable_other)}")
     for entry in active:
-        path = str(entry["path"])
-        if path.startswith("docs/evidence/"):
-            active_sources = ",".join(entry["inbound_active_exact_path_sources"])
-            archive_sources = ",".join(entry["inbound_archive_exact_path_sources"])
+        if str(entry["path"]).startswith("docs/evidence/"):
+            chain = " -> ".join(entry["authority_path"])
             print(
-                "ACTIVE_EVIDENCE_CENSUS\t"
-                f"{entry['inbound_active_exact_path_count']}\t"
-                f"{entry['inbound_active_unique_basename_count']}\t"
-                f"{entry['inbound_archive_exact_path_count']}\t"
-                f"{path}\t{active_sources}\t{archive_sources}"
+                "ACTIVE_EVIDENCE_AUTHORITY\t"
+                f"{1 if entry['authority_reachable'] else 0}\t"
+                f"{entry['path']}\t{chain}"
             )
     for entry in candidates:
         print(f"EVIDENCE_ARCHIVE_CANDIDATE\t{entry['path']}")
-    for entry in unreferenced_other:
-        print(f"UNREFERENCED_ACTIVE_DOCUMENT\t{entry['path']}")
-    for entry in archive:
-        print(f"ARCHIVE_DOCUMENT\t{entry['path']}")
+    for entry in unreachable_other:
+        print(f"UNREACHABLE_ACTIVE_DOCUMENT\t{entry['path']}")
 
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--json", action="store_true", help="emit the complete JSON report")
-    parser.add_argument("--summary", action="store_true", help="emit concise census lines")
+    parser.add_argument("--json", action="store_true")
+    parser.add_argument("--summary", action="store_true")
     args = parser.parse_args()
-
     report = build()
-    if args.json:
-        print(json.dumps(report, indent=2, sort_keys=True))
-    else:
-        print_summary(report)
+    print(json.dumps(report, indent=2, sort_keys=True) if args.json else "") if args.json else print_summary(report)
     return 0
 
 

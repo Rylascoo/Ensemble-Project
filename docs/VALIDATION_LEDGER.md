@@ -9,6 +9,7 @@ Status: validation fact register only. This file cannot advance phase/checkpoint
 | Exact checkout | `cc395a25162a0a682796bffb44060c799df0db32` |
 | Annotated tag | `validation/e0a-pre-restructure-closure-native-arm64` |
 | Evidence | `docs/evidence/E0A_PRE_RESTRUCTURE_CLOSURE_NATIVE_ARM64_VALIDATION.md` |
+| Director-host contract | `docs/evidence/DIRECTOR_WINDOWS_ARM64_VALIDATION_HOST_BEHAVIORS.md` |
 | Host | Director Windows ARM64 |
 | Core tests | 622/622 PASS |
 | Harness tests | 103/103 PASS |
