@@ -8,7 +8,7 @@ Updated: 2026-09-07
 
 ## Current checkpoint
 
-Runtime: **E0-A Experimental Harness — Phase B.** Engineering: **E-R1 repository/tooling/workflow restructuring** on `repo-restructure-e-r1`, baseline `db4bb1c5d5cb6f6de230da88f1c0352fb75aac23`.
+Runtime: **E0-A Experimental Harness — Phase B.** E-R1 repository/tooling/workflow restructuring is **COMPLETE / PROMOTED** through PR #46, merge `21a10aff823734418f36284744a1fd26aef3bcf6`.
 
 Current E0-A architecture: `docs/blueprint/E0A_PHASE_B_REFERENCE_RUN_ENVELOPE.md` plus `docs/blueprint/E0A_PHASE_B_GEMINI_NORMATIVE_REFERENCE_AMENDMENT.md`.
 
@@ -18,21 +18,17 @@ Machine-tested checkout: `cc395a25162a0a682796bffb44060c799df0db32`; tag `valida
 
 Google Gemini API is the sole current E0-A provider method; historical OpenAI executable support is retired. Only `CREATIVE-NONE` is authorized on the Gemini live path. Real credentials, `countTokens`, provider-network execution, inference, and spend remain **NOT AUTHORIZED**. Volatile provider facts require fresh verification before any authorized live run.
 
-## E-R1
+## E-R1 closure
 
 Contract: `docs/E_R1_REPOSITORY_TOOLING_WORKFLOW_RESTRUCTURE.md`.
-Closure evidence: `docs/evidence/E_R1_REPOSITORY_TOOLING_WORKFLOW_RESTRUCTURE_EVIDENCE.md`.
+Evidence: `docs/evidence/E_R1_REPOSITORY_TOOLING_WORKFLOW_RESTRUCTURE_EVIDENCE.md`.
 
-Phases 0–3 **COMPLETE**. Phase 2 repository laws and Phase 3 artifact/lifecycle normalization are CI-blocking where objective.
+Phases 0–5 are **COMPLETE**. Audited implementation/tooling head `fd655bae81064378a0c58fc627e43dbdd88fef58`; gate `34169804442` PASS. Documentation-inclusive head `d0141d5cf51c3fb88fd400362a70c5ce1f9ff501`; branch gate `34170023136` PASS; PR gate `34170086319` PASS. Baseline-to-promotion work contains no `src/`, `tests/`, or `fixtures/` delta, so native authority remains `cc395a…`.
 
-Phase 4 **COMPLETE** at `fd655bae81064378a0c58fc627e43dbdd88fef58`; gate `34169804442` PASS. Reviewed Node-24 GitHub Actions are exact-SHA pinned; future remote action refs must also be full SHAs. .NET remains 9.0.317.
-
-Phase 5 **ACTIVE — PROMOTION PENDING**. Recursive closure audit found E-R1 30 commits ahead / 0 behind its exact baseline, with no `src/`, `tests/`, or `fixtures/` delta. Current native authority therefore remains `cc395a…`. Active evidence authority is clean; no provider execution occurred.
-
-Pre-restructure branch is archived at `archive/repo-pre-restructure-closure`; plan-dependent `main` protection remains deferred.
+The completed E-R1 branch must be preserved by annotated tag `archive/repo-restructure-e-r1` at its final head before deletion under Repository Surface law. Branch retirement does not reopen E-R1 or change runtime authority. Plan-dependent `main` protection remains deferred.
 
 ## Boundary / next
 
 E-R1 does not authorize runtime/provider-policy changes, .NET 10, real Gemini execution, E0-B+, app/UI/persistence, Windows AI/NPU, packaging, WACK, Store, or design-lane decisions.
 
-Next: promote E-R1 through reviewable PR(s), reconcile post-merge continuity, then archive-tag and retire `repo-restructure-e-r1`. Real Gemini execution remains separately gated and unauthorized.
+Next consequential gate: Director disposition/authorization of the first real Gemini `CREATIVE-NONE` run. Until explicit authorization, no provider-network execution, inference, or spend may occur.

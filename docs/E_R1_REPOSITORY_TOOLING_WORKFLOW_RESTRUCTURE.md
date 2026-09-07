@@ -1,9 +1,17 @@
 # E-R1 Repository / Tooling / Workflow Restructure
 
-Status: ACTIVE ENGINEERING WORK PACKAGE
+Status: COMPLETE — PROMOTED 2026-09-07
 Entered: 2026-09-07
 Baseline: `db4bb1c5d5cb6f6de230da88f1c0352fb75aac23`
 Branch: `repo-restructure-e-r1`
+Promotion: PR #46 merge `21a10aff823734418f36284744a1fd26aef3bcf6`
+Closure evidence: `docs/evidence/E_R1_REPOSITORY_TOOLING_WORKFLOW_RESTRUCTURE_EVIDENCE.md`
+
+## Completion
+
+E-R1 completed Phases 0–5 without changing any file under `src/`, `tests/`, or `fixtures/` relative to its entry baseline. Audited implementation/tooling head `fd655bae81064378a0c58fc627e43dbdd88fef58` passed gate `34169804442`; documentation-inclusive head `d0141d5cf51c3fb88fd400362a70c5ce1f9ff501` passed branch gate `34170023136` and PR gate `34170086319`. The exact native Windows ARM64 machine-tested checkpoint therefore remains `cc395a25162a0a682796bffb44060c799df0db32` under `validation/e0a-pre-restructure-closure-native-arm64`.
+
+Post-merge continuity and branch retirement are repository-surface administration only; they do not reopen E-R1 or authorize runtime/provider work. The completed branch must be preserved by annotated `archive/repo-restructure-e-r1` at its final head before deletion.
 
 ## Authority and purpose
 
