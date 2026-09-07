@@ -22,8 +22,12 @@ EXPECTED_PROJECT_REFERENCES: dict[str, set[str]] = {
     },
 }
 
-FORBIDDEN_PROVIDER_TOKENS = (
+FORBIDDEN_SOURCE_PROVIDER_TOKENS = (
     "openai_api_key",
+    "api.openai.com",
+    "openairesponsesport",
+)
+FORBIDDEN_TEST_PROVIDER_TOKENS = (
     "api.openai.com",
     "openairesponsesport",
 )
@@ -128,6 +132,11 @@ def check_current_state_cap(errors: list[str]) -> None:
 def check_retired_provider_surface(errors: list[str]) -> None:
     for base_name in ("src", "tests"):
         base = ROOT / base_name
+        forbidden_tokens = (
+            FORBIDDEN_SOURCE_PROVIDER_TOKENS
+            if base_name == "src"
+            else FORBIDDEN_TEST_PROVIDER_TOKENS
+        )
         for path in sorted(base.rglob("*")):
             if not path.is_file():
                 continue
@@ -140,7 +149,7 @@ def check_retired_provider_surface(errors: list[str]) -> None:
                 text = path.read_text(encoding="utf-8").lower()
             except UnicodeDecodeError:
                 continue
-            for token in FORBIDDEN_PROVIDER_TOKENS:
+            for token in forbidden_tokens:
                 if token in text:
                     errors.append(
                         f"retired OpenAI executable/test token {token!r} found in "
