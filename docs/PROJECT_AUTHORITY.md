@@ -19,7 +19,7 @@ Program planning remains in `docs/roadmap/KYMAEAN_ARCHITECTURE_AND_SHIP_PLAN.md`
 
 ## Engineering authority
 
-GitHub is the canonical engineering workspace. Changes should be patch-first and reviewed against the smallest affected surface.
+GitHub is the canonical engineering workspace. Changes should be patch-first and reviewed against the smallest affected surface. `docs/ENGINEERING_HYGIENE_CONSTITUTION.md` is active project law for engineering hygiene and repository-surface lifecycle unless stronger frozen authority overrides it.
 
 ## Register and navigation roles
 
