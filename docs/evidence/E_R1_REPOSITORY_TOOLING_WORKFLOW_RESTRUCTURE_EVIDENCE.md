@@ -1,15 +1,17 @@
 # E-R1 Repository / Tooling / Workflow Restructure Evidence
 
-Status: PRE-PROMOTION CLOSURE EVIDENCE
+Status: PROMOTED CLOSURE EVIDENCE
 Recorded: 2026-09-07
 Work package: `docs/E_R1_REPOSITORY_TOOLING_WORKFLOW_RESTRUCTURE.md`
-Branch: `repo-restructure-e-r1`
+Historical work branch: `repo-restructure-e-r1`
 Baseline: `db4bb1c5d5cb6f6de230da88f1c0352fb75aac23`
 Audited implementation/tooling head: `fd655bae81064378a0c58fc627e43dbdd88fef58`
+Documentation-inclusive pre-promotion head: `d0141d5cf51c3fb88fd400362a70c5ce1f9ff501`
+Promotion: PR #46 merge `21a10aff823734418f36284744a1fd26aef3bcf6`
 
 ## Scope and validation boundary
 
-E-R1 changed repository documentation, evidence placement, repository/static tooling, and CI workflow configuration. The baseline-to-audited-head compare is 30 commits ahead / 0 behind with merge base exactly the E-R1 baseline and contains no changed file under `src/`, `tests/`, or `fixtures/`. Historical evidence moves are content-preserving renames.
+E-R1 changed repository documentation, evidence placement, repository/static tooling, and CI workflow configuration. The baseline-to-audited-head compare was 30 commits ahead / 0 behind with merge base exactly the E-R1 baseline and contained no changed file under `src/`, `tests/`, or `fixtures/`. The documentation-inclusive head remained source/test/fixture neutral; historical evidence moves were content-preserving renames.
 
 Therefore E-R1 does not supersede the exact native Windows ARM64 machine-tested executable/test checkpoint `cc395a25162a0a682796bffb44060c799df0db32`, preserved by annotated tag `validation/e0a-pre-restructure-closure-native-arm64` and `docs/evidence/E0A_PRE_RESTRUCTURE_CLOSURE_NATIVE_ARM64_VALIDATION.md`.
 
@@ -29,7 +31,7 @@ Checkpoint: `0b267f9eadec603e934b55283c6d2801953a87ae`
 Validation gate: `34168768724` PASS.
 
 Results:
-- `CURRENT_STATE.md` remains the sole phase/checkpoint/validation/next-action authority and is kept under its compact cap.
+- `CURRENT_STATE.md` remains the sole phase/checkpoint/validation/next-action authority and is kept under its compact cap;
 - navigation, validation-fact, hypothesis, active-evidence, archive, and handoff roles are separated;
 - document authority is modeled from durable roots `CURRENT_STATE.md` and `docs/PROJECT_AUTHORITY.md`;
 - navigation and archive references cannot manufacture current authority;
@@ -42,16 +44,17 @@ Results:
 Checkpoint: `5723d567291860e9c9192976a82a4f53a70ece4e`
 Validation gate: `34169337847` PASS.
 
-`tools/repository-law-check.py` and CI now fail closed on objective repository laws including:
+`tools/repository-law-check.py` and CI fail closed on objective repository laws including:
 - the classified four-project dependency graph;
 - Harness `win-arm64` / `ARM64` project identity;
 - warnings-as-errors and deterministic build settings;
 - `CURRENT_STATE.md` size/line cap;
 - reintroduction of retired OpenAI executable/test paths and obsolete transport/provider artifacts while retaining legitimate negative retirement assertions;
 - `NotImplementedException` source scaffolding;
-- live handoff files without exact `CURRENT_STATE.md` authority.
+- live handoff files without exact `CURRENT_STATE.md` authority;
+- remote GitHub Action references that are not exact full commit SHAs.
 
-The document census also gained `--check`, making unreachable active evidence CI-blocking. The checker itself falsified two mistakes during construction: an over-cap `CURRENT_STATE.md` and an over-broad OpenAI token rule. Both were corrected rather than bypassed.
+The document census gained `--check`, making unreachable active evidence CI-blocking. The checker itself falsified two mistakes during construction: an over-cap `CURRENT_STATE.md` and an over-broad OpenAI token rule. Both were corrected rather than bypassed.
 
 ### Phase 3 — workflow and artifact normalization
 
@@ -71,12 +74,12 @@ Results:
 Audited checkpoint: `fd655bae81064378a0c58fc627e43dbdd88fef58`
 Validation gate: `34169804442` PASS, all five jobs.
 
-Official GitHub release/tag metadata and action manifests were reviewed before adoption. The workflow now uses exact immutable Node-24 action revisions:
+Official GitHub release/tag metadata and action manifests were reviewed before adoption. The workflow uses exact immutable Node-24 action revisions:
 - `actions/checkout` v7.0.1 -> `3d3c42e5aac5ba805825da76410c181273ba90b1`;
 - `actions/setup-dotnet` v6.0.0 -> `a98b56852c35b8e3190ac28c8c2271da59106c68`;
 - `actions/setup-python` v7.0.0 -> `5fda3b95a4ea91299a34e894583c3862153e4b97`.
 
-The prior Node-20 deprecation warning is absent on the reviewed revisions. `.NET` remains explicitly `9.0.317`. Repository law now requires every remote GitHub Action reference in workflow YAML to use a full 40-hex commit SHA, preventing silent regression to mutable action tags.
+The prior Node-20 deprecation warning is absent on the reviewed revisions. `.NET` remains explicitly `9.0.317`. Repository law requires every remote GitHub Action reference in workflow YAML to use a full 40-hex commit SHA, preventing silent regression to mutable action tags.
 
 ### Oracle guard normalization
 
@@ -84,25 +87,29 @@ The committed path-sensitive `docs/evidence/ORACLE_INDEX.md` was removed. `tools
 
 ## Phase 5 recursive closure audit
 
-The pre-promotion audit covered correctness, consistency, authority, scope, tests/checks, simplicity, hygiene, ARM64 suitability, vision, evidence, documentation lifecycle, and branch/tag hygiene.
+The closure audit covered correctness, consistency, authority, scope, tests/checks, simplicity, hygiene, ARM64 suitability, vision, evidence, documentation lifecycle, and branch/tag hygiene.
 
-Findings at the audited implementation/tooling head:
-- E-R1 baseline remains the merge base; branch is ahead only, not behind;
-- no `src/`, `tests/`, or `fixtures/` delta exists;
-- no native-validation reset is introduced;
-- all five CI jobs pass at the Phase-4 audited head;
-- active evidence reachability is fail-closed and clean;
-- oracle assertion coverage is fail-closed and clean;
-- remote action references are exact-SHA pinned;
-- the active handoff surface is empty;
-- remote branch surface consists of `main` plus the active E-R1 work branch;
-- GitHub plan-dependent `main` protection remains Director-deferred rather than silently treated as completed;
-- no product/provider-policy boundary was changed and no provider execution occurred.
+Findings:
+- E-R1 baseline remained the merge base and the branch was ahead only before promotion;
+- no `src/`, `tests/`, or `fixtures/` delta existed;
+- no native-validation reset was introduced;
+- all five CI jobs passed at the Phase-4 audited head;
+- documentation-inclusive branch gate `34170023136` passed all five jobs;
+- PR-triggered gate `34170086319` passed all five jobs;
+- active evidence reachability remained fail-closed and clean; at the documentation-inclusive head the census was 127 total / 42 active / 85 archived / 0 unreachable evidence, with four active evidence records each root-reachable;
+- oracle assertion coverage remained fail-closed and clean;
+- remote action references were exact-SHA pinned;
+- the active handoff surface was empty;
+- PR #46 file census contained no runtime source/test/fixture path;
+- GitHub plan-dependent `main` protection remained Director-deferred rather than silently treated as completed;
+- no product/provider-policy boundary changed and no provider execution occurred.
 
-One closure-audit wording defect was corrected: repository authority now requires root reachability for documents intended to carry continuing current authority, while clearly historical/support documents may remain outside that graph. Active evidence retains the stricter fail-closed rule.
+One closure-audit wording defect was corrected: repository authority requires root reachability for documents intended to carry continuing current authority, while clearly historical/support documents may remain outside that graph. Active evidence retains the stricter fail-closed rule.
 
-## Promotion classification
+## Promotion
 
-E-R1 is ready for reviewable PR promotion subject to final documentation-inclusive CI. Because the post-audit commits that add this evidence and promotion state are documentation-only descendants of the audited implementation/tooling head, they do not create a new native-runtime validation checkpoint.
+PR #46, `Complete E-R1 repository, tooling, and workflow restructure`, was opened from `repo-restructure-e-r1` at head `d0141d5cf51c3fb88fd400362a70c5ce1f9ff501` against baseline `main` `db4bb1c5d5cb6f6de230da88f1c0352fb75aac23`.
 
-After promotion, repository continuity must record the merge checkpoint before the E-R1 branch is archive-tagged and retired under Repository Surface law.
+The PR was mergeable, had no review threads or submitted review findings, and its dedicated Validation gate run `34170086319` passed all five jobs. It was merged with the expected head locked, producing merge commit `21a10aff823734418f36284744a1fd26aef3bcf6`.
+
+The post-merge continuity change that marks E-R1 complete is documentation-only. It does not create a new machine-tested runtime checkpoint. The completed work branch must be preserved by annotated tag `archive/repo-restructure-e-r1` at its final head before branch deletion under Repository Surface law.
