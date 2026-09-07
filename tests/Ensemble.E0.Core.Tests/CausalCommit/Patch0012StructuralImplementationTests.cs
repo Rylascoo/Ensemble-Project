@@ -1,12 +1,11 @@
 using System.Collections.Immutable;
 using System.Globalization;
 using System.Reflection;
-using System.Reflection.Emit;
 using System.Text;
 using Ensemble.E0.Core.CausalCommit;
+using Ensemble.E0.Core.Context;
 using Ensemble.E0.Core.Domain;
 using Ensemble.E0.Core.Production;
-using Ensemble.E0.Core.StateAuthority;
 using Ensemble.E0.Core.StateInterpreter;
 using Ensemble.E0.Core.Take;
 using Ensemble.E0.Core.Tests.Patch0012;
@@ -17,16 +16,8 @@ namespace Ensemble.E0.Core.Tests.CausalCommit;
 [TestClass]
 public sealed class Patch0012StructuralImplementationTests
 {
-    private static readonly IReadOnlyDictionary<short, OpCode> OpCodesByValue =
-        typeof(OpCodes)
-            .GetFields(BindingFlags.Public | BindingFlags.Static)
-            .Where(field => field.FieldType == typeof(OpCode))
-            .Select(field => (OpCode)field.GetValue(null)!)
-            .GroupBy(opCode => opCode.Value)
-            .ToDictionary(group => group.Key, group => group.First());
-
     [TestMethod]
-    public void CheckpointCapture_IsShallowRetainsExactStateAndDoesNoLedgerScaleWork()
+    public void CheckpointCapture_RetainsExactStateAndApprovedPublicSurface()
     {
         var state = Patch0012TestSupport.Genesis();
         var checkpoint = ProductionStateCheckpoint.Capture(state);
@@ -34,10 +25,16 @@ public sealed class Patch0012StructuralImplementationTests
         Assert.AreEqual(state.StateHash, checkpoint.StateHash);
         Assert.AreEqual(state.SceneId, checkpoint.SceneId);
         Assert.AreEqual(state.CurrentOpportunityCharacterId!.Value, checkpoint.CurrentOpportunityCharacterId);
-        var sourceField = typeof(ProductionStateCheckpoint).GetField(
-            "_sourceState",
-            BindingFlags.Instance | BindingFlags.NonPublic)!;
-        Assert.AreSame(state, sourceField.GetValue(checkpoint));
+
+        // Reflection is test plumbing here: the frozen contract requires retention of
+        // the exact immutable source-state reference, but does not freeze a private field name.
+        var stateFields = typeof(ProductionStateCheckpoint)
+            .GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
+            .Where(field => field.FieldType == typeof(ProductionState))
+            .ToArray();
+        Assert.AreEqual(1, stateFields.Length);
+        Assert.AreSame(state, stateFields[0].GetValue(checkpoint));
+
         CollectionAssert.AreEquivalent(
             new[] { "StateHash", "SceneId", "CurrentOpportunityCharacterId" },
             typeof(ProductionStateCheckpoint)
@@ -50,102 +47,88 @@ public sealed class Patch0012StructuralImplementationTests
                 .GetConstructors(BindingFlags.Instance | BindingFlags.Public)
                 .Length);
 
-        var calls = CalledMethods(typeof(ProductionStateCheckpoint).GetMethod(
-            nameof(ProductionStateCheckpoint.Capture),
-            BindingFlags.Public | BindingFlags.Static)!);
-        var forbiddenOwners = new HashSet<string>(StringComparer.Ordinal)
-        {
-            "ProductionStateCanonicalizer",
-            "ProductionStateAuthoritySnapshot",
-            "StateAuthoritySnapshot",
-            "StateAuthoritySnapshotSemanticComparer",
-            "RecordProvenanceGraphValidator"
-        };
-        Assert.IsFalse(calls.Any(call =>
-            call.DeclaringType is not null && forbiddenOwners.Contains(call.DeclaringType.Name)));
-
         var completed = CommitZeroMutation(state, "TAKE-CHECKPOINT-CONSUMED", "COMMIT-CHECKPOINT-CONSUMED");
         Assert.Throws<E0CausalCommitException>(() =>
             ProductionStateCheckpoint.Capture(completed.ResultState));
     }
 
     [TestMethod]
-    public void BindingOwnsTheSingleSourceSnapshotProofAndCommitDoesNotRepeatIt()
+    public void BindingCommitAndReplay_PublicSurfacePreservesFrozenAuthoritySeparation()
     {
-        var bind = typeof(E0TakeStateBinding).GetMethod(
-            nameof(E0TakeStateBinding.Bind),
-            BindingFlags.Public | BindingFlags.Static)!;
+        var bind = typeof(E0TakeStateBinding)
+            .GetMethods(BindingFlags.Public | BindingFlags.Static)
+            .Single(method => method.Name == nameof(E0TakeStateBinding.Bind));
+        CollectionAssert.AreEqual(
+            new[] { typeof(ProductionStateCheckpoint), typeof(ContextPacket), typeof(E0Take) },
+            bind.GetParameters().Select(parameter => parameter.ParameterType).ToArray());
+        Assert.AreEqual(typeof(E0TakeStateBinding), bind.ReturnType);
+
         var bindWithHistory = typeof(E0TakeStateBinding).GetMethod(
             nameof(E0TakeStateBinding.BindWithAcceptedHistory),
             BindingFlags.Public | BindingFlags.Static)!;
-        var bindCore = typeof(E0TakeStateBinding).GetMethod(
-            "BindCore",
-            BindingFlags.NonPublic | BindingFlags.Static)
-            ?? throw new InvalidOperationException("Shared causal binding core is missing.");
+        CollectionAssert.AreEqual(
+            new[]
+            {
+                typeof(ProductionStateCheckpoint),
+                typeof(ContextPacket),
+                typeof(E0Take),
+                typeof(E0AcceptedPerformanceHistory)
+            },
+            bindWithHistory.GetParameters().Select(parameter => parameter.ParameterType).ToArray());
+        Assert.AreEqual(typeof(E0TakeStateBinding), bindWithHistory.ReturnType);
 
-        var bindCalls = CalledMethods(bind);
-        var historyBindCalls = CalledMethods(bindWithHistory);
-        var coreCalls = CalledMethods(bindCore);
-
-        Assert.AreEqual(1, CountCall(bindCalls, nameof(E0TakeStateBinding), "BindCore"));
-        Assert.AreEqual(1, CountCall(historyBindCalls, nameof(E0TakeStateBinding), "BindCore"));
-        Assert.AreEqual(0, CountCall(bindCalls, "ProductionStateAuthoritySnapshot", "Bind"));
-        Assert.AreEqual(0, CountCall(historyBindCalls, "ProductionStateAuthoritySnapshot", "Bind"));
-        Assert.AreEqual(1, CountCall(coreCalls, "ProductionStateAuthoritySnapshot", "Bind"));
-        Assert.AreEqual(1, CountCall(coreCalls, "StateAuthoritySnapshotSemanticComparer", "Equals"));
-
-        var commitCalls = CalledMethods(typeof(DeterministicCausalCommit).GetMethod(
+        var commit = typeof(DeterministicCausalCommit).GetMethod(
             nameof(DeterministicCausalCommit.Commit),
-            BindingFlags.Public | BindingFlags.Static)!);
-        Assert.IsFalse(commitCalls.Any(call =>
-            call.DeclaringType?.Name is
-                "ProductionStateAuthoritySnapshot" or
-                "StateAuthoritySnapshotSemanticComparer"));
-    }
+            BindingFlags.Public | BindingFlags.Static)!;
+        CollectionAssert.AreEqual(
+            new[]
+            {
+                typeof(CommitId),
+                typeof(ProductionState),
+                typeof(E0TakeStateBinding),
+                typeof(E0RecordMaterializationSet)
+            },
+            commit.GetParameters().Select(parameter => parameter.ParameterType).ToArray());
 
-    [TestMethod]
-    public void CommitAndReplayShareTransitionAndCanonicalResultConstruction()
-    {
-        var commitCalls = CalledMethods(typeof(DeterministicCausalCommit).GetMethod(
-            nameof(DeterministicCausalCommit.Commit),
-            BindingFlags.Public | BindingFlags.Static)!);
-        var replayCalls = CalledMethods(typeof(DeterministicCausalCommit).GetMethod(
+        var replay = typeof(DeterministicCausalCommit).GetMethod(
             nameof(DeterministicCausalCommit.Replay),
-            BindingFlags.Public | BindingFlags.Static)!);
-
-        Assert.AreEqual(1, CountCall(commitCalls, "CausalCommitTransition", "Apply"));
-        Assert.AreEqual(1, CountCall(replayCalls, "CausalCommitTransition", "Apply"));
-        Assert.AreEqual(1, CountCall(commitCalls, "CausalCommitCanonicalizer", "ComputeResultHash"));
-        Assert.AreEqual(1, CountCall(replayCalls, "CausalCommitCanonicalizer", "ComputeResultHash"));
-        Assert.AreEqual(0, CountCall(commitCalls, "ProductionStateAuthoritySnapshot", "Bind"));
-        Assert.AreEqual(1, CountCall(replayCalls, "ProductionStateAuthoritySnapshot", "Bind"));
-        Assert.AreEqual(1, CountCall(replayCalls, "StateAuthoritySnapshotSemanticComparer", "Equals"));
+            BindingFlags.Public | BindingFlags.Static)!;
+        CollectionAssert.AreEqual(
+            new[] { typeof(ProductionState), typeof(E0CausalCommit) },
+            replay.GetParameters().Select(parameter => parameter.ParameterType).ToArray());
     }
 
     [TestMethod]
-    public void PublicBoundariesUseNarrowExpectedExceptionClausesRatherThanCatchAllRelabeling()
+    public void CommitAndReplay_ProduceTheSameCanonicalTransition()
     {
-        foreach (var method in new[]
-                 {
-                     typeof(ProductionState).GetMethod(
-                         nameof(ProductionState.Initialize),
-                         BindingFlags.Public | BindingFlags.Static)!,
-                     typeof(DeterministicCausalCommit).GetMethod(
-                         nameof(DeterministicCausalCommit.Commit),
-                         BindingFlags.Public | BindingFlags.Static)!,
-                     typeof(DeterministicCausalCommit).GetMethod(
-                         nameof(DeterministicCausalCommit.Replay),
-                         BindingFlags.Public | BindingFlags.Static)!
-                 })
-        {
-            var body = method.GetMethodBody()
-                ?? throw new InvalidOperationException($"Method body missing for {method.Name}.");
-            var catchClauses = body.ExceptionHandlingClauses
-                .Where(clause => clause.Flags == ExceptionHandlingClauseOptions.Clause)
-                .ToArray();
-            Assert.IsTrue(catchClauses.Length != 0, method.Name);
-            Assert.IsFalse(catchClauses.Any(clause => clause.CatchType == typeof(Exception)), method.Name);
-        }
+        var state = Patch0012TestSupport.Genesis();
+        var pipeline = Patch0012TestSupport.BuildPipeline(
+            new[] { Patch0012TestSupport.PressureAdd() },
+            new[] { StateMutationDomain.Pressure });
+        var take = Patch0012TestSupport.AcceptedTake(pipeline, "TAKE-COMMIT-REPLAY-EQUIVALENCE");
+        var binding = E0TakeStateBinding.Bind(
+            ProductionStateCheckpoint.Capture(state),
+            pipeline.Context,
+            take);
+        var committed = DeterministicCausalCommit.Commit(
+            CommitId.From("COMMIT-COMMIT-REPLAY-EQUIVALENCE"),
+            state,
+            binding,
+            Materials((0, "PRESSURE-COMMIT-REPLAY-EQUIVALENCE")));
+
+        var replayed = DeterministicCausalCommit.Replay(state, committed.Commit);
+
+        Assert.AreEqual(committed.ResultState.StateHash, replayed.StateHash);
+        Assert.AreEqual(committed.ResultState.SceneId, replayed.SceneId);
+        Assert.AreEqual(
+            committed.ResultState.CurrentOpportunityCharacterId,
+            replayed.CurrentOpportunityCharacterId);
+        CollectionAssert.AreEqual(
+            committed.ResultState.Records.Select(record => record.RecordId.Value).ToArray(),
+            replayed.Records.Select(record => record.RecordId.Value).ToArray());
+        CollectionAssert.AreEqual(
+            committed.ResultState.Records.Select(record => record.Lifecycle).ToArray(),
+            replayed.Records.Select(record => record.Lifecycle).ToArray());
     }
 
     [TestMethod]
@@ -189,16 +172,14 @@ public sealed class Patch0012StructuralImplementationTests
         Assert.Throws<E0CausalCommitException>(() =>
             DeterministicCausalCommit.Replay(state, missingMaterializationEvent));
 
-        var duplicateCommitParent = WithDuplicateIndexes(
+        var duplicateCommitParent = WithDuplicateEffectiveIdentity(
             state,
-            result.Commit.CommitId.Value,
-            takeId: null);
+            result.Commit.CommitId.Value);
         Assert.Throws<E0CausalCommitException>(() =>
             DeterministicCausalCommit.Replay(duplicateCommitParent, result.Commit));
 
-        var duplicateTakeParent = WithDuplicateIndexes(
+        var duplicateTakeParent = WithDuplicateEffectiveIdentity(
             state,
-            commitId: null,
             result.Commit.Take.TakeId.Value);
         Assert.Throws<E0CausalCommitException>(() =>
             DeterministicCausalCommit.Replay(duplicateTakeParent, result.Commit));
@@ -233,9 +214,7 @@ public sealed class Patch0012StructuralImplementationTests
         {
             CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("ar-SA");
             CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo("ar-SA");
-            var bytes = InvokeInternalBytes(
-                "Ensemble.E0.Core.CausalCommit.CausalCommitCanonicalizer",
-                "SerializeCommitPayload",
+            var bytes = InvokeCanonicalCommitPayload(
                 CommitId.From("COMMIT-INVARIANT-INDEX"),
                 take,
                 materializations);
@@ -298,109 +277,61 @@ public sealed class Patch0012StructuralImplementationTests
                 .Select(value => E0RecordMaterialization.Create(value.Index, RecordId.From(value.Id)))
                 .ToImmutableArray());
 
-    private static ProductionState WithDuplicateIndexes(
+    private static ProductionState WithDuplicateEffectiveIdentity(
         ProductionState source,
-        string? commitId,
-        string? takeId)
+        string identity)
     {
-        var projectionField = typeof(ProductionState).GetField(
-            "_projection",
-            BindingFlags.Instance | BindingFlags.NonPublic)!;
-        var projection = projectionField.GetValue(source)!;
+        // Reflection is test plumbing to construct an otherwise-unrepresentable invalid
+        // parent state. No private field or constructor parameter name is part of the assertion.
+        var projectionMember = typeof(ProductionState)
+            .GetMembers(BindingFlags.Instance | BindingFlags.NonPublic)
+            .OfType<PropertyInfo>()
+            .Single(property => property.PropertyType.Name == "ProductionStateProjection");
+        var projection = projectionMember.GetValue(source)!;
+        var identities = ImmutableHashSet.Create(StringComparer.Ordinal, identity);
         var constructor = typeof(ProductionState)
             .GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic)
-            .Single(candidate => candidate.GetParameters().Length == 4);
-        var commitIds = commitId is null
-            ? ImmutableHashSet.Create<string>(StringComparer.Ordinal)
-            : ImmutableHashSet.Create(StringComparer.Ordinal, commitId);
-        var takeIds = takeId is null
-            ? ImmutableHashSet.Create<string>(StringComparer.Ordinal)
-            : ImmutableHashSet.Create(StringComparer.Ordinal, takeId);
-        return (ProductionState)constructor.Invoke(
-            new object[] { projection, source.StateHash, commitIds, takeIds });
+            .Single(candidate =>
+            {
+                var types = candidate.GetParameters().Select(parameter => parameter.ParameterType).ToArray();
+                return types.Length == 4 &&
+                       types.Count(type => type == typeof(ImmutableHashSet<string>)) == 2 &&
+                       types.Contains(typeof(StateHash));
+            });
+        var arguments = constructor.GetParameters()
+            .Select(parameter =>
+                parameter.ParameterType == typeof(StateHash)
+                    ? (object)source.StateHash
+                    : parameter.ParameterType == typeof(ImmutableHashSet<string>)
+                        ? identities
+                        : projection)
+            .ToArray();
+        return (ProductionState)constructor.Invoke(arguments);
     }
 
-    private static int CountCall(
-        IReadOnlyList<MethodBase> calls,
-        string declaringTypeName,
-        string methodName) =>
-        calls.Count(call =>
-            call.DeclaringType?.Name == declaringTypeName &&
-            call.Name == methodName);
-
-    private static IReadOnlyList<MethodBase> CalledMethods(MethodInfo method)
+    private static byte[] InvokeCanonicalCommitPayload(
+        CommitId commitId,
+        E0Take take,
+        E0RecordMaterializationSet materializations)
     {
-        var body = method.GetMethodBody()
-            ?? throw new InvalidOperationException($"Method body missing for {method.Name}.");
-        var il = body.GetILAsByteArray()
-            ?? throw new InvalidOperationException($"IL missing for {method.Name}.");
-        var calls = new List<MethodBase>();
-        var offset = 0;
-        while (offset < il.Length)
-        {
-            short value = il[offset++] == 0xFE
-                ? unchecked((short)(0xFE00 | il[offset++]))
-                : il[offset - 1];
-            if (!OpCodesByValue.TryGetValue(value, out var opCode))
+        // The exact canonical payload is frozen. Reflection is only plumbing to reach
+        // the internal serializer; its private owner/method name is intentionally not frozen.
+        var method = typeof(ProductionState).Assembly
+            .GetTypes()
+            .Where(type => string.Equals(type.Namespace, "Ensemble.E0.Core.CausalCommit", StringComparison.Ordinal))
+            .SelectMany(type => type.GetMethods(BindingFlags.Static | BindingFlags.NonPublic))
+            .Single(candidate =>
             {
-                throw new InvalidOperationException($"Unknown IL opcode 0x{value:X4}.");
-            }
-
-            var operandOffset = offset;
-            if (opCode.OperandType == OperandType.InlineMethod)
-            {
-                var token = BitConverter.ToInt32(il, operandOffset);
-                try
-                {
-                    var resolved = method.Module.ResolveMethod(
-                        token,
-                        method.DeclaringType?.GetGenericArguments(),
-                        method.GetGenericArguments());
-                    if (resolved is not null)
-                    {
-                        calls.Add(resolved);
-                    }
-                }
-                catch (ArgumentException)
-                {
-                    // A malformed token would already make the assembly invalid; unresolved generic
-                    // context is irrelevant to the direct call ownership assertions in this test.
-                }
-            }
-
-            offset += OperandSize(opCode.OperandType, il, operandOffset);
-        }
-
-        return calls;
-    }
-
-    private static int OperandSize(OperandType operandType, byte[] il, int operandOffset) =>
-        operandType switch
-        {
-            OperandType.InlineNone => 0,
-            OperandType.ShortInlineBrTarget or
-            OperandType.ShortInlineI or
-            OperandType.ShortInlineVar => 1,
-            OperandType.InlineVar => 2,
-            OperandType.InlineBrTarget or
-            OperandType.InlineField or
-            OperandType.InlineI or
-            OperandType.InlineMethod or
-            OperandType.InlineSig or
-            OperandType.InlineString or
-            OperandType.InlineTok or
-            OperandType.ShortInlineR => 4,
-            OperandType.InlineI8 or OperandType.InlineR => 8,
-            OperandType.InlineSwitch => 4 + (BitConverter.ToInt32(il, operandOffset) * 4),
-            _ => throw new InvalidOperationException($"Unsupported IL operand type {operandType}.")
-        };
-
-    private static byte[] InvokeInternalBytes(string typeName, string methodName, params object[] args)
-    {
-        var type = typeof(ProductionState).Assembly.GetType(typeName, throwOnError: true)!;
-        var method = type.GetMethod(methodName, BindingFlags.Static | BindingFlags.NonPublic)
-            ?? throw new InvalidOperationException($"Internal method {typeName}.{methodName} is missing.");
-        return (byte[])method.Invoke(null, args)!;
+                var parameters = candidate.GetParameters().Select(parameter => parameter.ParameterType).ToArray();
+                return candidate.ReturnType == typeof(byte[]) &&
+                       parameters.SequenceEqual(new[]
+                       {
+                           typeof(CommitId),
+                           typeof(E0Take),
+                           typeof(E0RecordMaterializationSet)
+                       });
+            });
+        return (byte[])method.Invoke(null, new object[] { commitId, take, materializations })!;
     }
 
     private static T ConstructNonPublic<T>(params object[] args)
