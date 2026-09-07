@@ -24,9 +24,11 @@ Google Gemini API is the sole current E0-A provider method; historical OpenAI ex
 
 Contract: `docs/E_R1_REPOSITORY_TOOLING_WORKFLOW_RESTRUCTURE.md`.
 
-Phase 0 **COMPLETE**: repository/tooling/document baseline reconciled; census false-authority modes identified; compiler, required Core regressions, oracle guard, and census passed.
+Phase 0 **COMPLETE**: baseline/tooling/document assumptions reconciled and falsified against the repository.
 
-Phase 1 **ACTIVE**: navigation/validation/hypothesis roles are separated; historical evidence is moving to `docs/evidence/archive/`; document authority is being falsified by reachability from durable roots rather than raw inbound-link counts.
+Phase 1 **COMPLETE** at `0b267f9eadec603e934b55283c6d2801953a87ae`: navigation, validation, hypothesis, and archive roles separated; evidence lifecycle normalized by authority-root reachability. Validation gate run `34168768724` PASS; document census reports `UNREACHABLE_EVIDENCE=0`. Active evidence is limited to the current native validation, its Director-host contract, and H1 convergence evidence reachable through the program roadmap.
+
+Phase 2 **ACTIVE**: convert objective repository/project hygiene laws into deterministic source/static checks and make violations CI-blocking without claiming runtime authority.
 
 Completed pre-restructure branch is archived at `archive/repo-pre-restructure-closure`; GitHub plan-dependent `main` protection remains deferred.
 
@@ -34,4 +36,4 @@ Completed pre-restructure branch is archived at `archive/repo-pre-restructure-cl
 
 E-R1 may change docs, repository structure, static law checks, and CI/tooling. It does not authorize runtime/product/provider-policy changes, .NET 10, real Gemini execution, E0-B+, app/UI/persistence, Windows AI/NPU, packaging, WACK, Store, or design-lane decisions.
 
-Next: close Phase 1 only after recursive authority-reachability audit finds no historical evidence stranded on the active surface; then enter Phase 2 mechanical repository-law enforcement.
+Next: complete and recursively falsify Phase 2 mechanical repository-law enforcement, then proceed to Phase 3 workflow/artifact normalization.
