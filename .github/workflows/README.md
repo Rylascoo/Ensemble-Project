@@ -6,7 +6,7 @@ Job 1, **Compiler gate (ARM64 cross-compile)**, IS compiler authority and may be
 
 Job 2, **Core tests (required x64 regression, non-authoritative)**, is a required semantic regression gate on Linux x64. A failure blocks the workflow; success means only `Core did not regress on x64`. It is not native Windows ARM64 runtime evidence.
 
-Job 3, **Repository law enforcement**, runs `tools/repository-law-check.py`. It deterministically enforces the classified four-project dependency graph, Harness ARM64 project identity, warnings/determinism build settings, the `CURRENT_STATE.md` compact cap, retirement of obsolete OpenAI executable/test artifacts, absence of `NotImplementedException` source scaffolding, and CURRENT_STATE authority for any live handoff. It is repository-integrity evidence only.
+Job 3, **Repository law enforcement**, runs `tools/repository-law-check.py`. It deterministically enforces the classified four-project dependency graph, Harness ARM64 project identity, warnings/determinism build settings, the `CURRENT_STATE.md` compact cap, retirement of obsolete OpenAI executable/test artifacts, absence of `NotImplementedException` source scaffolding, CURRENT_STATE authority for any live handoff, and full-SHA pinning for remote GitHub Actions. It is repository-integrity evidence only.
 
 Job 4, **Oracle assertion coverage**, rejects loss of previously documented+asserted 64-hex oracle coverage against the first parent and push/PR baseline. It does not maintain a committed path-sensitive oracle index and is repository-integrity evidence only.
 
