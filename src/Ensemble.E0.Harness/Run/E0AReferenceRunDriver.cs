@@ -513,6 +513,8 @@ internal sealed class E0AReferenceRunDriver
             status.ToString(),
             acceptedTurns,
             _spend.EstimatedCommittedUsd,
+            _spend.EstimateStatus,
+            _spend.HasUnknownProviderUsage,
             state.ProductionState.StateHash.Value,
             opportunity);
         return new E0ARunResult(
