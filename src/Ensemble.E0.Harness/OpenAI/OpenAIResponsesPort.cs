@@ -145,6 +145,7 @@ internal sealed class OpenAIResponsesPort : IE0AProviderRolePort, IE0AInputToken
             bufferSize: 4096,
             leaveOpen: false);
         JsonElement? completed = null;
+        JsonElement? failedResponse = null;
         var refused = false;
         var failed = false;
 
@@ -191,6 +192,14 @@ internal sealed class OpenAIResponsesPort : IE0AProviderRolePort, IE0AInputToken
                 case "response.incomplete":
                 case "error":
                     failed = true;
+                    if (root.TryGetProperty("response", out var failedElement))
+                    {
+                        if (failedElement.ValueKind != JsonValueKind.Object)
+                        {
+                            return RoleAttemptReceipt.TechnicalFailure(attempt, "malformed-provider-event");
+                        }
+                        failedResponse = failedElement.Clone();
+                    }
                     break;
                 case "response.completed":
                     if (root.TryGetProperty("response", out var responseElement))
@@ -207,9 +216,13 @@ internal sealed class OpenAIResponsesPort : IE0AProviderRolePort, IE0AInputToken
 
         if (refused)
         {
-            return RoleAttemptReceipt.TechnicalFailure(attempt, "provider-refusal");
+            return TechnicalFromOptionalResponse(attempt, completed ?? failedResponse, "provider-refusal");
         }
-        if (failed || !completed.HasValue)
+        if (failed)
+        {
+            return TechnicalFromOptionalResponse(attempt, failedResponse ?? completed, "provider-incomplete");
+        }
+        if (!completed.HasValue)
         {
             return RoleAttemptReceipt.TechnicalFailure(attempt, "provider-incomplete");
         }
@@ -221,39 +234,105 @@ internal sealed class OpenAIResponsesPort : IE0AProviderRolePort, IE0AInputToken
         PreparedRoleAttempt attempt,
         JsonElement response)
     {
-        if (response.ValueKind != JsonValueKind.Object ||
-            !response.TryGetProperty("status", out var statusElement) ||
-            !TryDecodeString(statusElement, out var status) ||
-            !string.Equals(status, "completed", StringComparison.Ordinal))
+        if (response.ValueKind != JsonValueKind.Object)
         {
             return RoleAttemptReceipt.TechnicalFailure(attempt, "provider-incomplete");
+        }
+        if (!response.TryGetProperty("status", out var statusElement))
+        {
+            return TechnicalFromResponse(attempt, response, "provider-incomplete");
+        }
+        if (!TryDecodeString(statusElement, out var status))
+        {
+            return RoleAttemptReceipt.TechnicalFailure(attempt, "malformed-provider-response");
+        }
+        if (!string.Equals(status, "completed", StringComparison.Ordinal))
+        {
+            return TechnicalFromResponse(attempt, response, "provider-incomplete");
         }
 
         if (!TryContainsRefusal(response, out var refused))
         {
-            return RoleAttemptReceipt.TechnicalFailure(attempt, "provider-response-incomplete");
+            return RoleAttemptReceipt.TechnicalFailure(attempt, "malformed-provider-response");
         }
         if (refused)
         {
-            return RoleAttemptReceipt.TechnicalFailure(attempt, "provider-refusal");
+            return TechnicalFromResponse(attempt, response, "provider-refusal");
         }
 
-        string? id = null;
-        string? model = null;
-        var hasId = response.TryGetProperty("id", out var idElement) && TryDecodeString(idElement, out id);
-        var hasModel = response.TryGetProperty("model", out var modelElement) && TryDecodeString(modelElement, out model);
-        var hasText = TryExtractOutputText(response, out var text);
-        var usage = ParseUsage(response);
-        if (!hasId || !hasModel || !hasText ||
+        if (!TryProviderMetadata(response, out var id, out var model, out var usage) ||
             string.IsNullOrWhiteSpace(id) ||
             string.IsNullOrWhiteSpace(model) ||
-            string.IsNullOrEmpty(text) ||
-            usage is null)
+            usage is null ||
+            !TryExtractOutputText(response, out var text) ||
+            string.IsNullOrEmpty(text))
         {
             return RoleAttemptReceipt.TechnicalFailure(attempt, "provider-response-incomplete");
         }
 
         return RoleAttemptReceipt.Success(attempt, id, model, usage, Encoding.UTF8.GetBytes(text));
+    }
+
+    private static RoleAttemptReceipt TechnicalFromOptionalResponse(
+        PreparedRoleAttempt attempt,
+        JsonElement? response,
+        string diagnosticCode) =>
+        response.HasValue
+            ? TechnicalFromResponse(attempt, response.Value, diagnosticCode)
+            : RoleAttemptReceipt.TechnicalFailure(attempt, diagnosticCode);
+
+    private static RoleAttemptReceipt TechnicalFromResponse(
+        PreparedRoleAttempt attempt,
+        JsonElement response,
+        string diagnosticCode)
+    {
+        if (!TryProviderMetadata(response, out var responseId, out var returnedModel, out var usage))
+        {
+            return RoleAttemptReceipt.TechnicalFailure(attempt, "malformed-provider-response");
+        }
+
+        return RoleAttemptReceipt.TechnicalFailure(
+            attempt,
+            diagnosticCode,
+            responseId,
+            returnedModel,
+            usage);
+    }
+
+    private static bool TryProviderMetadata(
+        JsonElement response,
+        out string? responseId,
+        out string? returnedModel,
+        out E0AUsage? usage)
+    {
+        responseId = null;
+        returnedModel = null;
+        usage = null;
+        if (response.ValueKind != JsonValueKind.Object)
+        {
+            return false;
+        }
+
+        if (response.TryGetProperty("id", out var idElement) &&
+            !TryDecodeString(idElement, out responseId))
+        {
+            return false;
+        }
+        if (response.TryGetProperty("model", out var modelElement) &&
+            !TryDecodeString(modelElement, out returnedModel))
+        {
+            return false;
+        }
+        if (response.TryGetProperty("usage", out _))
+        {
+            usage = ParseUsage(response);
+            if (usage is null)
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private static bool TryContainsRefusal(JsonElement response, out bool refused)
