@@ -6,7 +6,7 @@ Ensemble is a local-first generative theater and creative simulation for persist
 
 ## Current development state
 
-Blueprint 0.1 is frozen for E0. The active engineering phase is **E0-A Phase B — live-host completion**; H1 Phase A is **CLOSED**.
+Blueprint 0.1 is frozen for E0. The active engineering phase is **E0-A Phase B — post-audit hardening plus the approved Gemini normative-reference route are promoted; real Gemini network execution remains separately gated**. H1 Phase A is **CLOSED**.
 
 `README.md` never carries phase authority; `CURRENT_STATE.md` is the only phase source.
 
