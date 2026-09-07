@@ -7,6 +7,7 @@ namespace Ensemble.E0.Harness.Gemini;
 internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInputTokenCounter
 {
     private const string ApiBase = "https://generativelanguage.googleapis.com/v1beta/models/";
+    private static readonly Encoding StrictUtf8 = new UTF8Encoding(false, true);
     private readonly HttpClient _http;
     private readonly string _apiKey;
 
@@ -102,6 +103,7 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
             exception is HttpRequestException or
             IOException or
             JsonException or
+            DecoderFallbackException or
             OverflowException)
         {
             return RoleAttemptReceipt.TechnicalFailure(attempt, "gemini-malformed-or-transport");
@@ -141,7 +143,7 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
         }
 
         await using var body = await response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
-        using var reader = new StreamReader(body, Encoding.UTF8, false, 4096, leaveOpen: false);
+        using var reader = new StreamReader(body, StrictUtf8, false, 4096, leaveOpen: false);
         var text = new StringBuilder();
         string? responseId = null;
         string? modelVersion = null;
