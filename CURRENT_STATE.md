@@ -1,6 +1,6 @@
 # Ensemble Current State
 
-Updated: 2026-09-06
+Updated: 2026-09-07
 
 ## Authority
 
@@ -85,6 +85,20 @@ Known host facts include:
 - Trusted architecture probes are `PROCESSOR_ARCHITECTURE=ARM64` plus parsed `dotnet --info` showing `RID: win-arm64` and Host `Architecture: arm64`.
 - Expected native stderr can surface as `NativeCommandError` under `$ErrorActionPreference='Stop'`; expected-failure probes must isolate stderr, capture `$LASTEXITCODE` immediately, and assert exit/message/filesystem effects independently.
 
+## Live branches
+
+- `e0a-phase-b-post-audit-hardening`
+  - HEAD: `8f5e9a0983beafe247a11f62922b8d2bd5974faa`
+  - Divergence from `main` `f9cb1a79ad7923b640ff1a97c46d8fd6ab9dac25`: **65 ahead / 0 behind**.
+  - **OPEN — AWAITING DIRECTOR DISPOSITION, COMPILER GATE FAILING.**
+  - COMPILER GATE: **FAIL** — MSTEST0032 at `tests/Ensemble.E0.Harness.Tests/E0ALiveHostReadinessTests.cs:179`. `Assert.AreEqual(300, E0ARunEnvelope.AttemptTimeoutSeconds)` compares a literal with the compile-time constant `AttemptTimeoutSeconds = 300`; with `TreatWarningsAsErrors=true`, the analyzer warning fails Debug and Release compilation. Introduced by `2ff81d471ce62217ec9380b361ed4ec2af4a3ab1`.
+
+- `e0a-gemini-normative-reference-amendment`
+  - HEAD: `00b9052fdd4c65cc200ed01c61f3f2a80c10dc62`
+  - Divergence from `main` `f9cb1a79ad7923b640ff1a97c46d8fd6ab9dac25`: **48 ahead / 0 behind**.
+  - **OPEN — AWAITING DIRECTOR DISPOSITION, COMPILER GATE FAILING.**
+  - COMPILER GATE: **FAIL** — CS0103 at `tests/Ensemble.E0.Harness.Tests/GeminiUsageContractTests.cs:90`, `GeminiThinkingDisclosureTests.cs:22`, and `GeminiMalformedResponseTests.cs:155`. Each references `IntegrityCandidateInput` without importing its namespace, `Ensemble.E0.Core.Integrity`.
+
 ## Standing decisions
 
 - .NET 10 requires later Director approval.
@@ -96,7 +110,6 @@ Known host facts include:
 - The ODR-26 working contract is preserved unchanged from parallel `main`. It was drafted outside its authoring surface's lane and is reported for Director disposition rather than adjudicated or corrected by engineering.
 - ODR proposal/resolution authority belongs to the Director and is filed in `Ensemble-Project/docs` regardless of originating lane.
 - Real provider credentials/network execution/spend require a separate explicit Director gate.
-- `e0a-phase-b-live-host-completion-2` is a strict stale ancestor with no unique commits and remains untouched for Director disposition.
 
 ## Next
 

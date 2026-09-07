@@ -2,9 +2,9 @@
 
 Status: ACTIVE CROSS-PROJECT WORKFLOW LAW
 
-Protocol version: 0.2
+Protocol version: 0.3
 
-Date: 2026-09-04
+Date: 2026-09-07
 
 ## 1. Purpose
 
@@ -13,6 +13,10 @@ For the remainder of Ensemble/Kymaean project creation, GPT-5.6 Sol High reasoni
 The optimization target is:
 
 > **Maximum useful reasoning, synthesis, falsification, and completed dependency closure per Director turn — not maximum response length, token use, code volume, artifact count, or number of simultaneous objectives.**
+
+Per-reply token-value law:
+
+> **Whenever applicable, every fresh or continuing project chat must maximize useful value per reply by optimizing the task for the capabilities of GPT-5.6 Sol High reasoning. `Token value` means useful reasoning, synthesis, verification, and completed dependency closure per returned token and Director turn — not consuming more tokens or making replies artificially long.**
 
 This protocol changes collaboration granularity only. It does not alter product architecture, repository authority, validation authority, implementation approval boundaries, or Director creative authority.
 
@@ -33,7 +37,7 @@ Governing interpretation:
 
 ## 2. Mandatory task-scope optimization step
 
-Before executing a substantive Director request, determine the best individual task scope for GPT-5.6 Sol High.
+Before executing a substantive Director request in any fresh or continuing project chat, determine the best individual task scope for GPT-5.6 Sol High.
 
 Choose the largest scope that remains one coherent, falsifiable objective and can be completed now with available authority, evidence, and tools.
 
@@ -211,10 +215,10 @@ Required synthesis:
 
 ## 8. Fresh-chat requirement
 
-Fresh Ensemble/Kymaean project chats should treat this protocol as active workflow law whenever it is present in the authoritative repository bootstrap.
+Every fresh Ensemble/Kymaean project chat must treat this protocol as active workflow law whenever it is present in the authoritative repository bootstrap, and must apply the per-reply token-value law from its first substantive task.
 
 Do not ask the Director to restate this permission.
 
 Do not reinterpret `anti-churn` as reduced initiative or reduced in-scope work.
 
-For each substantive future turn, optimize task granularity deliberately before execution, minimize unnecessary questions, and complete already-authorized downstream work before returning.
+Whenever applicable, use GPT-5.6 Sol High reasoning to maximize useful value per reply: deliberately optimize task granularity before execution, minimize unnecessary questions, perform the relevant source synthesis and recursive audit, and complete already-authorized downstream work before returning.
