@@ -198,6 +198,21 @@ public sealed class E0APostAuditGroup3Tests
         Assert.AreEqual(0m, ledger.ReservedUsd);
     }
 
+    [TestMethod]
+    public void StaleReservationCannotReleaseNewReservationWithSameAmount()
+    {
+        var ledger = new E0ASpendLedger(E0ATestSupport.Pricing());
+        var first = ledger.Reserve(100, 10);
+        ledger.Release(first);
+        var second = ledger.Reserve(100, 10);
+
+        Assert.Throws<E0AHarnessException>(() => ledger.Release(first));
+        Assert.IsTrue(ledger.HasActiveReservation);
+
+        ledger.Release(second);
+        Assert.IsFalse(ledger.HasActiveReservation);
+    }
+
     private static PreparedRoleAttempt IntegrityAttempt(string runId)
     {
         var envelope = E0ARunEnvelope.CreativeNone(E0ATestSupport.Pricing());
