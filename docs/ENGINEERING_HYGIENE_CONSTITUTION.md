@@ -22,6 +22,16 @@ Every accepted implementation must leave the active codebase at least as coheren
 13. **Validation levels never inflate.** Static review, compiler validation, runtime validation, hardware/NPU evidence, package validation, and Store certification remain distinct authorities.
 14. **Earlier investment creates no preservation right.** If later evidence proves an earlier implementation wrong and no external compatibility obligation exists, correct or replace it instead of creating a legacy adapter.
 
+## Repository Surface
+Law 5 extends from the active source tree to the repository surface. Git history may preserve what is no longer active; active branch and evidence namespaces must not impersonate current work.
+
+- **Branch lifecycle.** A branch becomes archivable when it has no remaining implementation, review, validation, or Director-disposition role because it was merged or squash-merged, superseded, rejected, or intentionally abandoned. Before deleting the branch ref, replace it with an annotated `archive/...` tag at the branch's final head recording the former branch name, disposition, and archive date. Active branches are moving work surfaces, not long-term history storage.
+- **Validated checkouts.** Every checkout first named in `CURRENT_STATE.md` as machine-validated must already have, or receive at that moment, an annotated tag at that exact commit. The tag message records validation level, scope, and the supporting evidence document. A prose SHA may supplement that tag but must not be the sole durable locator.
+- **Evidence surface.** `docs/evidence/` may contain both current authority and history, but their roles must be explicit. Evidence that remains authoritative must have an inbound reference from `CURRENT_STATE.md` or another current authoritative document. Superseded, failed, partial, or closed-checkpoint evidence that no longer informs current authority belongs under `docs/evidence/archive/`. Archive evidence preserves provenance but never implies current validation; unreferenced evidence is presumed archive material unless its continuing role is stated.
+- **Repository lanes.** Engineering work branches exist only in `Rylascoo/Ensemble-Project`; website and visual-design work branches exist only in `Rylascoo/Ensemble-Website`. Cross-lane decisions may be referenced across repositories, but branch refs do not cross repositories.
+
+This section extends Law 5; it creates no separate workflow or approval gate.
+
 ## Patch Hygiene Gate
 Every patch is reviewed in this order:
 
