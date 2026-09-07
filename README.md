@@ -6,11 +6,13 @@ Ensemble is a local-first generative theater and creative simulation for persist
 
 ## Current development state
 
-Blueprint 0.1 is frozen for E0. The active engineering phase is **E0-A Harness Implementation — H1 Deterministic Spine**.
+Blueprint 0.1 is frozen for E0. The active engineering phase is **E0-A Phase B — live-host completion**; H1 Phase A is **CLOSED**.
+
+`README.md` never carries phase authority; `CURRENT_STATE.md` is the only phase source.
 
 Read [`CURRENT_STATE.md`](CURRENT_STATE.md) before modifying source.
 
-Then read [`docs/PROJECT_REASONING_TASK_SCOPE_OPTIMIZATION_PROTOCOL.md`](docs/PROJECT_REASONING_TASK_SCOPE_OPTIMIZATION_PROTOCOL.md) and deliberately optimize each substantive task scope for GPT-5.6 Sol High reasoning before execution.
+Then read [`docs/PROJECT_REASONING_TASK_SCOPE_OPTIMIZATION_PROTOCOL.md`](docs/PROJECT_REASONING_TASK_SCOPE_OPTIMIZATION_PROTOCOL.md). Whenever applicable, every fresh or continuing project chat must maximize useful value per reply by deliberately optimizing substantive task scope for the capabilities of GPT-5.6 Sol High reasoning; this means more useful reasoning, synthesis, verification, and dependency closure per reply, not artificially longer replies or greater token consumption.
 
 ## Repository roles
 
@@ -33,6 +35,8 @@ Do not regenerate full archives or documentation sets for ordinary corrections.
 
 ## Validation discipline
 
-Static review is advisory. Native ARM64 compiler output is compiler authority; target-device execution is runtime authority; NPU execution, WACK, and Store certification require their own later evidence.
+Static review is advisory. Compiler output for the pinned target is compiler authority; target-device execution is runtime authority; NPU execution, WACK, and Store certification require their own later evidence.
+
+A successful Linux x64 build of the pinned `win-arm64` / `ARM64` Harness may be cited as `win-arm64 cross-compile/build PASS`, not as native Windows ARM64 execution or runtime authority.
 
 No current repository state should be interpreted as proof of Windows runtime, NPU execution, packaging, or Store certification unless `CURRENT_STATE.md` explicitly records that evidence.
