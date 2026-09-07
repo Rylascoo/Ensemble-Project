@@ -1,8 +1,10 @@
 using System.Net;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Text.Json;
 using Ensemble.E0.Core.Cycle;
 using Ensemble.E0.Core.Domain;
+using Ensemble.E0.Core.Integrity;
 using Ensemble.E0.Harness.Gemini;
 using Ensemble.E0.Harness.Host;
 using Ensemble.E0.Harness.Run;
@@ -73,12 +75,166 @@ public sealed class GeminiHardeningRegressionTests
         Assert.AreEqual("gemini-malformed-or-transport", receipt.DiagnosticCode);
     }
 
+    [TestMethod]
+    public async Task BufferedWrongTypedOptionalField_FailsClosedAndRetainsSafeMetadata()
+    {
+        var response = SuccessfulBufferedShape("STOP");
+        using var source = JsonDocument.Parse(response);
+        var malformed = JsonSerializer.Serialize(new
+        {
+            candidates = source.RootElement.GetProperty("candidates").Clone(),
+            usageMetadata = source.RootElement.GetProperty("usageMetadata").Clone(),
+            modelVersion = "gemini-2.5-flash-test",
+            responseId = "resp-wrong-prompt-feedback",
+            promptFeedback = 7
+        });
+        using var http = new HttpClient(new StaticHandler(() => Json(malformed)));
+        var port = new GeminiGenerateContentPort(http, "test-key");
+        var attempt = IntegrityAttempt("E0A-GEMINI-HARDENING-WRONG-OPTIONAL");
+
+        var receipt = await port.ExecuteAsync(attempt, new CollectingDiagnosticSink(), CancellationToken.None);
+
+        Assert.AreEqual(E0ARoleAttemptOutcome.TechnicalFailure, receipt.Outcome);
+        Assert.AreEqual("gemini-response-shape-invalid", receipt.DiagnosticCode);
+        Assert.AreEqual("resp-wrong-prompt-feedback", receipt.ResponseId);
+        Assert.AreEqual("gemini-2.5-flash-test", receipt.ReturnedModel);
+        Assert.IsNotNull(receipt.Usage);
+        Assert.IsNull(receipt.StructuredOutput);
+    }
+
+    [TestMethod]
+    public async Task BufferedWrongTypedFinishReason_FailsClosedAndRetainsSafeMetadata()
+    {
+        var output = Encoding.UTF8.GetString(E0ATestSupport.IntegrityOutput());
+        var response = JsonSerializer.Serialize(new
+        {
+            candidates = new[]
+            {
+                new
+                {
+                    content = new { parts = new[] { new { text = output } } },
+                    finishReason = (object)7
+                }
+            },
+            usageMetadata = new
+            {
+                promptTokenCount = 10,
+                candidatesTokenCount = 3,
+                thoughtsTokenCount = 2,
+                totalTokenCount = 15
+            },
+            modelVersion = "gemini-2.5-flash-test",
+            responseId = "resp-wrong-finish"
+        });
+        using var http = new HttpClient(new StaticHandler(() => Json(response)));
+        var port = new GeminiGenerateContentPort(http, "test-key");
+        var attempt = IntegrityAttempt("E0A-GEMINI-HARDENING-WRONG-FINISH");
+
+        var receipt = await port.ExecuteAsync(attempt, new CollectingDiagnosticSink(), CancellationToken.None);
+
+        Assert.AreEqual(E0ARoleAttemptOutcome.TechnicalFailure, receipt.Outcome);
+        Assert.AreEqual("gemini-response-shape-invalid", receipt.DiagnosticCode);
+        Assert.AreEqual("resp-wrong-finish", receipt.ResponseId);
+        Assert.IsNotNull(receipt.Usage);
+        Assert.IsNull(receipt.StructuredOutput);
+    }
+
+    [TestMethod]
+    public async Task BufferedNonStopTerminal_RetainsValidatedUsageWithoutSemanticOutput()
+    {
+        var response = SuccessfulBufferedShape("MAX_TOKENS");
+        using var http = new HttpClient(new StaticHandler(() => Json(response)));
+        var port = new GeminiGenerateContentPort(http, "test-key");
+        var attempt = IntegrityAttempt("E0A-GEMINI-HARDENING-NONSTOP");
+
+        var receipt = await port.ExecuteAsync(attempt, new CollectingDiagnosticSink(), CancellationToken.None);
+
+        Assert.AreEqual(E0ARoleAttemptOutcome.TechnicalFailure, receipt.Outcome);
+        Assert.AreEqual("gemini-response-incomplete", receipt.DiagnosticCode);
+        Assert.AreEqual("resp-provenance", receipt.ResponseId);
+        Assert.AreEqual("gemini-2.5-flash-test", receipt.ReturnedModel);
+        Assert.AreEqual(10L, receipt.Usage!.InputTokens);
+        Assert.AreEqual(5L, receipt.Usage.OutputTokens);
+        Assert.AreEqual(2L, receipt.Usage.ReasoningTokens);
+        Assert.IsNull(receipt.StructuredOutput);
+    }
+
+    [TestMethod]
+    public async Task BufferedMalformedUnicodeIdentity_FailsClosed()
+    {
+        var output = Encoding.UTF8.GetString(E0ATestSupport.IntegrityOutput());
+        var response = "{\"candidates\":[{\"content\":{\"parts\":[{\"text\":" + JsonSerializer.Serialize(output) + "}]},\"finishReason\":\"STOP\"}]," +
+            "\"usageMetadata\":{\"promptTokenCount\":10,\"candidatesTokenCount\":3,\"thoughtsTokenCount\":2,\"totalTokenCount\":15}," +
+            "\"modelVersion\":\"gemini-2.5-flash-test\",\"responseId\":\"\\uD800\"}";
+        using var http = new HttpClient(new StaticHandler(() => Json(response)));
+        var port = new GeminiGenerateContentPort(http, "test-key");
+        var attempt = IntegrityAttempt("E0A-GEMINI-HARDENING-UNICODE-ID");
+
+        var receipt = await port.ExecuteAsync(attempt, new CollectingDiagnosticSink(), CancellationToken.None);
+
+        Assert.AreEqual(E0ARoleAttemptOutcome.TechnicalFailure, receipt.Outcome);
+        Assert.IsNull(receipt.StructuredOutput);
+    }
+
+    private static string SuccessfulBufferedShape(string finishReason)
+    {
+        var output = Encoding.UTF8.GetString(E0ATestSupport.IntegrityOutput());
+        return JsonSerializer.Serialize(new
+        {
+            candidates = new[]
+            {
+                new
+                {
+                    content = new { parts = new[] { new { text = output } } },
+                    finishReason
+                }
+            },
+            usageMetadata = new
+            {
+                promptTokenCount = 10,
+                candidatesTokenCount = 3,
+                thoughtsTokenCount = 2,
+                totalTokenCount = 15
+            },
+            modelVersion = "gemini-2.5-flash-test",
+            responseId = "resp-provenance"
+        });
+    }
+
     private static PreparedRoleAttempt PerformerAttempt(string runId)
     {
         var envelope = E0AReferenceRunHost.CreateEnvelope("CREATIVE-NONE");
         var context = DeterministicE0CausalCycle.ComposeContext(E0ATestSupport.Cycle()).ContextEvaluation.Packet;
         return E0ARequestBuilder.Performer(RunId.From(runId), 1, envelope.Performer, context);
     }
+
+    private static PreparedRoleAttempt IntegrityAttempt(string runId)
+    {
+        var envelope = E0AReferenceRunHost.CreateEnvelope("CREATIVE-NONE");
+        var cycle = E0ATestSupport.Cycle();
+        var continuity = DeterministicE0CausalCycle.ComposeContext(cycle);
+        var context = continuity.ContextEvaluation.Packet;
+        var candidate = E0ATestSupport.Candidate(context, "No.");
+        var input = IntegrityCandidateInput.Bind(context, candidate);
+        var packet = E0AIntegrityAssessmentPacketBuilder.Build(
+            cycle.ProductionState,
+            continuity.AccessEvaluation,
+            context,
+            candidate);
+        return E0ARequestBuilder.Integrity(
+            RunId.From(runId),
+            1,
+            envelope.Integrity,
+            context,
+            input.CandidateContentHash,
+            packet);
+    }
+
+    private static HttpResponseMessage Json(string body) =>
+        new(HttpStatusCode.OK)
+        {
+            Content = new StringContent(body, Encoding.UTF8, "application/json")
+        };
 
     private sealed class StaticHandler : HttpMessageHandler
     {
