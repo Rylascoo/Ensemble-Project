@@ -106,7 +106,7 @@ public sealed class OpenAIResponsesPortWireTests
 
         Assert.AreEqual(E0ARoleAttemptOutcome.TechnicalFailure, receipt.Outcome);
         Assert.IsNull(receipt.StructuredOutput);
-        Assert.AreEqual("provider-incomplete", receipt.DiagnosticCode);
+        Assert.AreEqual("malformed-provider-response", receipt.DiagnosticCode);
     }
 
     [TestMethod]
