@@ -1,143 +1,226 @@
 # Ensemble Current State
 
-Updated: 2026-09-06
+Updated: 2026-09-06 hardening cycle
 
 ## Authority
 
-Frozen Blueprint 0.1 + approved phase/patch blueprints govern architecture. `Rylascoo/Ensemble-Project` is engineering authority. Resolve `main`; never promote or overstate validation. Workflow: `docs/PROJECT_REASONING_TASK_SCOPE_OPTIMIZATION_PROTOCOL.md`. Open questions: `docs/OPEN_DESIGN_REGISTER_CONTINUATION.md`. Plan: `docs/roadmap/KYMAEAN_ARCHITECTURE_AND_SHIP_PLAN.md`. Product/policy authority and lane boundaries: `docs/PROJECT_AUTHORITY.md`.
+Frozen Blueprint 0.1 + approved phase/patch blueprints govern architecture. `Rylascoo/Ensemble-Project` is engineering authority. Resolve `main`; never promote or overstate validation.
+
+Workflow: `docs/PROJECT_REASONING_TASK_SCOPE_OPTIMIZATION_PROTOCOL.md`.
+
+Product/policy authority and lane boundaries: `docs/PROJECT_AUTHORITY.md`.
+
+Open questions: `docs/OPEN_DESIGN_REGISTER_CONTINUATION.md`.
+
+Program plan: `docs/roadmap/KYMAEAN_ARCHITECTURE_AND_SHIP_PLAN.md`.
 
 The Director owns product constitution, Open Design Register resolution, provider admissibility, and decisions about what the product may do. Engineering/design surfaces supply inputs within their lanes. ODR proposals/resolutions live in `Ensemble-Project/docs` following the ODR-33 precedent.
 
-## Checkpoint
+## Current checkpoint
 
-Phase: **E0-A Experimental Harness — Phase B post-audit hardening in progress on `e0a-phase-b-post-audit-hardening`; Patch Groups 1-2 implemented and recursively static-audited; grouped native validation pending; real provider run still gated**.
-
-H1 Phase A: **CLOSED** by `docs/evidence/H1_CONVERGENCE_AUDIT.md`; promotion `28371ea4bcd9709b771413100af4dcec5a05dc6e`.
-
-Approved Phase-B architecture: `docs/blueprint/E0A_PHASE_B_REFERENCE_RUN_ENVELOPE.md`, Proposal 0.15; approval: `docs/evidence/E0A_PHASE_B_REFERENCE_RUN_ENVELOPE_APPROVAL.md`.
-
-Original Phase-B implementation evidence: `docs/evidence/E0A_PHASE_B_REFERENCE_RUN_ENVELOPE_IMPLEMENTATION_EVIDENCE.md`; native evidence: `docs/evidence/E0A_PHASE_B_REFERENCE_RUN_ENVELOPE_NATIVE_ARM64_VALIDATION.md`; oracle: `docs/evidence/E0A_PHASE_B_REFERENCE_RUN_ENVELOPE_ORACLE.json`.
-
-Live-host completion native evidence: `docs/evidence/E0A_PHASE_B_LIVE_HOST_NATIVE_ARM64_VALIDATION.md`. Attempt 01 partial evidence: `docs/evidence/E0A_PHASE_B_LIVE_HOST_NATIVE_VALIDATION_ATTEMPT_01.md`. Director-host apparatus contract: `docs/evidence/DIRECTOR_WINDOWS_ARM64_VALIDATION_HOST_BEHAVIORS.md`.
-
-Post-audit hardening implementation evidence: `docs/evidence/E0A_POST_AUDIT_HARDENING_PATCH_GROUP_1_IMPLEMENTATION.md`; `docs/evidence/E0A_POST_AUDIT_HARDENING_PATCH_GROUP_2_IMPLEMENTATION.md`.
-
-Closed-audit remaining hardening authority/continuity: `docs/evidence/E0A_POST_AUDIT_HARDENING_CLOSED_FINDINGS.md`.
-
-Program map: `docs/roadmap/KYMAEAN_ARCHITECTURE_AND_SHIP_PLAN.md`.
-
-This state reconciles former `main` `a3b5126dad440d2f75bef655fdc6e4ac7098b839` with former live-host branch head `9228c77a5b789c4c6a1e0417f889851c6b92730e` as a union. Their merge base was `13ffde90f78a8bf40a04381b136e846d1cf64d1c`. Parallel-main ODR-26 continuity and the live-host validation/authority continuity both survive.
-
-## Native validation
-
-All native evidence below is **Director-machine-sourced** from the Director's native Windows ARM64 machine, not the engineering assistant environment.
-
-### Original Phase-B implementation checkpoint
-
-Exact validated executable/test checkout:
-
-`3749210393282f6aa2ac4ceb0176b6adb5df189e`
-
-Observed: Windows `10.0.26200`, ARM64, `win-arm64`, SDK `9.0.317`; clean tracked/staged tree; **622/622 Core tests PASS**; **39/39 Harness tests PASS**; Harness ARM64 build PASS; Missing Raft PASS; generic smoke PASS.
-
-### Live-host completion checkpoint
-
-Exact validated executable/test checkout:
-
-`1cfdb3aa22abce62a5bd48e80706407670d1c6a9`
-
-Observed: Windows `10.0.26200`, `PROCESSOR_ARCHITECTURE=ARM64`, `dotnet --info` RID `win-arm64`, Host Architecture `arm64`, SDK `9.0.317`; clean tracked/staged tree; no material untracked source/test/fixture files; **622/622 Core tests PASS**; **54/54 Harness tests PASS**; Harness native ARM64 build PASS; Missing Raft PASS; generic smoke PASS; credentialless explicit `e0a-run` PASS with native exit `1`, expected `OPENAI_API_KEY` refusal, no evidence root, and credential remaining absent.
-
-Coverage caveat: the pricing-policy tuple test `PricingPolicy_FreezesSourcePromotionAndConservativeRates` is a **constant-freeze tripwire**, not behavioral pricing validation. Its pass contributes to the suite count but only proves that the compiled frozen constants match the independently maintained expected tuple in the test. It does not establish live provider pricing freshness, provider cache behavior, or runtime spend correctness. Those claims require separate runtime/provider evidence and remain subject to the known pricing-snapshot limitation.
-
-The comparison from `1cfdb3aa22abce62a5bd48e80706407670d1c6a9` to former branch head `9228c77a5b789c4c6a1e0417f889851c6b92730e` contains documentation only: `CURRENT_STATE.md`, `docs/PROJECT_AUTHORITY.md`, four live-host evidence/host records, and this handoff. The four parallel-main commits after merge base are also documentation-only. The reconciliation therefore changes no executable, test, fixture, or Core surface and does not replace `1cfdb3aa...` as the machine-tested live-host executable/test authority.
-
-No real provider request, provider credential use, provider-network execution, or provider spend has been executed or authorized by this validation. No WinUI, Windows AI/NPU, MSIX/WACK, or Store authority.
-
-## Post-audit hardening branch
+Phase: **E0-A Experimental Harness — Phase B post-audit hardening implementation and final recursive static audit COMPLETE; grouped native Windows ARM64 validation PENDING; real provider execution NOT AUTHORIZED**.
 
 Authoritative hardening branch:
 
 `e0a-phase-b-post-audit-hardening`
 
-Audited `main` baseline / merge base:
+Live `main` / audited hardening baseline / merge base:
 
 `f9cb1a79ad7923b640ff1a97c46d8fd6ab9dac25`
 
-Patch Group 1 exact executable/test checkpoint:
+Exact final hardening executable/test checkpoint:
 
-`171881c1247e1c466fec6abd3e92335a055eb4f2`
+`d18ec637bb8881a38db9cfeb1420f093a994ac17`
 
-Patch Group 2 exact executable/test checkpoint:
+Documentation/evidence commits follow that executable/test checkpoint on the hardening branch. They do not replace `d18ec637...` as the checkout requiring grouped native validation.
 
-`f37cb8ec41e50d50aba027286326a10677db1040`
+Draft review surface: **PR #39**. Keep draft; do not merge before native validation and final review.
 
-Patch Group 1 contains E-01 Integrity failure terminal sealing and E-02 streaming cancellation boundary. Patch Group 2 contains E-03 provider decoding and E-07 timeout composition. Both groups are implemented and recursively static-audited. Patch Groups 1-2 change Harness/Harness-test surfaces only; no Core file has changed through Patch Group 2. No compiler, test-runtime, Windows ARM64, fixture-smoke, or live-host validation claim applies to either hardening executable/test checkpoint yet.
+## Post-audit hardening disposition
 
-E-01 routes known `E0TurnOrchestrationException` failures from configured Integrity evaluation through the existing `InvalidOutput -> Finish(...)` terminal/runtime-seal path without adding parallel Harness Integrity semantics. E-02 removes synchronous `StreamReader.EndOfStream` probing before cancellable reads while preserving diagnostic-only streaming and `response.completed` semantic authority.
+The comprehensive E0-A post-implementation audit was closed with a zero-new-finding pass, then its complete authorized correction set was implemented in dependency order.
 
-E-03 validates external provider JSON kinds before typed access, narrowly translates malformed provider decoding, uses strict UTF-8 for streamed SSE data, and rejects malformed provider strings without adopting semantic payload. Integrity concern decoding now fails malformed Unicode through the Harness failure domain while exact concern-name canonicalization remains reserved for E-05. E-07 disables the independent `HttpClient` timeout so the run driver's linked 300-second attempt cancellation token remains the authoritative deadline across preflight and provider work.
+Closed-finding authority and final disposition:
 
-The comprehensive post-implementation audit is closed and achieved a zero-new-finding pass. The complete remaining correction set, dependency order, regression-gap obligations, and grouped-validation boundary are preserved without reinterpretation in `docs/evidence/E0A_POST_AUDIT_HARDENING_CLOSED_FINDINGS.md`. Remaining groups are: Group 3 E-06/P-02/P-05; Group 4 I-02/I-03/I-04/P-04; Group 5 E-04/E-05/I-05; Group 6 P-01/P-03 plus final regression-gap review.
+`docs/evidence/E0A_POST_AUDIT_HARDENING_CLOSED_FINDINGS.md`
 
-Draft review surface: PR #39. `main` remains untouched by the hardening implementation.
+Final all-group static closure / finding-to-test matrix / falsification record:
 
-Per the hardening branch strategy, remaining hardening groups stay isolated on this branch and grouped native Windows ARM64 validation occurs before merge to `main`.
+`docs/evidence/E0A_POST_AUDIT_HARDENING_FINAL_STATIC_CLOSURE.md`
 
-## Phase-B live-host truth
+Grouped native validation handoff:
 
-The Harness owns the approved reference-run envelope outside Core while reusing the closed H1 Cycle/Turn authority unchanged. Core remains unchanged by the live-host completion and through Patch Group 2 hardening.
+`docs/handoff/E0A_POST_AUDIT_HARDENING_GROUPED_NATIVE_ARM64_VALIDATION_HANDOFF.md`
 
-Frozen provider/model control: **OpenAI / `gpt-5.6-sol` only** for E0-A under Blueprint law #35. This is an E0-A reference-envelope configuration constraint; provider/token-counter interfaces are not themselves pinned to those literals, though `E0ARequestBuilder` intentionally emits the OpenAI Responses request shape.
+Implementation checkpoints:
 
-Approved live variants are exactly:
+- Group 1 — E-01 Integrity terminal sealing + E-02 streaming cancellation: `171881c1247e1c466fec6abd3e92335a055eb4f2`.
+- Group 2 — E-03 provider decoding + E-07 timeout composition: `f37cb8ec41e50d50aba027286326a10677db1040`.
+- Group 3 — E-06 receipt provenance + P-02/P-05 spend robustness: `c3a6846d267ce3f93a3e80a297057d4a7a14d99d`.
+- Group 4 — I-02/I-03/I-04/P-04 evidence/evaluation authority: `2a55319820587b63da13377a775150b90c24b107`.
+- Group 5 — E-04/E-05/I-05 parser/checkout hardening: `f79bc36bf72d3db49b703bf98919534fef9673b5`.
+- Group 6 — P-01/P-03 + final regression-gap review: final executable/test checkpoint `d18ec637bb8881a38db9cfeb1420f093a994ac17`.
+
+All six per-group recursive static audits are complete. The final cross-component falsification pass and a subsequent zero-new-material-correction pass are complete.
+
+No compiler/test-runtime/native Windows ARM64 claim applies to `d18ec637...` yet. No GitHub Actions workflow result exists for that checkpoint.
+
+### Cumulative hardening source boundary
+
+The cumulative hardening branch changes exactly one Core source file:
+
+`src/Ensemble.E0.Core/Fixture/StrictJsonPreflight.cs`
+
+That E-04 correction narrowly normalizes invalid property-name decoding into the existing fixture-validation domain. No other `src/Ensemble.E0.Core/**` source file changed.
+
+All other executable hardening corrections are Harness-side. Group 6 intentionally changes one Core structural test file to remove incidental private implementation coupling while preserving frozen Patch 0012 behavioral/public/canonical laws.
+
+### Final regression-gap state
+
+All closed-audit final regression obligations are mapped. Existing exact coverage was retained for duplicate Integrity concerns, refusal/incomplete responses, malformed Unicode, cancellation/stalled streams, timeout composition, failed-response usage, spend extremes/out-of-tier usage, run ownership, runtime/evaluation tampering, evaluation failures, checkout-from-subdirectory behavior, and malformed evaluation inputs.
+
+Group 6 added the four remaining nonredundant cases:
+
+- provider technical failure across Performer / Integrity / Interpreter;
+- failure after a previously accepted Turn;
+- mismatched configured success receipt without semantic adoption;
+- saved-artifact deterministic reconstruction of a mutating three-Turn run with nonempty controls and `Add -> Supersede -> Deactivate`.
+
+## Native validation authority
+
+All native evidence below is **Director-machine-sourced** from the Director's native Windows ARM64 machine, not the engineering assistant environment.
+
+### Historical original Phase-B implementation checkpoint
+
+`3749210393282f6aa2ac4ceb0176b6adb5df189e`
+
+Observed historically: Windows `10.0.26200`, ARM64, `win-arm64`, SDK `9.0.317`; clean tracked/staged tree; **622/622 Core tests PASS**; **39/39 Harness tests PASS**; Harness ARM64 build PASS; Missing Raft PASS; generic smoke PASS.
+
+### Historical live-host completion checkpoint
+
+Current machine-tested executable/test authority until hardening native validation succeeds:
+
+`1cfdb3aa22abce62a5bd48e80706407670d1c6a9`
+
+Observed historically: Windows `10.0.26200`, `PROCESSOR_ARCHITECTURE=ARM64`, `dotnet --info` RID `win-arm64`, Host `Architecture: arm64`, SDK `9.0.317`; clean tracked/staged tree; no material untracked source/test/fixture files; **622/622 Core tests PASS**; **54/54 Harness tests PASS**; Harness native ARM64 build PASS; Missing Raft PASS; generic smoke PASS; credentialless explicit `e0a-run` PASS with native exit `1`, expected `OPENAI_API_KEY` refusal, no evidence root, and credential remaining absent.
+
+This historical PASS does not validate hardening checkpoint `d18ec637...`.
+
+Coverage caveat: the pricing-policy tuple test is a constant-freeze tripwire, not behavioral provider-pricing validation. Native fake-only validation cannot establish live pricing freshness, cache billing behavior, or provider spend correctness.
+
+## Phase-B approved truth preserved by hardening
+
+Approved architecture:
+
+`docs/blueprint/E0A_PHASE_B_REFERENCE_RUN_ENVELOPE.md`, Proposal 0.15.
+
+Approval:
+
+`docs/evidence/E0A_PHASE_B_REFERENCE_RUN_ENVELOPE_APPROVAL.md`.
+
+The Harness owns the reference-run envelope outside Core while reusing the closed H1 deterministic Cycle/Turn authority.
+
+Frozen provider/model control for E0-A remains **OpenAI / `gpt-5.6-sol` only** under the approved reference envelope. This is an E0-A experiment configuration constraint, not product-wide provider law.
+
+Approved variants remain exactly:
 
 - `CREATIVE-NONE` — Performer/Interpreter `none`, Integrity `high`; normative reference run.
-- `CREATIVE-LOW` — Performer/Interpreter `low`, Integrity `high`; matched characterization.
-- `CREATIVE-MEDIUM` — Performer/Interpreter `medium`, Integrity `high`; matched characterization.
-- `CREATIVE-HIGH` — Performer/Interpreter `high`, Integrity `high`; matched characterization.
+- `CREATIVE-LOW` — Performer/Interpreter `low`, Integrity `high`.
+- `CREATIVE-MEDIUM` — Performer/Interpreter `medium`, Integrity `high`.
+- `CREATIVE-HIGH` — Performer/Interpreter `high`, Integrity `high`.
 
-Frozen operational limits remain: 12 accepted-Turn cap; one attempt per probabilistic invocation; zero automatic retries; 300-second attempt timeout; 4096 max output tokens per role; estimated model-token spend ceiling USD 5.00/run; `store=false`; `service_tier=default`; truncation disabled; no tools/provider conversation/hidden reasoning.
+Frozen operational limits remain:
 
-The live host validates exact clean checkout, evidence-root absence, fixture/Missing-Raft contract, and pricing date validity before credential access. It exposes explicit `e0a-run` and independent post-run `e0a-evaluate` paths and preserves write-once/runtime-root evidence sealing.
+- 12 accepted-Turn cap;
+- one attempt per probabilistic role invocation;
+- zero automatic retries;
+- 300-second attempt deadline;
+- 4096 max output tokens per role;
+- estimated model-token spend ceiling USD 5.00/run;
+- `store=false`;
+- `service_tier=default`;
+- truncation disabled;
+- no tools/provider conversation/hidden reasoning.
 
-Prompt caching is explicit-mode to disable the provider's implicit breakpoint. Cache-write usage is retained for provenance; spend reconciliation prices all reported input tokens conservatively and a nonzero cache-write count terminates technical after usage/spend recording but before semantic consumption.
+Preserved laws include Access before Context; exact configured-path request/receipt provenance; diagnostic-only streamed deltas; closed-response semantic authority; spend reconciliation before semantic use; fail-closed cancellation/timeout/usage handling; deterministic Integrity and State Authority; atomic accepted causal commit; immediate deterministic Opportunity establishment; immutable evidence sealing; blind-output isolation; technical failure never becoming fiction.
 
-The live host's `RequireNonStaleSnapshot` remains a date-validity guard, not live pricing verification. It fails closed after the published promotional-guarantee date, but it cannot detect provider changes to pricing terms, cache-write multiplier, long-context threshold, or related billing rules that occur earlier within that date window.
+## Hardening truth now added
 
-Closing that residual still requires the previously identified short-lived trusted pricing attestation or an equivalent stable machine-readable provider pricing source. The prior native PASS does not erase or narrow that known limit.
+The hardened Harness additionally establishes statically:
 
-Preserved laws include Access before Context, exact configured-path request/receipt provenance, diagnostic-only streamed deltas, closed-response semantic authority, spend reconciliation before semantic use, fail-closed cancellation/timeout/usage handling, deterministic Integrity/State Authority rejection, atomic accepted causal commit followed immediately by next Opportunity establishment, immutable evidence sealing, and blind-output isolation.
+- expected Integrity orchestration rejection reaches ordinary terminal/runtime sealing;
+- no synchronous EOF probe precedes cancellable streaming reads;
+- malformed provider JSON/Unicode is rejected before semantic adoption;
+- the explicit 300-second attempt token cannot be preempted by the default `HttpClient` timeout;
+- failed/refused/incomplete calls preserve validated nonsemantic receipt/usage provenance where available;
+- unknown usage is explicit and conservatively fallback-accounted;
+- standard-tier pricing is not falsely applied above its verified token tier;
+- spend arithmetic/reservations fail closed on unrepresentable state and use reservation identity rather than monetary amount as authority;
+- local evidence/run ownership is create-new/write-once;
+- terminal spend/pricing/usage/state claims are runtime-rooted and bound by a recomputable runtime-seal identity;
+- evaluation re-verifies runtime authority before publication and cannot endorse altered final summary claims;
+- Integrity concern names are exactly the five approved names;
+- checkout inspection is repository-root-relative independent of launch subdirectory;
+- Patch 0012 tests no longer freeze incidental private call graphs/catch/declaration layout.
+
+## Pricing gate residual
+
+`E0APricingPolicy.RequireNonStaleSnapshot` remains a date-validity guard, not live pricing verification. It cannot detect a provider pricing/cache/long-context policy change occurring earlier inside the published date window.
+
+Closing that residual still requires the previously identified short-lived trusted pricing attestation or equivalent stable machine-readable provider pricing source. Nothing in hardening or native fake-only validation erases that limitation.
 
 ## Validation-host continuity
 
-Future Director Windows ARM64 command sets must be generated from `docs/evidence/DIRECTOR_WINDOWS_ARM64_VALIDATION_HOST_BEHAVIORS.md`.
+Future Director Windows ARM64 command sets must follow:
 
-Known host facts include:
+`docs/evidence/DIRECTOR_WINDOWS_ARM64_VALIDATION_HOST_BEHAVIORS.md`.
 
-- Windows PowerShell `RuntimeInformation.OSArchitecture`, `.ProcessArchitecture`, and `.RuntimeIdentifier` have returned blank and are not trusted architecture gates on this host.
-- Trusted architecture probes are `PROCESSOR_ARCHITECTURE=ARM64` plus parsed `dotnet --info` showing `RID: win-arm64` and Host `Architecture: arm64`.
-- Expected native stderr can surface as `NativeCommandError` under `$ErrorActionPreference='Stop'`; expected-failure probes must isolate stderr, capture `$LASTEXITCODE` immediately, and assert exit/message/filesystem effects independently.
+Known host facts:
+
+- PowerShell `RuntimeInformation` architecture properties have returned blank and are not trusted host gates.
+- Trusted probes are `PROCESSOR_ARCHITECTURE=ARM64` plus parsed `dotnet --info` showing `RID: win-arm64` and Host `Architecture: arm64`.
+- Expected native stderr can surface as `NativeCommandError` under `$ErrorActionPreference='Stop'`; expected-failure probes must isolate stdout/stderr, capture `$LASTEXITCODE` immediately, and assert exit/message/filesystem effects independently.
+
+The exact grouped validation command set for `d18ec637...` is already filed in the native-validation handoff above. It intentionally checks out that executable/test checkpoint detached because documentation commits follow it on the hardening branch.
 
 ## Standing decisions
 
+- H1 Phase A: **CLOSED** by `docs/evidence/H1_CONVERGENCE_AUDIT.md`; promotion `28371ea4bcd9709b771413100af4dcec5a05dc6e`.
 - .NET 10 requires later Director approval.
 - `IPackageValidator` is not a mandatory first-release gate.
-- E5c exception-runtime provenance: open, no verified defect/fix.
+- E5c exception-runtime provenance: open; no verified defect/fix.
 - Stage remains design-lane authority.
 - ODR-12/13/26/30/32 remain open; none blocks E0-A.
-- ODR-26 working structure: `docs/ODR_26_COST_GOVERNANCE_AND_PROVIDER_ADMISSION_WORKING_CONTRACT.md`. **Not frozen/resolved/project law; no E0-A/E0-B provider-selection effect.**
-- The ODR-26 working contract is preserved unchanged from parallel `main`. It was drafted outside its authoring surface's lane and is reported for Director disposition rather than adjudicated or corrected by engineering.
-- ODR proposal/resolution authority belongs to the Director and is filed in `Ensemble-Project/docs` regardless of originating lane.
+- ODR-26 working structure: `docs/ODR_26_COST_GOVERNANCE_AND_PROVIDER_ADMISSION_WORKING_CONTRACT.md`; it is not frozen/resolved/project law and has no E0-A/E0-B provider-selection effect.
+- ODR proposals/resolutions are Director authority and live in `Ensemble-Project/docs` regardless of originating lane.
 - Real provider credentials/network execution/spend require a separate explicit Director gate.
-- `e0a-phase-b-live-host-completion-2` is a strict stale ancestor with no unique commits and remains untouched for Director disposition.
+- `e0a-phase-b-live-host-completion-2` remains a stale ancestor for Director disposition.
+
+## Provider / scope gate
+
+**PROVIDER EXECUTION: NOT AUTHORIZED.**
+
+Do not access or use `OPENAI_API_KEY`. Do not perform provider inference, provider-network execution, or provider spend.
+
+Do not enter E0-B..G, product Application/persistence/UI, Stage/Scene-ending semantics, Context optimization, Windows AI/NPU, MSIX/WACK/Store, Partner Center, or later ODR scope.
 
 ## Next
 
-Remain inside **E0-A Phase B**. Do not redesign Proposal 0.15 or enter E0-B..G, product Application/persistence/UI, Scene endings, Context optimization, Windows AI/NPU, MSIX/WACK/Store, or later scope.
+Remain inside **E0-A Phase B**.
 
-Continue post-audit hardening only on `e0a-phase-b-post-audit-hardening` in the dependency order recorded by `docs/evidence/E0A_POST_AUDIT_HARDENING_CLOSED_FINDINGS.md`. Patch Groups 1-2 are complete; Patch Group 3 is E-06 receipt provenance plus P-02/P-05 spend robustness.
+The only next executable-authority action is grouped native Windows ARM64 validation of exact checkout:
 
-After all authorized hardening groups and recursive audits are complete, run the grouped native Windows ARM64 validation gate on the exact final executable/test checkout, using `docs/evidence/DIRECTOR_WINDOWS_ARM64_VALIDATION_HOST_BEHAVIORS.md` as the validation-host contract. Only that later native evidence may replace `1cfdb3aa...` as executable/test authority.
+`d18ec637bb8881a38db9cfeb1420f093a994ac17`
 
-The first real reference-provider run is not an authorized action while hardening is in progress. It remains separately gated and requires explicit Director authorization for `OPENAI_API_KEY`, provider credentials, network inference, and spend after the hardening branch is validated and promoted. Nothing in prior fake-only native validation, current hardening implementation, static audit, or draft PR #39 opens that gate.
+Use:
+
+`docs/handoff/E0A_POST_AUDIT_HARDENING_GROUPED_NATIVE_ARM64_VALIDATION_HANDOFF.md`.
+
+After a complete Director-machine PASS:
+
+1. record exact native environment, Core/Harness counts, build, fixture-smoke, credentialless-gate, and post-cleanliness evidence;
+2. make that exact checkout the current machine-tested hardening authority;
+3. update this current state;
+4. review draft PR #39 for promotion to `main`.
+
+A native PASS does **not** open the real-provider gate. The first real reference-provider run remains separately Director-authorized work after hardening promotion/review.
