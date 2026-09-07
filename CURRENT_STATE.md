@@ -37,7 +37,7 @@ Existing machine-validated checkpoints now have durable annotated validation tag
 
 Repository-surface retirement is complete for the eight maintenance/continuity branches created by this renovation cycle. Each former branch was first verified as a strict ancestor of `main` with zero unique commits, then replaced by an annotated `archive/...` tag at its exact final head recording former branch name, disposition, and archive date; the corresponding branch ref was deleted. Remote verification confirmed all eight annotated tag objects and targets. The retired branches are `docs-bootstrap-surface-reconciliation`, `docs/repository-surface-constitution`, `renovation/c1-branch-archive`, `renovation/c2-core-ci`, `renovation/c3-build-surface`, `renovation/c4-oracle-guard`, `renovation/integrate-c1-c4-docs`, and `docs/post-renovation-continuity`.
 
-The active remote branch surface is now exactly `main` plus the two unresolved E0-A implementation branches recorded below. Maintenance/archive refs do not impersonate active work.
+The active remote branch surface is exactly `main` plus the two unresolved E0-A implementation branches recorded below. Maintenance/archive refs do not impersonate active work.
 
 ## Native validation
 
@@ -107,16 +107,19 @@ Known host facts include:
 ## Live implementation branches
 
 - `e0a-phase-b-post-audit-hardening`
-  - HEAD: `8f5e9a0983beafe247a11f62922b8d2bd5974faa`
-  - Merge base with `main`: `f9cb1a79ad7923b640ff1a97c46d8fd6ab9dac25`; branch carries **65 unique commits** and is behind the `main` state containing this continuity update.
-  - **OPEN — AWAITING DIRECTOR DISPOSITION, COMPILER GATE FAILING.**
-  - COMPILER GATE: **FAIL** — MSTEST0032 at `tests/Ensemble.E0.Harness.Tests/E0ALiveHostReadinessTests.cs:179`. `Assert.AreEqual(300, E0ARunEnvelope.AttemptTimeoutSeconds)` compares a literal with the compile-time constant `AttemptTimeoutSeconds = 300`; with `TreatWarningsAsErrors=true`, the analyzer warning fails Debug and Release compilation. Introduced by `2ff81d471ce62217ec9380b361ed4ec2af4a3ab1`.
+  - Repair-candidate HEAD: `dc7ac428f00041f71f3ae78baa9b7bf83c61ce55`.
+  - Merge base with `main`: `f9cb1a79ad7923b640ff1a97c46d8fd6ab9dac25`; branch carries **66 unique commits** and remains behind promoted `main`.
+  - **OPEN — COMPILER REPAIR CANDIDATE COMMITTED; MACHINE COMPILER/NATIVE VERIFICATION PENDING; DIRECTOR DISPOSITION AFTER EVIDENCE.**
+  - Prior compiler gate failure: MSTEST0032 at `E0ALiveHostReadinessTests.cs` from `Assert.AreEqual(300, E0ARunEnvelope.AttemptTimeoutSeconds)`, introduced by `2ff81d471ce62217ec9380b361ed4ec2af4a3ab1`.
+  - Repair `dc7ac428...` deletes only that redundant assertion. The frozen `300`-second envelope value remains independently covered by `E0AEnvelopeAndIdentityTests.ApprovedEnvelopeConstants_AreExact`; the timeout-composition test still verifies `HttpClient.Timeout == Timeout.InfiniteTimeSpan`. No product source changed. This repair has static/diff authority only until machine compilation succeeds.
 
 - `e0a-gemini-normative-reference-amendment`
-  - HEAD: `00b9052fdd4c65cc200ed01c61f3f2a80c10dc62`
-  - Merge base with `main`: `f9cb1a79ad7923b640ff1a97c46d8fd6ab9dac25`; branch carries **48 unique commits** and is behind the `main` state containing this continuity update.
-  - **OPEN — AWAITING DIRECTOR DISPOSITION, COMPILER GATE FAILING.**
-  - COMPILER GATE: **FAIL** — CS0103 at `tests/Ensemble.E0.Harness.Tests/GeminiUsageContractTests.cs:90`, `GeminiThinkingDisclosureTests.cs:22`, and `GeminiMalformedResponseTests.cs:155`. Each references `IntegrityCandidateInput` without importing its namespace, `Ensemble.E0.Core.Integrity`.
+  - Repair-candidate HEAD: `9bb65a8461c0963d9a9c6e9647633ca5c6d5df24`.
+  - Merge base with `main`: `f9cb1a79ad7923b640ff1a97c46d8fd6ab9dac25`; branch carries **49 unique commits** and remains behind promoted `main`.
+  - **OPEN — COMPILER REPAIR CANDIDATE COMMITTED; MACHINE COMPILER/NATIVE VERIFICATION PENDING; DIRECTOR DISPOSITION AFTER EVIDENCE.**
+  - Attempt 01 previously found and repaired a Harness source syntax defect at `117635d820792420cf0c30d987f3e0f534afeda0`; that checkpoint was not subsequently machine-validated and is no longer the current repaired source/test candidate.
+  - External compiler audit then found CS0103 in `GeminiUsageContractTests.cs`, `GeminiThinkingDisclosureTests.cs`, and `GeminiMalformedResponseTests.cs`, each using `IntegrityCandidateInput` without importing `Ensemble.E0.Core.Integrity`.
+  - Repair `9bb65a846...` adds exactly that using directive to those three test files: three insertions, zero deletions, no product source change. This repair has static/diff authority only until machine compilation succeeds.
 
 ## Standing decisions
 
@@ -134,8 +137,8 @@ Known host facts include:
 
 Remain inside **E0-A Phase B**. Do not redesign Proposal 0.15 or enter E0-B..G, product Application/persistence/UI, Scene endings, Context optimization, Windows AI/NPU, MSIX/WACK/Store, or later scope.
 
-Repository renovation C1-C4, continuity-law promotion, validation-tag backfill, and maintenance-branch archival are complete. The active remote branch surface is exactly `main` plus the two unresolved implementation branches. CI cross-compile evidence remains compiler authority only and does not replace native runtime evidence.
+Repository renovation C1-C4, continuity-law promotion, validation-tag backfill, and maintenance-branch archival are complete. The active remote branch surface is exactly `main` plus the two unresolved implementation branches. CI cross-compile evidence on promoted `main` remains compiler authority only and does not replace native runtime evidence.
 
-The next unresolved engineering decision is Director disposition of the two divergent implementation branches recorded above. Neither may be silently merged, discarded, or used as validation authority while its compiler gate is failing.
+The immediate engineering gate is machine verification of the two exact compiler-repair candidates above. Until that evidence exists, neither repair candidate may be promoted as compiler/runtime authority, merged, discarded, or used to authorize provider execution. Director disposition follows the machine evidence and branch-to-main reconciliation review.
 
-The next consequential product action remains the first real reference-provider run under the frozen envelope/evidence package. It requires **separate explicit Director authorization** for `OPENAI_API_KEY`, provider credentials, network inference, and spend. Nothing in fake-only native validation, repository renovation, CI cross-compilation, branch archival, or promotion opens that gate.
+The next consequential product action remains a first real reference-provider run under an explicitly Director-selected and validated provider route. It requires **separate explicit Director authorization** for the applicable provider credential, provider network inference, and spend. Nothing in fake-only native validation, repository renovation, CI cross-compilation, branch archival, compiler repair, or promotion opens that gate.
