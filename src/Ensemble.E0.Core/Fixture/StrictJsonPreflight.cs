@@ -112,6 +112,10 @@ public static class StrictJsonPreflight
         {
             throw;
         }
+        catch (JsonException exception)
+        {
+            throw new FixtureValidationException("Fixture contains an invalid JSON property name.", exception);
+        }
         catch (InvalidOperationException exception)
         {
             throw new FixtureValidationException("Fixture contains an invalid JSON property name.", exception);
