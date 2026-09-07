@@ -26,7 +26,7 @@ This state reconciles former `main` `a3b5126dad440d2f75bef655fdc6e4ac7098b839` w
 
 ## Repository renovation checkpoint
 
-Repository-renovation integration PR #40 was promoted to `main` at `175aa1f360aa8458fb571ac21295df13f59fdd8b`. It integrates C1 branch archival records, C2 CI authority separation, C3 shared build surface, C4 oracle-documentation drift guard, bootstrap-surface reconciliation, the Repository Surface extension of Engineering Hygiene Law 5, and `PROJECT_REASONING_TASK_SCOPE_OPTIMIZATION_PROTOCOL.md` version 0.3.
+Repository-renovation integration PR #40 was promoted to `main` at `175aa1f360aa8458fb571ac21295df13f59fdd8b`; post-renovation continuity PR #41 was promoted at `62769b3af3e4309204b89bffa3e9e5e24afc5bf7`. Together they integrate C1 branch archival records, C2 CI authority separation, C3 shared build surface, C4 oracle-documentation drift guard, bootstrap-surface reconciliation, the Repository Surface extension of Engineering Hygiene Law 5, and `PROJECT_REASONING_TASK_SCOPE_OPTIMIZATION_PROTOCOL.md` version 0.3.
 
 The exact integration head `45022b945b52143843bb7c565a14267a653b36d8` passed the GitHub validation workflow: **`win-arm64` cross-compile/build PASS** for all four projects, Oracle documentation drift PASS, and advisory x64 Core tests PASS. The cross-compile result is **compiler authority only**; it is not native Windows ARM64 execution/runtime authority and does not replace either Director-machine native checkpoint below.
 
@@ -35,7 +35,9 @@ Existing machine-validated checkpoints now have durable annotated validation tag
 - `validation/e0a-phase-b-reference-run-native-arm64` -> `3749210393282f6aa2ac4ceb0176b6adb5df189e`.
 - `validation/e0a-phase-b-live-host-native-arm64` -> `1cfdb3aa22abce62a5bd48e80706407670d1c6a9`.
 
-The seven merged renovation/documentation branches `docs-bootstrap-surface-reconciliation`, `docs/repository-surface-constitution`, `renovation/c1-branch-archive`, `renovation/c2-core-ci`, `renovation/c3-build-surface`, `renovation/c4-oracle-guard`, and `renovation/integrate-c1-c4-docs` are now archivable under Repository Surface law. They remain present until annotated `archive/...` tags are created at their final heads and the branch refs are deleted; their continued presence does not make them active engineering work.
+Repository-surface retirement is complete for the eight maintenance/continuity branches created by this renovation cycle. Each former branch was first verified as a strict ancestor of `main` with zero unique commits, then replaced by an annotated `archive/...` tag at its exact final head recording former branch name, disposition, and archive date; the corresponding branch ref was deleted. Remote verification confirmed all eight annotated tag objects and targets. The retired branches are `docs-bootstrap-surface-reconciliation`, `docs/repository-surface-constitution`, `renovation/c1-branch-archive`, `renovation/c2-core-ci`, `renovation/c3-build-surface`, `renovation/c4-oracle-guard`, `renovation/integrate-c1-c4-docs`, and `docs/post-renovation-continuity`.
+
+The active remote branch surface is now exactly `main` plus the two unresolved E0-A implementation branches recorded below. Maintenance/archive refs do not impersonate active work.
 
 ## Native validation
 
@@ -106,13 +108,13 @@ Known host facts include:
 
 - `e0a-phase-b-post-audit-hardening`
   - HEAD: `8f5e9a0983beafe247a11f62922b8d2bd5974faa`
-  - Divergence from `main` `175aa1f360aa8458fb571ac21295df13f59fdd8b`: **65 ahead / 9 behind**.
+  - Merge base with `main`: `f9cb1a79ad7923b640ff1a97c46d8fd6ab9dac25`; branch carries **65 unique commits** and is behind the `main` state containing this continuity update.
   - **OPEN — AWAITING DIRECTOR DISPOSITION, COMPILER GATE FAILING.**
   - COMPILER GATE: **FAIL** — MSTEST0032 at `tests/Ensemble.E0.Harness.Tests/E0ALiveHostReadinessTests.cs:179`. `Assert.AreEqual(300, E0ARunEnvelope.AttemptTimeoutSeconds)` compares a literal with the compile-time constant `AttemptTimeoutSeconds = 300`; with `TreatWarningsAsErrors=true`, the analyzer warning fails Debug and Release compilation. Introduced by `2ff81d471ce62217ec9380b361ed4ec2af4a3ab1`.
 
 - `e0a-gemini-normative-reference-amendment`
   - HEAD: `00b9052fdd4c65cc200ed01c61f3f2a80c10dc62`
-  - Divergence from `main` `175aa1f360aa8458fb571ac21295df13f59fdd8b`: **48 ahead / 9 behind**.
+  - Merge base with `main`: `f9cb1a79ad7923b640ff1a97c46d8fd6ab9dac25`; branch carries **48 unique commits** and is behind the `main` state containing this continuity update.
   - **OPEN — AWAITING DIRECTOR DISPOSITION, COMPILER GATE FAILING.**
   - COMPILER GATE: **FAIL** — CS0103 at `tests/Ensemble.E0.Harness.Tests/GeminiUsageContractTests.cs:90`, `GeminiThinkingDisclosureTests.cs:22`, and `GeminiMalformedResponseTests.cs:155`. Each references `IntegrityCandidateInput` without importing its namespace, `Ensemble.E0.Core.Integrity`.
 
@@ -132,8 +134,8 @@ Known host facts include:
 
 Remain inside **E0-A Phase B**. Do not redesign Proposal 0.15 or enter E0-B..G, product Application/persistence/UI, Scene endings, Context optimization, Windows AI/NPU, MSIX/WACK/Store, or later scope.
 
-Repository renovation C1-C4 and the continuity-law updates are promoted to `main`. Their CI cross-compile evidence is compiler authority only and does not replace native runtime evidence. The seven merged renovation/documentation branches are archivable but remain present until their required annotated archive tags are created and the branch refs are deleted.
+Repository renovation C1-C4, continuity-law promotion, validation-tag backfill, and maintenance-branch archival are complete. The active remote branch surface is exactly `main` plus the two unresolved implementation branches. CI cross-compile evidence remains compiler authority only and does not replace native runtime evidence.
 
 The next unresolved engineering decision is Director disposition of the two divergent implementation branches recorded above. Neither may be silently merged, discarded, or used as validation authority while its compiler gate is failing.
 
-The next consequential product action remains the first real reference-provider run under the frozen envelope/evidence package. It requires **separate explicit Director authorization** for `OPENAI_API_KEY`, provider credentials, network inference, and spend. Nothing in fake-only native validation, repository renovation, CI cross-compilation, or promotion opens that gate.
+The next consequential product action remains the first real reference-provider run under the frozen envelope/evidence package. It requires **separate explicit Director authorization** for `OPENAI_API_KEY`, provider credentials, network inference, and spend. Nothing in fake-only native validation, repository renovation, CI cross-compilation, branch archival, or promotion opens that gate.
