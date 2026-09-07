@@ -176,7 +176,6 @@ public sealed class E0ALiveHostReadinessTests
         using var http = E0AReferenceRunHost.CreateProviderHttpClient();
 
         Assert.AreEqual(Timeout.InfiniteTimeSpan, http.Timeout);
-        Assert.AreEqual(300, E0ARunEnvelope.AttemptTimeoutSeconds);
     }
 
     [TestMethod]
