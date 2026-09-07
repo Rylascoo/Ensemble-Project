@@ -139,7 +139,7 @@ internal static class E0ATestSupport
     internal static RoleAttemptReceipt Success(
         PreparedRoleAttempt attempt,
         byte[] output,
-        string model = "gpt-5.6-sol") =>
+        string model = E0AGeminiProviderPolicy.Model) =>
         RoleAttemptReceipt.Success(
             attempt,
             $"resp-{attempt.AttemptId}",
