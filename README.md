@@ -6,7 +6,9 @@ Ensemble is a local-first generative theater and creative simulation for persist
 
 ## Current development state
 
-Blueprint 0.1 is frozen for E0. The active engineering phase is **E0-A Harness Implementation — H1 Deterministic Spine**.
+Blueprint 0.1 is frozen for E0. The active engineering phase is **E0-A Phase B — live-host completion**; H1 Phase A is **CLOSED**.
+
+`README.md` never carries phase authority; `CURRENT_STATE.md` is the only phase source.
 
 Read [`CURRENT_STATE.md`](CURRENT_STATE.md) before modifying source.
 
