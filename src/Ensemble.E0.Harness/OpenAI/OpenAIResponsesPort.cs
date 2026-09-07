@@ -59,7 +59,9 @@ internal sealed class OpenAIResponsesPort : IE0AProviderRolePort, IE0AInputToken
 
             var bytes = await response.Content.ReadAsByteArrayAsync(cancellationToken).ConfigureAwait(false);
             using var document = JsonDocument.Parse(bytes);
-            if (!document.RootElement.TryGetProperty("input_tokens", out var count) ||
+            if (document.RootElement.ValueKind != JsonValueKind.Object ||
+                !document.RootElement.TryGetProperty("input_tokens", out var count) ||
+                count.ValueKind != JsonValueKind.Number ||
                 !count.TryGetInt64(out var tokens) || tokens < 0)
             {
                 throw new E0AHarnessException("E0-A provider input-token response is invalid.");
@@ -100,7 +102,8 @@ internal sealed class OpenAIResponsesPort : IE0AProviderRolePort, IE0AInputToken
         catch (Exception exception) when (
             exception is HttpRequestException or
             IOException or
-            JsonException)
+            JsonException or
+            DecoderFallbackException)
         {
             return RoleAttemptReceipt.TechnicalFailure(attempt, "malformed-or-transport");
         }
@@ -135,7 +138,12 @@ internal sealed class OpenAIResponsesPort : IE0AProviderRolePort, IE0AInputToken
         }
 
         await using var body = await response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
-        using var reader = new StreamReader(body, Encoding.UTF8, false, 4096, leaveOpen: false);
+        using var reader = new StreamReader(
+            body,
+            new UTF8Encoding(encoderShouldEmitUTF8Identifier: false, throwOnInvalidBytes: true),
+            detectEncodingFromByteOrderMarks: false,
+            bufferSize: 4096,
+            leaveOpen: false);
         JsonElement? completed = null;
         var refused = false;
         var failed = false;
@@ -163,7 +171,16 @@ internal sealed class OpenAIResponsesPort : IE0AProviderRolePort, IE0AInputToken
             diagnostics.RecordStreamEvent(attempt, utf8);
             using var eventDoc = JsonDocument.Parse(utf8);
             var root = eventDoc.RootElement;
-            var type = root.TryGetProperty("type", out var typeElement) ? typeElement.GetString() : null;
+            if (root.ValueKind != JsonValueKind.Object)
+            {
+                return RoleAttemptReceipt.TechnicalFailure(attempt, "malformed-provider-event");
+            }
+
+            string? type = null;
+            if (root.TryGetProperty("type", out var typeElement) && !TryDecodeString(typeElement, out type))
+            {
+                return RoleAttemptReceipt.TechnicalFailure(attempt, "malformed-provider-event");
+            }
             switch (type)
             {
                 case "response.refusal.delta":
@@ -178,6 +195,10 @@ internal sealed class OpenAIResponsesPort : IE0AProviderRolePort, IE0AInputToken
                 case "response.completed":
                     if (root.TryGetProperty("response", out var responseElement))
                     {
+                        if (responseElement.ValueKind != JsonValueKind.Object)
+                        {
+                            return RoleAttemptReceipt.TechnicalFailure(attempt, "malformed-provider-event");
+                        }
                         completed = responseElement.Clone();
                     }
                     break;
@@ -200,22 +221,29 @@ internal sealed class OpenAIResponsesPort : IE0AProviderRolePort, IE0AInputToken
         PreparedRoleAttempt attempt,
         JsonElement response)
     {
-        var status = response.TryGetProperty("status", out var statusElement) ? statusElement.GetString() : null;
-        if (!string.Equals(status, "completed", StringComparison.Ordinal))
+        if (response.ValueKind != JsonValueKind.Object ||
+            !response.TryGetProperty("status", out var statusElement) ||
+            !TryDecodeString(statusElement, out var status) ||
+            !string.Equals(status, "completed", StringComparison.Ordinal))
         {
             return RoleAttemptReceipt.TechnicalFailure(attempt, "provider-incomplete");
         }
 
-        if (ContainsRefusal(response))
+        if (!TryContainsRefusal(response, out var refused))
+        {
+            return RoleAttemptReceipt.TechnicalFailure(attempt, "provider-response-incomplete");
+        }
+        if (refused)
         {
             return RoleAttemptReceipt.TechnicalFailure(attempt, "provider-refusal");
         }
 
-        var id = response.TryGetProperty("id", out var idElement) ? idElement.GetString() : null;
-        var model = response.TryGetProperty("model", out var modelElement) ? modelElement.GetString() : null;
-        var text = ExtractOutputText(response);
+        var hasId = response.TryGetProperty("id", out var idElement) && TryDecodeString(idElement, out var id);
+        var hasModel = response.TryGetProperty("model", out var modelElement) && TryDecodeString(modelElement, out var model);
+        var hasText = TryExtractOutputText(response, out var text);
         var usage = ParseUsage(response);
-        if (string.IsNullOrWhiteSpace(id) ||
+        if (!hasId || !hasModel || !hasText ||
+            string.IsNullOrWhiteSpace(id) ||
             string.IsNullOrWhiteSpace(model) ||
             string.IsNullOrEmpty(text) ||
             usage is null)
@@ -223,68 +251,125 @@ internal sealed class OpenAIResponsesPort : IE0AProviderRolePort, IE0AInputToken
             return RoleAttemptReceipt.TechnicalFailure(attempt, "provider-response-incomplete");
         }
 
-        return RoleAttemptReceipt.Success(attempt, id, model, usage, Encoding.UTF8.GetBytes(text));
+        return RoleAttemptReceipt.Success(attempt, id!, model!, usage, Encoding.UTF8.GetBytes(text!));
     }
 
-    private static bool ContainsRefusal(JsonElement response)
+    private static bool TryContainsRefusal(JsonElement response, out bool refused)
     {
-        if (!response.TryGetProperty("output", out var output) || output.ValueKind != JsonValueKind.Array)
+        refused = false;
+        if (!response.TryGetProperty("output", out var output))
+        {
+            return true;
+        }
+        if (output.ValueKind != JsonValueKind.Array)
         {
             return false;
         }
+
         foreach (var item in output.EnumerateArray())
         {
-            if (!item.TryGetProperty("content", out var content) || content.ValueKind != JsonValueKind.Array)
+            if (item.ValueKind != JsonValueKind.Object)
+            {
+                return false;
+            }
+            if (!item.TryGetProperty("content", out var content))
             {
                 continue;
             }
+            if (content.ValueKind != JsonValueKind.Array)
+            {
+                return false;
+            }
             foreach (var part in content.EnumerateArray())
             {
-                if (part.TryGetProperty("type", out var type) && string.Equals(type.GetString(), "refusal", StringComparison.Ordinal))
+                if (part.ValueKind != JsonValueKind.Object)
                 {
-                    return true;
+                    return false;
+                }
+                if (!part.TryGetProperty("type", out var type))
+                {
+                    continue;
+                }
+                if (!TryDecodeString(type, out var typeName))
+                {
+                    return false;
+                }
+                if (string.Equals(typeName, "refusal", StringComparison.Ordinal))
+                {
+                    refused = true;
                 }
             }
         }
-        return false;
+        return true;
     }
 
-    private static string? ExtractOutputText(JsonElement response)
+    private static bool TryExtractOutputText(JsonElement response, out string? value)
     {
-        if (response.TryGetProperty("output_text", out var direct) && direct.ValueKind == JsonValueKind.String)
+        value = null;
+        if (response.TryGetProperty("output_text", out var direct))
         {
-            return direct.GetString();
+            return TryDecodeString(direct, out value);
         }
-        if (!response.TryGetProperty("output", out var output) || output.ValueKind != JsonValueKind.Array)
+        if (!response.TryGetProperty("output", out var output))
         {
-            return null;
+            return true;
+        }
+        if (output.ValueKind != JsonValueKind.Array)
+        {
+            return false;
         }
 
         var builder = new StringBuilder();
         foreach (var item in output.EnumerateArray())
         {
-            if (!item.TryGetProperty("content", out var content) || content.ValueKind != JsonValueKind.Array)
+            if (item.ValueKind != JsonValueKind.Object)
+            {
+                return false;
+            }
+            if (!item.TryGetProperty("content", out var content))
             {
                 continue;
             }
+            if (content.ValueKind != JsonValueKind.Array)
+            {
+                return false;
+            }
             foreach (var part in content.EnumerateArray())
             {
-                if (part.TryGetProperty("type", out var type) &&
-                    string.Equals(type.GetString(), "output_text", StringComparison.Ordinal) &&
-                    part.TryGetProperty("text", out var text) && text.ValueKind == JsonValueKind.String)
+                if (part.ValueKind != JsonValueKind.Object)
                 {
-                    builder.Append(text.GetString());
+                    return false;
                 }
+                if (!part.TryGetProperty("type", out var type))
+                {
+                    continue;
+                }
+                if (!TryDecodeString(type, out var typeName))
+                {
+                    return false;
+                }
+                if (!string.Equals(typeName, "output_text", StringComparison.Ordinal))
+                {
+                    continue;
+                }
+                if (!part.TryGetProperty("text", out var text) || !TryDecodeString(text, out var decodedText))
+                {
+                    return false;
+                }
+                builder.Append(decodedText);
             }
         }
-        return builder.Length == 0 ? null : builder.ToString();
+        value = builder.Length == 0 ? null : builder.ToString();
+        return true;
     }
 
     private static E0AUsage? ParseUsage(JsonElement response)
     {
         if (!response.TryGetProperty("usage", out var usage) || usage.ValueKind != JsonValueKind.Object ||
-            !usage.TryGetProperty("input_tokens", out var input) || !input.TryGetInt64(out var inputTokens) ||
-            !usage.TryGetProperty("output_tokens", out var output) || !output.TryGetInt64(out var outputTokens))
+            !usage.TryGetProperty("input_tokens", out var input) || input.ValueKind != JsonValueKind.Number ||
+            !input.TryGetInt64(out var inputTokens) ||
+            !usage.TryGetProperty("output_tokens", out var output) || output.ValueKind != JsonValueKind.Number ||
+            !output.TryGetInt64(out var outputTokens))
         {
             return null;
         }
@@ -298,24 +383,29 @@ internal sealed class OpenAIResponsesPort : IE0AProviderRolePort, IE0AInputToken
                 return null;
             }
             if (inputDetails.TryGetProperty("cached_tokens", out var cachedElement) &&
-                !cachedElement.TryGetInt64(out cached))
+                (cachedElement.ValueKind != JsonValueKind.Number || !cachedElement.TryGetInt64(out cached)))
             {
                 return null;
             }
             if (inputDetails.TryGetProperty("cache_write_tokens", out var cacheWriteElement) &&
-                !cacheWriteElement.TryGetInt64(out cacheWrite))
+                (cacheWriteElement.ValueKind != JsonValueKind.Number || !cacheWriteElement.TryGetInt64(out cacheWrite)))
             {
                 return null;
             }
         }
 
         long reasoning = 0;
-        if (usage.TryGetProperty("output_tokens_details", out var outputDetails) &&
-            outputDetails.ValueKind == JsonValueKind.Object &&
-            outputDetails.TryGetProperty("reasoning_tokens", out var reasoningElement) &&
-            !reasoningElement.TryGetInt64(out reasoning))
+        if (usage.TryGetProperty("output_tokens_details", out var outputDetails))
         {
-            return null;
+            if (outputDetails.ValueKind != JsonValueKind.Object)
+            {
+                return null;
+            }
+            if (outputDetails.TryGetProperty("reasoning_tokens", out var reasoningElement) &&
+                (reasoningElement.ValueKind != JsonValueKind.Number || !reasoningElement.TryGetInt64(out reasoning)))
+            {
+                return null;
+            }
         }
 
         if (inputTokens < 0 ||
@@ -331,6 +421,47 @@ internal sealed class OpenAIResponsesPort : IE0AProviderRolePort, IE0AInputToken
         }
 
         return new E0AUsage(inputTokens, outputTokens, cached, reasoning, cacheWrite);
+    }
+
+    private static bool TryDecodeString(JsonElement element, out string? value)
+    {
+        value = null;
+        if (element.ValueKind != JsonValueKind.String)
+        {
+            return false;
+        }
+
+        try
+        {
+            value = element.GetString();
+        }
+        catch (Exception exception) when (exception is InvalidOperationException or JsonException)
+        {
+            return false;
+        }
+
+        return value is not null && IsWellFormedUtf16(value);
+    }
+
+    private static bool IsWellFormedUtf16(string value)
+    {
+        for (var index = 0; index < value.Length; index++)
+        {
+            var current = value[index];
+            if (char.IsHighSurrogate(current))
+            {
+                if (index + 1 >= value.Length || !char.IsLowSurrogate(value[index + 1]))
+                {
+                    return false;
+                }
+                index++;
+            }
+            else if (char.IsLowSurrogate(current))
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     private static byte[] BuildInputTokenRequestBody(byte[] responseRequestBody)
