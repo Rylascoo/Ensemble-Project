@@ -177,46 +177,89 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
             var root = eventDoc.RootElement;
             if (root.ValueKind != JsonValueKind.Object)
             {
-                return RoleAttemptReceipt.TechnicalFailure(attempt, "gemini-response-shape-invalid");
+                return TechnicalFromAccumulated(
+                    attempt,
+                    "gemini-response-shape-invalid",
+                    responseId,
+                    modelVersion,
+                    usage);
             }
 
             // Thought material is outside E0-A evidence authority. Reject it before
             // raw diagnostic bytes can be persisted by the evidence sink.
             if (ContainsThoughtMaterial(root))
             {
-                return RoleAttemptReceipt.TechnicalFailure(attempt, "gemini-thought-material-returned");
+                return TechnicalFromAccumulated(
+                    attempt,
+                    "gemini-thought-material-returned",
+                    responseId,
+                    modelVersion,
+                    usage);
             }
             diagnostics.RecordStreamEvent(attempt, utf8);
 
-            if (PromptBlocked(root))
+            if (!TryPromptBlocked(root, out var promptBlocked))
             {
-                return RoleAttemptReceipt.TechnicalFailure(attempt, "gemini-prompt-blocked");
+                return TechnicalFromAccumulated(
+                    attempt,
+                    "gemini-response-shape-invalid",
+                    responseId,
+                    modelVersion,
+                    usage);
             }
             if (!BindStableIdentity(root, ref responseId, ref modelVersion))
             {
                 return RoleAttemptReceipt.TechnicalFailure(attempt, "gemini-response-identity-changed");
+            }
+            if (promptBlocked)
+            {
+                return TechnicalFromStreamingTerminal(
+                    attempt,
+                    root,
+                    "gemini-prompt-blocked",
+                    responseId,
+                    modelVersion,
+                    usage);
             }
 
             var alreadyStopped = string.Equals(finishReason, "STOP", StringComparison.Ordinal);
             var textLengthBefore = text.Length;
             if (!AppendCandidateText(root, text, ref finishReason, out var candidateError))
             {
-                return RoleAttemptReceipt.TechnicalFailure(attempt, candidateError!);
+                return TechnicalFromStreamingTerminal(
+                    attempt,
+                    root,
+                    candidateError!,
+                    responseId,
+                    modelVersion,
+                    usage);
             }
             if (alreadyStopped && text.Length != textLengthBefore)
             {
-                return RoleAttemptReceipt.TechnicalFailure(attempt, "gemini-content-after-stop");
+                return TechnicalFromStreamingTerminal(
+                    attempt,
+                    root,
+                    "gemini-content-after-stop",
+                    responseId,
+                    modelVersion,
+                    usage);
             }
 
-            // Intermediate SSE chunks may expose partial usage metadata. Once STOP
-            // is observed, a later metadata-only chunk may supply the final tuple.
-            if (string.Equals(finishReason, "STOP", StringComparison.Ordinal) &&
+            // Intermediate SSE chunks may expose partial usage metadata. Only once
+            // a finish reason has been observed is usage eligible as terminal
+            // provenance; metadata-only chunks after STOP may supply the final tuple.
+            if (!string.IsNullOrWhiteSpace(finishReason) &&
                 root.TryGetProperty("usageMetadata", out var usageElement))
             {
                 usage = ParseUsage(usageElement);
                 if (usage is null)
                 {
-                    return RoleAttemptReceipt.TechnicalFailure(attempt, "gemini-usage-invalid");
+                    return TechnicalFromAccumulated(
+                        attempt,
+                        "gemini-usage-invalid",
+                        responseId,
+                        modelVersion,
+                        null);
                 }
             }
         }
@@ -227,7 +270,12 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
             text.Length == 0 ||
             usage is null)
         {
-            return RoleAttemptReceipt.TechnicalFailure(attempt, "gemini-response-incomplete");
+            return TechnicalFromAccumulated(
+                attempt,
+                "gemini-response-incomplete",
+                responseId,
+                modelVersion,
+                usage);
         }
 
         return RoleAttemptReceipt.Success(
@@ -242,44 +290,52 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
         PreparedRoleAttempt attempt,
         JsonElement response)
     {
-        if (PromptBlocked(response))
+        if (!TryProviderMetadata(response, out var responseId, out var modelVersion, out var usage))
         {
-            return RoleAttemptReceipt.TechnicalFailure(attempt, "gemini-prompt-blocked");
+            return RoleAttemptReceipt.TechnicalFailure(attempt, "gemini-response-shape-invalid");
         }
-
-        if (!response.TryGetProperty("responseId", out var idElement) ||
-            idElement.ValueKind != JsonValueKind.String ||
-            !response.TryGetProperty("modelVersion", out var modelElement) ||
-            modelElement.ValueKind != JsonValueKind.String)
+        if (!TryPromptBlocked(response, out var promptBlocked))
         {
-            return RoleAttemptReceipt.TechnicalFailure(attempt, "gemini-response-identity-missing");
+            return RoleAttemptReceipt.TechnicalFailure(
+                attempt,
+                "gemini-response-shape-invalid",
+                responseId,
+                modelVersion,
+                usage);
         }
-        var responseId = idElement.GetString();
-        var modelVersion = modelElement.GetString();
-        if (string.IsNullOrWhiteSpace(responseId) || string.IsNullOrWhiteSpace(modelVersion))
+        if (promptBlocked)
         {
-            return RoleAttemptReceipt.TechnicalFailure(attempt, "gemini-response-identity-missing");
+            return RoleAttemptReceipt.TechnicalFailure(
+                attempt,
+                "gemini-prompt-blocked",
+                responseId,
+                modelVersion,
+                usage);
         }
 
         var text = new StringBuilder();
         string? finishReason = null;
         if (!AppendCandidateText(response, text, ref finishReason, out var candidateError))
         {
-            return RoleAttemptReceipt.TechnicalFailure(attempt, candidateError!);
+            return RoleAttemptReceipt.TechnicalFailure(
+                attempt,
+                candidateError!,
+                responseId,
+                modelVersion,
+                usage);
         }
-        if (!string.Equals(finishReason, "STOP", StringComparison.Ordinal) || text.Length == 0)
+        if (!string.Equals(finishReason, "STOP", StringComparison.Ordinal) ||
+            text.Length == 0 ||
+            string.IsNullOrWhiteSpace(responseId) ||
+            string.IsNullOrWhiteSpace(modelVersion) ||
+            usage is null)
         {
-            return RoleAttemptReceipt.TechnicalFailure(attempt, "gemini-response-incomplete");
-        }
-
-        if (!response.TryGetProperty("usageMetadata", out var usageElement))
-        {
-            return RoleAttemptReceipt.TechnicalFailure(attempt, "gemini-usage-missing");
-        }
-        var usage = ParseUsage(usageElement);
-        if (usage is null)
-        {
-            return RoleAttemptReceipt.TechnicalFailure(attempt, "gemini-usage-invalid");
+            return RoleAttemptReceipt.TechnicalFailure(
+                attempt,
+                "gemini-response-incomplete",
+                responseId,
+                modelVersion,
+                usage);
         }
 
         return RoleAttemptReceipt.Success(
@@ -290,16 +346,118 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
             Encoding.UTF8.GetBytes(text.ToString()));
     }
 
-    private static bool PromptBlocked(JsonElement response)
+    private static RoleAttemptReceipt TechnicalFromStreamingTerminal(
+        PreparedRoleAttempt attempt,
+        JsonElement response,
+        string diagnosticCode,
+        string? responseId,
+        string? modelVersion,
+        E0AUsage? priorUsage)
     {
-        if (!response.TryGetProperty("promptFeedback", out var feedback) || feedback.ValueKind != JsonValueKind.Object)
+        if (response.TryGetProperty("usageMetadata", out var usageElement))
+        {
+            var parsed = ParseUsage(usageElement);
+            if (parsed is null)
+            {
+                return TechnicalFromAccumulated(
+                    attempt,
+                    "gemini-usage-invalid",
+                    responseId,
+                    modelVersion,
+                    priorUsage);
+            }
+            return TechnicalFromAccumulated(
+                attempt,
+                diagnosticCode,
+                responseId,
+                modelVersion,
+                parsed);
+        }
+
+        return TechnicalFromAccumulated(
+            attempt,
+            diagnosticCode,
+            responseId,
+            modelVersion,
+            priorUsage);
+    }
+
+    private static RoleAttemptReceipt TechnicalFromAccumulated(
+        PreparedRoleAttempt attempt,
+        string diagnosticCode,
+        string? responseId,
+        string? modelVersion,
+        E0AUsage? usage) =>
+        RoleAttemptReceipt.TechnicalFailure(
+            attempt,
+            diagnosticCode,
+            responseId,
+            modelVersion,
+            usage);
+
+    private static bool TryProviderMetadata(
+        JsonElement response,
+        out string? responseId,
+        out string? modelVersion,
+        out E0AUsage? usage)
+    {
+        responseId = null;
+        modelVersion = null;
+        usage = null;
+        if (response.ValueKind != JsonValueKind.Object)
         {
             return false;
         }
-        return feedback.TryGetProperty("blockReason", out var blockReason) &&
-               blockReason.ValueKind == JsonValueKind.String &&
-               !string.IsNullOrWhiteSpace(blockReason.GetString()) &&
-               !string.Equals(blockReason.GetString(), "BLOCK_REASON_UNSPECIFIED", StringComparison.Ordinal);
+
+        if (response.TryGetProperty("responseId", out var idElement))
+        {
+            if (!TryDecodeString(idElement, out responseId) || string.IsNullOrWhiteSpace(responseId))
+            {
+                return false;
+            }
+        }
+        if (response.TryGetProperty("modelVersion", out var modelElement))
+        {
+            if (!TryDecodeString(modelElement, out modelVersion) || string.IsNullOrWhiteSpace(modelVersion))
+            {
+                return false;
+            }
+        }
+        if (response.TryGetProperty("usageMetadata", out var usageElement))
+        {
+            usage = ParseUsage(usageElement);
+            if (usage is null)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private static bool TryPromptBlocked(JsonElement response, out bool blocked)
+    {
+        blocked = false;
+        if (!response.TryGetProperty("promptFeedback", out var feedback))
+        {
+            return true;
+        }
+        if (feedback.ValueKind != JsonValueKind.Object)
+        {
+            return false;
+        }
+        if (!feedback.TryGetProperty("blockReason", out var blockReason))
+        {
+            return true;
+        }
+        if (!TryDecodeString(blockReason, out var reason))
+        {
+            return false;
+        }
+
+        blocked = !string.IsNullOrWhiteSpace(reason) &&
+                  !string.Equals(reason, "BLOCK_REASON_UNSPECIFIED", StringComparison.Ordinal);
+        return true;
     }
 
     private static bool BindStableIdentity(
@@ -314,15 +472,10 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
             return true;
         }
         if (!hasId || !hasModel ||
-            idElement.ValueKind != JsonValueKind.String ||
-            modelElement.ValueKind != JsonValueKind.String)
-        {
-            return false;
-        }
-
-        var id = idElement.GetString();
-        var model = modelElement.GetString();
-        if (string.IsNullOrWhiteSpace(id) || string.IsNullOrWhiteSpace(model))
+            !TryDecodeString(idElement, out var id) ||
+            !TryDecodeString(modelElement, out var model) ||
+            string.IsNullOrWhiteSpace(id) ||
+            string.IsNullOrWhiteSpace(model))
         {
             return false;
         }
@@ -371,10 +524,16 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
         out string? error)
     {
         error = null;
-        if (!response.TryGetProperty("candidates", out var candidates) || candidates.ValueKind != JsonValueKind.Array)
+        if (!response.TryGetProperty("candidates", out var candidates))
         {
             return true;
         }
+        if (candidates.ValueKind != JsonValueKind.Array)
+        {
+            error = "gemini-response-shape-invalid";
+            return false;
+        }
+
         var items = candidates.EnumerateArray().ToArray();
         if (items.Length != 1)
         {
@@ -382,11 +541,20 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
             return false;
         }
         var candidate = items[0];
-        if (candidate.TryGetProperty("finishReason", out var finishElement) && finishElement.ValueKind == JsonValueKind.String)
+        if (candidate.ValueKind != JsonValueKind.Object)
         {
-            var observed = finishElement.GetString();
+            error = "gemini-response-shape-invalid";
+            return false;
+        }
+
+        if (candidate.TryGetProperty("finishReason", out var finishElement))
+        {
+            if (!TryDecodeString(finishElement, out var observed) || string.IsNullOrWhiteSpace(observed))
+            {
+                error = "gemini-response-shape-invalid";
+                return false;
+            }
             if (!string.IsNullOrWhiteSpace(finishReason) &&
-                !string.IsNullOrWhiteSpace(observed) &&
                 !string.Equals(finishReason, observed, StringComparison.Ordinal))
             {
                 error = "gemini-finish-reason-changed";
@@ -395,26 +563,57 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
             finishReason = observed;
         }
 
-        if (!candidate.TryGetProperty("content", out var content) || content.ValueKind != JsonValueKind.Object ||
-            !content.TryGetProperty("parts", out var parts) || parts.ValueKind != JsonValueKind.Array)
+        if (!candidate.TryGetProperty("content", out var content))
         {
             return true;
         }
+        if (content.ValueKind != JsonValueKind.Object)
+        {
+            error = "gemini-response-shape-invalid";
+            return false;
+        }
+        if (!content.TryGetProperty("parts", out var parts))
+        {
+            return true;
+        }
+        if (parts.ValueKind != JsonValueKind.Array)
+        {
+            error = "gemini-response-shape-invalid";
+            return false;
+        }
+
         foreach (var part in parts.EnumerateArray())
         {
-            if (part.ValueKind != JsonValueKind.Object ||
-                part.TryGetProperty("thoughtSignature", out _) ||
-                (part.TryGetProperty("thought", out var thought) && thought.ValueKind == JsonValueKind.True))
+            if (part.ValueKind != JsonValueKind.Object)
+            {
+                error = "gemini-response-shape-invalid";
+                return false;
+            }
+            if (part.TryGetProperty("thoughtSignature", out _))
             {
                 error = "gemini-thought-material-returned";
                 return false;
             }
-            if (!part.TryGetProperty("text", out var text) || text.ValueKind != JsonValueKind.String)
+            if (part.TryGetProperty("thought", out var thought))
+            {
+                if (thought.ValueKind is not JsonValueKind.True and not JsonValueKind.False)
+                {
+                    error = "gemini-response-shape-invalid";
+                    return false;
+                }
+                if (thought.ValueKind == JsonValueKind.True)
+                {
+                    error = "gemini-thought-material-returned";
+                    return false;
+                }
+            }
+            if (!part.TryGetProperty("text", out var text) ||
+                !TryDecodeString(text, out var decodedText))
             {
                 error = "gemini-nontext-part-returned";
                 return false;
             }
-            target.Append(text.GetString());
+            target.Append(decodedText);
         }
         return true;
     }
@@ -470,6 +669,51 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
         return element.ValueKind == JsonValueKind.Number &&
                element.TryGetInt64(out value) &&
                value >= 0;
+    }
+
+    private static bool TryDecodeString(JsonElement element, out string? value)
+    {
+        value = null;
+        if (element.ValueKind != JsonValueKind.String)
+        {
+            return false;
+        }
+
+        try
+        {
+            value = element.GetString();
+        }
+        catch (InvalidOperationException)
+        {
+            return false;
+        }
+        catch (JsonException)
+        {
+            return false;
+        }
+
+        return value is not null && IsWellFormedUtf16(value);
+    }
+
+    private static bool IsWellFormedUtf16(string value)
+    {
+        for (var index = 0; index < value.Length; index++)
+        {
+            var current = value[index];
+            if (char.IsHighSurrogate(current))
+            {
+                if (index + 1 >= value.Length || !char.IsLowSurrogate(value[index + 1]))
+                {
+                    return false;
+                }
+                index++;
+            }
+            else if (char.IsLowSurrogate(current))
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     private HttpRequestMessage CreateRequest(Uri uri, byte[] body)
