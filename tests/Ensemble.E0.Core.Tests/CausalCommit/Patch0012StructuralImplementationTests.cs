@@ -26,8 +26,6 @@ public sealed class Patch0012StructuralImplementationTests
         Assert.AreEqual(state.SceneId, checkpoint.SceneId);
         Assert.AreEqual(state.CurrentOpportunityCharacterId!.Value, checkpoint.CurrentOpportunityCharacterId);
 
-        // Reflection is test plumbing here: the frozen contract requires retention of
-        // the exact immutable source-state reference, but does not freeze a private field name.
         var stateFields = typeof(ProductionStateCheckpoint)
             .GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
             .Where(field => field.FieldType == typeof(ProductionState))
@@ -279,8 +277,6 @@ public sealed class Patch0012StructuralImplementationTests
         ProductionState source,
         string identity)
     {
-        // Reflection is test plumbing to construct an otherwise-unrepresentable invalid
-        // parent state. No private field or constructor parameter name is part of the assertion.
         var projectionMember = typeof(ProductionState)
             .GetMembers(BindingFlags.Instance | BindingFlags.NonPublic)
             .OfType<PropertyInfo>()
@@ -313,9 +309,6 @@ public sealed class Patch0012StructuralImplementationTests
         E0Take take,
         E0RecordMaterializationSet materializations)
     {
-        // The forged cases are rejected before result-hash verification. Supplying the
-        // same source hash for every StateHash constructor slot lets this plumbing bind
-        // by parameter type rather than private constructor declaration order.
         var constructor = typeof(E0CausalCommit)
             .GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic)
             .Single(candidate =>
@@ -345,23 +338,27 @@ public sealed class Patch0012StructuralImplementationTests
         E0Take take,
         E0RecordMaterializationSet materializations)
     {
-        // The exact canonical payload is frozen. Reflection is only plumbing to reach
-        // the internal serializer; its private owner/method name is intentionally not frozen.
         var method = typeof(ProductionState).Assembly
             .GetTypes()
             .Where(type => string.Equals(type.Namespace, "Ensemble.E0.Core.CausalCommit", StringComparison.Ordinal))
             .SelectMany(type => type.GetMethods(BindingFlags.Static | BindingFlags.NonPublic))
             .Single(candidate =>
             {
-                var parameters = candidate.GetParameters().Select(parameter => parameter.ParameterType).ToArray();
+                var types = candidate.GetParameters().Select(parameter => parameter.ParameterType).ToArray();
                 return candidate.ReturnType == typeof(byte[]) &&
-                       parameters.SequenceEqual(new[]
-                       {
-                           typeof(CommitId),
-                           typeof(E0Take),
-                           typeof(E0RecordMaterializationSet)
-                       });
+                       types.Length == 3 &&
+                       types.Contains(typeof(CommitId)) &&
+                       types.Contains(typeof(E0Take)) &&
+                       types.Contains(typeof(E0RecordMaterializationSet));
             });
-        return (byte[])method.Invoke(null, new object[] { commitId, take, materializations })!;
+        var arguments = method.GetParameters()
+            .Select(parameter =>
+                parameter.ParameterType == typeof(CommitId)
+                    ? (object)commitId
+                    : parameter.ParameterType == typeof(E0Take)
+                        ? take
+                        : materializations)
+            .ToArray();
+        return (byte[])method.Invoke(null, arguments)!;
     }
 }
