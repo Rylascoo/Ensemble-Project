@@ -6,6 +6,7 @@ namespace Ensemble.E0.Harness.Evidence;
 
 internal sealed record E0ARuntimeSealVerification(
     string RuntimeRoot,
+    string RuntimeSealIdentity,
     byte[] RunFinalBytes,
     string TerminalStatus,
     int AcceptedTurns,
@@ -38,6 +39,18 @@ internal static class E0AEvidenceSealAuthority
     {
         var canonical = string.Concat(digests.Select(x => $"{x.Path}\0{x.Hash}\n"));
         return PreparedRoleAttempt.LowerSha256(Encoding.UTF8.GetBytes(canonical));
+    }
+
+    internal static string RuntimeSealIdentity(string runtimeRoot, ReadOnlySpan<byte> runtimeSummaryBytes)
+    {
+        if (!IsLowerHex(runtimeRoot, 64) || runtimeSummaryBytes.IsEmpty)
+        {
+            throw new E0AHarnessException("E0-A runtime seal identity inputs are invalid.");
+        }
+
+        var summaryHash = PreparedRoleAttempt.LowerSha256(runtimeSummaryBytes);
+        return PreparedRoleAttempt.LowerSha256(
+            Encoding.UTF8.GetBytes($"{runtimeRoot}\n{summaryHash}"));
     }
 
     internal static object RuntimeSummary(
@@ -74,10 +87,12 @@ internal static class E0AEvidenceSealAuthority
             throw new E0AHarnessException("E0-A runtime evidence is not sealed.");
         }
 
-        var summary = ReadRuntimeSummary(File.ReadAllBytes(summaryPath));
+        var summaryBytes = File.ReadAllBytes(summaryPath);
+        var summary = ReadRuntimeSummary(summaryBytes);
         var runFinalBytes = File.ReadAllBytes(runFinalPath);
         var digests = RuntimeDigests(root);
         var recomputedRoot = RootDigest(digests);
+        var expectedSealIdentity = RuntimeSealIdentity(recomputedRoot, summaryBytes);
 
         try
         {
@@ -89,12 +104,13 @@ internal static class E0AEvidenceSealAuthority
                 !ReadExactString(final, "runtimeRoot", out var recordedRoot) ||
                 !IsLowerHex(recordedRoot, 64) ||
                 !string.Equals(recordedRoot, recomputedRoot, StringComparison.Ordinal) ||
+                !ReadExactString(final, "runtimeSealIdentity", out var recordedSealIdentity) ||
+                !IsLowerHex(recordedSealIdentity, 64) ||
+                !string.Equals(recordedSealIdentity, expectedSealIdentity, StringComparison.Ordinal) ||
                 !ReadExactString(final, "terminalStatus", out var terminalStatus) ||
                 !ReadExactInt32(final, "acceptedTurns", out var acceptedTurns) ||
                 !ReadExactDecimal(final, "estimatedSpendUsd", out var estimatedSpendUsd) ||
-                !ReadExactString(final, "spendEstimateStatus", out var spendStatusName) ||
-                !Enum.TryParse<E0ASpendEstimateStatus>(spendStatusName, ignoreCase: false, out var spendStatus) ||
-                !Enum.IsDefined(spendStatus) ||
+                !ReadSpendEstimateStatus(final, "spendEstimateStatus", out var spendStatus) ||
                 !ReadExactBoolean(final, "hasUnknownProviderUsage", out var hasUnknownProviderUsage) ||
                 !ReadExactString(final, "finalStateHash", out var finalStateHash) ||
                 !ReadExactString(final, "finalOpportunityCharacterId", out var finalOpportunityCharacterId) ||
@@ -116,6 +132,7 @@ internal static class E0AEvidenceSealAuthority
 
             return new E0ARuntimeSealVerification(
                 recordedRoot!,
+                recordedSealIdentity!,
                 runFinalBytes,
                 terminalStatus!,
                 acceptedTurns,
@@ -135,8 +152,7 @@ internal static class E0AEvidenceSealAuthority
     {
         ValidateEvaluation(evaluation);
 
-        // First verification performs all external/runtime decoding before any
-        // evaluation artifact is created.
+        // Validate all runtime/external decoding before any evaluation artifact exists.
         _ = VerifyRuntime(root);
 
         var evaluationDirectory = Path.Combine(root, "evaluation");
@@ -168,9 +184,9 @@ internal static class E0AEvidenceSealAuthority
                 throw new E0AHarnessException("E0-A evaluation evidence is write-once.");
             }
 
-            // A hard-gates file without the authoritative evaluation seal is an
-            // interrupted prior publication, not an endorsed result. Holding the
-            // lock makes cleanup deterministic and retryable.
+            // A hard-gates file without evaluation.final is an interrupted prior
+            // publication, not an endorsed result. Holding the lock makes cleanup
+            // deterministic and retryable.
             if (File.Exists(hardGatesPath))
             {
                 File.Delete(hardGatesPath);
@@ -182,6 +198,7 @@ internal static class E0AEvidenceSealAuthority
             {
                 contract = EvaluationSealContract,
                 runtimeRoot = runtime.RuntimeRoot,
+                runtimeSealIdentity = runtime.RuntimeSealIdentity,
                 runFinalSha256 = PreparedRoleAttempt.LowerSha256(runtime.RunFinalBytes),
                 hardGatesSha256 = PreparedRoleAttempt.LowerSha256(hardGateBytes),
                 passed = evaluation.Passed
@@ -240,9 +257,7 @@ internal static class E0AEvidenceSealAuthority
                 acceptedTurns is < 0 or > E0ARunEnvelope.AcceptedTurnCap ||
                 !ReadExactDecimal(root, "estimatedSpendUsd", out var estimatedSpendUsd) ||
                 estimatedSpendUsd < 0m ||
-                !ReadExactString(root, "spendEstimateStatus", out var spendStatusName) ||
-                !Enum.TryParse<E0ASpendEstimateStatus>(spendStatusName, ignoreCase: false, out var spendStatus) ||
-                !Enum.IsDefined(spendStatus) ||
+                !ReadSpendEstimateStatus(root, "spendEstimateStatus", out var spendStatus) ||
                 !ReadExactBoolean(root, "hasUnknownProviderUsage", out var hasUnknownProviderUsage) ||
                 !ReadExactString(root, "finalStateHash", out var finalStateHash) ||
                 !IsLowerHex(finalStateHash, 64) ||
@@ -253,6 +268,7 @@ internal static class E0AEvidenceSealAuthority
             }
 
             return new E0ARuntimeSealVerification(
+                string.Empty,
                 string.Empty,
                 Array.Empty<byte>(),
                 terminalStatus!,
@@ -361,6 +377,33 @@ internal static class E0AEvidenceSealAuthority
         }
         value = element.GetBoolean();
         return true;
+    }
+
+    private static bool ReadSpendEstimateStatus(
+        JsonElement root,
+        string name,
+        out E0ASpendEstimateStatus status)
+    {
+        status = default;
+        if (!ReadExactString(root, name, out var value))
+        {
+            return false;
+        }
+
+        status = value switch
+        {
+            nameof(E0ASpendEstimateStatus.WithinVerifiedPricingAssumptions) =>
+                E0ASpendEstimateStatus.WithinVerifiedPricingAssumptions,
+            nameof(E0ASpendEstimateStatus.OutsideVerifiedInputTier) =>
+                E0ASpendEstimateStatus.OutsideVerifiedInputTier,
+            nameof(E0ASpendEstimateStatus.UnrepresentableReportedUsage) =>
+                E0ASpendEstimateStatus.UnrepresentableReportedUsage,
+            _ => default
+        };
+        return value is
+            nameof(E0ASpendEstimateStatus.WithinVerifiedPricingAssumptions) or
+            nameof(E0ASpendEstimateStatus.OutsideVerifiedInputTier) or
+            nameof(E0ASpendEstimateStatus.UnrepresentableReportedUsage);
     }
 
     private static bool IsWellFormedUnicode(string value)
