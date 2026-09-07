@@ -1,3 +1,4 @@
+using System.Text;
 using Ensemble.E0.Core.Fixture;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -18,5 +19,15 @@ public sealed class StrictJsonPreflightTests
         var bytes = new byte[E0FixtureDialect.MaxFixtureBytes + 1];
 
         Assert.Throws<FixtureValidationException>(() => StrictJsonPreflight.Validate(bytes));
+    }
+
+    [TestMethod]
+    public void EscapedUnpairedSurrogatePropertyName_FailsThroughSanitizedFixtureBoundary()
+    {
+        var bytes = Encoding.UTF8.GetBytes("{\"\\uD800\":\"value\"}");
+
+        var exception = Assert.Throws<FixtureValidationException>(() => StrictJsonPreflight.Validate(bytes));
+
+        Assert.AreEqual("Fixture contains an invalid JSON property name.", exception.Message);
     }
 }
