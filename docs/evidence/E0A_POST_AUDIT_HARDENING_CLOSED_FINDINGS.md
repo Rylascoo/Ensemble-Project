@@ -220,7 +220,9 @@ Patch Group 4 is the third remaining implementation group after Patch Group 1; t
 
 - Patch Group 1 — E-01/E-02: **IMPLEMENTED; RECURSIVE STATIC AUDIT COMPLETE**. Executable/test checkpoint `171881c1247e1c466fec6abd3e92335a055eb4f2`.
 - Patch Group 2 — E-03/E-07: **IMPLEMENTED; RECURSIVE STATIC AUDIT COMPLETE**. Executable/test checkpoint `f37cb8ec41e50d50aba027286326a10677db1040`. Evidence: `docs/evidence/E0A_POST_AUDIT_HARDENING_PATCH_GROUP_2_IMPLEMENTATION.md`.
-- Patch Group 3 — E-06/P-02/P-05: **NEXT; NOT YET IMPLEMENTED IN THIS PROGRESS ENTRY**.
+- Patch Group 3 — E-06/P-02/P-05: **IMPLEMENTED; RECURSIVE STATIC AUDIT COMPLETE**. Executable/test checkpoint `c3a6846d267ce3f93a3e80a297057d4a7a14d99d`. Evidence: `docs/evidence/E0A_POST_AUDIT_HARDENING_PATCH_GROUP_3_IMPLEMENTATION.md`.
+- Patch Group 4 — I-02/I-03/I-04/P-04: **IMPLEMENTED; RECURSIVE STATIC AUDIT COMPLETE**. Executable/test checkpoint `2a55319820587b63da13377a775150b90c24b107`. Evidence: `docs/evidence/E0A_POST_AUDIT_HARDENING_PATCH_GROUP_4_IMPLEMENTATION.md`.
+- Patch Group 5 — E-04/E-05/I-05: **NEXT**.
 - Grouped native Windows ARM64 validation: **PENDING AFTER ALL AUTHORIZED GROUPS**.
 
 ## Final regression-gap obligations
