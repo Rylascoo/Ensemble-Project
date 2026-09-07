@@ -61,9 +61,33 @@ internal sealed record E0APricingAssumptions(
         if (InputUsdPerMillionTokens <= 0m ||
             CachedInputUsdPerMillionTokens < 0m ||
             OutputUsdPerMillionTokens <= 0m ||
-            CachedInputUsdPerMillionTokens > InputUsdPerMillionTokens)
+            CachedInputUsdPerMillionTokens > InputUsdPerMillionTokens ||
+            !HasRepresentableSingleTokenCost(InputUsdPerMillionTokens) ||
+            !HasRepresentableSingleTokenCost(OutputUsdPerMillionTokens) ||
+            (CachedInputUsdPerMillionTokens > 0m &&
+             !HasRepresentableSingleTokenCost(CachedInputUsdPerMillionTokens)) ||
+            !SupportsRepresentableUsageDomain())
         {
             throw new E0AHarnessException("E0-A pricing assumptions are invalid.");
+        }
+    }
+
+    private static bool HasRepresentableSingleTokenCost(decimal rate) =>
+        rate / 1_000_000m > 0m;
+
+    private bool SupportsRepresentableUsageDomain()
+    {
+        try
+        {
+            var maximumTokenCount = (decimal)long.MaxValue;
+            _ = checked(
+                (maximumTokenCount / 1_000_000m * InputUsdPerMillionTokens) +
+                (maximumTokenCount / 1_000_000m * OutputUsdPerMillionTokens));
+            return true;
+        }
+        catch (OverflowException)
+        {
+            return false;
         }
     }
 }
