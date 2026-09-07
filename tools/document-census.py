@@ -23,11 +23,7 @@ ARCHIVE_PREFIXES = ("docs/evidence/archive/",)
 
 def git(*args: str) -> str:
     return subprocess.check_output(
-        ["git", *args],
-        cwd=ROOT,
-        text=True,
-        encoding="utf-8",
-        errors="strict",
+        ["git", *args], cwd=ROOT, text=True, encoding="utf-8", errors="strict"
     ).strip()
 
 
@@ -37,16 +33,20 @@ def tracked_paths() -> list[str]:
 
 
 def inventory(paths: list[str]) -> list[str]:
-    wanted = []
-    for path in paths:
-        if path in {"README.md", "CURRENT_STATE.md"} or path.startswith("docs/"):
-            if path not in GENERATED_OUTPUTS:
-                wanted.append(path)
-    return sorted(wanted)
+    return sorted(
+        path
+        for path in paths
+        if (path in {"README.md", "CURRENT_STATE.md"} or path.startswith("docs/"))
+        and path not in GENERATED_OUTPUTS
+    )
 
 
 def is_archive(path: str) -> bool:
     return path.startswith(ARCHIVE_PREFIXES)
+
+
+def is_active_evidence(path: str) -> bool:
+    return path.startswith("docs/evidence/") and not is_archive(path)
 
 
 def read_text(path: str) -> str | None:
@@ -61,9 +61,10 @@ def last_commit(path: str) -> str:
 
 
 def split_sources(sources: list[str]) -> tuple[list[str], list[str]]:
-    active = [source for source in sources if not is_archive(source)]
-    archive = [source for source in sources if is_archive(source)]
-    return active, archive
+    return (
+        [source for source in sources if not is_archive(source)],
+        [source for source in sources if is_archive(source)],
+    )
 
 
 def build() -> dict[str, object]:
@@ -85,8 +86,7 @@ def build() -> dict[str, object]:
     entries = []
     for path in docs:
         full_sources = sorted(
-            source
-            for source, text in text_sources.items()
+            source for source, text in text_sources.items()
             if source != path and path in text
         )
         active_full_sources, archive_full_sources = split_sources(full_sources)
@@ -95,41 +95,38 @@ def build() -> dict[str, object]:
         basename_sources: list[str] = []
         if basenames[name] == 1:
             basename_sources = sorted(
-                source
-                for source, text in text_sources.items()
+                source for source, text in text_sources.items()
                 if source != path and name in text and source not in full_sources
             )
         active_basename_sources, archive_basename_sources = split_sources(basename_sources)
 
         raw = (ROOT / path).read_bytes()
         text = raw.decode("utf-8")
-        entries.append(
-            {
-                "path": path,
-                "surface": "archive" if is_archive(path) else "active",
-                "bytes": len(raw),
-                "lines": len(text.splitlines()),
-                "last_commit": last_commit(path),
-                "reference_source_excluded": path in REFERENCE_EXCLUDED,
-                "inbound_exact_path_count": len(full_sources),
-                "inbound_exact_path_sources": full_sources,
-                "inbound_active_exact_path_count": len(active_full_sources),
-                "inbound_active_exact_path_sources": active_full_sources,
-                "inbound_archive_exact_path_count": len(archive_full_sources),
-                "inbound_archive_exact_path_sources": archive_full_sources,
-                "inbound_unique_basename_count": len(basename_sources),
-                "inbound_unique_basename_sources": basename_sources,
-                "inbound_active_unique_basename_count": len(active_basename_sources),
-                "inbound_active_unique_basename_sources": active_basename_sources,
-                "inbound_archive_unique_basename_count": len(archive_basename_sources),
-                "inbound_archive_unique_basename_sources": archive_basename_sources,
-            }
-        )
+        entries.append({
+            "path": path,
+            "surface": "archive" if is_archive(path) else "active",
+            "bytes": len(raw),
+            "lines": len(text.splitlines()),
+            "last_commit": last_commit(path),
+            "reference_source_excluded": path in REFERENCE_EXCLUDED,
+            "inbound_exact_path_count": len(full_sources),
+            "inbound_exact_path_sources": full_sources,
+            "inbound_active_exact_path_count": len(active_full_sources),
+            "inbound_active_exact_path_sources": active_full_sources,
+            "inbound_archive_exact_path_count": len(archive_full_sources),
+            "inbound_archive_exact_path_sources": archive_full_sources,
+            "inbound_unique_basename_count": len(basename_sources),
+            "inbound_unique_basename_sources": basename_sources,
+            "inbound_active_unique_basename_count": len(active_basename_sources),
+            "inbound_active_unique_basename_sources": active_basename_sources,
+            "inbound_archive_unique_basename_count": len(archive_basename_sources),
+            "inbound_archive_unique_basename_sources": archive_basename_sources,
+        })
 
     active = [entry for entry in entries if entry["surface"] == "active"]
     archive = [entry for entry in entries if entry["surface"] == "archive"]
     return {
-        "schema": "ensemble.repository-document-census.v3",
+        "schema": "ensemble.repository-document-census.v4",
         "head": git("rev-parse", "HEAD"),
         "inventory_count": len(entries),
         "active_inventory_count": len(active),
@@ -139,12 +136,16 @@ def build() -> dict[str, object]:
     }
 
 
-def is_archive_candidate(entry: dict[str, object]) -> bool:
+def has_no_active_reference(entry: dict[str, object]) -> bool:
     return (
         entry["surface"] == "active"
         and entry["inbound_active_exact_path_count"] == 0
         and entry["inbound_active_unique_basename_count"] == 0
     )
+
+
+def is_archive_candidate(entry: dict[str, object]) -> bool:
+    return is_active_evidence(str(entry["path"])) and has_no_active_reference(entry)
 
 
 def print_summary(report: dict[str, object]) -> None:
@@ -153,12 +154,17 @@ def print_summary(report: dict[str, object]) -> None:
     active = [entry for entry in entries if entry["surface"] == "active"]
     archive = [entry for entry in entries if entry["surface"] == "archive"]
     candidates = [entry for entry in active if is_archive_candidate(entry)]
+    unreferenced_other = [
+        entry for entry in active
+        if has_no_active_reference(entry) and not is_archive_candidate(entry)
+    ]
     print(f"DOCUMENT_CENSUS_HEAD\t{report['head']}")
     print(f"DOCUMENT_CENSUS_SCHEMA\t{report['schema']}")
     print(f"DOCUMENT_CENSUS_INVENTORY\t{report['inventory_count']}")
     print(f"DOCUMENT_CENSUS_ACTIVE\t{len(active)}")
     print(f"DOCUMENT_CENSUS_ARCHIVE\t{len(archive)}")
-    print(f"DOCUMENT_CENSUS_ARCHIVE_CANDIDATES\t{len(candidates)}")
+    print(f"DOCUMENT_CENSUS_EVIDENCE_ARCHIVE_CANDIDATES\t{len(candidates)}")
+    print(f"DOCUMENT_CENSUS_UNREFERENCED_OTHER\t{len(unreferenced_other)}")
     for entry in active:
         path = str(entry["path"])
         if path.startswith("docs/evidence/"):
@@ -172,7 +178,9 @@ def print_summary(report: dict[str, object]) -> None:
                 f"{path}\t{active_sources}\t{archive_sources}"
             )
     for entry in candidates:
-        print(f"ARCHIVE_CANDIDATE\t{entry['path']}")
+        print(f"EVIDENCE_ARCHIVE_CANDIDATE\t{entry['path']}")
+    for entry in unreferenced_other:
+        print(f"UNREFERENCED_ACTIVE_DOCUMENT\t{entry['path']}")
     for entry in archive:
         print(f"ARCHIVE_DOCUMENT\t{entry['path']}")
 
