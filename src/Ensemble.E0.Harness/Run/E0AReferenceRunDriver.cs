@@ -52,7 +52,7 @@ internal sealed class E0AReferenceRunDriver
         _tokenCounter = tokenCounter ?? throw new ArgumentNullException(nameof(tokenCounter));
         _evidence = evidence ?? throw new ArgumentNullException(nameof(evidence));
         _envelope.Validate();
-        _spend = new E0ASpendLedger(_envelope.Pricing);
+        _spend = new E0ASpendLedger(_envelope.Pricing, _envelope.MaxInputTokens);
     }
 
     internal async Task<E0ARunResult> RunAsync(
@@ -365,7 +365,9 @@ internal sealed class E0AReferenceRunDriver
         E0ASpendReservation reservation;
         try
         {
-            reservation = _spend.Reserve(inputTokens, attempt.Profile.MaxOutputTokens);
+            reservation = _spend.Reserve(
+                inputTokens,
+                E0AProviderBudgetPolicy.ReservationOutputTokens(attempt.Profile));
         }
         catch (E0ABudgetExceededException)
         {
@@ -377,6 +379,7 @@ internal sealed class E0AReferenceRunDriver
             attemptId = attempt.AttemptId,
             inputTokens = reservation.InputTokens,
             maxOutputTokens = reservation.MaxOutputTokens,
+            configuredCandidateMaxOutputTokens = attempt.Profile.MaxOutputTokens,
             reservedUsd = reservation.ReservedUsd,
             committedUsdBeforeCall = _spend.EstimatedCommittedUsd
         });
@@ -453,6 +456,22 @@ internal sealed class E0AReferenceRunDriver
 
         if (receipt.Outcome == E0ARoleAttemptOutcome.Success)
         {
+            var usageViolation = E0AProviderUsagePolicy.Violation(attempt.Profile, receipt.Usage!);
+            if (usageViolation is not null)
+            {
+                _evidence.RecordEvent("usage.policy-violation", new
+                {
+                    attemptId = attempt.AttemptId,
+                    code = usageViolation,
+                    inputTokens = receipt.Usage!.InputTokens,
+                    outputTokens = receipt.Usage.OutputTokens,
+                    candidateOutputTokens = receipt.Usage.OutputTokens - receipt.Usage.ReasoningTokens,
+                    reasoningTokens = receipt.Usage.ReasoningTokens,
+                    cachedInputTokens = receipt.Usage.CachedInputTokens
+                });
+                return new RoleCall(receipt, E0ARunTerminalStatus.TechnicalFailure);
+            }
+
             if (_observedModel is null)
             {
                 _observedModel = receipt.ReturnedModel;
