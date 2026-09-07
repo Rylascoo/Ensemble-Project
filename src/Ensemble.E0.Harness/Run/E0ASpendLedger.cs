@@ -75,7 +75,7 @@ internal sealed class E0ASpendLedger
             return CommitFallback(
                 reservation,
                 usageKnown: true,
-                E0ASpendEstimateStatus.OutsideVerifiedInputTier,
+                status: E0ASpendEstimateStatus.OutsideVerifiedInputTier,
                 reservationExceeded: true);
         }
 
@@ -89,7 +89,7 @@ internal sealed class E0ASpendLedger
             return CommitFallback(
                 reservation,
                 usageKnown: true,
-                E0ASpendEstimateStatus.UnrepresentableReportedUsage,
+                status: E0ASpendEstimateStatus.UnrepresentableReportedUsage,
                 reservationExceeded: true);
         }
 
@@ -109,18 +109,18 @@ internal sealed class E0ASpendLedger
             return CommitFallback(
                 reservation,
                 usageKnown: true,
-                E0ASpendEstimateStatus.UnrepresentableReportedUsage,
+                status: E0ASpendEstimateStatus.UnrepresentableReportedUsage,
                 reservationExceeded: true);
         }
 
         _estimatedCommittedUsd = nextCommitted;
         ClearReservation();
         return new E0ASpendReconciliation(
-            estimated,
+            EstimatedUsd: estimated,
             UsageKnown: true,
-            E0ASpendEstimateStatus.WithinVerifiedPricingAssumptions,
-            reservationExceeded,
-            _estimatedCommittedUsd > E0ARunEnvelope.EstimatedSpendCeilingUsd);
+            EstimateStatus: E0ASpendEstimateStatus.WithinVerifiedPricingAssumptions,
+            ReservationExceeded: reservationExceeded,
+            RunCeilingExceeded: _estimatedCommittedUsd > E0ARunEnvelope.EstimatedSpendCeilingUsd);
     }
 
     internal E0ASpendReconciliation CommitUnknown(E0ASpendReservation reservation)
@@ -142,11 +142,11 @@ internal sealed class E0ASpendLedger
         _estimatedCommittedUsd = nextCommitted;
         ClearReservation();
         return new E0ASpendReconciliation(
-            reservation.ReservedUsd,
+            EstimatedUsd: reservation.ReservedUsd,
             UsageKnown: false,
-            _estimateStatus,
+            EstimateStatus: _estimateStatus,
             ReservationExceeded: false,
-            _estimatedCommittedUsd > E0ARunEnvelope.EstimatedSpendCeilingUsd);
+            RunCeilingExceeded: _estimatedCommittedUsd > E0ARunEnvelope.EstimatedSpendCeilingUsd);
     }
 
     internal void Release(E0ASpendReservation reservation)
@@ -177,17 +177,16 @@ internal sealed class E0ASpendLedger
         _estimatedCommittedUsd = nextCommitted;
         ClearReservation();
         return new E0ASpendReconciliation(
-            reservation.ReservedUsd,
-            usageKnown,
-            status,
-            reservationExceeded,
-            _estimatedCommittedUsd > E0ARunEnvelope.EstimatedSpendCeilingUsd);
+            EstimatedUsd: reservation.ReservedUsd,
+            UsageKnown: usageKnown,
+            EstimateStatus: status,
+            ReservationExceeded: reservationExceeded,
+            RunCeilingExceeded: _estimatedCommittedUsd > E0ARunEnvelope.EstimatedSpendCeilingUsd);
     }
 
     private void ValidateCurrent(E0ASpendReservation reservation)
     {
-        if (!_reservationActive ||
-            reservation.ReservedUsd != _reservedUsd)
+        if (!_reservationActive || reservation.ReservedUsd != _reservedUsd)
         {
             throw new E0AHarnessException("E0-A spend reservation is not current.");
         }
