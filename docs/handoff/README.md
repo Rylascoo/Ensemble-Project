@@ -6,4 +6,8 @@ The H1 implementation handoffs were removed from the active tree during end-of-H
 
 Historical evidence may still name an old `docs/handoff/...` path because that path existed at the recorded checkpoint. Resolve such references through repository history rather than treating them as current implementation guidance.
 
-There is **no active implementation handoff at this checkpoint**. Fresh engineering work starts by reading `CURRENT_STATE.md` and resolving current `main`. A future handoff is active only when current repository authority explicitly identifies it as the live transition artifact.
+The current live transition artifact is:
+
+- `docs/handoff/E0A_POST_ER1_FIRST_REAL_GEMINI_RUN_DIRECTOR_GATE_HANDOFF_2026_09_07.md`
+
+It is live only because `CURRENT_STATE.md` identifies that exact path. It does not grant provider authorization or advance phase/validation authority. After the fresh-chat transition converges, remove the handoff from the active tree and fold durable results back into `CURRENT_STATE.md`.
