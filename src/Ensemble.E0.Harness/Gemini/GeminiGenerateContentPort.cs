@@ -185,10 +185,10 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
                     modelVersion);
             }
 
-            // Thought summaries remain outside E0-A evidence authority. Gemini 3.5
-            // may also attach an opaque thoughtSignature to otherwise semantic text;
-            // accept that metadata only for the explicitly approved 3.5 profile and
-            // strip it before diagnostic persistence.
+            // Thought summaries remain outside E0-A evidence authority. Approved
+            // Gemini 3 Flash-Lite routes may attach an opaque thoughtSignature to
+            // otherwise semantic text; accept that provider metadata only where the
+            // explicit model profile permits it and strip it before persistence.
             var thoughtDiagnostic = ThoughtMetadataDiagnostic(attempt, root);
             if (thoughtDiagnostic is not null)
             {
@@ -240,11 +240,6 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
                     modelVersion);
             }
 
-            // Streaming usage is authoritative for spend only after the full stream
-            // has been consumed. A later malformed/identity/semantic event can mean
-            // an earlier tuple was provisional. Keep the latest valid terminal tuple
-            // while reading, but any early technical return above deliberately omits
-            // usage so the hardened driver commits the full reserved fallback amount.
             if (!string.IsNullOrWhiteSpace(finishReason) &&
                 root.TryGetProperty("usageMetadata", out var usageElement))
             {
@@ -286,9 +281,9 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
         PreparedRoleAttempt attempt,
         JsonElement response)
     {
-        // Match the streaming evidence law: thought summaries are never eligible
-        // for semantic adoption. Opaque Gemini 3.5 signatures are transport metadata
-        // and are ignored rather than entering the receipt or semantic output.
+        // Thought summaries are never eligible for semantic adoption. Approved
+        // Gemini 3 opaque signatures are provider metadata and are ignored rather
+        // than entering the receipt or semantic output.
         var thoughtDiagnostic = ThoughtMetadataDiagnostic(attempt, response);
         if (thoughtDiagnostic is not null)
         {
@@ -471,10 +466,7 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
     }
 
     private static bool AllowsOpaqueThoughtSignature(PreparedRoleAttempt attempt) =>
-        string.Equals(
-            attempt.Profile.Model,
-            E0AGeminiModelCatalog.FlashLite35Minimal.Model,
-            StringComparison.Ordinal);
+        E0AGeminiModelCatalog.ForModel(attempt.Profile.Model).AllowsOpaqueThoughtSignature;
 
     private static bool ContainsExplicitThoughtMaterial(JsonElement element)
     {
