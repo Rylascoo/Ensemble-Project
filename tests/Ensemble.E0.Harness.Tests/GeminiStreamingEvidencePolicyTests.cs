@@ -105,9 +105,14 @@ public sealed class GeminiStreamingEvidencePolicyTests
         Assert.AreEqual(E0ARoleAttemptOutcome.Success, receipt.Outcome);
         CollectionAssert.AreEqual(E0ATestSupport.PerformerOutput(), receipt.StructuredOutput!);
         Assert.AreEqual(1, diagnostics.Events.Count);
-        Assert.IsFalse(diagnostics.Events[0].Contains("thoughtSignature", StringComparison.Ordinal));
+        using var diagnostic = JsonDocument.Parse(diagnostics.Events[0]);
+        var persistedPart = diagnostic.RootElement
+            .GetProperty("candidates")[0]
+            .GetProperty("content")
+            .GetProperty("parts")[0];
+        Assert.AreEqual(output, persistedPart.GetProperty("text").GetString());
+        Assert.IsFalse(persistedPart.TryGetProperty("thoughtSignature", out _));
         Assert.IsFalse(diagnostics.Events[0].Contains("c2lnbmF0dXJl", StringComparison.Ordinal));
-        Assert.IsTrue(diagnostics.Events[0].Contains(output, StringComparison.Ordinal));
     }
 
     [TestMethod]
