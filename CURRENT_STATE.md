@@ -17,9 +17,9 @@ Correction: countTokens supplies required nested `generateContentRequest.model`,
 
 Real 3.5 Lite attempt 01 at predecessor `3d6d8a7f...` is consumed/failed before a successful token count: `docs/evidence/E0A_FIRST_REAL_GEMINI_35_LITE_ATTEMPT_01_2026_09_08.md`. Attempt 02 at promoted `689655...` is consumed/failed at first Performer `countTokens`: HTTP **401 authentication rejection**, 0 accepted turns, $0 shadow spend; no successful token count, spend reservation, generation/inference, provider receipt, or fiction. Archive SHA-256 and sealed-artifact verification: `docs/evidence/E0A_SECOND_REAL_GEMINI_35_LITE_ATTEMPT_02_ARCHIVE_AUDIT_2026_09_08.md`.
 
-Supporting audits: `docs/evidence/E0A_GEMINI_RATE_DISCIPLINE_MODEL_COMPARISON_IMPLEMENTATION_AUDIT.md`; `docs/evidence/E0A_GEMINI35_THOUGHT_SIGNATURE_COMPATIBILITY_AUDIT.md`.
+Supporting audits: `docs/evidence/E0A_GEMINI_RATE_DISCIPLINE_MODEL_COMPARISON_IMPLEMENTATION_AUDIT.md`; `docs/evidence/E0A_GEMINI35_THOUGHT_SIGNATURE_COMPATIBILITY_AUDIT.md`. Real-attempt authority chain: `docs/evidence/E0A_FIRST_REAL_GEMINI_35_LITE_DIRECTOR_AUTHORIZATION_2026_09_08.md`; `docs/evidence/E0A_SECOND_REAL_GEMINI_35_LITE_DIRECTOR_AUTHORIZATION_2026_09_08.md`.
 
-No retry, third real run, 3.1/2.5 run, other fixture, fallback, or broader provider traffic is authorized. API keys must never enter repository/evidence/chat.
+No retry, third real run, 3.1/2.5 run, other fixture, fallback, or broader provider traffic is authorized. API keys must never enter repository/evidence/chat. A temporary `AQ.`-format test key was pasted into chat after attempt 02 and is now treated as compromised; it must be revoked and never used for provider traffic.
 
 ## Next
-**Credential/account authentication investigation only.** Verify in AI Studio that the replacement key used for attempt 02 is active, belongs to the Kymaean project, and has the intended key type/restriction state. Do not issue any API request. Evidence supports no source patch at this gate; any further provider request requires new explicit Director authorization.
+**Credential/account authentication investigation only.** Revoke the exposed test key. Create any replacement key without sharing it; verify AI Studio project/status/type/restriction state and locally verify paste integrity without sending a request. Evidence supports no source patch at this gate; any further provider request requires new explicit Director authorization.
