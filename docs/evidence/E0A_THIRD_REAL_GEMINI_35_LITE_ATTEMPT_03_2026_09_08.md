@@ -1,6 +1,6 @@
 # E0-A Third Real Gemini 3.5 Flash-Lite Attempt 03 — 2026-09-08
 
-Status: **TERMINAL — TECHNICAL FAILURE — AUTHORIZATION CONSUMED — ARCHIVE AUDIT COMPLETE**
+Status: **TERMINAL — TECHNICAL FAILURE — AUTHORIZATION CONSUMED — ARCHIVE AUDIT COMPLETE — DIRECTOR RESOLUTION RECORDED**
 
 ## Authorized scope
 
@@ -55,8 +55,12 @@ The uploaded ZIP independently matched the recorded SHA-256; all seven sealed ar
 
 The same credential/header/model/method path had immediately before returned HTTP 200 for a simple `countTokens` request, so attempt 03 is not explained by credential validity or `x-goog-api-key` transport alone. The preserved full request uses currently documented GenerateContent fields, including structured JSON `responseFormat`. Google's model-specific Gemini 3.5 Flash-Lite page explicitly says structured output is supported, while Google's current general structured-output support table omits 3.5 Flash-Lite. Those official surfaces conflict. Because the provider 400 body was not retained, the exact rejected field and whether the failure is a request-feature interaction, provider validation defect, or another full-request compatibility issue remain unproven.
 
-## Authority boundary
+## Director resolution / authority boundary
 
-Provider authorization is **NONE**. No retry, fourth 3.5 Flash-Lite run, fallback, alternate model/profile run, authentication probe, or other provider traffic is authorized.
+Director decision: `docs/evidence/E0A_GEMINI_PROVIDER_COMPATIBILITY_DIRECTOR_DECISION_2026_09_08.md`.
 
-The 3.5 Flash-Lite live profile remains live-compatibility unproven pending Director resolution; it is not classified as generally incapable of structured output. Any source diagnostic improvement requires normal source/native validation before use.
+Gemini 3.5 Flash-Lite live execution is **PAUSED**. The bounded provider-error diagnostic / request-compatibility engineering amendment is **AUTHORIZED**. Gemini 3.1 Flash-Lite provider execution is **DEFERRED** until that amendment is designed, implemented, audited, and machine-validated.
+
+Provider authorization remains **NONE**. No retry, fourth 3.5 Flash-Lite run, fallback, alternate model/profile run, authentication probe, credential use, `countTokens`, generation/inference, spend, or other provider traffic is authorized by this decision.
+
+The 3.5 Flash-Lite profile remains **frozen-request live compatibility unproven**; it is not classified as generally incapable of structured output. Any source change requires normal cloud/native Windows ARM64 validation and a new annotated validation tag before future provider use.
