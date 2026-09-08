@@ -6,7 +6,7 @@ Ensemble is a local-first generative theater and creative simulation for persist
 
 ## Current development state
 
-Blueprint 0.1 is frozen for E0. The runtime phase is **E0-A Phase B**. E-R1 repository/tooling/workflow restructuring is **closed and archived**. The approved Gemini Free-tier RPD/model-selection amendment is now native-validated and promoted at its exact tagged Windows ARM64 checkout; the current consequential gate is the separately authorized first real synthetic Gemini 3.5 Flash-Lite reference run. H1 Phase A is **CLOSED**.
+Blueprint 0.1 is frozen for E0. The runtime phase is **E0-A Phase B**. E-R1 repository/tooling/workflow restructuring is **closed and archived**. The approved Gemini Free-tier RPD/model-selection amendment is native-validated and promoted at its exact tagged Windows ARM64 checkout. The single authorized first real synthetic Gemini 3.5 Flash-Lite attempt has been consumed and terminated with a technical failure before any accepted turn; the current consequential gate is audit of its preserved evidence archive, with no retry authorized. H1 Phase A is **CLOSED**.
 
 `README.md` never carries phase authority; `CURRENT_STATE.md` is the only phase source.
 
