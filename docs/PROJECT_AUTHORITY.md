@@ -28,6 +28,7 @@ GitHub is the canonical engineering workspace. Changes should be patch-first and
 - `docs/HYPOTHESIS_LEDGER.md` records explicitly unverified assumptions and their verification triggers. A hypothesis never becomes a decision or fact merely by being listed.
 - `docs/evidence/archive/` preserves historical provenance. Archive references do not establish current authority for active evidence.
 - `docs/handoff/README.md` defines temporary handoff semantics. A handoff is live only when `CURRENT_STATE.md` identifies its exact path.
+- `docs/EVIDENCE_LANE_CHARTER.md` defines the evidence lane's scope, standing duties, validation-rung limits, and authorship boundary. It is a measurement and falsification charter drafted outside the engineering lane; it carries no phase, ODR, design, or product authority and cannot advance the current checkpoint.
 
 For repository-document hygiene, `CURRENT_STATE.md` and this file are the durable authority-graph roots. Any document intended to carry continuing current authority must derive that role through explicit references from those roots or their reachable descendants. Historical/support documents may remain outside that graph when their non-authoritative role is clear; `docs/DOCUMENT_INDEX.md` may aid navigation but cannot confer authority reachability. Active evidence remains subject to the stricter fail-closed reachability rule enforced by CI.
 
