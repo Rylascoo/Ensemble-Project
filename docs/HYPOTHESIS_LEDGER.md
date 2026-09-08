@@ -24,11 +24,13 @@ Falsifier: the real provider rejects or semantically contradicts the approved re
 
 Hypothesis: the Director-selected Free-tier project and replacement key can access the selected comparison model and required `countTokens` / generation routes within the approved E0-A envelope at execution time.
 
-Current evidence: Director-supplied AI Studio account UI on 2026-09-07 established the intended project as Free tier and displayed active model limits of 10 RPM / 250,000 input TPM for Gemini 2.5 Flash-Lite, 15 RPM / 250,000 input TPM for Gemini 3.5 Flash-Lite, and 5 RPM / 250,000 input TPM for Gemini 2.5 Flash. The previously exposed key was replaced. RPD was not established. No provider-network access has been exercised.
+Current evidence: Director-supplied AI Studio account UI on 2026-09-07 established the intended project as Free tier, replacement key creation, and the current quota matrix. Approved-profile rows are: Gemini 2.5 Flash-Lite 10 RPM / 250,000 input TPM / 20 RPD; Gemini 3.5 Flash-Lite 15 RPM / 250,000 input TPM / 500 RPD; Gemini 2.5 Flash 5 RPM / 250,000 input TPM / 20 RPD. The same account surface exposes Gemini 3.1 Flash-Lite as an unapproved candidate at 15 RPM / 250,000 input TPM / 500 RPD. No provider-network access has been exercised.
 
-Verification trigger: immediately before any authorized real provider request.
+The RPD evidence materially narrows this hypothesis: either approved 2.5 Free-tier route cannot guarantee completion of a maximum 12-turn reference run because three generation calls per accepted turn imply up to 36 generation requests, exceeding 20 RPD before unresolved `countTokens` RPD treatment is considered. The 500-RPD Flash-Lite rows do not have that single-run RPD blocker.
 
-Falsifier: replacement-key association/type, model availability, RPD, quota, tier, region/project configuration, or provider account constraints do not satisfy the selected route.
+Verification trigger: immediately before any authorized real provider request and after any model-set amendment.
+
+Falsifier: replacement-key association/type, model availability, quota, tier, region/project configuration, or provider account constraints do not satisfy the selected route.
 
 ### HYP-003 — Current pricing and data-use state
 
@@ -52,11 +54,11 @@ Falsifier: observed provider responses cannot be reconciled with the approved ac
 
 ### HYP-005 — `countTokens` quota accounting
 
-Hypothesis: Google may or may not charge `models.countTokens(generateContentRequest)` against the same project request-rate bucket used by generation; current authoritative provider documentation does not establish an exemption or shared-bucket rule strongly enough for the E0-A gate.
+Hypothesis: Google may or may not charge `models.countTokens(generateContentRequest)` against the same project request-rate and/or daily request buckets used by generation; current authoritative provider documentation does not establish an exemption or shared-bucket rule strongly enough for the E0-A gate.
 
 Current evidence: no live quota experiment and no authoritative provider statement resolving the relationship.
 
-Current engineering disposition: the Harness conservatively rate-paces every Gemini API-bound operation, including `countTokens`, while applying exact rolling input-TPM discipline to generation from the preceding token count. This is a fail-closed implementation choice, not evidence that Google actually counts `countTokens` against generation RPM.
+Current engineering disposition: the Harness conservatively rate-paces every Gemini API-bound operation, including `countTokens`, while applying exact rolling input-TPM discipline to generation from the preceding token count. This is a fail-closed implementation choice, not evidence that Google actually counts `countTokens` against generation RPM or RPD.
 
 Verification trigger: authoritative provider clarification or separately authorized live evidence that can distinguish the quota behavior without weakening other E0-A controls.
 
@@ -64,4 +66,4 @@ Falsifier/narrowing evidence: authoritative or empirical evidence establishes th
 
 ## Closed or deferred matters that are not hypotheses
 
-The following are decisions or scope gates and must not be reclassified as assumptions: Gemini remains the sole current E0-A provider method; historical OpenAI executable support is retired; the three named arm/profile pairings are approved for implementation/comparison planning; **no real comparison run is currently authorized**; real provider credentials/network/inference/spend require a separate Director gate after native validation; Free-tier live experiments are synthetic-fixture-only; .NET 10 requires later Director approval; GitHub plan-dependent branch protection is deferred; Stage remains design-lane authority.
+The following are decisions or scope gates and must not be reclassified as assumptions: Gemini remains the sole current E0-A provider method; historical OpenAI executable support is retired; the three named arm/profile pairings remain the currently approved implementation set until amended; **no real comparison run is currently authorized**; Free-tier live experiments are synthetic-fixture-only; .NET 10 requires later Director approval; GitHub plan-dependent branch protection is deferred; Stage remains design-lane authority.
