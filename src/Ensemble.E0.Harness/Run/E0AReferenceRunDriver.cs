@@ -80,7 +80,7 @@ internal sealed class E0AReferenceRunDriver
             opportunityCharacterId = state.ProductionState.CurrentOpportunityCharacterId!.Value.Value
         });
 
-        for (var turn = 1; turn <= E0ARunEnvelope.AcceptedTurnCap; turn++)
+        for (var turn = 1; turn <= _envelope.RunAcceptedTurnCap; turn++)
         {
             if (cancellationToken.IsCancellationRequested)
             {
