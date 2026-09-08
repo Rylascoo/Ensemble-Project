@@ -15,9 +15,11 @@ Architecture: RPD/model-selection amendment `docs/blueprint/E0A_PHASE_B_GEMINI_F
 
 `countTokens` nested-model/diagnostic correction is promoted; later docs do not inherit native authority.
 
-Attempt 01 at `3d6d8a7f...` is consumed/failed before successful token count. Attempt 02 at promoted `689655...` is consumed/failed at first Performer `countTokens`: HTTP **401**, 0 accepted turns, $0 shadow spend, no generation/inference. Audit: `docs/evidence/E0A_SECOND_REAL_GEMINI_35_LITE_ATTEMPT_02_ARCHIVE_AUDIT_2026_09_08.md`.
+Attempt 01 at `3d6d8a7f...` is consumed/failed before successful token count: `docs/evidence/E0A_FIRST_REAL_GEMINI_35_LITE_ATTEMPT_01_2026_09_08.md`. Attempt 02 at promoted `689655...` is consumed/failed at first Performer `countTokens`: HTTP **401**, 0 accepted turns, $0 shadow spend, no generation/inference. Audit: `docs/evidence/E0A_SECOND_REAL_GEMINI_35_LITE_ATTEMPT_02_ARCHIVE_AUDIT_2026_09_08.md`.
 
 External Director diagnostic: a new `AQ.` auth key successfully reached `gemini-3.6-flash:generateContent` via `?key=`. Evidence: `docs/evidence/E0A_GEMINI_AUTH_KEY_EXTERNAL_DIAGNOSTIC_2026_09_08.md`. That exposed key is compromised and must be revoked/never reused.
+
+Supporting audits: `docs/evidence/E0A_GEMINI_RATE_DISCIPLINE_MODEL_COMPARISON_IMPLEMENTATION_AUDIT.md`; `docs/evidence/E0A_GEMINI35_THOUGHT_SIGNATURE_COMPATIBILITY_AUDIT.md`.
 
 ## Authorized live diagnostic
 Director authorization: `docs/evidence/E0A_GEMINI_AUTH_TRANSPORT_DIFFERENTIAL_DIRECTOR_AUTHORIZATION_2026_09_08.md`.
