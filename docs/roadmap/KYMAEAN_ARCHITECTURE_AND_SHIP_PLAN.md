@@ -2,9 +2,9 @@
 
 Status: **ACTIVE PROGRAM MAP — Proposal 0.7 dependency laws, maintained after H1 Phase A; NOT PATCH IMPLEMENTATION AUTHORITY**
 
-Maintained: 2026-09-05
+Maintained: 2026-09-08
 
-Current authority checkpoint: `main` after H1 Patch 0018 and `docs/evidence/H1_CONVERGENCE_AUDIT.md`.
+Current engineering checkpoint and exact next action are owned exclusively by `CURRENT_STATE.md` at the active exact ref. This program map preserves dependency order and durable laws; it does not restate volatile checkpoint truth.
 
 Purpose: preserve the dependency-ordered engineering path from Ensemble E0 through a native ARM64 Kymaean Microsoft Store release without allowing exploratory code, UI work, provider APIs, Windows capabilities, release tooling, or legacy donors to become accidental fictional/domain authority.
 
@@ -16,7 +16,7 @@ This maintenance revision changes no frozen Blueprint 0.1 law and authorizes no 
 
 Kymaean is the shipping identity of Ensemble:
 
-> A local-first generative theater and creative simulation for persistent characters. The creator establishes people, circumstances, knowledge, relationships, possibilities, and pressures. AI performers portray those characters. A Director manages attention and opportunities to act. Accepted performances become causal history, and authoritative consequences alter what future scenes can mean.
+> A local-first generative theater and creative simulation for persistent characters. The creator establishes people, circumstances, knowledge, relationships, possibilities and pressures. AI performers portray those characters. A Director manages attention and opportunities to act. Accepted performances become causal history, and authoritative consequences alter what future scenes can mean.
 
 The current product is not the shelved DeskShifter/Kymaean Workspace/Routines/wallpaper domain. Legacy repositories and Drive material are donor/reference sources only.
 
@@ -85,9 +85,9 @@ WinUI, Windows AI/ML/NPU, package APIs, secrets, ordinary settings, power/memory
 
 ---
 
-## 4. Current position — H1 Phase A closed
+## 4. H1 Phase A closure baseline
 
-Current deterministic spine through Patch 0018:
+The deterministic spine closed through Patch 0018:
 
 ```text
 Fixture/domain
@@ -120,9 +120,9 @@ Director-machine native Windows ARM64 authority for Patch 0018 observed:
 - Missing Raft PASS;
 - generic smoke PASS.
 
-Phase A exit is satisfied: one canonical deterministic path reaches a valid postcommit state and then an explicit synchronized next Opportunity-bearing state; technical/cancel/retry/review paths cannot become fiction; Core requires no provider SDK; convergence found no justified executable deletion.
+Phase A exit was satisfied: one canonical deterministic path reaches a valid postcommit state and then an explicit synchronized next Opportunity-bearing state; technical/cancel/retry/review paths cannot become fiction; Core requires no provider SDK; convergence found no justified executable deletion.
 
-Still unproven/unimplemented:
+At H1 closure, the following later-program proofs remained outside that closure boundary:
 
 - real provider execution and request/attempt/result provenance;
 - deterministic run-level retry/spend/cancellation orchestration;
@@ -144,7 +144,7 @@ Authority: Patch 0018 + `H1_CONVERGENCE_AUDIT.md`.
 
 No further H1 deterministic patch is justified unless E0-A falsifies an existing seam.
 
-### B — Complete the E0-A experimental Harness — **CURRENT PHASE**
+### B — Complete the E0-A experimental Harness
 
 Goal: the smallest real system capable of frozen Same-Model Isolated Cast.
 
@@ -374,17 +374,11 @@ Complete already-authorized coupled work before returning; do not fragment work 
 
 ---
 
-## 15. Immediate next action
+## 15. Current-action boundary
 
-Do not jump to WinUI, persistence, local AI/NPU, packaging, or Store work.
+Do not jump to WinUI, persistence, local AI/NPU, packaging, or Store work while an earlier dependency remains active.
 
-Current objective:
-
-> blueprint the smallest Phase-B E0-A Harness boundary that introduces real provider execution/provenance outside Core while reusing the closed H1 Cycle/Turn state machine unchanged.
-
-The architecture must resolve provider-neutral run/attempt evidence, deterministic retry/spend/cancellation authority, exact Context disclosure attribution, RunId ownership, provisional output separation, and the boundary where a specific official reference provider/model adapter plugs in.
-
-Actual provider/model selection, credentials, network calls, and spend remain consequential experimental/runtime gates unless already established by authoritative project evidence.
+The exact current engineering objective, provider authorization, validation boundary, and next action are read only from `CURRENT_STATE.md` at the active exact ref. This program map intentionally does not duplicate them.
 
 ---
 
