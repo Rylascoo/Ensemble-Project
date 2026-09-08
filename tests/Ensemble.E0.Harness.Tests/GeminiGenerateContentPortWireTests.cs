@@ -58,7 +58,7 @@ public sealed class GeminiGenerateContentPortWireTests
     }
 
     [TestMethod]
-    public async Task CountTokens_ProjectsExactGenerateContentRequestAndUsesApiKeyHeader()
+    public async Task CountTokens_AddsRequiredNestedModelPreservesGenerationFieldsAndUsesApiKeyHeader()
     {
         var handler = new QueueResponseHandler(JsonResponse("{\"totalTokens\":37}"));
         using var http = new HttpClient(handler);
@@ -74,11 +74,41 @@ public sealed class GeminiGenerateContentPortWireTests
         var request = handler.Requests[0];
         StringAssert.Contains(request.Uri, "/v1beta/models/gemini-2.5-flash:countTokens");
         Assert.AreEqual("gemini-test-key", request.ApiKey);
+        using var original = JsonDocument.Parse(attempt.RequestBody);
         using var sent = JsonDocument.Parse(request.Body);
         var projected = sent.RootElement.GetProperty("generateContentRequest");
+        Assert.IsFalse(original.RootElement.TryGetProperty("model", out _));
+        Assert.AreEqual("models/gemini-2.5-flash", projected.GetProperty("model").GetString());
         Assert.AreEqual(
-            PreparedRoleAttempt.LowerSha256(attempt.RequestBody),
-            PreparedRoleAttempt.LowerSha256(JsonSerializer.SerializeToUtf8Bytes(projected)));
+            original.RootElement.EnumerateObject().Count() + 1,
+            projected.EnumerateObject().Count());
+        foreach (var property in original.RootElement.EnumerateObject())
+        {
+            Assert.IsTrue(projected.TryGetProperty(property.Name, out var projectedProperty));
+            Assert.AreEqual(
+                PreparedRoleAttempt.LowerSha256(JsonSerializer.SerializeToUtf8Bytes(property.Value)),
+                PreparedRoleAttempt.LowerSha256(JsonSerializer.SerializeToUtf8Bytes(projectedProperty)));
+        }
+    }
+
+    [TestMethod]
+    public async Task CountTokens_NonSuccessExposesOnlyBoundedHttpDiagnostic()
+    {
+        var handler = new QueueResponseHandler(new HttpResponseMessage(HttpStatusCode.BadRequest)
+        {
+            Content = new StringContent("provider body must not escape", Encoding.UTF8, "application/json")
+        });
+        using var http = new HttpClient(handler);
+        var port = new GeminiGenerateContentPort(http, "gemini-test-key");
+        var envelope = E0AReferenceRunHost.CreateEnvelope("CREATIVE-NONE");
+        var context = DeterministicE0CausalCycle.ComposeContext(E0ATestSupport.Cycle()).ContextEvaluation.Packet;
+        var attempt = E0ARequestBuilder.Performer(RunId.From("E0A-GEMINI-COUNT-400"), 1, envelope.Performer, context);
+
+        var exception = await Assert.ThrowsAsync<E0AHarnessException>(() =>
+            port.CountInputTokensAsync(attempt, CancellationToken.None));
+
+        Assert.AreEqual("gemini-counttokens-http-400", exception.Message);
+        Assert.IsFalse(exception.Message.Contains("provider body", StringComparison.Ordinal));
     }
 
     [TestMethod]

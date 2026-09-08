@@ -368,13 +368,14 @@ internal sealed class E0AReferenceRunDriver
                 null,
                 external ? E0ARunTerminalStatus.Cancelled : E0ARunTerminalStatus.TechnicalFailure);
         }
-        catch (E0AHarnessException)
+        catch (E0AHarnessException exception)
         {
             preflightClock.Stop();
             _evidence.RecordEvent("preflight.failed", new
             {
                 attemptId = attempt.AttemptId,
                 code = "input-token-count-failed",
+                providerDiagnostic = BoundedCountTokensDiagnostic(exception.Message),
                 elapsedMs = preflightClock.Elapsed.TotalMilliseconds
             });
             return new RoleCall(null, E0ARunTerminalStatus.TechnicalFailure);
@@ -573,6 +574,24 @@ internal sealed class E0AReferenceRunDriver
             _ => throw new E0AHarnessException("E0-A provider outcome is invalid.")
         };
         return new RoleCall(receipt, terminal);
+    }
+
+    private static string? BoundedCountTokensDiagnostic(string message)
+    {
+        if (string.Equals(message, "gemini-counttokens-response-invalid", StringComparison.Ordinal) ||
+            string.Equals(message, "gemini-counttokens-transport", StringComparison.Ordinal))
+        {
+            return message;
+        }
+
+        const string prefix = "gemini-counttokens-http-";
+        if (!message.StartsWith(prefix, StringComparison.Ordinal) ||
+            !int.TryParse(message[prefix.Length..], out var status) ||
+            status is < 100 or > 599)
+        {
+            return null;
+        }
+        return $"{prefix}{status}";
     }
 
     private void RecordSpendReconciliation(

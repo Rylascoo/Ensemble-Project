@@ -63,4 +63,93 @@ public sealed class GeminiRunDriverPolicyTests
             }
         }
     }
+
+    [TestMethod]
+    public async Task CountTokensHttpFailure_RecordsBoundedDiagnosticAndStopsBeforeProvider()
+    {
+        var root = E0ATestSupport.TempRunRoot();
+        try
+        {
+            var runId = RunId.From("E0A-GEMINI-COUNT-HTTP-DIAGNOSTIC");
+            var state = E0ATestSupport.Genesis();
+            var envelope = E0AReferenceRunHost.CreateEnvelope("CREATIVE-NONE");
+            var provider = new ScriptedProvider((attempt, _) =>
+                RoleAttemptReceipt.TechnicalFailure(attempt, "must-not-run"));
+            var evidence = E0ATestSupport.Evidence(root, runId, envelope, state);
+            var driver = new E0AReferenceRunDriver(
+                envelope,
+                provider,
+                new ThrowingTokenCounter("gemini-counttokens-http-400"),
+                evidence);
+
+            var result = await driver.RunAsync(runId, state, CancellationToken.None);
+
+            Assert.AreEqual(E0ARunTerminalStatus.TechnicalFailure, result.Status);
+            Assert.AreEqual(0, result.AcceptedTurns);
+            Assert.AreEqual(0, provider.Calls);
+            var events = File.ReadAllText(Path.Combine(root, "events.ndjson"));
+            Assert.IsTrue(events.Contains("\"code\":\"input-token-count-failed\"", StringComparison.Ordinal));
+            Assert.IsTrue(events.Contains("\"providerDiagnostic\":\"gemini-counttokens-http-400\"", StringComparison.Ordinal));
+            Assert.IsFalse(events.Contains("spend.reserved", StringComparison.Ordinal));
+            Assert.IsFalse(events.Contains("provider.completed", StringComparison.Ordinal));
+        }
+        finally
+        {
+            if (Directory.Exists(root))
+            {
+                Directory.Delete(root, recursive: true);
+            }
+        }
+    }
+
+    [TestMethod]
+    public async Task CountTokensFailure_DoesNotPersistUnapprovedExceptionText()
+    {
+        var root = E0ATestSupport.TempRunRoot();
+        try
+        {
+            const string unsafeText = "secret-provider-body-must-not-persist";
+            var runId = RunId.From("E0A-GEMINI-COUNT-DIAGNOSTIC-BOUNDARY");
+            var state = E0ATestSupport.Genesis();
+            var envelope = E0AReferenceRunHost.CreateEnvelope("CREATIVE-NONE");
+            var provider = new ScriptedProvider((attempt, _) =>
+                RoleAttemptReceipt.TechnicalFailure(attempt, "must-not-run"));
+            var evidence = E0ATestSupport.Evidence(root, runId, envelope, state);
+            var driver = new E0AReferenceRunDriver(
+                envelope,
+                provider,
+                new ThrowingTokenCounter(unsafeText),
+                evidence);
+
+            var result = await driver.RunAsync(runId, state, CancellationToken.None);
+
+            Assert.AreEqual(E0ARunTerminalStatus.TechnicalFailure, result.Status);
+            Assert.AreEqual(0, provider.Calls);
+            var events = File.ReadAllText(Path.Combine(root, "events.ndjson"));
+            Assert.IsTrue(events.Contains("\"providerDiagnostic\":null", StringComparison.Ordinal));
+            Assert.IsFalse(events.Contains(unsafeText, StringComparison.Ordinal));
+        }
+        finally
+        {
+            if (Directory.Exists(root))
+            {
+                Directory.Delete(root, recursive: true);
+            }
+        }
+    }
+
+    private sealed class ThrowingTokenCounter : IE0AInputTokenCounter
+    {
+        private readonly string _message;
+
+        internal ThrowingTokenCounter(string message) => _message = message;
+
+        public Task<long> CountInputTokensAsync(
+            PreparedRoleAttempt attempt,
+            CancellationToken cancellationToken)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            throw new E0AHarnessException(_message);
+        }
+    }
 }

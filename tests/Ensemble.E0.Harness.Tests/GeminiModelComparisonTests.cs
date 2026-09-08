@@ -80,7 +80,7 @@ public sealed class GeminiModelComparisonTests
     }
 
     [TestMethod]
-    public async Task GenerateContentPort_AcceptsEveryApprovedComparisonModelForExactTokenPreflight()
+    public async Task GenerateContentPort_AcceptsEveryApprovedComparisonModelForSchemaCompleteTokenPreflight()
     {
         var context = DeterministicE0CausalCycle.ComposeContext(E0ATestSupport.Cycle()).ContextEvaluation.Packet;
 
@@ -100,7 +100,22 @@ public sealed class GeminiModelComparisonTests
 
             Assert.AreEqual(7L, tokens);
             Assert.AreEqual(1, handler.Uris.Count);
+            Assert.AreEqual(1, handler.Bodies.Count);
             StringAssert.Contains(handler.Uris[0], $"/models/{profile.Model}:countTokens");
+            using var countBody = JsonDocument.Parse(handler.Bodies[0]);
+            var nested = countBody.RootElement.GetProperty("generateContentRequest");
+            Assert.AreEqual($"models/{profile.Model}", nested.GetProperty("model").GetString());
+            using var generationBody = JsonDocument.Parse(attempt.RequestBody);
+            Assert.AreEqual(
+                generationBody.RootElement.EnumerateObject().Count() + 1,
+                nested.EnumerateObject().Count());
+            foreach (var property in generationBody.RootElement.EnumerateObject())
+            {
+                Assert.IsTrue(nested.TryGetProperty(property.Name, out var nestedProperty));
+                Assert.AreEqual(
+                    PreparedRoleAttempt.LowerSha256(JsonSerializer.SerializeToUtf8Bytes(property.Value)),
+                    PreparedRoleAttempt.LowerSha256(JsonSerializer.SerializeToUtf8Bytes(nestedProperty)));
+            }
         }
     }
 
@@ -214,17 +229,21 @@ public sealed class GeminiModelComparisonTests
     private sealed class CapturingTokenHandler : HttpMessageHandler
     {
         internal List<string> Uris { get; } = new();
+        internal List<byte[]> Bodies { get; } = new();
 
-        protected override Task<HttpResponseMessage> SendAsync(
+        protected override async Task<HttpResponseMessage> SendAsync(
             HttpRequestMessage request,
             CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
             Uris.Add(request.RequestUri!.ToString());
-            return Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK)
+            Bodies.Add(request.Content is null
+                ? Array.Empty<byte>()
+                : await request.Content.ReadAsByteArrayAsync(cancellationToken));
+            return new HttpResponseMessage(HttpStatusCode.OK)
             {
                 Content = new StringContent("{\"totalTokens\":7}", Encoding.UTF8, "application/json")
-            });
+            };
         }
     }
 

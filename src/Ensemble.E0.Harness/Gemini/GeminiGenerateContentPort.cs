@@ -45,15 +45,12 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
                 throw new E0AHarnessException("E0-A Gemini prepared request body is invalid.");
             }
 
-            var body = JsonSerializer.SerializeToUtf8Bytes(new Dictionary<string, object?>
-            {
-                ["generateContentRequest"] = source.RootElement.Clone()
-            });
+            var body = CountTokensRequestBody(attempt, source.RootElement);
             using var request = CreateRequest(ModelUri(attempt.Profile.Model, "countTokens"), body);
             using var response = await _http.SendAsync(request, HttpCompletionOption.ResponseContentRead, cancellationToken).ConfigureAwait(false);
             if (!response.IsSuccessStatusCode)
             {
-                throw new E0AHarnessException("E0-A Gemini input-token preflight failed.");
+                throw new E0AHarnessException($"gemini-counttokens-http-{(int)response.StatusCode}");
             }
 
             var bytes = await response.Content.ReadAsByteArrayAsync(cancellationToken).ConfigureAwait(false);
@@ -63,7 +60,7 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
                 count.ValueKind != JsonValueKind.Number ||
                 !count.TryGetInt64(out var tokens) || tokens < 0)
             {
-                throw new E0AHarnessException("E0-A Gemini input-token response is invalid.");
+                throw new E0AHarnessException("gemini-counttokens-response-invalid");
             }
             return tokens;
         }
@@ -75,9 +72,13 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
         {
             throw;
         }
-        catch (Exception exception) when (exception is HttpRequestException or IOException or JsonException)
+        catch (Exception exception) when (exception is HttpRequestException or IOException)
         {
-            throw new E0AHarnessException("E0-A Gemini input-token preflight failed.");
+            throw new E0AHarnessException("gemini-counttokens-transport");
+        }
+        catch (JsonException)
+        {
+            throw new E0AHarnessException("gemini-counttokens-response-invalid");
         }
     }
 
@@ -762,6 +763,31 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
             }
         }
         return true;
+    }
+
+    private static byte[] CountTokensRequestBody(PreparedRoleAttempt attempt, JsonElement source)
+    {
+        if (source.ValueKind != JsonValueKind.Object || source.TryGetProperty("model", out _))
+        {
+            throw new E0AHarnessException("E0-A Gemini prepared request body is invalid for token preflight.");
+        }
+
+        using var stream = new MemoryStream();
+        using (var writer = new Utf8JsonWriter(stream))
+        {
+            writer.WriteStartObject();
+            writer.WritePropertyName("generateContentRequest");
+            writer.WriteStartObject();
+            writer.WriteString("model", $"models/{attempt.Profile.Model}");
+            foreach (var property in source.EnumerateObject())
+            {
+                writer.WritePropertyName(property.Name);
+                property.Value.WriteTo(writer);
+            }
+            writer.WriteEndObject();
+            writer.WriteEndObject();
+        }
+        return stream.ToArray();
     }
 
     private HttpRequestMessage CreateRequest(Uri uri, byte[] body)
