@@ -10,13 +10,14 @@ This index helps a fresh engineering chat find the small set of current entry su
 2. `docs/PROJECT_AUTHORITY.md` — source-of-truth order and lane ownership.
 3. `docs/ENGINEERING_HYGIENE_CONSTITUTION.md` — engineering, repository-surface, and artifact-lifecycle law.
 4. `docs/PROJECT_REASONING_TASK_SCOPE_OPTIMIZATION_PROTOCOL.md` — engineering collaboration/work-scope law.
-5. `docs/handoff/E0A_POST_ER1_FIRST_REAL_GEMINI_RUN_DIRECTOR_GATE_HANDOFF_2026_09_07.md` — temporary live transition named by current authority; currently points to the Gemini comparison native-validation gate.
+5. No temporary handoff is active; current durable continuity is fully carried by `CURRENT_STATE.md` and the current surfaces below.
 
 ## Current E0-A architecture
 
 - `docs/blueprint/E0A_PHASE_B_REFERENCE_RUN_ENVELOPE.md`
 - `docs/blueprint/E0A_PHASE_B_GEMINI_NORMATIVE_REFERENCE_AMENDMENT.md`
 - `docs/blueprint/E0A_PHASE_B_GEMINI_RATE_DISCIPLINE_MODEL_COMPARISON_AMENDMENT.md`
+- `docs/blueprint/E0A_PHASE_B_GEMINI_FREE_TIER_RPD_MODEL_SELECTION_AMENDMENT.md`
 
 These remain subject to `CURRENT_STATE.md`; this index does not independently mark a phase or checkpoint active.
 
@@ -24,8 +25,10 @@ These remain subject to `CURRENT_STATE.md`; this index does not independently ma
 
 - `docs/VALIDATION_LEDGER.md` — promoted validation facts and durable tags; cannot advance project state.
 - `docs/HYPOTHESIS_LEDGER.md` — current unverified/narrowed Gemini assumptions and verification triggers; never a decision source.
-- `docs/evidence/E0A_GEMINI_RATE_DISCIPLINE_MODEL_COMPARISON_IMPLEMENTATION_AUDIT.md` — current comparison implementation/cloud-compiler evidence; native validation remains pending.
-- `docs/evidence/E0A_PRE_RESTRUCTURE_CLOSURE_NATIVE_ARM64_VALIDATION.md` — current promoted historical native machine-test evidence.
+- `docs/evidence/E0A_GEMINI_FREE_TIER_RPD_MODEL_SELECTION_IMPLEMENTATION_AUDIT.md` — current RPD/model-selection source/test implementation and cloud-compiler evidence; fresh native validation pending.
+- `docs/evidence/E0A_GEMINI_COMPARISON_NATIVE_ARM64_VALIDATION_2026_09_07.md` — current promoted Windows ARM64 machine-test evidence for the predecessor comparison executable.
+- `docs/evidence/E0A_GEMINI_RATE_DISCIPLINE_MODEL_COMPARISON_IMPLEMENTATION_AUDIT.md` — predecessor comparison implementation audit still supporting current architecture history.
+- `docs/evidence/E0A_GEMINI35_THOUGHT_SIGNATURE_COMPATIBILITY_AUDIT.md` — Gemini 3 signature compatibility evidence inherited and generalized by the RPD amendment.
 - `docs/evidence/DIRECTOR_WINDOWS_ARM64_VALIDATION_HOST_BEHAVIORS.md` — Director-host validation apparatus contract.
 
 ## Program / product decision surfaces
