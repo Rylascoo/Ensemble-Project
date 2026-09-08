@@ -16,6 +16,18 @@ REFERENCE_EXCLUDED = GENERATED_OUTPUTS
 AUTHORITY_ROOTS = ("CURRENT_STATE.md", "docs/PROJECT_AUTHORITY.md")
 ARCHIVE_PREFIXES = ("docs/evidence/archive/",)
 HISTORICAL_GLOBS = ("docs/BRANCH_ARCHIVE_*.md", "docs/blueprint/H1_PATCH_*.md")
+HISTORICAL_EXACT = {
+    "docs/E_R1_REPOSITORY_TOOLING_WORKFLOW_RESTRUCTURE.md",
+    "docs/evidence/E0A_FIRST_REAL_GEMINI_35_LITE_ATTEMPT_01_2026_09_08.md",
+    "docs/evidence/E0A_FIRST_REAL_GEMINI_35_LITE_DIRECTOR_AUTHORIZATION_2026_09_08.md",
+    "docs/evidence/E0A_GEMINI_AUTH_KEY_EXTERNAL_DIAGNOSTIC_2026_09_08.md",
+    "docs/evidence/E0A_GEMINI_RATE_DISCIPLINE_MODEL_COMPARISON_IMPLEMENTATION_AUDIT.md",
+    "docs/evidence/E0A_PRE_RESTRUCTURE_CLOSURE_NATIVE_ARM64_VALIDATION.md",
+    "docs/evidence/E0A_SECOND_REAL_GEMINI_35_LITE_ATTEMPT_02_2026_09_08.md",
+    "docs/evidence/E0A_SECOND_REAL_GEMINI_35_LITE_ATTEMPT_02_ARCHIVE_AUDIT_2026_09_08.md",
+    "docs/evidence/E0A_SECOND_REAL_GEMINI_35_LITE_DIRECTOR_AUTHORIZATION_2026_09_08.md",
+    "docs/evidence/E_R1_REPOSITORY_TOOLING_WORKFLOW_RESTRUCTURE_EVIDENCE.md",
+}
 
 
 def git(*args: str) -> str:
@@ -40,7 +52,7 @@ def is_archive(path: str) -> bool:
 
 
 def is_historical(path: str) -> bool:
-    return any(fnmatch.fnmatch(path, pattern) for pattern in HISTORICAL_GLOBS)
+    return path in HISTORICAL_EXACT or any(fnmatch.fnmatch(path, pattern) for pattern in HISTORICAL_GLOBS)
 
 
 def surface_for(path: str) -> str:
