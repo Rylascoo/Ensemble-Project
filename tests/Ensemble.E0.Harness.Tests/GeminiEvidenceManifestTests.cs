@@ -11,7 +11,7 @@ namespace Ensemble.E0.Harness.Tests;
 public sealed class GeminiEvidenceManifestTests
 {
     [TestMethod]
-    public void Manifest_BindsGeminiAmendmentTransportShadowPricingAndThinkingBudgets()
+    public void Manifest_BindsGeminiComparisonTransportShadowPricingThinkingAndQuota()
     {
         var root = E0ATestSupport.TempRunRoot();
         try
@@ -35,8 +35,9 @@ public sealed class GeminiEvidenceManifestTests
                 E0AEvidenceContracts.GeminiApprovedAmendmentCommit,
                 manifest.GetProperty("approvedBlueprintCommit").GetString());
             Assert.AreEqual(
-                "E0A-GEMINI-NORMATIVE-2026-09-06:CREATIVE-NONE",
+                $"E0A-GEMINI-COMPARISON-2026-09-07:CREATIVE-NONE:{E0AGeminiModelCatalog.Flash25NoneId}",
                 manifest.GetProperty("referenceConfigurationIdentity").GetString());
+            Assert.AreEqual(E0AGeminiModelCatalog.Flash25NoneId, manifest.GetProperty("providerProfileId").GetString());
 
             var pricing = manifest.GetProperty("pricing");
             Assert.AreEqual(E0AGeminiPricingPolicy.SourceUri, pricing.GetProperty("sourceUri").GetString());
@@ -62,11 +63,17 @@ public sealed class GeminiEvidenceManifestTests
             Assert.IsFalse(transport.GetProperty("explicitCacheObject").GetBoolean());
             Assert.IsTrue(transport.GetProperty("implicitCachingProviderManaged").GetBoolean());
             Assert.AreEqual(E0AGeminiProviderPolicy.IntendedGeneratedTokenCeiling, transport.GetProperty("intendedGeneratedTokenCeiling").GetInt32());
+            Assert.AreEqual(E0AGeminiModelCatalog.Flash25NoneId, transport.GetProperty("providerProfileId").GetString());
+            Assert.AreEqual(5, transport.GetProperty("requestsPerMinute").GetInt32());
+            Assert.AreEqual(250_000L, transport.GetProperty("inputTokensPerMinute").GetInt64());
+            Assert.AreEqual("unverified-pre-live", transport.GetProperty("requestsPerDay").GetString());
             Assert.IsFalse(transport.TryGetProperty("promptCacheMode", out _));
 
             var roles = manifest.GetProperty("roles").EnumerateArray().ToArray();
             Assert.AreEqual(3, roles.Length);
+            Assert.AreEqual("Budget", roles[0].GetProperty("thinkingControl").GetString());
             Assert.AreEqual(0, roles[0].GetProperty("thinkingBudgetTokens").GetInt32());
+            Assert.AreEqual(JsonValueKind.Null, roles[0].GetProperty("thinkingLevel").ValueKind);
             Assert.AreEqual(E0ARunEnvelope.RoleMaxOutputTokens, roles[0].GetProperty("maxOutputTokens").GetInt32());
             Assert.AreEqual(E0AGeminiProviderPolicy.IntegrityThinkingBudgetTokens, roles[1].GetProperty("thinkingBudgetTokens").GetInt32());
             Assert.AreEqual(E0ARunEnvelope.RoleMaxOutputTokens, roles[1].GetProperty("maxOutputTokens").GetInt32());
