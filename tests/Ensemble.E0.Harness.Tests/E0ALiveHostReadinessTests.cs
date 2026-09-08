@@ -17,8 +17,8 @@ public sealed class E0ALiveHostReadinessTests
         object[] expected =
         {
             "https://ai.google.dev/gemini-api/docs/pricing",
-            "2026-09-06",
-            "2026-09-13",
+            "2026-09-07",
+            "2026-09-14",
             0.30m,
             0.03m,
             2.50m,
@@ -46,9 +46,9 @@ public sealed class E0ALiveHostReadinessTests
     [TestMethod]
     public void GeminiPricingPolicy_FailsClosedAfterShortExperimentalSnapshot()
     {
-        E0AGeminiPricingPolicy.RequireNonStaleSnapshot(new DateTimeOffset(2026, 9, 13, 23, 59, 59, TimeSpan.Zero));
+        E0AGeminiPricingPolicy.RequireNonStaleSnapshot(new DateTimeOffset(2026, 9, 14, 23, 59, 59, TimeSpan.Zero));
         Assert.Throws<E0AHarnessException>(() =>
-            E0AGeminiPricingPolicy.RequireNonStaleSnapshot(new DateTimeOffset(2026, 9, 14, 0, 0, 0, TimeSpan.Zero)));
+            E0AGeminiPricingPolicy.RequireNonStaleSnapshot(new DateTimeOffset(2026, 9, 15, 0, 0, 0, TimeSpan.Zero)));
     }
 
     [TestMethod]
@@ -67,11 +67,12 @@ public sealed class E0ALiveHostReadinessTests
     }
 
     [TestMethod]
-    public void LiveHost_ExposesOnlyApprovedGeminiNormativeVariant()
+    public void LiveHost_HistoricalHelperRemainsGemini25FlashAnchor()
     {
         var none = E0AReferenceRunHost.CreateEnvelope("CREATIVE-NONE");
 
         Assert.AreEqual("CREATIVE-NONE", none.Variant);
+        Assert.AreEqual(E0AGeminiModelCatalog.Flash25NoneId, none.ProviderProfileId);
         Assert.AreEqual(E0AGeminiProviderPolicy.Provider, none.Performer.Provider);
         Assert.AreEqual(E0AGeminiProviderPolicy.Model, none.Performer.Model);
         Assert.AreEqual(E0AReasoningLevel.None, none.Performer.Reasoning);
@@ -84,6 +85,45 @@ public sealed class E0ALiveHostReadinessTests
         Assert.Throws<E0AHarnessException>(() => E0AReferenceRunHost.CreateEnvelope("CREATIVE-MEDIUM"));
         Assert.Throws<E0AHarnessException>(() => E0AReferenceRunHost.CreateEnvelope("CREATIVE-HIGH"));
         Assert.Throws<E0AHarnessException>(() => E0AReferenceRunHost.CreateEnvelope("CREATIVE-XHIGH"));
+    }
+
+    [TestMethod]
+    public void LiveHost_ExposesOnlyApprovedArmProfilePairings()
+    {
+        var lite25 = E0AReferenceRunHost.CreateEnvelope(
+            "CREATIVE-NONE",
+            E0AGeminiModelCatalog.FlashLite25NoneId);
+        var lite35 = E0AReferenceRunHost.CreateEnvelope(
+            "CREATIVE-MINIMAL",
+            E0AGeminiModelCatalog.FlashLite35MinimalId);
+        var flash25 = E0AReferenceRunHost.CreateEnvelope(
+            "CREATIVE-NONE",
+            E0AGeminiModelCatalog.Flash25NoneId);
+
+        Assert.AreEqual("gemini-2.5-flash-lite", lite25.Performer.Model);
+        Assert.AreEqual(10, lite25.ModelProfile.RequestsPerMinute);
+        Assert.AreEqual(250_000L, lite25.ModelProfile.InputTokensPerMinute);
+        Assert.AreEqual(E0AReasoningLevel.None, lite25.Performer.Reasoning);
+
+        Assert.AreEqual("gemini-3.5-flash-lite", lite35.Performer.Model);
+        Assert.AreEqual(15, lite35.ModelProfile.RequestsPerMinute);
+        Assert.AreEqual(250_000L, lite35.ModelProfile.InputTokensPerMinute);
+        Assert.AreEqual(E0AReasoningLevel.Minimal, lite35.Performer.Reasoning);
+        Assert.AreEqual("minimal", E0AGeminiProviderPolicy.ThinkingLevel(lite35.Performer));
+        Assert.AreEqual("high", E0AGeminiProviderPolicy.ThinkingLevel(lite35.Integrity));
+
+        Assert.AreEqual("gemini-2.5-flash", flash25.Performer.Model);
+        Assert.AreEqual(5, flash25.ModelProfile.RequestsPerMinute);
+
+        Assert.Throws<E0AHarnessException>(() => E0AReferenceRunHost.CreateEnvelope(
+            "CREATIVE-NONE",
+            E0AGeminiModelCatalog.FlashLite35MinimalId));
+        Assert.Throws<E0AHarnessException>(() => E0AReferenceRunHost.CreateEnvelope(
+            "CREATIVE-MINIMAL",
+            E0AGeminiModelCatalog.FlashLite25NoneId));
+        Assert.Throws<E0AHarnessException>(() => E0AReferenceRunHost.CreateEnvelope(
+            "CREATIVE-NONE",
+            "UNAPPROVED-MODEL"));
     }
 
     [TestMethod]
@@ -103,6 +143,18 @@ public sealed class E0ALiveHostReadinessTests
     }
 
     [TestMethod]
+    public void Gemini35Budget_ReservesEveryRoleAgainstPublishedModelOutputLimit()
+    {
+        var envelope = E0AReferenceRunHost.CreateEnvelope(
+            "CREATIVE-MINIMAL",
+            E0AGeminiModelCatalog.FlashLite35MinimalId);
+
+        Assert.AreEqual(envelope.ModelProfile.ModelOutputTokenLimit, E0AProviderBudgetPolicy.ReservationOutputTokens(envelope.Performer));
+        Assert.AreEqual(envelope.ModelProfile.ModelOutputTokenLimit, E0AProviderBudgetPolicy.ReservationOutputTokens(envelope.Integrity));
+        Assert.AreEqual(envelope.ModelProfile.ModelOutputTokenLimit, E0AProviderBudgetPolicy.ReservationOutputTokens(envelope.Interpreter));
+    }
+
+    [TestMethod]
     public void GeminiUsagePolicy_FailsClosedOnThinkingCacheAndGeneratedOverrun()
     {
         var envelope = E0AReferenceRunHost.CreateEnvelope("CREATIVE-NONE");
@@ -118,6 +170,23 @@ public sealed class E0ALiveHostReadinessTests
         Assert.AreEqual(
             "gemini-generated-token-overrun",
             E0AProviderUsagePolicy.Violation(envelope.Integrity, new E0AUsage(100, 4097, 0, 3584, 0)));
+    }
+
+    [TestMethod]
+    public void Gemini35MinimalUsage_AllowsObservedThinkingOnlyWithinCombinedCeiling()
+    {
+        var envelope = E0AReferenceRunHost.CreateEnvelope(
+            "CREATIVE-MINIMAL",
+            E0AGeminiModelCatalog.FlashLite35MinimalId);
+
+        Assert.IsNull(E0AProviderUsagePolicy.Violation(
+            envelope.Performer,
+            new E0AUsage(100, 110, 0, 10, 0)));
+        Assert.AreEqual(
+            "gemini-generated-token-overrun",
+            E0AProviderUsagePolicy.Violation(
+                envelope.Performer,
+                new E0AUsage(100, 4097, 0, 10, 0)));
     }
 
     [TestMethod]
@@ -232,7 +301,7 @@ public sealed class E0ALiveHostReadinessTests
                 new E0AHardGateEvaluation(
                     E0AEvidenceContracts.HardGateChecklistVersion,
                     "DIRECTOR",
-                    "MANUAL-BLIND-HARD-GATE-REVIEW",
+                    "METHOD",
                     true,
                     Array.Empty<string>())));
             Assert.IsFalse(File.Exists(Path.Combine(root, "evaluation", "hard-gates.json")));
