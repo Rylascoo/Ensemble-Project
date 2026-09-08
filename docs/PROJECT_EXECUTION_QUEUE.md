@@ -34,7 +34,7 @@ Updated: 2026-09-08
 
 | ID | Lane | Status | Work | Prerequisite / hard boundary | Exit / successor |
 |---|---|---|---|---|---|
-| Q-DESIGN-01 | Design Sol | ACTIVE | Prepare the separate bounded rendered-successor program proposal based on DPSC-01. | Follow `Rylascoo/Ensemble-Website/CURRENT_STATE.md`. Renderer expenditure remains stopped until candidate-construction method, budget, material-difference rule, pre-render rejection rules, and termination consequence are frozen. | Design Sol records clean recursive closure and advances only within its lane. |
+| Q-DESIGN-01 | Design Sol | ACTIVE | Continue DPSC-RSP-01 / active candidate DPSC-C01 from its exact design current state: construct the neutral current-state vector scaffold, inspect physical dependency, P3/P7/P8, corrected Harness desktop/mobile containment, then rerun full P1-P13. | `Rylascoo/Ensemble-Website/CURRENT_STATE.md` is design authority. Renderer expenditure remains zero; no renderer-visible bytes, sterile packet, or execution gate is authorized until the design lane earns them. | DPSC-C01 is cleanly rejected or advances under Design Sol's own ledger/current-state law; central queue is reconciled when that status materially changes. |
 | Q-DESIGN-02 | Design Sol | BLOCKED | Transcript-dependent Stage motion / integration decisions that require behavioral evidence. | Real blinded E0-A vs E0-E evidence as required by the design repository. | Design work resumes from its own current-state/ledger authority; no engineering queue item dictates pixels. |
 
 ## Administrative continuity
