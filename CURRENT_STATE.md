@@ -27,4 +27,6 @@ Director authorization: `docs/evidence/E0A_GEMINI_AUTH_TRANSPORT_DIFFERENTIAL_DI
 Exactly **two** real requests are authorized using one fresh unshared key: identical `gemini-3.5-flash-lite:countTokens` requests, first via `?key=`, second via `x-goog-api-key`. No generation, retries, reference run, fallback, 3.1/2.5 traffic, or other provider request. Once the first leg is attempted, do not rerun the packet. After both legs terminate, authorization returns to **NONE**.
 
 ## Next
-Run the authorized two-leg auth-transport differential, capture only bounded HTTP/token/error status, then audit the result before any source decision.
+Snapshot valid through **2026-09-14** (6 days from this update). After expiry Harness fails closed; next live run needs pricing/data-use reverification, source update, compiler + native ARM64 validation, and new Director authorization.
+
+Before network use, locally assert fresh key: `AQ.` prefix, ASCII, no surrounding whitespace, and byte-equality with a fresh AI Studio copy without printing either. Run only the authorized two-leg differential; record bounded status; audit before source decision.
