@@ -96,9 +96,9 @@ public sealed class E0ALiveHostReadinessTests
         var lite35 = E0AReferenceRunHost.CreateEnvelope(
             "CREATIVE-MINIMAL",
             E0AGeminiModelCatalog.FlashLite35MinimalId);
-        var flash25 = E0AReferenceRunHost.CreateEnvelope(
-            "CREATIVE-NONE",
-            E0AGeminiModelCatalog.Flash25NoneId);
+        var lite31 = E0AReferenceRunHost.CreateEnvelope(
+            "CREATIVE-MINIMAL",
+            E0AGeminiModelCatalog.FlashLite31MinimalId);
 
         Assert.AreEqual("gemini-2.5-flash-lite", lite25.Performer.Model);
         Assert.AreEqual(10, lite25.ModelProfile.RequestsPerMinute);
@@ -112,12 +112,22 @@ public sealed class E0ALiveHostReadinessTests
         Assert.AreEqual("minimal", E0AGeminiProviderPolicy.ThinkingLevel(lite35.Performer));
         Assert.AreEqual("high", E0AGeminiProviderPolicy.ThinkingLevel(lite35.Integrity));
 
-        Assert.AreEqual("gemini-2.5-flash", flash25.Performer.Model);
-        Assert.AreEqual(5, flash25.ModelProfile.RequestsPerMinute);
+        Assert.AreEqual("gemini-3.1-flash-lite", lite31.Performer.Model);
+        Assert.AreEqual(15, lite31.ModelProfile.RequestsPerMinute);
+        Assert.AreEqual(250_000L, lite31.ModelProfile.InputTokensPerMinute);
+        Assert.AreEqual(E0AReasoningLevel.Minimal, lite31.Performer.Reasoning);
+        Assert.AreEqual("minimal", E0AGeminiProviderPolicy.ThinkingLevel(lite31.Performer));
+        Assert.AreEqual("high", E0AGeminiProviderPolicy.ThinkingLevel(lite31.Integrity));
 
         Assert.Throws<E0AHarnessException>(() => E0AReferenceRunHost.CreateEnvelope(
             "CREATIVE-NONE",
+            E0AGeminiModelCatalog.Flash25NoneId));
+        Assert.Throws<E0AHarnessException>(() => E0AReferenceRunHost.CreateEnvelope(
+            "CREATIVE-NONE",
             E0AGeminiModelCatalog.FlashLite35MinimalId));
+        Assert.Throws<E0AHarnessException>(() => E0AReferenceRunHost.CreateEnvelope(
+            "CREATIVE-NONE",
+            E0AGeminiModelCatalog.FlashLite31MinimalId));
         Assert.Throws<E0AHarnessException>(() => E0AReferenceRunHost.CreateEnvelope(
             "CREATIVE-MINIMAL",
             E0AGeminiModelCatalog.FlashLite25NoneId));
