@@ -17,12 +17,13 @@ Authority: `CURRENT_STATE.md` alone carries active checkpoint/validation/next-ac
    - `docs/blueprint/E0A_PHASE_B_GEMINI_RATE_DISCIPLINE_MODEL_COMPARISON_AMENDMENT.md`
    - `docs/evidence/E0A_GEMINI_RATE_DISCIPLINE_MODEL_COMPARISON_IMPLEMENTATION_AUDIT.md`
    - `docs/evidence/E0A_GEMINI35_THOUGHT_SIGNATURE_COMPATIBILITY_AUDIT.md`
+   - `docs/evidence/E0A_GEMINI_COMPARISON_NATIVE_ARM64_VALIDATION_2026_09_07.md`
    - `docs/evidence/DIRECTOR_WINDOWS_ARM64_VALIDATION_HOST_BEHAVIORS.md`
 4. Treat live repository state, not this snapshot, as authority if anything moved.
 
 ## Closed history
 
-E-R1 is CLOSED / PROMOTED / ARCHIVED and must not be reopened. Promoted `main` continuity checkpoint: `7490de24bfd2a9829f6afc1ae4b3831c98c50837`. Historical promoted native authority remains `cc395a25162a0a682796bffb44060c799df0db32` under `validation/e0a-pre-restructure-closure-native-arm64`; it does not validate comparison Harness source.
+E-R1 is CLOSED / PROMOTED / ARCHIVED and must not be reopened. Promoted `main` continuity checkpoint: `7490de24bfd2a9829f6afc1ae4b3831c98c50837`. Historical promoted native authority remains `cc395a25162a0a682796bffb44060c799df0db32` under `validation/e0a-pre-restructure-closure-native-arm64` until the comparison native result satisfies validation-tag law.
 
 ## Current comparison boundary
 
@@ -32,7 +33,7 @@ Architecture commit: `76fc0c64da4724a7a352a656a062d5c3ed431ad6`.
 
 Cloud-validated source/test checkpoint: `8ed1563ec7a4c3ae919a649db0dc3c29e17a03e0`.
 
-Validation run `34179384123`: SUCCESS. ARM64 cross-compile of Core/Harness/Core-tests/Harness-tests, x64 Core regression, repository law, oracle coverage, and document census passed. This did **not** execute Harness tests and is not native Windows ARM64 evidence.
+Validation run `34179384123`: SUCCESS. ARM64 cross-compile of Core/Harness/Core-tests/Harness-tests, x64 Core regression, repository law, oracle coverage, and document census passed.
 
 No Core source, Core-test, or fixture delta exists from `main` through the source/test checkpoint.
 
@@ -52,7 +53,7 @@ The Harness paces every Gemini API-bound operation, including `countTokens`, and
 
 Fresh Google GenerateContent documentation established that Gemini 3 may return opaque `thoughtSignature` metadata on ordinary response parts, including with minimal thinking. The transport was also found to retain an obsolete single-model route guard.
 
-The source/test checkpoint above now:
+The source/test checkpoint now:
 
 - admits exactly the three catalogued comparison models;
 - accepts opaque signatures only on the explicit 3.5 profile;
@@ -64,31 +65,58 @@ The source/test checkpoint above now:
 
 See `docs/evidence/E0A_GEMINI35_THOUGHT_SIGNATURE_COMPATIBILITY_AUDIT.md`.
 
-## Current consequential gate — native validation
+## Director native result
 
-**Do not present or execute a real-provider gate yet.** Next is Director Windows ARM64 native validation on one exact clean documentation-inclusive branch checkout.
+Exact Director-machine checkout:
 
-Required:
+`c9f706b42350c8b6cfc462e09cf71db6bc3a2355`
 
-1. establish ARM64 host identity using `DIRECTOR_WINDOWS_ARM64_VALIDATION_HOST_BEHAVIORS.md`;
-2. run Core tests;
-3. run Harness tests;
-4. perform a fresh native Harness build after clearing stale outputs;
-5. run Missing Raft and generic fixture smokes;
-6. with `GEMINI_API_KEY` absent, prove all three approved arm/profile live paths exit `1`, emit `GEMINI_API_KEY is required at the E0-A provider edge.`, and create no evidence root;
-7. re-check exact HEAD and working-tree cleanliness.
+Observed native Windows ARM64 result:
 
-CLI form:
+- exact checkout / cleanliness: PASS;
+- native host identity: PASS (`win-arm64`, Host Architecture `arm64`);
+- Core tests: 622/622 PASS;
+- Harness tests: 117/117 PASS;
+- fresh native Harness build: PASS;
+- Missing Raft smoke: PASS;
+- generic fixture smoke: PASS;
+- `GEMINI-2.5-FLASH-LITE-NONE` credentialless refusal: PASS, exit 1, no evidence root;
+- `GEMINI-3.5-FLASH-LITE-MINIMAL` credentialless refusal: PASS, exit 1, no evidence root;
+- `GEMINI-2.5-FLASH-NONE` credentialless refusal: PASS, exit 1, no evidence root;
+- post-validation checkout / cleanliness / credential absence: PASS;
+- Gemini provider network / `countTokens` / inference / spend: NOT PERFORMED.
+
+Evidence: `docs/evidence/E0A_GEMINI_COMPARISON_NATIVE_ARM64_VALIDATION_2026_09_07.md`.
+
+This result is recorded but is not yet promoted as repository machine-validation authority because Repository Surface Law requires an annotated validation tag at the exact validated checkout first.
+
+## Current consequential gate — validation tag
+
+**Do not present or execute a real-provider gate yet.** The next gate is repository-surface promotion of the exact Director-machine checkout.
+
+Create and push annotated tag:
 
 ```text
-e0a-run <arm> <provider-profile> <fixture.json> <run-id> <evidence-root> <executable-commit>
+validation/e0a-gemini-comparison-native-arm64
 ```
 
-Use distinct nonexistent evidence roots/run IDs. Capture expected-failure stderr and `$LASTEXITCODE` exactly as the Director-host behavior document requires. This gate requires no key and must make no provider `countTokens`, network, inference, or spend.
+at exact commit:
+
+```text
+c9f706b42350c8b6cfc462e09cf71db6bc3a2355
+```
+
+The tag message must record:
+
+- native Windows ARM64 validation;
+- credentialless/fake-only scope;
+- evidence path `docs/evidence/E0A_GEMINI_COMPARISON_NATIVE_ARM64_VALIDATION_2026_09_07.md`.
+
+After the tag exists, update `CURRENT_STATE.md` to promote the comparison native authority. Do not project native authority onto later documentation-only commits.
 
 ## Later live gate
 
-Only after native evidence is recorded and recursively audited may a separate Director authorization be requested for a real synthetic-fixture run. Planned order: 2.5 Flash-Lite None -> 3.5 Flash-Lite Minimal -> 2.5 Flash None. Reverify project/key association, tier/status, model availability, quotas including RPD, pricing, data-use terms, snapshot freshness, evidence destination, and checkout identity immediately before each authorized run.
+Only after the tag/promotion gate converges may a separate Director authorization be requested for one real synthetic-fixture run. Planned order: 2.5 Flash-Lite None -> 3.5 Flash-Lite Minimal -> 2.5 Flash None. Reverify project/key association, tier/status, selected-model availability, RPM/input-TPM/RPD, pricing, data-use terms, snapshot freshness, evidence destination, and checkout identity immediately before each authorized run.
 
 Do not expose credentials or perform provider-network work without explicit authorization in that chat.
 
