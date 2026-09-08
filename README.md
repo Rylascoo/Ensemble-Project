@@ -6,7 +6,7 @@ Ensemble is a local-first generative theater and creative simulation for persist
 
 ## Current development state
 
-Blueprint 0.1 is frozen for E0. The runtime phase is **E0-A Phase B**. E-R1 repository/tooling/workflow restructuring is **closed and archived**. The approved Gemini Free-tier RPD/model-selection amendment remains native-validated and promoted at its tagged Windows ARM64 checkout. The single authorized first real Gemini 3.5 Flash-Lite attempt was consumed and failed in Performer `countTokens` preflight before generation; its evidence identified a missing nested countTokens model field. That defect is corrected and cloud-green, and the current consequential gate is fresh credentialless Windows ARM64 validation of the correction. No provider retry is authorized. H1 Phase A is **CLOSED**.
+Blueprint 0.1 is frozen for E0. The runtime phase is **E0-A Phase B**. E-R1 repository/tooling/workflow restructuring is **closed and archived**. The approved Gemini Free-tier RPD/model-selection amendment remains native-validated and promoted at its tagged Windows ARM64 checkout. The single authorized first real Gemini 3.5 Flash-Lite attempt was consumed and failed in Performer `countTokens` preflight before generation; its evidence identified a missing nested countTokens model field. That defect is corrected, cloud-green, and has passed the Director-machine credentialless Windows ARM64 packet at exact correction checkout `689655eed677b789ab3ee395f1c65b4f2cb72cc8`. Promotion of that correction is pending the required annotated validation tag. No provider retry is authorized. H1 Phase A is **CLOSED**.
 
 `README.md` never carries phase authority; `CURRENT_STATE.md` is the only phase source.
 
@@ -38,5 +38,3 @@ Do not regenerate full archives or documentation sets for ordinary corrections.
 Static review is advisory. Compiler output for the pinned target is compiler authority; target-device execution is runtime authority; NPU execution, WACK, and Store certification require their own later evidence.
 
 A successful Linux x64 build of the pinned `win-arm64` / `ARM64` Harness may be cited as `win-arm64 cross-compile/build PASS`, not as native Windows ARM64 execution or runtime authority.
-
-No current repository state should be interpreted as proof of Windows runtime, NPU execution, packaging, or Store certification unless `CURRENT_STATE.md` explicitly records that evidence.
