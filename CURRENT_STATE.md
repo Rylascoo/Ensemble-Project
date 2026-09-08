@@ -15,13 +15,14 @@ Architecture: RPD/model-selection amendment `docs/blueprint/E0A_PHASE_B_GEMINI_F
 
 `countTokens` nested-model/diagnostic correction is promoted; later docs do not inherit native authority.
 
-Real attempt 01 at `3d6d8a7f...` is consumed/failed before successful token count: `docs/evidence/E0A_FIRST_REAL_GEMINI_35_LITE_ATTEMPT_01_2026_09_08.md`. Attempt 02 at promoted `689655...` is consumed/failed at first Performer `countTokens`: HTTP **401**, 0 accepted turns, $0 shadow spend, no generation/inference. Archive/root-cause evidence: `docs/evidence/E0A_SECOND_REAL_GEMINI_35_LITE_ATTEMPT_02_ARCHIVE_AUDIT_2026_09_08.md`.
+Attempt 01 at `3d6d8a7f...` is consumed/failed before successful token count. Attempt 02 at promoted `689655...` is consumed/failed at first Performer `countTokens`: HTTP **401**, 0 accepted turns, $0 shadow spend, no generation/inference. Audit: `docs/evidence/E0A_SECOND_REAL_GEMINI_35_LITE_ATTEMPT_02_ARCHIVE_AUDIT_2026_09_08.md`.
 
-External Director diagnostic: a new `AQ.` auth key successfully reached native `gemini-3.6-flash:generateContent` via `?key=`. This narrows but does not resolve auth transport/method/model/key axes and does not validate the Harness. Evidence: `docs/evidence/E0A_GEMINI_AUTH_KEY_EXTERNAL_DIAGNOSTIC_2026_09_08.md`. The exposed diagnostic key is compromised and must be revoked/never reused.
+External Director diagnostic: a new `AQ.` auth key successfully reached `gemini-3.6-flash:generateContent` via `?key=`. Evidence: `docs/evidence/E0A_GEMINI_AUTH_KEY_EXTERNAL_DIAGNOSTIC_2026_09_08.md`. That exposed key is compromised and must be revoked/never reused.
 
-Supporting audits: `docs/evidence/E0A_GEMINI_RATE_DISCIPLINE_MODEL_COMPARISON_IMPLEMENTATION_AUDIT.md`; `docs/evidence/E0A_GEMINI35_THOUGHT_SIGNATURE_COMPATIBILITY_AUDIT.md`.
+## Authorized live diagnostic
+Director authorization: `docs/evidence/E0A_GEMINI_AUTH_TRANSPORT_DIFFERENTIAL_DIRECTOR_AUTHORIZATION_2026_09_08.md`.
 
-No retry, third reference run, 3.1/2.5 run, fallback, or other provider traffic is authorized. API keys must never enter repository/evidence/chat.
+Exactly **two** real requests are authorized using one fresh unshared key: identical `gemini-3.5-flash-lite:countTokens` requests, first via `?key=`, second via `x-goog-api-key`. No generation, retries, reference run, fallback, 3.1/2.5 traffic, or other provider request. Once the first leg is attempted, do not rerun the packet. After both legs terminate, authorization returns to **NONE**.
 
 ## Next
-**Auth-transport differential decision.** After revoking the exposed key, the smallest useful live probe is a new unshared auth key with exactly two otherwise-identical `gemini-3.5-flash-lite:countTokens` requests: one via `?key=`, one via `x-goog-api-key`. No generation. Not authorized yet; both requests require new explicit Director authorization. Do not patch source before this differential.
+Run the authorized two-leg auth-transport differential, capture only bounded HTTP/token/error status, then audit the result before any source decision.
