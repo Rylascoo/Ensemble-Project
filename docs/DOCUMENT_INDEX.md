@@ -10,7 +10,7 @@ This index helps a fresh engineering chat find the small set of current entry su
 2. `docs/PROJECT_AUTHORITY.md` — source-of-truth order and lane ownership.
 3. `docs/ENGINEERING_HYGIENE_CONSTITUTION.md` — engineering, repository-surface, and artifact-lifecycle law.
 4. `docs/PROJECT_REASONING_TASK_SCOPE_OPTIMIZATION_PROTOCOL.md` — engineering collaboration/work-scope law.
-5. No temporary handoff is active; current durable continuity is fully carried by `CURRENT_STATE.md` and the current surfaces below.
+5. `docs/handoff/E0A_GEMINI_BOUNDED_PROVIDER_ERROR_DIAGNOSTIC_ENGINEERING_HANDOFF_2026_09_08.md` — current temporary fresh-chat transition, live only because `CURRENT_STATE.md` names it.
 
 ## Current E0-A architecture
 
@@ -21,14 +21,16 @@ This index helps a fresh engineering chat find the small set of current entry su
 
 These remain subject to `CURRENT_STATE.md`; this index does not independently mark a phase or checkpoint active.
 
-## Current validation / assumptions
+## Current validation / provider evidence
 
 - `docs/VALIDATION_LEDGER.md` — promoted validation facts and durable tags; cannot advance project state.
 - `docs/HYPOTHESIS_LEDGER.md` — current unverified/narrowed Gemini assumptions and verification triggers; never a decision source.
-- `docs/evidence/E0A_GEMINI_FREE_TIER_RPD_MODEL_SELECTION_IMPLEMENTATION_AUDIT.md` — current RPD/model-selection source/test implementation and cloud-compiler evidence; fresh native validation pending.
-- `docs/evidence/E0A_GEMINI_COMPARISON_NATIVE_ARM64_VALIDATION_2026_09_07.md` — current promoted Windows ARM64 machine-test evidence for the predecessor comparison executable.
-- `docs/evidence/E0A_GEMINI_RATE_DISCIPLINE_MODEL_COMPARISON_IMPLEMENTATION_AUDIT.md` — predecessor comparison implementation audit still supporting current architecture history.
-- `docs/evidence/E0A_GEMINI35_THOUGHT_SIGNATURE_COMPATIBILITY_AUDIT.md` — Gemini 3 signature compatibility evidence inherited and generalized by the RPD amendment.
+- `docs/evidence/E0A_GEMINI_COUNTTOKENS_CORRECTION_NATIVE_ARM64_VALIDATION_2026_09_08.md` — current promoted Windows ARM64 machine-test evidence for executable `689655...`.
+- `docs/evidence/E0A_GEMINI_AUTH_TRANSPORT_DIFFERENTIAL_RESULT_2026_09_08.md` — same-key/header/model/method simple `countTokens` HTTP 200 evidence; authentication transport closed as the Attempt-03 explanation.
+- `docs/evidence/E0A_THIRD_REAL_GEMINI_35_LITE_ATTEMPT_03_ARCHIVE_AUDIT_2026_09_08.md` — sealed Attempt-03 audit; first Performer full-request `countTokens` HTTP 400 before generation, exact rejected field unproven.
+- `docs/evidence/E0A_GEMINI_PROVIDER_COMPATIBILITY_DIRECTOR_DECISION_2026_09_08.md` — Director decision pausing 3.5 live execution, deferring 3.1 provider execution, and authorizing bounded diagnostic/request-compatibility engineering with no provider traffic.
+- `docs/evidence/E0A_GEMINI_RATE_DISCIPLINE_MODEL_COMPARISON_IMPLEMENTATION_AUDIT.md` — supporting comparison implementation audit.
+- `docs/evidence/E0A_GEMINI35_THOUGHT_SIGNATURE_COMPATIBILITY_AUDIT.md` — Gemini 3 signature compatibility evidence inherited by current architecture.
 - `docs/evidence/DIRECTOR_WINDOWS_ARM64_VALIDATION_HOST_BEHAVIORS.md` — Director-host validation apparatus contract.
 
 ## Program / product decision surfaces
@@ -47,7 +49,7 @@ These remain subject to `CURRENT_STATE.md`; this index does not independently ma
 - `docs/ORACLE_INDEX_GUARD.md` and `tools/oracle-index.py` — documented-oracle assertion-coverage regression guard.
 - `tools/document-census.py` — authority-root document census and active-evidence reachability gate.
 - `docs/evidence/archive/README.md` — evidence archive semantics.
-- `docs/handoff/README.md` — temporary handoff semantics; no live handoff unless current authority names one.
+- `docs/handoff/README.md` — temporary handoff semantics.
 
 ## Closed E-R1 surface
 
