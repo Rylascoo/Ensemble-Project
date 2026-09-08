@@ -11,18 +11,18 @@ Runtime: **E0-A Experimental Harness — Phase B**. E-R1 is **CLOSED / PROMOTED 
 Architecture: reference envelope + Gemini normative + rate-discipline comparison + RPD/model-selection amendment `docs/blueprint/E0A_PHASE_B_GEMINI_FREE_TIER_RPD_MODEL_SELECTION_AMENDMENT.md` (`825309e4...`).
 
 ## Validation
-**Promoted machine-tested checkout:** `3d6d8a7f1caf548c15f0f2393d0fc7b50ac0cd99` / `validation/e0a-gemini-rpd-model-selection-native-arm64` — annotated tag remotely verified and dereferences exactly to this commit. Native Windows ARM64: Core **622/622**, Harness **122/122**, fresh `win-arm64` Harness build, both fixture smokes, all three current credentialless live-profile gates, retired-2.5-Flash pre-credential rejection, exact HEAD/cleanliness: **PASS**. Evidence: `docs/evidence/E0A_GEMINI_FREE_TIER_RPD_MODEL_SELECTION_NATIVE_ARM64_VALIDATION_2026_09_08.md`.
+**Promoted machine-tested checkout:** `3d6d8a7f1caf548c15f0f2393d0fc7b50ac0cd99` / `validation/e0a-gemini-rpd-model-selection-native-arm64` — annotated tag remotely verified. Native Windows ARM64: Core **622/622**, Harness **122/122**, fresh Harness build, both fixture smokes, current credentialless profile gates, retired-2.5-Flash rejection, exact HEAD/cleanliness: **PASS**. Evidence: `docs/evidence/E0A_GEMINI_FREE_TIER_RPD_MODEL_SELECTION_NATIVE_ARM64_VALIDATION_2026_09_08.md`.
 
-Native attempt 01 at `31436ee5...` failed Harness 121/122 due to a stale readiness expectation; correction `b4d39cd91d1c23bad1f0354702fb64411e82780d` changed only that test surface. Audit: `docs/evidence/E0A_GEMINI_FREE_TIER_RPD_MODEL_SELECTION_IMPLEMENTATION_AUDIT.md`. Supporting audits: `docs/evidence/E0A_GEMINI_RATE_DISCIPLINE_MODEL_COMPARISON_IMPLEMENTATION_AUDIT.md`; `docs/evidence/E0A_GEMINI35_THOUGHT_SIGNATURE_COMPATIBILITY_AUDIT.md`.
+Attempt 01 at `31436ee5...` failed Harness 121/122 from a stale readiness expectation; correction `b4d39cd91d1c23bad1f0354702fb64411e82780d` changed only that test surface. Audit: `docs/evidence/E0A_GEMINI_FREE_TIER_RPD_MODEL_SELECTION_IMPLEMENTATION_AUDIT.md`. Supporting audits: `docs/evidence/E0A_GEMINI_RATE_DISCIPLINE_MODEL_COMPARISON_IMPLEMENTATION_AUDIT.md`; `docs/evidence/E0A_GEMINI35_THOUGHT_SIGNATURE_COMPATIBILITY_AUDIT.md`.
 
-No Core/Core-test/fixture delta. Later documentation commits do not inherit native authority. Provider network, `countTokens`, inference, credentials, spend: **NOT PERFORMED**.
+No Core/Core-test/fixture delta. Later documentation commits do not inherit native authority.
 
 ## Provider boundary
-Real Gemini credentials/network/`countTokens`/inference/spend are **NOT AUTHORIZED** until the next Director gate. Free-tier work is synthetic-fixture-only.
+**AUTHORIZED ONCE:** exactly one real synthetic Missing Raft `GEMINI-3.5-FLASH-LITE-MINIMAL` run at promoted checkout `3d6d8a7f...`. Authorization: `docs/evidence/E0A_FIRST_REAL_GEMINI_35_LITE_DIRECTOR_AUTHORIZATION_2026_09_08.md`.
 
-AI Studio: 3.5 Flash-Lite = 15 RPM/250K TPM/500 RPD; 3.1 Flash-Lite = 15/250K/500; 2.5 Flash-Lite = 10/250K/20; 2.5 Flash = 5/250K/20.
+Scope: `CREATIVE-MINIMAL`; 12-turn cap; 15 RPM / 250K TPM / 500 RPD; one attempt/role; zero retries; existing $5 shadow ceiling/evidence laws. Free-tier input remains synthetic only. Director confirmed no other material Gemini traffic since quota evidence. Any terminal result consumes this authorization. No 3.1/2.5 run, second run, retry, other fixture, or broader provider traffic is authorized.
 
-Live profiles: `GEMINI-3.5-FLASH-LITE-MINIMAL` cap 12; `GEMINI-3.1-FLASH-LITE-MINIMAL` cap 12; `GEMINI-2.5-FLASH-LITE-NONE` cap 3. Conservative RPD: 72/500, 72/500, 18/20. Historical 2.5 Flash is non-live. One attempt/zero retries remains law.
+API key remains environment/process-local only and must never enter repository, evidence, command output, or chat.
 
 ## Next
-**First-real-provider Director gate.** Reverify current account/project/key/quota/pricing/data-use conditions and remaining daily capacity, then present one explicit decision for exactly one real synthetic Missing Raft `GEMINI-3.5-FLASH-LITE-MINIMAL` run at promoted checkout `3d6d8a7f...`. No real run is authorized yet.
+**Execute the single authorized real run on the Director Windows ARM64 host from exact checkout `3d6d8a7f...`, capture the complete terminal output and evidence-root path, then stop.** Audit the resulting evidence before any further provider authorization or comparison run.
