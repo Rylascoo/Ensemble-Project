@@ -29,4 +29,4 @@ Exactly **two** real requests are authorized using one fresh unshared key: ident
 ## Next
 Snapshot valid through **2026-09-14** (6 days from this update). After expiry Harness fails closed; next live run needs pricing/data-use reverification, source update, compiler + native ARM64 validation, and new Director authorization.
 
-Before network use, locally assert fresh key: `AQ.` prefix, ASCII, no surrounding whitespace, and byte-equality with a fresh AI Studio copy without printing either. Run only the authorized two-leg differential; record bounded status; audit before source decision.
+Before network use, locally assert fresh key: `AQ.` prefix, ASCII, no surrounding whitespace, and byte-equality with a fresh AI Studio copy without printing either. Run only the authorized two-leg differential using WinPS-compatible hashing; record bounded status; audit before source decision.
