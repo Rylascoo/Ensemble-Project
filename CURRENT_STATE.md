@@ -11,18 +11,16 @@ Runtime: **E0-A Experimental Harness — Phase B**. E-R1 is **CLOSED / PROMOTED 
 Architecture: reference envelope + Gemini normative + rate-discipline comparison + RPD/model-selection amendment `docs/blueprint/E0A_PHASE_B_GEMINI_FREE_TIER_RPD_MODEL_SELECTION_AMENDMENT.md` (`825309e4...`).
 
 ## Validation
-**Promoted machine-tested checkout:** `3d6d8a7f1caf548c15f0f2393d0fc7b50ac0cd99` / `validation/e0a-gemini-rpd-model-selection-native-arm64` — annotated tag remotely verified. Native Windows ARM64: Core **622/622**, Harness **122/122**, fresh Harness build, both fixture smokes, current credentialless profile gates, retired-2.5-Flash rejection, exact HEAD/cleanliness: **PASS**. Evidence: `docs/evidence/E0A_GEMINI_FREE_TIER_RPD_MODEL_SELECTION_NATIVE_ARM64_VALIDATION_2026_09_08.md`.
+**Promoted machine-tested checkout:** `3d6d8a7f1caf548c15f0f2393d0fc7b50ac0cd99` / `validation/e0a-gemini-rpd-model-selection-native-arm64`. Native Windows ARM64: Core **622/622**, Harness **122/122**, fresh Harness build, both fixture smokes, current credentialless profile gates, retired-2.5-Flash rejection, exact HEAD/cleanliness: **PASS**. Evidence: `docs/evidence/E0A_GEMINI_FREE_TIER_RPD_MODEL_SELECTION_NATIVE_ARM64_VALIDATION_2026_09_08.md`.
 
-Attempt 01 at `31436ee5...` failed Harness 121/122 from a stale readiness expectation; correction `b4d39cd91d1c23bad1f0354702fb64411e82780d` changed only that test surface. Audit: `docs/evidence/E0A_GEMINI_FREE_TIER_RPD_MODEL_SELECTION_IMPLEMENTATION_AUDIT.md`. Supporting audits: `docs/evidence/E0A_GEMINI_RATE_DISCIPLINE_MODEL_COMPARISON_IMPLEMENTATION_AUDIT.md`; `docs/evidence/E0A_GEMINI35_THOUGHT_SIGNATURE_COMPATIBILITY_AUDIT.md`.
-
-No Core/Core-test/fixture delta. Later documentation commits do not inherit native authority.
+Implementation audit: `docs/evidence/E0A_GEMINI_FREE_TIER_RPD_MODEL_SELECTION_IMPLEMENTATION_AUDIT.md`. Supporting audits: `docs/evidence/E0A_GEMINI_RATE_DISCIPLINE_MODEL_COMPARISON_IMPLEMENTATION_AUDIT.md`; `docs/evidence/E0A_GEMINI35_THOUGHT_SIGNATURE_COMPATIBILITY_AUDIT.md`. No Core/Core-test/fixture delta. Later documentation commits do not inherit native authority.
 
 ## Provider boundary
-**AUTHORIZED ONCE:** exactly one real synthetic Missing Raft `GEMINI-3.5-FLASH-LITE-MINIMAL` run at promoted checkout `3d6d8a7f...`. Authorization: `docs/evidence/E0A_FIRST_REAL_GEMINI_35_LITE_DIRECTOR_AUTHORIZATION_2026_09_08.md`.
+The one-run Director authorization is **CONSUMED**. First real synthetic Missing Raft `GEMINI-3.5-FLASH-LITE-MINIMAL` attempt at exact checkout `3d6d8a7f...` started `2026-09-08T04:39:59.7873582Z` and terminated `TechnicalFailure` at `2026-09-08T04:40:01.2732976Z`: exit 3, accepted turns 0, shadow spend `$0.000000`, stderr empty, 8 evidence files, post-run credential cleanup PASS. Evidence: `docs/evidence/E0A_FIRST_REAL_GEMINI_35_LITE_ATTEMPT_01_2026_09_08.md`.
 
-Scope: `CREATIVE-MINIMAL`; 12-turn cap; 15 RPM / 250K TPM / 500 RPD; one attempt/role; zero retries; existing $5 shadow ceiling/evidence laws. Free-tier input remains synthetic only. Director confirmed no other material Gemini traffic since quota evidence. Any terminal result consumes this authorization. No 3.1/2.5 run, second run, retry, other fixture, or broader provider traffic is authorized.
+Director observed no AI Studio usage shortly after the attempt. Zero shadow spend strongly indicates generation/inference was not reached, but whether the first `countTokens` HTTP request was reached remains unresolved until the preserved evidence archive is audited. Do not infer the exact provider boundary from dashboard absence alone.
 
-API key remains environment/process-local only and must never enter repository, evidence, command output, or chat.
+No retry, second run, 3.1/2.5 run, other fixture, or broader provider traffic is authorized. API key remains environment/process-local only and must never enter repository, evidence, command output, or chat.
 
 ## Next
-**Execute the single authorized real run on the Director Windows ARM64 host from exact checkout `3d6d8a7f...`, capture the complete terminal output and evidence-root path, then stop.** Audit the resulting evidence before any further provider authorization or comparison run.
+**Audit `E0A-REAL-G35L-20260908-01-evidence.zip` without rerunning Gemini.** Resolve the first failing event/transport boundary from `events.ndjson` and attempt evidence, then patch only if evidence identifies an implementation defect. Any later real-provider invocation requires new explicit Director authorization.
