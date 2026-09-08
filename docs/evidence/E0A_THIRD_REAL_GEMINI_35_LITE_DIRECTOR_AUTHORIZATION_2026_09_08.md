@@ -1,6 +1,6 @@
 # E0-A Third Real Gemini 3.5 Flash-Lite — Director Authorization
 
-Status: **AUTHORIZED — UNCONSUMED — EXACTLY ONE THIRD REAL RUN — KNOWN-GOOD UNSHARED AUTH KEY — SYNTHETIC MISSING RAFT ONLY**
+Status: **CONSUMED — EXACTLY ONE THIRD REAL RUN EXECUTED — RESULT AUDIT PENDING**
 
 Date: **2026-09-08**
 
@@ -12,44 +12,42 @@ The Director stated:
 
 ## Exact scope
 
-This authorization permits exactly one invocation of the E0-A live host using:
+This authorization permitted exactly one invocation of the E0-A live host using:
 
 - executable checkout: `689655eed677b789ab3ee395f1c65b4f2cb72cc8`;
 - validation tag: `validation/e0a-gemini-counttokens-correction-native-arm64`;
 - fixture: canonical synthetic Missing Raft fixture only;
-- arm: `CREATIVE-MINIMAL`;
-- provider profile: `GEMINI-3.5-FLASH-LITE-MINIMAL`;
+- arm/profile: `CREATIVE-MINIMAL` / `GEMINI-3.5-FLASH-LITE-MINIMAL`;
 - run id: `E0A-REAL-G35L-20260908-03`;
-- exactly one real host invocation;
-- the same still-active, still-unshared fresh Auth key that returned HTTP 200 / `totalTokens=8` for `gemini-3.5-flash-lite:countTokens` via `x-goog-api-key` in the immediately preceding differential;
+- the same still-active, still-unshared Auth key that had just returned HTTP 200 / `totalTokens=8` for `gemini-3.5-flash-lite:countTokens` via `x-goog-api-key`;
 - one attempt per role invocation and zero automatic retries;
 - no fallback, mixed-model routing, alternate model/profile, alternate fixture, or unrelated provider traffic;
 - existing rate-discipline, shadow-spend ceiling, evidence-sealing, and fail-closed laws.
 
-Any terminal result consumes this authorization. It does **not** authorize a retry, a fourth real run, another fixture, another model/profile, another authentication probe, or unrelated provider traffic.
-
-The key must remain process-local/environment-only and must not be committed, printed, pasted into chat, or written into evidence. After the run, it should be removed from the process immediately and may then be revoked.
+Any terminal result consumed this authorization. It did **not** authorize a retry, fourth run, another fixture/model/profile, another authentication probe, or unrelated provider traffic.
 
 ## Preconditions established before authorization
 
-- promoted executable checkout `689655eed677b789ab3ee395f1c65b4f2cb72cc8` remains the tagged native Windows ARM64 authority;
-- Director Windows ARM64 validation at that checkout: Core 622/622 and Harness 125/125 PASS, plus fresh Harness build, fixture smokes, and credentialless route gates PASS;
-- the `countTokens` nested-model/diagnostic correction is promoted;
-- attempt 02's HTTP 401 was audited as a first-Performer `countTokens` authentication failure before generation;
-- a later two-leg differential used one fresh unshared Auth key and showed the exact `x-goog-api-key` / `gemini-3.5-flash-lite:countTokens` path succeeds live with HTTP 200 and `totalTokens=8`;
-- no source auth-transport patch is justified by that evidence;
-- the executable provider snapshot remains valid through 2026-09-14 UTC.
+- promoted checkout `689655eed677b789ab3ee395f1c65b4f2cb72cc8` remained the tagged native Windows ARM64 authority;
+- Director native validation there remained Core 622/622 and Harness 125/125 PASS with fresh build/smokes/credentialless route gates PASS;
+- the `countTokens` nested-model/diagnostic correction was promoted;
+- attempt 02's HTTP 401 had been audited as a first-Performer `countTokens` authentication failure before generation;
+- the subsequent differential proved the exact `x-goog-api-key` / `gemini-3.5-flash-lite:countTokens` path succeeds live with a fresh Auth key;
+- no source auth-transport patch was justified;
+- the provider snapshot remained valid through 2026-09-14 UTC.
 
-## Local packet incident before invocation
+## Execution and consumption
 
-The Director's first execution of the third-run packet began from `C:\Users\Wiryl`, outside the repository checkout. The packet failed immediately at `git rev-parse --show-toplevel` with native exit code 128 (`not a git repository`). It failed before repository/authorization preflight completed, before credential entry, before `PROVIDER_INVOCATION_STARTED=YES`, before evidence-root creation, and before any Gemini request. Therefore **zero provider requests were made and this authorization remains unconsumed**.
+An initial packet launch from `C:\Users\Wiryl` failed at repository discovery before credential entry, evidence creation, invocation start, or provider traffic. That local failure did not consume authorization.
 
-The replacement packet must first set location explicitly to the known local checkout `C:\Users\Wiryl\Sol Dev\Ensemble-Project`, verify that path is the expected repository, and only then continue the existing authority/credential/live-run preflights.
+The corrected packet was then executed from `C:\Users\Wiryl\Sol Dev\Ensemble-Project`. Repository/authorization, native ARM64, snapshot, fresh-build, fixture, artifact-boundary, and double-entry key integrity preflights all passed. The packet emitted `PROVIDER_INVOCATION_STARTED=YES` at `2026-09-08T17:14:27.2779300Z`, consuming this authorization.
 
-## Evidence destination
+It terminated at `2026-09-08T17:14:28.4717375Z` with Harness status `TechnicalFailure`, accepted turns `0`, estimated shadow spend `$0.000000`, native exit `3`, empty stderr, and an evidence root containing 8 files. Post-run repository/credential cleanup passed.
 
-The one-run packet must use a new non-colliding local evidence root derived from run id `E0A-REAL-G35L-20260908-03` under the established local provider-run evidence directory, preserve stdout/stderr/transcript and a sealed evidence ZIP when produced, and remove provider credentials immediately after the invocation.
+Result: `docs/evidence/E0A_THIRD_REAL_GEMINI_35_LITE_ATTEMPT_03_2026_09_08.md`.
+
+Evidence ZIP SHA-256: `8120E426AE206439A9E43F8D5C85C277B492B9055A0ED012133793B91EC1D77E`.
 
 ## Post-run boundary
 
-After this invocation terminates for any reason, provider authorization returns to **NONE**. The result must be audited before any further provider request or source decision.
+Provider authorization is **NONE**. The evidence ZIP must be hash-verified and recursively audited before any further provider request or source decision.
