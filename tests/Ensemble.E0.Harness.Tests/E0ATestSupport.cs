@@ -139,11 +139,11 @@ internal static class E0ATestSupport
     internal static RoleAttemptReceipt Success(
         PreparedRoleAttempt attempt,
         byte[] output,
-        string model = E0AGeminiProviderPolicy.Model) =>
+        string? model = null) =>
         RoleAttemptReceipt.Success(
             attempt,
             $"resp-{attempt.AttemptId}",
-            model,
+            model ?? attempt.Profile.Model,
             new E0AUsage(10, 10, 0, 0),
             output);
 }
