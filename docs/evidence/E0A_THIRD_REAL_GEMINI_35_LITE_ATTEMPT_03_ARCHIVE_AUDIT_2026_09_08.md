@@ -1,6 +1,6 @@
 # E0-A Third Real Gemini 3.5 Flash-Lite Attempt 03 — Archive Audit
 
-Status: **AUDIT COMPLETE — RUNTIME SEAL VALID — FIRST PERFORMER `countTokens` HTTP 400 — NO GENERATION — PROVIDER REQUEST-COMPATIBILITY REVIEW REQUIRED**
+Status: **AUDIT COMPLETE — RUNTIME SEAL VALID — FIRST PERFORMER `countTokens` HTTP 400 — NO GENERATION — DIRECTOR RESOLUTION RECORDED**
 
 Date: **2026-09-08**
 
@@ -76,16 +76,24 @@ Those official provider surfaces are inconsistent. The omission therefore cannot
 
 The archive does **not** retain Google's 400 response body. We therefore cannot identify the exact rejected field, distinguish a provider implementation defect from a request-feature interaction, or prove that `responseFormat` caused the 400. The evidence-supported classification is narrower: **the full frozen 3.5 Flash-Lite `GenerateContentRequest` is not yet proven live-compatible with `countTokens`; provider-side validation returned HTTP 400 for the first Performer request.**
 
+## Director resolution
+
+The Director resolved the provider-compatibility gate on 2026-09-08 in `docs/evidence/E0A_GEMINI_PROVIDER_COMPATIBILITY_DIRECTOR_DECISION_2026_09_08.md`:
+
+- Gemini 3.5 Flash-Lite live execution is **PAUSED**;
+- the bounded provider-error diagnostic / request-compatibility engineering amendment is **AUTHORIZED**;
+- Gemini 3.1 Flash-Lite provider execution is **DEFERRED** until that amendment is designed, implemented, audited, and machine-validated;
+- provider authorization remains **NONE**; this engineering decision authorizes no credential use, `countTokens`, generation, probe, inference, spend, fallback, or other provider traffic.
+
 ## Consequence
 
 - Attempt 03 authorization is consumed.
-- Provider authorization is **NONE**.
-- No retry or fourth 3.5 Flash-Lite reference run is justified from the current evidence.
+- No retry or fourth 3.5 Flash-Lite reference run is authorized.
 - No authentication-transport patch is justified.
-- The 3.5 Flash-Lite profile remains **live-compatibility unproven / pending Director resolution**, not proven generally incapable of structured output.
-- `gemini-3.1-flash-lite` is explicitly present in Google's current general structured-output support table and remains an approved comparator, but no real 3.1 run is automatically authorized by this audit.
-- Before any further provider request, model/request admissibility should reconcile all request-critical provider facts and the official-document inconsistency above.
+- The 3.5 Flash-Lite profile remains **frozen-request live compatibility unproven**, not proven generally incapable of structured output.
+- The next work is Harness-local diagnostic/request-compatibility engineering, not another provider run.
+- Any source change requires normal cloud validation, native Windows ARM64 validation, and a new annotated validation tag before future provider use.
 
-## Improvement identified
+## Improvement selected for engineering
 
-The bounded `countTokens` diagnostic currently preserves HTTP status but discards the structured provider error body. A later engineering patch could safely retain bounded provider error classification such as `error.status` plus validated `google.rpc.BadRequest.fieldViolations[].field` paths while discarding arbitrary descriptions/text. That would materially improve fault localization without preserving provider prose or secrets, but it is a source change and requires normal cloud/native Windows ARM64 validation and a new validation tag before provider use.
+The current bounded `countTokens` diagnostic preserves HTTP status but discards the structured provider error body. The approved engineering direction is to retain only bounded, validated provider error structure that materially improves fault localization—such as provider status/code and validated `google.rpc.BadRequest.fieldViolations[].field` paths—while continuing to discard arbitrary descriptions/messages, raw bodies, response headers, credential-bearing URIs, and credential material. The exact schema remains an engineering-amendment design task and must be recursively audited before implementation.
