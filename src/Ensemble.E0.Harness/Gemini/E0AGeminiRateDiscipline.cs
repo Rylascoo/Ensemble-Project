@@ -1,7 +1,6 @@
 using System.Diagnostics;
-using Ensemble.E0.Harness.Run;
 
-namespace Ensemble.E0.Harness.Gemini;
+namespace Ensemble.E0.Harness.Run;
 
 internal enum E0AGeminiRequestKind
 {
