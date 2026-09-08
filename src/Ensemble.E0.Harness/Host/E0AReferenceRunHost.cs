@@ -14,17 +14,18 @@ internal static class E0AReferenceRunHost
 
     internal static async Task<int> RunAsync(string[] args, CancellationToken cancellationToken)
     {
-        if (args.Length != 5 || args.Any(string.IsNullOrWhiteSpace))
+        if (args.Length != 6 || args.Any(string.IsNullOrWhiteSpace))
         {
             throw new E0AHarnessException(
-                "Usage: Ensemble.E0.Harness e0a-run CREATIVE-NONE <fixture.json> <run-id> <evidence-root> <executable-commit>");
+                "Usage: Ensemble.E0.Harness e0a-run <CREATIVE-NONE|CREATIVE-MINIMAL> <provider-profile> <fixture.json> <run-id> <evidence-root> <executable-commit>");
         }
 
         var variant = args[0];
-        var fixturePath = args[1];
-        var runId = RunId.From(args[2]);
-        var evidenceRoot = args[3];
-        var executableCommit = args[4];
+        var providerProfileId = args[1];
+        var fixturePath = args[2];
+        var runId = RunId.From(args[3]);
+        var evidenceRoot = args[4];
+        var executableCommit = args[5];
         E0ADeterministicIds.ValidateRunId(runId);
 
         // Bind manifest provenance to the exact clean checkout before secret access.
@@ -39,6 +40,10 @@ internal static class E0AReferenceRunHost
         MissingRaftContract.Validate(fixture);
         var genesis = ProductionState.Initialize(fixture, ImmutableArray<RecordId>.Empty);
 
+        // Resolve the exact arm/model pairing before credential access. No live call
+        // is allowed to inherit a provider model implicitly.
+        var envelope = CreateEnvelope(variant, providerProfileId);
+
         // This is a short-lived experimental snapshot guard, not live provider
         // verification or ODR-26 policy law. A material provider change inside the
         // window still requires re-verification before inference.
@@ -48,8 +53,8 @@ internal static class E0AReferenceRunHost
         // credentials fail before any run evidence directory is created.
         using var http = CreateProviderHttpClient();
         var provider = GeminiGenerateContentPort.FromEnvironment(http);
+        using var rateDiscipline = new E0ASmoothGeminiRateDiscipline(envelope.ModelProfile);
 
-        var envelope = CreateEnvelope(variant);
         var evidence = new E0AFileEvidenceStore(
             evidenceRoot,
             runId,
@@ -59,11 +64,16 @@ internal static class E0AReferenceRunHost
             genesis.OriginFixtureHash,
             executableCommit,
             genesis.RosterCharacterIds);
-        var driver = new E0AReferenceRunDriver(envelope, provider, provider, evidence);
+        var driver = new E0AReferenceRunDriver(
+            envelope,
+            provider,
+            provider,
+            evidence,
+            rateDiscipline);
         var result = await driver.RunAsync(runId, genesis, cancellationToken).ConfigureAwait(false);
 
         Console.WriteLine(
-            $"E0-A {envelope.Variant} run terminal: {result.Status}; acceptedTurns={result.AcceptedTurns}; estimatedShadowSpendUsd={result.EstimatedSpendUsd:0.000000}");
+            $"E0-A {envelope.Variant}/{envelope.ProviderProfileId} run terminal: {result.Status}; acceptedTurns={result.AcceptedTurns}; estimatedShadowSpendUsd={result.EstimatedSpendUsd:0.000000}");
         Console.WriteLine($"Evidence root: {evidence.RootPath}");
         return result.Status == E0ARunTerminalStatus.AcceptedTurnCapReached ? 0 : 3;
     }
@@ -74,19 +84,35 @@ internal static class E0AReferenceRunHost
         {
             // The run driver owns the frozen 300-second attempt deadline through its
             // linked cancellation token. The transport must not introduce a shorter
-            // independent timeout that can preempt token preflight or provider work.
+            // independent timeout that can preempt pacing, token preflight, or provider work.
             Timeout = Timeout.InfiniteTimeSpan
         };
         return http;
     }
 
+    // Historical helper retained for existing fake/wire tests. It remains the
+    // original Gemini 2.5 Flash CREATIVE-NONE quality anchor.
     internal static E0ARunEnvelope CreateEnvelope(string variant) => variant switch
     {
         "CREATIVE-NONE" => E0ARunEnvelope.GeminiNormativeReference(ConservativePricing),
         "CREATIVE-LOW" or "CREATIVE-MEDIUM" or "CREATIVE-HIGH" =>
-            throw new E0AHarnessException("E0-A Gemini LOW/MEDIUM/HIGH characterization is deferred pending a provider-specific resource-normalization amendment."),
-        _ => throw new E0AHarnessException("E0-A live-run variant is not approved by the Gemini normative amendment.")
+            throw new E0AHarnessException("E0-A Gemini LOW/MEDIUM/HIGH characterization remains deferred."),
+        _ => throw new E0AHarnessException("E0-A live-run variant is not approved by the Gemini amendments.")
     };
+
+    internal static E0ARunEnvelope CreateEnvelope(string variant, string providerProfileId)
+    {
+        if (string.IsNullOrWhiteSpace(variant) || string.IsNullOrWhiteSpace(providerProfileId))
+        {
+            throw new E0AHarnessException("E0-A live-run arm and provider profile are required.");
+        }
+        var envelope = E0ARunEnvelope.GeminiComparison(providerProfileId);
+        if (!string.Equals(envelope.Variant, variant, StringComparison.Ordinal))
+        {
+            throw new E0AHarnessException("E0-A live-run arm/provider-profile pairing is not approved by the model-comparison amendment.");
+        }
+        return envelope;
+    }
 
     internal static int SealEvaluation(string[] args)
     {
