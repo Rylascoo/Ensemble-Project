@@ -129,12 +129,7 @@ internal static class E0ARequestBuilder
         string schemaJson)
     {
         ArgumentNullException.ThrowIfNull(profile);
-        if (!string.Equals(profile.Provider, E0AGeminiProviderPolicy.Provider, StringComparison.Ordinal) ||
-            !string.Equals(profile.Model, E0AGeminiProviderPolicy.Model, StringComparison.Ordinal) ||
-            !string.Equals(profile.ServiceTier, E0AGeminiProviderPolicy.ServiceTier, StringComparison.Ordinal))
-        {
-            throw new E0AHarnessException("E0-A request profile is outside the approved Gemini normative route.");
-        }
+        _ = E0AGeminiProviderPolicy.ModelProfile(profile);
         return BuildGeminiBody(profile, instructions, data, schemaJson);
     }
 
@@ -145,6 +140,20 @@ internal static class E0ARequestBuilder
         string schemaJson)
     {
         using var schema = JsonDocument.Parse(schemaJson);
+        var thinkingConfig = new Dictionary<string, object?>
+        {
+            ["includeThoughts"] = false
+        };
+        var model = E0AGeminiProviderPolicy.ModelProfile(profile);
+        if (model.ThinkingControl == E0AGeminiThinkingControlKind.Budget)
+        {
+            thinkingConfig["thinkingBudget"] = E0AGeminiProviderPolicy.ThinkingBudgetTokens(profile);
+        }
+        else
+        {
+            thinkingConfig["thinkingLevel"] = E0AGeminiProviderPolicy.ThinkingLevel(profile);
+        }
+
         var body = new Dictionary<string, object?>
         {
             ["systemInstruction"] = new
@@ -171,11 +180,7 @@ internal static class E0ARequestBuilder
                         ["schema"] = schema.RootElement.Clone()
                     }
                 },
-                ["thinkingConfig"] = new Dictionary<string, object?>
-                {
-                    ["includeThoughts"] = false,
-                    ["thinkingBudget"] = E0AGeminiProviderPolicy.ThinkingBudgetTokens(profile)
-                }
+                ["thinkingConfig"] = thinkingConfig
             },
             // Standard inference is the provider default. The profile records the
             // resolved semantic tier while omitting an unnecessary provider field.
