@@ -16,7 +16,7 @@ This maintenance revision changes no frozen Blueprint 0.1 law and authorizes no 
 
 Kymaean is the shipping identity of Ensemble:
 
-> A local-first generative theater and creative simulation for persistent characters. The creator establishes people, circumstances, knowledge, relationships, possibilities and pressures. AI performers portray those characters. A Director manages attention and opportunities to act. Accepted performances become causal history, and authoritative consequences alter what future scenes can mean.
+> A local-first generative theater and creative simulation for persistent characters. The creator establishes people, circumstances, knowledge, relationships, possibilities, and pressures. AI performers portray those characters. A Director manages attention and opportunities to act. Accepted performances become causal history, and authoritative consequences alter what future scenes can mean.
 
 The current product is not the shelved DeskShifter/Kymaean Workspace/Routines/wallpaper domain. Legacy repositories and Drive material are donor/reference sources only.
 
