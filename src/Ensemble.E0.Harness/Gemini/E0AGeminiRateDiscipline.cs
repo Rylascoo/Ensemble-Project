@@ -60,13 +60,15 @@ internal sealed class E0ANoopGeminiRateDiscipline : IE0AGeminiRateDiscipline
 
 internal sealed class E0ASmoothGeminiRateDiscipline : IE0AGeminiRateDiscipline, IDisposable
 {
+    private static readonly TimeSpan TokenWindow = TimeSpan.FromMinutes(1);
+
     private readonly E0AGeminiModelProfile _profile;
     private readonly IE0AGeminiRateClock _clock;
     private readonly SemaphoreSlim _gate = new(1, 1);
     private readonly TimeSpan _requestSpacing;
+    private readonly Queue<TokenWindowEntry> _generationTokenWindow = new();
     private long? _lastRequestTimestamp;
-    private long? _lastGenerationTimestamp;
-    private TimeSpan _lastGenerationTokenSpacing;
+    private long _generationTokensInWindow;
     private bool _disposed;
 
     internal E0ASmoothGeminiRateDiscipline(
@@ -114,16 +116,15 @@ internal sealed class E0ASmoothGeminiRateDiscipline : IE0AGeminiRateDiscipline, 
             await WaitForRequestSpacingAsync(cancellationToken).ConfigureAwait(false);
             if (kind == E0AGeminiRequestKind.Generation)
             {
-                await WaitForTokenSpacingAsync(cancellationToken).ConfigureAwait(false);
+                await WaitForTokenWindowAsync(exactGenerationInputTokens!.Value, cancellationToken).ConfigureAwait(false);
             }
 
             var now = _clock.GetTimestamp();
             _lastRequestTimestamp = now;
-            if (kind == E0AGeminiRequestKind.Generation)
+            if (kind == E0AGeminiRequestKind.Generation && exactGenerationInputTokens!.Value != 0)
             {
-                _lastGenerationTimestamp = now;
-                _lastGenerationTokenSpacing = TimeSpan.FromSeconds(
-                    60d * exactGenerationInputTokens!.Value / _profile.InputTokensPerMinute);
+                _generationTokenWindow.Enqueue(new TokenWindowEntry(now, exactGenerationInputTokens.Value));
+                _generationTokensInWindow = checked(_generationTokensInWindow + exactGenerationInputTokens.Value);
             }
         }
         finally
@@ -147,18 +148,42 @@ internal sealed class E0ASmoothGeminiRateDiscipline : IE0AGeminiRateDiscipline, 
         }
     }
 
-    private async Task WaitForTokenSpacingAsync(CancellationToken cancellationToken)
+    private async Task WaitForTokenWindowAsync(long inputTokens, CancellationToken cancellationToken)
     {
-        if (!_lastGenerationTimestamp.HasValue || _lastGenerationTokenSpacing <= TimeSpan.Zero)
+        while (true)
         {
-            return;
+            var now = _clock.GetTimestamp();
+            PruneExpiredTokenEntries(now);
+            if (checked(_generationTokensInWindow + inputTokens) <= _profile.InputTokensPerMinute)
+            {
+                return;
+            }
+
+            if (_generationTokenWindow.Count == 0)
+            {
+                throw new E0AHarnessException("E0-A Gemini TPM accounting reached an invalid state.");
+            }
+            var oldest = _generationTokenWindow.Peek();
+            var elapsed = _clock.GetElapsedTime(oldest.Timestamp, now);
+            var remaining = TokenWindow - elapsed;
+            if (remaining > TimeSpan.Zero)
+            {
+                await _clock.DelayAsync(remaining, cancellationToken).ConfigureAwait(false);
+            }
         }
-        var now = _clock.GetTimestamp();
-        var elapsed = _clock.GetElapsedTime(_lastGenerationTimestamp.Value, now);
-        var remaining = _lastGenerationTokenSpacing - elapsed;
-        if (remaining > TimeSpan.Zero)
+    }
+
+    private void PruneExpiredTokenEntries(long now)
+    {
+        while (_generationTokenWindow.Count != 0)
         {
-            await _clock.DelayAsync(remaining, cancellationToken).ConfigureAwait(false);
+            var oldest = _generationTokenWindow.Peek();
+            if (_clock.GetElapsedTime(oldest.Timestamp, now) < TokenWindow)
+            {
+                return;
+            }
+            _generationTokenWindow.Dequeue();
+            _generationTokensInWindow = checked(_generationTokensInWindow - oldest.InputTokens);
         }
     }
 
@@ -171,4 +196,6 @@ internal sealed class E0ASmoothGeminiRateDiscipline : IE0AGeminiRateDiscipline, 
         _gate.Dispose();
         _disposed = true;
     }
+
+    private readonly record struct TokenWindowEntry(long Timestamp, long InputTokens);
 }
