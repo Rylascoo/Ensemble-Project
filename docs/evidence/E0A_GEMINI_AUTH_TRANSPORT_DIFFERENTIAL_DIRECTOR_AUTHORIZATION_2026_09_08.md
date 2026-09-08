@@ -1,46 +1,43 @@
 # E0-A Gemini Auth-Transport Differential — Director Authorization
 
-Status: **AUTHORIZED — UNCONSUMED — EXACTLY TWO `countTokens` REQUESTS — NO GENERATION — NO RETRIES**
+Status: **CONSUMED — TWO-LEG PACKET COMPLETE — NO FURTHER PROVIDER TRAFFIC AUTHORIZED**
 
 Date: 2026-09-08
 
 ## Director authorization
 
-The Director explicitly authorized exactly two Gemini authentication-differential requests using one fresh, unshared key:
+The Director authorized exactly two Gemini authentication-differential requests using one fresh, unshared key:
 
 1. one `gemini-3.5-flash-lite:countTokens` request authenticated with the `?key=` query parameter;
 2. one otherwise identical `gemini-3.5-flash-lite:countTokens` request authenticated with the `x-goog-api-key` header.
 
-The model, endpoint method, request body, client process, and credential must be identical between the two requests. Authentication transport is the only intentional variable.
+The model, endpoint method, request body, client process, and credential were to remain identical between the two requests. Authentication transport was the only intentional variable.
 
 ## Mandatory local credential preflight — no network
 
-Before either authorized request, discriminate local copy corruption without issuing any provider request:
+Before either authorized request, the packet required a fresh AI Studio copy to match a second local paste exactly, with nonblank `AQ.` prefix, ASCII-only content, no whitespace or quote wrappers, and no credential emission. No undocumented exact-length rule was adopted.
 
-1. confirm the value is nonblank, begins with the documented `AQ.` auth-key prefix, is ASCII, and has no leading/trailing whitespace, CR/LF, quotes, or other wrapper characters;
-2. take a fresh copy of the same key from AI Studio and compare it locally byte-for-byte with the first entry, emitting only a boolean match result and never either value;
-3. record only safe predicates such as prefix-class match, byte length, charset/whitespace checks, and equality result. Do not invent an undocumented exact-length requirement;
-4. if any predicate fails, stop before network execution and correct only the local credential copy. The two-request authorization remains unconsumed until a provider request is actually attempted.
+## First local packet incident
 
-The `AQ.` credential class is already resolved by current Google documentation and the preceding evidence record; this preflight tests local value integrity, not key-class discovery.
+The first Director execution aborted before network use because Windows PowerShell's loaded .NET surface did not expose `System.Convert.ToHexString`. It failed before `FIRST_NETWORK_LEG_STARTED=YES`; zero provider requests were attempted and authorization therefore remained unconsumed. The replacement packet used Windows-PowerShell-compatible hexadecimal conversion and moved static compatibility checks before credential entry.
 
-## Local packet incident before network
+## Consuming execution
 
-The first Director execution of the differential packet aborted during local-only body-hash preparation because Windows PowerShell's loaded .NET surface did not expose `System.Convert.ToHexString`. The failure occurred before the packet emitted `FIRST_NETWORK_LEG_STARTED=YES`; therefore **zero provider requests were attempted and the two-request authorization remains unconsumed**. The replacement packet must use a Windows PowerShell-compatible hexadecimal conversion and perform static compatibility/body-hash setup before credential entry.
+The replacement packet passed static compatibility and credential-integrity preflights, then emitted `FIRST_NETWORK_LEG_STARTED=YES` and attempted both authorized legs.
 
-No credential value from this unshared diagnostic key was printed, written to repository evidence, or transmitted by that aborted packet.
+Result authority is recorded in:
 
-## Boundaries
+`docs/evidence/E0A_GEMINI_AUTH_TRANSPORT_DIFFERENTIAL_RESULT_2026_09_08.md`
 
-- No `generateContent`, inference, fiction generation, reference run, fallback, or other provider request is authorized.
-- No automatic or manual retry is authorized after a provider request has been attempted.
-- The exposed `AQ.` key from the preceding external diagnostic is compromised and must not be used. The differential requires a fresh key that is never pasted into chat, repository content, command text, files, logs, or evidence.
-- The probe may report only bounded safe results: request leg, HTTP status, `totalTokens` on success, and provider error status/reason when safely parseable. It must not print the request URI, credential, raw headers, or raw provider body.
-- Once the first network leg is attempted, do not rerun the packet. If local execution aborts after one leg, stop and audit rather than duplicating a request.
-- After the two authorized legs terminate, provider authorization returns to **NONE**.
+Summary:
 
-## Purpose
+- query-auth leg: no HTTP response; local `System.Management.Automation.MethodInvocationException`; provider receipt/rejection not established;
+- header-auth leg: HTTP **200**, `totalTokens=8`, no provider/transport error;
+- no generation, inference, reference run, retry, fallback, or other model traffic;
+- authorization consumed and provider authorization returned to **NONE**.
 
-Attempt 02 at promoted checkout `689655eed677b789ab3ee395f1c65b4f2cb72cc8` reached `gemini-3.5-flash-lite:countTokens` via `x-goog-api-key` and received HTTP 401. A later Director external diagnostic successfully used a newly created `AQ.` auth key for `gemini-3.6-flash:generateContent` via `?key=`. This differential isolates authentication transport while holding key/model/method/body constant.
+## Boundaries after consumption
 
-No source change is authorized by this document. The result must be audited before any implementation decision.
+No source change is authorized by this record. In particular, the inconclusive query leg is not evidence for changing the Harness away from `x-goog-api-key`; the successful header leg directly proves that transport works for a fresh `AQ.` key against `gemini-3.5-flash-lite:countTokens`.
+
+Any further provider request requires a new explicit Director authorization.
