@@ -13,6 +13,8 @@ internal static class E0AEvidenceContracts
     internal const string FrozenBlueprintVersion = "0.1";
     internal const string GeminiReferenceAmendment = "E0A_PHASE_B_GEMINI_RATE_DISCIPLINE_MODEL_COMPARISON_AMENDMENT";
     internal const string GeminiApprovedAmendmentCommit = "76fc0c64da4724a7a352a656a062d5c3ed431ad6";
+    internal const string GeminiRpdModelSelectionAmendment = "E0A_PHASE_B_GEMINI_FREE_TIER_RPD_MODEL_SELECTION_AMENDMENT";
+    internal const string GeminiRpdModelSelectionApprovedCommit = "825309e4ad0e9e207136aa6b20fd31925e814172";
     internal const string HardGateChecklistVersion = "ensemble.e0a.hard-gates.v1";
     internal const string MandatoryReviewResolution = "deterministic-reject-all";
 
@@ -34,21 +36,28 @@ internal static class E0AEvidenceContracts
     {
         ArgumentNullException.ThrowIfNull(envelope);
         envelope.Validate();
-        return GeminiReferenceAmendment;
+        return envelope.ModelProfile.LiveSelectable
+            ? GeminiRpdModelSelectionAmendment
+            : GeminiReferenceAmendment;
     }
 
     internal static string ApprovedBlueprintCommitFor(E0ARunEnvelope envelope)
     {
         ArgumentNullException.ThrowIfNull(envelope);
         envelope.Validate();
-        return GeminiApprovedAmendmentCommit;
+        return envelope.ModelProfile.LiveSelectable
+            ? GeminiRpdModelSelectionApprovedCommit
+            : GeminiApprovedAmendmentCommit;
     }
 
     internal static string ReferenceConfigurationIdentity(E0ARunEnvelope envelope)
     {
         ArgumentNullException.ThrowIfNull(envelope);
         envelope.Validate();
-        return $"E0A-GEMINI-COMPARISON-2026-09-07:{envelope.Variant}:{envelope.ProviderProfileId}";
+        var prefix = envelope.ModelProfile.LiveSelectable
+            ? "E0A-GEMINI-RPD-COMPARISON-2026-09-07"
+            : "E0A-GEMINI-COMPARISON-2026-09-07";
+        return $"{prefix}:{envelope.Variant}:{envelope.ProviderProfileId}";
     }
 }
 
@@ -81,6 +90,7 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
     private readonly string _root;
     private readonly Dictionary<string, string> _blindLabels;
     private readonly List<object> _accepted = new();
+    private readonly int _acceptedTurnCap;
     private bool _runtimeSealed;
     private bool _evaluationSealed;
 
@@ -130,6 +140,7 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
         }
 
         _root = E0AEvidenceNamespaceAuthority.Claim(root, runId);
+        _acceptedTurnCap = envelope.RunAcceptedTurnCap;
         _blindLabels = rosterValues
             .OrderBy(x => x, StringComparer.Ordinal)
             .Select((id, index) => new { id, label = $"SPEAKER-{index + 1:D2}" })
@@ -151,7 +162,7 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
             executableCommit,
             variant = envelope.Variant,
             providerProfileId = envelope.ProviderProfileId,
-            acceptedTurnCap = E0ARunEnvelope.AcceptedTurnCap,
+            acceptedTurnCap = envelope.RunAcceptedTurnCap,
             attemptsPerRoleInvocation = E0ARunEnvelope.AttemptsPerRoleInvocation,
             automaticRetries = E0ARunEnvelope.AutomaticRetries,
             attemptTimeoutSeconds = E0ARunEnvelope.AttemptTimeoutSeconds,
@@ -273,7 +284,7 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
     {
         EnsureRuntimeOpen();
         ArgumentNullException.ThrowIfNull(candidate);
-        if (turn is < 1 or > E0ARunEnvelope.AcceptedTurnCap ||
+        if (turn is < 1 || turn > _acceptedTurnCap ||
             candidate.SubjectCharacterId != characterId)
         {
             throw new E0AHarnessException("E0-A accepted Performance evidence is not bound to its turn and Character.");
@@ -308,7 +319,7 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
             throw new E0AHarnessException("E0-A runtime seal final Opportunity is uninitialized.");
         }
         if (string.IsNullOrWhiteSpace(terminalStatus) ||
-            acceptedTurns is < 0 or > E0ARunEnvelope.AcceptedTurnCap ||
+            acceptedTurns < 0 || acceptedTurns > _acceptedTurnCap ||
             estimatedSpendUsd < 0m ||
             !Enum.IsDefined(spendEstimateStatus) ||
             !IsLowerHex(finalStateHash, 64) ||
@@ -425,7 +436,11 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
             requestedModel = model.Model,
             requestsPerMinute = model.RequestsPerMinute,
             inputTokensPerMinute = model.InputTokensPerMinute,
-            requestsPerDay = "unverified-pre-live",
+            requestsPerDay = model.RequestsPerDay,
+            acceptedTurnCap = envelope.RunAcceptedTurnCap,
+            conservativeProviderRequestsPerAcceptedTurn = E0AGeminiModelCatalog.ConservativeProviderRequestsPerAcceptedTurn,
+            worstCaseRunProviderRequests = checked(envelope.RunAcceptedTurnCap * E0AGeminiModelCatalog.ConservativeProviderRequestsPerAcceptedTurn),
+            rpdAdmissionPolicy = "all-countTokens-and-generation-requests-conservatively-share-rpd",
             rateDisciplineScope = "all-gemini-api-http-requests",
             rateDisciplineShape = "smooth-rpm-plus-exact-generation-input-tpm",
             rateSnapshotVerifiedOn = "2026-09-07"
