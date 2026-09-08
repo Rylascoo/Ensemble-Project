@@ -6,6 +6,8 @@ Date: **2026-09-08**
 
 ## Authority and artifact
 
+Authorization: `docs/evidence/E0A_THIRD_REAL_GEMINI_35_LITE_DIRECTOR_AUTHORIZATION_2026_09_08.md`  
+Attempt record: `docs/evidence/E0A_THIRD_REAL_GEMINI_35_LITE_ATTEMPT_03_2026_09_08.md`  
 Run: `E0A-REAL-G35L-20260908-03`  
 Executable: `689655eed677b789ab3ee395f1c65b4f2cb72cc8`  
 Profile: `GEMINI-3.5-FLASH-LITE-MINIMAL` / `CREATIVE-MINIMAL`  
