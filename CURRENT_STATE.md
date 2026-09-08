@@ -25,7 +25,9 @@ Auth-transport differential **CONSUMED**. Same fresh unshared `AQ.` key/model/me
 ## Authorized live run
 Director authorization: `docs/evidence/E0A_THIRD_REAL_GEMINI_35_LITE_DIRECTOR_AUTHORIZATION_2026_09_08.md`.
 
-Exactly **one** third synthetic Missing Raft `GEMINI-3.5-FLASH-LITE-MINIMAL` reference run is authorized at promoted `689655...`, run id `E0A-REAL-G35L-20260908-03`, using the same still-active/unshared key that just passed header `countTokens`; one attempt per role, zero retries, no fallback/other model/fixture/provider traffic. Any terminal result consumes authorization.
+Exactly **one** third synthetic Missing Raft `GEMINI-3.5-FLASH-LITE-MINIMAL` reference run is authorized at promoted `689655...`, run id `E0A-REAL-G35L-20260908-03`, using the same still-active/unshared key that passed header `countTokens`; one attempt per role, zero retries, no fallback/other model/fixture/provider traffic. Any terminal result consumes authorization.
+
+First packet launch failed locally from `C:\Users\Wiryl` at `git rev-parse --show-toplevel` before credential entry, evidence creation, `PROVIDER_INVOCATION_STARTED=YES`, or provider traffic. Authorization remains **UNCONSUMED**.
 
 ## Next
-Run the authorized third reference run once. Preserve transcript/evidence ZIP, clear credentials immediately afterward, do not rerun after invocation starts, then audit the result before any further provider or source decision.
+Run the corrected packet once from explicit checkout `C:\Users\Wiryl\Sol Dev\Ensemble-Project`. Preserve transcript/evidence ZIP, clear credentials immediately afterward, do not rerun after invocation starts, then audit the result before any further provider or source decision.
