@@ -6,11 +6,11 @@ Ensemble is a local-first generative theater and creative simulation for persist
 
 ## Current development state
 
-Blueprint 0.1 is frozen for E0. The runtime phase is **E0-A Phase B**. The current engineering work package is **E-R1 repository/tooling/workflow restructuring**; real Gemini network execution remains separately gated. H1 Phase A is **CLOSED**.
+Blueprint 0.1 is frozen for E0. The runtime phase is **E0-A Phase B**. E-R1 repository/tooling/workflow restructuring is **closed and archived**. The current engineering work package is the approved **Gemini rate-discipline / model-comparison implementation at its native Windows ARM64 validation gate**; real Gemini network execution remains separately gated. H1 Phase A is **CLOSED**.
 
 `README.md` never carries phase authority; `CURRENT_STATE.md` is the only phase source.
 
-Read [`CURRENT_STATE.md`](CURRENT_STATE.md) before modifying source, then use [`docs/DOCUMENT_INDEX.md`](docs/DOCUMENT_INDEX.md) for navigation. While E-R1 is active, its boundary is recorded in [`docs/E_R1_REPOSITORY_TOOLING_WORKFLOW_RESTRUCTURE.md`](docs/E_R1_REPOSITORY_TOOLING_WORKFLOW_RESTRUCTURE.md).
+Read [`CURRENT_STATE.md`](CURRENT_STATE.md) before modifying source, then use [`docs/DOCUMENT_INDEX.md`](docs/DOCUMENT_INDEX.md) for navigation. The current provider-comparison architecture is recorded in [`docs/blueprint/E0A_PHASE_B_GEMINI_RATE_DISCIPLINE_MODEL_COMPARISON_AMENDMENT.md`](docs/blueprint/E0A_PHASE_B_GEMINI_RATE_DISCIPLINE_MODEL_COMPARISON_AMENDMENT.md); E-R1 remains historical authority only at [`docs/E_R1_REPOSITORY_TOOLING_WORKFLOW_RESTRUCTURE.md`](docs/E_R1_REPOSITORY_TOOLING_WORKFLOW_RESTRUCTURE.md).
 
 Then read [`docs/PROJECT_REASONING_TASK_SCOPE_OPTIMIZATION_PROTOCOL.md`](docs/PROJECT_REASONING_TASK_SCOPE_OPTIMIZATION_PROTOCOL.md). Whenever applicable, every fresh or continuing project chat must maximize useful value per reply by deliberately optimizing substantive task scope for the capabilities of GPT-5.6 Sol High reasoning; this means more useful reasoning, synthesis, verification, and dependency closure per reply, not artificially longer replies or greater token consumption.
 
