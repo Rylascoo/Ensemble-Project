@@ -6,7 +6,7 @@ Ensemble is a local-first generative theater and creative simulation for persist
 
 ## Current development state
 
-Blueprint 0.1 is frozen for E0. The runtime phase is **E0-A Phase B**. E-R1 repository/tooling/workflow restructuring is **closed and archived**. The Gemini Free-tier RPD/model-selection work and first-real-attempt `countTokens` correction are native-validated and promoted at tagged Windows ARM64 checkout `689655eed677b789ab3ee395f1c65b4f2cb72cc8`. Real Gemini 3.5 Flash-Lite attempts 01 and 02 are both consumed technical failures at zero accepted turns; attempt 02 reached the corrected first Performer `countTokens` boundary and received HTTP 401 before generation. No source patch or further provider request is authorized; the next gate is credential/project authentication-state verification in AI Studio without issuing an API request. H1 Phase A is **CLOSED**.
+Blueprint 0.1 is frozen for E0. The runtime phase is **E0-A Phase B**. E-R1 repository/tooling/workflow restructuring is **closed and archived**. The Gemini Free-tier RPD/model-selection work and first-real-attempt `countTokens` correction are native-validated and promoted at tagged Windows ARM64 checkout `689655eed677b789ab3ee395f1c65b4f2cb72cc8`. Real Gemini 3.5 Flash-Lite attempts 01 and 02 are consumed technical failures at zero accepted turns; attempt 02 reached first Performer `countTokens` and received HTTP 401 before generation. A later Director-only diagnostic proved a new `AQ.` auth key can reach current native Gemini 3.6 Flash generation through `?key=`, leaving auth transport/method/model/key as unresolved axes. No source patch or further provider request is authorized; the next gate is a separately authorized two-request `countTokens` transport differential with a fresh unshared key. H1 Phase A is **CLOSED**.
 
 `README.md` never carries phase authority; `CURRENT_STATE.md` is the only phase source.
 
@@ -28,13 +28,3 @@ Every accepted implementation must leave the active codebase at least as coheren
 For each substantive Director turn, choose the largest logically coupled, falsifiable work package that belongs to one objective and can be completed with current evidence/tools. Spend Sol High reasoning on source reconciliation, architecture/dependency analysis, root-cause diagnosis, smallest-surface patch planning, edge cases, regression strategy, privacy/accessibility/ARM64 implications, contradiction detection, and recursive audit—not on artificially larger replies, code blocks, file counts, or unrelated scope. Simple tasks remain simple. Consequential architecture, implementation, native runtime, WACK, Store, security, and other external-validation gates remain explicit.
 
 Use the patch-first flow for compiler/runtime feedback:
-
-`current authority -> failure evidence -> root cause -> smallest patch -> targeted regression/static checks -> checkpoint only if materially changed -> next machine gate`
-
-Do not regenerate full archives or documentation sets for ordinary corrections.
-
-## Validation discipline
-
-Static review is advisory. Compiler output for the pinned target is compiler authority; target-device execution is runtime authority; NPU execution, WACK, and Store certification require their own later evidence.
-
-A successful Linux x64 build of the pinned `win-arm64` / `ARM64` Harness may be cited as `win-arm64 cross-compile/build PASS`, not as native Windows ARM64 execution or runtime authority.
