@@ -6,7 +6,7 @@ Ensemble is a local-first generative theater and creative simulation for persist
 
 ## Current development state
 
-Blueprint 0.1 is frozen for E0. The runtime phase is **E0-A Phase B**. E-R1 repository/tooling/workflow restructuring is **closed and archived**. The approved Gemini Free-tier RPD/model-selection amendment remains native-validated and promoted at its tagged Windows ARM64 checkout. The single authorized first real Gemini 3.5 Flash-Lite attempt was consumed and failed in Performer `countTokens` preflight before generation; its evidence identified a missing nested countTokens model field. That defect is corrected, cloud-green, and has passed the Director-machine credentialless Windows ARM64 packet at exact correction checkout `689655eed677b789ab3ee395f1c65b4f2cb72cc8`. Promotion of that correction is pending the required annotated validation tag. No provider retry is authorized. H1 Phase A is **CLOSED**.
+Blueprint 0.1 is frozen for E0. The runtime phase is **E0-A Phase B**. E-R1 repository/tooling/workflow restructuring is **closed and archived**. The Gemini Free-tier RPD/model-selection work and the first-real-attempt countTokens correction are now native-validated and promoted at tagged Windows ARM64 checkout `689655eed677b789ab3ee395f1c65b4f2cb72cc8`. The single authorized first real Gemini 3.5 Flash-Lite attempt remains consumed and failed before generation; its root cause was corrected. No provider retry or second real run is authorized. The next consequential gate is a new Director decision for exactly one corrected synthetic Missing Raft 3.5 Flash-Lite run after provider/account freshness re-verification. H1 Phase A is **CLOSED**.
 
 `README.md` never carries phase authority; `CURRENT_STATE.md` is the only phase source.
 

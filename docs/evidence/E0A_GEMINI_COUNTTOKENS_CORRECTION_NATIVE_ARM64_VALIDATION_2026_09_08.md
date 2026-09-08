@@ -1,6 +1,6 @@
 # E0-A Gemini countTokens Correction — Native Windows ARM64 Validation
 
-Status: **PASS — DIRECTOR-MACHINE EXECUTION COMPLETE — VALIDATION TAG/PROMOTION PENDING**
+Status: **PASS — PROMOTED MACHINE-TESTED CHECKOUT**
 
 Date: **2026-09-08**
 
@@ -82,6 +82,14 @@ Real-run authorization            NONE
 
 This evidence validates native Windows ARM64 execution of the countTokens correction source/test/credentialless boundary only. It does not establish successful live countTokens behavior, provider account availability, inference, live usage accounting, latency, quality, or spend.
 
-## Promotion gate
+## Promotion
 
-Native machine evidence is complete for this checkout. Promotion requires an annotated validation tag that dereferences exactly to `689655eed677b789ab3ee395f1c65b4f2cb72cc8`. The tag message must record native Windows ARM64 validation, credentialless/no-provider-network scope, and this evidence document. Only after that tag exists may `CURRENT_STATE.md` and `docs/VALIDATION_LEDGER.md` promote this checkout as current machine-tested authority.
+Annotated validation tag:
+
+`validation/e0a-gemini-counttokens-correction-native-arm64`
+
+Tag object:
+
+`7337ec6c6ff7c6d9d12c9a1322d0c5981e5fdb83`
+
+The tag was independently verified to dereference exactly to `689655eed677b789ab3ee395f1c65b4f2cb72cc8`. `CURRENT_STATE.md` and `docs/VALIDATION_LEDGER.md` may therefore name this checkout as current machine-tested authority. Later documentation commits do not inherit native runtime authority.

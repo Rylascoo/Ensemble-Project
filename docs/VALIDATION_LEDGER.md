@@ -6,24 +6,25 @@ Status: validation fact register only. This file cannot advance phase/checkpoint
 
 | Field | Fact |
 |---|---|
-| Exact checkout | `3d6d8a7f1caf548c15f0f2393d0fc7b50ac0cd99` |
-| Annotated tag | `validation/e0a-gemini-rpd-model-selection-native-arm64` |
-| Tag object | `ca036b8b44775f77535d04b82ba4ebbbb3d295f0`; dereferences to exact checkout above |
-| Amendment | `docs/blueprint/E0A_PHASE_B_GEMINI_FREE_TIER_RPD_MODEL_SELECTION_AMENDMENT.md` |
-| Implementation audit | `docs/evidence/E0A_GEMINI_FREE_TIER_RPD_MODEL_SELECTION_IMPLEMENTATION_AUDIT.md` |
-| Native evidence | `docs/evidence/E0A_GEMINI_FREE_TIER_RPD_MODEL_SELECTION_NATIVE_ARM64_VALIDATION_2026_09_08.md` |
+| Exact checkout | `689655eed677b789ab3ee395f1c65b4f2cb72cc8` |
+| Annotated tag | `validation/e0a-gemini-counttokens-correction-native-arm64` |
+| Tag object | `7337ec6c6ff7c6d9d12c9a1322d0c5981e5fdb83`; dereferences to exact checkout above |
+| Architecture | `docs/blueprint/E0A_PHASE_B_GEMINI_FREE_TIER_RPD_MODEL_SELECTION_AMENDMENT.md` |
+| Correction | nested `generateContentRequest.model` for Gemini `countTokens`; generation payload unchanged; bounded countTokens diagnostics |
+| Native evidence | `docs/evidence/E0A_GEMINI_COUNTTOKENS_CORRECTION_NATIVE_ARM64_VALIDATION_2026_09_08.md` |
+| Supporting implementation audit | `docs/evidence/E0A_GEMINI_FREE_TIER_RPD_MODEL_SELECTION_IMPLEMENTATION_AUDIT.md` |
 | Director-host contract | `docs/evidence/DIRECTOR_WINDOWS_ARM64_VALIDATION_HOST_BEHAVIORS.md` |
 | Host | Director Windows ARM64 (`win-arm64`) |
 | Core tests | 622/622 PASS |
-| Harness tests | 122/122 PASS |
+| Harness tests | 125/125 PASS |
 | Fresh Harness build | `win-arm64` PASS |
 | Fixture smokes | missing-Raft PASS; generic PASS |
 | Current credentialless live-profile gate | 3.5 Lite, 3.1 Lite, 2.5 Lite expected missing-key refusal PASS; no evidence roots |
 | Retired 2.5 Flash live selection | expected pre-credential rejection PASS; no evidence root |
-| Failed native attempt 01 | `31436ee52238c2de96e9bcbe9d61ece173f81dd3`: Core 622/622; Harness 121/122; stopped; no partial promotion |
-| Provider credentials/network/`countTokens`/inference/spend | NOT PERFORMED |
+| Correction native-validation provider scope | provider network / `countTokens` / inference / spend NOT PERFORMED; no real-run authorization |
+| First-real attempt 01 | predecessor `3d6d8a7f...`; first Performer countTokens preflight failed; generation/inference absent; authorization consumed |
 
-Native runtime authority applies only to exact checkout `3d6d8a7f...`. Documentation-only commits after it do not inherit machine-test authority. Cloud ARM64-target builds remain compiler authority only; Linux x64 Core tests remain required semantic regressions, not native Windows ARM64 runtime authority.
+Native runtime authority applies only to exact checkout `689655...`. Documentation-only commits after it do not inherit machine-test authority. Cloud ARM64-target builds remain compiler authority only; Linux x64 Core tests remain required semantic regressions, not native Windows ARM64 runtime authority.
 
 ## Durable historical native validation tags
 
@@ -37,6 +38,7 @@ These tags preserve exact historical machine-tested checkouts. Historical validi
 - `validation/e0a-pre-restructure-closure-native-arm64` -> `cc395a25162a0a682796bffb44060c799df0db32`
 - `validation/e0a-gemini-comparison-native-arm64` -> `c9f706b42350c8b6cfc462e09cf71db6bc3a2355`; evidence: `docs/evidence/E0A_GEMINI_COMPARISON_NATIVE_ARM64_VALIDATION_2026_09_07.md`
 - `validation/e0a-gemini-rpd-model-selection-native-arm64` -> `3d6d8a7f1caf548c15f0f2393d0fc7b50ac0cd99`
+- `validation/e0a-gemini-counttokens-correction-native-arm64` -> `689655eed677b789ab3ee395f1c65b4f2cb72cc8`
 
 Historical supporting evidence may be archived as repository-surface cleanup proceeds. The annotated tag, exact checkout, and Git history remain durable locators.
 
