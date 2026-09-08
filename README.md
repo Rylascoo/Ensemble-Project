@@ -6,7 +6,7 @@ Ensemble is a local-first generative theater and creative simulation for persist
 
 ## Current development state
 
-Blueprint 0.1 is frozen for E0. The runtime phase is **E0-A Phase B**. E-R1 repository/tooling/workflow restructuring is **closed and archived**. The Gemini Free-tier RPD/model-selection work and first-real-attempt `countTokens` correction are native-validated and promoted at tagged Windows ARM64 checkout `689655eed677b789ab3ee395f1c65b4f2cb72cc8`. Real Gemini 3.5 Flash-Lite attempts 01 and 02 are both consumed technical failures at zero accepted turns; attempt 02 used the corrected checkout and its preserved evidence archive is now the active root-cause audit surface. No retry, third run, other model, fixture, fallback, or broader provider traffic is authorized. H1 Phase A is **CLOSED**.
+Blueprint 0.1 is frozen for E0. The runtime phase is **E0-A Phase B**. E-R1 repository/tooling/workflow restructuring is **closed and archived**. The Gemini Free-tier RPD/model-selection work and first-real-attempt `countTokens` correction are native-validated and promoted at tagged Windows ARM64 checkout `689655eed677b789ab3ee395f1c65b4f2cb72cc8`. Real Gemini 3.5 Flash-Lite attempts 01 and 02 are both consumed technical failures at zero accepted turns; attempt 02 reached the corrected first Performer `countTokens` boundary and received HTTP 401 before generation. No source patch or further provider request is authorized; the next gate is credential/project authentication-state verification in AI Studio without issuing an API request. H1 Phase A is **CLOSED**.
 
 `README.md` never carries phase authority; `CURRENT_STATE.md` is the only phase source.
 
