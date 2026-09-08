@@ -13,18 +13,16 @@ Architecture: `docs/blueprint/E0A_PHASE_B_GEMINI_FREE_TIER_RPD_MODEL_SELECTION_A
 ## Validation
 **Promoted machine-tested checkout:** `689655eed677b789ab3ee395f1c65b4f2cb72cc8` / `validation/e0a-gemini-counttokens-correction-native-arm64`. Director Windows ARM64: Core **622/622**, Harness **125/125**, build/smokes/credentialless gates **PASS**. Evidence: `docs/evidence/E0A_GEMINI_COUNTTOKENS_CORRECTION_NATIVE_ARM64_VALIDATION_2026_09_08.md`.
 
-Attempt 01: `docs/evidence/E0A_FIRST_REAL_GEMINI_35_LITE_ATTEMPT_01_2026_09_08.md`. Attempt 02 audit: `docs/evidence/E0A_SECOND_REAL_GEMINI_35_LITE_ATTEMPT_02_ARCHIVE_AUDIT_2026_09_08.md`. External key diagnostic: `docs/evidence/E0A_GEMINI_AUTH_KEY_EXTERNAL_DIAGNOSTIC_2026_09_08.md` (exposed key never reusable).
+Earlier live evidence remains reachable through `docs/evidence/E0A_FIRST_REAL_GEMINI_35_LITE_ATTEMPT_01_2026_09_08.md`, `docs/evidence/E0A_SECOND_REAL_GEMINI_35_LITE_ATTEMPT_02_ARCHIVE_AUDIT_2026_09_08.md`, `docs/evidence/E0A_GEMINI_AUTH_KEY_EXTERNAL_DIAGNOSTIC_2026_09_08.md`, `docs/evidence/E0A_GEMINI_AUTH_TRANSPORT_DIFFERENTIAL_RESULT_2026_09_08.md`, and supporting audits `docs/evidence/E0A_GEMINI_RATE_DISCIPLINE_MODEL_COMPARISON_IMPLEMENTATION_AUDIT.md`; `docs/evidence/E0A_GEMINI35_THOUGHT_SIGNATURE_COMPATIBILITY_AUDIT.md`.
 
-Supporting audits: `docs/evidence/E0A_GEMINI_RATE_DISCIPLINE_MODEL_COMPARISON_IMPLEMENTATION_AUDIT.md`; `docs/evidence/E0A_GEMINI35_THOUGHT_SIGNATURE_COMPATIBILITY_AUDIT.md`.
+## Provider evidence / decision
+Attempt 03 archive verifies completely. First Performer `countTokens` returned HTTP **400** after `480.4031 ms`; 0 turns, $0, no generation. Full audit: `docs/evidence/E0A_THIRD_REAL_GEMINI_35_LITE_ATTEMPT_03_ARCHIVE_AUDIT_2026_09_08.md`.
 
-## Provider evidence
-Auth differential **CONSUMED**: same fresh unshared key via `x-goog-api-key` returned HTTP **200**, `totalTokens=8` for simple `gemini-3.5-flash-lite:countTokens`. Evidence: `docs/evidence/E0A_GEMINI_AUTH_TRANSPORT_DIFFERENTIAL_RESULT_2026_09_08.md`.
+The preceding same-key/header/model/method simple `countTokens` succeeded, so authentication transport is closed. Google docs conflict on 3.5 Flash-Lite structured-output support and the 400 body was not retained; exact rejected field remains unproven. Classification: **3.5 Flash-Lite frozen-request live compatibility unproven**.
 
-Attempt 03 authorization **CONSUMED**. ZIP, all sealed hashes, runtime root and seal identity verify. Exact failure: first Performer `countTokens` HTTP **400** after `480.4031 ms`; 0 turns, $0, no generation/inference. Audit: `docs/evidence/E0A_THIRD_REAL_GEMINI_35_LITE_ATTEMPT_03_ARCHIVE_AUDIT_2026_09_08.md`.
-
-The full request uses currently documented GenerateContent fields including structured JSON `responseFormat`. Google provider docs conflict: the model-specific Gemini 3.5 Flash-Lite page says structured outputs are supported, while the current general structured-output support table omits 3.5 Flash-Lite. The 400 body was not retained, so the exact rejected field/root cause is unproven. Classification: **3.5 Flash-Lite frozen-request live compatibility unproven**, not generally structured-output unsupported.
-
-Provider authorization: **NONE**. No retry/fourth 3.5 run/fallback/other provider traffic.
+Director decision: `docs/evidence/E0A_GEMINI_PROVIDER_COMPATIBILITY_DIRECTOR_DECISION_2026_09_08.md`. **3.5 Flash-Lite live execution PAUSED; bounded provider-error/request-compatibility engineering amendment AUTHORIZED; 3.1 Flash-Lite provider execution DEFERRED. Provider authorization: NONE.** No credential use, `countTokens`, generation/probe, inference, spend, fallback, or other provider traffic.
 
 ## Next
-**Director provider-compatibility decision only.** Keep 3.5 Flash-Lite paused and choose whether to (a) advance the already-approved 3.1 Flash-Lite comparator through its separate fresh provider gate, or (b) first authorize an engineering diagnostic/request-compatibility amendment. No provider request or source patch before that decision. Any source change requires cloud/native Windows ARM64 validation and a new validation tag.
+Active handoff: `docs/handoff/E0A_GEMINI_BOUNDED_PROVIDER_ERROR_DIAGNOSTIC_ENGINEERING_HANDOFF_2026_09_08.md`.
+
+Fresh engineering chat: read this file first, then the handoff; construct/audit/implement the smallest Harness-local bounded diagnostic amendment. Any source change requires cloud validation plus new native Windows ARM64 validation and annotated validation tag before any future provider request.
