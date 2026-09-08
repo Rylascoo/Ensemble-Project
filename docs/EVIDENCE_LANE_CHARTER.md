@@ -23,6 +23,7 @@ A win-arm64 cross-compile is compiler authority. Off-target x64 execution may fa
 7. **Standing backlog.** Resolve substantial prior recommendations as LANDED, OPEN, or WITHDRAWN from live evidence before re-proposing them.
 8. **Search termination.** Before an evaluative program continues, verify that an admissible success/stop condition exists and was not invented after seeing results.
 9. **Concurrent-capacity planning.** Identify independent work that can proceed without consuming a Director decision and keep conflicting writers off the same surface.
+10. **Execution-queue audit.** Reconcile `docs/PROJECT_EXECUTION_QUEUE.md` against current evidence whenever an experiment or major gate closes; preparation status never substitutes for execution evidence.
 
 ## Method
 
@@ -30,11 +31,15 @@ Falsification first: state what evidence would disprove a proposed defect before
 
 Default-branch reads are not sufficient when live branches diverge. Resolve all live refs, then use exact-ref source/evidence for load-bearing facts. This rule survives even after `main` is restored as a trustworthy trunk; it prevents recurrence rather than institutionalizing a permanently stale main.
 
-## E0-E authorship exception
+## E0-E authorship and preparation exception
 
 The evidence lane owns the E0-E control arm by Director decision. E0-E is the single-model playwright control: the same frontier model as the E0-A reference configuration receives the complete Scene setup and portrays all three Characters without the Ensemble isolated-cast architecture. The purpose is to isolate architecture from provider/model variation.
 
-This exception grants no authority over E0-A, Core, the Harness, product surfaces, ODR resolution, phase changes, or blueprint amendments. E0-E is throwaway experimental control code and its result is an input to the Director, not a self-executing mandate. It is not actionable until the governing E0 sequence reaches that boundary.
+This exception grants no authority over E0-A, Core, the Harness, product surfaces, ODR resolution, phase changes, or blueprint amendments. E0-E is throwaway experimental control code and its result is an input to the Director, not a self-executing mandate.
+
+By Director decision on 2026-09-08, **bounded E0-E preparation may proceed in parallel before the governing E0 sequence reaches E0-E**. Preparation may freeze the control-arm construction/measurement packet and may preconstruct non-network throwaway scaffolding only after that packet passes recursive audit. It may not make provider requests, use credentials, consume spend/run budget, produce or score E0-E transcripts, unblind results, mutate E0-A through E0-D, choose a different reference model for convenience, or claim E0-E behavioral evidence.
+
+**E0-E execution remains not actionable until E0-A -> E0-B -> E0-C -> E0-D have completed and current project state activates the E0-E execution boundary.** Any live provider use then remains subject to the provider/Director/dated-fact gates in force at that time.
 
 ## Mechanical-agent doctrine
 
@@ -44,4 +49,4 @@ Use lower reasoning for exact mechanical transforms, medium for pattern-followin
 
 ## Fresh-session bootstrap
 
-The evidence lane follows root `AGENTS.md`: resolve live refs first; read `CURRENT_STATE.md` at the active exact ref; inspect current validation and CI/compiler state; then read this charter and the current evidence necessary to falsify the active work. Session-specific tool availability is discovered live and is never frozen into this charter.
+The evidence lane follows root `AGENTS.md`: resolve live refs first; read `CURRENT_STATE.md` at the active exact ref; inspect `docs/PROJECT_EXECUTION_QUEUE.md`, current validation and CI/compiler state; then read this charter and the current evidence necessary to falsify the active work. Session-specific tool availability is discovered live and is never frozen into this charter.

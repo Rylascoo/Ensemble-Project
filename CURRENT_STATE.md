@@ -3,7 +3,7 @@
 Updated: 2026-09-08
 
 ## Authority
-`Rylascoo/Ensemble-Project` is engineering authority. This file alone carries phase/checkpoint/validation/next-action authority; `AGENTS.md` defines exact-ref bootstrap/closeout and `docs/PROJECT_AUTHORITY.md` owns product/policy/lane authority.
+`Rylascoo/Ensemble-Project` is engineering authority. This file alone carries phase/checkpoint/validation/next-action authority; `AGENTS.md` defines exact-ref bootstrap/closeout, `docs/PROJECT_AUTHORITY.md` owns product/policy/lane authority, and `docs/PROJECT_EXECUTION_QUEUE.md` preserves ordered backlog/prerequisites without overriding this state.
 
 ## Checkpoint
 Runtime: **E0-A Experimental Harness — Phase B**. Repository convergence is **CLOSED**. `main` has been restored to the accepted E0-A lineage; final closeout is documentation-only. Audit: `docs/evidence/REPOSITORY_CONVERGENCE_INTEGRITY_AUDIT_2026_09_08.md`.
@@ -18,7 +18,10 @@ Attempt 03: first Performer `countTokens` HTTP **400**, 0 turns, $0, no generati
 
 Director decision: **3.5 Flash-Lite live execution PAUSED; bounded provider-error/request-compatibility engineering amendment AUTHORIZED; 3.1 Flash-Lite provider execution DEFERRED. Provider authorization: NONE.** No credential use or provider traffic.
 
+## Parallel evidence-lane preparation
+**E0-E single-model playwright control preparation is AUTHORIZED now; E0-E execution remains BLOCKED until E0-A -> E0-B -> E0-C -> E0-D are closed.** Preparation may be non-network only and must preserve the E0-A reference configuration. Live packet: `docs/handoff/E0E_SINGLE_MODEL_PLAYWRIGHT_CONTROL_PREPARATION_HANDOFF_2026_09_08.md`.
+
 ## Next
-Start the bounded provider-error/request-compatibility amendment on a fresh branch from reconciled `main`. Active technical contract: `docs/handoff/E0A_GEMINI_BOUNDED_PROVIDER_ERROR_DIAGNOSTIC_ENGINEERING_HANDOFF_2026_09_08.md`. Any source change requires cloud validation plus new native Windows ARM64 validation and annotated validation tag before any future provider request.
+Engineering next action remains the bounded provider-error/request-compatibility amendment on `e0a-gemini-bounded-provider-error-diagnostic`. Active technical contract: `docs/handoff/E0A_GEMINI_BOUNDED_PROVIDER_ERROR_DIAGNOSTIC_ENGINEERING_HANDOFF_2026_09_08.md`. Any source change requires cloud validation plus new native Windows ARM64 validation and annotated validation tag before any future provider request.
 
 Reconciled stale engineering branch refs may be archived/deleted only after annotated `archive/...` tags exist; current connected writer cannot create those tags, so no unique work remains but ref cleanup is administrative pending.

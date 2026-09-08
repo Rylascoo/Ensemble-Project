@@ -7,12 +7,13 @@ This index helps a fresh engineering chat find the small set of current entry su
 ## Start here
 
 1. `CURRENT_STATE.md` — sole phase/checkpoint/validation/next-action authority.
-2. `AGENTS.md` — exact-ref bootstrap, self-healing boundary, and closeout procedure.
+2. `AGENTS.md` — exact-ref bootstrap, self-healing boundary, ordered-execution rule, and closeout procedure.
 3. `docs/PROJECT_AUTHORITY.md` — source-of-truth order and lane ownership.
-4. `docs/ENGINEERING_HYGIENE_CONSTITUTION.md` — engineering/repository/artifact-lifecycle law.
-5. `docs/PROJECT_REASONING_TASK_SCOPE_OPTIMIZATION_PROTOCOL.md` — engineering collaboration/work-scope law.
-6. `docs/REPOSITORY_RESIDENCY.md` — canonical homes and cross-lane migration law.
-7. `docs/EVIDENCE_LANE_CHARTER.md` — independent falsification/evidence-lane scope; no phase/product authority.
+4. `docs/PROJECT_EXECUTION_QUEUE.md` — durable operational sequence, prerequisites, parallel preparation, and standing backlog guard; cannot override stronger authority.
+5. `docs/ENGINEERING_HYGIENE_CONSTITUTION.md` — engineering/repository/artifact-lifecycle law.
+6. `docs/PROJECT_REASONING_TASK_SCOPE_OPTIMIZATION_PROTOCOL.md` — engineering collaboration/work-scope law.
+7. `docs/REPOSITORY_RESIDENCY.md` — canonical homes and cross-lane migration law.
+8. `docs/EVIDENCE_LANE_CHARTER.md` — independent falsification/evidence-lane scope and E0-E preparation boundary; no phase/product authority.
 
 ## Current E0-A architecture
 
@@ -34,9 +35,10 @@ These remain subject to `CURRENT_STATE.md`; this index does not independently ma
 - `docs/evidence/E0A_GEMINI_RATE_DISCIPLINE_MODEL_COMPARISON_IMPLEMENTATION_AUDIT.md` and `docs/evidence/E0A_GEMINI35_THOUGHT_SIGNATURE_COMPATIBILITY_AUDIT.md` — supporting current architecture evidence.
 - `docs/evidence/DIRECTOR_WINDOWS_ARM64_VALIDATION_HOST_BEHAVIORS.md` — Director-host validation apparatus contract.
 
-## Current transition
+## Current transitions
 
-`docs/handoff/E0A_GEMINI_BOUNDED_PROVIDER_ERROR_DIAGNOSTIC_ENGINEERING_HANDOFF_2026_09_08.md` remains the deferred technical transition only because `CURRENT_STATE.md` names it. Repository convergence is completed before that handoff is executed.
+- `docs/handoff/E0A_GEMINI_BOUNDED_PROVIDER_ERROR_DIAGNOSTIC_ENGINEERING_HANDOFF_2026_09_08.md` — active engineering transition because `CURRENT_STATE.md` names it.
+- `docs/handoff/E0E_SINGLE_MODEL_PLAYWRIGHT_CONTROL_PREPARATION_HANDOFF_2026_09_08.md` — active parallel evidence-lane preparation packet; **no E0-E provider execution** until the frozen A -> B -> C -> D prerequisite sequence closes.
 
 ## Program / product decision surfaces
 
