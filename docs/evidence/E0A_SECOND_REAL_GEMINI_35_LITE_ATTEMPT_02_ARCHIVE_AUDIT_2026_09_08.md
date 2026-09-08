@@ -6,6 +6,10 @@ Date: **2026-09-08**
 
 ## Authority and archive identity
 
+Director authorization: `docs/evidence/E0A_SECOND_REAL_GEMINI_35_LITE_DIRECTOR_AUTHORIZATION_2026_09_08.md`.
+
+Terminal attempt record: `docs/evidence/E0A_SECOND_REAL_GEMINI_35_LITE_ATTEMPT_02_2026_09_08.md`.
+
 Run: `E0A-REAL-G35L-20260908-02`
 
 Executable checkout: `689655eed677b789ab3ee395f1c65b4f2cb72cc8`
