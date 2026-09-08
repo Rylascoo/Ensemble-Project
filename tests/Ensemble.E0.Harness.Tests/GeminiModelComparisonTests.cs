@@ -1,7 +1,10 @@
+using System.Net;
+using System.Text;
 using System.Text.Json;
 using Ensemble.E0.Core.Cycle;
 using Ensemble.E0.Core.Domain;
 using Ensemble.E0.Harness.Evidence;
+using Ensemble.E0.Harness.Gemini;
 using Ensemble.E0.Harness.Host;
 using Ensemble.E0.Harness.Run;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -74,6 +77,31 @@ public sealed class GeminiModelComparisonTests
         Assert.IsFalse(performerThinking.TryGetProperty("thinkingBudget", out _));
         Assert.AreEqual("high", integrityThinking.GetProperty("thinkingLevel").GetString());
         Assert.IsFalse(integrityThinking.TryGetProperty("thinkingBudget", out _));
+    }
+
+    [TestMethod]
+    public async Task GenerateContentPort_AcceptsEveryApprovedComparisonModelForExactTokenPreflight()
+    {
+        var context = DeterministicE0CausalCycle.ComposeContext(E0ATestSupport.Cycle()).ContextEvaluation.Packet;
+
+        foreach (var profile in E0AGeminiModelCatalog.All)
+        {
+            var handler = new CapturingTokenHandler();
+            using var http = new HttpClient(handler);
+            var port = new GeminiGenerateContentPort(http, "test-key");
+            var envelope = E0AReferenceRunHost.CreateEnvelope(profile.Variant, profile.ProfileId);
+            var attempt = E0ARequestBuilder.Performer(
+                RunId.From($"E0A-{profile.ProfileId}-COUNT"),
+                1,
+                envelope.Performer,
+                context);
+
+            var tokens = await port.CountInputTokensAsync(attempt, CancellationToken.None);
+
+            Assert.AreEqual(7L, tokens);
+            Assert.AreEqual(1, handler.Uris.Count);
+            StringAssert.Contains(handler.Uris[0], $"/models/{profile.Model}:countTokens");
+        }
     }
 
     [TestMethod]
@@ -181,6 +209,23 @@ public sealed class GeminiModelComparisonTests
                 250_001,
                 CancellationToken.None));
         Assert.AreEqual(0, clock.Delays.Count);
+    }
+
+    private sealed class CapturingTokenHandler : HttpMessageHandler
+    {
+        internal List<string> Uris { get; } = new();
+
+        protected override Task<HttpResponseMessage> SendAsync(
+            HttpRequestMessage request,
+            CancellationToken cancellationToken)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            Uris.Add(request.RequestUri!.ToString());
+            return Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StringContent("{\"totalTokens\":7}", Encoding.UTF8, "application/json")
+            });
+        }
     }
 
     private sealed class FakeClock : IE0AGeminiRateClock

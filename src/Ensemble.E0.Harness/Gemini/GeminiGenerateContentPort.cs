@@ -185,17 +185,20 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
                     modelVersion);
             }
 
-            // Thought material is outside E0-A evidence authority. Reject it before
-            // raw diagnostic bytes can be persisted by the evidence sink.
-            if (ContainsThoughtMaterial(root))
+            // Thought summaries remain outside E0-A evidence authority. Gemini 3.5
+            // may also attach an opaque thoughtSignature to otherwise semantic text;
+            // accept that metadata only for the explicitly approved 3.5 profile and
+            // strip it before diagnostic persistence.
+            var thoughtDiagnostic = ThoughtMetadataDiagnostic(attempt, root);
+            if (thoughtDiagnostic is not null)
             {
                 return RoleAttemptReceipt.TechnicalFailure(
                     attempt,
-                    "gemini-thought-material-returned",
+                    thoughtDiagnostic,
                     responseId,
                     modelVersion);
             }
-            diagnostics.RecordStreamEvent(attempt, utf8);
+            diagnostics.RecordStreamEvent(attempt, DiagnosticEventBytes(attempt, root, utf8));
 
             if (!TryPromptBlocked(root, out var promptBlocked))
             {
@@ -283,12 +286,13 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
         PreparedRoleAttempt attempt,
         JsonElement response)
     {
-        // Match the streaming evidence law: thought material is never eligible for
-        // semantic adoption and must not be allowed to hide behind another malformed
-        // provider field when the closed response itself exposes it.
-        if (ContainsThoughtMaterial(response))
+        // Match the streaming evidence law: thought summaries are never eligible
+        // for semantic adoption. Opaque Gemini 3.5 signatures are transport metadata
+        // and are ignored rather than entering the receipt or semantic output.
+        var thoughtDiagnostic = ThoughtMetadataDiagnostic(attempt, response);
+        if (thoughtDiagnostic is not null)
         {
-            return RoleAttemptReceipt.TechnicalFailure(attempt, "gemini-thought-material-returned");
+            return RoleAttemptReceipt.TechnicalFailure(attempt, thoughtDiagnostic);
         }
 
         var metadataDiagnostic = ReadProviderMetadata(
@@ -451,15 +455,35 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
                string.Equals(modelVersion, model, StringComparison.Ordinal);
     }
 
-    private static bool ContainsThoughtMaterial(JsonElement element)
+    private static string? ThoughtMetadataDiagnostic(
+        PreparedRoleAttempt attempt,
+        JsonElement response)
+    {
+        if (ContainsExplicitThoughtMaterial(response))
+        {
+            return "gemini-thought-material-returned";
+        }
+        if (!AllowsOpaqueThoughtSignature(attempt) && ContainsThoughtSignature(response))
+        {
+            return "gemini-thought-material-returned";
+        }
+        return null;
+    }
+
+    private static bool AllowsOpaqueThoughtSignature(PreparedRoleAttempt attempt) =>
+        string.Equals(
+            attempt.Profile.Model,
+            E0AGeminiModelCatalog.FlashLite35Minimal.Model,
+            StringComparison.Ordinal);
+
+    private static bool ContainsExplicitThoughtMaterial(JsonElement element)
     {
         if (element.ValueKind == JsonValueKind.Object)
         {
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("thoughtSignature") ||
-                    (property.NameEquals("thought") && property.Value.ValueKind == JsonValueKind.True) ||
-                    ContainsThoughtMaterial(property.Value))
+                if ((property.NameEquals("thought") && property.Value.ValueKind == JsonValueKind.True) ||
+                    ContainsExplicitThoughtMaterial(property.Value))
                 {
                     return true;
                 }
@@ -470,13 +494,88 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
         {
             foreach (var item in element.EnumerateArray())
             {
-                if (ContainsThoughtMaterial(item))
+                if (ContainsExplicitThoughtMaterial(item))
                 {
                     return true;
                 }
             }
         }
         return false;
+    }
+
+    private static bool ContainsThoughtSignature(JsonElement element)
+    {
+        if (element.ValueKind == JsonValueKind.Object)
+        {
+            foreach (var property in element.EnumerateObject())
+            {
+                if (property.NameEquals("thoughtSignature") || ContainsThoughtSignature(property.Value))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        if (element.ValueKind == JsonValueKind.Array)
+        {
+            foreach (var item in element.EnumerateArray())
+            {
+                if (ContainsThoughtSignature(item))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private static byte[] DiagnosticEventBytes(
+        PreparedRoleAttempt attempt,
+        JsonElement response,
+        byte[] original)
+    {
+        if (!AllowsOpaqueThoughtSignature(attempt) || !ContainsThoughtSignature(response))
+        {
+            return original;
+        }
+
+        using var stream = new MemoryStream();
+        using (var writer = new Utf8JsonWriter(stream))
+        {
+            WriteWithoutThoughtSignatures(response, writer);
+        }
+        return stream.ToArray();
+    }
+
+    private static void WriteWithoutThoughtSignatures(JsonElement element, Utf8JsonWriter writer)
+    {
+        switch (element.ValueKind)
+        {
+            case JsonValueKind.Object:
+                writer.WriteStartObject();
+                foreach (var property in element.EnumerateObject())
+                {
+                    if (property.NameEquals("thoughtSignature"))
+                    {
+                        continue;
+                    }
+                    writer.WritePropertyName(property.Name);
+                    WriteWithoutThoughtSignatures(property.Value, writer);
+                }
+                writer.WriteEndObject();
+                break;
+            case JsonValueKind.Array:
+                writer.WriteStartArray();
+                foreach (var item in element.EnumerateArray())
+                {
+                    WriteWithoutThoughtSignatures(item, writer);
+                }
+                writer.WriteEndArray();
+                break;
+            default:
+                element.WriteTo(writer);
+                break;
+        }
     }
 
     private static bool AppendCandidateText(
@@ -549,11 +648,6 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
             if (part.ValueKind != JsonValueKind.Object)
             {
                 error = "gemini-response-shape-invalid";
-                return false;
-            }
-            if (part.TryGetProperty("thoughtSignature", out _))
-            {
-                error = "gemini-thought-material-returned";
                 return false;
             }
             if (part.TryGetProperty("thought", out var thought))
@@ -695,10 +789,11 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
 
     private static void RequireGeminiAttempt(PreparedRoleAttempt attempt)
     {
-        if (!string.Equals(attempt.Profile.Provider, E0AGeminiProviderPolicy.Provider, StringComparison.Ordinal) ||
-            !string.Equals(attempt.Profile.Model, E0AGeminiProviderPolicy.Model, StringComparison.Ordinal))
+        if (!string.Equals(attempt.Profile.Provider, E0AGeminiProviderPolicy.Provider, StringComparison.Ordinal))
         {
             throw new E0AHarnessException("E0-A Gemini provider received an attempt outside the approved route.");
         }
+
+        _ = E0AGeminiModelCatalog.ForModel(attempt.Profile.Model);
     }
 }
