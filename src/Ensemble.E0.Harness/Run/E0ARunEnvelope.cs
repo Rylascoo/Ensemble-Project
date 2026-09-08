@@ -114,10 +114,10 @@ internal static class E0AProviderBudgetPolicy
         ArgumentNullException.ThrowIfNull(profile);
         var model = E0AGeminiProviderPolicy.ModelProfile(profile);
 
-        // Thinking-level profiles can reason even at minimal, so every 3.5 role
-        // reserves against the published output limit. Budget-controlled 2.5
-        // creative roles retain the configured candidate cap; Integrity remains
-        // conservatively reserved against the model limit because its budget is advisory.
+        // Thinking-level profiles can reason even at minimal, so every Gemini 3
+        // role reserves against the published output limit. Budget-controlled 2.5
+        // creative roles retain the candidate cap; Integrity remains conservative
+        // because its numeric thinking budget is advisory.
         if (model.ThinkingControl == E0AGeminiThinkingControlKind.Level ||
             profile.Role == E0ARole.Integrity)
         {
@@ -271,11 +271,12 @@ internal sealed class E0ARunEnvelope
     internal E0ARoleProfile Interpreter { get; }
     internal E0APricingAssumptions Pricing { get; }
     internal ImmutableArray<StateMutationDomain> AutoApproveDomains => AutoApprove;
-    internal E0AGeminiModelProfile ModelProfile => E0AGeminiModelCatalog.ForProfileId(ProviderProfileId);
+    internal E0AGeminiModelProfile ModelProfile => E0AGeminiModelCatalog.ForKnownProfileId(ProviderProfileId);
+    internal int RunAcceptedTurnCap => ModelProfile.LiveSelectable ? ModelProfile.AcceptedTurnCap : AcceptedTurnCap;
     internal long MaxInputTokens => ModelProfile.ModelInputTokenLimit;
 
     // Historical compact factory retained for provider-neutral tests. It remains
-    // the original Gemini 2.5 Flash CREATIVE-NONE anchor.
+    // the original Gemini 2.5 Flash CREATIVE-NONE anchor and is not live-selectable.
     internal static E0ARunEnvelope CreativeNone(E0APricingAssumptions pricing) =>
         GeminiNormativeReference(pricing);
 
@@ -357,6 +358,7 @@ internal sealed class E0ARunEnvelope
     private void ValidateGeminiComparison()
     {
         var model = ModelProfile;
+        model.Validate();
         if (!string.Equals(Variant, model.Variant, StringComparison.Ordinal) ||
             !string.Equals(Performer.Provider, E0AGeminiProviderPolicy.Provider, StringComparison.Ordinal) ||
             !string.Equals(Performer.Model, model.Model, StringComparison.Ordinal) ||
@@ -365,7 +367,8 @@ internal sealed class E0ARunEnvelope
             Performer.MaxOutputTokens != RoleMaxOutputTokens ||
             Integrity.MaxOutputTokens != E0AGeminiProviderPolicy.IntegrityCandidateMaxOutputTokens ||
             Interpreter.MaxOutputTokens != RoleMaxOutputTokens ||
-            !Performer.Stream || Integrity.Stream || !Interpreter.Stream)
+            !Performer.Stream || Integrity.Stream || !Interpreter.Stream ||
+            RunAcceptedTurnCap is < 1 or > AcceptedTurnCap)
         {
             throw new E0AHarnessException("E0-A Gemini comparison role configuration is inconsistent.");
         }
