@@ -15,13 +15,11 @@ Architecture: Gemini normative + rate-discipline comparison + RPD/model-selectio
 
 Correction: countTokens supplies required nested `generateContentRequest.model`, preserves generation payload, and bounds persisted diagnostics. Cloud source/test Validation `34188767617`: PASS. Later docs do not inherit native authority.
 
-First-real attempt 01 at predecessor `3d6d8a7f...` is consumed/failed: `docs/evidence/E0A_FIRST_REAL_GEMINI_35_LITE_ATTEMPT_01_2026_09_08.md`.
+Real 3.5 Lite attempt 01 at predecessor `3d6d8a7f...` is consumed/failed before a successful token count. Attempt 02 at promoted `689655...` is consumed/failed at first Performer `countTokens`: HTTP **401 authentication rejection**, 0 accepted turns, $0 shadow spend; no successful token count, spend reservation, generation/inference, provider receipt, or fiction. Archive SHA-256 and sealed-artifact verification: `docs/evidence/E0A_SECOND_REAL_GEMINI_35_LITE_ATTEMPT_02_ARCHIVE_AUDIT_2026_09_08.md`.
 
-Second-real attempt 02 at promoted `689655...` is **consumed / TechnicalFailure**: accepted turns `0`, shadow spend `$0.000000`, 8-file evidence root, cleanup PASS. Transcript/evidence hashes and terminal facts: `docs/evidence/E0A_SECOND_REAL_GEMINI_35_LITE_ATTEMPT_02_2026_09_08.md`. Archive root-cause audit is pending; console exit `3` is the host's generic non-success exit and does not establish cancellation.
-
-Supporting current audits: `docs/evidence/E0A_GEMINI_RATE_DISCIPLINE_MODEL_COMPARISON_IMPLEMENTATION_AUDIT.md`; `docs/evidence/E0A_GEMINI35_THOUGHT_SIGNATURE_COMPATIBILITY_AUDIT.md`.
+Supporting audits: `docs/evidence/E0A_GEMINI_RATE_DISCIPLINE_MODEL_COMPARISON_IMPLEMENTATION_AUDIT.md`; `docs/evidence/E0A_GEMINI35_THOUGHT_SIGNATURE_COMPATIBILITY_AUDIT.md`.
 
 No retry, third real run, 3.1/2.5 run, other fixture, fallback, or broader provider traffic is authorized. API keys must never enter repository/evidence/chat.
 
 ## Next
-**Audit the preserved attempt-02 evidence ZIP against recorded SHA-256 `7CFB16091775FD9E20827B2FCCBF8361F44713191019BFC3B7FFF0416A5D2CA0`; identify the exact bounded failure boundary before any patch or further provider decision.**
+**Credential/account authentication investigation only.** Verify in AI Studio that the replacement key used for attempt 02 is active, belongs to the Kymaean project, and has the intended key type/restriction state. Do not issue any API request. Evidence supports no source patch at this gate; any further provider request requires new explicit Director authorization.
