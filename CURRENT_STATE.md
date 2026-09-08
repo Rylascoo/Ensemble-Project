@@ -20,14 +20,14 @@ External diagnostic: new `AQ.` key reached `gemini-3.6-flash:generateContent` vi
 Supporting audits: `docs/evidence/E0A_GEMINI_RATE_DISCIPLINE_MODEL_COMPARISON_IMPLEMENTATION_AUDIT.md`; `docs/evidence/E0A_GEMINI35_THOUGHT_SIGNATURE_COMPATIBILITY_AUDIT.md`.
 
 ## Provider diagnostic
-Auth differential **CONSUMED**. Same fresh unshared key/model/method/body: query leg locally inconclusive; header leg HTTP **200**, `totalTokens=8`. Evidence: `docs/evidence/E0A_GEMINI_AUTH_TRANSPORT_DIFFERENTIAL_RESULT_2026_09_08.md`. `x-goog-api-key` works live for `gemini-3.5-flash-lite:countTokens`; no auth patch justified.
+Auth differential **CONSUMED**. Same fresh unshared key/model/method/body: query leg locally inconclusive; header leg HTTP **200**, `totalTokens=8`. Evidence: `docs/evidence/E0A_GEMINI_AUTH_TRANSPORT_DIFFERENTIAL_RESULT_2026_09_08.md`. Thus `x-goog-api-key` works live for `gemini-3.5-flash-lite:countTokens`; no auth patch justified.
 
-## Authorized live run
-Authorization: `docs/evidence/E0A_THIRD_REAL_GEMINI_35_LITE_DIRECTOR_AUTHORIZATION_2026_09_08.md`.
+## Third real run
+Authorization record: `docs/evidence/E0A_THIRD_REAL_GEMINI_35_LITE_DIRECTOR_AUTHORIZATION_2026_09_08.md` — **CONSUMED**.
 
-Exactly **one** third synthetic Missing Raft `GEMINI-3.5-FLASH-LITE-MINIMAL` run is authorized at promoted `689655...`, id `E0A-REAL-G35L-20260908-03`, using the same active/unshared key that passed header `countTokens`; one attempt/role, zero retries, no fallback/other provider traffic. Any terminal result consumes it.
+Attempt 03 at promoted `689655...`, id `E0A-REAL-G35L-20260908-03`, used the same known-good unshared key. All repository/native/build/fixture/artifact/key-integrity preflights passed; invocation started once and terminated `TechnicalFailure`, 0 accepted turns, $0 shadow spend, exit 3, empty stderr. Evidence root: 8 files. ZIP SHA-256 `8120E426AE206439A9E43F8D5C85C277B492B9055A0ED012133793B91EC1D77E`. Result: `docs/evidence/E0A_THIRD_REAL_GEMINI_35_LITE_ATTEMPT_03_2026_09_08.md`.
 
-First packet launch from `C:\Users\Wiryl` failed at `git rev-parse --show-toplevel` before credential entry, evidence creation, `PROVIDER_INVOCATION_STARTED=YES`, or provider traffic. Authorization remains **UNCONSUMED**.
+Provider authorization: **NONE**. No retry/fourth run/fallback/other provider traffic is authorized.
 
 ## Next
-Run corrected packet once from `C:\Users\Wiryl\Sol Dev\Ensemble-Project`. Preserve transcript/evidence ZIP, clear credentials, do not rerun after invocation starts, then audit before any further provider/source decision.
+**Attempt-03 archive audit only.** Obtain the preserved ZIP, verify its SHA-256 and sealed artifact hashes, recursively identify the exact failure boundary, then decide whether any source/provider action is justified. Do not infer diagnosis from exit code 3 alone and do not make another provider request before the archive audit.
