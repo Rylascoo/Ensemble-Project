@@ -11,8 +11,8 @@ namespace Ensemble.E0.Harness.Evidence;
 internal static class E0AEvidenceContracts
 {
     internal const string FrozenBlueprintVersion = "0.1";
-    internal const string GeminiReferenceAmendment = "E0A_PHASE_B_GEMINI_NORMATIVE_REFERENCE_AMENDMENT";
-    internal const string GeminiApprovedAmendmentCommit = "267575a1c024ea1e43c699994ce68fd6daefd68c";
+    internal const string GeminiReferenceAmendment = "E0A_PHASE_B_GEMINI_RATE_DISCIPLINE_MODEL_COMPARISON_AMENDMENT";
+    internal const string GeminiApprovedAmendmentCommit = "76fc0c64da4724a7a352a656a062d5c3ed431ad6";
     internal const string HardGateChecklistVersion = "ensemble.e0a.hard-gates.v1";
     internal const string MandatoryReviewResolution = "deterministic-reject-all";
 
@@ -48,7 +48,7 @@ internal static class E0AEvidenceContracts
     {
         ArgumentNullException.ThrowIfNull(envelope);
         envelope.Validate();
-        return $"E0A-GEMINI-NORMATIVE-2026-09-06:{envelope.Variant}";
+        return $"E0A-GEMINI-COMPARISON-2026-09-07:{envelope.Variant}:{envelope.ProviderProfileId}";
     }
 }
 
@@ -150,6 +150,7 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
             fixtureHash,
             executableCommit,
             variant = envelope.Variant,
+            providerProfileId = envelope.ProviderProfileId,
             acceptedTurnCap = E0ARunEnvelope.AcceptedTurnCap,
             attemptsPerRoleInvocation = E0ARunEnvelope.AttemptsPerRoleInvocation,
             automaticRetries = E0ARunEnvelope.AutomaticRetries,
@@ -383,19 +384,20 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
     {
         ArgumentNullException.ThrowIfNull(envelope);
         envelope.Validate();
+        var model = envelope.ModelProfile;
         return new
         {
             sourceUri = E0AGeminiPricingPolicy.SourceUri,
             verifiedOn = E0AGeminiPricingPolicy.VerifiedOn,
             snapshotValidThrough = E0AGeminiPricingPolicy.SnapshotValidThrough,
-            actualRouteBillingExpectation = "ai-studio-free-tier-expected-zero-pending-pre-run-tier-verification",
+            actualRouteBillingExpectation = "ai-studio-free-tier-verified-2026-09-07-synthetic-fixture-only",
             shadowEstimateOnly = true,
-            shadowPricingBasis = "gemini-2.5-flash-standard-paid-tier",
-            publishedInputUsdPerMillionTokens = E0AGeminiPricingPolicy.PublishedPaidInputUsdPerMillionTokens,
-            publishedCachedInputUsdPerMillionTokens = E0AGeminiPricingPolicy.PublishedPaidCachedInputUsdPerMillionTokens,
-            publishedOutputUsdPerMillionTokens = E0AGeminiPricingPolicy.PublishedPaidOutputUsdPerMillionTokens,
-            modelInputTokenLimit = E0AGeminiProviderPolicy.ModelInputTokenLimit,
-            modelOutputTokenLimit = E0AGeminiProviderPolicy.ModelOutputTokenLimit,
+            shadowPricingBasis = $"{model.Model}-standard-paid-tier",
+            publishedInputUsdPerMillionTokens = model.PublishedPaidInputUsdPerMillionTokens,
+            publishedCachedInputUsdPerMillionTokens = model.PublishedPaidCachedInputUsdPerMillionTokens,
+            publishedOutputUsdPerMillionTokens = model.PublishedPaidOutputUsdPerMillionTokens,
+            modelInputTokenLimit = model.ModelInputTokenLimit,
+            modelOutputTokenLimit = model.ModelOutputTokenLimit,
             accountingMethod = "all-reported-input-at-full-uncached-shadow-rate; output-includes-thinking",
             inputUsdPerMillionTokens = envelope.Pricing.InputUsdPerMillionTokens,
             cachedInputUsdPerMillionTokens = envelope.Pricing.CachedInputUsdPerMillionTokens,
@@ -407,6 +409,7 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
     {
         ArgumentNullException.ThrowIfNull(envelope);
         envelope.Validate();
+        var model = envelope.ModelProfile;
         return new
         {
             api = "generateContent/streamGenerateContent",
@@ -417,20 +420,37 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
             explicitCacheObject = false,
             implicitCachingProviderManaged = true,
             implicitCacheContributionPolicy = "nonzero-cachedContentTokenCount-technical-before-semantic-consumption",
-            intendedGeneratedTokenCeiling = E0AGeminiProviderPolicy.IntendedGeneratedTokenCeiling
+            intendedGeneratedTokenCeiling = E0AGeminiProviderPolicy.IntendedGeneratedTokenCeiling,
+            providerProfileId = model.ProfileId,
+            requestedModel = model.Model,
+            requestsPerMinute = model.RequestsPerMinute,
+            inputTokensPerMinute = model.InputTokensPerMinute,
+            requestsPerDay = "unverified-pre-live",
+            rateDisciplineScope = "all-gemini-api-http-requests",
+            rateDisciplineShape = "smooth-rpm-plus-exact-generation-input-tpm",
+            rateSnapshotVerifiedOn = "2026-09-07"
         };
     }
 
     private static object RoleManifest(E0ARoleProfile profile)
     {
         ArgumentNullException.ThrowIfNull(profile);
+        var model = E0AGeminiProviderPolicy.ModelProfile(profile);
+        int? thinkingBudgetTokens = model.ThinkingControl == E0AGeminiThinkingControlKind.Budget
+            ? E0AGeminiProviderPolicy.ThinkingBudgetTokens(profile)
+            : null;
+        string? thinkingLevel = model.ThinkingControl == E0AGeminiThinkingControlKind.Level
+            ? E0AGeminiProviderPolicy.ThinkingLevel(profile)
+            : null;
         return new
         {
             role = profile.Role.ToString(),
             provider = profile.Provider,
             model = profile.Model,
             reasoning = profile.Reasoning.ToString(),
-            thinkingBudgetTokens = E0AGeminiProviderPolicy.ThinkingBudgetTokens(profile),
+            thinkingControl = model.ThinkingControl.ToString(),
+            thinkingBudgetTokens,
+            thinkingLevel,
             stream = profile.Stream,
             maxOutputTokens = profile.MaxOutputTokens,
             serviceTier = profile.ServiceTier,
