@@ -146,6 +146,28 @@ public sealed class GeminiModelComparisonTests
     }
 
     [TestMethod]
+    public async Task SmoothRateDiscipline_EnforcesExactRollingGenerationTpmWindow()
+    {
+        var clock = new FakeClock();
+        using var discipline = new E0ASmoothGeminiRateDiscipline(
+            E0AGeminiModelCatalog.FlashLite25None,
+            clock);
+
+        await discipline.BeforeRequestAsync(
+            E0AGeminiRequestKind.Generation,
+            200_000,
+            CancellationToken.None);
+        await discipline.BeforeRequestAsync(
+            E0AGeminiRequestKind.Generation,
+            100_000,
+            CancellationToken.None);
+
+        CollectionAssert.AreEqual(
+            new[] { TimeSpan.FromSeconds(6), TimeSpan.FromSeconds(54) },
+            clock.Delays.ToArray());
+    }
+
+    [TestMethod]
     public async Task SmoothRateDiscipline_FailsClosedWhenOneGenerationExceedsProfileTpm()
     {
         var clock = new FakeClock();
