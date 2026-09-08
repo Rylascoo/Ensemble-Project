@@ -18,22 +18,30 @@ Status: validation fact register only. This file cannot advance phase/checkpoint
 | Credentialless Gemini gate | predecessor three-profile set: expected refusal PASS; no evidence roots |
 | Provider credentials/network/`countTokens`/inference/spend | NOT PERFORMED |
 
-## Current amended compiler/static checkpoint pending native validation
+## Amended machine-tested checkpoint pending annotated-tag promotion
 
 | Field | Fact |
 |---|---|
-| Source/test checkout | `b0286c3427eb3e2b9f0e8401098596db055f9c7e` |
+| Exact native checkout | `3d6d8a7f1caf548c15f0f2393d0fc7b50ac0cd99` |
+| Corrected source/test checkpoint | `b4d39cd91d1c23bad1f0354702fb64411e82780d` |
 | Amendment | `docs/blueprint/E0A_PHASE_B_GEMINI_FREE_TIER_RPD_MODEL_SELECTION_AMENDMENT.md` |
 | Implementation audit | `docs/evidence/E0A_GEMINI_FREE_TIER_RPD_MODEL_SELECTION_IMPLEMENTATION_AUDIT.md` |
-| Cloud Validation | run `34185024153` PASS |
-| ARM64-target Core/Harness/test builds | PASS compiler authority only |
-| x64 Core regression | PASS non-authoritative for native runtime |
-| Repository/oracle/document gates | PASS |
-| Core/Core-test/fixture delta | none |
-| Native Windows ARM64 execution | PENDING |
+| Native evidence | `docs/evidence/E0A_GEMINI_FREE_TIER_RPD_MODEL_SELECTION_NATIVE_ARM64_VALIDATION_2026_09_08.md` |
+| Cloud Validation for native-target docs head | run `34186040555` PASS |
+| Host | Director Windows ARM64 (`win-arm64`) |
+| Core tests | 622/622 PASS |
+| Harness tests | 122/122 PASS |
+| Fresh Harness build | `win-arm64` PASS |
+| Fixture smokes | missing-Raft PASS; generic PASS |
+| Current live-profile credentialless gate | 3.5 Lite, 3.1 Lite, 2.5 Lite expected missing-key refusal PASS; no evidence roots |
+| Retired 2.5 Flash live selection | expected pre-credential rejection PASS; no evidence root |
+| Failed attempt 01 | `31436ee52238c2de96e9bcbe9d61ece173f81dd3`: Core 622/622; Harness 121/122; stopped; no partial promotion |
+| Annotated validation tag | PENDING |
 | Provider credentials/network/`countTokens`/inference/spend | NOT PERFORMED |
 
-Cloud ARM64-target builds are compiler authority only. Linux x64 Core tests are required semantic regressions, not native Windows ARM64 runtime authority. Documentation-only commits after a machine-tested checkout do not inherit native runtime authority.
+The native evidence at `3d6d8a7f...` is machine-test authority for that exact checkout only. It is not yet the **promoted** current checkpoint because the required annotated validation tag has not been created and verified. Documentation-only commits after it do not inherit native runtime authority.
+
+Cloud ARM64-target builds are compiler authority only. Linux x64 Core tests are required semantic regressions, not native Windows ARM64 runtime authority.
 
 ## Durable historical native validation tags
 
