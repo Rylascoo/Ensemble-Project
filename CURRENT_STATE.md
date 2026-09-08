@@ -3,7 +3,7 @@
 Updated: 2026-09-08
 
 ## Authority
-`Rylascoo/Ensemble-Project` is engineering authority. This file alone carries phase/checkpoint/validation/next-action authority; `AGENTS.md` defines exact-ref bootstrap/closeout, `docs/PROJECT_AUTHORITY.md` owns product/policy/lane authority, and `docs/PROJECT_EXECUTION_QUEUE.md` preserves ordered backlog/prerequisites without overriding this state.
+`Rylascoo/Ensemble-Project` is engineering authority. This file alone carries phase/checkpoint/validation/next-action authority; `AGENTS.md` defines exact-ref bootstrap/closeout, `docs/PROJECT_AUTHORITY.md` owns product/policy/lane authority, and `docs/PROJECT_EXECUTION_QUEUE.md` preserves ordered backlog/prerequisites without overriding this state. Lane-only queue reconciliation does not change engineering phase, checkpoint, validation, provider, or next-action authority.
 
 ## Checkpoint
 Runtime: **E0-A Experimental Harness — Phase B**. Repository convergence is **CLOSED**. `main` has been restored to the accepted E0-A lineage; final closeout is documentation-only. Audit: `docs/evidence/REPOSITORY_CONVERGENCE_INTEGRITY_AUDIT_2026_09_08.md`.
