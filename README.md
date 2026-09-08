@@ -6,7 +6,7 @@ Ensemble is a local-first generative theater and creative simulation for persist
 
 ## Current development state
 
-Blueprint 0.1 is frozen for E0. The runtime phase is **E0-A Phase B**. E-R1 repository/tooling/workflow restructuring is **closed and archived**. The current engineering work package is the approved **Gemini rate-discipline / model-comparison implementation at its native Windows ARM64 validation gate**; real Gemini network execution remains separately gated. H1 Phase A is **CLOSED**.
+Blueprint 0.1 is frozen for E0. The runtime phase is **E0-A Phase B**. E-R1 repository/tooling/workflow restructuring is **closed and archived**. The current engineering work package is the approved **Gemini rate-discipline / model-comparison boundary at its separate first-real-provider Director decision gate**; native Windows ARM64 comparison validation is complete and real Gemini network execution remains separately gated. H1 Phase A is **CLOSED**.
 
 `README.md` never carries phase authority; `CURRENT_STATE.md` is the only phase source.
 

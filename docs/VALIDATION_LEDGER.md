@@ -6,21 +6,20 @@ Status: validation fact register only. This file cannot advance phase/checkpoint
 
 | Field | Fact |
 |---|---|
-| Exact checkout | `cc395a25162a0a682796bffb44060c799df0db32` |
-| Annotated tag | `validation/e0a-pre-restructure-closure-native-arm64` |
-| Evidence | `docs/evidence/E0A_PRE_RESTRUCTURE_CLOSURE_NATIVE_ARM64_VALIDATION.md` |
+| Exact checkout | `c9f706b42350c8b6cfc462e09cf71db6bc3a2355` |
+| Annotated tag | `validation/e0a-gemini-comparison-native-arm64` |
+| Evidence | `docs/evidence/E0A_GEMINI_COMPARISON_NATIVE_ARM64_VALIDATION_2026_09_07.md` |
 | Director-host contract | `docs/evidence/DIRECTOR_WINDOWS_ARM64_VALIDATION_HOST_BEHAVIORS.md` |
 | Host | Director Windows ARM64 |
 | Core tests | 622/622 PASS |
-| Harness tests | 103/103 PASS |
+| Harness tests | 117/117 PASS |
 | Fresh Harness build | `win-arm64` PASS |
 | Fixture smokes | missing-Raft PASS; generic PASS |
-| Credentialless Gemini gate | expected refusal PASS |
-| Provider credentials/network/inference/spend | NOT PERFORMED |
-| Cloud validation at exact checkpoint | run `34164258601` PASS |
-| Evidence-only continuity validation | run `34166676374` PASS |
+| Credentialless Gemini gate | all three approved profiles: expected refusal PASS; no evidence roots |
+| Provider credentials/network/`countTokens`/inference/spend | NOT PERFORMED |
+| Cloud source/test validation | run `34179384123` PASS |
 
-Cloud ARM64-target builds are compiler authority only. Linux x64 Core tests are required semantic regressions, not native Windows ARM64 runtime authority.
+Cloud ARM64-target builds are compiler authority only. Linux x64 Core tests are required semantic regressions, not native Windows ARM64 runtime authority. Documentation-only commits after the tagged checkout do not inherit native runtime authority.
 
 ## Durable historical native validation tags
 
