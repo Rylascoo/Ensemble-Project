@@ -15,7 +15,7 @@ Architecture: Gemini normative + rate-discipline comparison + RPD/model-selectio
 
 Correction: countTokens supplies required nested `generateContentRequest.model`, preserves generation payload, and bounds persisted diagnostics. Cloud source/test Validation `34188767617`: PASS. Later docs do not inherit native authority.
 
-Real 3.5 Lite attempt 01 at predecessor `3d6d8a7f...` is consumed/failed before a successful token count. Attempt 02 at promoted `689655...` is consumed/failed at first Performer `countTokens`: HTTP **401 authentication rejection**, 0 accepted turns, $0 shadow spend; no successful token count, spend reservation, generation/inference, provider receipt, or fiction. Archive SHA-256 and sealed-artifact verification: `docs/evidence/E0A_SECOND_REAL_GEMINI_35_LITE_ATTEMPT_02_ARCHIVE_AUDIT_2026_09_08.md`.
+Real 3.5 Lite attempt 01 at predecessor `3d6d8a7f...` is consumed/failed before a successful token count: `docs/evidence/E0A_FIRST_REAL_GEMINI_35_LITE_ATTEMPT_01_2026_09_08.md`. Attempt 02 at promoted `689655...` is consumed/failed at first Performer `countTokens`: HTTP **401 authentication rejection**, 0 accepted turns, $0 shadow spend; no successful token count, spend reservation, generation/inference, provider receipt, or fiction. Archive SHA-256 and sealed-artifact verification: `docs/evidence/E0A_SECOND_REAL_GEMINI_35_LITE_ATTEMPT_02_ARCHIVE_AUDIT_2026_09_08.md`.
 
 Supporting audits: `docs/evidence/E0A_GEMINI_RATE_DISCIPLINE_MODEL_COMPARISON_IMPLEMENTATION_AUDIT.md`; `docs/evidence/E0A_GEMINI35_THOUGHT_SIGNATURE_COMPATIBILITY_AUDIT.md`.
 
