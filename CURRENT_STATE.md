@@ -22,11 +22,13 @@ From `main` through `8ed1563e...`: no Core source, Core-test, or fixture delta.
 
 ## Validation
 
-Promoted native authority remains `cc395a25162a0a682796bffb44060c799df0db32` / `validation/e0a-pre-restructure-closure-native-arm64`; it does not validate comparison Harness source.
+Promoted native authority remains `cc395a25162a0a682796bffb44060c799df0db32` / `validation/e0a-pre-restructure-closure-native-arm64` until Repository Surface validation-tag law is satisfied for the comparison checkout.
 
-Source/test head `8ed1563e...`: cloud Validation `34179384123` **PASS** — ARM64 cross-compile of Core/Harness/test projects, x64 Core regression, repository laws, oracle coverage, document census. **Compiler/cloud-static only; Harness tests were not executed.**
+Source/test head `8ed1563e...`: cloud Validation `34179384123` **PASS** — ARM64 cross-compile of Core/Harness/test projects, x64 Core regression, repository laws, oracle coverage, document census. Compiler/cloud-static only.
 
-Native Windows ARM64 validation of the comparison branch is **PENDING**.
+Director-machine execution on exact documentation-inclusive checkout `c9f706b42350c8b6cfc462e09cf71db6bc3a2355` produced a complete credentialless Windows ARM64 **PASS**: Core 622/622, Harness 117/117, fresh native Harness build, Missing Raft smoke, generic fixture smoke, and expected missing-key refusal with no evidence-root creation for all three approved arm/profile pairs. Evidence: `docs/evidence/E0A_GEMINI_COMPARISON_NATIVE_ARM64_VALIDATION_2026_09_07.md`.
+
+This Director-machine result is **recorded but not yet promoted as repository machine-validation authority** because the required annotated validation tag at exact checkout `c9f706b4...` has not yet been created/pushed. No provider network, `countTokens`, inference, or spend occurred.
 
 ## Provider boundary
 
@@ -43,6 +45,6 @@ Harness paces every Gemini API operation and exact rolling generation-input TPM;
 
 Live handoff: `docs/handoff/E0A_POST_ER1_FIRST_REAL_GEMINI_RUN_DIRECTOR_GATE_HANDOFF_2026_09_07.md`.
 
-**Next gate: Director Windows ARM64 native validation on one exact clean documentation-inclusive active-branch checkout.** Run Core + Harness tests, fresh native Harness build, fixture smokes, and credentialless refusal for all three arm/profile pairs. No Gemini network request.
+**Next gate: satisfy Repository Surface Law by creating and pushing annotated tag `validation/e0a-gemini-comparison-native-arm64` at exact validated checkout `c9f706b42350c8b6cfc462e09cf71db6bc3a2355`, with message recording native Windows ARM64 validation, credentialless/fake-only scope, and `docs/evidence/E0A_GEMINI_COMPARISON_NATIVE_ARM64_VALIDATION_2026_09_07.md`.**
 
-After native evidence, return to a separate Director live-run decision. Planned order: 2.5 Flash-Lite None -> 3.5 Flash-Lite Minimal -> 2.5 Flash None; each real run requires separate authorization.
+After the tag exists, promote that native authority in `CURRENT_STATE.md` and return to a separate Director live-run decision. Planned order: 2.5 Flash-Lite None -> 3.5 Flash-Lite Minimal -> 2.5 Flash None; each real run requires separate authorization.
