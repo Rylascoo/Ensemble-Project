@@ -1,6 +1,6 @@
 # E0-A Third Real Gemini 3.5 Flash-Lite — Director Authorization
 
-Status: **AUTHORIZED — EXACTLY ONE THIRD REAL RUN — KNOWN-GOOD UNSHARED AUTH KEY — SYNTHETIC MISSING RAFT ONLY**
+Status: **AUTHORIZED — UNCONSUMED — EXACTLY ONE THIRD REAL RUN — KNOWN-GOOD UNSHARED AUTH KEY — SYNTHETIC MISSING RAFT ONLY**
 
 Date: **2026-09-08**
 
@@ -39,6 +39,12 @@ The key must remain process-local/environment-only and must not be committed, pr
 - a later two-leg differential used one fresh unshared Auth key and showed the exact `x-goog-api-key` / `gemini-3.5-flash-lite:countTokens` path succeeds live with HTTP 200 and `totalTokens=8`;
 - no source auth-transport patch is justified by that evidence;
 - the executable provider snapshot remains valid through 2026-09-14 UTC.
+
+## Local packet incident before invocation
+
+The Director's first execution of the third-run packet began from `C:\Users\Wiryl`, outside the repository checkout. The packet failed immediately at `git rev-parse --show-toplevel` with native exit code 128 (`not a git repository`). It failed before repository/authorization preflight completed, before credential entry, before `PROVIDER_INVOCATION_STARTED=YES`, before evidence-root creation, and before any Gemini request. Therefore **zero provider requests were made and this authorization remains unconsumed**.
+
+The replacement packet must first set location explicitly to the known local checkout `C:\Users\Wiryl\Sol Dev\Ensemble-Project`, verify that path is the expected repository, and only then continue the existing authority/credential/live-run preflights.
 
 ## Evidence destination
 
