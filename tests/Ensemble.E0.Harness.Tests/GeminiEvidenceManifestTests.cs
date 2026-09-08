@@ -66,7 +66,8 @@ public sealed class GeminiEvidenceManifestTests
             Assert.AreEqual(E0AGeminiModelCatalog.Flash25NoneId, transport.GetProperty("providerProfileId").GetString());
             Assert.AreEqual(5, transport.GetProperty("requestsPerMinute").GetInt32());
             Assert.AreEqual(250_000L, transport.GetProperty("inputTokensPerMinute").GetInt64());
-            Assert.AreEqual("unverified-pre-live", transport.GetProperty("requestsPerDay").GetString());
+            Assert.AreEqual(20, transport.GetProperty("requestsPerDay").GetInt32());
+            Assert.AreEqual(12, transport.GetProperty("acceptedTurnCap").GetInt32());
             Assert.IsFalse(transport.TryGetProperty("promptCacheMode", out _));
 
             var roles = manifest.GetProperty("roles").EnumerateArray().ToArray();
