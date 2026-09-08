@@ -13,6 +13,17 @@ The Director explicitly authorized exactly two Gemini authentication-differentia
 
 The model, endpoint method, request body, client process, and credential must be identical between the two requests. Authentication transport is the only intentional variable.
 
+## Mandatory local credential preflight — no network
+
+Before either authorized request, discriminate local copy corruption without issuing any provider request:
+
+1. confirm the environment value is nonblank, begins with the documented `AQ.` auth-key prefix, is ASCII, and has no leading/trailing whitespace, CR/LF, quotes, or other wrapper characters;
+2. take a fresh copy of the same key from AI Studio and compare it locally byte-for-byte with the environment value, emitting only a boolean match result and never either value;
+3. record only safe predicates such as prefix-class match, byte length, charset/whitespace checks, and equality result. Do not invent an undocumented exact-length requirement;
+4. if any predicate fails, stop before network execution and correct only the local credential copy. The two-request authorization remains unconsumed until a provider request is actually attempted.
+
+The `AQ.` credential class is already resolved by current Google documentation and the preceding evidence record; this preflight tests local value integrity, not key-class discovery.
+
 ## Boundaries
 
 - No `generateContent`, inference, fiction generation, reference run, fallback, or other provider request is authorized.
