@@ -1,6 +1,6 @@
 # E0-A Third Real Gemini 3.5 Flash-Lite Attempt 03 — Archive Audit
 
-Status: **AUDIT COMPLETE — RUNTIME SEAL VALID — FIRST PERFORMER `countTokens` HTTP 400 — NO GENERATION — PROVIDER CONTRACT REVIEW REQUIRED**
+Status: **AUDIT COMPLETE — RUNTIME SEAL VALID — FIRST PERFORMER `countTokens` HTTP 400 — NO GENERATION — PROVIDER REQUEST-COMPATIBILITY REVIEW REQUIRED**
 
 Date: **2026-09-08**
 
@@ -58,30 +58,32 @@ Therefore the exact terminal boundary is the **first Performer `countTokens` HTT
 
 The preserved Performer request identifies model `gemini-3.5-flash-lite`, `thinkingLevel=minimal`, one candidate, `maxOutputTokens=4096`, structured JSON `responseFormat`, `store=false`, system instruction, and bounded user content.
 
-At executable `689655...`, `GeminiGenerateContentPort.CountTokensRequestBody` correctly wraps the prepared generation request as `generateContentRequest`, injecting nested `model = models/gemini-3.5-flash-lite`; `CreateRequest` sends the credential in `x-goog-api-key`. This is the post-attempt-01 correction and is structurally consistent with Google's current `models.countTokens` reference, which permits a full `GenerateContentRequest` and requires its model identity.
+At executable `689655...`, `GeminiGenerateContentPort.CountTokensRequestBody` wraps that prepared generation request as `generateContentRequest`, injecting nested `model = models/gemini-3.5-flash-lite`; `CreateRequest` sends the credential in `x-goog-api-key`. This is the post-attempt-01 correction.
 
-The immediately preceding live diagnostic also proved the same fresh Auth key, same `x-goog-api-key` transport, same `gemini-3.5-flash-lite:countTokens` method, and a simple content body return HTTP 200 / `totalTokens=8`. Accordingly, attempt 03 is not explained by the key, header transport, model endpoint, or `countTokens` method alone.
+Google's current API reference documents `models.countTokens` as accepting `generateContentRequest` of type `GenerateContentRequest`. The current GenerateContent reference documents the fields used by this preserved request, including `systemInstruction`, `generationConfig`, `store`, `thinkingConfig`, and `generationConfig.responseFormat`. The `responseFormat.text.schema` shape is the current JSON-Schema structured-output surface.
 
-## Provider-contract inconsistency found
+The immediately preceding live diagnostic proved the same fresh Auth key, same `x-goog-api-key` transport, same `gemini-3.5-flash-lite:countTokens` method, and a simple content body return HTTP 200 / `totalTokens=8`. Accordingly, attempt 03 is not explained by the key, header transport, model endpoint, or `countTokens` method alone. The failure is triggered by some aspect of the fuller `GenerateContentRequest` or its provider-side validation.
 
-The frozen comparison architecture requires **structured JSON output** for the Gemini 3.5 Flash-Lite route. The preserved request therefore sends `generationConfig.responseFormat` with a JSON schema.
+## Provider-documentation inconsistency found
 
-Google's current GenerateContent structured-output documentation (reverified 2026-09-08 at `https://ai.google.dev/gemini-api/docs/generate-content/structured-output`) states that its listed models support structured output. That explicit support table includes `Gemini 3.1 Flash-Lite`, `Gemini 3.5 Flash`, and the 2.5 family, but **does not list Gemini 3.5 Flash-Lite**. Google's model/release documentation separately confirms `gemini-3.5-flash-lite` is a current stable model and supports the relevant thinking level; the omission is therefore a capability/admissibility issue, not a model-lifecycle issue.
+The frozen comparison architecture requires structured JSON output and the preserved request uses the currently documented `generationConfig.responseFormat` JSON-Schema surface.
 
-Because this project is fail-closed on provider facts, a model absent from an explicit provider support table cannot be treated as proven compatible with a required contract feature. The current approved 3.5 Flash-Lite profile was admitted without an explicit structured-output capability gate. That is a material architecture-audit gap.
+Google's current model-specific `Gemini 3.5 Flash-Lite` page explicitly marks **Structured outputs Supported**. However, Google's current general GenerateContent structured-output guide says “The following models support structured output” and its explicit support table omits Gemini 3.5 Flash-Lite while listing Gemini 3.1 Flash-Lite, Gemini 3.5 Flash, and the 2.5 family.
 
-The archive does **not** retain Google's 400 response body, so the audit cannot prove that `responseFormat` is the precise field Google rejected. The strongest evidence-supported root-cause candidate is nevertheless a model/request-feature incompatibility in the full `GenerateContentRequest`, with structured-output support the first concrete incompatibility found. The exact provider field violation remains unproven.
+Those official provider surfaces are inconsistent. The omission therefore cannot by itself prove that Gemini 3.5 Flash-Lite lacks structured-output capability, and the model-specific page prevents classifying the route as definitively unsupported on that basis. It does establish a provider-fact inconsistency that should have been caught by the model-admissibility audit before live execution.
+
+The archive does **not** retain Google's 400 response body. We therefore cannot identify the exact rejected field, distinguish a provider implementation defect from a request-feature interaction, or prove that `responseFormat` caused the 400. The evidence-supported classification is narrower: **the full frozen 3.5 Flash-Lite `GenerateContentRequest` is not yet proven live-compatible with `countTokens`; provider-side validation returned HTTP 400 for the first Performer request.**
 
 ## Consequence
 
 - Attempt 03 authorization is consumed.
 - Provider authorization is **NONE**.
-- No retry or fourth 3.5 Flash-Lite reference run is justified.
+- No retry or fourth 3.5 Flash-Lite reference run is justified from the current evidence.
 - No authentication-transport patch is justified.
-- The current 3.5 Flash-Lite live profile should be treated as **provider-contract inadmissible/pending Director resolution** until structured-output capability is explicitly established or the comparison architecture moves to a documented-compatible model.
-- `gemini-3.1-flash-lite` is explicitly present in Google's current structured-output support table and remains an approved comparison profile, but no real 3.1 run is automatically authorized by this audit.
-- Before any further provider request, model admissibility must include every request-critical capability, not only quota/pricing/thinking/lifecycle.
+- The 3.5 Flash-Lite profile remains **live-compatibility unproven / pending Director resolution**, not proven generally incapable of structured output.
+- `gemini-3.1-flash-lite` is explicitly present in Google's current general structured-output support table and remains an approved comparator, but no real 3.1 run is automatically authorized by this audit.
+- Before any further provider request, model/request admissibility should reconcile all request-critical provider facts and the official-document inconsistency above.
 
 ## Improvement identified
 
-The bounded `countTokens` diagnostic currently preserves HTTP status but discards the structured provider error body. A later engineering patch may safely retain a bounded provider status/reason and validated field-violation path without persisting arbitrary provider text. That would improve future fault localization, but it is not required to establish this audit's exact HTTP boundary and must receive normal source/native validation before use.
+The bounded `countTokens` diagnostic currently preserves HTTP status but discards the structured provider error body. A later engineering patch could safely retain bounded provider error classification such as `error.status` plus validated `google.rpc.BadRequest.fieldViolations[].field` paths while discarding arbitrary descriptions/text. That would materially improve fault localization without preserving provider prose or secrets, but it is a source change and requires normal cloud/native Windows ARM64 validation and a new validation tag before provider use.
