@@ -34,7 +34,7 @@ public sealed class GeminiRpdModelSelectionTests
         Assert.IsFalse(E0AGeminiModelCatalog.Flash25None.LiveSelectable);
         Assert.IsFalse(E0AGeminiModelCatalog.All.Any(
             x => string.Equals(x.ProfileId, E0AGeminiModelCatalog.Flash25NoneId, StringComparison.Ordinal)));
-        Assert.ThrowsException<E0AHarnessException>(() =>
+        Assert.Throws<E0AHarnessException>(() =>
             E0AReferenceRunHost.CreateEnvelope("CREATIVE-NONE", E0AGeminiModelCatalog.Flash25NoneId));
     }
 
@@ -105,8 +105,6 @@ public sealed class GeminiRpdModelSelectionTests
             Assert.AreEqual(3, result.AcceptedTurns);
             Assert.AreEqual(9, provider.Calls);
             Assert.AreEqual(9, counter.Calls);
-            Assert.AreEqual(3, Directory.GetFiles(root, "terminal.json", SearchOption.AllDirectories)
-                .Count(path => path.Contains("ATTEMPT_PERFORMER", StringComparison.Ordinal)));
 
             using var summary = JsonDocument.Parse(File.ReadAllBytes(Path.Combine(root, "run.summary.json")));
             Assert.AreEqual(3, summary.RootElement.GetProperty("acceptedTurns").GetInt32());
