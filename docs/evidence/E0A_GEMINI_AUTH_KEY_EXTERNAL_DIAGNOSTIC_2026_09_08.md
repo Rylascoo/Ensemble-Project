@@ -8,6 +8,12 @@ This record captures a Director-performed diagnostic outside the controlled E0-A
 
 The credential value is intentionally omitted. The Director pasted the temporary credential into chat and also placed it in a local PowerShell command, so that credential is treated as compromised and must be revoked. It must not be reused for further testing.
 
+## Credential quarantine record
+
+Quarantine decision date: **2026-09-08**. The exposed temporary `AQ.` credential is compromised, must be revoked, and must never be reused. No credential value is present in this evidence record.
+
+The Director separately reported a scan of both project repositories across 200 revisions with no `ghp_`, `AIza`, or `sk-` pattern match. This is useful bounded corroboration but is not promoted here to the broader claim that no key ever entered repository history: the reported pattern set does not include the current `AQ.` credential family, and this engineering pass has not independently reproduced the historical scan.
+
 ## Submitted result
 
 The Director reported a successful raw REST `generateContent` request with:
@@ -77,6 +83,6 @@ After revoking the exposed credential, the smallest useful live diagnostic is a 
 
 No generation request is required for this differential. The pair must use a new non-exposed key and bounded output that records only HTTP status plus safe provider reason/status fields, never the credential or raw request URI.
 
-This two-request probe is **not authorized by this document**. It requires a new explicit Director authorization before either request is sent.
+This evidence record does not authorize the two-request probe. A later, separate Director authorization now exists at `docs/evidence/E0A_GEMINI_AUTH_TRANSPORT_DIFFERENTIAL_DIRECTOR_AUTHORIZATION_2026_09_08.md`; its exact boundaries govern any execution.
 
-Provider authorization after this external diagnostic: **NONE**.
+Provider authorization immediately after this external diagnostic was **NONE**.
