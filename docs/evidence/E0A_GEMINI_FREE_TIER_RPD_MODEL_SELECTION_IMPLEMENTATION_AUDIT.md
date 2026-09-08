@@ -14,13 +14,13 @@ Architecture commit:
 
 `825309e4ad0e9e207136aa6b20fd31925e814172`
 
-Final source/test checkpoint audited here:
+Current corrected source/test checkpoint audited here:
 
-`b0286c3427eb3e2b9f0e8401098596db055f9c7e`
+`b4d39cd91d1c23bad1f0354702fb64411e82780d`
 
 Cloud Validation run:
 
-`34185024153` — **PASS**
+`34185909785` — **PASS**
 
 The cloud gate established ARM64-target compilation of Core, Harness, Core tests, and Harness tests; required x64 Core regression; repository law; oracle coverage; and document-authority census. It did **not** execute Harness tests natively and therefore does not replace Director-machine Windows ARM64 authority.
 
@@ -100,11 +100,23 @@ The amended Harness-test surface now covers:
 - existing 3.5 signature and explicit-thought rejection behavior;
 - existing RPM/TPM pacing and request/usage/spend behavior.
 
-An initial cloud build exposed one test-framework API mismatch (`Assert.ThrowsException`); it was corrected to the repository's established `Assert.Throws<T>` form. The final checkpoint compiled cleanly.
+An initial cloud build exposed one test-framework API mismatch (`Assert.ThrowsException`); it was corrected to the repository's established `Assert.Throws<T>` form.
+
+## Native falsification attempt 01
+
+Director-machine validation at exact checkout `31436ee52238c2de96e9bcbe9d61ece173f81dd3` established native Windows ARM64, absent provider credentials, and Core **622/622 PASS**, then stopped at Harness **121/122** with one failure:
+
+`E0ALiveHostReadinessTests.LiveHost_ExposesOnlyApprovedArmProfilePairings`
+
+The stack trace showed that this predecessor readiness test still attempted to construct `GEMINI-2.5-FLASH-NONE` through the live two-argument resolver. The amended catalog correctly rejected that retired profile. The failure therefore falsified the test surface, not the production resolver.
+
+Correction `b4d39cd91d1c23bad1f0354702fb64411e82780d` changes only `E0ALiveHostReadinessTests.cs`: the readiness test now positively exercises all three current live profile/arm pairings, including 3.1 Flash-Lite, and explicitly expects historical 2.5 Flash live selection to fail closed. Compare from the failed native checkout is one test file only, 15 additions / 5 deletions. Cloud Validation `34185909785` is fully green.
+
+Attempt 01 did **not** reach the fresh Harness build, fixture smokes, credentialless profile probes, or retired-route host probe. It did not perform Gemini network, `countTokens`, inference, credential use, or spend. A fresh full native run at a later exact checkout is required; partial success is not promoted.
 
 ## Scope audit
 
-A compare from the currently promoted native checkpoint `c9f706b42350c8b6cfc462e09cf71db6bc3a2355` through the implemented source/test checkpoint found **no change** under:
+A compare from the currently promoted native checkpoint `c9f706b42350c8b6cfc462e09cf71db6bc3a2355` through the corrected source/test checkpoint found **no change** under:
 
 - `src/Ensemble.E0.Core/`;
 - `tests/Ensemble.E0.Core.Tests/`;
@@ -128,12 +140,12 @@ Gemini spend                      NOT PERFORMED
 
 The implementation was recursively checked for architecture consistency, profile identity, RPD arithmetic, run-cap enforcement, request thinking controls, response metadata handling, pricing/accounting, evidence provenance, retired-route isolation, Core/fixture scope, ARM64 suitability, validation classification, and fresh-chat continuity.
 
-Corrections found during the audit were applied before this checkpoint: compiler feedback corrected the test API; stale predecessor wording in the live host was reconciled; and the evidence/profile surfaces were made explicit about RPD and run caps.
+Corrections found during the audit were applied before the current checkpoint: compiler feedback corrected the test API; stale predecessor wording in the live host was reconciled; evidence/profile surfaces were made explicit about RPD and run caps; and native falsification exposed and corrected the remaining stale live-readiness expectation.
 
-One complete pass after those corrections found no further material source/test correction or worthwhile improvement inside the approved amendment boundary.
+One complete pass after the native-falsification correction found no further material source/test correction or worthwhile improvement inside the approved amendment boundary.
 
 ## Next gate
 
-The modified executable is **not yet machine-validated**. The next consequential gate is a fresh credentialless native Windows ARM64 validation at one exact clean checkout containing this source/test checkpoint plus the final continuity-only documentation commit.
+The modified executable is **not yet machine-validated**. The next consequential gate is a fresh credentialless native Windows ARM64 validation at one exact clean checkout containing `b4d39cd91d1c23bad1f0354702fb64411e82780d` plus final continuity documentation.
 
 Native validation must execute Core and Harness tests, rebuild Harness fresh, run both fixture smokes, prove expected missing-key/no-evidence-root refusal for all three current live profiles, and prove the retired 2.5 Flash profile is rejected before credential access/evidence creation. Only after that checkout is tagged and promoted may the project return to a separate first-real-provider Director decision.
