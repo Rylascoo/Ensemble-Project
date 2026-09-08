@@ -20,11 +20,12 @@ External diagnostic: new `AQ.` key reached `gemini-3.6-flash:generateContent` vi
 Supporting audits: `docs/evidence/E0A_GEMINI_RATE_DISCIPLINE_MODEL_COMPARISON_IMPLEMENTATION_AUDIT.md`; `docs/evidence/E0A_GEMINI35_THOUGHT_SIGNATURE_COMPATIBILITY_AUDIT.md`.
 
 ## Provider diagnostic result
-Auth-transport differential **CONSUMED**. Same fresh unshared `AQ.` key/model/method/body: query leg produced no HTTP response due local Windows PowerShell `MethodInvocationException`; header leg returned HTTP **200**, `totalTokens=8`. Evidence: `docs/evidence/E0A_GEMINI_AUTH_TRANSPORT_DIFFERENTIAL_RESULT_2026_09_08.md`.
+Auth-transport differential **CONSUMED**. Same fresh unshared `AQ.` key/model/method/body: query leg locally inconclusive; header leg returned HTTP **200**, `totalTokens=8`. Evidence: `docs/evidence/E0A_GEMINI_AUTH_TRANSPORT_DIFFERENTIAL_RESULT_2026_09_08.md`. Thus `x-goog-api-key` works live for `gemini-3.5-flash-lite:countTokens`; no auth-transport patch is justified.
 
-Thus `x-goog-api-key` works live for `gemini-3.5-flash-lite:countTokens` with a fresh Auth key. Attempt 02's 401 is not evidence of generic header-auth incompatibility. Query-param behavior remains unresolved; no Harness auth-transport patch is justified.
+## Authorized live run
+Director authorization: `docs/evidence/E0A_THIRD_REAL_GEMINI_35_LITE_DIRECTOR_AUTHORIZATION_2026_09_08.md`.
 
-Provider authorization: **NONE**.
+Exactly **one** third synthetic Missing Raft `GEMINI-3.5-FLASH-LITE-MINIMAL` reference run is authorized at promoted `689655...`, run id `E0A-REAL-G35L-20260908-03`, using the same still-active/unshared key that just passed header `countTokens`; one attempt per role, zero retries, no fallback/other model/fixture/provider traffic. Any terminal result consumes authorization.
 
 ## Next
-**Known-good-key reference-run decision.** Decide whether to authorize one third synthetic Missing Raft `GEMINI-3.5-FLASH-LITE-MINIMAL` run at promoted `689655...` using the same still-unshared key that just succeeded via header, one attempt per role / zero retries / no fallback or other model. If that key is revoked, re-establish a replacement key's header `countTokens` validity before a reference run.
+Run the authorized third reference run once. Preserve transcript/evidence ZIP, clear credentials immediately afterward, do not rerun after invocation starts, then audit the result before any further provider or source decision.
