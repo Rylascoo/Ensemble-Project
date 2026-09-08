@@ -20,11 +20,11 @@ Supporting audits: `docs/evidence/E0A_GEMINI_RATE_DISCIPLINE_MODEL_COMPARISON_IM
 ## Provider evidence
 Auth differential **CONSUMED**: same fresh unshared key via `x-goog-api-key` returned HTTP **200**, `totalTokens=8` for simple `gemini-3.5-flash-lite:countTokens`. Evidence: `docs/evidence/E0A_GEMINI_AUTH_TRANSPORT_DIFFERENTIAL_RESULT_2026_09_08.md`.
 
-Attempt 03 authorization is **CONSUMED**. ZIP/hash/runtime seal all verify. Exact failure: first Performer `countTokens` returned HTTP **400** after `480.4031 ms`; 0 turns, $0, no generation/inference. Audit: `docs/evidence/E0A_THIRD_REAL_GEMINI_35_LITE_ATTEMPT_03_ARCHIVE_AUDIT_2026_09_08.md`.
+Attempt 03 authorization **CONSUMED**. ZIP, all sealed hashes, runtime root and seal identity verify. Exact failure: first Performer `countTokens` HTTP **400** after `480.4031 ms`; 0 turns, $0, no generation/inference. Audit: `docs/evidence/E0A_THIRD_REAL_GEMINI_35_LITE_ATTEMPT_03_ARCHIVE_AUDIT_2026_09_08.md`.
 
-The preserved full request uses structured JSON `responseFormat`. Google's current explicit structured-output support table does **not** list Gemini 3.5 Flash-Lite, while it does list Gemini 3.1 Flash-Lite. Thus the 3.5 Flash-Lite profile has a material provider-contract admissibility gap. This is the strongest root-cause candidate for HTTP 400, but the exact Google field violation is unproven because the 400 body was not retained.
+The full request uses currently documented GenerateContent fields including structured JSON `responseFormat`. Google provider docs conflict: the model-specific Gemini 3.5 Flash-Lite page says structured outputs are supported, while the current general structured-output support table omits 3.5 Flash-Lite. The 400 body was not retained, so the exact rejected field/root cause is unproven. Classification: **3.5 Flash-Lite frozen-request live compatibility unproven**, not generally structured-output unsupported.
 
 Provider authorization: **NONE**. No retry/fourth 3.5 run/fallback/other provider traffic.
 
 ## Next
-**Director model-admissibility decision only:** suspend/remove 3.5 Flash-Lite from the live comparison unless structured-output capability is explicitly established, and decide whether to advance the already-approved 3.1 Flash-Lite comparator. No provider request or source patch before that decision. A bounded structured-error diagnostic improvement is optional future engineering work and would require new native validation.
+**Director provider-compatibility decision only.** Keep 3.5 Flash-Lite paused and choose whether to (a) advance the already-approved 3.1 Flash-Lite comparator through its separate fresh provider gate, or (b) first authorize an engineering diagnostic/request-compatibility amendment. No provider request or source patch before that decision. Any source change requires cloud/native Windows ARM64 validation and a new validation tag.
