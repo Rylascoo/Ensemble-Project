@@ -27,7 +27,10 @@ public sealed class E0AEvidenceTests
             Assert.AreEqual(E0AEvidenceContracts.FrozenBlueprintVersion, manifest.GetProperty("frozenBlueprintVersion").GetString());
             Assert.AreEqual(E0AEvidenceContracts.GeminiReferenceAmendment, manifest.GetProperty("referenceEnvelopeBlueprint").GetString());
             Assert.AreEqual(E0AEvidenceContracts.GeminiApprovedAmendmentCommit, manifest.GetProperty("approvedBlueprintCommit").GetString());
-            Assert.AreEqual("E0A-GEMINI-NORMATIVE-2026-09-06:CREATIVE-NONE", manifest.GetProperty("referenceConfigurationIdentity").GetString());
+            Assert.AreEqual(
+                $"E0A-GEMINI-COMPARISON-2026-09-07:CREATIVE-NONE:{E0AGeminiModelCatalog.Flash25NoneId}",
+                manifest.GetProperty("referenceConfigurationIdentity").GetString());
+            Assert.AreEqual(E0AGeminiModelCatalog.Flash25NoneId, manifest.GetProperty("providerProfileId").GetString());
             Assert.AreEqual(E0AEvidenceContracts.HardGateChecklistVersion, manifest.GetProperty("hardGateChecklistVersion").GetString());
 
             var expectedHardGates = new[]
