@@ -90,8 +90,9 @@ internal static class E0AReferenceRunHost
         return http;
     }
 
-    // Historical helper retained for existing fake/wire tests. It remains the
-    // original Gemini 2.5 Flash CREATIVE-NONE quality anchor.
+    // Historical helper retained for existing fake/wire tests. It is the original
+    // Gemini 2.5 Flash CREATIVE-NONE normative compatibility anchor and is not a
+    // live-selectable Free-tier comparison profile under the current RPD amendment.
     internal static E0ARunEnvelope CreateEnvelope(string variant) => variant switch
     {
         "CREATIVE-NONE" => E0ARunEnvelope.GeminiNormativeReference(ConservativePricing),
@@ -109,7 +110,7 @@ internal static class E0AReferenceRunHost
         var envelope = E0ARunEnvelope.GeminiComparison(providerProfileId);
         if (!string.Equals(envelope.Variant, variant, StringComparison.Ordinal))
         {
-            throw new E0AHarnessException("E0-A live-run arm/provider-profile pairing is not approved by the model-comparison amendment.");
+            throw new E0AHarnessException("E0-A live-run arm/provider-profile pairing is not approved by the current Gemini amendments.");
         }
         return envelope;
     }
