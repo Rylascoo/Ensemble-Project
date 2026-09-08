@@ -2,13 +2,13 @@
 
 Status: ACTIVE FRESH-CHAT TRANSITION
 Recorded: 2026-09-07
-Authority: `CURRENT_STATE.md` names this exact path. This handoff is temporary and cannot advance phase, validation, product, or provider authority by itself.
+Authority: `CURRENT_STATE.md` alone carries active checkpoint/validation/next-action authority. This handoff is temporary.
 
-## Fresh-chat first action
+## Fresh-chat bootstrap
 
 1. Read `CURRENT_STATE.md` first.
-2. Resolve current `main`, active work branch/head, relationship to `main`, and latest Validation gate. Do not assume the snapshot below remains current.
-3. Then read:
+2. Resolve `main`, active branch/head, relation to `main`, and latest Validation gate from GitHub.
+3. Then read only the current boundary surfaces:
    - `docs/PROJECT_AUTHORITY.md`
    - `docs/ENGINEERING_HYGIENE_CONSTITUTION.md`
    - `docs/VALIDATION_LEDGER.md`
@@ -16,147 +16,82 @@ Authority: `CURRENT_STATE.md` names this exact path. This handoff is temporary a
    - `docs/blueprint/E0A_PHASE_B_GEMINI_NORMATIVE_REFERENCE_AMENDMENT.md`
    - `docs/blueprint/E0A_PHASE_B_GEMINI_RATE_DISCIPLINE_MODEL_COMPARISON_AMENDMENT.md`
    - `docs/evidence/E0A_GEMINI_RATE_DISCIPLINE_MODEL_COMPARISON_IMPLEMENTATION_AUDIT.md`
-   - `docs/evidence/E0A_PRE_RESTRUCTURE_CLOSURE_NATIVE_ARM64_VALIDATION.md`
+   - `docs/evidence/E0A_GEMINI35_THOUGHT_SIGNATURE_COMPATIBILITY_AUDIT.md`
    - `docs/evidence/DIRECTOR_WINDOWS_ARM64_VALIDATION_HOST_BEHAVIORS.md`
-4. Treat repository state, not prior-chat prose, as authoritative.
+4. Treat live repository state, not this snapshot, as authority if anything moved.
 
-## Closed historical boundary
+## Closed history
 
-E-R1 repository/tooling/workflow restructuring is CLOSED / PROMOTED / ARCHIVED and must not be reopened.
+E-R1 is CLOSED / PROMOTED / ARCHIVED and must not be reopened. Promoted `main` continuity checkpoint: `7490de24bfd2a9829f6afc1ae4b3831c98c50837`. Historical promoted native authority remains `cc395a25162a0a682796bffb44060c799df0db32` under `validation/e0a-pre-restructure-closure-native-arm64`; it does not validate comparison Harness source.
 
-- PR #46 merge: `21a10aff823734418f36284744a1fd26aef3bcf6`.
-- PR #47 continuity merge: `139621dc63e1a67aca5f1a5eedb7c1347ede9fd5`.
-- Archived E-R1 branch head: `bec3db07cef41296855be8f702d2f3637c472dc1`, preserved by `archive/repo-restructure-e-r1`.
-- Promoted native authority remains `cc395a25162a0a682796bffb44060c799df0db32` under `validation/e0a-pre-restructure-closure-native-arm64`.
+## Current comparison boundary
 
-Do not confuse that historical native checkpoint with validation of the new comparison Harness source.
+Branch: `e0a-gemini-rate-discipline-model-comparison`.
 
-## Current comparison work
+Architecture commit: `76fc0c64da4724a7a352a656a062d5c3ed431ad6`.
 
-Work branch:
+Cloud-validated source/test checkpoint: `8ed1563ec7a4c3ae919a649db0dc3c29e17a03e0`.
 
-```text
-e0a-gemini-rate-discipline-model-comparison
-```
+Validation run `34179384123`: SUCCESS. ARM64 cross-compile of Core/Harness/Core-tests/Harness-tests, x64 Core regression, repository law, oracle coverage, and document census passed. This did **not** execute Harness tests and is not native Windows ARM64 evidence.
 
-Approved architecture commit:
+No Core source, Core-test, or fixture delta exists from `main` through the source/test checkpoint.
+
+## Approved comparison profiles
 
 ```text
-76fc0c64da4724a7a352a656a062d5c3ed431ad6
+CREATIVE-NONE    GEMINI-2.5-FLASH-LITE-NONE     gemini-2.5-flash-lite   10 RPM / 250K TPM
+CREATIVE-MINIMAL GEMINI-3.5-FLASH-LITE-MINIMAL  gemini-3.5-flash-lite   15 RPM / 250K TPM
+CREATIVE-NONE    GEMINI-2.5-FLASH-NONE           gemini-2.5-flash         5 RPM / 250K TPM
 ```
 
-Audited executable/test checkpoint:
+`CREATIVE-MINIMAL` is not literal thinking-off. RPD remains unverified. Free-tier provider execution remains synthetic-fixture-only.
 
-```text
-277dcb5e3bdd99ef02df4bd91d3df309d4c707ef
-```
+The Harness paces every Gemini API-bound operation, including `countTokens`, and enforces exact rolling generation-input TPM. One attempt / zero retries remains law.
 
-Cloud Validation run `34177033966` passed all five jobs at that executable/test checkpoint, including ARM64 cross-compilation of the Harness and Harness tests. This does not execute Harness tests and is not native Windows ARM64 evidence.
+## Gemini 3.5 compatibility correction
 
-No Core source, Core-test, or fixture file changed from `main` through that checkpoint.
+Fresh Google GenerateContent documentation established that Gemini 3 may return opaque `thoughtSignature` metadata on ordinary response parts, including with minimal thinking. The transport was also found to retain an obsolete single-model route guard.
 
-## Provider/account evidence
+The source/test checkpoint above now:
 
-Director-supplied AI Studio evidence established Free-tier project limits on 2026-09-07:
+- admits exactly the three catalogued comparison models;
+- accepts opaque signatures only on the explicit 3.5 profile;
+- strips signatures before streaming diagnostic persistence;
+- never places signatures in semantic output or receipts;
+- continues to reject `thought=true` material;
+- retains strict signature rejection on 2.5 profiles;
+- keeps role requests stateless and does not add signature replay/history semantics.
 
-```text
-gemini-2.5-flash-lite   10 RPM   250,000 input TPM
-gemini-3.5-flash-lite   15 RPM   250,000 input TPM
-gemini-2.5-flash         5 RPM   250,000 input TPM
-```
-
-RPD was not established; do not invent it.
-
-The previously exposed API key was replaced. Never request or record the replacement key value. Replacement-key availability is not live-run authorization.
-
-Free-tier provider execution remains synthetic-fixture-only.
-
-## Approved comparison matrix
-
-```text
-CREATIVE-NONE
-  GEMINI-2.5-FLASH-LITE-NONE
-  gemini-2.5-flash-lite
-  Performer/Interpreter thinkingBudget=0
-  Integrity thinkingBudget=3584
-
-CREATIVE-MINIMAL
-  GEMINI-3.5-FLASH-LITE-MINIMAL
-  gemini-3.5-flash-lite
-  Performer/Interpreter thinkingLevel=minimal
-  Integrity thinkingLevel=high
-
-CREATIVE-NONE
-  GEMINI-2.5-FLASH-NONE
-  gemini-2.5-flash
-  Performer/Interpreter thinkingBudget=0
-  Integrity thinkingBudget=3584
-```
-
-`CREATIVE-MINIMAL` must never be described as literal thinking-off.
-
-Planned live comparison order, each requiring separate Director authorization after native validation:
-
-```text
-1. GEMINI-2.5-FLASH-LITE-NONE
-2. GEMINI-3.5-FLASH-LITE-MINIMAL
-3. GEMINI-2.5-FLASH-NONE
-```
-
-## Implemented rate discipline
-
-The live path conservatively paces every Gemini API-bound operation, including `countTokens`, because provider evidence has not shown `countTokens` to be RPM-exempt.
-
-Generation additionally enforces an exact rolling 60-second input-TPM window from the preceding exact token count. No retries were added. Provider `429` remains a technical/noncontributing terminal outcome. Existing 300-second per-role attempt deadline remains authoritative and includes pacing/preflight/provider work.
-
-Because an accepted turn currently contains three sequential roles and each role contains a `countTokens` plus generation request, quota and real model latency must be measured as product-quality variables rather than treated as incidental infrastructure.
+See `docs/evidence/E0A_GEMINI35_THOUGHT_SIGNATURE_COMPATIBILITY_AUDIT.md`.
 
 ## Current consequential gate — native validation
 
-**Do not present a real-run authorization gate yet.** The next gate is Director Windows ARM64 validation of one exact clean checkout of the active comparison branch.
+**Do not present or execute a real-provider gate yet.** Next is Director Windows ARM64 native validation on one exact clean documentation-inclusive branch checkout.
 
-Required native validation:
+Required:
 
-1. prove native Windows ARM64 host identity using the established host-behavior method;
+1. establish ARM64 host identity using `DIRECTOR_WINDOWS_ARM64_VALIDATION_HOST_BEHAVIORS.md`;
 2. run Core tests;
 3. run Harness tests;
-4. perform a fresh native `win-arm64` Harness build;
+4. perform a fresh native Harness build after clearing stale outputs;
 5. run Missing Raft and generic fixture smokes;
-6. with `GEMINI_API_KEY` absent, invoke all three approved arm/profile live paths and prove each fails before evidence creation with:
+6. with `GEMINI_API_KEY` absent, prove all three approved arm/profile live paths exit `1`, emit `GEMINI_API_KEY is required at the E0-A provider edge.`, and create no evidence root;
+7. re-check exact HEAD and working-tree cleanliness.
+
+CLI form:
 
 ```text
-GEMINI_API_KEY is required at the E0-A provider edge.
+e0a-run <arm> <provider-profile> <fixture.json> <run-id> <evidence-root> <executable-commit>
 ```
 
-Credentialless commands use the new live syntax:
-
-```text
-e0a-run <CREATIVE-NONE|CREATIVE-MINIMAL> <provider-profile> <fixture.json> <run-id> <evidence-root> <executable-commit>
-```
-
-Use three distinct nonexistent evidence roots and run IDs. The executable-commit argument must be the exact checked-out HEAD. Preserve expected-failure stderr and exit codes according to `docs/evidence/DIRECTOR_WINDOWS_ARM64_VALIDATION_HOST_BEHAVIORS.md`.
-
-This gate requires no Gemini key and must perform no `countTokens`, network request, inference, or spend.
+Use distinct nonexistent evidence roots/run IDs. Capture expected-failure stderr and `$LASTEXITCODE` exactly as the Director-host behavior document requires. This gate requires no key and must make no provider `countTokens`, network, inference, or spend.
 
 ## Later live gate
 
-Only after native validation is recorded and recursively audited may the project return to a separate Director decision for one exact real profile/run.
+Only after native evidence is recorded and recursively audited may a separate Director authorization be requested for a real synthetic-fixture run. Planned order: 2.5 Flash-Lite None -> 3.5 Flash-Lite Minimal -> 2.5 Flash None. Reverify project/key association, tier/status, model availability, quotas including RPD, pricing, data-use terms, snapshot freshness, evidence destination, and checkout identity immediately before each authorized run.
 
-Before any such run, freshly reverify:
-
-- intended project and replacement Auth key association without exposing the credential;
-- Free-tier/billing status;
-- selected model availability;
-- RPM / input TPM / RPD;
-- pricing;
-- data-use terms;
-- snapshot freshness;
-- evidence destination and checkout identity.
-
-Do not call Gemini, invoke provider `countTokens`, perform inference, or incur spend without explicit live-run authorization in that chat.
+Do not expose credentials or perform provider-network work without explicit authorization in that chat.
 
 ## Continuity discipline
 
-Do not reopen E-R1. Do not reintroduce OpenAI executable support. Do not enter E0-B+, app/UI/persistence, Windows AI/NPU, packaging/WACK/Store, or design-lane work from this handoff.
-
-Perform recursive correctness/consistency/authority/scope/tests/simplicity/hygiene/ARM64/evidence review before any consequential reply. Once this handoff's transition purpose is fully served, remove it from the active tree and fold durable continuity into `CURRENT_STATE.md`.
+Do not reopen E-R1, reintroduce OpenAI executable support, or enter E0-B+, UI/persistence, Windows AI/NPU, packaging/WACK/Store, or design-lane work. Recursively audit correctness, consistency, authority, scope, tests, simplicity, hygiene, ARM64 suitability, and evidence before consequential replies. Remove this temporary handoff only after the transition has fully converged and durable state has been folded into `CURRENT_STATE.md`.
