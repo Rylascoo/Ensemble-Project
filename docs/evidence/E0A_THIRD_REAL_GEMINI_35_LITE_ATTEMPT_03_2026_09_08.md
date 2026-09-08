@@ -1,6 +1,6 @@
 # E0-A Third Real Gemini 3.5 Flash-Lite Attempt 03 — 2026-09-08
 
-Status: **TERMINAL — TECHNICAL FAILURE — AUTHORIZATION CONSUMED — ARCHIVE AUDIT PENDING**
+Status: **TERMINAL — TECHNICAL FAILURE — AUTHORIZATION CONSUMED — ARCHIVE AUDIT COMPLETE**
 
 ## Authorized scope
 
@@ -47,12 +47,16 @@ Evidence ZIP SHA-256:
 
 Post-run repository/credential cleanup: PASS.
 
+## Archive audit result
+
+Full audit: `docs/evidence/E0A_THIRD_REAL_GEMINI_35_LITE_ATTEMPT_03_ARCHIVE_AUDIT_2026_09_08.md`.
+
+The uploaded ZIP independently matched the recorded SHA-256; all seven sealed artifact hashes, the recomputed runtime root, and runtime-seal identity matched. The exact runtime boundary was first Performer `countTokens`: Google returned HTTP **400** after `480.4031 ms`. No successful token count, spend reservation, generation/inference, provider receipt, accepted performance, Integrity/Interpreter call, or committed turn occurred.
+
+The same credential/header/model/method path had immediately before returned HTTP 200 for a simple `countTokens` request, so attempt 03 is not explained by credential validity or `x-goog-api-key` transport alone. The preserved full request includes required structured JSON `responseFormat`; Google's current explicit structured-output support table does not list Gemini 3.5 Flash-Lite. This is a material provider-contract admissibility gap and the strongest current root-cause candidate, but the provider's exact 400 field violation is not provable because its response body was not retained.
+
 ## Authority boundary
 
-The console result alone does not identify the internal failure boundary. Exit code `3` is the host's non-success terminal mapping and must not be interpreted as cancellation by itself. No source diagnosis or patch is authorized from this transcript alone.
+Provider authorization is **NONE**. No retry, fourth 3.5 Flash-Lite run, fallback, alternate model/profile run, authentication probe, or other provider traffic is authorized.
 
-Provider authorization is now **NONE**. No retry, fourth run, fallback, alternate model/profile, additional authentication probe, or other provider traffic is authorized.
-
-## Next gate
-
-Verify the archived ZIP against the recorded SHA-256, recursively audit every sealed artifact and hash, identify the exact terminal boundary, then decide whether any source or provider action is justified. Do not make another provider request before that audit is complete and separately authorized.
+The 3.5 Flash-Lite live profile must not be treated as proven compatible with the frozen structured-output contract until Director resolution of the provider-capability mismatch. Any source diagnostic improvement requires normal source/native validation before use.
