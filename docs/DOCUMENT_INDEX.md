@@ -10,20 +10,22 @@ This index helps a fresh engineering chat find the small set of current entry su
 2. `docs/PROJECT_AUTHORITY.md` — source-of-truth order and lane ownership.
 3. `docs/ENGINEERING_HYGIENE_CONSTITUTION.md` — engineering, repository-surface, and artifact-lifecycle law.
 4. `docs/PROJECT_REASONING_TASK_SCOPE_OPTIMIZATION_PROTOCOL.md` — engineering collaboration/work-scope law.
-5. `docs/E_R1_REPOSITORY_TOOLING_WORKFLOW_RESTRUCTURE.md` — active E-R1 work-package boundary while E-R1 remains active.
+5. `docs/handoff/E0A_POST_ER1_FIRST_REAL_GEMINI_RUN_DIRECTOR_GATE_HANDOFF_2026_09_07.md` — temporary live transition named by current authority; currently points to the Gemini comparison native-validation gate.
 
 ## Current E0-A architecture
 
 - `docs/blueprint/E0A_PHASE_B_REFERENCE_RUN_ENVELOPE.md`
 - `docs/blueprint/E0A_PHASE_B_GEMINI_NORMATIVE_REFERENCE_AMENDMENT.md`
+- `docs/blueprint/E0A_PHASE_B_GEMINI_RATE_DISCIPLINE_MODEL_COMPARISON_AMENDMENT.md`
 
 These remain subject to `CURRENT_STATE.md`; this index does not independently mark a phase or checkpoint active.
 
 ## Current validation / assumptions
 
-- `docs/VALIDATION_LEDGER.md` — validation facts and durable tags; cannot advance project state.
-- `docs/HYPOTHESIS_LEDGER.md` — unverified assumptions and their verification triggers; never a decision source.
-- `docs/evidence/E0A_PRE_RESTRUCTURE_CLOSURE_NATIVE_ARM64_VALIDATION.md` — current exact native machine-test evidence.
+- `docs/VALIDATION_LEDGER.md` — promoted validation facts and durable tags; cannot advance project state.
+- `docs/HYPOTHESIS_LEDGER.md` — current unverified/narrowed Gemini assumptions and verification triggers; never a decision source.
+- `docs/evidence/E0A_GEMINI_RATE_DISCIPLINE_MODEL_COMPARISON_IMPLEMENTATION_AUDIT.md` — current comparison implementation/cloud-compiler evidence; native validation remains pending.
+- `docs/evidence/E0A_PRE_RESTRUCTURE_CLOSURE_NATIVE_ARM64_VALIDATION.md` — current promoted historical native machine-test evidence.
 - `docs/evidence/DIRECTOR_WINDOWS_ARM64_VALIDATION_HOST_BEHAVIORS.md` — Director-host validation apparatus contract.
 
 ## Program / product decision surfaces
@@ -43,6 +45,11 @@ These remain subject to `CURRENT_STATE.md`; this index does not independently ma
 - `tools/document-census.py` — authority-root document census and active-evidence reachability gate.
 - `docs/evidence/archive/README.md` — evidence archive semantics.
 - `docs/handoff/README.md` — temporary handoff semantics; no live handoff unless current authority names one.
+
+## Closed E-R1 surface
+
+- `docs/E_R1_REPOSITORY_TOOLING_WORKFLOW_RESTRUCTURE.md` — historical closed work-package contract; E-R1 is archived and must not be reopened.
+- `docs/evidence/E_R1_REPOSITORY_TOOLING_WORKFLOW_RESTRUCTURE_EVIDENCE.md` — E-R1 closure evidence.
 
 ## Historical/support surfaces
 
