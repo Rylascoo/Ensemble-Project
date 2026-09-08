@@ -3,26 +3,20 @@
 Updated: 2026-09-08
 
 ## Authority
-`Rylascoo/Ensemble-Project` is engineering authority. `CURRENT_STATE.md` alone carries phase/checkpoint/validation/next-action authority. Product/policy: `docs/PROJECT_AUTHORITY.md`.
+`Rylascoo/Ensemble-Project` is engineering authority. This file alone carries phase/checkpoint/validation/next-action authority; `AGENTS.md` defines bootstrap procedure and `docs/PROJECT_AUTHORITY.md` owns product/policy/lane authority.
 
 ## Checkpoint
-Runtime: **E0-A Experimental Harness — Phase B**. E-R1 **CLOSED / PROMOTED / ARCHIVED**. `main`: `7490de24bfd2a9829f6afc1ae4b3831c98c50837`. Branch: `e0a-gemini-rate-discipline-model-comparison`.
+Runtime: **E0-A Experimental Harness — Phase B**. E-R1 **CLOSED / PROMOTED / ARCHIVED**. `main` baseline: `7490de24bfd2a9829f6afc1ae4b3831c98c50837`. Repository-convergence branch: `repo-convergence-integrity-2026-09-08`, forked from E0-A head `a6e12b033fd3136c4b6e167482d4c3c2d0c64029`.
 
-Architecture: `docs/blueprint/E0A_PHASE_B_GEMINI_FREE_TIER_RPD_MODEL_SELECTION_AMENDMENT.md` (`825309e4...`).
+Current architecture remains `docs/blueprint/E0A_PHASE_B_GEMINI_FREE_TIER_RPD_MODEL_SELECTION_AMENDMENT.md` plus its predecessors named in `docs/DOCUMENT_INDEX.md`.
 
 ## Validation
-**Promoted machine-tested checkout:** `689655eed677b789ab3ee395f1c65b4f2cb72cc8` / `validation/e0a-gemini-counttokens-correction-native-arm64`. Director Windows ARM64: Core **622/622**, Harness **125/125**, build/smokes/credentialless gates **PASS**. Evidence: `docs/evidence/E0A_GEMINI_COUNTTOKENS_CORRECTION_NATIVE_ARM64_VALIDATION_2026_09_08.md`.
-
-Earlier live evidence remains reachable through `docs/evidence/E0A_FIRST_REAL_GEMINI_35_LITE_ATTEMPT_01_2026_09_08.md`, `docs/evidence/E0A_SECOND_REAL_GEMINI_35_LITE_ATTEMPT_02_ARCHIVE_AUDIT_2026_09_08.md`, `docs/evidence/E0A_GEMINI_AUTH_KEY_EXTERNAL_DIAGNOSTIC_2026_09_08.md`, `docs/evidence/E0A_GEMINI_AUTH_TRANSPORT_DIFFERENTIAL_RESULT_2026_09_08.md`, and supporting audits `docs/evidence/E0A_GEMINI_RATE_DISCIPLINE_MODEL_COMPARISON_IMPLEMENTATION_AUDIT.md`; `docs/evidence/E0A_GEMINI35_THOUGHT_SIGNATURE_COMPATIBILITY_AUDIT.md`.
+**Promoted executable checkout:** `689655eed677b789ab3ee395f1c65b4f2cb72cc8` / `validation/e0a-gemini-counttokens-correction-native-arm64`. Director Windows ARM64: Core **622/622**, Harness **125/125**, build/smokes/credentialless gates **PASS**. Later convergence work is documentation/tooling only and does not inherit or replace that native-runtime authority.
 
 ## Provider evidence / decision
-Attempt 03 archive verifies completely. First Performer `countTokens` returned HTTP **400** after `480.4031 ms`; 0 turns, $0, no generation. Full audit: `docs/evidence/E0A_THIRD_REAL_GEMINI_35_LITE_ATTEMPT_03_ARCHIVE_AUDIT_2026_09_08.md`.
+Attempt 03 sealed archive: first Performer `countTokens` HTTP **400** after `480.4031 ms`; 0 turns, $0, no generation. The preceding same-key/header/model/method simple `countTokens` succeeded; authentication transport is closed as that failure's explanation. Exact rejected field remains unproven. Classification: **3.5 Flash-Lite frozen-request live compatibility unproven**.
 
-The preceding same-key/header/model/method simple `countTokens` succeeded, so authentication transport is closed. Google docs conflict on 3.5 Flash-Lite structured-output support and the 400 body was not retained; exact rejected field remains unproven. Classification: **3.5 Flash-Lite frozen-request live compatibility unproven**.
-
-Director decision: `docs/evidence/E0A_GEMINI_PROVIDER_COMPATIBILITY_DIRECTOR_DECISION_2026_09_08.md`. **3.5 Flash-Lite live execution PAUSED; bounded provider-error/request-compatibility engineering amendment AUTHORIZED; 3.1 Flash-Lite provider execution DEFERRED. Provider authorization: NONE.** No credential use, `countTokens`, generation/probe, inference, spend, fallback, or other provider traffic.
+Director decision: **3.5 Flash-Lite live execution PAUSED; bounded provider-error/request-compatibility engineering amendment AUTHORIZED; 3.1 Flash-Lite provider execution DEFERRED. Provider authorization: NONE.** No credential use, `countTokens`, generation/probe, inference, spend, fallback, or other provider traffic.
 
 ## Next
-Active handoff: `docs/handoff/E0A_GEMINI_BOUNDED_PROVIDER_ERROR_DIAGNOSTIC_ENGINEERING_HANDOFF_2026_09_08.md`.
-
-Fresh engineering chat: read this file first, then the handoff; construct/audit/implement the smallest Harness-local bounded diagnostic amendment. Any source change requires cloud validation plus new native Windows ARM64 validation and annotated validation tag before any future provider request.
+Complete repository convergence: enforce state currency and residency, reconcile the evidence-lane branch, audit document/branch authority, restore a trustworthy `main`, and recursively verify no executable drift. The deferred technical handoff remains `docs/handoff/E0A_GEMINI_BOUNDED_PROVIDER_ERROR_DIAGNOSTIC_ENGINEERING_HANDOFF_2026_09_08.md`; do not execute it until convergence closes. After convergence, resume that amendment on a fresh engineering branch. Any source change requires cloud validation plus new native Windows ARM64 validation and annotated validation tag before any future provider request.

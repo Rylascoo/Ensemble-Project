@@ -15,8 +15,7 @@ jobs:
   compiler:
     name: Compiler gate (ARM64 cross-compile)
     runs-on: ubuntu-latest
-    # Compiler authority only: this proves the checkout builds for the pinned
-    # win-arm64 / ARM64 target. Native Windows ARM64 execution is a later rung.
+    # Compiler authority only; native Windows ARM64 execution is a later rung.
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
@@ -42,6 +41,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: '3.12'
@@ -78,5 +79,5 @@ jobs:
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: '3.12'
-      - name: Enforce active-evidence authority reachability
+      - name: Enforce current-document authority reachability
         run: python tools/document-census.py --summary --check

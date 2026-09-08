@@ -4,27 +4,29 @@
 
 Ensemble is a local-first generative theater and creative simulation for persistent Characters. The creator establishes people, circumstances, knowledge, relationships, possibilities, and pressures; Performers portray Characters; accepted Performances become causal history whose authoritative consequences alter what future Scenes can mean.
 
-## Current development state
+## Start here
 
-Blueprint 0.1 is frozen for E0. The runtime phase is **E0-A Phase B**. E-R1 repository/tooling/workflow restructuring is **closed and archived**. The Gemini Free-tier RPD/model-selection work and `countTokens` correction remain native-validated and promoted at tagged Windows ARM64 checkout `689655eed677b789ab3ee395f1c65b4f2cb72cc8`. Gemini 3.5 Flash-Lite attempts 01-03 are consumed technical failures at zero accepted turns. Attempt 03's sealed archive verifies and localizes the terminal boundary to first Performer `countTokens` HTTP 400 before generation; the exact rejected field is unproven because the provider error body was not retained. The preceding same-key/header/model/method simple `countTokens` succeeded, closing authentication transport as the explanation. Google documentation is internally inconsistent on 3.5 Flash-Lite structured-output support, so the route is classified **frozen-request live compatibility unproven**, not generally unsupported. The Director has paused 3.5 Flash-Lite live execution, deferred 3.1 Flash-Lite provider execution, and authorized a bounded provider-error/request-compatibility engineering amendment. Provider authorization is none; no credential use or provider traffic is authorized by that engineering decision. H1 Phase A is **CLOSED**.
+Repository state changes faster than explanatory prose. **README never carries phase, checkpoint, validation, provider-authorization, or next-action authority.**
 
-`README.md` never carries phase authority; `CURRENT_STATE.md` is the only phase source.
+For engineering work:
 
-Read [`CURRENT_STATE.md`](CURRENT_STATE.md) before modifying source, then use [`docs/DOCUMENT_INDEX.md`](docs/DOCUMENT_INDEX.md) for navigation. Current provider-comparison architecture is recorded in [`docs/blueprint/E0A_PHASE_B_GEMINI_RATE_DISCIPLINE_MODEL_COMPARISON_AMENDMENT.md`](docs/blueprint/E0A_PHASE_B_GEMINI_RATE_DISCIPLINE_MODEL_COMPARISON_AMENDMENT.md) and its approved RPD/model-selection successor [`docs/blueprint/E0A_PHASE_B_GEMINI_FREE_TIER_RPD_MODEL_SELECTION_AMENDMENT.md`](docs/blueprint/E0A_PHASE_B_GEMINI_FREE_TIER_RPD_MODEL_SELECTION_AMENDMENT.md). E-R1 remains historical authority only at [`docs/E_R1_REPOSITORY_TOOLING_WORKFLOW_RESTRUCTURE.md`](docs/E_R1_REPOSITORY_TOOLING_WORKFLOW_RESTRUCTURE.md).
-
-Then read [`docs/PROJECT_REASONING_TASK_SCOPE_OPTIMIZATION_PROTOCOL.md`](docs/PROJECT_REASONING_TASK_SCOPE_OPTIMIZATION_PROTOCOL.md). Whenever applicable, every fresh or continuing project chat must maximize useful value per reply by deliberately optimizing substantive task scope for the capabilities of GPT-5.6 Sol High reasoning; this means more useful reasoning, synthesis, verification, and dependency closure per reply, not artificially longer replies or greater token consumption.
+1. resolve the live repository ref and read [`CURRENT_STATE.md`](CURRENT_STATE.md) at that exact ref;
+2. follow [`AGENTS.md`](AGENTS.md) for the fresh-chat/bootstrap and closeout contract;
+3. use [`docs/DOCUMENT_INDEX.md`](docs/DOCUMENT_INDEX.md) for current navigation;
+4. use [`docs/PROJECT_AUTHORITY.md`](docs/PROJECT_AUTHORITY.md) and [`docs/ENGINEERING_HYGIENE_CONSTITUTION.md`](docs/ENGINEERING_HYGIENE_CONSTITUTION.md) for durable authority and repository law.
 
 ## Repository roles
 
-- **GitHub:** authoritative engineering source, tests, fixtures, validation evidence, implementation checkpoints.
-- **Google Drive — Ensemble Project:** UI/UX architecture, mockups/prototypes, visual identity/artwork, motion/animation, Store/marketing assets, and design research.
+- **`Rylascoo/Ensemble-Project`:** engineering source/tests/fixtures/tooling/validation plus central product/policy/ODR decisions.
+- **`Rylascoo/Ensemble-Website`:** app UI/UX design, website implementation/design, visual identity, version-controlled design assets, and design-specific evidence.
+- **Google Drive `Ensemble Project`:** canonical visual workspace and master assets.
 
-See [`docs/PROJECT_AUTHORITY.md`](docs/PROJECT_AUTHORITY.md), [`docs/ENGINEERING_HYGIENE_CONSTITUTION.md`](docs/ENGINEERING_HYGIENE_CONSTITUTION.md), and [`docs/DESIGN_REPOSITORY.md`](docs/DESIGN_REPOSITORY.md).
+The one-canonical-home and cross-lane migration rules are in [`docs/REPOSITORY_RESIDENCY.md`](docs/REPOSITORY_RESIDENCY.md). A design-looking ODR or Director decision can legitimately belong here; classification is by authority, not appearance.
 
-## Engineering discipline
+## Durable engineering discipline
 
-Every accepted implementation must leave the active codebase at least as coherent as the validated baseline it replaces. New patches are reviewed for correctness, consistency, authority, scope, tests, simplicity, hygiene, ARM64 suitability, vision, and evidence.
+Every accepted implementation must leave the active codebase at least as coherent as the validated baseline it replaces. New work is reviewed for correctness, consistency, authority, scope, tests, simplicity, hygiene, ARM64 suitability, vision, evidence, branch lifecycle, residency, and continuity.
 
-For each substantive Director turn, choose the largest logically coupled, falsifiable work package that belongs to one objective and can be completed with current evidence/tools. Spend Sol High reasoning on source reconciliation, architecture/dependency analysis, root-cause diagnosis, smallest-surface patch planning, edge cases, regression strategy, privacy/accessibility/ARM64 implications, contradiction detection, and recursive audit—not on artificially larger replies, code blocks, file counts, or unrelated scope. Simple tasks remain simple. Consequential architecture, implementation, native runtime, WACK, Store, security, and other external-validation gates remain explicit.
+Validation levels remain distinct: static reasoning, compiler, native Windows ARM64 runtime, hardware/NPU, package/WACK, and Store/Partner Center evidence never promote one another.
 
-Use the patch-first flow for compiler/runtime feedback:
+Historical architecture, closed work packages, and old evidence remain available through Git history, archive tags, and the navigation/index surfaces. Their continued existence does not make them current.
