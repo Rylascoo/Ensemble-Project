@@ -13,13 +13,14 @@ internal enum E0ARole
 internal enum E0AReasoningLevel
 {
     None = 1,
-    High = 2
+    High = 2,
+    Minimal = 3
 }
 
 internal static class E0AGeminiProviderPolicy
 {
     internal const string Provider = "GoogleGemini";
-    internal const string Model = "gemini-2.5-flash";
+    internal const string Model = "gemini-2.5-flash"; // compatibility anchor for the original normative route
     internal const string ServiceTier = "standard";
     internal const int CreativeThinkingBudgetTokens = 0;
     internal const int IntegrityThinkingBudgetTokens = 3_584;
@@ -28,13 +29,23 @@ internal static class E0AGeminiProviderPolicy
     internal const long ModelInputTokenLimit = 1_048_576;
     internal const int ModelOutputTokenLimit = 65_536;
 
-    internal static int ThinkingBudgetTokens(E0ARoleProfile profile)
+    internal static E0AGeminiModelProfile ModelProfile(E0ARoleProfile profile)
     {
         ArgumentNullException.ThrowIfNull(profile);
         if (!string.Equals(profile.Provider, Provider, StringComparison.Ordinal) ||
-            !string.Equals(profile.Model, Model, StringComparison.Ordinal))
+            !string.Equals(profile.ServiceTier, ServiceTier, StringComparison.Ordinal))
         {
-            throw new E0AHarnessException("E0-A Gemini thinking policy received a non-Gemini profile.");
+            throw new E0AHarnessException("E0-A Gemini policy received a non-Gemini profile.");
+        }
+        return E0AGeminiModelCatalog.ForModel(profile.Model);
+    }
+
+    internal static int ThinkingBudgetTokens(E0ARoleProfile profile)
+    {
+        var model = ModelProfile(profile);
+        if (model.ThinkingControl != E0AGeminiThinkingControlKind.Budget)
+        {
+            throw new E0AHarnessException("E0-A Gemini thinking-budget policy received a thinking-level profile.");
         }
 
         return profile.Role switch
@@ -42,7 +53,24 @@ internal static class E0AGeminiProviderPolicy
             E0ARole.Performer when profile.Reasoning == E0AReasoningLevel.None => CreativeThinkingBudgetTokens,
             E0ARole.Interpreter when profile.Reasoning == E0AReasoningLevel.None => CreativeThinkingBudgetTokens,
             E0ARole.Integrity when profile.Reasoning == E0AReasoningLevel.High => IntegrityThinkingBudgetTokens,
-            _ => throw new E0AHarnessException("E0-A Gemini role reasoning is outside the approved normative amendment.")
+            _ => throw new E0AHarnessException("E0-A Gemini role reasoning is outside the approved model profile.")
+        };
+    }
+
+    internal static string ThinkingLevel(E0ARoleProfile profile)
+    {
+        var model = ModelProfile(profile);
+        if (model.ThinkingControl != E0AGeminiThinkingControlKind.Level)
+        {
+            throw new E0AHarnessException("E0-A Gemini thinking-level policy received a thinking-budget profile.");
+        }
+
+        return profile.Role switch
+        {
+            E0ARole.Performer when profile.Reasoning == E0AReasoningLevel.Minimal => "minimal",
+            E0ARole.Interpreter when profile.Reasoning == E0AReasoningLevel.Minimal => "minimal",
+            E0ARole.Integrity when profile.Reasoning == E0AReasoningLevel.High => "high",
+            _ => throw new E0AHarnessException("E0-A Gemini role reasoning is outside the approved model profile.")
         };
     }
 }
@@ -50,29 +78,31 @@ internal static class E0AGeminiProviderPolicy
 internal static class E0AGeminiPricingPolicy
 {
     internal const string SourceUri = "https://ai.google.dev/gemini-api/docs/pricing";
-    internal const string VerifiedOn = "2026-09-06";
-    internal const string SnapshotValidThrough = "2026-09-13";
+    internal const string VerifiedOn = "2026-09-07";
+    internal const string SnapshotValidThrough = "2026-09-14";
     internal const decimal PublishedPaidInputUsdPerMillionTokens = 0.30m;
     internal const decimal PublishedPaidCachedInputUsdPerMillionTokens = 0.03m;
     internal const decimal PublishedPaidOutputUsdPerMillionTokens = 2.50m;
 
-    // The active AI Studio free-tier route is expected to bill USD 0, but the
-    // deterministic E0-A budget remains active using paid standard-tier rates as
-    // a conservative shadow estimate. Cached input is deliberately estimated at
-    // the full uncached input rate so implicit cache savings never weaken the cap.
-    internal static E0APricingAssumptions ConservativeShadowPricing { get; } = new(
-        PublishedPaidInputUsdPerMillionTokens,
-        PublishedPaidInputUsdPerMillionTokens,
-        PublishedPaidOutputUsdPerMillionTokens);
+    // Compatibility anchor for existing tests and the original 2.5 Flash route.
+    internal static E0APricingAssumptions ConservativeShadowPricing { get; } =
+        E0AGeminiModelCatalog.Flash25None.ConservativeShadowPricing;
+
+    internal static E0APricingAssumptions ConservativeShadowPricingFor(E0AGeminiModelProfile profile)
+    {
+        ArgumentNullException.ThrowIfNull(profile);
+        profile.Validate();
+        return profile.ConservativeShadowPricing;
+    }
 
     internal static void RequireNonStaleSnapshot(DateTimeOffset now)
     {
-        var validThrough = new DateOnly(2026, 9, 13);
+        var validThrough = new DateOnly(2026, 9, 14);
         var currentDate = DateOnly.FromDateTime(now.UtcDateTime);
         if (currentDate > validThrough)
         {
             throw new E0AHarnessException(
-                "E0-A Gemini pricing/data-use snapshot is stale and must be re-verified before inference.");
+                "E0-A Gemini pricing/data-use/quota snapshot is stale and must be re-verified before inference.");
         }
     }
 }
@@ -82,24 +112,18 @@ internal static class E0AProviderBudgetPolicy
     internal static int ReservationOutputTokens(E0ARoleProfile profile)
     {
         ArgumentNullException.ThrowIfNull(profile);
-        RequireCurrentProvider(profile);
-        if (profile.Role == E0ARole.Integrity)
+        var model = E0AGeminiProviderPolicy.ModelProfile(profile);
+
+        // Thinking-level profiles can reason even at minimal, so every 3.5 role
+        // reserves against the published output limit. Budget-controlled 2.5
+        // creative roles retain the configured candidate cap; Integrity remains
+        // conservatively reserved against the model limit because its budget is advisory.
+        if (model.ThinkingControl == E0AGeminiThinkingControlKind.Level ||
+            profile.Role == E0ARole.Integrity)
         {
-            // Gemini thinkingBudget is advisory and may overflow. Reserve against
-            // the model's published output-token limit rather than the requested
-            // 3,584 thinking budget so the USD ceiling stays fail-closed.
-            return E0AGeminiProviderPolicy.ModelOutputTokenLimit;
+            return model.ModelOutputTokenLimit;
         }
         return profile.MaxOutputTokens;
-    }
-
-    private static void RequireCurrentProvider(E0ARoleProfile profile)
-    {
-        if (!string.Equals(profile.Provider, E0AGeminiProviderPolicy.Provider, StringComparison.Ordinal) ||
-            !string.Equals(profile.Model, E0AGeminiProviderPolicy.Model, StringComparison.Ordinal))
-        {
-            throw new E0AHarnessException("E0-A budget policy received an unsupported provider profile.");
-        }
     }
 }
 
@@ -110,15 +134,9 @@ internal static class E0AProviderUsagePolicy
         ArgumentNullException.ThrowIfNull(profile);
         ArgumentNullException.ThrowIfNull(usage);
         usage.Validate();
+        var model = E0AGeminiProviderPolicy.ModelProfile(profile);
 
-        if (!string.Equals(profile.Provider, E0AGeminiProviderPolicy.Provider, StringComparison.Ordinal) ||
-            !string.Equals(profile.Model, E0AGeminiProviderPolicy.Model, StringComparison.Ordinal))
-        {
-            throw new E0AHarnessException("E0-A usage policy received an unsupported provider profile.");
-        }
-
-        if (profile.Role == E0ARole.Integrity &&
-            usage.OutputTokens > E0AGeminiProviderPolicy.IntendedGeneratedTokenCeiling)
+        if (usage.OutputTokens > E0AGeminiProviderPolicy.IntendedGeneratedTokenCeiling)
         {
             return "gemini-generated-token-overrun";
         }
@@ -136,7 +154,8 @@ internal static class E0AProviderUsagePolicy
         {
             return "gemini-unexpected-cache-write";
         }
-        if (profile.Role is E0ARole.Performer or E0ARole.Interpreter)
+        if (model.CreativeRequiresZeroReasoning &&
+            profile.Role is E0ARole.Performer or E0ARole.Interpreter)
         {
             return usage.ReasoningTokens == 0
                 ? null
@@ -224,12 +243,14 @@ internal sealed class E0ARunEnvelope
 
     private E0ARunEnvelope(
         string variant,
+        string providerProfileId,
         E0ARoleProfile performer,
         E0ARoleProfile integrity,
         E0ARoleProfile interpreter,
         E0APricingAssumptions pricing)
     {
         Variant = variant;
+        ProviderProfileId = providerProfileId;
         Performer = performer;
         Integrity = integrity;
         Interpreter = interpreter;
@@ -244,35 +265,58 @@ internal sealed class E0ARunEnvelope
     internal const int RoleMaxOutputTokens = 4096;
 
     internal string Variant { get; }
+    internal string ProviderProfileId { get; }
     internal E0ARoleProfile Performer { get; }
     internal E0ARoleProfile Integrity { get; }
     internal E0ARoleProfile Interpreter { get; }
     internal E0APricingAssumptions Pricing { get; }
     internal ImmutableArray<StateMutationDomain> AutoApproveDomains => AutoApprove;
-    internal long MaxInputTokens => E0AGeminiProviderPolicy.ModelInputTokenLimit;
+    internal E0AGeminiModelProfile ModelProfile => E0AGeminiModelCatalog.ForProfileId(ProviderProfileId);
+    internal long MaxInputTokens => ModelProfile.ModelInputTokenLimit;
 
-    // CREATIVE-NONE is the sole active E0-A variant. This compact factory remains
-    // for provider-neutral harness tests and delegates to the current Gemini route.
+    // Historical compact factory retained for provider-neutral tests. It remains
+    // the original Gemini 2.5 Flash CREATIVE-NONE anchor.
     internal static E0ARunEnvelope CreativeNone(E0APricingAssumptions pricing) =>
         GeminiNormativeReference(pricing);
 
     internal static E0ARunEnvelope GeminiNormativeReference(E0APricingAssumptions pricing)
     {
         ArgumentNullException.ThrowIfNull(pricing);
+        return Build(E0AGeminiModelCatalog.Flash25None, pricing);
+    }
+
+    internal static E0ARunEnvelope GeminiComparison(string providerProfileId)
+    {
+        var model = E0AGeminiModelCatalog.ForProfileId(providerProfileId);
+        return Build(model, E0AGeminiPricingPolicy.ConservativeShadowPricingFor(model));
+    }
+
+    private static E0ARunEnvelope Build(
+        E0AGeminiModelProfile model,
+        E0APricingAssumptions pricing)
+    {
+        ArgumentNullException.ThrowIfNull(model);
+        ArgumentNullException.ThrowIfNull(pricing);
+        model.Validate();
+
+        var creativeReasoning = model.ThinkingControl == E0AGeminiThinkingControlKind.Budget
+            ? E0AReasoningLevel.None
+            : E0AReasoningLevel.Minimal;
         var envelope = new E0ARunEnvelope(
-            "CREATIVE-NONE",
+            model.Variant,
+            model.ProfileId,
             new E0ARoleProfile(
                 E0ARole.Performer,
                 E0AGeminiProviderPolicy.Provider,
-                E0AGeminiProviderPolicy.Model,
-                E0AReasoningLevel.None,
+                model.Model,
+                creativeReasoning,
                 true,
                 RoleMaxOutputTokens,
                 E0AGeminiProviderPolicy.ServiceTier),
             new E0ARoleProfile(
                 E0ARole.Integrity,
                 E0AGeminiProviderPolicy.Provider,
-                E0AGeminiProviderPolicy.Model,
+                model.Model,
                 E0AReasoningLevel.High,
                 false,
                 E0AGeminiProviderPolicy.IntegrityCandidateMaxOutputTokens,
@@ -280,8 +324,8 @@ internal sealed class E0ARunEnvelope
             new E0ARoleProfile(
                 E0ARole.Interpreter,
                 E0AGeminiProviderPolicy.Provider,
-                E0AGeminiProviderPolicy.Model,
-                E0AReasoningLevel.None,
+                model.Model,
+                creativeReasoning,
                 true,
                 RoleMaxOutputTokens,
                 E0AGeminiProviderPolicy.ServiceTier),
@@ -307,27 +351,45 @@ internal sealed class E0ARunEnvelope
             throw new E0AHarnessException("E0-A reference provider/model/tier configuration is inconsistent.");
         }
 
-        ValidateGeminiNormative();
+        ValidateGeminiComparison();
     }
 
-    private void ValidateGeminiNormative()
+    private void ValidateGeminiComparison()
     {
-        if (Variant != "CREATIVE-NONE" ||
+        var model = ModelProfile;
+        if (!string.Equals(Variant, model.Variant, StringComparison.Ordinal) ||
             !string.Equals(Performer.Provider, E0AGeminiProviderPolicy.Provider, StringComparison.Ordinal) ||
-            !string.Equals(Performer.Model, E0AGeminiProviderPolicy.Model, StringComparison.Ordinal) ||
+            !string.Equals(Performer.Model, model.Model, StringComparison.Ordinal) ||
             !string.Equals(Performer.ServiceTier, E0AGeminiProviderPolicy.ServiceTier, StringComparison.Ordinal) ||
-            Performer.Reasoning != E0AReasoningLevel.None ||
-            Interpreter.Reasoning != E0AReasoningLevel.None ||
             Integrity.Reasoning != E0AReasoningLevel.High ||
             Performer.MaxOutputTokens != RoleMaxOutputTokens ||
             Integrity.MaxOutputTokens != E0AGeminiProviderPolicy.IntegrityCandidateMaxOutputTokens ||
             Interpreter.MaxOutputTokens != RoleMaxOutputTokens ||
-            !Performer.Stream || Integrity.Stream || !Interpreter.Stream ||
-            E0AGeminiProviderPolicy.ThinkingBudgetTokens(Performer) != 0 ||
-            E0AGeminiProviderPolicy.ThinkingBudgetTokens(Interpreter) != 0 ||
-            E0AGeminiProviderPolicy.ThinkingBudgetTokens(Integrity) != E0AGeminiProviderPolicy.IntegrityThinkingBudgetTokens)
+            !Performer.Stream || Integrity.Stream || !Interpreter.Stream)
         {
-            throw new E0AHarnessException("E0-A Gemini normative role configuration is inconsistent.");
+            throw new E0AHarnessException("E0-A Gemini comparison role configuration is inconsistent.");
+        }
+
+        if (model.ThinkingControl == E0AGeminiThinkingControlKind.Budget)
+        {
+            if (Performer.Reasoning != E0AReasoningLevel.None ||
+                Interpreter.Reasoning != E0AReasoningLevel.None ||
+                E0AGeminiProviderPolicy.ThinkingBudgetTokens(Performer) != 0 ||
+                E0AGeminiProviderPolicy.ThinkingBudgetTokens(Interpreter) != 0 ||
+                E0AGeminiProviderPolicy.ThinkingBudgetTokens(Integrity) != E0AGeminiProviderPolicy.IntegrityThinkingBudgetTokens)
+            {
+                throw new E0AHarnessException("E0-A Gemini thinking-budget configuration is inconsistent.");
+            }
+            return;
+        }
+
+        if (Performer.Reasoning != E0AReasoningLevel.Minimal ||
+            Interpreter.Reasoning != E0AReasoningLevel.Minimal ||
+            !string.Equals(E0AGeminiProviderPolicy.ThinkingLevel(Performer), "minimal", StringComparison.Ordinal) ||
+            !string.Equals(E0AGeminiProviderPolicy.ThinkingLevel(Integrity), "high", StringComparison.Ordinal) ||
+            !string.Equals(E0AGeminiProviderPolicy.ThinkingLevel(Interpreter), "minimal", StringComparison.Ordinal))
+        {
+            throw new E0AHarnessException("E0-A Gemini thinking-level configuration is inconsistent.");
         }
     }
 }
