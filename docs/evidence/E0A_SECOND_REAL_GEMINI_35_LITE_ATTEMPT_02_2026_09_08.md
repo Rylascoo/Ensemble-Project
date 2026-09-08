@@ -1,6 +1,6 @@
 # E0-A Second Real Gemini 3.5 Flash-Lite — Attempt 02
 
-Status: **CONSUMED / TECHNICAL FAILURE — ARCHIVE AUDIT PENDING**
+Status: **CONSUMED / TECHNICAL FAILURE — ARCHIVE AUDIT COMPLETE**
 
 Date: **2026-09-08**
 
@@ -54,22 +54,24 @@ The submitted PowerShell transcript establishes:
 
 The live host returns process exit code `3` for every terminal result other than `AcceptedTurnCapReached`; therefore this exit code does not by itself establish cancellation. The authoritative semantic terminal result printed by the Harness is `TechnicalFailure`.
 
-## Evidence boundary
+## Archive audit result
 
-The console transcript does **not** establish which exact live-provider boundary failed. Unlike attempt 01, the corrected source can persist a bounded countTokens diagnostic (`gemini-counttokens-http-NNN`, `gemini-counttokens-transport`, or `gemini-counttokens-response-invalid`) without provider body or arbitrary exception text.
+The uploaded evidence ZIP hashes exactly to the recorded SHA-256. Every artifact named by `run.final.json` matches its sealed SHA-256.
 
-The generated evidence archive must therefore be audited before attributing root cause, before claiming whether a successful `countTokens` response occurred, and before making any inference about generation/inference traffic or provider-side usage accounting.
+`events.ndjson` localizes the failure to the first Performer `countTokens` preflight:
 
-Expected local archive:
+`providerDiagnostic = gemini-counttokens-http-401`
 
-`%LOCALAPPDATA%\Ensemble\E0A\ProviderRuns\E0A-REAL-G35L-20260908-02-evidence.zip`
+The real `countTokens` HTTP request therefore reached the provider boundary and received an HTTP 401 authentication rejection. There was no successful token count, spend reservation, generation request, inference, provider receipt, accepted Performance, or fiction.
 
-Recorded archive SHA-256:
+Full archive audit:
 
-`7CFB16091775FD9E20827B2FCCBF8361F44713191019BFC3B7FFF0416A5D2CA0`
+`docs/evidence/E0A_SECOND_REAL_GEMINI_35_LITE_ATTEMPT_02_ARCHIVE_AUDIT_2026_09_08.md`
+
+The current evidence does not justify a source-code patch. The next gate is credential/project authentication-state investigation in Google AI Studio without issuing another provider request.
 
 ## Provider authorization after terminal result
 
 **NONE.**
 
-This authorization was consumed by the single invocation. No retry, third real run, other model/profile, fallback, other fixture, or broader provider traffic is authorized pending archive audit and a new explicit Director decision.
+This authorization was consumed by the single invocation. No retry, third real run, other model/profile, fallback, other fixture, or broader provider traffic is authorized.
