@@ -1,6 +1,6 @@
 # E0-A First Real Gemini 3.5 Flash-Lite — Attempt 01
 
-Status: **AUTHORIZATION CONSUMED — TERMINAL TECHNICAL FAILURE — COUNT-TOKENS REQUEST-SHAPE DEFECT IDENTIFIED — NO RETRY AUTHORIZED**
+Status: **AUTHORIZATION CONSUMED — TERMINAL TECHNICAL FAILURE — COUNT-TOKENS REQUEST-SHAPE DEFECT CORRECTED — CLOUD GATES PASS — NATIVE VALIDATION PENDING — NO RETRY AUTHORIZED**
 
 Date: 2026-09-08
 
@@ -50,35 +50,60 @@ The Director checked AI Studio shortly after termination and reported that the d
 
 There is exactly one prepared attempt request and no terminal provider receipt, no `preflight.input-tokens`, no generation `rate.ready`, no `spend.reserved`, no `provider.completed`, and no stream evidence. Therefore the first failure occurred inside the Performer `countTokens` preflight. Generation/inference was **not reached**.
 
-The archive cannot prove whether the service received the HTTP request because the current token-counter transport collapses non-success status, response-shape failure, and transport failure into the same `E0AHarnessException` and does not preserve the provider HTTP status/body. A retry is not authorized merely to obtain that missing diagnostic.
+The archive cannot prove whether the service received the HTTP request because the validated token-counter transport collapsed non-success status, response-shape failure, and transport failure into the same `E0AHarnessException` and did not preserve provider HTTP status/body. A retry is not authorized merely to obtain that missing diagnostic.
 
 ## Request-shape defect
 
 The archived prepared generation request is valid as the generation payload and intentionally omits a top-level `model` because generation binds the model in the endpoint path.
 
-At the validated executable checkout, `GeminiGenerateContentPort.CountInputTokensAsync` constructs the count-token body as:
+At the validated executable checkout, `GeminiGenerateContentPort.CountInputTokensAsync` constructed the count-token body as:
 
 ```text
 { "generateContentRequest": <exact generation request body> }
 ```
 
-It therefore also omits `generateContentRequest.model`.
+It therefore also omitted `generateContentRequest.model`.
 
-Current Google Gemini REST authority defines `models.countTokens` as accepting either `contents` or a nested `generateContentRequest`. The nested object is a `GenerateContentRequest`, whose `model` field is required and formatted as `models/{model}`. The current implementation violates that contract when using the nested form. Google SDK issue evidence also documents the corresponding Gemini API 400 diagnostic when a generated nested request omits this field: `CountTokensRequest.generate_content_request.model: model is not specified`.
+Provider contract reverified 2026-09-08:
 
-The existing wire regression `CountTokens_ProjectsExactGenerateContentRequestAndUsesApiKeyHeader` enforced byte-identical projection of the generation body into `generateContentRequest`. That test therefore preserved the defect instead of checking the actual provider schema.
+- `https://ai.google.dev/api/tokens` defines `models.countTokens` and its nested `generateContentRequest` as a `GenerateContentRequest`;
+- the Gemini GenerateContent contract requires model identity in `models/{model}` form;
+- `googleapis/python-genai#432` records the corresponding API 400 diagnostic when a nested generated request omitted the model: `CountTokensRequest.generate_content_request.model: model is not specified`.
 
-This is the best-supported causal explanation for attempt 01. Because the transport failed to retain the provider HTTP diagnostic, the exact returned HTTP status/message is not historical evidence and must not be invented.
+The existing wire regression `CountTokens_ProjectsExactGenerateContentRequestAndUsesApiKeyHeader` enforced byte-identical projection of the generation body into `generateContentRequest`. That test therefore preserved the defect instead of checking the provider schema.
 
-## Required correction
+Because attempt 01 did not retain the provider HTTP diagnostic, its exact returned HTTP status/message is not historical evidence and must not be invented.
 
-Before any later real-provider authorization:
+## Correction
 
-1. construct the nested count-token `generateContentRequest` with required `model = models/{attempt.Profile.Model}` while preserving the prepared generation body unchanged for actual generation;
-2. replace the byte-identical projection assertion with a schema-specific wire assertion proving the nested model is present and the remaining generation-request fields are preserved;
-3. improve fail-closed count-token diagnostics so a future non-success HTTP status can be recorded as a bounded, non-secret diagnostic without persisting API keys or provider response bodies;
-4. run cloud/compiler/static gates and a fresh native Windows ARM64 test/build/credentialless gate on the corrected exact checkout;
-5. obtain a new explicit Director authorization before any real `countTokens` or generation request.
+Correction checkpoint:
+
+`689655eed677b789ab3ee395f1c65b4f2cb72cc8`
+
+Cloud Validation:
+
+`34188767617` — **PASS** across ARM64 cross-compilation, x64 Core regression, repository law, oracle assertion coverage, and document authority census.
+
+The correction is limited to Harness and Harness-test surfaces:
+
+- `CountInputTokensAsync` now builds a schema-specific nested `generateContentRequest` with `model = models/{attempt.Profile.Model}` while preserving every field from the prepared generation request and leaving the actual generation payload unchanged;
+- the token preflight now classifies non-success HTTP as bounded `gemini-counttokens-http-<status>`, malformed response as `gemini-counttokens-response-invalid`, and transport failure as `gemini-counttokens-transport` without persisting response bodies or credentials;
+- the run driver persists only that bounded allowlisted diagnostic and discards arbitrary exception text;
+- the predecessor byte-identity wire test was replaced by a schema-complete nested-model/preserved-fields test;
+- all current live comparison models now have a regression proving the nested count-token model matches their exact route;
+- driver regressions prove bounded HTTP diagnostic persistence and suppression of unapproved exception text.
+
+Compare from the archive-audit checkpoint to the correction changes only:
+
+- `src/Ensemble.E0.Harness/Gemini/GeminiGenerateContentPort.cs`;
+- `src/Ensemble.E0.Harness/Run/E0AReferenceRunDriver.cs`;
+- `tests/Ensemble.E0.Harness.Tests/GeminiGenerateContentPortWireTests.cs`;
+- `tests/Ensemble.E0.Harness.Tests/GeminiModelComparisonTests.cs`;
+- `tests/Ensemble.E0.Harness.Tests/GeminiRunDriverPolicyTests.cs`.
+
+No Core, Core-test, or fixture change is present.
+
+Cloud compilation is not native Windows ARM64 runtime authority and the Harness tests are not executed by the cloud gate. The correction therefore remains **native validation pending**.
 
 ## Provider/accounting disposition
 
@@ -88,10 +113,10 @@ Before any later real-provider authorization:
 - generation/inference reached: **NO**;
 - spend reservation reached: **NO**;
 - provider generation request reached: **NO**;
-- exact `countTokens` HTTP status/body: **NOT CAPTURED**;
+- exact attempt-01 `countTokens` HTTP status/body: **NOT CAPTURED**;
 - AI Studio usage display shortly after run: **none observed by Director**;
 - second run / retry / 3.1 / 2.5 execution: **NOT AUTHORIZED**.
 
 ## Next gate
 
-Patch and validate the count-token request-shape defect without provider traffic. Any later real-provider invocation requires a new explicit Director authorization.
+Run fresh native Windows ARM64 validation on the corrected exact documentation-inclusive checkout after continuity reconciliation. No provider credential/network request belongs in that validation. Any later real-provider invocation requires a new explicit Director authorization.
