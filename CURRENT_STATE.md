@@ -13,7 +13,7 @@ Architecture: reference envelope + Gemini normative amendment + rate-discipline 
 ## Validation
 **Promoted machine-tested checkout remains:** `c9f706b42350c8b6cfc462e09cf71db6bc3a2355` / `validation/e0a-gemini-comparison-native-arm64` — Windows ARM64 Core 622/622, Harness 117/117, fresh Harness build, fixture smokes, predecessor-profile credentialless gate PASS. Evidence: `docs/evidence/E0A_GEMINI_COMPARISON_NATIVE_ARM64_VALIDATION_2026_09_07.md`.
 
-**Current amended source/test checkpoint:** `b0286c3427eb3e2b9f0e8401098596db055f9c7e`; Validation `34185024153` **PASS** — ARM64 cross-compile, x64 Core regression, repository/oracle/document gates. Harness tests compiled but were not executed in cloud. Implementation audit: `docs/evidence/E0A_GEMINI_FREE_TIER_RPD_MODEL_SELECTION_IMPLEMENTATION_AUDIT.md`.
+**Current amended source/test checkpoint:** `b0286c3427eb3e2b9f0e8401098596db055f9c7e`; Validation `34185024153` **PASS** — ARM64 cross-compile, x64 Core regression, repository/oracle/document gates. Harness tests compiled but were not executed in cloud. Implementation audit: `docs/evidence/E0A_GEMINI_FREE_TIER_RPD_MODEL_SELECTION_IMPLEMENTATION_AUDIT.md`. Supporting predecessor audits retained by the amendment: `docs/evidence/E0A_GEMINI_RATE_DISCIPLINE_MODEL_COMPARISON_IMPLEMENTATION_AUDIT.md`; `docs/evidence/E0A_GEMINI35_THOUGHT_SIGNATURE_COMPATIBILITY_AUDIT.md`.
 
 No Core/Core-test/fixture delta exists in this amendment. Later documentation commits do not extend native authority. Provider network, `countTokens`, inference, credential use, and spend remain NOT PERFORMED.
 
