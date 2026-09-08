@@ -1,6 +1,6 @@
 # E0-A Gemini Free-Tier RPD Model Selection — Implementation Audit
 
-Status: **SOURCE/TEST IMPLEMENTATION COMPLETE — CLOUD GATES PASS — NATIVE WINDOWS ARM64 PASS — ANNOTATED-TAG PROMOTION PENDING — REAL GEMINI NETWORK EXECUTION NOT AUTHORIZED**
+Status: **SOURCE/TEST IMPLEMENTATION COMPLETE — CLOUD GATES PASS — NATIVE WINDOWS ARM64 PASS — ANNOTATED TAG PROMOTED — REAL GEMINI NETWORK EXECUTION NOT AUTHORIZED**
 
 Updated: **2026-09-08**
 
@@ -25,6 +25,10 @@ Cloud Validation for that correction:
 Exact native Windows ARM64 checkout:
 
 `3d6d8a7f1caf548c15f0f2393d0fc7b50ac0cd99`
+
+Annotated validation tag:
+
+`validation/e0a-gemini-rpd-model-selection-native-arm64` — remotely verified annotated tag object `ca036b8b44775f77535d04b82ba4ebbbb3d295f0`, dereferencing exactly to the native checkout above.
 
 Native evidence:
 
@@ -130,7 +134,7 @@ Generic fixture smoke                      PASS
 3.1 Lite missing-key/no-evidence gate      PASS
 2.5 Lite missing-key/no-evidence gate      PASS
 Retired 2.5 Flash pre-credential reject    PASS
-Post-run exact HEAD/cleanliness             PASS
+Post-run exact HEAD/cleanliness            PASS
 ```
 
 Both provider-key environment variables were absent before and after the run. No real Gemini provider network, `countTokens`, inference, credential use, or spend occurred.
@@ -159,10 +163,10 @@ Gemini spend                      NOT PERFORMED
 
 ## Recursive audit disposition
 
-The implementation and both native attempts were recursively checked for architecture consistency, profile identity, RPD arithmetic, run-cap enforcement, thinking controls, response metadata handling, pricing/accounting, evidence provenance, retired-route isolation, Core/fixture scope, ARM64 suitability, validation classification, and continuity.
+The implementation, both native attempts, evidence, and promotion were recursively checked for architecture consistency, profile identity, RPD arithmetic, run-cap enforcement, thinking controls, response metadata handling, pricing/accounting, evidence provenance, retired-route isolation, Core/fixture scope, ARM64 suitability, validation classification, tag identity, and continuity.
 
-Corrections discovered were applied before attempt 02: the test API mismatch, stale predecessor wording, RPD/run-cap evidence omissions, and the stale live-readiness expectation. Attempt 02 then passed the full native packet with no further material correction identified.
+Corrections discovered were applied before attempt 02: the test API mismatch, stale predecessor wording, RPD/run-cap evidence omissions, and stale live-readiness expectation. Attempt 02 passed the full native packet; the annotated tag then independently dereferenced to that exact machine-tested checkout. No further material correction was identified inside the approved amendment boundary.
 
 ## Next gate
 
-Create and remotely verify an **annotated validation tag** that dereferences exactly to `3d6d8a7f1caf548c15f0f2393d0fc7b50ac0cd99`. Only after that tag exists may `CURRENT_STATE.md` promote this checkout as current machine-tested authority. The next provider decision remains separate: exactly one real synthetic Missing Raft `GEMINI-3.5-FLASH-LITE-MINIMAL` run, still unauthorized until explicit Director approval at that gate.
+The RPD/model-selection amendment is **promoted**. The next consequential gate is separate provider authorization: reverify current project/account/key/quota/pricing/data-use conditions and remaining daily capacity, then obtain explicit Director approval for exactly one real synthetic Missing Raft `GEMINI-3.5-FLASH-LITE-MINIMAL` run at promoted checkout `3d6d8a7f1caf548c15f0f2393d0fc7b50ac0cd99`. No real Gemini execution is authorized by this promotion.
