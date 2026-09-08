@@ -37,6 +37,7 @@ internal sealed class E0AReferenceRunDriver
     private readonly IE0AProviderRolePort _provider;
     private readonly IE0AInputTokenCounter _tokenCounter;
     private readonly IE0AEvidenceSink _evidence;
+    private readonly IE0AGeminiRateDiscipline _rateDiscipline;
     private readonly E0ASpendLedger _spend;
     private string? _observedModel;
     private bool _started;
@@ -45,12 +46,14 @@ internal sealed class E0AReferenceRunDriver
         E0ARunEnvelope envelope,
         IE0AProviderRolePort provider,
         IE0AInputTokenCounter tokenCounter,
-        IE0AEvidenceSink evidence)
+        IE0AEvidenceSink evidence,
+        IE0AGeminiRateDiscipline? rateDiscipline = null)
     {
         _envelope = envelope ?? throw new ArgumentNullException(nameof(envelope));
         _provider = provider ?? throw new ArgumentNullException(nameof(provider));
         _tokenCounter = tokenCounter ?? throw new ArgumentNullException(nameof(tokenCounter));
         _evidence = evidence ?? throw new ArgumentNullException(nameof(evidence));
+        _rateDiscipline = rateDiscipline ?? E0ANoopGeminiRateDiscipline.Instance;
         _envelope.Validate();
         _spend = new E0ASpendLedger(_envelope.Pricing, _envelope.MaxInputTokens);
     }
@@ -83,6 +86,7 @@ internal sealed class E0AReferenceRunDriver
             {
                 return Finish(E0ARunTerminalStatus.Cancelled, acceptedTurns, state);
             }
+            var turnClock = Stopwatch.StartNew();
 
             var continuity = DeterministicE0CausalCycle.ComposeContext(state);
             var context = continuity.ContextEvaluation.Packet;
@@ -290,6 +294,7 @@ internal sealed class E0AReferenceRunDriver
 
             var next = DeterministicE0CausalCycle.EstablishOpportunity(post).State;
             acceptedTurns++;
+            turnClock.Stop();
             _evidence.RecordAcceptedPerformance(turn, candidate.SubjectCharacterId, candidate);
             _evidence.RecordEvent("turn.committed", new
             {
@@ -298,7 +303,8 @@ internal sealed class E0AReferenceRunDriver
                 commitId = post.Commit.CommitId.Value,
                 postCommitStateHash = post.ProductionState.StateHash.Value,
                 nextStateHash = next.ProductionState.StateHash.Value,
-                nextOpportunityCharacterId = next.ProductionState.CurrentOpportunityCharacterId!.Value.Value
+                nextOpportunityCharacterId = next.ProductionState.CurrentOpportunityCharacterId!.Value.Value,
+                elapsedMs = turnClock.Elapsed.TotalMilliseconds
             });
             state = next;
         }
@@ -313,9 +319,40 @@ internal sealed class E0AReferenceRunDriver
         _evidence.RecordPrepared(attempt);
         using var attemptTimeout = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
         attemptTimeout.CancelAfter(TimeSpan.FromSeconds(E0ARunEnvelope.AttemptTimeoutSeconds));
+        var roleClock = Stopwatch.StartNew();
+
+        var preflightClock = Stopwatch.StartNew();
+        try
+        {
+            await _rateDiscipline.BeforeRequestAsync(
+                E0AGeminiRequestKind.CountTokens,
+                null,
+                attemptTimeout.Token).ConfigureAwait(false);
+        }
+        catch (OperationCanceledException)
+        {
+            preflightClock.Stop();
+            var external = cancellationToken.IsCancellationRequested;
+            _evidence.RecordEvent(
+                external ? "preflight.cancelled" : "preflight.timeout",
+                new { attemptId = attempt.AttemptId, elapsedMs = preflightClock.Elapsed.TotalMilliseconds });
+            return new RoleCall(
+                null,
+                external ? E0ARunTerminalStatus.Cancelled : E0ARunTerminalStatus.TechnicalFailure);
+        }
+        catch (E0AHarnessException)
+        {
+            preflightClock.Stop();
+            _evidence.RecordEvent("rate.failed", new
+            {
+                attemptId = attempt.AttemptId,
+                requestKind = E0AGeminiRequestKind.CountTokens.ToString(),
+                elapsedMs = preflightClock.Elapsed.TotalMilliseconds
+            });
+            return new RoleCall(null, E0ARunTerminalStatus.TechnicalFailure);
+        }
 
         long inputTokens;
-        var preflightClock = Stopwatch.StartNew();
         try
         {
             inputTokens = await _tokenCounter.CountInputTokensAsync(attempt, attemptTimeout.Token).ConfigureAwait(false);
@@ -362,6 +399,50 @@ internal sealed class E0AReferenceRunDriver
             elapsedMs = preflightClock.Elapsed.TotalMilliseconds
         });
 
+        var generationPacingClock = Stopwatch.StartNew();
+        try
+        {
+            await _rateDiscipline.BeforeRequestAsync(
+                E0AGeminiRequestKind.Generation,
+                inputTokens,
+                attemptTimeout.Token).ConfigureAwait(false);
+        }
+        catch (OperationCanceledException)
+        {
+            generationPacingClock.Stop();
+            var external = cancellationToken.IsCancellationRequested;
+            _evidence.RecordEvent("rate.cancelled", new
+            {
+                attemptId = attempt.AttemptId,
+                requestKind = E0AGeminiRequestKind.Generation.ToString(),
+                external,
+                elapsedMs = generationPacingClock.Elapsed.TotalMilliseconds
+            });
+            return new RoleCall(
+                null,
+                external ? E0ARunTerminalStatus.Cancelled : E0ARunTerminalStatus.TechnicalFailure);
+        }
+        catch (E0AHarnessException)
+        {
+            generationPacingClock.Stop();
+            _evidence.RecordEvent("rate.failed", new
+            {
+                attemptId = attempt.AttemptId,
+                requestKind = E0AGeminiRequestKind.Generation.ToString(),
+                inputTokens,
+                elapsedMs = generationPacingClock.Elapsed.TotalMilliseconds
+            });
+            return new RoleCall(null, E0ARunTerminalStatus.TechnicalFailure);
+        }
+        generationPacingClock.Stop();
+        _evidence.RecordEvent("rate.ready", new
+        {
+            attemptId = attempt.AttemptId,
+            requestKind = E0AGeminiRequestKind.Generation.ToString(),
+            inputTokens,
+            elapsedMs = generationPacingClock.Elapsed.TotalMilliseconds
+        });
+
         E0ASpendReservation reservation;
         try
         {
@@ -398,11 +479,13 @@ internal sealed class E0AReferenceRunDriver
                 : RoleAttemptReceipt.TechnicalFailure(attempt, "timeout");
         }
         providerClock.Stop();
+        roleClock.Stop();
         _evidence.RecordEvent("provider.completed", new
         {
             attemptId = attempt.AttemptId,
             outcome = raw.Outcome.ToString(),
-            elapsedMs = providerClock.Elapsed.TotalMilliseconds
+            elapsedMs = providerClock.Elapsed.TotalMilliseconds,
+            roleElapsedMs = roleClock.Elapsed.TotalMilliseconds
         });
 
         RoleAttemptReceipt receipt;
