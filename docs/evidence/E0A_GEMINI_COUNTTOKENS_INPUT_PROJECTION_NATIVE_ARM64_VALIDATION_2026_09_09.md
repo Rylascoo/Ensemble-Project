@@ -1,6 +1,6 @@
 # E0-A Gemini `countTokens` Input Projection — Native Windows ARM64 Validation
 
-Status: **NATIVE MACHINE VALIDATION PASS — EXACT CHECKOUT `3a010df5d26fc58d6f3820f2dc2cfbb0d015a9d2` — ANNOTATED VALIDATION TAG PENDING — PROVIDER AUTHORIZATION NONE**
+Status: **NATIVE MACHINE VALIDATION PASS — EXACT CHECKOUT `3a010df5d26fc58d6f3820f2dc2cfbb0d015a9d2` — ANNOTATED VALIDATION TAG VERIFIED — PROMOTED NATIVE CHECKPOINT — PROVIDER AUTHORIZATION NONE**
 
 Recorded: **2026-09-09**
 
@@ -95,7 +95,7 @@ Spend: **$0**.
 Continuation closeout established:
 
 - `POST_VALIDATION_HEAD=3a010df5d26fc58d6f3820f2dc2cfbb0d015a9d2`;
-- remote correction branch still resolved to the exact candidate;
+- remote correction branch resolved to the exact candidate during native closeout;
 - Attempt-02 worktree remained detached and clean;
 - no material untracked content appeared under `src`, `tests`, or `fixtures`;
 - Attempt-01 preserved head remained `de38d5d52279c22a1786e11200239c445e04377b`;
@@ -105,9 +105,28 @@ Continuation closeout established:
 
 Result: **integrity/preservation closeout PASS**.
 
+## Annotated validation tag
+
+The required durable annotated validation tag was created and pushed after the native transcript completed:
+
+- tag: `validation/e0a-gemini-counttokens-input-projection-native-arm64`;
+- tag object: `b9341c1c0ab48be5370ed22e7d2511f9e3be00d9`;
+- object type: annotated `tag`;
+- dereferenced target: exact commit `3a010df5d26fc58d6f3820f2dc2cfbb0d015a9d2`.
+
+GitHub was independently queried after the push. The remote tag ref resolves to tag object `b9341c1c0ab48be5370ed22e7d2511f9e3be00d9`, and that tag object identifies exact commit `3a010df5d26fc58d6f3820f2dc2cfbb0d015a9d2` as its target.
+
+Result: **annotated tag identity/dereference PASS**.
+
+## Hosted documentation closeout
+
+Follow-on documentation-only checkpoint `0863c5a21c29165160b48c3ace31c01dc0a5b369` reconciled the native-success authority graph and removed the obsolete active validation handoff. Hosted Validation gate run `34405315708` completed successfully across repository law enforcement, document authority census, oracle assertion coverage, required x64 Core regression, and ARM64 cross-compile.
+
+That documentation-only checkpoint does **not** inherit native runtime authority. Native runtime authority remains the exact tagged checkout `3a010df5d26fc58d6f3820f2dc2cfbb0d015a9d2`.
+
 ## Validation conclusion
 
-Q-E0A-04's executable correction is **MACHINE-VALIDATED on native Windows ARM64** at exact checkout:
+Q-E0A-04 is **MACHINE-VALIDATED on native Windows ARM64 and durably tagged** at exact checkout:
 
 `3a010df5d26fc58d6f3820f2dc2cfbb0d015a9d2`
 
@@ -123,25 +142,13 @@ The complete result is:
 - provider keys absent;
 - provider network NOT PERFORMED;
 - spend $0;
-- candidate/worktree/preservation checks PASS.
+- candidate/worktree/preservation checks PASS;
+- annotated validation tag created, pushed, and independently verified.
 
 The PowerShell helper interruption does not weaken this result because the continuation independently proved the first credentialless probe left no evidence root, repeated every credentialless route gate with the corrected validator, and completed all remaining closeout assertions against the unchanged exact candidate.
 
-## Remaining closeout operation
+## Promotion boundary
 
-The project success law requires a durable annotated validation tag before this checkout becomes the promoted native checkpoint in `docs/VALIDATION_LEDGER.md` / `CURRENT_STATE.md`.
+This exact checkout is the current promoted native machine-tested checkpoint in `docs/VALIDATION_LEDGER.md` and `CURRENT_STATE.md`.
 
-Required tag name:
-
-`validation/e0a-gemini-counttokens-input-projection-native-arm64`
-
-Required tag target:
-
-`3a010df5d26fc58d6f3820f2dc2cfbb0d015a9d2`
-
-Until that annotated tag is created, pushed, and independently verified to dereference to the exact machine-tested checkout:
-
-- current promoted native checkpoint remains `e6e7d6c8c7187a87df2c97f2373dd3adbee7ce4a`;
-- Q-E0A-04 remains ACTIVE only for tag/ledger/state/queue closeout;
-- later documentation commits do not inherit native runtime authority;
-- provider authorization remains **NONE**.
+Later documentation-only closeout commits do not inherit native runtime authority. Q-E0A-04 is DONE. Q-E0A-03 remains blocked by its own provider-route and authorization prerequisites. Provider authorization remains **NONE**.

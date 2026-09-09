@@ -6,35 +6,37 @@ Status: validation fact register only. This file cannot advance phase/checkpoint
 
 | Field | Fact |
 |---|---|
-| Exact checkout | `e6e7d6c8c7187a87df2c97f2373dd3adbee7ce4a` |
-| Annotated tag | `validation/e0a-gemini-bounded-provider-error-diagnostic-native-arm64` |
-| Tag object | `9b17563474b25920da8615afefdfa3fcfdab884b`; independently verified to dereference to the exact checkout above |
-| Architecture | `docs/blueprint/E0A_GEMINI_BOUNDED_PROVIDER_ERROR_DIAGNOSTIC_AMENDMENT.md` |
-| Correction | bounded structured Gemini `countTokens` failure diagnostics plus test-only repair of two stale malformed-response exception expectations |
-| Native evidence | `docs/evidence/E0A_GEMINI_BOUNDED_PROVIDER_ERROR_DIAGNOSTIC_NATIVE_ARM64_VALIDATION_2026_09_08.md` |
-| Supporting implementation audit | `docs/evidence/E0A_GEMINI_BOUNDED_PROVIDER_ERROR_DIAGNOSTIC_IMPLEMENTATION_AUDIT_2026_09_08.md` |
+| Exact checkout | `3a010df5d26fc58d6f3820f2dc2cfbb0d015a9d2` |
+| Annotated tag | `validation/e0a-gemini-counttokens-input-projection-native-arm64` |
+| Tag object | `b9341c1c0ab48be5370ed22e7d2511f9e3be00d9`; independently verified to dereference to the exact checkout above |
+| Architecture | `docs/blueprint/E0A_GEMINI_COUNTTOKENS_INPUT_PROJECTION_CORRECTION_AMENDMENT.md` |
+| Correction | Gemini Developer API `countTokens` now uses the frozen input-semantic projection (`model + systemInstruction + contents`); a stale comparison oracle was repaired test-only after Native Attempt 01 exposed it |
+| Native evidence | `docs/evidence/E0A_GEMINI_COUNTTOKENS_INPUT_PROJECTION_NATIVE_ARM64_VALIDATION_2026_09_09.md` |
+| Supporting implementation audit | `docs/evidence/E0A_GEMINI_COUNTTOKENS_INPUT_PROJECTION_IMPLEMENTATION_AUDIT_2026_09_09.md` |
 | Director-host contract | `docs/evidence/DIRECTOR_WINDOWS_ARM64_VALIDATION_HOST_BEHAVIORS.md` |
 | Host | Director Windows ARM64 (`win-arm64`) |
 | Core tests | 622/622 PASS |
-| Harness tests | 130/130 PASS |
-| Fresh Harness build | `win-arm64` PASS, 0 warnings / 0 errors |
+| Harness tests | 131/131 PASS |
+| Fresh Harness build | `win-arm64` PASS |
 | Fixture smokes | missing-Raft PASS; generic PASS |
 | Current credentialless live-profile gate | 3.5 Lite, 3.1 Lite, 2.5 Lite expected missing-key refusal PASS; no evidence roots |
 | Retired 2.5 Flash live selection | expected pre-credential rejection PASS; no evidence root |
-| Provider scope | network / `countTokens` / inference / spend NOT PERFORMED; provider authorization NONE |
-| Native attempt 01 | `20f76e7d5f13915471581fb9263d6a0eb1e5343c`: Core 622/622 PASS, Harness 128/130 FAIL; no validation tag authorized |
+| Provider scope | network / `countTokens` / inference / spend NOT PERFORMED during validation; provider authorization NONE |
+| Native attempt 01 | `de38d5d52279c22a1786e11200239c445e04377b`: Core 622/622 PASS, Harness 130/131 FAIL on stale comparison oracle; no validation tag authorized |
 
-Native runtime authority applies only to exact checkout `e6e7d6c8c7187a87df2c97f2373dd3adbee7ce4a`. Documentation-only commits after it do not inherit machine-test authority. Cloud ARM64-target builds remain compiler authority only; Linux x64 Core tests remain required semantic regressions, not native Windows ARM64 runtime authority.
+Native runtime authority applies only to exact checkout `3a010df5d26fc58d6f3820f2dc2cfbb0d015a9d2`. Documentation-only commits after it do not inherit machine-test authority. Cloud ARM64-target builds remain compiler authority only; Linux x64 Core tests remain required semantic regressions, not native Windows ARM64 runtime authority.
 
 ## Current validation ancestry
 
-The promoted bounded-diagnostic checkpoint depends on and supersedes, but does not erase, the still-current validation ancestry below:
+The promoted input-projection checkpoint depends on and supersedes, but does not erase, the accepted validation ancestry below:
 
+- bounded provider-error diagnostic native validation: `docs/evidence/E0A_GEMINI_BOUNDED_PROVIDER_ERROR_DIAGNOSTIC_NATIVE_ARM64_VALIDATION_2026_09_08.md`;
+- bounded provider-error diagnostic implementation audit: `docs/evidence/E0A_GEMINI_BOUNDED_PROVIDER_ERROR_DIAGNOSTIC_IMPLEMENTATION_AUDIT_2026_09_08.md`;
 - prior countTokens correction native validation: `docs/evidence/E0A_GEMINI_COUNTTOKENS_CORRECTION_NATIVE_ARM64_VALIDATION_2026_09_08.md`;
 - free-tier RPD/model-selection implementation audit: `docs/evidence/E0A_GEMINI_FREE_TIER_RPD_MODEL_SELECTION_IMPLEMENTATION_AUDIT.md`;
 - free-tier RPD/model-selection native validation: `docs/evidence/E0A_GEMINI_FREE_TIER_RPD_MODEL_SELECTION_NATIVE_ARM64_VALIDATION_2026_09_08.md`.
 
-These documents remain current evidence because the bounded diagnostic was built on that accepted provider/model-selection and countTokens correction lineage. They do not override the promoted checkpoint above.
+These documents remain current evidence because the promoted correction was built on that accepted lineage. They do not override the promoted checkpoint above.
 
 ## Durable historical native validation tags
 
@@ -49,6 +51,7 @@ These tags preserve exact historical machine-tested checkouts. Historical validi
 - `validation/e0a-gemini-comparison-native-arm64` -> `c9f706b42350c8b6cfc462e09cf71db6bc3a2355`; evidence: `docs/evidence/E0A_GEMINI_COMPARISON_NATIVE_ARM64_VALIDATION_2026_09_07.md`
 - `validation/e0a-gemini-rpd-model-selection-native-arm64` -> `3d6d8a7f1caf548c15f0f2393d0fc7b50ac0cd99`
 - `validation/e0a-gemini-counttokens-correction-native-arm64` -> `689655eed677b789ab3ee395f1c65b4f2cb72cc8`
+- `validation/e0a-gemini-bounded-provider-error-diagnostic-native-arm64` -> `e6e7d6c8c7187a87df2c97f2373dd3adbee7ce4a`
 
 Historical supporting evidence may be archived as repository-surface cleanup proceeds. The annotated tag, exact checkout, and Git history remain durable locators.
 
