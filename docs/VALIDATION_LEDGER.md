@@ -26,6 +26,16 @@ Status: validation fact register only. This file cannot advance phase/checkpoint
 
 Native runtime authority applies only to exact checkout `e6e7d6c8c7187a87df2c97f2373dd3adbee7ce4a`. Documentation-only commits after it do not inherit machine-test authority. Cloud ARM64-target builds remain compiler authority only; Linux x64 Core tests remain required semantic regressions, not native Windows ARM64 runtime authority.
 
+## Current validation ancestry
+
+The promoted bounded-diagnostic checkpoint depends on and supersedes, but does not erase, the still-current validation ancestry below:
+
+- prior countTokens correction native validation: `docs/evidence/E0A_GEMINI_COUNTTOKENS_CORRECTION_NATIVE_ARM64_VALIDATION_2026_09_08.md`;
+- free-tier RPD/model-selection implementation audit: `docs/evidence/E0A_GEMINI_FREE_TIER_RPD_MODEL_SELECTION_IMPLEMENTATION_AUDIT.md`;
+- free-tier RPD/model-selection native validation: `docs/evidence/E0A_GEMINI_FREE_TIER_RPD_MODEL_SELECTION_NATIVE_ARM64_VALIDATION_2026_09_08.md`.
+
+These documents remain current evidence because the bounded diagnostic was built on that accepted provider/model-selection and countTokens correction lineage. They do not override the promoted checkpoint above.
+
 ## Durable historical native validation tags
 
 These tags preserve exact historical machine-tested checkouts. Historical validity does not make a checkout current.
