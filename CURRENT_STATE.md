@@ -22,7 +22,7 @@ Quota baseline remains **15 RPM / 250,000 input TPM / 500 RPD** until a material
 Q-E0E-PREP **CLOSED — HOSTED NON-NETWORK PREPARATION VALIDATED**. Q-E0E-RUN remains BLOCKED until E0-A -> E0-B -> E0-C -> E0-D close.
 
 ## Cross-lane
-Q-DESIGN-14 DONE; Q-DESIGN-15 ACTIVE for non-production context-shift motion differentiation under Website authority. F1A 70/460 remains provisional within-context succession; context shifts require a distinct non-sequential treatment. E0 blind scoring and engineering order unchanged.
+Q-DESIGN-15 DONE; Q-DESIGN-16 ACTIVE for non-production CS2 deployment-envelope definition under Website authority. F1A 70/460 remains provisional within-context succession; CS2 Balanced Crossfade Exchange is provisional for eligible context shifts. E0 blind scoring and engineering order unchanged.
 
 ## Next
 Q-E0A-02 remains **ACTIVE only for non-network Attempt-04 evidence ingestion/audit**. Provider authorization is **NONE**. Ingest the local ZIP, independently match its SHA-256, verify evidence/provenance/privacy, identify the exact terminal stage and approved bounded diagnostic if present, then recursively audit before any source/provider decision. Handoff: `docs/handoff/E0A_GEMINI35_ATTEMPT04_POSTRUN_EVIDENCE_AUDIT_HANDOFF_2026_09_09.md`. Q-E0A-03, E0-B+, and E0-E execution remain BLOCKED.
