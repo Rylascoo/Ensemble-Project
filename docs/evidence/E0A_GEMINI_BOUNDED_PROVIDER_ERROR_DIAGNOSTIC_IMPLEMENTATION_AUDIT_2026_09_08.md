@@ -47,7 +47,7 @@ No Core type, fixture, generation payload, rate discipline, retry policy, attemp
 5. valid fields -> deduplicated, ordinal-sorted, maximum four;
 6. snake_case field location -> accepted only when it resolves to the exact camelCase request hierarchy.
 
-The existing run-driver tests continue to prove that bounded legacy token-count codes can be recorded and arbitrary generic `E0AHarnessException` text is suppressed. The driver now separately recognizes the dedicated bounded Gemini failure type, and token-count failure still terminates before any generation role call or spend reservation.
+The existing run-driver tests continue to prove that bounded legacy token-count codes can be recorded and arbitrary generic `E0AHarnessException` text is suppressed. The driver separately recognizes the dedicated bounded Gemini failure type, and token-count failure still terminates before any generation role call or spend reservation.
 
 ## Hosted validation
 
@@ -82,7 +82,7 @@ Disposition: **validation failed; no validation tag authorized**. The correction
 
 ## Concurrent-main reconciliation
 
-During implementation, `main` advanced from `a254c101056e6c3ce514356fb531efddebed8f` to later Design Sol queue-only checkpoints. Those queue contents were adopted without changing E0-A authority, and topology was reconciled with content-preserving ancestry merges where required. The E0-A branch remains ahead of current `main` without engineering divergence; cross-lane queue content is not E0-A authority.
+During implementation, `main` advanced through Design Sol queue-only commits. E0-A adopted or reconciled those cross-lane queue states only when needed; they did not alter E0-A source semantics, provider authority, or validation authority. `main` continued moving after native attempt 01, so its newest commits must be freshly classified before the corrected native checkout is frozen. No cross-lane branch is to be merged by assumption.
 
 ## Validation boundary
 
@@ -90,10 +90,11 @@ The promoted native executable authority remains `689655eed677b789ab3ee395f1c65b
 
 The amended branch contains later source and test changes. It has **no native runtime authority yet**. Before any future provider request, the final corrected checkout must:
 
-1. pass hosted gates on that exact checkout;
-2. pass the required Windows ARM64 Core and Harness test/build/smoke/credentialless validation;
-3. receive a new annotated validation tag at that exact checkout;
-4. be reflected in `docs/VALIDATION_LEDGER.md` / `CURRENT_STATE.md` without inflating the validation rung;
-5. still require separate explicit Director authorization before any provider traffic.
+1. freshly classify and reconcile current `main` only if required;
+2. pass hosted gates on that exact checkout;
+3. pass the required Windows ARM64 Core and Harness test/build/smoke/credentialless validation;
+4. receive a new annotated validation tag at that exact checkout;
+5. be reflected in `docs/VALIDATION_LEDGER.md` / `CURRENT_STATE.md` without inflating the validation rung;
+6. still require separate explicit Director authorization before any provider traffic.
 
 No provider request, credential use, inference, spend, 3.1 execution, E0-A rerun, scoring, or renderer action occurred during this amendment or failed native validation.
