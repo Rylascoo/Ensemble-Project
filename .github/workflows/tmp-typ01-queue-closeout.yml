@@ -1,0 +1,42 @@
+name: Temporary TYP-01 queue closeout
+
+on:
+  push:
+    branches:
+      - tmp/typ01-queue-method-closeout
+
+permissions:
+  contents: write
+
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+      - name: Reconcile design queue
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('docs/PROJECT_EXECUTION_QUEUE.md')
+          lines = p.read_text(encoding='utf-8').splitlines()
+          indices = [i for i, line in enumerate(lines) if line.startswith('| Q-DESIGN-05 |')]
+          if len(indices) != 1:
+              raise SystemExit(f'Expected exactly one Q-DESIGN-05 row, found {len(indices)}')
+          if any(line.startswith('| Q-DESIGN-06 |') for line in lines):
+              raise SystemExit('Q-DESIGN-06 already exists; refusing duplicate transition')
+          i = indices[0]
+          if '| ACTIVE |' not in lines[i]:
+              raise SystemExit('Q-DESIGN-05 is not ACTIVE at expected baseline')
+          lines[i] = '| Q-DESIGN-05 | Design Sol | DONE | Constructed **TYP-01 — Typographic / Editorial Identity Independence** as a frozen non-image-generative method contract and deterministic dual-context specimen matrix. | Adopted on `Rylascoo/Ensemble-Website/main` at `4130bb9645525a6773a7cf5508175da00658530d`; `docs/evidence/TYP_01_TYPOGRAPHIC_EDITORIAL_IDENTITY_INDEPENDENCE_METHOD_AND_MATRIX_01.json`, Website `CURRENT_STATE.md`, and Design Ledger L-033 carry the exact contract and boundary. | Method is frozen with no typography/identity convergence; successor is Q-DESIGN-06. |'
+          lines.insert(i + 1, '| Q-DESIGN-06 | Design Sol | ACTIVE | Materialize the deterministic TYP-01 text-only harness and exact 24-specimen manifest; freeze computed reference-face/environment metadata and source hashes; run structural/accessibility/cross-context preflight. | Website `CURRENT_STATE.md` and the frozen TYP-01 JSON contract govern. No blinded scoring until preflight is clean. No image generation, generative renderer use/spend, typeface/final typography/identity selection, O3/Threshold-K redesign, palette/material/hero reopening, app implementation, website production/deployment or Stage-motion authority. | Exact harness, manifest, provenance/hash record and preflight result are durably recorded and clean; only then may blinded review begin under the frozen TYP-01 contract. |')
+          p.write_text('\n'.join(lines) + '\n', encoding='utf-8')
+          PY
+      - name: Commit queue transition
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add docs/PROJECT_EXECUTION_QUEUE.md
+          git commit -m "tmp: materialize TYP-01 queue transition"
+          git push origin HEAD:tmp/typ01-queue-method-closeout
