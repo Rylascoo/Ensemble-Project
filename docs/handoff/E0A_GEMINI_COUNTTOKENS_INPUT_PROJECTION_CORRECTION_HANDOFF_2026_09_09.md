@@ -15,7 +15,9 @@ Authority: temporary transition guidance only while `CURRENT_STATE.md` names thi
    - `docs/blueprint/E0A_GEMINI_COUNTTOKENS_INPUT_PROJECTION_CORRECTION_AMENDMENT.md`;
    - `docs/blueprint/E0A_GEMINI_BOUNDED_PROVIDER_ERROR_DIAGNOSTIC_AMENDMENT.md`;
    - `docs/evidence/E0A_GEMINI_BOUNDED_PROVIDER_ERROR_DIAGNOSTIC_NATIVE_ARM64_VALIDATION_2026_09_08.md`;
-   - `docs/evidence/E0A_GEMINI35_ATTEMPT04_DIRECTOR_AUTHORIZATION_2026_09_09.md` for consumed historical scope only.
+   - `docs/evidence/E0A_GEMINI35_ATTEMPT04_DIRECTOR_AUTHORIZATION_2026_09_09.md` for consumed historical scope only;
+   - `docs/evidence/E0A_GEMINI35_QUOTA_SNAPSHOT_REUSE_DIRECTOR_DECISION_2026_09_09.md` for the still-current quota/change-trigger boundary;
+   - `docs/evidence/E0A_FRESH_CHAT_CONTINUITY_RECONCILIATION_2026_09_09.md` for the still-current bootstrap/branch-topology classification.
 4. Resolve branch `e0a-gemini-counttokens-input-projection-correction` and compare it to current `main` before acting.
 5. Provider authorization is **NONE**. Do not use credentials or send any provider request.
 
