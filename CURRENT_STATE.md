@@ -14,9 +14,9 @@ Promoted native executable: `e6e7d6c8c7187a87df2c97f2373dd3adbee7ce4a`; tag `val
 ## Provider
 Attempt 03: first Performer `countTokens` HTTP **400**, 0 turns, $0, no generation. Same-key/header/model/method simple `countTokens` succeeded; auth transport is closed. Exact rejected field remains unproven.
 
-Director reconfirmed 2026-09-09 that `gemini-3.5-flash-lite` remains **15 RPM / 250,000 input TPM / 500 RPD** and directed reuse until a material contrary signal. Decision: `docs/evidence/E0A_GEMINI35_QUOTA_SNAPSHOT_REUSE_DIRECTOR_DECISION_2026_09_09.md`. This supersedes only per-run quota-limit rereads; pricing/data-use freshness and route-change/error triggers remain binding.
+Director reconfirmed `gemini-3.5-flash-lite` at **15 RPM / 250,000 input TPM / 500 RPD** for reuse until a material contrary signal. Quota decision: `docs/evidence/E0A_GEMINI35_QUOTA_SNAPSHOT_REUSE_DIRECTOR_DECISION_2026_09_09.md`. Pricing/data-use freshness and route-change/error triggers remain binding.
 
-**3.5 Flash-Lite PAUSED pending exact Attempt 04 authorization; 3.1 Flash-Lite DEFERRED. Provider authorization: NONE.**
+**Attempt 04 AUTHORIZED — NOT YET CONSUMED.** Exactly one synthetic Missing Raft `GEMINI-3.5-FLASH-LITE-MINIMAL` E0-A run is authorized at `e6e7d6c8...`; one attempt/role, zero retries, no fallback or alternate traffic. Authorization: `docs/evidence/E0A_GEMINI35_ATTEMPT04_DIRECTOR_AUTHORIZATION_2026_09_09.md`. Provider authorization is limited to that exact run until consumed.
 
 ## Parallel E0-E
 Q-E0E-PREP is **CLOSED — HOSTED NON-NETWORK PREPARATION VALIDATED**. Contract: `docs/blueprint/E0E_SINGLE_MODEL_PLAYWRIGHT_CONTROL_PREPARATION_CONTRACT.md`. Closeout: `docs/evidence/E0E_SINGLE_MODEL_PLAYWRIGHT_CONTROL_PREPARATION_CLOSEOUT_AUDIT_2026_09_09.md`. Q-E0E-RUN remains BLOCKED until E0-A -> E0-B -> E0-C -> E0-D close.
@@ -25,4 +25,4 @@ Q-E0E-PREP is **CLOSED — HOSTED NON-NETWORK PREPARATION VALIDATED**. Contract:
 Q-DESIGN-09 DONE; Q-DESIGN-10 ACTIVE. Engineering authority/order unchanged.
 
 ## Next
-No active source implementation branch. Q-E0A-02 remains **BLOCKED only on exact Director provider-action authorization and applicable execution preconditions**; the current 3.5 quota prerequisite is satisfied until a listed trigger occurs. Fresh-chat transition: `docs/handoff/E0A_PROVIDER_COMPATIBILITY_BLOCKED_HANDOFF_2026_09_09.md`. No E0-E execution is authorized.
+Q-E0A-02 is **ACTIVE only for the exact unconsumed Attempt 04 authorization**. Execute from a new linked Windows ARM64 worktree pinned to the validation tag; preserve historical/native-validation worktrees. A failed first full-request `countTokens` terminates with no generation; success may continue within the same run. Any provider-contact terminal result consumes authorization; afterward provider authorization returns to NONE and evidence must be recursively audited. Handoff: `docs/handoff/E0A_GEMINI35_ATTEMPT04_AUTHORIZED_HANDOFF_2026_09_09.md`. No other provider or E0-E execution is authorized.
