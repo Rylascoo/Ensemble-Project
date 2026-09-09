@@ -22,7 +22,7 @@ Quota baseline remains **15 RPM / 250,000 input TPM / 500 RPD** until a material
 Q-E0E-PREP **CLOSED — HOSTED NON-NETWORK PREPARATION VALIDATED**. Q-E0E-RUN remains BLOCKED until E0-A -> E0-B -> E0-C -> E0-D close.
 
 ## Cross-lane
-Q-DESIGN-11 DONE; Q-DESIGN-12 ACTIVE for deterministic F1 refinement comparison/preflight and direct Director + Design Sol adjudication. F1 remains provisional; E0 blind scoring and engineering order unchanged.
+Q-DESIGN-12 DONE; Q-DESIGN-13 ACTIVE for the bounded F1A deployment-envelope contract. F1A 70/460 is provisional; E0 blind scoring and engineering order unchanged.
 
 ## Next
 Q-E0A-02 remains **ACTIVE only for non-network Attempt-04 evidence ingestion/audit**. Provider authorization is **NONE**. Ingest the local ZIP, independently match its SHA-256, verify evidence/provenance/privacy, identify the exact terminal stage and approved bounded diagnostic if present, then recursively audit before any source/provider decision. Handoff: `docs/handoff/E0A_GEMINI35_ATTEMPT04_POSTRUN_EVIDENCE_AUDIT_HANDOFF_2026_09_09.md`. Q-E0A-03, E0-B+, and E0-E execution remain BLOCKED.
