@@ -1,6 +1,6 @@
 # Ensemble Document Index
 
-Status: navigation only — not phase, architecture, product, policy, or validation authority.
+Status: navigation only — not phase, architecture, product, policy, provider, or validation authority.
 
 This index helps a fresh engineering chat find the small set of current entry surfaces. `tools/document-census.py` intentionally excludes this file from authority traversal, so a link here cannot make an otherwise historical document current.
 
@@ -15,30 +15,39 @@ This index helps a fresh engineering chat find the small set of current entry su
 7. `docs/REPOSITORY_RESIDENCY.md` — canonical homes and cross-lane migration law.
 8. `docs/EVIDENCE_LANE_CHARTER.md` — independent falsification/evidence-lane scope and E0-E preparation boundary; no phase/product authority.
 
-## Current E0-A architecture
+## Current E0-A architecture and execution contract
 
 - `docs/blueprint/E0A_PHASE_B_REFERENCE_RUN_ENVELOPE.md`
 - `docs/blueprint/E0A_PHASE_B_GEMINI_NORMATIVE_REFERENCE_AMENDMENT.md`
 - `docs/blueprint/E0A_PHASE_B_GEMINI_RATE_DISCIPLINE_MODEL_COMPARISON_AMENDMENT.md`
 - `docs/blueprint/E0A_PHASE_B_GEMINI_FREE_TIER_RPD_MODEL_SELECTION_AMENDMENT.md`
+- `docs/blueprint/E0A_GEMINI_COUNTTOKENS_INPUT_PROJECTION_CORRECTION_AMENDMENT.md`
+- `docs/blueprint/E0A_Q_E0A_03_REFERENCE_EVIDENCE_ACTIVATION_AND_CLOSURE_CONTRACT.md`
 
-These remain subject to `CURRENT_STATE.md`; this index does not independently mark a phase or checkpoint active.
+These remain subject to `CURRENT_STATE.md`; this index does not independently mark a phase, checkpoint, provider route, or experiment executable.
 
 ## Current validation / provider evidence
 
 - `docs/VALIDATION_LEDGER.md` — promoted validation facts and durable tags; cannot advance project state.
 - `docs/HYPOTHESIS_LEDGER.md` — current unverified/narrowed Gemini assumptions and verification triggers; never a decision source.
-- `docs/evidence/E0A_GEMINI_COUNTTOKENS_CORRECTION_NATIVE_ARM64_VALIDATION_2026_09_08.md` — current promoted Windows ARM64 machine-test evidence for executable `689655...`.
-- `docs/evidence/E0A_GEMINI_AUTH_TRANSPORT_DIFFERENTIAL_RESULT_2026_09_08.md` — same-key/header/model/method simple `countTokens` HTTP 200 evidence.
-- `docs/evidence/E0A_THIRD_REAL_GEMINI_35_LITE_ATTEMPT_03_ARCHIVE_AUDIT_2026_09_08.md` — sealed Attempt-03 audit; first Performer full-request `countTokens` HTTP 400 before generation, exact rejected field unproven.
-- `docs/evidence/E0A_GEMINI_PROVIDER_COMPATIBILITY_DIRECTOR_DECISION_2026_09_08.md` — Director decision pausing 3.5 live execution, deferring 3.1 execution, authorizing bounded diagnostic engineering, and granting no provider traffic.
-- `docs/evidence/E0A_GEMINI_RATE_DISCIPLINE_MODEL_COMPARISON_IMPLEMENTATION_AUDIT.md` and `docs/evidence/E0A_GEMINI35_THOUGHT_SIGNATURE_COMPATIBILITY_AUDIT.md` — supporting current architecture evidence.
+- `docs/evidence/E0A_GEMINI_COUNTTOKENS_INPUT_PROJECTION_NATIVE_ARM64_VALIDATION_2026_09_09.md` — current promoted Windows ARM64 machine-test evidence for exact executable `3a010df5d26fc58d6f3820f2dc2cfbb0d015a9d2`.
+- `docs/evidence/E0A_GEMINI35_ATTEMPT04_ARCHIVE_AUDIT_2026_09_09.md` — sealed Attempt-04 audit; first Performer `countTokens` rejected the former full-request projection before generation.
+- `docs/evidence/E0A_GEMINI35_THOUGHT_SIGNATURE_COMPATIBILITY_AUDIT.md` — current Gemini-3 compatibility evidence named by `CURRENT_STATE.md`.
+- `docs/evidence/E0A_Q_E0A_03_REFERENCE_EVIDENCE_PLANNING_RECURSIVE_AUDIT_2026_09_09.md` — recursive audit of the frozen Q-E0A-03 activation/closure method.
+- `docs/evidence/E0A_Q_E0A_03_G35L_PREAUTHORIZATION_PUBLIC_FACT_AUDIT_2026_09_09.md` — current public/volatile-fact gate for the prospective first 3.5 Flash-Lite Q-E0A-03 run; no provider authorization.
+- `docs/evidence/E0A_GEMINI35_QUOTA_SNAPSHOT_REUSE_DIRECTOR_DECISION_2026_09_09.md` — exact 3.5 route quota-snapshot reuse decision and contrary-signal boundary.
+- `docs/evidence/E0A_FRESH_CHAT_CONTINUITY_RECONCILIATION_2026_09_09.md` — current E0-A continuity reconciliation.
 - `docs/evidence/DIRECTOR_WINDOWS_ARM64_VALIDATION_HOST_BEHAVIORS.md` — Director-host validation apparatus contract.
 
-## Current transitions
+Historical attempt, diagnostic, and superseded validation records remain evidence of their recorded checkpoints. Their continued presence does not make them the current promoted validation boundary.
 
-- `docs/handoff/E0A_GEMINI_BOUNDED_PROVIDER_ERROR_DIAGNOSTIC_ENGINEERING_HANDOFF_2026_09_08.md` — active engineering transition because `CURRENT_STATE.md` names it.
-- `docs/handoff/E0E_SINGLE_MODEL_PLAYWRIGHT_CONTROL_PREPARATION_HANDOFF_2026_09_08.md` — active parallel evidence-lane preparation packet; **no E0-E provider execution** until the frozen A -> B -> C -> D prerequisite sequence closes.
+## Current transition boundary
+
+There is **no live `docs/handoff/...` transition artifact** at current `main`. A handoff is live only when `CURRENT_STATE.md` names its exact path. `docs/handoff/` currently retains only its lifecycle README.
+
+The current consequential engineering gate is defined by `CURRENT_STATE.md` and `docs/blueprint/E0A_Q_E0A_03_REFERENCE_EVIDENCE_ACTIVATION_AND_CLOSURE_CONTRACT.md`: provider authorization remains separate and explicit for each real run.
+
+Parallel E0-E preparation is closed; `docs/evidence/E0E_SINGLE_MODEL_PLAYWRIGHT_CONTROL_PREPARATION_CLOSEOUT_AUDIT_2026_09_09.md` records that preparation result. E0-E execution remains blocked by the frozen E0 order and the execution queue.
 
 ## Program / product decision surfaces
 
