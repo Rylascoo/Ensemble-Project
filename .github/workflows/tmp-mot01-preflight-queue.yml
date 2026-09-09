@@ -1,0 +1,52 @@
+name: Temporary MOT-01 preflight queue activation
+
+on:
+  push:
+    branches:
+      - tmp/mot01-preflight-queue-materialize
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - name: Reconcile design queue
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          q = Path('docs/PROJECT_EXECUTION_QUEUE.md')
+          text = q.read_text()
+          old = "| Q-DESIGN-08 | Design Sol | ACTIVE | Construct the **MOT-01 non-render method contract and deterministic dual-context temporal specimen matrix**. | Freeze neutral non-product carriers, ordinary/reduced-motion conditions, generic controls, at least three materially disjoint motion-mechanism families, WEB/APP amplitude adaptation, fixture-only timing/easing provenance, current motion-accessibility floors, blinding/falsification and zero-survivor/no-reroll law. No specimen execution, transcript-dependent Stage motion, production timing tokens, image/video generation, final identity, app implementation or website deployment. | One recursively audited MOT-01 method contract + matrix is durably recorded and clean; only then may deterministic temporal-specimen execution be considered under a separate bounded gate. |"
+          new = "| Q-DESIGN-08 | Design Sol | DONE | Constructed the **MOT-01 — Cross-Surface Motion Signature Independence** frozen method contract and deterministic dual-context temporal specimen matrix. | Adopted on `Rylascoo/Ensemble-Website/main` at `38e3ea61d336900fb05a0a6b2e8e5206aa23a5d0`; `docs/evidence/MOT_01_CROSS_SURFACE_MOTION_SIGNATURE_INDEPENDENCE_METHOD_AND_MATRIX_01.json`, Website `CURRENT_STATE.md`, and Design Ledger L-037 carry the exact contract and boundary. No final motion system, timing tokens, Stage motion or convergence authority was created. | Method frozen and recursively clean; successor is Q-DESIGN-09. |\n| Q-DESIGN-09 | Design Sol | ACTIVE | Materialize the deterministic MOT-01 browser-native harness/reviewer surface/manifest/blinding key and run **structural + accessibility preflight only**. | Preserve the exact 24 IDs, neutral carrier/static endpoints, F1-F4 timing vectors, WEB/APP amplitude-only adaptation, CNEG/CPOS control roles, FULL/REDUCED states and frozen review law from Website main `38e3ea61d336900fb05a0a6b2e8e5206aa23a5d0`. Freeze browser/OS/font/devicePixelRatio/viewport/source-hash provenance before reviewer exposure. Preflight may execute the frozen temporal fixtures only to verify contract conformance, 320px containment, keyboard/focus behavior and complete `prefers-reduced-motion` suppression. No blinded scoring/reviewer judgment until preflight is clean; no image/video generation, Stage motion, product-state motion, production timing tokens, app implementation, website deployment or final identity decision. | Deterministic packet and preflight evidence are durably recorded. If preflight is clean, blinded scoring may be considered under a separate successor gate; a non-mechanical hard failure follows the frozen MOT-01 termination law. |"
+          if old not in text:
+              raise SystemExit('expected Q-DESIGN-08 row not found')
+          q.write_text(text.replace(old, new, 1))
+
+          s = Path('CURRENT_STATE.md')
+          st = s.read_text()
+          old_s = 'Q-DESIGN-07 DONE; Q-DESIGN-08 ACTIVE. MOT-01 is design sequencing only; engineering checkpoint, validation, provider authority, Q-DESIGN-02, and E0 order are unchanged.'
+          new_s = 'Q-DESIGN-08 DONE; Q-DESIGN-09 ACTIVE. MOT-01 preflight is design sequencing only; engineering checkpoint, validation, provider authority, Q-DESIGN-02, and E0 order are unchanged.'
+          if old_s not in st:
+              raise SystemExit('expected cross-lane continuity sentence not found')
+          s.write_text(st.replace(old_s, new_s, 1))
+          PY
+
+          python tools/repository-law-check.py
+          git diff --check
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/tmp-mot01-preflight-queue.yml
+          git add CURRENT_STATE.md docs/PROJECT_EXECUTION_QUEUE.md
+          git diff --cached --check
+          git commit -m "Materialize MOT-01 preflight queue activation"
+          git push origin HEAD:tmp/mot01-preflight-queue-materialize
