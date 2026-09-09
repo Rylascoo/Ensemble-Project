@@ -17,7 +17,8 @@ Authority: temporary transition guidance only. It is live only while `CURRENT_ST
    - `docs/evidence/E0A_GEMINI_BOUNDED_PROVIDER_ERROR_DIAGNOSTIC_NATIVE_ARM64_VALIDATION_2026_09_08.md`;
    - `docs/evidence/E0A_THIRD_REAL_GEMINI_35_LITE_ATTEMPT_03_ARCHIVE_AUDIT_2026_09_08.md`;
    - `docs/evidence/E0A_GEMINI_AUTH_TRANSPORT_DIFFERENTIAL_RESULT_2026_09_08.md`;
-   - `docs/evidence/E0A_GEMINI35_THOUGHT_SIGNATURE_COMPATIBILITY_AUDIT.md`.
+   - `docs/evidence/E0A_GEMINI35_THOUGHT_SIGNATURE_COMPATIBILITY_AUDIT.md`;
+   - `docs/evidence/E0A_FRESH_CHAT_CONTINUITY_RECONCILIATION_2026_09_09.md`.
 4. Re-resolve latest CI at the current docs head. Hosted/compiler evidence does not replace native Windows ARM64 authority at `e6e7d6c8...`.
 5. Before any provider action, verify the authorization record is still **AUTHORIZED — NOT YET CONSUMED** and no material quota/provider trigger has occurred.
 
