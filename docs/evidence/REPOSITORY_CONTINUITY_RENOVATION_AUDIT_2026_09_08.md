@@ -92,4 +92,4 @@ This renovation changes documentation only. It neither inherits, replaces, inval
 3. Perform a fresh live-ref/bootstrap readback against the resulting exact refs.
 4. Resume Q-E0A-01 on `e0a-gemini-bounded-provider-error-diagnostic`.
 
-One complete recursive review of the constructed seven-file patch is required before commit/push. No executable-surface change is permitted.
+One complete recursive review of the constructed seven-file patch has now been performed on the remote review branch. Promotion remains blocked on hosted repository checks; no executable-surface change is permitted.
