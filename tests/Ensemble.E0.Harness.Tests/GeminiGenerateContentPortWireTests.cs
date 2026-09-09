@@ -58,7 +58,7 @@ public sealed class GeminiGenerateContentPortWireTests
     }
 
     [TestMethod]
-    public async Task CountTokens_AddsRequiredNestedModelPreservesGenerationFieldsAndUsesApiKeyHeader()
+    public async Task CountTokens_ProjectsOnlyInputSemanticsAndUsesApiKeyHeader()
     {
         var handler = new QueueResponseHandler(JsonResponse("{\"totalTokens\":37}"));
         using var http = new HttpClient(handler);
@@ -79,15 +79,46 @@ public sealed class GeminiGenerateContentPortWireTests
         var projected = sent.RootElement.GetProperty("generateContentRequest");
         Assert.IsFalse(original.RootElement.TryGetProperty("model", out _));
         Assert.AreEqual("models/gemini-2.5-flash", projected.GetProperty("model").GetString());
+        Assert.AreEqual(3, projected.EnumerateObject().Count());
+        Assert.IsTrue(projected.TryGetProperty("systemInstruction", out var projectedSystem));
+        Assert.IsTrue(projected.TryGetProperty("contents", out var projectedContents));
+        Assert.IsFalse(projected.TryGetProperty("generationConfig", out _));
+        Assert.IsFalse(projected.TryGetProperty("store", out _));
         Assert.AreEqual(
-            original.RootElement.EnumerateObject().Count() + 1,
-            projected.EnumerateObject().Count());
-        foreach (var property in original.RootElement.EnumerateObject())
+            PreparedRoleAttempt.LowerSha256(JsonSerializer.SerializeToUtf8Bytes(original.RootElement.GetProperty("systemInstruction"))),
+            PreparedRoleAttempt.LowerSha256(JsonSerializer.SerializeToUtf8Bytes(projectedSystem)));
+        Assert.AreEqual(
+            PreparedRoleAttempt.LowerSha256(JsonSerializer.SerializeToUtf8Bytes(original.RootElement.GetProperty("contents"))),
+            PreparedRoleAttempt.LowerSha256(JsonSerializer.SerializeToUtf8Bytes(projectedContents)));
+        Assert.IsTrue(original.RootElement.TryGetProperty("generationConfig", out _));
+        Assert.IsFalse(original.RootElement.GetProperty("store").GetBoolean());
+    }
+
+    [TestMethod]
+    public async Task CountTokens_RejectsPreparedRequestSurfaceDriftBeforeHttp()
+    {
+        var envelope = E0AReferenceRunHost.CreateEnvelope("CREATIVE-NONE");
+        var context = DeterministicE0CausalCycle.ComposeContext(E0ATestSupport.Cycle()).ContextEvaluation.Packet;
+        var attempt = E0ARequestBuilder.Performer(RunId.From("E0A-GEMINI-COUNT-DRIFT"), 1, envelope.Performer, context);
+        var variants = new[]
         {
-            Assert.IsTrue(projected.TryGetProperty(property.Name, out var projectedProperty));
-            Assert.AreEqual(
-                PreparedRoleAttempt.LowerSha256(JsonSerializer.SerializeToUtf8Bytes(property.Value)),
-                PreparedRoleAttempt.LowerSha256(JsonSerializer.SerializeToUtf8Bytes(projectedProperty)));
+            RewriteTopLevel(attempt.RequestBody, omit: "store"),
+            RewriteTopLevel(attempt.RequestBody, duplicateContents: true),
+            RewriteTopLevel(attempt.RequestBody, extraProperty: true),
+            RewriteTopLevel(attempt.RequestBody, storeTrue: true)
+        };
+
+        foreach (var body in variants)
+        {
+            var handler = new QueueResponseHandler(JsonResponse("{\"totalTokens\":37}"));
+            using var http = new HttpClient(handler);
+            var port = new GeminiGenerateContentPort(http, "gemini-test-key");
+            var mutated = CloneWithBody(attempt, body);
+
+            await Assert.ThrowsAsync<E0AHarnessException>(() =>
+                port.CountInputTokensAsync(mutated, CancellationToken.None));
+
+            Assert.AreEqual(0, handler.Requests.Count);
         }
     }
 
@@ -98,7 +129,7 @@ public sealed class GeminiGenerateContentPortWireTests
         const string secretDescription = "secret-provider-description-must-not-persist";
         var providerBody = "{\"error\":{\"code\":400,\"message\":\"" + secretMessage +
             "\",\"status\":\"INVALID_ARGUMENT\",\"details\":[{\"@type\":\"type.googleapis.com/google.rpc.BadRequest\"," +
-            "\"fieldViolations\":[{\"field\":\"generateContentRequest.generationConfig.responseFormat.text.schema\"," +
+            "\"fieldViolations\":[{\"field\":\"generateContentRequest.contents[0].parts[0].text\"," +
             "\"description\":\"" + secretDescription + "\"}]}]}}";
         var handler = new QueueResponseHandler(new HttpResponseMessage(HttpStatusCode.BadRequest)
         {
@@ -114,7 +145,7 @@ public sealed class GeminiGenerateContentPortWireTests
             port.CountInputTokensAsync(attempt, CancellationToken.None));
 
         Assert.AreEqual(
-            "gemini-counttokens-http-400;status=INVALID_ARGUMENT;field=generateContentRequest.generationConfig.responseFormat.text.schema",
+            "gemini-counttokens-http-400;status=INVALID_ARGUMENT;field=generateContentRequest.contents[0].parts[0].text",
             exception.Diagnostic);
         Assert.IsFalse(exception.Diagnostic.Contains(secretMessage, StringComparison.Ordinal));
         Assert.IsFalse(exception.Diagnostic.Contains(secretDescription, StringComparison.Ordinal));
@@ -297,6 +328,64 @@ public sealed class GeminiGenerateContentPortWireTests
             context,
             input.CandidateContentHash,
             packet);
+    }
+
+    private static PreparedRoleAttempt CloneWithBody(PreparedRoleAttempt source, byte[] body) =>
+        new(
+            source.RunId,
+            source.AttemptId,
+            source.Profile,
+            source.Turn,
+            source.CharacterId,
+            source.ContextPacketId,
+            source.StructuredContextHash,
+            source.RenderedContextHash,
+            source.CandidateContentHash,
+            source.PromptHash,
+            source.ResponseSchemaHash,
+            source.IntegrityPacketHash,
+            body);
+
+    private static byte[] RewriteTopLevel(
+        byte[] body,
+        string? omit = null,
+        bool duplicateContents = false,
+        bool extraProperty = false,
+        bool storeTrue = false)
+    {
+        using var source = JsonDocument.Parse(body);
+        using var stream = new MemoryStream();
+        using (var writer = new Utf8JsonWriter(stream))
+        {
+            writer.WriteStartObject();
+            foreach (var property in source.RootElement.EnumerateObject())
+            {
+                if (string.Equals(property.Name, omit, StringComparison.Ordinal))
+                {
+                    continue;
+                }
+                if (storeTrue && property.NameEquals("store"))
+                {
+                    writer.WriteBoolean("store", true);
+                    continue;
+                }
+                writer.WritePropertyName(property.Name);
+                property.Value.WriteTo(writer);
+                if (duplicateContents && property.NameEquals("contents"))
+                {
+                    writer.WritePropertyName(property.Name);
+                    property.Value.WriteTo(writer);
+                }
+            }
+            if (extraProperty)
+            {
+                writer.WritePropertyName("tools");
+                writer.WriteStartArray();
+                writer.WriteEndArray();
+            }
+            writer.WriteEndObject();
+        }
+        return stream.ToArray();
     }
 
     private static HttpResponseMessage JsonResponse(string json) =>

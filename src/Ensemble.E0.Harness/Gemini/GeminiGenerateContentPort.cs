@@ -778,6 +778,21 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
             throw new E0AHarnessException("E0-A Gemini prepared request body is invalid for token preflight.");
         }
 
+        var properties = source.EnumerateObject().ToArray();
+        if (properties.Length != 4 ||
+            properties.Select(property => property.Name).Distinct(StringComparer.Ordinal).Count() != 4 ||
+            !source.TryGetProperty("systemInstruction", out var systemInstruction) ||
+            systemInstruction.ValueKind != JsonValueKind.Object ||
+            !source.TryGetProperty("contents", out var contents) ||
+            contents.ValueKind != JsonValueKind.Array ||
+            !source.TryGetProperty("generationConfig", out var generationConfig) ||
+            generationConfig.ValueKind != JsonValueKind.Object ||
+            !source.TryGetProperty("store", out var store) ||
+            store.ValueKind != JsonValueKind.False)
+        {
+            throw new E0AHarnessException("E0-A Gemini prepared request body is invalid for token preflight.");
+        }
+
         using var stream = new MemoryStream();
         using (var writer = new Utf8JsonWriter(stream))
         {
@@ -785,11 +800,10 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
             writer.WritePropertyName("generateContentRequest");
             writer.WriteStartObject();
             writer.WriteString("model", $"models/{attempt.Profile.Model}");
-            foreach (var property in source.EnumerateObject())
-            {
-                writer.WritePropertyName(property.Name);
-                property.Value.WriteTo(writer);
-            }
+            writer.WritePropertyName("systemInstruction");
+            systemInstruction.WriteTo(writer);
+            writer.WritePropertyName("contents");
+            contents.WriteTo(writer);
             writer.WriteEndObject();
             writer.WriteEndObject();
         }
