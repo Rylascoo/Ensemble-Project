@@ -23,3 +23,5 @@ Director decision: **3.5 Flash-Lite live execution PAUSED; bounded provider-erro
 
 ## Next
 Engineering next action remains the bounded provider-error/request-compatibility amendment on `e0a-gemini-bounded-provider-error-diagnostic`. Active technical contract: `docs/handoff/E0A_GEMINI_BOUNDED_PROVIDER_ERROR_DIAGNOSTIC_ENGINEERING_HANDOFF_2026_09_08.md`. Any source change requires cloud validation plus new native Windows ARM64 validation and annotated validation tag before any future provider request.
+
+<!-- Continuity refresh 2026-09-08 (Design Sol): queue-only reconciliation; engineering checkpoint, validation, provider authority, and Next unchanged. -->
