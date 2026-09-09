@@ -92,11 +92,17 @@ public sealed class GeminiGenerateContentPortWireTests
     }
 
     [TestMethod]
-    public async Task CountTokens_NonSuccessExposesOnlyBoundedHttpDiagnostic()
+    public async Task CountTokens_NonSuccessExtractsOnlyBoundedStructuredDiagnostic()
     {
+        const string secretMessage = "secret-provider-message-must-not-persist";
+        const string secretDescription = "secret-provider-description-must-not-persist";
+        var providerBody = "{\"error\":{\"code\":400,\"message\":\"" + secretMessage +
+            "\",\"status\":\"INVALID_ARGUMENT\",\"details\":[{\"@type\":\"type.googleapis.com/google.rpc.BadRequest\"," +
+            "\"fieldViolations\":[{\"field\":\"generateContentRequest.generationConfig.responseFormat.text.schema\"," +
+            "\"description\":\"" + secretDescription + "\"}]}]}}";
         var handler = new QueueResponseHandler(new HttpResponseMessage(HttpStatusCode.BadRequest)
         {
-            Content = new StringContent("provider body must not escape", Encoding.UTF8, "application/json")
+            Content = new StringContent(providerBody, Encoding.UTF8, "application/json")
         });
         using var http = new HttpClient(handler);
         var port = new GeminiGenerateContentPort(http, "gemini-test-key");
@@ -104,11 +110,14 @@ public sealed class GeminiGenerateContentPortWireTests
         var context = DeterministicE0CausalCycle.ComposeContext(E0ATestSupport.Cycle()).ContextEvaluation.Packet;
         var attempt = E0ARequestBuilder.Performer(RunId.From("E0A-GEMINI-COUNT-400"), 1, envelope.Performer, context);
 
-        var exception = await Assert.ThrowsAsync<E0AHarnessException>(() =>
+        var exception = await Assert.ThrowsAsync<E0AGeminiCountTokensFailureException>(() =>
             port.CountInputTokensAsync(attempt, CancellationToken.None));
 
-        Assert.AreEqual("gemini-counttokens-http-400", exception.Message);
-        Assert.IsFalse(exception.Message.Contains("provider body", StringComparison.Ordinal));
+        Assert.AreEqual(
+            "gemini-counttokens-http-400;status=INVALID_ARGUMENT;field=generateContentRequest.generationConfig.responseFormat.text.schema",
+            exception.Diagnostic);
+        Assert.IsFalse(exception.Diagnostic.Contains(secretMessage, StringComparison.Ordinal));
+        Assert.IsFalse(exception.Diagnostic.Contains(secretDescription, StringComparison.Ordinal));
     }
 
     [TestMethod]
