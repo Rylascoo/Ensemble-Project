@@ -14,7 +14,9 @@ Runtime: **E0-A Experimental Harness — Phase B**. Q-E0A-01 bounded Gemini prov
 ## Provider decision
 Attempt 03: first Performer `countTokens` HTTP **400**, 0 turns, $0, no generation. Same-key/header/model/method `countTokens` succeeded; auth transport is closed as the failure explanation. Exact rejected field remains unproven.
 
-**3.5 Flash-Lite live execution PAUSED; 3.1 Flash-Lite execution DEFERRED. Provider authorization: NONE.** Validation does not authorize credential use or provider traffic.
+Director reconfirmed on 2026-09-09 that the active `gemini-3.5-flash-lite` AI Studio values remain **15 RPM / 250,000 input TPM / 500 RPD** and directed reuse until a material contrary signal. Decision: `docs/evidence/E0A_GEMINI35_QUOTA_SNAPSHOT_REUSE_DIRECTOR_DECISION_2026_09_09.md`. This supersedes only the per-run quota-limit recheck cadence; pricing/data-use freshness, route-change triggers, and fail-closed quota errors remain binding.
+
+**3.5 Flash-Lite live execution PAUSED pending exact Attempt 04 authorization; 3.1 Flash-Lite execution DEFERRED. Provider authorization: NONE.** Validation and quota readiness do not authorize credential use or provider traffic.
 
 ## Parallel E0-E
 Q-E0E-PREP is **CLOSED — HOSTED NON-NETWORK PREPARATION VALIDATED**. Contract: `docs/blueprint/E0E_SINGLE_MODEL_PLAYWRIGHT_CONTROL_PREPARATION_CONTRACT.md`. Closeout: `docs/evidence/E0E_SINGLE_MODEL_PLAYWRIGHT_CONTROL_PREPARATION_CLOSEOUT_AUDIT_2026_09_09.md`.
@@ -27,4 +29,4 @@ Prepared tree `90c887358e973f7c4e3b1cd7ba2f56e0028affe9`: run `34314008749` pass
 Q-DESIGN-09 DONE; Q-DESIGN-10 ACTIVE. MOT-01 blind review sequencing only; engineering checkpoint, validation, provider authority, Q-DESIGN-02, and E0 order are unchanged.
 
 ## Next
-There is **no active engineering implementation branch**. Q-E0A-02 remains **BLOCKED** pending provider/account/pricing/quota re-verification plus explicit Director authorization. Fresh-chat transition: `docs/handoff/E0A_PROVIDER_COMPATIBILITY_BLOCKED_HANDOFF_2026_09_09.md`. No E0-E execution action is authorized.
+There is **no active source implementation branch**. Q-E0A-02 remains **BLOCKED only on exact Director provider-action authorization and applicable execution preconditions**; the current 3.5 Flash-Lite quota-limit prerequisite is satisfied by the 2026-09-09 Director decision until a listed trigger occurs. Fresh-chat transition: `docs/handoff/E0A_PROVIDER_COMPATIBILITY_BLOCKED_HANDOFF_2026_09_09.md`. No E0-E execution action is authorized.
