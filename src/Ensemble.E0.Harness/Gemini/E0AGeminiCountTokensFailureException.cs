@@ -96,7 +96,7 @@ internal sealed class E0AGeminiCountTokensFailureException : Exception
                 }
             }
 
-            var requestPropertyNames = RequestPropertyNames(requestBody);
+            using var requestDocument = JsonDocument.Parse(requestBody);
             var fields = new SortedSet<string>(StringComparer.Ordinal);
             if (error.TryGetProperty("details", out var details) &&
                 details.ValueKind == JsonValueKind.Array)
@@ -123,7 +123,7 @@ internal sealed class E0AGeminiCountTokensFailureException : Exception
                         }
 
                         var field = fieldElement.GetString();
-                        if (field is not null && IsRequestFieldPath(field, requestPropertyNames))
+                        if (field is not null && IsRequestFieldPath(field, requestDocument.RootElement))
                         {
                             fields.Add(field);
                         }
@@ -172,53 +172,67 @@ internal sealed class E0AGeminiCountTokensFailureException : Exception
         }
     }
 
-    private static HashSet<string> RequestPropertyNames(byte[] requestBody)
-    {
-        using var document = JsonDocument.Parse(requestBody);
-        var names = new HashSet<string>(StringComparer.Ordinal);
-        CollectPropertyNames(document.RootElement, names);
-        return names;
-    }
-
-    private static void CollectPropertyNames(JsonElement element, HashSet<string> names)
-    {
-        if (element.ValueKind == JsonValueKind.Object)
-        {
-            foreach (var property in element.EnumerateObject())
-            {
-                names.Add(property.Name);
-                names.Add(ToSnakeCase(property.Name));
-                CollectPropertyNames(property.Value, names);
-            }
-            return;
-        }
-
-        if (element.ValueKind == JsonValueKind.Array)
-        {
-            foreach (var item in element.EnumerateArray())
-            {
-                CollectPropertyNames(item, names);
-            }
-        }
-    }
-
-    private static bool IsRequestFieldPath(string path, HashSet<string> requestPropertyNames)
+    private static bool IsRequestFieldPath(string path, JsonElement requestRoot)
     {
         if (!IsFieldPathSyntaxSafe(path))
         {
             return false;
         }
 
+        var current = requestRoot;
         foreach (var segment in path.Split('.'))
         {
-            var bracket = segment.IndexOf('[');
-            var name = bracket < 0 ? segment : segment[..bracket];
-            if (!requestPropertyNames.Contains(name))
+            if (current.ValueKind != JsonValueKind.Object)
             {
                 return false;
             }
+
+            var bracket = segment.IndexOf('[');
+            var name = bracket < 0 ? segment : segment[..bracket];
+            if (!TryGetRequestProperty(current, name, out current))
+            {
+                return false;
+            }
+
+            if (bracket < 0)
+            {
+                continue;
+            }
+
+            var indexText = segment[(bracket + 1)..^1];
+            if (current.ValueKind != JsonValueKind.Array ||
+                !int.TryParse(indexText, out var index) ||
+                index < 0 ||
+                index >= current.GetArrayLength())
+            {
+                return false;
+            }
+            current = current[index];
         }
         return true;
+    }
+
+    private static bool TryGetRequestProperty(
+        JsonElement current,
+        string fieldName,
+        out JsonElement value)
+    {
+        if (current.TryGetProperty(fieldName, out value))
+        {
+            return true;
+        }
+
+        foreach (var property in current.EnumerateObject())
+        {
+            if (string.Equals(ToSnakeCase(property.Name), fieldName, StringComparison.Ordinal))
+            {
+                value = property.Value;
+                return true;
+            }
+        }
+
+        value = default;
+        return false;
     }
 
     private static bool IsFieldPathSyntaxSafe(string path)
@@ -255,7 +269,7 @@ internal sealed class E0AGeminiCountTokensFailureException : Exception
             }
 
             var index = segment[(bracket + 1)..^1];
-            if (index.Length == 0 || index.Any(character => character is < '0' or > '9'))
+            if (index.Length == 0 || index.Any(character => character < '0' || character > '9'))
             {
                 return false;
             }
@@ -272,7 +286,7 @@ internal sealed class E0AGeminiCountTokensFailureException : Exception
         for (var index = 1; index < value.Length; index++)
         {
             var character = value[index];
-            if (!IsAsciiIdentifierStart(character) && character is < '0' or > '9')
+            if (!IsAsciiIdentifierStart(character) && (character < '0' || character > '9'))
             {
                 return false;
             }
