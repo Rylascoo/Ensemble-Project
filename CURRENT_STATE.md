@@ -17,10 +17,10 @@ Attempt 04: first Performer `countTokens` returned **HTTP 400 / INVALID_ARGUMENT
 Diagnosis: current token preflight wrongly forwards output-only `generationConfig` into Gemini Developer API `countTokens`. Actual generation payload remains untested/unchanged.
 
 ## Active correction
-Q-E0A-04 **ACTIVE — NON-NETWORK ENGINEERING ONLY** on `e0a-gemini-counttokens-input-projection-correction`. Frozen contract: `docs/blueprint/E0A_GEMINI_COUNTTOKENS_INPUT_PROJECTION_CORRECTION_AMENDMENT.md`. Correct token projection to nested model + exact systemInstruction + contents; omit generationConfig/store; fail closed on request-surface drift. Any source change requires new hosted + native Windows ARM64 validation and a new annotated validation tag before provider use.
+Q-E0A-04 **ACTIVE — HOSTED GREEN / NATIVE VALIDATION PENDING** on `e0a-gemini-counttokens-input-projection-correction`. Frozen contract: `docs/blueprint/E0A_GEMINI_COUNTTOKENS_INPUT_PROJECTION_CORRECTION_AMENDMENT.md`. Hosted source checkpoint `6db7d8b6ac2cbe84f0ff5c8d99754a938a0f59f7` passed Validation gate `34383337117`. The implementation projects nested model + exact `systemInstruction` + `contents`, omits `generationConfig`/`store`, and fails closed on request-surface drift. Generation payload, Core, fixture, retry, rate, spend, and provider sequencing semantics are unchanged. New native Windows ARM64 validation and a new annotated validation tag are required before provider use.
 
 ## Parallel
-Q-E0E-PREP CLOSED; Q-E0E-RUN remains BLOCKED until E0-A -> E0-B -> E0-C -> E0-D close. Q-DESIGN-11 DONE; Q-DESIGN-12 ACTIVE. Design work does not alter E0 engineering order.
+Q-E0E-PREP CLOSED; Q-E0E-RUN remains BLOCKED until E0-A -> E0-B -> E0-C -> E0-D close. Q-DESIGN-13 DONE; Q-DESIGN-14 ACTIVE for non-production F1A deployment-envelope exemplars + direct Director/Design Sol adjudication. F1A 70/460 remains provisional; E0 blind scoring and engineering order unchanged.
 
 ## Next
-Implement/audit Q-E0A-04, then validate the exact corrected executable without credentials/provider traffic. Handoff: `docs/handoff/E0A_GEMINI_COUNTTOKENS_INPUT_PROJECTION_CORRECTION_HANDOFF_2026_09_09.md`. Q-E0A-03, E0-B+, and E0-E execution remain BLOCKED. Provider authorization is **NONE**.
+Recursively audit the exact Q-E0A-04 implementation and continuity-merged branch, then native-validate the resulting exact branch HEAD without credentials/provider traffic. Handoff: `docs/handoff/E0A_GEMINI_COUNTTOKENS_INPUT_PROJECTION_CORRECTION_HANDOFF_2026_09_09.md`. Q-E0A-03, E0-B+, and E0-E execution remain BLOCKED. Provider authorization is **NONE**.
