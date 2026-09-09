@@ -52,14 +52,33 @@ At authorization time:
 - the executable pricing/data-use snapshot remains valid through 2026-09-14 and remains independently fail-closed;
 - the Free-tier run remains synthetic Missing Raft only; no private user content is authorized.
 
+## Local preflight history
+
+Attempt-04 local preflight 01 on 2026-09-09 created the dedicated linked execution worktree at:
+
+`C:\Users\Wiryl\Sol Dev\Ensemble-Project-Worktrees\e0a-gemini35-attempt04`
+
+The worktree was created detached at exact checkout `e6e7d6c8c7187a87df2c97f2373dd3adbee7ce4a` from the annotated validation tag. The packet then failed during the local host-architecture guard because Windows PowerShell under StrictMode could not resolve the static `RuntimeInformation.OSArchitecture` member used by the packet.
+
+The packet explicitly reported:
+
+```text
+ATTEMPT04_AUTHORIZATION=NOT_CONSUMED
+PROVIDER_TRAFFIC_NOT_STARTED=YES
+```
+
+No API key was requested or activated, no provider-bound invocation began, no evidence root was created, and no provider traffic or spend occurred. This was a packet-only preflight defect; it does not alter the validated executable or the frozen provider request.
+
+Authorization therefore remains **AUTHORIZED — NOT YET CONSUMED**. The already-created Attempt-04 worktree is the canonical execution worktree for the corrected preflight. It may be reused only after re-verifying exact HEAD, detached state, clean tracked/staged/material-untracked state, tag identity, fresh evidence boundary, and all other pre-provider guards. Do not create a second Attempt-04 execution worktree merely because local preflight 01 failed.
+
 ## Execution topology
 
-Execution must use a **new separate linked Windows worktree** pinned to the exact validation tag/checkout. Do not repurpose:
+Execution uses the **separate linked Windows worktree** already created for Attempt 04 and pinned to the exact validation tag/checkout. Do not repurpose:
 
 - the historical validated root `C:\Users\Wiryl\Sol Dev\Ensemble-Project`;
 - the existing native-validation worktree for `e6e7...`.
 
-The execution worktree is disposable run residue. The historical/native-validation surfaces remain immutable corroboration points.
+The Attempt-04 execution worktree is disposable run residue. The historical/native-validation surfaces remain immutable corroboration points.
 
 ## Explicit exclusions
 
