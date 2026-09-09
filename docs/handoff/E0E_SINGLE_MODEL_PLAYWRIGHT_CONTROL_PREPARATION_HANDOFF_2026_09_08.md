@@ -30,6 +30,12 @@ Produce a control arm that is sufficiently specified—and, only if that specifi
 
 Preparation should minimize future degrees of freedom while avoiding premature fixation of volatile provider facts that must be inherited from the eventual exact E0-A reference configuration.
 
+The frozen preparation contract is now:
+
+`docs/blueprint/E0E_SINGLE_MODEL_PLAYWRIGHT_CONTROL_PREPARATION_CONTRACT.md`
+
+It is subordinate to Blueprint 0.1 and `CURRENT_STATE.md`, and it authorizes only the non-network preparation/preconstruction scope stated there.
+
 ## Falsification-first criterion
 
 Reject the preparation if any of the following is true:
