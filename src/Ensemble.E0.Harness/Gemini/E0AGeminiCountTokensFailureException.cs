@@ -21,7 +21,7 @@ internal sealed class E0AGeminiCountTokensFailureException : Exception
     internal static E0AGeminiCountTokensFailureException Transport() =>
         new("gemini-counttokens-transport");
 
-    internal static E0AGeminiCountTokensFailureException Http(
+    private static E0AGeminiCountTokensFailureException Http(
         int httpStatus,
         string? rpcStatus = null,
         IEnumerable<string>? fieldPaths = null)
