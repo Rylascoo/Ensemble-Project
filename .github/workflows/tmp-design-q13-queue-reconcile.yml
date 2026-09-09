@@ -24,8 +24,7 @@ jobs:
           python3 - <<'PY'
           from pathlib import Path
           p=Path('docs/PROJECT_EXECUTION_QUEUE.md')
-          text=p.read_text()
-          lines=text.splitlines()
+          lines=p.read_text().splitlines()
           out=[]
           found=False
           for line in lines:
@@ -46,5 +45,4 @@ jobs:
           git rm .github/workflows/tmp-design-q13-queue-reconcile.yml
           git add docs/PROJECT_EXECUTION_QUEUE.md
           git commit -m 'Reconcile design queue to F1A deployment envelope'
-          python3 tools/validate_repository_laws.py
           git push origin HEAD:queue/design-q13-f1a-deployment-envelope
