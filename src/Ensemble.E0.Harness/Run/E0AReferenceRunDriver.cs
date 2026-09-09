@@ -9,6 +9,7 @@ using Ensemble.E0.Core.Production;
 using Ensemble.E0.Core.StateInterpreter;
 using Ensemble.E0.Core.Turn;
 using Ensemble.E0.Harness.Evidence;
+using Ensemble.E0.Harness.Gemini;
 
 namespace Ensemble.E0.Harness.Run;
 
@@ -367,6 +368,18 @@ internal sealed class E0AReferenceRunDriver
             return new RoleCall(
                 null,
                 external ? E0ARunTerminalStatus.Cancelled : E0ARunTerminalStatus.TechnicalFailure);
+        }
+        catch (E0AGeminiCountTokensFailureException exception)
+        {
+            preflightClock.Stop();
+            _evidence.RecordEvent("preflight.failed", new
+            {
+                attemptId = attempt.AttemptId,
+                code = "input-token-count-failed",
+                providerDiagnostic = exception.Diagnostic,
+                elapsedMs = preflightClock.Elapsed.TotalMilliseconds
+            });
+            return new RoleCall(null, E0ARunTerminalStatus.TechnicalFailure);
         }
         catch (E0AHarnessException exception)
         {
