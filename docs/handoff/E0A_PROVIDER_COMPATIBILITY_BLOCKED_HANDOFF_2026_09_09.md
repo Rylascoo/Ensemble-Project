@@ -16,7 +16,8 @@ Authority: temporary transition guidance only. It is live only while `CURRENT_ST
    - `docs/evidence/E0A_GEMINI_BOUNDED_PROVIDER_ERROR_DIAGNOSTIC_IMPLEMENTATION_AUDIT_2026_09_08.md`;
    - `docs/evidence/E0A_GEMINI_BOUNDED_PROVIDER_ERROR_DIAGNOSTIC_NATIVE_ARM64_VALIDATION_2026_09_08.md`;
    - `docs/evidence/E0A_THIRD_REAL_GEMINI_35_LITE_ATTEMPT_03_ARCHIVE_AUDIT_2026_09_08.md`;
-   - `docs/evidence/E0A_GEMINI_AUTH_TRANSPORT_DIFFERENTIAL_RESULT_2026_09_08.md`.
+   - `docs/evidence/E0A_GEMINI_AUTH_TRANSPORT_DIFFERENTIAL_RESULT_2026_09_08.md`;
+   - `docs/evidence/E0A_FRESH_CHAT_CONTINUITY_RECONCILIATION_2026_09_09.md`.
 4. Re-resolve the latest CI result at the current ref. Hosted compiler/test evidence must not be promoted into native Windows ARM64 runtime authority.
 5. Do not infer an active implementation branch from historical branch names. There is no active engineering implementation branch while Q-E0A-02 is blocked.
 
