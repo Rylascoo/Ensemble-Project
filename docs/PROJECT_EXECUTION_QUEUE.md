@@ -2,7 +2,7 @@
 
 Status: ACTIVE OPERATIONAL REGISTER — sequencing and backlog only. This file does not carry phase, provider, product, design, or validation authority. `CURRENT_STATE.md` remains the only active engineering checkpoint/next-action authority; lane-specific current-state files retain their own volatile boundaries.
 
-Updated: 2026-09-08
+Updated: 2026-09-09
 
 ## Queue law
 
@@ -24,7 +24,7 @@ Updated: 2026-09-08
 | Q-E0B-01 | Evidence / Engineering support | BLOCKED | E0-B mixed-model cast. | E0-A closed. Preserve fixture/Character definitions; E0-B is the deliberate provider/model-diversity exception. | E0-B evidence closed and clearly compared against E0-A. |
 | Q-E0C-01 | Evidence | BLOCKED | E0-C repeated identical-condition runs. | E0-B closed; return to the E0-A same-model reference configuration. | Repetition evidence closes without changing initial state or fixed settings. |
 | Q-E0D-01 | Evidence | BLOCKED | E0-D ablation controls. | E0-C closed; use E0-A same-model reference configuration; vary one named architectural variable at a time. | Required ablations close with isolation intact. |
-| Q-E0E-PREP | Evidence | PREPARATION-READY | Prepare and, if the frozen preparation contract earns it, preconstruct the non-network E0-E single-model playwright control arm. | Director authorization 2026-09-08 permits preparation only. Must preserve the E0-A reference-model/settings identity, complete-Scene playwright condition, blind-review compatibility, and throwaway experimental boundary. No provider execution, scoring/unblinding, or E0-A-D mutation. | Preparation packet is recursively clean and marked ready-for-sequence; any preconstruction is compiler/static only and cannot count as E0-E evidence. Live packet: `docs/handoff/E0E_SINGLE_MODEL_PLAYWRIGHT_CONTROL_PREPARATION_HANDOFF_2026_09_08.md`. |
+| Q-E0E-PREP | Evidence | DONE | Prepare and preconstruct the non-network E0-E single-model playwright control arm. | Director authorization 2026-09-08 permitted preparation only; no provider execution, scoring/unblinding, or E0-A-D mutation. | Closed by `docs/evidence/E0E_SINGLE_MODEL_PLAYWRIGHT_CONTROL_PREPARATION_CLOSEOUT_AUDIT_2026_09_09.md`; frozen contract and throwaway implementation passed recursive audit, hosted win-arm64 cross-compile, deterministic tests 10/10, and standard repository validation. Successor Q-E0E-RUN remains BLOCKED. |
 | Q-E0E-RUN | Evidence | BLOCKED | Execute and score E0-E single-model playwright control. | E0-A, E0-B, E0-C, and E0-D closed; E0-E preparation complete; exact E0-A reference configuration available; any required provider execution separately authorized/current. | Blind scoring recorded before unblinding; E0-E evidence closed as an architecture-isolating control. |
 | Q-E0F-01 | Evidence / Engineering support | BLOCKED | E0-F integrity and failure injection. | E0-E closed; cases remain separately labeled from experiential comparisons. | Hard-gate failure evidence closes without contaminating behavioral scoring. |
 | Q-E0G-01 | Evidence | BLOCKED | E0-G substantially different generalization fixture. | E0-F closed; new no-secret/generalization fixture frozen; first pass uses same-model reference principle. | Generalization evidence closes or falsifies/revises the architecture. |
@@ -73,7 +73,7 @@ These items remain blocked until E0 convergence; detailed requirements stay in `
 Before a substantive project work package ends, ask all four questions:
 
 1. Did this work change the status or prerequisite of any queue item?
-2. Did it expose a new consequential task not already represented in the queue, ODR, hypothesis ledger, roadmap, or lane ledger?
+2. Did it expose a new consequential task not already represented by the queue, ODR, hypothesis ledger, roadmap, or lane ledger?
 3. Is the next executable item still consistent with the exact current-state authority?
 4. Is any later item being prepared or executed before its prerequisite boundary?
 

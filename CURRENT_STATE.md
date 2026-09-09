@@ -1,6 +1,6 @@
 # Ensemble Current State
 
-Updated: 2026-09-08
+Updated: 2026-09-09
 
 ## Authority
 `Rylascoo/Ensemble-Project` is engineering authority. This file alone carries phase/checkpoint/validation/next-action authority. `AGENTS.md` owns bootstrap/closeout; `docs/PROJECT_AUTHORITY.md` owns product/policy/lane authority; `docs/PROJECT_EXECUTION_QUEUE.md` sequences backlog without overriding this state.
@@ -17,9 +17,11 @@ Attempt 03: first Performer `countTokens` HTTP **400**, 0 turns, $0, no generati
 **3.5 Flash-Lite live execution PAUSED; 3.1 Flash-Lite execution DEFERRED. Provider authorization: NONE.** Validation does not authorize credential use or provider traffic.
 
 ## Parallel E0-E
-Q-E0E-PREP contract is **FROZEN**; deterministic non-network preconstruction has passed initial hosted compiler/static tests and is in **FINAL RECURSIVE HARDENING — FINAL HOSTED GATE PENDING** on `e0e-single-model-playwright-control-preparation`. Contract: `docs/blueprint/E0E_SINGLE_MODEL_PLAYWRIGHT_CONTROL_PREPARATION_CONTRACT.md`. Live packet: `docs/handoff/E0E_SINGLE_MODEL_PLAYWRIGHT_CONTROL_PREPARATION_HANDOFF_2026_09_08.md`.
+Q-E0E-PREP is **CLOSED — HOSTED NON-NETWORK PREPARATION VALIDATED**. Frozen contract: `docs/blueprint/E0E_SINGLE_MODEL_PLAYWRIGHT_CONTROL_PREPARATION_CONTRACT.md`. Closeout: `docs/evidence/E0E_SINGLE_MODEL_PLAYWRIGHT_CONTROL_PREPARATION_CLOSEOUT_AUDIT_2026_09_09.md`.
 
-**E0-E execution remains BLOCKED until E0-A -> E0-B -> E0-C -> E0-D close.** No provider request, credentials, spend, transcript production, scoring, or unblinding is authorized by preparation.
+Prepared implementation content tree `90c887358e973f7c4e3b1cd7ba2f56e0028affe9`: dedicated run `34314008749` passed win-arm64 cross-compile and deterministic tests **10/10**; identical-tree validation anchor `b24522de9c0845644ff2b05c8041a76322e6ac95` passed standard run `34314069624`. This is preparation/compiler evidence only, not native runtime or E0-E behavioral evidence.
+
+**Q-E0E-RUN remains BLOCKED until E0-A -> E0-B -> E0-C -> E0-D close.** No provider request, credentials, spend, transcript production, scoring, or unblinding is authorized by preparation.
 
 ## Next
-Q-E0A-02 remains **BLOCKED** pending provider/account/pricing/quota re-verification plus explicit Director authorization. Active E0-A transition: `docs/handoff/E0A_GEMINI_BOUNDED_PROVIDER_ERROR_DIAGNOSTIC_ENGINEERING_HANDOFF_2026_09_08.md`. Finish Q-E0E-PREP recursive audit and hosted non-network gates; compiler/static evidence is preparation evidence, not E0-E behavioral or native-runtime authority.
+Q-E0A-02 remains **BLOCKED** pending provider/account/pricing/quota re-verification plus explicit Director authorization. Active E0-A transition: `docs/handoff/E0A_GEMINI_BOUNDED_PROVIDER_ERROR_DIAGNOSTIC_ENGINEERING_HANDOFF_2026_09_08.md`. No E0-E execution action is currently authorized.
