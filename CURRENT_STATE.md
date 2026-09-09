@@ -24,7 +24,7 @@ Prepared tree `90c887358e973f7c4e3b1cd7ba2f56e0028affe9`: run `34314008749` pass
 **Q-E0E-RUN remains BLOCKED until E0-A -> E0-B -> E0-C -> E0-D close.** No provider request, credentials, spend, transcript production, scoring, or unblinding is authorized.
 
 ## Cross-lane continuity
-Q-DESIGN-08 DONE; Q-DESIGN-09 ACTIVE. MOT-01 preflight is design sequencing only; engineering checkpoint, validation, provider authority, Q-DESIGN-02, and E0 order are unchanged.
+Q-DESIGN-09 DONE; Q-DESIGN-10 ACTIVE. MOT-01 blind review is design sequencing only; engineering checkpoint, validation, provider authority, Q-DESIGN-02, and E0 order are unchanged.
 
 ## Next
 There is **no active engineering implementation branch**. Q-E0A-02 remains **BLOCKED** pending provider/account/pricing/quota re-verification plus explicit Director authorization. Fresh-chat transition: `docs/handoff/E0A_PROVIDER_COMPATIBILITY_BLOCKED_HANDOFF_2026_09_09.md`. No E0-E execution action is authorized.
