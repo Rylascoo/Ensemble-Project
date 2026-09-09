@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <AssemblyName>Ensemble.E0.PlaywrightControl</AssemblyName>
+    <RootNamespace>Ensemble.E0.PlaywrightControl</RootNamespace>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Ensemble.E0.Core\Ensemble.E0.Core.csproj" />
+  </ItemGroup>
+</Project>

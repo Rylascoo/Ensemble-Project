@@ -1,0 +1,42 @@
+name: E0-E preparation gate
+
+on:
+  push:
+    branches:
+      - e0e-single-model-playwright-control-preparation
+    paths:
+      - 'experiments/Ensemble.E0.PlaywrightControl/**'
+      - 'experiments/Ensemble.E0.PlaywrightControl.Tests/**'
+      - '.github/workflows/e0e-preparation-gate.yml'
+      - 'docs/blueprint/E0E_SINGLE_MODEL_PLAYWRIGHT_CONTROL_PREPARATION_CONTRACT.md'
+      - 'docs/handoff/E0E_SINGLE_MODEL_PLAYWRIGHT_CONTROL_PREPARATION_HANDOFF_2026_09_08.md'
+      - 'CURRENT_STATE.md'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'experiments/Ensemble.E0.PlaywrightControl/**'
+      - 'experiments/Ensemble.E0.PlaywrightControl.Tests/**'
+      - '.github/workflows/e0e-preparation-gate.yml'
+      - 'docs/blueprint/E0E_SINGLE_MODEL_PLAYWRIGHT_CONTROL_PREPARATION_CONTRACT.md'
+      - 'docs/handoff/E0E_SINGLE_MODEL_PLAYWRIGHT_CONTROL_PREPARATION_HANDOFF_2026_09_08.md'
+      - 'CURRENT_STATE.md'
+
+permissions:
+  contents: read
+
+jobs:
+  preparation:
+    name: Non-network E0-E compiler and deterministic tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+        with:
+          dotnet-version: '9.0.317'
+      - name: Cross-compile throwaway control for win-arm64
+        run: dotnet build experiments/Ensemble.E0.PlaywrightControl/Ensemble.E0.PlaywrightControl.csproj -c Release -r win-arm64 --no-self-contained
+      - name: Build deterministic preparation tests
+        run: dotnet build experiments/Ensemble.E0.PlaywrightControl.Tests/Ensemble.E0.PlaywrightControl.Tests.csproj -c Release
+      - name: Run deterministic preparation tests
+        run: dotnet test experiments/Ensemble.E0.PlaywrightControl.Tests/Ensemble.E0.PlaywrightControl.Tests.csproj -c Release --no-build

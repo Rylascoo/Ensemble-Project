@@ -1,0 +1,13 @@
+<Project Sdk="MSTest.Sdk/4.1.0">
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Ensemble.E0.PlaywrightControl\Ensemble.E0.PlaywrightControl.csproj" />
+    <ProjectReference Include="..\..\src\Ensemble.E0.Core\Ensemble.E0.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\fixtures\missing-raft\missing-raft-0.1.0.json" Link="Fixtures\missing-raft-0.1.0.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>
