@@ -64,19 +64,36 @@ Hosted workflow run `34307310623` at branch checkpoint `9442b5ced9a6c8eee897ab23
 
 The workflow does **not** execute Harness tests. Therefore this is compiler/static authority plus the required non-authoritative x64 Core regression, not Harness runtime or Windows ARM64 validation.
 
+The later exact pre-native candidate `20f76e7d5f13915471581fb9263d6a0eb1e5343c` also passed the full hosted workflow (`34308724485`), including ARM64 cross-compile and required x64 Core regression. This still did not execute Harness tests.
+
+## Native Windows ARM64 attempt 01 — FAIL
+
+Director-machine validation at exact detached checkout `20f76e7d5f13915471581fb9263d6a0eb1e5343c` used native `win-arm64` / .NET 9 and produced:
+
+- Core: **622/622 PASS**;
+- Harness: **128/130 FAIL**;
+- native Harness log SHA-256: `959880FED1B2736B739E7BAD3B4DFEEC9767620A396CCAF4D45B7B9FAB411B9A`;
+- failed tests: `CountTokensRejectsWrongTypedTotalWithoutEscapingProviderBoundary` and `CountTokensRejectsNonObjectRootWithoutEscapingProviderBoundary`;
+- both failures were exact exception-type expectation mismatches: the stale tests required `E0AHarnessException`, while the frozen amendment intentionally returns dedicated `E0AGeminiCountTokensFailureException` with `gemini-counttokens-response-invalid` for malformed successful `countTokens` responses.
+
+The validation script stopped at Harness failure before build/smoke/credentialless completion. A subsequent read-only integrity check confirmed the validation worktree remained clean/detached at `20f76e7d...` and the historical validated root remained clean/detached at `689655eed...`.
+
+Disposition: **validation failed; no validation tag authorized**. The correction is test-only: preserve the dedicated production exception boundary and update the two stale malformed-response regressions to assert that exact type plus exact bounded diagnostic. No production source semantics are changed by this correction.
+
 ## Concurrent-main reconciliation
 
-During implementation, `main` advanced from `a254c101056e6c3ce5143e16a8dbd27ee6e1a750` to `548f1a5813ab7f3051c35c0de4b491cf6f3751b4` through one Design Sol queue-only commit. Its only file change was `docs/PROJECT_EXECUTION_QUEUE.md`, closing Q-DESIGN-03 and opening Q-DESIGN-04. The exact queue content was adopted on the E0-A branch without changing E0-A authority. Commit `17290f87b44a94769442c20ea3c4ed956b9cf8e3` then reconciled topology by preserving the audited E0-A tree byte-for-byte while adding `548f1a5813ab7f3051c35c0de4b491cf6f3751b4` as a second parent. No E0-A source/test/document content changed in that merge commit.
+During implementation, `main` advanced from `a254c101056e6c3ce514356fb531efddebed8f` to later Design Sol queue-only checkpoints. Those queue contents were adopted without changing E0-A authority, and topology was reconciled with content-preserving ancestry merges where required. The E0-A branch remains ahead of current `main` without engineering divergence; cross-lane queue content is not E0-A authority.
 
 ## Validation boundary
 
 The promoted native executable authority remains `689655eed677b789ab3ee395f1c65b4f2cb72cc8` / `validation/e0a-gemini-counttokens-correction-native-arm64`, with Director Windows ARM64 Core 622/622 and Harness 125/125 plus build/smoke/credentialless PASS.
 
-The amended branch contains later source and test changes. It has **no native runtime authority yet**. Before any future provider request, the final reconciled checkout must:
+The amended branch contains later source and test changes. It has **no native runtime authority yet**. Before any future provider request, the final corrected checkout must:
 
-1. pass the required Windows ARM64 Core and Harness test/build/smoke/credentialless validation;
-2. receive a new annotated validation tag at that exact checkout;
-3. be reflected in `docs/VALIDATION_LEDGER.md` / `CURRENT_STATE.md` without inflating the validation rung;
-4. still require separate explicit Director authorization before any provider traffic.
+1. pass hosted gates on that exact checkout;
+2. pass the required Windows ARM64 Core and Harness test/build/smoke/credentialless validation;
+3. receive a new annotated validation tag at that exact checkout;
+4. be reflected in `docs/VALIDATION_LEDGER.md` / `CURRENT_STATE.md` without inflating the validation rung;
+5. still require separate explicit Director authorization before any provider traffic.
 
-No provider request, credential use, inference, spend, 3.1 execution, E0-A rerun, scoring, or renderer action occurred during this amendment.
+No provider request, credential use, inference, spend, 3.1 execution, E0-A rerun, scoring, or renderer action occurred during this amendment or failed native validation.
