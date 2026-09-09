@@ -1,6 +1,6 @@
 # E0-A Gemini Bounded Provider-Error Diagnostic Implementation Audit — 2026-09-08
 
-Status: **IMPLEMENTED — HOSTED COMPILER/STATIC GATE PASS — NATIVE WINDOWS ARM64 VALIDATION REQUIRED — PROVIDER AUTHORIZATION NONE**
+Status: **IMPLEMENTED — HOSTED PASS — NATIVE WINDOWS ARM64 PASS — PROMOTED MACHINE-TESTED CHECKOUT — PROVIDER AUTHORIZATION NONE**
 
 Authority: subordinate to `CURRENT_STATE.md`, `docs/PROJECT_AUTHORITY.md`, `docs/blueprint/E0A_GEMINI_BOUNDED_PROVIDER_ERROR_DIAGNOSTIC_AMENDMENT.md`, and `docs/evidence/E0A_GEMINI_PROVIDER_COMPATIBILITY_DIRECTOR_DECISION_2026_09_08.md`.
 
@@ -22,12 +22,12 @@ These are generic Google error-model facts, not evidence that every Gemini rejec
 
 The Harness now treats a failed `countTokens` response as follows:
 
-- HTTP status remains the mandatory bounded fact: `gemini-counttokens-http-<HTTP>`.
-- `error.status` is retained only from the frozen canonical Google RPC-status allowlist.
+- HTTP status remains the mandatory bounded fact: `gemini-counttokens-http-<HTTP>`;
+- `error.status` is retained only from the frozen canonical Google RPC-status allowlist;
 - request-field detail is accepted only from exact `type.googleapis.com/google.rpc.BadRequest` `fieldViolations[].field` entries;
 - each field path must use bounded ASCII request-path syntax and resolve through the actual exact outbound `countTokens` JSON hierarchy, including real array indexes; deterministic snake_case aliases of actual camelCase property names are accepted;
 - field paths are deduplicated, ordinal-sorted, and capped at four;
-- the error body is streamed headers-first and read only through the 16 KiB + one-byte oversize sentinel; oversized or malformed diagnostic material collapses to HTTP-only;
+- the error body is streamed headers-first and read only through the 16 KiB + one-byte oversize sentinel; oversized, malformed, or unreadable diagnostic material collapses to HTTP-only;
 - provider `message`, violation `description`, unknown detail types, ErrorInfo/RequestInfo material, headers, URIs, and credential values are never serialized into the diagnostic.
 
 A dedicated `E0AGeminiCountTokensFailureException` carries trusted structured diagnostics to the run driver. The existing generic `E0AHarnessException` path retains only its pre-existing narrow allowlist and therefore does not gain authority to persist arbitrary structured provider text.
@@ -36,22 +36,15 @@ No Core type, fixture, generation payload, rate discipline, retry policy, attemp
 
 ## Regression construction
 
-`GeminiGenerateContentPortWireTests` now supplies an HTTP 400 Google-style `BadRequest` body containing secret-bearing `message` and `description` canaries and asserts that only the canonical status plus an exact request field path escapes.
+`GeminiGenerateContentPortWireTests` supplies an HTTP 400 Google-style `BadRequest` body containing secret-bearing `message` and `description` canaries and asserts that only the canonical status plus an exact request field path escapes.
 
-`GeminiCountTokensFailureDiagnosticTests` falsifies:
+`GeminiCountTokensFailureDiagnosticTests` falsifies malformed/oversized bodies, unknown status/detail material, nonexistent or out-of-range request paths, provider prose leakage, deterministic dedupe/sort, the four-path cap, and exact snake_case-to-request-hierarchy resolution.
 
-1. malformed JSON -> HTTP-only;
-2. body larger than 16 KiB -> HTTP-only;
-3. unknown status, unknown details, nonexistent request fields, and out-of-range indexes -> omitted;
-4. provider prose canary -> absent;
-5. valid fields -> deduplicated, ordinal-sorted, maximum four;
-6. snake_case field location -> accepted only when it resolves to the exact camelCase request hierarchy.
-
-The existing run-driver tests continue to prove that bounded legacy token-count codes can be recorded and arbitrary generic `E0AHarnessException` text is suppressed. The driver separately recognizes the dedicated bounded Gemini failure type, and token-count failure still terminates before any generation role call or spend reservation.
+The run driver recognizes the dedicated bounded Gemini failure type before the legacy safe-code filter; generic Harness exception text remains non-persistable.
 
 ## Hosted validation
 
-Hosted workflow run `34307310623` at branch checkpoint `9442b5ced9a6c8eee897ab2370507059a9c49a79` completed successfully:
+Hosted workflow `34309626093` at exact corrected checkout `e6e7d6c8c7187a87df2c97f2373dd3adbee7ce4a` completed successfully:
 
 - Core build: PASS;
 - Harness build: PASS;
@@ -62,39 +55,55 @@ Hosted workflow run `34307310623` at branch checkpoint `9442b5ced9a6c8eee897ab23
 - oracle assertion coverage: PASS;
 - document authority census: PASS.
 
-The workflow does **not** execute Harness tests. Therefore this is compiler/static authority plus the required non-authoritative x64 Core regression, not Harness runtime or Windows ARM64 validation.
-
-The later exact pre-native candidate `20f76e7d5f13915471581fb9263d6a0eb1e5343c` also passed the full hosted workflow (`34308724485`), including ARM64 cross-compile and required x64 Core regression. This still did not execute Harness tests.
+The workflow does not execute Harness tests; hosted authority therefore remained compiler/static plus the required non-authoritative x64 Core regression.
 
 ## Native Windows ARM64 attempt 01 — FAIL
 
-Director-machine validation at exact detached checkout `20f76e7d5f13915471581fb9263d6a0eb1e5343c` used native `win-arm64` / .NET 9 and produced:
+At exact detached checkout `20f76e7d5f13915471581fb9263d6a0eb1e5343c`:
 
-- Core: **622/622 PASS**;
-- Harness: **128/130 FAIL**;
-- native Harness log SHA-256: `959880FED1B2736B739E7BAD3B4DFEEC9767620A396CCAF4D45B7B9FAB411B9A`;
-- failed tests: `CountTokensRejectsWrongTypedTotalWithoutEscapingProviderBoundary` and `CountTokensRejectsNonObjectRootWithoutEscapingProviderBoundary`;
-- both failures were exact exception-type expectation mismatches: the stale tests required `E0AHarnessException`, while the frozen amendment intentionally returns dedicated `E0AGeminiCountTokensFailureException` with `gemini-counttokens-response-invalid` for malformed successful `countTokens` responses.
+- Core: 622/622 PASS;
+- Harness: 128/130 FAIL;
+- log SHA-256: `959880FED1B2736B739E7BAD3B4DFEEC9767620A396CCAF4D45B7B9FAB411B9A`;
+- failures: `CountTokensRejectsWrongTypedTotalWithoutEscapingProviderBoundary` and `CountTokensRejectsNonObjectRootWithoutEscapingProviderBoundary`.
 
-The validation script stopped at Harness failure before build/smoke/credentialless completion. A subsequent read-only integrity check confirmed the validation worktree remained clean/detached at `20f76e7d...` and the historical validated root remained clean/detached at `689655eed...`.
+Both failures were strict exception-type expectation mismatches: the old tests required `E0AHarnessException`, while the frozen amendment intentionally returns `E0AGeminiCountTokensFailureException` with `gemini-counttokens-response-invalid` for malformed successful `countTokens` responses. The validation stopped before build/smoke/credentialless completion. No tag was authorized.
 
-Disposition: **validation failed; no validation tag authorized**. The correction is test-only: preserve the dedicated production exception boundary and update the two stale malformed-response regressions to assert that exact type plus exact bounded diagnostic. No production source semantics are changed by this correction.
+Correction: test-only. The two stale tests were updated to assert the dedicated type and exact bounded diagnostic. Production source semantics were unchanged.
+
+## Native Windows ARM64 attempt 02 — PASS
+
+At exact clean detached checkout `e6e7d6c8c7187a87df2c97f2373dd3adbee7ce4a` on Director Windows ARM64:
+
+- Core: 622/622 PASS;
+- Harness: 130/130 PASS;
+- fresh Debug `win-arm64` Harness build: PASS, 0 warnings / 0 errors;
+- missing-Raft fixture smoke: PASS;
+- generic fixture smoke: PASS;
+- current-profile credentialless gates: PASS;
+- retired-profile pre-credential rejection: PASS;
+- provider network/inference: NOT PERFORMED;
+- spend: 0;
+- validation worktree remained clean/detached at the exact checkout;
+- historical validated root remained clean/detached at `689655eed677b789ab3ee395f1c65b4f2cb72cc8`.
+
+Native evidence: `docs/evidence/E0A_GEMINI_BOUNDED_PROVIDER_ERROR_DIAGNOSTIC_NATIVE_ARM64_VALIDATION_2026_09_08.md`.
+
+## Promotion
+
+Annotated validation tag:
+
+`validation/e0a-gemini-bounded-provider-error-diagnostic-native-arm64`
+
+Tag object `9b17563474b25920da8615afefdfa3fcfdab884b` was independently verified to dereference exactly to machine-tested checkout `e6e7d6c8c7187a87df2c97f2373dd3adbee7ce4a`.
+
+The temporary connector closeout probe was archived at `archive/tmp-e0a-native-closeout-probe` and its redundant branch removed. It carried zero unique project content.
 
 ## Concurrent-main reconciliation
 
-During implementation, `main` advanced through Design Sol queue-only commits. E0-A adopted or reconciled those cross-lane queue states only when needed; they did not alter E0-A source semantics, provider authority, or validation authority. `main` continued moving after native attempt 01, so its newest commits must be freshly classified before the corrected native checkout is frozen. No cross-lane branch is to be merged by assumption.
+During implementation `main` advanced through Design Sol queue work. E0-A adopted legitimate queue state when needed but did not import the Design-lane edit that attempted to write engineering-authoritative `CURRENT_STATE.md`. Current `main` is an ancestor of the E0-A closeout lineage; no Design-side unique branch is merged by assumption.
 
-## Validation boundary
+## Final boundary
 
-The promoted native executable authority remains `689655eed677b789ab3ee395f1c65b4f2cb72cc8` / `validation/e0a-gemini-counttokens-correction-native-arm64`, with Director Windows ARM64 Core 622/622 and Harness 125/125 plus build/smoke/credentialless PASS.
+Q-E0A-01 is machine-validated and may close after its durable state/queue bookkeeping passes repository gates. Q-E0A-02 remains blocked. Before any future provider request, provider/account/pricing/quota facts must be reverified and explicit Director authorization must be granted.
 
-The amended branch contains later source and test changes. It has **no native runtime authority yet**. Before any future provider request, the final corrected checkout must:
-
-1. freshly classify and reconcile current `main` only if required;
-2. pass hosted gates on that exact checkout;
-3. pass the required Windows ARM64 Core and Harness test/build/smoke/credentialless validation;
-4. receive a new annotated validation tag at that exact checkout;
-5. be reflected in `docs/VALIDATION_LEDGER.md` / `CURRENT_STATE.md` without inflating the validation rung;
-6. still require separate explicit Director authorization before any provider traffic.
-
-No provider request, credential use, inference, spend, 3.1 execution, E0-A rerun, scoring, or renderer action occurred during this amendment or failed native validation.
+Validation does not establish live Gemini compatibility and does not authorize credentials, provider traffic, inference, spend, 3.1 execution, E0-A rerun, scoring, or renderer action.

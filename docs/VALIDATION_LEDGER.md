@@ -6,25 +6,25 @@ Status: validation fact register only. This file cannot advance phase/checkpoint
 
 | Field | Fact |
 |---|---|
-| Exact checkout | `689655eed677b789ab3ee395f1c65b4f2cb72cc8` |
-| Annotated tag | `validation/e0a-gemini-counttokens-correction-native-arm64` |
-| Tag object | `7337ec6c6ff7c6d9d12c9a1322d0c5981e5fdb83`; dereferences to exact checkout above |
-| Architecture | `docs/blueprint/E0A_PHASE_B_GEMINI_FREE_TIER_RPD_MODEL_SELECTION_AMENDMENT.md` |
-| Correction | nested `generateContentRequest.model` for Gemini `countTokens`; generation payload unchanged; bounded countTokens diagnostics |
-| Native evidence | `docs/evidence/E0A_GEMINI_COUNTTOKENS_CORRECTION_NATIVE_ARM64_VALIDATION_2026_09_08.md` |
-| Supporting implementation audit | `docs/evidence/E0A_GEMINI_FREE_TIER_RPD_MODEL_SELECTION_IMPLEMENTATION_AUDIT.md` |
+| Exact checkout | `e6e7d6c8c7187a87df2c97f2373dd3adbee7ce4a` |
+| Annotated tag | `validation/e0a-gemini-bounded-provider-error-diagnostic-native-arm64` |
+| Tag object | `9b17563474b25920da8615afefdfa3fcfdab884b`; independently verified to dereference to the exact checkout above |
+| Architecture | `docs/blueprint/E0A_GEMINI_BOUNDED_PROVIDER_ERROR_DIAGNOSTIC_AMENDMENT.md` |
+| Correction | bounded structured Gemini `countTokens` failure diagnostics plus test-only repair of two stale malformed-response exception expectations |
+| Native evidence | `docs/evidence/E0A_GEMINI_BOUNDED_PROVIDER_ERROR_DIAGNOSTIC_NATIVE_ARM64_VALIDATION_2026_09_08.md` |
+| Supporting implementation audit | `docs/evidence/E0A_GEMINI_BOUNDED_PROVIDER_ERROR_DIAGNOSTIC_IMPLEMENTATION_AUDIT_2026_09_08.md` |
 | Director-host contract | `docs/evidence/DIRECTOR_WINDOWS_ARM64_VALIDATION_HOST_BEHAVIORS.md` |
 | Host | Director Windows ARM64 (`win-arm64`) |
 | Core tests | 622/622 PASS |
-| Harness tests | 125/125 PASS |
-| Fresh Harness build | `win-arm64` PASS |
+| Harness tests | 130/130 PASS |
+| Fresh Harness build | `win-arm64` PASS, 0 warnings / 0 errors |
 | Fixture smokes | missing-Raft PASS; generic PASS |
 | Current credentialless live-profile gate | 3.5 Lite, 3.1 Lite, 2.5 Lite expected missing-key refusal PASS; no evidence roots |
 | Retired 2.5 Flash live selection | expected pre-credential rejection PASS; no evidence root |
-| Correction native-validation provider scope | provider network / `countTokens` / inference / spend NOT PERFORMED; no real-run authorization |
-| First-real attempt 01 | predecessor `3d6d8a7f...`; first Performer countTokens preflight failed; generation/inference absent; authorization consumed |
+| Provider scope | network / `countTokens` / inference / spend NOT PERFORMED; provider authorization NONE |
+| Native attempt 01 | `20f76e7d5f13915471581fb9263d6a0eb1e5343c`: Core 622/622 PASS, Harness 128/130 FAIL; no validation tag authorized |
 
-Native runtime authority applies only to exact checkout `689655...`. Documentation-only commits after it do not inherit machine-test authority. Cloud ARM64-target builds remain compiler authority only; Linux x64 Core tests remain required semantic regressions, not native Windows ARM64 runtime authority.
+Native runtime authority applies only to exact checkout `e6e7d6c8c7187a87df2c97f2373dd3adbee7ce4a`. Documentation-only commits after it do not inherit machine-test authority. Cloud ARM64-target builds remain compiler authority only; Linux x64 Core tests remain required semantic regressions, not native Windows ARM64 runtime authority.
 
 ## Durable historical native validation tags
 

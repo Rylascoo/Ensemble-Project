@@ -1,6 +1,6 @@
 # E0-A Gemini Bounded Provider-Error Diagnostic — Native Windows ARM64 Validation
 
-Status: **PASS — MACHINE-TESTED CHECKOUT — VALIDATION TAG PENDING**
+Status: **PASS — PROMOTED MACHINE-TESTED CHECKOUT**
 
 Date: **2026-09-08**
 
@@ -8,9 +8,7 @@ Date: **2026-09-08**
 
 `e6e7d6c8c7187a87df2c97f2373dd3adbee7ce4a`
 
-The Director packet advanced the existing dedicated validation worktree from failed candidate `20f76e7d5f13915471581fb9263d6a0eb1e5343c` to this exact corrected checkout only after confirming the prior worktree was clean, detached, and contained no material untracked `src/`, `tests/`, or `fixtures/` paths.
-
-Remote branch `e0a-gemini-bounded-provider-error-diagnostic` was independently resolved to the same exact checkout before validation.
+Native attempt 02 validated this exact clean detached checkout after failed attempt 01 at `20f76e7d5f13915471581fb9263d6a0eb1e5343c` exposed two stale malformed-`countTokens` test expectations. The correction between attempts was test-only; production source semantics did not change.
 
 ## Hosted prerequisite
 
@@ -43,8 +41,6 @@ Core tests      622/622 PASS
 Harness tests   130/130 PASS
 ```
 
-The Harness count increases from failed attempt 01's 128/130 result because the two stale malformed-`countTokens` exception expectations were corrected without changing production source semantics.
-
 ## Fresh native build and fixture smokes
 
 All stale Core/Harness/test `bin` and `obj` outputs were removed before execution.
@@ -64,9 +60,7 @@ Current live profiles each returned the exact expected missing-key refusal:
 - `GEMINI-3.1-FLASH-LITE-MINIMAL` / `CREATIVE-MINIMAL`;
 - `GEMINI-2.5-FLASH-LITE-NONE` / `CREATIVE-NONE`.
 
-The retired `GEMINI-2.5-FLASH-NONE` route returned the expected pre-credential live-selection rejection.
-
-Each credentialless probe was required to leave its evidence root absent.
+The retired `GEMINI-2.5-FLASH-NONE` route returned the expected pre-credential live-selection rejection. Each probe was required to leave its evidence root absent.
 
 ## Post-validation integrity
 
@@ -76,12 +70,10 @@ After all native tests, build, fixture smokes, and credentialless gates:
 - checkout remained detached;
 - tracked and staged trees remained clean;
 - no material untracked `src/`, `tests/`, or `fixtures/` path remained;
-- `GEMINI_API_KEY` and `OPENAI_API_KEY` remained absent;
+- provider-key environment variables remained absent;
 - historical validated root remained clean and detached at `689655eed677b789ab3ee395f1c65b4f2cb72cc8`.
 
-The packet reached:
-
-`BOUNDED_DIAGNOSTIC_NATIVE_RERUN=PASS`
+The packet reached `BOUNDED_DIAGNOSTIC_NATIVE_RERUN=PASS`.
 
 ## Provider/network scope
 
@@ -92,14 +84,20 @@ Gemini spend              0
 Provider authorization    NONE
 ```
 
-This evidence validates native Windows ARM64 execution of the bounded provider-error diagnostic source/test/credentialless boundary only. It does not establish live Gemini compatibility, successful provider `countTokens`, account/quota availability, inference, generation quality, live usage accounting, latency, or spend behavior.
+This validation establishes native Windows ARM64 execution authority only for the exact bounded-diagnostic checkout. It does not establish live Gemini compatibility, successful provider `countTokens`, account/quota availability, inference, generation quality, live usage accounting, latency, or spend behavior.
 
-## Validation disposition
+## Promotion
 
-Native attempt 02 is **PASS** at exact machine-tested checkout `e6e7d6c8c7187a87df2c97f2373dd3adbee7ce4a`.
-
-Intended annotated validation tag:
+Annotated validation tag:
 
 `validation/e0a-gemini-bounded-provider-error-diagnostic-native-arm64`
 
-The tag is not yet recorded as promoted authority in this document, `docs/VALIDATION_LEDGER.md`, or `CURRENT_STATE.md`. Promotion requires creation of the annotated tag at the exact machine-tested checkout, independent dereference verification, and durable recording of its tag object. Validation does not authorize provider traffic.
+Tag object:
+
+`9b17563474b25920da8615afefdfa3fcfdab884b`
+
+Independent GitHub readback confirmed that annotated tag object dereferences exactly to `e6e7d6c8c7187a87df2c97f2373dd3adbee7ce4a`.
+
+The temporary connector-created closeout probe was separately archived as `archive/tmp-e0a-native-closeout-probe` (tag object `64c1830ff95171ada835c61b8a79a4024a04f2c2`, same exact target) and its remote branch was deleted. It never carried unique project content or authority.
+
+`CURRENT_STATE.md` and `docs/VALIDATION_LEDGER.md` may therefore name `e6e7d6c8...` as the current promoted machine-tested checkpoint. Later documentation-only commits do not inherit native runtime authority. Validation does not authorize provider traffic.
