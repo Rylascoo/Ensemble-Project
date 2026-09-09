@@ -22,7 +22,7 @@ Director reconfirmed `gemini-3.5-flash-lite` at **15 RPM / 250,000 input TPM / 5
 Q-E0E-PREP **CLOSED — HOSTED NON-NETWORK PREPARATION VALIDATED**. Contract: `docs/blueprint/E0E_SINGLE_MODEL_PLAYWRIGHT_CONTROL_PREPARATION_CONTRACT.md`. Closeout: `docs/evidence/E0E_SINGLE_MODEL_PLAYWRIGHT_CONTROL_PREPARATION_CLOSEOUT_AUDIT_2026_09_09.md`. Q-E0E-RUN remains BLOCKED until E0-A -> E0-B -> E0-C -> E0-D close.
 
 ## Cross-lane
-Q-DESIGN-09 DONE; Q-DESIGN-10 ACTIVE. Engineering authority/order unchanged.
+Q-DESIGN-10 DONE by Director + Design Sol adjudication; F1 Ordered Stagger is provisional design incumbent; Q-DESIGN-11 ACTIVE. This design-workflow change does not alter E0 blind scoring or engineering order.
 
 ## Next
 Q-E0A-02 is **ACTIVE only for unconsumed Attempt 04**. Execute from a new linked Windows ARM64 worktree pinned to the validation tag. Failed first full-request `countTokens` => terminate/no generation; success may continue in the same run. Provider-contact terminal result consumes authorization; then authority returns to NONE and evidence requires recursive audit. Handoff: `docs/handoff/E0A_GEMINI35_ATTEMPT04_AUTHORIZED_HANDOFF_2026_09_09.md`. No other provider/E0-E execution is authorized.
