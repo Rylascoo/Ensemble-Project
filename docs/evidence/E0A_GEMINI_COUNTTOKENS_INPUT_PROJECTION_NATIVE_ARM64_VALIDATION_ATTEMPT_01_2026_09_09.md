@@ -1,6 +1,6 @@
 # E0-A Gemini `countTokens` Input Projection — Native Windows ARM64 Validation Attempt 01
 
-Status: **FAIL — HARNESS 130/131; DOWNSTREAM NATIVE PACKAGE NOT EXECUTED**
+Status: **FAIL — HARNESS 130/131; DIAGNOSED STALE TEST ORACLE; DOWNSTREAM NATIVE PACKAGE NOT EXECUTED**
 
 Date: **2026-09-09**
 
@@ -49,15 +49,69 @@ HARNESS_TEST_EXIT=1
 
 Result: **FAIL — 130/131**.
 
-MSTest reported its detailed result log at:
+The validation wrapper correctly stopped at this point.
+
+## Read-only failure-log extraction
+
+The Director subsequently read the existing MSTest log without rerunning the suite.
+
+Log path:
 
 `tests\Ensemble.E0.Harness.Tests\bin\Debug\net9.0\TestResults\Ensemble.E0.Harness.Tests_net9.0_arm64.log`
 
-The submitted console output did not include the failing test name, assertion expected/actual values, or stack trace. Those facts therefore remain **NOT ESTABLISHED** until that existing log is read.
+Log SHA-256:
+
+`1A79B95C4683FD0B212721E03ADCD8335730292415604D845793BA50392A18BF`
+
+Exact failing test:
+
+`GeminiModelComparisonTests.GenerateContentPort_AcceptsEveryApprovedComparisonModelForSchemaCompleteTokenPreflight`
+
+Exact assertion:
+
+```text
+Assert.AreEqual failed. Expected:<5>. Actual:<3>.
+expected: generationBody.RootElement.EnumerateObject().Count() + 1
+actual: nested.EnumerateObject().Count()
+```
+
+Stack trace localizes the failure to `GeminiModelComparisonTests.cs:109`.
+
+The diagnostic extraction also established:
+
+- validation HEAD still exact candidate `de38d5d52279c22a1786e11200239c445e04377b`;
+- tracked diff exit `0`;
+- staged diff exit `0`;
+- material untracked files under `src` / `tests` / `fixtures`: none;
+- historical root still `689655eed677b789ab3ee395f1c65b4f2cb72cc8`;
+- process Gemini/OpenAI keys absent;
+- provider network not requested.
+
+## Failure classification
+
+**STALE TEST ORACLE — NOT A PRODUCTION DEFECT.**
+
+Q-E0A-04 intentionally changed the Gemini `countTokens` nested request from the prior schema-complete copy to the frozen input-semantic projection:
+
+- `model`;
+- `systemInstruction`;
+- `contents`.
+
+The failed comparison test retained the superseded expectation that every prepared generation field plus nested `model` must be copied into `countTokens`, hence expected five fields. The corrected production implementation and dedicated Q-E0A-04 wire oracle both require exactly three nested fields and exclude `generationConfig` / `store` from token preflight.
+
+No source/runtime change is justified by this failure.
+
+Test-only correction commit:
+
+`48a6e67a5f5834b40bcca1b530b87f537140984e`
+
+The correction changes the comparison oracle across every approved Gemini comparison model to require the same three-field input-semantic projection, verify exact hashes for `systemInstruction` and `contents`, and verify that the original generation body still retains `generationConfig` and `store=false`.
+
+Hosted Validation gate `34402647899` completed **SUCCESS** for that test-only correction.
 
 ## Hard-stop consequence
 
-The validation wrapper correctly threw immediately on the Harness nonzero exit. Therefore Attempt 01 did **not** establish results for:
+Attempt 01 did **not** establish results for:
 
 - the fresh post-test Harness build;
 - Missing Raft fixture smoke;
@@ -70,23 +124,18 @@ The validation wrapper correctly threw immediately on the Harness nonzero exit. 
 - final provider-key absence check;
 - final historical-root identity/status preservation check.
 
-No result from those unexecuted stages may be inferred from earlier checkpoints or visible preflight state.
+No result from those unexecuted stages may be inferred.
 
 ## Provider/network scope
 
-The packet removed both provider-key process variables before the test suite and failed during local Harness tests before any live-run probe. The submitted execution contains no provider request, inference, generation, or spend. Provider authorization remains **NONE**.
-
-## Classification boundary
-
-This failed attempt does not by itself prove an ARM64-specific production defect. The hosted gate compiled but did not execute the Harness test suite. Q-E0A-04 changed only `GeminiGenerateContentPort.cs` plus `GeminiGenerateContentPortWireTests.cs`, replacing one countTokens wire oracle and adding one net Harness test. Exact failure classification must therefore wait for the native TestResults log rather than being inferred from architecture or changed-file proximity.
-
-Do not patch source/tests until the failing test, expected/actual result, and stack trace are established from that log.
+The packet removed both provider-key process variables before the test suite and failed during local Harness tests before any live-run probe. The execution and later log extraction contain no provider request, inference, generation, or spend. Provider authorization remains **NONE**.
 
 ## Authority consequence
 
 - candidate `de38d5d52279c22a1786e11200239c445e04377b` is **NOT native-machine-validated**;
 - do **not** create a validation tag for it;
 - promoted native authority remains `e6e7d6c8c7187a87df2c97f2373dd3adbee7ce4a`;
-- Q-E0A-04 remains active for diagnosis/correction;
+- Q-E0A-04 remains active for a complete Native Attempt 02 on a new exact candidate containing the test correction;
+- preserve the Attempt-01 worktree/log as historical evidence; do not repurpose it for Attempt 02;
 - provider authorization remains **NONE**;
 - Q-E0A-03, E0-B+, and E0-E execution remain blocked.
