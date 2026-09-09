@@ -1,6 +1,6 @@
 # E0-A Gemini `countTokens` Input Projection — Native Windows ARM64 Validation Handoff
 
-Status: **NATIVE VALIDATION READY — PROVIDER AUTHORIZATION NONE**
+Status: **NATIVE ATTEMPT 01 FAILED — DIAGNOSIS REQUIRED — PROVIDER AUTHORIZATION NONE**
 
 Recorded: **2026-09-09**
 
@@ -17,59 +17,67 @@ Validate the exact documentation-inclusive Q-E0A-04 correction checkout on the D
 
 ## Candidate identity
 
-The Director packet must provide one exact candidate SHA from branch `e0a-gemini-counttokens-input-projection-correction`. Do not substitute a later head, `main`, source-only predecessor, or older validation tag. Every validation command must use the same clean detached checkout.
+Attempt 01 candidate:
 
-Current promoted native authority before this validation remains `e6e7d6c8c7187a87df2c97f2373dd3adbee7ce4a`.
+`de38d5d52279c22a1786e11200239c445e04377b`
+
+Branch: `e0a-gemini-counttokens-input-projection-correction`.
+
+Current promoted native authority remains `e6e7d6c8c7187a87df2c97f2373dd3adbee7ce4a`.
+
+## Attempt 01 result
+
+Attempt 01 is frozen as **FAIL** in:
+
+`docs/evidence/E0A_GEMINI_COUNTTOKENS_INPUT_PROJECTION_NATIVE_ARM64_VALIDATION_ATTEMPT_01_2026_09_09.md`
+
+Established:
+
+- exact detached candidate `de38d5d5...`;
+- native Windows ARM64 host identity passed;
+- provider keys absent before testing;
+- stale outputs cleared;
+- Core **622/622 PASS**;
+- Harness **130/131 FAIL**.
+
+The packet hard-stopped on `HARNESS_TEST_EXIT=1`. Fresh Harness build, fixture smokes, credentialless route gates, and final closeout checks were not executed and must not be inferred.
+
+The submitted console output did not contain the failing test identity, expected/actual assertion, or stack trace. The next action is to read the existing native result log:
+
+`tests\Ensemble.E0.Harness.Tests\bin\Debug\net9.0\TestResults\Ensemble.E0.Harness.Tests_net9.0_arm64.log`
+
+Do not patch source/tests and do not rerun the full native package until that failure is classified.
 
 ## Worktree law
 
-Use a separate linked worktree. Never `checkout`, `switch`, `reset`, or repurpose the historical root:
-
-`C:\Users\Wiryl\Sol Dev\Ensemble-Project`
-
-Recommended validation worktree:
+Use the existing separate detached worktree only for read-only failure diagnosis until a correction is frozen:
 
 `C:\Users\Wiryl\Sol Dev\Ensemble-Project-Worktrees\e0a-counttokens-input-projection-native-arm64`
 
-If that path already exists, inspect rather than deleting or repurposing it.
+Never `checkout`, `switch`, `reset`, patch, or repurpose the historical root:
 
-## Preflight
-
-Verify before execution:
-
-- `PROCESSOR_ARCHITECTURE=ARM64`;
-- `dotnet --info` succeeds and reports Host architecture `arm64` plus RID `win-arm64`;
-- candidate exists after `git fetch --prune origin`;
-- `origin/e0a-gemini-counttokens-input-projection-correction` resolves exactly to the packet candidate;
-- validation checkout is detached and clean;
-- historical-root HEAD/status are recorded and remain unchanged;
-- process `GEMINI_API_KEY` and `OPENAI_API_KEY` are absent.
+`C:\Users\Wiryl\Sol Dev\Ensemble-Project`
 
 Follow `docs/evidence/DIRECTOR_WINDOWS_ARM64_VALIDATION_HOST_BEHAVIORS.md`; do not use blank-prone PowerShell `RuntimeInformation` properties as architecture gates.
 
-## Required native package
+## Native package after correction
 
-Use the established native rung:
+If diagnosis proves a source/test correction is required, freeze a new exact candidate and repeat the complete established native rung from the beginning:
 
 1. clear stale `bin`/`obj` beneath current Core/Harness/test surfaces;
-2. run complete `Ensemble.E0.Core.Tests`;
-3. run complete `Ensemble.E0.Harness.Tests`;
+2. complete `Ensemble.E0.Core.Tests`;
+3. complete `Ensemble.E0.Harness.Tests`;
 4. fresh Debug Harness build for `net9.0/win-arm64`;
 5. frozen Missing Raft fixture smoke;
 6. generic E0 smoke fixture;
-7. with both provider keys absent, exercise current live selection boundaries for:
-   - `GEMINI-3.5-FLASH-LITE-MINIMAL` / `CREATIVE-MINIMAL`;
-   - `GEMINI-3.1-FLASH-LITE-MINIMAL` / `CREATIVE-MINIMAL`;
-   - `GEMINI-2.5-FLASH-LITE-NONE` / `CREATIVE-NONE`;
-8. require exact missing-key refusal and absent evidence root for each;
-9. require retired `GEMINI-2.5-FLASH-NONE` pre-credential live-selection rejection;
-10. re-check candidate HEAD, detached/clean status, keys absent, probe evidence roots absent, and historical-root preservation.
-
-The prior promoted checkpoint had Core 622 and Harness 130 tests. Q-E0A-04 replaces one Harness wire test and adds one, so **131 Harness tests** are expected if no later Harness-test change exists. Actual native discovery is authoritative.
+7. current live-selection credentialless boundaries for Gemini 3.5 Flash-Lite, 3.1 Flash-Lite, and 2.5 Flash-Lite with both provider keys absent;
+8. exact missing-key refusal and absent evidence root for each;
+9. retired `GEMINI-2.5-FLASH-NONE` pre-credential rejection;
+10. final candidate HEAD/detached/clean, key absence, evidence-root absence, and historical-root preservation.
 
 ## Failure law
 
-Any compiler/test/smoke/credentialless mismatch, evidence-root leak, dirty checkout, candidate mismatch, or root-preservation defect makes the attempt **FAIL**. Do not patch inside the validation worktree and do not create a validation tag for a failed/partial package.
+Any compiler/test/smoke/credentialless mismatch, evidence-root leak, dirty checkout, candidate mismatch, or root-preservation defect makes an attempt **FAIL**. Do not patch inside the validation worktree and do not create a validation tag for a failed/partial package.
 
 For expected-failure native probes, follow the host-behavior law: temporarily use `$ErrorActionPreference = 'Continue'`, capture stdout/stderr to files, capture `$LASTEXITCODE` immediately, restore the setting, then assert exit/message/filesystem independently.
 
