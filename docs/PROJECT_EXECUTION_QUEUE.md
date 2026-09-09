@@ -69,3 +69,22 @@ These items remain blocked until E0 convergence; detailed requirements stay in `
 | Q-BETA-01 | BLOCKED | Beta/release architecture convergence and hardening. |
 | Q-RELEASE-01 | BLOCKED | Exact ARM64 MSIX candidate, security/dependency provenance, install/upgrade testing, and WACK. |
 | Q-STORE-01 | BLOCKED | Director Store submission decision and Partner Center certification. |
+
+## Standing registers that must not be forgotten
+
+- `docs/OPEN_DESIGN_REGISTER_CONTINUATION.md`: unresolved product/design questions remain open until Director resolution.
+- `docs/HYPOTHESIS_LEDGER.md`: each open/narrowed hypothesis carries its own verification trigger; queue work must honor those triggers when relevant.
+- `docs/VALIDATION_LEDGER.md`: exact machine-tested checkpoints and validation rung; later documentation never inherits runtime authority automatically.
+- `docs/evidence/DESIGN_REPOSITORY_POINTER.md` and `docs/REPOSITORY_RESIDENCY.md`: cross-lane/design location and canonical-home rules.
+- `Rylascoo/Ensemble-Website/docs/evidence/DESIGN_LEDGER.md`: Design Sol closure/reopening history.
+
+## Closeout check
+
+Before a substantive project work package ends, ask all four questions:
+
+1. Did this work change the status or prerequisite of any queue item?
+2. Did it expose a new consequential task not already represented by the queue, ODR, hypothesis ledger, roadmap, or lane ledger?
+3. Is the next executable item still consistent with the exact current-state authority?
+4. Is any later item being prepared or executed before its prerequisite boundary?
+
+A clean closeout leaves those answers reconciled in durable repository state, not merely in conversation.
