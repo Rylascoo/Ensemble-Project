@@ -1,6 +1,6 @@
 # E0-A Fresh-Chat Continuity Reconciliation — 2026-09-09
 
-Status: **CORRECTION REQUIRED AND IMPLEMENTED ON DOCUMENTATION BRANCH — NO RUNTIME OR PROVIDER AUTHORITY CHANGE**
+Status: **CORRECTED, VALIDATED, AND INTEGRATED TO `main` — NO RUNTIME OR PROVIDER AUTHORITY CHANGE**
 
 ## Trigger
 
@@ -45,15 +45,37 @@ Remote branch deletion is not exposed by the current GitHub connector, so this w
 
 The documentation reconciliation:
 
-1. replaces the obsolete implementation-era handoff with `docs/handoff/E0A_PROVIDER_COMPATIBILITY_BLOCKED_HANDOFF_2026_09_09.md`;
-2. updates `CURRENT_STATE.md` to state that there is **no active engineering implementation branch** and to name the new blocked-transition handoff;
-3. removes `docs/handoff/E0A_GEMINI_BOUNDED_PROVIDER_ERROR_DIAGNOSTIC_ENGINEERING_HANDOFF_2026_09_08.md` from the current tree;
-4. preserves Q-E0A-02 as **BLOCKED**, provider authorization **NONE**, 3.5 Flash-Lite **PAUSED**, 3.1 Flash-Lite **DEFERRED**, and Q-E0E-RUN **BLOCKED**;
-5. preserves all Design Sol queue state already present on current `main`.
+1. replaced the obsolete implementation-era handoff with `docs/handoff/E0A_PROVIDER_COMPATIBILITY_BLOCKED_HANDOFF_2026_09_09.md`;
+2. updated `CURRENT_STATE.md` to state that there is **no active engineering implementation branch** and to name the new blocked-transition handoff;
+3. removed `docs/handoff/E0A_GEMINI_BOUNDED_PROVIDER_ERROR_DIAGNOSTIC_ENGINEERING_HANDOFF_2026_09_08.md` from the current tree;
+4. preserved Q-E0A-02 as **BLOCKED**, provider authorization **NONE**, 3.5 Flash-Lite **PAUSED**, 3.1 Flash-Lite **DEFERRED**, and Q-E0E-RUN **BLOCKED**;
+5. preserved all Design Sol queue state already present on current `main`.
+
+## Validation and integration
+
+Initial correction commit `42cfe9f5666fd5faf8211857b576ba0858da54e8` exposed one document-authority-census defect: this reconciliation evidence itself was current but not reachable from an authority root. No source/runtime defect was implicated.
+
+The handoff was then linked explicitly to this evidence at correction commit:
+
+`e297a0ca1e00d420df442bf38d41e59dc3e20504`
+
+Hosted Validation gate `34319284514` on the documentation branch completed **SUCCESS** after that correction, including:
+
+- repository law enforcement: PASS;
+- document authority census: PASS;
+- oracle assertion coverage: PASS;
+- required x64 Core regression: PASS;
+- ARM64 compiler/cross-compile gate: PASS.
+
+After an exact race check confirmed that `main` still pointed to `60f1fc74151898920fc65dfe510802b39a4a0d76`, `main` was advanced by non-forced fast-forward to `e297a0ca1e00d420df442bf38d41e59dc3e20504`.
+
+Hosted Validation gate `34319428477` on the exact promoted `main` also completed **SUCCESS** across the same five gates.
+
+This documentation integration does not inherit, replace, or expand native Windows ARM64 runtime authority. The promoted machine-tested executable remains exactly `e6e7d6c8c7187a87df2c97f2373dd3adbee7ce4a` under `validation/e0a-gemini-bounded-provider-error-diagnostic-native-arm64`.
 
 ## Authority and scope audit
 
-No `src/`, `tests/`, fixtures, project/build files, workflow definitions, provider configuration, frozen E0-A contract, E0-E implementation, or validation ledger entry changes in this package.
+No `src/`, `tests/`, fixtures, project/build files, workflow definitions, provider configuration, frozen E0-A contract, E0-E implementation, or validation ledger entry changed in this package.
 
 The correction does not:
 
@@ -67,8 +89,6 @@ The correction does not:
 
 ## Recursive audit result
 
-The corrected transition surface was audited against current state, queue law, Director decision, native validation evidence, branch topology, E0-E closeout, and concurrent design-lane continuity.
+The integrated transition surface was audited against current state, queue law, Director decision, native validation evidence, exact branch topology, E0-E closeout, validation results, and concurrent design-lane continuity.
 
-Result: the replacement handoff is consistent with the current blocked E0-A boundary and removes the material stale-bootstrap risk without expanding project authority.
-
-Repository-law/document-census/oracle/compiler regression status must remain green on the correction commit before integration to `main`.
+Result: the replacement handoff is consistent with the current blocked E0-A boundary, the authority graph is fully reachable, and the stale-bootstrap risk is removed without expanding project authority.
