@@ -1,0 +1,49 @@
+name: Temporary MOT-01 blind-review queue
+
+on:
+  push:
+    branches:
+      - tmp/mot01-blind-review-queue
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - name: Reconcile design queue only
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('docs/PROJECT_EXECUTION_QUEUE.md')
+          s=p.read_text()
+          old="| Q-DESIGN-09 | Design Sol | ACTIVE | Materialize the deterministic MOT-01 browser-native harness/reviewer surface/manifest/blinding key and run **structural + accessibility preflight only**. | Preserve the exact 24 IDs, neutral carrier/static endpoints, F1-F4 timing vectors, WEB/APP amplitude-only adaptation, CNEG/CPOS control roles, FULL/REDUCED states and frozen review law from Website main `38e3ea61d336900fb05a0a6b2e8e5206aa23a5d0`. Freeze browser/OS/font/devicePixelRatio/viewport/source-hash provenance before reviewer exposure. Preflight may execute the frozen temporal fixtures only to verify contract conformance, 320px containment, keyboard/focus behavior and complete `prefers-reduced-motion` suppression. No blinded scoring/reviewer judgment until preflight is clean; no image/video generation, Stage motion, product-state motion, production timing tokens, app implementation, website deployment or final identity decision. | Deterministic packet and preflight evidence are durably recorded. If preflight is clean, blinded scoring may be considered under a separate successor gate; a non-mechanical hard failure follows the frozen MOT-01 termination law. |"
+          new="| Q-DESIGN-09 | Design Sol | DONE | Materialized the deterministic MOT-01 browser-native packet and completed structural + accessibility preflight with no reviewer exposure or scoring. | Closed on `Rylascoo/Ensemble-Website/main` at `c3999320a60bed0d455d985966bc0eee57f7c5bf`; `docs/evidence/MOT_01_STRUCTURAL_ACCESSIBILITY_PREFLIGHT_01.json`, Website `CURRENT_STATE.md`, and Design Ledger L-039 carry the authoritative result. Attempt 01 was an invalid wall-clock diagnostic and created no family result; Attempt 02 is the valid clean deterministic preflight. | Packet/preflight frozen and clean; successor is Q-DESIGN-10. |\n| Q-DESIGN-10 | Design Sol / Director / independent human | ACTIVE | Collect the frozen MOT-01 **blinded primary review records** against the exact anonymous packet; no family aggregation or unblinding yet. | Use Website main `c3999320a60bed0d455d985966bc0eee57f7c5bf` without source changes. Preserve anonymous IDs and the frozen review law. Exactly three primary records are required; at most one may be from the construction author and at least one must be a Director/independent human record. Reviewers must not see family/source IDs before their records are frozen. No evidence-aware retuning, F5, reroll, production motion token selection, Stage motion, app implementation, website deployment or final identity decision. | Three blind primary records are durably frozen with reviewer provenance and no premature unblinding; only then may a separate successor gate unblind, calibrate controls, aggregate and apply the frozen conjunctive pass/fail + termination law. |"
+          if old not in s:
+              raise SystemExit('Q-DESIGN-09 source row mismatch')
+          p.write_text(s.replace(old,new))
+
+          c=Path('CURRENT_STATE.md')
+          t=c.read_text()
+          old2='Q-DESIGN-08 DONE; Q-DESIGN-09 ACTIVE. MOT-01 preflight is design sequencing only; engineering checkpoint, validation, provider authority, Q-DESIGN-02, and E0 order are unchanged.'
+          new2='Q-DESIGN-09 DONE; Q-DESIGN-10 ACTIVE. MOT-01 blind review is design sequencing only; engineering checkpoint, validation, provider authority, Q-DESIGN-02, and E0 order are unchanged.'
+          if old2 not in t:
+              raise SystemExit('CURRENT_STATE cross-lane source mismatch')
+          c.write_text(t.replace(old2,new2))
+          PY
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/tmp-mot01-blind-review-queue.yml
+          git add CURRENT_STATE.md docs/PROJECT_EXECUTION_QUEUE.md
+          git diff --cached --check
+          git commit -m "Activate MOT-01 blind-review queue gate"
+          git push origin HEAD:tmp/mot01-blind-review-queue
