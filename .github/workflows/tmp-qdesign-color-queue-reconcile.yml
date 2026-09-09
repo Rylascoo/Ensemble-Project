@@ -1,0 +1,50 @@
+name: Temporary Q-DESIGN color queue reconcile
+
+on:
+  push:
+    branches:
+      - queue/q-design-16-closeout-color-method
+
+permissions:
+  contents: write
+
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: queue/q-design-16-closeout-color-method
+      - name: Reconcile Q-DESIGN-16 through Q-DESIGN-18 and remove helper
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          state = Path('CURRENT_STATE.md')
+          text = state.read_text()
+          old = "Q-DESIGN-16 ACTIVE at direct Director adjudication; Website `main` `b24ca7ce1f9c20f3042b6f63193657acab66a559` carries the frozen CS2 envelope/preflight/view; CS2 remains provisional. E0 order/blind scoring unchanged."
+          new = "Q-DESIGN-16 DONE; Q-DESIGN-17 DONE; Q-DESIGN-18 ACTIVE under Website authority. Website `main` `bddf700994d9e68a98080b266fe0bd146a97809c` carries the delegated CS2 envelope closure and post-MOT CLR-01 selection; F1A/CS2 remain provisional. E0 order/blind scoring unchanged."
+          if text.count(old) != 1:
+              raise SystemExit(f'CURRENT_STATE expected one design continuity sentence, found {text.count(old)}')
+          state.write_text(text.replace(old, new))
+
+          queue = Path('docs/PROJECT_EXECUTION_QUEUE.md')
+          q = queue.read_text()
+          old_line = "| Q-DESIGN-16 | Design Sol / Director | ACTIVE | Resolve the already-frozen CS2 deployment envelope through direct Director + Design Sol adjudication. Contract, six-case neutral exemplar, full/reduced-motion preflight, retarget checks, and Design Sol pre-Director view are complete. | Website `main` at `b24ca7ce1f9c20f3042b6f63193657acab66a559`; `docs/evidence/MOT_01_CS2_DEPLOYMENT_ENVELOPE_CONTRACT_01.json`, `docs/evidence/MOT_01_CS2_DEPLOYMENT_ENVELOPE_EXEMPLAR_PREFLIGHT_01.json`, `docs/evidence/MOT_01_CS2_DEPLOYMENT_ENVELOPE_DESIGN_SOL_VIEW_01.json`, and Design Ledger L-051. No post-view retuning; no production timing/easing/opacity tokens; no universal screen-crossfade rule; no app/site/navigation implementation; no F1A retune; no Character/Scene/Stage/Performance/Take/Opportunity motion; no final identity or Phase-C convergence. | Director approves, corrects, or rejects the frozen envelope after viewing the same exemplar; only then may Q-DESIGN-16 close or require bounded correction. |"
+          new_lines = "\n".join([
+              "| Q-DESIGN-16 | Design Sol / Director | DONE | Resolve the frozen CS2 deployment envelope after clean mechanical preflight and frozen Design Sol review. | Closed on `Rylascoo/Ensemble-Website/main` at `bddf700994d9e68a98080b266fe0bd146a97809c`; `docs/evidence/MOT_01_CS2_DEPLOYMENT_ENVELOPE_DIRECTOR_DELEGATED_ADJUDICATION_01.json` records explicit Director delegation to Design Sol's already-frozen contextual judgment rather than falsely claiming independent Director scoring of every case. | CS2 envelope approved as frozen: A1 approve; A2/A3 approve with restraint; N1/N3 prohibit; N2 CUT. MOT-01 bounded program closes; successor is Q-DESIGN-17. |",
+              "| Q-DESIGN-17 | Design Sol | DONE | Conduct the post-MOT Phase-B orthogonal shared-brand re-entry audit and select at most one genuinely fresh independent identity question. | Closed on Website `main` at `bddf700994d9e68a98080b266fe0bd146a97809c`; `docs/evidence/SHARED_BRAND_ORTHOGONAL_REENTRY_AUDIT_03.txt` quarantines motion refinement and inherited symbol/wordmark/material/Character/static-world incumbency. | **CLR-01 — Cross-Surface Color-Logic Independence** selected without palette authority; successor is Q-DESIGN-18. |",
+              "| Q-DESIGN-18 | Design Sol | ACTIVE | Construct the CLR-01 non-render method contract and deterministic dual-context color specimen matrix. | Website Q-DESIGN-17 closure at `bddf700994d9e68a98080b266fe0bd146a97809c`. Freeze neutral carrier, role logic, controls, accessibility floors, historical-palette quarantine, APP/WEB adaptation, review tasks and hard-failure/no-reroll law before judging any candidate. No image generation/renderer spend, production color tokens, app/site theming, semantic status-color system, incumbent palette refinement, Stage motion, final identity or Phase-C convergence. | Method contract and deterministic matrix are frozen and recursively clean; successor may materialize/preflight specimens but cannot infer final palette authority. |"
+          ])
+          if q.count(old_line) != 1:
+              raise SystemExit(f'queue expected one Q-DESIGN-16 line, found {q.count(old_line)}')
+          queue.write_text(q.replace(old_line, new_lines))
+          PY
+          git rm .github/workflows/tmp-qdesign-color-queue-reconcile.yml
+          git add CURRENT_STATE.md docs/PROJECT_EXECUTION_QUEUE.md
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Reconcile MOT-01 closeout and CLR-01 activation'
+          git push origin HEAD:queue/q-design-16-closeout-color-method
