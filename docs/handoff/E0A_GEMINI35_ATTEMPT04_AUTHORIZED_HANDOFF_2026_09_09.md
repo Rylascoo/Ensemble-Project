@@ -48,18 +48,30 @@ If the first full-request Performer `countTokens` fails, the run terminates imme
 
 A local preflight failure before provider invocation does not consume the authorization. Once the first provider-bound invocation begins, any terminal result consumes it and creates no retry authority.
 
+## Local preflight 01 — non-consuming packet defect
+
+The first local Attempt-04 packet invocation on 2026-09-09 created the dedicated linked worktree:
+
+`C:\Users\Wiryl\Sol Dev\Ensemble-Project-Worktrees\e0a-gemini35-attempt04`
+
+at exact detached checkout `e6e7d6c8c7187a87df2c97f2373dd3adbee7ce4a`, then failed before build/credential entry/provider traffic because its Windows PowerShell StrictMode host guard referenced `RuntimeInformation.OSArchitecture`, which was unavailable in that shell/runtime surface.
+
+The packet reported `ATTEMPT04_AUTHORIZATION=NOT_CONSUMED` and `PROVIDER_TRAFFIC_NOT_STARTED=YES`. No API key was requested or activated, no evidence root was created, no provider invocation began, and no spend occurred. The defect is confined to the PowerShell packet, not the native executable or frozen request.
+
+The corrected packet must **reuse the already-created Attempt-04 execution worktree**, after exact HEAD/detached/clean/tag/material-untracked checks. Do not create a second execution worktree merely because preflight 01 failed.
+
 ## Execution topology
 
-Use a **new linked Windows worktree** pinned to the validation tag/checkout for Attempt 04. Do not repurpose either:
+Use the existing Attempt-04 linked Windows worktree pinned to the validation tag/checkout. Do not repurpose either:
 
 - historical validated root `C:\Users\Wiryl\Sol Dev\Ensemble-Project`;
 - existing native-validation worktree for `e6e7...`.
 
 Before provider contact, fail closed on any of:
 
-- tag/check-out mismatch or non-detached execution checkout;
-- dirty worktree;
-- non-native ARM64 host/runtime mismatch;
+- missing execution worktree, tag/check-out mismatch or non-detached execution checkout;
+- dirty tracked/staged worktree or material untracked source/test/fixture content;
+- non-native ARM64 .NET host/runtime mismatch;
 - failed fresh Harness build;
 - canonical Missing Raft fixture mismatch;
 - nonfresh/colliding evidence root;
@@ -67,6 +79,8 @@ Before provider contact, fail closed on any of:
 - quota/provider material-change trigger;
 - missing or mismatched local credential entry;
 - any attempted alternate profile, retry, fallback, or extra provider request.
+
+The packet should use shell-neutral Windows checks plus `dotnet --info` and the native Harness's own ARM64 guard rather than relying on the unavailable PowerShell `RuntimeInformation.OSArchitecture` member.
 
 ## Consumption / terminal handling
 
