@@ -47,10 +47,12 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
 
             var body = CountTokensRequestBody(attempt, source.RootElement);
             using var request = CreateRequest(ModelUri(attempt.Profile.Model, "countTokens"), body);
-            using var response = await _http.SendAsync(request, HttpCompletionOption.ResponseContentRead, cancellationToken).ConfigureAwait(false);
+            using var response = await _http.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
             if (!response.IsSuccessStatusCode)
             {
-                throw new E0AHarnessException($"gemini-counttokens-http-{(int)response.StatusCode}");
+                throw await E0AGeminiCountTokensFailureException
+                    .FromHttpResponseAsync(response, body, cancellationToken)
+                    .ConfigureAwait(false);
             }
 
             var bytes = await response.Content.ReadAsByteArrayAsync(cancellationToken).ConfigureAwait(false);
@@ -60,11 +62,15 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
                 count.ValueKind != JsonValueKind.Number ||
                 !count.TryGetInt64(out var tokens) || tokens < 0)
             {
-                throw new E0AHarnessException("gemini-counttokens-response-invalid");
+                throw E0AGeminiCountTokensFailureException.ResponseInvalid();
             }
             return tokens;
         }
         catch (OperationCanceledException)
+        {
+            throw;
+        }
+        catch (E0AGeminiCountTokensFailureException)
         {
             throw;
         }
@@ -74,11 +80,11 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
         }
         catch (Exception exception) when (exception is HttpRequestException or IOException)
         {
-            throw new E0AHarnessException("gemini-counttokens-transport");
+            throw E0AGeminiCountTokensFailureException.Transport();
         }
         catch (JsonException)
         {
-            throw new E0AHarnessException("gemini-counttokens-response-invalid");
+            throw E0AGeminiCountTokensFailureException.ResponseInvalid();
         }
     }
 
