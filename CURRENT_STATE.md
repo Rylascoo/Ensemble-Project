@@ -24,4 +24,4 @@ Director decision: **3.5 Flash-Lite live execution PAUSED; bounded diagnostic am
 **E0-E single-model playwright control preparation remains AUTHORIZED; execution remains BLOCKED until E0-A -> E0-B -> E0-C -> E0-D close.** Preparation is non-network only. Live packet: `docs/handoff/E0E_SINGLE_MODEL_PLAYWRIGHT_CONTROL_PREPARATION_HANDOFF_2026_09_08.md`.
 
 ## Next
-Validate the exact current E0-A checkout on native Windows ARM64: Core + Harness tests, build/smokes, and credentialless gates. If PASS, create a new annotated validation tag at that exact checkout and update the validation ledger/state. **No provider request is authorized by validation.**
+Validate the exact current E0-A checkout on native Windows ARM64: Core + Harness tests, build/smokes, and credentialless gates. If PASS, create a new annotated validation tag at that exact checkout and update the validation ledger/state. Active transition: `docs/handoff/E0A_GEMINI_BOUNDED_PROVIDER_ERROR_DIAGNOSTIC_ENGINEERING_HANDOFF_2026_09_08.md`. **No provider request is authorized by validation.**
