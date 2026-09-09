@@ -9,18 +9,18 @@ Updated: 2026-09-09
 Runtime: **E0-A Experimental Harness — Phase B**. Q-E0A-01 diagnostic **CLOSED — MACHINE-VALIDATED**. Q-E0A-02 Attempt-04 audit **DONE**: `docs/evidence/E0A_GEMINI35_ATTEMPT04_ARCHIVE_AUDIT_2026_09_09.md`. Gemini-3 compatibility: `docs/evidence/E0A_GEMINI35_THOUGHT_SIGNATURE_COMPATIBILITY_AUDIT.md`.
 
 ## Validation
-Promoted native authority remains `e6e7d6c8c7187a87df2c97f2373dd3adbee7ce4a`; tag `validation/e0a-gemini-bounded-provider-error-diagnostic-native-arm64`; tag object `9b17563474b25920da8615afefdfa3fcfdab884b`. Windows ARM64: Core **622/622**, Harness **130/130**, build/smokes/credentialless PASS. Later commits inherit no native authority.
+Promoted native authority remains `e6e7d6c8c7187a87df2c97f2373dd3adbee7ce4a` until the new annotated tag is created and verified. Q-E0A-04 exact checkout `3a010df5d26fc58d6f3820f2dc2cfbb0d015a9d2` is **NATIVE WINDOWS ARM64 VALIDATED**: Core **622/622**, Harness **131/131**, fresh build/smokes/credentialless PASS; provider network NOT PERFORMED; spend $0. Evidence: `docs/evidence/E0A_GEMINI_COUNTTOKENS_INPUT_PROJECTION_NATIVE_ARM64_VALIDATION_2026_09_09.md`.
 
 ## Provider
 Attempt 04: first Performer `countTokens` HTTP **400 / INVALID_ARGUMENT** at `generate_content_request.generation_config.response_format.text.mime_type`; 0 turns/generation/spend. Authorization **CONSUMED**; provider authorization **NONE**; **DO NOT RERUN**.
 
 ## Q-E0A-04
-**ACTIVE — ATTEMPT 01 FAILED; STALE TEST ORACLE DIAGNOSED; TEST-ONLY CORRECTION HOSTED GREEN; ATTEMPT 02 PENDING FINAL HOSTED GREEN.** Branch `e0a-gemini-counttokens-input-projection-correction`. Contract: `docs/blueprint/E0A_GEMINI_COUNTTOKENS_INPUT_PROJECTION_CORRECTION_AMENDMENT.md`; audit: `docs/evidence/E0A_GEMINI_COUNTTOKENS_INPUT_PROJECTION_IMPLEMENTATION_AUDIT_2026_09_09.md`; Attempt-01 evidence: `docs/evidence/E0A_GEMINI_COUNTTOKENS_INPUT_PROJECTION_NATIVE_ARM64_VALIDATION_ATTEMPT_01_2026_09_09.md`.
+**ACTIVE — IMPLEMENTATION AND NATIVE VALIDATION COMPLETE; ANNOTATED TAG / LEDGER / PROMOTION CLOSEOUT ONLY.** Branch `e0a-gemini-counttokens-input-projection-correction`. Contract: `docs/blueprint/E0A_GEMINI_COUNTTOKENS_INPUT_PROJECTION_CORRECTION_AMENDMENT.md`; implementation audit: `docs/evidence/E0A_GEMINI_COUNTTOKENS_INPUT_PROJECTION_IMPLEMENTATION_AUDIT_2026_09_09.md`; Attempt-01 evidence: `docs/evidence/E0A_GEMINI_COUNTTOKENS_INPUT_PROJECTION_NATIVE_ARM64_VALIDATION_ATTEMPT_01_2026_09_09.md`.
 
-Attempt 01 `de38d5d5...`: Core **622/622 PASS**, Harness **130/131 FAIL**. MSTest log SHA-256 `1A79B95C4683FD0B212721E03ADCD8335730292415604D845793BA50392A18BF` proved a stale 5-field full-copy oracle; Q-E0A-04 requires `model + systemInstruction + contents`. Test-only correction `48a6e67a5f5834b40bcca1b530b87f537140984e` passed hosted gate `34402647899`.
+Native Attempt 02 validated exact candidate `3a010df5...`. The first packet stopped only because its PowerShell helper used an unavailable overload after the native tests/build/smokes had passed; continuation proved no leaked evidence root, repeated all credentialless gates with a PS5.1-safe validator, and completed preservation/cleanliness checks.
 
 ## Parallel
 Q-E0E-PREP CLOSED; Q-E0E-RUN BLOCKED through E0-A→D. Q-DESIGN-14 DONE; Q-DESIGN-15 ACTIVE under Website authority. E0 order/blind scoring unchanged.
 
 ## Next
-Require final hosted green, then run **Native Attempt 02 from the beginning in a new detached worktree**, preserving Attempt 01, with no provider credentials/traffic. Handoff: `docs/handoff/E0A_GEMINI_COUNTTOKENS_INPUT_PROJECTION_NATIVE_ARM64_VALIDATION_HANDOFF_2026_09_09.md`. Q-E0A-03, E0-B+, E0-E execution remain BLOCKED. Provider authorization **NONE**.
+Create/push annotated tag `validation/e0a-gemini-counttokens-input-projection-native-arm64` targeting exact `3a010df5d26fc58d6f3820f2dc2cfbb0d015a9d2`; independently verify tag object + dereference; then update `docs/VALIDATION_LEDGER.md`, queue/current-state closeout, promote/reconcile `main`, and archive branch as appropriate. Q-E0A-03, E0-B+, E0-E execution remain BLOCKED. Provider authorization **NONE**.
