@@ -57,6 +57,15 @@ When a file is proven to be in the wrong repository:
 
 Moving a file does not change its substantive authority. A design-native artifact moved to the design repository remains design evidence unless the Director separately promotes a product/policy decision.
 
+## Linked-worktree ownership
+
+A linked worktree is owned by the repository named by its Git common directory, not by the folder in which the worktree path happens to sit. For any nested, suspicious, or cross-lane worktree, establish ownership with both:
+
+- `git rev-parse --absolute-git-dir`
+- `git rev-parse --git-common-dir`
+
+Before relocating or removing a linked worktree, record cleanliness including untracked files, branch/HEAD, owning common directory, remote-branch state, and whether unique commits exist. Preserve unique work. Use the owning repository's `git worktree move` / `git worktree remove` machinery rather than raw filesystem deletion. If ownership or unique-work disposition is unclear, classify the artifact `Unclear` and stop.
+
 ## Mechanical boundary
 
 `Ensemble-Project` CI rejects design-native top-level workspaces such as `assets/`, `prototypes/`, `site/`, `intelligence/`, and `updates/`. This is deliberately conservative: semantic document residency still requires human/agent classification because ODRs, design-derived engineering contracts, and product decisions legitimately contain visual/design language.
