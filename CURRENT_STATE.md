@@ -6,7 +6,7 @@ Updated: 2026-09-08
 `Rylascoo/Ensemble-Project` is engineering authority. This file alone carries phase/checkpoint/validation/next-action authority; `AGENTS.md` defines exact-ref bootstrap/closeout, `docs/PROJECT_AUTHORITY.md` owns product/policy/lane authority, and `docs/PROJECT_EXECUTION_QUEUE.md` preserves ordered backlog/prerequisites without overriding this state. Lane-only queue reconciliation does not change engineering phase, checkpoint, validation, provider, or next-action authority.
 
 ## Checkpoint
-Runtime: **E0-A Experimental Harness — Phase B**. Repository convergence is **CLOSED**. `main` has been restored to the accepted E0-A lineage; final closeout is documentation-only. Audit: `docs/evidence/REPOSITORY_CONVERGENCE_INTEGRITY_AUDIT_2026_09_08.md`.
+Runtime: **E0-A Experimental Harness — Phase B**. Repository convergence and post-convergence continuity cleanup are **CLOSED**. `main` has been restored to the accepted E0-A lineage. Audits: `docs/evidence/REPOSITORY_CONVERGENCE_INTEGRITY_AUDIT_2026_09_08.md`; `docs/evidence/REPOSITORY_CONTINUITY_RENOVATION_AUDIT_2026_09_08.md`.
 
 Current architecture: `docs/blueprint/E0A_PHASE_B_GEMINI_FREE_TIER_RPD_MODEL_SELECTION_AMENDMENT.md`; current Gemini 3 signature support: `docs/evidence/E0A_GEMINI35_THOUGHT_SIGNATURE_COMPATIBILITY_AUDIT.md`.
 
@@ -23,5 +23,3 @@ Director decision: **3.5 Flash-Lite live execution PAUSED; bounded provider-erro
 
 ## Next
 Engineering next action remains the bounded provider-error/request-compatibility amendment on `e0a-gemini-bounded-provider-error-diagnostic`. Active technical contract: `docs/handoff/E0A_GEMINI_BOUNDED_PROVIDER_ERROR_DIAGNOSTIC_ENGINEERING_HANDOFF_2026_09_08.md`. Any source change requires cloud validation plus new native Windows ARM64 validation and annotated validation tag before any future provider request.
-
-Reconciled stale engineering branch refs may be archived/deleted only after annotated `archive/...` tags exist; current connected writer cannot create those tags, so no unique work remains but ref cleanup is administrative pending.
