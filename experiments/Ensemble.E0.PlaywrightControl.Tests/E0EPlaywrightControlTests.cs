@@ -62,6 +62,7 @@ public sealed class E0EPlaywrightControlTests
         Assert.AreEqual(reference.FixtureHash, root.GetProperty("fixture").GetProperty("hash").GetString());
         Assert.AreEqual(3, root.GetProperty("scene").GetProperty("roster").GetArrayLength());
         Assert.AreEqual(1, root.GetProperty("priorPerformances").GetArrayLength());
+        Assert.IsFalse(root.TryGetProperty("initialOpportunityCharacterId", out _));
 
         Assert.AreEqual(JsonValueKind.Array, root.GetProperty("chronology").ValueKind);
         Assert.AreEqual(JsonValueKind.Array, root.GetProperty("historicalTruth").ValueKind);

@@ -17,9 +17,9 @@ Attempt 03: first Performer `countTokens` HTTP **400**, 0 turns, $0, no generati
 **3.5 Flash-Lite live execution PAUSED; 3.1 Flash-Lite execution DEFERRED. Provider authorization: NONE.** Validation does not authorize credential use or provider traffic.
 
 ## Parallel E0-E
-Q-E0E-PREP contract is **FROZEN** and deterministic non-network preconstruction is **IN PROGRESS — HOSTED STATIC/COMPILER GATE PENDING** on `e0e-single-model-playwright-control-preparation`. Contract: `docs/blueprint/E0E_SINGLE_MODEL_PLAYWRIGHT_CONTROL_PREPARATION_CONTRACT.md`. Live packet: `docs/handoff/E0E_SINGLE_MODEL_PLAYWRIGHT_CONTROL_PREPARATION_HANDOFF_2026_09_08.md`.
+Q-E0E-PREP contract is **FROZEN**; deterministic non-network preconstruction has passed initial hosted compiler/static tests and is in **FINAL RECURSIVE HARDENING — FINAL HOSTED GATE PENDING** on `e0e-single-model-playwright-control-preparation`. Contract: `docs/blueprint/E0E_SINGLE_MODEL_PLAYWRIGHT_CONTROL_PREPARATION_CONTRACT.md`. Live packet: `docs/handoff/E0E_SINGLE_MODEL_PLAYWRIGHT_CONTROL_PREPARATION_HANDOFF_2026_09_08.md`.
 
 **E0-E execution remains BLOCKED until E0-A -> E0-B -> E0-C -> E0-D close.** No provider request, credentials, spend, transcript production, scoring, or unblinding is authorized by preparation.
 
 ## Next
-Q-E0A-02 remains **BLOCKED** pending provider/account/pricing/quota re-verification plus explicit Director authorization. Active E0-A transition: `docs/handoff/E0A_GEMINI_BOUNDED_PROVIDER_ERROR_DIAGNOSTIC_ENGINEERING_HANDOFF_2026_09_08.md`. Q-E0E-PREP may complete only inside its non-network preparation boundary; compiler/static evidence is preparation evidence, not E0-E behavioral or native-runtime authority.
+Q-E0A-02 remains **BLOCKED** pending provider/account/pricing/quota re-verification plus explicit Director authorization. Active E0-A transition: `docs/handoff/E0A_GEMINI_BOUNDED_PROVIDER_ERROR_DIAGNOSTIC_ENGINEERING_HANDOFF_2026_09_08.md`. Finish Q-E0E-PREP recursive audit and hosted non-network gates; compiler/static evidence is preparation evidence, not E0-E behavioral or native-runtime authority.

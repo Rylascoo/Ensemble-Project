@@ -172,7 +172,6 @@ internal static class E0ECompleteScenePacketBuilder
                 observationContract = fixture.ObservationContract
             },
             scene = new { id = fixture.Scene.Id.Value, roster },
-            initialOpportunityCharacterId = fixture.InitialOpportunity.Value,
             chronology = fixture.Chronology.Select(id => id.Value).ToArray(),
             historicalTruth = fixture.HistoricalTruth.Select(RecordData).ToArray(),
             unresolvedPropositions = fixture.UnresolvedPropositions.Select(RecordData).ToArray(),

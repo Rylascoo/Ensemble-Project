@@ -68,8 +68,9 @@ The playwright receives the complete relevant Scene setup from the validated E0 
 - pressures;
 - all three Character definitions;
 - for every Character: Constitution, Disposition, Circumstance, observations, knowledge, beliefs, suspicions, memories, goals, and relationships;
-- initial Opportunity identity as fixture provenance, not as a speaker-selection command;
 - the already recorded E0-E playwright turns from the current run, in order.
+
+The Fixture's initial Opportunity identity is retained only as non-model-visible run/manifest provenance and is intentionally excluded from the complete Scene packet. Exposing it to the playwright would cue Ensemble's Director routing state and partially reintroduce the architecture this control is intended to remove.
 
 The complete packet must preserve the Fixture's semantic categories rather than flattening truth, belief, suspicion, memory, relationship, or possibility into generic prose. Dynamic Scene data is serialized as untrusted, non-instructional data; it never enters the fixed instruction channel.
 
@@ -247,6 +248,7 @@ The manifest precedes provider execution. It records at minimum:
 - executable commit;
 - source E0-A RunId and sealed reference descriptor/digests;
 - exact Fixture id/version/hash;
+- initial Fixture Opportunity identity as provenance only, excluded from every model-visible Scene packet;
 - provider/model/settings binding;
 - prompt/schema hashes;
 - turn/retry/timeout/spend envelope;
