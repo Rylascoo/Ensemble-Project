@@ -66,7 +66,7 @@ The workflow does **not** execute Harness tests. Therefore this is compiler/stat
 
 ## Concurrent-main reconciliation
 
-During implementation, `main` advanced from `a254c101056e6c3ce5143e16a8dbd27ee6e1a750` to `548f1a5813ab7f3051c35c0de4b491cf6f3751b4` through one Design Sol queue-only commit. Its only file change was `docs/PROJECT_EXECUTION_QUEUE.md`, closing Q-DESIGN-03 and opening Q-DESIGN-04. The exact queue content was adopted on the E0-A branch without changing E0-A authority. A content-preserving topology reconciliation with that `main` parent remains required before the native-validation checkout is frozen.
+During implementation, `main` advanced from `a254c101056e6c3ce5143e16a8dbd27ee6e1a750` to `548f1a5813ab7f3051c35c0de4b491cf6f3751b4` through one Design Sol queue-only commit. Its only file change was `docs/PROJECT_EXECUTION_QUEUE.md`, closing Q-DESIGN-03 and opening Q-DESIGN-04. The exact queue content was adopted on the E0-A branch without changing E0-A authority. Commit `17290f87b44a94769442c20ea3c4ed956b9cf8e3` then reconciled topology by preserving the audited E0-A tree byte-for-byte while adding `548f1a5813ab7f3051c35c0de4b491cf6f3751b4` as a second parent. No E0-A source/test/document content changed in that merge commit.
 
 ## Validation boundary
 
