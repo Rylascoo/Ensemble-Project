@@ -35,7 +35,7 @@ jobs:
           s = Path('CURRENT_STATE.md')
           st = s.read_text()
           old_s = 'Q-DESIGN-06 is DONE and Q-DESIGN-07 ACTIVE in `docs/PROJECT_EXECUTION_QUEUE.md`; those are design-lane sequencing only and change no engineering checkpoint, validation rung, provider authorization, or E0 order.'
-          new_s = 'Q-DESIGN-07 is DONE and Q-DESIGN-08 ACTIVE in `docs/PROJECT_EXECUTION_QUEUE.md`; MOT-01 remains design-lane sequencing only and changes no engineering checkpoint, validation rung, provider authorization, Q-DESIGN-02 Stage-motion block, or E0 order.'
+          new_s = 'Q-DESIGN-07 DONE; Q-DESIGN-08 ACTIVE. MOT-01 is design sequencing only; engineering checkpoint, validation, provider authority, Q-DESIGN-02, and E0 order are unchanged.'
           if old_s not in st:
               raise SystemExit('expected cross-lane continuity sentence not found')
           s.write_text(st.replace(old_s, new_s, 1))
