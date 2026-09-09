@@ -42,7 +42,7 @@ Updated: 2026-09-08
 
 | ID | Lane | Status | Work | Prerequisite / hard boundary | Exit / successor |
 |---|---|---|---|---|---|
-| Q-ADMIN-01 | Engineering | ADMIN-BLOCKED | Archive/delete reconciled stale engineering branch refs. | Create and verify required annotated `archive/...` tags first. Current connected writer cannot create those tags. | Archive tags exist, zero unique accepted work is reverified, stale refs removed. |
+| Q-ADMIN-01 | Engineering | DONE | Close post-convergence archive/ref and local-residue cleanup. | Seven additional exact annotated archive tags were verified before stale-ref disposition; cross-repository ownership was established before worktree disposition. | Six stale Project remote refs removed; Website-owned W1 relocated intact; archived W2 removed; abandoned Patch 0012 scratch removed after hash/semantic audit; Project root clean. Evidence: `docs/evidence/REPOSITORY_CONTINUITY_RENOVATION_AUDIT_2026_09_08.md`. |
 
 ## Post-E0 program order
 
