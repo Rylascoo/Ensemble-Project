@@ -30,15 +30,15 @@ public sealed class E0EPlaywrightControlTests
         Assert.AreEqual(first, second);
         Assert.AreEqual(64, first.Length);
 
-        Assert.ThrowsException<E0EPreparationException>(() =>
+        Assert.Throws<E0EPreparationException>(() =>
             (reference with { AttemptsPerInvocation = 2 }).Validate());
-        Assert.ThrowsException<E0EPreparationException>(() =>
+        Assert.Throws<E0EPreparationException>(() =>
             (reference with { AutomaticRetries = 1 }).Validate());
-        Assert.ThrowsException<E0EPreparationException>(() =>
+        Assert.Throws<E0EPreparationException>(() =>
             (reference with { AttemptTimeoutSeconds = 299 }).Validate());
-        Assert.ThrowsException<E0EPreparationException>(() =>
+        Assert.Throws<E0EPreparationException>(() =>
             (reference with { EstimatedSpendCeilingUsd = 5.01m }).Validate());
-        Assert.ThrowsException<E0EPreparationException>(() =>
+        Assert.Throws<E0EPreparationException>(() =>
             (reference with { SourceManifestSha256 = new string('A', 64) }).Validate());
     }
 
@@ -91,7 +91,7 @@ public sealed class E0EPlaywrightControlTests
         var (fixture, reference) = FixtureAndReference();
         var mismatched = reference with { FixtureHash = new string('c', 64) };
         mismatched.Validate();
-        Assert.ThrowsException<E0EPreparationException>(() =>
+        Assert.Throws<E0EPreparationException>(() =>
             E0ECompleteScenePacketBuilder.Build(fixture, mismatched, Array.Empty<E0ERecordedTurn>()));
     }
 
@@ -116,21 +116,21 @@ public sealed class E0EPlaywrightControlTests
 
         var extra = Encoding.UTF8.GetBytes(
             $"{{\"schemaVersion\":\"{E0EPlaywrightContract.SchemaVersion}\",\"speakerCharacterId\":\"{speaker}\",\"performance\":{{\"text\":\"ok\"}},\"extra\":true}}");
-        Assert.ThrowsException<E0EPreparationException>(() =>
+        Assert.Throws<E0EPreparationException>(() =>
             E0EPlaywrightContract.Parse(extra, fixture.Scene.Roster));
 
         var duplicate = Encoding.UTF8.GetBytes(
             $"{{\"schemaVersion\":\"{E0EPlaywrightContract.SchemaVersion}\",\"speakerCharacterId\":\"{speaker}\",\"speakerCharacterId\":\"{speaker}\",\"performance\":{{\"text\":\"ok\"}}}}");
-        Assert.ThrowsException<E0EPreparationException>(() =>
+        Assert.Throws<E0EPreparationException>(() =>
             E0EPlaywrightContract.Parse(duplicate, fixture.Scene.Roster));
 
-        Assert.ThrowsException<E0EPreparationException>(() =>
+        Assert.Throws<E0EPreparationException>(() =>
             E0EPlaywrightContract.Parse(ValidTurnBytes("outsider", "ok"), fixture.Scene.Roster));
-        Assert.ThrowsException<E0EPreparationException>(() =>
+        Assert.Throws<E0EPreparationException>(() =>
             E0EPlaywrightContract.Parse(ValidTurnBytes(speaker, "   "), fixture.Scene.Roster));
-        Assert.ThrowsException<E0EPreparationException>(() =>
+        Assert.Throws<E0EPreparationException>(() =>
             E0EPlaywrightContract.Parse(ValidTurnBytes(speaker, "bad\u0001text"), fixture.Scene.Roster));
-        Assert.ThrowsException<E0EPreparationException>(() =>
+        Assert.Throws<E0EPreparationException>(() =>
             E0EPlaywrightContract.Parse(ValidTurnBytes(speaker, "e\u0301"), fixture.Scene.Roster));
 
         var valid = ValidTurnBytes(speaker, "ok");
@@ -139,7 +139,7 @@ public sealed class E0EPlaywrightControlTests
         bom[1] = 0xBB;
         bom[2] = 0xBF;
         valid.CopyTo(bom, 3);
-        Assert.ThrowsException<E0EPreparationException>(() =>
+        Assert.Throws<E0EPreparationException>(() =>
             E0EPlaywrightContract.Parse(bom, fixture.Scene.Roster));
     }
 
@@ -156,7 +156,7 @@ public sealed class E0EPlaywrightControlTests
 
         Assert.AreEqual(1, first.Turn);
         Assert.AreEqual(2, second.Turn);
-        Assert.ThrowsException<E0EPreparationException>(() =>
+        Assert.Throws<E0EPreparationException>(() =>
             transcript.Record(new E0EPlaywrightTurn(fixture.Scene.Roster[1], "Third.")));
     }
 
