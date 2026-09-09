@@ -22,8 +22,9 @@ public sealed class GeminiMalformedResponseTests
         var port = new GeminiGenerateContentPort(http, "test-key");
         var attempt = PerformerAttempt("E0A-GEMINI-BAD-COUNT");
 
-        await Assert.ThrowsAsync<E0AHarnessException>(() =>
+        var exception = await Assert.ThrowsAsync<E0AGeminiCountTokensFailureException>(() =>
             port.CountInputTokensAsync(attempt, CancellationToken.None));
+        Assert.AreEqual("gemini-counttokens-response-invalid", exception.Diagnostic);
     }
 
     [TestMethod]
@@ -34,8 +35,9 @@ public sealed class GeminiMalformedResponseTests
         var port = new GeminiGenerateContentPort(http, "test-key");
         var attempt = PerformerAttempt("E0A-GEMINI-BAD-COUNT-ROOT");
 
-        await Assert.ThrowsAsync<E0AHarnessException>(() =>
+        var exception = await Assert.ThrowsAsync<E0AGeminiCountTokensFailureException>(() =>
             port.CountInputTokensAsync(attempt, CancellationToken.None));
+        Assert.AreEqual("gemini-counttokens-response-invalid", exception.Diagnostic);
     }
 
     [TestMethod]
