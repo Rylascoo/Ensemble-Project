@@ -1,0 +1,29 @@
+name: Temporary Q-DESIGN-19 reconcile
+
+on:
+  push:
+    branches:
+      - queue/q-design-19-clr01-materialization
+
+permissions:
+  contents: write
+
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: queue/q-design-19-clr01-materialization
+      - name: Advance design queue and remove helper
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -c "from pathlib import Path; p=Path('CURRENT_STATE.md'); s=p.read_text(); old='Q-DESIGN-16 DONE; Q-DESIGN-17 DONE; Q-DESIGN-18 ACTIVE under Website authority. Website `main` `bddf700994d9e68a98080b266fe0bd146a97809c` carries the delegated CS2 envelope closure and post-MOT CLR-01 selection; F1A/CS2 remain provisional. E0 order/blind scoring unchanged.'; new='Q-DESIGN-16 DONE; Q-DESIGN-17 DONE; Q-DESIGN-18 DONE; Q-DESIGN-19 ACTIVE under Website authority. Website `main` `4a87523f9964a1fcf884100e0158d75d7b3809c0` carries the frozen CLR-01 method; F1A/CS2 remain provisional. E0 order/blind scoring unchanged.'; assert s.count(old)==1; p.write_text(s.replace(old,new))"
+          python3 -c "from pathlib import Path; p=Path('docs/PROJECT_EXECUTION_QUEUE.md'); s=p.read_text(); old='| Q-DESIGN-18 | Design Sol | ACTIVE | Construct the CLR-01 non-render method contract and deterministic dual-context color specimen matrix. | Website Q-DESIGN-17 closure at `bddf700994d9e68a98080b266fe0bd146a97809c`. Freeze neutral carrier, role logic, controls, accessibility floors, historical-palette quarantine, APP/WEB adaptation, review tasks and hard-failure/no-reroll law before judging any candidate. No image generation/renderer spend, production color tokens, app/site theming, semantic status-color system, incumbent palette refinement, Stage motion, final identity or Phase-C convergence. | Method contract and deterministic matrix are frozen and recursively clean; successor may materialize/preflight specimens but cannot infer final palette authority. |'; new='| Q-DESIGN-18 | Design Sol | DONE | Construct the CLR-01 non-render method contract and deterministic dual-context color specimen matrix. | Closed on `Rylascoo/Ensemble-Website/main` at `4a87523f9964a1fcf884100e0158d75d7b3809c0`; `docs/evidence/CLR_01_CROSS_SURFACE_COLOR_LOGIC_INDEPENDENCE_METHOD_AND_MATRIX_01.json`, Website `CURRENT_STATE.md`, and Design Ledger L-054 freeze the 24-cell method, accessibility/isolation floors and no-reroll law. | CLR-01 method frozen without palette authority; successor is Q-DESIGN-19. |\\n| Q-DESIGN-19 | Design Sol / Director | ACTIVE | Materialize the exact 24-cell CLR-01 browser packet + manifest, run deterministic contrast/isolation/320/forced-colors preflight, then freeze Design Sol review before Director preference. | Website Q-DESIGN-18 closure at `4a87523f9964a1fcf884100e0158d75d7b3809c0`. No family retune/replacement after source freeze; no production palette/theme/status colors, implementation, renderer spend, Stage motion, final identity or Phase-C convergence. | Mechanically clean surviving families are presented as a clear visual comparison for direct Design Sol + Director adjudication; zero survivors is valid. |'; assert s.count(old)==1; p.write_text(s.replace(old,new))"
+          git rm .github/workflows/tmp-qdesign19-reconcile.yml
+          git add CURRENT_STATE.md docs/PROJECT_EXECUTION_QUEUE.md
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Advance CLR-01 to materialization'
+          git push origin HEAD:queue/q-design-19-clr01-materialization
