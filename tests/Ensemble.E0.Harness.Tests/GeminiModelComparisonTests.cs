@@ -80,7 +80,7 @@ public sealed class GeminiModelComparisonTests
     }
 
     [TestMethod]
-    public async Task GenerateContentPort_AcceptsEveryApprovedComparisonModelForSchemaCompleteTokenPreflight()
+    public async Task GenerateContentPort_AcceptsEveryApprovedComparisonModelForInputSemanticTokenPreflight()
     {
         var context = DeterministicE0CausalCycle.ComposeContext(E0ATestSupport.Cycle()).ContextEvaluation.Packet;
 
@@ -105,17 +105,21 @@ public sealed class GeminiModelComparisonTests
             using var countBody = JsonDocument.Parse(handler.Bodies[0]);
             var nested = countBody.RootElement.GetProperty("generateContentRequest");
             Assert.AreEqual($"models/{profile.Model}", nested.GetProperty("model").GetString());
+            Assert.AreEqual(3, nested.EnumerateObject().Count());
+            Assert.IsTrue(nested.TryGetProperty("systemInstruction", out var projectedSystem));
+            Assert.IsTrue(nested.TryGetProperty("contents", out var projectedContents));
+            Assert.IsFalse(nested.TryGetProperty("generationConfig", out _));
+            Assert.IsFalse(nested.TryGetProperty("store", out _));
+
             using var generationBody = JsonDocument.Parse(attempt.RequestBody);
             Assert.AreEqual(
-                generationBody.RootElement.EnumerateObject().Count() + 1,
-                nested.EnumerateObject().Count());
-            foreach (var property in generationBody.RootElement.EnumerateObject())
-            {
-                Assert.IsTrue(nested.TryGetProperty(property.Name, out var nestedProperty));
-                Assert.AreEqual(
-                    PreparedRoleAttempt.LowerSha256(JsonSerializer.SerializeToUtf8Bytes(property.Value)),
-                    PreparedRoleAttempt.LowerSha256(JsonSerializer.SerializeToUtf8Bytes(nestedProperty)));
-            }
+                PreparedRoleAttempt.LowerSha256(JsonSerializer.SerializeToUtf8Bytes(generationBody.RootElement.GetProperty("systemInstruction"))),
+                PreparedRoleAttempt.LowerSha256(JsonSerializer.SerializeToUtf8Bytes(projectedSystem)));
+            Assert.AreEqual(
+                PreparedRoleAttempt.LowerSha256(JsonSerializer.SerializeToUtf8Bytes(generationBody.RootElement.GetProperty("contents"))),
+                PreparedRoleAttempt.LowerSha256(JsonSerializer.SerializeToUtf8Bytes(projectedContents)));
+            Assert.IsTrue(generationBody.RootElement.TryGetProperty("generationConfig", out _));
+            Assert.IsFalse(generationBody.RootElement.GetProperty("store").GetBoolean());
         }
     }
 
