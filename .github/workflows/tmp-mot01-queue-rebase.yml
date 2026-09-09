@@ -1,0 +1,52 @@
+name: Temporary MOT-01 queue rebase
+
+on:
+  push:
+    branches:
+      - tmp/mot01-queue-rebase-materialize
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - name: Reconcile MOT-01 queue and cross-lane continuity
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          q = Path('docs/PROJECT_EXECUTION_QUEUE.md')
+          text = q.read_text()
+          old = "| Q-DESIGN-07 | Design Sol | ACTIVE | Conduct a fresh Phase-B orthogonal shared-brand question audit after TYP-01 zero-survivor preflight closure. | Governed by `Rylascoo/Ensemble-Website/CURRENT_STATE.md` and Design Ledger L-035. Preserve TYP-01 as closed evidence; do not resume its scoring/refinement/rerolling, reopen static hero research, or infer that typography broadly failed. No image generation/renderer spend or final identity decision is authorized by this queue item. | Resolve the legitimately open non-hero shared-brand axes against current evidence and select at most one genuinely orthogonal next research question, or durably record that none is presently justified. Update Website authority/evidence and this queue together. |"
+          new = "| Q-DESIGN-07 | Design Sol | DONE | Conducted the fresh Phase-B orthogonal shared-brand question audit after TYP-01 zero-survivor closure and selected **MOT-01 — Cross-Surface Motion Signature Independence** as the single next bounded question. | Adopted on `Rylascoo/Ensemble-Website/main` at `e1351eeb5c8928a7a9e51d51be081c2248a15b0d`; `docs/evidence/SHARED_BRAND_ORTHOGONAL_REENTRY_AUDIT_02.txt`, Website `CURRENT_STATE.md`, and Design Ledger L-036 carry the exact result. MOT-01 is abstract Shared-Brand motion research only and does not unlock Q-DESIGN-02. | MOT-01 selected without final-motion, Stage-motion, implementation or convergence authority; successor is Q-DESIGN-08. |\n| Q-DESIGN-08 | Design Sol | ACTIVE | Construct the **MOT-01 non-render method contract and deterministic dual-context temporal specimen matrix**. | Freeze neutral non-product carriers, ordinary/reduced-motion conditions, generic controls, at least three materially disjoint motion-mechanism families, WEB/APP amplitude adaptation, fixture-only timing/easing provenance, current motion-accessibility floors, blinding/falsification and zero-survivor/no-reroll law. No specimen execution, transcript-dependent Stage motion, production timing tokens, image/video generation, final identity, app implementation or website deployment. | One recursively audited MOT-01 method contract + matrix is durably recorded and clean; only then may deterministic temporal-specimen execution be considered under a separate bounded gate. |"
+          if old not in text:
+              raise SystemExit('expected Q-DESIGN-07 row not found')
+          q.write_text(text.replace(old, new, 1))
+
+          s = Path('CURRENT_STATE.md')
+          st = s.read_text()
+          old_s = 'Q-DESIGN-06 is DONE and Q-DESIGN-07 ACTIVE in `docs/PROJECT_EXECUTION_QUEUE.md`; those are design-lane sequencing only and change no engineering checkpoint, validation rung, provider authorization, or E0 order.'
+          new_s = 'Q-DESIGN-07 is DONE and Q-DESIGN-08 ACTIVE in `docs/PROJECT_EXECUTION_QUEUE.md`; MOT-01 remains design-lane sequencing only and changes no engineering checkpoint, validation rung, provider authorization, Q-DESIGN-02 Stage-motion block, or E0 order.'
+          if old_s not in st:
+              raise SystemExit('expected cross-lane continuity sentence not found')
+          s.write_text(st.replace(old_s, new_s, 1))
+          PY
+
+          python tools/repository-law-check.py
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/tmp-mot01-queue-rebase.yml
+          git add CURRENT_STATE.md docs/PROJECT_EXECUTION_QUEUE.md
+          git diff --cached --check
+          git commit -m "Materialize MOT-01 queue activation on current main"
+          git push origin HEAD:tmp/mot01-queue-rebase-materialize
