@@ -39,6 +39,8 @@ public sealed class E0EPlaywrightControlTests
         Assert.Throws<E0EPreparationException>(() =>
             (reference with { EstimatedSpendCeilingUsd = 5.01m }).Validate());
         Assert.Throws<E0EPreparationException>(() =>
+            (reference with { MaxOutputTokens = 4097 }).Validate());
+        Assert.Throws<E0EPreparationException>(() =>
             (reference with { SourceManifestSha256 = new string('A', 64) }).Validate());
     }
 
@@ -197,7 +199,7 @@ public sealed class E0EPlaywrightControlTests
     }
 
     [TestMethod]
-    public void PreparedRequestIdentity_BindsPriorControlHistory()
+    public void PreparedRequestIdentity_BindsPriorControlHistoryAndRejectsMismatches()
     {
         var (fixture, reference) = FixtureAndReference();
         var emptyPacket = E0ECompleteScenePacketBuilder.Build(
@@ -205,6 +207,15 @@ public sealed class E0EPlaywrightControlTests
             reference,
             Array.Empty<E0ERecordedTurn>());
         var first = E0EPreparedTurnRequest.Build(reference, emptyPacket, 1);
+
+        Assert.Throws<E0EPreparationException>(() =>
+            E0EPreparedTurnRequest.Build(reference, emptyPacket, 2));
+
+        var tamperedText = Encoding.UTF8.GetString(emptyPacket.Utf8.Span)
+            .Replace(reference.FixtureHash, new string('c', 64), StringComparison.Ordinal);
+        var tamperedPacket = new E0EJsonArtifact(Encoding.UTF8.GetBytes(tamperedText));
+        Assert.Throws<E0EPreparationException>(() =>
+            E0EPreparedTurnRequest.Build(reference, tamperedPacket, 1));
 
         var prior = new[]
         {

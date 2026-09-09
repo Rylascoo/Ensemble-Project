@@ -94,7 +94,7 @@ internal sealed record E0EReferenceConfiguration(
             string.IsNullOrWhiteSpace(ServiceTier) ||
             string.IsNullOrWhiteSpace(CreativeReasoningControl) ||
             string.IsNullOrWhiteSpace(CreativeReasoningValue) ||
-            MaxOutputTokens <= 0 ||
+            MaxOutputTokens is < 1 or > 4096 ||
             AcceptedTurnCap is < 1 or > 12 ||
             AttemptsPerInvocation != 1 ||
             AutomaticRetries != 0 ||
@@ -487,6 +487,7 @@ internal sealed record E0EPreparedTurnRequest(
         {
             throw new E0EPreparationException("E0-E prepared turn identity is invalid.");
         }
+        ValidateScenePacket(scenePacket, reference, turn);
 
         var referenceHash = reference.IdentitySha256;
         var bytes = JsonSerializer.SerializeToUtf8Bytes(new
@@ -505,6 +506,48 @@ internal sealed record E0EPreparedTurnRequest(
             E0EPlaywrightContract.PromptSha256,
             E0EPlaywrightContract.SchemaSha256,
             E0EHash.LowerSha256(bytes));
+    }
+
+    private static void ValidateScenePacket(
+        E0EJsonArtifact scenePacket,
+        E0EReferenceConfiguration reference,
+        int turn)
+    {
+        try
+        {
+            using var document = JsonDocument.Parse(scenePacket.Utf8);
+            var root = document.RootElement;
+            if (root.ValueKind != JsonValueKind.Object ||
+                !root.TryGetProperty("contract", out var contract) ||
+                contract.ValueKind != JsonValueKind.String ||
+                !string.Equals(contract.GetString(), "ensemble.e0e.complete-scene.v1", StringComparison.Ordinal) ||
+                !root.TryGetProperty("currentTurn", out var currentTurn) ||
+                currentTurn.ValueKind != JsonValueKind.Number ||
+                !currentTurn.TryGetInt32(out var packetTurn) ||
+                packetTurn != turn ||
+                !root.TryGetProperty("acceptedTurnCap", out var acceptedTurnCap) ||
+                acceptedTurnCap.ValueKind != JsonValueKind.Number ||
+                !acceptedTurnCap.TryGetInt32(out var packetCap) ||
+                packetCap != reference.AcceptedTurnCap ||
+                !root.TryGetProperty("fixture", out var fixture) ||
+                fixture.ValueKind != JsonValueKind.Object ||
+                !fixture.TryGetProperty("id", out var fixtureId) ||
+                fixtureId.ValueKind != JsonValueKind.String ||
+                !string.Equals(fixtureId.GetString(), reference.FixtureId, StringComparison.Ordinal) ||
+                !fixture.TryGetProperty("version", out var fixtureVersion) ||
+                fixtureVersion.ValueKind != JsonValueKind.String ||
+                !string.Equals(fixtureVersion.GetString(), reference.FixtureVersion, StringComparison.Ordinal) ||
+                !fixture.TryGetProperty("hash", out var fixtureHash) ||
+                fixtureHash.ValueKind != JsonValueKind.String ||
+                !string.Equals(fixtureHash.GetString(), reference.FixtureHash, StringComparison.Ordinal))
+            {
+                throw new E0EPreparationException("E0-E prepared turn Scene packet does not match the bound turn/reference.");
+            }
+        }
+        catch (JsonException)
+        {
+            throw new E0EPreparationException("E0-E prepared turn Scene packet is invalid.");
+        }
     }
 }
 
