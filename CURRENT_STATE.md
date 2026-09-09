@@ -20,7 +20,7 @@ Attempt 04: first Performer `countTokens` returned **HTTP 400 / INVALID_ARGUMENT
 Attempt-01 candidate `de38d5d5...`: Core **622/622 PASS**, Harness **130/131 FAIL**. Read-only MSTest log SHA-256 `1A79B95C4683FD0B212721E03ADCD8335730292415604D845793BA50392A18BF` proved the sole failure was the stale comparison oracle expecting the superseded 5-field full-copy token body; frozen Q-E0A-04 requires exactly `model + systemInstruction + contents`. No production defect indicated. Test-only correction `48a6e67a5f5834b40bcca1b530b87f537140984e` passed hosted gate `34402647899`.
 
 ## Parallel
-Q-E0E-PREP CLOSED; Q-E0E-RUN BLOCKED through E0-A→D. Q-DESIGN-13 DONE; Q-DESIGN-14 ACTIVE. Design work does not alter E0 order or blind scoring.
+Q-E0E-PREP CLOSED; Q-E0E-RUN BLOCKED through E0-A→D. Q-DESIGN-14 DONE; Q-DESIGN-15 ACTIVE for non-production context-shift motion differentiation under Website authority. F1A 70/460 remains provisional within-context succession; context shifts require a distinct non-sequential treatment. E0 blind scoring and engineering order unchanged.
 
 ## Next
 Require complete hosted green on the diagnosis/continuity-inclusive branch HEAD, then run **Native Attempt 02 from the beginning in a new detached worktree**, preserving Attempt 01. No provider credentials/traffic. Handoff: `docs/handoff/E0A_GEMINI_COUNTTOKENS_INPUT_PROJECTION_NATIVE_ARM64_VALIDATION_HANDOFF_2026_09_09.md`. Q-E0A-03, E0-B+ and E0-E execution remain BLOCKED. Provider authorization is **NONE**.
