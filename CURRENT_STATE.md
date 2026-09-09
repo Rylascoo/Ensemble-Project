@@ -21,5 +21,8 @@ Attempt 03: first Performer `countTokens` HTTP **400**, 0 turns, $0, no generati
 ## Parallel E0-E
 **Single-model playwright control preparation remains AUTHORIZED; execution remains BLOCKED until E0-A -> E0-B -> E0-C -> E0-D close.** Non-network only. Live packet: `docs/handoff/E0E_SINGLE_MODEL_PLAYWRIGHT_CONTROL_PREPARATION_HANDOFF_2026_09_08.md`.
 
+## Cross-lane continuity
+The Q-DESIGN-06 TYP-01 preflight closure and Q-DESIGN-07 design-audit activation recorded in `docs/PROJECT_EXECUTION_QUEUE.md` are design-lane sequencing only; they change no engineering checkpoint, validation rung, provider authorization, or E0 ordering.
+
 ## Next
 Q-E0A-02 is **BLOCKED**. Before any further live provider compatibility request: reverify current provider/account/pricing/quota facts and obtain explicit Director authorization. Q-E0E-PREP may continue only within its existing non-network preparation boundary. Active E0-A transition record: `docs/handoff/E0A_GEMINI_BOUNDED_PROVIDER_ERROR_DIAGNOSTIC_ENGINEERING_HANDOFF_2026_09_08.md`.
