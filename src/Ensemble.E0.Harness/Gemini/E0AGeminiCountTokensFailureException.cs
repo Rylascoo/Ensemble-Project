@@ -140,6 +140,8 @@ internal sealed class E0AGeminiCountTokensFailureException : Exception
         catch (Exception exception) when (
             exception is HttpRequestException or
             IOException or
+            InvalidOperationException or
+            NotSupportedException or
             JsonException)
         {
             return Http(httpStatus);
