@@ -57,3 +57,19 @@ Archived 55 historical branches on 2026-09-07 after verifying each pushed annota
 | h1-source | archive/h1-source | bb067769062746b8cf421e65f48357e734b1e0d0 | 0 | 405 | 2026-09-07 |
 | kymaean-architecture-ship-plan | archive/kymaean-architecture-ship-plan | 3b0298eb6c9adc419ddac0efe3408cb9c137f75e | 10 | 176 | 2026-09-07 |
 | temp-noop | archive/temp-noop | 8efa22b9917d3ba1bef787c74d0279f578c49584 | 0 | 287 | 2026-09-07 |
+
+## Continuity archival follow-up - 2026-09-08
+
+A later post-convergence continuity audit verified seven additional annotated archive tags at exact historical heads before stale-ref cleanup. This section is additive; it does not rewrite the 2026-09-07 table or its historical ahead/behind counts.
+
+| historical branch/work surface | archive tag | exact archived head | disposition |
+| --- | --- | --- | --- |
+| docs/w2-evidence-lane-charter | archive/docs/w2-evidence-lane-charter | 570413bccbfb3fab5c38116336f57bec71b73d77 | Remote branch already absent; clean local Project worktree and branch removed after exact archive proof. |
+| design-queue/dpsc-c01-pre-render-rejection | archive/design-queue/dpsc-c01-pre-render-rejection | 6de8a8409e236c012a5e5431941e73c102ba2776 | Superseded historical design-queue work surface; stale Project remote ref deleted after tag verification. |
+| design-queue/dpsc-c01-revision2-scaffold | archive/design-queue/dpsc-c01-revision2-scaffold | e319d50237e7b7c1c9c75896eb73218d949043ad | Superseded historical design-queue work surface; stale Project remote ref deleted after tag verification. |
+| design-queue/dpsc-rsp-case-a-closure | archive/design-queue/dpsc-rsp-case-a-closure | e3ba29e8b91cc7d4b581dfd5a3bc1a466c1cd3b0 | Accepted content independently reconciled; stale Project remote ref deleted after tag verification. |
+| e0a-gemini-rate-discipline-model-comparison | archive/e0a-gemini-rate-discipline-model-comparison | a6e12b033fd3136c4b6e167482d4c3c2d0c64029 | Incorporated/superseded engineering work surface; stale Project remote ref deleted after tag verification. |
+| project-execution-queue-e0e-preparation-2026-09-08 | archive/project-execution-queue-e0e-preparation-2026-09-08 | 3a57b951b6f282df304596e747d9efd9ded0baf4 | Queue-reconciliation work incorporated; stale Project remote ref deleted after tag verification. |
+| repo-convergence-integrity-2026-09-08 | archive/repo-convergence-integrity-2026-09-08 | 542667ae125135af38c04ef2301ac4340d12d7ff | Repository-convergence work incorporated and closed; stale Project remote ref deleted after tag verification. |
+
+Historical branch refs recorded by this ledger: **62** (55 initial + 7 continuity follow-up). Exact annotated archive tags, not this table's ancestry/count metadata, remain the durable Git locators.
