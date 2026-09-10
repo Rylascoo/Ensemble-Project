@@ -80,6 +80,14 @@ at the guarded provider-run boundary after all packet-level local checks and sec
 
 If the validated Harness itself fails a local fail-closed guard before reaching a provider-bound invocation, terminal evidence must be inspected before consumption is durably classified; the Director authorization text above controls that distinction.
 
+## Local preflight history
+
+Attempt 01 on the Director's Windows ARM64 machine terminated before credential entry and before provider invocation because the wrapper searched native `git show` output for a full Unicode status line containing em dashes. The packet had already proved the authorization-record Git blob SHA exactly, but Windows PowerShell 5.1 native-output decoding made the redundant Unicode rendered-text assertion unreliable.
+
+Durable evidence: `docs/evidence/E0A_Q_E0A_03_G35L_RUN01_LOCAL_PREFLIGHT_ATTEMPT_01_2026_09_09.md`.
+
+Attempt-01 disposition: **wrapper-only local preflight failure; provider traffic not started; authorization unconsumed**. The correction is limited to removing non-ASCII native-output dependence while retaining exact blob identity and ASCII state checks. No executable, source, test, fixture, provider, profile, RunId, evidence-root, quota, retry, fallback, or validation authority changes.
+
 ## Local gates still unresolved by repository inspection
 
 Only the Director's Windows ARM64 machine can establish these immediately before execution:
@@ -98,6 +106,6 @@ Failure of any local gate before provider invocation stops the packet without pr
 
 - exact RunId authorization: **AUTHORIZED / UNCONSUMED**;
 - provider scope: **only** `E0A-Q03-G35L-20260909-01` as specified above;
-- next action: guarded native Windows ARM64 local preflight, then exactly one provider run if every gate passes;
+- next action: corrected guarded native Windows ARM64 local preflight, then exactly one provider run if every gate passes;
 - Gemini 3.1 / Gemini 2.5: **NOT AUTHORIZED**;
-- no provider traffic was sent while creating this record.
+- no provider traffic was sent in local preflight Attempt 01.
