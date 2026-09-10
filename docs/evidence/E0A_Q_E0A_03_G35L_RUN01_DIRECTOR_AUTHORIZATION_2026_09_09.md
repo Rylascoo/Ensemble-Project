@@ -88,11 +88,21 @@ Durable evidence: `docs/evidence/E0A_Q_E0A_03_G35L_RUN01_LOCAL_PREFLIGHT_ATTEMPT
 
 Attempt-01 disposition: **wrapper-only local preflight failure; provider traffic not started; authorization unconsumed**. The correction is limited to removing non-ASCII native-output dependence while retaining exact blob identity and ASCII state checks. No executable, source, test, fixture, provider, profile, RunId, evidence-root, quota, retry, fallback, or validation authority changes.
 
+Attempt 02 on the Director's Windows ARM64 machine terminated before credential entry and before provider invocation because the intentionally preserved historical root no longer matched detached HEAD `689655eed677b789ab3ee395f1c65b4f2cb72cc8`.
+
+Durable evidence: `docs/evidence/E0A_Q_E0A_03_G35L_RUN01_LOCAL_PREFLIGHT_ATTEMPT_02_2026_09_09.md`.
+
+Read-only forensics then established that the root was clean but had been deliberately reused for an attached cross-lane reconciliation branch, `design-queue-clr01-q19-reconcile-2026-09-09-v2`, at `55541f5ad5e3c47e1a85cc35a3a6e169aa5fda70`. The branch was synchronized to its remote, the expected historical commit remained present, and the authorized executable plus annotated validation tag still matched exactly.
+
+Forensic resolution: `docs/evidence/E0A_Q_E0A_03_G35L_RUN01_HISTORICAL_ROOT_FORENSIC_RESOLUTION_2026_09_09.md`.
+
+Attempt-02 disposition: **local historical-root preservation violation; provider traffic not started; authorization unconsumed**. The authorized correction is non-destructive detachment of the clean Director-machine root back to exact historical checkpoint `689655eed677b789ab3ee395f1c65b4f2cb72cc8`, followed by exact detached/clean verification. The remotely preserved cross-lane branch must not be deleted or force-moved as part of this correction.
+
 ## Local gates still unresolved by repository inspection
 
 Only the Director's Windows ARM64 machine can establish these immediately before execution:
 
-- preserved historical root remains clean and unchanged;
+- preserved historical root is restored clean, detached, and exact at `689655eed677b789ab3ee395f1c65b4f2cb72cc8`;
 - dedicated execution worktree is safe and exact at the validated checkout;
 - canonical fixture bytes hash exactly to the frozen SHA-256;
 - exact evidence root does not exist and no local archive for this RunId proves prior execution;
@@ -106,6 +116,6 @@ Failure of any local gate before provider invocation stops the packet without pr
 
 - exact RunId authorization: **AUTHORIZED / UNCONSUMED**;
 - provider scope: **only** `E0A-Q03-G35L-20260909-01` as specified above;
-- next action: corrected guarded native Windows ARM64 local preflight, then exactly one provider run if every gate passes;
+- next action: restore and verify the preserved historical Director-machine root, then resume the corrected guarded Windows ARM64 local preflight if repository authority still matches exactly;
 - Gemini 3.1 / Gemini 2.5: **NOT AUTHORIZED**;
-- no provider traffic was sent in local preflight Attempt 01.
+- no provider traffic was sent in local preflight Attempts 01 or 02.
