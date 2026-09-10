@@ -88,12 +88,15 @@ Attempt 02 stopped before credential/provider invocation because the preserved h
 
 Attempt 03 stopped before credential/provider invocation because the external wrapper incorrectly compared raw Windows working-tree fixture bytes with the canonical semantic `FixtureHash.Compute` identity. Durable evidence: `docs/evidence/E0A_Q_E0A_03_G35L_RUN01_LOCAL_PREFLIGHT_ATTEMPT_03_2026_09_09.md`. Repository source establishes that canonical hash `5556a02325e6a7f774e6997942b395d670741d494ea86f1a50b83633e26b6703` is computed from `Ecj1FixtureCanonicalizer.Serialize(fixture)`, while the exact fixture Git blob at the authorized executable is `6c2ed0e1081ee4e1165dbfb162b3028cbd1136fd`. Corrected packet law is exact clean executable + exact fixture Git blob + native Missing-Raft smoke exercising `MissingRaftContract.Validate`; no raw working-tree `Get-FileHash` comparison to the canonical identity. Disposition: **wrapper-only; unconsumed**.
 
+Attempt 04 stopped before credential/provider invocation after the corrected fixture-object gate passed. The external wrapper searched human-formatted `dotnet --info` output for the literal contiguous substring `RID: win-arm64`, while prior native evidence records aligned output such as `RID:           win-arm64`. Durable evidence: `docs/evidence/E0A_Q_E0A_03_G35L_RUN01_LOCAL_PREFLIGHT_ATTEMPT_04_2026_09_09.md`. Corrected host law requires whitespace-tolerant semantic label/value parsing for `RID = win-arm64` and Host `Architecture = arm64`; fixed CLI display spacing is not an authority invariant. Disposition: **wrapper-only; unconsumed**.
+
 ## Current disposition
 
 - exact RunId authorization: **AUTHORIZED / UNCONSUMED**;
 - provider scope: **only** `E0A-Q03-G35L-20260909-01` as specified above;
 - historical-root restoration: **VERIFIED**;
 - Attempt-03 fixture-wrapper correction: **RESOLVED**;
-- next action: resume corrected guarded Windows ARM64 local preflight against exact current repository authority; if every local gate passes, securely supply process-local credential and launch exactly this one provider run;
+- Attempt-04 `dotnet --info` parser correction: **RESOLVED**;
+- next action: resume corrected guarded Windows ARM64 local preflight against exact current repository authority; parse `dotnet --info` semantic label/value facts without fixed display spacing; if every local gate passes, securely supply process-local credential and launch exactly this one provider run;
 - Gemini 3.1 / Gemini 2.5: **NOT AUTHORIZED**;
-- no provider traffic was sent in local preflight Attempts 01, 02, or 03 or during root restoration.
+- no provider traffic was sent in local preflight Attempts 01, 02, 03, or 04 or during root restoration.
