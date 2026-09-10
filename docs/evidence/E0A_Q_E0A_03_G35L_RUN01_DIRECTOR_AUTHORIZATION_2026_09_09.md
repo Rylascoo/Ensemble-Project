@@ -92,20 +92,19 @@ Attempt 02 on the Director's Windows ARM64 machine terminated before credential 
 
 Durable evidence: `docs/evidence/E0A_Q_E0A_03_G35L_RUN01_LOCAL_PREFLIGHT_ATTEMPT_02_2026_09_09.md`.
 
-Read-only forensics then established that the root was clean but had been deliberately reused for an attached cross-lane reconciliation branch, `design-queue-clr01-q19-reconcile-2026-09-09-v2`, at `55541f5ad5e3c47e1a85cc35a3a6e169aa5fda70`. The branch was synchronized to its remote, the expected historical commit remained present, and the authorized executable plus annotated validation tag still matched exactly.
+Read-only forensics established that the root was clean but had been deliberately reused for attached branch `design-queue-clr01-q19-reconcile-2026-09-09-v2` at `55541f5ad5e3c47e1a85cc35a3a6e169aa5fda70`; the branch was synchronized to its remote and the authorized executable/tag still matched exactly.
 
-Forensic resolution: `docs/evidence/E0A_Q_E0A_03_G35L_RUN01_HISTORICAL_ROOT_FORENSIC_RESOLUTION_2026_09_09.md`.
+Forensic resolution and successful controlled restoration: `docs/evidence/E0A_Q_E0A_03_G35L_RUN01_HISTORICAL_ROOT_FORENSIC_RESOLUTION_2026_09_09.md`.
 
-Attempt-02 disposition: **local historical-root preservation violation; provider traffic not started; authorization unconsumed**. The authorized correction is non-destructive detachment of the clean Director-machine root back to exact historical checkpoint `689655eed677b789ab3ee395f1c65b4f2cb72cc8`, followed by exact detached/clean verification. The remotely preserved cross-lane branch must not be deleted or force-moved as part of this correction.
+The Director-machine restoration packet subsequently proved exact historical HEAD `689655eed677b789ab3ee395f1c65b4f2cb72cc8`, detached state, clean worktree, preserved cross-lane branch unchanged, no provider traffic, and authorization still unconsumed. The historical-root gate is therefore closed.
 
 ## Local gates still unresolved by repository inspection
 
 Only the Director's Windows ARM64 machine can establish these immediately before execution:
 
-- preserved historical root is restored clean, detached, and exact at `689655eed677b789ab3ee395f1c65b4f2cb72cc8`;
 - dedicated execution worktree is safe and exact at the validated checkout;
 - canonical fixture bytes hash exactly to the frozen SHA-256;
-- exact evidence root does not exist and no local archive for this RunId proves prior execution;
+- exact evidence root does not exist and no local archive/claim for this RunId proves prior execution;
 - `dotnet --info` reports native Windows ARM64 host facts;
 - credential is entered securely and exists only in process environment scope;
 - no unrelated provider traffic/capacity change creates a quota contrary signal.
@@ -116,6 +115,7 @@ Failure of any local gate before provider invocation stops the packet without pr
 
 - exact RunId authorization: **AUTHORIZED / UNCONSUMED**;
 - provider scope: **only** `E0A-Q03-G35L-20260909-01` as specified above;
-- next action: restore and verify the preserved historical Director-machine root, then resume the corrected guarded Windows ARM64 local preflight if repository authority still matches exactly;
+- historical-root restoration: **VERIFIED**;
+- next action: resume the corrected guarded Windows ARM64 local preflight against exact current repository authority; if every gate passes, securely supply the process-local credential and launch exactly this one provider run;
 - Gemini 3.1 / Gemini 2.5: **NOT AUTHORIZED**;
-- no provider traffic was sent in local preflight Attempts 01 or 02.
+- no provider traffic was sent in local preflight Attempts 01 or 02 or during root restoration.
