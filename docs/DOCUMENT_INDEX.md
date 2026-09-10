@@ -22,6 +22,7 @@ This index helps a fresh engineering chat find the small set of current entry su
 - `docs/blueprint/E0A_PHASE_B_GEMINI_RATE_DISCIPLINE_MODEL_COMPARISON_AMENDMENT.md`
 - `docs/blueprint/E0A_PHASE_B_GEMINI_FREE_TIER_RPD_MODEL_SELECTION_AMENDMENT.md`
 - `docs/blueprint/E0A_GEMINI_COUNTTOKENS_INPUT_PROJECTION_CORRECTION_AMENDMENT.md`
+- `docs/blueprint/E0A_GEMINI_GENERATION_ERROR_DIAGNOSTIC_CORRECTION_AMENDMENT.md`
 - `docs/blueprint/E0A_Q_E0A_03_REFERENCE_EVIDENCE_ACTIVATION_AND_CLOSURE_CONTRACT.md`
 
 These remain subject to `CURRENT_STATE.md`; this index does not independently mark a phase, checkpoint, provider route, or experiment executable.
@@ -30,7 +31,10 @@ These remain subject to `CURRENT_STATE.md`; this index does not independently ma
 
 - `docs/VALIDATION_LEDGER.md` — promoted validation facts and durable tags; cannot advance project state.
 - `docs/HYPOTHESIS_LEDGER.md` — current unverified/narrowed Gemini assumptions and verification triggers; never a decision source.
-- `docs/evidence/E0A_GEMINI_COUNTTOKENS_INPUT_PROJECTION_NATIVE_ARM64_VALIDATION_2026_09_09.md` — current promoted Windows ARM64 machine-test evidence for exact executable `3a010df5d26fc58d6f3820f2dc2cfbb0d015a9d2`.
+- `docs/evidence/E0A_GEMINI_GENERATION_ERROR_DIAGNOSTIC_NATIVE_ARM64_VALIDATION_2026_09_10.md` — current promoted Windows ARM64 machine-test evidence for exact executable `7868e5cb12a27260e288d95c248d6f846cf37701`.
+- `docs/evidence/E0A_GEMINI_GENERATION_ERROR_DIAGNOSTIC_IMPLEMENTATION_AUDIT_2026_09_10.md` — source/test audit for the bounded generation-error diagnostic correction.
+- `docs/evidence/E0A_Q_E0A_03_G35L_RUN01_TERMINAL_EVIDENCE_ANALYSIS_2026_09_10.md` — sealed Run 01 archive analysis; corrected `countTokens` succeeded, first generation returned HTTP 400, exact cause unresolved.
+- `docs/evidence/E0A_GEMINI_COUNTTOKENS_INPUT_PROJECTION_NATIVE_ARM64_VALIDATION_2026_09_09.md` — immediate predecessor native checkpoint for the corrected `countTokens` projection.
 - `docs/evidence/E0A_GEMINI35_ATTEMPT04_ARCHIVE_AUDIT_2026_09_09.md` — sealed Attempt-04 audit; first Performer `countTokens` rejected the former full-request projection before generation.
 - `docs/evidence/E0A_GEMINI35_THOUGHT_SIGNATURE_COMPATIBILITY_AUDIT.md` — current Gemini-3 compatibility evidence named by `CURRENT_STATE.md`.
 - `docs/evidence/E0A_Q_E0A_03_REFERENCE_EVIDENCE_PLANNING_RECURSIVE_AUDIT_2026_09_09.md` — recursive audit of the frozen Q-E0A-03 activation/closure method.

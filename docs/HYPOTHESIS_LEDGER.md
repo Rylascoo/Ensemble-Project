@@ -6,7 +6,7 @@ A hypothesis belongs here when engineering work depends on a fact that has not y
 
 ## Open / narrowed hypotheses
 
-### HYP-001 — Live Gemini request compatibility — NARROWED / CORRECTED PREFLIGHT MACHINE-VALIDATED
+### HYP-001 — Live Gemini request compatibility — NARROWED / 3.5 GENERATION REJECTION ESTABLISHED
 
 Hypothesis: the approved REST request/streaming shapes for the current E0-A comparison profiles remain accepted by the real Google Gemini API:
 
@@ -14,23 +14,22 @@ Hypothesis: the approved REST request/streaming shapes for the current E0-A comp
 - `gemini-3.1-flash-lite` / `GEMINI-3.1-FLASH-LITE-MINIMAL`;
 - `gemini-2.5-flash-lite` / `GEMINI-2.5-FLASH-LITE-NONE`.
 
-Current evidence: Attempt 04 conclusively localized the prior 3.5 Flash-Lite failure to the first Performer `countTokens` preflight. Google returned HTTP 400 / `INVALID_ARGUMENT` at `generate_content_request.generation_config.response_format.text.mime_type`; generation was never reached. Archive audit: `docs/evidence/E0A_GEMINI35_ATTEMPT04_ARCHIVE_AUDIT_2026_09_09.md`.
+Current evidence: historical Attempt 04 falsified the former full-request `countTokens` projection; Q-E0A-04 corrected that boundary and native-validated the input-semantic projection. The first separately authorized Q-E0A-03 Run 01 then proved the corrected 3.5 Flash-Lite `countTokens` path succeeds (`649` input tokens) and reached the first Performer generation request. That generation request returned HTTP 400; no provider model identity, usage, or structured output was available and zero turns were accepted. Terminal analysis: `docs/evidence/E0A_Q_E0A_03_G35L_RUN01_TERMINAL_EVIDENCE_ANALYSIS_2026_09_10.md`.
 
-Q-E0A-04 corrected that live-falsified boundary by projecting only `model + systemInstruction + contents` into Gemini Developer API `countTokens` while leaving the prepared generation request unchanged. The corrected executable is machine-validated on native Windows ARM64 at exact checkout `3a010df5d26fc58d6f3820f2dc2cfbb0d015a9d2`, annotated tag `validation/e0a-gemini-counttokens-input-projection-native-arm64`, tag object `b9341c1c0ab48be5370ed22e7d2511f9e3be00d9`.
+The sealed Run 01 diagnostic retained only `gemini-http-400`, so the evidence does not identify the rejected generation field/provider condition. Current provider documentation reviewed for the preauthorization gate did not establish a generation-request field defect. Engineering therefore must not mutate generation bytes by hypothesis.
 
-This establishes the local correction and validation boundary; it does **not** prove that the full 3.5 generation/streaming path, provider usage mapping, or either other live comparison profile will succeed against the real provider.
+A bounded generation-error diagnostic correction is machine-validated at `7868e5cb12a27260e288d95c248d6f846cf37701`, annotated tag `validation/e0a-gemini-generation-error-diagnostic-native-arm64`, so a future separately authorized failure can preserve allowlisted Google RPC status/field evidence without provider prose. This validation does not prove live generation compatibility and does not authorize provider traffic.
 
-Disposition: the historical 2026-09-08 3.5 pause and 3.1 deferral were gates pending diagnosis/correction of the old full-request `countTokens` behavior. That prerequisite is now satisfied by Q-E0A-04. They do not become standing provider authorization. Q-E0A-03 remains blocked for network execution until its exact provider facts and separate Director authorization are satisfied. Planning/closure contract: `docs/blueprint/E0A_Q_E0A_03_REFERENCE_EVIDENCE_ACTIVATION_AND_CLOSURE_CONTRACT.md`.
+Disposition: 3.5 Flash-Lite generation compatibility is **not established**; one real request was rejected HTTP 400 and the exact cause remains unresolved. 3.1 Flash-Lite and 2.5 Flash-Lite live generation compatibility also remain unverified. Q-E0A-03 stays open under its frozen activation/closure contract and provider authority is **NONE**.
+Verification trigger: only a newly Director-authorized exact provider run may produce further live evidence. No disposable compatibility probe, automatic retry/rerun, fallback, or alternate-model call is implied.
 
-Verification trigger: the first separately authorized Q-E0A-03 full-reference run for 3.5 Flash-Lite. The run itself is the compatibility test; there is no separate disposable provider probe. Any later profile remains separately authorized.
-
-Falsifier/narrowing evidence: a real provider rejects or semantically contradicts the corrected approved request/stream contract for the selected profile, or returned response/usage behavior cannot satisfy the existing fail-closed envelope.
+Falsifier/narrowing evidence: a future authorized run returns bounded structured rejection detail, succeeds through a usable generation/stream response, or otherwise establishes a provider behavior that narrows the current HTTP-400 ambiguity.
 
 ### HYP-002 — Account/key/model/quota availability — PARTIALLY ESTABLISHED / VOLATILE
 
 Hypothesis: the Director-selected Free-tier project and a valid key can access the selected model and required `countTokens` / generation routes within the approved E0-A envelope at execution time.
 
-Current evidence: Director-supplied AI Studio UI on 2026-09-07 established Free tier and the comparison quota matrix. For `gemini-3.5-flash-lite`, the Director reconfirmed on 2026-09-09 that the working snapshot remains 15 RPM / 250,000 input TPM / 500 RPD and authorized reuse until a material contrary signal appears; durable decision: `docs/evidence/E0A_GEMINI35_QUOTA_SNAPSHOT_REUSE_DIRECTOR_DECISION_2026_09_09.md`. The static full-run conservative bound remains 72 provider operations <= 500 RPD. Attempt 04 also proved that the Director-machine key/project path could reach the real 3.5 `countTokens` API, though the old request shape was rejected for compatibility rather than authentication.
+Current evidence: Director-supplied AI Studio UI on 2026-09-07 established Free tier and the comparison quota matrix. For `gemini-3.5-flash-lite`, the Director reconfirmed on 2026-09-09 that the working snapshot remains 15 RPM / 250,000 input TPM / 500 RPD and authorized reuse until a material contrary signal appears; durable decision: `docs/evidence/E0A_GEMINI35_QUOTA_SNAPSHOT_REUSE_DIRECTOR_DECISION_2026_09_09.md`. The static full-run conservative bound remains 72 provider operations <= 500 RPD. Attempt 04 and Q-E0A-03 Run 01 prove that the Director-machine key/project path reached the real 3.5 `countTokens` and generation endpoints; Run 01's generation HTTP 400 is not, by itself, evidence of quota exhaustion.
 
 For 3.1 Flash-Lite and 2.5 Flash-Lite, the recorded 2026-09-07 limits remain historical input to the executable/profile design but have no equivalent Director quota-reuse decision. Their current account/quota state must therefore be reverified before any separately authorized run.
 
@@ -48,11 +47,13 @@ Verification trigger: immediately before each authorized provider-network execut
 
 Falsifier: current provider terms, billing, retention/data-use, pricing, lifecycle, model availability, or route behavior differs materially from the assumptions required by the approved synthetic run.
 
-### HYP-004 — Live provider generation/usage accounting mapping — OPEN
+### HYP-004 — Live provider generation/usage accounting mapping — OPEN / GENERATION INVOCATION REACHED
 
 Hypothesis: real Gemini response usage fields, reasoning/thinking-token reporting, cache reporting, thought-signature behavior, finish/terminal semantics, and streaming behavior map to the Harness accounting and fail-closed rules as expected for the Gemini 3 thinking-level family (3.5/3.1 Flash-Lite) and the 2.5 Flash-Lite budget-controlled family.
 
-Current evidence: deterministic/fake regressions, machine-validated Q-E0A-04 token-preflight correction, and real `countTokens` boundary evidence. No E0-A comparison run has yet reached successful generation/inference, so real generation usage/reasoning/cache/stream mapping remains unverified for every current comparison profile.
+Current evidence: deterministic/fake regressions, machine-validated token-preflight correction, and Q-E0A-03 Run 01. Run 01 reached the real 3.5 Flash-Lite generation boundary after successful `countTokens`, but Google returned HTTP 400 before a usable generation response; provider identity, usage, reasoning/cache accounting, thought-signature behavior, stream framing, and finish semantics therefore remain unverified. The Harness correctly treated provider usage as unknown and preserved zero accepted turns.
+
+The generation-error diagnostic correction improves future bounded failure evidence but does not establish any generation/usage mapping fact by itself.
 
 Verification trigger: first separately authorized successful generation path for each materially distinct provider behavior family during Q-E0A-03.
 
@@ -76,8 +77,8 @@ The following are decisions or scope gates and must not be reclassified as assum
 
 - Gemini remains the sole current E0-A provider method; historical OpenAI executable support is retired.
 - The implemented comparison-profile set is 3.5 Flash-Lite Minimal (12 turns), 3.1 Flash-Lite Minimal (12 turns), and 2.5 Flash-Lite None (3-turn exact-no-thinking control), with historical 2.5 Flash non-live.
-- The former 3.5 pause / 3.1 diagnostic deferral is historical compatibility-gate context; Q-E0A-04 has completed the required correction and native validation. This does not authorize either route.
-- Q-E0A-03 remains blocked for provider execution under `docs/blueprint/E0A_Q_E0A_03_REFERENCE_EVIDENCE_ACTIVATION_AND_CLOSURE_CONTRACT.md`.
+- The former 3.5 `countTokens` compatibility gate is corrected and native-validated; Q-E0A-03 Run 01 instead establishes a later generation-boundary HTTP 400 whose exact cause remains unresolved.
+- Q-E0A-03 remains blocked for provider execution under `docs/blueprint/E0A_Q_E0A_03_REFERENCE_EVIDENCE_ACTIVATION_AND_CLOSURE_CONTRACT.md` until a new exact Director authorization exists.
 - Provider authorization is **NONE**.
 - Free-tier live experiments remain canonical synthetic Missing Raft-only.
 - One attempt per probabilistic role invocation, zero automatic retries, no automatic fallback, the USD 5 shadow ceiling, evidence immutability, and experiment order remain fixed.

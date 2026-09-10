@@ -6,18 +6,18 @@ Updated: 2026-09-10
 `Rylascoo/Ensemble-Project` is Engineering authority. This file alone owns phase/checkpoint/validation/next action. Bootstrap: `AGENTS.md`; product/lane authority: `docs/PROJECT_AUTHORITY.md`; orchestration: `docs/PROJECT_AGENT_ORCHESTRATION_PROTOCOL.md`; sequencing: `docs/PROJECT_EXECUTION_QUEUE.md`.
 
 ## Checkpoint
-Runtime **E0-A Experimental Harness — Phase B**. Q-E0A-01/02/04 **DONE**. Q-E0A-03 **ACTIVE — RUN 01 TERMINATED; AUTHORIZATION CONSUMED; TERMINAL EVIDENCE ANALYSIS NEXT**.
+Runtime **E0-A Experimental Harness — Phase B**. Q-E0A-01/02/04 **DONE**. Q-E0A-03 **ACTIVE — RUN 01 ANALYZED; GENERATION-ERROR DIAGNOSTIC CORRECTION MACHINE-VALIDATED; DIRECTOR/PROVIDER BOUNDARY NEXT**.
 
-Exact RunId `E0A-Q03-G35L-20260909-01`; route `CREATIVE-MINIMAL / GEMINI-3.5-FLASH-LITE-MINIMAL`; executable `3a010df5d26fc58d6f3820f2dc2cfbb0d015a9d2`; validation tag `validation/e0a-gemini-counttokens-input-projection-native-arm64`. Director reports `PROVIDER_INVOCATION_STARTED=YES`, terminal `TechnicalFailure`, accepted turns **0**, estimated shadow spend USD **0.164035**. Exact Run 01 authorization is **CONSUMED**; provider authority is **NONE**. No retry/rerun/fallback/probe/alternate provider/model is authorized.
+Run `E0A-Q03-G35L-20260909-01` passed corrected `countTokens` with 649 input tokens, reached first Performer generation, then terminated `TechnicalFailure` on Gemini HTTP 400 with zero accepted turns. Run 01 authorization is **CONSUMED**; provider authority is **NONE**. No retry/rerun/fallback/probe/alternate provider/model is authorized.
 
 ## Validation
-Native authority remains `3a010df5d26fc58d6f3820f2dc2cfbb0d015a9d2`; tag object `b9341c1c0ab48be5370ed22e7d2511f9e3be00d9`. Windows ARM64 Core **622/622**, Harness **131/131**, build/smokes/credentialless PASS from the existing validation checkpoint. The terminal provider result does not promote that validation rung.
+Current promoted native authority: `7868e5cb12a27260e288d95c248d6f846cf37701`; tag `validation/e0a-gemini-generation-error-diagnostic-native-arm64`, tag object `595fef66a79ac2939f439748fed096094b445cf1`. Native Windows ARM64 Core **622/622**, Harness **134/134**, fresh build/smokes/credentialless gates PASS. Provider network was not performed during this validation.
 
 ## Evidence boundary
-Continuity intake: `docs/evidence/E0A_Q_E0A_03_G35L_RUN01_TERMINAL_CONTINUITY_INTAKE_2026_09_09.md`. It records Director-supplied terminal facts and local evidence pointers/hashes; the connected repository-side migration did **not** inspect the local ZIP/root and makes no causal diagnosis. Preserve runtime facts separately from hypotheses. Do not modify runtime source until preserved evidence proves a defect.
+Run 01 terminal analysis: `docs/evidence/E0A_Q_E0A_03_G35L_RUN01_TERMINAL_EVIDENCE_ANALYSIS_2026_09_10.md`. Evidence proves a generation-boundary HTTP 400 and a Harness diagnostic-observability defect, but does **not** identify the rejected generation field/provider condition. Correction contract/audits: `docs/blueprint/E0A_GEMINI_GENERATION_ERROR_DIAGNOSTIC_CORRECTION_AMENDMENT.md` and the two generation-error diagnostic audit records dated 2026-09-10.
 
 ## Continuity
-Q-E0E-PREP remains DONE; Q-E0E-RUN remains blocked through E0-A→D. Design authority is separate; latest reconciled Website checkpoint during this migration was `b0464e6a63bee3075a9da5acc74864a57ff78e5f` with Q-DESIGN-19 still the Design next action. Long personality/handoff prompts are non-authoritative continuity aids after repository-law migration. Administrator C0/C1/C2 are DONE; C3 deterministic Skills is next. Evidence: `docs/evidence/CODEX_ADMINISTRATOR_C2_FRESH_AUTHORITY_RECOVERY_2026_09_10.md`. No Engineering phase/provider/validation authority changes; Hooks, Automations, Claude, browser/CDP, and provider traffic remain unavailable until earned.
+Q-E0E-PREP remains DONE; Q-E0E-RUN remains blocked through E0-A→D. Design authority remains separate. Administrator C0/C1/C2 are DONE; C3 deterministic Skills remains the next earned Administrator gate and does not change Engineering/provider authority.
 
 ## Next
-On the Director Windows ARM64 machine, inspect the preserved Run 01 evidence root/ZIP/console, verify supplied hashes/integrity, classify the `TechnicalFailure`, and create the terminal evidence analysis record. Determine from evidence whether any source correction is warranted. **Do not change runtime source before a defect is established. Do not send provider traffic without new explicit Director authorization.**
+Q-E0A-03 is blocked at the **Director/provider boundary**. Any next real run requires a fresh exact evidence root, current activation gates for the intended validated executable, and new explicit Director authorization for exactly one named run. Do not infer rerun, alternate-model, retry, fallback, probe, or spend authority.
