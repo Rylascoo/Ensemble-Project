@@ -78,4 +78,25 @@ A later post-convergence continuity audit verified seven additional annotated ar
 | --- | --- | --- | --- |
 | tmp-e0a-native-closeout-probe | archive/tmp-e0a-native-closeout-probe | e6e7d6c8c7187a87df2c97f2373dd3adbee7ce4a | Redundant connector-created closeout probe; zero unique project content; annotated archive tag object `64c1830ff95171ada835c61b8a79a4024a04f2c2` verified before remote branch deletion. |
 
-Historical branch refs recorded by this ledger: **63** (55 initial + 7 continuity follow-up + 1 bounded-diagnostic closeout probe). Exact annotated archive tags, not this table's ancestry/count metadata, remain the durable Git locators.
+Historical branch refs recorded by this ledger before the 2026-09-10 Q-E0A hygiene follow-up: **63** (55 initial + 7 continuity follow-up + 1 bounded-diagnostic closeout probe). With the 14 refs recorded below, the ledger now records **77** historical branch refs. Exact annotated archive tags, not this table's ancestry/count metadata, remain the durable Git locators.
+
+## Q-E0A terminal-analysis branch hygiene follow-up - 2026-09-10
+
+After Q-E0A Run 01 terminal analysis and the generation-error diagnostic correction were integrated to `main`, Engineering Sol re-resolved live refs and retired only fully merged Engineering-owned E0-A/docs work surfaces. Each ref below had zero commits ahead of current `main` (or, for the terminal-analysis branch, exactly matched integrated `main`), received a verified annotated archive tag at its exact head, and was deleted only after remote tag dereference verification. Design queue/tmp, Administrator/Codex, E0-E Evidence, and Director-authorization surfaces were explicitly excluded from this batch.
+
+| historical branch/work surface | archive tag | exact archived head | disposition |
+| --- | --- | --- | --- |
+| docs/e0a-attempt04-preflight01-correction-2026-09-09 | archive/docs/e0a-attempt04-preflight01-correction-2026-09-09 | 52b8f9006bd196a7e21e7a4551b58ececa33e7a1 | Fully merged Engineering continuity surface; archived and remote ref deleted. |
+| docs/e0a-continuity-evidence-closeout-2026-09-09 | archive/docs/e0a-continuity-evidence-closeout-2026-09-09 | f3a7e87207a7822eae9f174ecb66ddd69f11ac92 | Fully merged Engineering continuity surface; archived and remote ref deleted. |
+| docs/e0a-fresh-chat-continuity-reconciliation-2026-09-09 | archive/docs/e0a-fresh-chat-continuity-reconciliation-2026-09-09 | e297a0ca1e00d420df442bf38d41e59dc3e20504 | Fully merged Engineering continuity surface; archived and remote ref deleted. |
+| docs/engineering-sol-agent-protocol-migration-2026-09-09 | archive/docs/engineering-sol-agent-protocol-migration-2026-09-09 | c52fc5c667ba2da79c20f38444b49a625d646c71 | Fully merged Engineering continuity surface; archived and remote ref deleted. |
+| docs/engineering-sol-agent-protocol-migration-audit-anchor-2026-09-09 | archive/docs/engineering-sol-agent-protocol-migration-audit-anchor-2026-09-09 | bd892837559b4e1a259cb49ca789c9357bf14ffa | Fully merged Engineering continuity surface; archived and remote ref deleted. |
+| docs/q-e0a-03-g35l-run01-preflight01-wrapper-fix-2026-09-09 | archive/docs/q-e0a-03-g35l-run01-preflight01-wrapper-fix-2026-09-09 | 4a63d9a9deaec656a657324350570b3a35b5b9b3 | Fully merged Q-E0A continuity surface; archived and remote ref deleted. |
+| docs/q-e0a-03-g35l-run01-preflight02-root-drift-2026-09-09 | archive/docs/q-e0a-03-g35l-run01-preflight02-root-drift-2026-09-09 | 40d2e4897ce2fe991683fdda634cc13a517692e7 | Fully merged Q-E0A continuity surface; archived and remote ref deleted. |
+| docs/q-e0a-03-g35l-run01-preflight04-rid-parser-2026-09-09 | archive/docs/q-e0a-03-g35l-run01-preflight04-rid-parser-2026-09-09 | 69476005558a466c8d2b6c78bef3c2988e9eed77 | Fully merged Q-E0A continuity surface; archived and remote ref deleted. |
+| docs/q-e0a-03-g35l-run01-root-forensic-resolution-2026-09-09 | archive/docs/q-e0a-03-g35l-run01-root-forensic-resolution-2026-09-09 | f4a9ad6346c0284d1c71dcdc3c89f346dd92a0f0 | Fully merged Q-E0A continuity surface; archived and remote ref deleted. |
+| e0a-gemini-bounded-provider-error-diagnostic | archive/e0a-gemini-bounded-provider-error-diagnostic | bc97790c3e4415f2253d07e022ed3d6fe317be6a | Fully merged Engineering implementation surface; archived and remote ref deleted. |
+| e0a-gemini-counttokens-input-projection-correction | archive/e0a-gemini-counttokens-input-projection-correction | 8842dac123d31851dee78dd91b760db61045655d | Fully merged Engineering implementation surface; archived and remote ref deleted. |
+| q-e0a-03-g35l-preauthorization-public-facts | archive/q-e0a-03-g35l-preauthorization-public-facts | 70aca80676948e03f1487c0d30e64bd4baec16f7 | Fully merged Engineering activation surface; archived and remote ref deleted. |
+| q-e0a-03-reference-evidence-plan | archive/q-e0a-03-reference-evidence-plan | af10e05bf5c327f42e9158ba2b42f42cf5b187bb | Fully merged Engineering planning surface; archived and remote ref deleted. |
+| q-e0a-03-g35l-generation-error-diagnostic | archive/q-e0a-03-g35l-generation-error-diagnostic | e23f696e505a567a57b858245faf866d1240fd53 | Integrated terminal-analysis/correction surface; archived and remote ref deleted after `main` CI success. |
