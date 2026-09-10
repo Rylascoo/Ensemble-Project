@@ -22,11 +22,24 @@ Use these probes instead:
 
 1. `PROCESSOR_ARCHITECTURE` must equal `ARM64`.
 2. `dotnet --info` must succeed.
-3. `dotnet --info` must report `RID: win-arm64`.
-4. `dotnet --info` Host section must report `Architecture: arm64`.
+3. `dotnet --info` must semantically report `RID = win-arm64`.
+4. `dotnet --info` Host section must semantically report `Architecture = arm64`.
 5. Harness build output should resolve under `net9.0\win-arm64` for the current E0 Harness target.
 
 These checks together are the trusted native Windows ARM64 validation probes for this host unless a later Director-machine observation supersedes this document.
+
+### `dotnet --info` parsing rule
+
+`dotnet --info` is human-formatted CLI output and aligns label/value fields with variable horizontal whitespace. Prior native evidence includes display text such as `RID:           win-arm64`. A wrapper must therefore not require the literal contiguous substring `RID: win-arm64` or any fixed count of spaces.
+
+Parse the semantic label/value facts with whitespace-tolerant matching, for example:
+
+```text
+(?m)^\s*RID:\s*win-arm64\s*$
+(?m)^\s*Architecture:\s*arm64\s*$
+```
+
+Equivalent structured parsing is acceptable. Fixed display spacing is not an authority invariant unless explicitly frozen. Attempt 04 of Q-E0A-03 established this rule after a local preflight false gate; no provider invocation occurred.
 
 ## 2. Native stderr under `$ErrorActionPreference = 'Stop'`
 
@@ -133,7 +146,8 @@ Future Director-machine Windows ARM64 validation command sets should be generate
 At minimum they must:
 
 - avoid `RuntimeInformation` PowerShell property gates on this host;
-- use `PROCESSOR_ARCHITECTURE` and parsed `dotnet --info` for architecture;
+- use `PROCESSOR_ARCHITECTURE` and whitespace-tolerant semantic parsing of `dotnet --info` for architecture;
+- never freeze incidental CLI alignment spacing as a semantic oracle;
 - capture native exit codes immediately;
 - isolate expected-failure stderr from `$ErrorActionPreference = 'Stop'`;
 - assert credentialless failure by native exit code, message, and filesystem effects;
