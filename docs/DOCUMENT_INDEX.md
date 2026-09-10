@@ -39,13 +39,15 @@ These remain subject to `CURRENT_STATE.md`; this index does not independently ma
 - `docs/evidence/E0A_Q_E0A_03_G35L_RUN01_TERMINAL_EVIDENCE_ANALYSIS_2026_09_10.md` — sealed Run 01 archive analysis; corrected `countTokens` succeeded, first generation returned HTTP 400, exact cause unresolved.
 - `docs/evidence/E0A_Q_E0A_03_G35L_RUN02_TERMINAL_EVIDENCE_ANALYSIS_2026_09_10.md` - sealed Run 02 analysis; generation rejection localized to `responseFormat.text.mimeType`.
 - `docs/evidence/E0A_GEMINI35_STRUCTURED_OUTPUT_COMPATIBILITY_DIAGNOSTIC_2026_09_10.md` - four-call bounded Free-tier diagnostic establishing working 3.5 Flash-Lite legacy structured-output encoding.
-- `docs/evidence/GEMINI_API_TEST_KEY_STANDING_DIRECTOR_AUTHORIZATION_2026_09_10.md` - temporary standing Free-tier synthetic diagnostic authority; consumed reference runs remain non-replayable.
+- `docs/evidence/GEMINI_API_PROJECT_RELEVANCE_STANDING_DIRECTOR_AUTHORIZATION_2026_09_10.md` - current standing Director authority for project-relevant Gemini Free-tier use; each exact run/batch remains bounded, logged, scope-evaluated, and non-replayable when consumed.
+- `docs/evidence/GEMINI_API_TEST_KEY_STANDING_DIRECTOR_AUTHORIZATION_2026_09_10.md` - historical narrower diagnostic authority retained for the calls it governed.
 - `docs/evidence/GEMINI_API_USAGE_LEDGER.md` - credential-free provider-use log and eventual key-retirement record.
+- `docs/evidence/E0A_Q_E0A_03_G35L_RUN03_PREEXECUTION_ACTIVATION_2026_09_10.md` - exact fresh Run 03 boundary, current public-provider recheck, native/local activation, zero-call preflight, and consumption-optimization rationale.
 - `docs/evidence/E0A_GEMINI_COUNTTOKENS_INPUT_PROJECTION_NATIVE_ARM64_VALIDATION_2026_09_09.md` — immediate predecessor native checkpoint for the corrected `countTokens` projection.
 - `docs/evidence/E0A_GEMINI35_ATTEMPT04_ARCHIVE_AUDIT_2026_09_09.md` — sealed Attempt-04 audit; first Performer `countTokens` rejected the former full-request projection before generation.
 - `docs/evidence/E0A_GEMINI35_THOUGHT_SIGNATURE_COMPATIBILITY_AUDIT.md` — current Gemini-3 compatibility evidence named by `CURRENT_STATE.md`.
 - `docs/evidence/E0A_Q_E0A_03_REFERENCE_EVIDENCE_PLANNING_RECURSIVE_AUDIT_2026_09_09.md` — recursive audit of the frozen Q-E0A-03 activation/closure method.
-- `docs/evidence/E0A_Q_E0A_03_G35L_PREAUTHORIZATION_PUBLIC_FACT_AUDIT_2026_09_09.md` — current public/volatile-fact gate for the prospective first 3.5 Flash-Lite Q-E0A-03 run; no provider authorization.
+- `docs/evidence/E0A_Q_E0A_03_G35L_PREAUTHORIZATION_PUBLIC_FACT_AUDIT_2026_09_09.md` - historical preauthorization public-fact audit; refresh only facts made stale or contradicted before the next provider execution.
 - `docs/evidence/E0A_GEMINI35_QUOTA_SNAPSHOT_REUSE_DIRECTOR_DECISION_2026_09_09.md` — exact 3.5 route quota-snapshot reuse decision and contrary-signal boundary.
 - `docs/evidence/E0A_FRESH_CHAT_CONTINUITY_RECONCILIATION_2026_09_09.md` — current E0-A continuity reconciliation.
 - `docs/evidence/DIRECTOR_WINDOWS_ARM64_VALIDATION_HOST_BEHAVIORS.md` — Director-host validation apparatus contract.
@@ -56,7 +58,7 @@ Historical attempt, diagnostic, and superseded validation records remain evidenc
 
 There is **no live `docs/handoff/...` transition artifact** at current `main`. A handoff is live only when `CURRENT_STATE.md` names its exact path. `docs/handoff/` currently retains only its lifecycle README.
 
-The current consequential engineering gate is defined by `CURRENT_STATE.md` and the Q-E0A-03 closure contract. The corrected 3.5 Flash-Lite executable is native-validated, but full-reference runs remain separately named and immutable and provider authorization is NONE until the Director approves one exact fresh run. Bounded synthetic Gemini Free-tier compatibility/diagnostic traffic retains its separate temporary standing authority and must be logged.
+The current consequential engineering gate is defined by `CURRENT_STATE.md`, the Q-E0A-03 closure contract, and the current standing Gemini project-use authorization. The corrected 3.5 Flash-Lite executable is native-validated. Full-reference runs remain separately named and immutable, but routine per-run approval is no longer required: Engineering must pre-record the exact run boundary, satisfy every other activation condition, log consumption and scope relevance, and stop when further calls are not justified.
 
 Parallel E0-E preparation is closed; `docs/evidence/E0E_SINGLE_MODEL_PLAYWRIGHT_CONTROL_PREPARATION_CLOSEOUT_AUDIT_2026_09_09.md` records that preparation result. E0-E execution remains blocked by the frozen E0 order and the execution queue.
 

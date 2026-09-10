@@ -18,7 +18,7 @@ Current evidence: Run 02 localized the 3.5 Flash-Lite generation rejection to `g
 
 Disposition: the rejected `responseFormat.text` encoding is falsified for this 3.5 Flash-Lite route; the legacy GenerateContent structured-output encoding is accepted. The shared request-builder correction is native-validated at exact checkout `cef3fc15e31192a48aa3bddd99450b65a58bd8f1` under tag `validation/e0a-gemini-structured-output-compatibility-native-arm64`. 3.1 Flash-Lite and 2.5 Flash-Lite live generation compatibility remain separately unverified.
 
-Verification trigger: a fresh named 3.5 reference run after the frozen per-run activation gate and separate Director authorization. Later model families retain their own live-evidence requirements.
+Verification trigger: a fresh named 3.5 reference run after every non-approval condition of the frozen activation gate is satisfied under the current standing project-relevant Gemini authority. Later model families retain their own live-evidence requirements.
 
 Falsifier/narrowing evidence: a fresh named corrected reference run reveals a different provider incompatibility or cannot satisfy the frozen activation/contribution gates.
 ### HYP-002 — Account/key/model/quota availability — PARTIALLY ESTABLISHED / VOLATILE
@@ -29,7 +29,7 @@ Current evidence: Director-supplied AI Studio UI on 2026-09-07 established Free 
 
 For 3.1 Flash-Lite and 2.5 Flash-Lite, the recorded 2026-09-07 limits remain historical input to the executable/profile design but have no equivalent Director quota-reuse decision. Their current account/quota state must therefore be reverified before any separately authorized run.
 
-Verification trigger: before each provider authorization, apply the exact route's current decision law. For 3.5, re-read quota values only if a recorded contrary-signal trigger occurs; still reverify material model/project/key/provider changes. For 3.1/2.5, reverify the applicable account/project/model/quota facts immediately before authorization.
+Verification trigger: before each provider execution, apply the exact route's current decision law. For 3.5, re-read quota values only if a recorded contrary-signal trigger occurs; still reverify material model/project/key/provider changes. For 3.1/2.5, reverify the applicable account/project/model/quota facts immediately before execution.
 
 Falsifier: key/project association, model availability, remaining/current quota, tier, region/project configuration, provider `429`/`RESOURCE_EXHAUSTED`, or another account constraint violates the selected route's admitted envelope.
 
