@@ -1,6 +1,6 @@
 # E0-A Q-E0A-03 Gemini 3.5 Flash-Lite Run 01 — Local Preflight Attempt 03
 
-Status: **LOCAL PREFLIGHT STOP — FIXTURE BYTE HASH MISMATCH — PROVIDER INVOCATION NOT STARTED — AUTHORIZATION UNCONSUMED**
+Status: **WRAPPER-ONLY FALSE GATE RESOLVED — PROVIDER INVOCATION NOT STARTED — AUTHORIZATION UNCONSUMED**
 
 Date: **2026-09-09**
 
@@ -8,7 +8,7 @@ RunId: `E0A-Q03-G35L-20260909-01`
 
 ## Director-machine result
 
-The corrected guarded Windows ARM64 packet stopped before credential entry and before the provider boundary with:
+The guarded Windows ARM64 packet stopped before credential entry and before the provider boundary with:
 
 ```text
 THIS_PACKET_DID_NOT_CONSUME_AUTHORIZATION=YES
@@ -22,26 +22,46 @@ No `PROVIDER_INVOCATION_STARTED=YES` marker appeared. No credential prompt was r
 
 Attempt 03 is **UNCONSUMED** under the existing Director authorization law. The exact one-run authorization remains live subject to all frozen freshness and activation gates.
 
-The failure is local to the packet's raw working-tree fixture-byte SHA-256 assertion. It does not establish fixture semantic drift, executable drift, tag drift, provider incompatibility, or authorization consumption.
+The stop was caused by an invalid packet-level assertion, not a Harness fixture validation failure.
 
-## Repository-side evidence already known
+## Root cause
 
-At the authorized executable checkout `3a010df5d26fc58d6f3820f2dc2cfbb0d015a9d2`, the canonical fixture Git blob remains `6c2ed0e1081ee4e1165dbfb162b3028cbd1136fd` and repository law continues to freeze the canonical ECJ-1 serialization at 9,112 UTF-8 bytes with SHA-256 `5556a02325e6a7f774e6997942b395d670741d494ea86f1a50b83633e26b6703`.
+The wrapper computed:
 
-The repository at that executable has no `.gitattributes` file establishing an explicit line-ending policy for the JSON fixture. Therefore the mismatch must be diagnosed against the Director-machine working-tree/index EOL and Git configuration before any hash gate is amended or the provider packet is reissued.
+```text
+Get-FileHash <working-tree fixture JSON> -Algorithm SHA256
+```
 
-## Next gate
+and compared that raw working-tree-file digest directly with:
 
-Perform read-only fixture-byte forensics on the exact execution worktree:
+```text
+5556a02325e6a7f774e6997942b395d670741d494ea86f1a50b83633e26b6703
+```
 
-- working-tree raw SHA-256 and byte length;
-- `git ls-files --eol` for the fixture;
-- `git check-attr -a` for the fixture;
-- repository/index blob identity;
-- relevant `core.autocrlf` / `core.eol` configuration and origin;
-- semantic fixture validation remains unchanged.
+Repository source proves that `5556...` is the frozen **canonical ECJ-1 Fixture identity**, not a requirement that platform-specific working-tree JSON bytes hash directly to that value.
 
-Do not normalize, rewrite, checkout, reset, clean, or otherwise modify fixture bytes until that forensic result is classified.
+At exact authorized executable `3a010df5d26fc58d6f3820f2dc2cfbb0d015a9d2`:
+
+- `FixtureHash.Compute(ValidatedFixture)` serializes the validated Fixture through `Ecj1FixtureCanonicalizer.Serialize(fixture)` and SHA-256 hashes those canonical bytes;
+- `MissingRaftContract.Validate` compares `FixtureHash.Compute(fixture)` to exact expected hash `5556a02325e6a7f774e6997942b395d670741d494ea86f1a50b83633e26b6703`;
+- the Harness fixture-smoke path reads the JSON, loads and generically validates it, invokes `MissingRaftContract.Validate` for the Missing-Raft family, and prints `Fixture validated: ensemble.e0.missing-raft@0.1.0` only after those checks pass;
+- the exact committed fixture at the authorized executable is Git blob `6c2ed0e1081ee4e1165dbfb162b3028cbd1136fd`.
+
+The wrapper therefore confused canonical semantic Fixture identity with raw working-tree byte identity. That check was redundant and semantically wrong.
+
+## Corrected packet law
+
+The invalid raw `Get-FileHash` gate is removed. The corrected local packet must instead require all of the following before credential activation:
+
+1. execution worktree exact at authorized executable `3a010df5d26fc58d6f3820f2dc2cfbb0d015a9d2`;
+2. execution worktree detached and clean;
+3. exact fixture path exists;
+4. `git rev-parse HEAD:fixtures/missing-raft/missing-raft-0.1.0.json` equals exact authorized Git blob `6c2ed0e1081ee4e1165dbfb162b3028cbd1136fd`;
+5. fresh native Harness build passes;
+6. Missing-Raft Harness smoke exits zero and reports `Fixture validated: ensemble.e0.missing-raft@0.1.0`, thereby exercising `MissingRaftContract.Validate` and the canonical `FixtureHash.Compute` law;
+7. all pre-existing evidence/claim/authorization/freshness/provider-boundary guards remain intact.
+
+This correction does not normalize, rewrite, or alter Fixture bytes. It changes only the external wrapper assertion so it matches the executable's actual frozen Fixture identity semantics.
 
 ## Authorization consequence
 
@@ -49,5 +69,6 @@ Do not normalize, rewrite, checkout, reset, clean, or otherwise modify fixture b
 - provider invocation: **NOT STARTED**;
 - provider traffic: **NONE**;
 - Gemini credential: **NOT REQUESTED**;
-- no retry/rerun/fallback/probe/alternate model authority is created;
-- guarded provider execution remains blocked pending fixture-byte forensic resolution.
+- executable/source/test/fixture/tag/profile/model/RunId/evidence-root unchanged;
+- no retry/rerun/fallback/probe/alternate-model authority is created;
+- guarded local preflight may resume only with the corrected Git-blob + Harness canonical-validation gate and the current audited authorization-record blob.
