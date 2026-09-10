@@ -142,6 +142,8 @@ then one complete paste-ready prompt. Verify current recommendations from the to
 
 Do not assume automated cross-chat or Claude routing exists until the corresponding setup has actually been completed.
 
+While the Codex Administrator integration remains unfrozen, a fresh chat working specifically on that integration may, **after completing normal authority recovery**, read `docs/evidence/CODEX_ADMINISTRATOR_INTEGRATION_WORKING_CONTINUITY.md` as temporary non-authoritative working continuity evidence. That file cannot override any repository/Director authority or create a backlog, and it must be retired from active use when the approved Administrator Runtime Specification makes it unnecessary.
+
 ## Self-healing boundary
 
 A fresh chat should detect and classify drift automatically. It may repair only within already-authorized engineering scope. It must not silently:
