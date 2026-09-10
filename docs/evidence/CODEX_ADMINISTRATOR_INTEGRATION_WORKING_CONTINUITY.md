@@ -29,6 +29,24 @@ Active meta-objective:
 
 The project is still in blueprint/runtime-specification design. Do not treat this file as implementation authorization.
 
+## Director collaboration / commissioning mode
+
+The Director wants this complex integration designed completely before implementation begins, then commissioned step by step rather than as one opaque batch.
+
+During blueprint and commissioning work:
+
+- resolve repository, local-machine, tool, and connector facts directly when available instead of asking the Director to reconstruct them;
+- ask the Director only for a genuine unresolved choice, authorization, credential/account action, or other fact the available evidence cannot resolve;
+- present the complete plan/specification before configuration changes begin;
+- once implementation is authorized, advance one commissioning gate at a time, explain what the step changes and what evidence will prove success, and inspect the result before proceeding;
+- when the Director must run something manually, provide the smallest exact PowerShell/terminal command or UI action required and state the expected evidence to return;
+- when another AI surface must be invoked manually, provide the exact `SURFACE`, current `MODEL`, `REASONING/EFFORT`, `MODE`, `USAGE CLASS`, and one paste-ready bounded prompt;
+- keep progress/status updates compact while preserving exact refs, failures, and decisions;
+- recursively audit major decisions and any correction; when an audit finds a material defect, correct it and restart the relevant audit before advancing;
+- do not jump from blueprint discussion into Codex/Claude configuration merely because machine access exists.
+
+For volatile Codex, ChatGPT, Claude, plugin/MCP, model, usage-limit, or configuration semantics, verify current official documentation and actual installed capability before freezing a runtime setting. The observed versions and subscription facts in this file are continuity evidence, not future product truth.
+
 ## Target authority and agent topology
 
 ```text
@@ -101,7 +119,7 @@ A crucial observed continuity case: local `Ensemble-Project` was clean but detac
 
 > **Clean local checkout != current authoritative checkout.**
 
-Local-vs-origin reconciliation must precede authority reading.
+Remote GitHub authority should be recovered first. Local-vs-origin reconciliation must precede treating any local file/checkpoint as current or authoritative.
 
 ## Repository reconciliation design
 
@@ -360,9 +378,9 @@ Resume the Ensemble/Kymaean Codex Administrator integration-design program from 
 
 Resolve live GitHub refs and repository authority first according to root `AGENTS.md`; do not trust chat history or a stale local checkout. Read `CURRENT_STATE.md`, `docs/PROJECT_AUTHORITY.md`, `docs/PROJECT_AGENT_ORCHESTRATION_PROTOCOL.md`, `docs/PROJECT_REASONING_TASK_SCOPE_OPTIMIZATION_PROTOCOL.md`, `docs/AGENT_TOOLING_CAPABILITY_SNAPSHOT.md`, and `docs/PROJECT_EXECUTION_QUEUE.md` as required by live authority. Read `Rylascoo/Ensemble-Website` only where current Design/cross-lane truth materially matters.
 
-Then read `docs/evidence/CODEX_ADMINISTRATOR_INTEGRATION_WORKING_CONTINUITY.md` strictly as temporary non-authoritative working continuity evidence. If it conflicts with live authority, live authority wins; verify any newer local/tooling observation before adopting it.
+Then read `docs/evidence/CODEX_ADMINISTRATOR_INTEGRATION_WORKING_CONTINUITY.md` strictly as temporary non-authoritative working continuity evidence. Read it through to EOF; if a connector or tool truncates a long read, continue with line-ranged reads until the whole file has been consumed. If it conflicts with live authority, live authority wins; verify any newer local/tooling observation before adopting it.
 
-We are still designing, not implementing. Continue with the exact Ensemble Administrator Runtime Specification and recursively audit all conclusions. Do not configure Codex, enable Hooks/Automations, or commission Claude until the complete Runtime Specification has been presented and approved.
+We are still designing, not implementing. Continue with the exact Ensemble Administrator Runtime Specification and recursively audit all conclusions. Walk the Director through the process using the collaboration/commissioning mode in this file: resolve what tools can resolve, ask only genuine unresolved questions, and do not make the Director reconstruct prior chat context. Do not configure Codex, enable Hooks/Automations, or commission Claude until the complete Runtime Specification has been presented and approved.
 ```
 
 ## Sunset condition
