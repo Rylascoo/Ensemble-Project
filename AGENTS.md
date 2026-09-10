@@ -142,7 +142,7 @@ then one complete paste-ready prompt. Verify current recommendations from the to
 
 Do not assume automated cross-chat or Claude routing exists until the corresponding setup has actually been completed.
 
-While the Codex Administrator integration remains unfrozen, a fresh chat working specifically on that integration may, **after completing normal authority recovery**, read `docs/evidence/CODEX_ADMINISTRATOR_INTEGRATION_WORKING_CONTINUITY.md` as temporary non-authoritative working continuity evidence. Read that file through to EOF; if a connector/tool truncates a long response, continue with line-ranged reads until the full file is consumed. That file cannot override any repository/Director authority or create a backlog, and it must be retired from active use when the approved Administrator Runtime Specification makes it unnecessary.
+For Codex Administrator commissioning or operation, **after completing normal authority recovery**, read `docs/blueprint/CODEX_ADMINISTRATOR_RUNTIME_SPECIFICATION.md`. That Director-approved contract governs the earned C0-C13 runtime/commissioning sequence but remains subordinate to stronger repository/Director authority. Commission only the currently available gate, reverify volatile Codex/tool semantics when the specification requires it, and do not infer Hooks, Automations, Claude, provider traffic, validation promotion, or broader permissions from a later gate. The former working-continuity packet is archived historical provenance and is no longer a fresh-chat bootstrap input.
 
 ## Self-healing boundary
 
