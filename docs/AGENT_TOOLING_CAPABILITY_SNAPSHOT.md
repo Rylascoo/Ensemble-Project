@@ -19,9 +19,9 @@ Before a scarce/external dispatch, verify current model availability, effort con
 
 For small factual/status work, a lower reasoning setting may be adequate. For material architecture, broad failure analysis, security/provider/Store work, or cross-project reconciliation, prefer High.
 
-## Codex allocation - C0/C1 commissioned; C2 next
+## Codex allocation - C0/C1/C2 commissioned; C3 next
 
-C0 commissioned the dedicated `C:\Users\Wiryl\.codex-ensemble` runtime; C1 proved the versioned read-only repository reconciler against synthetic and real Project/Website truth. C2 fresh Administrator authority recovery is the only next earned gate; later capabilities remain disabled.
+C0 commissioned the dedicated `C:\Users\Wiryl\.codex-ensemble` runtime; C1 proved the versioned read-only repository reconciler; C2 proved fresh authority recovery after supported elevated Windows sandbox provisioning. The runtime denies login shells, keeps filesystem/network restricted with approval `OnRequest`, disables the remote plugin catalog, and admits only GitHub `fetch` from an otherwise app-denied posture. C3 deterministic Skills is next; later gates remain disabled.
 
 Current C0/C1 model mapping (later-gate execution remains blocked until earned):
 
