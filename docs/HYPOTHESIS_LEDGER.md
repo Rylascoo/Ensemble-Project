@@ -6,7 +6,7 @@ A hypothesis belongs here when engineering work depends on a fact that has not y
 
 ## Open / narrowed hypotheses
 
-### HYP-001 — Live Gemini request compatibility — NARROWED / 3.5 GENERATION REJECTION ESTABLISHED
+### HYP-001 - Live Gemini request compatibility - NARROWED / 3.5 FORMAT REJECTION LOCALIZED
 
 Hypothesis: the approved REST request/streaming shapes for the current E0-A comparison profiles remain accepted by the real Google Gemini API:
 
@@ -14,16 +14,13 @@ Hypothesis: the approved REST request/streaming shapes for the current E0-A comp
 - `gemini-3.1-flash-lite` / `GEMINI-3.1-FLASH-LITE-MINIMAL`;
 - `gemini-2.5-flash-lite` / `GEMINI-2.5-FLASH-LITE-NONE`.
 
-Current evidence: historical Attempt 04 falsified the former full-request `countTokens` projection; Q-E0A-04 corrected that boundary and native-validated the input-semantic projection. The first separately authorized Q-E0A-03 Run 01 then proved the corrected 3.5 Flash-Lite `countTokens` path succeeds (`649` input tokens) and reached the first Performer generation request. That generation request returned HTTP 400; no provider model identity, usage, or structured output was available and zero turns were accepted. Terminal analysis: `docs/evidence/E0A_Q_E0A_03_G35L_RUN01_TERMINAL_EVIDENCE_ANALYSIS_2026_09_10.md`.
+Current evidence: Q-E0A-04 established the corrected 3.5 Flash-Lite `countTokens` projection. Run 01 then reached generation and returned HTTP 400 without structured rejection detail. The native-validated generation-error diagnostic correction enabled Run 02 to localize the repeated HTTP 400 to `generation_config.response_format.text.mime_type`, with `status=INVALID_ARGUMENT`, after successful `countTokens` at 649 input tokens. Run 02 accepted zero turns and is immutable/consumed. Terminal analysis: `docs/evidence/E0A_Q_E0A_03_G35L_RUN02_TERMINAL_EVIDENCE_ANALYSIS_2026_09_10.md`.
 
-The sealed Run 01 diagnostic retained only `gemini-http-400`, so the evidence does not identify the rejected generation field/provider condition. Current provider documentation reviewed for the preauthorization gate did not establish a generation-request field defect. Engineering therefore must not mutate generation bytes by hypothesis.
+Disposition: the exact frozen 3.5 Flash-Lite GenerateContent request shape is **not compatible as sent**. The evidence localizes the failure to the structured-output response-format surface but does not yet establish whether 3.5 Flash-Lite accepts a legacy GenerateContent shape, another supported shape, or no required structured-output mode at all. 3.1 Flash-Lite and 2.5 Flash-Lite live generation compatibility remain unverified.
 
-A bounded generation-error diagnostic correction is machine-validated at `7868e5cb12a27260e288d95c248d6f846cf37701`, annotated tag `validation/e0a-gemini-generation-error-diagnostic-native-arm64`, so a future separately authorized failure can preserve allowlisted Google RPC status/field evidence without provider prose. This validation does not prove live generation compatibility and does not authorize provider traffic.
+Verification trigger: temporary standing Director authority permits the smallest bounded synthetic Free-tier compatibility diagnostics needed to distinguish those possibilities; every batch must be logged in `docs/evidence/GEMINI_API_USAGE_LEDGER.md`. Consumed reference runs are never replayed, and a future reference contribution requires a fresh named run.
 
-Disposition: 3.5 Flash-Lite generation compatibility is **not established**; one real request was rejected HTTP 400 and the exact cause remains unresolved. 3.1 Flash-Lite and 2.5 Flash-Lite live generation compatibility also remain unverified. Q-E0A-03 stays open under its frozen activation/closure contract and provider authority is **NONE**.
-Verification trigger: only a newly Director-authorized exact provider run may produce further live evidence. No disposable compatibility probe, automatic retry/rerun, fallback, or alternate-model call is implied.
-
-Falsifier/narrowing evidence: a future authorized run returns bounded structured rejection detail, succeeds through a usable generation/stream response, or otherwise establishes a provider behavior that narrows the current HTTP-400 ambiguity.
+Falsifier/narrowing evidence: a logged compatibility diagnostic succeeds with an admissible structured-output shape, or bounded provider evidence establishes route/model incompatibility.
 
 ### HYP-002 — Account/key/model/quota availability — PARTIALLY ESTABLISHED / VOLATILE
 
@@ -47,15 +44,13 @@ Verification trigger: immediately before each authorized provider-network execut
 
 Falsifier: current provider terms, billing, retention/data-use, pricing, lifecycle, model availability, or route behavior differs materially from the assumptions required by the approved synthetic run.
 
-### HYP-004 — Live provider generation/usage accounting mapping — OPEN / GENERATION INVOCATION REACHED
+### HYP-004 - Live provider generation/usage accounting mapping - OPEN / GENERATION REJECTED BEFORE RESPONSE
 
 Hypothesis: real Gemini response usage fields, reasoning/thinking-token reporting, cache reporting, thought-signature behavior, finish/terminal semantics, and streaming behavior map to the Harness accounting and fail-closed rules as expected for the Gemini 3 thinking-level family (3.5/3.1 Flash-Lite) and the 2.5 Flash-Lite budget-controlled family.
 
-Current evidence: deterministic/fake regressions, machine-validated token-preflight correction, and Q-E0A-03 Run 01. Run 01 reached the real 3.5 Flash-Lite generation boundary after successful `countTokens`, but Google returned HTTP 400 before a usable generation response; provider identity, usage, reasoning/cache accounting, thought-signature behavior, stream framing, and finish semantics therefore remain unverified. The Harness correctly treated provider usage as unknown and preserved zero accepted turns.
+Current evidence: Run 02 reached the real 3.5 Flash-Lite generation endpoint but was rejected before a usable generation response. The Harness preserved unknown provider usage, zero accepted turns, and the bounded diagnostic `INVALID_ARGUMENT` field path. Provider identity, usage, reasoning/cache accounting, thought-signature behavior, stream framing, and finish semantics therefore remain unverified.
 
-The generation-error diagnostic correction improves future bounded failure evidence but does not establish any generation/usage mapping fact by itself.
-
-Verification trigger: first separately authorized successful generation path for each materially distinct provider behavior family during Q-E0A-03.
+Verification trigger: first successful generation path obtained through a logged bounded compatibility diagnostic or a later fresh named reference run.
 
 Falsifier: observed provider responses cannot be reconciled with the approved accounting/provenance rules without changing runtime semantics.
 
@@ -77,9 +72,9 @@ The following are decisions or scope gates and must not be reclassified as assum
 
 - Gemini remains the sole current E0-A provider method; historical OpenAI executable support is retired.
 - The implemented comparison-profile set is 3.5 Flash-Lite Minimal (12 turns), 3.1 Flash-Lite Minimal (12 turns), and 2.5 Flash-Lite None (3-turn exact-no-thinking control), with historical 2.5 Flash non-live.
-- The former 3.5 `countTokens` compatibility gate is corrected and native-validated; Q-E0A-03 Run 01 instead establishes a later generation-boundary HTTP 400 whose exact cause remains unresolved.
-- Q-E0A-03 remains blocked for provider execution under `docs/blueprint/E0A_Q_E0A_03_REFERENCE_EVIDENCE_ACTIVATION_AND_CLOSURE_CONTRACT.md` until a new exact Director authorization exists.
-- Provider authorization is **NONE**.
+- The former 3.5 `countTokens` compatibility gate is corrected and native-validated; Run 02 localizes the later generation rejection to `generation_config.response_format.text.mime_type`.
+- Q-E0A-03 compatibility diagnostics may use the temporary standing synthetic Free-tier authority; full reference runs remain separately named and immutable.
+- Temporary bounded synthetic Free-tier compatibility/diagnostic authority is active; no paid-route or consumed-run replay authority exists.
 - Free-tier live experiments remain canonical synthetic Missing Raft-only.
 - One attempt per probabilistic role invocation, zero automatic retries, no automatic fallback, the USD 5 shadow ceiling, evidence immutability, and experiment order remain fixed.
 - .NET 10 requires later Director approval; GitHub plan-dependent branch protection is deferred; Stage remains design-lane authority.

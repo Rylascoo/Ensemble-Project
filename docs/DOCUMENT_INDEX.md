@@ -34,6 +34,9 @@ These remain subject to `CURRENT_STATE.md`; this index does not independently ma
 - `docs/evidence/E0A_GEMINI_GENERATION_ERROR_DIAGNOSTIC_NATIVE_ARM64_VALIDATION_2026_09_10.md` — current promoted Windows ARM64 machine-test evidence for exact executable `7868e5cb12a27260e288d95c248d6f846cf37701`.
 - `docs/evidence/E0A_GEMINI_GENERATION_ERROR_DIAGNOSTIC_IMPLEMENTATION_AUDIT_2026_09_10.md` — source/test audit for the bounded generation-error diagnostic correction.
 - `docs/evidence/E0A_Q_E0A_03_G35L_RUN01_TERMINAL_EVIDENCE_ANALYSIS_2026_09_10.md` — sealed Run 01 archive analysis; corrected `countTokens` succeeded, first generation returned HTTP 400, exact cause unresolved.
+- `docs/evidence/E0A_Q_E0A_03_G35L_RUN02_TERMINAL_EVIDENCE_ANALYSIS_2026_09_10.md` - sealed Run 02 analysis; generation rejection localized to `responseFormat.text.mimeType`.
+- `docs/evidence/GEMINI_API_TEST_KEY_STANDING_DIRECTOR_AUTHORIZATION_2026_09_10.md` - temporary standing Free-tier synthetic diagnostic authority; consumed reference runs remain non-replayable.
+- `docs/evidence/GEMINI_API_USAGE_LEDGER.md` - credential-free provider-use log and eventual key-retirement record.
 - `docs/evidence/E0A_GEMINI_COUNTTOKENS_INPUT_PROJECTION_NATIVE_ARM64_VALIDATION_2026_09_09.md` — immediate predecessor native checkpoint for the corrected `countTokens` projection.
 - `docs/evidence/E0A_GEMINI35_ATTEMPT04_ARCHIVE_AUDIT_2026_09_09.md` — sealed Attempt-04 audit; first Performer `countTokens` rejected the former full-request projection before generation.
 - `docs/evidence/E0A_GEMINI35_THOUGHT_SIGNATURE_COMPATIBILITY_AUDIT.md` — current Gemini-3 compatibility evidence named by `CURRENT_STATE.md`.
@@ -49,7 +52,7 @@ Historical attempt, diagnostic, and superseded validation records remain evidenc
 
 There is **no live `docs/handoff/...` transition artifact** at current `main`. A handoff is live only when `CURRENT_STATE.md` names its exact path. `docs/handoff/` currently retains only its lifecycle README.
 
-The current consequential engineering gate is defined by `CURRENT_STATE.md` and `docs/blueprint/E0A_Q_E0A_03_REFERENCE_EVIDENCE_ACTIVATION_AND_CLOSURE_CONTRACT.md`: provider authorization remains separate and explicit for each real run.
+The current consequential engineering gate is defined by `CURRENT_STATE.md` and the Q-E0A-03 closure contract. Full reference runs remain separately named and immutable; bounded synthetic Gemini Free-tier compatibility/diagnostic traffic currently has temporary standing Director authority and must be logged.
 
 Parallel E0-E preparation is closed; `docs/evidence/E0E_SINGLE_MODEL_PLAYWRIGHT_CONTROL_PREPARATION_CLOSEOUT_AUDIT_2026_09_09.md` records that preparation result. E0-E execution remains blocked by the frozen E0 order and the execution queue.
 
