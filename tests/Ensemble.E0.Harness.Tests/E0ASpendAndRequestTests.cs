@@ -93,7 +93,9 @@ public sealed class E0ASpendAndRequestTests
         Assert.AreEqual(E0ARunEnvelope.RoleMaxOutputTokens, generation.GetProperty("maxOutputTokens").GetInt32());
         Assert.AreEqual(0, generation.GetProperty("thinkingConfig").GetProperty("thinkingBudget").GetInt32());
         Assert.IsFalse(generation.GetProperty("thinkingConfig").GetProperty("includeThoughts").GetBoolean());
-        Assert.AreEqual("application/json", generation.GetProperty("responseFormat").GetProperty("text").GetProperty("mimeType").GetString());
+        Assert.AreEqual("application/json", generation.GetProperty("responseMimeType").GetString());
+        Assert.AreEqual(JsonValueKind.Object, generation.GetProperty("responseJsonSchema").ValueKind);
+        Assert.IsFalse(generation.TryGetProperty("responseFormat", out _));
 
         Assert.IsFalse(root.TryGetProperty("tools", out _));
         Assert.IsFalse(root.TryGetProperty("conversation", out _));

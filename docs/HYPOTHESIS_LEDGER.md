@@ -6,7 +6,7 @@ A hypothesis belongs here when engineering work depends on a fact that has not y
 
 ## Open / narrowed hypotheses
 
-### HYP-001 - Live Gemini request compatibility - NARROWED / 3.5 FORMAT REJECTION LOCALIZED
+### HYP-001 - Live Gemini request compatibility - NARROWED / 3.5 LEGACY GENERATECONTENT SHAPE ACCEPTED
 
 Hypothesis: the approved REST request/streaming shapes for the current E0-A comparison profiles remain accepted by the real Google Gemini API:
 
@@ -14,14 +14,13 @@ Hypothesis: the approved REST request/streaming shapes for the current E0-A comp
 - `gemini-3.1-flash-lite` / `GEMINI-3.1-FLASH-LITE-MINIMAL`;
 - `gemini-2.5-flash-lite` / `GEMINI-2.5-FLASH-LITE-NONE`.
 
-Current evidence: Q-E0A-04 established the corrected 3.5 Flash-Lite `countTokens` projection. Run 01 then reached generation and returned HTTP 400 without structured rejection detail. The native-validated generation-error diagnostic correction enabled Run 02 to localize the repeated HTTP 400 to `generation_config.response_format.text.mime_type`, with `status=INVALID_ARGUMENT`, after successful `countTokens` at 649 input tokens. Run 02 accepted zero turns and is immutable/consumed. Terminal analysis: `docs/evidence/E0A_Q_E0A_03_G35L_RUN02_TERMINAL_EVIDENCE_ANALYSIS_2026_09_10.md`.
+Current evidence: Run 02 localized the 3.5 Flash-Lite generation rejection to `generation_config.response_format.text.mime_type`. Four bounded Free-tier diagnostics then established that bare generation succeeds, legacy `responseMimeType` + simple `responseSchema` succeeds, and the actual Run 02 JSON Schema succeeds when encoded as `responseMimeType` + `responseJsonSchema`. The durable near-runtime capture returned HTTP 200 with a candidate and usage metadata. Evidence: `docs/evidence/E0A_GEMINI35_STRUCTURED_OUTPUT_COMPATIBILITY_DIAGNOSTIC_2026_09_10.md`.
 
-Disposition: the exact frozen 3.5 Flash-Lite GenerateContent request shape is **not compatible as sent**. The evidence localizes the failure to the structured-output response-format surface but does not yet establish whether 3.5 Flash-Lite accepts a legacy GenerateContent shape, another supported shape, or no required structured-output mode at all. 3.1 Flash-Lite and 2.5 Flash-Lite live generation compatibility remain unverified.
+Disposition: the rejected `responseFormat.text` encoding is falsified for this 3.5 Flash-Lite route; the legacy GenerateContent structured-output encoding is accepted. The shared request-builder correction is implemented but remains unvalidated until a fresh native Windows ARM64 checkpoint closes it. 3.1 Flash-Lite and 2.5 Flash-Lite live generation compatibility remain separately unverified.
 
-Verification trigger: temporary standing Director authority permits the smallest bounded synthetic Free-tier compatibility diagnostics needed to distinguish those possibilities; every batch must be logged in `docs/evidence/GEMINI_API_USAGE_LEDGER.md`. Consumed reference runs are never replayed, and a future reference contribution requires a fresh named run.
+Verification trigger: native validation of the correction, followed by a fresh named 3.5 reference run if the route remains admissible. Later model families retain their own live-evidence requirements.
 
-Falsifier/narrowing evidence: a logged compatibility diagnostic succeeds with an admissible structured-output shape, or bounded provider evidence establishes route/model incompatibility.
-
+Falsifier/narrowing evidence: native validation fails, or a fresh named corrected reference run reveals a different provider incompatibility.
 ### HYP-002 — Account/key/model/quota availability — PARTIALLY ESTABLISHED / VOLATILE
 
 Hypothesis: the Director-selected Free-tier project and a valid key can access the selected model and required `countTokens` / generation routes within the approved E0-A envelope at execution time.
@@ -44,13 +43,13 @@ Verification trigger: immediately before each authorized provider-network execut
 
 Falsifier: current provider terms, billing, retention/data-use, pricing, lifecycle, model availability, or route behavior differs materially from the assumptions required by the approved synthetic run.
 
-### HYP-004 - Live provider generation/usage accounting mapping - OPEN / GENERATION REJECTED BEFORE RESPONSE
+### HYP-004 - Live provider generation/usage accounting mapping - NARROWED / DIAGNOSTIC GENERATION OBSERVED
 
 Hypothesis: real Gemini response usage fields, reasoning/thinking-token reporting, cache reporting, thought-signature behavior, finish/terminal semantics, and streaming behavior map to the Harness accounting and fail-closed rules as expected for the Gemini 3 thinking-level family (3.5/3.1 Flash-Lite) and the 2.5 Flash-Lite budget-controlled family.
 
-Current evidence: Run 02 reached the real 3.5 Flash-Lite generation endpoint but was rejected before a usable generation response. The Harness preserved unknown provider usage, zero accepted turns, and the bounded diagnostic `INVALID_ARGUMENT` field path. Provider identity, usage, reasoning/cache accounting, thought-signature behavior, stream framing, and finish semantics therefore remain unverified.
+Current evidence: Run 02 was rejected before a usable response, but the later near-runtime compatibility capture succeeded through real 3.5 Flash-Lite streaming generation and reported prompt `649`, candidate `114`, total `763` tokens with finish reason `MAX_TOKENS`. This proves basic response/usage fields are reachable on the corrected request shape. Full-reference provider identity, reasoning/cache accounting, thought-signature continuity, complete structured-output parsing, and accepted-turn semantics remain unverified.
 
-Verification trigger: first successful generation path obtained through a logged bounded compatibility diagnostic or a later fresh named reference run.
+Verification trigger: first fresh named corrected reference run that completes a role response and exercises the Harness accounting/provenance path.
 
 Falsifier: observed provider responses cannot be reconciled with the approved accounting/provenance rules without changing runtime semantics.
 

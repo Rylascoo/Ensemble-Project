@@ -172,14 +172,8 @@ internal static class E0ARequestBuilder
             {
                 ["candidateCount"] = 1,
                 ["maxOutputTokens"] = profile.MaxOutputTokens,
-                ["responseFormat"] = new Dictionary<string, object?>
-                {
-                    ["text"] = new Dictionary<string, object?>
-                    {
-                        ["mimeType"] = "application/json",
-                        ["schema"] = schema.RootElement.Clone()
-                    }
-                },
+                ["responseMimeType"] = "application/json",
+                ["responseJsonSchema"] = schema.RootElement.Clone(),
                 ["thinkingConfig"] = thinkingConfig
             },
             // Standard inference is the provider default. The profile records the

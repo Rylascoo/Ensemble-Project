@@ -36,11 +36,10 @@ public sealed class GeminiGenerateContentPortWireTests
         Assert.AreEqual(1, config.GetProperty("candidateCount").GetInt32());
         Assert.AreEqual(E0ARunEnvelope.RoleMaxOutputTokens, config.GetProperty("maxOutputTokens").GetInt32());
         Assert.AreEqual(0, config.GetProperty("thinkingConfig").GetProperty("thinkingBudget").GetInt32());
-        var responseFormat = config.GetProperty("responseFormat").GetProperty("text");
-        Assert.AreEqual("application/json", responseFormat.GetProperty("mimeType").GetString());
-        Assert.AreEqual(JsonValueKind.Object, responseFormat.GetProperty("schema").ValueKind);
-        Assert.IsFalse(config.TryGetProperty("responseMimeType", out _));
-        Assert.IsFalse(config.TryGetProperty("responseJsonSchema", out _));
+        Assert.AreEqual("application/json", config.GetProperty("responseMimeType").GetString());
+        Assert.AreEqual(JsonValueKind.Object, config.GetProperty("responseJsonSchema").ValueKind);
+        Assert.IsFalse(config.TryGetProperty("responseFormat", out _));
+        Assert.IsFalse(config.TryGetProperty("responseSchema", out _));
     }
 
     [TestMethod]
@@ -311,7 +310,7 @@ public sealed class GeminiGenerateContentPortWireTests
     [TestMethod]
     public async Task StreamingGeneration_NonSuccessRetainsOnlyBoundedStructuredDiagnostic()
     {
-        const string field = "generation_config.response_format.text.mime_type";
+        const string field = "generation_config.response_mime_type";
         var handler = new QueueResponseHandler(StructuredBadRequest(field));
         using var http = new HttpClient(handler);
         var port = new GeminiGenerateContentPort(http, "test-key");
