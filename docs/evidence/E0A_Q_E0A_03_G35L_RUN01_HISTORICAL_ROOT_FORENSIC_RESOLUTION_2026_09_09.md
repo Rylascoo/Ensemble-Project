@@ -1,6 +1,6 @@
 # E0-A Q-E0A-03 Gemini 3.5 Flash-Lite Run 01 — Historical Root Forensic Resolution
 
-Status: **CAUSE RESOLVED — CONTROLLED DETACH RESTORATION REQUIRED — PROVIDER INVOCATION NOT STARTED — AUTHORIZATION UNCONSUMED**
+Status: **CAUSE RESOLVED — RESTORATION VERIFIED — PROVIDER INVOCATION NOT STARTED — AUTHORIZATION UNCONSUMED**
 
 Date: **2026-09-09**
 
@@ -54,13 +54,31 @@ The residency defect is the reuse of the intentionally preserved historical Dire
 
 ## Safe correction
 
-Because the root is clean, the active branch is remotely preserved, the expected historical commit is present, and no provider operation occurred, the approved local correction is a non-destructive detach back to the preserved checkpoint:
+Because the root was clean, the active branch was remotely preserved, the expected historical commit was present, and no provider operation occurred, the approved local correction was a non-destructive detach back to the preserved checkpoint:
 
 ```text
 git -C "C:\Users\Wiryl\Sol Dev\Ensemble-Project" switch --detach 689655eed677b789ab3ee395f1c65b4f2cb72cc8
 ```
 
-After that command, verify exact HEAD, detached state, and clean status before resuming the guarded Q-E0A-03 preflight. Do not reset, clean, delete the preserved branch, force-update refs, or alter evidence claims.
+No reset, clean, branch deletion, force-update, credential operation, or provider operation was authorized by this correction.
+
+## Controlled restoration verification
+
+The Director-machine restoration packet completed successfully after proving the pre-restoration tree was clean and exact at branch `design-queue-clr01-q19-reconcile-2026-09-09-v2`, commit `55541f5ad5e3c47e1a85cc35a3a6e169aa5fda70`, with both local and remote-tracking branch refs matching that commit.
+
+After `git switch --detach`, the packet proved:
+
+```text
+HISTORICAL_ROOT_RESTORED=YES
+HISTORICAL_ROOT_HEAD=689655eed677b789ab3ee395f1c65b4f2cb72cc8
+DETACHED_HEAD=YES
+WORKTREE_CLEAN=YES
+PRESERVED_CROSS_LANE_BRANCH_UNCHANGED=YES
+PROVIDER_TRAFFIC_NOT_STARTED=YES
+AUTHORIZATION_REMAINS_UNCONSUMED=YES
+```
+
+The preserved branch remained at exact commit `55541f5ad5e3c47e1a85cc35a3a6e169aa5fda70`. The historical-root integrity gate is therefore closed.
 
 ## Authorization consequence
 
@@ -69,4 +87,5 @@ After that command, verify exact HEAD, detached state, and clean status before r
 - provider traffic: **NONE**;
 - exact RunId authorization remains **AUTHORIZED / UNCONSUMED**;
 - executable/tag/fixture/profile/model/evidence-root/retry/fallback scope remains unchanged;
-- next gate is controlled local historical-root restoration and verification, then repository continuity may re-authorize the guarded preflight path.
+- historical-root restoration: **VERIFIED**;
+- next gate: resume the corrected guarded Q-E0A-03 Windows ARM64 local preflight against current repository authority and the exact current authorization-record blob.
