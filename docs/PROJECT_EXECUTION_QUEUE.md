@@ -2,7 +2,7 @@
 
 Status: ACTIVE OPERATIONAL REGISTER — sequencing and backlog only. This file does not carry phase, provider, product, design, or validation authority. `CURRENT_STATE.md` remains the only active engineering checkpoint/next-action authority; lane-specific current-state files retain their own volatile boundaries.
 
-Updated: 2026-09-09
+Updated: 2026-09-10
 
 ## Queue law
 
@@ -60,7 +60,7 @@ Updated: 2026-09-09
 | ID | Lane | Status | Work | Prerequisite / hard boundary | Exit / successor |
 |---|---|---|---|---|---|
 | Q-ADMIN-01 | Engineering | DONE | Close post-convergence archive/ref and local-residue cleanup. | Seven additional exact annotated archive tags were verified before stale-ref disposition; cross-repository ownership was established before worktree disposition. | Six stale Project remote refs removed; Website-owned W1 relocated intact; archived W2 removed; abandoned Patch 0012 scratch removed after hash/semantic audit; Project root clean. Evidence: `docs/evidence/REPOSITORY_CONTINUITY_RENOVATION_AUDIT_2026_09_08.md`. |
-| Q-ADMIN-02 | Operations / Engineering Sol / Director | ACTIVE | Commission the Ensemble Project Administrator through the Director-approved C0-C13 Runtime Specification; current earned gate is **C0 only** after this repository transition closes. | Contract: `docs/blueprint/CODEX_ADMINISTRATOR_RUNTIME_SPECIFICATION.md`. No provider traffic, validation promotion, Design/ODR adjudication, Hooks before C10, Automations before C11, Claude before C9, browser/CDP before C8, danger-full-access, automatic merge, or automatic unique-branch deletion. Existing live branch residue must remain classified/preserved until its disposition is proven. | C0 environment/tool/authentication census closes with exact executable/config provenance and no authority/billing ambiguity; then C1 becomes the only next earned gate. Transition evidence: `docs/evidence/CODEX_ADMINISTRATOR_RUNTIME_SPEC_POST_APPROVAL_TRANSITION_2026_09_09.md`. |
+| Q-ADMIN-02 | Operations / Engineering Sol / Director | ACTIVE | Commission the Ensemble Project Administrator through the Director-approved C0-C13 Runtime Specification; **C0 is DONE and C1 is the only current earned gate**. | C0 closeout: `docs/evidence/CODEX_ADMINISTRATOR_C0_COMMISSIONING_CLOSEOUT_2026_09_10.md`. Contract: `docs/blueprint/CODEX_ADMINISTRATOR_RUNTIME_SPECIFICATION.md`. No provider traffic, validation promotion, Design/ODR adjudication, Hooks before C10, Automations before C11, Claude before C9, browser/CDP before C8, danger-full-access, automatic merge, or automatic unique-branch deletion. Preserve existing live branch residue and detached validation/evidence worktrees until C1 proves their state/role. | Run C1 deterministic repository reconciliation against real repositories plus synthetic state fixtures; pass requires exact manual-Git agreement, remote identity checks, detached-worktree preservation, and zero automatic overwrite/checkout behavior. Overall Q-ADMIN-02 remains ACTIVE until the sequential commissioning program closes. |
 
 ## Post-E0 program order
 
