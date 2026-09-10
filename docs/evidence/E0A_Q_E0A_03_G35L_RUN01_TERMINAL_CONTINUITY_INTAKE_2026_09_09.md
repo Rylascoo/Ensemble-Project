@@ -30,6 +30,22 @@ Provider-bound execution therefore occurred. Under the frozen authorization/clos
 
 Do not rerun, retry, probe, invoke Gemini 3.1/2.5, use fallback, or send another provider request without a new explicit Director authorization.
 
+## Active Q-E0A-03 authority lineage
+
+The terminal intake supersedes the **volatile pre-execution state**, but it does not sever the active authority/evidence chain that established and governed this run. Continue to treat these surfaces as active lineage until terminal analysis/closeout explicitly dispositions them:
+
+- `docs/blueprint/E0A_Q_E0A_03_REFERENCE_EVIDENCE_ACTIVATION_AND_CLOSURE_CONTRACT.md`
+- `docs/evidence/E0A_Q_E0A_03_REFERENCE_EVIDENCE_PLANNING_RECURSIVE_AUDIT_2026_09_09.md`
+- `docs/evidence/E0A_Q_E0A_03_G35L_PREAUTHORIZATION_PUBLIC_FACT_AUDIT_2026_09_09.md`
+- `docs/evidence/E0A_Q_E0A_03_G35L_RUN01_DIRECTOR_AUTHORIZATION_2026_09_09.md`
+- `docs/evidence/E0A_Q_E0A_03_G35L_RUN01_LOCAL_PREFLIGHT_ATTEMPT_04_2026_09_09.md`
+- `docs/evidence/E0A_GEMINI_COUNTTOKENS_INPUT_PROJECTION_NATIVE_ARM64_VALIDATION_2026_09_09.md`
+- `docs/evidence/E0A_FRESH_CHAT_CONTINUITY_RECONCILIATION_2026_09_09.md`
+- `docs/evidence/DIRECTOR_WINDOWS_ARM64_VALIDATION_HOST_BEHAVIORS.md`
+- `docs/evidence/E0A_GEMINI35_THOUGHT_SIGNATURE_COMPATIBILITY_AUDIT.md`
+
+Historical preflight facts in those records do **not** override the newer consumed terminal state in `CURRENT_STATE.md` and this intake. Their continuing role is provenance, contract, validation, host-law, or compatibility context for the pending terminal analysis.
+
 ## Director-machine evidence pointers supplied at intake
 
 ```text
