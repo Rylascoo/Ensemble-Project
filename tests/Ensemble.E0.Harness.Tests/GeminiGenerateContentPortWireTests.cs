@@ -308,6 +308,77 @@ public sealed class GeminiGenerateContentPortWireTests
         Assert.AreEqual("gemini-response-identity-changed", receipt.DiagnosticCode);
     }
 
+    [TestMethod]
+    public async Task StreamingGeneration_NonSuccessRetainsOnlyBoundedStructuredDiagnostic()
+    {
+        const string field = "generation_config.response_format.text.mime_type";
+        var handler = new QueueResponseHandler(StructuredBadRequest(field));
+        using var http = new HttpClient(handler);
+        var port = new GeminiGenerateContentPort(http, "test-key");
+        var envelope = E0AReferenceRunHost.CreateEnvelope("CREATIVE-NONE");
+        var context = DeterministicE0CausalCycle.ComposeContext(E0ATestSupport.Cycle()).ContextEvaluation.Packet;
+        var attempt = E0ARequestBuilder.Performer(RunId.From("E0A-GEMINI-STREAM-400"), 1, envelope.Performer, context);
+
+        var receipt = await port.ExecuteAsync(attempt, new CollectingDiagnosticSink(), CancellationToken.None);
+
+        Assert.AreEqual(E0ARoleAttemptOutcome.TechnicalFailure, receipt.Outcome);
+        Assert.AreEqual($"gemini-http-400;status=INVALID_ARGUMENT;field={field}", receipt.DiagnosticCode);
+        Assert.IsFalse(receipt.DiagnosticCode!.Contains(ProviderErrorCanary, StringComparison.Ordinal));
+        Assert.AreEqual(1, handler.Requests.Count);
+        StringAssert.Contains(handler.Requests[0].Uri, ":streamGenerateContent?alt=sse");
+    }
+
+    [TestMethod]
+    public async Task BufferedGeneration_NonSuccessRetainsOnlyBoundedStructuredDiagnostic()
+    {
+        const string field = "generationConfig.maxOutputTokens";
+        var handler = new QueueResponseHandler(StructuredBadRequest(field));
+        using var http = new HttpClient(handler);
+        var port = new GeminiGenerateContentPort(http, "test-key");
+        var attempt = GeminiIntegrityAttempt("E0A-GEMINI-BUFFERED-400");
+
+        var receipt = await port.ExecuteAsync(attempt, new CollectingDiagnosticSink(), CancellationToken.None);
+
+        Assert.AreEqual(E0ARoleAttemptOutcome.TechnicalFailure, receipt.Outcome);
+        Assert.AreEqual($"gemini-http-400;status=INVALID_ARGUMENT;field={field}", receipt.DiagnosticCode);
+        Assert.IsFalse(receipt.DiagnosticCode!.Contains(ProviderErrorCanary, StringComparison.Ordinal));
+        Assert.AreEqual(1, handler.Requests.Count);
+        StringAssert.Contains(handler.Requests[0].Uri, ":generateContent");
+    }
+
+    [TestMethod]
+    public async Task StreamingGeneration_MalformedErrorFallsBackToHttpOnly()
+    {
+        var handler = new QueueResponseHandler(new HttpResponseMessage(HttpStatusCode.BadRequest)
+        {
+            Content = new StringContent("{not-json", Encoding.UTF8, "application/json")
+        });
+        using var http = new HttpClient(handler);
+        var port = new GeminiGenerateContentPort(http, "test-key");
+        var envelope = E0AReferenceRunHost.CreateEnvelope("CREATIVE-NONE");
+        var context = DeterministicE0CausalCycle.ComposeContext(E0ATestSupport.Cycle()).ContextEvaluation.Packet;
+        var attempt = E0ARequestBuilder.Performer(RunId.From("E0A-GEMINI-STREAM-400-MALFORMED"), 1, envelope.Performer, context);
+
+        var receipt = await port.ExecuteAsync(attempt, new CollectingDiagnosticSink(), CancellationToken.None);
+
+        Assert.AreEqual(E0ARoleAttemptOutcome.TechnicalFailure, receipt.Outcome);
+        Assert.AreEqual("gemini-http-400", receipt.DiagnosticCode);
+    }
+
+    private const string ProviderErrorCanary = "provider-prose-must-not-persist";
+
+    private static HttpResponseMessage StructuredBadRequest(string field)
+    {
+        var body = "{\"error\":{\"code\":400,\"message\":\"" + ProviderErrorCanary +
+            "\",\"status\":\"INVALID_ARGUMENT\",\"details\":[" +
+            "{\"@type\":\"type.googleapis.com/google.rpc.BadRequest\",\"fieldViolations\":[" +
+            "{\"field\":\"" + field + "\",\"description\":\"" + ProviderErrorCanary + "\"}" +
+            "]}]}}";
+        return new HttpResponseMessage(HttpStatusCode.BadRequest)
+        {
+            Content = new StringContent(body, Encoding.UTF8, "application/json")
+        };
+    }
     private static PreparedRoleAttempt GeminiIntegrityAttempt(string runId)
     {
         var envelope = E0AReferenceRunHost.CreateEnvelope("CREATIVE-NONE");

@@ -125,7 +125,10 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
         using var response = await _http.SendAsync(request, HttpCompletionOption.ResponseContentRead, cancellationToken).ConfigureAwait(false);
         if (!response.IsSuccessStatusCode)
         {
-            return RoleAttemptReceipt.TechnicalFailure(attempt, $"gemini-http-{(int)response.StatusCode}");
+            var diagnostic = await E0AGeminiHttpFailureDiagnostic
+                .GenerationAsync(response, attempt.RequestBody, cancellationToken)
+                .ConfigureAwait(false);
+            return RoleAttemptReceipt.TechnicalFailure(attempt, diagnostic);
         }
 
         var bytes = await response.Content.ReadAsByteArrayAsync(cancellationToken).ConfigureAwait(false);
@@ -146,7 +149,10 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
         using var response = await _http.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
         if (!response.IsSuccessStatusCode)
         {
-            return RoleAttemptReceipt.TechnicalFailure(attempt, $"gemini-http-{(int)response.StatusCode}");
+            var diagnostic = await E0AGeminiHttpFailureDiagnostic
+                .GenerationAsync(response, attempt.RequestBody, cancellationToken)
+                .ConfigureAwait(false);
+            return RoleAttemptReceipt.TechnicalFailure(attempt, diagnostic);
         }
 
         await using var body = await response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
