@@ -2,7 +2,7 @@
 
 Status: ACTIVE VOLATILE OPERATING SNAPSHOT — NOT PRODUCT OR ARCHITECTURE LAW
 
-Verified: 2026-09-09
+Verified: 2026-09-10
 
 ## Purpose
 
@@ -19,11 +19,11 @@ Before a scarce/external dispatch, verify current model availability, effort con
 
 For small factual/status work, a lower reasoning setting may be adequate. For material architecture, broad failure analysis, security/provider/Store work, or cross-project reconciliation, prefer High.
 
-## Codex allocation — setup pending
+## Codex allocation — C0 commissioned; C1 next
 
-The canonical orchestration protocol now permits Codex as an execution surface, but the dedicated Ensemble Administrator has **not yet been configured**.
+C0 has commissioned the dedicated `C:\Users\Wiryl\.codex-ensemble` Administrator runtime with ChatGPT-only authentication, read-only control posture, no API-key/provider credentials, and later-gate capabilities disabled. C1 repository reconciliation is the only next earned gate.
 
-Planned defaults once configured:
+Current C0 model mapping (later-gate execution remains blocked until earned):
 
 | Task class | Surface/model | Reasoning | Usage class |
 |---|---|---|---|

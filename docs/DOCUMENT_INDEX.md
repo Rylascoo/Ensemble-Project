@@ -60,6 +60,7 @@ Parallel E0-E preparation is closed; `docs/evidence/E0E_SINGLE_MODEL_PLAYWRIGHT_
 ## Repository tooling / lifecycle
 
 - `docs/blueprint/CODEX_ADMINISTRATOR_RUNTIME_SPECIFICATION.md` - Director-approved Administrator runtime/commissioning contract; C0-C13 are earned sequentially and do not create project/phase/provider/validation authority.
+- `docs/evidence/CODEX_ADMINISTRATOR_C0_COMMISSIONING_CLOSEOUT_2026_09_10.md` - C0 executable/config/authentication/tool census closeout; C1 is the only next earned Administrator gate.
 - `.github/workflows/README.md` — CI authority explanation.
 - `tools/repository-law-check.py` — objective repository, state-currency, and lane-boundary checks.
 - `docs/ORACLE_INDEX_GUARD.md` and `tools/oracle-index.py` — documented-oracle assertion-coverage regression guard.
