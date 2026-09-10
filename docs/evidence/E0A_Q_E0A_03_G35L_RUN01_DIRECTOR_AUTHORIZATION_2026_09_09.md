@@ -82,40 +82,18 @@ If the validated Harness itself fails a local fail-closed guard before reaching 
 
 ## Local preflight history
 
-Attempt 01 on the Director's Windows ARM64 machine terminated before credential entry and before provider invocation because the wrapper searched native `git show` output for a full Unicode status line containing em dashes. The packet had already proved the authorization-record Git blob SHA exactly, but Windows PowerShell 5.1 native-output decoding made the redundant Unicode rendered-text assertion unreliable.
+Attempt 01 stopped before credential/provider invocation because the wrapper depended on Unicode punctuation decoded from native `git show` output under Windows PowerShell 5.1. Durable evidence: `docs/evidence/E0A_Q_E0A_03_G35L_RUN01_LOCAL_PREFLIGHT_ATTEMPT_01_2026_09_09.md`. Disposition: **wrapper-only; unconsumed**.
 
-Durable evidence: `docs/evidence/E0A_Q_E0A_03_G35L_RUN01_LOCAL_PREFLIGHT_ATTEMPT_01_2026_09_09.md`.
+Attempt 02 stopped before credential/provider invocation because the preserved historical root had been deliberately reused for attached branch `design-queue-clr01-q19-reconcile-2026-09-09-v2` at `55541f5ad5e3c47e1a85cc35a3a6e169aa5fda70`. Forensics and controlled restoration are preserved in `docs/evidence/E0A_Q_E0A_03_G35L_RUN01_HISTORICAL_ROOT_FORENSIC_RESOLUTION_2026_09_09.md`. The Director-machine restoration proved exact detached/clean historical HEAD `689655eed677b789ab3ee395f1c65b4f2cb72cc8`, preserved branch unchanged, no provider traffic. Disposition: **unconsumed**.
 
-Attempt-01 disposition: **wrapper-only local preflight failure; provider traffic not started; authorization unconsumed**. The correction is limited to removing non-ASCII native-output dependence while retaining exact blob identity and ASCII state checks. No executable, source, test, fixture, provider, profile, RunId, evidence-root, quota, retry, fallback, or validation authority changes.
-
-Attempt 02 on the Director's Windows ARM64 machine terminated before credential entry and before provider invocation because the intentionally preserved historical root no longer matched detached HEAD `689655eed677b789ab3ee395f1c65b4f2cb72cc8`.
-
-Durable evidence: `docs/evidence/E0A_Q_E0A_03_G35L_RUN01_LOCAL_PREFLIGHT_ATTEMPT_02_2026_09_09.md`.
-
-Read-only forensics established that the root was clean but had been deliberately reused for attached branch `design-queue-clr01-q19-reconcile-2026-09-09-v2` at `55541f5ad5e3c47e1a85cc35a3a6e169aa5fda70`; the branch was synchronized to its remote and the authorized executable/tag still matched exactly.
-
-Forensic resolution and successful controlled restoration: `docs/evidence/E0A_Q_E0A_03_G35L_RUN01_HISTORICAL_ROOT_FORENSIC_RESOLUTION_2026_09_09.md`.
-
-The Director-machine restoration packet subsequently proved exact historical HEAD `689655eed677b789ab3ee395f1c65b4f2cb72cc8`, detached state, clean worktree, preserved cross-lane branch unchanged, no provider traffic, and authorization still unconsumed. The historical-root gate is therefore closed.
-
-## Local gates still unresolved by repository inspection
-
-Only the Director's Windows ARM64 machine can establish these immediately before execution:
-
-- dedicated execution worktree is safe and exact at the validated checkout;
-- canonical fixture bytes hash exactly to the frozen SHA-256;
-- exact evidence root does not exist and no local archive/claim for this RunId proves prior execution;
-- `dotnet --info` reports native Windows ARM64 host facts;
-- credential is entered securely and exists only in process environment scope;
-- no unrelated provider traffic/capacity change creates a quota contrary signal.
-
-Failure of any local gate before provider invocation stops the packet without provider traffic and leaves this authorization unconsumed.
+Attempt 03 stopped before credential/provider invocation because the external wrapper incorrectly compared raw Windows working-tree fixture bytes with the canonical semantic `FixtureHash.Compute` identity. Durable evidence: `docs/evidence/E0A_Q_E0A_03_G35L_RUN01_LOCAL_PREFLIGHT_ATTEMPT_03_2026_09_09.md`. Repository source establishes that canonical hash `5556a02325e6a7f774e6997942b395d670741d494ea86f1a50b83633e26b6703` is computed from `Ecj1FixtureCanonicalizer.Serialize(fixture)`, while the exact fixture Git blob at the authorized executable is `6c2ed0e1081ee4e1165dbfb162b3028cbd1136fd`. Corrected packet law is exact clean executable + exact fixture Git blob + native Missing-Raft smoke exercising `MissingRaftContract.Validate`; no raw working-tree `Get-FileHash` comparison to the canonical identity. Disposition: **wrapper-only; unconsumed**.
 
 ## Current disposition
 
 - exact RunId authorization: **AUTHORIZED / UNCONSUMED**;
 - provider scope: **only** `E0A-Q03-G35L-20260909-01` as specified above;
 - historical-root restoration: **VERIFIED**;
-- next action: resume the corrected guarded Windows ARM64 local preflight against exact current repository authority; if every gate passes, securely supply the process-local credential and launch exactly this one provider run;
+- Attempt-03 fixture-wrapper correction: **RESOLVED**;
+- next action: resume corrected guarded Windows ARM64 local preflight against exact current repository authority; if every local gate passes, securely supply process-local credential and launch exactly this one provider run;
 - Gemini 3.1 / Gemini 2.5: **NOT AUTHORIZED**;
-- no provider traffic was sent in local preflight Attempts 01 or 02 or during root restoration.
+- no provider traffic was sent in local preflight Attempts 01, 02, or 03 or during root restoration.
