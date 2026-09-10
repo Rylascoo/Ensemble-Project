@@ -75,6 +75,7 @@ Parallel E0-E preparation is closed; `docs/evidence/E0E_SINGLE_MODEL_PLAYWRIGHT_
 - `docs/evidence/CODEX_ADMINISTRATOR_C1_REPOSITORY_RECONCILIATION_2026_09_10.md` - C1 synthetic/real repository reconciliation closeout.
 - `docs/evidence/CODEX_ADMINISTRATOR_C2_FRESH_AUTHORITY_RECOVERY_2026_09_10.md` - C2 failed-close/remediation/fresh-session closeout.
 - `docs/evidence/CODEX_ADMINISTRATOR_C3_DETERMINISTIC_SKILLS_2026_09_10.md` - C3 repository-native deterministic Skills, fixtures, manual cross-checks, and fresh-session usability closeout; C4 isolated Worker mutation is the next earned Administrator gate.
+- `docs/evidence/CODEX_ADMINISTRATOR_C4_ISOLATED_WORKER_MUTATION_2026_09_10.md` - C4 native permission-inheritance falsification, separate top-level Worker fallback, bounded R0 mutation/test, protected-surface preservation, and clean-disposal closeout; C5 lifecycle is next.
 - `tools/codex-admin-reconcile.py` and `tools/codex-admin-reconcile-selftest.py` - C1 read-only deterministic core and synthetic fixture oracle, wrapped by the C3 `repo-reconciliation` Skill.
 - `.github/workflows/README.md` — CI authority explanation.
 - `tools/repository-law-check.py` — objective repository, state-currency, and lane-boundary checks.
