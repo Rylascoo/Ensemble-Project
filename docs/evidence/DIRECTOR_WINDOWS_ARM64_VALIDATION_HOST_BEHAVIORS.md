@@ -157,3 +157,20 @@ At minimum they must:
 - preserve the credential/network/spend gate as closed unless separately authorized.
 
 If later Director-machine evidence contradicts any item here, update this document first and then regenerate the validation command set from the revised host contract.
+
+## 9. Long-worktree path rule for repository guards
+
+Q-E0A-03 structured-output compatibility validation established that a repository guard may fail on this host when its worktree path is sufficiently long even though the exact checkout is valid. `tools/oracle-index.py --check` attempted a Git `<revision>:<document-path>` stat from the long native-validation worktree and Windows reported `Filename too long` before an oracle-coverage result existed.
+
+This is an apparatus/path failure, not a passing or failing oracle result.
+
+When a deterministic repository guard fails solely on this class of path-length error:
+
+1. keep the native executable evidence bound to its exact validated commit;
+2. create a separate clean detached worktree for the **same exact commit** at a materially shorter path;
+3. rerun only the affected static repository guard there;
+4. require the guard itself to return success before promotion;
+5. record both the original apparatus failure and the short-path result in validation evidence;
+6. never use a different commit, branch tip, or later documentation commit as a substitute.
+
+For the establishing case, `tools/oracle-index.py --check` passed at `C:\Users\Wiryl\Sol Dev\E0V-cef3fc1` on exact checkout `cef3fc15e31192a48aa3bddd99450b65a58bd8f1`, reporting 86 documented hashes, 17 asserted hashes, and 69 document-only hashes.

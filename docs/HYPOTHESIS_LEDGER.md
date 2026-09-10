@@ -6,7 +6,7 @@ A hypothesis belongs here when engineering work depends on a fact that has not y
 
 ## Open / narrowed hypotheses
 
-### HYP-001 - Live Gemini request compatibility - NARROWED / 3.5 LEGACY GENERATECONTENT SHAPE ACCEPTED
+### HYP-001 - Live Gemini request compatibility - NARROWED / 3.5 LEGACY GENERATECONTENT SHAPE NATIVE-VALIDATED
 
 Hypothesis: the approved REST request/streaming shapes for the current E0-A comparison profiles remain accepted by the real Google Gemini API:
 
@@ -16,11 +16,11 @@ Hypothesis: the approved REST request/streaming shapes for the current E0-A comp
 
 Current evidence: Run 02 localized the 3.5 Flash-Lite generation rejection to `generation_config.response_format.text.mime_type`. Four bounded Free-tier diagnostics then established that bare generation succeeds, legacy `responseMimeType` + simple `responseSchema` succeeds, and the actual Run 02 JSON Schema succeeds when encoded as `responseMimeType` + `responseJsonSchema`. The durable near-runtime capture returned HTTP 200 with a candidate and usage metadata. Evidence: `docs/evidence/E0A_GEMINI35_STRUCTURED_OUTPUT_COMPATIBILITY_DIAGNOSTIC_2026_09_10.md`.
 
-Disposition: the rejected `responseFormat.text` encoding is falsified for this 3.5 Flash-Lite route; the legacy GenerateContent structured-output encoding is accepted. The shared request-builder correction is implemented but remains unvalidated until a fresh native Windows ARM64 checkpoint closes it. 3.1 Flash-Lite and 2.5 Flash-Lite live generation compatibility remain separately unverified.
+Disposition: the rejected `responseFormat.text` encoding is falsified for this 3.5 Flash-Lite route; the legacy GenerateContent structured-output encoding is accepted. The shared request-builder correction is native-validated at exact checkout `cef3fc15e31192a48aa3bddd99450b65a58bd8f1` under tag `validation/e0a-gemini-structured-output-compatibility-native-arm64`. 3.1 Flash-Lite and 2.5 Flash-Lite live generation compatibility remain separately unverified.
 
-Verification trigger: native validation of the correction, followed by a fresh named 3.5 reference run if the route remains admissible. Later model families retain their own live-evidence requirements.
+Verification trigger: a fresh named 3.5 reference run after the frozen per-run activation gate and separate Director authorization. Later model families retain their own live-evidence requirements.
 
-Falsifier/narrowing evidence: native validation fails, or a fresh named corrected reference run reveals a different provider incompatibility.
+Falsifier/narrowing evidence: a fresh named corrected reference run reveals a different provider incompatibility or cannot satisfy the frozen activation/contribution gates.
 ### HYP-002 — Account/key/model/quota availability — PARTIALLY ESTABLISHED / VOLATILE
 
 Hypothesis: the Director-selected Free-tier project and a valid key can access the selected model and required `countTokens` / generation routes within the approved E0-A envelope at execution time.
@@ -71,7 +71,7 @@ The following are decisions or scope gates and must not be reclassified as assum
 
 - Gemini remains the sole current E0-A provider method; historical OpenAI executable support is retired.
 - The implemented comparison-profile set is 3.5 Flash-Lite Minimal (12 turns), 3.1 Flash-Lite Minimal (12 turns), and 2.5 Flash-Lite None (3-turn exact-no-thinking control), with historical 2.5 Flash non-live.
-- The former 3.5 `countTokens` compatibility gate is corrected and native-validated; Run 02 localizes the later generation rejection to `generation_config.response_format.text.mime_type`.
+- The former 3.5 `countTokens` compatibility gate is corrected and native-validated; Run 02 localized the later generation rejection to `generation_config.response_format.text.mime_type`; the resulting legacy structured-output request correction is also native-validated at `cef3fc15e31192a48aa3bddd99450b65a58bd8f1`.
 - Q-E0A-03 compatibility diagnostics may use the temporary standing synthetic Free-tier authority; full reference runs remain separately named and immutable.
 - Temporary bounded synthetic Free-tier compatibility/diagnostic authority is active; no paid-route or consumed-run replay authority exists.
 - Free-tier live experiments remain canonical synthetic Missing Raft-only.

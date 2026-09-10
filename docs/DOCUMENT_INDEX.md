@@ -23,7 +23,7 @@ This index helps a fresh engineering chat find the small set of current entry su
 - `docs/blueprint/E0A_PHASE_B_GEMINI_FREE_TIER_RPD_MODEL_SELECTION_AMENDMENT.md`
 - `docs/blueprint/E0A_GEMINI_COUNTTOKENS_INPUT_PROJECTION_CORRECTION_AMENDMENT.md`
 - `docs/blueprint/E0A_GEMINI_GENERATION_ERROR_DIAGNOSTIC_CORRECTION_AMENDMENT.md`
-- `docs/blueprint/E0A_GEMINI_GENERATECONTENT_STRUCTURED_OUTPUT_COMPATIBILITY_AMENDMENT.md` - live-falsified `responseFormat.text` correction to legacy GenerateContent `responseMimeType` + `responseJsonSchema`; native validation pending.
+- `docs/blueprint/E0A_GEMINI_GENERATECONTENT_STRUCTURED_OUTPUT_COMPATIBILITY_AMENDMENT.md` - live-falsified `responseFormat.text` correction to legacy GenerateContent `responseMimeType` + `responseJsonSchema`; native-validated at exact checkout `cef3fc15e31192a48aa3bddd99450b65a58bd8f1`.
 - `docs/blueprint/E0A_Q_E0A_03_REFERENCE_EVIDENCE_ACTIVATION_AND_CLOSURE_CONTRACT.md`
 
 These remain subject to `CURRENT_STATE.md`; this index does not independently mark a phase, checkpoint, provider route, or experiment executable.
@@ -32,7 +32,9 @@ These remain subject to `CURRENT_STATE.md`; this index does not independently ma
 
 - `docs/VALIDATION_LEDGER.md` — promoted validation facts and durable tags; cannot advance project state.
 - `docs/HYPOTHESIS_LEDGER.md` — current unverified/narrowed Gemini assumptions and verification triggers; never a decision source.
-- `docs/evidence/E0A_GEMINI_GENERATION_ERROR_DIAGNOSTIC_NATIVE_ARM64_VALIDATION_2026_09_10.md` — current promoted Windows ARM64 machine-test evidence for exact executable `7868e5cb12a27260e288d95c248d6f846cf37701`.
+- `docs/evidence/E0A_GEMINI_STRUCTURED_OUTPUT_COMPATIBILITY_NATIVE_ARM64_VALIDATION_2026_09_10.md` - current promoted Windows ARM64 machine-test evidence for exact executable `cef3fc15e31192a48aa3bddd99450b65a58bd8f1`.
+- `docs/evidence/E0A_GEMINI_STRUCTURED_OUTPUT_COMPATIBILITY_IMPLEMENTATION_AUDIT_2026_09_10.md` - source/test audit for the legacy GenerateContent structured-output correction.
+- `docs/evidence/E0A_GEMINI_GENERATION_ERROR_DIAGNOSTIC_NATIVE_ARM64_VALIDATION_2026_09_10.md` - immediate predecessor native checkpoint at exact executable `7868e5cb12a27260e288d95c248d6f846cf37701`.
 - `docs/evidence/E0A_GEMINI_GENERATION_ERROR_DIAGNOSTIC_IMPLEMENTATION_AUDIT_2026_09_10.md` — source/test audit for the bounded generation-error diagnostic correction.
 - `docs/evidence/E0A_Q_E0A_03_G35L_RUN01_TERMINAL_EVIDENCE_ANALYSIS_2026_09_10.md` — sealed Run 01 archive analysis; corrected `countTokens` succeeded, first generation returned HTTP 400, exact cause unresolved.
 - `docs/evidence/E0A_Q_E0A_03_G35L_RUN02_TERMINAL_EVIDENCE_ANALYSIS_2026_09_10.md` - sealed Run 02 analysis; generation rejection localized to `responseFormat.text.mimeType`.
@@ -54,7 +56,7 @@ Historical attempt, diagnostic, and superseded validation records remain evidenc
 
 There is **no live `docs/handoff/...` transition artifact** at current `main`. A handoff is live only when `CURRENT_STATE.md` names its exact path. `docs/handoff/` currently retains only its lifecycle README.
 
-The current consequential engineering gate is defined by `CURRENT_STATE.md` and the Q-E0A-03 closure contract. Full reference runs remain separately named and immutable; bounded synthetic Gemini Free-tier compatibility/diagnostic traffic currently has temporary standing Director authority and must be logged.
+The current consequential engineering gate is defined by `CURRENT_STATE.md` and the Q-E0A-03 closure contract. The corrected 3.5 Flash-Lite executable is native-validated, but full-reference runs remain separately named and immutable and provider authorization is NONE until the Director approves one exact fresh run. Bounded synthetic Gemini Free-tier compatibility/diagnostic traffic retains its separate temporary standing authority and must be logged.
 
 Parallel E0-E preparation is closed; `docs/evidence/E0E_SINGLE_MODEL_PLAYWRIGHT_CONTROL_PREPARATION_CLOSEOUT_AUDIT_2026_09_09.md` records that preparation result. E0-E execution remains blocked by the frozen E0 order and the execution queue.
 
