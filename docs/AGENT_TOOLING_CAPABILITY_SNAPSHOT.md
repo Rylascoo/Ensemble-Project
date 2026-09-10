@@ -19,11 +19,11 @@ Before a scarce/external dispatch, verify current model availability, effort con
 
 For small factual/status work, a lower reasoning setting may be adequate. For material architecture, broad failure analysis, security/provider/Store work, or cross-project reconciliation, prefer High.
 
-## Codex allocation — C0 commissioned; C1 next
+## Codex allocation - C0/C1 commissioned; C2 next
 
-C0 has commissioned the dedicated `C:\Users\Wiryl\.codex-ensemble` Administrator runtime with ChatGPT-only authentication, read-only control posture, no API-key/provider credentials, and later-gate capabilities disabled. C1 repository reconciliation is the only next earned gate.
+C0 commissioned the dedicated `C:\Users\Wiryl\.codex-ensemble` runtime; C1 proved the versioned read-only repository reconciler against synthetic and real Project/Website truth. C2 fresh Administrator authority recovery is the only next earned gate; later capabilities remain disabled.
 
-Current C0 model mapping (later-gate execution remains blocked until earned):
+Current C0/C1 model mapping (later-gate execution remains blocked until earned):
 
 | Task class | Surface/model | Reasoning | Usage class |
 |---|---|---|---|
