@@ -17,7 +17,7 @@ Current promoted native authority: `7868e5cb12a27260e288d95c248d6f846cf37701`; t
 Run 02 terminal analysis: `docs/evidence/E0A_Q_E0A_03_G35L_RUN02_TERMINAL_EVIDENCE_ANALYSIS_2026_09_10.md`. Temporary standing Director authority for bounded **Gemini Free-tier, synthetic-only Engineering compatibility/diagnostic testing** is recorded in `docs/evidence/GEMINI_API_TEST_KEY_STANDING_DIRECTOR_AUTHORIZATION_2026_09_10.md`; every batch is logged in `docs/evidence/GEMINI_API_USAGE_LEDGER.md`. This does not authorize replay of consumed reference runs, paid routes, private/user data, or reference contribution without a fresh named run boundary.
 
 ## Continuity
-Q-E0E-PREP remains DONE; Q-E0E-RUN remains blocked through E0-A-D. Design authority remains separate. Administrator C0/C1/C2 are DONE; C3 deterministic Skills remains the next earned Administrator gate and does not change Engineering/provider authority.
+Q-E0E-PREP remains DONE; Q-E0E-RUN remains blocked through E0-A-D. Design authority remains separate. Administrator C0/C1/C2/C3 are DONE; C4 isolated Worker mutation is the next earned Administrator gate and does not change Engineering/provider authority.
 
 ## Next
 Resolve the 3.5 Flash-Lite structured-output compatibility defect with the smallest logged Free-tier diagnostic request(s). Current provider evidence rejects `generationConfig.responseFormat.text.mimeType`. Do not replay Run 02. Once a compatible request shape or model incompatibility is established, amend source only if warranted, recursively audit, machine-validate, then create a fresh named full-reference run if the route remains admissible.

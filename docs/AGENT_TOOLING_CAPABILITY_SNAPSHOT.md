@@ -19,11 +19,11 @@ Before a scarce/external dispatch, verify current model availability, effort con
 
 For small factual/status work, a lower reasoning setting may be adequate. For material architecture, broad failure analysis, security/provider/Store work, or cross-project reconciliation, prefer High.
 
-## Codex allocation - C0/C1/C2 commissioned; C3 next
+## Codex allocation - C0/C1/C2/C3 commissioned; C4 next
 
-C0 commissioned the dedicated `C:\Users\Wiryl\.codex-ensemble` runtime; C1 proved the versioned read-only repository reconciler; C2 proved fresh authority recovery after supported elevated Windows sandbox provisioning. The runtime denies login shells, keeps filesystem/network restricted with approval `OnRequest`, disables the remote plugin catalog, and admits only GitHub `fetch` from an otherwise app-denied posture. C3 deterministic Skills is next; later gates remain disabled.
+C0 commissioned the dedicated `C:\Users\Wiryl\.codex-ensemble` runtime; C1 proved the versioned read-only repository reconciler; C2 proved fresh authority recovery after supported elevated Windows sandbox provisioning; C3 proved the eight repository-native deterministic Skills, fixtures, negative controls, manual cross-checks, and full-result exact-SHA CI normalization without authority invention. The runtime denies login shells, keeps filesystem/network restricted with approval `OnRequest`, disables the remote plugin catalog, and admits only GitHub `fetch` from an otherwise app-denied posture. C4 isolated Worker mutation is next; later gates remain disabled.
 
-Current C0/C1 model mapping (later-gate execution remains blocked until earned):
+Current commissioned model mapping (later-gate execution remains blocked until earned):
 
 | Task class | Surface/model | Reasoning | Usage class |
 |---|---|---|---|
