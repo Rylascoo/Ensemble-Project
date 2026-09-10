@@ -1,8 +1,8 @@
-# Codex Administrator Runtime Specification ? Post-Approval Transition Evidence
+# Codex Administrator Runtime Specification - Post-Approval Transition Evidence
 
 Date: 2026-09-09
 
-Status: **ACTIVE ADMINISTRATIVE COMMISSIONING EVIDENCE ? NO ENGINEERING PHASE / PROVIDER / VALIDATION AUTHORITY**
+Status: **ACTIVE ADMINISTRATIVE COMMISSIONING EVIDENCE - NO ENGINEERING PHASE / PROVIDER / VALIDATION AUTHORITY**
 
 ## Purpose
 
