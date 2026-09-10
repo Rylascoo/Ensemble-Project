@@ -19,9 +19,9 @@ Before a scarce/external dispatch, verify current model availability, effort con
 
 For small factual/status work, a lower reasoning setting may be adequate. For material architecture, broad failure analysis, security/provider/Store work, or cross-project reconciliation, prefer High.
 
-## Codex allocation - C0/C1/C2/C3 commissioned; C4 next
+## Codex allocation - C0/C1/C2/C3/C4 commissioned; C5 next
 
-C0 commissioned the dedicated `C:\Users\Wiryl\.codex-ensemble` runtime; C1 proved the versioned read-only repository reconciler; C2 proved fresh authority recovery after supported elevated Windows sandbox provisioning; C3 proved the eight repository-native deterministic Skills, fixtures, negative controls, manual cross-checks, and full-result exact-SHA CI normalization without authority invention. The runtime denies login shells, keeps filesystem/network restricted with approval `OnRequest`, disables the remote plugin catalog, and admits only GitHub `fetch` from an otherwise app-denied posture. C4 isolated Worker mutation is next; later gates remain disabled.
+C0 commissioned the dedicated `C:\Users\Wiryl\.codex-ensemble` runtime; C1 proved the versioned read-only repository reconciler; C2 proved fresh authority recovery after supported elevated Windows sandbox provisioning; C3 proved the eight repository-native deterministic Skills, fixtures, negative controls, manual cross-checks, and full-result exact-SHA CI normalization without authority invention. The runtime denies login shells, keeps filesystem/network restricted with approval `OnRequest`, disables the remote plugin catalog, and admits only GitHub `fetch` from an otherwise app-denied posture. C4 proved native child permission inheritance stays read-only and commissioned the prescribed separate top-level Worker fallback. The Administrator remains read-only/on-request; Worker launch is exact-worktree/HEAD bound, workspace-write, approval `never`, command-network off, app/subagent/browser/provider surfaces disabled, with shared Git lifecycle retained by the Administrator. C5 branch/tag/push/PR lifecycle is next; later gates remain disabled.
 
 Current commissioned model mapping (later-gate execution remains blocked until earned):
 
