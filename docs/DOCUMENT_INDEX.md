@@ -83,7 +83,8 @@ Parallel E0-E preparation is closed; `docs/evidence/E0E_SINGLE_MODEL_PLAYWRIGHT_
 - `docs/evidence/CODEX_ADMINISTRATOR_C3_DETERMINISTIC_SKILLS_2026_09_10.md` - C3 repository-native deterministic Skills, fixtures, manual cross-checks, and fresh-session usability closeout.
 - `docs/evidence/CODEX_ADMINISTRATOR_C4_ISOLATED_WORKER_MUTATION_2026_09_10.md` - C4 native permission-inheritance falsification, separate top-level Worker fallback, bounded R0 mutation/test, protected-surface preservation, and clean-disposal closeout.
 - `docs/evidence/CODEX_ADMINISTRATOR_C5_BRANCH_TAG_PUSH_PR_LIFECYCLE_2026_09_10.md` - C5 shared-Git lock commissioning plus evidence-only branch/tag/push/PR lifecycle proof.
-- `docs/evidence/CODEX_ADMINISTRATOR_C6_CROSS_LANE_TRANSPORT_PILOT_2026_09_10.md` - C6 exact-ref GitHub Issue transport pilot; Issues are ephemeral dispatch/result transport only, never backlog authority; C7 is next.
+- `docs/evidence/CODEX_ADMINISTRATOR_C6_CROSS_LANE_TRANSPORT_PILOT_2026_09_10.md` - C6 exact-ref GitHub Issue transport pilot; Issues are ephemeral dispatch/result transport only, never backlog authority.
+- `docs/evidence/CODEX_ADMINISTRATOR_C7_REAL_LOCAL_EVIDENCE_PILOT_2026_09_10.md` - C7 sealed Run-03 local-evidence pilot; read-only hashes/seals/accounting/terminal-boundary proof with no provider traffic or authority mutation; C8 is next.
 - `tools/codex-admin-reconcile.py` and `tools/codex-admin-reconcile-selftest.py` - C1 read-only deterministic core and synthetic fixture oracle, wrapped by the C3 `repo-reconciliation` Skill.
 - `.github/workflows/README.md` — CI authority explanation.
 - `tools/repository-law-check.py` — objective repository, state-currency, and lane-boundary checks.
