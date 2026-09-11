@@ -72,7 +72,62 @@ public sealed class GeminiHardeningRegressionTests
 
         Assert.AreEqual(E0ARoleAttemptOutcome.TechnicalFailure, receipt.Outcome);
         Assert.IsNull(receipt.StructuredOutput);
-        Assert.AreEqual("gemini-malformed-or-transport", receipt.DiagnosticCode);
+        Assert.AreEqual("gemini-utf8-invalid", receipt.DiagnosticCode);
+    }
+
+    [TestMethod]
+    public async Task StreamingMalformedJson_FailsClosedWithClassifiedDiagnostic()
+    {
+        var body = Encoding.UTF8.GetBytes("data: {not-json}\n\n");
+        var handler = new StaticHandler(() =>
+        {
+            var content = new ByteArrayContent(body);
+            content.Headers.ContentType = new MediaTypeHeaderValue("text/event-stream");
+            return new HttpResponseMessage(HttpStatusCode.OK) { Content = content };
+        });
+        using var http = new HttpClient(handler);
+        var port = new GeminiGenerateContentPort(http, "test-key");
+        var attempt = PerformerAttempt("E0A-GEMINI-HARDENING-JSON");
+
+        var receipt = await port.ExecuteAsync(attempt, new CollectingDiagnosticSink(), CancellationToken.None);
+
+        Assert.AreEqual(E0ARoleAttemptOutcome.TechnicalFailure, receipt.Outcome);
+        Assert.IsNull(receipt.StructuredOutput);
+        Assert.AreEqual("gemini-json-invalid", receipt.DiagnosticCode);
+    }
+
+    [TestMethod]
+    public async Task StreamingIoFailure_FailsClosedWithClassifiedDiagnostic()
+    {
+        var handler = new StaticHandler(() =>
+        {
+            var content = new StreamContent(new ThrowingIoStream());
+            content.Headers.ContentType = new MediaTypeHeaderValue("text/event-stream");
+            return new HttpResponseMessage(HttpStatusCode.OK) { Content = content };
+        });
+        using var http = new HttpClient(handler);
+        var port = new GeminiGenerateContentPort(http, "test-key");
+        var attempt = PerformerAttempt("E0A-GEMINI-HARDENING-IO-TRANSPORT");
+
+        var receipt = await port.ExecuteAsync(attempt, new CollectingDiagnosticSink(), CancellationToken.None);
+
+        Assert.AreEqual(E0ARoleAttemptOutcome.TechnicalFailure, receipt.Outcome);
+        Assert.IsNull(receipt.StructuredOutput);
+        Assert.AreEqual("gemini-io-transport", receipt.DiagnosticCode);
+    }
+
+    [TestMethod]
+    public async Task HttpTransportFailure_FailsClosedWithClassifiedDiagnostic()
+    {
+        using var http = new HttpClient(new ThrowingHandler());
+        var port = new GeminiGenerateContentPort(http, "test-key");
+        var attempt = PerformerAttempt("E0A-GEMINI-HARDENING-HTTP-TRANSPORT");
+
+        var receipt = await port.ExecuteAsync(attempt, new CollectingDiagnosticSink(), CancellationToken.None);
+
+        Assert.AreEqual(E0ARoleAttemptOutcome.TechnicalFailure, receipt.Outcome);
+        Assert.IsNull(receipt.StructuredOutput);
+        Assert.AreEqual("gemini-http-transport", receipt.DiagnosticCode);
     }
 
     [TestMethod]
@@ -236,6 +291,14 @@ public sealed class GeminiHardeningRegressionTests
             Content = new StringContent(body, Encoding.UTF8, "application/json")
         };
 
+    private sealed class ThrowingHandler : HttpMessageHandler
+    {
+        protected override Task<HttpResponseMessage> SendAsync(
+            HttpRequestMessage request,
+            CancellationToken cancellationToken) =>
+            Task.FromException<HttpResponseMessage>(new HttpRequestException("simulated transport"));
+    }
+
     private sealed class StaticHandler : HttpMessageHandler
     {
         private readonly Func<HttpResponseMessage> _response;
@@ -245,6 +308,29 @@ public sealed class GeminiHardeningRegressionTests
         protected override Task<HttpResponseMessage> SendAsync(
             HttpRequestMessage request,
             CancellationToken cancellationToken) => Task.FromResult(_response());
+    }
+
+    private sealed class ThrowingIoStream : Stream
+    {
+        public override bool CanRead => true;
+        public override bool CanSeek => false;
+        public override bool CanWrite => false;
+        public override long Length => throw new NotSupportedException();
+        public override long Position
+        {
+            get => throw new NotSupportedException();
+            set => throw new NotSupportedException();
+        }
+
+        public override void Flush() { }
+        public override int Read(byte[] buffer, int offset, int count) => throw new IOException("simulated read");
+        public override Task<int> ReadAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken) =>
+            Task.FromException<int>(new IOException("simulated read"));
+        public override ValueTask<int> ReadAsync(Memory<byte> buffer, CancellationToken cancellationToken = default) =>
+            ValueTask.FromException<int>(new IOException("simulated read"));
+        public override long Seek(long offset, SeekOrigin origin) => throw new NotSupportedException();
+        public override void SetLength(long value) => throw new NotSupportedException();
+        public override void Write(byte[] buffer, int offset, int count) => throw new NotSupportedException();
     }
 
     private sealed class CancellableStalledStream : Stream
