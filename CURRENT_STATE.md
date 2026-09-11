@@ -21,7 +21,7 @@ Run 04 analysis: `docs/evidence/E0A_Q_E0A_03_G35L_RUN04_TERMINAL_EVIDENCE_ANALYS
 Run 04 consumed exactly **2** Gemini requests: one 649-token `countTokens` plus one successful generation (649 input / 130 output / 0 reasoning / 0 cached), shadow USD `0.00051970`; sealed artifact verification found zero hash mismatches.
 
 ## Continuity
-Current `main` baseline before this repair is `8e486567e8d3f43f01c065a083f3fa1f9ba724e9`. Q-E0E-PREP remains DONE; Q-E0E-RUN remains blocked through E0-A-D. Design authority is separate. Administrator C0-C6 DONE; C7 remains its separate next gate.
+Current `main` baseline before this repair integration is `7608ab8e192dca77fa8ba649adec1e7963cf27a2`. Q-E0E-PREP remains DONE; Q-E0E-RUN remains blocked through E0-A-D. Design authority is separate. Administrator C0-C7 DONE; C8 Browser/CDP pilot next. Administrator creates no Engineering/provider/validation authority or provider traffic.
 
 ## Next
 Use **zero provider traffic**. Integrate the native-validated role control-identity package through hosted CI. Only after integrated main CI is green may a fresh 3.5 Flash-Lite RunId be preregistered/activated under standing authority. Never replay Run 03/04 or start 3.1/2.5 first.
