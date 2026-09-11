@@ -2,7 +2,7 @@
 
 Status: ACTIVE VOLATILE OPERATING SNAPSHOT — NOT PRODUCT OR ARCHITECTURE LAW
 
-Verified: 2026-09-10
+Verified: 2026-09-11
 
 ## Purpose
 
@@ -19,9 +19,9 @@ Before a scarce/external dispatch, verify current model availability, effort con
 
 For small factual/status work, a lower reasoning setting may be adequate. For material architecture, broad failure analysis, security/provider/Store work, or cross-project reconciliation, prefer High.
 
-## Codex allocation - C0/C1/C2/C3/C4/C5/C6/C7/C8 commissioned; C9 next
+## Codex allocation - C0/C1/C2/C3/C4/C5/C6/C7/C8/C9 commissioned; C10 next
 
-C0 commissioned the dedicated `C:\Users\Wiryl\.codex-ensemble` runtime; C1 proved the versioned read-only repository reconciler; C2 proved fresh authority recovery after supported elevated Windows sandbox provisioning; C3 proved the eight repository-native deterministic Skills, fixtures, negative controls, manual cross-checks, and full-result exact-SHA CI normalization without authority invention. The runtime denies login shells, keeps filesystem/network restricted with approval `OnRequest`, disables the remote plugin catalog, and admits only GitHub `fetch` from an otherwise app-denied posture. C4 proved native child permission inheritance stays read-only and commissioned the prescribed separate top-level Worker fallback. The Administrator remains read-only/on-request; Worker launch is exact-worktree/HEAD bound, workspace-write, approval `never`, command-network off, app/subagent/browser/provider surfaces disabled, with shared Git lifecycle retained by the Administrator. C5 commissioned the per-common-Git-directory atomic shared-Git lock and proved the disposable branch/tag/push/PR lifecycle with race checks, PR-only `main` integration, archive-tag verification, and safe worktree/branch disposal. C6 proved GitHub Issues can carry an exact-ref cross-lane dispatch packet and bounded result as ephemeral transport without labels, milestones, assignees, repository mutation, or independent backlog/status truth; Issues are admitted only in that transport role. C7 proved read-only analysis of sealed Run-03 evidence: all 62 recorded artifact hashes, runtime root, seal identity, request accounting, transcript blinding, and terminal boundary reconciled without provider traffic or mutation. Constrained PowerShell hashing fell back to the pinned Python toolchain without permission broadening. C8 reverified the noninteractive discrepancy: `codex exec` reports `approval: never` and neither `exec` nor the standalone app-server exposed Browser Use. C8 therefore commissioned an explicit dedicated Edge Guest/CDP capability instead: active Guest Profile account/login/cookie residue zero, CDP bound to loopback only, zero-network `file://` specimen DOM proof, and clean `Browser.close` teardown while ordinary Edge remained running. Browser/CDP stays off by default and remains browser evidence only. C9 Claude read-only review is next; later gates remain disabled.
+C0 commissioned the dedicated `C:\Users\Wiryl\.codex-ensemble` runtime; C1 proved the versioned read-only repository reconciler; C2 proved fresh authority recovery after supported elevated Windows sandbox provisioning; C3 proved the eight repository-native deterministic Skills, fixtures, negative controls, manual cross-checks, and full-result exact-SHA CI normalization without authority invention. The runtime denies login shells, keeps filesystem/network restricted with approval `OnRequest`, disables the remote plugin catalog, and admits only GitHub `fetch` from an otherwise app-denied posture. C4 proved native child permission inheritance stays read-only and commissioned the prescribed separate top-level Worker fallback. The Administrator remains read-only/on-request; Worker launch is exact-worktree/HEAD bound, workspace-write, approval `never`, command-network off, app/subagent/browser/provider surfaces disabled, with shared Git lifecycle retained by the Administrator. C5 commissioned the per-common-Git-directory atomic shared-Git lock and proved the disposable branch/tag/push/PR lifecycle with race checks, PR-only `main` integration, archive-tag verification, and safe worktree/branch disposal. C6 proved GitHub Issues can carry an exact-ref cross-lane dispatch packet and bounded result as ephemeral transport without labels, milestones, assignees, repository mutation, or independent backlog/status truth; Issues are admitted only in that transport role. C7 proved read-only analysis of sealed Run-03 evidence: all 62 recorded artifact hashes, runtime root, seal identity, request accounting, transcript blinding, and terminal boundary reconciled without provider traffic or mutation. Constrained PowerShell hashing fell back to the pinned Python toolchain without permission broadening. C8 reverified the noninteractive discrepancy: `codex exec` reports `approval: never` and neither `exec` nor the standalone app-server exposed Browser Use. C8 therefore commissioned an explicit dedicated Edge Guest/CDP capability instead: active Guest Profile account/login/cookie residue zero, CDP bound to loopback only, zero-network `file://` specimen DOM proof, and clean `Browser.close` teardown while ordinary Edge remained running. Browser/CDP stays off by default and remains browser evidence only. C9 commissioned the independent Claude review plane through a dedicated `.claude-ensemble` configuration, claude.ai Pro subscription authentication with no API-key route, and one tool-less/no-MCP/no-session-persistence exact-SHA review. The reviewer returned `PASS_WITH_FINDINGS`; the manager adopted the material C8 origin-isolation/permission findings and repaired them rather than retrying the reviewer. Claude remains advisory. C10 Hook pilot is next; later gates remain disabled.
 
 Current commissioned model mapping (later-gate execution remains blocked until earned):
 
@@ -42,8 +42,9 @@ Browser/CDP may be used for development/browser validation only when explicitly 
 
 Security discipline:
 
-- use a dedicated Kymaean development browser profile;
-- keep unrelated authenticated personal sessions out of that profile;
+- use the dedicated Kymaean browser area with a fresh or zero-residue Guest context;
+- verify zero account/login residue before use and keep unrelated authenticated personal sessions out of that context;
+- keep CDP loopback-only and directly test any permission/origin-isolation property being claimed;
 - treat CDP/browser evidence as browser evidence only;
 - never relabel it as WinUI/native Windows accessibility/runtime/WACK/Store validation.
 
@@ -64,19 +65,15 @@ It does not authorize binding Ensemble Core/Application to OpenAI, adopting Agen
 
 OpenAI API billing is separate from the ChatGPT subscription. Never create/use an API key merely because the plugin can do so; follow the explicit credential/billing gate for the task.
 
-## Claude allocation — setup pending
+## Claude allocation — C9 commissioned
 
-Claude Chat / Claude Code is planned as an independent review plane but is **not yet configured by the Ensemble workflow**.
+Claude Code is commissioned only as an independent advisory review plane. It does not inherit Administrator, Engineering, provider, validation, product, Design, or ODR authority.
 
-Until the dedicated Claude setup is completed:
+Current verified realization is Claude Code `2.1.267` on Windows ARM64, installed through WinGet and isolated under `C:\Users\Wiryl\.claude-ensemble` via `CLAUDE_CONFIG_DIR`. Authentication is `claude.ai` / first-party / Pro subscription. Keep `ANTHROPIC_API_KEY` and cloud-provider routes absent; Claude Console/API credits are separate billing and require separate explicit authority.
 
-- do not assume programmatic Claude connectivity;
-- do not silently invoke `claude -p` or an Agent SDK route;
-- do not freeze a Claude model name/effort rule here;
-- an owning Sol may prepare a relay-ready independent-review prompt only when independence is already justified;
-- returned Claude evidence remains advisory until reconciled by the owning Sol.
+For repository-independent review, prefer a fixed exact-SHA packet outside the repository and disable built-in tools, inherited MCP, permission prompting, and session persistence. Do not pin a permanent Claude model name here; record the actual runtime-selected model/provider telemetry with each review. Returned Claude findings are advisory until reconciled by the owning Sol/Administrator.
 
-The later Claude setup must explicitly establish subscription/API authentication and billing guards before any automated invocation is permitted.
+C9's commissioning review used exact Project merge `e9511cacb2a58e59aa18595248bdf9ea16d7c435`, returned `PASS_WITH_FINDINGS`, and materially improved C8: cross-origin storage isolation and actual permission denial were then proved directly. Do not retry an adverse reviewer merely to obtain agreement.
 
 ## Dispatch requirement
 

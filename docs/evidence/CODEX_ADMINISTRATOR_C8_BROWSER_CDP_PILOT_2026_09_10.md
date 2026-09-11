@@ -68,3 +68,42 @@ No browser capability was made ambient: the Administrator base configuration rem
 - No blind retry loop occurred; each subsequent attempt changed the identified failing surface or isolation hypothesis.
 
 **C8 mechanical recommendation: PASS. C9 is not started by this record.**
+
+## C9 independent-review correction — 2026-09-11
+
+C9's first exact-SHA Claude review independently challenged this C8 record rather than rubber-stamping it. The reviewed source was Project merge `e9511cacb2a58e59aa18595248bdf9ea16d7c435`; the fixed review packet SHA-256 was `20633420193345E6FAEA251F398D52A144B6C4FE1E4CCA90B881AE26A941DEEA`. Claude returned `PASS_WITH_FINDINGS`.
+
+Two findings were material against the literal C8 contract and were adopted by the Administrator manager:
+
+- the original accepted specimen proved session isolation but did not directly falsify cross-origin storage leakage;
+- launch flags alone were insufficient proof that browser permissions were actually bounded/denied.
+
+The C8 proof was therefore reopened narrowly for deterministic browser-only correction. No Engineering/provider/product/Design/ODR/experiment/validation authority was reopened.
+
+### Cross-origin isolation repair
+
+A fresh disposable Edge Guest user-data root was launched with CDP bound only to `127.0.0.1:9225`, component background extensions disabled, and exactly one page target. The active Guest Profile audited to zero account entries and no Login Data before test navigation.
+
+A local-only HTTP fixture was bound to `127.0.0.1:8766`. The same single target visited two distinct origins: `http://127.0.0.1:8766` and `http://localhost:8766`.
+Origin A stored `localStorage['c8_origin_marker']='A'`. On origin B, the preexisting value was exactly `null`; B then stored its own value `B`. Returning to origin A produced `A` again. This directly proves the two local origins did not share the tested origin-scoped storage.
+
+CDP `Network.getAllCookies` returned count `0` before navigation, after origin A, after origin B, and at the final live-session check. The accepted correction therefore adds a live-session cookie proof, not only a post-shutdown database count.
+
+### Permission-bounding repair
+
+A second fresh disposable Guest root used loopback-only CDP `127.0.0.1:9226`, one page target, no Login Data, and Chromium's deterministic `--deny-permission-prompts` switch. Current Chromium source documents that switch as automatically denying permission requests.
+
+Against `http://127.0.0.1:8766`, an actual geolocation request returned denied with code `1`; an actual notification request returned `denied`; subsequent Permissions API states for both `geolocation` and `notifications` were `denied`. Live CDP cookie count remained `0`; active Guest account entries were `0`.
+
+`Browser.close` then removed the CDP listener and dedicated Edge process while the pre-existing ordinary Edge session remained running. Post-close Guest audit returned account entries `0`, cookies `0`, and Login Data absent. Both disposable correction roots and the local HTTP fixture were removed after measurement.
+
+### Rejected-profile sequencing clarification
+
+The original first non-Guest direct Edge attempt did establish CDP and navigate local test content before the later metadata audit discovered one automatically associated OS account entry. That attempt is therefore a failed isolation attempt, not accepted C8 evidence. No account identity value was read. The accepted C8 proof begins only with the subsequent Guest path, which had zero account entries and no Login Data.
+### Durable interpretation
+
+The dedicated Kymaean browser capability is intentionally non-authenticated. A future bounded invocation must not infer cleanliness from an old profile: it must use the dedicated Kymaean browser area with a fresh or zero-residue Guest context, verify zero account/login residue before use, keep CDP loopback-only, and verify/clear browser residue at teardown. Guest-mode ephemerality is a security property, not authority to reuse an authenticated personal profile.
+
+The original accepted port was `127.0.0.1:9224`; the correction used `9225` for cross-origin isolation and `9226` for permission denial. Edge `152.0.4191.66` / CDP protocol `1.3` were locally measured runtime facts. The Microsoft/Chromium policy behavior cited in this record remains external volatile information and must be reverified if future execution depends on it.
+
+With these corrections, the adopted C9 reviewer findings about origin isolation, permission bounding, sequencing, live-cookie timing, Guest-profile interpretation, and port reproducibility are reconciled. C8 remains browser evidence only and its final mechanical recommendation remains **PASS**. C9 review evidence remains advisory until its own manager closeout is promoted.

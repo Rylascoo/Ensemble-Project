@@ -94,7 +94,8 @@ Parallel E0-E preparation is closed; `docs/evidence/E0E_SINGLE_MODEL_PLAYWRIGHT_
 - `docs/evidence/CODEX_ADMINISTRATOR_C5_BRANCH_TAG_PUSH_PR_LIFECYCLE_2026_09_10.md` - C5 shared-Git lock commissioning plus evidence-only branch/tag/push/PR lifecycle proof.
 - `docs/evidence/CODEX_ADMINISTRATOR_C6_CROSS_LANE_TRANSPORT_PILOT_2026_09_10.md` - C6 exact-ref GitHub Issue transport pilot; Issues are ephemeral dispatch/result transport only, never backlog authority.
 - `docs/evidence/CODEX_ADMINISTRATOR_C7_REAL_LOCAL_EVIDENCE_PILOT_2026_09_10.md` - C7 sealed Run-03 local-evidence pilot; read-only hashes/seals/accounting/terminal-boundary proof with no provider traffic or authority mutation.
-- `docs/evidence/CODEX_ADMINISTRATOR_C8_BROWSER_CDP_PILOT_2026_09_10.md` - C8 dedicated Edge Guest/CDP pilot; clean active profile, loopback-only CDP, zero-network DOM proof, browser-only evidence labeling, and safe teardown; C9 is next.
+- `docs/evidence/CODEX_ADMINISTRATOR_C8_BROWSER_CDP_PILOT_2026_09_10.md` - C8 dedicated Edge Guest/CDP pilot plus C9-driven correction; clean active profile, cross-origin storage isolation, explicit permission denial, zero live/post-close cookie residue, browser-only evidence labeling, and safe teardown.
+- `docs/evidence/CODEX_ADMINISTRATOR_C9_CLAUDE_READ_ONLY_REVIEW_2026_09_11.md` - C9 dedicated Claude Code Pro-subscription independent review; exact-SHA tool-less review returned PASS_WITH_FINDINGS, manager reconciled findings, and C10 is next.
 - `tools/codex-admin-reconcile.py` and `tools/codex-admin-reconcile-selftest.py` - C1 read-only deterministic core and synthetic fixture oracle, wrapped by the C3 `repo-reconciliation` Skill.
 - `.github/workflows/README.md` — CI authority explanation.
 - `tools/repository-law-check.py` — objective repository, state-currency, and lane-boundary checks.
