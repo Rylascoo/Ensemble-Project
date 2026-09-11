@@ -24,6 +24,7 @@ This index helps a fresh engineering chat find the small set of current entry su
 - `docs/blueprint/E0A_GEMINI_COUNTTOKENS_INPUT_PROJECTION_CORRECTION_AMENDMENT.md`
 - `docs/blueprint/E0A_GEMINI_GENERATION_ERROR_DIAGNOSTIC_CORRECTION_AMENDMENT.md`
 - `docs/blueprint/E0A_GEMINI_GENERATECONTENT_STRUCTURED_OUTPUT_COMPATIBILITY_AMENDMENT.md` - live-falsified `responseFormat.text` correction to legacy GenerateContent `responseMimeType` + `responseJsonSchema`; native-validated at exact checkout `cef3fc15e31192a48aa3bddd99450b65a58bd8f1`.
+- docs/blueprint/E0A_STATE_INTERPRETER_SEMANTIC_OUTPUT_ALIGNMENT_AMENDMENT.md - Run 03 falsification response: expose the existing deterministic mutation-shape semantics to the Interpreter without weakening parser/schema/authority law; native validation pending.
 - `docs/blueprint/E0A_Q_E0A_03_REFERENCE_EVIDENCE_ACTIVATION_AND_CLOSURE_CONTRACT.md`
 
 These remain subject to `CURRENT_STATE.md`; this index does not independently mark a phase, checkpoint, provider route, or experiment executable.
@@ -43,6 +44,7 @@ These remain subject to `CURRENT_STATE.md`; this index does not independently ma
 - `docs/evidence/GEMINI_API_TEST_KEY_STANDING_DIRECTOR_AUTHORIZATION_2026_09_10.md` - historical narrower diagnostic authority retained for the calls it governed.
 - `docs/evidence/GEMINI_API_USAGE_LEDGER.md` - credential-free provider-use log and eventual key-retirement record.
 - `docs/evidence/E0A_Q_E0A_03_G35L_RUN03_PREEXECUTION_ACTIVATION_2026_09_10.md` - exact fresh Run 03 boundary, current public-provider recheck, native/local activation, zero-call preflight, and consumption-optimization rationale.
+- docs/evidence/E0A_Q_E0A_03_G35L_RUN03_TERMINAL_EVIDENCE_ANALYSIS_2026_09_10.md - sealed Run 03 analysis: 42 provider requests, six accepted turns, 21/21 generation successes, and terminal Interpreter semantic-contract mismatch.
 - `docs/evidence/E0A_GEMINI_COUNTTOKENS_INPUT_PROJECTION_NATIVE_ARM64_VALIDATION_2026_09_09.md` — immediate predecessor native checkpoint for the corrected `countTokens` projection.
 - `docs/evidence/E0A_GEMINI35_ATTEMPT04_ARCHIVE_AUDIT_2026_09_09.md` — sealed Attempt-04 audit; first Performer `countTokens` rejected the former full-request projection before generation.
 - `docs/evidence/E0A_GEMINI35_THOUGHT_SIGNATURE_COMPATIBILITY_AUDIT.md` — current Gemini-3 compatibility evidence named by `CURRENT_STATE.md`.
@@ -58,7 +60,7 @@ Historical attempt, diagnostic, and superseded validation records remain evidenc
 
 There is **no live `docs/handoff/...` transition artifact** at current `main`. A handoff is live only when `CURRENT_STATE.md` names its exact path. `docs/handoff/` currently retains only its lifecycle README.
 
-The current consequential engineering gate is defined by `CURRENT_STATE.md`, the Q-E0A-03 closure contract, and the current standing Gemini project-use authorization. The corrected 3.5 Flash-Lite executable is native-validated. Full-reference runs remain separately named and immutable, but routine per-run approval is no longer required: Engineering must pre-record the exact run boundary, satisfy every other activation condition, log consumption and scope relevance, and stop when further calls are not justified.
+The current consequential engineering gate is defined by `CURRENT_STATE.md`, the Q-E0A-03 closure contract, the Run 03 terminal analysis, and the current standing Gemini project-use authorization. Run 03 is immutable/noncontributing after six accepted turns and exposed an Interpreter prompt/semantic-contract mismatch. Further provider calls are deferred until the narrow Interpreter instruction correction is audited, native-validated/tagged, and integrated; routine per-run approval is not required after that gate.
 
 Parallel E0-E preparation is closed; `docs/evidence/E0E_SINGLE_MODEL_PLAYWRIGHT_CONTROL_PREPARATION_CLOSEOUT_AUDIT_2026_09_09.md` records that preparation result. E0-E execution remains blocked by the frozen E0 order and the execution queue.
 
