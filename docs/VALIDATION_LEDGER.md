@@ -6,28 +6,50 @@ Status: validation fact register only. This file cannot advance phase/checkpoint
 
 | Field | Fact |
 |---|---|
-| Exact checkout | `29b62a2e778d93c6727b555f58f8d22aa18665a1` |
-| Annotated tag | `validation/e0a-role-control-identity-alignment-native-arm64` |
-| Tag object | `f6080e37df44737b3053fa8237b95bdc2cc0508c`; verified to peel to the exact checkout above |
-| Architecture | `docs/blueprint/E0A_ROLE_CONTROL_IDENTITY_ALIGNMENT_AMENDMENT.md` |
-| Correction | Bounded Performer/Interpreter context now exposes canonical `rosterCharacterIds`; typed Character-ID output must reuse exact case-sensitive roster IDs. Deterministic parsers, Core authority, Fixture, schemas, provider controls, and accepted-turn law remain unchanged. |
-| Native evidence | `docs/evidence/E0A_ROLE_CONTROL_IDENTITY_ALIGNMENT_NATIVE_ARM64_VALIDATION_2026_09_10.md` |
-| Supporting implementation audit | `docs/evidence/E0A_ROLE_CONTROL_IDENTITY_ALIGNMENT_IMPLEMENTATION_AUDIT_2026_09_10.md` |
-| Triggering provider evidence | `docs/evidence/E0A_Q_E0A_03_G35L_RUN04_TERMINAL_EVIDENCE_ANALYSIS_2026_09_10.md`; `docs/evidence/E0A_Q_E0A_03_G35L_RUN03_TERMINAL_EVIDENCE_ANALYSIS_2026_09_10.md`; `docs/evidence/E0A_Q_E0A_03_G35L_RUN02_TERMINAL_EVIDENCE_ANALYSIS_2026_09_10.md`; `docs/evidence/E0A_Q_E0A_03_G35L_RUN01_TERMINAL_EVIDENCE_ANALYSIS_2026_09_10.md`; `docs/evidence/E0A_GEMINI35_STRUCTURED_OUTPUT_COMPATIBILITY_DIAGNOSTIC_2026_09_10.md` |
+| Exact checkout | `bb869fb1c505603612bc718f739b3f1b358e5539` |
+| Annotated tag | `validation/e0a-gemini-technical-failure-diagnostic-classification-native-arm64` |
+| Tag object | `c4ff8dc4b9ebd31674208f4ba9c958d50fc975d5`; verified to peel to the exact checkout above |
+| Architecture | `docs/blueprint/E0A_GEMINI_TECHNICAL_FAILURE_DIAGNOSTIC_CLASSIFICATION_AMENDMENT.md` |
+| Correction | Gemini caught technical failures remain fail-closed but now preserve bounded exception-class diagnostics for HTTP transport, response I/O, malformed JSON, malformed UTF-8, and defensive numeric overflow. No exception message/body, provider semantics, parser/Core authority, fixture, retry/fallback, rate/spend, or accepted-turn law changed. |
+| Native evidence | `docs/evidence/E0A_GEMINI_TECHNICAL_FAILURE_DIAGNOSTIC_CLASSIFICATION_NATIVE_ARM64_VALIDATION_2026_09_10.md` |
+| Supporting implementation audit | `docs/evidence/E0A_GEMINI_TECHNICAL_FAILURE_DIAGNOSTIC_CLASSIFICATION_IMPLEMENTATION_AUDIT_2026_09_10.md` |
+| Triggering provider evidence | `docs/evidence/E0A_Q_E0A_03_G35L_RUN05_TERMINAL_EVIDENCE_ANALYSIS_2026_09_10.md` |
 | Director-host contract | `docs/evidence/DIRECTOR_WINDOWS_ARM64_VALIDATION_HOST_BEHAVIORS.md` |
 | Host | Director Windows ARM64 (`win-arm64`), repository-selected SDK `9.0.317` |
 | Core tests | 622/622 PASS |
-| Harness tests | 137/137 PASS |
+| Harness tests | 140/140 PASS |
 | Fresh Harness build | `net9.0/win-arm64` Debug PASS; zero warnings/errors |
 | Fixture smokes | Missing Raft PASS with canonical Fixture validation; generic PASS |
 | Credentialless provider-edge gate | 3.5 Lite, 3.1 Lite, 2.5 Lite exact missing-key refusal PASS; retired 2.5 Flash exact pre-credential rejection PASS; no evidence roots |
-| Repository checks | repository-law PASS; document census PASS with 0 unexplained current; oracle guard PASS at exact checkout, 104 documented / 17 asserted / 87 document-only hashes |
+| Repository checks | repository-law PASS; document census PASS at exact checkout, 219 inventoried / 102 current / 30 historical / 87 archive / 0 unexplained current; oracle guard PASS, 116 documented / 17 asserted / 99 document-only hashes |
 | Provider scope | network / `countTokens` / generation / inference / spend NOT PERFORMED during validation |
 
-Native runtime authority applies only to exact checkout `29b62a2e778d93c6727b555f58f8d22aa18665a1`. Documentation-only and integration commits do not inherit machine-test authority. Cloud ARM64-target builds remain compiler authority only; Linux x64 Core tests remain semantic regressions, not native Windows ARM64 runtime authority.
+Native runtime authority applies only to exact checkout `bb869fb1c505603612bc718f739b3f1b358e5539`. Documentation-only and integration commits do not inherit machine-test authority. Cloud ARM64-target builds remain compiler authority only; Linux x64 Core tests remain semantic regressions, not native Windows ARM64 runtime authority.
+### Supporting provider-evidence continuity
+
+The promoted checkpoint does not erase the still-current evidence chain that established the provider/runtime boundary. These records remain supporting evidence only and do not override the promoted checkpoint:
+
+- `docs/evidence/E0A_FRESH_CHAT_CONTINUITY_RECONCILIATION_2026_09_09.md`
+- `docs/evidence/E0A_GEMINI35_STRUCTURED_OUTPUT_COMPATIBILITY_DIAGNOSTIC_2026_09_10.md`
+- `docs/evidence/E0A_GEMINI35_THOUGHT_SIGNATURE_COMPATIBILITY_AUDIT.md`
+- `docs/evidence/E0A_Q_E0A_03_G35L_PREAUTHORIZATION_PUBLIC_FACT_AUDIT_2026_09_09.md`
+- `docs/evidence/E0A_Q_E0A_03_G35L_RUN01_DIRECTOR_AUTHORIZATION_2026_09_09.md`
+- `docs/evidence/E0A_Q_E0A_03_G35L_RUN01_HISTORICAL_ROOT_FORENSIC_RESOLUTION_2026_09_09.md`
+- `docs/evidence/E0A_Q_E0A_03_G35L_RUN01_LOCAL_PREFLIGHT_ATTEMPT_01_2026_09_09.md`
+- `docs/evidence/E0A_Q_E0A_03_G35L_RUN01_LOCAL_PREFLIGHT_ATTEMPT_02_2026_09_09.md`
+- `docs/evidence/E0A_Q_E0A_03_G35L_RUN01_LOCAL_PREFLIGHT_ATTEMPT_03_2026_09_09.md`
+- `docs/evidence/E0A_Q_E0A_03_G35L_RUN01_LOCAL_PREFLIGHT_ATTEMPT_04_2026_09_09.md`
+- `docs/evidence/E0A_Q_E0A_03_G35L_RUN01_TERMINAL_CONTINUITY_INTAKE_2026_09_09.md`
+- `docs/evidence/E0A_Q_E0A_03_G35L_RUN01_TERMINAL_EVIDENCE_ANALYSIS_2026_09_10.md`
+- `docs/evidence/E0A_Q_E0A_03_G35L_RUN02_DIRECTOR_AUTHORIZATION_2026_09_10.md`
+- `docs/evidence/E0A_Q_E0A_03_G35L_RUN02_TERMINAL_EVIDENCE_ANALYSIS_2026_09_10.md`
+- `docs/evidence/E0A_Q_E0A_03_REFERENCE_EVIDENCE_PLANNING_RECURSIVE_AUDIT_2026_09_09.md`
 ## Current validation ancestry
 
-The promoted role control-identity alignment checkpoint depends on and supersedes, but does not erase, the accepted validation ancestry below:
+The promoted technical-failure diagnostic classification checkpoint depends on and supersedes, but does not erase, the accepted validation ancestry below:
+
+- Role control-identity alignment native validation: `docs/evidence/E0A_ROLE_CONTROL_IDENTITY_ALIGNMENT_NATIVE_ARM64_VALIDATION_2026_09_10.md` at `29b62a2e778d93c6727b555f58f8d22aa18665a1`;
+- Role control-identity alignment implementation audit: `docs/evidence/E0A_ROLE_CONTROL_IDENTITY_ALIGNMENT_IMPLEMENTATION_AUDIT_2026_09_10.md`;
 
 - State Interpreter semantic-output alignment native validation: `docs/evidence/E0A_STATE_INTERPRETER_SEMANTIC_OUTPUT_ALIGNMENT_NATIVE_ARM64_VALIDATION_2026_09_10.md` at `e052ef4cdaf8ac7291971f8c42d121e1ee6eecf0`;
 - State Interpreter semantic-output alignment implementation audit: `docs/evidence/E0A_STATE_INTERPRETER_SEMANTIC_OUTPUT_ALIGNMENT_IMPLEMENTATION_AUDIT_2026_09_10.md`;

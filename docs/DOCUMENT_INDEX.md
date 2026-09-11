@@ -26,7 +26,7 @@ This index helps a fresh engineering chat find the small set of current entry su
 - `docs/blueprint/E0A_GEMINI_GENERATECONTENT_STRUCTURED_OUTPUT_COMPATIBILITY_AMENDMENT.md` - live-falsified `responseFormat.text` correction to legacy GenerateContent `responseMimeType` + `responseJsonSchema`; native-validated at exact checkout `cef3fc15e31192a48aa3bddd99450b65a58bd8f1`.
 - `docs/blueprint/E0A_STATE_INTERPRETER_SEMANTIC_OUTPUT_ALIGNMENT_AMENDMENT.md` - Run 03 falsification response: expose the existing deterministic mutation-shape semantics to the Interpreter without weakening parser/schema/authority law; native-validated at exact checkout `e052ef4cdaf8ac7291971f8c42d121e1ee6eecf0`.
 - `docs/blueprint/E0A_ROLE_CONTROL_IDENTITY_ALIGNMENT_AMENDMENT.md` - Run 04 falsification response: expose exact canonical roster IDs to bounded Performer/Interpreter context and require case-sensitive reuse; native-validated at exact checkout `29b62a2e778d93c6727b555f58f8d22aa18665a1`.
-- `docs/blueprint/E0A_GEMINI_TECHNICAL_FAILURE_DIAGNOSTIC_CLASSIFICATION_AMENDMENT.md` - Run 05 evidence-observability correction: preserve fail-closed behavior while classifying safe exception classes; zero provider semantics/retry/fallback changes. Native validation pending on the active repair branch.
+- `docs/blueprint/E0A_GEMINI_TECHNICAL_FAILURE_DIAGNOSTIC_CLASSIFICATION_AMENDMENT.md` - Run 05 evidence-observability correction: preserve fail-closed behavior while classifying safe exception classes; zero provider semantics/retry/fallback changes; native-validated at exact checkout `bb869fb1c505603612bc718f739b3f1b358e5539`.
 - `docs/blueprint/E0A_Q_E0A_03_REFERENCE_EVIDENCE_ACTIVATION_AND_CLOSURE_CONTRACT.md`
 
 These remain subject to `CURRENT_STATE.md`; this index does not independently mark a phase, checkpoint, provider route, or experiment executable.
@@ -35,7 +35,9 @@ These remain subject to `CURRENT_STATE.md`; this index does not independently ma
 
 - `docs/VALIDATION_LEDGER.md` — promoted validation facts and durable tags; cannot advance project state.
 - `docs/HYPOTHESIS_LEDGER.md` — current unverified/narrowed Gemini assumptions and verification triggers; never a decision source.
-- `docs/evidence/E0A_ROLE_CONTROL_IDENTITY_ALIGNMENT_NATIVE_ARM64_VALIDATION_2026_09_10.md` - current promoted native Windows ARM64 evidence for exact executable `29b62a2e778d93c6727b555f58f8d22aa18665a1`.
+- `docs/evidence/E0A_GEMINI_TECHNICAL_FAILURE_DIAGNOSTIC_CLASSIFICATION_NATIVE_ARM64_VALIDATION_2026_09_10.md` - current promoted native Windows ARM64 evidence for exact executable `bb869fb1c505603612bc718f739b3f1b358e5539`.
+- `docs/evidence/E0A_GEMINI_TECHNICAL_FAILURE_DIAGNOSTIC_CLASSIFICATION_IMPLEMENTATION_AUDIT_2026_09_10.md` - recursive source/test/evidence audit for the Run 05 technical-failure diagnostic classification correction.
+- `docs/evidence/E0A_ROLE_CONTROL_IDENTITY_ALIGNMENT_NATIVE_ARM64_VALIDATION_2026_09_10.md` - immediate predecessor native Windows ARM64 evidence for exact executable `29b62a2e778d93c6727b555f58f8d22aa18665a1`.
 - `docs/evidence/E0A_ROLE_CONTROL_IDENTITY_ALIGNMENT_IMPLEMENTATION_AUDIT_2026_09_10.md` - recursive source/test audit for the Run 04 canonical control-ID interface correction.
 - `docs/evidence/E0A_Q_E0A_03_G35L_RUN04_TERMINAL_EVIDENCE_ANALYSIS_2026_09_10.md` - sealed Run 04 analysis: two provider requests, zero accepted turns, and deterministic rejection of display-style Performer control IDs.
 - `docs/evidence/E0A_Q_E0A_03_G35L_RUN05_TERMINAL_EVIDENCE_ANALYSIS_2026_09_10.md` - sealed Run 05 analysis: canonical Performer control accepted, Integrity accepted, Interpreter generation technical failure with unknown final-call usage; consumed/noncontributing.
@@ -68,7 +70,7 @@ Historical attempt, diagnostic, and superseded validation records remain evidenc
 
 There is **no live `docs/handoff/...` transition artifact** at current `main`. A handoff is live only when `CURRENT_STATE.md` names its exact path. `docs/handoff/` currently retains only its lifecycle README.
 
-The current consequential engineering gate is defined by `CURRENT_STATE.md`, the Q-E0A-03 closure contract, Run 05 terminal evidence, and the technical-failure diagnostic classification amendment. Runs 03/04/05 are immutable/noncontributing. Provider traffic remains zero until the diagnostic hardening is native-validated, tagged, integrated through hosted CI, and a later 3.5 RunId is separately preregistered under standing authority.
+The current consequential engineering gate is defined by `CURRENT_STATE.md`, the Q-E0A-03 closure contract, Run 05 terminal evidence, and the native-validated technical-failure diagnostic classification checkpoint. Runs 03/04/05 are immutable/noncontributing. Provider traffic remains zero until the tagged package is integrated through hosted CI with green post-merge Validation and a later 3.5 RunId is separately preregistered under standing authority.
 
 Parallel E0-E preparation is closed; `docs/evidence/E0E_SINGLE_MODEL_PLAYWRIGHT_CONTROL_PREPARATION_CLOSEOUT_AUDIT_2026_09_09.md` records that preparation result. E0-E execution remains blocked by the frozen E0 order and the execution queue.
 
