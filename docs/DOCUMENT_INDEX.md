@@ -36,6 +36,7 @@ These remain subject to `CURRENT_STATE.md`; this index does not independently ma
 - `docs/VALIDATION_LEDGER.md` — promoted validation facts and durable tags; cannot advance project state.
 - `docs/HYPOTHESIS_LEDGER.md` — current unverified/narrowed Gemini assumptions and verification triggers; never a decision source.
 - `docs/evidence/E0A_GEMINI_TECHNICAL_FAILURE_DIAGNOSTIC_CLASSIFICATION_NATIVE_ARM64_VALIDATION_2026_09_10.md` - current promoted native Windows ARM64 evidence for exact executable `bb869fb1c505603612bc718f739b3f1b358e5539`.
+- `docs/evidence/E0A_GEMINI_TECHNICAL_FAILURE_DIAGNOSTIC_CLASSIFICATION_INTEGRATION_CLOSEOUT_2026_09_10.md` - PR #72 / hosted-gate / merge / post-merge Validation / archive-tag closeout; fresh 3.5 preregistration is the earned successor.
 - `docs/evidence/E0A_GEMINI_TECHNICAL_FAILURE_DIAGNOSTIC_CLASSIFICATION_IMPLEMENTATION_AUDIT_2026_09_10.md` - recursive source/test/evidence audit for the Run 05 technical-failure diagnostic classification correction.
 - `docs/evidence/E0A_ROLE_CONTROL_IDENTITY_ALIGNMENT_NATIVE_ARM64_VALIDATION_2026_09_10.md` - immediate predecessor native Windows ARM64 evidence for exact executable `29b62a2e778d93c6727b555f58f8d22aa18665a1`.
 - `docs/evidence/E0A_ROLE_CONTROL_IDENTITY_ALIGNMENT_IMPLEMENTATION_AUDIT_2026_09_10.md` - recursive source/test audit for the Run 04 canonical control-ID interface correction.
@@ -70,7 +71,7 @@ Historical attempt, diagnostic, and superseded validation records remain evidenc
 
 There is **no live `docs/handoff/...` transition artifact** at current `main`. A handoff is live only when `CURRENT_STATE.md` names its exact path. `docs/handoff/` currently retains only its lifecycle README.
 
-The current consequential engineering gate is defined by `CURRENT_STATE.md`, the Q-E0A-03 closure contract, Run 05 terminal evidence, and the native-validated technical-failure diagnostic classification checkpoint. Runs 03/04/05 are immutable/noncontributing. Provider traffic remains zero until the tagged package is integrated through hosted CI with green post-merge Validation and a later 3.5 RunId is separately preregistered under standing authority.
+The current consequential engineering gate is defined by `CURRENT_STATE.md`, the Q-E0A-03 closure contract, Run 05 terminal evidence, and the integrated native-validated technical-failure diagnostic checkpoint. Runs 03/04/05 are immutable/noncontributing. PR #72 and post-merge Validation #645 are closed; provider traffic remains zero until a fresh 3.5 RunId is separately preregistered and satisfies the frozen activation gates under standing authority.
 
 Parallel E0-E preparation is closed; `docs/evidence/E0E_SINGLE_MODEL_PLAYWRIGHT_CONTROL_PREPARATION_CLOSEOUT_AUDIT_2026_09_09.md` records that preparation result. E0-E execution remains blocked by the frozen E0 order and the execution queue.
 
