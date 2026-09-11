@@ -61,6 +61,11 @@ One navigation-only stale sentence in `docs/DOCUMENT_INDEX.md` was corrected aft
 
 One complete recursive pass after this correction found no remaining material authority leak, duplicate backlog, stale transport claim, cross-lane write hazard, validation/provider inflation, or worthwhile in-scope simplification.
 
+## Promotion-tool incident
+
+After push Validation #621 passed on the first closeout candidate, an operator-side connector-selection error invoked Issue creation instead of PR creation and produced `Rylascoo/Ensemble-Project#65` with placeholder content. The artifact carried no task, priority, authority, queue state, or requested work. It was immediately reclassified in place as `[VOID] Accidental connector invocation during C6 closeout`, closed `not_planned`, and explicitly states that it is not Q-ADMIN-02 state or a dispatch packet. No repository file, provider action, validation state, or project authority changed. Because the Issue cannot be deleted through the admitted management surface, this record preserves its disposition so a future census cannot mistake it for unexplained Administrator work.
+
+This incident is classified `TOOL_FAILURE` / operator invocation error, not a C6 transport failure: the actual C6 target-lane transport fixture remains Website Issue #55 and its pass evidence is unchanged. Promotion resumed only after the erroneous artifact was fail-closed and classified.
 ## C6 disposition
 
 C6 PASS. GitHub Issues are admitted as an optional **ephemeral cross-lane dispatch/result transport**, never as backlog, priority, phase, approval, or authority state. The architecture remains transport-neutral; if later use adds friction or duplicate state, Issues may be rejected without changing project authority.
