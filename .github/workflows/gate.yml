@@ -48,6 +48,8 @@ jobs:
           python-version: '3.12'
       - name: Enforce objective repository laws
         run: python tools/repository-law-check.py
+      - name: Verify C9A read-only Claude dispatcher
+        run: python -I -B tools/codex-admin-claude-review-selftest.py
 
   oracle-assertion-coverage:
     name: Oracle assertion coverage
