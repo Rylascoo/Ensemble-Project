@@ -6,22 +6,20 @@ Updated: 2026-09-10
 `Rylascoo/Ensemble-Project` is Engineering authority. This file alone owns phase/checkpoint/validation/next action. Bootstrap: `AGENTS.md`; product/lane authority: `docs/PROJECT_AUTHORITY.md`; orchestration: `docs/PROJECT_AGENT_ORCHESTRATION_PROTOCOL.md`; sequencing: `docs/PROJECT_EXECUTION_QUEUE.md`.
 
 ## Checkpoint
-Runtime **E0-A Experimental Harness - Phase B**. Q-E0A-01/02/04 **DONE**. Q-E0A-03 **ACTIVE - RUN 04 TERMINAL/NONCONTRIBUTING; ROLE CONTROL-IDENTITY ALIGNMENT NATIVE-VALIDATED; INTEGRATION PENDING**.
+Runtime **E0-A Experimental Harness - Phase B**. Q-E0A-01/02/04 **DONE**. Q-E0A-03 **ACTIVE - RUN 05 PREEXECUTION GATES PASS; ONE EXECUTION ELIGIBLE ONLY AFTER ACTIVATION PACKAGE INTEGRATION + POST-MERGE VALIDATION**.
 
-Run 04 `E0A-Q03-G35L-20260910-04` is immutable/consumed: zero accepted turns, then deterministic Performer `InvalidOutput`. Its only generation succeeded/schema-valid but emitted display-style control IDs `Marlowe`/`Wren` instead of exact roster IDs `MARLOWE`/`WREN`. Run 03 also remains immutable/noncontributing. Neither may be replayed.
+Runs 03/04 are immutable/noncontributing and may never be replayed. Run 05 is preregistered as `E0A-Q03-G35L-20260910-05` against exact native-validated executable `29b62a2e778d93c6727b555f58f8d22aa18665a1`, profile `GEMINI-3.5-FLASH-LITE-MINIMAL / CREATIVE-MINIMAL`, canonical Missing Raft fixture, 12-turn cap, zero retries, and no fallback/substitution.
 
 ## Validation
-Current promoted native authority is exactly `29b62a2e778d93c6727b555f58f8d22aa18665a1`; tag `validation/e0a-role-control-identity-alignment-native-arm64`; tag object `f6080e37df44737b3053fa8237b95bdc2cc0508c`. Native Windows ARM64 Core **622/622**, Harness **137/137**, fresh build/smokes/credentialless gates and repository guards PASS. Provider network during validation: NONE.
+Current promoted native authority is exactly `29b62a2e778d93c6727b555f58f8d22aa18665a1`; tag `validation/e0a-role-control-identity-alignment-native-arm64`; tag object `f6080e37df44737b3053fa8237b95bdc2cc0508c`. Native Windows ARM64 Core **622/622**, Harness **137/137**, build/smokes/credentialless/repository gates PASS; provider network during validation NONE.
 
-The correction exposes exact canonical roster IDs in bounded Performer/Interpreter context and requires case-sensitive reuse. Parsers, Core authority, Fixture, schemas, provider profile, retry/fallback law, and experiment order are unchanged. Documentation/integration commits do not inherit native validation authority.
+The repair was integrated through PR #69 to `main` `89e5200052e8379caf308833568eb3f832925f37`; post-merge Validation run `34556439871` passed. Merge/document commits do not inherit native authority.
 
-## Evidence
-Run 04 analysis: `docs/evidence/E0A_Q_E0A_03_G35L_RUN04_TERMINAL_EVIDENCE_ANALYSIS_2026_09_10.md`; correction: `docs/blueprint/E0A_ROLE_CONTROL_IDENTITY_ALIGNMENT_AMENDMENT.md`; implementation audit: `docs/evidence/E0A_ROLE_CONTROL_IDENTITY_ALIGNMENT_IMPLEMENTATION_AUDIT_2026_09_10.md`; native validation: `docs/evidence/E0A_ROLE_CONTROL_IDENTITY_ALIGNMENT_NATIVE_ARM64_VALIDATION_2026_09_10.md`; Gemini consumption: `docs/evidence/GEMINI_API_USAGE_LEDGER.md`.
-
-Run 04 consumed exactly **2** Gemini requests: one 649-token `countTokens` plus one successful generation (649 input / 130 output / 0 reasoning / 0 cached), shadow USD `0.00051970`; sealed artifact verification found zero hash mismatches.
+## Run 05 activation
+Activation record: `docs/evidence/E0A_Q_E0A_03_G35L_RUN05_PREEXECUTION_ACTIVATION_2026_09_10.md`. Evidence root `C:\Users\Wiryl\Sol Dev\Ensemble-Project-Evidence\E0A-Q03-G35L-20260910-05` did not exist at activation. Public provider facts were rechecked with no contradiction; the reusable 3.5 quota snapshot remains 15 RPM / 250,000 input TPM / 500 RPD; executable freshness remains valid through 2026-09-14. Protected credential decryptability, exact detached checkout, fresh Release build, and fixture smoke pass. Preexecution consumption: **0**.
 
 ## Continuity
-Current `main` baseline before this repair integration is `7608ab8e192dca77fa8ba649adec1e7963cf27a2`. Q-E0E-PREP remains DONE; Q-E0E-RUN remains blocked through E0-A-D. Design authority is separate. Administrator C0-C7 DONE; C8 Browser/CDP pilot next. Administrator creates no Engineering/provider/validation authority or provider traffic.
+Q-E0E-PREP remains DONE; Q-E0E-RUN remains blocked through E0-A-D. Design authority is separate. Administrator C0-C7 DONE; C8 is its separate next gate and creates no Engineering/provider/validation authority.
 
 ## Next
-Use **zero provider traffic**. Integrate the native-validated role control-identity package through hosted CI. Only after integrated main CI is green may a fresh 3.5 Flash-Lite RunId be preregistered/activated under standing authority. Never replay Run 03/04 or start 3.1/2.5 first.
+Use **zero provider traffic** until this Run 05 activation package is integrated and post-merge main Validation is green. Then execute Run 05 exactly once under standing authority; its own `countTokens` is the first provider operation. Preserve any terminal result, update usage, and never retry/replay/fallback or start 3.1/2.5 first.
