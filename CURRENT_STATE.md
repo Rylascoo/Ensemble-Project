@@ -6,24 +6,24 @@ Updated: 2026-09-10
 `Rylascoo/Ensemble-Project` is Engineering authority. This file alone owns phase/checkpoint/validation/next action. Bootstrap: `AGENTS.md`; product/lane authority: `docs/PROJECT_AUTHORITY.md`; orchestration: `docs/PROJECT_AGENT_ORCHESTRATION_PROTOCOL.md`; sequencing: `docs/PROJECT_EXECUTION_QUEUE.md`.
 
 ## Checkpoint
-Runtime **E0-A Experimental Harness - Phase B**. Q-E0A-01/02/04 **DONE**. Q-E0A-03 **ACTIVE - RUN 04 PREEXECUTION GATES PASS; READY FOR ONE 3.5 FLASH-LITE FULL-REFERENCE EXECUTION UNDER STANDING AUTHORITY**.
+Runtime **E0-A Experimental Harness - Phase B**. Q-E0A-01/02/04 **DONE**. Q-E0A-03 **ACTIVE - RUN 04 TERMINAL/NONCONTRIBUTING; ROLE CONTROL-IDENTITY ALIGNMENT UNDER VALIDATION**.
 
-Run 03 `E0A-Q03-G35L-20260910-03` remains immutable/consumed and NONCONTRIBUTING: six accepted turns, then deterministic Interpreter `InvalidOutput`. It may never be replayed.
-
-Run 04 is pre-recorded as `E0A-Q03-G35L-20260910-04` with nonexistent-at-activation evidence root `C:\Users\Wiryl\Sol Dev\Ensemble-Project-Evidence\E0A-Q03-G35L-20260910-04`; model/profile `gemini-3.5-flash-lite` / `GEMINI-3.5-FLASH-LITE-MINIMAL`; 12 accepted-turn cap; zero automatic retries; no fallback/substitution.
+Run 04 `E0A-Q03-G35L-20260910-04` is immutable/consumed: zero accepted turns, then deterministic Performer `InvalidOutput`. Its only generation was successful/schema-valid but emitted display-style control IDs `Marlowe`/`Wren` instead of exact roster IDs `MARLOWE`/`WREN`. It may never be replayed. Run 03 also remains immutable/noncontributing.
 
 ## Validation
-Current promoted native authority remains exactly `e052ef4cdaf8ac7291971f8c42d121e1ee6eecf0`; tag `validation/e0a-state-interpreter-semantic-output-alignment-native-arm64`; tag object `a6402b32f4840ee218365dec4b285197bd72548b`. Native Windows ARM64 Core **622/622**, Harness **135/135**, fresh build/smokes/credentialless gates and repository guards PASS. Provider network during validation: NONE.
+Current promoted native authority remains exactly `e052ef4cdaf8ac7291971f8c42d121e1ee6eecf0`; tag `validation/e0a-state-interpreter-semantic-output-alignment-native-arm64`, tag object `a6402b32f4840ee218365dec4b285197bd72548b`; Core **622/622**, Harness **135/135**, build/smokes/credentialless/repository gates PASS, provider network NONE.
 
-The corrected package was integrated through PR #64 to `main` `62a3124853da5cff75ea7b6edda7926c602569c8`; post-merge hosted Validation passed at that exact SHA. Branch archived/retired. Merge/document commits do not inherit native validation authority.
+Run 04 activation was integrated through PR #66 at `0b715ee67315975ad02d5d3bcccfd998e8cbbda6` with post-merge Validation green. Administrator C6 later advanced `main` to `8e486567e8d3f43f01c065a083f3fa1f9ba724e9` without changing Engineering/provider authority.
 
-## Evidence / provider boundary
-Run 04 activation: `docs/evidence/E0A_Q_E0A_03_G35L_RUN04_PREEXECUTION_ACTIVATION_2026_09_10.md`. Standing Gemini authority: `docs/evidence/GEMINI_API_PROJECT_RELEVANCE_STANDING_DIRECTOR_AUTHORIZATION_2026_09_10.md`. Consumption ledger: `docs/evidence/GEMINI_API_USAGE_LEDGER.md`.
+## Evidence / correction boundary
+Run 04 terminal analysis: `docs/evidence/E0A_Q_E0A_03_G35L_RUN04_TERMINAL_EVIDENCE_ANALYSIS_2026_09_10.md`. Correction: `docs/blueprint/E0A_ROLE_CONTROL_IDENTITY_ALIGNMENT_AMENDMENT.md`. Consumption ledger: `docs/evidence/GEMINI_API_USAGE_LEDGER.md`.
 
-Public lifecycle/thinking/pricing/Auth-key/rate-limit facts were rechecked on 2026-09-10 with no contrary signal. The Director-approved 3.5 snapshot remains reusable at 15 RPM / 250,000 input TPM / 500 RPD. Local exact-checkout build/fixture preflight and protected CurrentUser credential readiness pass. Preexecution provider consumption for Run 04: **0**.
+Run 04 consumed exactly **2** Gemini HTTP requests: one 649-token `countTokens` preflight plus one successful Performer generation (649 input / 130 output / 0 reasoning / 0 cached), shadow USD `0.00051970`. Evidence seal independently verifies with zero artifact-hash mismatches.
+
+The narrow repair exposes exact `rosterCharacterIds` in bounded Performer/Interpreter context and requires exact case-sensitive ID reuse. Parsers, Core authority, Fixture, schemas, provider profile, retry/fallback law, and experiment order remain unchanged. Working-copy native regressions: Core **622/622**, Harness **137/137**; these do not yet promote validation authority.
 
 ## Continuity
-Q-E0E-PREP remains DONE; Q-E0E-RUN remains blocked through E0-A-D. Design authority remains separate. Administrator C0-C6 DONE; C7 Real local-evidence pilot is next; no Engineering/provider authority or provider traffic is authorized.
+Q-E0E-PREP remains DONE; Q-E0E-RUN remains blocked through E0-A-D. Design authority remains separate. Administrator C0-C6 DONE; C7 remains its separate next gate.
 
 ## Next
-Execute Run 04 exactly once only under its recorded boundary. Its own `countTokens` preflight is the first provider operation. Preserve any terminal result, seal evidence, update Gemini usage, and classify contribution. No replay/retry/fallback, no compatibility-only probe, and no 3.1/2.5 execution before this 3.5 full-reference boundary resolves.
+Use **zero provider traffic**. Recursively audit and commit the role control-identity correction, perform fresh clean native Windows ARM64 validation and annotated tagging, then integrate through hosted CI. Only after that may a fresh 3.5 Flash-Lite RunId be activated. Never replay Run 03/04 or start 3.1/2.5 first.
