@@ -174,3 +174,23 @@ When a deterministic repository guard fails solely on this class of path-length 
 6. never use a different commit, branch tip, or later documentation commit as a substitute.
 
 For the establishing case, `tools/oracle-index.py --check` passed at `C:\Users\Wiryl\Sol Dev\E0V-cef3fc1` on exact checkout `cef3fc15e31192a48aa3bddd99450b65a58bd8f1`, reporting 86 documented hashes, 17 asserted hashes, and 69 document-only hashes.
+
+## 10. SDK-selection rule when a newer SDK becomes default
+
+On 2026-09-10 the Director host had both SDK 9.0.317 and SDK 10.0.400 installed, with an unpinned `dotnet` invocation selecting 10.0.400. The current E0 Harness remains a .NET 9 validation surface; Microsoft Testing Platform rejected the established `dotnet test` invocation under SDK 10 before any tests executed.
+
+Future current-E0 validation packets must therefore prove the selected SDK version, not merely that `dotnet` exists. While repository authority remains on .NET 9:
+
+1. require SDK 9.0.317 (or the later repository-authorized .NET 9 SDK) for authoritative test/build execution;
+2. if the host default selects a different major SDK, pin the authorized SDK from an external temporary working directory using `global.json` or an equivalently non-mutating mechanism;
+3. keep that SDK-selection file outside the repository/worktree so clean-checkout authority is preserved;
+4. rerun `dotnet --info` from the pinned context and assert SDK version, `RID=win-arm64`, and Host `Architecture=arm64` before tests;
+5. classify an SDK-selection/Microsoft Testing Platform refusal before test execution as apparatus failure, never as a passing or failing Ensemble test result.
+
+This rule does not approve .NET 10 for the project; any target/framework change remains separately governed by repository and Director authority.
+
+## 11. Raw expected-failure process capture fallback
+
+If the Section 2 Windows PowerShell redirection method decorates native stderr with `NativeCommandError` metadata, returns null text unexpectedly, or otherwise prevents exact message comparison, the wrapper must not weaken the oracle. Use a raw child-process capture mechanism such as `System.Diagnostics.ProcessStartInfo` with `UseShellExecute=false`, redirected stdout/stderr, explicit argument quoting, and the child process's own `ExitCode`.
+
+The raw-capture fallback must still assert exit code, exact expected message, and filesystem side effects independently. Paths containing spaces must be quoted as individual process arguments. Wrapper parsing/quoting failures are apparatus failures and do not count as product results.

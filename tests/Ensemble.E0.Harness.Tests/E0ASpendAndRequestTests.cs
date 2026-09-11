@@ -153,6 +153,23 @@ public sealed class E0ASpendAndRequestTests
     }
 
     [TestMethod]
+    public void InterpreterInstructions_ExposeDeterministicMutationShapeLaw()
+    {
+        var instructions = E0APromptContracts.InterpreterInstructions;
+
+        StringAssert.Contains(instructions, "worldState, sceneState, unresolvedProposition, and pressure require null subjectCharacterId and targetCharacterId");
+        StringAssert.Contains(instructions, "Character domains require a roster subjectCharacterId and null targetCharacterId");
+        StringAssert.Contains(instructions, "Relationship is the only shape that permits a non-null targetCharacterId");
+        StringAssert.Contains(instructions, "characterKnowledge, characterMemory, and characterClaim support add only");
+        StringAssert.Contains(instructions, "characterClaim subjectCharacterId must equal the supplied Candidate subject Character");
+        StringAssert.Contains(instructions, "For add use null existingRecordId and non-empty text");
+        StringAssert.Contains(instructions, "for supersede use non-null existingRecordId and non-empty text");
+        StringAssert.Contains(instructions, "for deactivate use non-null existingRecordId and null text");
+        StringAssert.Contains(instructions, "supportingRecordIds must contain no duplicates");
+        StringAssert.Contains(instructions, "do not emit exact duplicate semantic mutations");
+    }
+
+    [TestMethod]
     public void InterpreterSchema_PinsExactDomainAndOperationTokens()
     {
         using var document = JsonDocument.Parse(E0APromptContracts.InterpreterSchemaJson);

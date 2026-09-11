@@ -6,7 +6,7 @@ A hypothesis belongs here when engineering work depends on a fact that has not y
 
 ## Open / narrowed hypotheses
 
-### HYP-001 - Live Gemini request compatibility - NARROWED / 3.5 LEGACY GENERATECONTENT SHAPE NATIVE-VALIDATED
+### HYP-001 - Live Gemini request compatibility - NARROWED / 3.5 FULL-RUNTIME TRANSPORT ESTABLISHED
 
 Hypothesis: the approved REST request/streaming shapes for the current E0-A comparison profiles remain accepted by the real Google Gemini API:
 
@@ -14,11 +14,11 @@ Hypothesis: the approved REST request/streaming shapes for the current E0-A comp
 - `gemini-3.1-flash-lite` / `GEMINI-3.1-FLASH-LITE-MINIMAL`;
 - `gemini-2.5-flash-lite` / `GEMINI-2.5-FLASH-LITE-NONE`.
 
-Current evidence: Run 02 localized the 3.5 Flash-Lite generation rejection to `generation_config.response_format.text.mime_type`. Four bounded Free-tier diagnostics then established that bare generation succeeds, legacy `responseMimeType` + simple `responseSchema` succeeds, and the actual Run 02 JSON Schema succeeds when encoded as `responseMimeType` + `responseJsonSchema`. The durable near-runtime capture returned HTTP 200 with a candidate and usage metadata. Evidence: `docs/evidence/E0A_GEMINI35_STRUCTURED_OUTPUT_COMPATIBILITY_DIAGNOSTIC_2026_09_10.md`.
+Current evidence: Run 02 plus four bounded diagnostics localized and corrected the 3.5 structured-output encoding. Run 03 then executed 21 real `gemini-3.5-flash-lite` generation requests through the corrected `responseMimeType` + `responseJsonSchema` path; every generation receipt succeeded with stable returned model identity. Six turns committed before a schema-valid Interpreter response was rejected by local deterministic semantic law. Evidence: `docs/evidence/E0A_Q_E0A_03_G35L_RUN03_TERMINAL_EVIDENCE_ANALYSIS_2026_09_10.md`.
 
-Disposition: the rejected `responseFormat.text` encoding is falsified for this 3.5 Flash-Lite route; the legacy GenerateContent structured-output encoding is accepted. The shared request-builder correction is native-validated at exact checkout `cef3fc15e31192a48aa3bddd99450b65a58bd8f1` under tag `validation/e0a-gemini-structured-output-compatibility-native-arm64`. 3.1 Flash-Lite and 2.5 Flash-Lite live generation compatibility remain separately unverified.
+Disposition: 3.5 Flash-Lite transport, stable returned-model identity, repeated structured-output generation, and the corrected legacy GenerateContent encoding are established for the Run 03 route. Run 03 does not establish 12-turn reference contribution because it terminated on a local Interpreter semantic mismatch after six accepted turns. 3.1 Flash-Lite and 2.5 Flash-Lite live generation compatibility remain separately unverified.
 
-Verification trigger: a fresh named 3.5 reference run after every non-approval condition of the frozen activation gate is satisfied under the current standing project-relevant Gemini authority. Later model families retain their own live-evidence requirements.
+Verification trigger: a fresh 3.5 reference candidate using the native-validated Interpreter semantic-output correction at `e052ef4cdaf8ac7291971f8c42d121e1ee6eecf0` tests contribution/reliability, not basic transport compatibility. Later model families retain their own live-compatibility requirements.
 
 Falsifier/narrowing evidence: a fresh named corrected reference run reveals a different provider incompatibility or cannot satisfy the frozen activation/contribution gates.
 ### HYP-002 — Account/key/model/quota availability — PARTIALLY ESTABLISHED / VOLATILE
@@ -43,13 +43,13 @@ Verification trigger: immediately before each authorized provider-network execut
 
 Falsifier: current provider terms, billing, retention/data-use, pricing, lifecycle, model availability, or route behavior differs materially from the assumptions required by the approved synthetic run.
 
-### HYP-004 - Live provider generation/usage accounting mapping - NARROWED / DIAGNOSTIC GENERATION OBSERVED
+### HYP-004 - Live provider generation/usage accounting mapping - NARROWED / 3.5 FULL-RUNTIME ACCOUNTING OBSERVED
 
 Hypothesis: real Gemini response usage fields, reasoning/thinking-token reporting, cache reporting, thought-signature behavior, finish/terminal semantics, and streaming behavior map to the Harness accounting and fail-closed rules as expected for the Gemini 3 thinking-level family (3.5/3.1 Flash-Lite) and the 2.5 Flash-Lite budget-controlled family.
 
-Current evidence: Run 02 was rejected before a usable response, but the later near-runtime compatibility capture succeeded through real 3.5 Flash-Lite streaming generation and reported prompt `649`, candidate `114`, total `763` tokens with finish reason `MAX_TOKENS`. This proves basic response/usage fields are reachable on the corrected request shape. Full-reference provider identity, reasoning/cache accounting, thought-signature continuity, complete structured-output parsing, and accepted-turn semantics remain unverified.
+Current evidence: Run 03 completed 21 generation responses across Performer/Integrity/Interpreter with stable returned model `gemini-3.5-flash-lite`. Generation receipts report 36,222 input tokens, 6,121 output tokens including 4,811 reasoning tokens, and zero cached input; the Harness reconciled spend with `hasUnknownProviderUsage=false`. Six complete accepted-turn causal commits prove the response/accounting/provenance path operates beyond a diagnostic call. The terminal turn was a local semantic-parser rejection, not unknown provider usage.
 
-Verification trigger: first fresh named corrected reference run that completes a role response and exercises the Harness accounting/provenance path.
+Verification trigger: later model-family execution, a contrary provider accounting signal, nonzero cache behavior, thought-signature behavior requiring interpretation, or another response shape not exercised by Run 03.
 
 Falsifier: observed provider responses cannot be reconciled with the approved accounting/provenance rules without changing runtime semantics.
 
@@ -72,8 +72,9 @@ The following are decisions or scope gates and must not be reclassified as assum
 - Gemini remains the sole current E0-A provider method; historical OpenAI executable support is retired.
 - The implemented comparison-profile set is 3.5 Flash-Lite Minimal (12 turns), 3.1 Flash-Lite Minimal (12 turns), and 2.5 Flash-Lite None (3-turn exact-no-thinking control), with historical 2.5 Flash non-live.
 - The former 3.5 `countTokens` compatibility gate is corrected and native-validated; Run 02 localized the later generation rejection to `generation_config.response_format.text.mime_type`; the resulting legacy structured-output request correction is also native-validated at `cef3fc15e31192a48aa3bddd99450b65a58bd8f1`.
-- Q-E0A-03 compatibility diagnostics may use the temporary standing synthetic Free-tier authority; full reference runs remain separately named and immutable.
-- Temporary bounded synthetic Free-tier compatibility/diagnostic authority is active; no paid-route or consumed-run replay authority exists.
+- Run 03 established repeated 3.5 transport/accounting success but terminated on a local Interpreter cross-field semantic mismatch; that prompt/semantic-output alignment correction is native-validated at `e052ef4cdaf8ac7291971f8c42d121e1ee6eecf0` without relaxing deterministic parser or schema law.
+- Project-relevant Gemini Free-tier use is covered by the current standing Director authority; every run/batch remains separately bounded, logged, scope-evaluated, and immutable when consumed.
+- Standing project-relevant synthetic Free-tier authority is active; no paid-route, private/user-derived material, automatic retry/fallback, or consumed-run replay authority exists.
 - Free-tier live experiments remain canonical synthetic Missing Raft-only.
 - One attempt per probabilistic role invocation, zero automatic retries, no automatic fallback, the USD 5 shadow ceiling, evidence immutability, and experiment order remain fixed.
 - .NET 10 requires later Director approval; GitHub plan-dependent branch protection is deferred; Stage remains design-lane authority.
