@@ -62,7 +62,7 @@ Historical attempt, diagnostic, and superseded validation records remain evidenc
 
 There is **no live `docs/handoff/...` transition artifact** at current `main`. A handoff is live only when `CURRENT_STATE.md` names its exact path. `docs/handoff/` currently retains only its lifecycle README.
 
-The current consequential engineering gate is defined by `CURRENT_STATE.md`, the Q-E0A-03 closure contract, the Run 03 terminal analysis, and the current standing Gemini project-use authorization. Run 03 is immutable/noncontributing after six accepted turns and exposed an Interpreter prompt/semantic-contract mismatch. Further provider calls are deferred until the narrow Interpreter instruction correction is audited, native-validated/tagged, and integrated; routine per-run approval is not required after that gate.
+The current consequential engineering gate is defined by `CURRENT_STATE.md`, the Q-E0A-03 closure contract, the Run 04 preexecution activation record, and the current standing Gemini project-use authorization. Run 03 remains immutable/noncontributing; the Interpreter semantic-output alignment is native-validated and integrated. This navigation index intentionally defers the exact Run 04 provider-execution boundary to `CURRENT_STATE.md` and its named activation evidence rather than duplicating volatile provider state.
 
 Parallel E0-E preparation is closed; `docs/evidence/E0E_SINGLE_MODEL_PLAYWRIGHT_CONTROL_PREPARATION_CLOSEOUT_AUDIT_2026_09_09.md` records that preparation result. E0-E execution remains blocked by the frozen E0 order and the execution queue.
 
@@ -82,7 +82,8 @@ Parallel E0-E preparation is closed; `docs/evidence/E0E_SINGLE_MODEL_PLAYWRIGHT_
 - `docs/evidence/CODEX_ADMINISTRATOR_C2_FRESH_AUTHORITY_RECOVERY_2026_09_10.md` - C2 failed-close/remediation/fresh-session closeout.
 - `docs/evidence/CODEX_ADMINISTRATOR_C3_DETERMINISTIC_SKILLS_2026_09_10.md` - C3 repository-native deterministic Skills, fixtures, manual cross-checks, and fresh-session usability closeout.
 - `docs/evidence/CODEX_ADMINISTRATOR_C4_ISOLATED_WORKER_MUTATION_2026_09_10.md` - C4 native permission-inheritance falsification, separate top-level Worker fallback, bounded R0 mutation/test, protected-surface preservation, and clean-disposal closeout.
-- `docs/evidence/CODEX_ADMINISTRATOR_C5_BRANCH_TAG_PUSH_PR_LIFECYCLE_2026_09_10.md` - C5 shared-Git lock commissioning plus evidence-only branch/tag/push/PR lifecycle proof; C6 cross-lane transport is next.
+- `docs/evidence/CODEX_ADMINISTRATOR_C5_BRANCH_TAG_PUSH_PR_LIFECYCLE_2026_09_10.md` - C5 shared-Git lock commissioning plus evidence-only branch/tag/push/PR lifecycle proof.
+- `docs/evidence/CODEX_ADMINISTRATOR_C6_CROSS_LANE_TRANSPORT_PILOT_2026_09_10.md` - C6 exact-ref GitHub Issue transport pilot; Issues are ephemeral dispatch/result transport only, never backlog authority; C7 is next.
 - `tools/codex-admin-reconcile.py` and `tools/codex-admin-reconcile-selftest.py` - C1 read-only deterministic core and synthetic fixture oracle, wrapped by the C3 `repo-reconciliation` Skill.
 - `.github/workflows/README.md` — CI authority explanation.
 - `tools/repository-law-check.py` — objective repository, state-currency, and lane-boundary checks.
