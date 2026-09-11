@@ -113,9 +113,22 @@ internal sealed class GeminiGenerateContentPort : IE0AProviderRolePort, IE0AInpu
             DecoderFallbackException or
             OverflowException)
         {
-            return RoleAttemptReceipt.TechnicalFailure(attempt, "gemini-malformed-or-transport");
+            return RoleAttemptReceipt.TechnicalFailure(
+                attempt,
+                TechnicalFailureDiagnostic(exception));
         }
     }
+
+    private static string TechnicalFailureDiagnostic(Exception exception) =>
+        exception switch
+        {
+            HttpRequestException => "gemini-http-transport",
+            IOException => "gemini-io-transport",
+            JsonException => "gemini-json-invalid",
+            DecoderFallbackException => "gemini-utf8-invalid",
+            OverflowException => "gemini-numeric-overflow",
+            _ => throw new ArgumentOutOfRangeException(nameof(exception))
+        };
 
     private async Task<RoleAttemptReceipt> ExecuteBufferedAsync(
         PreparedRoleAttempt attempt,
