@@ -19,7 +19,7 @@ The repair was integrated through PR #69 to `main` `89e5200052e8379caf308833568e
 Activation record: `docs/evidence/E0A_Q_E0A_03_G35L_RUN05_PREEXECUTION_ACTIVATION_2026_09_10.md`. Evidence root `C:\Users\Wiryl\Sol Dev\Ensemble-Project-Evidence\E0A-Q03-G35L-20260910-05` did not exist at activation. Public provider facts were rechecked with no contradiction; the reusable 3.5 quota snapshot remains 15 RPM / 250,000 input TPM / 500 RPD; executable freshness remains valid through 2026-09-14. Protected credential decryptability, exact detached checkout, fresh Release build, and fixture smoke pass. Preexecution consumption: **0**.
 
 ## Continuity
-Q-E0E-PREP remains DONE; Q-E0E-RUN remains blocked through E0-A-D. Design authority is separate. Administrator C0-C7 DONE; C8 is its separate next gate and creates no Engineering/provider/validation authority.
+Q-E0E-PREP remains DONE; Q-E0E-RUN remains blocked through E0-A-D. Design authority is separate. Administrator C0-C8 DONE; C9 is its separate next gate and creates no Engineering/provider/validation authority.
 
 ## Next
 Use **zero provider traffic** until this Run 05 activation package is integrated and post-merge main Validation is green. Then execute Run 05 exactly once under standing authority; its own `countTokens` is the first provider operation. Preserve any terminal result, update usage, and never retry/replay/fallback or start 3.1/2.5 first.
