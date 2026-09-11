@@ -15,7 +15,7 @@ Run 04 is pre-recorded as `E0A-Q03-G35L-20260910-04` with nonexistent-at-activat
 ## Validation
 Current promoted native authority remains exactly `e052ef4cdaf8ac7291971f8c42d121e1ee6eecf0`; tag `validation/e0a-state-interpreter-semantic-output-alignment-native-arm64`; tag object `a6402b32f4840ee218365dec4b285197bd72548b`. Native Windows ARM64 Core **622/622**, Harness **135/135**, fresh build/smokes/credentialless gates and repository guards PASS. Provider network during validation: NONE.
 
-The corrected package was integrated through PR #64 to `main` `62a3124853da5cff75ea7b6edda7926c602569c8`; post-merge hosted Validation passed at that exact SHA. The former Engineering branch is archived and retired. Merge/document commits do not inherit native validation authority.
+The corrected package was integrated through PR #64 to `main` `62a3124853da5cff75ea7b6edda7926c602569c8`; post-merge hosted Validation passed at that exact SHA. Branch archived/retired. Merge/document commits do not inherit native validation authority.
 
 ## Evidence / provider boundary
 Run 04 activation: `docs/evidence/E0A_Q_E0A_03_G35L_RUN04_PREEXECUTION_ACTIVATION_2026_09_10.md`. Standing Gemini authority: `docs/evidence/GEMINI_API_PROJECT_RELEVANCE_STANDING_DIRECTOR_AUTHORIZATION_2026_09_10.md`. Consumption ledger: `docs/evidence/GEMINI_API_USAGE_LEDGER.md`.
