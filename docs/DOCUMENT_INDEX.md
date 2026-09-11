@@ -97,6 +97,7 @@ Parallel E0-E preparation is closed; `docs/evidence/E0E_SINGLE_MODEL_PLAYWRIGHT_
 - `docs/evidence/CODEX_ADMINISTRATOR_C7_REAL_LOCAL_EVIDENCE_PILOT_2026_09_10.md` - C7 sealed Run-03 local-evidence pilot; read-only hashes/seals/accounting/terminal-boundary proof with no provider traffic or authority mutation.
 - `docs/evidence/CODEX_ADMINISTRATOR_C8_BROWSER_CDP_PILOT_2026_09_10.md` - C8 dedicated Edge Guest/CDP pilot plus C9-driven correction; clean active profile, cross-origin storage isolation, explicit permission denial, zero live/post-close cookie residue, browser-only evidence labeling, and safe teardown.
 - `docs/evidence/CODEX_ADMINISTRATOR_C9_CLAUDE_READ_ONLY_REVIEW_2026_09_11.md` - C9 dedicated Claude Code Pro-subscription independent review; exact-SHA tool-less review returned PASS_WITH_FINDINGS, manager reconciled findings, and C10 is next.
+- `docs/evidence/CODEX_ADMINISTRATOR_C10_HOOK_PILOT_FALSIFICATION_2026_09_11.md` - C10 Hook pilot falsification: deny path blocked correctly, but deliberate nonzero hook failure was fail-open on pinned Codex 0.153.4; C10 did not pass and C11+ remain blocked.
 - `tools/codex-admin-reconcile.py` and `tools/codex-admin-reconcile-selftest.py` - C1 read-only deterministic core and synthetic fixture oracle, wrapped by the C3 `repo-reconciliation` Skill.
 - `.github/workflows/README.md` — CI authority explanation.
 - `tools/repository-law-check.py` — objective repository, state-currency, and lane-boundary checks.
