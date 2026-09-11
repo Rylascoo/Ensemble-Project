@@ -1,9 +1,10 @@
 # Ensemble Administrator Runtime Specification
 
-Status: **DIRECTOR-APPROVED RUNTIME/COMMISSIONING CONTRACT — IMPLEMENTATION PROCEEDS ONLY THROUGH THE EARNED C0-C13 GATES**
+Status: **DIRECTOR-APPROVED RUNTIME/COMMISSIONING CONTRACT - IMPLEMENTATION PROCEEDS ONLY THROUGH THE EARNED C0-C13 GATES PLUS THE NARROW C9A REVIEW GATE**
 
 Approved by Director: 2026-09-09
 Approval baseline: `Rylascoo/Ensemble-Project` `main@46eb164323542cdf2c405964eb914a3ad02d945f`
+Director amendment: 2026-09-11 - C9A read-only Codex-to-Claude orchestration may be commissioned after C9 independently of C10. C10 remains a separate protective-Hook gate; C11 and all general/mutating Automations remain downstream of a valid C10 pass. Durable decision: `docs/evidence/CODEX_ADMINISTRATOR_C9A_READ_ONLY_CLAUDE_ORCHESTRATION_DIRECTOR_AMENDMENT_2026_09_11.md`.
 
 This specification is subordinate to frozen product/phase law, `CURRENT_STATE.md`, `docs/PROJECT_AUTHORITY.md`, `docs/PROJECT_AGENT_ORCHESTRATION_PROTOCOL.md`, `docs/PROJECT_REASONING_TASK_SCOPE_OPTIMIZATION_PROTOCOL.md`, owning-lane authority, exact source/evidence, and explicit Director decisions. It does not authorize provider traffic, validation promotion, Design adjudication, product/ODR resolution, Hooks, Automations, Claude use, or an external side effect merely by existing.
 
@@ -614,19 +615,24 @@ Hook changes require renewed trust when current Codex semantics use content-hash
 
 ## 24. Automations
 
-Automations remain disabled until C11.
+General, background, scheduled, polling, self-triggering, and mutation-capable Administrator Automations remain disabled until C11. C11 remains downstream of a valid C10 pass.
+
+C9A is a deliberately narrow exception for **on-demand repository-read-only Claude review orchestration** after C9. It is not a C11 Automation framework and does not authorize scheduling, background execution, mutation, automatic implementation, or automatic action on reviewer findings.
+
+A C9A dispatcher may deterministically build and hash a fixed exact-ref review packet in Administrator scratch, invoke the already-commissioned dedicated Claude review plane once, capture/hash the structured advisory result and runtime telemetry, and return the result to the owning Sol/Administrator. It may not mutate a repository/worktree/Git surface, rewrite authority, invoke product-provider traffic, use browser/CDP, enable Claude tools/MCP/subagents/session persistence, fall back to API-key/cloud-provider billing, or retry automatically.
 
 C11 is an **admission test**, not a mandate to automate something.
 
-A candidate Automation must first exist as a stable manual Skill, show repeated demand, have bounded read-only semantics, and save more human/model effort than it consumes.
+A candidate C11 Automation must first exist as a stable manual Skill, show repeated demand, have bounded semantics, and save more human/model effort than it consumes. The initial C11 candidate remains bounded and read-only unless a later explicit Director decision authorizes a stronger class. A C10 pass is necessary but not sufficient for mutation-capable automation.
 
 Passing C11 may legitimately conclude:
+
 
 ```text
 NO AUTOMATION ADMITTED
 ```
 
-Forbidden Automations include automatic merge, automatic provider traffic, automatic unique-branch deletion, automatic authority-file rewriting, automatic cross-lane decisions, and automatic deployment/publication.
+Forbidden without separate explicit authority remain automatic merge, automatic provider traffic, automatic unique-branch deletion, automatic authority-file rewriting, automatic cross-lane decisions, and automatic deployment/publication.
 
 ## 25. Claude
 
@@ -644,6 +650,8 @@ findings returned to the owning Sol
 ```
 
 C9 independently verifies installation, subscription authentication, absence of accidental API-key billing, model availability, usage reporting, filesystem scope and Git behavior before Claude is used as an independent reviewer.
+
+After C9, C9A may commission one deterministic on-demand dispatcher around that already-restricted review plane. The dispatcher must provide only a fixed packet, preserve the dedicated `CLAUDE_CONFIG_DIR`, remove API-key/alternate-cloud credential routes, disable built-in tools, inherited MCP, subagents and session persistence, allow no repository/Git mutation, perform at most one invocation for the packet, and return findings for manager reconciliation without acting on them. C9A writes only bounded scratch packet/result/telemetry evidence outside project worktrees.
 
 MCP, subagents and Claude hooks remain later options, not prerequisites.
 
@@ -751,19 +759,25 @@ Create the dedicated Kymaean browser profile and prove origin/session isolation,
 
 No unrelated authenticated session may be visible.
 
-### C9 — Claude read-only review
+### C9 - Claude read-only review
 
 Commission Claude under the restricted independent-review posture and prove subscription/billing/auth boundaries plus one exact-SHA bounded review.
 
-### C10 — Hook pilot
+### C9A - Read-only Claude orchestration
+
+After C9, commission one deterministic on-demand Codex-to-Claude review dispatcher. Pass requires exact-ref packet provenance and pre-dispatch hash, dedicated first-party Claude subscription authentication with no API-key/alternate-cloud route, tools/MCP/subagents/session persistence disabled, one bounded invocation, structured result/telemetry capture and result hash, before/after proof of zero repository/Git mutation, no product-provider/browser use, no automatic retry, and manager reconciliation with no automatic implementation.
+
+C9A is independent of C10 and does not satisfy it. A C9A pass creates no C11, scheduling, background execution, mutation, authority, provider, validation, or deployment permission.
+
+### C10 - Hook pilot
 
 Admit exactly one deterministic protective hook and prove the expected event fires, a forbidden disposable action is blocked before execution, an allowed action still works, hook change invalidates prior trust where applicable, hook failure fails closed, and no authority rewrite occurs.
 
-### C11 — Automation admission
+### C11 - Automation admission
 
-Measure one stable manual candidate against the economic admission rule.
+C11 remains unavailable until C10 passes its fail-closed protective-Hook contract. Measure one stable manual candidate against the economic admission rule.
 
-Either admit one bounded read-only Automation or record `NO AUTOMATION ADMITTED`.
+Either admit one bounded read-only Automation or record `NO AUTOMATION ADMITTED`. A C11 pass does not by itself authorize mutation-capable automation; that requires separate explicit Director authority and applicable protective controls.
 
 ### C12 — Disaster recovery / fresh Administrator
 
@@ -827,7 +841,8 @@ The initial commissioned Administrator may not:
 - run browser/CDP before C8;
 - commission Claude before C9;
 - enable Hooks before C10;
-- enable Automations before C11;
+- enable general/background/scheduled or mutation-capable Automations before C11;
+- use C9A for mutation, automatic implementation/action, scheduling, polling, background execution, browser/CDP, product-provider traffic, or any surface beyond the fixed advisory Claude review dispatcher;
 - create a second backlog;
 - trust a clean local checkout as current;
 - treat `Sol Dev` as one repository;
@@ -839,4 +854,4 @@ This Runtime Specification was Director-approved after a recursive audit of repo
 
 Implementation/commissioning must stop and reopen the relevant specification question if later evidence finds a material authority leak, unsupported Codex capability assumption, duplicate state surface, provider/billing ambiguity, validation-rung ambiguity, credential leak path, shared-Git race, cross-lane authority transfer, unbounded retry/concurrency, unnecessary tool, token-expensive default, rollback hole, or fresh-chat continuity dependency.
 
-After the post-approval transition closes, commissioning proceeds **C0, then C1, then C2 ...**, one earned gate at a time. Each gate is explained before action, its expected evidence is stated, and its result is inspected before the next gate begins.
+After the post-approval transition closes, commissioning proceeds **C0 through C9 sequentially**. Once C9 passes, C9A may be commissioned independently as the narrow read-only Claude orchestration branch. C10 remains the separate protective-Hook branch; C11-C13 remain sequential downstream of a valid C10 pass. Each gate is explained before action, its expected evidence is stated, and its result is inspected before any successor it can authorize.
