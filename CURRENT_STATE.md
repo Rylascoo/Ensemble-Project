@@ -6,23 +6,21 @@ Updated: 2026-09-11
 `Rylascoo/Ensemble-Project` is Engineering authority. This file alone owns phase/checkpoint/validation/next action. Bootstrap: `AGENTS.md`; authority: `docs/PROJECT_AUTHORITY.md`; sequencing: `docs/PROJECT_EXECUTION_QUEUE.md`.
 
 ## Checkpoint
-Runtime **E0-A Experimental Harness - Phase B**. Q-E0A-01/02/04 **DONE**. Q-E0A-03 **ACTIVE - BOTH FULL CANDIDATES NONCONTRIBUTING; DIRECTOR ROUTE DECISION REQUIRED; PROVIDER TRAFFIC NOT AUTHORIZED**.
+Runtime **E0-A Experimental Harness - Phase B**. Q-E0A-01/02/04 **DONE**. Q-E0A-03 **ACTIVE - OPTION A APPROVED; ONE 3.5 STANDARD/FREE REPLACEMENT PREREGISTRATION NEXT; PROVIDER TRAFFIC NOT YET AUTHORIZED**.
 
-Runs 03-07 are immutable/noncontributing. Run 07 terminal: `docs/evidence/E0A_Q_E0A_03_G31L_RUN07_TERMINAL_EVIDENCE_ANALYSIS_2026_09_11.md`; route input: `docs/evidence/E0A_Q_E0A_03_POST_FULL_CANDIDATE_ROUTE_DECISION_INPUT_2026_09_11.md`; closure law: `docs/blueprint/E0A_Q_E0A_03_REFERENCE_EVIDENCE_ACTIVATION_AND_CLOSURE_CONTRACT.md`.
+Runs 03-07 are immutable/noncontributing. Run 07 terminal: `docs/evidence/E0A_Q_E0A_03_G31L_RUN07_TERMINAL_EVIDENCE_ANALYSIS_2026_09_11.md`; route input: `docs/evidence/E0A_Q_E0A_03_POST_FULL_CANDIDATE_ROUTE_DECISION_INPUT_2026_09_11.md`; Option A decision: `docs/evidence/E0A_Q_E0A_03_OPTION_A_DIRECTOR_DECISION_2026_09_11.md`; closure law: `docs/blueprint/E0A_Q_E0A_03_REFERENCE_EVIDENCE_ACTIVATION_AND_CLOSURE_CONTRACT.md`.
 
 ## Validation / evidence
 Native authority remains `bb869fb1c505603612bc718f739b3f1b358e5539`; tag `validation/e0a-gemini-technical-failure-diagnostic-classification-native-arm64`; tag object `c4ff8dc4b9ebd31674208f4ba9c958d50fc975d5`. Native ARM64 Core **622/622**, Harness **140/140**, build/smokes/credentialless/repository gates PASS.
 
-Run 07 terminal closeout PR #82 merged as `06c424d8243f04acf73e36d5f63c5a9c5d693df8`; exact-head Validation #675, E0-E preparation #36, and post-merge Validation #676 passed. Archive tag `archive/q-e0a-03-run07-terminal-2026-09-11` peels to `28460cca09e370983726559a8511d6d5a25c43f1`.
+Route-input PR #83 merged as `78bd7a6a36fc44a891a80b08d461674fb40df435`; exact-head Validation #678, E0-E preparation #37, and post-merge Validation #679 passed. Its archive tag peels to `df2bb55a89bda8159ec36ae1aed9cb4bbb6e32e5`.
 
-Run 07 executed once: 8 successful `countTokens`, seven exact-model 3.1 generations, two committed turns, then Turn 3 Integrity generation HTTP 503 / `UNAVAILABLE`; terminal `TechnicalFailure`; seal independently verified with 0 digest mismatches. Provider traffic is **zero after Run 07**.
+Run 07 ended after two accepted turns at Turn 3 Integrity HTTP 503 / `UNAVAILABLE`; seal independently verified. Runs 06 and 07 are separate availability-class 503 terminals across both full-candidate models. Provider traffic is **zero after Run 07**.
 
 ## Continuity
-Runs 06 and 07 are separate 503 / `UNAVAILABLE` terminals across the two full-candidate models. Neither 3.5 nor 3.1 contributed 12 turns; no source correction is earned. The frozen contract keeps Q-E0A-03 **OPEN/BLOCKED** and the 2.5 control cannot substitute or start automatically.
+The Director approved Option A: exactly one fresh `gemini-3.5-flash-lite` Standard/Free full-candidate replacement under the unchanged 12-turn, one-attempt, zero-retry envelope and a hard one-replacement stop. This decision permits preregistration/activation only; traffic still requires a separately durable exact activation satisfying all current gates and standing Gemini authority.
 
-The route input is Engineering/Evidence input only: it recommends, but does not authorize, one fresh 3.5 Flash-Lite Standard/Free replacement with a hard one-replacement stop. Provider admissibility/route selection remains Director-owned; paid/Priority/retry/provider/model changes require separate audited disposition.
-
-Q-E0B-01 remains blocked. Q-E0E-PREP remains DONE; Q-E0E-RUN remains blocked through E0-A-D. Design authority is separate. Administrator C0-C9 are DONE; C9A is integrated; C10 is falsified and C11+ are blocked.
+The 2.5 control remains outside Option A and cannot substitute. Paid/Priority/retry/provider/model changes remain unauthorized. Q-E0B-01 stays blocked. Q-E0E-PREP is DONE; Q-E0E-RUN remains blocked through E0-A-D. Design authority is separate. Administrator C0-C9 are DONE; C9A integrated; C10 falsified; C11+ blocked.
 
 ## Next
-Director chooses the Q-E0A-03 route. Until durable: no replacement preregistration, 2.5 execution, paid-route switch, retry/fallback, model/provider substitution, or provider call. If Option A is approved, separately preregister/activate one fresh 3.5 Standard/Free replacement before traffic.
+Integrate the Option A decision record, then separately preregister/activate one fresh 3.5 Standard/Free replacement RunId/root. No provider call until that activation is integrated, post-merge Validation is green, and every current route/native/account/freshness/credential gate passes. No second Standard/Free replacement is earned if it terminates technically.
