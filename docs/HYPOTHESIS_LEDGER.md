@@ -18,7 +18,7 @@ Current evidence: Run 02 plus four bounded diagnostics localized and corrected t
 
 Disposition: 3.5 Flash-Lite transport, stable returned-model identity, repeated structured-output generation, and the corrected legacy GenerateContent encoding are established for the Run 03 route. Run 03 does not establish 12-turn reference contribution because it terminated on a local Interpreter semantic mismatch after six accepted turns. 3.1 Flash-Lite and 2.5 Flash-Lite live generation compatibility remain separately unverified.
 
-Verification trigger: a fresh 3.5 reference candidate after the Interpreter semantic-output correction is machine-validated tests contribution/reliability, not basic transport compatibility. Later model families retain their own live-compatibility requirements.
+Verification trigger: a fresh 3.5 reference candidate using the native-validated Interpreter semantic-output correction at `e052ef4cdaf8ac7291971f8c42d121e1ee6eecf0` tests contribution/reliability, not basic transport compatibility. Later model families retain their own live-compatibility requirements.
 
 Falsifier/narrowing evidence: a fresh named corrected reference run reveals a different provider incompatibility or cannot satisfy the frozen activation/contribution gates.
 ### HYP-002 — Account/key/model/quota availability — PARTIALLY ESTABLISHED / VOLATILE
@@ -72,6 +72,7 @@ The following are decisions or scope gates and must not be reclassified as assum
 - Gemini remains the sole current E0-A provider method; historical OpenAI executable support is retired.
 - The implemented comparison-profile set is 3.5 Flash-Lite Minimal (12 turns), 3.1 Flash-Lite Minimal (12 turns), and 2.5 Flash-Lite None (3-turn exact-no-thinking control), with historical 2.5 Flash non-live.
 - The former 3.5 `countTokens` compatibility gate is corrected and native-validated; Run 02 localized the later generation rejection to `generation_config.response_format.text.mime_type`; the resulting legacy structured-output request correction is also native-validated at `cef3fc15e31192a48aa3bddd99450b65a58bd8f1`.
+- Run 03 established repeated 3.5 transport/accounting success but terminated on a local Interpreter cross-field semantic mismatch; that prompt/semantic-output alignment correction is native-validated at `e052ef4cdaf8ac7291971f8c42d121e1ee6eecf0` without relaxing deterministic parser or schema law.
 - Project-relevant Gemini Free-tier use is covered by the current standing Director authority; every run/batch remains separately bounded, logged, scope-evaluated, and immutable when consumed.
 - Standing project-relevant synthetic Free-tier authority is active; no paid-route, private/user-derived material, automatic retry/fallback, or consumed-run replay authority exists.
 - Free-tier live experiments remain canonical synthetic Missing Raft-only.

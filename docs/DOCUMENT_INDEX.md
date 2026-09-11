@@ -24,7 +24,7 @@ This index helps a fresh engineering chat find the small set of current entry su
 - `docs/blueprint/E0A_GEMINI_COUNTTOKENS_INPUT_PROJECTION_CORRECTION_AMENDMENT.md`
 - `docs/blueprint/E0A_GEMINI_GENERATION_ERROR_DIAGNOSTIC_CORRECTION_AMENDMENT.md`
 - `docs/blueprint/E0A_GEMINI_GENERATECONTENT_STRUCTURED_OUTPUT_COMPATIBILITY_AMENDMENT.md` - live-falsified `responseFormat.text` correction to legacy GenerateContent `responseMimeType` + `responseJsonSchema`; native-validated at exact checkout `cef3fc15e31192a48aa3bddd99450b65a58bd8f1`.
-- docs/blueprint/E0A_STATE_INTERPRETER_SEMANTIC_OUTPUT_ALIGNMENT_AMENDMENT.md - Run 03 falsification response: expose the existing deterministic mutation-shape semantics to the Interpreter without weakening parser/schema/authority law; native validation pending.
+- `docs/blueprint/E0A_STATE_INTERPRETER_SEMANTIC_OUTPUT_ALIGNMENT_AMENDMENT.md` - Run 03 falsification response: expose the existing deterministic mutation-shape semantics to the Interpreter without weakening parser/schema/authority law; native-validated at exact checkout `e052ef4cdaf8ac7291971f8c42d121e1ee6eecf0`.
 - `docs/blueprint/E0A_Q_E0A_03_REFERENCE_EVIDENCE_ACTIVATION_AND_CLOSURE_CONTRACT.md`
 
 These remain subject to `CURRENT_STATE.md`; this index does not independently mark a phase, checkpoint, provider route, or experiment executable.
@@ -33,7 +33,9 @@ These remain subject to `CURRENT_STATE.md`; this index does not independently ma
 
 - `docs/VALIDATION_LEDGER.md` — promoted validation facts and durable tags; cannot advance project state.
 - `docs/HYPOTHESIS_LEDGER.md` — current unverified/narrowed Gemini assumptions and verification triggers; never a decision source.
-- `docs/evidence/E0A_GEMINI_STRUCTURED_OUTPUT_COMPATIBILITY_NATIVE_ARM64_VALIDATION_2026_09_10.md` - current promoted Windows ARM64 machine-test evidence for exact executable `cef3fc15e31192a48aa3bddd99450b65a58bd8f1`.
+- `docs/evidence/E0A_STATE_INTERPRETER_SEMANTIC_OUTPUT_ALIGNMENT_NATIVE_ARM64_VALIDATION_2026_09_10.md` - current promoted native Windows ARM64 evidence for exact executable `e052ef4cdaf8ac7291971f8c42d121e1ee6eecf0`.
+- `docs/evidence/E0A_STATE_INTERPRETER_SEMANTIC_OUTPUT_ALIGNMENT_IMPLEMENTATION_AUDIT_2026_09_10.md` - recursive source/test audit for the Run 03 Interpreter semantic-output guidance correction.
+- `docs/evidence/E0A_GEMINI_STRUCTURED_OUTPUT_COMPATIBILITY_NATIVE_ARM64_VALIDATION_2026_09_10.md` - immediate predecessor native Windows ARM64 checkpoint at exact executable `cef3fc15e31192a48aa3bddd99450b65a58bd8f1`.
 - `docs/evidence/E0A_GEMINI_STRUCTURED_OUTPUT_COMPATIBILITY_IMPLEMENTATION_AUDIT_2026_09_10.md` - source/test audit for the legacy GenerateContent structured-output correction.
 - `docs/evidence/E0A_GEMINI_GENERATION_ERROR_DIAGNOSTIC_NATIVE_ARM64_VALIDATION_2026_09_10.md` - immediate predecessor native checkpoint at exact executable `7868e5cb12a27260e288d95c248d6f846cf37701`.
 - `docs/evidence/E0A_GEMINI_GENERATION_ERROR_DIAGNOSTIC_IMPLEMENTATION_AUDIT_2026_09_10.md` — source/test audit for the bounded generation-error diagnostic correction.
@@ -44,7 +46,7 @@ These remain subject to `CURRENT_STATE.md`; this index does not independently ma
 - `docs/evidence/GEMINI_API_TEST_KEY_STANDING_DIRECTOR_AUTHORIZATION_2026_09_10.md` - historical narrower diagnostic authority retained for the calls it governed.
 - `docs/evidence/GEMINI_API_USAGE_LEDGER.md` - credential-free provider-use log and eventual key-retirement record.
 - `docs/evidence/E0A_Q_E0A_03_G35L_RUN03_PREEXECUTION_ACTIVATION_2026_09_10.md` - exact fresh Run 03 boundary, current public-provider recheck, native/local activation, zero-call preflight, and consumption-optimization rationale.
-- docs/evidence/E0A_Q_E0A_03_G35L_RUN03_TERMINAL_EVIDENCE_ANALYSIS_2026_09_10.md - sealed Run 03 analysis: 42 provider requests, six accepted turns, 21/21 generation successes, and terminal Interpreter semantic-contract mismatch.
+- `docs/evidence/E0A_Q_E0A_03_G35L_RUN03_TERMINAL_EVIDENCE_ANALYSIS_2026_09_10.md` - sealed Run 03 analysis: 42 provider requests, six accepted turns, 21/21 generation successes, and terminal Interpreter semantic-contract mismatch.
 - `docs/evidence/E0A_GEMINI_COUNTTOKENS_INPUT_PROJECTION_NATIVE_ARM64_VALIDATION_2026_09_09.md` — immediate predecessor native checkpoint for the corrected `countTokens` projection.
 - `docs/evidence/E0A_GEMINI35_ATTEMPT04_ARCHIVE_AUDIT_2026_09_09.md` — sealed Attempt-04 audit; first Performer `countTokens` rejected the former full-request projection before generation.
 - `docs/evidence/E0A_GEMINI35_THOUGHT_SIGNATURE_COMPATIBILITY_AUDIT.md` — current Gemini-3 compatibility evidence named by `CURRENT_STATE.md`.
