@@ -23,7 +23,7 @@ Run 04 activation: `docs/evidence/E0A_Q_E0A_03_G35L_RUN04_PREEXECUTION_ACTIVATIO
 Public lifecycle/thinking/pricing/Auth-key/rate-limit facts were rechecked on 2026-09-10 with no contrary signal. The Director-approved 3.5 snapshot remains reusable at 15 RPM / 250,000 input TPM / 500 RPD. Local exact-checkout build/fixture preflight and protected CurrentUser credential readiness pass. Preexecution provider consumption for Run 04: **0**.
 
 ## Continuity
-Q-E0E-PREP remains DONE; Q-E0E-RUN remains blocked through E0-A-D. Design authority remains separate. Administrator C0-C5 are DONE; C6 remains the next Administrator gate and does not change Engineering/provider authority.
+Q-E0E-PREP remains DONE; Q-E0E-RUN remains blocked through E0-A-D. Design authority remains separate. Administrator C0-C6 DONE; C7 Real local-evidence pilot is next; no Engineering/provider authority or provider traffic is authorized.
 
 ## Next
 Execute Run 04 exactly once only under its recorded boundary. Its own `countTokens` preflight is the first provider operation. Preserve any terminal result, seal evidence, update Gemini usage, and classify contribution. No replay/retry/fallback, no compatibility-only probe, and no 3.1/2.5 execution before this 3.5 full-reference boundary resolves.
