@@ -20,7 +20,7 @@ Run 07 ended after two accepted turns at Turn 3 Integrity HTTP 503 / `UNAVAILABL
 ## Continuity
 The Director approved Option A: exactly one fresh `gemini-3.5-flash-lite` Standard/Free full-candidate replacement under the unchanged 12-turn, one-attempt, zero-retry envelope and a hard one-replacement stop. This decision permits preregistration/activation only; traffic still requires a separately durable exact activation satisfying all current gates and standing Gemini authority.
 
-The 2.5 control remains outside Option A and cannot substitute. Paid/Priority/retry/provider/model changes remain unauthorized. Q-E0B-01 stays blocked. Q-E0E-PREP is DONE; Q-E0E-RUN remains blocked through E0-A-D. Design authority is separate. Administrator C0-C9 are DONE; C9A integrated; C10 falsified; C11+ blocked.
+The 2.5 control remains outside Option A and cannot substitute. Paid/Priority/retry/provider/model changes remain unauthorized. Q-E0B-01 stays blocked. Q-E0E-PREP is DONE; Q-E0E-RUN remains blocked through E0-A-D. Design authority is separate. Administrator C0-C9 are DONE; C9A amendment integrated but its current realization is uncommissioned after bounded timeout falsification; C10 falsified; C11+ blocked.
 
 ## Next
 Integrate the Option A decision record, then separately preregister/activate one fresh 3.5 Standard/Free replacement RunId/root. No provider call until that activation is integrated, post-merge Validation is green, and every current route/native/account/freshness/credential gate passes. No second Standard/Free replacement is earned if it terminates technically.
