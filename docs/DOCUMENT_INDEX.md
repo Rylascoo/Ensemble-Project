@@ -25,6 +25,7 @@ This index helps a fresh engineering chat find the small set of current entry su
 - `docs/blueprint/E0A_GEMINI_GENERATION_ERROR_DIAGNOSTIC_CORRECTION_AMENDMENT.md`
 - `docs/blueprint/E0A_GEMINI_GENERATECONTENT_STRUCTURED_OUTPUT_COMPATIBILITY_AMENDMENT.md` - live-falsified `responseFormat.text` correction to legacy GenerateContent `responseMimeType` + `responseJsonSchema`; native-validated at exact checkout `cef3fc15e31192a48aa3bddd99450b65a58bd8f1`.
 - `docs/blueprint/E0A_STATE_INTERPRETER_SEMANTIC_OUTPUT_ALIGNMENT_AMENDMENT.md` - Run 03 falsification response: expose the existing deterministic mutation-shape semantics to the Interpreter without weakening parser/schema/authority law; native-validated at exact checkout `e052ef4cdaf8ac7291971f8c42d121e1ee6eecf0`.
+- `docs/blueprint/E0A_ROLE_CONTROL_IDENTITY_ALIGNMENT_AMENDMENT.md` - Run 04 falsification response: expose exact canonical roster IDs to bounded Performer/Interpreter context and require case-sensitive reuse; native-validated at exact checkout `29b62a2e778d93c6727b555f58f8d22aa18665a1`.
 - `docs/blueprint/E0A_Q_E0A_03_REFERENCE_EVIDENCE_ACTIVATION_AND_CLOSURE_CONTRACT.md`
 
 These remain subject to `CURRENT_STATE.md`; this index does not independently mark a phase, checkpoint, provider route, or experiment executable.
@@ -33,7 +34,10 @@ These remain subject to `CURRENT_STATE.md`; this index does not independently ma
 
 - `docs/VALIDATION_LEDGER.md` — promoted validation facts and durable tags; cannot advance project state.
 - `docs/HYPOTHESIS_LEDGER.md` — current unverified/narrowed Gemini assumptions and verification triggers; never a decision source.
-- `docs/evidence/E0A_STATE_INTERPRETER_SEMANTIC_OUTPUT_ALIGNMENT_NATIVE_ARM64_VALIDATION_2026_09_10.md` - current promoted native Windows ARM64 evidence for exact executable `e052ef4cdaf8ac7291971f8c42d121e1ee6eecf0`.
+- `docs/evidence/E0A_ROLE_CONTROL_IDENTITY_ALIGNMENT_NATIVE_ARM64_VALIDATION_2026_09_10.md` - current promoted native Windows ARM64 evidence for exact executable `29b62a2e778d93c6727b555f58f8d22aa18665a1`.
+- `docs/evidence/E0A_ROLE_CONTROL_IDENTITY_ALIGNMENT_IMPLEMENTATION_AUDIT_2026_09_10.md` - recursive source/test audit for the Run 04 canonical control-ID interface correction.
+- `docs/evidence/E0A_Q_E0A_03_G35L_RUN04_TERMINAL_EVIDENCE_ANALYSIS_2026_09_10.md` - sealed Run 04 analysis: two provider requests, zero accepted turns, and deterministic rejection of display-style Performer control IDs.
+- `docs/evidence/E0A_STATE_INTERPRETER_SEMANTIC_OUTPUT_ALIGNMENT_NATIVE_ARM64_VALIDATION_2026_09_10.md` - immediate predecessor native Windows ARM64 evidence for exact executable `e052ef4cdaf8ac7291971f8c42d121e1ee6eecf0`.
 - `docs/evidence/E0A_STATE_INTERPRETER_SEMANTIC_OUTPUT_ALIGNMENT_IMPLEMENTATION_AUDIT_2026_09_10.md` - recursive source/test audit for the Run 03 Interpreter semantic-output guidance correction.
 - `docs/evidence/E0A_GEMINI_STRUCTURED_OUTPUT_COMPATIBILITY_NATIVE_ARM64_VALIDATION_2026_09_10.md` - immediate predecessor native Windows ARM64 checkpoint at exact executable `cef3fc15e31192a48aa3bddd99450b65a58bd8f1`.
 - `docs/evidence/E0A_GEMINI_STRUCTURED_OUTPUT_COMPATIBILITY_IMPLEMENTATION_AUDIT_2026_09_10.md` - source/test audit for the legacy GenerateContent structured-output correction.
@@ -62,7 +66,7 @@ Historical attempt, diagnostic, and superseded validation records remain evidenc
 
 There is **no live `docs/handoff/...` transition artifact** at current `main`. A handoff is live only when `CURRENT_STATE.md` names its exact path. `docs/handoff/` currently retains only its lifecycle README.
 
-The current consequential engineering gate is defined by `CURRENT_STATE.md`, the Q-E0A-03 closure contract, the Run 04 preexecution activation record, and the current standing Gemini project-use authorization. Run 03 remains immutable/noncontributing; the Interpreter semantic-output alignment is native-validated and integrated. This navigation index intentionally defers the exact Run 04 provider-execution boundary to `CURRENT_STATE.md` and its named activation evidence rather than duplicating volatile provider state.
+The current consequential engineering gate is defined by `CURRENT_STATE.md`, the Q-E0A-03 closure contract, Run 04 terminal evidence, and the native-validated role control-identity correction. Runs 03/04 are immutable/noncontributing. Provider traffic remains zero until the `29b62a2...` package is integrated through hosted CI; any later 3.5 execution requires a fresh preregistered RunId under standing authority.
 
 Parallel E0-E preparation is closed; `docs/evidence/E0E_SINGLE_MODEL_PLAYWRIGHT_CONTROL_PREPARATION_CLOSEOUT_AUDIT_2026_09_09.md` records that preparation result. E0-E execution remains blocked by the frozen E0 order and the execution queue.
 

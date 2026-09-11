@@ -86,6 +86,12 @@ public sealed class E0ASpendAndRequestTests
         var content = root.GetProperty("contents")[0];
         Assert.AreEqual("user", content.GetProperty("role").GetString());
         Assert.AreEqual(JsonValueKind.String, content.GetProperty("parts")[0].GetProperty("text").ValueKind);
+        var userData = content.GetProperty("parts")[0].GetProperty("text").GetString()
+            ?? throw new AssertFailedException("Performer request data is missing.");
+        using var dataDocument = JsonDocument.Parse(userData);
+        var rosterCharacterIds = dataDocument.RootElement.GetProperty("context").GetProperty("rosterCharacterIds")
+            .EnumerateArray().Select(x => x.GetString()).ToArray();
+        CollectionAssert.AreEqual(context.Roster.Select(x => x.CharacterId.Value).ToArray(), rosterCharacterIds);
         Assert.IsFalse(root.GetProperty("store").GetBoolean());
 
         var generation = root.GetProperty("generationConfig");
@@ -102,6 +108,17 @@ public sealed class E0ASpendAndRequestTests
         Assert.IsFalse(root.TryGetProperty("previous_response_id", out _));
         Assert.IsFalse(generation.TryGetProperty("temperature", out _));
         Assert.IsFalse(generation.TryGetProperty("topP", out _));
+    }
+
+    [TestMethod]
+    public void PerformerInstructions_ExposeExactCanonicalControlIdLaw()
+    {
+        var instructions = E0APromptContracts.PerformerInstructions;
+
+        StringAssert.Contains(instructions, "exact case-sensitive canonical IDs copied from context.rosterCharacterIds");
+        StringAssert.Contains(instructions, "never use display names or alter capitalization");
+        StringAssert.Contains(instructions, "Do not address or nominate the subject Character");
+        StringAssert.Contains(instructions, "addressedCharacterIds must contain no duplicates");
     }
 
     [TestMethod]
@@ -153,6 +170,32 @@ public sealed class E0ASpendAndRequestTests
     }
 
     [TestMethod]
+    public void InterpreterRequest_ExposesExactCanonicalRosterIds()
+    {
+        var envelope = E0ARunEnvelope.CreativeNone(E0ATestSupport.Pricing());
+        var cycle = E0ATestSupport.Cycle();
+        var context = DeterministicE0CausalCycle.ComposeContext(cycle).ContextEvaluation.Packet;
+        var candidate = E0ATestSupport.Candidate(context, "Original candidate.");
+        var ready = E0ATestSupport.Ready(cycle, "Original candidate.");
+        var attempt = E0ARequestBuilder.Interpreter(
+            RunId.From("E0A-INTERPRETER-ROSTER-IDS"),
+            1,
+            envelope.Interpreter,
+            context,
+            candidate,
+            ready.InterpretationSource!);
+
+        using var document = JsonDocument.Parse(attempt.RequestBody);
+        var userData = document.RootElement.GetProperty("contents")[0].GetProperty("parts")[0].GetProperty("text").GetString()
+            ?? throw new AssertFailedException("Interpreter request data is missing.");
+        using var dataDocument = JsonDocument.Parse(userData);
+        var rosterCharacterIds = dataDocument.RootElement.GetProperty("context").GetProperty("rosterCharacterIds")
+            .EnumerateArray().Select(x => x.GetString()).ToArray();
+
+        CollectionAssert.AreEqual(context.Roster.Select(x => x.CharacterId.Value).ToArray(), rosterCharacterIds);
+    }
+
+    [TestMethod]
     public void InterpreterInstructions_ExposeDeterministicMutationShapeLaw()
     {
         var instructions = E0APromptContracts.InterpreterInstructions;
@@ -160,6 +203,8 @@ public sealed class E0ASpendAndRequestTests
         StringAssert.Contains(instructions, "worldState, sceneState, unresolvedProposition, and pressure require null subjectCharacterId and targetCharacterId");
         StringAssert.Contains(instructions, "Character domains require a roster subjectCharacterId and null targetCharacterId");
         StringAssert.Contains(instructions, "Relationship is the only shape that permits a non-null targetCharacterId");
+        StringAssert.Contains(instructions, "exact case-sensitive canonical ID copied from context.rosterCharacterIds");
+        StringAssert.Contains(instructions, "never use display names or alter capitalization");
         StringAssert.Contains(instructions, "characterKnowledge, characterMemory, and characterClaim support add only");
         StringAssert.Contains(instructions, "characterClaim subjectCharacterId must equal the supplied Candidate subject Character");
         StringAssert.Contains(instructions, "For add use null existingRecordId and non-empty text");

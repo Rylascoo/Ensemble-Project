@@ -6,31 +6,31 @@ Status: validation fact register only. This file cannot advance phase/checkpoint
 
 | Field | Fact |
 |---|---|
-| Exact checkout | `e052ef4cdaf8ac7291971f8c42d121e1ee6eecf0` |
-| Annotated tag | `validation/e0a-state-interpreter-semantic-output-alignment-native-arm64` |
-| Tag object | `a6402b32f4840ee218365dec4b285197bd72548b`; annotated tag verified to peel to the exact checkout above |
-| Architecture | `docs/blueprint/E0A_STATE_INTERPRETER_SEMANTIC_OUTPUT_ALIGNMENT_AMENDMENT.md` |
-| Correction | Interpreter instructions now expose the deterministic mutation-shape law already enforced by `StateInterpretationContract`; parser acceptance, provider JSON Schema, Fixture/Core semantics, provider controls, and accepted-turn law remain unchanged |
-| Native evidence | `docs/evidence/E0A_STATE_INTERPRETER_SEMANTIC_OUTPUT_ALIGNMENT_NATIVE_ARM64_VALIDATION_2026_09_10.md` |
-| Supporting implementation audit | `docs/evidence/E0A_STATE_INTERPRETER_SEMANTIC_OUTPUT_ALIGNMENT_IMPLEMENTATION_AUDIT_2026_09_10.md` |
-| Triggering provider evidence | `docs/evidence/E0A_Q_E0A_03_G35L_RUN03_TERMINAL_EVIDENCE_ANALYSIS_2026_09_10.md`; `docs/evidence/E0A_Q_E0A_03_G35L_RUN02_TERMINAL_EVIDENCE_ANALYSIS_2026_09_10.md`; `docs/evidence/E0A_Q_E0A_03_G35L_RUN01_TERMINAL_EVIDENCE_ANALYSIS_2026_09_10.md`; `docs/evidence/E0A_GEMINI35_STRUCTURED_OUTPUT_COMPATIBILITY_DIAGNOSTIC_2026_09_10.md` |
+| Exact checkout | `29b62a2e778d93c6727b555f58f8d22aa18665a1` |
+| Annotated tag | `validation/e0a-role-control-identity-alignment-native-arm64` |
+| Tag object | `f6080e37df44737b3053fa8237b95bdc2cc0508c`; verified to peel to the exact checkout above |
+| Architecture | `docs/blueprint/E0A_ROLE_CONTROL_IDENTITY_ALIGNMENT_AMENDMENT.md` |
+| Correction | Bounded Performer/Interpreter context now exposes canonical `rosterCharacterIds`; typed Character-ID output must reuse exact case-sensitive roster IDs. Deterministic parsers, Core authority, Fixture, schemas, provider controls, and accepted-turn law remain unchanged. |
+| Native evidence | `docs/evidence/E0A_ROLE_CONTROL_IDENTITY_ALIGNMENT_NATIVE_ARM64_VALIDATION_2026_09_10.md` |
+| Supporting implementation audit | `docs/evidence/E0A_ROLE_CONTROL_IDENTITY_ALIGNMENT_IMPLEMENTATION_AUDIT_2026_09_10.md` |
+| Triggering provider evidence | `docs/evidence/E0A_Q_E0A_03_G35L_RUN04_TERMINAL_EVIDENCE_ANALYSIS_2026_09_10.md`; `docs/evidence/E0A_Q_E0A_03_G35L_RUN03_TERMINAL_EVIDENCE_ANALYSIS_2026_09_10.md`; `docs/evidence/E0A_Q_E0A_03_G35L_RUN02_TERMINAL_EVIDENCE_ANALYSIS_2026_09_10.md`; `docs/evidence/E0A_Q_E0A_03_G35L_RUN01_TERMINAL_EVIDENCE_ANALYSIS_2026_09_10.md`; `docs/evidence/E0A_GEMINI35_STRUCTURED_OUTPUT_COMPATIBILITY_DIAGNOSTIC_2026_09_10.md` |
 | Director-host contract | `docs/evidence/DIRECTOR_WINDOWS_ARM64_VALIDATION_HOST_BEHAVIORS.md` |
-| Host | Director Windows ARM64 (`win-arm64`), SDK `9.0.317` explicitly selected because unpinned host default is now SDK 10.0.400 |
+| Host | Director Windows ARM64 (`win-arm64`), repository-selected SDK `9.0.317` |
 | Core tests | 622/622 PASS |
-| Harness tests | 135/135 PASS |
+| Harness tests | 137/137 PASS |
 | Fresh Harness build | `net9.0/win-arm64` Debug PASS; zero warnings/errors |
 | Fixture smokes | Missing Raft PASS with canonical Fixture validation; generic PASS |
-| Current credentialless live-profile gate | 3.5 Lite, 3.1 Lite, 2.5 Lite exact missing-key refusal PASS; no evidence roots |
-| Retired 2.5 Flash live selection | exact pre-credential rejection PASS; no evidence root |
-| Repository checks | repository-law PASS; document census PASS with 0 unexplained current; oracle guard PASS at the same short-path exact checkout, 100 documented / 17 asserted / 83 document-only hashes |
-| Provider scope | network / `countTokens` / generation / inference / spend NOT PERFORMED during validation; standing project-use authority is separate and does not convert validation into provider evidence |
+| Credentialless provider-edge gate | 3.5 Lite, 3.1 Lite, 2.5 Lite exact missing-key refusal PASS; retired 2.5 Flash exact pre-credential rejection PASS; no evidence roots |
+| Repository checks | repository-law PASS; document census PASS with 0 unexplained current; oracle guard PASS at exact checkout, 104 documented / 17 asserted / 87 document-only hashes |
+| Provider scope | network / `countTokens` / generation / inference / spend NOT PERFORMED during validation |
 
-Native runtime authority applies only to exact checkout `e052ef4cdaf8ac7291971f8c42d121e1ee6eecf0`. Documentation-only commits after it do not inherit machine-test authority. Cloud ARM64-target builds remain compiler authority only; Linux x64 Core tests remain required semantic regressions, not native Windows ARM64 runtime authority.
-
+Native runtime authority applies only to exact checkout `29b62a2e778d93c6727b555f58f8d22aa18665a1`. Documentation-only and integration commits do not inherit machine-test authority. Cloud ARM64-target builds remain compiler authority only; Linux x64 Core tests remain semantic regressions, not native Windows ARM64 runtime authority.
 ## Current validation ancestry
 
-The promoted State Interpreter semantic-output alignment checkpoint depends on and supersedes, but does not erase, the accepted validation ancestry below:
+The promoted role control-identity alignment checkpoint depends on and supersedes, but does not erase, the accepted validation ancestry below:
 
+- State Interpreter semantic-output alignment native validation: `docs/evidence/E0A_STATE_INTERPRETER_SEMANTIC_OUTPUT_ALIGNMENT_NATIVE_ARM64_VALIDATION_2026_09_10.md` at `e052ef4cdaf8ac7291971f8c42d121e1ee6eecf0`;
+- State Interpreter semantic-output alignment implementation audit: `docs/evidence/E0A_STATE_INTERPRETER_SEMANTIC_OUTPUT_ALIGNMENT_IMPLEMENTATION_AUDIT_2026_09_10.md`;
 - Gemini structured-output compatibility native validation: `docs/evidence/E0A_GEMINI_STRUCTURED_OUTPUT_COMPATIBILITY_NATIVE_ARM64_VALIDATION_2026_09_10.md` at `cef3fc15e31192a48aa3bddd99450b65a58bd8f1`;
 - Gemini structured-output compatibility implementation audit: `docs/evidence/E0A_GEMINI_STRUCTURED_OUTPUT_COMPATIBILITY_IMPLEMENTATION_AUDIT_2026_09_10.md`;
 - Gemini generation-error diagnostic native validation: `docs/evidence/E0A_GEMINI_GENERATION_ERROR_DIAGNOSTIC_NATIVE_ARM64_VALIDATION_2026_09_10.md` at `7868e5cb12a27260e288d95c248d6f846cf37701`;
