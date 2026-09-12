@@ -6,11 +6,11 @@ Updated: 2026-09-12
 `Rylascoo/Ensemble-Project` is Engineering authority. This file alone owns phase/checkpoint/validation/next action. Bootstrap: `AGENTS.md`; authority: `docs/PROJECT_AUTHORITY.md`; sequencing: `docs/PROJECT_EXECUTION_QUEUE.md`.
 
 ## Checkpoint
-Runtime **E0 experimental program — Q-E0B-01 mixed-model cast**. Q-E0A-01/02/03/04 are **DONE**. Q-E0B-01 is **ACTIVE — E0B-MIXED-CAST-01 implemented and native-validated; integration is next**. Provider traffic is **BLOCKED**.
+Runtime **E0 experimental program — Q-E0B-01 mixed-model cast**. Q-E0A-01/02/03/04 are **DONE**. Q-E0B-01 is **ACTIVE — E0B-MIXED-CAST-01 integrated; exact live-run activation is next**. Provider traffic is **BLOCKED**.
 
 Run 08 `E0A-Q03-G35L-20260911-08` is the Director-selected E0-A reference. Descriptor: `docs/evidence/E0A_Q_E0A_03_RUN08_SELECTED_REFERENCE_DESCRIPTOR_2026_09_11.json`; closure: `docs/evidence/E0A_Q_E0A_03_REFERENCE_EVIDENCE_CLOSURE_AUDIT_2026_09_11.md`.
 
-E0-B method: `docs/blueprint/E0B_MIXED_MODEL_CAST_METHOD_PROPOSAL_01.md`; decision: `docs/evidence/E0B_Q_E0B_01_MIXED_CAST_DIRECTOR_DECISION_2026_09_12.md`; implementation audit: `docs/evidence/E0B_MIXED_CAST_IMPLEMENTATION_AUDIT_2026_09_12.md`; native validation: `docs/evidence/E0B_MIXED_CAST_NATIVE_ARM64_VALIDATION_2026_09_12.md`.
+E0-B method: `docs/blueprint/E0B_MIXED_MODEL_CAST_METHOD_PROPOSAL_01.md`; decision: `docs/evidence/E0B_Q_E0B_01_MIXED_CAST_DIRECTOR_DECISION_2026_09_12.md`; implementation audit: `docs/evidence/E0B_MIXED_CAST_IMPLEMENTATION_AUDIT_2026_09_12.md`; native validation: `docs/evidence/E0B_MIXED_CAST_NATIVE_ARM64_VALIDATION_2026_09_12.md`; integration closeout: `docs/evidence/E0B_MIXED_CAST_IMPLEMENTATION_INTEGRATION_CLOSEOUT_2026_09_12.md`.
 
 ## Validation / evidence
 Native executable authority is `d1073fe2c76e2e05f2daac47465f86b48b456a9a`; tag `validation/e0b-mixed-cast-implementation-native-arm64`; tag object `f7eadb838c4e01d9b4a01d17ff20b8d938046b03`. Native ARM64 Core **622/622**, Harness **147/147**; Release Harness build 0 warnings/errors; canonical + generic fixture smokes PASS; credentialless fixed `e0b-run` reaches the missing-key edge with no evidence root/network. Core diff is zero.
@@ -23,4 +23,4 @@ The validated E0-B Harness hard-pins VOSS Performer to Gemini 3.1 Flash-Lite Min
 Q-E0C-01 remains blocked on E0-B closure. Q-E0E-PREP is DONE; Q-E0E-RUN remains blocked through E0-B/C/D. Design authority is separate. Administrator C0-C9 are DONE; C9A R1/R2 remain uncommissioned after bounded timeout falsifications, with no same-realization retry authorized; C10 falsified; C11+ blocked.
 
 ## Next
-Integrate the exact native-validated E0-B implementation through hosted CI. After green post-merge validation, construct a separate exact live-run activation with fresh provider/model/pricing/data-use and authenticated project/tier/quota/capacity gates. Do not access credentials or send provider traffic before that activation is durable.
+Construct the exact E0-B live-run activation binding the validated executable, fresh RunId/root, frozen blind rubric, current provider/model/pricing/data-use facts, protected credential readiness, and authenticated project/tier/quota/capacity for both routes. No credential access or provider traffic before durable activation.
