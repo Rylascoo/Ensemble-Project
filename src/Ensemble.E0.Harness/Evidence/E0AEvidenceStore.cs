@@ -15,6 +15,8 @@ internal static class E0AEvidenceContracts
     internal const string GeminiApprovedAmendmentCommit = "76fc0c64da4724a7a352a656a062d5c3ed431ad6";
     internal const string GeminiRpdModelSelectionAmendment = "E0A_PHASE_B_GEMINI_FREE_TIER_RPD_MODEL_SELECTION_AMENDMENT";
     internal const string GeminiRpdModelSelectionApprovedCommit = "825309e4ad0e9e207136aa6b20fd31925e814172";
+    internal const string E0BMixedCastMethod = "E0B_MIXED_MODEL_CAST_METHOD_PROPOSAL_01";
+    internal const string E0BMixedCastApprovedCommit = "ba02d1689680d8492a4c52675e7aba91935fd2dd";
     internal const string HardGateChecklistVersion = "ensemble.e0a.hard-gates.v1";
     internal const string MandatoryReviewResolution = "deterministic-reject-all";
 
@@ -102,7 +104,8 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
         string fixtureVersion,
         string fixtureHash,
         string executableCommit,
-        IReadOnlyList<CharacterId> roster)
+        IReadOnlyList<CharacterId> roster,
+        E0BMixedCastConfiguration? mixedCast = null)
     {
         if (string.IsNullOrWhiteSpace(root))
         {
@@ -120,6 +123,7 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
         ArgumentNullException.ThrowIfNull(roster);
         E0ADeterministicIds.ValidateRunId(runId);
         envelope.Validate();
+        mixedCast?.Validate(envelope);
         if (roster.Count != 3)
         {
             throw new E0AHarnessException("E0-A evidence roster must contain exactly three Characters.");
@@ -148,12 +152,16 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
 
         WriteNew("manifest.json", new
         {
-            contract = "ensemble.e0a.run-manifest.v1",
+            contract = mixedCast is null ? "ensemble.e0a.run-manifest.v1" : "ensemble.e0b.run-manifest.v1",
             runId = runId.Value,
             frozenBlueprintVersion = E0AEvidenceContracts.FrozenBlueprintVersion,
-            referenceEnvelopeBlueprint = E0AEvidenceContracts.ReferenceEnvelopeBlueprintFor(envelope),
-            approvedBlueprintCommit = E0AEvidenceContracts.ApprovedBlueprintCommitFor(envelope),
-            referenceConfigurationIdentity = E0AEvidenceContracts.ReferenceConfigurationIdentity(envelope),
+            referenceEnvelopeBlueprint = mixedCast is null
+                ? E0AEvidenceContracts.ReferenceEnvelopeBlueprintFor(envelope)
+                : E0AEvidenceContracts.E0BMixedCastMethod,
+            approvedBlueprintCommit = mixedCast is null
+                ? E0AEvidenceContracts.ApprovedBlueprintCommitFor(envelope)
+                : E0AEvidenceContracts.E0BMixedCastApprovedCommit,
+            referenceConfigurationIdentity = mixedCast?.ConditionId ?? E0AEvidenceContracts.ReferenceConfigurationIdentity(envelope),
             hardGateChecklistVersion = E0AEvidenceContracts.HardGateChecklistVersion,
             hardGateChecklist = E0AEvidenceContracts.HardGateChecklist,
             fixtureId,
@@ -161,14 +169,17 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
             fixtureHash,
             executableCommit,
             variant = envelope.Variant,
-            providerProfileId = envelope.ProviderProfileId,
+            conditionId = mixedCast?.ConditionId,
+            providerProfileId = mixedCast is null ? envelope.ProviderProfileId : null,
+            referenceProviderProfileId = mixedCast is null ? null : envelope.ProviderProfileId,
+            performerCast = PerformerCastManifest(mixedCast),
             acceptedTurnCap = envelope.RunAcceptedTurnCap,
             attemptsPerRoleInvocation = E0ARunEnvelope.AttemptsPerRoleInvocation,
             automaticRetries = E0ARunEnvelope.AutomaticRetries,
             attemptTimeoutSeconds = E0ARunEnvelope.AttemptTimeoutSeconds,
             estimatedSpendCeilingUsd = E0ARunEnvelope.EstimatedSpendCeilingUsd,
-            pricing = PricingManifest(envelope),
-            providerTransport = ProviderTransportManifest(envelope),
+            pricing = mixedCast is null ? PricingManifest(envelope) : MixedPricingManifest(mixedCast),
+            providerTransport = mixedCast is null ? ProviderTransportManifest(envelope) : MixedProviderTransportManifest(mixedCast),
             stateAuthority = new
             {
                 autoApproveDomains = envelope.AutoApproveDomains.Select(x => x.ToString()).ToArray(),
@@ -180,7 +191,13 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
                 processArchitecture = RuntimeInformation.ProcessArchitecture.ToString(),
                 frameworkDescription = RuntimeInformation.FrameworkDescription
             },
-            roles = new[]
+            roles = mixedCast is null ? new[]
+            {
+                RoleManifest(envelope.Performer),
+                RoleManifest(envelope.Integrity),
+                RoleManifest(envelope.Interpreter)
+            } : null,
+            referenceRoles = mixedCast is null ? null : new[]
             {
                 RoleManifest(envelope.Performer),
                 RoleManifest(envelope.Integrity),
@@ -391,6 +408,50 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
         _evaluationSealed = true;
     }
 
+    private static object? PerformerCastManifest(E0BMixedCastConfiguration? mixedCast)
+    {
+        if (mixedCast is null)
+        {
+            return null;
+        }
+        return mixedCast.PerformerCast.Select(entry =>
+        {
+            var model = mixedCast.ModelFor(entry.Value);
+            return new
+            {
+                characterId = entry.Key,
+                providerProfileId = model.ProfileId,
+                requestedModel = model.Model,
+                role = RoleManifest(entry.Value)
+            };
+        }).ToArray();
+    }
+
+    private static object MixedPricingManifest(E0BMixedCastConfiguration mixedCast)
+    {
+        ArgumentNullException.ThrowIfNull(mixedCast);
+        return new
+        {
+            sourceUri = E0AGeminiPricingPolicy.SourceUri,
+            verifiedOn = E0AGeminiPricingPolicy.VerifiedOn,
+            snapshotValidThrough = E0AGeminiPricingPolicy.SnapshotValidThrough,
+            actualRouteBillingExpectation = "ai-studio-free-tier-verified-synthetic-fixture-only",
+            shadowEstimateOnly = true,
+            accountingMethod = "per-attempt-selected-route-paid-shadow-rate; all-reported-input-uncached; output-includes-thinking",
+            totalRunCeilingUsd = E0ARunEnvelope.EstimatedSpendCeilingUsd,
+            routes = mixedCast.Routes.Select(model => new
+            {
+                providerProfileId = model.ProfileId,
+                requestedModel = model.Model,
+                publishedInputUsdPerMillionTokens = model.PublishedPaidInputUsdPerMillionTokens,
+                publishedCachedInputUsdPerMillionTokens = model.PublishedPaidCachedInputUsdPerMillionTokens,
+                publishedOutputUsdPerMillionTokens = model.PublishedPaidOutputUsdPerMillionTokens,
+                modelInputTokenLimit = model.ModelInputTokenLimit,
+                modelOutputTokenLimit = model.ModelOutputTokenLimit
+            }).ToArray()
+        };
+    }
+
     private static object PricingManifest(E0ARunEnvelope envelope)
     {
         ArgumentNullException.ThrowIfNull(envelope);
@@ -413,6 +474,40 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
             inputUsdPerMillionTokens = envelope.Pricing.InputUsdPerMillionTokens,
             cachedInputUsdPerMillionTokens = envelope.Pricing.CachedInputUsdPerMillionTokens,
             outputUsdPerMillionTokens = envelope.Pricing.OutputUsdPerMillionTokens
+        };
+    }
+
+    private static object MixedProviderTransportManifest(E0BMixedCastConfiguration mixedCast)
+    {
+        ArgumentNullException.ThrowIfNull(mixedCast);
+        var routes = mixedCast.Routes;
+        return new
+        {
+            api = "generateContent/streamGenerateContent",
+            inputTokenCounter = "models.countTokens(generateContentRequest)",
+            requestStore = false,
+            serviceTier = E0AGeminiProviderPolicy.ServiceTier,
+            serviceTierRequestField = "omitted-provider-default-standard",
+            explicitCacheObject = false,
+            implicitCachingProviderManaged = true,
+            intendedGeneratedTokenCeiling = E0AGeminiProviderPolicy.IntendedGeneratedTokenCeiling,
+            routes = routes.Select(model => new
+            {
+                providerProfileId = model.ProfileId,
+                requestedModel = model.Model,
+                requestsPerMinute = model.RequestsPerMinute,
+                inputTokensPerMinute = model.InputTokensPerMinute,
+                requestsPerDay = model.RequestsPerDay,
+                acceptedTurnCap = model.AcceptedTurnCap
+            }).ToArray(),
+            sharedProjectRequestsPerMinute = routes.Min(x => x.RequestsPerMinute),
+            sharedProjectInputTokensPerMinute = routes.Min(x => x.InputTokensPerMinute),
+            conservativeProviderRequestsPerAcceptedTurn = E0AGeminiModelCatalog.ConservativeProviderRequestsPerAcceptedTurn,
+            worstCaseRunProviderRequests = checked(E0ARunEnvelope.AcceptedTurnCap * E0AGeminiModelCatalog.ConservativeProviderRequestsPerAcceptedTurn),
+            rpdAdmissionPolicy = "route-specific-countTokens-and-generation-counts-plus-pre-run-current-capacity-gate",
+            rateDisciplineScope = "route-specific-plus-shared-gemini-project-aggregate",
+            rateDisciplineShape = "smooth-rpm-plus-exact-generation-input-tpm",
+            rateSnapshotVerifiedOn = "2026-09-12-pre-run-refresh-required"
         };
     }
 

@@ -169,12 +169,14 @@ internal sealed class ScriptedProvider : IE0AProviderRolePort
 
     internal int Calls { get; private set; }
     internal List<E0ARole> Roles { get; } = new();
+    internal List<PreparedRoleAttempt> Attempts { get; } = new();
 
     public Task<RoleAttemptReceipt> ExecuteAsync(PreparedRoleAttempt attempt, IE0AProviderDiagnosticSink diagnostics, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
         Calls++;
         Roles.Add(attempt.Profile.Role);
+        Attempts.Add(attempt);
         return Task.FromResult(_script(attempt, Calls));
     }
 
