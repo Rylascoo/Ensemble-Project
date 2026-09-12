@@ -20,7 +20,7 @@ Run 08: 12/12 accepted turns, 36/36 exact-model generations, 72 provider operati
 ## Continuity
 Runs 01-07 remain immutable/noncontributing. Run 08 is the sole contributing full candidate and selected E0-A reference; no two-candidate blind comparison applies. Run 09 remains visible as failed 2.5 control evidence and does not invalidate Run 08 under the frozen closure law.
 
-Q-E0E-PREP is DONE; Q-E0E-RUN remains blocked through E0-B/C/D. Design authority is separate. Administrator C0-C9 are DONE; C9A R1 is uncommissioned, one R2 corrected attempt is authorized/unconsumed; C10 falsified; C11+ blocked.
+Q-E0B-01 remains blocked until Q-E0A-03 closes. Q-E0E-PREP is DONE; Q-E0E-RUN remains blocked through E0-A-D. Design authority is separate. Administrator C0-C9 are DONE; C9A R1/R2 are uncommissioned after bounded timeout falsifications, with no same-realization retry authorized; C10 falsified; C11+ blocked.
 
 ## Next
 Begin Q-E0B-01 from the sealed Run 08 reference descriptor. Perform only the current non-provider preparation/audit needed to activate E0-B; do not use credentials or send provider traffic until a separate current E0-B activation and applicable Director/provider authority are durable. Preserve the frozen E0 experiment order A -> B -> C -> D -> E -> F -> G.
