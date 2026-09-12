@@ -78,10 +78,11 @@ def make_full_fixture(parent: Path, name: str, remote: Path, source_head: str) -
 
 def skill_contracts() -> None:
     actual = sorted(path.name for path in (ROOT / ".agents" / "skills").iterdir() if path.is_dir())
-    if actual != sorted(REQUIRED_SKILLS):
-        raise AssertionError(f"unexpected Skill set: {actual}")
+    missing = sorted(set(REQUIRED_SKILLS) - set(actual))
+    if missing:
+        raise AssertionError(f"required initial Skills missing: {missing}")
     forbidden = ("`git fetch", "`git push", "`git merge", "`git reset", "`git clean", "`git checkout", "`git switch")
-    for name in REQUIRED_SKILLS:
+    for name in actual:
         text = (ROOT / ".agents" / "skills" / name / "SKILL.md").read_text(encoding="utf-8")
         if not text.startswith("---\n") or f"name: {name}\n" not in text or "description:" not in text:
             raise AssertionError(f"invalid frontmatter: {name}")
@@ -204,7 +205,11 @@ def authority_recovery_fixture(measure, parent: Path, remote: Path, source_head:
 
 
 def closeout_fixture(measure, parent: Path, remote: Path, source_head: str) -> None:
-    repo, _, baseline = make_full_fixture(parent, "closeout", remote, source_head)
+    repo, _, _ = make_full_fixture(parent, "closeout", remote, source_head)
+    # Make fixture law-independent from the live repository's current state-distance.
+    state = repo / "CURRENT_STATE.md"
+    state.write_text(state.read_text(encoding="utf-8") + "\n<!-- C3 fixture freshness baseline -->\n", encoding="utf-8")
+    baseline = commit(repo, "C3 fixture freshness baseline")
     readme = repo / "README.md"
     readme.write_text(readme.read_text(encoding="utf-8") + "\nC3 closeout fixture.\n", encoding="utf-8")
     harmless = commit(repo, "C3 harmless closeout fixture")
@@ -217,7 +222,6 @@ def closeout_fixture(measure, parent: Path, remote: Path, source_head: str) -> N
     if dirty["pass"] or dirty["worktree_clean"]:
         raise AssertionError(f"dirty worktree closeout was accepted: {dirty}")
     git(repo, "restore", "README.md")
-    state = repo / "CURRENT_STATE.md"
     state.write_text(state.read_text(encoding="utf-8") + "\n<!-- C3 closeout authority fixture -->\n", encoding="utf-8")
     protected_head = commit(repo, "C3 protected closeout fixture")
     blocked = measure.commissioning_closeout(repo, harmless, protected_head, set())
