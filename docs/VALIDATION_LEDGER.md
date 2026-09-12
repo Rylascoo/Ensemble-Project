@@ -6,25 +6,24 @@ Status: validation fact register only. This file cannot advance phase/checkpoint
 
 | Field | Fact |
 |---|---|
-| Exact checkout | `bb869fb1c505603612bc718f739b3f1b358e5539` |
-| Annotated tag | `validation/e0a-gemini-technical-failure-diagnostic-classification-native-arm64` |
-| Tag object | `c4ff8dc4b9ebd31674208f4ba9c958d50fc975d5`; verified to peel to the exact checkout above |
-| Architecture | `docs/blueprint/E0A_GEMINI_TECHNICAL_FAILURE_DIAGNOSTIC_CLASSIFICATION_AMENDMENT.md` |
-| Correction | Gemini caught technical failures remain fail-closed but now preserve bounded exception-class diagnostics for HTTP transport, response I/O, malformed JSON, malformed UTF-8, and defensive numeric overflow. No exception message/body, provider semantics, parser/Core authority, fixture, retry/fallback, rate/spend, or accepted-turn law changed. |
-| Native evidence | `docs/evidence/E0A_GEMINI_TECHNICAL_FAILURE_DIAGNOSTIC_CLASSIFICATION_NATIVE_ARM64_VALIDATION_2026_09_10.md` |
-| Supporting implementation audit | `docs/evidence/E0A_GEMINI_TECHNICAL_FAILURE_DIAGNOSTIC_CLASSIFICATION_IMPLEMENTATION_AUDIT_2026_09_10.md` |
-| Triggering provider evidence | `docs/evidence/E0A_Q_E0A_03_G35L_RUN05_TERMINAL_EVIDENCE_ANALYSIS_2026_09_10.md` |
-| Director-host contract | `docs/evidence/DIRECTOR_WINDOWS_ARM64_VALIDATION_HOST_BEHAVIORS.md` |
+| Exact checkout | `d1073fe2c76e2e05f2daac47465f86b48b456a9a` |
+| Annotated tag | `validation/e0b-mixed-cast-implementation-native-arm64` |
+| Tag object | `f7eadb838c4e01d9b4a01d17ff20b8d938046b03`; verified to peel to the exact checkout above |
+| Architecture | `docs/blueprint/E0B_MIXED_MODEL_CAST_METHOD_PROPOSAL_01.md` |
+| Implementation | Fixed `E0B-MIXED-CAST-01`: VOSS Performer uses Gemini 3.1 Flash-Lite Minimal; MARLOWE/WREN Performers remain Gemini 3.5 Flash-Lite Minimal; Integrity remains 3.5 High; Interpreter remains 3.5 Minimal. Per-route identity/quota/pricing and conservative shared-project pacing are explicit; Core is unchanged. |
+| Native evidence | `docs/evidence/E0B_MIXED_CAST_NATIVE_ARM64_VALIDATION_2026_09_12.md` |
+| Supporting implementation audit | `docs/evidence/E0B_MIXED_CAST_IMPLEMENTATION_AUDIT_2026_09_12.md` |
+| Director decision | `docs/evidence/E0B_Q_E0B_01_MIXED_CAST_DIRECTOR_DECISION_2026_09_12.md` |
 | Host | Director Windows ARM64 (`win-arm64`), repository-selected SDK `9.0.317` |
 | Core tests | 622/622 PASS |
-| Harness tests | 140/140 PASS |
-| Fresh Harness build | `net9.0/win-arm64` Debug PASS; zero warnings/errors |
+| Harness tests | 147/147 PASS |
+| Fresh Harness build | `net9.0/win-arm64` Release PASS; zero warnings/errors |
 | Fixture smokes | Missing Raft PASS with canonical Fixture validation; generic PASS |
-| Credentialless provider-edge gate | 3.5 Lite, 3.1 Lite, 2.5 Lite exact missing-key refusal PASS; retired 2.5 Flash exact pre-credential rejection PASS; no evidence roots |
-| Repository checks | repository-law PASS; document census PASS at exact checkout, 219 inventoried / 102 current / 30 historical / 87 archive / 0 unexplained current; oracle guard PASS, 116 documented / 17 asserted / 99 document-only hashes |
+| Credentialless provider-edge gate | fixed `e0b-run` exact missing-key refusal PASS after checkout/fixture/pricing guards; no evidence root or provider network |
+| Repository checks | repository-law PASS; document census PASS at exact checkout, 246 inventoried / 129 current / 30 historical / 87 archive / 0 unexplained current; oracle guard PASS, 163 documented / 17 asserted / 146 document-only hashes |
 | Provider scope | network / `countTokens` / generation / inference / spend NOT PERFORMED during validation |
 
-Native runtime authority applies only to exact checkout `bb869fb1c505603612bc718f739b3f1b358e5539`. Documentation-only and integration commits do not inherit machine-test authority. Cloud ARM64-target builds remain compiler authority only; Linux x64 Core tests remain semantic regressions, not native Windows ARM64 runtime authority.
+Native runtime authority applies only to exact checkout `d1073fe2c76e2e05f2daac47465f86b48b456a9a`. Documentation-only and integration commits do not inherit machine-test authority. Cloud ARM64-target builds remain compiler authority only; Linux x64 Core tests remain semantic regressions, not native Windows ARM64 runtime authority.
 ### Supporting provider-evidence continuity
 
 The promoted checkpoint does not erase the still-current evidence chain that established the provider/runtime boundary. These records remain supporting evidence only and do not override the promoted checkpoint:
@@ -32,6 +31,8 @@ The promoted checkpoint does not erase the still-current evidence chain that est
 - `docs/evidence/E0A_FRESH_CHAT_CONTINUITY_RECONCILIATION_2026_09_09.md`
 - `docs/evidence/E0A_GEMINI35_STRUCTURED_OUTPUT_COMPATIBILITY_DIAGNOSTIC_2026_09_10.md`
 - `docs/evidence/E0A_GEMINI35_THOUGHT_SIGNATURE_COMPATIBILITY_AUDIT.md`
+- `docs/evidence/E0A_Q_E0A_03_G35L_RUN05_PREEXECUTION_ACTIVATION_2026_09_10.md`
+- `docs/evidence/E0A_Q_E0A_03_G35L_RUN05_TERMINAL_EVIDENCE_ANALYSIS_2026_09_10.md`
 - `docs/evidence/E0A_Q_E0A_03_G35L_PREAUTHORIZATION_PUBLIC_FACT_AUDIT_2026_09_09.md`
 - `docs/evidence/E0A_Q_E0A_03_G35L_RUN01_DIRECTOR_AUTHORIZATION_2026_09_09.md`
 - `docs/evidence/E0A_Q_E0A_03_G35L_RUN01_HISTORICAL_ROOT_FORENSIC_RESOLUTION_2026_09_09.md`
@@ -46,8 +47,10 @@ The promoted checkpoint does not erase the still-current evidence chain that est
 - `docs/evidence/E0A_Q_E0A_03_REFERENCE_EVIDENCE_PLANNING_RECURSIVE_AUDIT_2026_09_09.md`
 ## Current validation ancestry
 
-The promoted technical-failure diagnostic classification checkpoint depends on and supersedes, but does not erase, the accepted validation ancestry below:
+The promoted E0-B mixed-cast checkpoint depends on and supersedes, but does not erase, the accepted E0-A executable validation ancestry below:
 
+- Gemini technical-failure diagnostic classification native validation: `docs/evidence/E0A_GEMINI_TECHNICAL_FAILURE_DIAGNOSTIC_CLASSIFICATION_NATIVE_ARM64_VALIDATION_2026_09_10.md` at `bb869fb1c505603612bc718f739b3f1b358e5539`;
+- Gemini technical-failure diagnostic classification implementation audit: `docs/evidence/E0A_GEMINI_TECHNICAL_FAILURE_DIAGNOSTIC_CLASSIFICATION_IMPLEMENTATION_AUDIT_2026_09_10.md`;
 - Role control-identity alignment native validation: `docs/evidence/E0A_ROLE_CONTROL_IDENTITY_ALIGNMENT_NATIVE_ARM64_VALIDATION_2026_09_10.md` at `29b62a2e778d93c6727b555f58f8d22aa18665a1`;
 - Role control-identity alignment implementation audit: `docs/evidence/E0A_ROLE_CONTROL_IDENTITY_ALIGNMENT_IMPLEMENTATION_AUDIT_2026_09_10.md`;
 
@@ -84,6 +87,7 @@ These tags preserve exact historical machine-tested checkouts. Historical validi
 - `validation/e0a-gemini-counttokens-input-projection-native-arm64` -> `3a010df5d26fc58d6f3820f2dc2cfbb0d015a9d2`
 - `validation/e0a-gemini-generation-error-diagnostic-native-arm64` -> `7868e5cb12a27260e288d95c248d6f846cf37701`
 - `validation/e0a-gemini-structured-output-compatibility-native-arm64` -> `cef3fc15e31192a48aa3bddd99450b65a58bd8f1`
+- `validation/e0a-gemini-technical-failure-diagnostic-classification-native-arm64` -> `bb869fb1c505603612bc718f739b3f1b358e5539`
 
 ## Recording rule
 

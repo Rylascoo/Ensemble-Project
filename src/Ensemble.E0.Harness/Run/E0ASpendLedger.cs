@@ -38,13 +38,22 @@ internal sealed class E0ASpendLedger
     internal bool HasUnknownProviderUsage => _hasUnknownProviderUsage;
     internal E0ASpendEstimateStatus EstimateStatus => _estimateStatus;
 
-    internal E0ASpendReservation Reserve(long inputTokens, int maxOutputTokens)
+    internal E0ASpendReservation Reserve(long inputTokens, int maxOutputTokens) =>
+        Reserve(inputTokens, maxOutputTokens, _pricing, _maxInputTokens);
+
+    internal E0ASpendReservation Reserve(
+        long inputTokens,
+        int maxOutputTokens,
+        E0APricingAssumptions pricing,
+        long maxInputTokens)
     {
-        if (inputTokens < 0 || maxOutputTokens <= 0 || _reservationActive)
+        ArgumentNullException.ThrowIfNull(pricing);
+        pricing.Validate();
+        if (inputTokens < 0 || maxOutputTokens <= 0 || maxInputTokens <= 0 || _reservationActive)
         {
             throw new E0AHarnessException("E0-A spend reservation input is invalid.");
         }
-        if (inputTokens > _maxInputTokens)
+        if (inputTokens > maxInputTokens)
         {
             throw new E0ABudgetExceededException();
         }
@@ -52,7 +61,7 @@ internal sealed class E0ASpendLedger
         decimal reservation;
         try
         {
-            reservation = ConservativeCost(inputTokens, maxOutputTokens);
+            reservation = ConservativeCost(inputTokens, maxOutputTokens, pricing);
             if (checked(_estimatedCommittedUsd + reservation) > E0ARunEnvelope.EstimatedSpendCeilingUsd)
             {
                 throw new E0ABudgetExceededException();
@@ -84,7 +93,9 @@ internal sealed class E0ASpendLedger
             _activeReservationId,
             inputTokens,
             maxOutputTokens,
-            reservation);
+            reservation,
+            pricing,
+            maxInputTokens);
     }
 
     internal E0ASpendReconciliation Reconcile(E0ASpendReservation reservation, E0AUsage usage)
@@ -94,7 +105,7 @@ internal sealed class E0ASpendLedger
         usage.Validate();
         ValidateCurrent(reservation);
 
-        if (usage.InputTokens > _maxInputTokens)
+        if (usage.InputTokens > reservation.MaxInputTokens)
         {
             return CommitFallback(
                 reservation,
@@ -106,7 +117,7 @@ internal sealed class E0ASpendLedger
         decimal estimated;
         try
         {
-            estimated = ConservativeCost(usage.InputTokens, usage.OutputTokens);
+            estimated = ConservativeCost(usage.InputTokens, usage.OutputTokens, reservation.Pricing);
         }
         catch (OverflowException)
         {
@@ -233,17 +244,22 @@ internal sealed class E0ASpendLedger
         }
     }
 
-    private decimal ConservativeCost(long inputTokens, long outputTokens) =>
+    private static decimal ConservativeCost(
+        long inputTokens,
+        long outputTokens,
+        E0APricingAssumptions pricing) =>
         checked(
-            (inputTokens / 1_000_000m * _pricing.InputUsdPerMillionTokens) +
-            (outputTokens / 1_000_000m * _pricing.OutputUsdPerMillionTokens));
+            (inputTokens / 1_000_000m * pricing.InputUsdPerMillionTokens) +
+            (outputTokens / 1_000_000m * pricing.OutputUsdPerMillionTokens));
 }
 
 internal sealed record E0ASpendReservation(
     long ReservationId,
     long InputTokens,
     int MaxOutputTokens,
-    decimal ReservedUsd);
+    decimal ReservedUsd,
+    E0APricingAssumptions Pricing,
+    long MaxInputTokens);
 
 internal sealed record E0ASpendReconciliation(
     decimal EstimatedUsd,

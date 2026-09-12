@@ -38,7 +38,8 @@ internal sealed class E0AReferenceRunDriver
     private readonly IE0AProviderRolePort _provider;
     private readonly IE0AInputTokenCounter _tokenCounter;
     private readonly IE0AEvidenceSink _evidence;
-    private readonly IE0AGeminiRateDiscipline _rateDiscipline;
+    private readonly IE0AGeminiRateRouter _rateRouter;
+    private readonly E0BMixedCastConfiguration? _mixedCast;
     private readonly E0ASpendLedger _spend;
     private string? _observedModel;
     private bool _started;
@@ -48,14 +49,33 @@ internal sealed class E0AReferenceRunDriver
         IE0AProviderRolePort provider,
         IE0AInputTokenCounter tokenCounter,
         IE0AEvidenceSink evidence,
-        IE0AGeminiRateDiscipline? rateDiscipline = null)
+        IE0AGeminiRateDiscipline? rateDiscipline = null,
+        E0BMixedCastConfiguration? mixedCast = null,
+        IE0AGeminiRateRouter? rateRouter = null)
     {
         _envelope = envelope ?? throw new ArgumentNullException(nameof(envelope));
         _provider = provider ?? throw new ArgumentNullException(nameof(provider));
         _tokenCounter = tokenCounter ?? throw new ArgumentNullException(nameof(tokenCounter));
         _evidence = evidence ?? throw new ArgumentNullException(nameof(evidence));
-        _rateDiscipline = rateDiscipline ?? E0ANoopGeminiRateDiscipline.Instance;
         _envelope.Validate();
+        _mixedCast = mixedCast;
+        if (_mixedCast is null)
+        {
+            if (rateRouter is not null)
+            {
+                throw new E0AHarnessException("E0-A reference run cannot receive an E0-B routed rate discipline.");
+            }
+            _rateRouter = new E0ASingleGeminiRateRouter(rateDiscipline ?? E0ANoopGeminiRateDiscipline.Instance);
+        }
+        else
+        {
+            _mixedCast.Validate(_envelope);
+            if (rateDiscipline is not null || rateRouter is null)
+            {
+                throw new E0AHarnessException("E0-B mixed cast requires its explicit routed rate discipline.");
+            }
+            _rateRouter = rateRouter;
+        }
         _spend = new E0ASpendLedger(_envelope.Pricing, _envelope.MaxInputTokens);
     }
 
@@ -105,7 +125,10 @@ internal sealed class E0AReferenceRunDriver
                 }).ToArray()
             });
 
-            var performerAttempt = E0ARequestBuilder.Performer(runId, turn, _envelope.Performer, context);
+            var performerProfile = _mixedCast is null
+                ? _envelope.Performer
+                : _mixedCast.PerformerFor(context.SubjectCharacterId);
+            var performerAttempt = E0ARequestBuilder.Performer(runId, turn, performerProfile, context);
             var performerCall = await CallRoleAsync(performerAttempt, cancellationToken).ConfigureAwait(false);
             if (performerCall.TerminalStatus.HasValue)
             {
@@ -325,7 +348,8 @@ internal sealed class E0AReferenceRunDriver
         var preflightClock = Stopwatch.StartNew();
         try
         {
-            await _rateDiscipline.BeforeRequestAsync(
+            await _rateRouter.BeforeRequestAsync(
+                attempt.Profile,
                 E0AGeminiRequestKind.CountTokens,
                 null,
                 attemptTimeout.Token).ConfigureAwait(false);
@@ -416,7 +440,8 @@ internal sealed class E0AReferenceRunDriver
         var generationPacingClock = Stopwatch.StartNew();
         try
         {
-            await _rateDiscipline.BeforeRequestAsync(
+            await _rateRouter.BeforeRequestAsync(
+                attempt.Profile,
                 E0AGeminiRequestKind.Generation,
                 inputTokens,
                 attemptTimeout.Token).ConfigureAwait(false);
@@ -457,12 +482,20 @@ internal sealed class E0AReferenceRunDriver
             elapsedMs = generationPacingClock.Elapsed.TotalMilliseconds
         });
 
+        var routeModel = _mixedCast is null
+            ? E0AGeminiProviderPolicy.ModelProfile(attempt.Profile)
+            : _mixedCast.ModelFor(attempt.Profile);
+        var routePricing = _mixedCast is null
+            ? _envelope.Pricing
+            : _mixedCast.PricingFor(attempt.Profile);
         E0ASpendReservation reservation;
         try
         {
             reservation = _spend.Reserve(
                 inputTokens,
-                E0AProviderBudgetPolicy.ReservationOutputTokens(attempt.Profile));
+                E0AProviderBudgetPolicy.ReservationOutputTokens(attempt.Profile),
+                routePricing,
+                routeModel.ModelInputTokenLimit);
         }
         catch (E0ABudgetExceededException)
         {
@@ -472,6 +505,7 @@ internal sealed class E0AReferenceRunDriver
         _evidence.RecordEvent("spend.reserved", new
         {
             attemptId = attempt.AttemptId,
+            providerProfileId = routeModel.ProfileId,
             inputTokens = reservation.InputTokens,
             maxOutputTokens = reservation.MaxOutputTokens,
             configuredCandidateMaxOutputTokens = attempt.Profile.MaxOutputTokens,
@@ -569,7 +603,14 @@ internal sealed class E0AReferenceRunDriver
                 return new RoleCall(receipt, E0ARunTerminalStatus.TechnicalFailure);
             }
 
-            if (_observedModel is null)
+            if (_mixedCast is not null)
+            {
+                if (!string.Equals(attempt.Profile.Model, receipt.ReturnedModel, StringComparison.Ordinal))
+                {
+                    return new RoleCall(receipt, E0ARunTerminalStatus.ModelIdentityChanged);
+                }
+            }
+            else if (_observedModel is null)
             {
                 _observedModel = receipt.ReturnedModel;
             }
