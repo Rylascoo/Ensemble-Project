@@ -20,7 +20,7 @@ Independent runtime audit: 102 rooted artifacts, zero digest mismatches, runtime
 ## Continuity
 Exactly one full candidate now contributes: Run 08 / 3.5 Flash-Lite. The frozen contract therefore permits Director selection of Run 08 as the E0-A reference; no two-candidate blind comparison applies. Selection is not inferred. The planned 2.5 three-turn exact-no-thinking control cannot become the reference and still requires explicit Director execution-or-omission disposition.
 
-Q-E0B-01 remains blocked until Q-E0A-03 closes. Q-E0E-PREP is DONE; Q-E0E-RUN remains blocked through E0-A-D. Design authority is separate. Administrator C0-C9 are DONE; C9A amendment integrated but its current realization is uncommissioned after bounded timeout falsification; C10 falsified; C11+ blocked.
+Q-E0B-01 remains blocked until Q-E0A-03 closes. Q-E0E-PREP is DONE; Q-E0E-RUN remains blocked through E0-A-D. Design authority is separate. Administrator C0-C9 are DONE; C9A R1 remains uncommissioned after bounded timeout falsification; one R2 corrected attempt is authorized but unconsumed; C10 falsified; C11+ blocked.
 
 ## Next
-Integrate the Run 08 terminal/contribution and Director-input package. Then obtain explicit Director dispositions for (1) Run 08 reference selection and (2) planned 2.5 control execution or omission. No provider call before a separately durable 2.5 activation if execution is chosen. If Run 08 is selected and the control is explicitly omitted, build the sealed reference descriptor and Q-E0A-03 closure package; Q-E0B-01 is the immediate lawful successor.
+Obtain explicit Director dispositions for (1) Run 08 reference selection and (2) planned 2.5 control execution or omission. No provider call before a separately durable 2.5 activation if execution is chosen. If Run 08 is selected and the control is explicitly omitted, build the sealed reference descriptor and Q-E0A-03 closure package; Q-E0B-01 is the immediate lawful successor.
