@@ -1,0 +1,70 @@
+{
+  "contract": "ensemble.e0a.selected-reference.v1",
+  "selectedOn": "2026-09-11",
+  "sourceRunId": "E0A-Q03-G35L-20260911-08",
+  "sourceManifestSha256": "0ca9c91dea2a048edc60b4dbbaf3a9c1ff766dc748b614a1cf7c56e9cd8ba178",
+  "sourceRuntimeRoot": "e0249ac54353ca0fb550ba68bbb42eee6c0bf891e1fe2c7c61cbe3fb6420f459",
+  "sourceRuntimeSealIdentity": "3133fb3c83d177446494e761362a33bfcd8cc54da8729de46200430c544ace97",
+  "sourceRunFinalSha256": "61ba4c029a4233bcdaf4c9d345a7f367005eff90fd2e6c8348300eff8d4df903",
+  "referenceConfigurationIdentity": "E0A-GEMINI-RPD-COMPARISON-2026-09-07:CREATIVE-MINIMAL:GEMINI-3.5-FLASH-LITE-MINIMAL",
+  "provider": "GoogleGemini",
+  "model": "gemini-3.5-flash-lite",
+  "providerReturnedModel": "gemini-3.5-flash-lite",
+  "providerProfileId": "GEMINI-3.5-FLASH-LITE-MINIMAL",
+  "serviceTier": "standard",
+  "creativeReasoningControl": "Level",
+  "creativeReasoningValue": "minimal",
+  "stream": true,
+  "maxOutputTokens": 4096,
+  "acceptedTurnCap": 12,
+  "attemptsPerInvocation": 1,
+  "automaticRetries": 0,
+  "attemptTimeoutSeconds": 300,
+  "estimatedSpendCeilingUsd": 5.00,
+  "fixtureId": "ensemble.e0.missing-raft",
+  "fixtureVersion": "0.1.0",
+  "fixtureHash": "5556a02325e6a7f774e6997942b395d670741d494ea86f1a50b83633e26b6703",
+  "executableCommit": "bb869fb1c505603612bc718f739b3f1b358e5539",
+  "nativeValidationTag": "validation/e0a-gemini-technical-failure-diagnostic-classification-native-arm64",
+  "nativeValidationTagObject": "c4ff8dc4b9ebd31674208f4ba9c958d50fc975d5",
+  "hardGateEvaluation": {
+    "checklistVersion": "ensemble.e0a.hard-gates.v1",
+    "reviewerIdentity": "ENGINEERING-SOL",
+    "methodIdentity": "SEALED-EVIDENCE-HARD-GATE-REVIEW-V1",
+    "passed": true,
+    "hardGatesSha256": "be13aa87db411dcd95006e2b373516c12a21feba2c9c6ae597fd4767551fb65a",
+    "evaluationFinalSha256": "b8b8f8dbefade03956a4c8bf31e8d74e0104b177b6d1b10cb5358ac0ee84f7f1"
+  },
+  "roleControls": [
+    {
+      "role": "Performer",
+      "reasoning": "Minimal",
+      "thinkingControl": "Level",
+      "thinkingLevel": "minimal",
+      "thinkingBudgetTokens": null,
+      "stream": true
+    },
+    {
+      "role": "Integrity",
+      "reasoning": "High",
+      "thinkingControl": "Level",
+      "thinkingLevel": "high",
+      "thinkingBudgetTokens": null,
+      "stream": false
+    },
+    {
+      "role": "Interpreter",
+      "reasoning": "Minimal",
+      "thinkingControl": "Level",
+      "thinkingLevel": "minimal",
+      "thinkingBudgetTokens": null,
+      "stream": true
+    }
+  ],
+  "blindComparison": {
+    "applicable": false,
+    "reason": "Exactly one full 12-turn candidate contributed; no two-candidate blind comparison was available."
+  },
+  "directorDecision": "docs/evidence/E0A_Q_E0A_03_RUN08_REFERENCE_AND_G25L_CONTROL_DIRECTOR_DECISION_2026_09_11.md",
+  "sourceTerminalAnalysis": "docs/evidence/E0A_Q_E0A_03_G35L_RUN08_TERMINAL_CONTRIBUTION_ANALYSIS_2026_09_11.md"
+}
