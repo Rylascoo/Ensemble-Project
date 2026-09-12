@@ -1,0 +1,85 @@
+{
+  "schema": "ensemble.e0b.blind-scoring.v1",
+  "frozenOn": "2026-09-12",
+  "status": "FROZEN_BEFORE_E0B_TRANSCRIPT",
+  "authority": {
+    "approvedMethod": "docs/blueprint/E0B_MIXED_MODEL_CAST_METHOD_PROPOSAL_01.md",
+    "directorDecision": "docs/evidence/E0B_Q_E0B_01_MIXED_CAST_DIRECTOR_DECISION_2026_09_12.md",
+    "sourceRubric": "docs/blueprint/E0E_SINGLE_MODEL_PLAYWRIGHT_CONTROL_PREPARATION_CONTRACT.md",
+    "sourceCommit": "8901ea80089998fb6d4f15ac82057ba8f41becce"
+  },
+  "comparison": {
+    "referenceRunId": "E0A-Q03-G35L-20260911-08",
+    "candidateRunId": "E0B-Q01-MIX-20260912-01",
+    "presentedIdentities": ["LEFT", "RIGHT"],
+    "mappingWithheldUntilScoringSealed": true,
+    "neutralSpeakerNormalization": "ordinal-character-id-to-SPEAKER-01-02-03",
+    "providerModelMetadataHiddenDuringScoring": true
+  },
+  "scoreChoices": ["LEFT", "RIGHT", "TIE", "INDETERMINATE"],
+  "evidenceRequiredPerDimension": true,
+  "aggregateMasterScoreBeforeUnblinding": false,
+  "scoresSealedBeforeMappingReveal": true,
+  "hardGateInvalidReceivesExperientialCredit": false,
+  "dimensions": [    {
+      "id": 1,
+      "name": "Character distinction",
+      "definition": "recognizable choices, language, attention, and silence without labels"
+    },
+    {
+      "id": 2,
+      "name": "Social causality",
+      "definition": "performances visibly affect what others do next"
+    },
+    {
+      "id": 3,
+      "name": "Character agency",
+      "definition": "behavior follows Character conditions rather than a hidden plot outline"
+    },
+    {
+      "id": 4,
+      "name": "Relationship expression",
+      "definition": "relationships shape interpretation and behavior without numeric exposition"
+    },
+    {
+      "id": 5,
+      "name": "Coherence",
+      "definition": "what happened, why attention moved, and what changed remain intelligible"
+    },    {
+      "id": 6,
+      "name": "Earned surprise",
+      "definition": "unexpected developments remain plausible from prior conditions"
+    },
+    {
+      "id": 7,
+      "name": "Assistant convergence avoidance",
+      "definition": "voices avoid collapsing into generic assistant habits"
+    },
+    {
+      "id": 8,
+      "name": "Anticipation",
+      "definition": "the transcript creates desire to see what a particular Character does next"
+    },
+    {
+      "id": 9,
+      "name": "Memorability",
+      "definition": "specific choices, silences, moments, or consequences remain worth recalling"
+    },
+    {
+      "id": 10,
+      "name": "Mechanical invisibility",
+      "definition": "the scene avoids feeling scheduled, quota-driven, or obviously routed"
+    }
+  ],  "blindQuestions": [
+    "Which transcript feels most like distinct people?",
+    "Which makes later actions feel most caused by earlier actions?",
+    "Which preserves asymmetric knowledge most convincingly?",
+    "Which creates stronger anticipation?",
+    "Is there a meaningful experiential difference, or are the outputs functionally equivalent for the purpose being tested?"
+  ],
+  "unblindingLaw": {
+    "mappingMayBeRevealedOnlyAfterScoresAndObservationsAreSealed": true,
+    "providerModelDiversityIsNotInherentlyBetter": true,
+    "interpretiveQuestion": "Does mixed Performer casting enrich portrayal without replacing Character identity or destabilizing access, causal intelligibility, integrity, or deterministic authority?"
+  }
+}
