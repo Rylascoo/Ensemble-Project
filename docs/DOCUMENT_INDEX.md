@@ -36,6 +36,8 @@ These remain subject to `CURRENT_STATE.md`; this index does not independently ma
 
 - `docs/VALIDATION_LEDGER.md` — promoted validation facts and durable tags; cannot advance project state.
 - `docs/HYPOTHESIS_LEDGER.md` — current unverified/narrowed Gemini assumptions and verification triggers; never a decision source.
+- `docs/evidence/E0B_MIXED_CAST_NATIVE_ARM64_VALIDATION_2026_09_12.md` - current promoted native Windows ARM64 evidence for exact executable `d1073fe2c76e2e05f2daac47465f86b48b456a9a`; 622/622 Core and 147/147 Harness PASS; provider network not performed.
+- `docs/evidence/E0B_MIXED_CAST_IMPLEMENTATION_AUDIT_2026_09_12.md` - recursive source/test/evidence audit for the approved fixed E0B-MIXED-CAST-01 Harness amendment; Core unchanged and provider traffic blocked.
 - `docs/evidence/E0A_GEMINI_TECHNICAL_FAILURE_DIAGNOSTIC_CLASSIFICATION_NATIVE_ARM64_VALIDATION_2026_09_10.md` - current promoted native Windows ARM64 evidence for exact executable `bb869fb1c505603612bc718f739b3f1b358e5539`.
 - `docs/evidence/E0A_GEMINI_TECHNICAL_FAILURE_DIAGNOSTIC_CLASSIFICATION_INTEGRATION_CLOSEOUT_2026_09_10.md` - PR #72 / hosted-gate / merge / post-merge Validation / archive-tag closeout; fresh 3.5 preregistration is the earned successor.
 - `docs/evidence/E0A_GEMINI_TECHNICAL_FAILURE_DIAGNOSTIC_CLASSIFICATION_IMPLEMENTATION_AUDIT_2026_09_10.md` - recursive source/test/evidence audit for the Run 05 technical-failure diagnostic classification correction.
@@ -85,7 +87,7 @@ Historical attempt, diagnostic, and superseded validation records remain evidenc
 
 There is **no live `docs/handoff/...` transition artifact** at current `main`. A handoff is live only when `CURRENT_STATE.md` names its exact path. `docs/handoff/` currently retains only its lifecycle README.
 
-The current consequential engineering gate is bounded fake-first Q-E0B-01 implementation under `CURRENT_STATE.md`, `docs/blueprint/E0B_MIXED_MODEL_CAST_METHOD_PROPOSAL_01.md`, and `docs/evidence/E0B_Q_E0B_01_MIXED_CAST_DIRECTOR_DECISION_2026_09_12.md`. Run 08 is the selected E0-A reference; Run 09 is terminal/noncontributing 2.5 control evidence and is not replayable. Provider traffic remains blocked until fresh native validation/tagging and a separate exact E0-B live-run activation/provider gate.
+The current consequential engineering gate is integration of exact native-validated E0-B executable `d1073fe2c76e2e05f2daac47465f86b48b456a9a` under `CURRENT_STATE.md`, `docs/blueprint/E0B_MIXED_MODEL_CAST_METHOD_PROPOSAL_01.md`, and `docs/evidence/E0B_Q_E0B_01_MIXED_CAST_DIRECTOR_DECISION_2026_09_12.md`. Run 08 is the selected E0-A reference; Run 09 is terminal/noncontributing 2.5 control evidence and is not replayable. Provider traffic remains blocked until green post-merge validation and a separate exact E0-B live-run activation/provider gate.
 
 Parallel E0-E preparation is closed; `docs/evidence/E0E_SINGLE_MODEL_PLAYWRIGHT_CONTROL_PREPARATION_CLOSEOUT_AUDIT_2026_09_09.md` records that preparation result. E0-E execution remains blocked by the frozen E0 order and the execution queue.
 
