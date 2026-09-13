@@ -55,6 +55,7 @@ These remain subject to `CURRENT_STATE.md`; this index does not independently ma
 - `docs/evidence/E0C_Q_E0C_01_PUBLIC_FACT_AUDIT_2026_09_12.md` - current official Google model/lifecycle/pricing/data-use/thinking/rate-limit audit for the exact Run 08 3.5 Flash-Lite route.
 - `docs/evidence/E0C_Q_E0C_01_REPEAT01_PREEXECUTION_ACTIVATION_2026_09_12.md` - Repeat 1 exact activation: public/native/namespace/protected-container gates pass and authenticated project/quota evidence is reused under standing exact-route law; integration + exact-main Validation remain final prerequisites.
 - `docs/evidence/E0C_Q_E0C_01_REPEAT02_PREACTIVATION_2026_09_12.md` - Repeat 2 static preactivation; slot remains reserved/non-executable until a fresh post-Repeat-1 namespace/provider/account/capacity gate.
+- docs/evidence/E0C_Q_E0C_01_REPEAT01_ACTIVATION_INTEGRATION_CLOSEOUT_2026_09_12.md - PR #110 exact-head gates / merge `b3575e4d3453dca2429fe715a16a9ec8370b77db` / exact-main Validation #748 / archive lifecycle closeout; proves Repeat 1 is ready for one execution and unconsumed while Repeat 2 stays blocked.
 - `docs/evidence/E0A_GEMINI_TECHNICAL_FAILURE_DIAGNOSTIC_CLASSIFICATION_NATIVE_ARM64_VALIDATION_2026_09_10.md` - current promoted native Windows ARM64 evidence for exact executable `bb869fb1c505603612bc718f739b3f1b358e5539`.
 - `docs/evidence/E0A_GEMINI_TECHNICAL_FAILURE_DIAGNOSTIC_CLASSIFICATION_INTEGRATION_CLOSEOUT_2026_09_10.md` - PR #72 / hosted-gate / merge / post-merge Validation / archive-tag closeout; fresh 3.5 preregistration is the earned successor.
 - `docs/evidence/E0A_GEMINI_TECHNICAL_FAILURE_DIAGNOSTIC_CLASSIFICATION_IMPLEMENTATION_AUDIT_2026_09_10.md` - recursive source/test/evidence audit for the Run 05 technical-failure diagnostic classification correction.
@@ -104,7 +105,7 @@ Historical attempt, diagnostic, and superseded validation records remain evidenc
 
 There is **no live `docs/handoff/...` transition artifact** at current `main`. A handoff is live only when `CURRENT_STATE.md` names its exact path. `docs/handoff/` currently retains only its lifecycle README.
 
-The current consequential engineering gate is **integration/closeout of the Q-E0C-01 preregistration and Repeat 1 activation package**. `E0C-Q01-REF-20260912-01` and `E0C-Q01-REF-20260912-02` are the only preregistered fresh slots; the blind pairwise instrument is frozen. Repeat 1 activation gates pass subject to package integration + exact-main Validation; Repeat 2 remains blocked on its fresh post-Repeat-1 gate. Provider traffic remains zero.
+The current consequential engineering gate is **exactly one execution of E0-C Repeat 1 `E0C-Q01-REF-20260912-01`**. PR #110 and exact-main Validation #748 closed the activation prerequisite; the namespace remains unconsumed. Repeat 2 `...-02` remains reserved/non-executable until its fresh post-Repeat-1 gate. No retry, replacement, probe, fallback, or substitution is authorized.
 
 Parallel E0-E preparation is closed; `docs/evidence/E0E_SINGLE_MODEL_PLAYWRIGHT_CONTROL_PREPARATION_CLOSEOUT_AUDIT_2026_09_09.md` records that preparation result. E0-E execution remains blocked by the frozen E0 order and the execution queue.
 
