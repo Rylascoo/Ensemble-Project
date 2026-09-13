@@ -2,7 +2,7 @@
 
 Date: 2026-09-12
 
-Status: **PREACTIVATION PREPARED - PUBLIC/NATIVE/NAMESPACE/PROTECTED-CONTAINER/RATE-LIMIT CAPACITY GATES PASS - FRESH EXACT PROJECT/ACCOUNT ASSOCIATION + UTC WINDOW PENDING - NO EXECUTION AUTHORITY**
+Status: **PREACTIVATION COMPLETE - SUCCESSOR SLOT 1 ACTIVATION CLOSES STANDING ASSOCIATION + UTC WINDOW GATES - NO INDEPENDENT EXECUTION AUTHORITY**
 
 ## Exact slot boundary
 
@@ -31,7 +31,7 @@ The blind repeatability instrument is frozen before any fresh transcript and bin
 
 The prior E0-B activation remains exact-project/account precedent only. Fresh authenticated rate-limit evidence is now accepted by `docs/evidence/E0C_Q_E0C_01_RUN01_FRESH_AUTHENTICATED_RATE_LIMIT_INTAKE_2026_09_13.md`: the selected AI Studio surface is Free tier and the exact `Gemini 3.5 Flash Lite` row shows `9 / 15 RPM`, `22.07K / 250K TPM`, and `42 / 500 RPD` as 28-day peak usage. This establishes conservative minimum headroom of `6 RPM`, `227.93K TPM`, and `458 RPD`, so the current rate-limit/tier/capacity gate passes with no quota contradiction.
 
-The fresh capture does **not** close exact project/account association: its selected-project label is truncated and no separate current association view accompanies it. Before Run 01 can be activated, fresh authenticated UI evidence must identify the intended Kymaean project/project ID and confirm the existing testing credential is associated with it. Do not send a provider probe merely to test availability or credential health.
+The project/testing-key association gate is closed by `docs/evidence/E0C_Q_E0C_01_STANDING_PROJECT_KEY_ASSOCIATION_DIRECTOR_AMENDMENT_2026_09_13.md`, which reuses the exact authenticated E0-B baseline absent a material contrary signal. Fresh quota/capacity remains execution-sensitive. Do not send a provider probe merely to test availability or credential health.
 
 Protected credential-container readiness has been freshly reconfirmed locally: the protected artifacts are present, CurrentUser SecureString conversion succeeds without revealing plaintext, and ambient `GEMINI_API_KEY` is absent. Plaintext may exist only at the eventual authorized child-process boundary.
 
