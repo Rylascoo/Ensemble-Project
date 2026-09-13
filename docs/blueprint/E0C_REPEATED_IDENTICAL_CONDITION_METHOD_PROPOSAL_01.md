@@ -2,7 +2,7 @@
 
 Date: 2026-09-12
 
-Status: **PROPOSAL 0.1 - NON-PROVIDER PREPARATION COMPLETE - DIRECTOR METHOD DECISION REQUIRED - NO RUN OR NETWORK AUTHORITY**
+Status: **DIRECTOR-APPROVED CORRECTED METHOD - TWO FRESH REPEATS + OUTCOME-INDEPENDENT UTC BATCH LAW - NO RUN OR NETWORK AUTHORITY**
 
 ## 1. Objective and frozen authority
 
@@ -60,6 +60,12 @@ Each approved fresh slot receives one unique RunId/root and exactly one launch a
 
 For two approved fresh slots the inherited deterministic spend ceiling is USD `5.00` per run / USD `10.00` aggregate maximum shadow reservation. This is a ceiling, not spend authorization or a billing claim.
 
+### Outcome-independent temporal execution law
+
+Before the first fresh E0-C namespace claim, activation must freeze slot order as **Slot 1 then Slot 2** and one explicit UTC batch window with fixed start/end timestamps covering both planned launches. After the first fresh namespace claim, that order/window is immutable: it may not be extended, shifted, reopened, or replaced based on transcript content, artistic result, provider response, or technical terminal.
+
+Each slot still requires its own current namespace/executable/provider/account/credential gates and may launch only if all applicable gates pass inside the frozen window. If an objective gate prevents a slot from launching before window end, preserve it as an unexecuted/noncontributing batch outcome and stop/return to the Director. Do not extend the window, probe availability, retry, create a replacement/third slot, or change model/route/source.
+
 ## 6. Contribution and hard-gate law
 
 Every fresh run is sealed and hard-gate-reviewed independently under the same Run 08 evidence/checklist law.
@@ -106,10 +112,10 @@ Before any fresh slot may execute, a separate activation must bind:
 
 No provider probe is permitted merely to test availability.
 
-## 9. Director decision requested
+## 9. Director-ratified corrected method
 
-Approve, modify, or reject the following coupled method:
+Director decision provenance: Project Issue #107 comment `5650353003`, created `2026-09-13T02:44:41Z`, explicitly approves the corrected method and supersedes the earlier vague approval provenance for practical continuity.
 
-> **E0C-IDENTICAL-REFERENCE-01:** execute exactly two fresh, independently consumed repeats of the selected Run 08 condition from the exact Run 08 native executable, with every controllable input/setting held identical; preregister both slots before the first run; allow no retry/replacement slots; seal and hard-gate each run independently; and blind-compare every contributing transcript pair using the frozen ten-dimension E0 rubric as descriptive repeatability evidence.
+> **E0C-IDENTICAL-REFERENCE-01:** execute exactly two fresh, independently consumed repeats of selected Run 08 from exact executable `bb869fb...`; preregister both slots; freeze order Slot 1 then Slot 2 plus one explicit fixed UTC batch window before the first namespace claim; never change that order/window after the first claim; permit no retry/replacement/third slot; independently seal/hard-gate each run; and blind-compare contributing pairs using the frozen ten-dimension E0 rubric as descriptive repeatability evidence.
 
-No execution decision should be inferred from silence or from this proposal's presence in the repository.
+This method decision authorizes Engineering reconciliation and bounded activation preparation only. It does not authorize a namespace claim, credential use, provider request/probe, inference, or spend.
