@@ -2,7 +2,7 @@
 
 Date: 2026-09-13
 
-Status: **FRESH AUTHENTICATED RATE-LIMIT/TIER/CAPACITY EVIDENCE ACCEPTED - EXACT PROJECT-ID/TESTING-KEY ASSOCIATION VIEW STILL PENDING - NO EXECUTION AUTHORITY**
+Status: **FRESH AUTHENTICATED RATE-LIMIT/TIER/CAPACITY EVIDENCE ACCEPTED - ASSOCIATION GOVERNED SEPARATELY BY STANDING DIRECTOR LAW - NO EXECUTION AUTHORITY**
 
 ## Source evidence
 
@@ -32,13 +32,9 @@ Because the displayed values are 28-day peak usage, current usage within that wi
 
 The frozen Slot 1 envelope is at most 72 provider operations and the validated Harness retains route pacing. The fresh rate-limit/tier/capacity evidence therefore presents no quota contradiction to the exact Run 08 profile. It does not guarantee provider availability and creates no probe, retry, concurrency, fallback, paid-tier, or route-change authority.
 
-## Remaining authenticated-account boundary
+## Association boundary
 
-The current E0-C preactivation requires fresh authenticated evidence of the intended exact project/account association as well as tier/quota/capacity. The rate-limit captures prove the fresh Free-tier 3.5 row and capacity, but the project selector is truncated and the separate account-association view was not supplied with this intake.
-
-Historical E0-B evidence remains valid precedent for the intended Kymaean project association. Under the corrected E0-C activation law, that historical view is not silently promoted into the fresh exact-project gate.
-
-Therefore the only authenticated UI blocker remaining is a fresh view that identifies the intended Kymaean project/project ID and confirms the existing testing credential belongs to it, without revealing credential contents. The commissioned Administrator browser remains Guest-only, so this UI fact must be supplied manually.
+Project/testing-key association is governed separately by `docs/evidence/E0C_Q_E0C_01_STANDING_PROJECT_KEY_ASSOCIATION_DIRECTOR_AMENDMENT_2026_09_13.md`. That law reuses the exact authenticated Kymaean baseline absent a material contrary signal; this rate-limit intake remains authority only for fresh tier/quota/capacity facts.
 
 Protected local credential-container readiness has independently passed without exposing plaintext. Both canonical `IDENT` namespaces remain unconsumed. The exact UTC Slot-1-then-Slot-2 batch window remains intentionally **unfrozen** until the final activation record can bind it to the complete current execution facts.
 
