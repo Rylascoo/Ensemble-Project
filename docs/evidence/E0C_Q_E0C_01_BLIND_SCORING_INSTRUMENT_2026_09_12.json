@@ -1,0 +1,125 @@
+{
+  "schema": "ensemble.e0c.blind-repeatability.v1",
+  "frozenOn": "2026-09-12",
+  "status": "FROZEN_BEFORE_FRESH_E0C_TRANSCRIPTS",
+  "authority": {
+    "approvedMethod": "docs/blueprint/E0C_REPEATED_IDENTICAL_CONDITION_METHOD_PROPOSAL_01.md",
+    "directorDecision": "docs/evidence/E0C_Q_E0C_01_METHOD_DIRECTOR_DECISION_2026_09_12.md",
+    "referenceDescriptor": "docs/evidence/E0A_Q_E0A_03_RUN08_SELECTED_REFERENCE_DESCRIPTOR_2026_09_11.json",
+    "sourceRubric": "docs/blueprint/E0E_SINGLE_MODEL_PLAYWRIGHT_CONTROL_PREPARATION_CONTRACT.md"
+  },
+  "sample": {
+    "anchorRunId": "E0A-Q03-G35L-20260911-08",
+    "freshRepeatRunIds": [
+      "E0C-Q01-REF-20260912-01",
+      "E0C-Q01-REF-20260912-02"
+    ],
+    "conditionId": "E0C-IDENTICAL-REFERENCE-01",
+    "allControllableInputsHeldIdentical": true
+  },
+  "eligiblePairs": [
+    {
+      "pairId": "E0C-P01-ANCHOR-R1",
+      "members": [
+        "E0A-Q03-G35L-20260911-08",
+        "E0C-Q01-REF-20260912-01"
+      ]
+    },
+    {
+      "pairId": "E0C-P02-ANCHOR-R2",
+      "members": [
+        "E0A-Q03-G35L-20260911-08",
+        "E0C-Q01-REF-20260912-02"
+      ]
+    },
+    {
+      "pairId": "E0C-P03-R1-R2",
+      "members": [
+        "E0C-Q01-REF-20260912-01",
+        "E0C-Q01-REF-20260912-02"
+      ]
+    }
+  ],
+  "pairEligibilityLaw": "A pair is scored only if both members independently reach 12/12 accepted turns, seal successfully, and pass the frozen hard-gate review. Noncontributing members remain reliability evidence and are never replaced.",
+  "presentation": {
+    "presentedIdentities": [
+      "LEFT",
+      "RIGHT"
+    ],
+    "neutralSpeakerNormalization": "ordinal-character-id-to-SPEAKER-01-02-03",
+    "providerModelMetadataHiddenDuringScoring": true,
+    "runIdsAndSealMetadataHiddenDuringScoring": true
+  },
+  "mappingLaw": {
+    "version": "ensemble.e0c.blind-orientation.v1",
+    "canonicalMemberOrdering": "lexicographic RunId ordering",
+    "orientationInput": "UTF8(\"ensemble.e0c.blind-orientation.v1\\n\" + pairId + \"\\n\" + canonicalRunIdA + \"\\n\" + runtimeSealIdentityA + \"\\n\" + canonicalRunIdB + \"\\n\" + runtimeSealIdentityB)",
+    "orientationDigest": "SHA-256",
+    "leftRule": "If first digest byte < 128, canonical member A is LEFT; otherwise canonical member B is LEFT.",
+    "actualMappingCreated": "Only after both pair members are contribution-eligible and before scorer access; mapping is write-once and withheld until all scores/observations for that pair are sealed.",
+    "humanChoicePermitted": false
+  },
+  "scoreChoices": [
+    "LEFT",
+    "RIGHT",
+    "TIE",
+    "INDETERMINATE"
+  ],
+  "evidenceRequiredPerDimension": true,
+  "aggregateMasterScoreBeforeUnblinding": false,
+  "scoresSealedBeforeMappingReveal": true,
+  "statisticalSignificanceClaimPermitted": false,
+  "dimensions": [
+    {
+      "id": 1,
+      "name": "Character distinction",
+      "definition": "recognizable choices, language, attention, and silence without labels"
+    },
+    {
+      "id": 2,
+      "name": "Social causality",
+      "definition": "performances visibly affect what others do next"
+    },
+    {
+      "id": 3,
+      "name": "Character agency",
+      "definition": "behavior follows Character conditions rather than a hidden plot outline"
+    },
+    {
+      "id": 4,
+      "name": "Relationship expression",
+      "definition": "relationships shape interpretation and behavior without numeric exposition"
+    },
+    {
+      "id": 5,
+      "name": "Coherence",
+      "definition": "what happened, why attention moved, and what changed remain intelligible"
+    },
+    {
+      "id": 6,
+      "name": "Earned surprise",
+      "definition": "unexpected developments remain plausible from prior conditions"
+    },
+    {
+      "id": 7,
+      "name": "Assistant convergence avoidance",
+      "definition": "voices avoid collapsing into generic assistant habits"
+    },
+    {
+      "id": 8,
+      "name": "Anticipation",
+      "definition": "the transcript creates desire to see what a particular Character does next"
+    },
+    {
+      "id": 9,
+      "name": "Memorability",
+      "definition": "specific choices, silences, moments, or consequences remain worth recalling"
+    },
+    {
+      "id": 10,
+      "name": "Mechanical invisibility",
+      "definition": "the scene avoids feeling scheduled, quota-driven, or obviously routed"
+    }
+  ],
+  "interpretation": "Describe repeatability/dispersion under the identical reference condition. Do not select a new reference winner, reward stochastic difference, compute a weighted master score, or infer statistical significance."
+}

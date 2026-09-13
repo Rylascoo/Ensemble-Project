@@ -6,22 +6,22 @@ Updated: 2026-09-12
 `Rylascoo/Ensemble-Project` is Engineering authority. This file alone owns phase/checkpoint/validation/next action. Bootstrap: `AGENTS.md`; authority: `docs/PROJECT_AUTHORITY.md`; sequencing: `docs/PROJECT_EXECUTION_QUEUE.md`.
 
 ## Checkpoint
-Runtime **E0 experimental program - Q-E0C-01 repeated identical-condition runs**. E0-A and E0-B are **DONE**. Q-E0C-01 is **ACTIVE - METHOD APPROVED; TWO-SLOT PREREGISTRATION/ACTIVATION PREPARATION AUTHORIZED; NO RUN AUTHORIZED**.
+Runtime **E0 experimental program - Q-E0C-01 repeated identical-condition runs**. E0-A/E0-B are **DONE**. Q-E0C-01 is **ACTIVE - METHOD APPROVED; TWO SLOTS PREREGISTERED; REPEAT 1 ACTIVATION PENDING INTEGRATION; NO PROVIDER TRAFFIC**.
 
-E0-C method authority: `docs/evidence/E0C_Q_E0C_01_METHOD_DIRECTOR_DECISION_2026_09_12.md`, approving proposal `docs/blueprint/E0C_REPEATED_IDENTICAL_CONDITION_METHOD_PROPOSAL_01.md` after preparation audit `docs/evidence/E0C_Q_E0C_01_PREPARATION_AUDIT_AND_DIRECTOR_INPUT_2026_09_12.md`.
+Method authority: `docs/evidence/E0C_Q_E0C_01_METHOD_DIRECTOR_DECISION_2026_09_12.md`. Preregistration: `docs/evidence/E0C_Q_E0C_01_TWO_SLOT_PREREGISTRATION_2026_09_12.md`. Blind instrument: `docs/evidence/E0C_Q_E0C_01_BLIND_SCORING_INSTRUMENT_2026_09_12.json` SHA `79ac8017e17c5f97da4687d49b79db576d5841f70783f7ef4767f5c5cc9f2933`.
 
-## Approved E0-C method
-Selected reference remains Run 08 `E0A-Q03-G35L-20260911-08` / `gemini-3.5-flash-lite` / `GEMINI-3.5-FLASH-LITE-MINIMAL`. Approved plan is exactly **two fresh preregistered repeats** from exact Run 08 native executable `bb869fb1c505603612bc718f739b3f1b358e5539`, yielding three same-condition observations including Run 08 if both contribute.
+## Frozen slots
+Repeat 1 `E0C-Q01-REF-20260912-01` and Repeat 2 `E0C-Q01-REF-20260912-02` are the only fresh E0-C slots. Both use exact Run 08 executable `bb869fb1c505603612bc718f739b3f1b358e5539`, 3.5 Flash-Lite Minimal same-model reference configuration, canonical Missing-Raft Fixture, 12-turn cap, one attempt/role, zero retries/replacements. Roots and deterministic claims remain absent.
 
-Every controllable input/setting remains Run 08-identical. Each fresh slot is one-launch/one-namespace, no retries or replacement slots. Technical/noncontributing terminals remain reliability evidence. Only 12/12 sealed hard-gate-PASS transcripts enter a frozen blind pairwise matrix using the existing ten-dimension E0 rubric; no master score or statistical-significance claim.
+Repeat 1 preexecution activation: `docs/evidence/E0C_Q_E0C_01_REPEAT01_PREEXECUTION_ACTIVATION_2026_09_12.md`; all exact public/native/namespace/account/credential-container gates pass subject to this package's integration + green exact-main Validation. Standing project-relevance authority then covers one launch only.
+
+Repeat 2 preactivation: `docs/evidence/E0C_Q_E0C_01_REPEAT02_PREACTIVATION_2026_09_12.md`; it remains non-executable until a fresh post-Repeat-1 gate accounts for Repeat 1's terminal/usage and reconfirms current capacity.
 
 ## Validation / evidence
-Preserved validator `E0V-bb869fb` is clean at exact Run 08 commit; native tag peels to the same commit; win-arm64 Harness and canonical Missing-Raft Fixture are present. No E0-C source change is required or recommended. The newer E0-B executable is not E0-C authority.
-
-No E0-C RunId/root exists or is reserved by this preparation. No credential was read and no provider request/probe/inference/spend occurred.
+Fresh exact-validator Release win-arm64 Harness build PASS, 0 warnings/errors; canonical Fixture smoke PASS; credentialless exact-host invocations for both slots reached the missing-key edge and created no root/claim. Current public fact audit: `docs/evidence/E0C_Q_E0C_01_PUBLIC_FACT_AUDIT_2026_09_12.md`. Protected key container/ready marker are present outside Git; plaintext was not accessed.
 
 ## Continuity
-Q-E0D-01 remains blocked on E0-C closure. Q-E0E-PREP is DONE; Q-E0E-RUN remains blocked through E0-C/D. Design authority is separate. Administrator C9A/C10 remain falsified/blocked.
+Q-E0D-01 remains blocked on E0-C closure. Q-E0E-PREP is DONE; Q-E0E-RUN remains blocked through E0-C/D. No source/Fixture change is authorized. Blind comparison uses only independently sealed 12/12 hard-gate-PASS transcripts; no master score/statistical-significance claim.
 
 ## Next
-Perform exact non-provider two-slot preregistration, freeze the E0-C blind instrument/pair mappings, and construct audited activation preparation against exact Run 08 executable `bb869fb...`. Provider traffic remains **ZERO**; no fresh run may launch until its own current executable/namespace/provider/account/credential gates and applicable provider authority are durable.
+Integrate this preregistration/activation package and require exact-main post-merge Validation. Then record activation-integration closeout before launching Repeat 1. Provider traffic remains **ZERO** until that durable closeout. Never execute Repeat 2 before its fresh post-Repeat-1 gate.
