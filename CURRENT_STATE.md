@@ -6,21 +6,22 @@ Updated: 2026-09-12
 `Rylascoo/Ensemble-Project` is Engineering authority. This file alone owns phase/checkpoint/validation/next action. Bootstrap: `AGENTS.md`; authority: `docs/PROJECT_AUTHORITY.md`; sequencing: `docs/PROJECT_EXECUTION_QUEUE.md`.
 
 ## Checkpoint
-Runtime **E0 experimental program - Q-E0C-01 repeated identical-condition runs**. Q-E0A-01/02/03/04 are **DONE**. Q-E0B-01 is **DONE - OPTION A CLOSURE**. Q-E0C-01 is **ACTIVE - NON-PROVIDER PREPARATION ONLY; NO RUN AUTHORIZED**.
+Runtime **E0 experimental program - Q-E0C-01 repeated identical-condition runs**. E0-A and E0-B are **DONE**. Q-E0C-01 is **ACTIVE - PREPARATION COMPLETE; DIRECTOR SAMPLE/METHOD DECISION REQUIRED; NO RUN AUTHORIZED**.
 
-Director closure authority: `docs/evidence/E0B_Q_E0B_01_OPTION_A_DIRECTOR_DECISION_AND_CLOSURE_2026_09_12.md`. It closes E0-B on preserved Run 01 without replacement and advances experiment order to E0-C. Terminal analysis and post-Run-01 Director input remain explicit predecessors.
+E0-B Option A closure: `docs/evidence/E0B_Q_E0B_01_OPTION_A_DIRECTOR_DECISION_AND_CLOSURE_2026_09_12.md`. E0-C proposal: `docs/blueprint/E0C_REPEATED_IDENTICAL_CONDITION_METHOD_PROPOSAL_01.md`. Preparation audit/Director input: `docs/evidence/E0C_Q_E0C_01_PREPARATION_AUDIT_AND_DIRECTOR_INPUT_2026_09_12.md`.
 
-Run 01 `E0B-Q01-MIX-20260912-01` remains permanently consumed/noncontributing after `2/12` accepted turns; Turn 3 WREN Performer `gemini-3.5-flash-lite` returned HTTP `503` / `UNAVAILABLE`. No replay/retry/replacement/probe/alternate route or partial scoring/unblinding is authorized.
+## Proposed E0-C method
+Selected reference remains Run 08 `E0A-Q03-G35L-20260911-08` / `gemini-3.5-flash-lite` / `GEMINI-3.5-FLASH-LITE-MINIMAL`. Recommended plan is exactly **two fresh preregistered repeats** from exact Run 08 native executable `bb869fb1c505603612bc718f739b3f1b358e5539`, yielding three same-condition observations including Run 08 if both contribute.
+
+Every controllable input/setting remains Run 08-identical. Each fresh slot is one-launch/one-namespace, no retries or replacement slots. Technical/noncontributing terminals remain reliability evidence. Only 12/12 sealed hard-gate-PASS transcripts enter a frozen blind pairwise matrix using the existing ten-dimension E0 rubric; no master score or statistical-significance claim.
 
 ## Validation / evidence
-Run 08 `E0A-Q03-G35L-20260911-08` remains the selected E0-A same-model reference configuration and is the required E0-C reference principle. E0-B native executable `d1073fe2c76e2e05f2daac47465f86b48b456a9a` and its validation tag remain evidence of the closed mixed-cast arm, not automatic E0-C executable authority.
+Preserved validator `E0V-bb869fb` is clean at exact Run 08 commit; native tag peels to the same commit; win-arm64 Harness and canonical Missing-Raft Fixture are present. No E0-C source change is required or recommended. The newer E0-B executable is not E0-C authority.
 
-E0-B Run 01 seal: 24 rooted artifacts plus `run.final.json`, 0 independent artifact-hash mismatches, 0 bounded credential-pattern hits; runtime root `744cb09383de4be17cadd35b4fd71d2242affde8262b247c394ba8caf8790345`; seal identity `31615c838d2e216783e6014f21f4341ab95b25cc41b1c236349fa177a57a3609`; 14 provider operations; failed-call usage unknown; conservative shadow estimate USD `0.17175080`.
+No E0-C RunId/root exists or is reserved by this preparation. No credential was read and no provider request/probe/inference/spend occurred.
 
 ## Continuity
-E0-C is defined only at the current durable level as repeated identical-condition runs returning to the E0-A same-model reference configuration. The repository does not yet contain an E0-C-specific preregistration/method packet that fixes repetition count, fresh RunIds/roots, exact executable, scoring/comparison procedure, or execution-time provider gates.
-
 Q-E0D-01 remains blocked on E0-C closure. Q-E0E-PREP is DONE; Q-E0E-RUN remains blocked through E0-C/D. Design authority is separate. Administrator C9A/C10 remain falsified/blocked.
 
 ## Next
-Perform bounded **non-provider** E0-C preparation: recover the selected Run 08 reference descriptor and frozen roadmap law, construct and recursively audit an exact repeated-identical-condition method/preregistration with no hand-edited state or setting drift, and identify the separate Director/provider/dated-fact gates required before any execution. Do **not** mint executable authority from this closure and do **not** send Gemini traffic.
+Director approves, modifies, or rejects the proposed two-repeat E0-C method. Until that decision is durable, provider traffic is **ZERO**. Approval would permit only exact preregistration/instrument/activation preparation; each fresh provider execution would still require current executable/namespace/provider/account/credential gates and explicit applicable authority.
