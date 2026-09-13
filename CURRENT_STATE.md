@@ -6,12 +6,12 @@ Updated: 2026-09-12
 `Rylascoo/Ensemble-Project` is Engineering authority. This file alone owns phase/checkpoint/validation/next action. Bootstrap: `AGENTS.md`; authority: `docs/PROJECT_AUTHORITY.md`; sequencing: `docs/PROJECT_EXECUTION_QUEUE.md`.
 
 ## Checkpoint
-Runtime **E0 experimental program - Q-E0C-01 repeated identical-condition runs**. E0-A and E0-B are **DONE**. Q-E0C-01 is **ACTIVE - PREPARATION COMPLETE; DIRECTOR SAMPLE/METHOD DECISION REQUIRED; NO RUN AUTHORIZED**.
+Runtime **E0 experimental program - Q-E0C-01 repeated identical-condition runs**. E0-A and E0-B are **DONE**. Q-E0C-01 is **ACTIVE - METHOD APPROVED; TWO-SLOT PREREGISTRATION/ACTIVATION PREPARATION AUTHORIZED; NO RUN AUTHORIZED**.
 
-E0-B Option A closure: `docs/evidence/E0B_Q_E0B_01_OPTION_A_DIRECTOR_DECISION_AND_CLOSURE_2026_09_12.md`. E0-C proposal: `docs/blueprint/E0C_REPEATED_IDENTICAL_CONDITION_METHOD_PROPOSAL_01.md`. Preparation audit/Director input: `docs/evidence/E0C_Q_E0C_01_PREPARATION_AUDIT_AND_DIRECTOR_INPUT_2026_09_12.md`.
+E0-C method authority: `docs/evidence/E0C_Q_E0C_01_METHOD_DIRECTOR_DECISION_2026_09_12.md`, approving proposal `docs/blueprint/E0C_REPEATED_IDENTICAL_CONDITION_METHOD_PROPOSAL_01.md` after preparation audit `docs/evidence/E0C_Q_E0C_01_PREPARATION_AUDIT_AND_DIRECTOR_INPUT_2026_09_12.md`.
 
-## Proposed E0-C method
-Selected reference remains Run 08 `E0A-Q03-G35L-20260911-08` / `gemini-3.5-flash-lite` / `GEMINI-3.5-FLASH-LITE-MINIMAL`. Recommended plan is exactly **two fresh preregistered repeats** from exact Run 08 native executable `bb869fb1c505603612bc718f739b3f1b358e5539`, yielding three same-condition observations including Run 08 if both contribute.
+## Approved E0-C method
+Selected reference remains Run 08 `E0A-Q03-G35L-20260911-08` / `gemini-3.5-flash-lite` / `GEMINI-3.5-FLASH-LITE-MINIMAL`. Approved plan is exactly **two fresh preregistered repeats** from exact Run 08 native executable `bb869fb1c505603612bc718f739b3f1b358e5539`, yielding three same-condition observations including Run 08 if both contribute.
 
 Every controllable input/setting remains Run 08-identical. Each fresh slot is one-launch/one-namespace, no retries or replacement slots. Technical/noncontributing terminals remain reliability evidence. Only 12/12 sealed hard-gate-PASS transcripts enter a frozen blind pairwise matrix using the existing ten-dimension E0 rubric; no master score or statistical-significance claim.
 
@@ -24,4 +24,4 @@ No E0-C RunId/root exists or is reserved by this preparation. No credential was 
 Q-E0D-01 remains blocked on E0-C closure. Q-E0E-PREP is DONE; Q-E0E-RUN remains blocked through E0-C/D. Design authority is separate. Administrator C9A/C10 remain falsified/blocked.
 
 ## Next
-Director approves, modifies, or rejects the proposed two-repeat E0-C method. Until that decision is durable, provider traffic is **ZERO**. Approval would permit only exact preregistration/instrument/activation preparation; each fresh provider execution would still require current executable/namespace/provider/account/credential gates and explicit applicable authority.
+Perform exact non-provider two-slot preregistration, freeze the E0-C blind instrument/pair mappings, and construct audited activation preparation against exact Run 08 executable `bb869fb...`. Provider traffic remains **ZERO**; no fresh run may launch until its own current executable/namespace/provider/account/credential gates and applicable provider authority are durable.
