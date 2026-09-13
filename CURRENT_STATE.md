@@ -18,7 +18,7 @@ Slot order is frozen as Slot 1 then Slot 2. Before Slot 1 claims its namespace, 
 The later PR #110/#111 `REF` realization is raced/superseded for execution authority and preserved only as historical provenance. Its green validations do not override the earlier Director timing decision.
 
 ## Validation / evidence
-Canonical Slot 1 preactivation: `docs/evidence/E0C_Q_E0C_01_RUN01_PREACTIVATION_2026_09_12.md`. Fresh rate-limit intake: `docs/evidence/E0C_Q_E0C_01_RUN01_FRESH_AUTHENTICATED_RATE_LIMIT_INTAKE_2026_09_13.md`. Static/protected-container gates pass; fresh Free-tier 3.5 is `9/15 RPM`, `22.07K/250K TPM`, `36/500 RPD`, so quota/capacity passes. Exact Kymaean project-ID + testing-account association remains pending; UTC window unfrozen. Provider traffic remains zero.
+Canonical Slot 1 preactivation: `docs/evidence/E0C_Q_E0C_01_RUN01_PREACTIVATION_2026_09_12.md`. Fresh rate-limit intake: `docs/evidence/E0C_Q_E0C_01_RUN01_FRESH_AUTHENTICATED_RATE_LIMIT_INTAKE_2026_09_13.md`. Static/protected-container gates pass; fresh Free-tier 3.5 is `9/15 RPM`, `22.07K/250K TPM`, `42/500 RPD`, so quota/capacity passes. Exact Kymaean project-ID + testing-account association remains pending; UTC window unfrozen. Provider traffic remains zero.
 
 ## Continuity
 Q-E0D-01 remains blocked on E0-C closure. Q-E0E-PREP is DONE; Q-E0E-RUN remains blocked through E0-C/D. Blind comparison uses only sealed 12/12 hard-gate-PASS transcripts; no master score/statistical-significance claim.
