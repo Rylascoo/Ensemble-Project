@@ -2,11 +2,11 @@
 
 Date: 2026-09-12
 
-Status: **APPROVED - E0C-IDENTICAL-REFERENCE-01 - TWO FRESH PREREGISTERED REPEATS - NO PROVIDER EXECUTION AUTHORITY YET**
+Status: **APPROVED CORRECTED METHOD - TWO FRESH PREREGISTERED REPEATS + FIXED UTC BATCH LAW - NO PROVIDER EXECUTION AUTHORITY**
 
 ## Director decision
 
-The Director approved the recommended `E0C-IDENTICAL-REFERENCE-01` method from `docs/blueprint/E0C_REPEATED_IDENTICAL_CONDITION_METHOD_PROPOSAL_01.md` and `docs/evidence/E0C_Q_E0C_01_PREPARATION_AUDIT_AND_DIRECTOR_INPUT_2026_09_12.md`.
+The Director explicitly approved the corrected `E0C-IDENTICAL-REFERENCE-01` method on Project Issue #107, comment `5650353003`, created `2026-09-13T02:44:41Z`. That explicit ratification supersedes the earlier vague approval provenance for practical continuity. The corrected method is owned by `docs/blueprint/E0C_REPEATED_IDENTICAL_CONDITION_METHOD_PROPOSAL_01.md` and `docs/evidence/E0C_Q_E0C_01_PREPARATION_AUDIT_AND_DIRECTOR_INPUT_2026_09_12.md`.
 
 The approved E0-C sample is exactly two fresh repeat slots in addition to selected reference Run 08 `E0A-Q03-G35L-20260911-08`.
 
@@ -19,6 +19,10 @@ The approved E0-C sample is exactly two fresh repeat slots in addition to select
 - each slot is one-launch/one-namespace and any namespace claim consumes it;
 - no retry or replacement slot exists;
 - the second slot remains an independent planned repeat even if the first terminates technically;
+- slot order is frozen as Slot 1 then Slot 2;
+- before the first fresh namespace claim, activation must freeze one explicit UTC batch window with fixed start/end timestamps covering both planned launches;
+- after the first fresh namespace claim, the slot order/window are immutable and may not be extended, shifted, reopened, or replaced based on transcript, artistic result, provider response, or technical terminal;
+- if an objective gate blocks a slot through window end, preserve it as an unexecuted/noncontributing batch outcome and stop/return to the Director;
 - every fresh run is independently sealed and hard-gate reviewed;
 - only 12/12 sealed hard-gate-PASS transcripts enter experiential comparison;
 - the existing ten-dimension E0 rubric is reused in a frozen blind pairwise matrix;

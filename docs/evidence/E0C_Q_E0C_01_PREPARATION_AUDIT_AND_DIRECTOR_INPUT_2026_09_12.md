@@ -2,7 +2,7 @@
 
 Date: 2026-09-12
 
-Status: **NON-PROVIDER PREPARATION COMPLETE - PROPOSAL RECURSIVELY AUDITED - DIRECTOR SAMPLE/METHOD DECISION REQUIRED - NO RUN OR PROVIDER TRAFFIC**
+Status: **CORRECTED METHOD AUDIT - DIRECTOR TIMING AMENDMENT RATIFIED - CANONICAL IDENT PREREGISTRATION RECONCILIATION REQUIRED - NO RUN OR PROVIDER TRAFFIC**
 
 ## Authority recovered
 
@@ -82,12 +82,12 @@ Corrections incorporated before freezing this preparation input:
 - prohibited statistical-significance claims from the small bounded sample;
 - preserved hard-gate/reliability evidence independently from experiential comparison.
 
-The final pass found no required source change, experiment-order conflict, authority conflation, obvious selection-bias loophole, provenance gap, or simpler bounded design that answers the frozen E0-C question with less execution scope.
+The original final pass did not identify one remaining controllable selection path: even with Slot 2 preregistered, its launch timing could still be delayed outcome-conditionally after Slot 1. Project Issue #107 identified that temporal-selection defect before execution. The Director explicitly ratified the correction in comment `5650353003` at `2026-09-13T02:44:41Z`: freeze Slot 1 -> Slot 2 order and one fixed UTC batch window before the first namespace claim; after the first claim the order/window are immutable; an objectively gated nonlaunch at window end is preserved as unexecuted/noncontributing rather than extending the batch.
 
-## Director decision requested
+With that amendment, the prior zero-source-change, two-repeat count, no-retry/replacement, independent hard-gate, and descriptive blind-comparison findings remain valid. The earlier chronological `IDENT` preregistration at commit `e440d104f8f63f0486865a49542bd0fc6684165f` can accept the timing amendment without changing its RunIds or frozen blind instrument; no objective repository-law defect was found that would justify replacing it with the later raced `REF` realization.
 
-Recommended decision:
+## Director corrected decision
 
-> Approve `E0C-IDENTICAL-REFERENCE-01` as exactly two fresh preregistered repeats of the selected Run 08 condition, using exact Run 08 executable `bb869fb...`, no retries/replacements/source changes, independent sealing/hard gates, and a frozen blind round-robin comparison among contributing Run 08 / Repeat 1 / Repeat 2 transcripts.
+The Director explicitly approved the corrected method on Project Issue #107, comment `5650353003`. The approved method preserves exactly two fresh repeats and adds the outcome-independent temporal law: Slot 1 then Slot 2, plus one explicit fixed UTC batch window frozen before the first namespace claim and immutable afterward.
 
-Until that decision is durable, Q-E0C-01 remains preparation-only and Gemini provider traffic remains zero.
+The amendment itself creates no execution authority. Q-E0C-01 remains provider-blocked until the canonical Slot 1 activation closes its fresh authenticated project/key/tier/quota/capacity gate, freezes the exact UTC window, integrates durably, and passes exact-main Validation. Gemini provider traffic remains zero during this reconciliation.
