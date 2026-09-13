@@ -6,21 +6,23 @@ Updated: 2026-09-13
 `Rylascoo/Ensemble-Project` is Engineering authority. This file alone owns phase/checkpoint/validation/next action. Bootstrap: `AGENTS.md`; authority: `docs/PROJECT_AUTHORITY.md`; sequencing: `docs/PROJECT_EXECUTION_QUEUE.md`.
 
 ## Checkpoint
-Runtime **E0 experimental program - Q-E0C-01 repeated identical-condition runs**. E0-A/E0-B are **DONE**. Q-E0C-01 is **ACTIVE - SLOT 1 CONTRIBUTING; SLOT 2 ACTIVATION PREPARED, INTEGRATION + EXACT-MAIN VALIDATION PENDING; PROVIDER TRAFFIC ZERO**.
+Runtime **E0 experimental program - Q-E0C-01 repeated identical-condition runs**. E0-A/E0-B are **DONE**. Q-E0C-01 is **ACTIVE - BOTH FRESH SLOTS CONSUMED/SEALED; P01 BLIND REPEATABILITY COMPARISON PENDING; PROVIDER TRAFFIC ZERO**.
 
-Corrected method: `docs/evidence/E0C_Q_E0C_01_METHOD_DIRECTOR_DECISION_2026_09_12.md`; canonical preregistration: `docs/evidence/E0C_Q_E0C_01_TWO_SLOT_PREREGISTRATION_2026_09_12.md`; standing association law: `docs/evidence/E0C_Q_E0C_01_STANDING_PROJECT_KEY_ASSOCIATION_DIRECTOR_AMENDMENT_2026_09_13.md`.
+Corrected method: `docs/evidence/E0C_Q_E0C_01_METHOD_DIRECTOR_DECISION_2026_09_12.md`; canonical preregistration: `docs/evidence/E0C_Q_E0C_01_TWO_SLOT_PREREGISTRATION_2026_09_12.md`; frozen blind instrument: `docs/evidence/E0C_Q_E0C_01_BLIND_REPEATABILITY_INSTRUMENT_2026_09_12.json`.
 
 ## Canonical batch
-Slot 1 `E0C-Q01-IDENT-20260912-01`; Slot 2 `E0C-Q01-IDENT-20260912-02`. Exact executable `bb869fb1c505603612bc718f739b3f1b358e5539`; blind instrument SHA-256 `7857699de82904f52892f3e6d0f9794c80e50ee488c9e30ef9fdb13ba4edfd64`. Order is Slot 1 then Slot 2; immutable UTC window is **2026-09-13T20:30:00Z through 2026-09-13T23:30:00Z**. No retry/replacement/third slot/window extension.
+Exact executable `bb869fb1c505603612bc718f739b3f1b358e5539`; fixed order Slot 1 then Slot 2; immutable UTC window `2026-09-13T20:30:00Z` through `2026-09-13T23:30:00Z`. Both preregistered namespaces are consumed. No retry/replacement/third slot/window extension or further E0-C provider launch exists.
 
-## Slot 1 result
-`docs/evidence/E0C_Q_E0C_01_RUN01_TERMINAL_EVIDENCE_ANALYSIS_2026_09_13.md`: one consumed launch, `AcceptedTurnCapReached`, 12/12, exact model, 72 API operations, hard-gate PASS, contributing. Runtime root `311c7196...`; provider traffic returned to zero.
+## Fresh results
+Slot 1 `E0C-Q01-IDENT-20260912-01`: `AcceptedTurnCapReached`, 12/12, runtime seal valid, hard-gate PASS, **CONTRIBUTING**. Evidence: `docs/evidence/E0C_Q_E0C_01_RUN01_TERMINAL_EVIDENCE_ANALYSIS_2026_09_13.md`.
 
-## Slot 2 activation
-`docs/evidence/E0C_Q_E0C_01_RUN02_PREEXECUTION_ACTIVATION_2026_09_13.md`. Source-derived authoritative claims are `run-83d68e99...claim` and `root-622000c7...claim`; root/claims absent at `22:41:36Z`. Validator/tag exact and clean; Harness/protected artifacts present; ambient key absent; no Harness process. Conservative post-Slot-1 RPD is at most `114/500`, leaving at least `386`, with minute windows reset. Slot 2 remains unconsumed.
+Slot 2 `E0C-Q01-IDENT-20260912-02`: `InvalidOutput`, 0/12, one successful exact-model Performer generation after one token preflight, runtime seal valid, hard-gate PASS, **NONCONTRIBUTING**. The response emitted invalid canonical control ID `MARLOE` despite exact roster IDs/instruction being supplied, so no source/interface correction is earned. Evidence: `docs/evidence/E0C_Q_E0C_01_RUN02_TERMINAL_EVIDENCE_ANALYSIS_2026_09_13.md`.
+
+## Comparison boundary
+Frozen eligibility leaves only `E0C-P01` (Run 08 vs Slot 1). P02/P03 are removed solely because Slot 2 is noncontributing. Pair orientation must be cryptographically randomized and committed before scorer access; scores/evidence seal before mapping reveal. No weighted master score, statistical-significance claim, or reference replacement is authorized.
 
 ## Continuity
-Q-E0D-01 remains blocked on E0-C closure. Q-E0E-PREP is DONE; Q-E0E-RUN remains blocked through E0-C/D. Only sealed 12/12 hard-gate-PASS transcripts enter blind comparison; no scoring/unblinding yet.
+Q-E0D-01 remains blocked on E0-C closure. Q-E0E-PREP is DONE; Q-E0E-RUN remains blocked through E0-C/D. Provider traffic is **ZERO**.
 
 ## Next
-Integrate this exact Slot 2 activation and require push-triggered exact-main Validation. If green before `23:30:00Z`, perform one immediate final namespace/native/credential/capacity/time check and launch Slot 2 exactly once. Otherwise preserve Slot 2 unexecuted/noncontributing and stop for Director disposition.
+Integrate and exact-main validate this Slot 2 terminal closeout. Then construct the single eligible P01 blind package/mapping under the frozen instrument without revealing mapping to the scorer, complete and seal the ten-dimension blind score/evidence, reveal mapping only after score seal, and close Q-E0C-01 from the resulting descriptive repeatability matrix.
