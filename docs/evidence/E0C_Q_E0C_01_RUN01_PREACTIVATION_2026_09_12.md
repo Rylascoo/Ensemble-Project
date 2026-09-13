@@ -2,7 +2,7 @@
 
 Date: 2026-09-12
 
-Status: **PREACTIVATION PREPARED - PUBLIC/NATIVE/NAMESPACE GATES PASS - AUTHENTICATED CURRENT PROJECT/QUOTA/CAPACITY GATE PENDING - NO EXECUTION AUTHORITY**
+Status: **PREACTIVATION PREPARED - PUBLIC/NATIVE/NAMESPACE/PROTECTED-CONTAINER/RATE-LIMIT CAPACITY GATES PASS - FRESH EXACT PROJECT/ACCOUNT ASSOCIATION + UTC WINDOW PENDING - NO EXECUTION AUTHORITY**
 
 ## Exact slot boundary
 
@@ -29,11 +29,11 @@ The blind repeatability instrument is frozen before any fresh transcript and bin
 
 ## Authenticated execution-time gate still pending
 
-The prior E0-B activation proved the intended AI Studio project/key association and Free tier on 2026-09-12, but its quota screenshot predates subsequent E0-B provider traffic. It is therefore retained only as project/key association precedent, **not** promoted into current E0-C capacity evidence.
+The prior E0-B activation remains exact-project/account precedent only. Fresh authenticated rate-limit evidence is now accepted by `docs/evidence/E0C_Q_E0C_01_RUN01_FRESH_AUTHENTICATED_RATE_LIMIT_INTAKE_2026_09_13.md`: the selected AI Studio surface is Free tier and the exact `Gemini 3.5 Flash Lite` row shows `9 / 15 RPM`, `22.07K / 250K TPM`, and `36 / 500 RPD` as 28-day peak usage. This establishes conservative minimum headroom of `6 RPM`, `227.93K TPM`, and `464 RPD`, so the current rate-limit/tier/capacity gate passes with no quota contradiction.
 
-Before Run 01 can be activated for execution, authenticated AI Studio evidence must freshly confirm the intended Kymaean project/key, Free tier, and current applicable `gemini-3.5-flash-lite` RPM/TPM/RPD capacity/headroom. Do not send a provider probe merely to test availability or key health.
+The fresh capture does **not** close exact project/account association: its selected-project label is truncated and no separate current association view accompanies it. Before Run 01 can be activated, fresh authenticated UI evidence must identify the intended Kymaean project/project ID and confirm the existing testing credential is associated with it. Do not send a provider probe merely to test availability or credential health.
 
-Protected credential readiness must also be reconfirmed locally without exposing, hashing, logging, exporting, or placing the key in Git/chat/arguments. Plaintext may exist only at the eventual authorized child-process boundary.
+Protected credential-container readiness has been freshly reconfirmed locally: the protected artifacts are present, CurrentUser SecureString conversion succeeds without revealing plaintext, and ambient `GEMINI_API_KEY` is absent. Plaintext may exist only at the eventual authorized child-process boundary.
 
 The Director-ratified timing amendment on Project Issue #107 comment `5650353003` adds one more mandatory activation gate: before the first Slot 1 namespace claim, freeze the order Slot 1 then Slot 2 and one explicit UTC batch window with fixed start/end timestamps covering both planned launches. The exact timestamps must be bound in the later activation record using then-current execution facts. Once Slot 1 claims its namespace, that order/window cannot move or extend.
 
