@@ -18,7 +18,7 @@ Isolation is exact: relationship omission excludes only the 13-record `Relations
 Measurement uses arm-identity blinding, all ten E0 dimensions, one pair-specific mechanism question, mapping commitment before score, and no master-score/significance claim. E0-C dispersion remains calibration context, not an E0-D arm.
 
 ## Continuity
-E0-C remains closed with Run 08 selected reference and Slot 2 permanently noncontributing. Q-E0E-PREP is DONE; Q-E0E-RUN remains blocked until E0-D closes. No E0-D implementation or external execution authority is created by preparation.
+E0-C remains closed with Run 08 selected reference and Slot 2 permanently noncontributing. Q-E0E-PREP is DONE; Q-E0E-RUN remains blocked until E0-D closes. No E0-D implementation or external execution authority is created by preparation. Q-ADMIN-03 MA-01 is opened only for one separately bounded read-only Scout admission run; it does not change this Engineering checkpoint or authorize E0-D/provider activity.
 
 ## Next
 Obtain separate authority for experiment-only E0-D implementation. Then prove deterministic single-variable isolation and preserve the Full path, followed by applicable compiler/tests and native Windows ARM64 validation. Stop before RunIds/windows/provider activation unless separately authorized.
