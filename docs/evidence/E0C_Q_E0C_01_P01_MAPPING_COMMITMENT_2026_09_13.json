@@ -5,7 +5,7 @@
     "orientationMethod":  "cryptographically-random-one-bit-per-eligible-pair",
     "mappingStorage":  "withheld-external-evidence",
     "packagePath":  "docs/evidence/E0C_Q_E0C_01_P01_BLIND_PACKAGE_2026_09_13.json",
-    "packageSha256":  "5239aa79e5223d368159420998d25c304c83dd1ce3a1b152dc972c1b1bcf985e",
+    "packageSha256":  "c014da2333c89958313e7beb1725b6335b8b25484816aab4ef8cd8a768d14e72",
     "mappingCommittedBeforeScorerAccess":  true,
     "mappingRevealAfterScoreSealOnly":  true
 }

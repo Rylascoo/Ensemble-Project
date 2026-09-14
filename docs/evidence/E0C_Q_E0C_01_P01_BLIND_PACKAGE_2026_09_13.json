@@ -1,15 +1,15 @@
 {
     "schema":  "ensemble.e0c.blind-pair-package.v1",
     "pairId":  "E0C-P01",
-    "instrument":  "docs/evidence/E0C_Q_E0C_01_BLIND_REPEATABILITY_INSTRUMENT_2026_09_12.json",
+    "instrumentSha256":  "7857699de82904f52892f3e6d0f9794c80e50ee488c9e30ef9fdb13ba4edfd64",
     "presentation":  {
                          "identities":  [
                                             "LEFT",
                                             "RIGHT"
                                         ],
-                         "speakerNormalization":  "ordinal-character-id-to-SPEAKER-01-02-03",
+                         "neutralSpeakerNormalization":  "ordinal-character-id-to-SPEAKER-01-02-03",
                          "providerModelMetadataHidden":  true,
-                         "proseEditedForBlinding":  false
+                         "proseEdited":  false
                      },
     "LEFT":  {
                  "performances":  [
