@@ -16,7 +16,7 @@ Run identity: `E0C-Q01-IDENT-20260912-01`; evidence root `C:\Users\Wiryl\Sol Dev
 
 The Harness created the immutable evidence root and authoritative claim records `run-359528129adb1d26f702f6d1d05ea84f55515a86ffc6c43375e619cbd8795b74.claim` and `root-7d18332dbe89e66e6bef8e5483a716fc82d531222d0a34fa5b17ddc35a516b75.claim`; both bind this exact RunId/root. Slot 1 is consumed and may never be replayed.
 
-Earlier preparation predicted different claim filenames. That prediction was a preflight-oracle error only: the authoritative Harness claim guard succeeded on the single launch, proving its source-defined claim namespace was unoccupied. The incorrect prediction creates no retry authority and must not be reused for Slot 2; future claim checks must derive from the exact Harness claim algorithm or inspect claim contents.
+Canonical two-slot preregistration predicted these exact claim filenames. A later launch-boundary checker incorrectly used different Slot 1 claim paths; that checker error did not affect the authoritative Harness claim guard or the already-unoccupied namespace. The incorrect launch-boundary prediction creates no retry authority. Slot 2 checks correctly returned to the exact Harness source derivation.
 
 ## Terminal result and provider accounting
 

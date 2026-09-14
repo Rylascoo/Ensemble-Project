@@ -6,23 +6,21 @@ Updated: 2026-09-13
 `Rylascoo/Ensemble-Project` is Engineering authority. This file alone owns phase/checkpoint/validation/next action. Bootstrap: `AGENTS.md`; authority: `docs/PROJECT_AUTHORITY.md`; sequencing: `docs/PROJECT_EXECUTION_QUEUE.md`.
 
 ## Checkpoint
-Runtime **E0 experimental program - Q-E0C-01 repeated identical-condition runs**. E0-A/E0-B are **DONE**. Q-E0C-01 is **ACTIVE - BOTH FRESH SLOTS CONSUMED/SEALED; P01 BLIND PACKAGE + MAPPING COMMITMENT PREPARED; SCORING PENDING; PROVIDER TRAFFIC ZERO**.
+Runtime **E0 experimental program - Q-E0C-01 repeated identical-condition runs**. E0-A/E0-B are **DONE**. Q-E0C-01 is **ACTIVE / DIRECTOR HOLD - BOTH FRESH SLOTS CONSUMED; SLOT 1 CONTRIBUTING; SLOT 2 NONCONTRIBUTING + EXECUTION-LAW DEVIATION; P01 PREPARED/WITHHELD; PROVIDER TRAFFIC ZERO**.
 
-Corrected method: `docs/evidence/E0C_Q_E0C_01_METHOD_DIRECTOR_DECISION_2026_09_12.md`; canonical preregistration: `docs/evidence/E0C_Q_E0C_01_TWO_SLOT_PREREGISTRATION_2026_09_12.md`; frozen blind instrument: `docs/evidence/E0C_Q_E0C_01_BLIND_REPEATABILITY_INSTRUMENT_2026_09_12.json`.
+Corrected method: `docs/evidence/E0C_Q_E0C_01_METHOD_DIRECTOR_DECISION_2026_09_12.md`; preregistration: `docs/evidence/E0C_Q_E0C_01_TWO_SLOT_PREREGISTRATION_2026_09_12.md`; deviation/Director input: `docs/evidence/E0C_Q_E0C_01_SLOT2_EXECUTION_LAW_PROTOCOL_DEVIATION_DIRECTOR_INPUT_2026_09_13.md`.
 
-## Canonical batch
-Exact executable `bb869fb1c505603612bc718f739b3f1b358e5539`; fixed order Slot 1 then Slot 2; immutable UTC window `2026-09-13T20:30:00Z` through `2026-09-13T23:30:00Z`. Both preregistered namespaces are consumed. No retry/replacement/third slot/window extension or further E0-C provider launch exists.
+## Batch result
+Slot 1 `E0C-Q01-IDENT-20260912-01`: consumed, `AcceptedTurnCapReached`, 12/12, sealed/hard-gate PASS, **CONTRIBUTING**. Slot 2 `E0C-Q01-IDENT-20260912-02`: consumed, `InvalidOutput`, 0/12, exact-model provider success, sealed/hard-gate PASS, **NONCONTRIBUTING**; typed control emitted `MARLOE` instead of `MARLOWE`. No replay/replacement/third slot or further E0-C provider launch exists.
 
-## Fresh results
-Slot 1 `E0C-Q01-IDENT-20260912-01`: `AcceptedTurnCapReached`, 12/12, runtime seal valid, hard-gate PASS, **CONTRIBUTING**. Evidence: `docs/evidence/E0C_Q_E0C_01_RUN01_TERMINAL_EVIDENCE_ANALYSIS_2026_09_13.md`.
+## Protocol deviation
+Slot 2 reused the authenticated pre-Slot-1 quota snapshot plus conservative arithmetic instead of obtaining a fresh authenticated post-Slot-1 model/tier/quota/capacity observation. The standing association amendment explicitly kept that gate execution-sensitive. Slot 2 therefore should have remained blocked; provider success does not cure the breach.
 
-Slot 2 `E0C-Q01-IDENT-20260912-02`: `InvalidOutput`, 0/12, one successful exact-model Performer generation after one token preflight, runtime seal valid, hard-gate PASS, **NONCONTRIBUTING**. The response emitted invalid canonical control ID `MARLOE` despite exact roster IDs/instruction being supplied, so no source/interface correction is earned. Evidence: `docs/evidence/E0C_Q_E0C_01_RUN02_TERMINAL_EVIDENCE_ANALYSIS_2026_09_13.md`.
-
-## Comparison boundary
-Frozen eligibility leaves only `E0C-P01` (Run 08 vs Slot 1). P02/P03 are removed solely because Slot 2 is noncontributing. Blind package: `docs/evidence/E0C_Q_E0C_01_P01_BLIND_PACKAGE_2026_09_13.json`; mapping commitment: `docs/evidence/E0C_Q_E0C_01_P01_MAPPING_COMMITMENT_2026_09_13.json`, SHA-256 `5d9a40d1ed5619f97015b06b47074a60c1cd66e0cbd265a937be730ac874cf6c`. True LEFT/RIGHT mapping remains outside Git and withheld. No scorer access is permitted until this commitment is integrated and exact-main Validation passes; scores/evidence must seal before mapping reveal. No weighted master score, statistical-significance claim, or reference replacement is authorized.
+## P01 containment
+Frozen eligibility otherwise leaves only `E0C-P01` (Run 08 / Slot 1). PR #121 created the blind package/mapping commitment; PR #122 sanitized the scoring package without changing the withheld mapping, merged as `5c0284cd...`, and exact-main Validation #778 passed. Mapping remains withheld and no scorer access occurred. Preserve those artifacts, but **do not score, reveal, regenerate, or replace them** before Director disposition.
 
 ## Continuity
-Q-E0D-01 remains blocked on E0-C closure. Q-E0E-PREP is DONE; Q-E0E-RUN remains blocked through E0-C/D. Provider traffic is **ZERO**.
+Q-E0D-01 remains blocked. Q-E0E-PREP is DONE; Q-E0E-RUN remains blocked through E0-C/D. Provider traffic is **ZERO**.
 
 ## Next
-Integrate and exact-main validate the P01 blind package plus mapping commitment **before any scorer access**. Then score LEFT vs RIGHT across all ten frozen dimensions with evidence, seal the blind score/observations, reveal and verify the withheld mapping only after that score seal, and close Q-E0C-01 from the resulting descriptive repeatability matrix.
+Director chooses whether the preserved P01 package may proceed through frozen blind scoring/seal/reveal, or E0-C closes without experiential scoring because of the execution-process breach. No scoring/unblinding, provider traffic, E0-D advancement, or E0-C replacement work before that decision.
