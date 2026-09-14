@@ -17,7 +17,7 @@ Slot 1 `E0C-Q01-IDENT-20260912-01`: consumed, `AcceptedTurnCapReached`, 12/12, s
 Slot 2 reused the authenticated pre-Slot-1 quota snapshot plus conservative arithmetic instead of obtaining the fresh authenticated post-Slot-1 model/tier/quota/capacity observation that the standing amendment kept execution-sensitive. Slot 2 therefore should have remained blocked; provider success does not cure the breach.
 
 ## P01 containment
-PR #121/#122 prepared and sanitized the blind package/mapping commitment; exact-main Validation #778 passed before scorer access. PR #123 then sealed the ten-dimension blind score at `e1c20e6f...`; exact-main Validation #783 passed. Mapping was unknown during scoring/seal, remains withheld, and no reveal/unblind artifact exists. Preserve the score, but **do not rescore, reveal, unblind, regenerate, replace, or use it for closure** before Director disposition.
+PR #121/#122 prepared and sanitized the blind package/mapping commitment; exact-main Validation #778 passed before scorer access. PR #123 then sealed the ten-dimension blind score at `e1c20e6f...`; exact-main Validation #783 passed. PR #125 integrated the protocol-deviation Director hold at main `506f4804...`; exact-main Validation #786 passed. Mapping was unknown during scoring/seal, remains withheld, and no reveal/unblind artifact exists. Preserve the score, but **do not rescore, reveal, unblind, regenerate, replace, or use it for closure** before Director disposition.
 
 ## Continuity
 Q-E0D-01 remains blocked. Q-E0E-PREP is DONE; Q-E0E-RUN remains blocked through E0-C/D. Provider traffic is **ZERO**.
