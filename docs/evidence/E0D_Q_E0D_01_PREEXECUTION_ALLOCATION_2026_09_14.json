@@ -15,11 +15,12 @@
     "validatedCheckout": "5ce587b6c9ec83b91f3b5d63a2545cce9b1fe891",
     "validationTag": "validation/e0d-ablation-controls-native-arm64",
     "executableSha256": "498c25f528ab1ba26a592d247737186ac839c61b56154303d6e57a94319d0769",
-    "snapshotValidThroughUtcDate": "2026-09-14",
-    "allFrozenPairWindowsAfterSnapshotCutoff": true,
-    "sourceSnapshotRefreshAndRenewedNativeValidationRequiredBeforeExecution": true,
-    "renewedValidatedCheckout": null,
-    "renewedValidationTag": null
+    "snapshotValidThroughUtcDate": "2026-09-18",
+    "allFrozenPairWindowsAfterSnapshotCutoff": false,
+    "sourceSnapshotRefreshAndRenewedNativeValidationRequiredBeforeExecution": false,
+    "renewedValidatedCheckout": "0dacdbf6bd5453c192568cd4718207e145dfcf40",
+    "renewedValidationTag": "validation/e0d-snapshot-refresh-native-arm64",
+    "renewedExecutableSha256": "b2f9c45b376ef08b8c4ec0c7b56c4f595b1d7377ebdb858b63eb555e3cf28625"
   },
   "authenticatedReadiness": {
     "projectLabel": "Gemini Project - Kymaean",

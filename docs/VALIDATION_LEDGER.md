@@ -6,25 +6,26 @@ Status: validation fact register only. This file cannot advance phase/checkpoint
 
 | Field | Fact |
 |---|---|
-| Exact checkout | `5ce587b6c9ec83b91f3b5d63a2545cce9b1fe891` |
-| Annotated tag | `validation/e0d-ablation-controls-native-arm64` |
-| Tag object | `8eae0730664a4dfa21debdae5a2f73e070d5982d`; verified to peel to the exact checkout above |
+| Exact checkout | `0dacdbf6bd5453c192568cd4718207e145dfcf40` |
+| Annotated tag | `validation/e0d-snapshot-refresh-native-arm64` |
+| Tag object | `f2df6e8be66e7f1a7106d82c89ae13d284442090`; verified to peel to the exact checkout above |
 | Architecture | `docs/blueprint/E0D_ABLATION_CONTROLS_METHOD_AND_ISOLATION_CONTRACT_01.md` |
-| Implementation | Frozen E0-D Full, relationship-omission, omniscient-context, and deterministic round-robin variants; rebased source `2afda26825d7ecad11677f858d523300419aa23a`; validation checkpoint adds documentation only. |
-| Native evidence | `docs/evidence/E0D_ABLATION_CONTROLS_NATIVE_ARM64_VALIDATION_2026_09_14.md` |
+| Implementation | Frozen E0-D Full, relationship-omission, omniscient-context, and deterministic round-robin variants unchanged; this checkpoint changes only the dated Gemini snapshot freshness policy through UTC 2026-09-18. |
+| Native evidence | `docs/evidence/E0D_SOURCE_SNAPSHOT_REFRESH_NATIVE_ARM64_VALIDATION_2026_09_14.md` |
 | Supporting implementation audit | `docs/evidence/E0D_ABLATION_CONTROLS_IMPLEMENTATION_AUDIT_2026_09_14.md` |
-| Director authorization | `docs/evidence/E0D_IMPLEMENTATION_NATIVE_VALIDATION_DIRECTOR_AUTHORIZATION_2026_09_14.md` |
+| Director authorization | `docs/evidence/E0D_SOURCE_SNAPSHOT_REFRESH_AND_NATIVE_REVALIDATION_DIRECTOR_AUTHORIZATION_2026_09_14.md` |
 | Host | Director Windows ARM64 (`win-arm64`), repository-selected SDK `9.0.317` |
 | Core tests | 626/626 PASS |
 | Harness tests | 154/154 PASS |
 | Fresh Harness build | `net9.0/win-arm64` Release PASS; zero warnings/errors |
 | Fixture smokes | Missing Raft PASS with canonical Fixture validation; generic PASS |
 | Credentialless provider-edge gate | fixed `e0d-run` missing-key refusal PASS; exit 1 before network and no evidence root |
-| Repository checks | repository-law PASS; census PASS 291 / 170 / 30 / 91 / 0 unexplained; oracle PASS 200 documented / 17 asserted / 183 document-only hashes; diff/clean/source-identity gates PASS |
-| Executable SHA-256 | `498c25f528ab1ba26a592d247737186ac839c61b56154303d6e57a94319d0769` |
-| Provider scope | network / `countTokens` / generation / inference / spend NOT PERFORMED during validation |
+| Repository checks | repository-law PASS; census PASS 300 / 179 / 30 / 91 / 0 unexplained; oracle PASS 215 documented / 17 asserted / 198 document-only hashes; commit-diff/clean/frozen-identity gates PASS |
+| Executable SHA-256 | `b2f9c45b376ef08b8c4ec0c7b56c4f595b1d7377ebdb858b63eb555e3cf28625` |
+| Snapshot boundary | verified 2026-09-14; valid inclusively through UTC 2026-09-18; fail closed from UTC 2026-09-19 |
+| Provider scope | network / `countTokens` / generation / inference / scoring / spend NOT PERFORMED during validation |
 
-Native runtime authority applies only to exact checkout `5ce587b6c9ec83b91f3b5d63a2545cce9b1fe891`. Later documentation/integration commits do not inherit machine-test authority. Cloud ARM64-target builds remain compiler authority only; non-native tests remain semantic regressions, not native Windows ARM64 runtime authority.
+Native runtime authority applies only to exact checkout `0dacdbf6bd5453c192568cd4718207e145dfcf40`. Later documentation/integration commits do not inherit machine-test authority. Cloud ARM64-target builds remain compiler authority only; non-native tests remain semantic regressions, not native Windows ARM64 runtime authority.
 
 ### Supporting provider-evidence continuity
 
@@ -49,6 +50,7 @@ The promoted checkpoint does not erase the still-current evidence chain that est
 - `docs/evidence/E0A_Q_E0A_03_REFERENCE_EVIDENCE_PLANNING_RECURSIVE_AUDIT_2026_09_09.md`
 ## Current validation ancestry
 
+- prior E0-D ablation-controls native validation: `docs/evidence/E0D_ABLATION_CONTROLS_NATIVE_ARM64_VALIDATION_2026_09_14.md` at `5ce587b6c9ec83b91f3b5d63a2545cce9b1fe891`, tag `validation/e0d-ablation-controls-native-arm64`;
 The promoted E0-D ablation-controls checkpoint depends on and supersedes, but does not erase, the accepted E0-B/E0-A executable validation ancestry below:
 
 - E0-B mixed-cast native validation: `docs/evidence/E0B_MIXED_CAST_NATIVE_ARM64_VALIDATION_2026_09_12.md` at `d1073fe2c76e2e05f2daac47465f86b48b456a9a`;
