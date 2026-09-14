@@ -1,0 +1,11 @@
+{
+    "schema":  "ensemble.e0c.blind-pair-mapping-commitment.v1",
+    "pairId":  "E0C-P01",
+    "mappingSha256":  "5d9a40d1ed5619f97015b06b47074a60c1cd66e0cbd265a937be730ac874cf6c",
+    "orientationMethod":  "cryptographically-random-one-bit-per-eligible-pair",
+    "mappingStorage":  "withheld-external-evidence",
+    "packagePath":  "docs/evidence/E0C_Q_E0C_01_P01_BLIND_PACKAGE_2026_09_13.json",
+    "packageSha256":  "5239aa79e5223d368159420998d25c304c83dd1ce3a1b152dc972c1b1bcf985e",
+    "mappingCommittedBeforeScorerAccess":  true,
+    "mappingRevealAfterScoreSealOnly":  true
+}
