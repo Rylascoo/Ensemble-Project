@@ -78,8 +78,8 @@ internal static class E0AGeminiProviderPolicy
 internal static class E0AGeminiPricingPolicy
 {
     internal const string SourceUri = "https://ai.google.dev/gemini-api/docs/pricing";
-    internal const string VerifiedOn = "2026-09-07";
-    internal const string SnapshotValidThrough = "2026-09-14";
+    internal const string VerifiedOn = "2026-09-14";
+    internal const string SnapshotValidThrough = "2026-09-18";
     internal const decimal PublishedPaidInputUsdPerMillionTokens = 0.30m;
     internal const decimal PublishedPaidCachedInputUsdPerMillionTokens = 0.03m;
     internal const decimal PublishedPaidOutputUsdPerMillionTokens = 2.50m;
@@ -97,7 +97,7 @@ internal static class E0AGeminiPricingPolicy
 
     internal static void RequireNonStaleSnapshot(DateTimeOffset now)
     {
-        var validThrough = new DateOnly(2026, 9, 14);
+        var validThrough = new DateOnly(2026, 9, 18);
         var currentDate = DateOnly.FromDateTime(now.UtcDateTime);
         if (currentDate > validThrough)
         {

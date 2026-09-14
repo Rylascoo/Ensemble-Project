@@ -21,7 +21,7 @@ Disposition: exercised 3.5 and 3.1 Flash-Lite transport/structured-output compat
 Verification trigger: Run 08 established full 3.5 live transport/structured-output compatibility across all three roles through 12 accepted turns. Run 09 then consumed the frozen 2.5 control once and terminated on first Performer `countTokens` HTTP 404 / `NOT_FOUND`, so 2.5 generation compatibility remains unverified and no retry/replay is authorized. Reopen compatibility only for a separately approved later route or a material contrary signal.
 
 Falsifier/narrowing evidence: Run 08 completed 36/36 exact-model generations and 12 causal commits without provider or local semantic failure. This narrows the earlier Run 06/07 503 observations as availability-class failures rather than evidence of persistent route incompatibility; those failures remain immutable reliability evidence.
-### HYP-002 — Account/key/model/quota availability — PARTIALLY ESTABLISHED / VOLATILE — E0-D FRESH GATE PENDING
+### HYP-002 — Account/key/model/quota availability — PARTIALLY ESTABLISHED / VOLATILE — E0-D SLOT-FRESH CAPACITY GATE PENDING
 
 Hypothesis: the Director-selected Free-tier project and a valid key can access the selected model and required `countTokens` / generation routes within the approved E0-A envelope at execution time.
 
@@ -31,21 +31,21 @@ For 3.1 Flash-Lite, current Google documentation and Director-supplied authentic
 
 Current evidence also includes Run 08: 36 `countTokens` and 36 generation operations completed successfully on the approved 3.5 Free-tier route with no `429` / `RESOURCE_EXHAUSTED` signal. This establishes account/key/model/quota availability for that consumed run. Run 09 does not upgrade 2.5 availability because it failed at `countTokens` with `NOT_FOUND` and retained the pre-run gate limitation above.
 
-E0-D preauthorization recheck on 2026-09-14 identifies a new credential-policy gate. Current Google documentation says new AI Studio keys default to Auth keys and Standard-key Gemini API use is being rejected/retired in September 2026. Repository evidence proves a historical temporary `AQ.` Auth key worked but that exposed key was quarantined; it does not prove the present protected testing key type. Before E0-D activation, verify without disclosure that the intended protected key is a current usable Auth key on the intended project, then obtain fresh authenticated Free-tier/model/quota/capacity evidence. No E0-D RunId/root/window is allocated by this recheck.
+E0-D authenticated preexecution readiness on 2026-09-14 resolved the key-type/project-association preparation gate without disclosure: the protected testing credential decrypts in-memory as an `AQ.` Auth key and matches the authenticated `Gemini API Key - testing` row for `Gemini Project - Kymaean` / `gen-lang-client-0490221700` / Free tier. The authenticated 3.5 Flash Lite rate-limit UI showed 9/15 RPM, 22.07K/250K TPM, and 43/500 RPD, with no preparation-time quota contradiction. Evidence: `docs/evidence/E0D_Q_E0D_01_AUTHENTICATED_PREEXECUTION_READINESS_2026_09_14.md`. This preparation observation does **not** satisfy any later slot's execution-sensitive capacity gate.
 
-Verification trigger: before any later provider-network execution, including E0-D, recheck every selected route's material account/project/key/model/tier/quota facts and stop on any contrary signal.
+Verification trigger: immediately before every authorized E0-D slot, recheck current project/key/model/tier/quota facts and obtain the required fresh authenticated capacity observation after any predecessor terminal. Stop on any contrary signal.
 
 Falsifier: key/project association, model availability, remaining/current quota, tier, region/project configuration, provider `429`/`RESOURCE_EXHAUSTED`, or another account constraint violates the selected route's admitted envelope.
 
-### HYP-003 — Current pricing, lifecycle, and data-use state — VOLATILE — E0-D UTC CUTOFF ACTIVE
+### HYP-003 — Current pricing, lifecycle, and data-use state — VOLATILE — E0-D SNAPSHOT VALID THROUGH 2026-09-18
 
 Hypothesis: the intended account/tier pricing and data-use terms remain compatible with the approved synthetic-only E0-A run boundary at execution time.
 
-Current evidence: official Google surfaces were rechecked 2026-09-11 for Run 08. Exact `gemini-3.5-flash-lite` remains a stable Gemini API model with Free-tier Standard access, 1,048,576 input / 65,536 output limits, Structured Outputs and Thinking support, and no announced shutdown date. Free-tier input/output are free of charge and submitted content may be used to improve Google products. Current paid shadow rates are USD 0.30/M input, USD 0.03/M cached input, and USD 2.50/M output including thinking, matching the executable 3.5 profile. The machine-validated pricing/data-use freshness guard remains valid only through **2026-09-14** and fails closed afterward.
+Current evidence: official Google surfaces were rechecked 2026-09-14 for the frozen E0-D route. Exact `gemini-3.5-flash-lite` remains stable with no announced shutdown; 1,048,576 input / 65,536 output limits, Structured Outputs and Thinking support, `minimal`/`high` thinking controls, Standard Free-tier behavior, the Free-tier data-use boundary, and paid shadow rates of USD 0.30/M input, USD 0.03/M cached input, and USD 2.50/M output including thinking remain compatible with the executable assumptions.
 
-E0-D public facts were rechecked again on 2026-09-14: the 3.5 Flash-Lite lifecycle, minimal/high thinking controls, Standard tier, Free-tier data-use boundary, and paid shadow rates still match. This does **not** extend `SnapshotValidThrough`. Provider execution on UTC 2026-09-15 or later requires the already-frozen audited source snapshot refresh followed by renewed native Windows ARM64 validation/tagging.
+The audited source refresh was then native-validated at exact checkout `0dacdbf6bd5453c192568cd4718207e145dfcf40`, tag `validation/e0d-snapshot-refresh-native-arm64`. Its freshness guard is valid inclusively through **UTC 2026-09-18** and fails closed from **UTC 2026-09-19**. Evidence: `docs/evidence/E0D_SOURCE_SNAPSHOT_REFRESH_NATIVE_ARM64_VALIDATION_2026_09_14.md`.
 
-Verification trigger: immediately before each authorized provider-network execution, and whenever the executable snapshot expires or a material provider pricing, data-use, lifecycle, tier, or model-status change is discovered. Execution after 2026-09-14 requires an audited source snapshot refresh followed by renewed native validation/tagging before provider traffic.
+Verification trigger: immediately before each authorized provider-network execution and whenever a material provider pricing, data-use, lifecycle, tier, model-status, or route change is discovered. Execution after 2026-09-18 requires another audited source snapshot refresh and renewed native validation before provider traffic.
 
 Falsifier: current provider terms, billing, retention/data-use, pricing, lifecycle, model availability, or route behavior differs materially from the assumptions required by the approved synthetic run.
 
