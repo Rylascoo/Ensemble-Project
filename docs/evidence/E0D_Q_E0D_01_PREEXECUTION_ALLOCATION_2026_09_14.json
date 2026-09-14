@@ -1,0 +1,182 @@
+{
+  "schema": "ensemble.e0d.preexecution-allocation.v1",
+  "frozenOn": "2026-09-14",
+  "status": "FROZEN_ALLOCATION_EXECUTION_BLOCKED",
+  "authority": {
+    "currentState": "CURRENT_STATE.md",
+    "method": "docs/blueprint/E0D_ABLATION_CONTROLS_METHOD_AND_ISOLATION_CONTRACT_01.md",
+    "preregistration": "docs/evidence/E0D_Q_E0D_01_PREREGISTRATION_2026_09_14.json",
+    "preauthorizationAudit": "docs/evidence/E0D_LIVE_ACTIVATION_PREAUTHORIZATION_AUDIT_2026_09_14.md",
+    "directorAuthorization": "docs/evidence/E0D_PREEXECUTION_ACTIVATION_PREPARATION_DIRECTOR_AUTHORIZATION_2026_09_14.md",
+    "authenticatedReadiness": "docs/evidence/E0D_Q_E0D_01_AUTHENTICATED_PREEXECUTION_READINESS_2026_09_14.md",
+    "implementationIntegrationCloseout": "docs/evidence/E0D_ABLATION_CONTROLS_IMPLEMENTATION_INTEGRATION_CLOSEOUT_2026_09_14.md"
+  },
+  "nativeBoundary": {
+    "validatedCheckout": "5ce587b6c9ec83b91f3b5d63a2545cce9b1fe891",
+    "validationTag": "validation/e0d-ablation-controls-native-arm64",
+    "executableSha256": "498c25f528ab1ba26a592d247737186ac839c61b56154303d6e57a94319d0769",
+    "snapshotValidThroughUtcDate": "2026-09-14",
+    "allFrozenPairWindowsAfterSnapshotCutoff": true,
+    "sourceSnapshotRefreshAndRenewedNativeValidationRequiredBeforeExecution": true,
+    "renewedValidatedCheckout": null,
+    "renewedValidationTag": null
+  },
+  "authenticatedReadiness": {
+    "projectLabel": "Gemini Project - Kymaean",
+    "projectId": "gen-lang-client-0490221700",
+    "tier": "Free",
+    "credentialLabel": "Gemini API Key - testing",
+    "protectedBlobPresent": true,
+    "readyMarkerPresent": true,
+    "ambientGeminiApiKeyPresent": false,
+    "currentUserDecryptionSucceededInMemory": true,
+    "protectedKeyType": "AUTH_AQ",
+    "protectedKeyMatchesAuthenticatedTestingKey": true,
+    "plaintextPrintedHashedPersistedOrExported": false,
+    "geminiApiProviderCalls": 0,
+    "observationWindowUtc": {
+      "notBefore": "2026-09-14T17:40:00Z",
+      "notAfter": "2026-09-14T17:59:32Z"
+    }
+  },
+  "freshRateLimitObservation": {
+    "source": "authenticated Google AI Studio Rate Limit UI",
+    "timeRange": "last-28-days",
+    "model": "Gemini 3.5 Flash Lite",
+    "rpmPeak": 9,
+    "rpmLimit": 15,
+    "tpmPeak": 22070,
+    "tpmLimit": 250000,
+    "rpdPeak": 43,
+    "rpdLimit": 500,
+    "conservativeMinimumHeadroom": {
+      "rpm": 6,
+      "tpm": 227930,
+      "rpd": 457
+    },
+    "preparationReadiness": "PASS_NO_QUOTA_CONTRADICTION",
+    "satisfiesFutureSlotExecutionSensitiveGate": false,
+    "reason": "every slot requires a fresh observation at its own prelaunch boundary after any predecessor terminal"
+  },
+  "pairWindows": [
+    {
+      "pairId": "E0D-P01-RELATIONSHIP-OMISSION",
+      "startUtc": "2026-09-16T14:30:00Z",
+      "endUtc": "2026-09-16T23:30:00Z"
+    },
+    {
+      "pairId": "E0D-P02-OMNISCIENT-CONTEXT",
+      "startUtc": "2026-09-17T14:30:00Z",
+      "endUtc": "2026-09-17T23:30:00Z"
+    },
+    {
+      "pairId": "E0D-P03-ROUND-ROBIN",
+      "startUtc": "2026-09-18T14:30:00Z",
+      "endUtc": "2026-09-18T23:30:00Z"
+    }
+  ],
+  "slots": [
+    {
+      "ordinal": 1,
+      "pairId": "E0D-P01-RELATIONSHIP-OMISSION",
+      "slotId": "P01-FULL",
+      "variantId": "E0D-FULL-REFERENCE-01",
+      "runId": "E0D-Q01-P01-FULL-20260914-01",
+      "evidenceRoot": "C:\\Users\\Wiryl\\Sol Dev\\Ensemble-Project-Evidence\\E0D-Q01-P01-FULL-20260914-01",
+      "runClaim": "C:\\Users\\Wiryl\\Sol Dev\\Ensemble-Project-Evidence\\.ensemble-e0a-claims\\run-944cb219c94ba067690ddd2512bdc300dcc9517653407e3aa0ec86858336568c.claim",
+      "rootClaim": "C:\\Users\\Wiryl\\Sol Dev\\Ensemble-Project-Evidence\\.ensemble-e0a-claims\\root-42a75e08f7d968665af1f70a80abfa6f7d1f2331228148993dc9f9ba70adad29.claim",
+      "state": "FROZEN_UNCLAIMED_UNCONSUMED"
+    },
+    {
+      "ordinal": 2,
+      "pairId": "E0D-P01-RELATIONSHIP-OMISSION",
+      "slotId": "P01-ABLATION",
+      "variantId": "E0D-RELATIONSHIPS-OMITTED-01",
+      "runId": "E0D-Q01-P01-REL-20260914-02",
+      "evidenceRoot": "C:\\Users\\Wiryl\\Sol Dev\\Ensemble-Project-Evidence\\E0D-Q01-P01-REL-20260914-02",
+      "runClaim": "C:\\Users\\Wiryl\\Sol Dev\\Ensemble-Project-Evidence\\.ensemble-e0a-claims\\run-d410e9ccd14404dc8e1134ddf9e2ad9213e9c1eb4b2473c92dae40ea95da7fad.claim",
+      "rootClaim": "C:\\Users\\Wiryl\\Sol Dev\\Ensemble-Project-Evidence\\.ensemble-e0a-claims\\root-540ffa3347fee74bcff9d781431da64b20ed854f15cd37c04b60312b9ede5ca5.claim",
+      "state": "FROZEN_UNCLAIMED_UNCONSUMED"
+    },
+    {
+      "ordinal": 3,
+      "pairId": "E0D-P02-OMNISCIENT-CONTEXT",
+      "slotId": "P02-ABLATION",
+      "variantId": "E0D-OMNISCIENT-CONTEXT-01",
+      "runId": "E0D-Q01-P02-OMNI-20260914-03",
+      "evidenceRoot": "C:\\Users\\Wiryl\\Sol Dev\\Ensemble-Project-Evidence\\E0D-Q01-P02-OMNI-20260914-03",
+      "runClaim": "C:\\Users\\Wiryl\\Sol Dev\\Ensemble-Project-Evidence\\.ensemble-e0a-claims\\run-472fdd4579876c356c5a51764af5b9e81752f600fd284bd7861264913352dde3.claim",
+      "rootClaim": "C:\\Users\\Wiryl\\Sol Dev\\Ensemble-Project-Evidence\\.ensemble-e0a-claims\\root-a17a828abb2d896cb887c5409ce6c4c9c91c753f8a6253eb7e8be37b7909c151.claim",
+      "state": "FROZEN_UNCLAIMED_UNCONSUMED"
+    },
+    {
+      "ordinal": 4,
+      "pairId": "E0D-P02-OMNISCIENT-CONTEXT",
+      "slotId": "P02-FULL",
+      "variantId": "E0D-FULL-REFERENCE-01",
+      "runId": "E0D-Q01-P02-FULL-20260914-04",
+      "evidenceRoot": "C:\\Users\\Wiryl\\Sol Dev\\Ensemble-Project-Evidence\\E0D-Q01-P02-FULL-20260914-04",
+      "runClaim": "C:\\Users\\Wiryl\\Sol Dev\\Ensemble-Project-Evidence\\.ensemble-e0a-claims\\run-1542a67159b8aac16df3b30e7d823252e78db22ef3b09d882352aaa9870b7df7.claim",
+      "rootClaim": "C:\\Users\\Wiryl\\Sol Dev\\Ensemble-Project-Evidence\\.ensemble-e0a-claims\\root-87d5ef6e90ee337abafd3add4dccda859a3973f11cab8cf062e7a754d18bb7cd.claim",
+      "state": "FROZEN_UNCLAIMED_UNCONSUMED"
+    },
+    {
+      "ordinal": 5,
+      "pairId": "E0D-P03-ROUND-ROBIN",
+      "slotId": "P03-FULL",
+      "variantId": "E0D-FULL-REFERENCE-01",
+      "runId": "E0D-Q01-P03-FULL-20260914-05",
+      "evidenceRoot": "C:\\Users\\Wiryl\\Sol Dev\\Ensemble-Project-Evidence\\E0D-Q01-P03-FULL-20260914-05",
+      "runClaim": "C:\\Users\\Wiryl\\Sol Dev\\Ensemble-Project-Evidence\\.ensemble-e0a-claims\\run-5ae4ccb8203695c4b9d4f4f974db4a12a080d126ce5a5efc34659705e0ee569f.claim",
+      "rootClaim": "C:\\Users\\Wiryl\\Sol Dev\\Ensemble-Project-Evidence\\.ensemble-e0a-claims\\root-a2ea5583a18efd3dec6e11d4e264b6fe92291f9380125347e89d594e84c09c11.claim",
+      "state": "FROZEN_UNCLAIMED_UNCONSUMED"
+    },
+    {
+      "ordinal": 6,
+      "pairId": "E0D-P03-ROUND-ROBIN",
+      "slotId": "P03-ABLATION",
+      "variantId": "E0D-ROUND-ROBIN-01",
+      "runId": "E0D-Q01-P03-RR-20260914-06",
+      "evidenceRoot": "C:\\Users\\Wiryl\\Sol Dev\\Ensemble-Project-Evidence\\E0D-Q01-P03-RR-20260914-06",
+      "runClaim": "C:\\Users\\Wiryl\\Sol Dev\\Ensemble-Project-Evidence\\.ensemble-e0a-claims\\run-1a13669dfcd812f2d5b54cfc14a48c9451815b1f669cb8a7ec4d04170a0127d2.claim",
+      "rootClaim": "C:\\Users\\Wiryl\\Sol Dev\\Ensemble-Project-Evidence\\.ensemble-e0a-claims\\root-91ba0e9111f40356039c2889cf9c1cec19d92983e8eeefd1a93fe5138ddfa9fb.claim",
+      "state": "FROZEN_UNCLAIMED_UNCONSUMED"
+    }
+  ],
+  "allocationChecks": {
+    "allRunIdsUnique": true,
+    "allEvidenceRootsUnique": true,
+    "allRunIdsAbsentBeforeFreeze": true,
+    "allEvidenceRootsAbsentBeforeFreeze": true,
+    "allRunClaimsAbsentBeforeFreeze": true,
+    "allRootClaimsAbsentBeforeFreeze": true,
+    "matchingE0dHarnessProcessAbsent": true,
+    "claimsOrRootsCreatedByPreparation": false
+  },
+  "executionBoundary": {
+    "namespaceClaimAuthorized": false,
+    "evidenceRootCreationAuthorized": false,
+    "providerTrafficAuthorized": false,
+    "countTokensAuthorized": false,
+    "generationAuthorized": false,
+    "inferenceAuthorized": false,
+    "scoringAuthorized": false,
+    "spendAuthorized": false,
+    "liveExecutionAuthorized": false,
+    "futureSlotFreshCapacityObservationRequired": true,
+    "noRetryNoReplacementNoRetune": true
+  },
+  "windowSizingAudit": {
+    "attemptTimeoutSeconds": 300,
+    "roleAttemptsPerContributingSlot": 36,
+    "maximumRoleCallEnvelopeSecondsPerContributingSlot": 10800,
+    "twoSlotMaximumRoleCallEnvelopeSeconds": 21600,
+    "pairWindowSeconds": 32400,
+    "minimumNonRoleOverheadMarginSeconds": 10800,
+    "historicalReferenceFullRunDurationsSecondsApprox": [
+      286,
+      303
+    ],
+    "rationale": "9h contains the <6h two-slot role-call envelope and preserves >=3h for terminal preservation, fresh post-predecessor capacity observation, and launch-boundary overhead without extending the frozen window."
+  }
+}
