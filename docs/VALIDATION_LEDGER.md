@@ -6,24 +6,26 @@ Status: validation fact register only. This file cannot advance phase/checkpoint
 
 | Field | Fact |
 |---|---|
-| Exact checkout | `d1073fe2c76e2e05f2daac47465f86b48b456a9a` |
-| Annotated tag | `validation/e0b-mixed-cast-implementation-native-arm64` |
-| Tag object | `f7eadb838c4e01d9b4a01d17ff20b8d938046b03`; verified to peel to the exact checkout above |
-| Architecture | `docs/blueprint/E0B_MIXED_MODEL_CAST_METHOD_PROPOSAL_01.md` |
-| Implementation | Fixed `E0B-MIXED-CAST-01`: VOSS Performer uses Gemini 3.1 Flash-Lite Minimal; MARLOWE/WREN Performers remain Gemini 3.5 Flash-Lite Minimal; Integrity remains 3.5 High; Interpreter remains 3.5 Minimal. Per-route identity/quota/pricing and conservative shared-project pacing are explicit; Core is unchanged. |
-| Native evidence | `docs/evidence/E0B_MIXED_CAST_NATIVE_ARM64_VALIDATION_2026_09_12.md` |
-| Supporting implementation audit | `docs/evidence/E0B_MIXED_CAST_IMPLEMENTATION_AUDIT_2026_09_12.md` |
-| Director decision | `docs/evidence/E0B_Q_E0B_01_MIXED_CAST_DIRECTOR_DECISION_2026_09_12.md` |
+| Exact checkout | `5ce587b6c9ec83b91f3b5d63a2545cce9b1fe891` |
+| Annotated tag | `validation/e0d-ablation-controls-native-arm64` |
+| Tag object | `8eae0730664a4dfa21debdae5a2f73e070d5982d`; verified to peel to the exact checkout above |
+| Architecture | `docs/blueprint/E0D_ABLATION_CONTROLS_METHOD_AND_ISOLATION_CONTRACT_01.md` |
+| Implementation | Frozen E0-D Full, relationship-omission, omniscient-context, and deterministic round-robin variants; rebased source `2afda26825d7ecad11677f858d523300419aa23a`; validation checkpoint adds documentation only. |
+| Native evidence | `docs/evidence/E0D_ABLATION_CONTROLS_NATIVE_ARM64_VALIDATION_2026_09_14.md` |
+| Supporting implementation audit | `docs/evidence/E0D_ABLATION_CONTROLS_IMPLEMENTATION_AUDIT_2026_09_14.md` |
+| Director authorization | `docs/evidence/E0D_IMPLEMENTATION_NATIVE_VALIDATION_DIRECTOR_AUTHORIZATION_2026_09_14.md` |
 | Host | Director Windows ARM64 (`win-arm64`), repository-selected SDK `9.0.317` |
-| Core tests | 622/622 PASS |
-| Harness tests | 147/147 PASS |
+| Core tests | 626/626 PASS |
+| Harness tests | 154/154 PASS |
 | Fresh Harness build | `net9.0/win-arm64` Release PASS; zero warnings/errors |
 | Fixture smokes | Missing Raft PASS with canonical Fixture validation; generic PASS |
-| Credentialless provider-edge gate | fixed `e0b-run` exact missing-key refusal PASS after checkout/fixture/pricing guards; no evidence root or provider network |
-| Repository checks | repository-law PASS; document census PASS at exact checkout, 246 inventoried / 129 current / 30 historical / 87 archive / 0 unexplained current; oracle guard PASS, 163 documented / 17 asserted / 146 document-only hashes |
+| Credentialless provider-edge gate | fixed `e0d-run` missing-key refusal PASS; exit 1 before network and no evidence root |
+| Repository checks | repository-law PASS; census PASS 291 / 170 / 30 / 91 / 0 unexplained; oracle PASS 200 documented / 17 asserted / 183 document-only hashes; diff/clean/source-identity gates PASS |
+| Executable SHA-256 | `498c25f528ab1ba26a592d247737186ac839c61b56154303d6e57a94319d0769` |
 | Provider scope | network / `countTokens` / generation / inference / spend NOT PERFORMED during validation |
 
-Native runtime authority applies only to exact checkout `d1073fe2c76e2e05f2daac47465f86b48b456a9a`. Documentation-only and integration commits do not inherit machine-test authority. Cloud ARM64-target builds remain compiler authority only; Linux x64 Core tests remain semantic regressions, not native Windows ARM64 runtime authority.
+Native runtime authority applies only to exact checkout `5ce587b6c9ec83b91f3b5d63a2545cce9b1fe891`. Later documentation/integration commits do not inherit machine-test authority. Cloud ARM64-target builds remain compiler authority only; non-native tests remain semantic regressions, not native Windows ARM64 runtime authority.
+
 ### Supporting provider-evidence continuity
 
 The promoted checkpoint does not erase the still-current evidence chain that established the provider/runtime boundary. These records remain supporting evidence only and do not override the promoted checkpoint:
@@ -47,8 +49,10 @@ The promoted checkpoint does not erase the still-current evidence chain that est
 - `docs/evidence/E0A_Q_E0A_03_REFERENCE_EVIDENCE_PLANNING_RECURSIVE_AUDIT_2026_09_09.md`
 ## Current validation ancestry
 
-The promoted E0-B mixed-cast checkpoint depends on and supersedes, but does not erase, the accepted E0-A executable validation ancestry below:
+The promoted E0-D ablation-controls checkpoint depends on and supersedes, but does not erase, the accepted E0-B/E0-A executable validation ancestry below:
 
+- E0-B mixed-cast native validation: `docs/evidence/E0B_MIXED_CAST_NATIVE_ARM64_VALIDATION_2026_09_12.md` at `d1073fe2c76e2e05f2daac47465f86b48b456a9a`;
+- E0-B mixed-cast implementation audit: `docs/evidence/E0B_MIXED_CAST_IMPLEMENTATION_AUDIT_2026_09_12.md`;
 - Gemini technical-failure diagnostic classification native validation: `docs/evidence/E0A_GEMINI_TECHNICAL_FAILURE_DIAGNOSTIC_CLASSIFICATION_NATIVE_ARM64_VALIDATION_2026_09_10.md` at `bb869fb1c505603612bc718f739b3f1b358e5539`;
 - Gemini technical-failure diagnostic classification implementation audit: `docs/evidence/E0A_GEMINI_TECHNICAL_FAILURE_DIAGNOSTIC_CLASSIFICATION_IMPLEMENTATION_AUDIT_2026_09_10.md`;
 - Role control-identity alignment native validation: `docs/evidence/E0A_ROLE_CONTROL_IDENTITY_ALIGNMENT_NATIVE_ARM64_VALIDATION_2026_09_10.md` at `29b62a2e778d93c6727b555f58f8d22aa18665a1`;
@@ -74,6 +78,7 @@ These documents remain current evidence because the promoted correction was buil
 
 These tags preserve exact historical machine-tested checkouts. Historical validity does not make a checkout current.
 
+- `validation/e0b-mixed-cast-implementation-native-arm64` -> `d1073fe2c76e2e05f2daac47465f86b48b456a9a`; evidence: `docs/evidence/E0B_MIXED_CAST_NATIVE_ARM64_VALIDATION_2026_09_12.md`
 - `validation/e0a-phase-b-reference-run-native-arm64` -> `3749210393282f6aa2ac4ceb0176b6adb5df189e`
 - `validation/e0a-phase-b-live-host-native-arm64` -> `1cfdb3aa22abce62a5bd48e80706407670d1c6a9`
 - `validation/e0a-phase-b-post-audit-hardening-native-arm64` -> `5c70f619d6e951d89bb527a5945b014998573dab`
