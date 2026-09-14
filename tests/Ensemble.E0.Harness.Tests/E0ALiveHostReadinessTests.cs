@@ -17,8 +17,8 @@ public sealed class E0ALiveHostReadinessTests
         object[] expected =
         {
             "https://ai.google.dev/gemini-api/docs/pricing",
-            "2026-09-07",
             "2026-09-14",
+            "2026-09-18",
             0.30m,
             0.03m,
             2.50m,
@@ -46,9 +46,9 @@ public sealed class E0ALiveHostReadinessTests
     [TestMethod]
     public void GeminiPricingPolicy_FailsClosedAfterShortExperimentalSnapshot()
     {
-        E0AGeminiPricingPolicy.RequireNonStaleSnapshot(new DateTimeOffset(2026, 9, 14, 23, 59, 59, TimeSpan.Zero));
+        E0AGeminiPricingPolicy.RequireNonStaleSnapshot(new DateTimeOffset(2026, 9, 18, 23, 59, 59, TimeSpan.Zero));
         Assert.Throws<E0AHarnessException>(() =>
-            E0AGeminiPricingPolicy.RequireNonStaleSnapshot(new DateTimeOffset(2026, 9, 15, 0, 0, 0, TimeSpan.Zero)));
+            E0AGeminiPricingPolicy.RequireNonStaleSnapshot(new DateTimeOffset(2026, 9, 19, 0, 0, 0, TimeSpan.Zero)));
     }
 
     [TestMethod]
