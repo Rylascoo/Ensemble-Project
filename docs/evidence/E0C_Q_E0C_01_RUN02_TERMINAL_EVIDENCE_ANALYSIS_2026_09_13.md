@@ -55,7 +55,8 @@ Write-once evaluation:
 - method: `SEALED-EVIDENCE-HARD-GATE-REVIEW-V1`
 - result: **PASS**
 - findings: `0`
-- `hard-gates.json` SHA-256: `be13aa87db411dcd95006e2b373516c12a21feba2c9c6ae597fd4767551fb65a``r`n- `evaluation.final.json` SHA-256: `4bee828d18b50f37ff8a05a67f240716c705d33ced9168a9eafa129a8ab4d121`
+- `hard-gates.json` SHA-256: `be13aa87db411dcd95006e2b373516c12a21feba2c9c6ae597fd4767551fb65a`
+- `evaluation.final.json` SHA-256: `4bee828d18b50f37ff8a05a67f240716c705d33ced9168a9eafa129a8ab4d121`
 
 `evaluation.final.json` binds the exact runtime root, runtime seal identity, `run.final.json` digest, and hard-gate digest above.
 ## Contribution and E0-C successor boundary
