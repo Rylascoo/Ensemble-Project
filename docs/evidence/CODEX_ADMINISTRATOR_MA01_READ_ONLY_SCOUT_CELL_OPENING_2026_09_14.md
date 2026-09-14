@@ -33,9 +33,15 @@ Sealed execution artifacts:
 - `ma01-prompt.txt` SHA-256 `B4BB58EECBC6E04452E4D3F2118E2FE0265519FE574BC4FB99A967E9DCE118DD`;
 - `ma01-output-schema.json` SHA-256 `F6B0167FC7214CF5FBD216BDCFBB7019A1C8601581452299DA3CF7F2C9E0B0E2`;
 - `ma01-run.ps1` SHA-256 `A3D67FB0FF2995EAEB00F2180377EACDD37770C22153646BF9EA030F35B95076`;
-- `ma01-supervisor.ps1` SHA-256 `3CE142CE73CC0574C67F587A8B8BA83934555F7F70435D3958ECE4AD55139A56`.
+- `ma01-supervisor.ps1` SHA-256 `001506B609ABA895B04AB732F6DDBD2AD51F948E4DCE3F77CBF340379223071F`.
 
 Pre-execution parsing passes for both PowerShell scripts and the JSON schema. A model-free `codex doctor` candidate-config preflight passes configuration loading/auth/sandbox checks on the exact binary; it does not consume the MA-01 live run.
+
+### Pre-consumption PowerShell path correction
+
+After PR #133 merged and post-merge Validation #813 passed, the first outer attempt to invoke the supervisor used the nonexistent path `C:\Program Files\PowerShell\7\pwsh.exe` and failed before `ma01-supervisor.ps1` or `ma01-run.ps1` started. The opening's consumption condition was therefore not reached: the evidence directory remained empty, no related child process survived, and no Scout was spawned.
+
+Machine re-resolution identified the already-admitted PowerShell 7 executable at `C:\Users\Wiryl\AppData\Local\Microsoft\WindowsApps\pwsh.exe` (`PowerShell 7.6.6`). Recursive inspection then found that the sealed supervisor itself carried the same stale Program Files child-launch path. Before consumption, that one path was corrected to the verified WindowsApps executable and the supervisor was re-sealed at the SHA-256 above. No other sealed task, prompt, schema, runner, fixture, Scout profile, Codex binary, permission boundary, PASS criterion, or no-retry rule changed. A live MA-01 run remains unconsumed until this correction is integrated and validated.
 
 ## Exact one-run permission/config boundary
 
