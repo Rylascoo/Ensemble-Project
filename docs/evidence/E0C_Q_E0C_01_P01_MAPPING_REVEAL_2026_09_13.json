@@ -1,0 +1,20 @@
+{
+    "schema":  "ensemble.e0c.mapping-reveal.v1",
+    "pairId":  "E0C-P01",
+    "revealedAfterScoreSeal":  true,
+    "scoreMainCommit":  "e1c20e6f25fa876c8c9ee8fabb911bf8365025bc",
+    "scoreExactMainValidationRun":  783,
+    "scoreSha256":  "e074ca6ad1c398fdcddfa97802f0e32d74c540655182cec2b06f73473d705988",
+    "committedMappingSha256":  "5d9a40d1ed5619f97015b06b47074a60c1cd66e0cbd265a937be730ac874cf6c",
+    "revealedMappingSha256":  "5d9a40d1ed5619f97015b06b47074a60c1cd66e0cbd265a937be730ac874cf6c",
+    "commitmentMatch":  true,
+    "LEFT":  "E0C-Q01-IDENT-20260912-01",
+    "RIGHT":  "E0A-Q03-G35L-20260911-08",
+    "sourceTranscriptSha256":  {
+                                   "E0C-Q01-IDENT-20260912-01":  "150a1f21da0db2e3af823aba25165e007640b81c99aa910eaf2f8b78d871dc8b",
+                                   "E0A-Q03-G35L-20260911-08":  "0a18838bbb093b428060b3b74b10ae8083149782ce9d1fbc4262f9d7a99addda"
+                               },
+    "sourceTranscriptHashMatch":  true,
+    "blindPackageMemberContentMatch":  true,
+    "revealedAtUtc":  "2026-09-14T01:21:50.5689219Z"
+}
