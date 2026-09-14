@@ -1,0 +1,12 @@
+{
+    "schema":  "ensemble.e0c.blind-score-seal.v1",
+    "pairId":  "E0C-P01",
+    "packageMainCommit":  "5c0284cdf5f9a0ec7dfbef529f3196df1434e0ae",
+    "packageSha256":  "c014da2333c89958313e7beb1725b6335b8b25484816aab4ef8cd8a768d14e72",
+    "mappingCommitmentSha256":  "5d9a40d1ed5619f97015b06b47074a60c1cd66e0cbd265a937be730ac874cf6c",
+    "scoreSha256":  "e074ca6ad1c398fdcddfa97802f0e32d74c540655182cec2b06f73473d705988",
+    "scorerIdentity":  "ENGINEERING-SOL-BLIND-SCORER-01",
+    "mappingKnownAtSeal":  false,
+    "scoresSealedBeforeMappingReveal":  true,
+    "sealedAtUtc":  "2026-09-14T00:54:55.2993632Z"
+}

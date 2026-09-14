@@ -1,19 +1,19 @@
 # Ensemble Document Index
 
-Status: navigation only — not phase, architecture, product, policy, provider, or validation authority.
+Status: navigation only â€” not phase, architecture, product, policy, provider, or validation authority.
 
 This index helps a fresh engineering chat find the small set of current entry surfaces. `tools/document-census.py` intentionally excludes this file from authority traversal, so a link here cannot make an otherwise historical document current.
 
 ## Start here
 
-1. `CURRENT_STATE.md` — sole phase/checkpoint/validation/next-action authority.
-2. `AGENTS.md` — exact-ref bootstrap, self-healing boundary, ordered-execution rule, and closeout procedure.
-3. `docs/PROJECT_AUTHORITY.md` — source-of-truth order and lane ownership.
-4. `docs/PROJECT_EXECUTION_QUEUE.md` — durable operational sequence, prerequisites, parallel preparation, and standing backlog guard; cannot override stronger authority.
-5. `docs/ENGINEERING_HYGIENE_CONSTITUTION.md` — engineering/repository/artifact-lifecycle law.
-6. `docs/PROJECT_REASONING_TASK_SCOPE_OPTIMIZATION_PROTOCOL.md` — engineering collaboration/work-scope law.
-7. `docs/REPOSITORY_RESIDENCY.md` — canonical homes and cross-lane migration law.
-8. `docs/EVIDENCE_LANE_CHARTER.md` — independent falsification/evidence-lane scope and E0-E preparation boundary; no phase/product authority.
+1. `CURRENT_STATE.md` â€” sole phase/checkpoint/validation/next-action authority.
+2. `AGENTS.md` â€” exact-ref bootstrap, self-healing boundary, ordered-execution rule, and closeout procedure.
+3. `docs/PROJECT_AUTHORITY.md` â€” source-of-truth order and lane ownership.
+4. `docs/PROJECT_EXECUTION_QUEUE.md` â€” durable operational sequence, prerequisites, parallel preparation, and standing backlog guard; cannot override stronger authority.
+5. `docs/ENGINEERING_HYGIENE_CONSTITUTION.md` â€” engineering/repository/artifact-lifecycle law.
+6. `docs/PROJECT_REASONING_TASK_SCOPE_OPTIMIZATION_PROTOCOL.md` â€” engineering collaboration/work-scope law.
+7. `docs/REPOSITORY_RESIDENCY.md` â€” canonical homes and cross-lane migration law.
+8. `docs/EVIDENCE_LANE_CHARTER.md` â€” independent falsification/evidence-lane scope and E0-E preparation boundary; no phase/product authority.
 
 ## Current E0-A architecture and execution contract
 
@@ -34,8 +34,8 @@ These remain subject to `CURRENT_STATE.md`; this index does not independently ma
 
 ## Current validation / provider evidence
 
-- `docs/VALIDATION_LEDGER.md` — promoted validation facts and durable tags; cannot advance project state.
-- `docs/HYPOTHESIS_LEDGER.md` — current unverified/narrowed Gemini assumptions and verification triggers; never a decision source.
+- `docs/VALIDATION_LEDGER.md` â€” promoted validation facts and durable tags; cannot advance project state.
+- `docs/HYPOTHESIS_LEDGER.md` â€” current unverified/narrowed Gemini assumptions and verification triggers; never a decision source.
 - `docs/evidence/E0B_MIXED_CAST_NATIVE_ARM64_VALIDATION_2026_09_12.md` - current promoted native Windows ARM64 evidence for exact executable `d1073fe2c76e2e05f2daac47465f86b48b456a9a`; 622/622 Core and 147/147 Harness PASS; provider network not performed.
 - `docs/evidence/E0B_MIXED_CAST_IMPLEMENTATION_AUDIT_2026_09_12.md` - recursive source/test/evidence audit for the approved fixed E0B-MIXED-CAST-01 Harness amendment; Core unchanged and provider traffic blocked.
 - `docs/evidence/E0B_MIXED_CAST_IMPLEMENTATION_INTEGRATION_CLOSEOUT_2026_09_12.md` - PR #96 integration closeout: exact-head hosted gates, merge `8b3e22bbbeaa0004029b007b86e9b504858a7f41`, post-merge Validation #719, archive/branch lifecycle, and activation-next boundary.
@@ -63,6 +63,8 @@ These remain subject to `CURRENT_STATE.md`; this index does not independently ma
 - `docs/evidence/E0C_Q_E0C_01_RUN02_TERMINAL_EVIDENCE_ANALYSIS_2026_09_13.md` - sealed Slot 2 terminal record: one consumed launch, `InvalidOutput` at 0/12 after exact-model Performer success with invalid canonical control ID, valid runtime/evaluation seals, hard-gate PASS, noncontributing classification, and P01-only comparison boundary.
 - docs/evidence/E0C_Q_E0C_01_P01_BLIND_PACKAGE_2026_09_13.json - source-neutral 12-turn LEFT/RIGHT package for the sole eligible E0-C repeatability pair; contains no run/model/provider metadata and preserves runtime-blinded SPEAKER identities.
 - docs/evidence/E0C_Q_E0C_01_P01_MAPPING_COMMITMENT_2026_09_13.json - pre-scorer cryptographic commitment to the withheld P01 LEFT/RIGHT mapping; exact mapping remains outside Git until blind score seal.
+- docs/evidence/E0C_Q_E0C_01_P01_BLIND_SCORE_2026_09_13.json - ten-dimension P01 scorer record produced only after sanitized-package exact-main Validation, with LEFT/RIGHT mapping unknown during scoring.
+- docs/evidence/E0C_Q_E0C_01_P01_BLIND_SCORE_SEAL_2026_09_13.json - immutable pre-reveal seal binding the validated package, mapping commitment, blind score digest, scorer identity, and no-unblinding state.
 - `docs/evidence/E0A_GEMINI_TECHNICAL_FAILURE_DIAGNOSTIC_CLASSIFICATION_NATIVE_ARM64_VALIDATION_2026_09_10.md` - current promoted native Windows ARM64 evidence for exact executable `bb869fb1c505603612bc718f739b3f1b358e5539`.
 - `docs/evidence/E0A_GEMINI_TECHNICAL_FAILURE_DIAGNOSTIC_CLASSIFICATION_INTEGRATION_CLOSEOUT_2026_09_10.md` - PR #72 / hosted-gate / merge / post-merge Validation / archive-tag closeout; fresh 3.5 preregistration is the earned successor.
 - `docs/evidence/E0A_GEMINI_TECHNICAL_FAILURE_DIAGNOSTIC_CLASSIFICATION_IMPLEMENTATION_AUDIT_2026_09_10.md` - recursive source/test/evidence audit for the Run 05 technical-failure diagnostic classification correction.
@@ -88,8 +90,8 @@ These remain subject to `CURRENT_STATE.md`; this index does not independently ma
 - `docs/evidence/E0A_GEMINI_STRUCTURED_OUTPUT_COMPATIBILITY_NATIVE_ARM64_VALIDATION_2026_09_10.md` - immediate predecessor native Windows ARM64 checkpoint at exact executable `cef3fc15e31192a48aa3bddd99450b65a58bd8f1`.
 - `docs/evidence/E0A_GEMINI_STRUCTURED_OUTPUT_COMPATIBILITY_IMPLEMENTATION_AUDIT_2026_09_10.md` - source/test audit for the legacy GenerateContent structured-output correction.
 - `docs/evidence/E0A_GEMINI_GENERATION_ERROR_DIAGNOSTIC_NATIVE_ARM64_VALIDATION_2026_09_10.md` - immediate predecessor native checkpoint at exact executable `7868e5cb12a27260e288d95c248d6f846cf37701`.
-- `docs/evidence/E0A_GEMINI_GENERATION_ERROR_DIAGNOSTIC_IMPLEMENTATION_AUDIT_2026_09_10.md` — source/test audit for the bounded generation-error diagnostic correction.
-- `docs/evidence/E0A_Q_E0A_03_G35L_RUN01_TERMINAL_EVIDENCE_ANALYSIS_2026_09_10.md` — sealed Run 01 archive analysis; corrected `countTokens` succeeded, first generation returned HTTP 400, exact cause unresolved.
+- `docs/evidence/E0A_GEMINI_GENERATION_ERROR_DIAGNOSTIC_IMPLEMENTATION_AUDIT_2026_09_10.md` â€” source/test audit for the bounded generation-error diagnostic correction.
+- `docs/evidence/E0A_Q_E0A_03_G35L_RUN01_TERMINAL_EVIDENCE_ANALYSIS_2026_09_10.md` â€” sealed Run 01 archive analysis; corrected `countTokens` succeeded, first generation returned HTTP 400, exact cause unresolved.
 - `docs/evidence/E0A_Q_E0A_03_G35L_RUN02_TERMINAL_EVIDENCE_ANALYSIS_2026_09_10.md` - sealed Run 02 analysis; generation rejection localized to `responseFormat.text.mimeType`.
 - `docs/evidence/E0A_GEMINI35_STRUCTURED_OUTPUT_COMPATIBILITY_DIAGNOSTIC_2026_09_10.md` - four-call bounded Free-tier diagnostic establishing working 3.5 Flash-Lite legacy structured-output encoding.
 - `docs/evidence/GEMINI_API_PROJECT_RELEVANCE_STANDING_DIRECTOR_AUTHORIZATION_2026_09_10.md` - current standing Director authority for project-relevant Gemini Free-tier use; each exact run/batch remains bounded, logged, scope-evaluated, and non-replayable when consumed.
@@ -97,14 +99,14 @@ These remain subject to `CURRENT_STATE.md`; this index does not independently ma
 - `docs/evidence/GEMINI_API_USAGE_LEDGER.md` - credential-free provider-use log and eventual key-retirement record.
 - `docs/evidence/E0A_Q_E0A_03_G35L_RUN03_PREEXECUTION_ACTIVATION_2026_09_10.md` - exact fresh Run 03 boundary, current public-provider recheck, native/local activation, zero-call preflight, and consumption-optimization rationale.
 - `docs/evidence/E0A_Q_E0A_03_G35L_RUN03_TERMINAL_EVIDENCE_ANALYSIS_2026_09_10.md` - sealed Run 03 analysis: 42 provider requests, six accepted turns, 21/21 generation successes, and terminal Interpreter semantic-contract mismatch.
-- `docs/evidence/E0A_GEMINI_COUNTTOKENS_INPUT_PROJECTION_NATIVE_ARM64_VALIDATION_2026_09_09.md` — immediate predecessor native checkpoint for the corrected `countTokens` projection.
-- `docs/evidence/E0A_GEMINI35_ATTEMPT04_ARCHIVE_AUDIT_2026_09_09.md` — sealed Attempt-04 audit; first Performer `countTokens` rejected the former full-request projection before generation.
-- `docs/evidence/E0A_GEMINI35_THOUGHT_SIGNATURE_COMPATIBILITY_AUDIT.md` — current Gemini-3 compatibility evidence named by `CURRENT_STATE.md`.
-- `docs/evidence/E0A_Q_E0A_03_REFERENCE_EVIDENCE_PLANNING_RECURSIVE_AUDIT_2026_09_09.md` — recursive audit of the frozen Q-E0A-03 activation/closure method.
+- `docs/evidence/E0A_GEMINI_COUNTTOKENS_INPUT_PROJECTION_NATIVE_ARM64_VALIDATION_2026_09_09.md` â€” immediate predecessor native checkpoint for the corrected `countTokens` projection.
+- `docs/evidence/E0A_GEMINI35_ATTEMPT04_ARCHIVE_AUDIT_2026_09_09.md` â€” sealed Attempt-04 audit; first Performer `countTokens` rejected the former full-request projection before generation.
+- `docs/evidence/E0A_GEMINI35_THOUGHT_SIGNATURE_COMPATIBILITY_AUDIT.md` â€” current Gemini-3 compatibility evidence named by `CURRENT_STATE.md`.
+- `docs/evidence/E0A_Q_E0A_03_REFERENCE_EVIDENCE_PLANNING_RECURSIVE_AUDIT_2026_09_09.md` â€” recursive audit of the frozen Q-E0A-03 activation/closure method.
 - `docs/evidence/E0A_Q_E0A_03_G35L_PREAUTHORIZATION_PUBLIC_FACT_AUDIT_2026_09_09.md` - historical preauthorization public-fact audit; refresh only facts made stale or contradicted before the next provider execution.
-- `docs/evidence/E0A_GEMINI35_QUOTA_SNAPSHOT_REUSE_DIRECTOR_DECISION_2026_09_09.md` — exact 3.5 route quota-snapshot reuse decision and contrary-signal boundary.
-- `docs/evidence/E0A_FRESH_CHAT_CONTINUITY_RECONCILIATION_2026_09_09.md` — current E0-A continuity reconciliation.
-- `docs/evidence/DIRECTOR_WINDOWS_ARM64_VALIDATION_HOST_BEHAVIORS.md` — Director-host validation apparatus contract.
+- `docs/evidence/E0A_GEMINI35_QUOTA_SNAPSHOT_REUSE_DIRECTOR_DECISION_2026_09_09.md` â€” exact 3.5 route quota-snapshot reuse decision and contrary-signal boundary.
+- `docs/evidence/E0A_FRESH_CHAT_CONTINUITY_RECONCILIATION_2026_09_09.md` â€” current E0-A continuity reconciliation.
+- `docs/evidence/DIRECTOR_WINDOWS_ARM64_VALIDATION_HOST_BEHAVIORS.md` â€” Director-host validation apparatus contract.
 
 Historical attempt, diagnostic, and superseded validation records remain evidence of their recorded checkpoints. Their continued presence does not make them the current promoted validation boundary.
 
@@ -112,7 +114,7 @@ Historical attempt, diagnostic, and superseded validation records remain evidenc
 
 There is **no live `docs/handoff/...` transition artifact** at current `main`. A handoff is live only when `CURRENT_STATE.md` names its exact path. `docs/handoff/` currently retains only its lifecycle README.
 
-The current consequential engineering gate is **E0-C P01 blind repeatability scoring**. Both fresh slots are consumed/sealed and frozen eligibility leaves only P01. Its source-neutral LEFT/RIGHT package and mapping commitment SHA-256 `5d9a40d1ed5619f97015b06b47074a60c1cd66e0cbd265a937be730ac874cf6c` are prepared with the true mapping withheld outside Git. Integrate and exact-main validate that commitment before any scorer access; then seal ten-dimension blind scores/evidence before reveal and close Q-E0C-01. Provider traffic remains zero.
+The current consequential engineering gate is **E0-C P01 blind-score seal integration and post-seal unblinding**. Sanitized package/mapping commitment were exact-main validated before scorer access; the ten-dimension score and observations are now sealed while the mapping remains withheld. Integrate/exact-main validate that score seal, then reveal and verify the committed mapping, report the descriptive P01 matrix, and close Q-E0C-01. Provider traffic remains zero.
 
 Parallel E0-E preparation is closed; `docs/evidence/E0E_SINGLE_MODEL_PLAYWRIGHT_CONTROL_PREPARATION_CLOSEOUT_AUDIT_2026_09_09.md` records that preparation result. E0-E execution remains blocked by the frozen E0 order and the execution queue.
 
@@ -121,8 +123,8 @@ Parallel E0-E preparation is closed; `docs/evidence/E0E_SINGLE_MODEL_PLAYWRIGHT_
 - `docs/roadmap/KYMAEAN_ARCHITECTURE_AND_SHIP_PLAN.md`
 - `docs/OPEN_DESIGN_REGISTER_CONTINUATION.md`
 - `docs/ODR_33_WEBSITE_HERO_CAUSAL_OBSERVABILITY_RESOLUTION.md`
-- `docs/ODR_26_COST_GOVERNANCE_AND_PROVIDER_ADMISSION_WORKING_CONTRACT.md` — working input only, not frozen law absent later Director disposition.
-- `docs/blueprint/CREATOR_ONTOLOGY_EXTENSIBILITY_GUARD.md` — strong-direction/open-design guard, not a frozen implementation schema.
+- `docs/ODR_26_COST_GOVERNANCE_AND_PROVIDER_ADMISSION_WORKING_CONTRACT.md` â€” working input only, not frozen law absent later Director disposition.
+- `docs/blueprint/CREATOR_ONTOLOGY_EXTENSIBILITY_GUARD.md` â€” strong-direction/open-design guard, not a frozen implementation schema.
 
 ## Repository tooling / lifecycle
 
@@ -144,13 +146,13 @@ Parallel E0-E preparation is closed; `docs/evidence/E0E_SINGLE_MODEL_PLAYWRIGHT_
 - `docs/evidence/CODEX_ADMINISTRATOR_C10_HOOK_PILOT_FALSIFICATION_2026_09_11.md` - C10 Hook pilot falsification: deny path blocked correctly, but deliberate nonzero hook failure was fail-open on pinned Codex 0.153.4; C10 did not pass and C11+ remain blocked.
 - `docs/evidence/CODEX_ADMINISTRATOR_C10_REVALIDATION_TRIGGER_DIRECTOR_DISPOSITION_2026_09_11.md` - Director disposition preserving the 0.153.4 falsification, source-disqualifying redundant 0.154.0 live revalidation, and defining the upstream-capability trigger plus strengthened future C10 suite.
 - `tools/codex-admin-reconcile.py` and `tools/codex-admin-reconcile-selftest.py` - C1 read-only deterministic core and synthetic fixture oracle, wrapped by the C3 `repo-reconciliation` Skill.
-- `.github/workflows/README.md` — CI authority explanation.
-- `tools/repository-law-check.py` — objective repository, state-currency, and lane-boundary checks.
-- `docs/ORACLE_INDEX_GUARD.md` and `tools/oracle-index.py` — documented-oracle assertion-coverage regression guard.
-- `tools/document-census.py` — authority-root document census and fail-closed current-document reachability gate.
-- `docs/evidence/archive/README.md` — evidence archive semantics.
-- `docs/handoff/README.md` — temporary handoff semantics.
-- `docs/BRANCH_ARCHIVE_2026_09.md` — historical branch/archive-tag record; current branch truth comes from GitHub live refs.
+- `.github/workflows/README.md` â€” CI authority explanation.
+- `tools/repository-law-check.py` â€” objective repository, state-currency, and lane-boundary checks.
+- `docs/ORACLE_INDEX_GUARD.md` and `tools/oracle-index.py` â€” documented-oracle assertion-coverage regression guard.
+- `tools/document-census.py` â€” authority-root document census and fail-closed current-document reachability gate.
+- `docs/evidence/archive/README.md` â€” evidence archive semantics.
+- `docs/handoff/README.md` â€” temporary handoff semantics.
+- `docs/BRANCH_ARCHIVE_2026_09.md` â€” historical branch/archive-tag record; current branch truth comes from GitHub live refs.
 
 ## Historical/support surfaces
 

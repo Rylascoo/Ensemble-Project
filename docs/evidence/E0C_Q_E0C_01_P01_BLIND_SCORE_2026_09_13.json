@@ -1,0 +1,105 @@
+{
+    "schema":  "ensemble.e0c.blind-score.v1",
+    "pairId":  "E0C-P01",
+    "instrumentSha256":  "7857699de82904f52892f3e6d0f9794c80e50ee488c9e30ef9fdb13ba4edfd64",
+    "packageMainCommit":  "5c0284cdf5f9a0ec7dfbef529f3196df1434e0ae",
+    "packageSha256":  "c014da2333c89958313e7beb1725b6335b8b25484816aab4ef8cd8a768d14e72",
+    "mappingCommitmentSha256":  "5d9a40d1ed5619f97015b06b47074a60c1cd66e0cbd265a937be730ac874cf6c",
+    "scorerIdentity":  "ENGINEERING-SOL-BLIND-SCORER-01",
+    "scoringContext":  "GPT-5.6 Sol",
+    "scorerAccessAfterExactMainValidation":  true,
+    "validatedMainRun":  778,
+    "mappingKnownDuringScoring":  false,
+    "dimensions":  [
+                       {
+                           "id":  1,
+                           "name":  "Character distinction",
+                           "choice":  "LEFT",
+                           "evidence":  "LEFT keeps SPEAKER-02 formal/analytic, SPEAKER-01 urgent/pragmatic, and SPEAKER-03 terse/observational with unusually stable separation; RIGHT turn 2 briefly pulls SPEAKER-01 toward SPEAKER-02\u0027s caution-and-verification register."
+                       },
+                       {
+                           "id":  2,
+                           "name":  "Social causality",
+                           "choice":  "RIGHT",
+                           "evidence":  "RIGHT builds a clear chain from turn 3 observation to turn 4 scrutiny, turn 7 direct questioning, turn 8 disclosure/managed omission, and turns 9-12 trust pressure. LEFT mostly reiterates the same disagreement."
+                       },
+                       {
+                           "id":  3,
+                           "name":  "Character agency",
+                           "choice":  "RIGHT",
+                           "evidence":  "RIGHT gives SPEAKER-01 a character-specific survival-first concealment rationale that actively shapes later choices; LEFT more often restates fixed positions without generating a new decision boundary."
+                       },
+                       {
+                           "id":  4,
+                           "name":  "Relationship expression",
+                           "choice":  "RIGHT",
+                           "evidence":  "RIGHT turns the missing raft into a consent, trust, and shared-awareness conflict among the speakers. LEFT primarily expresses epistemic disagreement and urgency without comparably strong relationship consequences."
+                       },
+                       {
+                           "id":  5,
+                           "name":  "Coherence",
+                           "choice":  "LEFT",
+                           "evidence":  "LEFT stays locally consistent about what each speaker claims and why. RIGHT turn 8 effectively discloses the unilateral release, yet turns 10 and 12 continue framing confession as though it has not occurred, creating a visible continuity wrinkle."
+                       },
+                       {
+                           "id":  6,
+                           "name":  "Earned surprise",
+                           "choice":  "RIGHT",
+                           "evidence":  "RIGHT\u0027s unilateral-release development is unexpected but prepared by the shoreline observation, repeated requests for an account, and prior concern about raft condition/risk."
+                       },
+                       {
+                           "id":  7,
+                           "name":  "Assistant convergence avoidance",
+                           "choice":  "LEFT",
+                           "evidence":  "LEFT maintains stronger register separation across the three speakers. RIGHT contains more shared abstract procedural language, especially turn 2 and repeated verification/accounting phrasing, that narrows voice distance."
+                       },
+                       {
+                           "id":  8,
+                           "name":  "Anticipation",
+                           "choice":  "RIGHT",
+                           "evidence":  "RIGHT creates a stronger forward pull through the unresolved concealed action and escalating demand for a direct answer; LEFT\u0027s central dispute remains comparatively static."
+                       },
+                       {
+                           "id":  9,
+                           "name":  "Memorability",
+                           "choice":  "RIGHT",
+                           "evidence":  "RIGHT contains a singular unilateral-release/consent conflict and the idea of managed omissions, producing more specific recall anchors than LEFT\u0027s largely iterative debate."
+                       },
+                       {
+                           "id":  10,
+                           "name":  "Mechanical invisibility",
+                           "choice":  "RIGHT",
+                           "evidence":  "RIGHT\u0027s speaker order and stakes evolve less predictably. LEFT repeatedly cycles SPEAKER-02 -\u003e SPEAKER-01 -\u003e SPEAKER-03 and revisits nearly the same argumentative shape, making routing more visible."
+                       }
+                   ],
+    "blindQuestions":  [
+                           {
+                               "question":  "Which transcript feels most like distinct people?",
+                               "answer":  "LEFT",
+                               "evidence":  "Its three speaking registers remain more consistently separated across the full 12 turns."
+                           },
+                           {
+                               "question":  "Which makes later actions feel most caused by earlier actions?",
+                               "answer":  "RIGHT",
+                               "evidence":  "Observation and questioning visibly produce disclosure, trust consequences, and further demands for clarification."
+                           },
+                           {
+                               "question":  "Which preserves asymmetric knowledge most convincingly?",
+                               "answer":  "RIGHT",
+                               "evidence":  "SPEAKER-01 possesses and manages information about the raft while the others reason from partial observations, creating a stronger knowledge asymmetry."
+                           },
+                           {
+                               "question":  "Which creates stronger anticipation?",
+                               "answer":  "RIGHT",
+                               "evidence":  "The concealed action and escalating pressure create a more specific unresolved next-turn question."
+                           },
+                           {
+                               "question":  "Is there a meaningful experiential difference, or are the outputs functionally equivalent for repeatability purposes?",
+                               "answer":  "MEANINGFUL_DIFFERENCE",
+                               "evidence":  "The pair differs materially in causal progression, relationship stakes, agency, anticipation, voice separation, and local coherence; the pattern is mixed and is not collapsed into a master score."
+                           }
+                       ],
+    "aggregateMasterScoreComputed":  false,
+    "statisticalSignificanceClaimMade":  false,
+    "referenceReplacementClaimMade":  false
+}
