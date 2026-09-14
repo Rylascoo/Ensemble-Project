@@ -13,7 +13,7 @@ Deviation authority: `docs/evidence/E0C_Q_E0C_01_SLOT2_EXECUTION_LAW_PROTOCOL_DE
 ## Preserved results
 Slot 1 `E0C-Q01-IDENT-20260912-01`: consumed, 12/12, sealed/hard-gate PASS, **CONTRIBUTING**. Slot 2 `E0C-Q01-IDENT-20260912-02`: consumed, `InvalidOutput`, 0/12, sealed/hard-gate PASS, **NONCONTRIBUTING**; no retry/replacement/third slot exists.
 
-Slot 2 should have remained blocked because the required fresh authenticated post-Slot-1 execution-sensitive capacity observation was not obtained. Provider success does not cure that protocol defect.
+Slot 2 should have remained blocked because the required fresh authenticated post-Slot-1 execution-sensitive capacity observation was not obtained. Provider success does not cure that protocol defect. Recursive audit: `docs/evidence/E0C_Q_E0C_01_TWO_SLOT_RECURSIVE_AUDIT_AND_PROCESS_HARDENING_2026_09_13.md`; Slot 1 is internally clean, first-turn request conditions match, and the capacity breach is independent of the `MARLOE` invalid output. Frozen law defines Slot 2 as the second fresh repeat; the post-execution concurrent-audit expectation was not durably encoded as a launch review gate and does not relabel the consumed run.
 
 ## P01 containment
 PR #123 sealed the ten-dimension blind score while mapping was unknown; exact-main Validation #783 passed. Before any closure commit, a concurrent Engineering session followed the then-current reveal-next boundary, verified the external mapping SHA-256 `5d9a40d1ed5619f97015b06b47074a60c1cd66e0cbd265a937be730ac874cf6c`, and read the mapping. A subsequent race check discovered PR #125 had reached main and imposed the Director hold; exact-main Validation #786 passed.
