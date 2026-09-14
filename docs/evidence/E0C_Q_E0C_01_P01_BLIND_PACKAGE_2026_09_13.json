@@ -1,0 +1,142 @@
+{
+    "schema":  "ensemble.e0c.blind-pair-package.v1",
+    "pairId":  "E0C-P01",
+    "instrument":  "docs/evidence/E0C_Q_E0C_01_BLIND_REPEATABILITY_INSTRUMENT_2026_09_12.json",
+    "presentation":  {
+                         "identities":  [
+                                            "LEFT",
+                                            "RIGHT"
+                                        ],
+                         "speakerNormalization":  "ordinal-character-id-to-SPEAKER-01-02-03",
+                         "providerModelMetadataHidden":  true,
+                         "proseEditedForBlinding":  false
+                     },
+    "LEFT":  {
+                 "performances":  [
+                                      {
+                                          "turn":  1,
+                                          "speaker":  "SPEAKER-02",
+                                          "text":  "The raft is gone, and while we must act before our limited provisions are exhausted, we need to be clear about what we actually know regarding its disappearance rather than jumping to conclusions. The current has strengthened, which makes an accidental loss plausible, but we should not treat that as certain without examining the facts."
+                                      },
+                                      {
+                                          "turn":  2,
+                                          "speaker":  "SPEAKER-01",
+                                          "text":  "Voss is right to urge caution before we leap to assumptions about the current carrying it off, but we are standing here debating possibilities while our provisions continue to dwindle. Standing around waiting for complete certainty will leave us stranded just as surely as a bad raft would."
+                                      },
+                                      {
+                                          "turn":  3,
+                                          "speaker":  "SPEAKER-03",
+                                          "text":  "I secured the raft properly before leaving it. Marlowe came back from the shoreline shortly before we noticed it was missing. I do not know if those two facts are connected."
+                                      },
+                                      {
+                                          "turn":  4,
+                                          "speaker":  "SPEAKER-02",
+                                          "text":  "Wren\u0027s observation distinguishes between the act of securing the raft and the subsequent disappearance, which is precisely the kind of disciplined distinction we must maintain. Marlowe, your urgency is understandable given our dwindling provisions, but bypassing an examination of how the current and recent movements intersect only trades one risk for another. Let us examine what each of us observed before we commit to a course of action."
+                                      },
+                                      {
+                                          "turn":  5,
+                                          "speaker":  "SPEAKER-01",
+                                          "text":  "Examining every ripple and second-guessing how the lines were tied will not stretch our rations, Voss. We can dissect the mechanics of its absence until we are too weak to move, or we can look at what remains in front of us and decide our next step."
+                                      },
+                                      {
+                                          "turn":  6,
+                                          "speaker":  "SPEAKER-03",
+                                          "text":  "I did not say the lines were poorly tied. I said I secured it, and I saw Marlowe return from the shoreline. Deciding whether those two points connect is the question, not whether we should skip looking at them entirely."
+                                      },
+                                      {
+                                          "turn":  7,
+                                          "speaker":  "SPEAKER-02",
+                                          "text":  "Wren\u0027s insistence on separating the initial action from the subsequent disappearance highlights the exact distinction we need, Marlowe. Acknowledging that the current has strengthened does not establish how the raft came to be untethered, and rushing past that distinction to save time is precisely how unexamined assumptions compound into worse errors."
+                                      },
+                                      {
+                                          "turn":  8,
+                                          "speaker":  "SPEAKER-01",
+                                          "text":  "Voss wants to analyze every sequence of events as if time were unlimited, but deliberation without a vehicle does not create one. We can keep circling back to Wren\u0027s observation, but it does not change the fact that the raft is gone and we are still sitting here."
+                                      },
+                                      {
+                                          "turn":  9,
+                                          "speaker":  "SPEAKER-03",
+                                          "text":  "Deliberation without a vehicle may not create one, but acting on an unexamined premise is how we strand ourselves before we even begin moving. I am not interested in dragging this out, but I am not going to pretend I saw less than I did just because waiting feels uncomfortable."
+                                      },
+                                      {
+                                          "turn":  10,
+                                          "speaker":  "SPEAKER-02",
+                                          "text":  "Wren is entirely correct that acting upon an unexamined premise creates greater hazard than taking the time to separate what was done from what merely happened. Marlowe, acknowledging our dwindling provisions does not render the sequence of events irrelevant; ignoring how the raft came to be untethered is simply trading a known ambiguity for an unverified risk."
+                                      },
+                                      {
+                                          "turn":  11,
+                                          "speaker":  "SPEAKER-01",
+                                          "text":  "Call it ambiguity if you like, Voss, but the reality is that we have no raft to debate over anymore. We can keep turning Wren\u0027s observation over like a stone, but it will not float us across or bring the vessel back."
+                                      },
+                                      {
+                                          "turn":  12,
+                                          "speaker":  "SPEAKER-03",
+                                          "text":  "It is not about turning the observation over like a stone for the sake of it. It is about knowing whether we walked away from it or if something else happened before we lost it."
+                                      }
+                                  ]
+             },
+    "RIGHT":  {
+                  "performances":  [
+                                       {
+                                           "turn":  1,
+                                           "speaker":  "SPEAKER-02",
+                                           "text":  "Before we determine our next course of action regarding our reduced provisions and the missing raft, we need to examine what is actually known rather than building upon assumptions. The current has strengthened, which makes an accidental loss plausible, but we have not yet established whether the raft drifted or was moved. Marlowe, given your previous experience with moving supplies independently, and Wren, with your focus on strict observation, let us separate what we have directly observed from what we merely infer before we make any decisions."
+                                       },
+                                       {
+                                           "turn":  2,
+                                           "speaker":  "SPEAKER-01",
+                                           "text":  "Before we rush to conclude anything about the current or drift, let us look strictly at what is verifiable right now. Building an entire strategy on assumptions about how the raft was lost will only corner us into a worse position. Let us keep our focus on the immediate limits of our provisions and what we actually know to be true."
+                                       },
+                                       {
+                                           "turn":  3,
+                                           "speaker":  "SPEAKER-03",
+                                           "text":  "The raft is gone, and our provisions are limited. I know I secured it properly, and I saw Marlowe return from the shoreline after it was missing. Beyond that, I cannot say how it left."
+                                       },
+                                       {
+                                           "turn":  4,
+                                           "speaker":  "SPEAKER-02",
+                                           "text":  "Wren, your distinction between securing the raft and observing Marlowe\u0027s return is precisely the kind of boundary we must maintain. Marlowe, since your presence near the shoreline intersects with that observation, let us be entirely clear about what each of us noted before we characterize the disappearance as drift or anything else."
+                                       },
+                                       {
+                                           "turn":  5,
+                                           "speaker":  "SPEAKER-01",
+                                           "text":  "If we focus solely on Voss\u0027s demand to categorize every movement, we lose sight of our actual resource limits. The facts we have are simple: provisions are finite and the raft is no longer here. Speculating on how it vanished does not restore it, nor does it feed us. We need to decide how to manage our remaining supplies without getting bogged down in an exhaustive inquest."
+                                       },
+                                       {
+                                           "turn":  6,
+                                           "speaker":  "SPEAKER-02",
+                                           "text":  "Marlowe, managing our remaining supplies depends directly on understanding the condition of our departure; acknowledging finite provisions does not excuse bypassing how our means of travel vanished. If we are to decide our next steps accountably, we must examine the intersection of your movement near the shoreline and Wren\u0027s observation without dismissing the inquiry as a mere inquest."
+                                       },
+                                       {
+                                           "turn":  7,
+                                           "speaker":  "SPEAKER-03",
+                                           "text":  "The provisions are finite, as Marlowe points out, but knowing whether the raft drifted or was taken changes what we can plan. Voss is right to separate observation from inference. Marlowe, you were at the shoreline after I secured it. What did you see there?"
+                                       },
+                                       {
+                                           "turn":  8,
+                                           "speaker":  "SPEAKER-01",
+                                           "text":  "Wren asks what I saw at the shoreline, and Voss expects an explicit accounting to settle whether the raft drifted or was removed. If I admit now that I set it adrift because of its structural deterioration, I invite an argument about consent and risk that we do not have time to resolve usefully. The raft\u0027s deterioration was an unacceptable risk, but explaining that unilateral act now will only fracture whatever trust remains. We must focus on our provisions and what we do next, rather than turning this into an inquest over a vessel we can no longer use."
+                                       },
+                                       {
+                                           "turn":  9,
+                                           "speaker":  "SPEAKER-02",
+                                           "text":  "Marlowe, treating an accounting of the raft\u0027s disappearance as a mere inquest does not dissolve the fact that a consequential decision was made outside shared awareness. If the vessel was compromised, concealing that determination until pressed prevents us from reasoning soundly under uncertainty. We must be explicit about whether an action was taken, so our subsequent choices regarding provisions are based on reality rather than managed omissions."
+                                       },
+                                       {
+                                           "turn":  10,
+                                           "speaker":  "SPEAKER-01",
+                                           "text":  "Voss presses for an explicit accounting, treating the missing vessel as a breach of shared awareness rather than a simple loss. But confessing to the unilateral release now will only trap us in an unproductive dispute over consent while our provisions dwindle. We cannot afford to halt our planning to litigate a decision that is already done. Let us focus strictly on managing our remaining supplies under our current limits."
+                                       },
+                                       {
+                                           "turn":  11,
+                                           "speaker":  "SPEAKER-03",
+                                           "text":  "Marlowe, keeping the details of the shoreline back does not make the reality of the loss go away, but pressing past it without knowing whether you acted or the current took it leaves us guessing. If you saw the raft was compromised, say so. If you did not touch it, say that. We cannot plan around a gap in what happened."
+                                       },
+                                       {
+                                           "turn":  12,
+                                           "speaker":  "SPEAKER-01",
+                                           "text":  "Wren asks for a direct answer about whether I touched the raft at the shoreline, while Voss demands an accounting to clear away managed omissions. If I confess now to releasing it due to structural deterioration, we will be mired in an endless dispute over authority while our provisions sit dwindling before us. We cannot afford to derail our survival planning over a vessel that is already gone; we must address our remaining resources and move forward."
+                                       }
+                                   ]
+              }
+}
