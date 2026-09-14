@@ -1,5 +1,6 @@
 using Ensemble.E0.Core.Context;
 using Ensemble.E0.Core.Cycle;
+using Ensemble.E0.Core.Experiments.E0D;
 using Ensemble.E0.Core.Integrity;
 using Ensemble.E0.Core.Performer;
 using Ensemble.E0.Core.PerformerAttempt;
@@ -525,10 +526,7 @@ public sealed class E0TurnProgress
                 throw new E0TurnInvariantException("Turn source Context does not match the source Cycle.");
             }
 
-            var freshContext = DeterministicE0CausalCycle
-                .ComposeContext(sourceCycle)
-                .ContextEvaluation
-                .Packet;
+            var freshContext = RecomposeSourceContext(sourceCycle, sourceContext);
             if (freshContext.ContextPacketId != sourceContext.ContextPacketId)
             {
                 throw new E0TurnInvariantException("Turn source Context is not the exact current Cycle Context.");
@@ -543,6 +541,22 @@ public sealed class E0TurnProgress
             throw new E0TurnInvariantException("Turn source Cycle Context cannot be recomposed.", exception);
         }
     }
+
+    private static ContextPacket RecomposeSourceContext(
+        E0OpportunityBearingCycleState sourceCycle,
+        ContextPacket sourceContext) =>
+        sourceContext.CompositionContract switch
+        {
+            E0ContextContracts.E0DRelationshipsOmittedCompositionContract =>
+                E0DExperimentalCycle.ComposeContext(
+                    sourceCycle,
+                    E0DExperimentVariant.RelationshipsOmitted).ContextEvaluation.Packet,
+            E0ContextContracts.E0DOmniscientCompositionContract =>
+                E0DExperimentalCycle.ComposeContext(
+                    sourceCycle,
+                    E0DExperimentVariant.OmniscientContext).ContextEvaluation.Packet,
+            _ => DeterministicE0CausalCycle.ComposeContext(sourceCycle).ContextEvaluation.Packet
+        };
 
     private static void ValidateIntegrityEvaluation(
         ContextPacket sourceContext,

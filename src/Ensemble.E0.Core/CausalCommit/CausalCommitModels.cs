@@ -106,7 +106,8 @@ public sealed partial class E0TakeStateBinding
         ProductionStateCheckpoint sourceCheckpoint,
         ContextPacket sourceContext,
         E0Take take,
-        E0AcceptedPerformanceHistory? acceptedHistory)
+        E0AcceptedPerformanceHistory? acceptedHistory,
+        ContextPacket? exactAcceptedHistoryContext = null)
     {
         if (sourceCheckpoint is null)
         {
@@ -179,12 +180,20 @@ public sealed partial class E0TakeStateBinding
         {
             ValidateExactSourceContext(sourceCheckpoint, sourceContext);
         }
-        else
+        else if (exactAcceptedHistoryContext is null)
         {
             ValidateExactSourceContextWithAcceptedHistory(
                 sourceCheckpoint,
                 sourceContext,
                 acceptedHistory);
+        }
+        else
+        {
+            ValidateExactExperimentalSourceContextWithAcceptedHistory(
+                sourceCheckpoint,
+                sourceContext,
+                acceptedHistory,
+                exactAcceptedHistoryContext);
         }
 
         var authority = take.AuthorityEvaluation;

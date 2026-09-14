@@ -15,6 +15,10 @@ public static class E0ContextContracts
     public const string AcceptedHistoryCompositionContract =
         "ensemble.e0.context.production-bound.accepted-history.v1";
     public const string AcceptedHistoryRenderingContract = "ensemble.e0.context.render.v2";
+    internal const string E0DRelationshipsOmittedCompositionContract =
+        "ensemble.e0.context.e0d.relationships-omitted.v1";
+    internal const string E0DOmniscientCompositionContract =
+        "ensemble.e0.context.e0d.omniscient.v1";
 }
 
 public sealed class ContextParticipant

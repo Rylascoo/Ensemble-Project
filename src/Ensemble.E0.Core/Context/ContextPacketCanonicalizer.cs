@@ -263,6 +263,15 @@ public static class ContextPacketCanonicalizer
                 content.CompositionContract,
                 E0ContextContracts.AcceptedHistoryCompositionContract,
                 StringComparison.Ordinal);
+        var isE0DExperimental = IsE0DExperimentalCompositionContract(content.CompositionContract);
+        var isE0DV2 = string.Equals(
+                content.SchemaVersion,
+                E0ContextContracts.ProductionBoundSchemaVersion,
+                StringComparison.Ordinal) && isE0DExperimental;
+        var isE0DV3 = string.Equals(
+                content.SchemaVersion,
+                E0ContextContracts.AcceptedHistorySchemaVersion,
+                StringComparison.Ordinal) && isE0DExperimental;
 
         if (isV1)
         {
@@ -275,7 +284,7 @@ public static class ContextPacketCanonicalizer
             return ContextSemanticVersion.V1;
         }
 
-        if (isV2)
+        if (isV2 || isE0DV2)
         {
             ValidateProductionStateHash(content.SourceStateHash, "Production-bound Context v2");
             if (content.RecentPerformances.Length != 0)
@@ -287,7 +296,7 @@ public static class ContextPacketCanonicalizer
             return ContextSemanticVersion.V2;
         }
 
-        if (isV3)
+        if (isV3 || isE0DV3)
         {
             ValidateProductionStateHash(content.SourceStateHash, "Accepted-history Context v3");
             if (content.RecentPerformances.Length == 0)
@@ -302,6 +311,16 @@ public static class ContextPacketCanonicalizer
         throw new ContextCompositionException(
             "Context schema/composition contract combination is unsupported.");
     }
+
+    private static bool IsE0DExperimentalCompositionContract(string compositionContract) =>
+        string.Equals(
+            compositionContract,
+            E0ContextContracts.E0DRelationshipsOmittedCompositionContract,
+            StringComparison.Ordinal) ||
+        string.Equals(
+            compositionContract,
+            E0ContextContracts.E0DOmniscientCompositionContract,
+            StringComparison.Ordinal);
 
     private static void ValidateProductionStateHash(StateHash? stateHash, string contextName)
     {

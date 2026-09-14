@@ -1,4 +1,5 @@
 using System.Runtime.InteropServices;
+using Ensemble.E0.Core.Experiments.E0D;
 using Ensemble.E0.Core.Fixture;
 using Ensemble.E0.Harness.Host;
 using Ensemble.E0.Harness.Run;
@@ -48,6 +49,28 @@ try
             Console.CancelKeyPress -= handler;
         }
     }
+    if (args.Length > 0 && string.Equals(args[0], "e0d-run", StringComparison.Ordinal))
+    {
+        using var cancellation = new CancellationTokenSource();
+        ConsoleCancelEventHandler handler = (_, eventArgs) =>
+        {
+            eventArgs.Cancel = true;
+            cancellation.Cancel();
+        };
+        Console.CancelKeyPress += handler;
+        try
+        {
+            return await E0DExperimentRunHost.RunAsync(args[1..], cancellation.Token);
+        }
+        finally
+        {
+            Console.CancelKeyPress -= handler;
+        }
+    }
+    if (args.Length > 0 && string.Equals(args[0], "e0d-evaluate", StringComparison.Ordinal))
+    {
+        return E0DExperimentRunHost.SealEvaluation(args[1..]);
+    }
     if (args.Length > 0 && string.Equals(args[0], "e0a-evaluate", StringComparison.Ordinal))
     {
         return E0AReferenceRunHost.SealEvaluation(args[1..]);
@@ -58,6 +81,8 @@ try
         Console.Error.WriteLine("Usage: Ensemble.E0.Harness <fixture.json>");
         Console.Error.WriteLine("   or: Ensemble.E0.Harness e0a-run <CREATIVE-NONE|CREATIVE-MINIMAL> <provider-profile> <fixture.json> <run-id> <evidence-root> <executable-commit>");
         Console.Error.WriteLine("   or: Ensemble.E0.Harness e0b-run <fixture.json> <run-id> <evidence-root> <executable-commit>");
+        Console.Error.WriteLine("   or: Ensemble.E0.Harness e0d-run <experiment-variant-id> <fixture.json> <run-id> <evidence-root> <executable-commit>");
+        Console.Error.WriteLine("   or: Ensemble.E0.Harness e0d-evaluate <experiment-variant-id> <evidence-root> <reviewer-id> <method-id> <pass|fail> [finding ...]");
         Console.Error.WriteLine("   or: Ensemble.E0.Harness e0a-evaluate <evidence-root> <reviewer-id> <method-id> <pass|fail> [finding ...]");
         return 2;
     }
@@ -81,6 +106,7 @@ catch (OperationCanceledException)
 }
 catch (Exception exception) when (
     exception is FixtureValidationException or
+    E0DExperimentException or
     E0AHarnessException or
     IOException or
     UnauthorizedAccessException or

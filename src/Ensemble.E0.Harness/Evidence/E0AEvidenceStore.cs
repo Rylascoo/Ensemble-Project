@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.Json;
 using Ensemble.E0.Core.Domain;
+using Ensemble.E0.Core.Experiments.E0D;
 using Ensemble.E0.Core.Performer;
 using Ensemble.E0.Harness.Run;
 
@@ -105,7 +106,8 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
         string fixtureHash,
         string executableCommit,
         IReadOnlyList<CharacterId> roster,
-        E0BMixedCastConfiguration? mixedCast = null)
+        E0BMixedCastConfiguration? mixedCast = null,
+        E0DExperimentVariant? e0dVariant = null)
     {
         if (string.IsNullOrWhiteSpace(root))
         {
@@ -124,6 +126,10 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
         E0ADeterministicIds.ValidateRunId(runId);
         envelope.Validate();
         mixedCast?.Validate(envelope);
+        if (mixedCast is not null && e0dVariant.HasValue)
+        {
+            throw new E0AHarnessException("E0-D experiment evidence cannot use an E0-B mixed-cast configuration.");
+        }
         if (roster.Count != 3)
         {
             throw new E0AHarnessException("E0-A evidence roster must contain exactly three Characters.");
@@ -152,24 +158,38 @@ internal sealed class E0AFileEvidenceStore : IE0AEvidenceSink
 
         WriteNew("manifest.json", new
         {
-            contract = mixedCast is null ? "ensemble.e0a.run-manifest.v1" : "ensemble.e0b.run-manifest.v1",
+            contract = e0dVariant.HasValue
+                ? "ensemble.e0d.run-manifest.v1"
+                : mixedCast is null
+                    ? "ensemble.e0a.run-manifest.v1"
+                    : "ensemble.e0b.run-manifest.v1",
             runId = runId.Value,
             frozenBlueprintVersion = E0AEvidenceContracts.FrozenBlueprintVersion,
-            referenceEnvelopeBlueprint = mixedCast is null
-                ? E0AEvidenceContracts.ReferenceEnvelopeBlueprintFor(envelope)
-                : E0AEvidenceContracts.E0BMixedCastMethod,
-            approvedBlueprintCommit = mixedCast is null
-                ? E0AEvidenceContracts.ApprovedBlueprintCommitFor(envelope)
-                : E0AEvidenceContracts.E0BMixedCastApprovedCommit,
+            referenceEnvelopeBlueprint = e0dVariant.HasValue
+                ? E0DExperimentEvidenceContracts.MethodIdentity
+                : mixedCast is null
+                    ? E0AEvidenceContracts.ReferenceEnvelopeBlueprintFor(envelope)
+                    : E0AEvidenceContracts.E0BMixedCastMethod,
+            approvedBlueprintCommit = e0dVariant.HasValue
+                ? E0DExperimentEvidenceContracts.MethodAuthorityCommit
+                : mixedCast is null
+                    ? E0AEvidenceContracts.ApprovedBlueprintCommitFor(envelope)
+                    : E0AEvidenceContracts.E0BMixedCastApprovedCommit,
             referenceConfigurationIdentity = mixedCast?.ConditionId ?? E0AEvidenceContracts.ReferenceConfigurationIdentity(envelope),
-            hardGateChecklistVersion = E0AEvidenceContracts.HardGateChecklistVersion,
-            hardGateChecklist = E0AEvidenceContracts.HardGateChecklist,
+            hardGateChecklistVersion = e0dVariant.HasValue
+                ? E0DHardGatePolicy.ChecklistVersion(e0dVariant.Value)
+                : E0AEvidenceContracts.HardGateChecklistVersion,
+            hardGateChecklist = e0dVariant.HasValue
+                ? E0DHardGatePolicy.Checklist(e0dVariant.Value)
+                : E0AEvidenceContracts.HardGateChecklist,
             fixtureId,
             fixtureVersion,
             fixtureHash,
             executableCommit,
             variant = envelope.Variant,
-            conditionId = mixedCast?.ConditionId,
+            experimentProgram = e0dVariant.HasValue ? "E0-D" : null,
+            experimentVariantId = e0dVariant.HasValue ? E0DExperimentContracts.VariantId(e0dVariant.Value) : null,
+            conditionId = mixedCast?.ConditionId ?? (e0dVariant.HasValue ? E0DExperimentContracts.VariantId(e0dVariant.Value) : null),
             providerProfileId = mixedCast is null ? envelope.ProviderProfileId : null,
             referenceProviderProfileId = mixedCast is null ? null : envelope.ProviderProfileId,
             performerCast = PerformerCastManifest(mixedCast),
