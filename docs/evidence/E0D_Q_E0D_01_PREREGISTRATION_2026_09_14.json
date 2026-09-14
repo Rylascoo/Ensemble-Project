@@ -7,7 +7,7 @@
     "queueItem": "Q-E0D-01",
     "method": "docs/blueprint/E0D_ABLATION_CONTROLS_METHOD_AND_ISOLATION_CONTRACT_01.md",
     "referenceDescriptor": "docs/evidence/E0A_Q_E0A_03_RUN08_SELECTED_REFERENCE_DESCRIPTOR_2026_09_11.json",
-    "e0cClosure": "docs/evidence/E0C_Q_E0C_01_REPEATABILITY_RESULT_AND_CLOSURE_2026_09_14.md"
+    "e0cClosure": "docs/evidence/E0C_Q_E0C_01_REPEATABILITY_RESULT_AND_CLOSURE_2026_09_13.md"
   },
   "referenceCondition": {
     "sourceRunId": "E0A-Q03-G35L-20260911-08",
