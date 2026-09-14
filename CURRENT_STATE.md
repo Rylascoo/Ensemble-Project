@@ -6,19 +6,21 @@ Updated: 2026-09-14
 `Rylascoo/Ensemble-Project` is Engineering authority. This file alone owns phase/checkpoint/validation/next action. Bootstrap: `AGENTS.md`; authority: `docs/PROJECT_AUTHORITY.md`; sequencing: `docs/PROJECT_EXECUTION_QUEUE.md`.
 
 ## Checkpoint
-Runtime **E0 experimental program — Q-E0D-01 ablation controls**. E0-A/E0-B/E0-C are **DONE**. E0-D is **BLOCKED — METHOD/PREREGISTRATION PREPARATION COMPLETE; IMPLEMENTATION/NATIVE VALIDATION NOT AUTHORIZED; PROVIDER TRAFFIC ZERO**.
+Runtime **E0 experimental program — Q-E0D-01 ablation controls**. E0-A/E0-B/E0-C are **DONE**. E0-D is **ACTIVE — EXPERIMENT-ONLY IMPLEMENTATION NATIVE WINDOWS ARM64 VALIDATED; HOSTED INTEGRATION PENDING; PROVIDER TRAFFIC ZERO**.
 
-## E0-D frozen preparation
-Method: `docs/blueprint/E0D_ABLATION_CONTROLS_METHOD_AND_ISOLATION_CONTRACT_01.md`; preregistration: `docs/evidence/E0D_Q_E0D_01_PREREGISTRATION_2026_09_14.json`; recursive audit: `docs/evidence/E0D_Q_E0D_01_PREPARATION_RECURSIVE_AUDIT_2026_09_14.md`.
+## E0-D implementation + validation
+Frozen method: `docs/blueprint/E0D_ABLATION_CONTROLS_METHOD_AND_ISOLATION_CONTRACT_01.md`; preregistration: `docs/evidence/E0D_Q_E0D_01_PREREGISTRATION_2026_09_14.json`; Director authorization: `docs/evidence/E0D_IMPLEMENTATION_NATIVE_VALIDATION_DIRECTOR_AUTHORIZATION_2026_09_14.md`.
 
-Exactly three fresh matched pairs / six fresh slots are frozen: Full vs relationship-context omission; omniscient context vs Full; Full vs deterministic round-robin. Every future slot uses one exact future native-validated E0-D executable and the selected Run 08 provider/model/profile/Fixture condition except its one named ablation. No RunId, evidence root, namespace claim, UTC window, credential use, provider request, inference, or spend exists yet.
+Implementation audit: `docs/evidence/E0D_ABLATION_CONTROLS_IMPLEMENTATION_AUDIT_2026_09_14.md`. Native validation: `docs/evidence/E0D_ABLATION_CONTROLS_NATIVE_ARM64_VALIDATION_2026_09_14.md`.
 
-Isolation is exact: relationship omission excludes only the 13-record `RelationshipContextRecordIds` surface; omniscience uses the category-preserving union of the three safe Character Access projections and variant-specific conformance gates; round-robin preserves genesis `VOSS` then cycles `WREN → MARLOWE → VOSS`. Full reference paths remain unchanged.
+Rebased implementation source is `2afda26825d7ecad11677f858d523300419aa23a`. Exact native-validated checkpoint is `5ce587b6c9ec83b91f3b5d63a2545cce9b1fe891`, preserved by `validation/e0d-ablation-controls-native-arm64` (tag object `8eae0730664a4dfa21debdae5a2f73e070d5982d`).
 
-Measurement uses arm-identity blinding, all ten E0 dimensions, one pair-specific mechanism question, mapping commitment before score, and no master-score/significance claim. E0-C dispersion remains calibration context, not an E0-D arm.
+Native ARM64 result: Release build PASS with 0 warnings/errors; Core 626/626; Harness 154/154; both fixture smokes PASS; repository law/census/oracle/diff/clean/source-identity gates PASS; credentialless `e0d-run` exits 1 before network and creates no evidence root. Executable SHA-256: `498c25f528ab1ba26a592d247737186ac839c61b56154303d6e57a94319d0769`.
 
 ## Continuity
-E0-C remains closed with Run 08 selected reference and Slot 2 permanently noncontributing. Q-E0E-PREP is DONE; Q-E0E-RUN remains blocked until E0-D closes. No E0-D implementation or external execution authority is created by preparation. Q-ADMIN-03 MA-01 is opened only for one separately bounded read-only Scout admission run; it does not change this Engineering checkpoint or authorize E0-D/provider activity.
+No E0-D live RunId/evidence namespace, execution window, credential use, provider request, `countTokens`, generation, inference, spend, scoring, or live activation is authorized or consumed. E0-C remains closed; Q-E0E-RUN remains blocked until E0-D closes.
+
+Q-ADMIN-03 MA-01 remains a separate bounded read-only Scout admission opening and creates no E0-D/provider/validation authority.
 
 ## Next
-Obtain separate authority for experiment-only E0-D implementation. Then prove deterministic single-variable isolation and preserve the Full path, followed by applicable compiler/tests and native Windows ARM64 validation. Stop before RunIds/windows/provider activation unless separately authorized.
+Integrate the validated E0-D implementation/evidence through required exact-head hosted Validation + E0-E preparation gates. Merge only if both pass on the exact PR head, then require push-triggered exact-main Validation. Stop before E0-D live activation; RunIds/windows/provider authority require a separate Director gate.

@@ -148,9 +148,15 @@ internal static class E0AEvidenceSealAuthority
         }
     }
 
-    internal static void SealEvaluation(string root, E0AHardGateEvaluation evaluation)
+    internal static void SealEvaluation(string root, E0AHardGateEvaluation evaluation) =>
+        SealEvaluation(root, evaluation, E0AEvidenceContracts.HardGateChecklistVersion);
+
+    internal static void SealEvaluation(
+        string root,
+        E0AHardGateEvaluation evaluation,
+        string expectedChecklistVersion)
     {
-        ValidateEvaluation(evaluation);
+        ValidateEvaluation(evaluation, expectedChecklistVersion);
 
         // Validate all runtime/external decoding before any evaluation artifact exists.
         _ = VerifyRuntime(root);
@@ -285,12 +291,15 @@ internal static class E0AEvidenceSealAuthority
         }
     }
 
-    private static void ValidateEvaluation(E0AHardGateEvaluation evaluation)
+    private static void ValidateEvaluation(
+        E0AHardGateEvaluation evaluation,
+        string expectedChecklistVersion)
     {
         ArgumentNullException.ThrowIfNull(evaluation);
-        if (!string.Equals(
+        if (string.IsNullOrWhiteSpace(expectedChecklistVersion) ||
+            !string.Equals(
                 evaluation.ChecklistVersion,
-                E0AEvidenceContracts.HardGateChecklistVersion,
+                expectedChecklistVersion,
                 StringComparison.Ordinal) ||
             string.IsNullOrWhiteSpace(evaluation.ReviewerIdentity) ||
             !IsWellFormedUnicode(evaluation.ReviewerIdentity) ||

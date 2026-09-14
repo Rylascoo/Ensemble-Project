@@ -2,6 +2,7 @@ using System.Collections.Immutable;
 using System.Diagnostics;
 using Ensemble.E0.Core.Cycle;
 using Ensemble.E0.Core.Domain;
+using Ensemble.E0.Core.Experiments.E0D;
 using Ensemble.E0.Core.Integrity;
 using Ensemble.E0.Core.Performer;
 using Ensemble.E0.Core.PerformerAttempt;
@@ -41,6 +42,7 @@ internal sealed class E0AReferenceRunDriver
     private readonly IE0AGeminiRateRouter _rateRouter;
     private readonly E0BMixedCastConfiguration? _mixedCast;
     private readonly E0ASpendLedger _spend;
+    private readonly E0DExperimentVariant? _e0dVariant;
     private string? _observedModel;
     private bool _started;
 
@@ -51,7 +53,8 @@ internal sealed class E0AReferenceRunDriver
         IE0AEvidenceSink evidence,
         IE0AGeminiRateDiscipline? rateDiscipline = null,
         E0BMixedCastConfiguration? mixedCast = null,
-        IE0AGeminiRateRouter? rateRouter = null)
+        IE0AGeminiRateRouter? rateRouter = null,
+        E0DExperimentVariant? e0dVariant = null)
     {
         _envelope = envelope ?? throw new ArgumentNullException(nameof(envelope));
         _provider = provider ?? throw new ArgumentNullException(nameof(provider));
@@ -59,6 +62,11 @@ internal sealed class E0AReferenceRunDriver
         _evidence = evidence ?? throw new ArgumentNullException(nameof(evidence));
         _envelope.Validate();
         _mixedCast = mixedCast;
+        _e0dVariant = e0dVariant;
+        if (_mixedCast is not null && _e0dVariant.HasValue)
+        {
+            throw new E0AHarnessException("E0-D experimental variants cannot be combined with the E0-B mixed cast.");
+        }
         if (_mixedCast is null)
         {
             if (rateRouter is not null)
@@ -98,7 +106,10 @@ internal sealed class E0AReferenceRunDriver
         _evidence.RecordEvent("run.started", new
         {
             stateHash = state.ProductionState.StateHash.Value,
-            opportunityCharacterId = state.ProductionState.CurrentOpportunityCharacterId!.Value.Value
+            opportunityCharacterId = state.ProductionState.CurrentOpportunityCharacterId!.Value.Value,
+            experimentVariantId = _e0dVariant.HasValue
+                ? E0DExperimentContracts.VariantId(_e0dVariant.Value)
+                : null
         });
 
         for (var turn = 1; turn <= _envelope.RunAcceptedTurnCap; turn++)
@@ -109,7 +120,9 @@ internal sealed class E0AReferenceRunDriver
             }
             var turnClock = Stopwatch.StartNew();
 
-            var continuity = DeterministicE0CausalCycle.ComposeContext(state);
+            var continuity = _e0dVariant.HasValue
+                ? E0DExperimentalCycle.ComposeContext(state, _e0dVariant.Value)
+                : DeterministicE0CausalCycle.ComposeContext(state);
             var context = continuity.ContextEvaluation.Packet;
             _evidence.RecordEvent("context.composed", new
             {
@@ -117,6 +130,10 @@ internal sealed class E0AReferenceRunDriver
                 stateHash = state.ProductionState.StateHash.Value,
                 contextPacketId = context.ContextPacketId.Value,
                 subjectCharacterId = context.SubjectCharacterId.Value,
+                compositionContract = context.CompositionContract,
+                experimentVariantId = _e0dVariant.HasValue
+                    ? E0DExperimentContracts.VariantId(_e0dVariant.Value)
+                    : null,
                 access = continuity.AccessEvaluation.Decisions.Select(x => new
                 {
                     recordId = x.RecordId.Value,
@@ -175,18 +192,27 @@ internal sealed class E0AReferenceRunDriver
             });
 
             var performerResult = DeterministicE0PerformerAttemptBoundary.BindCandidate(context, candidate);
-            var progress = DeterministicE0TurnOrchestrator.GateAttempt(state, performerResult);
+            var progress = _e0dVariant is E0DExperimentVariant.RelationshipsOmitted or E0DExperimentVariant.OmniscientContext
+                ? E0DExperimentalTurnGate.GateCandidate(state, context, performerResult, _e0dVariant.Value)
+                : DeterministicE0TurnOrchestrator.GateAttempt(state, performerResult);
 
             if (integrityInput.DeterministicRejectCodes.Length != 0)
             {
                 throw new E0AHarnessException("E0-A configured candidate unexpectedly failed deterministic Integrity binding.");
             }
 
-            var packet = E0AIntegrityAssessmentPacketBuilder.Build(
-                state.ProductionState,
-                continuity.AccessEvaluation,
-                context,
-                candidate);
+            var packet = _e0dVariant.HasValue
+                ? E0DIntegrityAssessmentPacketBuilder.Build(
+                    state.ProductionState,
+                    continuity.AccessEvaluation,
+                    context,
+                    candidate,
+                    _e0dVariant.Value)
+                : E0AIntegrityAssessmentPacketBuilder.Build(
+                    state.ProductionState,
+                    continuity.AccessEvaluation,
+                    context,
+                    candidate);
             var integrityAttempt = E0ARequestBuilder.Integrity(
                 runId,
                 turn,
@@ -311,12 +337,44 @@ internal sealed class E0AReferenceRunDriver
                 turn,
                 proposal,
                 progress.AuthorityEvaluation!);
-            var post = DeterministicE0TurnOrchestrator.CommitAccepted(
-                E0ADeterministicIds.Commit(runId, turn),
-                progress,
-                materials);
+            var post = _e0dVariant is E0DExperimentVariant.RelationshipsOmitted or E0DExperimentVariant.OmniscientContext
+                ? E0DExperimentalCycle.CommitAcceptedTake(
+                    E0ADeterministicIds.Commit(runId, turn),
+                    state,
+                    progress.SourceContext,
+                    progress.AcceptedTake!,
+                    materials,
+                    _e0dVariant.Value)
+                : DeterministicE0TurnOrchestrator.CommitAccepted(
+                    E0ADeterministicIds.Commit(runId, turn),
+                    progress,
+                    materials);
 
-            var next = DeterministicE0CausalCycle.EstablishOpportunity(post).State;
+            E0OpportunityBearingCycleState next;
+            if (_e0dVariant.HasValue)
+            {
+                var experimentOpportunity = E0DExperimentalCycle.EstablishOpportunity(post, _e0dVariant.Value);
+                next = experimentOpportunity.State;
+                _evidence.RecordEvent("e0d.opportunity.established", new
+                {
+                    turn,
+                    experimentVariantId = E0DExperimentContracts.VariantId(_e0dVariant.Value),
+                    strategyContract = experimentOpportunity.StrategyContract,
+                    sourceCharacterId = candidate.SubjectCharacterId.Value,
+                    selectedCharacterId = experimentOpportunity.Event.SelectedCharacterId.Value,
+                    roundRobinCanonicalRoster = experimentOpportunity.DirectorEvaluation?.Trace.CanonicalRoster
+                        .Select(x => x.Value).ToArray(),
+                    roundRobinSourceIndex = experimentOpportunity.DirectorEvaluation?.Trace.SourceIndex,
+                    addressedCharacterIds = candidate.Control.AddressedCharacterIds.Select(x => x.Value).ToArray(),
+                    nominatedCharacterId = candidate.Control.NominatedCharacterId.HasValue
+                        ? candidate.Control.NominatedCharacterId.Value.Value
+                        : null
+                });
+            }
+            else
+            {
+                next = DeterministicE0CausalCycle.EstablishOpportunity(post).State;
+            }
             acceptedTurns++;
             turnClock.Stop();
             _evidence.RecordAcceptedPerformance(turn, candidate.SubjectCharacterId, candidate);
