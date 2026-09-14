@@ -60,6 +60,7 @@ These remain subject to `CURRENT_STATE.md`; this index does not independently ma
 - `docs/evidence/E0C_Q_E0C_01_RUN01_PREEXECUTION_ACTIVATION_2026_09_13.md` - exact canonical Slot 1 activation; freezes the `20:30Z`-`23:30Z` batch window and one-launch law, subject to integration, exact-main Validation, and final prelaunch invariants.
 - `docs/evidence/E0C_Q_E0C_01_RUN01_TERMINAL_EVIDENCE_ANALYSIS_2026_09_13.md` - sealed Slot 1 terminal/contribution record: one consumed launch, 12/12, exact provider/usage accounting, runtime/evaluation seals, hard-gate PASS, and fresh Slot 2 boundary.
 - `docs/evidence/E0C_Q_E0C_01_RUN02_PREEXECUTION_ACTIVATION_2026_09_13.md` - exact Slot 2 post-Slot-1 activation: source-derived claims, fresh unconsumed/native/credential/capacity gates, unchanged batch window, and one-launch law.
+- `docs/evidence/E0C_Q_E0C_01_RUN02_TERMINAL_PROTOCOL_RECONCILIATION_AND_DIRECTOR_INPUT_2026_09_13.md` - consumed Slot 2 terminal, exact InvalidOutput cause/seal/accounting, post-launch capacity-gate compliance defect, claim-history correction, reduced P01-only eligibility, and Director hold.
 - `docs/evidence/E0A_GEMINI_TECHNICAL_FAILURE_DIAGNOSTIC_CLASSIFICATION_NATIVE_ARM64_VALIDATION_2026_09_10.md` - current promoted native Windows ARM64 evidence for exact executable `bb869fb1c505603612bc718f739b3f1b358e5539`.
 - `docs/evidence/E0A_GEMINI_TECHNICAL_FAILURE_DIAGNOSTIC_CLASSIFICATION_INTEGRATION_CLOSEOUT_2026_09_10.md` - PR #72 / hosted-gate / merge / post-merge Validation / archive-tag closeout; fresh 3.5 preregistration is the earned successor.
 - `docs/evidence/E0A_GEMINI_TECHNICAL_FAILURE_DIAGNOSTIC_CLASSIFICATION_IMPLEMENTATION_AUDIT_2026_09_10.md` - recursive source/test/evidence audit for the Run 05 technical-failure diagnostic classification correction.
@@ -109,7 +110,7 @@ Historical attempt, diagnostic, and superseded validation records remain evidenc
 
 There is **no live `docs/handoff/...` transition artifact** at current `main`. A handoff is live only when `CURRENT_STATE.md` names its exact path. `docs/handoff/` currently retains only its lifecycle README.
 
-The current consequential engineering gate is **canonical E0-C Slot 1 activation preparation for `E0C-Q01-IDENT-20260912-01`**. Fresh Free-tier 3.5 rate-limit/capacity evidence now passes; exact Kymaean project/project-ID plus existing testing-credential association remains the sole authenticated UI blocker. After it passes, one explicit UTC Slot-1-then-Slot-2 batch window must be frozen and integrated before any namespace claim/provider traffic.
+The current consequential engineering gate is **E0-C post-batch Director disposition**. Both fresh namespaces are consumed: Slot 1 contributes; Slot 2 terminated `InvalidOutput` at 0/12 and is noncontributing. Post-launch reconciliation also found that Slot 2 launched without a genuinely fresh authenticated post-Slot-1 quota/capacity observation even though that gate remained execution-sensitive. No blind scoring/unblinding, provider replay/replacement, or E0-D advancement occurs before Director disposition.
 
 Parallel E0-E preparation is closed; `docs/evidence/E0E_SINGLE_MODEL_PLAYWRIGHT_CONTROL_PREPARATION_CLOSEOUT_AUDIT_2026_09_09.md` records that preparation result. E0-E execution remains blocked by the frozen E0 order and the execution queue.
 

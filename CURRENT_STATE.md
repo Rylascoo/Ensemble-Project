@@ -6,21 +6,20 @@ Updated: 2026-09-13
 `Rylascoo/Ensemble-Project` is Engineering authority. This file alone owns phase/checkpoint/validation/next action. Bootstrap: `AGENTS.md`; authority: `docs/PROJECT_AUTHORITY.md`; sequencing: `docs/PROJECT_EXECUTION_QUEUE.md`.
 
 ## Checkpoint
-Runtime **E0 experimental program - Q-E0C-01 repeated identical-condition runs**. E0-A/E0-B are **DONE**. Q-E0C-01 is **ACTIVE - SLOT 1 CONTRIBUTING; SLOT 2 ACTIVATION PREPARED, INTEGRATION + EXACT-MAIN VALIDATION PENDING; PROVIDER TRAFFIC ZERO**.
+Runtime **E0 experimental program - Q-E0C-01 repeated identical-condition runs**. E0-A/E0-B are **DONE**. Q-E0C-01 is **ACTIVE - BOTH FRESH SLOTS CONSUMED; SLOT 1 CONTRIBUTING; SLOT 2 NONCONTRIBUTING + EXECUTION-LAW DEVIATION; DIRECTOR DISPOSITION HOLD; PROVIDER TRAFFIC ZERO**.
 
-Corrected method: `docs/evidence/E0C_Q_E0C_01_METHOD_DIRECTOR_DECISION_2026_09_12.md`; canonical preregistration: `docs/evidence/E0C_Q_E0C_01_TWO_SLOT_PREREGISTRATION_2026_09_12.md`; standing association law: `docs/evidence/E0C_Q_E0C_01_STANDING_PROJECT_KEY_ASSOCIATION_DIRECTOR_AMENDMENT_2026_09_13.md`.
+Corrected method: `docs/evidence/E0C_Q_E0C_01_METHOD_DIRECTOR_DECISION_2026_09_12.md`; preregistration: `docs/evidence/E0C_Q_E0C_01_TWO_SLOT_PREREGISTRATION_2026_09_12.md`; reconciliation/Director input: `docs/evidence/E0C_Q_E0C_01_RUN02_TERMINAL_PROTOCOL_RECONCILIATION_AND_DIRECTOR_INPUT_2026_09_13.md`.
 
-## Canonical batch
-Slot 1 `E0C-Q01-IDENT-20260912-01`; Slot 2 `E0C-Q01-IDENT-20260912-02`. Exact executable `bb869fb1c505603612bc718f739b3f1b358e5539`; blind instrument SHA-256 `7857699de82904f52892f3e6d0f9794c80e50ee488c9e30ef9fdb13ba4edfd64`. Order is Slot 1 then Slot 2; immutable UTC window is **2026-09-13T20:30:00Z through 2026-09-13T23:30:00Z**. No retry/replacement/third slot/window extension.
+## Batch result
+Slot 1 `E0C-Q01-IDENT-20260912-01`: one consumed launch, `AcceptedTurnCapReached`, 12/12, exact model, sealed/hard-gate PASS, contributing. Runtime root `311c7196...`; terminal evidence `docs/evidence/E0C_Q_E0C_01_RUN01_TERMINAL_EVIDENCE_ANALYSIS_2026_09_13.md`.
 
-## Slot 1 result
-`docs/evidence/E0C_Q_E0C_01_RUN01_TERMINAL_EVIDENCE_ANALYSIS_2026_09_13.md`: one consumed launch, `AcceptedTurnCapReached`, 12/12, exact model, 72 API operations, hard-gate PASS, contributing. Runtime root `311c7196...`; provider traffic returned to zero.
+Slot 2 `E0C-Q01-IDENT-20260912-02`: one consumed launch at `23:15:47Z`, exit 3 at `23:15:53Z`, `InvalidOutput`, 0/12. First Performer generation succeeded on exact `gemini-3.5-flash-lite`; typed control used out-of-roster `MARLOE` instead of `MARLOWE`. Two API operations, 724 input / 144 output, shadow USD 0.00057720. Runtime root `6c590aa1...`; noncontributing; no replay/replacement.
 
-## Slot 2 activation
-`docs/evidence/E0C_Q_E0C_01_RUN02_PREEXECUTION_ACTIVATION_2026_09_13.md`. Source-derived authoritative claims are `run-83d68e99...claim` and `root-622000c7...claim`; root/claims absent at `22:41:36Z`. Validator/tag exact and clean; Harness/protected artifacts present; ambient key absent; no Harness process. Conservative post-Slot-1 RPD is at most `114/500`, leaving at least `386`, with minute windows reset. Slot 2 remains unconsumed.
+## Protocol deviation
+Post-launch audit confirmed Slot 2 reused the authenticated pre-Slot-1 quota snapshot plus arithmetic instead of obtaining a fresh authenticated post-Slot-1 model/tier/quota/capacity observation. The standing association amendment explicitly kept that gate execution-sensitive. Slot 2 therefore should have remained blocked; the successful provider response does not cure the procedural defect. Canonical preregistration claim filenames were correct; the earlier contrary Slot 1 terminal sentence has been repaired.
 
 ## Continuity
-Q-E0D-01 remains blocked on E0-C closure. Q-E0E-PREP is DONE; Q-E0E-RUN remains blocked through E0-C/D. Only sealed 12/12 hard-gate-PASS transcripts enter blind comparison; no scoring/unblinding yet.
+Frozen blind law leaves only P01 (Run 08 / Slot 1) otherwise eligible; P02/P03 are removed because Slot 2 is noncontributing. No mapping/scoring/unblinding may begin until Director disposition of the protocol deviation. Q-E0D-01 and Q-E0E-RUN remain blocked.
 
 ## Next
-Integrate this exact Slot 2 activation and require push-triggered exact-main Validation. If green before `23:30:00Z`, perform one immediate final namespace/native/credential/capacity/time check and launch Slot 2 exactly once. Otherwise preserve Slot 2 unexecuted/noncontributing and stop for Director disposition.
+Director decides whether to preserve the batch and permit P01-only blind repeatability comparison, or close E0-C without experiential scoring because of the execution-process breach. No further E0-C provider traffic, retry, replacement, third slot, window extension, model/route/key/tier substitution, scoring, or E0-D advancement before that decision.
