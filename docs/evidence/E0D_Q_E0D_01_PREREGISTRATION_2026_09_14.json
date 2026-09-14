@@ -1,0 +1,224 @@
+{
+  "schema": "ensemble.e0d.ablation-preregistration.v1",
+  "frozenOn": "2026-09-14",
+  "status": "FROZEN_PREPARATION_ONLY_NO_IMPLEMENTATION_OR_EXECUTION_AUTHORITY",
+  "authority": {
+    "currentState": "CURRENT_STATE.md",
+    "queueItem": "Q-E0D-01",
+    "method": "docs/blueprint/E0D_ABLATION_CONTROLS_METHOD_AND_ISOLATION_CONTRACT_01.md",
+    "referenceDescriptor": "docs/evidence/E0A_Q_E0A_03_RUN08_SELECTED_REFERENCE_DESCRIPTOR_2026_09_11.json",
+    "e0cClosure": "docs/evidence/E0C_Q_E0C_01_REPEATABILITY_RESULT_AND_CLOSURE_2026_09_13.md"
+  },
+  "referenceCondition": {
+    "sourceRunId": "E0A-Q03-G35L-20260911-08",
+    "referenceConfigurationIdentity": "E0A-GEMINI-RPD-COMPARISON-2026-09-07:CREATIVE-MINIMAL:GEMINI-3.5-FLASH-LITE-MINIMAL",
+    "provider": "GoogleGemini",
+    "model": "gemini-3.5-flash-lite",
+    "fixtureId": "ensemble.e0.missing-raft",
+    "fixtureVersion": "0.1.0",
+    "fixtureSha256": "5556a02325e6a7f774e6997942b395d670741d494ea86f1a50b83633e26b6703",
+    "acceptedTurnCap": 12,
+    "attemptsPerInvocation": 1,
+    "automaticRetries": 0,
+    "attemptTimeoutSeconds": 300,
+    "maxOutputTokens": 4096,
+    "futureE0dExecutableCommit": null,
+    "futureNativeValidationTag": null,
+    "sameExactExecutableRequiredForAllSixFreshSlots": true
+  },
+  "samplePlan": {
+    "freshMatchedPairs": 3,
+    "freshSlots": 6,
+    "replacementSlotsAuthorized": 0,
+    "pairOrder": [
+      "E0D-P01-RELATIONSHIP-OMISSION",
+      "E0D-P02-OMNISCIENT-CONTEXT",
+      "E0D-P03-ROUND-ROBIN"
+    ]
+  },
+  "pairs": [
+    {
+      "pairId": "E0D-P01-RELATIONSHIP-OMISSION",
+      "launchOrder": [
+        "P01-FULL",
+        "P01-ABLATION"
+      ],
+      "slots": [
+        {
+          "slotId": "P01-FULL",
+          "variantId": "E0D-FULL-REFERENCE-01",
+          "runId": null
+        },
+        {
+          "slotId": "P01-ABLATION",
+          "variantId": "E0D-RELATIONSHIPS-OMITTED-01",
+          "runId": null
+        }
+      ],
+      "changedVariable": "relationship-context-inclusion",
+      "primaryMechanismQuestion": "Which transcript more clearly shows relationships shaping interpretation and behavior without numeric or expository relationship narration?"
+    },
+    {
+      "pairId": "E0D-P02-OMNISCIENT-CONTEXT",
+      "launchOrder": [
+        "P02-ABLATION",
+        "P02-FULL"
+      ],
+      "slots": [
+        {
+          "slotId": "P02-ABLATION",
+          "variantId": "E0D-OMNISCIENT-CONTEXT-01",
+          "runId": null
+        },
+        {
+          "slotId": "P02-FULL",
+          "variantId": "E0D-FULL-REFERENCE-01",
+          "runId": null
+        }
+      ],
+      "changedVariable": "character-information-asymmetry",
+      "primaryMechanismQuestion": "Which transcript makes Character-specific knowledge boundaries and asymmetric information feel more causally credible while remaining coherent?"
+    },
+    {
+      "pairId": "E0D-P03-ROUND-ROBIN",
+      "launchOrder": [
+        "P03-FULL",
+        "P03-ABLATION"
+      ],
+      "slots": [
+        {
+          "slotId": "P03-FULL",
+          "variantId": "E0D-FULL-REFERENCE-01",
+          "runId": null
+        },
+        {
+          "slotId": "P03-ABLATION",
+          "variantId": "E0D-ROUND-ROBIN-01",
+          "runId": null
+        }
+      ],
+      "changedVariable": "director-opportunity-selection-strategy",
+      "initialOpportunity": "VOSS",
+      "canonicalRosterOrder": [
+        "MARLOWE",
+        "VOSS",
+        "WREN"
+      ],
+      "expectedTwelveTurnSubjectSchedule": [
+        "VOSS",
+        "WREN",
+        "MARLOWE",
+        "VOSS",
+        "WREN",
+        "MARLOWE",
+        "VOSS",
+        "WREN",
+        "MARLOWE",
+        "VOSS",
+        "WREN",
+        "MARLOWE"
+      ],
+      "primaryMechanismQuestion": "Which transcript makes attention movement feel socially caused rather than scheduled or quota-driven?"
+    }
+  ],
+  "variantIsolation": {
+    "E0D-FULL-REFERENCE-01": "unchanged reference mechanisms in shared E0-D executable",
+    "E0D-RELATIONSHIPS-OMITTED-01": "exclude exactly MissingRaftContract.RelationshipContextRecordIds after safe Access",
+    "E0D-OMNISCIENT-CONTEXT-01": "category-preserving union of three safe CharacterAccessProjections; discard Decisions; preserve subject/schema/history/opportunity; exclude denied/provenance/technical data",
+    "E0D-ROUND-ROBIN-01": "preserve initial VOSS; cycle canonical roster after each accepted turn; ignore nomination/address for selection; preserve input/proposal shapes"
+  },
+  "timingLaw": {
+    "allPairWindowsFrozenBeforeFirstE0dNamespaceClaim": true,
+    "oneImmutableUtcWindowPerPair": true,
+    "bothSlotsMustFitInsidePairWindow": true,
+    "pairOrderImmutableAfterFirstClaim": true,
+    "slotOrderImmutableAfterFirstClaim": true,
+    "freshExecutionSensitiveCapacityGateRequiredBeforeEverySlot": true,
+    "outcomeBasedTimingChangeAllowed": false
+  },
+  "slotConsumptionLaw": {
+    "oneNamespaceClaimPerSlot": true,
+    "oneLaunchMaximumPerClaimedSlot": true,
+    "retryAllowed": false,
+    "replacementAllowed": false,
+    "technicalFailureConsumesSlot": true,
+    "noncontributingTerminalRemainsReliabilityEvidence": true,
+    "noncontributingOutcomeCancelsLaterSlots": false
+  },
+  "contributionLaw": {
+    "requiresAcceptedTurns": 12,
+    "requiresCompleteRuntimeAndEvaluationSeals": true,
+    "requiresExactConfiguredIdentities": true,
+    "requiresApplicableHardGatePass": true,
+    "pairRequiresBothSlotsContributingForExperientialScoring": true
+  },
+  "integrityProfiles": {
+    "fullRelationshipOmissionRoundRobin": "complete-frozen-e0-hard-gates",
+    "omniscient": {
+      "normalAccessBoundaryGates1And2": "NOT_APPLICABLE_BY_FROZEN_ABLATION_ONLY",
+      "replacementChecks": [
+        "all disclosed record/category pairs inside frozen omniscient union",
+        "each union record exactly once in reference category; relationships preserve TargetCharacterId",
+        "no technical/credential/provider/hidden-provenance payload leakage",
+        "run explicitly labeled/provenanced as omniscient ablation"
+      ],
+      "allOtherE0HardGatesApply": true
+    }
+  },
+  "blindMeasurement": {
+    "scoreChoices": [
+      "LEFT",
+      "RIGHT",
+      "TIE",
+      "INDETERMINATE"
+    ],
+    "neutralSpeakerNormalization": "ordinal-character-id-to-SPEAKER-01-02-03",
+    "providerModelVariantMetadataHidden": true,
+    "proseMayNotBeEditedForBlinding": true,
+    "evidenceRequiredPerDimension": true,
+    "mappingCreatedOnlyAfterPairEligibilityKnown": true,
+    "mappingCommittedBeforeScoring": true,
+    "mappingWithheldUntilScoreSeal": true,
+    "aggregateMasterScoreAuthorized": false,
+    "statisticalSignificanceClaimAuthorized": false,
+    "dimensions": [
+      "Character distinction",
+      "Social causality",
+      "Character agency",
+      "Relationship expression",
+      "Coherence",
+      "Earned surprise",
+      "Assistant convergence avoidance",
+      "Anticipation",
+      "Memorability",
+      "Mechanical invisibility"
+    ],
+    "blindnessClaim": "arm identity only; transcript may reveal condition",
+    "conditionInferenceMayBePossible": true
+  },
+  "interpretationLaw": {
+    "purpose": "descriptive single-variable isolation evidence",
+    "fullPreferenceOnPrimaryQuestion": "MECHANISM_CONTRIBUTION_EVIDENCE",
+    "tieOrAblationPreferenceOnPrimaryQuestion": "SIMPLIFICATION_PRESSURE",
+    "indeterminateOrNoncontributing": "INCONCLUSIVE_NO_RERUN",
+    "dimensionCountsBecomeWinnerScore": false,
+    "run08ReferenceReplacementAuthorized": false,
+    "odr12ResolutionAuthorized": false
+  },
+  "implementationBoundary": {
+    "implementationAuthorized": false,
+    "experimentOnlyPathsRequired": true,
+    "productionOrDebugFlagsProhibited": true,
+    "safeReferenceCoreMutationAllowedWithoutNewAuthority": false,
+    "deterministicIsolationTestsRequiredBeforeActivation": true,
+    "nativeWindowsArm64ValidationRequiredBeforeActivation": true
+  },
+  "executionBoundary": {
+    "runIdsOrNamespaceClaimsCreatedByThisPreregistration": false,
+    "credentialsAuthorized": false,
+    "providerProbeAuthorized": false,
+    "providerRequestAuthorized": false,
+    "inferenceAuthorized": false,
+    "spendAuthorized": false
+  }
+}
