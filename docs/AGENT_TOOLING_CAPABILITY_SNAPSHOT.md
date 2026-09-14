@@ -16,6 +16,8 @@ Before a scarce/external dispatch, verify current model availability, effort con
 |---|---|---|---|
 | Engineering Sol | ChatGPT project chat | GPT-5.6 Sol — High | engineering management, architecture, evidence interpretation, recursive audit, authority reconciliation |
 | Design Sol | ChatGPT project chat | GPT-5.6 Sol — High | design management, method/visual interpretation, recursive audit, authority reconciliation |
+| Engineering Relay | ChatGPT project chat | GPT-5.6 Sol — High | delegated bounded Engineering lease work; no authority-state adoption |
+| Design Relay | ChatGPT project chat | GPT-5.6 Sol — High | delegated bounded Design lease work; no authority-state adoption |
 
 For small factual/status work, a lower reasoning setting may be adequate. For material architecture, broad failure analysis, security/provider/Store work, or cross-project reconciliation, prefer High.
 
@@ -37,6 +39,8 @@ Current commissioned model mapping (later-gate execution remains blocked until e
 | exceptional critical falsification/refactor | Codex + GPT-6 Astra | highest justified available effort | scarce |
 
 Codex is the execution environment. GPT-6 Astra is a scarce model allocation inside that environment, not a synonym for Codex.
+
+Native Codex subagents remain disabled in the commissioned Ensemble runtime pending Q-ADMIN-03 MA-01/MA-02 admission. Current product capability is not permission: sandbox inheritance, containment, concurrency and no-authority/no-provider behavior must be proven on the exact admitted runtime before use.
 
 Astra should not be spent on ordinary status checks, routine documentation edits, queue maintenance, or work GPT-5.6 Sol can execute at required quality.
 

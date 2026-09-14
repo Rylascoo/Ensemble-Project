@@ -35,6 +35,14 @@ The separate `Rylascoo/Ensemble-Website` lane owns design/brand/UI/website autho
 
 A future Project Administrator/Codex dispatcher may route and execute operational work, but it never becomes engineering authority and never substitutes for Engineering Sol's accountable judgment. See `docs/PROJECT_AGENT_ORCHESTRATION_PROTOCOL.md`.
 
+### Engineering Relay role
+
+Engineering Relay is a persistent delegated Engineering deputy context used to increase parallel reasoning/work capacity without creating a second Engineering authority. It may work only an explicit execution lease grounded in current Project authority, on an isolated branch/worktree when mutation is allowed.
+
+Engineering Relay does not own `CURRENT_STATE.md`, validation promotion, provider authority, queue transitions, architecture adoption, or final Engineering closure. It returns evidence/candidate changes to Engineering Sol, which remains the sole accountable Engineering manager and reconciles any authority-state change. Relay progress is observable through repository-visible refs/PRs/CI and the commissioned GitHub Issue transport rather than hidden chat state.
+
+The governing lease/concurrency law is `docs/PROJECT_PARALLEL_AGENT_OPERATING_MODEL_DIRECTOR_AMENDMENT_2026_09_13.md` plus `docs/PROJECT_AGENT_ORCHESTRATION_PROTOCOL.md`.
+
 ### Product drift guard
 
 Ensemble is not the shelved DeskShifter productivity/workspace/wallpaper product. If a proposed architecture begins optimizing for task management, desktop organization, or that product's old mission rather than Ensemble's current Blueprint/product law, stop and resolve the drift.

@@ -32,9 +32,11 @@ No Administrator session is authoritative merely because it is long-lived. Fresh
 
 ## 2. Canonical state versus executable state
 
-Repository-native law remains canonical. This approved Runtime Specification lives in `Rylascoo/Ensemble-Project`.
+Repository-native law remains canonical. This approved Runtime Specification and all Administrator policy/security/orchestration authority remain in `Rylascoo/Ensemble-Project`.
 
-Machine-local Administrator configuration is a **generated executable realization**, never project authority.
+`Rylascoo/Ryladmin` is the canonical **Administrator Runtime + Continuity Authority** for executable realization of already-approved law: versioned launchers, role profiles, process supervision, shared-Git locking, runtime schemas/manifests, deterministic runtime tests, install/recovery/rollback tooling, and Administrator continuity records. Ryladmin never becomes product, Engineering, Design, provider, validation, experiment, ODR, or project-backlog authority. If its implementation conflicts with this specification or stronger Project authority, Project wins and the runtime fails closed until reconciled.
+
+Machine-local Administrator configuration is a **generated installation from one exact admitted Ryladmin commit plus non-secret local provenance**, never project authority. Candidate Ryladmin runtime changes are tested from an isolated worktree by the currently commissioned runtime and cannot overwrite the active runtime before merge, installation and successor revalidation.
 
 Preferred dedicated Codex home:
 
@@ -70,7 +72,7 @@ C:\Users\Wiryl\.codex-ensemble\
 
 `AGENTS.md` contains only the stable Administrator-role bootstrap: recover repository authority first, obey owning-repository `AGENTS.md`, never create authority, never infer provider/spend permission, and use the dispatch/stop rules defined here.
 
-Authoritative deterministic workflows do **not** live as an unversioned local `skills` collection. Their canonical implementation lives in `Ensemble-Project`, using repository-scoped `.agents/skills/...` wrappers and versioned deterministic scripts under an appropriate repository tooling path. The local runtime may call them but does not own them.
+Project-semantic deterministic workflows (for example repository authority recovery or project evidence validation) remain versioned with the owning Project repository when they encode Project meaning. Administrator-runtime mechanics (for example launchers, process supervision, shared-Git locking, runtime manifests and install/recovery code) are canonically versioned in `Rylascoo/Ryladmin`. Neither class lives only as an unversioned local collection. The machine-local runtime is generated executable state and owns no authority.
 
 `runtime-manifest.json` contains executable provenance only:
 
@@ -214,11 +216,9 @@ If native subagent inheritance prevents a read-only Administrator from safely pr
 
 ## 8. Concurrency contract
 
-Normal concurrency is **one spawned task**.
+The currently commissioned runtime remains at **one spawned task by default** and native subagents remain disabled until the MA-series admission gates in `docs/PROJECT_PARALLEL_AGENT_OPERATING_MODEL_DIRECTOR_AMENDMENT_2026_09_13.md` pass.
 
-Two concurrent tasks are allowed only when the work is genuinely independent and their shared Git/authority surfaces do not intersect.
-
-Three is the hard exceptional ceiling.
+After MA-01/MA-02 admission, two concurrent top-level Codex jobs are allowed only when genuinely independent and their shared Git/authority surfaces do not intersect; at most two native read-only subagents may be admitted per root initially. Three top-level jobs remains the hard exceptional ceiling unless a later measured amendment changes it.
 
 Only one scarce/high-cost Sol/Astra-class spawned task may normally run at once.
 
