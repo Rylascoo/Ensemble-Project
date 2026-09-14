@@ -28,6 +28,15 @@ Canonical Git repository for:
 
 Canonical visual workspace/master-asset surface for design exploration, renders, imagery, source visual assets, motion/animation, Store/marketing assets, and design research. The active Kymaean workspace is identified by stable folder ID in `docs/DESIGN_REPOSITORY.md`; never classify Drive material by a colliding folder name alone.
 
+### `Rylascoo/Ryladmin`
+
+Canonical only for Administrator runtime implementation and Administrator continuity delegated by `Ensemble-Project` law:
+- versioned Administrator launchers, role profiles, process supervision, shared-Git locking, runtime schemas/manifests, deterministic runtime tests, install/recovery/rollback tooling;
+- Administrator commissioning/continuity records and exact implementation provenance;
+- no product, Engineering, Design, provider, validation, experiment, ODR, or cross-project backlog authority.
+
+Administrator policy/security/orchestration law and the single project execution queue remain canonical in `Ensemble-Project`. A machine-local Administrator installation is generated executable state, not another canonical repository.
+
 ## Residency classes
 
 Every questionable artifact is resolved to one class:
@@ -36,8 +45,9 @@ Every questionable artifact is resolved to one class:
 2. **Product/policy central** — remains in `Ensemble-Project`, even when drafted by Design Sol or the evidence lane. Originating-lane qualification remains explicit.
 3. **Cross-lane pointer/contract** — remains only where the consuming lane needs a compact durable reference; the referenced artifact keeps one canonical home.
 4. **Design-native** — belongs in `Ensemble-Website` and/or the canonical Drive workspace, not `Ensemble-Project`.
-5. **Historical/quarantined** — preserved only in the repository/history/archive surface that owns its provenance.
-6. **Unclear** — do not move, duplicate, promote, or delete until authority is resolved.
+5. **Administrator-runtime-native** — belongs in `Ryladmin` only when it implements already-approved Administrator law; policy meaning remains in `Ensemble-Project`.
+6. **Historical/quarantined** — preserved only in the repository/history/archive surface that owns its provenance.
+7. **Unclear** — do not move, duplicate, promote, or delete until authority is resolved.
 
 ## One-canonical-home rule
 

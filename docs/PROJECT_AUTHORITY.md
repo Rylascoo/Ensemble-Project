@@ -33,12 +33,16 @@ The former long Engineering personality prompt is historical migration input onc
 
 `docs/PROJECT_AGENT_ORCHESTRATION_PROTOCOL.md` is the **canonical cross-project agent-orchestration law**.
 
+`docs/PROJECT_PARALLEL_AGENT_OPERATING_MODEL_DIRECTOR_AMENDMENT_2026_09_13.md` is the Director-approved amendment governing delegated Relay leases, the Ryladmin runtime-ownership split, and the gated MA-series admission path.
+
 The role hierarchy is:
 
 - **Director** — product/policy/provider/spend/consequential authority;
-- **Engineering Sol** — accountable Engineering manager for this repository;
-- **Design Sol** — accountable Design/brand/UI/website manager for `Rylascoo/Ensemble-Website` and visual-master Drive assets;
-- **Ensemble Project Administrator** — future operational dispatcher/project-operations agent, never a third project authority;
+- **Engineering Sol** — sole accountable Engineering manager for this repository;
+- **Engineering Relay** — delegated Engineering deputy for bounded execution leases, never independent Engineering authority;
+- **Design Sol** — sole accountable Design/brand/UI/website manager for `Rylascoo/Ensemble-Website` and visual-master Drive assets;
+- **Design Relay** — delegated Design deputy for bounded execution leases, never independent Design authority;
+- **Ensemble Project Administrator** — operational dispatcher/project-operations agent, never a third project authority;
 - **Codex execution agents** — bounded executors/tool users;
 - **scarce specialist models** — high-capability allocations for justified tasks, never authority;
 - **independent reviewers such as Claude** — adversarial/advisory evidence, never authority.
@@ -73,9 +77,9 @@ For repository-document hygiene, `CURRENT_STATE.md` and this file are the durabl
 
 ## Repository residency
 
-`docs/REPOSITORY_RESIDENCY.md` defines canonical homes and the one-canonical-home rule across Engineering, Design, and Drive.
+`docs/REPOSITORY_RESIDENCY.md` defines canonical homes and the one-canonical-home rule across Engineering, Design, Administrator runtime, and Drive.
 
-Product/policy central records and canonical cross-project orchestration/queue law remain in `Ensemble-Project` even when they concern Design/UI/website questions. Design-native artifacts belong in `Ensemble-Website` and/or the canonical Drive workspace; cross-lane copies never acquire authority by duplication.
+Product/policy central records and canonical cross-project orchestration/queue/security law remain in `Ensemble-Project` even when they concern Design/UI/website/Administrator questions. Design-native artifacts belong in `Ensemble-Website` and/or the canonical Drive workspace. Administrator-runtime implementation and Administrator continuity belong in `Rylascoo/Ryladmin` only to the extent delegated by Project law. Cross-lane copies never acquire authority by duplication.
 
 ## Reasoning / task-scope workflow authority
 

@@ -54,11 +54,19 @@ It owns engineering reasoning, architecture interpretation, patch boundaries, so
 
 Engineering Sol may delegate bounded execution but must reconcile returned evidence before project state changes.
 
+### Engineering Relay
+
+Engineering Relay is a delegated Engineering deputy, not a co-equal Engineering authority. It works only a bounded execution lease tied to an existing queue/authority boundary and exact repository baseline. It may own one isolated implementation/research worktree for the lease, but it cannot independently write Engineering authority state, transition the central queue, promote validation, authorize provider traffic, or adopt its own result. Engineering Sol reconciles the returned evidence/change before authority changes.
+
 ### Design Sol
 
 Design Sol is the accountable design/brand/app-visual/website manager for `Rylascoo/Ensemble-Website` and the canonical visual-master workspace in Drive.
 
 It owns design interpretation, method fidelity, visual judgment, design evidence, and in-lane adoption. Engineering facts are truth inputs; Engineering does not become aesthetic authority.
+
+### Design Relay
+
+Design Relay is a delegated Design deputy, not a co-equal Design authority. It works only a bounded execution lease tied to current Website/Drive authority and an exact baseline. It may own one isolated design/repository workstream under the lease, but it cannot independently write Design authority state, alter frozen design criteria, consume an unauthorized renderer/scoring gate, transition the central queue, or adopt its own result. Design Sol reconciles the returned evidence/change before authority changes.
 
 ### Ensemble Project Administrator
 
@@ -117,11 +125,12 @@ Canonical project memory remains:
 
 - `Rylascoo/Ensemble-Project` for engineering, product/policy, central queue, cross-project orchestration law;
 - `Rylascoo/Ensemble-Website` for design/brand/UI/website law and evidence;
-- connected Google Drive `Ensemble Project` for visual-master/provenance assets.
+- connected Google Drive `Ensemble Project` for visual-master/provenance assets;
+- `Rylascoo/Ryladmin` for Administrator runtime implementation and Administrator continuity only, subordinate to this repository's Administrator policy/orchestration law.
 
 `docs/PROJECT_EXECUTION_QUEUE.md` remains the **single cross-project backlog/sequencing register**. No Administrator inbox, GitHub Issue set, Codex task list, Claude thread, or chat creates a second backlog.
 
-A future GitHub-based dispatch surface may carry cross-lane questions/results. Until that transport is explicitly activated during Administrator setup, agents must not pretend automatic cross-chat routing exists.
+GitHub Issues are the commissioned ephemeral dispatch/result transport for bounded leases, cross-lane questions, checkpoints and returned evidence. They never become backlog/phase truth. The Administrator monitors repository-visible progress through exact refs, worktrees, branches, PRs, CI, dispatch Issues and sealed artifacts; it cannot infer hidden live-chat progress.
 
 If automatic transport is unavailable, the accountable Sol or Administrator produces a complete copy/paste packet for the Director. The Director should not have to author or infer the prompt.
 
