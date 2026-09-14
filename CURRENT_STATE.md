@@ -23,7 +23,7 @@ Protected key type/readiness is **PENDING**: Google is migrating Gemini API Stan
 The validated executable snapshot is valid only through UTC **2026-09-14**. Provider execution on UTC 2026-09-15 or later requires audited source snapshot refresh plus renewed native Windows ARM64 validation/tagging; prose cannot extend the guard.
 
 ## Continuity
-No E0-D RunId/root, pair window, credential use, provider request, `countTokens`, generation, inference, spend, scoring, or activation is authorized or consumed. E0-C remains closed; Q-E0E-RUN remains blocked until E0-D closes. Q-ADMIN-03 remains separate and creates no E0-D/provider authority.
+No E0-D RunId/root, pair window, credential use, provider request, `countTokens`, generation, inference, spend, scoring, or activation is authorized or consumed. E0-C remains closed; Q-E0E-RUN remains blocked until E0-D closes. Q-ADMIN-03 MA-01 was consumed once and failed before Scout spawn; no retry is authorized, native subagents remain default-off, and MA-02+ remain blocked. It creates no E0-D/provider authority.
 
 ## Next
 Obtain separate Director authority for E0-D preexecution activation preparation. Only then may Engineering perform bounded authenticated account/key/quota/capacity and protected credential-readiness checks or freeze RunIds/roots/windows. If planned provider execution falls after the UTC cutoff, renew the source snapshot and native validation before execution. Provider traffic remains blocked until an exact activation package is integrated and every frozen prelaunch gate passes.
