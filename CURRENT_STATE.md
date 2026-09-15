@@ -1,6 +1,6 @@
 # Ensemble Current State
 
-Updated: 2026-09-14
+Updated: 2026-09-15
 
 ## Authority
 `Rylascoo/Ensemble-Project` is Engineering authority. This file alone owns phase/checkpoint/validation/next action. Bootstrap: `AGENTS.md`; authority: `docs/PROJECT_AUTHORITY.md`; sequencing: `docs/PROJECT_EXECUTION_QUEUE.md`.
@@ -17,7 +17,7 @@ Exact checkout `0dacdbf6bd5453c192568cd4718207e145dfcf40`; tag `validation/e0d-s
 Native Windows ARM64: build PASS with 0 warnings/errors; Core 626/626; Harness 154/154; both fixture smokes PASS; credentialless provider-edge refusal PASS with no evidence root/network. Snapshot is valid inclusively through UTC `2026-09-18` and fails closed from `2026-09-19`.
 
 ## Continuity
-No namespace claim, evidence-root creation, execution credential use, provider request, `countTokens`, generation, inference, scoring, or spend is authorized or consumed. Every slot still requires a fresh execution-sensitive authenticated capacity observation at its own launch boundary after any predecessor terminal. Q-E0E-RUN remains blocked until E0-D closes. Q-ADMIN-03 predecessor and first successor remain consumed/failed closed. Director authorization now opens sealed `MA01-20260914-04` for exactly one further read-only two-Scout admission run, but execution is blocked until this opening is merged, exact-main Validation passes, and irreversible preflight is clean. Native subagents remain default-off; MA-02+ remain blocked; this creates no E0-D authority.
+No namespace claim, evidence-root creation, execution credential use, provider request, `countTokens`, generation, inference, scoring, or spend is authorized or consumed. Every slot still requires a fresh execution-sensitive authenticated capacity observation at its own launch boundary after any predecessor terminal. Q-E0E-RUN remains blocked until E0-D closes. Q-ADMIN-03 predecessor, first successor and sealed `MA01-20260914-04` are all consumed/failed closed. Successor-04 proved two concurrent depth-1 read-only Scouts, exact fixture measurements, denied writes and zero plugin/MCP startup leakage, but an Administrator opening-authority hash race plus unresolved null root-exit evidence prevented admission. No retry is authorized; native subagents remain default-off; MA-02+ remain blocked; this creates no E0-D authority.
 
 ## Next
 Obtain separate Director authorization for the exact P01 Slot 1 activation/live-execution package. Before any claim or provider traffic, recheck current provider/account/key/model/tier/quota facts and obtain the required slot-fresh capacity observation. Do not activate later slots early.
