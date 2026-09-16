@@ -79,6 +79,61 @@ public sealed class E0DExperimentHarnessTests
     }
 
     [TestMethod]
+    public async Task ContextAblationTerminalOutcomes_SealRuntimeWithoutNetwork()
+    {
+        foreach (var variant in new[]
+                 {
+                     E0DExperimentVariant.RelationshipsOmitted,
+                     E0DExperimentVariant.OmniscientContext
+                 })
+        {
+            foreach (var cancelled in new[] { false, true })
+            {
+                var root = E0ATestSupport.TempRunRoot();
+                var variantId = variant == E0DExperimentVariant.RelationshipsOmitted ? "REL" : "OMNI";
+                var outcomeId = cancelled ? "C" : "T";
+                var runId = Ensemble.E0.Core.Domain.RunId.From(
+                    $"E0D-TERM-{variantId}-{outcomeId}-{Guid.NewGuid():N}");
+                var state = E0ATestSupport.Genesis();
+                var envelope = E0AReferenceRunHost.CreateEnvelope(
+                    "CREATIVE-MINIMAL",
+                    E0AGeminiModelCatalog.FlashLite35MinimalId);
+                var evidence = new E0AFileEvidenceStore(
+                    root, runId, envelope, state.OriginFixtureId.Value,
+                    state.OriginFixtureVersion.Value, state.OriginFixtureHash,
+                    E0ATestSupport.TestExecutableCommit, state.RosterCharacterIds,
+                    e0dVariant: variant);
+                var provider = new ScriptedProvider((attempt, _) =>
+                    cancelled
+                        ? RoleAttemptReceipt.Cancelled(attempt, "synthetic-cancelled")
+                        : RoleAttemptReceipt.TechnicalFailure(attempt, "synthetic-technical-failure"));
+                var driver = new E0AReferenceRunDriver(
+                    envelope, provider, new FixedTokenCounter(), evidence,
+                    e0dVariant: variant);
+
+                var result = await driver.RunAsync(runId, state, CancellationToken.None);
+
+                var expectedStatus = cancelled
+                    ? E0ARunTerminalStatus.Cancelled
+                    : E0ARunTerminalStatus.TechnicalFailure;
+                Assert.AreEqual(expectedStatus, result.Status, $"{variant}/{cancelled}");
+                Assert.AreEqual(0, result.AcceptedTurns, $"{variant}/{cancelled}");
+                Assert.AreEqual(1, provider.Calls, $"{variant}/{cancelled}");
+                Assert.IsTrue(File.Exists(Path.Combine(root, "run.summary.json")), $"{variant}/{cancelled}");
+                Assert.IsTrue(File.Exists(Path.Combine(root, "run.final.json")), $"{variant}/{cancelled}");
+                Assert.AreEqual(
+                    1,
+                    File.ReadLines(Path.Combine(root, "events.ndjson"))
+                        .Count(line => line.Contains("\"kind\":\"run.terminal\"", StringComparison.Ordinal)),
+                    $"{variant}/{cancelled}");
+                using var final = JsonDocument.Parse(File.ReadAllBytes(Path.Combine(root, "run.final.json")));
+                Assert.AreEqual(expectedStatus.ToString(), final.RootElement.GetProperty("terminalStatus").GetString());
+                Assert.AreEqual(0, final.RootElement.GetProperty("acceptedTurns").GetInt32());
+            }
+        }
+    }
+
+    [TestMethod]
     public async Task RoundRobinDriver_ProducesFrozenTwelveTurnSubjectScheduleWithoutNetwork()
     {
         var root = E0ATestSupport.TempRunRoot();

@@ -10,7 +10,9 @@ using Ensemble.E0.Core.Domain;
 using Ensemble.E0.Core.Experiments.E0D;
 using Ensemble.E0.Core.Fixture;
 using Ensemble.E0.Core.Performer;
+using Ensemble.E0.Core.PerformerAttempt;
 using Ensemble.E0.Core.Production;
+using Ensemble.E0.Core.Turn;
 using Ensemble.E0.Core.Tests.Patch0012;
 
 namespace Ensemble.E0.Core.Tests.Experiments.E0D;
@@ -82,6 +84,57 @@ public sealed class E0DExperimentalCycleTests
         Assert.IsTrue(RecordIds(actual).All(safeUnion.Contains));
         Assert.IsFalse(RecordIds(actual).Contains(MissingRaftContract.HtMarloweReleasedRaftId));
         Assert.AreEqual(E0DExperimentContracts.OmniscientCompositionContract, actual.CompositionContract);
+    }
+
+    [TestMethod]
+    public void ContextAblationTechnicalGate_AcceptsTechnicalAndCancelledForBothVariants()
+    {
+        foreach (var variant in new[]
+                 {
+                     E0DExperimentVariant.RelationshipsOmitted,
+                     E0DExperimentVariant.OmniscientContext
+                 })
+        {
+            foreach (var disposition in new[]
+                     {
+                         E0PerformerAttemptDisposition.TechnicalFailure,
+                         E0PerformerAttemptDisposition.Cancelled
+                     })
+            {
+                var state = GenesisCycle();
+                var context = E0DExperimentalCycle.ComposeContext(state, variant).ContextEvaluation.Packet;
+                var attempt = DeterministicE0PerformerAttemptBoundary.BindTechnicalOutcome(context, disposition);
+
+                var progress = E0DExperimentalTurnGate.GateTechnical(state, context, attempt, variant);
+
+                Assert.AreEqual(
+                    disposition == E0PerformerAttemptDisposition.Cancelled
+                        ? E0TurnProgressDisposition.Cancelled
+                        : E0TurnProgressDisposition.TechnicalFailure,
+                    progress.Disposition);
+                Assert.AreEqual(context.ContextPacketId, progress.SourceContext.ContextPacketId);
+                Assert.IsNull(progress.Candidate);
+            }
+        }
+    }
+
+    [TestMethod]
+    public void ContextAblationTechnicalGate_RejectsContextFromDifferentVariant()
+    {
+        var state = GenesisCycle();
+        var context = E0DExperimentalCycle.ComposeContext(
+            state,
+            E0DExperimentVariant.OmniscientContext).ContextEvaluation.Packet;
+        var attempt = DeterministicE0PerformerAttemptBoundary.BindTechnicalOutcome(
+            context,
+            E0PerformerAttemptDisposition.TechnicalFailure);
+
+        Assert.Throws<E0DExperimentException>(() =>
+            E0DExperimentalTurnGate.GateTechnical(
+                state,
+                context,
+                attempt,
+                E0DExperimentVariant.RelationshipsOmitted));
     }
 
     [TestMethod]

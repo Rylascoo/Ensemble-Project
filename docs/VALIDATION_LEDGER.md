@@ -6,26 +6,25 @@ Status: validation fact register only. This file cannot advance phase/checkpoint
 
 | Field | Fact |
 |---|---|
-| Exact checkout | `0dacdbf6bd5453c192568cd4718207e145dfcf40` |
-| Annotated tag | `validation/e0d-snapshot-refresh-native-arm64` |
-| Tag object | `f2df6e8be66e7f1a7106d82c89ae13d284442090`; verified to peel to the exact checkout above |
+| Exact checkout | `8770a6361233e8a877a966c45eb6f62c5b3ca182` |
+| Annotated tag | `validation/e0d-context-ablation-terminal-fix-native-arm64` |
+| Tag object | `0b3582aef6acf7e5ad2cf26585e0ccdc6a9a4dee`; verified to peel to the exact checkout above |
 | Architecture | `docs/blueprint/E0D_ABLATION_CONTROLS_METHOD_AND_ISOLATION_CONTRACT_01.md` |
-| Implementation | Frozen E0-D Full, relationship-omission, omniscient-context, and deterministic round-robin variants unchanged; this checkpoint changes only the dated Gemini snapshot freshness policy through UTC 2026-09-18. |
-| Native evidence | `docs/evidence/E0D_SOURCE_SNAPSHOT_REFRESH_NATIVE_ARM64_VALIDATION_2026_09_14.md` |
-| Supporting implementation audit | `docs/evidence/E0D_ABLATION_CONTROLS_IMPLEMENTATION_AUDIT_2026_09_14.md` |
-| Director authorization | `docs/evidence/E0D_SOURCE_SNAPSHOT_REFRESH_AND_NATIVE_REVALIDATION_DIRECTOR_AUTHORIZATION_2026_09_14.md` |
+| Implementation | Narrow repair for context-ablation Performer technical/cancelled terminal routing; frozen E0-D variants/method/fixture/provider/profile/scoring/claim/retry contracts otherwise unchanged. |
+| Native evidence | `docs/evidence/E0D_CONTEXT_ABLATION_TERMINAL_FINALIZATION_REPAIR_NATIVE_ARM64_VALIDATION_2026_09_16.md` |
+| Defect evidence | `docs/evidence/E0D_Q_E0D_01_P01_SLOT2_UNSEALED_TECHNICAL_TERMINAL_ANALYSIS_2026_09_15.md` |
 | Host | Director Windows ARM64 (`win-arm64`), repository-selected SDK `9.0.317` |
-| Core tests | 626/626 PASS |
-| Harness tests | 154/154 PASS |
+| Core tests | 628/628 PASS |
+| Harness tests | 155/155 PASS, including Relationships-Omitted + Omniscient technical/cancelled runtime-sealing regressions |
 | Fresh Harness build | `net9.0/win-arm64` Release PASS; zero warnings/errors |
-| Fixture smokes | Missing Raft PASS with canonical Fixture validation; generic PASS |
-| Credentialless provider-edge gate | fixed `e0d-run` missing-key refusal PASS; exit 1 before network and no evidence root |
-| Repository checks | repository-law PASS; census PASS 300 / 179 / 30 / 91 / 0 unexplained; oracle PASS 215 documented / 17 asserted / 198 document-only hashes; commit-diff/clean/frozen-identity gates PASS |
-| Executable SHA-256 | `b2f9c45b376ef08b8c4ec0c7b56c4f595b1d7377ebdb858b63eb555e3cf28625` |
-| Snapshot boundary | verified 2026-09-14; valid inclusively through UTC 2026-09-18; fail closed from UTC 2026-09-19 |
-| Provider scope | network / `countTokens` / generation / inference / scoring / spend NOT PERFORMED during validation |
+| Fixture smokes | Missing Raft PASS; generic PASS |
+| Credentialless provider-edge gate | exact `e0d-run` missing-key refusal PASS; exit 1 before network and no evidence root |
+| Hosted gate | branch-push Validation #885 PASS on exact checkout |
+| Repository checks | repository-law PASS; census 316 / 195 / 30 / 91 / 0 unexplained; oracle 266 / 17 / 249; exact delta four files; clean detached validator PASS |
+| Executable SHA-256 | `651aedf9e05800ea46ecc8a7c6565f9f91eeaf07794747dcb0a3c7697b946fac` |
+| Provider scope | network / `countTokens` / generation / inference / scoring / spend NOT PERFORMED during repair validation |
 
-Native runtime authority applies only to exact checkout `0dacdbf6bd5453c192568cd4718207e145dfcf40`. Later documentation/integration commits do not inherit machine-test authority. Cloud ARM64-target builds remain compiler authority only; non-native tests remain semantic regressions, not native Windows ARM64 runtime authority.
+Native runtime authority for the repaired E0-D executable applies only to exact checkout `8770a6361233e8a877a966c45eb6f62c5b3ca182`. This validation does not authorize P02/P03 live execution. The prior `0dacdbf6...` checkpoint remains historical truth for consumed P01 runs but is superseded for future E0-D executable use. Later documentation/integration commits do not inherit machine-test authority.
 
 ### Supporting provider-evidence continuity
 
