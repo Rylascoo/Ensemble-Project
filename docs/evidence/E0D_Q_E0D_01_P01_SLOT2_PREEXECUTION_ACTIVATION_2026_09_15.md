@@ -52,6 +52,10 @@ Before any launch-boundary authenticated inspection or irreversible operation:
 
 Until all three are true, stop before Slot-2 credential injection, claim creation, evidence-root creation, `countTokens`, generation or any other Gemini provider traffic.
 
+This activation candidate is audited against Project main@399024b54b8c2c66525d081e816740f055f26f6a; if main moves before integration, rebase/reconcile and rerun the exact-head gates rather than inheriting authority from this snapshot.
+
+This activation candidate is audited against Project main@399024b54b8c2c66525d081e816740f055f26f6a; if main moves before integration, rebase/reconcile and rerun the exact-head gates rather than inheriting authority from this snapshot.
+
 ## Immediate preclaim gates
 
 After the integration barrier passes, and only while the amended P01 pair window is open, perform a fresh launch-boundary inspection. All of the following must pass simultaneously:
