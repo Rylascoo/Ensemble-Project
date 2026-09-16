@@ -156,7 +156,9 @@ internal sealed class E0AReferenceRunDriver
                         ? E0PerformerAttemptDisposition.Cancelled
                         : E0PerformerAttemptDisposition.TechnicalFailure;
                     var technicalResult = DeterministicE0PerformerAttemptBoundary.BindTechnicalOutcome(context, technical);
-                    _ = DeterministicE0TurnOrchestrator.GateAttempt(state, technicalResult);
+                    _ = _e0dVariant is E0DExperimentVariant.RelationshipsOmitted or E0DExperimentVariant.OmniscientContext
+                        ? E0DExperimentalTurnGate.GateTechnical(state, context, technicalResult, _e0dVariant.Value)
+                        : DeterministicE0TurnOrchestrator.GateAttempt(state, technicalResult);
                 }
                 return Finish(performerCall.TerminalStatus.Value, acceptedTurns, state);
             }
