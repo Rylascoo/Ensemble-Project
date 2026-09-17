@@ -49,6 +49,22 @@ Native runtime authority for the repaired E0-D executable applies only to exact 
 
 This exact source checkpoint retains native machine-test authority. Q-PROD-01 first-slice integration is durable on Project `main@1c6600e8f2d487515cb0029a88752a9d3f9428de` after PR #167 and push-triggered exact-main Validation #926 PASS; the documentation/merge commit does not inherit or inflate native-runtime authority beyond the validated `34a3745...` source.
 
+### Q-PROD-01 provisional persistence journal checkpoint
+
+| Field | Fact |
+|---|---|
+| Exact source checkout | `fff8298a066531cdfbd2bcb7bdacdbc7d024bcca` |
+| Base | `6d2a32e174e2f00d16f91d04d6ad82adab2326fa` |
+| Validation tag | `validation/q-prod-01-persistence-journal-native-arm64` |
+| Evidence | `docs/evidence/Q_PROD_01_PERSISTENCE_JOURNAL_NATIVE_ARM64_VALIDATION_2026_09_17.md` |
+| Host | SurfSeven, native Windows ARM64, repository .NET 9 baseline |
+| Persistence tests | `Kymaean.Infrastructure.Persistence.Tests` 9/9 PASS on `win-arm64` Release |
+| Product regression | `Kymaean.Application.Tests` 6/6 PASS; `Kymaean.Windows` ARM64 Release build PASS, 0 warnings / 0 errors |
+| Earned scope | append-only framed journal, chained/payload hashes, checksummed committed-head witness, corruption/tail-loss detection, explicit validated-suffix recovery |
+| Provider scope | no Gemini/provider traffic |
+| Authority scope | provisional persistence substrate only; not complete P1, final event schema, replay/snapshot/export policy, Alpha/Beta/release, WACK, Store, or deferred-E0 authority |
+
+The native validation identity is the exact `fff8298...` source. Later evidence/continuity commits may describe or integrate it but do not inherit native machine-test authority.
 ### Supporting provider-evidence continuity
 
 The promoted checkpoint does not erase the still-current evidence chain that established the provider/runtime boundary. These records remain supporting evidence only and do not override the promoted checkpoint:
