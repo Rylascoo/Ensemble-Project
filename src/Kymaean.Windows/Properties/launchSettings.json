@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Kymaean.Windows (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Kymaean.Windows (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

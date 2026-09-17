@@ -26,6 +26,27 @@ Status: validation fact register only. This file cannot advance phase/checkpoint
 
 Native runtime authority for the repaired E0-D executable applies only to exact checkout `8770a6361233e8a877a966c45eb6f62c5b3ca182`. This validation does not authorize P02/P03 live execution. The prior `0dacdbf6...` checkpoint remains historical truth for consumed P01 runs but is superseded for future E0-D executable use. Later documentation/integration commits do not inherit machine-test authority.
 
+## Q-PROD-01 provisional product native checkpoint
+
+| Field | Fact |
+|---|---|
+| Exact source checkout | `34a3745e12c42247fe4e1663697bf55452f9d505` |
+| Base | `dfc641e22f26a81ad1a40cad37626aa41923eb2d` |
+| Evidence | `docs/evidence/Q_PROD_01_FIRST_NATIVE_VERTICAL_SLICE_ARM64_VALIDATION_2026_09_17.md` |
+| Host | SurfSeven, native Windows ARM64, repository .NET 9 baseline |
+| Product tests | `Kymaean.Application.Tests` 6/6 PASS on `win-arm64` Release |
+| Native build | `Kymaean.Windows` ARM64 Release/MSIX PASS, 0 warnings / 0 errors |
+| Validation package | Arm64 MSIX SHA-256 `ab1b012e7dc27ad3e2f3960123bc1d18f80d092f0bdbceb87b6d43e24210b0ea`, 28,059,348 bytes |
+| Runtime | package activation PASS; native machine `0xAA64`; responsive `Kymaean` window |
+| Interaction | final-package keyboard traversal/focus-return PASS; Back restores `Open live stage` focus |
+| Windowing | `WM_GETMINMAXINFO` minimum-track contract 720x520 PASS |
+| Theme evidence | same-state Light/Dark captures exist; invariant dark Stage preserved |
+| High Contrast | observed on immediately preceding UI-identical checkpoint; exact-final recapture still pending because remote automation blocked the OS toggle; no bypass attempted |
+| Provider scope | no Gemini/provider traffic during Q-PROD-01 implementation or validation |
+| Authority scope | provisional product validation only; not final architecture, Alpha/Beta/release, WACK, Store, or deferred-E0 authority |
+
+This source checkpoint is machine-tested but is not durable Project `main` authority until its candidate PR is integrated and push-triggered exact-main validation passes.
+
 ### Supporting provider-evidence continuity
 
 The promoted checkpoint does not erase the still-current evidence chain that established the provider/runtime boundary. These records remain supporting evidence only and do not override the promoted checkpoint:

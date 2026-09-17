@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Application
+    x:Class="Kymaean.Windows.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light">
+                    <SolidColorBrush x:Key="KymaeanFieldBrush" Color="#F4F3F7" />
+                    <SolidColorBrush x:Key="KymaeanPrimaryBrush" Color="#221B2D" />
+                    <SolidColorBrush x:Key="KymaeanSecondaryBrush" Color="#5C5565" />
+                    <SolidColorBrush x:Key="KymaeanAccentBrush" Color="#006F73" />
+                    <SolidColorBrush x:Key="KymaeanBoundaryBrush" Color="#7D7486" />
+                    <SolidColorBrush x:Key="KymaeanSoftSurfaceBrush" Color="#EAE8EF" />
+                    <SolidColorBrush x:Key="KymaeanStageFieldBrush" Color="#19141D" />
+                    <SolidColorBrush x:Key="KymaeanStagePrimaryBrush" Color="#F4F0F5" />
+                    <SolidColorBrush x:Key="KymaeanStageSecondaryBrush" Color="#BEB4C0" />
+                    <SolidColorBrush x:Key="KymaeanStageAccentBrush" Color="#249A9C" />
+                </ResourceDictionary>
+
+                <ResourceDictionary x:Key="Dark">
+                    <SolidColorBrush x:Key="KymaeanFieldBrush" Color="#19141D" />
+                    <SolidColorBrush x:Key="KymaeanPrimaryBrush" Color="#F4F0F5" />
+                    <SolidColorBrush x:Key="KymaeanSecondaryBrush" Color="#BEB4C0" />
+                    <SolidColorBrush x:Key="KymaeanAccentBrush" Color="#249A9C" />
+                    <SolidColorBrush x:Key="KymaeanBoundaryBrush" Color="#756A79" />
+                    <SolidColorBrush x:Key="KymaeanSoftSurfaceBrush" Color="#261F29" />
+                    <SolidColorBrush x:Key="KymaeanStageFieldBrush" Color="#19141D" />
+                    <SolidColorBrush x:Key="KymaeanStagePrimaryBrush" Color="#F4F0F5" />
+                    <SolidColorBrush x:Key="KymaeanStageSecondaryBrush" Color="#BEB4C0" />
+                    <SolidColorBrush x:Key="KymaeanStageAccentBrush" Color="#249A9C" />
+                </ResourceDictionary>
+
+                <ResourceDictionary x:Key="HighContrast">
+                    <SolidColorBrush x:Key="KymaeanFieldBrush" Color="{ThemeResource SystemColorWindowColor}" />
+                    <SolidColorBrush x:Key="KymaeanPrimaryBrush" Color="{ThemeResource SystemColorWindowTextColor}" />
+                    <SolidColorBrush x:Key="KymaeanSecondaryBrush" Color="{ThemeResource SystemColorWindowTextColor}" />
+                    <SolidColorBrush x:Key="KymaeanAccentBrush" Color="{ThemeResource SystemColorHighlightColor}" />
+                    <SolidColorBrush x:Key="KymaeanBoundaryBrush" Color="{ThemeResource SystemColorWindowTextColor}" />
+                    <SolidColorBrush x:Key="KymaeanSoftSurfaceBrush" Color="{ThemeResource SystemColorWindowColor}" />
+                    <SolidColorBrush x:Key="KymaeanStageFieldBrush" Color="{ThemeResource SystemColorWindowColor}" />
+                    <SolidColorBrush x:Key="KymaeanStagePrimaryBrush" Color="{ThemeResource SystemColorWindowTextColor}" />
+                    <SolidColorBrush x:Key="KymaeanStageSecondaryBrush" Color="{ThemeResource SystemColorWindowTextColor}" />
+                    <SolidColorBrush x:Key="KymaeanStageAccentBrush" Color="{ThemeResource SystemColorHighlightColor}" />
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+
+            <ResourceDictionary.MergedDictionaries>
+                <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

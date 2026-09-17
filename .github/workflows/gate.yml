@@ -36,6 +36,26 @@ jobs:
           dotnet-version: '9.0.317'
       - run: dotnet test tests/Ensemble.E0.Core.Tests/Ensemble.E0.Core.Tests.csproj -c Release
 
+  product-application-tests:
+    name: Product Application tests (x64 regression, non-authoritative)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+        with:
+          dotnet-version: '9.0.317'
+      - run: dotnet test tests/Kymaean.Application.Tests/Kymaean.Application.Tests.csproj -c Release
+
+  product-windows-arm64-compile:
+    name: Product WinUI compiler gate (ARM64 cross-compile)
+    runs-on: windows-latest
+    # Compiler authority only; native Windows ARM64 runtime evidence is recorded separately from SurfSeven.
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+        with:
+          dotnet-version: '9.0.317'
+      - run: dotnet build src/Kymaean.Windows/Kymaean.Windows.csproj -c Release -p:Platform=ARM64 -r win-arm64
   repository-laws:
     name: Repository law enforcement
     runs-on: ubuntu-latest
