@@ -55,6 +55,8 @@ This exact source checkpoint retains native machine-test authority. Q-PROD-01 fi
 |---|---|
 | Exact source checkout | `fff8298a066531cdfbd2bcb7bdacdbc7d024bcca` |
 | Base | `6d2a32e174e2f00d16f91d04d6ad82adab2326fa` |
+| Integrated Project main | `2c165539fcfb4541d90e177ac09a9800fc0169e8` via PR #169; push-triggered Validation #932 PASS |
+| Candidate hosted gates | `d16ef3e8b64a7ce03f6875207fd1e136c2177e36`: Validation #931 PASS; E0-E preparation #113 PASS |
 | Validation tag | `validation/q-prod-01-persistence-journal-native-arm64` |
 | Evidence | `docs/evidence/Q_PROD_01_PERSISTENCE_JOURNAL_NATIVE_ARM64_VALIDATION_2026_09_17.md` |
 | Host | SurfSeven, native Windows ARM64, repository .NET 9 baseline |
