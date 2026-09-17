@@ -3,25 +3,24 @@
 Updated: 2026-09-17
 
 ## Authority
-`Rylascoo/Ensemble-Project` is Engineering authority. This file owns phase/checkpoint/validation/next action. Bootstrap: `AGENTS.md`; authority: `docs/PROJECT_AUTHORITY.md`; sequencing: `docs/PROJECT_EXECUTION_QUEUE.md`; Design locator: `docs/DESIGN_REPOSITORY.md`.
+`Rylascoo/Ensemble-Project` is Engineering authority. Bootstrap: `AGENTS.md`; authority: `docs/PROJECT_AUTHORITY.md`; sequencing: `docs/PROJECT_EXECUTION_QUEUE.md`; validation: `docs/VALIDATION_LEDGER.md`; Design locator: `docs/DESIGN_REPOSITORY.md`.
 
 ## Checkpoint
-Director sequencing amendment `docs/KYMAEAN_PRODUCT_BUILD_AHEAD_OF_DEFERRED_E0_VALIDATION_DIRECTOR_AMENDMENT_2026_09_17.md` is active: **REAL PRODUCT CONSTRUCTION MAY PROCEED NOW; REMAINING E0 TESTS ARE DEFERRED VALIDATION OBLIGATIONS, NOT BUILD-START BLOCKERS**.
+Director amendment `docs/KYMAEAN_PRODUCT_BUILD_AHEAD_OF_DEFERRED_E0_VALIDATION_DIRECTOR_AMENDMENT_2026_09_17.md` is active: real product construction proceeds now; E0-D/E/F/G remain deferred validation obligations and release/finalization gates.
 
-E0-A/B/C are DONE. E0-D/E/F/G are deferred. P01/P02 remain permanently consumed/noncontributing; P02 is experientially ineligible. P03 Slot 1 `E0D-Q01-P03-FULL-20260914-05` remains authorized but is on Director deferred-test hold, namespace unconsumed/provider traffic zero. Do not auto-launch at the existing `2026-09-18T14:30:00Z..23:30:00Z` window; if it lapses, preserve the namespace and require a later resume/timing amendment. P03 Slot 2 remains unauthorized.
+Q-PROD-01 is ACTIVE. The first native vertical-slice source is frozen locally on `product/q-prod-01-vertical-slice-2026-09-17` at `34a3745e12c42247fe4e1663697bf55452f9d505`, based on `main@dfc641e22f26a81ad1a40cad37626aa41923eb2d`. It is not yet durable Project authority until PR integration + exact-main validation complete.
 
-Preserved E0-D authority/evidence chain: `docs/evidence/E0D_Q_E0D_01_P03_SLOT1_PREEXECUTION_ACTIVATION_2026_09_17.md`.
+Implemented: `Kymaean.Application`, replaceable `IProductionStore`, deterministic Missing Raft demo adapter, native WinUI shell, Home / Productions / Settings durable routes, Production shaping / Live Stage / History semantic destinations, Light/Dark parity with invariant dark Stage, keyboard Back/focus return, and native 720×520 minimum-track handling.
 
-## Product build now
-Q-PROD-01 is ACTIVE. Build provisional Application/persistence seams, native ARM64 Windows shell, production-shaped provider abstractions, and the Studio/Stage/Archive vertical flow now. Keep unresolved E0-sensitive choices behind replaceable ports/adapters. Design-facing implementation consumes Design authority rather than inventing final visual law.
+Evidence: `docs/evidence/Q_PROD_01_FIRST_NATIVE_VERTICAL_SLICE_ARM64_VALIDATION_2026_09_17.md`. Fresh-chat recovery: `docs/Q_PROD_01_FRESH_CHAT_HANDOFF_2026_09_17.md`.
 
-First vertical slice: `Application semantic contracts -> Production persistence seam -> native shell -> Studio/Stage/Archive navigation -> deterministic fixture/demo path`.
+## Validation
+At exact source `34a3745...`: 6/6 native ARM64 product tests PASS; ARM64 WinUI/MSIX build PASS with 0 warnings/errors; package Arm64/native-machine `0xAA64`; exact validation MSIX SHA-256 `ab1b012e7dc27ad3e2f3960123bc1d18f80d092f0bdbceb87b6d43e24210b0ea`; package activation/responding window PASS; final-package keyboard focus return PASS; minimum-track 720×520 PASS. Exact-final High Contrast recapture remains pending because remote automation blocked the OS accessibility toggle; do not bypass.
 
-## Provider boundary
-Frozen E0 association `Ensemble Testing` / `gen-lang-client-0793779417` / `Gemini API Key` remains reserved for deferred E0. Ordinary product-development Gemini traffic must use a separately identified development project/key. Until then, provider implementation plus fake/credentialless testing may proceed; new non-experimental Gemini network traffic is held.
+## Deferred E0 / provider boundary
+P01/P02 remain permanently consumed/noncontributing; P02 experientially ineligible. P03 Slot 1 remains authorized but on Director deferred-test hold with namespace unconsumed/provider traffic zero; P03 Slot 2 remains unauthorized. Do not auto-launch deferred E0. Frozen `Ensemble Testing` / `gen-lang-client-0793779417` / `Gemini API Key` remains reserved for E0; ordinary product provider traffic needs a separate development association.
 
-## Release gates
-Deferred E0 evidence must be reconciled before final architecture freeze, runtime-complete Alpha exit, Beta/release convergence, Store RC or submission. Later E0 evidence may require provisional code to change.
+Preserved E0-D authority/evidence chain: docs/evidence/E0D_Q_E0D_01_P03_SLOT1_PREEXECUTION_ACTIVATION_2026_09_17.md.
 
 ## Next
-Execute Q-PROD-01 on an isolated worktree: establish the Application boundary and first native-shell scaffold, add deterministic tests/local fixture path, and validate on Windows ARM64. Preserve deferred E0 namespaces untouched. In parallel, obtain a separate development Google project/key for later product-provider testing and route app-facing Design work through Design Sol.
+Finish candidate repository guards, push the exact Q-PROD-01 branch, open/integrate the protected PR through exact-head hosted gates and push-triggered exact-main Validation. Then reconcile Ryladmin, dispatch the stable native checkpoint to Design Sol for Q-DESIGN-20, disposition the final High Contrast review item without bypassing safety, and continue Q-PROD-01 persistence/provider/UI integration.
