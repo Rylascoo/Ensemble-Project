@@ -32,6 +32,8 @@ Native runtime authority for the repaired E0-D executable applies only to exact 
 |---|---|
 | Exact source checkout | `34a3745e12c42247fe4e1663697bf55452f9d505` |
 | Base | `dfc641e22f26a81ad1a40cad37626aa41923eb2d` |
+| Integrated Project main | `1c6600e8f2d487515cb0029a88752a9d3f9428de` via PR #167; push-triggered Validation #926 PASS |
+| Candidate hosted gates | `8dcb64e3bc12732ca5e8e3f7108174b0270bdb16`: Validation #925 PASS; E0-E preparation #111 PASS |
 | Evidence | `docs/evidence/Q_PROD_01_FIRST_NATIVE_VERTICAL_SLICE_ARM64_VALIDATION_2026_09_17.md` |
 | Host | SurfSeven, native Windows ARM64, repository .NET 9 baseline |
 | Product tests | `Kymaean.Application.Tests` 6/6 PASS on `win-arm64` Release |
@@ -45,7 +47,7 @@ Native runtime authority for the repaired E0-D executable applies only to exact 
 | Provider scope | no Gemini/provider traffic during Q-PROD-01 implementation or validation |
 | Authority scope | provisional product validation only; not final architecture, Alpha/Beta/release, WACK, Store, or deferred-E0 authority |
 
-This source checkpoint is machine-tested but is not durable Project `main` authority until its candidate PR is integrated and push-triggered exact-main validation passes.
+This exact source checkpoint retains native machine-test authority. Q-PROD-01 first-slice integration is durable on Project `main@1c6600e8f2d487515cb0029a88752a9d3f9428de` after PR #167 and push-triggered exact-main Validation #926 PASS; the documentation/merge commit does not inherit or inflate native-runtime authority beyond the validated `34a3745...` source.
 
 ### Supporting provider-evidence continuity
 
