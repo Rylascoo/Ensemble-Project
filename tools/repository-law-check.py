@@ -19,6 +19,19 @@ EXPECTED_PROJECT_REFERENCES: dict[str, set[str]] = {
         "src/Ensemble.E0.Core/Ensemble.E0.Core.csproj",
         "src/Ensemble.E0.Harness/Ensemble.E0.Harness.csproj",
     },
+    "src/Kymaean.Application/Kymaean.Application.csproj": set(),
+    "src/Kymaean.Infrastructure.Demo/Kymaean.Infrastructure.Demo.csproj": {
+        "src/Ensemble.E0.Core/Ensemble.E0.Core.csproj",
+        "src/Kymaean.Application/Kymaean.Application.csproj",
+    },
+    "src/Kymaean.Windows/Kymaean.Windows.csproj": {
+        "src/Kymaean.Application/Kymaean.Application.csproj",
+        "src/Kymaean.Infrastructure.Demo/Kymaean.Infrastructure.Demo.csproj",
+    },
+    "tests/Kymaean.Application.Tests/Kymaean.Application.Tests.csproj": {
+        "src/Kymaean.Application/Kymaean.Application.csproj",
+        "src/Kymaean.Infrastructure.Demo/Kymaean.Infrastructure.Demo.csproj",
+    },
 }
 FORBIDDEN_SOURCE_PROVIDER_TOKENS = ("openai_api_key", "api.openai.com", "openairesponsesport")
 FORBIDDEN_TEST_PROVIDER_TOKENS = ("api.openai.com", "openairesponsesport")
@@ -146,6 +159,8 @@ def check_retired_provider_surface(errors: list[str]) -> None:
 
 def check_dead_scaffolding(errors: list[str]) -> None:
     for path in sorted((ROOT / "src").rglob("*.cs")):
+        if any(part in {"bin", "obj"} for part in path.relative_to(ROOT).parts):
+            continue
         if "NotImplementedException" in path.read_text(encoding="utf-8"):
             errors.append(f"dead implementation scaffolding found: {rel(path)}")
 
