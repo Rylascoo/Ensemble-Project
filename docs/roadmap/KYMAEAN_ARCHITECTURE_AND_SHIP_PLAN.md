@@ -187,7 +187,9 @@ Convergence decides which mechanisms earn productization. Hard-gate failures are
 
 Exit: contributing runs pass integrity gates; generalization succeeds or falsifies/revises architecture; broad deletion audit completes; Director approves post-E0 architecture.
 
-### D — Freeze post-E0 product-runtime architecture
+### D — Freeze final product-runtime architecture after deferred E0 reconciliation
+
+Director amendment `docs/KYMAEAN_PRODUCT_BUILD_AHEAD_OF_DEFERRED_E0_VALIDATION_DIRECTOR_AMENDMENT_2026_09_17.md` allows provisional product implementation to precede this final freeze. Phase D now reconciles and freezes what survives both implementation evidence and the deferred E0-D/E/F/G results; implementation does not pre-approve unresolved architecture.
 
 Resolve only launch-critical questions, including minimum Scene lifecycle/observation semantics, creator consequence review, branching/Another Take/Rehearsal minimum if any, portable Production format, persistence/recovery ports, provider casting/cost policy, Application commands/queries, minimum Studio/Stage/Archive semantics, Presentation Perspective, launch-required creator postures, content/governance requirements, and evidence-selected local semantic tasks.
 
@@ -199,7 +201,9 @@ Exit: approved product-runtime architecture and stable-enough Application/persis
 
 ---
 
-## 6. Parallel productization after Phase D
+## 6. Parallel productization — provisional construction may begin before final Phase D freeze
+
+Under the 2026-09-17 Director sequencing amendment, P1-P4 construction may proceed now behind replaceable seams. Final promotion of those implementations still depends on deferred E0 reconciliation and the Phase-D architecture freeze.
 
 ### P1 — Durable Production persistence and recovery
 
@@ -376,7 +380,7 @@ Complete already-authorized coupled work before returning; do not fragment work 
 
 ## 15. Current-action boundary
 
-Do not jump to WinUI, persistence, local AI/NPU, packaging, or Store work while an earlier dependency remains active.
+Provisional Application, persistence, native Windows shell, provider-runtime and UI construction may proceed while deferred E0 validation remains open. Do not promote provisional choices to final architecture, Alpha exit, Beta/release, packaging/WACK or Store authority until the deferred validation and later gates are reconciled.
 
 The exact current engineering objective, provider authorization, validation boundary, and next action are read only from `CURRENT_STATE.md` at the active exact ref. This program map intentionally does not duplicate them.
 
@@ -388,12 +392,11 @@ This roadmap preserves major dependency ordering:
 
 ```text
 H1 CLOSED
- -> E0-A Harness
- -> E0-B..G
- -> E0 convergence
- -> post-E0 product-runtime architecture
- -> parallel persistence / Windows shell / provider-local capability / UI lanes
- -> runtime-complete Alpha
+ -> E0-A..C evidence complete
+ -> E0-D/E/F/G deferred validation stream  ||  provisional product build (Application / persistence / Windows shell / provider / UI)
+ -> reconcile deferred E0 + implementation evidence
+ -> final product-runtime architecture freeze
+ -> runtime-complete Alpha exit
  -> hardening + Beta/release architecture
  -> optional extensibility as justified
  -> exact ARM64 MSIX + WACK + security
