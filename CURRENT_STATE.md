@@ -25,7 +25,7 @@ Exact-final High Contrast for the earlier native UI package remains a Design-rev
 P03 Slot 1 remains on Director deferred-test hold with namespace unconsumed/provider traffic zero; Slot 2 remains unauthorized. Frozen `Ensemble Testing` / `gen-lang-client-0793779417` / `Gemini API Key` remains E0-only; product provider traffic requires a separate development association. Preserved E0-D chain: `docs/evidence/E0D_Q_E0D_01_P03_SLOT1_PREEXECUTION_ACTIVATION_2026_09_17.md`.
 
 ## Design coordination
-Q-DESIGN-20 was dispatched to Design Sol; Engineering consumes only returned Design authority and does not mutate Design-owned source.
+Q-DESIGN-20 Design return is canonical at Website APPUI `bd20f25ae48f75ff3ceecfb355104c42babe373c` / L-262: architecture accepted; Engineering owes NC-01..NC-05 + corrected native evidence, then short Design acceptance. Final High Contrast limitation remains.
 
 ## Next
 Continue P1 with the smallest model-neutral Product/Application persistence-event and deterministic replay/rebuild boundary. Keep provider work credentialless/offline, preserve replaceable seams, and leave deferred E0 untouched.
