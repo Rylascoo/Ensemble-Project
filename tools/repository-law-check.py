@@ -20,6 +20,10 @@ EXPECTED_PROJECT_REFERENCES: dict[str, set[str]] = {
         "src/Ensemble.E0.Harness/Ensemble.E0.Harness.csproj",
     },
     "src/Kymaean.Application/Kymaean.Application.csproj": set(),
+    "src/Kymaean.Infrastructure.Persistence/Kymaean.Infrastructure.Persistence.csproj": set(),
+    "tests/Kymaean.Infrastructure.Persistence.Tests/Kymaean.Infrastructure.Persistence.Tests.csproj": {
+        "src/Kymaean.Infrastructure.Persistence/Kymaean.Infrastructure.Persistence.csproj",
+    },
     "src/Kymaean.Infrastructure.Demo/Kymaean.Infrastructure.Demo.csproj": {
         "src/Ensemble.E0.Core/Ensemble.E0.Core.csproj",
         "src/Kymaean.Application/Kymaean.Application.csproj",
