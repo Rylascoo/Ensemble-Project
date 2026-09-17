@@ -86,6 +86,25 @@ The native validation identity is the exact `fff8298...` source. Later evidence/
 | Authority scope | provisional P1 slice only; typed semantic recovery, broader causal ontology, snapshots/export, complete P1, final architecture/release and deferred-E0 authority remain unearned |
 
 Native machine-test authority is exact source `789028a...`; later evidence/integration commits do not inherit it.
+
+### Q-DESIGN-20 bounded native-corrections checkpoint
+
+| Field | Fact |
+|---|---|
+| Exact source checkout | `248435944815a34e4caac761ed308ed3b07e325b` |
+| Base | `83d735b9e2800aa2c209641356bb8e0fbf31de93` |
+| Validation tag | `validation/q-design-20-native-corrections-arm64` |
+| Evidence | `docs/evidence/Q_DESIGN_20_NATIVE_CORRECTIONS_ARM64_VALIDATION_2026_09_17.md` |
+| Host | SurfSeven, native Windows ARM64, repository .NET 9 baseline |
+| Native tests | Application 10/10 PASS; persistence 14/14 PASS |
+| Package | ARM64 MSIX PASS, 0 warnings/errors; SHA-256 `5948a58ee49e4de34839ecd0755b308378d4fcd05ab9297477706a7aab4e8852` |
+| UI return | NC-01..NC-05 applied; same-state Light/Dark captured; Back focus-return PASS; 720×520 observation PASS |
+| Placeholders | Source Sans 3 packaging/localization/metrics and S1 native/shipping Stage asset packaging remain unresolved/accepted placeholders |
+| High Contrast | exact-source recapture not attempted; prior remote-safety limitation remains; no bypass |
+| Authority scope | bounded native correction checkpoint only; integration and short Design acceptance pending |
+
+Native correction authority is exact source `2484359...`; later evidence/integration commits do not inherit machine-test authority.
+
 ### Supporting provider-evidence continuity
 
 The promoted checkpoint does not erase the still-current evidence chain that established the provider/runtime boundary. These records remain supporting evidence only and do not override the promoted checkpoint:

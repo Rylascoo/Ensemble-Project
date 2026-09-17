@@ -7,7 +7,9 @@ public sealed class HistoryCountToTextConverter : IValueConverter
     public object Convert(object value, Type targetType, object parameter, string language)
     {
         return value is int count
-            ? $"{count} recorded events in this local fixture"
+            ? count == 1
+                ? "1 recorded event"
+                : $"{count} recorded events"
             : string.Empty;
     }
 
