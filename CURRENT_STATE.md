@@ -3,7 +3,7 @@
 Updated: 2026-09-17
 
 ## Authority
-`Rylascoo/Ensemble-Project` is Engineering authority. This file owns phase/checkpoint/validation/next action. Bootstrap: `AGENTS.md`; authority: `docs/PROJECT_AUTHORITY.md`; sequencing: `docs/PROJECT_EXECUTION_QUEUE.md`.
+`Rylascoo/Ensemble-Project` is Engineering authority. This file owns phase/checkpoint/validation/next action. Bootstrap: `AGENTS.md`; authority: `docs/PROJECT_AUTHORITY.md`; sequencing: `docs/PROJECT_EXECUTION_QUEUE.md`; Design locator: `docs/DESIGN_REPOSITORY.md`.
 
 ## Checkpoint
 Director sequencing amendment `docs/KYMAEAN_PRODUCT_BUILD_AHEAD_OF_DEFERRED_E0_VALIDATION_DIRECTOR_AMENDMENT_2026_09_17.md` is active: **REAL PRODUCT CONSTRUCTION MAY PROCEED NOW; REMAINING E0 TESTS ARE DEFERRED VALIDATION OBLIGATIONS, NOT BUILD-START BLOCKERS**.
