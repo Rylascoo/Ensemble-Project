@@ -74,6 +74,8 @@ The native validation identity is the exact `fff8298...` source. Later evidence/
 |---|---|
 | Exact source checkout | `789028a52b133dfc29c1bdb79ac5533b40713f78` |
 | Base | `832bc347c8bc9decf903094038ca890f89075c95` |
+| Integrated Project main | `dbd49bc4cf97fca4515d9df87a436301f355bb4b` via PR #172; push-triggered Validation #941 PASS |
+| Candidate hosted gates | `3fe8197b0062d1efa52370f6fcc137147fd169af`: Validation #940 PASS; E0-E preparation #116 PASS |
 | Validation tag | `validation/q-prod-01-production-event-replay-native-arm64` |
 | Evidence | `docs/evidence/Q_PROD_01_PRODUCTION_EVENT_REPLAY_NATIVE_ARM64_VALIDATION_2026_09_17.md` |
 | Host | SurfSeven, native Windows ARM64, repository .NET 9 baseline |
