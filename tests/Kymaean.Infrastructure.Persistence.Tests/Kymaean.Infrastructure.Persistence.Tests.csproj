@@ -1,0 +1,9 @@
+<Project Sdk="MSTest.Sdk/4.1.0">
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Kymaean.Infrastructure.Persistence\Kymaean.Infrastructure.Persistence.csproj" />
+  </ItemGroup>
+</Project>
