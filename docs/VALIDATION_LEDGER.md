@@ -67,6 +67,23 @@ This exact source checkpoint retains native machine-test authority. Q-PROD-01 fi
 | Authority scope | provisional persistence substrate only; not complete P1, final event schema, replay/snapshot/export policy, Alpha/Beta/release, WACK, Store, or deferred-E0 authority |
 
 The native validation identity is the exact `fff8298...` source. Later evidence/continuity commits may describe or integrate it but do not inherit native machine-test authority.
+
+### Q-PROD-01 provisional Product event / replay checkpoint
+
+| Field | Fact |
+|---|---|
+| Exact source checkout | `789028a52b133dfc29c1bdb79ac5533b40713f78` |
+| Base | `832bc347c8bc9decf903094038ca890f89075c95` |
+| Validation tag | `validation/q-prod-01-production-event-replay-native-arm64` |
+| Evidence | `docs/evidence/Q_PROD_01_PRODUCTION_EVENT_REPLAY_NATIVE_ARM64_VALIDATION_2026_09_17.md` |
+| Host | SurfSeven, native Windows ARM64, repository .NET 9 baseline |
+| Application tests | `Kymaean.Application.Tests` 10/10 PASS on `win-arm64` Release |
+| Persistence tests | `Kymaean.Infrastructure.Persistence.Tests` 14/14 PASS on `win-arm64` Release |
+| Product regression | `Kymaean.Windows` ARM64 Release build PASS, 0 warnings / 0 errors |
+| Earned scope | model-neutral Application event-store port; versioned `ProductionCreatedEvent`; deterministic replay projection; fail-closed typed decoding |
+| Authority scope | provisional P1 slice only; typed semantic recovery, broader causal ontology, snapshots/export, complete P1, final architecture/release and deferred-E0 authority remain unearned |
+
+Native machine-test authority is exact source `789028a...`; later evidence/integration commits do not inherit it.
 ### Supporting provider-evidence continuity
 
 The promoted checkpoint does not erase the still-current evidence chain that established the provider/runtime boundary. These records remain supporting evidence only and do not override the promoted checkpoint:
