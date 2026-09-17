@@ -93,6 +93,8 @@ Native machine-test authority is exact source `789028a...`; later evidence/integ
 |---|---|
 | Exact source checkout | `248435944815a34e4caac761ed308ed3b07e325b` |
 | Base | `83d735b9e2800aa2c209641356bb8e0fbf31de93` |
+| Integrated Project main | `2fea5c084eb3b77bfc8f0dcc1241055627adc63c` via PR #174; push-triggered Validation #947 PASS |
+| Candidate hosted gates | `5980a33acf5940c67e0af59593d55884b5627336`: Validation #946 PASS; E0-E preparation #118 PASS |
 | Validation tag | `validation/q-design-20-native-corrections-arm64` |
 | Evidence | `docs/evidence/Q_DESIGN_20_NATIVE_CORRECTIONS_ARM64_VALIDATION_2026_09_17.md` |
 | Host | SurfSeven, native Windows ARM64, repository .NET 9 baseline |
@@ -101,7 +103,7 @@ Native machine-test authority is exact source `789028a...`; later evidence/integ
 | UI return | NC-01..NC-05 applied; same-state Light/Dark captured; Back focus-return PASS; 720×520 observation PASS |
 | Placeholders | Source Sans 3 packaging/localization/metrics and S1 native/shipping Stage asset packaging remain unresolved/accepted placeholders |
 | High Contrast | exact-source recapture not attempted; prior remote-safety limitation remains; no bypass |
-| Authority scope | bounded native correction checkpoint only; integration and short Design acceptance pending |
+| Authority scope | bounded native correction checkpoint durably integrated; short Design acceptance pending |
 
 Native correction authority is exact source `2484359...`; later evidence/integration commits do not inherit machine-test authority.
 

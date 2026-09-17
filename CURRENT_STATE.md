@@ -23,7 +23,7 @@ Recursive audit rejected a typed `Recover()` wrapper because raw journal recover
 P03 Slot 1 remains on Director deferred-test hold with namespace unconsumed/provider traffic zero; Slot 2 remains unauthorized. Frozen E0 provider association remains E0-only; product provider traffic requires a separate development association. Preserved E0-D chain: `docs/evidence/E0D_Q_E0D_01_P03_SLOT1_PREEXECUTION_ACTIVATION_2026_09_17.md`.
 
 ## Design coordination
-Q-DESIGN-20 corrections NC-01..NC-05 are native-validated at exact source `248435944815a34e4caac761ed308ed3b07e325b`, tag `validation/q-design-20-native-corrections-arm64`; integration and short Design acceptance remain. Evidence: `docs/evidence/Q_DESIGN_20_NATIVE_CORRECTIONS_ARM64_VALIDATION_2026_09_17.md`. High Contrast limitation remains.
+Q-DESIGN-20 NC-01..NC-05 are durably integrated on Project `main@2fea5c084eb3b77bfc8f0dcc1241055627adc63c` via PR #174; exact-main Validation #947 PASS. Native authority remains `248435944815a34e4caac761ed308ed3b07e325b`, tag `validation/q-design-20-native-corrections-arm64`. Short Design acceptance is requested on Website issue #107; Source Sans 3/S1 placeholders and the High Contrast limitation remain.
 
 ## Next
-Integrate the exact Q-DESIGN-20 correction candidate and return its integrated ref to Design. Continue semantic-aware Product recovery/replay independently; leave deferred E0/provider traffic untouched.
+Await Q-DESIGN-20 short acceptance while continuing semantic-aware Product recovery/replay independently. Leave deferred E0/provider traffic untouched.
