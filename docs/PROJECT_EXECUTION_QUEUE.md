@@ -83,7 +83,7 @@ Director amendment `docs/KYMAEAN_PRODUCT_BUILD_AHEAD_OF_DEFERRED_E0_VALIDATION_D
 - `docs/OPEN_DESIGN_REGISTER_CONTINUATION.md`: unresolved product/design questions remain open until Director resolution.
 - `docs/HYPOTHESIS_LEDGER.md`: each open/narrowed hypothesis carries its own verification trigger; queue work must honor those triggers when relevant.
 - `docs/VALIDATION_LEDGER.md`: exact machine-tested checkpoints and validation rung; later documentation never inherits runtime authority automatically.
-- `docs/evidence/DESIGN_REPOSITORY_POINTER.md` and `docs/REPOSITORY_RESIDENCY.md`: cross-lane/design location and canonical-home rules.
+- `docs/DESIGN_REPOSITORY.md` and `docs/REPOSITORY_RESIDENCY.md`: cross-lane/design location and canonical-home rules.
 - `Rylascoo/Ensemble-Website/docs/evidence/DESIGN_LEDGER.md`: Design Sol closure/reopening history.
 
 ## Closeout check
