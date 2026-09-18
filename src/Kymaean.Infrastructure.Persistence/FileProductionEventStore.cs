@@ -12,6 +12,14 @@ public sealed class FileProductionEventStore : IProductionEventStore
         _journal = new FileProductionJournal(rootDirectory);
     }
 
+    private FileProductionEventStore(FileProductionJournal journal)
+    {
+        _journal = journal;
+    }
+
+    internal static FileProductionEventStore OpenExisting(string rootDirectory) =>
+        new(FileProductionJournal.OpenExisting(rootDirectory));
+
     public void Append(ProductionEvent productionEvent)
     {
         ArgumentNullException.ThrowIfNull(productionEvent);
