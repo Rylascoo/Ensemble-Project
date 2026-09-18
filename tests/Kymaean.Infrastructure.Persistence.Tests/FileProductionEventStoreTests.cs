@@ -39,6 +39,23 @@ public sealed class FileProductionEventStoreTests
     }
 
     [TestMethod]
+    public void FutureProductionCreatedContractFailsAsCompatibilityError()
+    {
+        using var directory = new TestDirectory();
+        var journal = new FileProductionJournal(directory.Path);
+        journal.Append(Encoding.UTF8.GetBytes(
+            "{\"contract\":\"kymaean.production.created.v2\",\"productionName\":\"Harbor\"}"));
+
+        var store = new FileProductionEventStore(directory.Path);
+        var exception = Assert.ThrowsExactly<ProductionPersistenceCompatibilityException>(
+            () => store.LoadAll());
+
+        Assert.AreEqual("ProductionCreated event contract", exception.Artifact);
+        Assert.AreEqual("kymaean.production.created.v2", exception.FoundIdentifier);
+        Assert.AreEqual("kymaean.production.created.v1", exception.SupportedIdentifier);
+    }
+
+    [TestMethod]
     public void UnknownEventContractFailsClosed()
     {
         using var directory = new TestDirectory();
@@ -129,6 +146,26 @@ public sealed class FileProductionEventStoreTests
         var created = Assert.IsInstanceOfType<ProductionCreatedEvent>(recovered.Single());
         Assert.AreEqual("Harbor", created.ProductionName);
         Assert.HasCount(1, new FileProductionJournal(directory.Path).ReadAll());
+    }
+
+    [TestMethod]
+    public void RecoverRejectsFutureKnownContractBeforeHeadPromotion()
+    {
+        using var directory = new TestDirectory();
+        var journal = new FileProductionJournal(directory.Path);
+        journal.Append(CreatedPayload("Harbor"));
+        var committedHead = File.ReadAllBytes(HeadPath(directory.Path));
+        journal.Append(Encoding.UTF8.GetBytes(
+            "{\"contract\":\"kymaean.production.created.v2\",\"productionName\":\"Future\"}"));
+        File.WriteAllBytes(HeadPath(directory.Path), committedHead);
+
+        var store = new FileProductionEventStore(directory.Path);
+
+        Assert.ThrowsExactly<ProductionPersistenceCompatibilityException>(
+            () => store.Recover());
+        CollectionAssert.AreEqual(
+            committedHead,
+            File.ReadAllBytes(HeadPath(directory.Path)));
     }
 
     [TestMethod]

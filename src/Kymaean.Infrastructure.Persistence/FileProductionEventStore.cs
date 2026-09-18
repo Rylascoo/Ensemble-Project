@@ -61,7 +61,7 @@ internal static class ProductionEventCodec
 {
     private const string ContractProperty = "contract";
     private const string ProductionNameProperty = "productionName";
-    private const string ProductionCreatedV1 = "kymaean.production.created.v1";
+    private const string ProductionCreatedContractFamily = "kymaean.production.created.v";
 
     public static byte[] Encode(ProductionEvent productionEvent)
     {
@@ -72,7 +72,9 @@ internal static class ProductionEventCodec
         switch (productionEvent)
         {
             case ProductionCreatedEvent created:
-                writer.WriteString(ContractProperty, ProductionCreatedV1);
+                writer.WriteString(
+                    ContractProperty,
+                    ProductionPersistenceVersionPolicy.ProductionCreatedContractV1);
                 writer.WriteString(ProductionNameProperty, created.ProductionName);
                 break;
             default:
@@ -96,7 +98,15 @@ internal static class ProductionEventCodec
             var contract = ReadRequiredString(root, ContractProperty);
             return contract switch
             {
-                ProductionCreatedV1 => DecodeProductionCreated(root),
+                ProductionPersistenceVersionPolicy.ProductionCreatedContractV1 =>
+                    DecodeProductionCreated(root),
+                _ when contract.StartsWith(
+                    ProductionCreatedContractFamily,
+                    StringComparison.Ordinal) =>
+                    throw ProductionPersistenceVersionPolicy.UnsupportedEventContract(
+                        "ProductionCreated event contract",
+                        contract,
+                        ProductionPersistenceVersionPolicy.ProductionCreatedContractV1),
                 _ => throw new InvalidDataException(
                     $"Unsupported Production event contract '{contract}'.")
             };
