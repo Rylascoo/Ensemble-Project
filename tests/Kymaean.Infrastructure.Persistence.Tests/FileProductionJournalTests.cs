@@ -215,6 +215,139 @@ public sealed class FileProductionJournalTests
     }
 
     [TestMethod]
+    public void TruncatedCommittedEntryFailsClosedEvenDuringRecovery()
+    {
+        using var directory = new TempDirectory();
+        var journal = new FileProductionJournal(directory.Path);
+        journal.Append(Encoding.UTF8.GetBytes("committed"));
+        var headPath = Path.Combine(directory.Path, HeadFileName);
+        var originalHead = File.ReadAllBytes(headPath);
+
+        var entryPath = OrderedEntryPaths(directory.Path).Single();
+        var entryBytes = File.ReadAllBytes(entryPath);
+        File.WriteAllBytes(
+            entryPath,
+            entryBytes.AsSpan(0, entryBytes.Length / 2).ToArray());
+
+        var reopened = new FileProductionJournal(directory.Path);
+        Assert.Throws<ProductionJournalCorruptionException>(
+            () => reopened.ReadAll());
+        Assert.Throws<ProductionJournalCorruptionException>(
+            () => reopened.Recover());
+        CollectionAssert.AreEqual(
+            originalHead,
+            File.ReadAllBytes(headPath));
+    }
+
+    [TestMethod]
+    public void TruncatedCommittedHeadFailsClosedEvenDuringRecovery()
+    {
+        using var directory = new TempDirectory();
+        var journal = new FileProductionJournal(directory.Path);
+        journal.Append(Encoding.UTF8.GetBytes("committed"));
+        var headPath = Path.Combine(directory.Path, HeadFileName);
+        var headBytes = File.ReadAllBytes(headPath);
+        var truncated = headBytes.AsSpan(
+            0,
+            headBytes.Length / 2)
+            .ToArray();
+        File.WriteAllBytes(
+            headPath,
+            truncated);
+
+        var reopened = new FileProductionJournal(directory.Path);
+        Assert.Throws<ProductionJournalCorruptionException>(
+            () => reopened.ReadAll());
+        Assert.Throws<ProductionJournalCorruptionException>(
+            () => reopened.Recover());
+        CollectionAssert.AreEqual(
+            truncated,
+            File.ReadAllBytes(headPath));
+    }
+
+    [TestMethod]
+    public void ImpossibleChecksummedHeadSequenceFailsClosedEvenDuringRecovery()
+    {
+        using var directory = new TempDirectory();
+        var journal = new FileProductionJournal(directory.Path);
+        journal.Append(Encoding.UTF8.GetBytes("committed"));
+        var headPath = Path.Combine(directory.Path, HeadFileName);
+        RewriteHeadSequencePreservingIntegrity(
+            headPath,
+            2UL);
+        var impossibleHead = File.ReadAllBytes(headPath);
+
+        var reopened = new FileProductionJournal(directory.Path);
+        Assert.Throws<ProductionJournalCorruptionException>(
+            () => reopened.ReadAll());
+        Assert.Throws<ProductionJournalCorruptionException>(
+            () => reopened.Recover());
+        CollectionAssert.AreEqual(
+            impossibleHead,
+            File.ReadAllBytes(headPath));
+    }
+
+    [TestMethod]
+    public void RecoveryDoesNotPartiallyPromotePastCorruptCrashSuffix()
+    {
+        using var directory = new TempDirectory();
+        var journal = new FileProductionJournal(directory.Path);
+        journal.Append(Encoding.UTF8.GetBytes("first"));
+        var headPath = Path.Combine(directory.Path, HeadFileName);
+        var firstHead = File.ReadAllBytes(headPath);
+
+        journal.Append(Encoding.UTF8.GetBytes("valid crash suffix"));
+        journal.Append(Encoding.UTF8.GetBytes("corrupt crash suffix"));
+        File.WriteAllBytes(
+            headPath,
+            firstHead);
+
+        var thirdEntryPath = OrderedEntryPaths(directory.Path)[2];
+        var thirdEntry = File.ReadAllBytes(thirdEntryPath);
+        thirdEntry[^1] ^= 0xff;
+        File.WriteAllBytes(
+            thirdEntryPath,
+            thirdEntry);
+
+        var reopened = new FileProductionJournal(directory.Path);
+        Assert.Throws<ProductionJournalCorruptionException>(
+            () => reopened.Recover());
+        CollectionAssert.AreEqual(
+            firstHead,
+            File.ReadAllBytes(headPath));
+    }
+
+    [TestMethod]
+    public void ReadAllIgnoresPendingArtifactsWithoutInventingHistory()
+    {
+        using var directory = new TempDirectory();
+        var journal = new FileProductionJournal(directory.Path);
+        journal.Append(Encoding.UTF8.GetBytes("committed"));
+        var pendingEntry = Path.Combine(
+            directory.Path,
+            ".pending-entry-uncommitted");
+        var pendingHead = Path.Combine(
+            directory.Path,
+            ".pending-head-uncommitted");
+        File.WriteAllBytes(
+            pendingEntry,
+            Enumerable.Repeat((byte)0xa5, 37).ToArray());
+        File.WriteAllBytes(
+            pendingHead,
+            Enumerable.Repeat((byte)0x5a, 19).ToArray());
+
+        var reopened = new FileProductionJournal(directory.Path)
+            .ReadAll();
+
+        Assert.HasCount(1, reopened);
+        CollectionAssert.AreEqual(
+            Encoding.UTF8.GetBytes("committed"),
+            reopened[0].Payload.ToArray());
+        Assert.IsTrue(File.Exists(pendingEntry));
+        Assert.IsTrue(File.Exists(pendingHead));
+    }
+
+    [TestMethod]
     public void RecoverPromotesValidPostCrashSuffixToCommittedHead()
     {
         using var directory = new TempDirectory();
@@ -328,6 +461,23 @@ public sealed class FileProductionJournalTests
         SHA256.HashData(bytes.AsSpan(0, HeadPrefixLength))
             .CopyTo(bytes.AsSpan(HeadPrefixLength, HashLength));
         File.WriteAllBytes(headPath, bytes);
+    }
+
+    private static void RewriteHeadSequencePreservingIntegrity(
+        string headPath,
+        ulong sequence)
+    {
+        var bytes = File.ReadAllBytes(headPath);
+        BinaryPrimitives.WriteUInt64BigEndian(
+            bytes.AsSpan(
+                SchemaVersionOffset + sizeof(uint),
+                sizeof(ulong)),
+            sequence);
+        SHA256.HashData(bytes.AsSpan(0, HeadPrefixLength))
+            .CopyTo(bytes.AsSpan(HeadPrefixLength, HashLength));
+        File.WriteAllBytes(
+            headPath,
+            bytes);
     }
 
     private static string[] OrderedEntryPaths(string path) =>
