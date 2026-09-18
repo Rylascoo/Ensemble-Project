@@ -172,6 +172,44 @@ public sealed class FileProductionEventStoreTests
             () => new FileProductionJournal(directory.Path).ReadAll());
     }
 
+    [TestMethod]
+    public void ProductionApplicationFreshStoreReopenReconstructsProjection()
+    {
+        using var directory = new TestDirectory();
+        CreateProduction(directory.Path, "The Glass Harbor");
+
+        var reopened = new ProductionApplication(
+            new FileProductionEventStore(directory.Path));
+        var projection = reopened.Open();
+
+        Assert.AreEqual("The Glass Harbor", projection.ProductionName);
+    }
+
+    [TestMethod]
+    public void ProductionApplicationRecoversAfterInitialHeadPublicationInterruption()
+    {
+        using var directory = new TestDirectory();
+        CreateProduction(directory.Path, "The Glass Harbor");
+        File.Delete(HeadPath(directory.Path));
+
+        var reopened = new ProductionApplication(
+            new FileProductionEventStore(directory.Path));
+        var projection = reopened.Recover();
+
+        Assert.AreEqual("The Glass Harbor", projection.ProductionName);
+        Assert.AreEqual(
+            "The Glass Harbor",
+            new ProductionApplication(
+                new FileProductionEventStore(directory.Path)).Open().ProductionName);
+    }
+
+    private static void CreateProduction(string rootDirectory, string productionName)
+    {
+        var application = new ProductionApplication(
+            new FileProductionEventStore(rootDirectory));
+        Assert.AreEqual(productionName, application.Create(productionName).ProductionName);
+    }
+
     private static byte[] CreatedPayload(string productionName) =>
         Encoding.UTF8.GetBytes(
             $"{{\"contract\":\"kymaean.production.created.v1\",\"productionName\":\"{productionName}\"}}");
