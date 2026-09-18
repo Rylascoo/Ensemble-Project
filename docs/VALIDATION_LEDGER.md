@@ -93,6 +93,8 @@ Native machine-test authority is exact source `789028a...`; later evidence/integ
 |---|---|
 | Exact source checkout | `97720ffc937853b59110c184392b1f6f97f39420` |
 | Base | `77d7ab7a36a27f5c4aa8d86aaf1df9878440f496` |
+| Integrated Project main | `0b0c60f719cce406047894aecad1597fc5775faf` via PR #176; push-triggered Validation #953 PASS |
+| Candidate hosted gates | `f78d884fcc7424d467f3aea119137a755b1f06c3`: Validation #952 PASS; E0-E preparation #120 PASS |
 | Validation tag | `validation/q-prod-01-semantic-recovery-native-arm64` |
 | Evidence | `docs/evidence/Q_PROD_01_SEMANTIC_RECOVERY_NATIVE_ARM64_VALIDATION_2026_09_17.md` |
 | Host | SurfSeven, native Windows ARM64, repository .NET 9 baseline |
