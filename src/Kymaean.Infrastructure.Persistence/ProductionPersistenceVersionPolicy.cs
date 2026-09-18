@@ -5,6 +5,7 @@ internal static class ProductionPersistenceVersionPolicy
     public const uint JournalSchemaVersion = 1;
     public const uint ProductionIdentityMetadataVersion = 1;
     public const uint ProductionProjectionSnapshotVersion = 1;
+    public const uint ProductionPortableExportVersion = 1;
     public const string ProductionCreatedContractV1 = "kymaean.production.created.v1";
 
     public static void RequireJournalSchema(uint foundVersion, string artifact)
@@ -26,6 +27,18 @@ internal static class ProductionPersistenceVersionPolicy
                 "Production identity metadata",
                 foundVersion.ToString(System.Globalization.CultureInfo.InvariantCulture),
                 ProductionIdentityMetadataVersion.ToString(
+                    System.Globalization.CultureInfo.InvariantCulture));
+        }
+    }
+
+    public static void RequirePortableExportVersion(uint foundVersion)
+    {
+        if (foundVersion != ProductionPortableExportVersion)
+        {
+            throw new ProductionPersistenceCompatibilityException(
+                "Production portable export",
+                foundVersion.ToString(System.Globalization.CultureInfo.InvariantCulture),
+                ProductionPortableExportVersion.ToString(
                     System.Globalization.CultureInfo.InvariantCulture));
         }
     }

@@ -12,16 +12,33 @@ public sealed class FileProductionCatalog : IProductionCatalog
     private readonly string _catalogDirectory;
 
     public FileProductionCatalog(string rootDirectory)
+        : this(rootDirectory, createDirectories: true)
+    {
+    }
+
+    private FileProductionCatalog(
+        string rootDirectory,
+        bool createDirectories)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(rootDirectory);
         var applicationRoot = Path.GetFullPath(rootDirectory);
-        Directory.CreateDirectory(applicationRoot);
-
         _catalogDirectory = Path.Combine(
             applicationRoot,
             CatalogDirectoryName);
-        Directory.CreateDirectory(_catalogDirectory);
+
+        if (createDirectories)
+        {
+            Directory.CreateDirectory(applicationRoot);
+            Directory.CreateDirectory(_catalogDirectory);
+            return;
+        }
+
+        RequireExistingDirectory(applicationRoot);
+        RequireExistingDirectory(_catalogDirectory);
     }
+
+    internal static FileProductionCatalog OpenExisting(string rootDirectory) =>
+        new(rootDirectory, createDirectories: false);
 
     public ProductAccessResult<IReadOnlyList<ProductionSummary>> ListProductions()
     {
@@ -66,33 +83,45 @@ public sealed class FileProductionCatalog : IProductionCatalog
         ProductionId productionId) =>
         AccessProduction(productionId, recover: true);
 
-    private ProductAccessResult<ProductionReplayProjection> AccessProduction(
-        ProductionId productionId,
-        bool recover)
+    internal ProductAccessResult<ProductionCatalogEntry> ResolveProductionEntry(
+        ProductionId productionId)
     {
         ArgumentNullException.ThrowIfNull(productionId);
 
         var entries = ReadEntries();
         if (!entries.IsSuccess)
         {
-            return ProductAccessResult<ProductionReplayProjection>.Failure(
+            return ProductAccessResult<ProductionCatalogEntry>.Failure(
                 entries.FailureKind);
         }
 
         var match = entries.Value.FirstOrDefault(
             entry => entry.Id == productionId);
-        if (match is null)
-        {
-            return ProductAccessResult<ProductionReplayProjection>.Failure(
-                ProductAccessFailureKind.Invalid);
-        }
-
-        return ReadProjection(match.DirectoryPath, recover);
+        return match is null
+            ? ProductAccessResult<ProductionCatalogEntry>.Failure(
+                ProductAccessFailureKind.Invalid)
+            : ProductAccessResult<ProductionCatalogEntry>.Success(match);
     }
 
-    private ProductAccessResult<IReadOnlyList<CatalogEntry>> ReadEntries()
+    private ProductAccessResult<ProductionReplayProjection> AccessProduction(
+        ProductionId productionId,
+        bool recover)
     {
-        var entries = new List<CatalogEntry>();
+        var entry = ResolveProductionEntry(productionId);
+        if (!entry.IsSuccess)
+        {
+            return ProductAccessResult<ProductionReplayProjection>.Failure(
+                entry.FailureKind);
+        }
+
+        return ReadProjection(
+            entry.Value.DirectoryPath,
+            recover);
+    }
+
+    private ProductAccessResult<IReadOnlyList<ProductionCatalogEntry>> ReadEntries()
+    {
+        var entries = new List<ProductionCatalogEntry>();
         var identities = new HashSet<ProductionId>();
 
         var paths = Directory
@@ -110,27 +139,30 @@ public sealed class FileProductionCatalog : IProductionCatalog
                 (attributes & FileAttributes.ReparsePoint) != 0 ||
                 !IsCanonicalLocator(Path.GetFileName(path)))
             {
-                return ProductAccessResult<IReadOnlyList<CatalogEntry>>.Failure(
+                return ProductAccessResult<IReadOnlyList<ProductionCatalogEntry>>.Failure(
                     ProductAccessFailureKind.Invalid);
             }
 
             var identity = ReadIdentity(path);
             if (!identity.IsSuccess)
             {
-                return ProductAccessResult<IReadOnlyList<CatalogEntry>>.Failure(
+                return ProductAccessResult<IReadOnlyList<ProductionCatalogEntry>>.Failure(
                     identity.FailureKind);
             }
 
             if (!identities.Add(identity.Value))
             {
-                return ProductAccessResult<IReadOnlyList<CatalogEntry>>.Failure(
+                return ProductAccessResult<IReadOnlyList<ProductionCatalogEntry>>.Failure(
                     ProductAccessFailureKind.Invalid);
             }
 
-            entries.Add(new CatalogEntry(identity.Value, path));
+            entries.Add(
+                new ProductionCatalogEntry(
+                    identity.Value,
+                    path));
         }
 
-        return ProductAccessResult<IReadOnlyList<CatalogEntry>>.Success(
+        return ProductAccessResult<IReadOnlyList<ProductionCatalogEntry>>.Success(
             entries.AsReadOnly());
     }
 
@@ -230,6 +262,16 @@ public sealed class FileProductionCatalog : IProductionCatalog
             projection);
     }
 
+    private static void RequireExistingDirectory(string path)
+    {
+        var attributes = File.GetAttributes(path);
+        if ((attributes & FileAttributes.Directory) == 0)
+        {
+            throw new IOException(
+                "Production catalog root is not a directory.");
+        }
+    }
+
     private static bool IsCanonicalLocator(string locator)
     {
         if (locator.Length != EntryDirectoryPrefix.Length + LocatorHexLength ||
@@ -253,8 +295,8 @@ public sealed class FileProductionCatalog : IProductionCatalog
 
         return true;
     }
-
-    private sealed record CatalogEntry(
-        ProductionId Id,
-        string DirectoryPath);
 }
+
+internal sealed record ProductionCatalogEntry(
+    ProductionId Id,
+    string DirectoryPath);
