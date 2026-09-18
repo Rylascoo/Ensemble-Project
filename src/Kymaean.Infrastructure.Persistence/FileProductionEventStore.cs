@@ -75,6 +75,7 @@ public sealed class FileProductionEventStore : IProductionEventStore
 
         return new ValidatedProductionHistory(
             events,
+            entries,
             projection,
             anchor);
     }
@@ -82,6 +83,7 @@ public sealed class FileProductionEventStore : IProductionEventStore
 
 internal sealed record ValidatedProductionHistory(
     IReadOnlyList<ProductionEvent> Events,
+    IReadOnlyList<ProductionJournalEntry> JournalEntries,
     ProductionReplayProjection? Projection,
     ProductionJournalAnchor? Anchor);
 
