@@ -24,11 +24,40 @@ public sealed class FileProductionJournal
     private readonly string _rootDirectory;
 
     public FileProductionJournal(string rootDirectory)
+        : this(rootDirectory, createDirectory: true)
+    {
+    }
+
+    private FileProductionJournal(string rootDirectory, bool createDirectory)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(rootDirectory);
         _rootDirectory = Path.GetFullPath(rootDirectory);
-        Directory.CreateDirectory(_rootDirectory);
+
+        if (createDirectory)
+        {
+            Directory.CreateDirectory(_rootDirectory);
+            return;
+        }
+
+        try
+        {
+            var attributes = File.GetAttributes(_rootDirectory);
+            if ((attributes & FileAttributes.Directory) == 0)
+            {
+                throw new IOException(
+                    "Production journal path is not a directory.");
+            }
+        }
+        catch (FileNotFoundException exception)
+        {
+            throw new DirectoryNotFoundException(
+                "Production journal directory does not exist.",
+                exception);
+        }
     }
+
+    internal static FileProductionJournal OpenExisting(string rootDirectory) =>
+        new(rootDirectory, createDirectory: false);
 
     public ProductionJournalEntry Append(ReadOnlySpan<byte> payload) =>
         AppendCore(payload, validateCandidate: null);
