@@ -186,6 +186,29 @@ Exact native authority is source `f6a9f0f...`; later evidence/integration commit
 
 Exact native authority is source `d58ab0e...`; later closeout commits do not inherit machine-test authority.
 
+### Q-PROD-01 Application typed-results checkpoint
+
+| Field | Fact |
+|---|---|
+| Lease | `ENG2-QPROD01-APPRESULT-02` |
+| Base | `ca807a96ccc94ef9f7a185b58d99f496da799f23`; push-triggered Validation #996 PASS |
+| Exact source | `2c379fd21bac5c4de11df0d458f0194189950c7f` |
+| Validation tag | `validation/q-prod-01-application-typed-results-native-arm64` |
+| Evidence | `docs/evidence/Q_PROD_01_APPLICATION_TYPED_RESULTS_NATIVE_ARM64_VALIDATION_2026_09_18.md` |
+| Host | SurfSeven, native Windows ARM64 |
+| Native tests | Application 38/38 PASS; Persistence 30/30 PASS |
+| WinUI compiler | ARM64 Release PASS, 0 warnings/errors |
+| Repository guards | law PASS; census PASS; oracle 288/17/271; diff PASS |
+| Hosted exact-head | Validation #998 PASS |
+| Integrated Project main | `7837de20e2e19ffc7f0c31ccc7f60ff5f7200fa2` via PR #194; push-triggered Validation #999 PASS |
+| Earned contract | typed full-list/bootstrap; typed selected-open; separate explicit selected-recover; exactly Incompatible/Invalid failure meaning; failures preserve prior Application state |
+| Source scope | exactly four Engineer #2-owned Application/test files; no Persistence/Windows/provider/E0/shared-authority mutation |
+| Branch lifecycle | lease #192 CLOSED; validation/archive tags peel to exact source; former worker branch/worktree retired after durable integration |
+| Milestone | `DESIGN_ARCHITECTURE_READY = NOT READY` |
+| Authority scope | no catalog storage/ID encoding, recovery prediction/auto-recovery/migration, partial catalog, richer persisted Studio/Stage/Archive content, Windows composition, provider behavior or visual authority |
+
+Exact native authority is source `2c379fd...`; later closeout commits do not inherit machine-test authority.
+
 ### Q-DESIGN-20 bounded native-corrections checkpoint
 
 | Field | Fact |
