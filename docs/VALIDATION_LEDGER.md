@@ -106,6 +106,23 @@ Native machine-test authority is exact source `789028a...`; later evidence/integ
 
 Native semantic-recovery authority is exact source `97720ff...`; later evidence/integration commits do not inherit machine-test authority.
 
+### Q-PROD-01 lifecycle reconstruction checkpoint
+
+| Field | Fact |
+|---|---|
+| Exact source checkout | `7694f75479445c1f5ad030e37b1800a53d34dae9` |
+| Base | `70744dfea843439e057738c9965c676961cf1bfb` |
+| Validation tag | `validation/q-prod-01-lifecycle-reconstruction-native-arm64` |
+| Evidence | `docs/evidence/Q_PROD_01_LIFECYCLE_RECONSTRUCTION_NATIVE_ARM64_VALIDATION_2026_09_17.md` |
+| Host | SurfSeven, native Windows ARM64, repository .NET 9 baseline |
+| Application tests | 13/13 PASS on `win-arm64` Release |
+| Persistence tests | 22/22 PASS on `win-arm64` Release |
+| Product regression | WinUI ARM64 Release PASS, 0 warnings / 0 errors |
+| Earned scope | model-neutral create/open/recover coordinator; fresh filesystem-backed store/coordinator reconstruction; semantic recovery after initial-head loss |
+| Authority scope | object-lifetime reconstruction only; OS/process restart, device reboot, broader ontology, snapshots/export, final storage/concurrency, power-loss certification, complete P1 and release authority remain unearned |
+
+Native lifecycle-reconstruction authority is exact source `7694f75...`; later evidence/integration commits do not inherit machine-test authority.
+
 ### Q-DESIGN-20 bounded native-corrections checkpoint
 
 | Field | Fact |
