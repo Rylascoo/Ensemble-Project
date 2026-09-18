@@ -112,6 +112,8 @@ Native semantic-recovery authority is exact source `97720ff...`; later evidence/
 |---|---|
 | Exact source checkout | `7694f75479445c1f5ad030e37b1800a53d34dae9` |
 | Base | `70744dfea843439e057738c9965c676961cf1bfb` |
+| Integrated Project main | `fb37a7b6f09f4166d733cbc533e152d4d7d31287` via PR #178; push-triggered Validation #959 PASS |
+| Candidate hosted gates | `b4139c76073bf8607765f6b8b9f01f053085e814`: Validation #958 PASS; E0-E preparation #122 PASS |
 | Validation tag | `validation/q-prod-01-lifecycle-reconstruction-native-arm64` |
 | Evidence | `docs/evidence/Q_PROD_01_LIFECYCLE_RECONSTRUCTION_NATIVE_ARM64_VALIDATION_2026_09_17.md` |
 | Host | SurfSeven, native Windows ARM64, repository .NET 9 baseline |

@@ -8,7 +8,7 @@ Updated: 2026-09-17
 ## Checkpoint
 Director amendment `docs/KYMAEAN_PRODUCT_BUILD_AHEAD_OF_DEFERRED_E0_VALIDATION_DIRECTOR_AMENDMENT_2026_09_17.md` remains active: provisional product construction may proceed while E0-D/E/F/G remain deferred validation/finalization obligations.
 
-Q-PROD-01 is ACTIVE. Semantic-aware recovery is durably integrated. Fresh-store lifecycle reconstruction is native-validated at exact source `7694f75479445c1f5ad030e37b1800a53d34dae9`, tag `validation/q-prod-01-lifecycle-reconstruction-native-arm64`, based on validated Project `main@70744dfea843439e057738c9965c676961cf1bfb`; integration is pending.
+Q-PROD-01 is ACTIVE. Fresh-store lifecycle reconstruction is durably integrated on Project `main@fb37a7b6f09f4166d733cbc533e152d4d7d31287` via PR #178; exact-head Validation #958 + E0-E preparation #122 and exact-main Validation #959 PASS. Native authority remains exact source `7694f75479445c1f5ad030e37b1800a53d34dae9`, tag `validation/q-prod-01-lifecycle-reconstruction-native-arm64`.
 
 `ProductionApplication` now coordinates create/open/recover over the existing model-neutral event-store port. Fresh filesystem-backed store/coordinator instances reconstruct the created Production, including semantic recovery after initial-head loss. Evidence: `docs/evidence/Q_PROD_01_LIFECYCLE_RECONSTRUCTION_NATIVE_ARM64_VALIDATION_2026_09_17.md`. First-slice provenance remains `docs/Q_PROD_01_FRESH_CHAT_HANDOFF_2026_09_17.md`.
 
@@ -24,4 +24,4 @@ P03 Slot 1 remains on Director deferred-test hold with namespace unconsumed/prov
 Q-DESIGN-20 NC-01..NC-05 are durably integrated on Project `main@2fea5c084eb3b77bfc8f0dcc1241055627adc63c` via PR #174; exact-main Validation #947 PASS. Native authority remains `248435944815a34e4caac761ed308ed3b07e325b`, tag `validation/q-design-20-native-corrections-arm64`. Short Design acceptance is requested on Website issue #107; Source Sans 3/S1 placeholders and the High Contrast limitation remain.
 
 ## Next
-Integrate the exact lifecycle-reconstruction candidate; then continue the smallest evidence-earned P1 capability while awaiting Q-DESIGN-20 acceptance. Leave deferred E0/provider traffic untouched.
+Continue the smallest evidence-earned P1 capability while awaiting Q-DESIGN-20 acceptance. Leave deferred E0/provider traffic untouched.
