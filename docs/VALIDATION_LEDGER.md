@@ -277,6 +277,29 @@ Exact native authority is source `ac8122c...`; later closeout commits do not inh
 
 Exact native authority is source `aaca350...`; this closeout records integration and does not inflate machine-test or performance authority.
 
+### Q-PROD-01 portable credential-independent export checkpoint
+
+| Field | Fact |
+|---|---|
+| Lease | `ENG1-QPROD01-EXPORT-04` / Issue #213; duplicate transport #212 closed as duplicate |
+| Base | `040f6b66410fd1d5076fd99188b624564682a09a`; exact-main Validation #1034 PASS |
+| Exact source | `ae6a871a9338ae02f63193267a6e596a4ebfefc9` |
+| Validation tag | `validation/q-prod-01-portable-export-native-arm64` |
+| Evidence | `docs/evidence/Q_PROD_01_PORTABLE_EXPORT_NATIVE_ARM64_VALIDATION_2026_09_18.md` |
+| Host | SurfSeven, native Windows ARM64 |
+| Native tests | Persistence 80/80 PASS; Application 38/38 PASS |
+| WinUI compiler | Release win-arm64 PASS, 0 warnings/errors |
+| Repository guards | law PASS; pre-freeze census 344/223/30/91/0 with unchanged document tree; exact-source/integrated hosted census PASS; oracle 288/17/271; diff/race/worktree PASS |
+| Hosted exact source | Validation #1038 PASS; #1037 is diagnostic only because force-push BASE_SHA `5f5cce...` was unavailable, not a source failure |
+| Hosted exact-head | PR #214 Validation #1039 PASS |
+| Integrated Project main | `adaeb47c366e60e3b00b92ab517a5068f8b1a426` via PR #214; push-triggered Validation #1040 PASS |
+| Earned contract | Persistence-owned versioned/checksummed portable package; exact Product identity + raw validated event payload order preserved; live locator/layout/snapshot/provider-local artifacts excluded; no implicit recovery/repair; durable pending+flush+finalize file path; read-only inspection |
+| Failure boundary | unknown/corrupt/replay-invalid source -> Invalid; unsupported identity/event contract -> Incompatible; destination I/O/access remains environmental |
+| Milestone | `DESIGN_ARCHITECTURE_READY = NOT READY` |
+| Authority scope | no Product import/restore/create/rename/delete lifecycle, final corruption/power-loss/concurrency certification, richer persisted Studio/Stage/Archive content, provider behavior, WACK/Store or deferred-E0 conclusion |
+
+Exact native authority is source `ae6a871...`; this closeout records integration and does not convert export into import/lifecycle or richer Product authority.
+
 ### Q-DESIGN-20 bounded native-corrections checkpoint
 
 | Field | Fact |
