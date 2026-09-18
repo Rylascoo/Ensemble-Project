@@ -87,6 +87,23 @@ The native validation identity is the exact `fff8298...` source. Later evidence/
 
 Native machine-test authority is exact source `789028a...`; later evidence/integration commits do not inherit it.
 
+### Q-PROD-01 semantic-aware recovery checkpoint
+
+| Field | Fact |
+|---|---|
+| Exact source checkout | `97720ffc937853b59110c184392b1f6f97f39420` |
+| Base | `77d7ab7a36a27f5c4aa8d86aaf1df9878440f496` |
+| Validation tag | `validation/q-prod-01-semantic-recovery-native-arm64` |
+| Evidence | `docs/evidence/Q_PROD_01_SEMANTIC_RECOVERY_NATIVE_ARM64_VALIDATION_2026_09_17.md` |
+| Host | SurfSeven, native Windows ARM64, repository .NET 9 baseline |
+| Application tests | 10/10 PASS on `win-arm64` Release |
+| Persistence tests | 20/20 PASS on `win-arm64` Release |
+| Product regression | WinUI ARM64 Release PASS, 0 warnings / 0 errors |
+| Earned scope | typed append/recovery decode + deterministic-replay validation before journal mutation/head promotion; model-neutral `Recover()` port |
+| Authority scope | provisional P1 slice only; broader ontology, snapshots/export, full lifecycle reconstruction, final storage/concurrency, power-loss certification, complete P1 and release authority remain unearned |
+
+Native semantic-recovery authority is exact source `97720ff...`; later evidence/integration commits do not inherit machine-test authority.
+
 ### Q-DESIGN-20 bounded native-corrections checkpoint
 
 | Field | Fact |
