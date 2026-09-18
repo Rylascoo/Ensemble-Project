@@ -15,9 +15,9 @@ public sealed partial class MainWindow : Window
     private readonly IntPtr _windowHandle;
     private readonly IntPtr _originalWindowProcedure;
 
-    public MainWindow(WorkspaceApplication workspace)
+    public MainWindow(WindowsStartupResult startup)
     {
-        ArgumentNullException.ThrowIfNull(workspace);
+        ArgumentNullException.ThrowIfNull(startup);
         InitializeComponent();
 
         _windowProcedure = HandleWindowMessage;
@@ -33,7 +33,7 @@ public sealed partial class MainWindow : Window
         SetTitleBar(AppTitleBar);
         AppWindow.SetIcon("Assets/AppIcon.ico");
 
-        RootFrame.Navigate(typeof(MainPage), workspace);
+        RootFrame.Navigate(typeof(MainPage), startup);
     }
 
     private IntPtr HandleWindowMessage(

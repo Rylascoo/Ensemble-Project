@@ -1,78 +1,85 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows.Input;
 using Kymaean.Application;
 
 namespace Kymaean.Windows.Presentation;
 
 public sealed class MainPageViewModel : INotifyPropertyChanged
 {
-    private readonly WorkspaceApplication _workspace;
-    private readonly Stack<ProductSpace> _productHistory = new();
+    private readonly ProductApplication? _application;
+    private ProductApplicationProjection? _projection;
+    private ProductionSummary? _selectedProduction;
     private ShellRoute _activeShellRoute = ShellRoute.Home;
+    private string _statusMessage = string.Empty;
 
-    public MainPageViewModel(WorkspaceApplication workspace)
+    public MainPageViewModel(WindowsStartupResult startup)
     {
-        ArgumentNullException.ThrowIfNull(workspace);
-        _workspace = workspace;
+        ArgumentNullException.ThrowIfNull(startup);
 
-        ShowShapingCommand = new RelayCommand(() => NavigateProduct(ProductSpace.Studio));
-        ShowLiveStageCommand = new RelayCommand(() => NavigateProduct(ProductSpace.Stage));
-        ShowHistoryCommand = new RelayCommand(() => NavigateProduct(ProductSpace.Archive));
-        BackCommand = new RelayCommand(GoBack);
+        if (startup.IsInfrastructureFailure)
+        {
+            _statusMessage =
+                "Kymaean could not access local app data.";
+            return;
+        }
+
+        var productStartup = startup.ProductStartup;
+        if (productStartup.IsSuccess)
+        {
+            _application = productStartup.Value;
+            _projection = _application.Query();
+        }
+        else
+        {
+            _statusMessage = DescribeFailure(
+                productStartup.FailureKind,
+                "The local Production catalog");
+        }
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
-    public ICommand ShowShapingCommand { get; }
-    public ICommand ShowLiveStageCommand { get; }
-    public ICommand ShowHistoryCommand { get; }
-    public ICommand BackCommand { get; }
-
     public ShellRoute ActiveShellRoute => _activeShellRoute;
-    public ProductSpace ActiveSpace => _workspace.ActiveSpace;
 
-    public string ProductionName => _workspace.Projection.Studio.ProductionName;
-    public string CurrentSituation => _workspace.Projection.Stage.SceneName;
-    public IReadOnlyList<WorkspaceCharacter> Cast => _workspace.Projection.Studio.Cast;
-    public IReadOnlyList<string> SituationLines => _workspace.Projection.Stage.SituationLines;
-    public IReadOnlyList<string> RecentHistory => _workspace.Projection.Archive.RecentHistory;
-    public int HistoricalEventCount => _workspace.Projection.Archive.HistoricalEventCount;
+    public IReadOnlyList<ProductionSummary> Productions =>
+        _projection is null
+            ? Array.Empty<ProductionSummary>()
+            : _projection.Productions;
 
-    public string OpportunityDisplayName
-    {
-        get
-        {
-            var opportunityId = _workspace.Projection.Stage.OpportunityCharacterId;
-            return _workspace.Projection.Stage.PresentCharacters
-                .FirstOrDefault(character => character.Id == opportunityId)?.DisplayName
-                ?? opportunityId;
-        }
-    }
+    public bool HasProductions => Productions.Count > 0;
+
+    public bool HasCurrentProduction =>
+        _projection?.HasCurrentProduction == true;
+
+    public string CurrentProductionName =>
+        _projection?.CurrentProduction?.ProductionName ?? string.Empty;
+
+    public string ActiveProductSpace =>
+        _projection?.ActiveProductSpace?.ToString() ?? string.Empty;
 
     public bool IsHome => ActiveShellRoute == ShellRoute.Home;
     public bool IsProductions => ActiveShellRoute == ShellRoute.Productions;
+    public bool IsCurrentProduction =>
+        ActiveShellRoute == ShellRoute.CurrentProduction;
     public bool IsSettings => ActiveShellRoute == ShellRoute.Settings;
-    public bool IsShaping => ActiveSpace == ProductSpace.Studio;
-    public bool IsLiveStage => ActiveSpace == ProductSpace.Stage;
-    public bool IsHistory => ActiveSpace == ProductSpace.Archive;
-    public bool IsBackAvailable => _productHistory.Count > 0;
 
-    public string ActiveSpaceTitle => ActiveSpace switch
-    {
-        ProductSpace.Studio => "Production shaping",
-        ProductSpace.Stage => "Live Stage",
-        ProductSpace.Archive => "History",
-        _ => throw new InvalidOperationException("Unknown product space.")
-    };
+    public bool CanAccessSelection =>
+        _application is not null && _selectedProduction is not null;
 
-    public string ActiveSpaceSupport => ActiveSpace switch
-    {
-        ProductSpace.Studio => "What could happen",
-        ProductSpace.Stage => "What is happening",
-        ProductSpace.Archive => "What happened and what remains",
-        _ => throw new InvalidOperationException("Unknown product space.")
-    };
+    public bool HasStatusMessage =>
+        !string.IsNullOrWhiteSpace(_statusMessage);
+
+    public string StatusMessage => _statusMessage;
+
+    public string LibrarySummary =>
+        _application is null
+            ? "The local Production catalog is unavailable."
+            : Productions.Count switch
+            {
+                0 => "No Productions are available in local app data.",
+                1 => "1 Production is available in local app data.",
+                _ => $"{Productions.Count} Productions are available in local app data."
+            };
 
     public void NavigateShell(ShellRoute route)
     {
@@ -81,54 +88,100 @@ public sealed class MainPageViewModel : INotifyPropertyChanged
             throw new ArgumentOutOfRangeException(nameof(route));
         }
 
-        if (_activeShellRoute == route)
+        if (route == ShellRoute.CurrentProduction && !HasCurrentProduction)
         {
             return;
+        }
+
+        if (_application is not null)
+        {
+            _projection = _application.Navigate(
+                route switch
+                {
+                    ShellRoute.Home => ApplicationScope.Home,
+                    ShellRoute.Productions => ApplicationScope.ProductionLibrary,
+                    ShellRoute.CurrentProduction => ApplicationScope.CurrentProduction,
+                    ShellRoute.Settings => ApplicationScope.Settings,
+                    _ => throw new ArgumentOutOfRangeException(nameof(route))
+                });
         }
 
         _activeShellRoute = route;
+        RaiseShellProperties();
+    }
+
+    public void SelectProduction(ProductionSummary? production)
+    {
+        _selectedProduction = production;
+        OnPropertyChanged(nameof(CanAccessSelection));
+    }
+
+    public bool OpenSelectedProduction() =>
+        AccessSelectedProduction(recover: false);
+
+    public bool RecoverSelectedProduction() =>
+        AccessSelectedProduction(recover: true);
+
+    private bool AccessSelectedProduction(bool recover)
+    {
+        if (_application is null || _selectedProduction is null)
+        {
+            return false;
+        }
+
+        var result = recover
+            ? _application.RecoverProduction(_selectedProduction.Id)
+            : _application.OpenProduction(_selectedProduction.Id);
+
+        if (!result.IsSuccess)
+        {
+            _statusMessage = DescribeFailure(
+                result.FailureKind,
+                "The selected Production");
+            OnPropertyChanged(nameof(StatusMessage));
+            OnPropertyChanged(nameof(HasStatusMessage));
+            return false;
+        }
+
+        _projection = result.Value;
+        _activeShellRoute = ShellRoute.CurrentProduction;
+        _statusMessage = string.Empty;
+
+        OnPropertyChanged(nameof(CurrentProductionName));
+        OnPropertyChanged(nameof(ActiveProductSpace));
+        OnPropertyChanged(nameof(HasCurrentProduction));
+        OnPropertyChanged(nameof(StatusMessage));
+        OnPropertyChanged(nameof(HasStatusMessage));
+        RaiseShellProperties();
+        return true;
+    }
+
+    private void RaiseShellProperties()
+    {
         OnPropertyChanged(nameof(ActiveShellRoute));
         OnPropertyChanged(nameof(IsHome));
         OnPropertyChanged(nameof(IsProductions));
+        OnPropertyChanged(nameof(IsCurrentProduction));
         OnPropertyChanged(nameof(IsSettings));
     }
 
-    private void NavigateProduct(ProductSpace destination)
-    {
-        if (_workspace.ActiveSpace == destination)
+    private static string DescribeFailure(
+        ProductAccessFailureKind failureKind,
+        string subject) =>
+        failureKind switch
         {
-            return;
-        }
+            ProductAccessFailureKind.Incompatible =>
+                $"{subject} uses an unsupported saved-data version.",
+            ProductAccessFailureKind.Invalid =>
+                $"{subject} contains invalid saved state.",
+            _ => throw new ArgumentOutOfRangeException(nameof(failureKind))
+        };
 
-        _productHistory.Push(_workspace.ActiveSpace);
-        ApplyProductDestination(destination);
-        OnPropertyChanged(nameof(IsBackAvailable));
-    }
-
-    private void GoBack()
+    private void OnPropertyChanged(
+        [CallerMemberName] string? propertyName = null)
     {
-        if (_productHistory.Count == 0)
-        {
-            return;
-        }
-
-        ApplyProductDestination(_productHistory.Pop());
-        OnPropertyChanged(nameof(IsBackAvailable));
-    }
-
-    private void ApplyProductDestination(ProductSpace destination)
-    {
-        _workspace.Navigate(destination);
-        OnPropertyChanged(nameof(ActiveSpace));
-        OnPropertyChanged(nameof(IsShaping));
-        OnPropertyChanged(nameof(IsLiveStage));
-        OnPropertyChanged(nameof(IsHistory));
-        OnPropertyChanged(nameof(ActiveSpaceTitle));
-        OnPropertyChanged(nameof(ActiveSpaceSupport));
-    }
-
-    private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        PropertyChanged?.Invoke(
+            this,
+            new PropertyChangedEventArgs(propertyName));
     }
 }

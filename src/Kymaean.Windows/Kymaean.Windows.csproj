@@ -25,10 +25,9 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Kymaean.Application\Kymaean.Application.csproj" />
-    <ProjectReference Include="..\Kymaean.Infrastructure.Demo\Kymaean.Infrastructure.Demo.csproj" />
+    <ProjectReference Include="..\Kymaean.Infrastructure.Persistence\Kymaean.Infrastructure.Persistence.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\..\fixtures\missing-raft\missing-raft-0.1.0.json" Link="Fixtures\missing-raft-0.1.0.json" CopyToOutputDirectory="PreserveNewest" />
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
   <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
