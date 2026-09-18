@@ -11,17 +11,35 @@ public sealed class ProductApplication
     private ApplicationScope _activeScope = ApplicationScope.Home;
     private ProductSpace _currentProductSpace = ProductSpace.Stage;
 
-    public ProductApplication(IProductionCatalog catalog)
+    private ProductApplication(
+        IProductionCatalog catalog,
+        ImmutableArray<ProductionSummary> productions)
+    {
+        _catalog = catalog;
+        _productions = productions;
+    }
+
+    public static ProductAccessResult<ProductApplication> Start(
+        IProductionCatalog catalog)
     {
         ArgumentNullException.ThrowIfNull(catalog);
-        _catalog = catalog;
 
-        var listed = catalog.ListProductions()
-            ?? throw new InvalidOperationException(
-                "Production catalog returned no production list.");
+        var listed = catalog.ListProductions();
+        if (!listed.IsSuccess)
+        {
+            return ProductAccessResult<ProductApplication>.Failure(
+                listed.FailureKind);
+        }
 
-        _productions = listed.ToImmutableArray();
-        ValidateProductionList(_productions);
+        var productions = listed.Value.ToImmutableArray();
+        if (!IsValidProductionList(productions))
+        {
+            return ProductAccessResult<ProductApplication>.Failure(
+                ProductAccessFailureKind.Invalid);
+        }
+
+        return ProductAccessResult<ProductApplication>.Success(
+            new ProductApplication(catalog, productions));
     }
 
     public ProductApplicationProjection Query() =>
@@ -52,35 +70,44 @@ public sealed class ProductApplication
         return Query();
     }
 
-    public ProductApplicationProjection OpenProduction(
+    public ProductAccessResult<ProductApplicationProjection> OpenProduction(
         ProductionId productionId,
         ProductSpace destination = ProductSpace.Stage)
     {
         ArgumentNullException.ThrowIfNull(productionId);
         ValidateProductSpace(destination);
 
-        var summary = _productions.FirstOrDefault(item => item.Id == productionId)
-            ?? throw new KeyNotFoundException(
-                $"Production '{productionId}' is not available.");
-
-        var replay = _catalog.OpenProduction(productionId)
-            ?? throw new InvalidOperationException(
-                "Production catalog returned no replay projection.");
-
-        if (!string.Equals(
-                summary.ProductionName,
-                replay.ProductionName,
-                StringComparison.Ordinal))
+        var summary = FindProduction(productionId);
+        if (summary is null)
         {
-            throw new InvalidOperationException(
-                "Production catalog summary does not match the opened Production.");
+            return ProductAccessResult<ProductApplicationProjection>.Failure(
+                ProductAccessFailureKind.Invalid);
         }
 
-        _currentProduction = summary;
-        _currentProductionReplay = replay;
-        _currentProductSpace = destination;
-        _activeScope = ApplicationScope.CurrentProduction;
-        return Query();
+        return CompleteProductionAccess(
+            summary,
+            _catalog.OpenProduction(productionId),
+            destination);
+    }
+
+    public ProductAccessResult<ProductApplicationProjection> RecoverProduction(
+        ProductionId productionId,
+        ProductSpace destination = ProductSpace.Stage)
+    {
+        ArgumentNullException.ThrowIfNull(productionId);
+        ValidateProductSpace(destination);
+
+        var summary = FindProduction(productionId);
+        if (summary is null)
+        {
+            return ProductAccessResult<ProductApplicationProjection>.Failure(
+                ProductAccessFailureKind.Invalid);
+        }
+
+        return CompleteProductionAccess(
+            summary,
+            _catalog.RecoverProduction(productionId),
+            destination);
     }
 
     public ProductApplicationProjection NavigateProduction(ProductSpace destination)
@@ -97,6 +124,40 @@ public sealed class ProductApplication
         return Query();
     }
 
+    private ProductAccessResult<ProductApplicationProjection>
+        CompleteProductionAccess(
+            ProductionSummary summary,
+            ProductAccessResult<ProductionReplayProjection> access,
+            ProductSpace destination)
+    {
+        if (!access.IsSuccess)
+        {
+            return ProductAccessResult<ProductApplicationProjection>.Failure(
+                access.FailureKind);
+        }
+
+        var replay = access.Value;
+        if (!string.Equals(
+                summary.ProductionName,
+                replay.ProductionName,
+                StringComparison.Ordinal))
+        {
+            return ProductAccessResult<ProductApplicationProjection>.Failure(
+                ProductAccessFailureKind.Invalid);
+        }
+
+        _currentProduction = summary;
+        _currentProductionReplay = replay;
+        _currentProductSpace = destination;
+        _activeScope = ApplicationScope.CurrentProduction;
+
+        return ProductAccessResult<ProductApplicationProjection>.Success(
+            Query());
+    }
+
+    private ProductionSummary? FindProduction(ProductionId productionId) =>
+        _productions.FirstOrDefault(item => item.Id == productionId);
+
     private static void ValidateProductSpace(ProductSpace space)
     {
         if (!Enum.IsDefined(space))
@@ -105,22 +166,19 @@ public sealed class ProductApplication
         }
     }
 
-    private static void ValidateProductionList(
+    private static bool IsValidProductionList(
         ImmutableArray<ProductionSummary> productions)
     {
         var ids = new HashSet<ProductionId>();
 
-        for (var index = 0; index < productions.Length; index++)
+        foreach (var production in productions)
         {
-            var production = productions[index]
-                ?? throw new InvalidOperationException(
-                    $"Production catalog contains a null entry at index {index}.");
-
-            if (!ids.Add(production.Id))
+            if (production is null || !ids.Add(production.Id))
             {
-                throw new InvalidOperationException(
-                    $"Production catalog contains duplicate id '{production.Id}'.");
+                return false;
             }
         }
+
+        return true;
     }
 }
