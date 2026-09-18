@@ -2,7 +2,7 @@
 
 Status: ACTIVE OPERATIONAL REGISTER ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â sequencing and backlog only. This file does not carry phase, provider, product, design, or validation authority. `CURRENT_STATE.md` remains the only active engineering checkpoint/next-action authority; lane-specific current-state files retain their own volatile boundaries.
 
-Updated: 2026-09-17
+Updated: 2026-09-18
 
 ## Queue law
 
@@ -70,7 +70,7 @@ Director amendment `docs/KYMAEAN_PRODUCT_BUILD_AHEAD_OF_DEFERRED_E0_VALIDATION_D
 
 | ID | Status | Program gate |
 |---|---|---|
-| Q-PROD-01 | Engineering / Product | ACTIVE - WINDOWS COMPOSITION DURABLE / SNAPSHOT NEXT | Windows source `ac8122c24d81731671802b57220d3c631e8c9975`, tag `validation/q-prod-01-windows-runtime-composition-native-arm64`, integrated by PR #208 to exact validated `main@032f6781c2687a07644a33532967c8e49c85437a`; PR Validation #1022 and exact-main #1023 PASS. Production Windows now composes Application + Persistence from app-private LocalState; typed Product failures remain distinct from bounded generic infrastructure startup failure; explicit open/recover remain separate; package launch/relaunch PASS; Demo/missing-raft removed. | `DESIGN_ARCHITECTURE_READY = NOT READY`: persisted Production-internal content beyond `ProductionName` remains unearned. Windows closeout hardens Application + Persistence dependency law and closes/retire #186. | After closeout exact-main validation, activate Engineer #1 snapshot lease `ENG1-QPROD01-SNAPSHOT-03` / #203; snapshot remains rebuildable non-authoritative acceleration only. |
+| Q-PROD-01 | Engineering / Product | ACTIVE - SNAPSHOT DURABLE / EXPORT NEXT | Windows production composition is durable. Rebuildable projection snapshot source `aaca35069ca68a1a28d0bd189e6a0eb2e7ad8724`, tag `validation/q-prod-01-persistence-snapshot-native-arm64-r2`, integrated by PR #210 to `main@6df408fe43cb714ad00d63c97f916174beffb0ab`; PR Validation #1030 and exact-main #1031 PASS. Snapshot remains journal-subordinate, rebuildable, versioned/checksummed and exact-head-bound; no read-path acceleration is claimed. | `DESIGN_ARCHITECTURE_READY = NOT READY`: persisted Production-internal content beyond `ProductionName` remains unearned. Snapshot closeout must retire #203 without inflating performance authority. | After snapshot closeout exact-main validation, activate the next Engineer #1 Persistence rung: portable credential-independent export; then broader corruption/interruption evidence and final provisional storage/concurrency policy. |
 | Q-POSTE0-01 | BLOCKED — DEFERRED E0 RECONCILIATION | Final/frozen post-E0 product-runtime architecture. Provisional implementation may precede this gate under the Director amendment. |
 | Q-POSTE0-02 | BLOCKED — FINALIZATION | Reconcile/promote provisional persistence, Windows shell, provider/local capability and UI implementation after deferred E0 convergence and final architecture freeze. |
 | Q-ALPHA-01 | BLOCKED | Runtime-complete Alpha and integrated target-device matrix. |
