@@ -324,6 +324,33 @@ Exact native authority is source `ae6a871...`; this closeout records integration
 
 Exact native authority is evidence source `a77170e...`; this checkpoint broadens tested failure-state evidence without promoting it into general power-loss or concurrency certification.
 
+### Q-PROD-01 final provisional storage/concurrency policy checkpoint
+
+| Field | Fact |
+|---|---|
+| Lease | `ENG1-QPROD01-POLICY-06` / Issue #220 |
+| Base | `8d47959ddadaa84db82ed5d3ceaeef9c42189f19`; exact-main Validation #1049 PASS |
+| Exact policy source | `c352d96fc3a10ea5e0a517c4057e4173000288d3` |
+| Validation tag | `validation/q-prod-01-final-provisional-storage-concurrency-policy-native-arm64` |
+| Policy evidence | `docs/evidence/Q_PROD_01_FINAL_PROVISIONAL_STORAGE_CONCURRENCY_POLICY_NATIVE_ARM64_2026_09_18.md` |
+| Integration closeout | `docs/evidence/Q_PROD_01_FINAL_PROVISIONAL_STORAGE_CONCURRENCY_POLICY_INTEGRATION_CLOSEOUT_2026_09_18.md` |
+| Source scope | documentation/authority only; no runtime or test source changed |
+| Host | SurfSeven, native Windows ARM64 |
+| Native tests | Persistence 85/85 PASS; Application 38/38 PASS |
+| WinUI compiler | Release win-arm64 PASS, 0 warnings/errors |
+| Repository guards | law PASS; census 347/226/30/91/0; oracle 288/17/271; diff/race/worktree PASS |
+| Hosted branch | Validation #1050 PASS |
+| Hosted exact-head | PR #221 Validation #1051 PASS |
+| Integrated Project main | `c3e7171b61daead881ed639729496cd050868d12` via PR #221; push-triggered Validation #1052 PASS |
+| Native contention evidence | same-Production `ReadAll`/`Append`/`Recover` fail fast with environmental Windows sharing-violation I/O while another process owns the per-root journal gate; a different Production root remains independently readable |
+| Earned policy | one exclusive journal gate per Production root; no transparent same-root multi-process queue/wait/retry; no catalog-global transaction or cross-Production atomicity; snapshot non-causal; export point-in-history; no general power-loss certification |
+| Runtime result | no production defect exposed; no runtime/storage-format change required |
+| Engineer #1 charter | five-rung Q-PROD-01 Persistence sequence COMPLETE |
+| Milestone | `DESIGN_ARCHITECTURE_READY = NOT READY` |
+| Authority scope | no Product lifecycle/import/restore expansion, richer persisted Studio/Stage/Archive content, provider/deferred-E0 behavior, transparent multi-process support, universal power-loss guarantee, WACK/Store or release authority |
+
+Exact native authority is policy source `c352d96...`; this manager closeout records its durable integration and does not create new machine/runtime authority.
+
 ### Q-DESIGN-20 bounded native-corrections checkpoint
 
 | Field | Fact |
