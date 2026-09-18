@@ -300,6 +300,30 @@ Exact native authority is source `aaca350...`; this closeout records integration
 
 Exact native authority is source `ae6a871...`; this closeout records integration and does not convert export into import/lifecycle or richer Product authority.
 
+### Q-PROD-01 broader corruption/interruption evidence checkpoint
+
+| Field | Fact |
+|---|---|
+| Lease | `ENG1-QPROD01-CORRUPT-05` / Issue #217 |
+| Base | `7d050a4a8330514a8b126718dd3fe8bb9332b506`; exact-main Validation #1043 PASS |
+| Exact evidence source | `a77170e99daa614c89c7949baab1ad959ffe64bc` |
+| Validation tag | `validation/q-prod-01-corruption-interruption-evidence-native-arm64` |
+| Evidence | `docs/evidence/Q_PROD_01_CORRUPTION_INTERRUPTION_EVIDENCE_NATIVE_ARM64_VALIDATION_2026_09_18.md` |
+| Source scope | one Persistence test file only; no production source changed |
+| Host | SurfSeven, native Windows ARM64 |
+| Native tests | Persistence 85/85 PASS; Application 38/38 PASS |
+| WinUI compiler | Release win-arm64 PASS, 0 warnings/errors after clearing a transient XAML-compiler file lock; exact source unchanged |
+| Repository guards | law PASS; census 345/224/30/91/0; oracle 288/17/271; diff/race/worktree PASS |
+| Hosted branch | Validation #1044 PASS |
+| Hosted exact-head | PR #218 Validation #1045 PASS |
+| Integrated Project main | `70b832ff61195a4818282b838716c6e92689fff7` via PR #218; push-triggered Validation #1046 PASS |
+| Newly exercised evidence | torn committed entry/head fail closed; impossible integrity-valid head fails closed; mixed valid+corrupt crash suffix recovery is all-or-nothing; pending artifacts remain non-causal on ordinary read |
+| Runtime result | no production defect exposed; no runtime/storage-format change required |
+| Milestone | `DESIGN_ARCHITECTURE_READY = NOT READY` |
+| Authority scope | no final storage/concurrency policy, multi-process guarantee, power-loss certification, Product lifecycle/import, richer persisted Studio/Stage/Archive content, provider behavior, WACK/Store or deferred-E0 conclusion |
+
+Exact native authority is evidence source `a77170e...`; this checkpoint broadens tested failure-state evidence without promoting it into general power-loss or concurrency certification.
+
 ### Q-DESIGN-20 bounded native-corrections checkpoint
 
 | Field | Fact |
