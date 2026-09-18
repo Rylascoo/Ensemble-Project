@@ -183,10 +183,22 @@ public sealed class FileProductionCatalog : IProductionCatalog
         try
         {
             var history = recover
-                ? store.Recover()
-                : store.LoadAll();
+                ? store.RecoverValidatedHistory()
+                : store.LoadValidatedHistory();
+            var projection = history.Projection
+                ?? ProductionReplay.Rebuild(history.Events);
+
+            if (history.Anchor is { } anchor)
+            {
+                ProductionProjectionSnapshotCache.ReconcileBestEffort(
+                    directoryPath,
+                    anchor,
+                    projection,
+                    forceWrite: recover);
+            }
+
             return ProductAccessResult<ProductionReplayProjection>.Success(
-                ProductionReplay.Rebuild(history));
+                projection);
         }
         catch (DirectoryNotFoundException)
         {
