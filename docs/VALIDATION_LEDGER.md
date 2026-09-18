@@ -131,12 +131,14 @@ Native lifecycle-reconstruction authority is exact source `7694f75...`; later ev
 |---|---|
 | Exact checkout under process evidence | `1ab6b5d0ea0e49afd565485e22a4e17e6d758bf3` |
 | Exact-main hosted validation | Validation #962 PASS |
+| Integrated Project main | `46a0b6874710deb68917e6801ca3e5e5dadabe04` via PR #180; push-triggered Validation #965 PASS |
+| Candidate hosted gates | `4cdef429835a906bb5735447333926b295e57c9c`: Validation #964 PASS; E0-E preparation #124 PASS |
 | Process-evidence tag | `validation/q-prod-01-process-reopen-native-arm64` |
 | Product lifecycle native source | `7694f75479445c1f5ad030e37b1800a53d34dae9` |
 | Evidence | `docs/evidence/Q_PROD_01_PROCESS_REOPEN_NATIVE_ARM64_VALIDATION_2026_09_17.md` |
 | Host | SurfSeven, native Windows ARM64 |
-| Ordinary process reopen | PASS: ARM64 PID 5748 create/exit → distinct PID 9768 open/exit |
-| Recovery process reopen | PASS: ARM64 PID 22564 create/exit → head loss → distinct PID 6584 recover/exit → distinct PID 22108 open/exit |
+| Ordinary process reopen | PASS: ARM64 PID 5748 create/exit -> distinct PID 9768 open/exit |
+| Recovery process reopen | PASS: ARM64 PID 22564 create/exit -> head loss -> distinct PID 6584 recover/exit -> distinct PID 22108 open/exit |
 | External driver | evidence-only; preserved local apparatus; EXE SHA-256 `fe821698083c5784c7cced8dc060df52cb29ae47f159f3dd279bb50fb165d0ec`; no shipping project added |
 | Earned scope | current Production-name persistence reconstructs and recovers across real native ARM64 OS process boundaries |
 | Authority scope | not packaged-app relaunch, device reboot/suspend-resume, arbitrary power-loss certification, snapshots/export, broader ontology, final storage/concurrency, complete P1 or release authority |
