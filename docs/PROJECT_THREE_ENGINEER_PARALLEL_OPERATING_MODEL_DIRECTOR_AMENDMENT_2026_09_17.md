@@ -212,6 +212,29 @@ Engineer #1 decides whether the returned evidence satisfies the milestone and re
 
 Design Sol consumes only the integrated, exact-main-validated architecture handoff. A provisional Engineer #2 branch or `INTERFACE_READY` checkpoint may unblock Engineers #1/#3 but does not by itself reopen Design authority.
 
+## Director interaction / engineering handoff reporting
+
+Every substantive Engineer #1/#2/#3 reply must end with a compact routing footer so the Director never has to infer which chat to continue.
+
+The footer reports, at minimum:
+
+- Engineer identity and current work unit;
+- user-facing work-unit status: `COMPLETE`, `CONTINUE`, or `BLOCKED`;
+- repository lease status using the canonical lease states above;
+- `RECOMMENDED NEXT CLICK`: Engineer #1, Engineer #2, Engineer #3, Design Sol, or the current chat;
+- one-line dependency reason;
+- lanes safe to continue in parallel;
+- lanes that should not continue yet;
+- exactly what the current Engineer will do if continued;
+- Engineering -> UI/Design disposition;
+- real/authoritative versus provisional/local-only state.
+
+The routing footer is reporting law, not new authority. It never permits a Relay to acquire a second mutation lease, self-integrate, select an unrelated backlog item after `RETURNED`, or consume a foreign lane.
+
+When validation is still running at the end of a reply, the Engineer must say that no work progresses between Director messages and identify which chat should be continued to inspect the result. Other explicitly independent lanes may still be reported as safe in parallel.
+
+Design coordination is bidirectional. Engineering supplies integrated runtime/Product facts; Design Sol supplies visual, interaction and accessibility requirements. Existing Design work authorized by the Design repository may proceed independently. New runtime-dependent Design meaning may rely only on integrated exact-main Engineering truth, never a provisional Relay branch or `INTERFACE_READY` checkpoint.
+
 ## Native-subagent and automation boundary
 
 This amendment governs three persistent ChatGPT Engineering contexts only.
