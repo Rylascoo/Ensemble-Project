@@ -255,6 +255,28 @@ Exact native authority is source `1b20d937...`; later closeout commits do not in
 
 Exact native authority is source `ac8122c...`; later closeout commits do not inherit machine-test authority.
 
+### Q-PROD-01 rebuildable projection snapshot checkpoint
+
+| Field | Fact |
+|---|---|
+| Lease | `ENG1-QPROD01-SNAPSHOT-03` / Issue #203 |
+| Base | `7918b92dbfca983ffc92967eb3bd6a24016c9493`; exact-main Validation #1026 PASS |
+| Exact source | `aaca35069ca68a1a28d0bd189e6a0eb2e7ad8724` |
+| Validation tag | `validation/q-prod-01-persistence-snapshot-native-arm64-r2` |
+| Evidence | `docs/evidence/Q_PROD_01_REBUILDABLE_PROJECTION_SNAPSHOT_NATIVE_ARM64_VALIDATION_2026_09_18.md` |
+| Host | SurfSeven, native Windows ARM64 |
+| Native tests | Persistence 65/65 PASS; Application 38/38 PASS |
+| WinUI compiler | Release win-arm64 PASS, 0 warnings/errors |
+| Repository guards | law PASS; census 343/222/30/91/0; oracle 288/17/271; diff/race/worktree PASS |
+| Hosted exact-head | branch Validation #1029 PASS; PR #210 Validation #1030 PASS |
+| Integrated Project main | `6df408fe43cb714ad00d63c97f916174beffb0ab` via PR #210; push-triggered Validation #1031 PASS |
+| Earned contract | Persistence-owned versioned/checksummed projection snapshot bound to exact final journal sequence + record hash; missing/stale/malformed/checksum-invalid/version-incompatible/wrong cache state rebuilds from journal truth; cache cannot mask corrupt/incompatible/replay-invalid journal; explicit recovery refreshes only after authoritative validation; expected cache I/O/access failure is best-effort |
+| Performance non-authority | no read-path acceleration earned; catalog still validates, decodes and replays authoritative journal history before snapshot reconciliation |
+| Milestone | `DESIGN_ARCHITECTURE_READY = NOT READY` |
+| Authority scope | no portable export, final concurrency/power-loss certification, richer persisted Studio/Stage/Archive content, provider behavior, WACK/Store or deferred-E0 conclusion |
+
+Exact native authority is source `aaca350...`; this closeout records integration and does not inflate machine-test or performance authority.
+
 ### Q-DESIGN-20 bounded native-corrections checkpoint
 
 | Field | Fact |
