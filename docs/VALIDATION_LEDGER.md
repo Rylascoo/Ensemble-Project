@@ -164,6 +164,28 @@ Native lifecycle-reconstruction authority is exact source `7694f75...`; later ev
 
 Exact native authority is source `f6a9f0f...`; later evidence/integration commits do not inherit machine-test authority.
 
+### Q-PROD-01 Application architecture checkpoint
+
+| Field | Fact |
+|---|---|
+| Lease | `ENG2-QPROD01-APPARCH-01` |
+| Base | `331d38538767c948871bf5f0d69e377e3ce43fc9`; push-triggered Validation #987 PASS |
+| Exact source | `d58ab0ec048eb913bb67eab8056a098c478b492e` |
+| Validation tag | `validation/q-prod-01-application-architecture-native-arm64` |
+| Evidence | `docs/evidence/Q_PROD_01_APPLICATION_ARCHITECTURE_NATIVE_ARM64_VALIDATION_2026_09_18.md` |
+| Host | SurfSeven, native Windows ARM64 |
+| Native tests | Application 24/24 PASS; Persistence 30/30 PASS |
+| WinUI compiler | ARM64 Release PASS, 0 warnings/errors |
+| Repository guards | law PASS; census 339/218/30/91/0; oracle 288/17/271; diff PASS |
+| Hosted exact-head | Validation #989 PASS |
+| Integrated Project main | `c09a3858e5fa18b67cc743551eab9fa318f24e61` via PR #187; push-triggered Validation #990 PASS |
+| Earned contract | opaque ProductionId; ProductionSummary; list/open catalog port; open returns earned ProductionReplayProjection; ApplicationScope separate from ProductSpace; fail-closed list/open consistency |
+| Source scope | exactly five Engineer #2-owned Application/test files; no Persistence/Windows/provider/E0/shared-authority mutation |
+| Milestone | `DESIGN_ARCHITECTURE_READY = NOT READY` |
+| Authority scope | no persisted Studio/Stage/Archive content beyond ProductionName; no typed open/recovery/compatibility/corruption presentation result; no catalog storage/ID serialization/create/rename/delete; no final navigation labels, Windows lifecycle, provider behavior or visual authority |
+
+Exact native authority is source `d58ab0e...`; later closeout commits do not inherit machine-test authority.
+
 ### Q-DESIGN-20 bounded native-corrections checkpoint
 
 | Field | Fact |
