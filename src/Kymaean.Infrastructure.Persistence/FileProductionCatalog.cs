@@ -180,13 +180,16 @@ public sealed class FileProductionCatalog : IProductionCatalog
                 ProductAccessFailureKind.Invalid);
         }
 
+        ProductionReplayProjection projection;
+        ProductionJournalAnchor? anchor;
         try
         {
             var history = recover
-                ? store.Recover()
-                : store.LoadAll();
-            return ProductAccessResult<ProductionReplayProjection>.Success(
-                ProductionReplay.Rebuild(history));
+                ? store.RecoverValidatedHistory()
+                : store.LoadValidatedHistory();
+            projection = history.Projection
+                ?? ProductionReplay.Rebuild(history.Events);
+            anchor = history.Anchor;
         }
         catch (DirectoryNotFoundException)
         {
@@ -213,6 +216,18 @@ public sealed class FileProductionCatalog : IProductionCatalog
             return ProductAccessResult<ProductionReplayProjection>.Failure(
                 ProductAccessFailureKind.Invalid);
         }
+
+        if (anchor is not null)
+        {
+            ProductionProjectionSnapshotCache.ReconcileBestEffort(
+                directoryPath,
+                anchor,
+                projection,
+                forceWrite: recover);
+        }
+
+        return ProductAccessResult<ProductionReplayProjection>.Success(
+            projection);
     }
 
     private static bool IsCanonicalLocator(string locator)
