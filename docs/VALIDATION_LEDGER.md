@@ -209,6 +209,29 @@ Exact native authority is source `d58ab0e...`; later closeout commits do not inh
 
 Exact native authority is source `2c379fd...`; later closeout commits do not inherit machine-test authority.
 
+### Q-PROD-01 Persistence catalog/recovery adapter checkpoint
+
+| Field | Fact |
+|---|---|
+| Lease | `ENG1-QPROD01-PERSISTCAT-02` |
+| Base | `257fbc52946dad32b0376e825c8137262ae3c849`; push-triggered Validation #1005 PASS |
+| Exact source | `1b20d937892c3248a0f84d536870b789d865e851` |
+| Validation tag | `validation/q-prod-01-persistence-catalog-recovery-adapter-native-arm64` |
+| Evidence | `docs/evidence/Q_PROD_01_PERSISTENCE_CATALOG_RECOVERY_ADAPTER_NATIVE_ARM64_VALIDATION_2026_09_18.md` |
+| Host | SurfSeven, native Windows ARM64 |
+| Native tests | Persistence 52/52 PASS; Application 38/38 PASS |
+| WinUI compiler | ARM64 Release PASS, 0 warnings/errors |
+| Repository guards | law PASS; census 341/220/30/91/0; oracle 288/17/271; diff/race/worktree PASS |
+| Hosted exact-head | Validation #1007 PASS |
+| Integrated Project main | `b14b579408bec23865efede9a92a66d4f3bd1cd8` via PR #199; push-triggered Validation #1008 PASS |
+| Earned contract | opaque app-private root; Persistence-owned catalog namespace; bounded opaque locators; versioned/checksummed exact UTF-16 ProductionId metadata; complete-or-fail list; committed open; explicit recover; typed compatibility/corruption mapping; unknown IDs create no storage |
+| Consumer acceptance | Engineer #3 exact-source native validation and semantic acceptance PASS; ENG3-REQ-PERSIST-01 #195 CLOSED |
+| Branch lifecycle | lease #197 CLOSED; validation/archive tags peel to exact source; former Engineer #1 branch/worktree retired after durable integration |
+| Milestone | `DESIGN_ARCHITECTURE_READY = NOT READY` |
+| Authority scope | no create/rename/delete, migration, snapshots/export, final concurrency/power-loss certification, richer persisted Studio/Stage/Archive state, Windows composition proof, provider behavior or visual authority |
+
+Exact native authority is source `1b20d937...`; later closeout commits do not inherit machine-test authority.
+
 ### Q-DESIGN-20 bounded native-corrections checkpoint
 
 | Field | Fact |
