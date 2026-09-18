@@ -158,7 +158,9 @@ Native lifecycle-reconstruction authority is exact source `7694f75...`; later ev
 | Repository guards | law PASS; census 338/217/30/91/0; oracle 288/17/271; diff PASS |
 | Earned policy | stable file-family magic; physical journal/head schema uint v1; Product event contract version independent; integrity-valid unsupported versions typed as compatibility; corrupted version bytes remain corruption; no implicit migration/rewrite |
 | Source scope | five Persistence-owned source/test files; no Application/Windows/provider/E0/shared-authority source mutation |
-| Authority scope | integration pending; no migration engine, catalog/ProductionId layout, snapshots/export, final storage/concurrency, broader ontology, complete P1 or release authority |
+| Integrated Project main | `0cbf19a997665fa24cd0120b209e2ecd39925cec` via PR #188; push-triggered Validation #980 PASS |
+| Candidate hosted gates | `b8733ffef15ba14819dfe7332c53431adaa44a89`: Validation #979 PASS; E0-E preparation #127 PASS |
+| Authority scope | integrated compatibility policy only; no migration engine, catalog/ProductionId layout, snapshots/export, final storage/concurrency, broader ontology, complete P1 or release authority |
 
 Exact native authority is source `f6a9f0f...`; later evidence/integration commits do not inherit machine-test authority.
 

@@ -2,7 +2,7 @@
 
 Date: 2026-09-17
 
-Status: **TARGET-DEVICE NATIVE VALIDATION / INTEGRATION PENDING**
+Status: **TARGET-DEVICE NATIVE VALIDATION / DURABLY INTEGRATED**
 
 ## Identity
 
@@ -11,6 +11,8 @@ Status: **TARGET-DEVICE NATIVE VALIDATION / INTEGRATION PENDING**
 - Exact source: `f6a9f0f6b3abc6d8a34debfcfdc9dac0474e0147`.
 - Validation tag: `validation/q-prod-01-persistence-version-policy-native-arm64`, annotated and peeled to the exact source.
 - Host: SurfSeven, native Windows ARM64.
+- Integration candidate: `b8733ffef15ba14819dfe7332c53431adaa44a89`; Validation #979 PASS; E0-E preparation #127 PASS.
+- Integrated main: `0cbf19a997665fa24cd0120b209e2ecd39925cec` via PR #188; push-triggered Validation #980 PASS.
 
 ## Policy earned
 
@@ -66,12 +68,10 @@ No provider traffic occurred and no deferred-E0 namespace was consumed.
 
 ## Parallel-lane boundary
 
-Engineer #2 has provisionally published Application checkpoint
-`engineer-02/q-prod-01/apparch-01@27f156552c5dc1d8dec75e9d138a36146f0016ce`
-with an `IProductionCatalog` interface. Engineer #3 is correctly blocked on a Persistence implementation of that seam.
+Engineer #2's earlier Application checkpoint `27f156552c5dc1d8dec75e9d138a36146f0016ce` was subsequently rejected by its own recursive audit because it required Persistence to return demo-facing `WorkspaceProjection` rather than the actually earned `ProductionReplayProjection`. Engineer #2 is correcting that contract. Engineer #3 remains correctly blocked rather than inventing the missing Persistence seam.
 
-That catalog adapter is **not part of this validated source**. It is a likely successor Engineer #1 lease only after the Engineer #2 Application checkpoint is reconciled/integrated into exact-main authority.
+The catalog adapter is **not part of this validated source**. It is a likely successor Engineer #1 lease only after a corrected Engineer #2 Application contract is reconciled/integrated into exact-main authority.
 
 ## Next
 
-Integrate this schema/version-policy checkpoint without widening its source identity. Then reconcile Engineer #2's Application architecture. If its catalog contract survives integration, open a new bounded Engineer #1 Persistence lease for the concrete catalog adapter needed by Engineer #3.
+Reconcile Engineer #2's corrected Application architecture against exact validated main. If its catalog contract survives integration, open a new bounded Engineer #1 Persistence lease for the concrete catalog adapter needed by Engineer #3.
