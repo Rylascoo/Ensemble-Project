@@ -232,6 +232,29 @@ Exact native authority is source `2c379fd...`; later closeout commits do not inh
 
 Exact native authority is source `1b20d937...`; later closeout commits do not inherit machine-test authority.
 
+### Q-PROD-01 Windows runtime/composition checkpoint
+
+| Field | Fact |
+|---|---|
+| Lease | `ENG3-QPROD01-WINCOMP-01` / Issue #186 |
+| Base | `aa1adecbac58b87ec97d9ce6cf977deb9b7224ee`; exact-main Validation #1020 PASS |
+| Exact source | `ac8122c24d81731671802b57220d3c631e8c9975` |
+| Validation tag | `validation/q-prod-01-windows-runtime-composition-native-arm64` |
+| Evidence | `docs/evidence/Q_PROD_01_WINDOWS_RUNTIME_COMPOSITION_NATIVE_ARM64_VALIDATION_2026_09_18.md` |
+| Host | SurfSeven, native Windows ARM64 |
+| Native tests | Application 38/38 PASS; Persistence 52/52 PASS |
+| WinUI compiler | Release win-arm64 PASS, 0 warnings/errors |
+| Package/runtime | unsigned ARM64 MSIX PASS; launch/relaunch PASS; LocalState catalog reuse PASS; Demo/missing-raft absent |
+| Startup probe | typed Product failure preserved; IOException/UnauthorizedAccessException -> generic infrastructure state; InvalidOperationException escapes; Open/Recover route once |
+| Repository guards | law PASS; census PASS; oracle 288/17/271; diff/race/worktree PASS |
+| Hosted exact-head | branch Validation #1021 PASS; PR #208 Validation #1022 PASS |
+| Integrated Project main | `032f6781c2687a07644a33532967c8e49c85437a` via PR #208; push-triggered Validation #1023 PASS |
+| Earned contract | production Windows composes Application + Persistence from app-private LocalState; explicit open/recover; bounded Windows infrastructure failure state; no Persistence internals or fabricated Product state |
+| Milestone | `DESIGN_ARCHITECTURE_READY = NOT READY` |
+| Authority scope | no richer persisted Studio/Stage/Archive content, Product lifecycle expansion, provider behavior, final architecture, WACK/Store or deferred-E0 conclusion |
+
+Exact native authority is source `ac8122c...`; later closeout commits do not inherit machine-test authority.
+
 ### Q-DESIGN-20 bounded native-corrections checkpoint
 
 | Field | Fact |
