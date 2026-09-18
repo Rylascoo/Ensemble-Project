@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System.Buffers.Binary;
+using System.Security.Cryptography;
+using System.Text;
 using Kymaean.Infrastructure.Persistence;
 
 namespace Kymaean.Infrastructure.Persistence.Tests;
@@ -7,6 +9,124 @@ namespace Kymaean.Infrastructure.Persistence.Tests;
 public sealed class FileProductionJournalTests
 {
     private const string HeadFileName = ".journal.head";
+    private const int SchemaVersionOffset = 8;
+    private const int HashLength = 32;
+    private const int EntryPrefixLength =
+        8 + sizeof(uint) + sizeof(ulong) + HashLength + sizeof(ulong) + HashLength;
+    private const int EntryHeaderLength = EntryPrefixLength + HashLength;
+    private const int HeadPrefixLength = 8 + sizeof(uint) + sizeof(ulong) + HashLength;
+
+    [TestMethod]
+    public void WriterPersistsJournalSchemaVersionOne()
+    {
+        using var directory = new TempDirectory();
+        var journal = new FileProductionJournal(directory.Path);
+        journal.Append(Encoding.UTF8.GetBytes("committed"));
+
+        var entryBytes = File.ReadAllBytes(OrderedEntryPaths(directory.Path).Single());
+        var headBytes = File.ReadAllBytes(Path.Combine(directory.Path, HeadFileName));
+
+        Assert.AreEqual(
+            1U,
+            BinaryPrimitives.ReadUInt32BigEndian(
+                entryBytes.AsSpan(SchemaVersionOffset, sizeof(uint))));
+        Assert.AreEqual(
+            1U,
+            BinaryPrimitives.ReadUInt32BigEndian(
+                headBytes.AsSpan(SchemaVersionOffset, sizeof(uint))));
+    }
+
+    [TestMethod]
+    public void UnsupportedJournalEntrySchemaVersionFailsAsCompatibilityError()
+    {
+        using var directory = new TempDirectory();
+        var journal = new FileProductionJournal(directory.Path);
+        journal.Append(Encoding.UTF8.GetBytes("committed"));
+
+        var entryPath = OrderedEntryPaths(directory.Path).Single();
+        RewriteEntrySchemaVersionPreservingIntegrity(entryPath, 2);
+
+        var exception = Assert.ThrowsExactly<ProductionPersistenceCompatibilityException>(
+            () => new FileProductionJournal(directory.Path).ReadAll());
+
+        Assert.AreEqual("journal entry schema", exception.Artifact);
+        Assert.AreEqual("2", exception.FoundIdentifier);
+        Assert.AreEqual("1", exception.SupportedIdentifier);
+    }
+
+    [TestMethod]
+    public void UnsupportedJournalHeadSchemaVersionFailsAsCompatibilityError()
+    {
+        using var directory = new TempDirectory();
+        var journal = new FileProductionJournal(directory.Path);
+        journal.Append(Encoding.UTF8.GetBytes("committed"));
+
+        var headPath = Path.Combine(directory.Path, HeadFileName);
+        RewriteHeadSchemaVersionPreservingIntegrity(headPath, 2);
+
+        var exception = Assert.ThrowsExactly<ProductionPersistenceCompatibilityException>(
+            () => new FileProductionJournal(directory.Path).ReadAll());
+
+        Assert.AreEqual("journal head schema", exception.Artifact);
+        Assert.AreEqual("2", exception.FoundIdentifier);
+        Assert.AreEqual("1", exception.SupportedIdentifier);
+    }
+
+    [TestMethod]
+    public void RecoveryDoesNotMigrateUnsupportedJournalVersion()
+    {
+        using var directory = new TempDirectory();
+        var journal = new FileProductionJournal(directory.Path);
+        journal.Append(Encoding.UTF8.GetBytes("first"));
+        var committedHead = File.ReadAllBytes(Path.Combine(directory.Path, HeadFileName));
+        journal.Append(Encoding.UTF8.GetBytes("second"));
+        File.WriteAllBytes(Path.Combine(directory.Path, HeadFileName), committedHead);
+
+        var secondEntryPath = OrderedEntryPaths(directory.Path)[1];
+        RewriteEntrySchemaVersionPreservingIntegrity(secondEntryPath, 2);
+
+        Assert.ThrowsExactly<ProductionPersistenceCompatibilityException>(
+            () => new FileProductionJournal(directory.Path).Recover());
+        CollectionAssert.AreEqual(
+            committedHead,
+            File.ReadAllBytes(Path.Combine(directory.Path, HeadFileName)));
+    }
+
+    [TestMethod]
+    public void CorruptedJournalEntryVersionByteRemainsCorruption()
+    {
+        using var directory = new TempDirectory();
+        var journal = new FileProductionJournal(directory.Path);
+        journal.Append(Encoding.UTF8.GetBytes("committed"));
+
+        var entryPath = OrderedEntryPaths(directory.Path).Single();
+        var bytes = File.ReadAllBytes(entryPath);
+        BinaryPrimitives.WriteUInt32BigEndian(
+            bytes.AsSpan(SchemaVersionOffset, sizeof(uint)),
+            2);
+        File.WriteAllBytes(entryPath, bytes);
+
+        Assert.Throws<ProductionJournalCorruptionException>(
+            () => new FileProductionJournal(directory.Path).ReadAll());
+    }
+
+    [TestMethod]
+    public void CorruptedJournalHeadVersionByteRemainsCorruption()
+    {
+        using var directory = new TempDirectory();
+        var journal = new FileProductionJournal(directory.Path);
+        journal.Append(Encoding.UTF8.GetBytes("committed"));
+
+        var headPath = Path.Combine(directory.Path, HeadFileName);
+        var bytes = File.ReadAllBytes(headPath);
+        BinaryPrimitives.WriteUInt32BigEndian(
+            bytes.AsSpan(SchemaVersionOffset, sizeof(uint)),
+            2);
+        File.WriteAllBytes(headPath, bytes);
+
+        Assert.Throws<ProductionJournalCorruptionException>(
+            () => new FileProductionJournal(directory.Path).ReadAll());
+    }
 
     [TestMethod]
     public void AppendAndReopenPreservesOrderedPayloadsAndHashChain()
@@ -170,6 +290,44 @@ public sealed class FileProductionJournalTests
 
         Assert.Throws<ProductionJournalCorruptionException>(
             () => new FileProductionJournal(directory.Path).ReadAll());
+    }
+
+    private static string RewriteEntrySchemaVersionPreservingIntegrity(
+        string entryPath,
+        uint schemaVersion)
+    {
+        var bytes = File.ReadAllBytes(entryPath);
+        BinaryPrimitives.WriteUInt32BigEndian(
+            bytes.AsSpan(SchemaVersionOffset, sizeof(uint)),
+            schemaVersion);
+
+        using var hash = IncrementalHash.CreateHash(HashAlgorithmName.SHA256);
+        hash.AppendData(bytes.AsSpan(0, EntryPrefixLength));
+        hash.AppendData(bytes.AsSpan(EntryHeaderLength));
+        var recordHash = hash.GetHashAndReset();
+        recordHash.CopyTo(bytes.AsSpan(EntryPrefixLength, HashLength));
+        File.WriteAllBytes(entryPath, bytes);
+
+        var sequence = BinaryPrimitives.ReadUInt64BigEndian(
+            bytes.AsSpan(SchemaVersionOffset + sizeof(uint), sizeof(ulong)));
+        var newPath = Path.Combine(
+            Path.GetDirectoryName(entryPath)!,
+            $"{sequence:D20}-{Convert.ToHexString(recordHash).ToLowerInvariant()}.kjr");
+        File.Move(entryPath, newPath);
+        return newPath;
+    }
+
+    private static void RewriteHeadSchemaVersionPreservingIntegrity(
+        string headPath,
+        uint schemaVersion)
+    {
+        var bytes = File.ReadAllBytes(headPath);
+        BinaryPrimitives.WriteUInt32BigEndian(
+            bytes.AsSpan(SchemaVersionOffset, sizeof(uint)),
+            schemaVersion);
+        SHA256.HashData(bytes.AsSpan(0, HeadPrefixLength))
+            .CopyTo(bytes.AsSpan(HeadPrefixLength, HashLength));
+        File.WriteAllBytes(headPath, bytes);
     }
 
     private static string[] OrderedEntryPaths(string path) =>

@@ -5,7 +5,6 @@ namespace Kymaean.Infrastructure.Persistence;
 
 public sealed class FileProductionJournal
 {
-    private const uint SchemaVersion = 1;
     private const int HashLength = 32;
     private const int EntryPrefixLength = 8 + sizeof(uint) + sizeof(ulong) + HashLength + sizeof(ulong) + HashLength;
     private const int EntryHeaderLength = EntryPrefixLength + HashLength;
@@ -17,8 +16,9 @@ public sealed class FileProductionJournal
     private const string HeadPendingPrefix = ".pending-head-";
     private const string LockFileName = ".journal.lock";
 
-    private static readonly byte[] EntryMagic = "KYMJRN01"u8.ToArray();
-    private static readonly byte[] HeadMagic = "KYMJHD01"u8.ToArray();
+    // File-family magic stays stable across schema revisions; the uint version field is authoritative.
+    private static readonly byte[] EntryFormatFamilyMagic = "KYMJRN01"u8.ToArray();
+    private static readonly byte[] HeadFormatFamilyMagic = "KYMJHD01"u8.ToArray();
     private static readonly byte[] GenesisHash = new byte[HashLength];
 
     private readonly string _rootDirectory;
@@ -193,19 +193,15 @@ public sealed class FileProductionJournal
             }
 
             var span = bytes.AsSpan();
-            if (!span[..EntryMagic.Length].SequenceEqual(EntryMagic))
+            if (!span[..EntryFormatFamilyMagic.Length].SequenceEqual(EntryFormatFamilyMagic))
             {
                 throw Corrupt(entryPath, "Magic does not match.");
             }
 
             var version = BinaryPrimitives.ReadUInt32BigEndian(
-                span.Slice(EntryMagic.Length, sizeof(uint)));
-            if (version != SchemaVersion)
-            {
-                throw Corrupt(entryPath, $"Unsupported schema version {version}.");
-            }
+                span.Slice(EntryFormatFamilyMagic.Length, sizeof(uint)));
 
-            var sequenceOffset = EntryMagic.Length + sizeof(uint);
+            var sequenceOffset = EntryFormatFamilyMagic.Length + sizeof(uint);
             var sequence = BinaryPrimitives.ReadUInt64BigEndian(
                 span.Slice(sequenceOffset, sizeof(ulong)));
             if (sequence != expectedSequence)
@@ -250,6 +246,10 @@ public sealed class FileProductionJournal
             {
                 throw Corrupt(entryPath, "Entry filename does not match its sequence and record hash.");
             }
+
+            ProductionPersistenceVersionPolicy.RequireJournalSchema(
+                version,
+                "journal entry schema");
 
             entries.Add(new ProductionJournalEntry(
                 sequence,
@@ -308,19 +308,15 @@ public sealed class FileProductionJournal
         }
 
         var span = bytes.AsSpan();
-        if (!span[..HeadMagic.Length].SequenceEqual(HeadMagic))
+        if (!span[..HeadFormatFamilyMagic.Length].SequenceEqual(HeadFormatFamilyMagic))
         {
             throw Corrupt(path, "Head magic does not match.");
         }
 
         var version = BinaryPrimitives.ReadUInt32BigEndian(
-            span.Slice(HeadMagic.Length, sizeof(uint)));
-        if (version != SchemaVersion)
-        {
-            throw Corrupt(path, $"Unsupported head schema version {version}.");
-        }
+            span.Slice(HeadFormatFamilyMagic.Length, sizeof(uint)));
 
-        var sequenceOffset = HeadMagic.Length + sizeof(uint);
+        var sequenceOffset = HeadFormatFamilyMagic.Length + sizeof(uint);
         var sequence = BinaryPrimitives.ReadUInt64BigEndian(
             span.Slice(sequenceOffset, sizeof(ulong)));
         if (sequence == 0)
@@ -336,6 +332,10 @@ public sealed class FileProductionJournal
         {
             throw Corrupt(path, "Head checksum does not match.");
         }
+
+        ProductionPersistenceVersionPolicy.RequireJournalSchema(
+            version,
+            "journal head schema");
 
         return new JournalHead(sequence, Hex(recordHash));
     }
@@ -353,11 +353,11 @@ public sealed class FileProductionJournal
         }
 
         var head = new byte[HeadLength];
-        HeadMagic.CopyTo(head, 0);
+        HeadFormatFamilyMagic.CopyTo(head, 0);
         BinaryPrimitives.WriteUInt32BigEndian(
-            head.AsSpan(HeadMagic.Length, sizeof(uint)),
-            SchemaVersion);
-        var sequenceOffset = HeadMagic.Length + sizeof(uint);
+            head.AsSpan(HeadFormatFamilyMagic.Length, sizeof(uint)),
+            ProductionPersistenceVersionPolicy.JournalSchemaVersion);
+        var sequenceOffset = HeadFormatFamilyMagic.Length + sizeof(uint);
         BinaryPrimitives.WriteUInt64BigEndian(
             head.AsSpan(sequenceOffset, sizeof(ulong)),
             sequence);
@@ -404,12 +404,12 @@ public sealed class FileProductionJournal
         }
 
         var prefix = new byte[EntryPrefixLength];
-        EntryMagic.CopyTo(prefix, 0);
+        EntryFormatFamilyMagic.CopyTo(prefix, 0);
         BinaryPrimitives.WriteUInt32BigEndian(
-            prefix.AsSpan(EntryMagic.Length, sizeof(uint)),
-            SchemaVersion);
+            prefix.AsSpan(EntryFormatFamilyMagic.Length, sizeof(uint)),
+            ProductionPersistenceVersionPolicy.JournalSchemaVersion);
 
-        var sequenceOffset = EntryMagic.Length + sizeof(uint);
+        var sequenceOffset = EntryFormatFamilyMagic.Length + sizeof(uint);
         BinaryPrimitives.WriteUInt64BigEndian(
             prefix.AsSpan(sequenceOffset, sizeof(ulong)),
             sequence);

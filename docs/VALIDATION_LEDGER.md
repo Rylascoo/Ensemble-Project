@@ -143,6 +143,25 @@ Native lifecycle-reconstruction authority is exact source `7694f75...`; later ev
 | Earned scope | current Production-name persistence reconstructs and recovers across real native ARM64 OS process boundaries |
 | Authority scope | not packaged-app relaunch, device reboot/suspend-resume, arbitrary power-loss certification, snapshots/export, broader ontology, final storage/concurrency, complete P1 or release authority |
 
+### Q-PROD-01 persistence schema/version policy checkpoint
+
+| Field | Fact |
+|---|---|
+| Lease | `ENG1-QPROD01-PERSIST-01` |
+| Base | `09f172d8fe50964f1d5c39f1ddf0f0bddb94d8ab`; push-triggered Validation #974 PASS |
+| Exact source | `f6a9f0f6b3abc6d8a34debfcfdc9dac0474e0147` |
+| Validation tag | `validation/q-prod-01-persistence-version-policy-native-arm64` |
+| Evidence | `docs/evidence/Q_PROD_01_PERSISTENCE_VERSION_POLICY_NATIVE_ARM64_VALIDATION_2026_09_17.md` |
+| Host | SurfSeven, native Windows ARM64 |
+| Native tests | Persistence 30/30 PASS; Application 13/13 PASS |
+| WinUI compiler | ARM64 Release PASS, 0 warnings/errors |
+| Repository guards | law PASS; census 338/217/30/91/0; oracle 288/17/271; diff PASS |
+| Earned policy | stable file-family magic; physical journal/head schema uint v1; Product event contract version independent; integrity-valid unsupported versions typed as compatibility; corrupted version bytes remain corruption; no implicit migration/rewrite |
+| Source scope | five Persistence-owned source/test files; no Application/Windows/provider/E0/shared-authority source mutation |
+| Authority scope | integration pending; no migration engine, catalog/ProductionId layout, snapshots/export, final storage/concurrency, broader ontology, complete P1 or release authority |
+
+Exact native authority is source `f6a9f0f...`; later evidence/integration commits do not inherit machine-test authority.
+
 ### Q-DESIGN-20 bounded native-corrections checkpoint
 
 | Field | Fact |
