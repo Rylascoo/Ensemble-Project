@@ -32,12 +32,24 @@ EXPECTED_PROJECT_REFERENCES: dict[str, set[str]] = {
     },
     "src/Kymaean.Windows/Kymaean.Windows.csproj": {
         "src/Kymaean.Application/Kymaean.Application.csproj",
-        "src/Kymaean.Infrastructure.Demo/Kymaean.Infrastructure.Demo.csproj",
+        "src/Kymaean.Infrastructure.Persistence/Kymaean.Infrastructure.Persistence.csproj",
     },
     "tests/Kymaean.Application.Tests/Kymaean.Application.Tests.csproj": {
         "src/Kymaean.Application/Kymaean.Application.csproj",
         "src/Kymaean.Infrastructure.Demo/Kymaean.Infrastructure.Demo.csproj",
     },
+}
+
+# Transitional allowance for ENG3-QPROD01-WINCOMP-01 / Issue #186.
+# Remove this legacy Demo graph immediately after the Windows production
+# composition checkpoint integrates; the canonical graph above is Persistence.
+TRANSITIONAL_PROJECT_REFERENCE_SETS: dict[str, tuple[set[str], ...]] = {
+    "src/Kymaean.Windows/Kymaean.Windows.csproj": (
+        {
+            "src/Kymaean.Application/Kymaean.Application.csproj",
+            "src/Kymaean.Infrastructure.Demo/Kymaean.Infrastructure.Demo.csproj",
+        },
+    ),
 }
 FORBIDDEN_SOURCE_PROVIDER_TOKENS = ("openai_api_key", "api.openai.com", "openairesponsesport")
 FORBIDDEN_TEST_PROVIDER_TOKENS = ("api.openai.com", "openairesponsesport")
@@ -87,8 +99,15 @@ def check_project_graph(errors: list[str]) -> None:
             for element in root.iter()
             if element.tag.rsplit("}", 1)[-1] == "ProjectReference" and "Include" in element.attrib
         }
-        if actual_refs != expected_refs:
-            errors.append(f"project dependency mismatch for {project}: expected={sorted(expected_refs)} actual={sorted(actual_refs)}")
+        allowed_refs = (
+            expected_refs,
+            *TRANSITIONAL_PROJECT_REFERENCE_SETS.get(project, ()),
+        )
+        if actual_refs not in allowed_refs:
+            errors.append(
+                f"project dependency mismatch for {project}: "
+                f"expected={sorted(expected_refs)} actual={sorted(actual_refs)}"
+            )
     harness = ROOT / "src/Ensemble.E0.Harness/Ensemble.E0.Harness.csproj"
     if harness.exists():
         root = read_xml(harness)
