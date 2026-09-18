@@ -17,14 +17,16 @@ public sealed partial class MainPage : Page
     {
         base.OnNavigatedTo(e);
 
-        if (e.Parameter is not WorkspaceApplication workspace)
+        if (e.Parameter is not WindowsStartupResult startup)
         {
-            throw new InvalidOperationException("Main page requires a workspace application.");
+            throw new InvalidOperationException(
+                "Main page requires the Windows startup result.");
         }
 
-        DataContext = new MainPageViewModel(workspace);
+        DataContext = new MainPageViewModel(startup);
         ShellNavigation.SelectedItem = HomeNavigationItem;
     }
+
     private void OnNavigationSelectionChanged(
         NavigationView sender,
         NavigationViewSelectionChangedEventArgs args)
@@ -39,27 +41,33 @@ public sealed partial class MainPage : Page
         viewModel.NavigateShell(route);
     }
 
-    private void OnBackClicked(object sender, RoutedEventArgs e)
+    private void OnProductionSelectionChanged(
+        object sender,
+        SelectionChangedEventArgs e)
     {
-        if (DataContext is not MainPageViewModel viewModel ||
-            !viewModel.BackCommand.CanExecute(null))
+        if (DataContext is MainPageViewModel viewModel &&
+            sender is ListView listView)
         {
-            return;
+            viewModel.SelectProduction(
+                listView.SelectedItem as ProductionSummary);
         }
-
-        viewModel.BackCommand.Execute(null);
-        FocusActiveProductControl(viewModel.ActiveSpace);
     }
-    private void FocusActiveProductControl(ProductSpace space)
-    {
-        var control = space switch
-        {
-            ProductSpace.Studio => ShapingButton,
-            ProductSpace.Stage => LiveStageButton,
-            ProductSpace.Archive => HistoryButton,
-            _ => throw new InvalidOperationException("Unknown product space.")
-        };
 
-        control.Focus(FocusState.Keyboard);
+    private void OnOpenProductionClicked(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is MainPageViewModel viewModel &&
+            viewModel.OpenSelectedProduction())
+        {
+            ShellNavigation.SelectedItem = CurrentProductionNavigationItem;
+        }
+    }
+
+    private void OnRecoverProductionClicked(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is MainPageViewModel viewModel &&
+            viewModel.RecoverSelectedProduction())
+        {
+            ShellNavigation.SelectedItem = CurrentProductionNavigationItem;
+        }
     }
 }

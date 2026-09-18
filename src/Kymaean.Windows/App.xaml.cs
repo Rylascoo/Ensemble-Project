@@ -1,5 +1,5 @@
 using Kymaean.Application;
-using Kymaean.Infrastructure.Demo;
+using Kymaean.Infrastructure.Persistence;
 using Microsoft.UI.Xaml;
 
 namespace Kymaean.Windows;
@@ -15,15 +15,16 @@ public partial class App : Microsoft.UI.Xaml.Application
 
     protected override void OnLaunched(LaunchActivatedEventArgs args)
     {
-        var fixturePath = Path.Combine(
-            AppContext.BaseDirectory,
-            "Fixtures",
-            "missing-raft-0.1.0.json");
+        var startup = WindowsStartupComposition.Compose(
+            () =>
+            {
+                var applicationRoot =
+                    global::Windows.Storage.ApplicationData.Current.LocalFolder.Path;
+                var catalog = new FileProductionCatalog(applicationRoot);
+                return ProductApplication.Start(catalog);
+            });
 
-        var store = MissingRaftDemoProductionStore.FromFile(fixturePath);
-        var workspace = new WorkspaceApplication(store);
-
-        _window = new MainWindow(workspace);
+        _window = new MainWindow(startup);
         _window.Activate();
     }
 }
