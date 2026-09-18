@@ -14,6 +14,7 @@ public sealed class ProductionProjectionSnapshotTests
         8 + sizeof(uint) + sizeof(ulong) + 32 + sizeof(uint);
     private const int SnapshotChecksumLength = 32;
     private const string SnapshotFileName = ".projection.snapshot";
+    private const string PendingSnapshotPrefix = ".pending-projection-snapshot-";
 
     [TestMethod]
     public void MissingSnapshotIsRebuiltFromAuthoritativeJournal()
@@ -372,6 +373,34 @@ public sealed class ProductionProjectionSnapshotTests
             result.Value.ProductionName);
         Assert.IsTrue(
             Directory.Exists(SnapshotPath(entry)));
+    }
+
+    [TestMethod]
+    public void InterruptedPendingSnapshotIsDiscardedBeforeRebuild()
+    {
+        using var directory = new TestDirectory();
+        var id = new ProductionId("snapshot-pending");
+        var entry = CreateProduction(
+            directory.Path,
+            1,
+            id,
+            "Pending Harbor");
+        var pendingPath = Path.Combine(
+            entry,
+            $"{PendingSnapshotPrefix}orphan");
+        File.WriteAllBytes(
+            pendingPath,
+            Encoding.ASCII.GetBytes("partial snapshot"));
+
+        var result = new FileProductionCatalog(directory.Path)
+            .OpenProduction(id);
+
+        Assert.IsTrue(result.IsSuccess);
+        Assert.AreEqual(
+            "Pending Harbor",
+            result.Value.ProductionName);
+        Assert.IsFalse(File.Exists(pendingPath));
+        AssertSnapshot(entry, "Pending Harbor");
     }
 
     private static string CreateProduction(
