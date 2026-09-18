@@ -28,11 +28,17 @@ public sealed class FileProductionEventStore : IProductionEventStore
     }
 
     public IReadOnlyList<ProductionEvent> LoadAll() =>
+        LoadValidatedHistory().Events;
+
+    internal ValidatedProductionHistory LoadValidatedHistory() =>
         DecodeAndValidate(_journal.ReadAll());
 
-    public IReadOnlyList<ProductionEvent> Recover()
+    public IReadOnlyList<ProductionEvent> Recover() =>
+        RecoverValidatedHistory().Events;
+
+    internal ValidatedProductionHistory RecoverValidatedHistory()
     {
-        IReadOnlyList<ProductionEvent>? recovered = null;
+        ValidatedProductionHistory? recovered = null;
         _journal.RecoverValidated(
             entries => recovered = DecodeAndValidate(entries));
 
@@ -47,7 +53,7 @@ public sealed class FileProductionEventStore : IProductionEventStore
         _ = DecodeAndValidate(entries);
     }
 
-    private static IReadOnlyList<ProductionEvent> DecodeAndValidate(
+    private static ValidatedProductionHistory DecodeAndValidate(
         IReadOnlyList<ProductionJournalEntry> entries)
     {
         var events = new ProductionEvent[entries.Count];
@@ -56,14 +62,32 @@ public sealed class FileProductionEventStore : IProductionEventStore
             events[index] = ProductionEventCodec.Decode(entries[index].Payload);
         }
 
+        ProductionReplayProjection? projection = null;
+        ProductionJournalAnchor? anchor = null;
         if (events.Length > 0)
         {
-            _ = ProductionReplay.Rebuild(events);
+            projection = ProductionReplay.Rebuild(events);
+            var last = entries[^1];
+            anchor = new ProductionJournalAnchor(
+                last.Sequence,
+                last.RecordHash);
         }
 
-        return events;
+        return new ValidatedProductionHistory(
+            events,
+            projection,
+            anchor);
     }
 }
+
+internal sealed record ValidatedProductionHistory(
+    IReadOnlyList<ProductionEvent> Events,
+    ProductionReplayProjection? Projection,
+    ProductionJournalAnchor? Anchor);
+
+internal sealed record ProductionJournalAnchor(
+    ulong Sequence,
+    string RecordHash);
 
 internal static class ProductionEventCodec
 {
