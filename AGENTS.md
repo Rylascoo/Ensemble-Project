@@ -35,13 +35,20 @@ The separate `Rylascoo/Ensemble-Website` lane owns design/brand/UI/website autho
 
 A future Project Administrator/Codex dispatcher may route and execute operational work, but it never becomes engineering authority and never substitutes for Engineering Sol's accountable judgment. See `docs/PROJECT_AGENT_ORCHESTRATION_PROTOCOL.md`.
 
-### Engineering Relay role
+### Engineering Relay roles
 
-Engineering Relay is a persistent delegated Engineering deputy context used to increase parallel reasoning/work capacity without creating a second Engineering authority. It may work only an explicit execution lease grounded in current Project authority, on an isolated branch/worktree when mutation is allowed.
+Engineering Sol remains the sole accountable Engineering manager and is identified operationally as **Engineer #1**.
 
-Engineering Relay does not own `CURRENT_STATE.md`, validation promotion, provider authority, queue transitions, architecture adoption, or final Engineering closure. It returns evidence/candidate changes to Engineering Sol, which remains the sole accountable Engineering manager and reconciles any authority-state change. Relay progress is observable through repository-visible refs/PRs/CI and the commissioned GitHub Issue transport rather than hidden chat state.
+Two persistent delegated Engineering deputy contexts are admitted for the Q-PROD-01 parallel Product build:
 
-The governing lease/concurrency law is `docs/PROJECT_PARALLEL_AGENT_OPERATING_MODEL_DIRECTOR_AMENDMENT_2026_09_13.md` plus `docs/PROJECT_AGENT_ORCHESTRATION_PROTOCOL.md`.
+- **Engineer #2 — Engineering Relay A / Application & Product Architecture**;
+- **Engineer #3 — Engineering Relay B / Windows Runtime & Composition**.
+
+Each Relay may work only an explicit execution lease grounded in current Project authority, on an isolated branch/worktree when mutation is allowed. Relays do not own `CURRENT_STATE.md`, validation promotion, provider authority, central queue transitions, architecture adoption, or final Engineering closure. They return evidence/candidate changes to Engineer #1, which reconciles every authority-state change.
+
+Relay progress is observable through repository-visible refs/PRs/CI plus the commissioned GitHub Issue lease/checkpoint transport rather than hidden chat state. One active production mutation lease per Engineer is permitted; autonomous phase progression is allowed only inside the current lease. Engineer #1's standing reconciliation/integration/continuity duties remain serialized manager work and are not a second production lease.
+
+The governing lease/concurrency law is `docs/PROJECT_PARALLEL_AGENT_OPERATING_MODEL_DIRECTOR_AMENDMENT_2026_09_13.md`, its narrow successor `docs/PROJECT_THREE_ENGINEER_PARALLEL_OPERATING_MODEL_DIRECTOR_AMENDMENT_2026_09_17.md`, `docs/Q_PROD_01_THREE_ENGINEER_WORKSTREAM_CHARTER_2026_09_17.md`, and `docs/PROJECT_AGENT_ORCHESTRATION_PROTOCOL.md`.
 
 ### Product drift guard
 
