@@ -75,6 +75,110 @@ public sealed class FileProductionEventStoreTests
 
         Assert.ThrowsExactly<InvalidDataException>(() => store.LoadAll());
     }
+
+    [TestMethod]
+    public void EmptyStoreRemainsAValidStorageState()
+    {
+        using var directory = new TestDirectory();
+        var store = new FileProductionEventStore(directory.Path);
+
+        Assert.HasCount(0, store.LoadAll());
+        Assert.HasCount(0, store.Recover());
+    }
+
+    [TestMethod]
+    public void AppendRejectsReplayInvalidHistoryBeforeJournalMutation()
+    {
+        using var directory = new TestDirectory();
+        var store = new FileProductionEventStore(directory.Path);
+        store.Append(new ProductionCreatedEvent("First"));
+
+        var before = new FileProductionJournal(directory.Path).ReadAll().Single();
+
+        Assert.ThrowsExactly<InvalidOperationException>(
+            () => store.Append(new ProductionCreatedEvent("Second")));
+
+        var after = new FileProductionJournal(directory.Path).ReadAll().Single();
+        Assert.AreEqual(before.RecordHash, after.RecordHash);
+        Assert.AreEqual(before.Sequence, after.Sequence);
+    }
+
+    [TestMethod]
+    public void LoadAllRejectsReplayInvalidCommittedHistory()
+    {
+        using var directory = new TestDirectory();
+        var journal = new FileProductionJournal(directory.Path);
+        journal.Append(CreatedPayload("First"));
+        journal.Append(CreatedPayload("Second"));
+
+        var store = new FileProductionEventStore(directory.Path);
+
+        Assert.ThrowsExactly<InvalidOperationException>(() => store.LoadAll());
+    }
+
+    [TestMethod]
+    public void RecoverPromotesSemanticallyValidInitialCrashEntry()
+    {
+        using var directory = new TestDirectory();
+        var journal = new FileProductionJournal(directory.Path);
+        journal.Append(CreatedPayload("Harbor"));
+        File.Delete(HeadPath(directory.Path));
+
+        var recovered = new FileProductionEventStore(directory.Path).Recover();
+
+        var created = Assert.IsInstanceOfType<ProductionCreatedEvent>(recovered.Single());
+        Assert.AreEqual("Harbor", created.ProductionName);
+        Assert.HasCount(1, new FileProductionJournal(directory.Path).ReadAll());
+    }
+
+    [TestMethod]
+    public void RecoverRejectsUndecodableCrashSuffixBeforeHeadPromotion()
+    {
+        using var directory = new TestDirectory();
+        var journal = new FileProductionJournal(directory.Path);
+        journal.Append(CreatedPayload("Harbor"));
+        var committedHead = File.ReadAllBytes(HeadPath(directory.Path));
+        journal.Append(Encoding.UTF8.GetBytes(
+            "{\"contract\":\"kymaean.production.unknown.v1\"}"));
+        File.WriteAllBytes(HeadPath(directory.Path), committedHead);
+
+        var store = new FileProductionEventStore(directory.Path);
+
+        Assert.ThrowsExactly<InvalidDataException>(() => store.Recover());
+        CollectionAssert.AreEqual(
+            committedHead,
+            File.ReadAllBytes(HeadPath(directory.Path)));
+        Assert.Throws<ProductionJournalCorruptionException>(
+            () => new FileProductionJournal(directory.Path).ReadAll());
+    }
+
+    [TestMethod]
+    public void RecoverRejectsReplayInvalidCrashSuffixBeforeHeadPromotion()
+    {
+        using var directory = new TestDirectory();
+        var journal = new FileProductionJournal(directory.Path);
+        journal.Append(CreatedPayload("First"));
+        var committedHead = File.ReadAllBytes(HeadPath(directory.Path));
+        journal.Append(CreatedPayload("Second"));
+        File.WriteAllBytes(HeadPath(directory.Path), committedHead);
+
+        var store = new FileProductionEventStore(directory.Path);
+
+        Assert.ThrowsExactly<InvalidOperationException>(() => store.Recover());
+        CollectionAssert.AreEqual(
+            committedHead,
+            File.ReadAllBytes(HeadPath(directory.Path)));
+        Assert.Throws<ProductionJournalCorruptionException>(
+            () => new FileProductionJournal(directory.Path).ReadAll());
+    }
+
+    private static byte[] CreatedPayload(string productionName) =>
+        Encoding.UTF8.GetBytes(
+            $"{{\"contract\":\"kymaean.production.created.v1\",\"productionName\":\"{productionName}\"}}");
+
+    private static string HeadPath(string rootDirectory) =>
+        Path.Combine(rootDirectory, ".journal.head");
+
     private sealed class TestDirectory : IDisposable
     {
         public TestDirectory()

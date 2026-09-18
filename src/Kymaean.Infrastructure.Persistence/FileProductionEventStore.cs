@@ -15,19 +15,42 @@ public sealed class FileProductionEventStore : IProductionEventStore
     public void Append(ProductionEvent productionEvent)
     {
         ArgumentNullException.ThrowIfNull(productionEvent);
-        _journal.Append(ProductionEventCodec.Encode(productionEvent));
+        var payload = ProductionEventCodec.Encode(productionEvent);
+        _journal.AppendValidated(payload, ValidateEntries);
     }
 
     public IReadOnlyList<ProductionEvent> LoadAll() =>
-        DecodeEntries(_journal.ReadAll());
+        DecodeAndValidate(_journal.ReadAll());
 
-    private static IReadOnlyList<ProductionEvent> DecodeEntries(
+    public IReadOnlyList<ProductionEvent> Recover()
+    {
+        IReadOnlyList<ProductionEvent>? recovered = null;
+        _journal.RecoverValidated(
+            entries => recovered = DecodeAndValidate(entries));
+
+        return recovered
+            ?? throw new InvalidOperationException(
+                "Production recovery did not validate a history.");
+    }
+
+    private static void ValidateEntries(
+        IReadOnlyList<ProductionJournalEntry> entries)
+    {
+        _ = DecodeAndValidate(entries);
+    }
+
+    private static IReadOnlyList<ProductionEvent> DecodeAndValidate(
         IReadOnlyList<ProductionJournalEntry> entries)
     {
         var events = new ProductionEvent[entries.Count];
         for (var index = 0; index < entries.Count; index++)
         {
             events[index] = ProductionEventCodec.Decode(entries[index].Payload);
+        }
+
+        if (events.Length > 0)
+        {
+            _ = ProductionReplay.Rebuild(events);
         }
 
         return events;

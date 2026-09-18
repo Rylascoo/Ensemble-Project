@@ -30,7 +30,20 @@ public sealed class FileProductionJournal
         Directory.CreateDirectory(_rootDirectory);
     }
 
-    public ProductionJournalEntry Append(ReadOnlySpan<byte> payload)
+    public ProductionJournalEntry Append(ReadOnlySpan<byte> payload) =>
+        AppendCore(payload, validateCandidate: null);
+
+    internal ProductionJournalEntry AppendValidated(
+        ReadOnlySpan<byte> payload,
+        Action<IReadOnlyList<ProductionJournalEntry>> validateCandidate)
+    {
+        ArgumentNullException.ThrowIfNull(validateCandidate);
+        return AppendCore(payload, validateCandidate);
+    }
+
+    private ProductionJournalEntry AppendCore(
+        ReadOnlySpan<byte> payload,
+        Action<IReadOnlyList<ProductionJournalEntry>>? validateCandidate)
     {
         using var gate = AcquireGate();
         var entries = ReadValidatedEntriesUnsafe();
@@ -48,6 +61,19 @@ public sealed class FileProductionJournal
         var header = new byte[EntryHeaderLength];
         prefix.CopyTo(header, 0);
         recordHash.CopyTo(header, EntryPrefixLength);
+
+        var candidate = new ProductionJournalEntry(
+            sequence,
+            Hex(previousHash),
+            Hex(recordHash),
+            payloadBytes);
+        if (validateCandidate is not null)
+        {
+            var candidateEntries = new List<ProductionJournalEntry>(entries.Count + 1);
+            candidateEntries.AddRange(entries);
+            candidateEntries.Add(candidate);
+            validateCandidate(candidateEntries.AsReadOnly());
+        }
 
         var finalPath = Path.Combine(_rootDirectory, EntryFileName(sequence, recordHash));
         if (File.Exists(finalPath))
@@ -68,11 +94,7 @@ public sealed class FileProductionJournal
             TryDeletePending(pendingPath);
         }
 
-        return new ProductionJournalEntry(
-            sequence,
-            Hex(previousHash),
-            Hex(recordHash),
-            payloadBytes);
+        return candidate;
     }
 
     public IReadOnlyList<ProductionJournalEntry> ReadAll()
@@ -83,13 +105,25 @@ public sealed class FileProductionJournal
         return entries.AsReadOnly();
     }
 
-    public IReadOnlyList<ProductionJournalEntry> Recover()
+    public IReadOnlyList<ProductionJournalEntry> Recover() =>
+        RecoverCore(validateCandidate: null);
+
+    internal IReadOnlyList<ProductionJournalEntry> RecoverValidated(
+        Action<IReadOnlyList<ProductionJournalEntry>> validateCandidate)
+    {
+        ArgumentNullException.ThrowIfNull(validateCandidate);
+        return RecoverCore(validateCandidate);
+    }
+
+    private IReadOnlyList<ProductionJournalEntry> RecoverCore(
+        Action<IReadOnlyList<ProductionJournalEntry>>? validateCandidate)
     {
         using var gate = AcquireGate();
         DeletePendingFilesUnsafe();
 
         var entries = ReadValidatedEntriesUnsafe();
         var head = ReadHeadUnsafe();
+        var candidate = entries.AsReadOnly();
 
         if (entries.Count == 0)
         {
@@ -99,7 +133,8 @@ public sealed class FileProductionJournal
                     "Journal head claims committed history but no journal entries exist.");
             }
 
-            return entries.AsReadOnly();
+            validateCandidate?.Invoke(candidate);
+            return candidate;
         }
 
         if (head is not null)
@@ -118,6 +153,8 @@ public sealed class FileProductionJournal
             }
         }
 
+        validateCandidate?.Invoke(candidate);
+
         var last = entries[^1];
         if (head is null ||
             head.Sequence != last.Sequence ||
@@ -127,7 +164,7 @@ public sealed class FileProductionJournal
         }
 
         ValidateCommittedHeadUnsafe(entries);
-        return entries.AsReadOnly();
+        return candidate;
     }
 
     private FileStream AcquireGate() =>
