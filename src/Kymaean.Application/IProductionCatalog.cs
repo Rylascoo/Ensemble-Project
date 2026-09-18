@@ -2,7 +2,11 @@ namespace Kymaean.Application;
 
 public interface IProductionCatalog
 {
-    IReadOnlyList<ProductionSummary> ListProductions();
+    ProductAccessResult<IReadOnlyList<ProductionSummary>> ListProductions();
 
-    ProductionReplayProjection OpenProduction(ProductionId productionId);
+    ProductAccessResult<ProductionReplayProjection> OpenProduction(
+        ProductionId productionId);
+
+    ProductAccessResult<ProductionReplayProjection> RecoverProduction(
+        ProductionId productionId);
 }
