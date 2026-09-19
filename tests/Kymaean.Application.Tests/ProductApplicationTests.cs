@@ -574,8 +574,8 @@ public sealed class ProductApplicationTests
         WorldCurrentState currentState) =>
         new(name, currentState);
 
-    private static WorldCurrentState State(params string[] facts) =>
-        new(facts.Select(fact => new WorldCurrentFact(fact)));
+    private static WorldCurrentState State(params string[] truths) =>
+        new(truths.Select(truth => new WorldCurrentTruth(truth)));
 
     private sealed class StubCatalog :
         IProductionCatalog,

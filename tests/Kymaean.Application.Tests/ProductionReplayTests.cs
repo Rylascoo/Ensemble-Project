@@ -13,25 +13,25 @@ public sealed class ProductionReplayTests
     }
 
     [TestMethod]
-    public void WorldCurrentFactRejectsBlankText()
+    public void WorldCurrentTruthRejectsBlankText()
     {
         Assert.ThrowsExactly<ArgumentException>(
-            () => new WorldCurrentFact("   "));
+            () => new WorldCurrentTruth("   "));
     }
 
     [TestMethod]
-    public void WorldCurrentStateCanonicalizesFactOrder()
+    public void WorldCurrentStateCanonicalizesTruthOrder()
     {
         var first = State("The bridge is flooded.", "Dawn has broken.");
         var second = State("Dawn has broken.", "The bridge is flooded.");
 
         Assert.AreEqual(first, second);
-        Assert.AreEqual("Dawn has broken.", first.Facts[0].Text);
-        Assert.AreEqual("The bridge is flooded.", first.Facts[1].Text);
+        Assert.AreEqual("Dawn has broken.", first.Truths[0].Text);
+        Assert.AreEqual("The bridge is flooded.", first.Truths[1].Text);
     }
 
     [TestMethod]
-    public void WorldCurrentStateRejectsDuplicateFact()
+    public void WorldCurrentStateRejectsDuplicateTruth()
     {
         Assert.ThrowsExactly<ArgumentException>(
             () => State("The gate is locked.", "The gate is locked."));
@@ -125,6 +125,6 @@ public sealed class ProductionReplayTests
             () => ProductionReplay.Rebuild(history));
     }
 
-    private static WorldCurrentState State(params string[] facts) =>
-        new(facts.Select(fact => new WorldCurrentFact(fact)));
+    private static WorldCurrentState State(params string[] truths) =>
+        new(truths.Select(truth => new WorldCurrentTruth(truth)));
 }

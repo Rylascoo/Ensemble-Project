@@ -2,9 +2,9 @@ using System.Collections.Immutable;
 
 namespace Kymaean.Application;
 
-public sealed record WorldCurrentFact
+public sealed record WorldCurrentTruth
 {
-    public WorldCurrentFact(string text)
+    public WorldCurrentTruth(string text)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(text);
         Text = text;
@@ -16,18 +16,18 @@ public sealed record WorldCurrentFact
 public sealed class WorldCurrentState : IEquatable<WorldCurrentState>
 {
     public static WorldCurrentState Empty { get; } =
-        new(Array.Empty<WorldCurrentFact>());
+        new(Array.Empty<WorldCurrentTruth>());
 
-    public WorldCurrentState(IEnumerable<WorldCurrentFact> facts)
+    public WorldCurrentState(IEnumerable<WorldCurrentTruth> truths)
     {
-        ArgumentNullException.ThrowIfNull(facts);
+        ArgumentNullException.ThrowIfNull(truths);
 
-        var materialized = facts.ToArray();
-        if (materialized.Any(fact => fact is null))
+        var materialized = truths.ToArray();
+        if (materialized.Any(truth => truth is null))
         {
             throw new ArgumentException(
-                "World current state cannot contain a null fact.",
-                nameof(facts));
+                "World current state cannot contain a null truth.",
+                nameof(truths));
         }
 
         Array.Sort(
@@ -42,21 +42,21 @@ public sealed class WorldCurrentState : IEquatable<WorldCurrentState>
                     materialized[index].Text))
             {
                 throw new ArgumentException(
-                    "World current state cannot contain duplicate facts.",
-                    nameof(facts));
+                    "World current state cannot contain duplicate truths.",
+                    nameof(truths));
             }
         }
 
-        Facts = ImmutableArray.Create(materialized);
+        Truths = ImmutableArray.Create(materialized);
     }
 
-    public ImmutableArray<WorldCurrentFact> Facts { get; }
+    public ImmutableArray<WorldCurrentTruth> Truths { get; }
 
-    public bool IsEmpty => Facts.IsEmpty;
+    public bool IsEmpty => Truths.IsEmpty;
 
     public bool Equals(WorldCurrentState? other) =>
         ReferenceEquals(this, other)
-        || (other is not null && Facts.SequenceEqual(other.Facts));
+        || (other is not null && Truths.SequenceEqual(other.Truths));
 
     public override bool Equals(object? obj) =>
         obj is WorldCurrentState other && Equals(other);
@@ -64,9 +64,9 @@ public sealed class WorldCurrentState : IEquatable<WorldCurrentState>
     public override int GetHashCode()
     {
         var hash = new HashCode();
-        foreach (var fact in Facts)
+        foreach (var truth in Truths)
         {
-            hash.Add(fact);
+            hash.Add(truth);
         }
 
         return hash.ToHashCode();
