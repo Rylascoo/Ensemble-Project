@@ -15,7 +15,7 @@ Final policy tag `validation/q-prod-01-final-provisional-storage-concurrency-pol
 Earned policy is per-Production exclusive fail-fast journal coordination, independent per-root gates without catalog-global atomicity, journal causal authority over rebuildable snapshots/point-in-history export, and no general hardware/filesystem power-loss certification. No runtime defect was exposed.
 
 ## Parallel Engineering
-Engineer #1's chartered five-rung Q-PROD-01 Persistence sequence is source-integrated; this manager closeout retires `ENG1-QPROD01-POLICY-06` / #220. Engineers #2 and #3 have no active mutation lease.
+Engineer #1's five-rung Persistence sequence is COMPLETE: #220 closed, archive tags preserved, exact-main Validation #1055 PASS. Engineer #2 lease `ENG2-QPROD01-DESIGNARCH-02` / #223 is open from `main@828e643dee05f92825ac0c57b6dc7aa8240b4d2f`; its Issue carries live state. Engineer #3 has no mutation lease.
 
 `DESIGN_ARCHITECTURE_READY` remains NOT READY because authoritative persisted Production-internal content beyond `ProductionName` is unearned. Existing Design-authorized work may proceed; new runtime-dependent Design meaning requires integrated exact-main Engineering truth.
 
@@ -23,4 +23,4 @@ Engineer #1's chartered five-rung Q-PROD-01 Persistence sequence is source-integ
 P03 Slot 1 remains on Director deferred-test hold with namespace unconsumed/provider traffic zero; Slot 2 remains unauthorized. Frozen E0 provider association is E0-only. Preserved chain: `docs/evidence/E0D_Q_E0D_01_P03_SLOT1_PREEXECUTION_ACTIVATION_2026_09_17.md`.
 
 ## Next
-After this continuity closeout is exact-main green and #220 is closed, do not auto-extend Persistence. Select any successor Engineer work from fresh repository authority and a new lease. Q-PROD-01 remains active while richer authoritative Product architecture/persistence needed for `DESIGN_ARCHITECTURE_READY` is still unearned.
+Engineer #2 may activate #223 for its mandatory read-only Application/Product architecture audit. Do not auto-extend Persistence; Engineer #3 waits for an explicit Windows consumer lease. Q-PROD-01 remains active; `DESIGN_ARCHITECTURE_READY = NOT READY`.
