@@ -35,6 +35,8 @@ The former long Engineering personality prompt is historical migration input onc
 
 `docs/PROJECT_PARALLEL_AGENT_OPERATING_MODEL_DIRECTOR_AMENDMENT_2026_09_13.md` is the Director-approved amendment governing delegated Relay leases, the Ryladmin runtime-ownership split, and the gated MA-series admission path.
 
+`docs/PROJECT_CODEX_ADMINISTRATOR_ESTABLISHMENT_DIRECTOR_AUTHORIZATION_2026_09_19.md` records the Director-approved Ryladmin/Codex establishment program and conditional successor commissioning. It preserves existing failed evidence, owning-lane authority, and default-off runtime capabilities until tested admission; routine in-scope establishment work no longer needs repeated broad permission.
+
 The role hierarchy is:
 
 - **Director** — product/policy/provider/spend/consequential authority;
