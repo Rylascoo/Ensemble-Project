@@ -1,10 +1,32 @@
 namespace Kymaean.Application;
 
-public sealed record ProductionReplayProjection(string ProductionName);
+public sealed record ProductionReplayProjection
+{
+    public ProductionReplayProjection(string productionName)
+        : this(productionName, WorldCurrentState.Empty)
+    {
+    }
+
+    public ProductionReplayProjection(
+        string productionName,
+        WorldCurrentState worldCurrentState)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(productionName);
+        ArgumentNullException.ThrowIfNull(worldCurrentState);
+
+        ProductionName = productionName;
+        WorldCurrentState = worldCurrentState;
+    }
+
+    public string ProductionName { get; }
+
+    public WorldCurrentState WorldCurrentState { get; }
+}
 
 public static class ProductionReplay
 {
-    public static ProductionReplayProjection Rebuild(IReadOnlyList<ProductionEvent> history)
+    public static ProductionReplayProjection Rebuild(
+        IReadOnlyList<ProductionEvent> history)
     {
         ArgumentNullException.ThrowIfNull(history);
 
@@ -18,11 +40,25 @@ public static class ProductionReplay
             switch (productionEvent)
             {
                 case ProductionCreatedEvent created when projection is null:
-                    projection = new ProductionReplayProjection(created.ProductionName);
+                    projection = new ProductionReplayProjection(
+                        created.ProductionName);
                     break;
+
                 case ProductionCreatedEvent:
                     throw new InvalidOperationException(
                         "Production history contains more than one creation event.");
+
+                case CreatorReplacedWorldCurrentStateEvent
+                    when projection is null:
+                    throw new InvalidOperationException(
+                        "World current state cannot be established before Production creation.");
+
+                case CreatorReplacedWorldCurrentStateEvent replaced:
+                    projection = new ProductionReplayProjection(
+                        projection.ProductionName,
+                        replaced.CurrentState);
+                    break;
+
                 default:
                     throw new NotSupportedException(
                         $"Production event type '{productionEvent.GetType().Name}' is not replayable.");

@@ -355,6 +355,152 @@ public sealed class ProductApplicationTests
     }
 
     [TestMethod]
+    public void ReplacingWorldCurrentStateRequiresOpenProduction()
+    {
+        var application = Start(
+            new StubCatalog(Summary("P-001", "First")));
+
+        Assert.ThrowsExactly<InvalidOperationException>(
+            () => application.ReplaceWorldCurrentState(
+                State("The doors are locked.")));
+    }
+
+    [TestMethod]
+    public void ReplacingWorldCurrentStateRequiresWriterCapability()
+    {
+        var summary = Summary("P-001", "First");
+        var catalog = new ReadOnlyCatalog(summary);
+        var application = Start(catalog);
+        application.OpenProduction(summary.Id);
+
+        Assert.ThrowsExactly<InvalidOperationException>(
+            () => application.ReplaceWorldCurrentState(
+                State("The doors are locked.")));
+    }
+
+    [TestMethod]
+    public void WorldCurrentStateReplacementPreservesNavigationState()
+    {
+        var summary = Summary("P-001", "First");
+        var catalog = new StubCatalog(summary);
+        catalog.SetOpenSuccess(summary.Id, Replay("First"));
+        var requested = State(
+            "The road is flooded.",
+            "The ferry has stopped running.");
+        catalog.SetWorldStateSuccess(
+            summary.Id,
+            Replay("First", requested));
+        var application = Start(catalog);
+
+        application.OpenProduction(summary.Id, ProductSpace.Archive);
+        application.Navigate(ApplicationScope.Settings);
+
+        var result = application.ReplaceWorldCurrentState(requested);
+
+        Assert.IsTrue(result.IsSuccess);
+        Assert.AreEqual(ApplicationScope.Settings, result.Value.ActiveScope);
+        Assert.IsNull(result.Value.ActiveProductSpace);
+        Assert.AreEqual(
+            requested,
+            result.Value.CurrentProductionReplay!.WorldCurrentState);
+        Assert.AreEqual(1, catalog.WorldStateWriteCount);
+        Assert.AreEqual(summary.Id, catalog.LastWorldStateWriteId);
+        Assert.AreEqual(requested, catalog.LastRequestedWorldCurrentState);
+
+        var returned = application.Navigate(
+            ApplicationScope.CurrentProduction);
+        Assert.AreEqual(ProductSpace.Archive, returned.ActiveProductSpace);
+        Assert.AreEqual(
+            requested,
+            returned.CurrentProductionReplay!.WorldCurrentState);
+    }
+
+    [TestMethod]
+    public void WorldCurrentStateIncompatibleFailurePreservesPriorState()
+    {
+        var summary = Summary("P-001", "First");
+        var catalog = new StubCatalog(summary);
+        catalog.SetOpenSuccess(
+            summary.Id,
+            Replay("First", State("The gate is open.")));
+        catalog.SetWorldStateFailure(
+            summary.Id,
+            ProductAccessFailureKind.Incompatible);
+        var application = Start(catalog);
+        application.OpenProduction(summary.Id, ProductSpace.Studio);
+        var before = application.Query();
+
+        var result = application.ReplaceWorldCurrentState(
+            State("The gate is closed."));
+
+        AssertFailure(result, ProductAccessFailureKind.Incompatible);
+        AssertSameState(before, application.Query());
+    }
+
+    [TestMethod]
+    public void WorldCurrentStateInvalidFailurePreservesPriorState()
+    {
+        var summary = Summary("P-001", "First");
+        var catalog = new StubCatalog(summary);
+        catalog.SetOpenSuccess(
+            summary.Id,
+            Replay("First", State("The gate is open.")));
+        catalog.SetWorldStateFailure(
+            summary.Id,
+            ProductAccessFailureKind.Invalid);
+        var application = Start(catalog);
+        application.OpenProduction(summary.Id, ProductSpace.Stage);
+        var before = application.Query();
+
+        var result = application.ReplaceWorldCurrentState(
+            State("The gate is closed."));
+
+        AssertFailure(result, ProductAccessFailureKind.Invalid);
+        AssertSameState(before, application.Query());
+    }
+
+    [TestMethod]
+    public void WorldCurrentStateStaleSuccessReturnsInvalidAndPreservesState()
+    {
+        var summary = Summary("P-001", "First");
+        var catalog = new StubCatalog(summary);
+        var prior = State("The gate is open.");
+        var requested = State("The gate is closed.");
+        catalog.SetOpenSuccess(summary.Id, Replay("First", prior));
+        catalog.SetWorldStateSuccess(
+            summary.Id,
+            Replay("First", prior));
+        var application = Start(catalog);
+        application.OpenProduction(summary.Id, ProductSpace.Stage);
+        var before = application.Query();
+
+        var result = application.ReplaceWorldCurrentState(requested);
+
+        AssertFailure(result, ProductAccessFailureKind.Invalid);
+        AssertSameState(before, application.Query());
+    }
+
+    [TestMethod]
+    public void WorldCurrentStateNameMismatchReturnsInvalidAndPreservesState()
+    {
+        var summary = Summary("P-001", "First");
+        var catalog = new StubCatalog(summary);
+        var requested = State("The gate is closed.");
+        catalog.SetOpenSuccess(summary.Id, Replay("First"));
+        catalog.SetWorldStateSuccess(
+            summary.Id,
+            Replay("Different Name", requested));
+        var application = Start(catalog);
+        application.OpenProduction(summary.Id, ProductSpace.Stage);
+        var before = application.Query();
+
+        var result = application.ReplaceWorldCurrentState(requested);
+
+        AssertFailure(result, ProductAccessFailureKind.Invalid);
+        AssertSameState(before, application.Query());
+    }
+
+    [TestMethod]
     public void ResultSuccessRejectsNullValue()
     {
         Assert.ThrowsExactly<ArgumentNullException>(
@@ -384,7 +530,7 @@ public sealed class ProductApplicationTests
             () => _ = failure.Value);
     }
 
-    private static ProductApplication Start(StubCatalog catalog)
+    private static ProductApplication Start(IProductionCatalog catalog)
     {
         var result = ProductApplication.Start(catalog);
         Assert.IsTrue(result.IsSuccess);
@@ -423,7 +569,17 @@ public sealed class ProductApplicationTests
     private static ProductionReplayProjection Replay(string name) =>
         new(name);
 
-    private sealed class StubCatalog : IProductionCatalog
+    private static ProductionReplayProjection Replay(
+        string name,
+        WorldCurrentState currentState) =>
+        new(name, currentState);
+
+    private static WorldCurrentState State(params string[] truths) =>
+        new(truths.Select(truth => new WorldCurrentTruth(truth)));
+
+    private sealed class StubCatalog :
+        IProductionCatalog,
+        IProductionWorldStateWriter
     {
         private readonly ProductAccessResult<IReadOnlyList<ProductionSummary>>
             _listResult;
@@ -434,6 +590,9 @@ public sealed class ProductApplicationTests
         private readonly Dictionary<
             ProductionId,
             ProductAccessResult<ProductionReplayProjection>> _recoverResults = [];
+        private readonly Dictionary<
+            ProductionId,
+            ProductAccessResult<ProductionReplayProjection>> _worldStateResults = [];
 
         public StubCatalog(params ProductionSummary[] productions)
             : this(
@@ -451,8 +610,11 @@ public sealed class ProductApplicationTests
         public int ListCount { get; private set; }
         public int OpenCount { get; private set; }
         public int RecoverCount { get; private set; }
+        public int WorldStateWriteCount { get; private set; }
         public ProductionId? LastOpenedId { get; private set; }
         public ProductionId? LastRecoveredId { get; private set; }
+        public ProductionId? LastWorldStateWriteId { get; private set; }
+        public WorldCurrentState? LastRequestedWorldCurrentState { get; private set; }
 
         public static StubCatalog WithListFailure(
             ProductAccessFailureKind kind) =>
@@ -483,6 +645,18 @@ public sealed class ProductApplicationTests
             _recoverResults[id] =
                 ProductAccessResult<ProductionReplayProjection>.Failure(kind);
 
+        public void SetWorldStateSuccess(
+            ProductionId id,
+            ProductionReplayProjection replay) =>
+            _worldStateResults[id] =
+                ProductAccessResult<ProductionReplayProjection>.Success(replay);
+
+        public void SetWorldStateFailure(
+            ProductionId id,
+            ProductAccessFailureKind kind) =>
+            _worldStateResults[id] =
+                ProductAccessResult<ProductionReplayProjection>.Failure(kind);
+
         public ProductAccessResult<IReadOnlyList<ProductionSummary>>
             ListProductions()
         {
@@ -510,5 +684,46 @@ public sealed class ProductApplicationTests
                 : ProductAccessResult<ProductionReplayProjection>.Failure(
                     ProductAccessFailureKind.Invalid);
         }
+
+        public ProductAccessResult<ProductionReplayProjection>
+            ReplaceWorldCurrentState(
+                ProductionId productionId,
+                WorldCurrentState currentState)
+        {
+            WorldStateWriteCount++;
+            LastWorldStateWriteId = productionId;
+            LastRequestedWorldCurrentState = currentState;
+            return _worldStateResults.TryGetValue(
+                    productionId,
+                    out var result)
+                ? result
+                : ProductAccessResult<ProductionReplayProjection>.Failure(
+                    ProductAccessFailureKind.Invalid);
+        }
+    }
+
+    private sealed class ReadOnlyCatalog : IProductionCatalog
+    {
+        private readonly ProductionSummary _summary;
+
+        public ReadOnlyCatalog(ProductionSummary summary)
+        {
+            _summary = summary;
+        }
+
+        public ProductAccessResult<IReadOnlyList<ProductionSummary>>
+            ListProductions() =>
+            ProductAccessResult<IReadOnlyList<ProductionSummary>>.Success(
+                new[] { _summary });
+
+        public ProductAccessResult<ProductionReplayProjection> OpenProduction(
+            ProductionId productionId) =>
+            ProductAccessResult<ProductionReplayProjection>.Success(
+                Replay(_summary.ProductionName));
+
+        public ProductAccessResult<ProductionReplayProjection> RecoverProduction(
+            ProductionId productionId) =>
+            ProductAccessResult<ProductionReplayProjection>.Success(
+                Replay(_summary.ProductionName));
     }
 }
