@@ -16,10 +16,10 @@ Engineer #1's five-rung Persistence sequence is COMPLETE; #220 closed. Engineer 
 `DESIGN_ARCHITECTURE_READY = NOT READY`. No integrated persisted Product-internal truth beyond `ProductionName` is promoted here. Existing Design evidence remains owned by Design; paused chats are not implicitly resumed.
 
 ## Administrator establishment
-Q-ADMIN-04 is Director-approved preparation for later Codex resume under `docs/PROJECT_CODEX_ADMINISTRATOR_ESTABLISHMENT_DIRECTOR_AUTHORIZATION_2026_09_19.md`. Ryladmin owns implementation/continuity, not Engineering or Design authority. Old MA-01 attempts remain consumed; native subagents default-off, Reviewer suspended, C10 falsified and C11+ blocked until their own evidence gates pass. Required quota/write addendum: `docs/PROJECT_ADMINISTRATOR_QUOTA_AND_WRITE_POLICY_2026_09_19.md`. LIGHT at 10% is approved, not implemented; no live commissioning.
+Q-ADMIN-04 is ACTIVE preparation under `docs/PROJECT_CODEX_ADMINISTRATOR_ESTABLISHMENT_DIRECTOR_AUTHORIZATION_2026_09_19.md`. Ryladmin draft PR #75 / `admin/est-foundation-01@77596cdc142fa6c03efef81768acab853161bba0` is PARTIAL / NOT COMMISSIONED and must remain held. Workspace migration-preservation backup/restore verification is complete; no migration has executed. Native subagents remain default-off, Reviewer suspended, C10 falsified and C11+ blocked. LIGHT at 10% is approved, not commissioned.
 
 ## Deferred E0 / provider
 P03 Slot 1 remains on Director hold, namespace unconsumed; Slot 2 unauthorized. No provider traffic is authorized by Administrator establishment. Preserved chain: `docs/evidence/E0D_Q_E0D_01_P03_SLOT1_PREEXECUTION_ACTIVATION_2026_09_17.md`.
 
 ## Next
-Resume Q-ADMIN-04 from live Ryladmin authority in Codex when the Director starts that session. First establish tested capability/dispatch controls. Hold app integration and all other chats until explicit resume/ownership transfer.
+After the Director restarts SurfSeven, resume Q-ADMIN-04 from live Ryladmin authority: verify preservation evidence/writer quiescence, complete the bounded workspace migration, then return to the existing FOUNDATION-01 candidate. Hold app integration and all other chats until explicit resume/ownership transfer.
