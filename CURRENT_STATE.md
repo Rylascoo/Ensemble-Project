@@ -15,7 +15,7 @@ Final policy tag `validation/q-prod-01-final-provisional-storage-concurrency-pol
 Earned policy is per-Production exclusive fail-fast journal coordination, independent per-root gates without catalog-global atomicity, journal causal authority over rebuildable snapshots/point-in-history export, and no general hardware/filesystem power-loss certification. No runtime defect was exposed.
 
 ## Parallel Engineering
-Engineer #1 Persistence is COMPLETE: #220 closed; #1055 PASS. Engineer #2 lease `ENG2-QPROD01-DESIGNARCH-02` / #223 is ACTIVE from #1058. Its final Application producer is held for shared-authority refresh; PR #226 requires rebase/revalidation before integration. #225 remains transport-only; Persistence and Engineer #3 have no mutation lease.
+Engineer #1 Persistence is COMPLETE: #220 closed; #1055 PASS. Engineer #2 lease `ENG2-QPROD01-DESIGNARCH-02` / #223 is ACTIVE. Manager continuity refresh #228 is integrated and exact-main #1065 PASS; Engineer #2 must now rebase/republish/revalidate PR #226. #225 remains transport-only; Persistence and Engineer #3 have no mutation lease.
 
 `DESIGN_ARCHITECTURE_READY` remains NOT READY because authoritative persisted Production-internal content beyond `ProductionName` is unearned. Existing Design-authorized work may proceed; new runtime-dependent Design meaning requires integrated exact-main Engineering truth.
 
@@ -23,4 +23,4 @@ Engineer #1 Persistence is COMPLETE: #220 closed; #1055 PASS. Engineer #2 lease 
 P03 Slot 1 remains on Director deferred-test hold with namespace unconsumed/provider traffic zero; Slot 2 remains unauthorized. Frozen E0 provider association is E0-only. Preserved chain: `docs/evidence/E0D_Q_E0D_01_P03_SLOT1_PREEXECUTION_ACTIVATION_2026_09_17.md`.
 
 ## Next
-Integrate/validate this refresh and return new main through #227. Engineer #2 then rebases/revalidates #226. Do not activate #225 or Engineer #3 before Application integration. `DESIGN_ARCHITECTURE_READY = NOT READY`.
+Engineer #2 rebases its final held Application delta onto current exact main and revalidates #226. Do not activate #225 or Engineer #3 before Application integration. `DESIGN_ARCHITECTURE_READY = NOT READY`.
