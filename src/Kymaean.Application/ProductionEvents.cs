@@ -17,3 +17,14 @@ public sealed record ProductionCreatedEvent : ProductionEvent
 
     public string ProductionName { get; }
 }
+
+public sealed record WorldCurrentStateReplacedEvent : ProductionEvent
+{
+    public WorldCurrentStateReplacedEvent(WorldCurrentState currentState)
+    {
+        ArgumentNullException.ThrowIfNull(currentState);
+        CurrentState = currentState;
+    }
+
+    public WorldCurrentState CurrentState { get; }
+}

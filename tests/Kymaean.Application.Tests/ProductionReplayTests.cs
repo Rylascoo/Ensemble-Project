@@ -13,6 +13,31 @@ public sealed class ProductionReplayTests
     }
 
     [TestMethod]
+    public void WorldCurrentFactRejectsBlankText()
+    {
+        Assert.ThrowsExactly<ArgumentException>(
+            () => new WorldCurrentFact("   "));
+    }
+
+    [TestMethod]
+    public void WorldCurrentStateCanonicalizesFactOrder()
+    {
+        var first = State("The bridge is flooded.", "Dawn has broken.");
+        var second = State("Dawn has broken.", "The bridge is flooded.");
+
+        Assert.AreEqual(first, second);
+        Assert.AreEqual("Dawn has broken.", first.Facts[0].Text);
+        Assert.AreEqual("The bridge is flooded.", first.Facts[1].Text);
+    }
+
+    [TestMethod]
+    public void WorldCurrentStateRejectsDuplicateFact()
+    {
+        Assert.ThrowsExactly<ArgumentException>(
+            () => State("The gate is locked.", "The gate is locked."));
+    }
+
+    [TestMethod]
     public void SingleCreationEventRebuildsProductionName()
     {
         ProductionEvent[] history =
@@ -23,6 +48,61 @@ public sealed class ProductionReplayTests
         var state = ProductionReplay.Rebuild(history);
 
         Assert.AreEqual("The Glass Harbor", state.ProductionName);
+        Assert.IsTrue(state.WorldCurrentState.IsEmpty);
+    }
+
+    [TestMethod]
+    public void WorldStateBeforeCreationFailsClosed()
+    {
+        ProductionEvent[] history =
+        [
+            new WorldCurrentStateReplacedEvent(
+                State("The house is dark."))
+        ];
+
+        Assert.ThrowsExactly<InvalidOperationException>(
+            () => ProductionReplay.Rebuild(history));
+    }
+
+    [TestMethod]
+    public void LatestWorldCurrentStateReplacementWinsDeterministically()
+    {
+        ProductionEvent[] history =
+        [
+            new ProductionCreatedEvent("The Glass Harbor"),
+            new WorldCurrentStateReplacedEvent(
+                State("The bridge is intact.")),
+            new WorldCurrentStateReplacedEvent(
+                State(
+                    "The bridge is flooded.",
+                    "The ferry has stopped running."))
+        ];
+
+        var state = ProductionReplay.Rebuild(history);
+
+        Assert.AreEqual("The Glass Harbor", state.ProductionName);
+        Assert.AreEqual(
+            State(
+                "The ferry has stopped running.",
+                "The bridge is flooded."),
+            state.WorldCurrentState);
+    }
+
+    [TestMethod]
+    public void EmptyWorldCurrentStateCanBeEstablishedCausally()
+    {
+        ProductionEvent[] history =
+        [
+            new ProductionCreatedEvent("The Glass Harbor"),
+            new WorldCurrentStateReplacedEvent(
+                State("The bridge is flooded.")),
+            new WorldCurrentStateReplacedEvent(
+                WorldCurrentState.Empty)
+        ];
+
+        var state = ProductionReplay.Rebuild(history);
+
+        Assert.IsTrue(state.WorldCurrentState.IsEmpty);
     }
 
     [TestMethod]
@@ -44,4 +124,7 @@ public sealed class ProductionReplayTests
         Assert.ThrowsExactly<InvalidOperationException>(
             () => ProductionReplay.Rebuild(history));
     }
+
+    private static WorldCurrentState State(params string[] facts) =>
+        new(facts.Select(fact => new WorldCurrentFact(fact)));
 }
