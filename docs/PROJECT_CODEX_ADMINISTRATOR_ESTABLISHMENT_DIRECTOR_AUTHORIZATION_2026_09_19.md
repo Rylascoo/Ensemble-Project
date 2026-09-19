@@ -75,6 +75,10 @@ Choose the lowest-cost currently available model/effort that meets the task's de
 
 Reconcile after each bounded work package. During an active Director-started session, already-authorized internal steps may proceed after reconciliation; unrelated backlog pickup or unattended continuation is not authorized. Preserve the existing runtime's default-off capabilities until admission; don't weaken checks for throughput.
 
+## Quota reserve and scoped-write addendum
+
+`docs/PROJECT_ADMINISTRATOR_QUOTA_AND_WRITE_POLICY_2026_09_19.md` is the required Director-approved follow-on: approximately 10% remaining enters LIGHT, closeout reserve is protected, NORMAL requires verified replenishment, and approved changes may be authored in scoped repository worktrees. This formalizes the requested behavior; it does not enable an installed quota supervisor, override C10/C11, or resume paused Product work.
+
 ## Completion and reserved decisions
 
 Establishment is complete only when a fresh Codex session can recover live authority from Ryladmin, execute an admitted bounded task, reject prohibited actions, collect a valid result with no survivors, and leave durable resumable state. An approved plan, green compiler, or authentic manifest alone is not completion.
