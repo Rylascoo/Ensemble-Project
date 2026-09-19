@@ -12,7 +12,7 @@ After the sequential read-only Ryladmin and Ensemble-Project audits, the Directo
 
 This is standing authorization to establish the Ryladmin-backed Administrator in Codex and implement the necessary bounded runtime, coordination, test, recovery, and efficiency improvements. It is not a claim that those capabilities already work. The audit findings are inputs to verify, not a substitute for implementation evidence.
 
-Prepare and durably record the program now. Live Codex commissioning starts when the Director resumes this establishment program in Codex. The other chats remain paused; this authorization does not silently resume them or merge their Product work.
+Prepare and durably record the program now. Live Codex commissioning starts when the Director resumes this establishment program in Codex. Existing Product implementation leases/workstreams remain held unless explicitly resumed or transferred; this authorization does not silently resume or merge their Product work. Separately owned Design/Website activity is not globally paused by Q-ADMIN-04 and creates no Product integration, Engineering lease, or app-runtime authority.
 
 ## Authority and narrow supersession
 
