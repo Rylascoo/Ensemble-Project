@@ -16,7 +16,7 @@ Engineer #1's five-rung Persistence sequence is COMPLETE; #220 closed. Engineer 
 `DESIGN_ARCHITECTURE_READY = NOT READY`. No integrated persisted Product-internal truth beyond `ProductionName` is promoted here. Existing Design evidence remains owned by Design; paused chats are not implicitly resumed.
 
 ## Administrator establishment
-Q-ADMIN-04 is Director-approved preparation for later Codex resume under `docs/PROJECT_CODEX_ADMINISTRATOR_ESTABLISHMENT_DIRECTOR_AUTHORIZATION_2026_09_19.md`. Ryladmin owns implementation/continuity, not Engineering or Design authority. Old MA-01 attempts remain consumed; native subagents default-off, Reviewer suspended, C10 falsified and C11+ blocked until their own evidence gates pass. No live commissioning occurs in this authorization package.
+Q-ADMIN-04 is Director-approved preparation for later Codex resume under `docs/PROJECT_CODEX_ADMINISTRATOR_ESTABLISHMENT_DIRECTOR_AUTHORIZATION_2026_09_19.md`. Ryladmin owns implementation/continuity, not Engineering or Design authority. Old MA-01 attempts remain consumed; native subagents default-off, Reviewer suspended, C10 falsified and C11+ blocked until their own evidence gates pass. Required quota/write addendum: `docs/PROJECT_ADMINISTRATOR_QUOTA_AND_WRITE_POLICY_2026_09_19.md`. LIGHT at 10% is approved, not implemented; no live commissioning.
 
 ## Deferred E0 / provider
 P03 Slot 1 remains on Director hold, namespace unconsumed; Slot 2 unauthorized. No provider traffic is authorized by Administrator establishment. Preserved chain: `docs/evidence/E0D_Q_E0D_01_P03_SLOT1_PREEXECUTION_ACTIVATION_2026_09_17.md`.
