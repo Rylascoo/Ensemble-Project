@@ -58,15 +58,15 @@ Engineering Sol may delegate bounded execution but must reconcile returned evide
 
 Engineering Relay is a delegated Engineering deputy, not a co-equal Engineering authority. It works only a bounded execution lease tied to an existing queue/authority boundary and exact repository baseline. It may own one isolated implementation/research worktree for the lease, but it cannot independently write Engineering authority state, transition the central queue, promote validation, authorize provider traffic, or adopt its own result. Engineering Sol reconciles the returned evidence/change before authority changes.
 
-### Design Sol
+### App Design Sol / Website Design Sol
 
-Design Sol is the accountable design/brand/app-visual/website manager for `Rylascoo/Ensemble-Website` and the canonical visual-master workspace in Drive.
+Q-ADMIN-05 separates the Design lanes. App Design Sol is accountable for application UX/UI contracts and app-specific Design evidence after their accepted transfer to Project `docs/design/app/`. Website Design Sol is accountable for website design/implementation and website-specific evidence in `Rylascoo/Ensemble-Website`. Shared creative-master work uses an explicit Drive-scoped grant.
 
-It owns design interpretation, method fidelity, visual judgment, design evidence, and in-lane adoption. Engineering facts are truth inputs; Engineering does not become aesthetic authority.
+Each owns in-lane design interpretation, method fidelity, visual judgment and adoption. Engineering facts are truth inputs; Engineering does not become aesthetic authority. Co-location gives App Design no permission to mutate implementation.
 
 ### Design Relay
 
-Design Relay is a delegated Design deputy, not a co-equal Design authority. It works only a bounded execution lease tied to current Website/Drive authority and an exact baseline. It may own one isolated design/repository workstream under the lease, but it cannot independently write Design authority state, alter frozen design criteria, consume an unauthorized renderer/scoring gate, transition the central queue, or adopt its own result. Design Sol reconciles the returned evidence/change before authority changes.
+Design Relay is a delegated Design deputy, not a co-equal Design authority. It works only a bounded execution lease tied to the exact owning Project-app, Website or Drive boundary and baseline. It may own one isolated design/repository workstream under the lease, but it cannot independently write Design authority state, alter frozen criteria, consume an unauthorized renderer/scoring gate, transition the central queue, mutate Engineering surfaces or adopt its own result. The accountable Design Sol reconciles returned evidence before authority changes.
 
 ### Ensemble Project Administrator
 
@@ -123,10 +123,10 @@ Until the dedicated Claude operating protocol is established, do not assume auto
 
 Canonical project memory remains:
 
-- `Rylascoo/Ensemble-Project` for engineering, product/policy, central queue, cross-project orchestration law;
-- `Rylascoo/Ensemble-Website` for design/brand/UI/website law and evidence;
+- `Rylascoo/Ensemble-Project` for engineering, product/policy, the prepared `docs/design/app/` receiving boundary and, after accepted transfer, current application-design law/evidence;
+- `Rylascoo/Ensemble-Website` for website design/implementation/evidence and exact historical app-design provenance;
 - connected Google Drive `Ensemble Project` for visual-master/provenance assets;
-- `Rylascoo/Ryladmin` for Administrator runtime implementation and Administrator continuity only, subordinate to this repository's Administrator policy/orchestration law.
+- `Rylascoo/Ryladmin` for Administrator runtime/continuity and the Q-ADMIN-05 target governance role; coordinated owning amendments must execute before existing Project orchestration law is treated as transferred.
 
 `docs/PROJECT_EXECUTION_QUEUE.md` remains the **single cross-project backlog/sequencing register**. No Administrator inbox, GitHub Issue set, Codex task list, Claude thread, or chat creates a second backlog.
 
@@ -234,7 +234,8 @@ Parallel work is encouraged for independent mechanics, but authority surfaces ne
 
 - `CURRENT_STATE.md` is written only as part of the owning lane's reconciled closure.
 - the central execution queue is reconciled as one logical closeout operation, not independently edited by competing agents;
-- Design Ledger writes remain Design-owned;
+- Project app-design files/ledger and Engineering source/authority files require separate worktrees, explicit non-overlapping leases and accountable adoption; Design cannot write `src/**`, `tests/**`, build/CI, validation or the queue, and Engineering cannot silently rewrite an active app-design contract;
+- Website and app Design Ledger writes remain owned by their respective Design lane;
 - provider authorization/validation records remain governed by Engineering/Director authority;
 - external reviewers normally return findings rather than editing authority files directly.
 

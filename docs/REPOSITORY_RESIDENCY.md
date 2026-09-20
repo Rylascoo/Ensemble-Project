@@ -14,15 +14,17 @@ Canonical for:
 - engineering source, tests, fixtures, build/CI/tooling, architecture and validation evidence;
 - engineering work-package and implementation records;
 - product/policy constitution, Director decisions, provider admissibility, and Open Design Register proposals/resolutions, regardless of which lane raised the question;
+- current application UX/UI contracts, app design system/state/accessibility/motion/disclosure contracts and necessary app-specific Design evidence under `docs/design/app/` after accepted Q-ADMIN-05 transfer;
 - compact cross-lane locators/contracts needed by engineering.
 
 ### `Rylascoo/Ensemble-Website`
 
 Canonical Git repository for:
-- app UI/UX design and interactive design prototypes;
 - website design and implementation;
-- visual identity, brand-system material, renderer/design methods, and design-specific evidence;
-- exported design assets that belong under version control.
+- website-specific interaction/accessibility/motion evidence and prototypes;
+- website expressions of shared identity and approved distributable derivatives.
+
+During Q-ADMIN-05 preparation, the exact Website app-design sources named by `docs/design/app/AUTHORITY.md` remain authoritative in place. After accepted transfer, Website preserves their history/provenance and points live app consumers to Project; it does not retain a second evolving app-design authority.
 
 ### Google Drive `Ensemble Project`
 
@@ -35,7 +37,7 @@ Canonical only for Administrator runtime implementation and Administrator contin
 - Administrator commissioning/continuity records and exact implementation provenance;
 - no product, Engineering, Design, provider, validation, experiment, ODR, or cross-project backlog authority.
 
-Administrator policy/security/orchestration law and the single project execution queue remain canonical in `Ensemble-Project`. A machine-local Administrator installation is generated executable state, not another canonical repository.
+Q-ADMIN-05 targets administration, orchestration, cross-repository governance, leases/work packages and capability admission to Ryladmin through coordinated owning amendments. Until those amendments execute, existing Project policy/security/orchestration law and the single queue retain their stated authority. A machine-local Administrator installation is generated executable state, not another canonical repository.
 
 ## Residency classes
 
@@ -44,10 +46,12 @@ Every questionable artifact is resolved to one class:
 1. **Engineering-native** — remains in `Ensemble-Project`.
 2. **Product/policy central** — remains in `Ensemble-Project`, even when drafted by Design Sol or the evidence lane. Originating-lane qualification remains explicit.
 3. **Cross-lane pointer/contract** — remains only where the consuming lane needs a compact durable reference; the referenced artifact keeps one canonical home.
-4. **Design-native** — belongs in `Ensemble-Website` and/or the canonical Drive workspace, not `Ensemble-Project`.
-5. **Administrator-runtime-native** — belongs in `Ryladmin` only when it implements already-approved Administrator law; policy meaning remains in `Ensemble-Project`.
-6. **Historical/quarantined** — preserved only in the repository/history/archive surface that owns its provenance.
-7. **Unclear** — do not move, duplicate, promote, or delete until authority is resolved.
+4. **Application-design-native** — after accepted Q-ADMIN-05 transfer, belongs under Project `docs/design/app/` with Design authority distinct from Engineering.
+5. **Website-design-native** — belongs in `Ensemble-Website`.
+6. **Shared creative master/reference** — belongs in the canonical Drive workspace; repository derivatives/pointers preserve exact provenance.
+7. **Administrator-runtime-native** — belongs in `Ryladmin` only when it implements already-approved Administrator law.
+8. **Historical/quarantined** — preserved only in the repository/history/archive surface that owns its provenance.
+9. **Unclear** — do not move, duplicate, promote, or delete until authority is resolved.
 
 ## One-canonical-home rule
 
