@@ -31,7 +31,7 @@ Engineering Sol owns, inside delegated engineering authority:
 
 Engineering Sol does **not** own product constitution/ODR/provider admissibility/spend, Design taste/law, or external validation gates assigned to the Director or another authority surface.
 
-The separate `Rylascoo/Ensemble-Website` lane owns design/brand/UI/website authority. Read it when design contracts matter; do not mutate Design-owned artifacts from Engineering unless exact cross-project authority explicitly permits that particular repair.
+Q-ADMIN-05 prepares `docs/design/app/` as the Project receiving boundary for application UX/UI contracts and app-specific Design evidence. Authority/document transfer has not yet executed: the exact Website sources named by `docs/design/app/AUTHORITY.md` retain their present authority until an accepted transfer package lands. Website continues to own website design/implementation; Drive continues to own shared creative masters. Co-location never gives Engineering Design judgment or App Design implementation authority.
 
 A future Project Administrator/Codex dispatcher may route and execute operational work, but it never becomes engineering authority and never substitutes for Engineering Sol's accountable judgment. See `docs/PROJECT_AGENT_ORCHESTRATION_PROTOCOL.md`.
 
@@ -99,6 +99,8 @@ Canonical sources:
 3. source/tests/fixtures/commits/current evidence;
 4. Director decisions and durable policy records;
 5. `Rylascoo/Ensemble-Website` / Drive for Design-owned truth when relevant.
+
+After Q-ADMIN-05 transfer acceptance, current application-design truth is rooted at `docs/design/app/AUTHORITY.md`; exact historical Website refs remain provenance rather than a second live copy. During the prepared-but-not-transferred interval, that file is a receiving contract/manifest only.
 
 Google Drive `Ensemble Project` is the active project visual/research/master-asset workspace, never engineering validation authority.
 

@@ -6,7 +6,7 @@
 2. GitHub `CURRENT_STATE.md` for the active engineering checkpoint, validation classification, and next action.
 3. GitHub source, tests, fixture versions/hashes, commits, and PR evidence.
 4. Director decisions and durable evidence/decision records.
-5. Google Drive design repository / `Rylascoo/Ensemble-Website` for visual/design evidence and assets inside the design lane.
+5. The owning Design surface for visual/design authority: during Q-ADMIN-05 preparation, the exact Website sources in `docs/design/app/AUTHORITY.md`; after accepted transfer, Project `docs/design/app/` for application design, `Rylascoo/Ensemble-Website` for website design, and Drive for shared creative masters/references.
 6. Historical chat/source material only when a narrow continuity ambiguity cannot be resolved from durable project state.
 
 No navigation index, ledger, README, handoff, archived evidence file, historical branch snapshot, personality prompt, agent bootstrap file, Administrator task list, dispatch issue, external-model report, or execution queue independently advances phase authority.
@@ -39,12 +39,16 @@ The former long Engineering personality prompt is historical migration input onc
 
 `docs/PROJECT_CLAUDE_CHAT_INDEPENDENT_REVIEW_DIRECTOR_AMENDMENT_2026_09_19.md` admits Claude Project Chat as a concurrent read-only independent advisory/falsification lane with no worktree/write lease, no project authority, and no credential grant. It is distinct from Claude Code and does not retry or commission C9A.
 
+Q-ADMIN-05 is the active governance program recorded by Ryladmin `docs/Q_ADMIN_05_APP_DESIGN_AUTHORITY_SEPARATION_CHARTER_2026_09_20.md` at exact live Ryladmin authority. Project `docs/design/app/AUTHORITY.md` is the prepared receiving contract and transfer manifest. Its existence does not execute transfer, grant App Design a Project lease, resume Product work, or relocate the single queue.
+
 The role hierarchy is:
 
 - **Director** — product/policy/provider/spend/consequential authority;
 - **Engineering Sol** — sole accountable Engineering manager for this repository;
 - **Engineering Relay** — delegated Engineering deputy for bounded execution leases, never independent Engineering authority;
-- **Design Sol** — sole accountable Design/brand/UI/website manager for `Rylascoo/Ensemble-Website` and visual-master Drive assets;
+- **App Design Sol** — accountable application UX/UI manager for current app contracts/evidence after accepted Q-ADMIN-05 transfer, with a bounded `docs/design/app/**` lease and no implementation/Engineering authority;
+- **Website Design Sol** — accountable website design/implementation manager for `Rylascoo/Ensemble-Website` after transfer;
+- **Shared creative-master authority** — Drive-scoped Design work under explicit grant; neither repository silently owns the masters;
 - **Design Relay** — delegated Design deputy for bounded execution leases, never independent Design authority;
 - **Ensemble Project Administrator** — operational dispatcher/project-operations agent, never a third project authority;
 - **Codex execution agents** — bounded executors/tool users;
@@ -83,7 +87,7 @@ For repository-document hygiene, `CURRENT_STATE.md` and this file are the durabl
 
 `docs/REPOSITORY_RESIDENCY.md` defines canonical homes and the one-canonical-home rule across Engineering, Design, Administrator runtime, and Drive.
 
-Product/policy central records and canonical cross-project orchestration/queue/security law remain in `Ensemble-Project` even when they concern Design/UI/website/Administrator questions. Design-native artifacts belong in `Ensemble-Website` and/or the canonical Drive workspace. Administrator-runtime implementation and Administrator continuity belong in `Rylascoo/Ryladmin` only to the extent delegated by Project law. Cross-lane copies never acquire authority by duplication.
+Product/policy, application architecture/implementation, Engineering validation and the single queue remain in `Ensemble-Project`. Q-ADMIN-05 prepares current application-design contracts/evidence for the admitted nested `docs/design/app/` surface; Website design/implementation remains in `Ensemble-Website`; shared creative masters/references remain in Drive. Ryladmin is the target home for administration, orchestration, cross-repository governance, leases/work packages and capability admission, but that governance transfer requires coordinated owning amendments and is not completed by this Project package. Cross-lane copies never acquire authority by duplication.
 
 ## Reasoning / task-scope workflow authority
 
@@ -97,11 +101,13 @@ It cannot override frozen architecture, `CURRENT_STATE.md`, source/test evidence
 
 ## Design authority
 
-The connected Google Drive `Ensemble Project` folder is the canonical visual/master-asset workspace for UI/UX architecture, mockups/prototypes, visual identity/artwork, motion/animation, Store/marketing assets, and design research/references. `Rylascoo/Ensemble-Website` is the canonical version-controlled Design/website repository.
+`docs/design/app/AUTHORITY.md` defines the prepared Project receiving boundary for application UX/UI, interaction, accessibility, motion, state/disclosure presentation, implementation-facing visual contracts and necessary app evidence. Until its manifest is executed and accepted, it is not a claim that the named Website artifacts have transferred.
 
-Design artifacts are evidence and Design direction unless explicitly promoted into an approved implementation specification or central Director decision. Design authority does not create engineering phase-status authority.
+`Rylascoo/Ensemble-Website` owns website design/implementation and website-specific evidence. Drive `Ensemble Project` owns shared brand/creative masters and cross-surface visual references. Referencing a master never transfers its ownership.
 
-Engineering may consume a Design contract as input but does not gain permission to mutate Design-owned law merely by implementing it.
+App Design Sol and Engineering Sol use independent worktrees and explicit non-overlapping leases. Design cannot mutate `src/**`, `tests/**`, build/CI, the Validation Ledger or central queue merely because its contracts are co-located. Engineering cannot silently redefine an active Design contract; implementation deviations return for explicit cross-lane reconciliation/adoption.
+
+Design artifacts are evidence and Design direction unless explicitly adopted at their owning status. Design authority does not create Engineering phase, validation or Product implementation authority.
 
 ## Validation hierarchy
 
