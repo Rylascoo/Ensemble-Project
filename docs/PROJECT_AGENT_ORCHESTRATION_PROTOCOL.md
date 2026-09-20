@@ -60,7 +60,7 @@ Engineering Relay is a delegated Engineering deputy, not a co-equal Engineering 
 
 ### App Design Sol / Website Design Sol
 
-Q-ADMIN-05 separates the Design lanes. App Design Sol is accountable for application UX/UI contracts and app-specific Design evidence after their accepted transfer to Project `docs/design/app/`. Website Design Sol is accountable for website design/implementation and website-specific evidence in `Rylascoo/Ensemble-Website`. Shared creative-master work uses an explicit Drive-scoped grant.
+Q-ADMIN-05 separates the Design lanes. Project has received and validated the candidate under `docs/design/app/`, but Website remains governing app-design authority until Ryladmin authorizes final handoff and no App Design transfer lease remains active. After handoff, App Design Sol is accountable for application UX/UI contracts and app-specific Design evidence in that Project surface. Website Design Sol remains accountable for website design/implementation and website-specific evidence in `Rylascoo/Ensemble-Website`. Shared creative-master work uses an explicit Drive-scoped grant.
 
 Each owns in-lane design interpretation, method fidelity, visual judgment and adoption. Engineering facts are truth inputs; Engineering does not become aesthetic authority. Co-location gives App Design no permission to mutate implementation.
 
@@ -123,7 +123,7 @@ Until the dedicated Claude operating protocol is established, do not assume auto
 
 Canonical project memory remains:
 
-- `Rylascoo/Ensemble-Project` for engineering, product/policy, the prepared `docs/design/app/` receiving boundary and, after accepted transfer, current application-design law/evidence;
+- `Rylascoo/Ensemble-Project` for engineering, product/policy, the received `docs/design/app/` candidate and, after Ryladmin-authorized final handoff, current application-design law/evidence;
 - `Rylascoo/Ensemble-Website` for website design/implementation/evidence and exact historical app-design provenance;
 - connected Google Drive `Ensemble Project` for visual-master/provenance assets;
 - `Rylascoo/Ryladmin` for Administrator runtime/continuity and the Q-ADMIN-05 target governance role; coordinated owning amendments must execute before existing Project orchestration law is treated as transferred.
