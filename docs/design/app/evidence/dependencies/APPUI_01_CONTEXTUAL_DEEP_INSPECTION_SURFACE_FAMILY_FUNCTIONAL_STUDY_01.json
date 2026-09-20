@@ -1,0 +1,91 @@
+{
+  "schema": "kymaean.appui-contextual-deep-inspection-surface-family-functional-study.v1",
+  "status": "POST_PHASE1_SECTION_DETAIL_PASS",
+  "date": "2026-09-14",
+  "program": "APPUI-01 - Detailed functional studies inside frozen Phase-1 architecture",
+  "authority": {
+    "design_repository": "Rylascoo/Ensemble-Website",
+    "design_branch": "design/appui01-working-compositions-2026-09-14",
+    "pre_study_ref": "046d3c2cb224e84e479f6b33ac045968f9012620",
+    "frozen_global_baseline": "Wireframe 01R - Revised Structural Baseline",
+    "phase1_status": "FROZEN_PASS"
+  },
+  "question": "Can contextual and deep inspection share one reusable grammar across meaningful entity types while preserving semantic origin, disclosure, state distinctions, exact return behavior and responsive collapse without creating a permanent inspector or a new application mode?",
+  "inherited_law": [
+    "Inspectors are contextual capacities, not permanent right-edge requirements.",
+    "Meaningful elements are followed from current situation into contextual/deep inspection.",
+    "Selection remains distinct from keyboard focus, Director opportunity, fictional salience and Character agency.",
+    "Current/historical, provisional/effective, Character/Performer and infrastructure/fiction distinctions remain explicit.",
+    "Character-bounded disclosure must not leak creator-global knowledge.",
+    "Light and Dark preserve one semantic system; no Stage visual successor is created."
+  ],
+  "artifact": {
+    "repository_path": "prototypes/appui-01/contextual-deep-inspection-surface-family-functional-study-01.html",
+    "html_sha256": "d5f005ac218198e47e7729b160df32e4437dfedf10b9aa592404ee6616d49b8b",
+    "browser_probe_path": "tools/appui_inspection_browser_probe.mjs",
+    "browser_probe_sha256": "0c04270250401e784cce76c6578c3ce214e58181a8406a35a576ed009376f7ef",
+    "drive_folder_id": "1E_sO0bP8IYcwxRLMpOK8HAiKO3DXXCKc",
+    "drive_png_id": "1j_xovGQtqHPHhnSUcdlTwadcB11Gnhxh",
+    "drive_html_id": "1Kf6pkqQkREWuT2UrftcO88bAbcLzEYHW",
+    "drive_png_sha256": "64800bb29bce842b5bc89b97fe63a6356707a330743f9d98ea36bf95e72c2662"
+  },
+  "design_result": {
+    "contextual_role": "Answer what matters about the selected entity here; may be adjacent, overlaid, substituted or sequential depending on available space.",
+    "deep_role": "Give the same selected entity enough room for broader understanding or creator-authorized shaping while preserving semantic origin and return.",
+    "entity_witnesses": ["Character", "relationship", "pressure_or_condition", "open_question", "world_context"],
+    "taxonomy_rule": "Witnesses prove shared inspection capacity and are not an exhaustive frozen Product entity taxonomy.",
+    "origin_rule": "Deep inspection retains Production/current-Scene/selected-entity origin; Back/Close restores the originating semantic target and focus.",
+    "state_grammar": [
+      "keyboard focus != selection",
+      "selection != fictional attention or agency",
+      "provisional != effective",
+      "current != historical",
+      "Character != Performer/provider assignment",
+      "infrastructure exception != fiction",
+      "Character-bounded disclosure must remain bounded"
+    ],
+    "edit_rule": "Exact creator-authority/commit/undo semantics remain Product-defined; inspection may reserve edit capacity without freezing them.",
+    "theme_parity": "PASS - Light/Dark use equal specimen weight and preserve identical semantic state",
+    "responsive_rule": "wide adjacency -> medium overlay/substitution -> narrow sequential surfaces; semantic origin and return remain invariant"
+  },
+  "mechanical_preflight": {
+    "environment": "Microsoft Edge Chromium CDP; exact self-contained HTML; no external resources",
+    "cases": [
+      {"mode": "normal", "width": 1600, "horizontal_overflow": false, "overflow_elements": 0},
+      {"mode": "normal", "width": 1024, "horizontal_overflow": false, "overflow_elements": 0},
+      {"mode": "normal", "width": 390, "horizontal_overflow": false, "overflow_elements": 0},
+      {"mode": "normal", "width": 320, "horizontal_overflow": false, "overflow_elements": 0},
+      {"mode": "forced_colors", "width": 320, "forced_colors_active": true, "horizontal_overflow": false, "overflow_elements": 0}
+    ],
+    "images": 0,
+    "external_resources": 0,
+    "result": "PASS"
+  },
+  "recursive_audit": {
+    "first_visual_pass_findings": [
+      "Flow arrows were positioned outside four step cards and created four internal overflow witnesses at 1600px even though viewport overflow was false.",
+      "The initial Light/Dark comparison used unequal column widths, visually privileging one theme despite the co-equal theme contract."
+    ],
+    "corrections": [
+      "Moved flow arrows inside their cards; all five viewport/forced-colors cases now report zero overflow elements.",
+      "Changed the Light/Dark comparison to equal 1:1 specimen widths."
+    ],
+    "rerun_result": "CLEAN",
+    "permanent_right_inspector_law_created": false,
+    "new_app_mode_created": false,
+    "entity_taxonomy_frozen": false,
+    "phase2_stage_visual_work_started": false,
+    "product_gated_edit_semantics_frozen": false,
+    "final_visual_language_started": false
+  },
+  "non_authority": [
+    "Exact inspector/deep-surface labels, placements, field groupings and commands remain provisional.",
+    "Exact entity taxonomy and persistent data schemas remain Product-defined.",
+    "Exact commit/save/undo, Scene lifecycle, consequence review, Perspective switching, Take/Rehearsal/branching, transcript/timer/Pause, provider/model/cost and Performer assignment remain open.",
+    "Final typography, palette, materials, icons, motion and native WinUI behavior remain open.",
+    "No Stage visual successor, runtime/package/Store authority or native accessibility-device proof is created."
+  ],
+  "conclusion": "CONTEXTUAL_DEEP_INSPECTION_SURFACE_FAMILY_FUNCTIONAL_DETAIL_PASS",
+  "approval": "APPROVED BY STANDING DIRECTOR DELEGATION - CLEAN RECURSIVE AUDIT",
+  "next": "Detail whole-Production Character management inside the frozen shell, including off-Scene reach/edit/return, Scene-membership non-implication, persistent Character identity and Character-versus-Performer separation without creating a permanent People silo."
+}

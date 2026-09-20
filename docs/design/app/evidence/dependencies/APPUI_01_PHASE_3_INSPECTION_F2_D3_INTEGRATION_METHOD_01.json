@@ -1,0 +1,45 @@
+{
+  "schema": "kymaean.appui-phase3-inspection-f2-d3-integration-method.v1",
+  "status": "METHOD_FROZEN_PRE_EXPOSURE",
+  "date": "2026-09-15",
+  "program": "APPUI-01 Phase 3 - Kymaean Visual-Language Integration",
+  "question": "Does selected Light F2 plus exact provisional D3 preserve the accepted Contextual + Deep Inspection Surface Family across adjacent and deep task surfaces without letting color substitute for semantic state?",
+  "fixed_functional_carrier": {
+    "path": "prototypes/appui-01/contextual-deep-inspection-surface-family-functional-study-01.html",
+    "sha256": "d5f005ac218198e47e7729b160df32e4437dfedf10b9aa592404ee6616d49b8b",
+    "evidence": "docs/evidence/APPUI_01_CONTEXTUAL_DEEP_INSPECTION_SURFACE_FAMILY_FUNCTIONAL_STUDY_01.json"
+  },
+  "fixed_visual_inputs": {
+    "light_F2": {"field":"#F4F3F7","primary":"#221B2D","secondary":"#5C5565","accent":"#006F73","boundary":"#7D7486","soft_surface":"#EAE8EF"},
+    "dark_D3": {"field":"#19141D","primary":"#F4F0F5","secondary":"#BEB4C0","accent":"#249A9C","boundary":"#756A79","soft_surface":"#261F29"},
+    "material": "MAT-01 F1 Subtractive Channel",
+    "typography": "TYP-02 F1 Ratio Ladder / system-ui carrier",
+    "state": "STA-01 F2 Ring + Edge Witness"
+  },
+  "required_theme_witnesses": ["Contextual inspection Light/Dark pair","Deep inspection Light/Dark pair"],
+  "mechanical_gate": ["1600","1024","390","320","320_forced_colors","320_text_200_percent","320_text_spacing"]
+  ,"semantic_floors": [
+    "Contextual inspection remains relevant-here capacity, not a permanent right-edge mode.",
+    "Deep inspection preserves semantic origin and exact return/focus restoration.",
+    "Keyboard focus != selection; selection != fictional attention, opportunity or agency.",
+    "Provisional != effective and current != historical without reliance on color alone.",
+    "Character identity != Performer/provider assignment.",
+    "Infrastructure/application exception != fiction.",
+    "Character-bounded disclosure must not leak creator-global knowledge."
+  ],
+  "falsification": [
+    "D3 fails if adjacent inspector and deep task surfaces collapse into one undifferentiated aubergine field.",
+    "D3 fails if darkness implies historical, disabled, provisional or unavailable state absent from Light.",
+    "D3 fails if teal spreads into disclosure/history/edit meaning rather than scarce structural selection reinforcement.",
+    "Integration fails if deep-surface duplication changes origin, grouping, entity meaning or return semantics.",
+    "Integration fails if 200% text or text-spacing stress breaks the dense deep surface.",
+    "Any Product edit/commit/undo semantic invention invalidates the study."
+  ],
+  "execution_law": [
+    "Use exact frozen F2/D3 values with no post-exposure color retune.",
+    "Derive all content and functional structure from the accepted carrier.",
+    "Light/Dark deep specimens must be content-identical and differ only in theme presentation.",
+    "A local PASS strengthens D3 evidence but does not finalize production tokens."
+  ],
+  "next_gate": "Materialize and preflight contextual plus deep Light/D3 specimens, then recursively audit state independence and semantic return before preservation."
+}

@@ -1,0 +1,82 @@
+{
+  "schema": "kymaean.design-gate-packet.v1",
+  "framework": "docs/evidence/DESIGN_PACKET_AND_SYNTHESIS_FRAMEWORK_01.json",
+  "packet_id": "PKT-COMP-03-01",
+  "packet_class": "COMPOSITION_PACKET",
+  "status": "PROVISIONAL_INCUMBENT",
+  "date": "2026-09-16",
+  "gate_or_program": "APPUI-COMP-03 - Production Shaping Workspace Integration",
+  "design_axis": "APP VISUAL real situation-first shaping workspace integration",
+  "bounded_question": "Can accepted Production Shaping / Current Possibility become a credible working workspace inside the COMP shell without becoming an ontology browser or inventing Product-gated controls?",
+  "authority": {
+    "repository": "Rylascoo/Ensemble-Website",
+    "baseline_commit": "cb4211c9619fb01ff7da73face9b59c237aaf347",
+    "governing_method_or_contract": [
+      "docs/evidence/APPUI_01_COMPONENT_SYSTEM_SHAPING_WORKSPACE_INTEGRATION_METHOD_01.json",
+      "docs/evidence/APPUI_01_PRODUCTION_SHAPING_CURRENT_POSSIBILITY_FUNCTIONAL_STUDY_01.json",
+      "docs/evidence/APPUI_01_PHASE_3_PRODUCTION_SHAPING_F2_D3_INTEGRATION_01.json",
+      "docs/evidence/packets/PKT_COMP_02_APPLICATION_SHELL_INTEGRATION_01.json"
+    ],
+    "close_reconciliation": {
+      "website_main": "fdf4f87b939c54358125e36aa2b81f070fdd1e6f",
+      "engineering_main": "2bfb0c1c3e8cb79acafe72d6fb80692bc818a407",
+      "effect": "No contradiction. Concurrent Website work remains separate and Engineering remains pre-Phase-D with E0-E blocked; no new APPUI Product semantics are promoted."
+    }
+  },
+  "controlled_inputs": [
+    "PKT-COMP-02-01 shell",
+    "PKT-COMP-01-01 controls",
+    "Light F2 / Dark D3 / MAT F1 / TYP F1 / STA F2 / FICON F1",
+    "accepted situation-first Shaping hierarchy"
+  ],  "local_result": {
+    "summary": "Situation-first Shaping now operates inside the real COMP shell: current situation and meaningful elements dominate, orientation and contextual inspection remain subordinate, and activation updates inspection without changing durable navigation.",
+    "recommended_incumbent": "Production Shaping Workspace 01",
+    "survivors_or_closure": ["Production Shaping Workspace 01"]
+  },
+  "evidence": {
+    "mechanical": [
+      "seven-case matrix PASS",
+      "carrier SHA-256 d65329d90ea968c7336d2b80610a9893192cf3727a70ad6584644d574e53bdaf",
+      "probe SHA-256 b271c64550b0c6f9f08b2c32b587cddc82329f81f13f0b368e50dad618f2adb9",
+      "matrix SHA-256 9e9e67dbe6d4b118843089c4fd7364c691e80f29fc3fe367b7048d9075100fca"
+    ],
+    "visual": [
+      "wide Light/Dark shaping workspace",
+      "390px current-situation-first narrow sequence",
+      "selected relationship plus independent focus-ring witness"
+    ],
+    "accessibility": [
+      "forced-colors 320 PASS",
+      "200% text 320 PASS",
+      "text-spacing stress 320 PASS",
+      "focus independent from selection",
+      "zero missing button names and zero undersized icon buttons"
+    ]
+  },
+  "dependencies": {
+    "requires": ["PKT-COMP-02-01","PKT-COMP-01-01","accepted Shaping functional and Phase-3 integration evidence"],
+    "constrains": ["Future Shaping carriers preserve current-situation dominance, non-taxonomic meaningful-element following, contextual-inspector subordination and exact return semantics unless a named successor supersedes them."],
+    "must_not_be_confused_with": ["final Product navigation taxonomy","predictive next-action UI","native WinUI workspace","Stage interaction semantics"]
+  },  "explicit_non_authority": [
+    "No Product-gated Scene/Take/Rehearsal/branching/Perspective/provider/Performer semantics.",
+    "No predictive/generated next-action authority.",
+    "No Bellweather placement, bespoke domain icons, final fonts, production tokens, native implementation, shipping or Store authority."
+  ],
+  "canonical_artifacts": {
+    "repository": [
+      "docs/evidence/APPUI_01_COMPONENT_SYSTEM_SHAPING_WORKSPACE_INTEGRATION_METHOD_01.json",
+      "docs/evidence/APPUI_01_COMPONENT_SYSTEM_SHAPING_WORKSPACE_INTEGRATION_RESULT_01.json",
+      "prototypes/appui-01/component-system-shaping-workspace-integration-01.html",
+      "tools/appui_component_system_shaping_workspace_matrix_probe.mjs"
+    ],
+    "director_review_surface": {
+      "entry_point": "self-contained COMP-03 HTML carrier",
+      "what_to_review": "wide/narrow situation-first shaping hierarchy, shell quietness, contextual-inspector subordination, and visible focus/selection separation",
+      "diagnostics_not_for_aesthetic_choice": ["matrix JSON","DOM/probe output"]
+    }
+  },
+  "synthesis_state": {
+    "tested_with_packet_ids": ["PKT-COMP-01-01","PKT-COMP-02-01"],
+    "whole_app_synthesis_status": "REAL_SHAPING_WORKSPACE_VALIDATED_CONTEXTUAL_DEEP_INSPECTION_INTEGRATION_NEXT"
+  }
+}

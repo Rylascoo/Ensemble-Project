@@ -1,0 +1,69 @@
+{
+  "schema": "kymaean.appui-component-system-truth-knowledge-disclosure-integration-method.v1",
+  "status": "METHOD_FROZEN_PRE_CONSTRUCTION",
+  "date": "2026-09-16",
+  "program_id": "APPUI-COMP-07",
+  "repository": "Rylascoo/Ensemble-Website",
+  "authority": {
+    "design_head": "bada2102e0d20510cb5b8230d53a0bcfd7beea5f",
+    "website_main": "8b375780cdbdcb6e21940b6cf5db7c4badf21b19",
+    "engineering_main": "2bfb0c1c3e8cb79acafe72d6fb80692bc818a407",
+    "parent_packet": "PKT-COMP-06-01",
+    "return_law_packet": "PKT-COMP-04-01",
+    "functional_study": "docs/evidence/APPUI_01_TRUTH_KNOWLEDGE_DISCLOSURE_INSPECTION_FUNCTIONAL_STUDY_01.json",
+    "visual_study": "docs/evidence/APPUI_01_PHASE_3_TRUTH_KNOWLEDGE_DISCLOSURE_F2_D3_INTEGRATION_01.json"
+  },
+  "bounded_question": "Can creator-global truth/knowledge inspection and a Character-bounded Julian view operate inside the real COMP shell with source/provenance capacity, hidden-material non-leakage and exact nested return without becoming permanent Knowledge navigation or freezing a final epistemic model?",
+  "frozen_inputs": [
+    "PKT-COMP-06-01 current-question origin",
+    "PKT-COMP-04-01 exclusive deep-task and exact-return law",
+    "PKT-COMP-02-01 shell / PKT-COMP-01-01 controls",
+    "Light F2 / Dark D3 / MAT F1 / TYP F1 / STA F2 / FICON F1",
+    "accepted truth/knowledge/disclosure functional and Phase-3 evidence"
+  ],  "construction_law": [
+    "Truth/knowledge/disclosure remains contextual inspection depth reached from meaningful current material, not permanent Knowledge navigation.",
+    "Creator-global visibility and Character-bounded visibility are different information positions over the same persistent Production/Character identity.",
+    "Julian-bounded presentation may show only Product-supported Julian-visible material; creator-global-only material is not enumerated, counted, summarized, placeholdered or hinted by default.",
+    "Unknown != false; withheld/private != absent; claim != fact; memory != objective history; historical status != truth status.",
+    "Claim selection and provenance keyboard focus remain independent UI states and do not imply truth authority.",
+    "Accent/color may reinforce selection only; it may not encode fact, truth, confidence, private/withheld, source authority or disclosure eligibility.",
+    "Entering or leaving a bounded view changes visibility only; it does not duplicate Julian, transfer knowledge or mutate Production truth.",
+    "Back from Julian-bounded restores the exact creator-global inspection state/focus; Close from creator-global restores the originating current question and disclosure trigger focus."
+  ],
+  "mechanical_matrix": [
+    "normal-1600",
+    "normal-1024",
+    "normal-390",
+    "normal-320",
+    "forced-colors-320",
+    "text-200-percent-320",
+    "text-spacing-stress-320"
+  ],
+  "mechanical_acceptance": [
+    "zero page/internal horizontal overflow",
+    "zero missing button accessible names and zero undersized icon-only controls",
+    "solid 2px keyboard focus with 2px offset",
+    "creator-global task opens in both themes while Shaping is hidden",
+    "Claim is selected while Provenance can receive independent keyboard focus",
+    "Julian-bounded view contains no visible private/withheld record, count, placeholder or summary hint",
+    "bounded-to-global return restores creator-global Claim selection and originating bounded-view trigger focus",
+    "global Close restores current-question selection and disclosure trigger focus",
+    "zero external resources or image dependency"
+  ],  "visual_falsification": [
+    "Darkness may not imply secrecy, boundedness, uncertainty or lesser truth; Light may not imply greater truth/global authority.",
+    "Teal may not encode fact/truth/known/confidence/source authority/private/withheld/disclosure eligibility.",
+    "Julian-bounded material must look equally real while exposing less information.",
+    "Bounded presentation fails if it advertises creator-global-only material through counts, placeholders, redactions, summaries or disabled rows.",
+    "Fact/claim/memory/history distinctions must remain structural/textual and survive forced colors.",
+    "Narrow sequencing must preserve identity, disclosure boundary and nested exact return."
+  ],
+  "explicit_non_goals": [
+    "final epistemic taxonomy, data fields, storage model or truth authority",
+    "confidence semantics or inference policy",
+    "knowledge transfer, discovery, forgetting, deception or contradiction resolution",
+    "consequence/replay/rollback/branching semantics",
+    "permanent Knowledge/Truth navigation mode",
+    "Stage successor, production tokens or native WinUI/XAML implementation"
+  ],
+  "result_law": "Responsive and interaction-plumbing repairs may alter geometry/DOM mechanics only. Any change to accepted disclosure semantics, witness meaning or frozen visual roles requires a separately named successor rather than silent COMP-07 retuning."
+}

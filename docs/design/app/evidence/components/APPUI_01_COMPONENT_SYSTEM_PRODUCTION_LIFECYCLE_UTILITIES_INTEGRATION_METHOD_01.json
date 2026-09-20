@@ -1,0 +1,70 @@
+{
+  "schema": "kymaean.appui-component-system-production-lifecycle-utilities-integration-method.v1",
+  "status": "METHOD_FROZEN_PRE_CONSTRUCTION",
+  "date": "2026-09-16",
+  "program_id": "APPUI-COMP-09",
+  "repository": "Rylascoo/Ensemble-Website",
+  "authority": {
+    "design_head": "bfc629112847fd260ea45c2ac16ebf8980a1e8ae",
+    "website_main": "8b375780cdbdcb6e21940b6cf5db7c4badf21b19",
+    "engineering_main": "3d7a5419afd1c502ce6aaba8f3ca906b48d6a868",
+    "parent_packet": "PKT-COMP-08-01",
+    "shell_packet": "PKT-COMP-02-01",
+    "functional_study": "docs/evidence/APPUI_01_PRODUCTION_LIFECYCLE_UTILITIES_FUNCTIONAL_STUDY_01.json",
+    "visual_study": "docs/evidence/APPUI_01_PHASE_3_PRODUCTION_LIFECYCLE_UTILITIES_F2_D3_INTEGRATION_01.json"
+  },
+  "bounded_question": "Can the existing Settings route open a deliberate application/Production utility surface for settings, portable Production handling, provider configuration, diagnostics and recovery capacity while retaining the creative origin/focus, remaining secondary to ordinary Shaping, and avoiding Product-dependent command authority?",
+  "frozen_inputs": [
+    "PKT-COMP-08-01 infrastructure/fiction continuity",
+    "PKT-COMP-03-01 situation-first Shaping origin",
+    "PKT-COMP-02-01 thin Home / Productions / Settings shell",
+    "PKT-COMP-01-01 controls",
+    "Light F2 / Dark D3 / MAT F1 / TYP F1 / STA F2 / FICON F1",
+    "accepted Production Lifecycle Utilities functional and Phase-3 evidence"
+  ],  "construction_law": [
+    "Use the already-durable Settings route as the deliberate utility entry; do not add Utilities/Administration as a new permanent top-level destination.",
+    "The retained creative origin is The White Current / Scene 12 / current situation and the pre-utility meaningful-element focus target.",
+    "Exactly five source-defined capacities are represented: settings, portable Production, provider configuration, diagnostics, recovery utilities.",
+    "Opening/selecting/closing utility capacity is navigation only and must not apply settings, reconnect providers, import/export, repair, recover or mutate Production truth.",
+    "Provisional configuration != effective configuration; provider/capability unavailable != Character refusal or fictional failure.",
+    "Provider machinery != Character identity or Performer assignment; diagnostics/recovery remain infrastructure outside fiction.",
+    "Portable Production navigation != import/export/overwrite/merge mutation.",
+    "No literal Product-dependent command buttons such as Import, Export, Apply, Save, Connect, Repair or Recover may appear in the carrier.",
+    "Close/Back restores the retained creative task/focus when still valid and is not Undo."
+  ],
+  "mechanical_matrix": [
+    "normal-1600",
+    "normal-1024",
+    "normal-390",
+    "normal-320",
+    "forced-colors-320",
+    "text-200-percent-320",
+    "text-spacing-stress-320"
+  ],
+  "mechanical_acceptance": [
+    "zero page/internal horizontal overflow",
+    "zero missing button accessible names and zero undersized icon-only controls",
+    "exactly two application themes and five utility capacity rows per theme",
+    "utility surface opens from Settings while Shaping hides and retained origin remains named",
+    "utility-family selection changes descriptive detail without any Product mutation witness",
+    "keyboard focus can move independently from selected utility family with solid 2px/2px-offset focus",
+    "no forbidden Product-dependent command labels appear",
+    "Close/Back restores Shaping, original selected meaning and pre-utility creative focus",
+    "zero external resources or image dependency"
+  ],  "visual_falsification": [
+    "Utilities must not read as a privileged admin/control center or outrank the originating creative task.",
+    "Settings/utility families must not become new durable navigation peers to Home / Productions / Settings.",
+    "Darkness must not imply provider authority, severity, configuration effectiveness or diagnostic importance.",
+    "Accent must not imply applied settings, provider health, portability/recovery success or severity.",
+    "Provider/capability absence must not read as Character refusal or fictional failure.",
+    "Narrow sequencing must retain creative origin, utility family/detail and exact return without an admin-grid feel."
+  ],
+  "explicit_non_goals": [
+    "final utility labels, menu placement, dialogs, commands or confirmation behavior",
+    "portable Production format, merge/overwrite/compatibility behavior or destinations",
+    "provider/model/cost policy, authentication, assignment, availability or Performer semantics",
+    "diagnostic, repair, fallback, recovery or destructive-action semantics",
+    "Production token freeze, infrastructure status colors, Stage successor or native WinUI/XAML implementation"
+  ],
+  "result_law": "Only responsive containment and interaction plumbing may be repaired after exposure. Any new utility command, mutation boundary, provider policy or visual-role retune requires separately named authority."
+}

@@ -1,0 +1,145 @@
+{
+  "schema": "kymaean.appui-native-implementation-reference-map.v1",
+  "status": "READY_FOR_Q_PROD_01_NATIVE_SHELL_SCAFFOLD",
+  "date": "2026-09-16",
+  "program": "APPUI-NATIVE-HANDOFF-01",
+  "authority": {
+    "reentry_audit": "docs/evidence/APPUI_01_Q_PROD_01_DESIGN_TO_NATIVE_REENTRY_AUDIT_06.json",
+    "phase1_map": "docs/KYMAEAN_APPUI_PHASE_1_STAGE_INTERFACE_ENVELOPE_AND_LAYOUT_MAP_01.md",
+    "component_foundation": "docs/KYMAEAN_APPUI_COMPONENT_SYSTEM_FOUNDATION_01.md",
+    "static_visual_system": "docs/KYMAEAN_APPUI_PHASE_3_STATIC_APP_VISUAL_SYSTEM_01.md",
+    "shell_packet": "PKT-COMP-02-01",
+    "stage_presentation_packet": "PKT-APPUI-STAGE-PRESENTATION-01",
+    "typeface_packet": "PKT-TYP-ASSET-01-01",
+    "platform_icon_packet": "PKT-FICON-ASSET-01-01"
+  },
+  "routing": {
+    "durable_shell_reference": [
+      "Home",
+      "Productions",
+      "Settings"
+    ],
+    "scope_rule": "Current Production and current situation dominate durable navigation.",
+    "production_switching": "Transient scope-change surface; other Productions remain quiet rows rather than tile/card dashboard.",
+    "semantic_spaces": [
+      {
+        "product_space": "Studio",
+        "design_surface": "Production-shaping / current-possibility workspace",
+        "presentation": "Within current Production; situation-first and contextual. Do not force Studio as a permanent top-level label."
+      },
+      {
+        "product_space": "Stage",
+        "design_surface": "Live Stage workspace",
+        "presentation": "Entered from current Scene/live context; Stage field becomes dominant and invariant dark. Stage may be a task destination without becoming mandatory durable global navigation."
+      },
+      {
+        "product_space": "Archive",
+        "design_surface": "Causal/history + deep inspection surfaces",
+        "presentation": "History is discoverable/contextual/deep; current state remains retained. Do not make Archive/History a permanent top-level destination by default."
+      }
+    ]
+  },
+  "visual_roles": {
+    "themes": {
+      "light": {
+        "name": "F2 Monochrome + Intruder",
+        "field": "#F4F3F7",
+        "primary": "#221B2D",
+        "secondary": "#5C5565",
+        "accent": "#006F73",
+        "boundary": "#7D7486",
+        "soft_surface": "#EAE8EF"
+      },
+      "dark": {
+        "name": "D3 Ink Aubergine",
+        "field": "#19141D",
+        "primary": "#F4F0F5",
+        "secondary": "#BEB4C0",
+        "accent": "#249A9C",
+        "boundary": "#756A79",
+        "soft_surface": "#261F29"
+      }
+    },
+    "material": "MAT F1 Subtractive Channel; one continuous authored field, edge-open negative channels, avoid repeated-card identity.",
+    "typography": {
+      "family": "Source Sans 3 design-reference",
+      "role_order": "eyebrow < state/support <= body < heading",
+      "reference_sizes": {
+        "eyebrow": "0.75rem",
+        "state": "0.85rem",
+        "support": "0.875rem",
+        "body": "1rem",
+        "heading": "1.5rem"
+      },
+      "packaging": "Not yet a production font package; native scaffold may use a temporary platform fallback only as an explicit placeholder and must not treat it as visual acceptance."
+    },
+    "focus_selection": {
+      "focus": "outer solid 2px ring, 2px offset reference",
+      "selection": "persistent structural inline-start edge witness where geometry permits",
+      "rule": "focus and selection are independent and may coexist; accent may reinforce selection but never creates state meaning"
+    }
+  },
+  "platform_icons": {
+    "source": "Segoe Fluent Icons / SymbolThemeFontFamily",
+    "primary_size_px": 20,
+    "validated_sizes_px": [
+      16,
+      24
+    ],
+    "mappings": {
+      "Back": "E72B",
+      "Close": "E711",
+      "Search": "E721",
+      "Settings": "E713",
+      "More": "E712",
+      "Navigation disclosure": "E76C",
+      "Play": "E768",
+      "Pause": "E769"
+    },
+    "rule": "Use native/system source for these verbs; no bespoke Kymaean replacements."
+  },
+  "stage": {
+    "semantic_source": "PKT-STAGE-CORE-02",
+    "shell_presentation": "PKT-APPUI-STAGE-PRESENTATION-01 / S1_STEPPED_FIELD_EXTRACTION",
+    "source_sha256": "7f3b3a815d71d1aa47350e69824f14f92a5dd399cf0c68bf16074827ead6b3c0",
+    "s1_sha256": "bb3e21f43edde49b92c9272812f5f7bc23a2fc1bc4ea4fb58d96d950faf90319",
+    "rule": "Stage remains invariant dark. S1 is design-reference presentation only; do not invent a shipping asset pipeline or redraw Stage pixels."
+  },
+  "first_native_slice": {
+    "must_demonstrate": [
+      "native shell can represent current Production scope and current situation without provider/model vocabulary",
+      "quiet durable Home/Productions/Settings reference navigation",
+      "internal routing capable of Studio semantic shaping, Live Stage, and Archive/history/deep inspection without reviving permanent Studio/Stage/Archive topology",
+      "deterministic local fixture/demo route with exact Back/Close navigation semantics and focus return",
+      "Light/Dark semantic parity around invariant dark Stage placeholder/reference",
+      "selection distinct from keyboard focus",
+      "healthy persistence quiet; technical failure remains application/infrastructure truth"
+    ],
+    "placeholder_permitted": [
+      "system typeface in scaffold when Source Sans 3 production packaging is not yet available, explicitly marked non-final",
+      "dark Stage placeholder or local non-shipping S1 reference when shipping Stage asset packaging is not yet authorized",
+      "fixture content that does not invent unresolved Product commands"
+    ],
+    "must_not": [
+      "treat roadmap Studio/Stage/Archive names as mandatory permanent top-level tabs",
+      "expose E0 IDs/provider/model names in creator UI",
+      "make Back/Close mutate Production truth",
+      "make accent color carry status/truth/history/recovery semantics",
+      "invent Scene/Take/Rehearsal/branching/Perspective/provider/cost/Performer controls",
+      "claim browser reference dimensions as native Windows tokens"
+    ]
+  },
+  "native_review_requirements": [
+    "target-device screenshots or capture for Light and Dark",
+    "keyboard traversal evidence including focus/selection independence and return behavior",
+    "high-contrast/forced-colors observation on native surface",
+    "text scaling/localization stress once native typography exists",
+    "actual minimum-window behavior measured rather than inferred from browser 320px evidence",
+    "exact source/ref IDs for any Design asset consumed"
+  ],
+  "non_authority": [
+    "Resource dictionary key names and WinUI control classes remain Engineering implementation choices until native evidence exists.",
+    "Values above are implementation references, not final production token API.",
+    "Native runtime/accessibility/ARM64/package/Store claims require Engineering validation."
+  ]
+}

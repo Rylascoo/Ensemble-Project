@@ -1,0 +1,68 @@
+{
+  "schema": "kymaean.appui-component-system-causal-history-inspection-integration-method.v1",
+  "status": "METHOD_FROZEN_PRE_CONSTRUCTION",
+  "date": "2026-09-16",
+  "program_id": "APPUI-COMP-06",
+  "repository": "Rylascoo/Ensemble-Website",
+  "authority": {
+    "design_head": "3364ab4be02c04940608e8d33a17d6482b2c02bf",
+    "website_main": "fdf4f87b939c54358125e36aa2b81f070fdd1e6f",
+    "engineering_main": "2bfb0c1c3e8cb79acafe72d6fb80692bc818a407",
+    "parent_packet": "PKT-COMP-05-01",
+    "inspection_packet": "PKT-COMP-04-01",
+    "functional_study": "docs/evidence/APPUI_01_CAUSAL_HISTORY_INSPECTION_FUNCTIONAL_STUDY_01.json",
+    "visual_study": "docs/evidence/APPUI_01_PHASE_3_CAUSAL_HISTORY_F2_D3_INTEGRATION_01.json"
+  },
+  "bounded_question": "Can a current unresolved question open adjacent historical cause and deeper causal history inside the real COMP shell while preserving explicit current-versus-historical status, bounded disclosure, semantic origin and exact return without creating a permanent Archive/History mode or replay/rollback semantics?",
+  "frozen_inputs": [
+    "PKT-COMP-04-01 contextual/deep inspection and exact return grammar",
+    "PKT-COMP-03-01 situation-first Shaping origin",
+    "PKT-COMP-02-01 shell / PKT-COMP-01-01 controls",
+    "Light F2 / Dark D3 / MAT F1 / TYP F1 / STA F2 / FICON F1",
+    "accepted causal/history inspection grammar and source-derived Scene 12 ledger-question fixture"
+  ],  "construction_law": [
+    "The current Scene 12 question 'Why did Elara hide the second ledger?' remains the semantic origin.",
+    "Adjacent cause is explicitly historical and secondary to the current question.",
+    "Deeper causal history may become temporary task depth but remains explicitly historical at every level.",
+    "Selection or keyboard focus inside history never promotes historical material into current-state material.",
+    "Back and Close restore the same current question, selection and originating focus target.",
+    "Back/Close are navigation only; no replay, rollback, undo, branching or current-state rewrite is implied.",
+    "Causal relevance may be explained without freezing an exhaustive graph, inference model, score or generated-explanation authority.",
+    "Private/Character-bounded knowledge, claims, beliefs, memories, uncertainty and provenance remain bounded where Product authority supports them."
+  ],
+  "mechanical_matrix": [
+    "normal-1600",
+    "normal-1024",
+    "normal-390",
+    "normal-320",
+    "forced-colors-320",
+    "text-200-percent-320",
+    "text-spacing-stress-320"
+  ],
+  "mechanical_acceptance": [
+    "zero page-level and internal horizontal overflow in current/adjacent and deep-history states",
+    "zero missing button accessible names and zero undersized icon-only controls",
+    "solid 2px keyboard focus with 2px offset",
+    "history activation succeeds in both themes while the current semantic origin remains named",
+    "historical witnesses remain structurally/textually marked in all themes and forced-colors",
+    "deep history is exclusive task depth rather than a second simultaneous app mode",
+    "Back and Close restore the history trigger focus and current-question selection",
+    "zero external resources or image dependency"
+  ],  "visual_falsification": [
+    "History must be reached from current meaning rather than becoming durable Archive/History navigation.",
+    "Current question must remain more semantically primary than adjacent historical cause.",
+    "Historical status must survive Light/Dark, selection, focus, expansion and forced-colors without relying on color alone.",
+    "Deep history must retain the current Production/Scene/question origin and exact return path.",
+    "Darkness must not become 'past' semantics and Lightness must not become 'current authority' semantics.",
+    "Narrow layout must preserve current question -> historical cause -> deeper history ordering."
+  ],
+  "explicit_non_goals": [
+    "permanent Archive/History application mode",
+    "consequence review, replay, rollback, branching or mutation mechanics",
+    "exhaustive causal graph, inference engine, causal score or generated explanation authority",
+    "final truth/claim/belief/memory/provenance schema",
+    "motion or Stage successor",
+    "production tokens or native WinUI/XAML implementation"
+  ],
+  "result_law": "Responsive and interaction-plumbing repairs may change geometry/DOM mechanics only. Any change to accepted temporal/disclosure semantics or frozen visual mechanisms requires a separately named successor rather than silent COMP-06 retuning."
+}

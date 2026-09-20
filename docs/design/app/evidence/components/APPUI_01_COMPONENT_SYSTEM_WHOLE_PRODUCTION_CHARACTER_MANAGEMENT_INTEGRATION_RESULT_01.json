@@ -1,0 +1,85 @@
+{
+  "schema": "kymaean.appui-component-system-whole-production-character-management-integration-result.v1",
+  "status": "CLOSED_REAL_WHOLE_PRODUCTION_CHARACTER_MANAGEMENT_PASS",
+  "date": "2026-09-16",
+  "program_id": "APPUI-COMP-05",
+  "method": "docs/evidence/APPUI_01_COMPONENT_SYSTEM_WHOLE_PRODUCTION_CHARACTER_MANAGEMENT_INTEGRATION_METHOD_01.json",
+  "authority": {
+    "design_repository": "Rylascoo/Ensemble-Website",
+    "design_branch": "design/appui01-working-compositions-2026-09-14",
+    "pre_closeout_head": "98a2389d50b36014e83d6beee2aaff04190b3f97",
+    "website_main_reconciled": "fdf4f87b939c54358125e36aa2b81f070fdd1e6f",
+    "engineering_main_reconciled": "2bfb0c1c3e8cb79acafe72d6fb80692bc818a407",
+    "parent_packet": "PKT-COMP-04-01"
+  },
+  "artifact": {
+    "path": "prototypes/appui-01/component-system-whole-production-character-management-integration-01.html",
+    "sha256": "df249cb9f9b7a65582cbf6aee2ec40b033a5ab3ba67c113be1ff0a4219a288d3",
+    "probe": "tools/appui_component_system_whole_production_character_management_matrix_probe.mjs",
+    "probe_sha256": "73a10eb817ade5065767aa84a3e1fe0b3d8e301a77c65aeef2f499165edb10e8",
+    "matrix_sha256": "75c5a4d171b669dc17700723bbf6c5068e274ea08be65176fb4d2dce0a3bc115"
+  },
+  "source_authority": [
+    "docs/evidence/APPUI_01_WHOLE_PRODUCTION_CHARACTER_MANAGEMENT_FUNCTIONAL_STUDY_01.json",
+    "docs/evidence/APPUI_01_PHASE_3_WHOLE_PRODUCTION_CHARACTER_MANAGEMENT_F2_D3_INTEGRATION_01.json",
+    "PKT-COMP-04-01 / PKT-COMP-03-01 / PKT-COMP-02-01 / PKT-COMP-01-01"
+  ],  "mechanical_result": {
+    "environment": "Microsoft Edge Chromium CDP; exact self-contained HTML; no external resources",
+    "cases": [
+      "normal-1600",
+      "normal-1024",
+      "normal-390",
+      "normal-320",
+      "forced-colors-320",
+      "text-200-percent-320",
+      "text-spacing-stress-320"
+    ],
+    "result": "PASS_ZERO_CONTEXT_AND_MANAGEMENT_OVERFLOW_ALL_SEVEN_CASES",
+    "missing_button_names": 0,
+    "undersized_icon_buttons": 0,
+    "keyboard_focus": "PASS - Niko receives an independent solid 2px ring with 2px offset while Mira remains management-selected",
+    "management_activation": "PASS - two theme specimens open management while zero Shaping surfaces remain visible",
+    "selection_switch": "PASS - selecting Niko updates both local management details while stored Scene selection remains Julian",
+    "return": "PASS - Back and Close both restore the management-trigger focus and current-situation Shaping origin",
+    "external_resources": 0
+  },
+  "semantic_result": {
+    "production_scope": "PASS - Character management is invoked as deliberate depth from the current Production and does not become a durable People destination.",
+    "off_scene": "PASS - Mira and Niko are explicitly Off-Scene yet fully active persistent Characters, not disabled/archival/unavailable rows.",
+    "management_vs_scene_selection": "PASS - Mira is initially selected here while Julian remains the stored Scene-12 selection.",
+    "focus_vs_selection": "PASS - Niko can receive keyboard focus without moving Mira's management selection.",
+    "membership_non_implication": "PASS - opening/selecting Character management never claims add/remove/current-Scene participation.",
+    "character_vs_performer": "PASS - persistent Character identity remains separate from any Performer/provider assignment.",
+    "creator_edit_vs_fiction": "PASS - provisional creator shaping capacity is explicitly non-fictional and does not imply Character action/performance.",
+    "theme_parity": "PASS - Light F2 and Dark D3 preserve identical Production/Scene scope, identity and membership meaning."
+  },  "recursive_audit": {
+    "findings": [
+      "The first valid matrix exposed eight internal management-surface overflow witnesses at 320px / 200% text.",
+      "The first focus probe did not establish keyboard modality before evaluating :focus-visible.",
+      "The first visual review exposed stale COMP-03 eyebrow and COMP-02/01 provenance-stamp labeling."
+    ],
+    "repairs": [
+      "Added management-surface min-width containment and overflow-wrap behavior only; all seven cases reran at zero overflow.",
+      "Established keyboard modality before focusing Niko; final ring is solid 2px with 2px offset.",
+      "Corrected board labels to APPUI-COMP-05 and COMP-04 RETURN LAW / COMP-02 SHELL / F2 / D3."
+    ],
+    "semantic_retune": false,
+    "visual_role_retune": false,
+    "rerun_result": "CLEAN"
+  },
+  "visual_evidence": {
+    "context_wide_sha256": "58d824d6f42050d528919ea3bab73fcbb8b7e22d4da1bab0a2503eb55aafbc2c",
+    "management_wide_sha256": "e3d135e1b437f94dab3ff05e4d089123e897c50fbbc24781bd9210e5cf4d6dd1",
+    "management_narrow_sha256": "fc168e270821414b2a3a98ae573845a896804a76c0bd34a893f01d9635006a39"
+  },
+  "non_authority": [
+    "No Scene add/remove/participation controls are created.",
+    "No casting, Performer/provider assignment or availability policy is created.",
+    "No Character lifecycle, duplicate/merge/delete/archive semantics are created.",
+    "No final Character schema or creator commit/save/undo contract is created.",
+    "No Bellweather placement, Stage successor, production token or native WinUI/XAML authority is created."
+  ],
+  "conclusion": "APPUI_COMP_05_REAL_WHOLE_PRODUCTION_CHARACTER_MANAGEMENT_PASS",
+  "next_boundary": "Open APPUI-COMP-06 for causal/history inspection inside the COMP shell, preserving current-versus-historical distinction, semantic origin and exact return without creating a permanent Archive/History mode.",
+  "approval": "APPROVED BY STANDING DIRECTOR DELEGATION - CLEAN RECURSIVE AUDIT"
+}

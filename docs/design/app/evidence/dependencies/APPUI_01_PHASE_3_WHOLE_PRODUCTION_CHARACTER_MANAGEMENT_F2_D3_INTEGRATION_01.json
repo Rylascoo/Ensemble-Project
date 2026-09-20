@@ -1,0 +1,66 @@
+{
+  "schema": "kymaean.appui-phase3-whole-production-character-management-f2-d3-integration.v1",
+  "status": "PHASE_3_CHARACTER_MANAGEMENT_INTEGRATION_PASS_D3_PROVISIONAL_SURVIVES",
+  "date": "2026-09-15",
+  "program": "APPUI-01 Phase 3 - Kymaean Visual-Language Integration",
+  "method": "docs/evidence/APPUI_01_PHASE_3_CHARACTER_MANAGEMENT_F2_D3_INTEGRATION_METHOD_01.json",
+  "functional_parent": "docs/evidence/APPUI_01_WHOLE_PRODUCTION_CHARACTER_MANAGEMENT_FUNCTIONAL_STUDY_01.json",
+  "authority": {
+    "design_branch": "design/appui01-working-compositions-2026-09-14",
+    "pre_integration_ref": "3dbda8ffa2b6de67259b453e84feb0f3303cb6d6",
+    "website_main_reconciled": "b33c242c4b21322df9e04a70a40adffe2df4b777",
+    "engineering_main_reconciled": "40409d0d438afe4631c07e41d38fa1179d358664"
+  },
+  "artifact": {
+    "path": "prototypes/appui-01/phase3-whole-production-character-management-f2-d3-integration-01.html",
+    "sha256": "fb75a91e3bd8359f8c2aac960d5aa4d51cba315454c57ca88c24c47d15af05bc",
+    "probe": "tools/appui_phase3_character_management_f2_d3_matrix_probe.mjs",
+    "source_functional_sha256": "56dc3d7d525c4597b24ed5f78aa38143dd2c23828254c4703871cd4ad1c2b226"
+  },
+  "drive": {
+    "archive_folder_id": "1E6n1eOK_HYTF-fAiw7AbBYlvtNvn3HDE",
+    "html_id": "1lU8vUMM5tirGla9_oPm86S-Qs_PtRzkK",
+    "png_id": "1Y5tXJphc5_0lzKl-qQIBAWqV6lTRXohe",
+    "png_sha256": "90e518c5e8d642b3cb9035241f1048502da7e8b6f217d434211a3916f1815c0a"
+  },
+  "themes": {
+    "light_f2": {"field":"#F4F3F7","primary":"#221B2D","secondary":"#5C5565","accent":"#006F73","boundary":"#7D7486","soft_surface":"#EAE8EF"},
+    "dark_d3": {"field":"#19141D","primary":"#F4F0F5","secondary":"#BEB4C0","accent":"#249A9C","boundary":"#756A79","soft_surface":"#261F29"}
+  },
+  "matrix": {
+    "cases": ["1600","1024","390","320","320_forced_colors","320_text_200_percent","320_text_spacing"],
+    "result": "PASS_ZERO_OVERFLOW_AFTER_TEXT200_GEOMETRY_REPAIR",
+    "invariants_each_case": {"apps":2,"material_fields":2,"selected_witnesses":2,"focus_witnesses":2},
+    "forced_colors_active_when_required": true,
+    "images": 0,
+    "external_resources": 0
+  },
+  "integration_result": {
+    "off_scene_state": "PASS - Mira and Niko remain fully legible persistent Characters; Off-Scene is labeled and not visually disabled or archival.",
+    "management_vs_scene_selection": "PASS - Mira local selection uses sparse edge witness; Julian remains textually preserved as the Scene-12 selection.",
+    "focus_vs_selection": "PASS - Niko carries independent keyboard-focus ring while Mira remains selected here.",
+    "character_vs_performer": "PASS - identity remains textual/semantic and does not depend on provider/model/color treatment.",
+    "creator_edit_vs_fiction": "PASS - provisional edit remains dotted/labeled and no fictional action is implied.",
+    "return_semantics": "PASS - Scene 12 / Julian return context remains explicit and Back is not represented as Undo."
+  },
+  "recursive_audit": {
+    "first_mechanical_finding": "At 320px / 200% text, eight row-content overflow witnesses occurred because status chips consumed horizontal row width.",
+    "correction": "At narrow widths, Character rows now stack content and status vertically; no semantics or color roles changed.",
+    "rerun_result": "CLEAN_ZERO_OVERFLOW_ALL_SEVEN_CASES",
+    "post_exposure_color_retune": "NONE",
+    "implicit_scene_membership_mutation_created": false,
+    "scene_selection_overwritten": false,
+    "off_scene_disabled_semantics_created": false,
+    "character_performer_conflation_created": false,
+    "semantic_status_color_created": false,
+    "d3_local_disposition": "SURVIVES_CHARACTER_MANAGEMENT_SECTION_BUT_REMAINS_PROVISIONAL"
+  },
+  "non_authority": [
+    "D3 is not frozen as final dark palette by this local PASS.",
+    "No Production color tokens or semantic status colors are created.",
+    "No add/remove-to-Scene, casting, participation, lifecycle, merge/delete/archive, Performer/provider assignment or availability policy is frozen.",
+    "No native implementation, Stage successor, runtime/package authority or Phase-3 convergence claim is created."
+  ],
+  "next_boundary": "Evaluate exact selected Light F2 plus exact provisional D3 on the accepted Causal/History Inspection architecture, preserving current-versus-historical meaning and semantic return without creating a permanent History mode.",
+  "approval": "APPROVED BY STANDING DIRECTOR DELEGATION - CLEAN RECURSIVE AUDIT"
+}

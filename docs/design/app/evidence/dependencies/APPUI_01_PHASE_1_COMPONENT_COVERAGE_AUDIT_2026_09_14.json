@@ -1,0 +1,112 @@
+{
+  "schema": "kymaean.appui-phase1-component-coverage-audit.v1",
+  "status": "AUDITED_PHASE_1_COMPONENT_COVERAGE_BASELINE",
+  "date": "2026-09-14",
+  "program": "APPUI-01 - Windows 11 ARM64 Working App Visual Prototype",
+  "repository": "Rylascoo/Ensemble-Website",
+  "sources": {
+    "design_ref": "14b5fcb6d55ef2941cc9c3e78c6c8439f30c1f3e",
+    "engineering_ref": "36b9c4c2644d6d47c957e7910d0c609e260b5432",
+    "active_phase1_map": "docs/KYMAEAN_APPUI_PHASE_1_STAGE_INTERFACE_ENVELOPE_AND_LAYOUT_MAP_01.md",
+    "recovered_intake_drive_folder_id": "17gL7K_OnO9JEdYKDnd_lv-NkB-ehmocM",
+    "recovered_intake_local_path": "C:\\Users\\Wiryl\\My Drive\\Ensemble Project\\03 Visual Identity & Artwork\\Kymaean\\00 Intake — New Material for Interpretation\\00 Unreviewed — Drop New Material Here",
+    "local_intake_inventory": "60 files / 26 unique-by-SHA256 images",
+    "drive_connector_direct_listing_at_audit": "6 direct files returned"
+  },
+  "audit_rule": "Recovered artwork is inspiration/evidence, not product authority. Integrate durable meaning and capacity; do not copy obsolete Studio/Stage/Archive topology or unapproved controls literally.",
+  "coverage": {
+    "integrated_structurally": [
+      "Production create/open/switch/resume",
+      "current Production, current Scene and situation-first context",
+      "people present, relationships in motion, pressures, world context and open questions",
+      "contextual selected-entity inspection and deep inspection",
+      "Stage field, Character identity/presence capacity and dark-Stage invariant",
+      "Director attention/opportunity semantic capacity without frozen visualization",
+      "creator intervention boundary",
+      "Character-bounded perspective/disclosure change",
+      "causal history with adjacent and expanded depth",
+      "current versus historical and provisional versus effective distinctions",
+      "Light/Dark semantic parity, responsive behavior, focus/selection/accessibility grammar"
+    ],
+    "required_phase1_homes_added_by_this_audit": [
+      {
+        "family": "WHOLE_PRODUCTION_CHARACTER_MANAGEMENT",
+        "requirement": "Reach, create, edit and inspect persistent Characters beyond the current Scene without making People a mandatory permanent top-level silo.",
+        "placement": "Production/current-possibility context plus contextual or deep management surface.",
+        "non_authority": "Exact add/remove/cast/participation controls and labels remain open."
+      },
+      {
+        "family": "TRUTH_KNOWLEDGE_DISCLOSURE_INSPECTION",
+        "requirement": "Provide deep inspection capacity for knowledge/disclosure distinctions such as fact, claim, belief, suspicion, memory, withheld/private information and provenance when product authority supports them.",
+        "placement": "Character/entity deep inspection and causal/history surfaces; Character-bounded view enforces permitted disclosure.",
+        "non_authority": "Recovered Claims & Truth / Who Knows What boards are not literal final UI."
+      },
+      {
+        "family": "PERSISTENCE_RECOVERY_STATUS",
+        "requirement": "Truthfully surface save, recovery, corruption, read-only or persistence failure when relevant while keeping normal healthy persistence quiet.",
+        "placement": "Application/workspace semantic status with deeper recovery explanation only when needed.",
+        "non_authority": "The old permanent LOCAL-FIRST / ALL CHANGES SAVED footer is inspiration, not required chrome."
+      },
+      {
+        "family": "PRODUCTION_LIFECYCLE_UTILITIES",
+        "requirement": "Reserve an application/Production-level route for settings, portable import/export, provider configuration, diagnostics and recovery utilities.",
+        "placement": "Application shell or Production scope, outside the theatrical Stage.",
+        "non_authority": "Exact portable format, provider/cost policy and utility commands remain Phase-D/product dependent."
+      }
+    ],
+    "reserved_but_intentionally_deferred": [
+      "exact Scene lifecycle controls and observation semantics",
+      "creator consequence-review mechanics",
+      "Presentation Perspective switching control",
+      "Another Take, branching and Rehearsal minimums",
+      "exact Take/review decision controls",
+      "timer/Pause semantics",
+      "performance transcript/recent-beats placement",
+      "Observed Cues and provenance-rail semantics",
+      "provider/model/cost placement and performer-assignment controls",
+      "portable Production format and exact import/export workflow",
+      "manuscript/exported-performance role",
+      "specialized relationship/session-map visualization"
+    ],
+    "recovered_lineage_absorbed_as_principles": [
+      "asymmetric desktop hierarchy with dominant task surface",
+      "selected-object dossier/detail adjacent to the current work",
+      "Character identity, relationships, knowledge and pressure as first-class creative material",
+      "live Stage support for tension, opportunity, silence/listening and intervention",
+      "consequence/history surfaces for what changed, what remains unresolved and causal provenance",
+      "Character-bounded disclosure as a materially different information position",
+      "truth/knowledge distinctions and relational maps as possible deep inspection tools",
+      "quiet persistence/status and application-level utility capacity"
+    ],
+    "recovered_lineage_not_carried_forward_literally": [
+      "Studio / Stage / Archive as permanent top-level modes",
+      "portrait or decorative avatar dependency",
+      "a permanent transcript-dominant Stage",
+      "fixed right-side inspector placement",
+      "permanent ontology/category dashboards as the main creator workspace",
+      "gold/dark palette, typography, icons, scenic hero imagery or other historical visual styling as current authority"
+    ]
+  },
+  "conclusion": {
+    "core_architecture": "COVERED",
+    "component_completeness_before_audit": "INCOMPLETE",
+    "component_completeness_after_phase1_map_repair": "COVERAGE_COMPLETE_WITH_DOCUMENTED_DEFERRED_PRODUCT_GATES",
+    "interaction_testing_gate": "OPEN_AFTER_MAP_REPAIR_AND_VALIDATION",
+    "phase2_gate": "STILL_CLOSED_UNTIL_PHASE1_EXIT_CRITERIA_AND_FRESH_ENGINEERING_RECONCILIATION"
+  },
+  "drive_continuity_note": {
+    "finding": "The local synced intake path contained 60 files / 26 unique images while the Drive connector direct folder listing returned 6 files at audit time.",
+    "interpretation": "Treat this as a continuity/sync discrepancy requiring separate verification; do not infer that all local lineage is durably cloud-preserved from the connector listing alone.",
+    "design_effect": "The recovered lineage has been interpreted for this audit, but binary preservation should be verified separately before clearing the intake continuity concern."
+  },
+  "recursive_audit": {
+    "result": "CLEAN_AFTER_COMPONENT_COVERAGE_REPAIR",
+    "remaining_irreducible_boundary": "Final controls for Phase-D-owned Scene, Take/Rehearsal/branching, provider/cost, portable Production and related runtime semantics cannot be frozen by Design before Product/Engineering authority resolves them."
+  },
+  "accepted_workspace_direction": {
+    "production_home_resume": "Director-accepted structural direction: current Production and resume point dominate; concise current situation and meaningful stakes orient re-entry; other Productions are subordinate; scenic/hero imagery and exact labels remain provisional.",
+    "production_shaping_current_possibility": "Director-accepted structural direction: situation-first workspace, not category-first database navigation; current Scene/situation is primary, contextual inspector follows meaningful selection, and deep object-oriented tools appear only after the creator follows something meaningful.",
+    "navigation_rule": "Production -> current situation -> meaningful element -> contextual inspection/editing.",
+    "state": "STRUCTURAL_PASS; interaction/state behavior remains to be tested."
+  }
+}

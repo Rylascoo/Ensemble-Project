@@ -1,0 +1,75 @@
+{
+  "schema": "kymaean.appui-component-system-shaping-workspace-integration-method.v1",
+  "status": "METHOD_FROZEN_PRE_CONSTRUCTION",
+  "date": "2026-09-16",
+  "program_id": "APPUI-COMP-03",
+  "repository": "Rylascoo/Ensemble-Website",
+  "authority": {
+    "design_head": "cb4211c9619fb01ff7da73face9b59c237aaf347",
+    "website_main": "cc312f3fd974f3c564aba0d210f64b75e195b0b2",
+    "engineering_main": "2bfb0c1c3e8cb79acafe72d6fb80692bc818a407",
+    "shell_packet": "PKT-COMP-02-01",
+    "component_packet": "PKT-COMP-01-01",
+    "functional_study": "docs/evidence/APPUI_01_PRODUCTION_SHAPING_CURRENT_POSSIBILITY_FUNCTIONAL_STUDY_01.json",
+    "visual_study": "docs/evidence/APPUI_01_PHASE_3_PRODUCTION_SHAPING_F2_D3_INTEGRATION_01.json"
+  },
+  "bounded_question": "Can the accepted situation-first Production Shaping / Current Possibility hierarchy become a real workspace inside the COMP-02 shell while preserving current-thread dominance, contextual inspection, focus/selection separation and Product-open boundaries?",
+  "frozen_inputs": [
+    "COMP-02 durable shell and Production scope behavior",
+    "COMP-01 foundational control grammar",
+    "Light F2 / Dark D3",
+    "MAT F1 Subtractive Channel",
+    "TYP F1 Ratio Ladder",
+    "STA F2 Ring + Edge Witness",
+    "FICON F1 Native Quiet Carrier",
+    "accepted situation-first Shaping hierarchy"
+  ],  "construction_law": [
+    "Home / Productions / Settings remain the thin durable shell; Shaping does not become a new permanent taxonomy tab.",
+    "Current Production and current situation remain the dominant semantic frame.",
+    "People, relationship, pressure, question and world-context labels are orientation/follow targets, not database silos.",
+    "Selected meaning opens contextual inspection; keyboard focus may move independently without creating selection.",
+    "Current possibility names the creator working frame and must not imply predictive/generated next-action authority.",
+    "Deep inspection is deliberate follow-through and preserves exact semantic origin/return.",
+    "Current/historical and provisional/effective meaning remain structural and hue-independent.",
+    "No Stage redesign or Product-gated control is introduced."
+  ],
+  "mechanical_matrix": [
+    "normal-1600",
+    "normal-1024",
+    "normal-390",
+    "normal-320",
+    "forced-colors-320",
+    "text-200-percent-320",
+    "text-spacing-stress-320"
+  ],
+  "mechanical_acceptance": [
+    "zero page-level horizontal overflow",
+    "zero missing button accessible names",
+    "zero undersized icon-only controls below 32px reference carrier",
+    "solid 2px keyboard focus with 2px offset",
+    "exactly one selected meaningful element per theme",
+    "keyboard focus can target a different meaningful element without moving selection",
+    "meaningful-element activation updates contextual inspection without changing durable navigation",
+    "no external resources or image dependency"
+  ],  "visual_falsification": [
+    "current situation must dominate orientation, inspector and durable shell chrome",
+    "the workspace must not read as a People/World/Scenes ontology browser",
+    "the meaning list must read as one authored field rather than a card/dashboard grid",
+    "contextual inspection must remain visibly subordinate to the current situation",
+    "Light/Dark must preserve identical navigation, disclosure and inspection meaning",
+    "narrow layout must preserve one primary reading sequence and exact return context"
+  ],
+  "explicit_non_goals": [
+    "Scene lifecycle commands",
+    "Take/Rehearsal/branching controls",
+    "Perspective switching semantics",
+    "provider/model/cost or Performer assignment controls",
+    "prediction/recommendation of what should happen next",
+    "bespoke domain icon family",
+    "Bellweather mascot placement",
+    "final typeface/font files",
+    "motion or Stage successor",
+    "production tokens or WinUI/XAML implementation"
+  ],
+  "result_law": "Responsive or interaction-plumbing repairs may change geometry/DOM mechanics only. Any change to accepted Shaping semantics or frozen F2/D3/MAT/TYP/STA/FICON/Stage mechanisms requires a separately named successor rather than silent COMP-03 retuning."
+}

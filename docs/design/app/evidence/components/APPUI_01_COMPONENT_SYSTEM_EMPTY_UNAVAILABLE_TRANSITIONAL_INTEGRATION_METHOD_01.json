@@ -1,0 +1,55 @@
+{
+  "schema": "kymaean.appui-component-system-empty-unavailable-transitional-integration-method.v1",
+  "status": "APPUI_COMP_11_METHOD_FROZEN_PRE_EXPOSURE",
+  "date": "2026-09-16",
+  "program": "APPUI-01 Component Integration",
+  "component_gate": "APPUI-COMP-11",
+  "authority": {
+    "design_branch": "design/appui01-working-compositions-2026-09-14",
+    "pre_exposure_ref": "a9e8b3ca7a0d776716be67b30cbb8d301eba8448",
+    "website_main_reconciled": "94fd60f3a51485f052c25d753459a45240d845d4",
+    "engineering_main_reconciled": "526893a0f518b52bceddb311514de12ec826b9b3",
+    "functional_parent": "docs/evidence/APPUI_01_EMPTY_UNAVAILABLE_TRANSITIONAL_WORKSPACE_FUNCTIONAL_STUDY_01.json",
+    "visual_parent": "docs/evidence/APPUI_01_PHASE_3_EMPTY_UNAVAILABLE_TRANSITIONAL_F2_D3_INTEGRATION_01.json",
+    "shell_parent": "PKT-COMP-10-01"
+  },
+  "bounded_question": "Can the real COMP shell carry empty, loading/transitional, unavailable, failed/cancelled and provisional/non-effective workspace states while preserving application truth, fictional boundaries and exact task return without freezing Product-gated lifecycle/provider mechanics?",
+  "fixed_inputs": {
+    "light": "Light F2",
+    "dark": "D3 provisional incumbent",
+    "material": "MAT-01 F1",
+    "typography": "TYP-02 F1",
+    "state": "STA-01 F2 where authoritative interaction state requires it"
+  },
+  "must_preserve": [
+    "empty / no active Scene is valid Production state; empty != error or deletion",
+    "loading / transitional is application state; loading != fictional delay or performed waiting",
+    "capability unavailable is technical state; unavailable != Character refusal, silence, incapacity or hesitation",
+    "failed / cancelled technical attempt creates no accepted Production mutation, consequence or causal history",
+    "provisional / non-effective remains structurally distinct from current / effective",
+    "one shell survives all five state families without information-architecture redesign",
+    "prior semantic origin and focus-return target remain recoverable when still valid",
+    "Back / Close is navigation, not Undo"
+  ],
+  "hard_falsifiers": [
+    "Any empty-state surface implies deletion, corruption or fictional absence.",
+    "Any loading/transitional surface implies fictional time passage or Character waiting/hesitation.",
+    "Any unavailable surface translates infrastructure limitation into Character refusal or incapacity.",
+    "Any failed/cancelled surface implies accepted Production change or narrative consequence.",
+    "Any provisional surface can be mistaken for current/effective without reading color/theme.",
+    "Any Product-dependent lifecycle/provider/retry/fallback command is introduced as an app control.",
+    "Theme or accent encodes loading, failure, availability, effectiveness, success or severity."
+  ],
+  "test_matrix": [
+    "1600_normal", "1024_normal", "390_normal", "320_normal",
+    "320_forced_colors", "320_text_200_percent", "320_text_spacing"
+  ],
+  "state_hook_rule": "The deterministic carrier may expose a test-only JavaScript state hook to exercise the five accepted state families; this hook is evidence instrumentation and not Product UI or runtime authority.",
+  "non_authority": [
+    "No Create/Start/Resume Scene, Take, branch, rehearsal, retry, fallback or provider command is created.",
+    "No loading duration, progress algorithm, cancellation, retry, recovery, provider/model/cost or failure policy is frozen.",
+    "No final Scene lifecycle, consequence, timer/transcript/Pause, production token, native implementation or Stage successor authority is created.",
+    "Fixture state labels are design-evidence witnesses rather than final shipping copy."
+  ],
+  "next": "Materialize the five accepted state families inside the real COMP shell, run the seven-case matrix, recursively audit application-truth versus fiction boundaries, then preserve only if clean."
+}

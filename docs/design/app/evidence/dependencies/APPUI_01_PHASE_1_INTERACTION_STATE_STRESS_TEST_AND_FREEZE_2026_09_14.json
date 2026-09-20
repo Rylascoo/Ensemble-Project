@@ -1,0 +1,84 @@
+{
+  "schema": "kymaean.appui-phase1-interaction-state-stress-test.v1",
+  "status": "PHASE_1_FROZEN_PASS",
+  "date": "2026-09-14",
+  "program": "APPUI-01 - Phase 1 Application UI Architecture and Layout",
+  "authority": {
+    "design_repository": "Rylascoo/Ensemble-Website",
+    "design_branch": "design/appui01-working-compositions-2026-09-14",
+    "pre_test_design_ref": "87d4256c75b8a74ac27dcf9dd71f216dbb72fef0",
+    "engineering_repository": "Rylascoo/Ensemble-Project",
+    "fresh_engineering_ref_after_materialization": "36b9c4c2644d6d47c957e7910d0c609e260b5432",
+    "engineering_semantic_result": "UNCHANGED_FROM_PHASE_1_MAP_CREATION; E0-D BLOCKED; NO POST-E0 PHASE-D PRODUCT SEMANTICS"
+  },
+  "incumbents_preserved": {
+    "global_structure": "Wireframe 01R - Revised Structural Baseline",
+    "stage": "PKT-STAGE-CORE-02 unchanged; dark Stage in both application themes",
+    "home": "resume/current-situation first",
+    "shaping": "situation-first; meaningful-element follow into contextual/deep inspection"
+  },
+  "artifact": {
+    "repository_path": "prototypes/appui-01/phase1-interaction-state-stress-test-01.html",
+    "html_sha256": "5811553b2ac99cb92ac9a2071489b01f40b5bad57e0867b9f84dcd9777666077",
+    "drive_folder_id": "1E_sO0bP8IYcwxRLMpOK8HAiKO3DXXCKc",
+    "drive_png_id": "1RqyYMw9FbGA1DPZbcQveSm3---VXn_da",
+    "drive_html_id": "1spFb-xRUyFrZViYuopdbph_Ls7mwccVo",
+    "drive_png_sha256": "430966e2a1ce88aae3304a1cbcfa9441433b526616d2995fa49371fbf1015a89"
+  },
+  "mechanical_preflight": {
+    "method": "Chromium CDP deterministic render of the exact self-contained HTML; no external resources",
+    "cases": [
+      {"mode": "wide", "viewport": [1600, 1000], "horizontal_overflow": false},
+      {"mode": "medium", "viewport": [1024, 900], "horizontal_overflow": false},
+      {"mode": "narrow_390", "viewport": [390, 844], "horizontal_overflow": false},
+      {"mode": "narrow_320", "viewport": [320, 700], "horizontal_overflow": false},
+      {"mode": "narrow_320_forced_colors", "viewport": [320, 700], "horizontal_overflow": false, "forced_colors_active": true}
+    ],
+    "flow_count": 6,
+    "states_per_flow": 5,
+    "cross_cutting_invariant_count": 8,
+    "result": "PASS"
+  },
+  "required_flows": [
+    {"id": 1, "flow": "Character -> contextual inspector -> deep edit -> return/focus", "result": "PASS"},
+    {"id": 2, "flow": "unresolved question -> adjacent cause -> expanded history -> current return", "result": "PASS"},
+    {"id": 3, "flow": "whole-Production Character access -> off-Scene edit -> prior Scene/selection preserved", "result": "PASS"},
+    {"id": 4, "flow": "persistence/recovery exception -> truthful recovery -> prior task restored", "result": "PASS"},
+    {"id": 5, "flow": "unavailable capability -> blocked creator request -> no fictional failure behavior", "result": "PASS"},
+    {"id": 6, "flow": "wide -> medium -> narrow adaptation -> same semantic target/focus restoration", "result": "PASS"}
+  ],
+  "cross_cutting_semantic_checks": {
+    "keyboard_focus_vs_selection": "PASS",
+    "selection_vs_director_opportunity": "PASS",
+    "back_close_vs_undo": "PASS",
+    "current_vs_historical": "PASS",
+    "provisional_non_effective_vs_effective": "PASS",
+    "creator_action_vs_character_agency": "PASS",
+    "character_identity_vs_performer_assignment": "PASS",
+    "infrastructure_failure_vs_fiction": "PASS"
+  },
+  "recursive_audit": {
+    "global_shell_reopened": false,
+    "phase_d_control_invented": false,
+    "new_stage_visual_authority_created": false,
+    "provider_or_cost_policy_frozen": false,
+    "obsolete_studio_stage_archive_topology_restored": false,
+    "material_design_corrections_after_first_visual_exposure": 0,
+    "result": "CLEAN"
+  },
+  "phase_1_exit": {
+    "structural_coverage": "PASS",
+    "interaction_state_behavior": "PASS",
+    "responsive_semantic_survival": "PASS",
+    "accessibility_state_grammar": "PASS_DESIGN_WITNESS_ONLY",
+    "light_dark_semantic_parity": "PRESERVED_FROM_APPROVED_PHASE_1_BASELINE",
+    "fresh_engineering_reconciliation": "PASS_NO_SEMANTIC_DRIFT",
+    "result": "PHASE_1_FROZEN_PASS"
+  },
+  "non_authority": [
+    "Exact navigation labels and commands remain provisional.",
+    "Scene lifecycle, consequence review, Presentation Perspective switching, Another Take/Rehearsal/branching, timer/Pause, transcript/Observed Cues, provider/model/cost, Performer assignment, portable Production, manuscript/export and specialized relationship/session-map workflows remain Product/Engineering gated.",
+    "No WinUI/XAML/runtime/accessibility-device/package/Store authority is created."
+  ],
+  "next": "Before any Phase-2 Stage/live-production successor is materialized, fresh-resolve Ensemble-Project again; if no relevant Product semantic changed, open Phase 2 from PKT-STAGE-CORE-02 without reopening Phase-1 shell geometry."
+}

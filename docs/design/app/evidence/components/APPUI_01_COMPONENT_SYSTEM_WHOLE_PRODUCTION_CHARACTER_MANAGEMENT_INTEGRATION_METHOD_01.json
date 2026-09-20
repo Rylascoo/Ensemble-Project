@@ -1,0 +1,71 @@
+{
+  "schema": "kymaean.appui-component-system-whole-production-character-management-integration-method.v1",
+  "status": "METHOD_FROZEN_PRE_CONSTRUCTION",
+  "date": "2026-09-16",
+  "program_id": "APPUI-COMP-05",
+  "repository": "Rylascoo/Ensemble-Website",
+  "authority": {
+    "design_head": "98a2389d50b36014e83d6beee2aaff04190b3f97",
+    "website_main": "fdf4f87b939c54358125e36aa2b81f070fdd1e6f",
+    "engineering_main": "2bfb0c1c3e8cb79acafe72d6fb80692bc818a407",
+    "inspection_packet": "PKT-COMP-04-01",
+    "shaping_packet": "PKT-COMP-03-01",
+    "functional_study": "docs/evidence/APPUI_01_WHOLE_PRODUCTION_CHARACTER_MANAGEMENT_FUNCTIONAL_STUDY_01.json",
+    "visual_study": "docs/evidence/APPUI_01_PHASE_3_WHOLE_PRODUCTION_CHARACTER_MANAGEMENT_F2_D3_INTEGRATION_01.json"
+  },
+  "bounded_question": "Can whole-Production Character management operate as a deliberate Production-scope task inside the COMP shell while preserving current-Scene membership/selection, off-Scene Character reality, persistent identity and exact return without creating a permanent People silo or inventing casting/Performer mechanics?",
+  "frozen_inputs": [
+    "PKT-COMP-04-01 inspection/return grammar",
+    "PKT-COMP-03-01 Shaping workspace",
+    "PKT-COMP-02-01 shell / PKT-COMP-01-01 controls",
+    "Light F2 / Dark D3 / MAT F1 / TYP F1 / STA F2 / FICON F1",
+    "accepted whole-Production Character management grammar"
+  ],  "construction_law": [
+    "Whole-Production Character management is invoked from current Production context and is not a permanent top-level People destination.",
+    "Mira is the initial local management selection and remains explicitly off-Scene relative to Scene 12.",
+    "Julian remains the stored Scene-12 selection while management selection changes independently.",
+    "Opening, selecting, inspecting or reserving creator-edit capacity never implies Scene membership mutation.",
+    "Off-Scene means not participating in the current Scene; it does not mean disabled, unavailable, archival or less real.",
+    "Character identity remains persistent and independent from Performer/provider assignment.",
+    "Creator-authority work must not be presented as fictional Character action, memory, refusal or performance.",
+    "Back and Close restore the prior current-situation origin/focus without undoing effective persistent Character material."
+  ],
+  "mechanical_matrix": [
+    "normal-1600",
+    "normal-1024",
+    "normal-390",
+    "normal-320",
+    "forced-colors-320",
+    "text-200-percent-320",
+    "text-spacing-stress-320"
+  ],
+  "mechanical_acceptance": [
+    "zero page-level and internal horizontal overflow",
+    "zero missing button accessible names and zero undersized icon-only controls",
+    "solid 2px keyboard focus with 2px offset",
+    "management task opens in both themes without changing durable navigation",
+    "exactly one local management selection per theme and stored Scene selection remains Julian",
+    "Niko can receive independent keyboard focus while Mira remains selected",
+    "selecting another persistent Character updates management detail without changing Scene membership or stored Scene selection",
+    "Back and Close restore origin trigger focus with current Scene context preserved",
+    "zero external resources or image dependency"
+  ],  "visual_falsification": [
+    "Production-scope Character management must read as temporary task depth, not a People database home",
+    "off-Scene Characters must remain equally real and legible rather than visually disabled or archival",
+    "local management selection, stored Scene selection and keyboard focus must remain visibly different states",
+    "teal must not encode Scene membership, off-Scene status, Performer/capability or creator-edit state",
+    "narrow layout must preserve Character identity/status before detail and exact return",
+    "Light/Dark must preserve identical scope, identity and membership meaning"
+  ],
+  "explicit_non_goals": [
+    "Scene add/remove/participation controls",
+    "casting or Performer/provider assignment",
+    "Character lifecycle, duplicate/merge/delete/archive semantics",
+    "final Character data schema or creator commit/save/undo contract",
+    "permanent People navigation silo",
+    "Bellweather placement or portrait dependency",
+    "motion or Stage successor",
+    "production tokens or native WinUI/XAML implementation"
+  ],
+  "result_law": "Responsive and interaction-plumbing repairs may change geometry/DOM mechanics only. Any change to accepted Character-management semantics or frozen visual mechanisms requires a separately named successor rather than silent COMP-05 retuning."
+}

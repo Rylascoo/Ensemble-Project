@@ -1,0 +1,103 @@
+{
+  "status": "ACTIVE DESIGN EVIDENCE",
+  "packet_id": "APPUI-ALPHA-STAGE-GRAMMAR-01",
+  "title": "Kymaean Alpha Stage Interaction & Spatial Grammar 01",
+  "authority": {
+    "design_repo": "Rylascoo/Ensemble-Website",
+    "design_branch": "design/appui01-working-compositions-2026-09-14",
+    "engineering_repo": "Rylascoo/Ensemble-Project",
+    "engineering_ref_observed": "2137e8c9db1a9c7817a3cda872e43c6cf72cdc3d",
+    "design_architecture_ready": "NOT READY"
+  },
+  "source_authority": [
+    "docs/KYMAEAN_LANE_A_STAGE_CARRIER_SELECTION_01.md",
+    "docs/KYMAEAN_LANE_A_STAGE_CONE_INTERACTION_01.md",
+    "docs/KYMAEAN_APPUI_NATIVE_IMPLEMENTATION_HANDOFF_01.md",
+    "docs/evidence/APPUI_ALPHA_FOUNDATIONAL_UI_STAGE_CONSTITUTION_01.json",
+    "APPUI Phase 2 Stage/live-production studies preserved in Drive"
+  ],
+  "frozen_static_grammar": {
+    "stage_thesis": "Shared invariant-dark performance place; not dashboard, portrait wall, scene illustration, chat transcript, graph, or tile grid.",
+    "carrier": "Characters as volumes of light on a dark floor using cone geometry.",
+    "interaction_hinge": "Visible focus/selection feedback concentrates around floor/name relationship; semantic hit target may be larger and visually hidden.",
+    "identity": [
+      "human-readable Character name",
+      "stable programmatic identity",
+      "spatial presence",
+      "non-color-dependent state witness"
+    ],
+    "spatial_partition": {
+      "stage_field": "Character presence, current fictional performance/state, listening, materially supported opportunity and relationship salience.",
+      "workspace_frame": "Production/Scene/current-situation anchors, creator commands, application status, contextual-inspector host.",
+      "contextual_inspector": "Invoked current-task information about selected entity; not permanent Stage chrome.",
+      "deep_surfaces": "Causal history, deeper Character inspection, bounded perspective, intervention/consequence/technical explanation when separately authorized."
+    },
+    "ensemble": [
+      "relational rather than tile-based placement",
+      "meaningful negative space is preserved",
+      "identity/state do not depend on exact position",
+      "2-5 is design-stress evidence only, not Product cardinality",
+      "focus/selection/opportunity/performance/relationship salience may target different Characters"
+    ],
+    "state_separation": [
+      "keyboard focus != creator selection",
+      "creator selection != current opportunity",
+      "speaking/performing != creator selection",
+      "listening != performed silence",
+      "performed silence != refusal",
+      "refusal != technical/system failure",
+      "relationship salience != relationship type/score/obligation/permanent graph"
+    ],
+    "navigation_depth": "current performance -> immediate causal context -> deeper causal history -> exact return",
+    "theme": "White and Black shell presentations surround the same invariant-dark Stage with identical semantics.",
+    "responsive": "Stage/current performance survives first; secondary inspection/context may move from adjacency to overlay or sequence."
+  },
+  "explicit_open_variables": [
+    "exact Stage camera/perspective",
+    "exact Character coordinates/spacing/depth",
+    "exact cone width/falloff/blur/intensity",
+    "exact floor-pool geometry/overlap",
+    "final Character colors/textures/name typography",
+    "exact performance-text/transcript placement",
+    "opportunity/speaking/listening animation",
+    "transition timing/turn cadence/performance pacing",
+    "Product rules for opportunity/turns/Take/Scene progression/branching/persistence/providers",
+    "shipping WinUI/GPU/native accessibility realization"
+  ],
+  "drift_prohibitions": [
+    "scenic-image-first Stage",
+    "required portrait identity",
+    "full-cone selection cards",
+    "equal-tile ensemble grid",
+    "transcript/chat replacing ensemble",
+    "permanent relationship graph",
+    "permanent history rail",
+    "permanent inspector",
+    "hidden narrative-authority gesture on cone",
+    "color-only state",
+    "theme-specific Stage behavior",
+    "infrastructure presented as fiction",
+    "motive/emotion/knowledge inferred from intensity or position"
+  ],
+  "drive": {
+    "folder_id": "1ZaxYARCLFFi33psHy3GkBEhyyqhUX2tr",
+    "document_id": "1MRQNBVyjWMGHMvdJaAh9VzNLXaldDm4kBhTE3oTFblM",
+    "document_title": "Kymaean Alpha Stage Interaction & Spatial Grammar 01"
+  },
+  "non_authority": [
+    "No Stage motion/timing successor",
+    "No final transcript placement",
+    "No final camera/perspective",
+    "No new Product/runtime semantics",
+    "No Scene/Take/branch/provider policy",
+    "No shipping asset/token or native-validation claim"
+  ],
+  "audit": {
+    "source_conflicts_found": [
+      "Early avatar/orb and scenic/dashboard surfaces are not carried forward where they conflict with later selected cone/social-field authority.",
+      "Exact motion suggestions in older prototypes remain scaffolding because timing is explicitly unfrozen.",
+      "Take a Seat keeps only the explicit-action/bounded-perspective interaction invariant; exact lifecycle labels and runtime semantics remain Product-gated."
+    ],
+    "clean_result": true
+  }
+}

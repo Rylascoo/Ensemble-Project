@@ -1,0 +1,97 @@
+{
+  "schema": "kymaean.design-gate-packet.v1",
+  "framework": "docs/evidence/DESIGN_PACKET_AND_SYNTHESIS_FRAMEWORK_01.json",
+  "packet_id": "PKT-COMP-11-01",
+  "packet_class": "COMPOSITION_PACKET",
+  "status": "PROVISIONAL_INCUMBENT",
+  "date": "2026-09-16",
+  "gate_or_program": "APPUI-COMP-11 - Empty / Unavailable / Transitional Workspace Integration",
+  "design_axis": "APP VISUAL real workspace-state truth inside one shell",
+  "bounded_question": "Can five accepted workspace-state families live inside the real COMP shell while preserving application truth and fictional boundaries without freezing Product-dependent lifecycle/provider mechanics?",
+  "authority": {
+    "repository": "Rylascoo/Ensemble-Website",
+    "baseline_commit": "a9e8b3ca7a0d776716be67b30cbb8d301eba8448",
+    "governing_method_or_contract": [
+      "docs/evidence/APPUI_01_COMPONENT_SYSTEM_EMPTY_UNAVAILABLE_TRANSITIONAL_INTEGRATION_METHOD_01.json",
+      "docs/evidence/APPUI_01_EMPTY_UNAVAILABLE_TRANSITIONAL_WORKSPACE_FUNCTIONAL_STUDY_01.json",
+      "docs/evidence/APPUI_01_PHASE_3_EMPTY_UNAVAILABLE_TRANSITIONAL_F2_D3_INTEGRATION_01.json",
+      "docs/evidence/packets/PKT_COMP_10_CHARACTER_BOUNDED_WORKSPACE_INTEGRATION_01.json"
+    ],
+    "close_reconciliation": {
+      "website_main": "94fd60f3a51485f052c25d753459a45240d845d4",
+      "engineering_main": "526893a0f518b52bceddb311514de12ec826b9b3",
+      "effect": "Website main remains app-UI-frozen; Engineering advances E0-D Slot-2 authorization/evidence only and adds no Product/UI semantics altering this state grammar."
+    }
+  },  "controlled_inputs": [
+    "PKT-COMP-10-01 continuity",
+    "PKT-COMP-03-01 current-situation origin",
+    "PKT-COMP-02-01 shell / PKT-COMP-01-01 controls",
+    "Light F2 / Dark D3 / MAT F1 / TYP F1 / STA F2 / FICON F1",
+    "accepted empty/unavailable/transitional functional and Phase-3 evidence"
+  ],
+  "local_result": {
+    "summary": "The real shell now carries five distinct state families: valid empty/no-active-Scene, loading/transitional, capability unavailable, failed/cancelled and provisional/non-effective. State changes are condition-driven evidence hooks rather than user-facing Product commands; fictional truth remains untouched.",
+    "recommended_incumbent": "Five-State Workspace Truth Grammar 01",
+    "survivors_or_closure": ["Five-State Workspace Truth Grammar 01"]
+  },
+  "evidence": {
+    "mechanical": [
+      "seven-case origin + all-five-states + exact-return matrix PASS",
+      "carrier SHA-256 238424002c5d1e527a9d8c3b40f0df70c9e92f243ff6978495a7fa75581405ba",
+      "probe SHA-256 fd5c1a03201d2b79187a38dc45c330bc38258810ca52ee78071caaf1352aa457",
+      "matrix SHA-256 fa34da69d4a3d1f95accc78e83bf658e7cae5cceeea4e1bfec51802fb84ffd21",
+      "zero forbidden lifecycle/retry/fallback/recover buttons and zero state-surface form controls"
+    ],
+    "visual": [
+      "wide and narrow Light/Dark empty-state framing uses Production, not Current situation",
+      "loading, unavailable, failed/cancelled and provisional states retain one hierarchy across themes",
+      "dashed/dotted structure differentiates relevant witnesses without semantic status colors"
+    ]
+  },  "interaction": [
+    "test-only state hook exercises evidence conditions but creates no Product UI/runtime command",
+    "keyboard focus is visibly independent of state meaning and returns to retained creator focus when valid",
+    "Back/Close is navigation and never becomes Undo, recovery, retry or lifecycle mutation",
+    "empty state removes Current-situation framing and restores it when returning to a valid prior task"
+  ],
+  "dependencies": {
+    "requires": [
+      "PKT-COMP-10-01", "PKT-COMP-03-01", "PKT-COMP-02-01", "PKT-COMP-01-01",
+      "accepted empty/unavailable/transitional evidence"
+    ],
+    "constrains": [
+      "Future state carriers preserve empty-valid, infrastructure-versus-fiction, failed-no-effect, provisional-versus-effective and return-context distinctions unless a named successor supersedes them."
+    ],
+    "must_not_be_confused_with": [
+      "final Scene lifecycle UI",
+      "provider control surface",
+      "retry/fallback/recovery workflow",
+      "semantic status-color system",
+      "fictional waiting/refusal/consequence",
+      "native loading/progress implementation"
+    ]
+  },
+  "explicit_non_authority": [
+    "No Create/Start/Resume Scene, Take, branch, rehearsal, retry, fallback or provider command.",
+    "No loading duration, progress algorithm, cancellation, retry, recovery, provider/model/cost or failure policy.",
+    "No final Scene lifecycle, consequence, timer/transcript/Pause, production-token freeze, native implementation or Stage successor."
+  ],  "canonical_artifacts": {
+    "repository": [
+      "docs/evidence/APPUI_01_COMPONENT_SYSTEM_EMPTY_UNAVAILABLE_TRANSITIONAL_INTEGRATION_METHOD_01.json",
+      "docs/evidence/APPUI_01_COMPONENT_SYSTEM_EMPTY_UNAVAILABLE_TRANSITIONAL_INTEGRATION_RESULT_01.json",
+      "prototypes/appui-01/component-system-empty-unavailable-transitional-integration-01.html",
+      "tools/appui_component_system_empty_unavailable_transitional_matrix_probe.mjs"
+    ],
+    "director_review_surface": {
+      "entry_point": "self-contained COMP-11 HTML carrier",
+      "what_to_review": "five state families, empty-state Production framing, infrastructure-versus-fiction boundary, provisional/effective distinction and exact return",
+      "diagnostics_not_for_aesthetic_choice": ["matrix JSON", "DOM/probe output"]
+    }
+  },
+  "synthesis_state": {
+    "tested_with_packet_ids": [
+      "PKT-COMP-01-01", "PKT-COMP-02-01", "PKT-COMP-03-01", "PKT-COMP-10-01"
+    ],
+    "whole_app_synthesis_status": "REAL_EMPTY_UNAVAILABLE_TRANSITIONAL_VALIDATED_COMPONENT_COVERAGE_CONVERGENCE_AUDIT_NEXT",
+    "next_boundary": "Audit PKT-COMP-01-01 through PKT-COMP-11-01 as one integrated coverage set before authorizing any new component gate."
+  }
+}

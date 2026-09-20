@@ -1,0 +1,89 @@
+{
+  "status": "ACTIVE DESIGN EVIDENCE",
+  "packet_id": "APPUI-ALPHA-FOUNDATION-01",
+  "title": "Kymaean Alpha Foundational UI + Stage Constitution 01",
+  "authority": {
+    "design_repo": "Rylascoo/Ensemble-Website",
+    "design_branch": "design/appui01-working-compositions-2026-09-14",
+    "engineering_repo": "Rylascoo/Ensemble-Project",
+    "engineering_ref_observed": "2137e8c9db1a9c7817a3cda872e43c6cf72cdc3d",
+    "design_architecture_ready": "NOT READY"
+  },
+  "director_constraint": {
+    "alpha_user_facing_themes": [
+      "White",
+      "Black"
+    ],
+    "invariant": "Theme changes presentation only; application concept, hierarchy, Stage meaning, and interaction semantics remain stable.",
+    "imagery_dependency": "Core application and Stage comprehension must not depend on scenic imagery, portraits, cover art, or color-only semantics."
+  },
+  "preserved_design_authority": {
+    "durable_shell_routes": [
+      "Home",
+      "Productions",
+      "Settings"
+    ],
+    "current_production": "contextual scope, not a mandatory fourth permanent visible route",
+    "semantic_spaces": {
+      "Studio": "Production-shaping/current-possibility work",
+      "Stage": "Live Stage work",
+      "Archive": "causal/history/deep inspection"
+    },
+    "layers": [
+      "L0 Application shell",
+      "L1 Workspace frame",
+      "L2 Stage field",
+      "L3 Transient/deep surfaces"
+    ],
+    "stage": "Invariant dark Stage in White and Black themes",
+    "stage_identity": [
+      "explicit Character name",
+      "spatial presence",
+      "floor/name hinge",
+      "local non-color-dependent state witness"
+    ],
+    "orthogonal_meanings": [
+      "keyboard focus != creator selection",
+      "creator selection != current opportunity",
+      "speaking != creator selection",
+      "listening != performed silence",
+      "performed silence != refusal",
+      "refusal != technical/system failure",
+      "relationship salience != type/score/obligation/permanent graph",
+      "infrastructure state != fiction"
+    ],
+    "causal_depth": "current performance -> immediate causal context -> deeper history -> exact return",
+    "responsive_law": "Preserve semantic priority; collapse/sequence secondary context before compressing the primary task."
+  },
+  "non_authority": [
+    "No new Product/runtime semantics",
+    "No richer persisted Production-internal ontology",
+    "No Stage motion/timing/transcript successor",
+    "No shipping color/type/icon token package",
+    "No Home A/B selection",
+    "No FIRSTUSE-01 adoption",
+    "No Bellweather app placement",
+    "No scenic or portrait dependency"
+  ],
+  "drive": {
+    "folder_id": "1ZaxYARCLFFi33psHy3GkBEhyyqhUX2tr",
+    "document_id": "1AtCFZrAiV2q2IdpMKOYiROeGCNFBApyXkngKvpotDpM",
+    "document_title": "Kymaean Alpha Foundational UI + Stage Constitution 01"
+  },
+  "source_lineage": [
+    "Recovered Original Concept Stage/Character work",
+    "APPUI Phase 1 architecture/layout synthesis",
+    "APPUI Phase 2 Stage/live-production compositions 01-08",
+    "APPUI Phase 3 Light/Dark static visual system",
+    "APPUI component-system foundation and shell/resume integration",
+    "Q-DESIGN-20 native convergence and post-composition reconciliation"
+  ],
+  "audit": {
+    "contradictions_found_and_resolved": [
+      "Historical Studio/Stage/Archive permanent-navigation treatments are not carried forward; current Home/Productions/Settings shell law governs.",
+      "Historical portrait/scenic/dashboard treatments are retained only as non-authoritative exploration; current Stage social-field law governs.",
+      "Light F2/Dark D3 research is retained as lineage while Alpha user-facing theme names are White/Black; exact shipping tokens remain unfrozen."
+    ],
+    "clean_result": true
+  }
+}

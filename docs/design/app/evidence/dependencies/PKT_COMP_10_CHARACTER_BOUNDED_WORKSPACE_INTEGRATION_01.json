@@ -1,0 +1,117 @@
+{
+  "schema": "kymaean.design-gate-packet.v1",
+  "framework": "docs/evidence/DESIGN_PACKET_AND_SYNTHESIS_FRAMEWORK_01.json",
+  "packet_id": "PKT-COMP-10-01",
+  "packet_class": "COMPOSITION_PACKET",
+  "status": "PROVISIONAL_INCUMBENT",
+  "date": "2026-09-16",
+  "gate_or_program": "APPUI-COMP-10 - Character-Bounded Workspace Integration",
+  "design_axis": "APP VISUAL real creator-global to Character-bounded workspace flow",
+  "bounded_question": "Can one persistent Julian enter a materially reduced information position inside the real COMP shell while preserving Production identity, excluding creator-only material and restoring exact creator context without freezing final Perspective/performance mechanics?",
+  "authority": {
+    "repository": "Rylascoo/Ensemble-Website",
+    "baseline_commit": "c54edfcf56667d472745ba47df0e4c4a26984131",
+    "governing_method_or_contract": [
+      "docs/evidence/APPUI_01_COMPONENT_SYSTEM_CHARACTER_BOUNDED_WORKSPACE_INTEGRATION_METHOD_01.json",
+      "docs/evidence/APPUI_01_CHARACTER_BOUNDED_WORKSPACE_FUNCTIONAL_STUDY_01.json",
+      "docs/evidence/APPUI_01_PHASE_3_CHARACTER_BOUNDED_WORKSPACE_F2_D3_INTEGRATION_01.json",
+      "docs/evidence/packets/PKT_COMP_09_PRODUCTION_LIFECYCLE_UTILITIES_INTEGRATION_01.json",
+      "docs/evidence/packets/PKT_COMP_07_TRUTH_KNOWLEDGE_DISCLOSURE_INTEGRATION_01.json"
+    ],
+    "close_reconciliation": {
+      "website_main": "94fd60f3a51485f052c25d753459a45240d845d4",
+      "engineering_main": "3d7a5419afd1c502ce6aaba8f3ca906b48d6a868",
+      "effect": "No contradiction at construction close; Website main advances non-production WORLD mascot evidence only and remains app-UI-frozen, while Engineering adds no Product semantics altering Character-bounded disclosure."
+    },
+    "website_main_reconciled": "94fd60f3a51485f052c25d753459a45240d845d4",
+    "engineering_main_reconciled": "3d7a5419afd1c502ce6aaba8f3ca906b48d6a868"
+  },
+  "controlled_inputs": [
+    "PKT-COMP-09-01 continuity",
+    "PKT-COMP-07-01 bounded-disclosure nonleakage law",
+    "PKT-COMP-03-01 creator-global situation-first origin",
+    "PKT-COMP-02-01 shell / PKT-COMP-01-01 controls",
+    "Light F2 / Dark D3 / MAT F1 / TYP F1 / STA F2 / FICON F1",
+    "accepted Character-bounded functional and Phase-3 evidence"
+  ],
+  "local_result": {
+    "summary": "Julian now moves from creator-global current context into a materially reduced bounded workspace while remaining the same persistent Character in The White Current. The bounded state contains only permitted current observation, Character-linked context, an observable relationship cue and bounded agency capacity; creator-only/infrastructure material is absent rather than cosmetically concealed.",
+    "recommended_incumbent": "Character-Bounded Workspace Flow 01",
+    "survivors_or_closure": [
+      "Character-Bounded Workspace Flow 01"
+    ]
+  },
+  "evidence": {
+    "mechanical": [
+      "seven-case creator-origin + bounded + exact-return matrix PASS",
+      "carrier SHA-256 f109095957b45e0c8c3252672a24b4cd9e6b1005da210021c7affefb3116a18c",
+      "probe SHA-256 ee10ac2c2b0ec194ee5b3a4174bc307e7aaa22189d295585cb2a1f86f817c793",
+      "matrix SHA-256 b8e7e5a59dee8d84bcb36c7e68b0b4ece95bf3941330b69d69ce183aa32bbe04"
+    ],
+    "visual": [
+      "wide creator-global Light/Dark origin with Julian selected",
+      "wide Julian-bounded Light/Dark pair with materially reduced information",
+      "390px origin and bounded sequential layouts",
+      "no disclosure meaning depends on theme brightness, accent or dimmed hidden material"
+    ],
+    "interaction": [
+      "bounded-workspace affordance disappears for non-Julian selection and restores for Julian",
+      "Known/remembered keyboard focus remains independent from Observable-now selection",
+      "Back and Close restore Julian selection and the exact bounded-workspace trigger focus",
+      "opening/closing transfers no hidden knowledge and mutates no Production truth"
+    ]
+  },
+  "dependencies": {
+    "requires": [
+      "PKT-COMP-09-01",
+      "PKT-COMP-07-01",
+      "PKT-COMP-03-01",
+      "PKT-COMP-02-01",
+      "PKT-COMP-01-01",
+      "accepted Character-bounded evidence"
+    ],
+    "constrains": [
+      "Future Character-bounded carriers preserve persistent identity, material disclosure subtraction, creator-only/infrastructure nonleakage, UI-state versus agency separation and exact creator-context return unless a named successor supersedes them."
+    ],
+    "must_not_be_confused_with": [
+      "cosmetic theme/perspective mode",
+      "dimmed hidden creator data",
+      "duplicate Character identity",
+      "provider/Performer assignment",
+      "final Perspective control",
+      "native Character performance UI"
+    ]
+  },
+  "explicit_non_authority": [
+    "No final Perspective selector, Take a Seat command, entry/exit label, timing or confirmation semantics.",
+    "No final knowledge schema, inference policy, knowledge-transfer or forgetting semantics.",
+    "No final performance input grammar, provider/Performer assignment or Stage successor.",
+    "No production-token freeze, native implementation, shipping or Store authority."
+  ],
+  "canonical_artifacts": {
+    "repository": [
+      "docs/evidence/APPUI_01_COMPONENT_SYSTEM_CHARACTER_BOUNDED_WORKSPACE_INTEGRATION_METHOD_01.json",
+      "docs/evidence/APPUI_01_COMPONENT_SYSTEM_CHARACTER_BOUNDED_WORKSPACE_INTEGRATION_RESULT_01.json",
+      "prototypes/appui-01/component-system-character-bounded-workspace-integration-01.html",
+      "tools/appui_component_system_character_bounded_workspace_matrix_probe.mjs"
+    ],
+    "director_review_surface": {
+      "entry_point": "self-contained COMP-10 HTML carrier",
+      "what_to_review": "same Production/Character identity, material disclosure subtraction, creator-only/infrastructure absence, UI-state versus agency boundary and exact return",
+      "diagnostics_not_for_aesthetic_choice": [
+        "matrix JSON",
+        "DOM/probe output"
+      ]
+    }
+  },
+  "synthesis_state": {
+    "tested_with_packet_ids": [
+      "PKT-COMP-01-01",
+      "PKT-COMP-02-01",
+      "PKT-COMP-03-01",
+      "PKT-COMP-07-01",
+      "PKT-COMP-09-01"
+    ],
+    "whole_app_synthesis_status": "REAL_CHARACTER_BOUNDED_WORKSPACE_VALIDATED_EMPTY_UNAVAILABLE_TRANSITIONAL_NEXT"
+  }
+}

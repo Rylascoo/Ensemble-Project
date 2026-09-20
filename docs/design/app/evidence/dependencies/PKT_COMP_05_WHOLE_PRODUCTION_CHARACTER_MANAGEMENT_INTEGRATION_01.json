@@ -1,0 +1,85 @@
+{
+  "schema": "kymaean.design-gate-packet.v1",
+  "framework": "docs/evidence/DESIGN_PACKET_AND_SYNTHESIS_FRAMEWORK_01.json",
+  "packet_id": "PKT-COMP-05-01",
+  "packet_class": "COMPOSITION_PACKET",
+  "status": "PROVISIONAL_INCUMBENT",
+  "date": "2026-09-16",
+  "gate_or_program": "APPUI-COMP-05 - Whole-Production Character Management Integration",
+  "design_axis": "APP VISUAL real Production-scope persistent Character management task flow",
+  "bounded_question": "Can persistent Characters be reached and managed beyond the current Scene inside the COMP shell while preserving Scene membership/selection, off-Scene reality and persistent identity without creating a permanent People silo or casting/Performer mechanics?",
+  "authority": {
+    "repository": "Rylascoo/Ensemble-Website",
+    "baseline_commit": "98a2389d50b36014e83d6beee2aaff04190b3f97",
+    "governing_method_or_contract": [
+      "docs/evidence/APPUI_01_COMPONENT_SYSTEM_WHOLE_PRODUCTION_CHARACTER_MANAGEMENT_INTEGRATION_METHOD_01.json",
+      "docs/evidence/APPUI_01_WHOLE_PRODUCTION_CHARACTER_MANAGEMENT_FUNCTIONAL_STUDY_01.json",
+      "docs/evidence/APPUI_01_PHASE_3_WHOLE_PRODUCTION_CHARACTER_MANAGEMENT_F2_D3_INTEGRATION_01.json",
+      "docs/evidence/packets/PKT_COMP_04_CONTEXTUAL_DEEP_INSPECTION_INTEGRATION_01.json"
+    ],
+    "close_reconciliation": {
+      "website_main": "fdf4f87b939c54358125e36aa2b81f070fdd1e6f",
+      "engineering_main": "2bfb0c1c3e8cb79acafe72d6fb80692bc818a407",
+      "effect": "No contradiction at construction close. Website remains app-UI-frozen and Engineering adds no Product semantics that alter Character-management authority."
+    }
+  },
+  "controlled_inputs": [
+    "PKT-COMP-04-01 return/focus grammar",
+    "PKT-COMP-03-01 situation-first Shaping origin",
+    "PKT-COMP-02-01 shell / PKT-COMP-01-01 controls",
+    "Light F2 / Dark D3 / MAT F1 / TYP F1 / STA F2 / FICON F1",
+    "accepted whole-Production Character-management grammar"
+  ],  "local_result": {
+    "summary": "Whole-Production Character management now opens as temporary Production-scope depth from the real Shaping origin. Mira is locally selected while explicitly Off-Scene, Julian remains the stored Scene-12 selection, Niko can hold independent keyboard focus, and Back/Close restore the originating trigger without changing Scene participation.",
+    "recommended_incumbent": "Whole-Production Character Management Flow 01",
+    "survivors_or_closure": ["Whole-Production Character Management Flow 01"]
+  },
+  "evidence": {
+    "mechanical": [
+      "seven-case context + management matrix PASS",
+      "carrier SHA-256 df249cb9f9b7a65582cbf6aee2ec40b033a5ab3ba67c113be1ff0a4219a288d3",
+      "probe SHA-256 73a10eb817ade5065767aa84a3e1fe0b3d8e301a77c65aeef2f499165edb10e8",
+      "matrix SHA-256 75c5a4d171b669dc17700723bbf6c5068e274ea08be65176fb4d2dce0a3bc115"
+    ],
+    "visual": [
+      "wide context Light/Dark pair with persistent-Character task trigger",
+      "wide management Light/Dark pair with Mira selected and Niko independently focused",
+      "390px sequential management layout preserving origin, status and detail",
+      "Off-Scene remains textual/structural and does not use disabled styling"
+    ],
+    "interaction": [
+      "management activation succeeds in both themes while Shaping hides",
+      "Mira remains locally selected while Niko receives the focus ring",
+      "selecting Niko updates local detail while Scene-12 stored selection remains Julian",
+      "Back and Close restore originating management-trigger focus"
+    ]
+  },
+  "dependencies": {
+    "requires": ["PKT-COMP-04-01","PKT-COMP-03-01","PKT-COMP-02-01","PKT-COMP-01-01","accepted whole-Production Character-management evidence"],
+    "constrains": ["Future Production-scope Character management preserves explicit off-Scene state, Scene-membership non-implication, persistent Character identity, local management versus stored Scene selection, focus independence and exact return unless a named successor supersedes them."],
+    "must_not_be_confused_with": ["permanent People navigation","Scene participation editor","casting surface","Performer/provider manager","Character lifecycle manager","native WinUI implementation"]
+  },  "explicit_non_authority": [
+    "No Scene add/remove/participation controls or membership mutation semantics.",
+    "No casting, Performer/provider assignment, availability or model semantics.",
+    "No Character lifecycle, duplicate/merge/delete/archive semantics.",
+    "No final Character data schema or Product commit/save/undo contract.",
+    "No Bellweather placement, bespoke domain icons, motion/Stage successor, production tokens, native implementation, shipping or Store authority."
+  ],
+  "canonical_artifacts": {
+    "repository": [
+      "docs/evidence/APPUI_01_COMPONENT_SYSTEM_WHOLE_PRODUCTION_CHARACTER_MANAGEMENT_INTEGRATION_METHOD_01.json",
+      "docs/evidence/APPUI_01_COMPONENT_SYSTEM_WHOLE_PRODUCTION_CHARACTER_MANAGEMENT_INTEGRATION_RESULT_01.json",
+      "prototypes/appui-01/component-system-whole-production-character-management-integration-01.html",
+      "tools/appui_component_system_whole_production_character_management_matrix_probe.mjs"
+    ],
+    "director_review_surface": {
+      "entry_point": "self-contained COMP-05 HTML carrier",
+      "what_to_review": "temporary Production-scope depth, off-Scene reality, local management selection versus stored Scene selection, focus independence and exact return",
+      "diagnostics_not_for_aesthetic_choice": ["matrix JSON","DOM/probe output"]
+    }
+  },
+  "synthesis_state": {
+    "tested_with_packet_ids": ["PKT-COMP-01-01","PKT-COMP-02-01","PKT-COMP-03-01","PKT-COMP-04-01"],
+    "whole_app_synthesis_status": "REAL_CHARACTER_MANAGEMENT_VALIDATED_CAUSAL_HISTORY_NEXT"
+  }
+}

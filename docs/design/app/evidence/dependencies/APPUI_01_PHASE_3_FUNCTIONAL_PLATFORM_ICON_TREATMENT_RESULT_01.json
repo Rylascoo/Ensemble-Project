@@ -1,0 +1,106 @@
+{
+  "schema": "kymaean.appui-phase3-functional-platform-icon-treatment-result.v1",
+  "status": "CLOSED_F1_NATIVE_QUIET_CARRIER_SURVIVES",
+  "date": "2026-09-16",
+  "program_id": "APPUI-FICON-01",
+  "program": "APPUI-01 Phase 3 - Kymaean Visual-Language Integration",
+  "repository": "Rylascoo/Ensemble-Website",
+  "authority": {
+    "design_branch": "design/appui01-working-compositions-2026-09-14",
+    "pre_close_head": "e71c2979c4c75ad970a28cda39dd580d17c1db96",
+    "method_checkpoint": "33ee8dce8ad417eba20f8b9e712e7781da8d626c",
+    "preflight_checkpoint": "28872396135cda0f9ca8a7e477ec21dba966b227",
+    "method": "docs/evidence/APPUI_01_PHASE_3_FUNCTIONAL_PLATFORM_ICON_TREATMENT_METHOD_01.json",
+    "preflight": "docs/evidence/APPUI_01_PHASE_3_FUNCTIONAL_PLATFORM_ICON_TREATMENT_PREFLIGHT_01.json",
+    "canonical_static_system": "docs/KYMAEAN_APPUI_PHASE_3_STATIC_APP_VISUAL_SYSTEM_01.md",
+    "website_main_reconciled": "6f21480936293b3ef617d3bb880c7195ef20b40f",
+    "engineering_main_reconciled": "ab6a140d8b6b1c6073e54a68fc6593a07930a2e9"
+  },
+  "verified_frozen_bytes": {
+    "carrier": {
+      "path": "prototypes/appui-01/phase3-functional-platform-icon-treatment-01.html",
+      "sha256": "f2340fb793b029cebda1c79919b4b3851388ebe1156d92ffbc09549d15e66d56"
+    },
+    "probe": {
+      "path": "tools/appui_phase3_functional_platform_icon_treatment_matrix_probe.mjs",
+      "sha256": "6d5547cb690c9e0b7e78b59529827ff51367d9180d0eceb5d071a30b0511a572"
+    },
+    "wide_png": {
+      "drive_id": "1u2GZToJSR8qHG6lqaRkDKV0MYTP0WExT",
+      "sha256": "84008364b10a103a139516a241f42baf3c3bd84366f9ffb096381b775461b44b"
+    },
+    "narrow_png": {
+      "drive_id": "1knLLfqLAlmTSbWuJQ4wnsi8Hnh3EIxqN",
+      "sha256": "5cdf48de0eba64cd8c2262f824f230e1c18b06f2e33d931f7cb3a89c69fa1969"
+    }
+  },
+  "review_scope": "Subjective falsification only on the exact archived normal-color wide and narrow evidence; no candidate mutation, rebuild, reroll, replacement or post-exposure retune.",
+  "adjudication": {
+    "resolution_mode": "DIRECTOR_AUTHORIZED_DESIGN_SOL",
+    "director_delegation": "The Director explicitly instructed Design Sol to perform the frozen subjective falsification and continue through durable closure; no independent Director score is fabricated.",
+    "CNEG": {
+      "name": "Persistent Filled Tile",
+      "disposition": "FAIL_INELIGIBLE_CONTROL",
+      "falsification": [
+        "CNEG cannot survive under the frozen result law.",
+        "Persistent fill/boundary chrome makes every conventional verb read as a tile/widget rather than subordinate platform affordance."
+      ]
+    },
+    "F1": {
+      "name": "Native Quiet Carrier",
+      "disposition": "SURVIVES",
+      "falsification": [],
+      "basis": [
+        "Familiar Fluent verb silhouettes remain visually primary over their carrier rather than being redrawn by chrome.",
+        "At-rest icons remain subordinate to task/content in both wide and narrow evidence.",
+        "Keyboard focus remains an independent structural ring and selection remains a separate structural edge witness; teal is reinforcement only.",
+        "No Threshold K/app-icon anatomy or second-mark behavior appears.",
+        "Light F2 and Dark D3 read as one icon system."
+      ]
+    },
+    "F2": {
+      "name": "Persistent Boundary Button",
+      "disposition": "FAIL",
+      "falsification": [
+        "Persistent boxes elevate routine icon chrome above the intended quiet task hierarchy.",
+        "The repeated boxed treatment reads as a control/widget matrix, especially in the narrow evidence."
+      ]
+    },
+    "F3": {
+      "name": "Material Channel Hook",
+      "disposition": "FAIL",
+      "falsification": [
+        "The repeated per-icon hook reduces MAT-01 subtractive topology to decorative icon-badge anatomy.",
+        "The added bracket-like carrier competes with familiar platform-verb silhouettes instead of remaining quiet structure."
+      ]
+    }
+  },
+  "local_result": {
+    "survivors": [
+      "F1 - Native Quiet Carrier"
+    ],
+    "rejected": [
+      "CNEG - Persistent Filled Tile",
+      "F2 - Persistent Boundary Button",
+      "F3 - Material Channel Hook"
+    ],
+    "maximum_survivor_rule_satisfied": true,
+    "zero_survivor_rule_was_available": true,
+    "post_exposure_retune": "NONE",
+    "replacement_candidate": "NONE"
+  },
+  "authority_created": [
+    "F1 Native Quiet Carrier is the bounded Phase-3 design-reference treatment for conventional Windows/Fluent platform verbs when those verbs appear in APP VISUAL work."
+  ],
+  "explicit_non_authority": [
+    "No bespoke Kymaean domain icon family or Product-gated Scene/Take/Perspective/provider/Performer glyph is created.",
+    "No Threshold K, app-icon or wordmark geometry is promoted into interface icon anatomy.",
+    "No production icon asset package, production token API, WinUI/XAML implementation, shipping package or Store authority is created.",
+    "No default teal icon color or semantic status-color meaning is created.",
+    "No Light F2/Dark D3, MAT F1, TYP F1, STA F2 or invariant dark Stage authority is changed.",
+    "No website palette, shared-brand-final iconography or Stage successor authority is created."
+  ],
+  "conclusion": "PASS - exactly one eligible treatment survives the frozen subjective falsification: F1 Native Quiet Carrier.",
+  "approval": "APPROVED BY STANDING DIRECTOR DELEGATION - CLEAN RECURSIVE AUDIT.",
+  "next_boundary": "Packetize the bounded F1 result, update continuity, then fresh-audit remaining static APP VISUAL gaps without reopening failed FICON candidates."
+}

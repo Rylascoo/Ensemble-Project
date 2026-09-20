@@ -1,0 +1,79 @@
+{
+  "schema": "kymaean.appui-phase3-character-bounded-workspace-f2-d3-integration.v1",
+  "status": "PHASE_3_CHARACTER_BOUNDED_WORKSPACE_INTEGRATION_PASS",
+  "date": "2026-09-15",
+  "program": "APPUI-01 Phase 3 - Kymaean Visual-Language Integration",
+  "authority": {
+    "design_branch": "design/appui01-working-compositions-2026-09-14",
+    "pre_exposure_method_ref": "e449ef5a1f598387ad310d3c83637f0bc6a7a09a",
+    "website_main_reconciled": "10434eb5eb79793055d002e8742b288fb5268e12",
+    "engineering_main_reconciled": "46c5d7fc8597b33012e2f083fd42113a47b83e77",
+    "functional_parent": "docs/evidence/APPUI_01_CHARACTER_BOUNDED_WORKSPACE_FUNCTIONAL_STUDY_01.json"
+  },
+  "artifact": {
+    "repository_path": "prototypes/appui-01/phase3-character-bounded-workspace-f2-d3-integration-01.html",
+    "html_sha256": "3f5859f0bb388954e6d53237db360ebdb800b867f9d5abde1811cd8c453f9f21",
+    "browser_probe_path": "tools/appui_phase3_character_bounded_workspace_f2_d3_matrix_probe.mjs",
+    "browser_probe_sha256": "9706b855729430bced4cb57d08ebba96b76a0da82c7b398f05a56cdb4830d3ce",
+    "drive_folder_id": "1E6n1eOK_HYTF-fAiw7AbBYlvtNvn3HDE",
+    "drive_html_id": "1fM6DOrpJ3FUx-wXwTyizVBWZBxUK0eCJ",
+    "drive_png_id": "1f-0BVNiVODW38uBJfBUWvdELBGYkaIWp",
+    "drive_png_sha256": "744de0e5fc6de5ebc6554207a54cea46597b8268f831eea5457a90199d70c2fb"
+  },
+  "comparison": "Four matched specimens: creator-global Light/D3 and Julian-bounded Light/D3. Theme is held independent from information position.",  "mechanical_preflight": {
+    "environment": "Microsoft Edge Chromium CDP; exact self-contained HTML; no external resources",
+    "cases": [
+      {"mode":"normal","width":1600,"overflow_elements":0},
+      {"mode":"normal","width":1024,"overflow_elements":0},
+      {"mode":"normal","width":390,"overflow_elements":0},
+      {"mode":"normal","width":320,"overflow_elements":0},
+      {"mode":"forced_colors","width":320,"forced_colors_active":true,"overflow_elements":0},
+      {"mode":"text_200_percent","width":320,"overflow_elements":0},
+      {"mode":"text_spacing","width":320,"overflow_elements":0}
+    ],
+    "invariants_each_case": {"apps":4,"workspaces":4,"capacity_witnesses":5,"states":4,"boundaries":4},
+    "images": 0,
+    "external_resources": 0,
+    "replacement_characters": 0,
+    "control_character_corruption": 0,
+    "accent_usages": 0,
+    "contrast": {
+      "light_primary_field": 13.691,
+      "light_secondary_field": 5.875,
+      "light_boundary_field": 3.667,
+      "d3_primary_field": 14.216,
+      "d3_secondary_field": 7.997,
+      "d3_boundary_field": 3.124
+    },
+    "result": "PASS"
+  },  "design_result": {
+    "theme_disclosure_separation": "PASS - creator-global and Julian-bounded information positions remain identical across Light/D3 within each pair; disclosure changes only represented information.",
+    "persistent_identity": "PASS - Julian remains the same persistent Character across creator-global and bounded contexts in both themes.",
+    "hidden_material": "PASS - creator-only material is absent from bounded representation rather than dimmed, teased, counted or summarized.",
+    "agency_boundary": "PASS - creator navigation remains distinct from Product-supported Character action/speech/silence capacity.",
+    "epistemic_boundary": "PASS - unknown, withheld and absent remain distinct without color semantics.",
+    "infrastructure_boundary": "PASS - provider/capability/diagnostics remain creator/application information and do not leak into Character perception.",
+    "return_contract": "PASS - exact prior creator semantic origin and focus remain the return target.",
+    "accent_result": "PASS - teal is defined by the palette but unused; no knowledge/privacy/disclosure meaning is color-coded.",
+    "d3_disposition": "SURVIVES_NINTH_REPRESENTATIVE_SECTION_STILL_PROVISIONAL"
+  },
+  "recursive_audit": {
+    "findings": [],
+    "corrections": [],
+    "wide_visual_review": "CLEAN",
+    "narrow_visual_review": "CLEAN",
+    "post_matrix_semantic_review": "CLEAN",
+    "color_retuned_after_exposure": false,
+    "disclosure_color_semantics_created": false,
+    "knowledge_schema_frozen": false,
+    "perspective_control_frozen": false
+  },
+  "non_authority": [
+    "D3 is not frozen as the final Dark palette by this local PASS.",
+    "No final Perspective selector, Take a Seat command, entry/exit label, timing, confirmation or performance input grammar is created.",
+    "No final knowledge schema, inference policy, knowledge-transfer semantics, production token freeze, native implementation or Stage successor is created."
+  ],
+  "conclusion": "CHARACTER_BOUNDED_WORKSPACE_F2_D3_INTEGRATION_PASS_D3_STILL_PROVISIONAL",
+  "approval": "APPROVED BY STANDING DIRECTOR DELEGATION - CLEAN RECURSIVE AUDIT",
+  "next": "Evaluate selected Light F2 plus exact provisional D3 on the accepted Empty / Unavailable / Transitional Workspace states without allowing theme to impersonate lifecycle, provider, loading or fictional semantics."
+}

@@ -1,0 +1,62 @@
+{
+  "schema": "kymaean.appui-phase2-relationship-salience-composition.v1",
+  "status": "PHASE_2_BOUNDED_COMPOSITION_PASS",
+  "date": "2026-09-15",
+  "program": "APPUI-01-P2-REL-01",
+  "repository": "Rylascoo/Ensemble-Website",
+  "authority": {
+    "design_parent_ref": "d740628e87e4c51c5ee315c13c26d295a8a1491d",
+    "coverage_audit": "docs/evidence/APPUI_01_PHASE_2_STATIC_COVERAGE_AUDIT_2026_09_15.json",
+    "phase1_stage_envelope": "docs/KYMAEAN_APPUI_PHASE_1_STAGE_INTERFACE_ENVELOPE_AND_LAYOUT_MAP_01.md",
+    "visual_crosswalk": "docs/KYMAEAN_APP_ARCHITECTURE_TO_VISUAL_REQUIREMENTS_CROSSWALK_01.md",
+    "stage_anchor": "PKT-STAGE-CORE-02",
+    "engineering_ref": "e8b702a5b37d208d7caeeb6ffeb5a6beacf24f85"
+  },
+  "question": "Can materially relevant relationship salience become visible while remaining distinct from creator selection, Director opportunity, obligation, relationship ontology/score, emotional diagnosis and a permanent graph?",
+  "result": "PASS",
+  "carrier": {
+    "path": "prototypes/appui-01/phase2-relationship-salience-composition-01.html",
+    "sha256": "d9de3e8b78cf9d44791783de1557a13df4ed38e46302edca10d7381ec8b59452",
+    "browser_probe": "tools/appui_phase2_relationship_salience_browser_probe.mjs",
+    "browser_probe_sha256": "80978abaf0e7d3c797e8cc8f3bdf52e1137bbc1d81a1ab3394f87e0b5cd01e4",
+    "static_only": true,
+    "images": 0,
+    "external_resources": 0
+  },
+  "drive_archive": {
+    "folder_id": "14-C5PrxDjO_X2a1j3Ip7oLN5QYXzDj2p",
+    "png_file_id": "1ML4SiNuYv4tEStFlEL6hBQEYTlk2Lq3l",
+    "png_sha256": "bde3adfd6f06c35e8cdee3fb9123f77d1c1b07dc756f9f80f8b78f563525c933",
+    "html_file_id": "1u0ZsjDj6hys7RJGC2vP7UYQjrJW_EmxC",
+    "html_sha256": "d9de3e8b78cf9d44791783de1557a13df4ed38e46302edca10d7381ec8b59452"
+  },
+  "browser_preflight": [
+    {"mode":"normal","width":1600,"viewport_overflow":false,"overflow_elements":0,"character_witnesses":10},
+    {"mode":"normal","width":1024,"viewport_overflow":false,"overflow_elements":0,"character_witnesses":10},
+    {"mode":"normal","width":390,"viewport_overflow":false,"overflow_elements":0,"character_witnesses":10},
+    {"mode":"normal","width":320,"viewport_overflow":false,"overflow_elements":0,"character_witnesses":10},
+    {"mode":"forced-colors","width":320,"forced_colors_active":true,"viewport_overflow":false,"overflow_elements":0,"character_witnesses":10}
+  ],
+  "accepted_grammar": [
+    "Relationship salience is an orthogonal Stage meaning and may be shown only when materially supported.",
+    "Creator selection remains independent: Marlowe stays selected in both comparison specimens.",
+    "Director opportunity remains independent: Iona retains current opportunity in both specimens.",
+    "Speaking/listening and Character identity remain unchanged while Dr. Voss + Wren alone become the relationship-salience witness.",
+    "Relationship salience does not imply relationship type, strength, score, reciprocity, permanence, obligation or emotional diagnosis.",
+    "A quiet compositional/shared-floor-field witness can demonstrate capacity without making a node-link graph the Stage model."
+  ],
+  "recursive_audit": {
+    "result": "CLEAN",
+    "isolation_check": "PASS - selection, opportunity, speaking/listening, identity and Scene context remain constant across the pair; only relationship salience changes.",
+    "wide_visual_review": "PASS",
+    "narrow_visual_review": "PASS"
+  },
+  "explicit_non_authority": [
+    "No relationship ontology, direction, reciprocity, permanence, causal-effect score or psychological model is established.",
+    "No graph, line, arc, pip, connector, shared-floor field or geometry is frozen as the final relationship treatment.",
+    "No salience algorithm, automatic grouping, selection coupling, opportunity coupling, transcript trigger or provider behavior is established.",
+    "No Stage successor, transcript-dependent motion, final palette/type/iconography or native implementation authority is created."
+  ],
+  "next_boundary": "Resolve the remaining static-safe performance-modality gap: demonstrate nonverbal action and refusal as Character-legible performance without transcript-first UI or invented motive/timing semantics.",
+  "approval": "APPROVED BY STANDING DIRECTOR DELEGATION — CLEAN RECURSIVE AUDIT."
+}

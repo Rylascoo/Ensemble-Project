@@ -1,0 +1,40 @@
+{
+  "schema": "kymaean.appui-phase3-character-management-f2-d3-integration-method.v1",
+  "status": "METHOD_FROZEN_PRE_EXPOSURE",
+  "date": "2026-09-15",
+  "program": "APPUI-01 Phase 3 - Kymaean Visual-Language Integration",
+  "functional_parent": "docs/evidence/APPUI_01_WHOLE_PRODUCTION_CHARACTER_MANAGEMENT_FUNCTIONAL_STUDY_01.json",
+  "source_html_sha256": "56dc3d7d525c4597b24ed5f78aa38143dd2c23828254c4703871cd4ad1c2b226",
+  "fixed_visual_inputs": {
+    "light_f2": {"field":"#F4F3F7","primary":"#221B2D","secondary":"#5C5565","accent":"#006F73","boundary":"#7D7486","soft_surface":"#EAE8EF"},
+    "dark_d3": {"field":"#19141D","primary":"#F4F0F5","secondary":"#BEB4C0","accent":"#249A9C","boundary":"#756A79","soft_surface":"#261F29"},
+    "material": "MAT-01 F1 Subtractive Channel",
+    "typography": "TYP-02 F1 Ratio Ladder / system-ui carrier",
+    "state": "STA-01 F2 Ring + Edge Witness"
+  },
+  "semantic_invariants": [
+    "Mira management selection remains local to Production scope.",
+    "Julian remains the stored Scene-12 selection and is not overwritten by management selection.",
+    "Off-Scene is explicit contextual state, not disabled/unavailable/absent identity.",
+    "Opening/selecting/editing a persistent Character does not imply Scene membership mutation.",
+    "Character identity remains independent from Performer/provider assignment.",
+    "Creator edit remains distinct from fictional Character action.",
+    "Back/Close restores prior Scene context and focus without undoing effective persistent edits."
+  ],
+  "falsification": [
+    "D3 fails if off-Scene rows look disabled, unavailable, archival, or less ontologically real than current-Scene rows.",
+    "D3 fails if aubergine/teal obscures the distinction among Scene presence, local management selection, stored Scene selection, and keyboard focus.",
+    "D3 fails if teal spreads into Current Scene, Off-Scene, Performer/capability, or creator-edit status semantics.",
+    "Integration fails if MAT F1 visually turns the Character list into decorative cards or changes Production-scope hierarchy.",
+    "Integration fails if TYP F1 harms dense-name/status scanability or accessibility stress.",
+    "Any Scene-membership mutation, casting/Performer invention, or identity conflation invalidates the study."
+  ],
+  "mechanical_gate": ["1600","1024","390","320","320_forced_colors","320_text_200_percent","320_text_spacing"],
+  "execution_law": [
+    "Derive from the accepted functional carrier; no architectural redraw.",
+    "Use exact frozen Light F2 and D3 values; no post-exposure color retune.",
+    "Mechanical corrections may restore responsive/accessibility behavior but may not change semantic architecture or role colors.",
+    "D3 remains provisional after any local PASS and must continue through representative-section evaluation before final token freeze."
+  ],
+  "next_gate": "Materialize selected Light F2 + exact provisional D3 on the accepted Whole-Production Character Management carrier, run the seven-case matrix, and recursively audit scope/identity honesty before preservation."
+}

@@ -1,0 +1,67 @@
+{
+  "schema": "kymaean.appui-phase3-static-app-visual-system-consolidation.v1",
+  "status": "PHASE_3_STATIC_APP_VISUAL_SYSTEM_CONSOLIDATION_PASS",
+  "date": "2026-09-15",
+  "program": "APPUI-01 Phase 3 - Kymaean Visual-Language Integration",
+  "repository": "Rylascoo/Ensemble-Website",
+  "authority": {
+    "design_branch": "design/appui01-working-compositions-2026-09-14",
+    "pre_consolidation_ref": "5e08daeb193a02d0bc8606fd50e665bf863f11f8",
+    "director_dark_selection": "docs/evidence/APPUI_01_PHASE_3_DIRECTOR_D3_STATIC_APP_DARK_SELECTION_01.json",
+    "representative_convergence": "docs/evidence/APPUI_01_PHASE_3_REPRESENTATIVE_SECTION_CONVERGENCE_AUDIT_01.json",
+    "fresh_engineering_ref": "bd32532133b4dbc66d2ffd1a7f77c3d0a2fd38dd",
+    "website_main": "10434eb5eb79793055d002e8742b288fb5268e12"
+  },
+  "canonical_spec": "docs/KYMAEAN_APPUI_PHASE_3_STATIC_APP_VISUAL_SYSTEM_01.md",
+  "selected_theme_pair": {
+    "light": {"name":"F2 - Monochrome + Intruder","field":"#F4F3F7","primary":"#221B2D","secondary":"#5C5565","accent":"#006F73","boundary":"#7D7486","soft_surface":"#EAE8EF"},
+    "dark": {"name":"D3 - Ink Aubergine","field":"#19141D","primary":"#F4F0F5","secondary":"#BEB4C0","accent":"#249A9C","boundary":"#756A79","soft_surface":"#261F29"}
+  },
+  "supporting_mechanisms": {
+    "material": "MAT-01 F1 - Subtractive Channel",
+    "typography": "TYP-02 F1 - Ratio Ladder",
+    "state": "STA-01 F2 - Ring + Edge Witness",
+    "stage": "Invariant dark Stage remains separate from app-theme translation"
+  },
+  "aggregate_checks": {
+    "accepted_detailed_sections": "10/10",
+    "exact_light_role_values_present_in_convergence_carriers": "10/10",
+    "exact_dark_role_values_present_in_convergence_carriers": "10/10",
+    "post_exposure_color_retunes": 0,
+    "semantic_color_collapses": 0,
+    "stage_recolored": false,
+    "fresh_engineering_invalidates_system": false
+  },
+  "design_reference_typography": {
+    "role_order": "eyebrow < state/support <= body < heading",
+    "common_phase3_reference": {"eyebrow":"0.75rem","heading":"1.5rem","body":"1rem","support":"0.875rem","state":"0.85rem"},
+    "status": "REFERENCE_MEASUREMENTS_NOT_PRODUCTION_TOKENS"
+  },
+  "state_law": {
+    "focus": "independent outer solid ring; frozen research reference 2px with 2px offset",
+    "selection": "persistent structural edge witness; accent may reinforce only an already-authorized selection",
+    "semantic_status_color": "PROHIBITED_BY_DEFAULT"
+  },
+  "recursive_audit": {
+    "color_authority": "CLEAN",
+    "material_authority": "CLEAN_APP_VISUAL_MECHANISM_NOT_UNIVERSAL_DECORATION",
+    "typography_authority": "CLEAN_ROLE_GRAMMAR_NOT_FINAL_TYPEFACE_OR_TOKENS",
+    "state_authority": "CLEAN_FOCUS_SELECTION_DISTINCT",
+    "semantic_noncolor_boundaries": "CLEAN",
+    "accessibility_scope": "CLEAN_DESIGN_EVIDENCE_NOT_NATIVE_VALIDATION",
+    "cross_surface_scope": "CLEAN_APP_VISUAL_ONLY",
+    "result": "PASS"
+  },
+  "non_authority": [
+    "No production palette/token package or final shipping palette is frozen.",
+    "No final typeface, font file, typography token package or icon family is selected.",
+    "No semantic status-color system is created.",
+    "No Stage color/material successor, transcript-dependent motion or micro-interaction authority is created.",
+    "No Product-gated Scene/Take/Perspective/provider/Performer semantics are promoted.",
+    "No native WinUI/XAML, Windows theme-resource, ARM64 runtime, Store or shipping-asset authority is created.",
+    "No website palette or shared-brand-final authority is created."
+  ],
+  "conclusion": "PASS - the selected static APP VISUAL language is consolidated into reusable design roles without collapsing design evidence into production tokens or implementation authority.",
+  "approval": "APPROVED BY STANDING DIRECTOR DELEGATION - CLEAN CONSOLIDATION AUDIT",
+  "next": "Create and validate a compact static app-visual reference carrier from the canonical specification, then audit it against the ten accepted section carriers."
+}

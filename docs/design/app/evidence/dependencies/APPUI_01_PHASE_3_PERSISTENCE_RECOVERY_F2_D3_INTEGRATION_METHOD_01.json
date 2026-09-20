@@ -1,0 +1,48 @@
+{
+  "schema": "kymaean.appui-phase3-persistence-recovery-f2-d3-integration-method.v1",
+  "status": "PHASE_3_PERSISTENCE_RECOVERY_INTEGRATION_METHOD_FROZEN_PRE_EXPOSURE",
+  "date": "2026-09-15",
+  "program": "APPUI-01 Phase 3 - Kymaean Visual-Language Integration",
+  "authority": {
+    "design_branch": "design/appui01-working-compositions-2026-09-14",
+    "pre_exposure_ref": "8ec1f885536933416a9700b7834cb802cf374c43",
+    "website_main_reconciled": "842f7f631ef9a5ca87ce9342217910c6036cab1b",
+    "engineering_main_reconciled": "399024b54b8c2c66525d081e816740f055f26f6a",
+    "functional_parent": "docs/evidence/APPUI_01_PERSISTENCE_RECOVERY_STATUS_FUNCTIONAL_STUDY_01.json"
+  },
+  "fixed_inputs": {
+    "light_f2": {"field":"#F4F3F7","primary":"#221B2D","secondary":"#5C5565","accent":"#006F73","boundary":"#7D7486","soft_surface":"#EAE8EF"},
+    "dark_d3": {"field":"#19141D","primary":"#F4F0F5","secondary":"#BEB4C0","accent":"#249A9C","boundary":"#756A79","soft_surface":"#261F29"},
+    "material": "MAT-01 F1 Subtractive Channel",
+    "typography": "TYP-02 F1 Ratio Ladder",
+    "state": "STA-01 F2 Ring + Edge Witness"
+  },
+  "study_question": "Can selected Light F2 and exact provisional D3 carry healthy/exception/recovery infrastructure status without allowing darkness or accent to become severity, success, corruption or fictional meaning?",
+  "must_preserve": [
+    "healthy persistence stays quiet",
+    "persistence in progress remains application state rather than fictional time",
+    "read-only != Character refusal",
+    "persistence failure != corruption/integrity concern",
+    "recovery != fictional rewind, another Take, branch, rehearsal or consequence reversal",
+    "infrastructure exception stays outside Stage/Character/causal Production history",
+    "Back/Close does not silently discard, confirm durability, repair corruption or mutate Production truth",
+    "successful recovery restores exact prior task, semantic origin and focus when safe"
+  ],
+  "falsification": [
+    "Darkness itself makes the exception feel more severe, corrupted, dangerous or fictional than the Light equivalent.",
+    "Teal/accent becomes shorthand for healthy, saved, successful recovery, safe durability, corruption, warning or severity.",
+    "Read-only, failure and integrity concern become visually dependent on color rather than labels/structure.",
+    "Healthy persistence gains ambient status chrome merely to demonstrate the theme.",
+    "Recovery presentation resembles fictional rewind or Production history mutation.",
+    "D3 muddies prior-task context, infrastructure explanation or exact return."
+  ],
+  "test_matrix": ["1600", "1024", "390", "320", "320_forced_colors", "320_text_200_percent", "320_text_spacing"],
+  "no_retune_after_exposure": true,
+  "non_authority": [
+    "No final autosave/save-point, durability, transactionality, local/cloud, backup, repair, conflict or lost-work semantics are created.",
+    "No recovery algorithm, read-only policy, corruption validation, fallback behavior or severity system is frozen.",
+    "No Production color tokens, semantic status colors, native implementation, Stage successor or Phase-3 convergence authority is created.",
+    "D3 remains provisional even if this local study passes."
+  ],
+  "next": "Materialize the exact accepted Persistence / Recovery Status carrier in selected Light F2 plus exact provisional D3, run the frozen seven-condition matrix, and audit infrastructure-versus-fiction honesty before preservation."
+}

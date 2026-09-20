@@ -1,0 +1,49 @@
+{
+  "schema": "kymaean.appui-phase3-truth-knowledge-disclosure-f2-d3-integration-method.v1",
+  "status": "PHASE_3_TRUTH_KNOWLEDGE_DISCLOSURE_INTEGRATION_METHOD_FROZEN_PRE_EXPOSURE",
+  "date": "2026-09-15",
+  "program": "APPUI-01 Phase 3 - Kymaean Visual-Language Integration",
+  "authority": {
+    "design_branch": "design/appui01-working-compositions-2026-09-14",
+    "pre_exposure_ref": "d4c7db3854853d6b599d136e4355f5ab518a330c",
+    "website_main_reconciled": "842f7f631ef9a5ca87ce9342217910c6036cab1b",
+    "engineering_main_reconciled": "399024b54b8c2c66525d081e816740f055f26f6a",
+    "functional_parent": "docs/evidence/APPUI_01_TRUTH_KNOWLEDGE_DISCLOSURE_INSPECTION_FUNCTIONAL_STUDY_01.json"
+  },
+  "fixed_inputs": {
+    "light_f2": {"field":"#F4F3F7","primary":"#221B2D","secondary":"#5C5565","accent":"#006F73","boundary":"#7D7486","soft_surface":"#EAE8EF"},
+    "dark_d3": {"field":"#19141D","primary":"#F4F0F5","secondary":"#BEB4C0","accent":"#249A9C","boundary":"#756A79","soft_surface":"#261F29"},
+    "material": "MAT-01 F1 Subtractive Channel",
+    "typography": "TYP-02 F1 Ratio Ladder",
+    "state": "STA-01 F2 Ring + Edge Witness"
+  },
+  "study_question": "Can selected Light F2 and exact provisional D3 preserve creator-global versus Character-bounded disclosure, epistemic witness distinctions, provenance/uncertainty capacity and exact return without allowing color to become epistemic meaning?",
+  "must_preserve": [
+    "creator-global visibility != Character-bounded visibility",
+    "unknown != false",
+    "withheld/private != absent",
+    "claim != fact",
+    "memory != objective history",
+    "historical status != truth status",
+    "Character identity remains stable across disclosure changes",
+    "bounded views do not enumerate, count, summarize or hint at out-of-bound material by default",
+    "Back/Close restores exact creator-global semantic origin and focus without knowledge transfer or mutation"
+  ],
+  "falsification": [
+    "Darkness itself reads as secrecy, privacy, uncertainty, hiddenness or lesser truth authority.",
+    "Teal/accent becomes shorthand for fact, truth, known, confidence, source authority, private/withheld or disclosure eligibility.",
+    "Light appears more authoritative or globally true because it is brighter.",
+    "Character-bounded material becomes visually secondary in a way that implies lesser reality rather than disclosure scope.",
+    "Current/historical or fact/claim/memory distinctions depend on color rather than labels/structure.",
+    "D3 muddies bounded versus creator-global surfaces or weakens hidden-material non-leakage."
+  ],
+  "test_matrix": ["1600", "1024", "390", "320", "320_forced_colors", "320_text_200_percent", "320_text_spacing"],
+  "no_retune_after_exposure": true,
+  "non_authority": [
+    "No final epistemic taxonomy, field schema, storage model, truth authority, confidence semantics or inference policy is created.",
+    "No knowledge transfer, discovery, forgetting, deception, contradiction-resolution or consequence semantics are frozen.",
+    "No production color tokens, semantic status-color system, native implementation, Stage successor or Phase-3 convergence authority is created.",
+    "D3 remains provisional even if this local study passes."
+  ],
+  "next": "Materialize the exact accepted disclosure carrier in selected Light F2 plus exact provisional D3, run the frozen seven-condition matrix, and audit epistemic/disclosure honesty before preservation."
+}

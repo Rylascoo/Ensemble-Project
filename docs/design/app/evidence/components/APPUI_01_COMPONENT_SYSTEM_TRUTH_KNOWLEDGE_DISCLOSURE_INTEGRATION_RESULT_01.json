@@ -1,0 +1,83 @@
+{
+  "schema": "kymaean.appui-component-system-truth-knowledge-disclosure-integration-result.v1",
+  "status": "CLOSED_REAL_TRUTH_KNOWLEDGE_DISCLOSURE_PASS",
+  "date": "2026-09-16",
+  "program_id": "APPUI-COMP-07",
+  "method": "docs/evidence/APPUI_01_COMPONENT_SYSTEM_TRUTH_KNOWLEDGE_DISCLOSURE_INTEGRATION_METHOD_01.json",
+  "authority": {
+    "design_repository": "Rylascoo/Ensemble-Website",
+    "design_branch": "design/appui01-working-compositions-2026-09-14",
+    "pre_closeout_head": "bada2102e0d20510cb5b8230d53a0bcfd7beea5f",
+    "website_main_reconciled": "8b375780cdbdcb6e21940b6cf5db7c4badf21b19",
+    "engineering_main_reconciled": "3d7a5419afd1c502ce6aaba8f3ca906b48d6a868",
+    "parent_packet": "PKT-COMP-06-01",
+    "race_reconciliation": "Engineering advanced only through E0-D P02 Slot-1 terminal evidence/queue continuity; no APPUI truth/knowledge/disclosure Product semantics changed. Website main still explicitly freezes app UI."
+  },
+  "artifact": {
+    "path": "prototypes/appui-01/component-system-truth-knowledge-disclosure-integration-01.html",
+    "sha256": "b9481b1457d7cb8452fd640996b1580173da9e40c75082f86854d1217500a60e",
+    "probe": "tools/appui_component_system_truth_knowledge_disclosure_matrix_probe.mjs",
+    "probe_sha256": "c9ac876b12d76d58137b8587a389f70909b1f85e9c64058e053cd5144a95628c",
+    "matrix_sha256": "c6b4b09690331c4b2616b5b089eeac61c63c01a2893a1b5c54636f311ac6df96"
+  },
+  "source_authority": [
+    "docs/evidence/APPUI_01_TRUTH_KNOWLEDGE_DISCLOSURE_INSPECTION_FUNCTIONAL_STUDY_01.json",
+    "docs/evidence/APPUI_01_PHASE_3_TRUTH_KNOWLEDGE_DISCLOSURE_F2_D3_INTEGRATION_01.json",
+    "PKT-COMP-06-01 / PKT-COMP-04-01 / PKT-COMP-02-01 / PKT-COMP-01-01"
+  ],
+  "mechanical_result": {
+    "cases": [
+      "normal-1600",
+      "normal-1024",
+      "normal-390",
+      "normal-320",
+      "forced-colors-320",
+      "text-200-percent-320",
+      "text-spacing-stress-320"
+    ],
+    "result": "PASS_ZERO_CURRENT_GLOBAL_BOUNDED_OVERFLOW_ALL_SEVEN_CASES",
+    "missing_button_names": 0,
+    "undersized_icon_buttons": 0,
+    "contextual_availability": "PASS - disclosure affordance disappears for unrelated selected meaning and restores for the current ledger question",
+    "global_selection_focus": "PASS - Claim remains selected while Provenance receives an independent solid 2px focus ring with 2px offset",
+    "global_activation": "PASS - two creator-global task surfaces open while zero Shaping surfaces remain visible",
+    "bounded_non_leakage": "PASS - two Julian-bounded views contain zero visible creator-global-only records, zero private-record label/content leaks and zero count/redaction/placeholder witnesses",
+    "nested_return": "PASS - bounded Back restores the creator-global trigger focus with Claim selection intact; global Back/Close restore current-question selection and disclosure trigger focus",
+    "external_resources": 0
+  },
+  "semantic_result": {
+    "creator_global_role": "PASS - source-derived Fact, Claim, Private/withheld and Provenance witnesses remain inspection capacities rather than a frozen taxonomy.",
+    "character_bounded_role": "PASS - Julian-bounded view shows only source-authorized Julian-visible claim material plus the generic boundary law; creator-global-only content is not enumerated or hinted.",
+    "identity_stability": "PASS - Julian remains the same persistent Character across disclosure changes; disclosure changes visibility only.",
+    "claim_vs_fact": "PASS - Claim carries selection while Fact does not, demonstrating accent/selection is not truth authority.",
+    "provenance_focus": "PASS - Provenance keyboard focus is independent from Claim selection and source authority is not color-coded.",
+    "state_grammar": "PASS - unknown/false, withheld/absent, claim/fact, memory/history and historical/truth distinctions remain textual/structural.",
+    "theme_parity": "PASS - Light F2, Dark D3 and forced-colors preserve identical disclosure meaning; darkness does not mean secrecy/boundedness and brightness does not mean greater truth."
+  },
+  "recursive_audit": {
+    "first_matrix_finding": "At 320px / 200% text, 18 repeated overflow witnesses arose from law-card intrinsic width and a small disclosure-workspace containment expansion across current/global/bounded states.",
+    "correction": "Added min-width/max-width containment plus overflow wrapping to law/disclosure task text and controls only; no disclosure semantics, epistemic witness meaning or frozen visual role changed.",
+    "rerun_result": "CLEAN_ZERO_OVERFLOW_ALL_SEVEN_CASES",
+    "semantic_retune": false,
+    "visual_role_retune": false,
+    "metadata_leak_created": false,
+    "epistemic_status_color_created": false,
+    "permanent_knowledge_mode_created": false
+  },
+  "visual_evidence": {
+    "current_wide_sha256": "53fe5987560367a00bba79d71b22de76b07dad638e7a3308f944efbc3f16f3e9",
+    "global_wide_sha256": "e7b2a4c2e90e6e7a146fe81ebf67cd82faca48d86f6636f42f9ba9a4c8e1edc9",
+    "bounded_wide_sha256": "ac4a065ef07d44fb9d7da51ac545638a514f68676539b271fb4a3462b7c900ee",
+    "global_narrow_sha256": "a580d095d4b989340dc6262fe3edf481c3a2b06fafb65ad9da1ccc7a922dbc4a",
+    "bounded_narrow_sha256": "a2762592210e7f99ec7d8b242c97d3a7f2404b331d1c0abeee93da79d648593c"
+  },
+  "non_authority": [
+    "No final epistemic taxonomy, field schema, storage model, truth authority, confidence semantics or inference policy is created.",
+    "No knowledge transfer, discovery, forgetting, deception, contradiction-resolution or consequence semantics are created.",
+    "No permanent Knowledge/Truth application mode is created.",
+    "No Stage successor, production token or native WinUI/XAML authority is created."
+  ],
+  "conclusion": "APPUI_COMP_07_REAL_TRUTH_KNOWLEDGE_DISCLOSURE_PASS",
+  "next_boundary": "Open APPUI-COMP-08 for persistence / recovery status inside the COMP shell: healthy persistence stays quiet; interruption/recovery remains truthful application state outside fiction; prior task/origin/focus restore exactly without inventing Character behavior.",
+  "approval": "APPROVED BY STANDING DIRECTOR DELEGATION - CLEAN RECURSIVE AUDIT"
+}

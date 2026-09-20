@@ -1,0 +1,68 @@
+{
+  "schema": "kymaean.appui-phase3-contextual-deep-inspection-f2-d3-integration.v1",
+  "status": "PHASE_3_INSPECTION_INTEGRATION_PASS_D3_PROVISIONAL_SURVIVES",
+  "date": "2026-09-15",
+  "program": "APPUI-01 Phase 3 - Kymaean Visual-Language Integration",
+  "method": "docs/evidence/APPUI_01_PHASE_3_INSPECTION_F2_D3_INTEGRATION_METHOD_01.json",
+  "functional_parent": "docs/evidence/APPUI_01_CONTEXTUAL_DEEP_INSPECTION_SURFACE_FAMILY_FUNCTIONAL_STUDY_01.json",
+  "authority": {
+    "design_branch": "design/appui01-working-compositions-2026-09-14",
+    "pre_integration_ref": "3767bf3402142363cd79f8d8bfd2802db31fb21d",
+    "website_main_reconciled": "b33c242c4b21322df9e04a70a40adffe2df4b777",
+    "engineering_main_reconciled": "40409d0d438afe4631c07e41d38fa1179d358664"
+  },
+  "artifact": {
+    "path": "prototypes/appui-01/phase3-contextual-deep-inspection-f2-d3-integration-01.html",
+    "sha256": "4be5680e86609ccd1a237ed39636dd01ecd12fade938a717146b4ee62df077c3",
+    "probe": "tools/appui_phase3_inspection_f2_d3_matrix_probe.mjs",
+    "source_functional_sha256": "d5f005ac218198e47e7729b160df32e4437dfedf10b9aa592404ee6616d49b8b"
+  },
+  "drive": {
+    "archive_folder_id": "1E6n1eOK_HYTF-fAiw7AbBYlvtNvn3HDE",
+    "html_id": "1aHkDWGgJJwGCNaA0HDsQQ0rsKjJUKwW2",
+    "png_id": "1YU6E7UIRSI58zhuY7FIMfvBSy1s13g0Y",
+    "png_sha256": "7d1ac0517c18fb6738cae3de12fa5f17083749dec71904caacbccd1a853bd003"
+  },
+  "themes": {
+    "light_f2": {"field":"#F4F3F7","primary":"#221B2D","secondary":"#5C5565","accent":"#006F73","boundary":"#7D7486","soft_surface":"#EAE8EF"},
+    "dark_d3": {"field":"#19141D","primary":"#F4F0F5","secondary":"#BEB4C0","accent":"#249A9C","boundary":"#756A79","soft_surface":"#261F29"}
+  },
+  "matrix": {
+    "cases": ["1600","1024","390","320","320_forced_colors","320_text_200_percent","320_text_spacing"],
+    "result": "PASS_ZERO_OVERFLOW",
+    "invariants_each_case": {"contextual_apps":2,"deep_theme_specimens":2,"selected_witnesses":2,"focus_witnesses":2},
+    "forced_colors_active_when_required": true,
+    "images": 0,
+    "external_resources": 0
+  },
+  "contrast": {
+    "light": {"primary_field":13.691,"secondary_field":5.875,"boundary_field":3.667,"accent_field":4.909,"accent_ui":5.398},
+    "d3": {"primary_field":14.216,"secondary_field":7.997,"boundary_field":3.124,"accent_field":4.714,"accent_ui":5.329}
+  },
+  "integration_result": {
+    "contextual_inspection": "PASS - nearby relevance remains subordinate to the current situation and selection is structurally explicit.",
+    "deep_inspection": "PASS - Light and D3 deep task surfaces preserve the same origin, disclosure and state grammar.",
+    "focus_vs_selection": "PASS - selected Julian uses sparse edge witness while keyboard focus is shown on a different target with an independent outer ring.",
+    "historical_vs_current": "PASS - historical material remains dashed/labeled rather than color-coded.",
+    "provisional_vs_effective": "PASS - provisional meaning remains dotted/labeled and is not encoded by dark-theme color.",
+    "exact_return": "PASS - origin and Back/Close return semantics remain textual/structural and theme-independent."
+  },
+  "recursive_audit": {
+    "first_complete_render": "CLEAN",
+    "post_exposure_color_retune": "NONE",
+    "semantic_color_dependency_created": false,
+    "disclosure_boundary_changed": false,
+    "product_edit_semantics_invented": false,
+    "new_app_mode_created": false,
+    "stage_authority_changed": false,
+    "d3_local_disposition": "SURVIVES_INSPECTION_SECTION_BUT_REMAINS_PROVISIONAL"
+  },
+  "non_authority": [
+    "D3 is not frozen as the final dark palette by this local PASS.",
+    "No production color tokens or semantic status colors are created.",
+    "No field schema, commit/save/undo, Scene lifecycle, consequence, Perspective, Take, transcript, timer/Pause, provider/model/cost or Performer semantics are frozen.",
+    "No native implementation, runtime/package authority, Stage successor or Phase-3 convergence claim is created."
+  ],
+  "next_boundary": "Evaluate exact selected Light F2 plus exact provisional D3 on the already-approved Whole-Production Character Management architecture. Continue representative-section falsification before any dark-token freeze.",
+  "approval": "APPROVED BY STANDING DIRECTOR DELEGATION - CLEAN RECURSIVE AUDIT"
+}

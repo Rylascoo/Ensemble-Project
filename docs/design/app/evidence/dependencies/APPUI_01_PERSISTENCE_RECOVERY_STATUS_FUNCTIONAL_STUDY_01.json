@@ -1,0 +1,91 @@
+{
+  "schema": "kymaean.appui-persistence-recovery-status-functional-study.v1",
+  "status": "POST_PHASE1_SECTION_DETAIL_PASS",
+  "date": "2026-09-14",
+  "program": "APPUI-01 - Detailed functional studies inside frozen Phase-1 architecture",
+  "authority": {
+    "design_repository": "Rylascoo/Ensemble-Website",
+    "design_branch": "design/appui01-working-compositions-2026-09-14",
+    "pre_study_ref": "123851dd445a7adf4d4d0e36cc85d2ccaf2a7fd4",
+    "frozen_global_baseline": "Wireframe 01R - Revised Structural Baseline",
+    "phase1_status": "FROZEN_PASS"
+  },
+  "question": "Can healthy persistence remain quiet while saving/recovery/read-only/corruption/persistence-failure states become explicit, truthful application status outside fiction, with exact prior-task return and without freezing a storage/recovery implementation?",
+  "inherited_law": [
+    "Healthy persistence stays quiet; no permanent all-changes-saved/local-first footer is required.",
+    "Saving, recovery, corruption, read-only or persistence failure must have truthful semantic witnesses when relevant.",
+    "Persistence state must never be fictionalized as Character behavior, Stage action or causal Production history.",
+    "Back/Close/navigation must not silently discard work, repair corruption, confirm durability or mutate Production truth.",
+    "Exact storage, autosave, repair, fallback, conflict and lost-work semantics remain Product-defined.",
+    "Responsive status presentation must preserve semantic origin, task context and focus restoration."
+  ],
+  "artifact": {
+    "repository_path": "prototypes/appui-01/persistence-recovery-status-functional-study-01.html",
+    "html_sha256": "d58f0b55364cfc322c958b12497a74d9acdf108bf3d5bec4de0dce17c32e2cc8",
+    "browser_probe_path": "tools/appui_persistence_browser_probe.mjs",
+    "browser_probe_sha256": "54770e693ead0a783ae66fe6ad03caec48d067cdf22e9b9fc53e1f8fcb6910ae",
+    "drive_folder_id": "1E_sO0bP8IYcwxRLMpOK8HAiKO3DXXCKc",
+    "drive_png_id": "1sCVbbYSIpQvT2g9jf14ENPuqWqDhM18m",
+    "drive_html_id": "1XgKhJ-aDo5TtIWGwAgNmVZqJM2QkqVnm",
+    "drive_png_sha256": "07921c2219c8b200daf682a6b9668968f2f6f926846754785135d543e47d3d5f"
+  },
+  "design_result": {
+    "healthy_rule": "No intervention is needed and no permanent persistence chrome is required merely because persistence exists.",
+    "status_witnesses": [
+      "healthy_or_quiet",
+      "persistence_in_progress",
+      "read_only",
+      "recovery_available_or_needed",
+      "persistence_failure",
+      "corruption_or_integrity_concern"
+    ],
+    "separation_rule": "Persistence failure does not establish corruption; corruption/integrity concern remains independently represented.",
+    "fiction_boundary": "Infrastructure state cannot become dialogue, silence, refusal, Character incapacity, Stage action or causal Production history.",
+    "recovery_flow": "origin -> infrastructure exception -> truthful explanation -> recover_or_remain_unresolved -> exact prior-task/context/focus return when safe",
+    "rollback_rule": "Application recovery does not imply fictional rewind, another Take, branch, rehearsal, consequence reversal or timeline rollback.",
+    "destructive_action_rule": "Back, Close, dismissal or layout/theme changes cannot silently discard work, confirm durability, repair corruption or mutate Production truth.",
+    "responsive_rule": "wide adjacent explanation -> medium overlay/substitution -> narrow sequential blocking status/recovery/restored task; semantic origin remains invariant",
+    "theme_parity": "PASS - Light/Dark preserve the same persistence/infrastructure semantics"
+  },
+  "mechanical_preflight": {
+    "environment": "Microsoft Edge Chromium CDP; exact self-contained HTML; no external resources",
+    "cases": [
+      {"mode": "normal", "width": 1600, "horizontal_overflow": false, "overflow_elements": 0},
+      {"mode": "normal", "width": 1024, "horizontal_overflow": false, "overflow_elements": 0},
+      {"mode": "normal", "width": 390, "horizontal_overflow": false, "overflow_elements": 0},
+      {"mode": "normal", "width": 320, "horizontal_overflow": false, "overflow_elements": 0},
+      {"mode": "forced_colors", "width": 320, "forced_colors_active": true, "horizontal_overflow": false, "overflow_elements": 0}
+    ],
+    "images": 0,
+    "external_resources": 0,
+    "result": "PASS"
+  },
+  "recursive_audit": {
+    "first_visual_pass_findings": [
+      "The first narrow render overflowed because the long header stamp remained no-wrap at 390/320px.",
+      "The first state matrix combined corruption and persistence failure, which incorrectly suggested equivalence between integrity concern and failure to persist."
+    ],
+    "corrections": [
+      "Allowed the narrow stamp/header to wrap and reran all viewport cases to zero overflow.",
+      "Separated persistence failure from corruption/integrity concern and expanded the state matrix to six witnesses."
+    ],
+    "rerun_result": "CLEAN",
+    "permanent_persistence_footer_created": false,
+    "storage_architecture_frozen": false,
+    "autosave_policy_frozen": false,
+    "recovery_algorithm_frozen": false,
+    "fictional_failure_behavior_created": false,
+    "phase2_stage_visual_work_started": false,
+    "final_visual_language_started": false
+  },
+  "non_authority": [
+    "Exact autosave/save-point, durability, transactionality, local/cloud, backup, repair, conflict-resolution and data-loss semantics remain Product-defined.",
+    "Exact recovery actions, read-only policy, corruption validation and fallback behavior remain open.",
+    "Exact Scene/Take/branch/rehearsal/consequence semantics remain open and are not inferred from recovery UI.",
+    "Final labels, severity treatment, icons, dialogs, notifications, typography, palette, motion and native WinUI behavior remain open.",
+    "No Stage visual successor, runtime/package/Store authority or native accessibility-device proof is created."
+  ],
+  "conclusion": "PERSISTENCE_RECOVERY_STATUS_FUNCTIONAL_DETAIL_PASS",
+  "approval": "APPROVED BY STANDING DIRECTOR DELEGATION - CLEAN RECURSIVE AUDIT",
+  "next": "Detail Production lifecycle utilities inside the frozen shell: reserve deliberate application/Production-scope routes for settings, portable import/export, provider configuration, diagnostics and recovery utilities without freezing Product/Phase-D commands or allowing infrastructure machinery to dominate ordinary creative work."
+}

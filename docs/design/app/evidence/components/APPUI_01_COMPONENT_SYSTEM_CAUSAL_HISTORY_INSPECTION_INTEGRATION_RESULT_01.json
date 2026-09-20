@@ -1,0 +1,82 @@
+{
+  "schema": "kymaean.appui-component-system-causal-history-inspection-integration-result.v1",
+  "status": "CLOSED_REAL_CAUSAL_HISTORY_INSPECTION_PASS",
+  "date": "2026-09-16",
+  "program_id": "APPUI-COMP-06",
+  "method": "docs/evidence/APPUI_01_COMPONENT_SYSTEM_CAUSAL_HISTORY_INSPECTION_INTEGRATION_METHOD_01.json",
+  "authority": {
+    "design_repository": "Rylascoo/Ensemble-Website",
+    "design_branch": "design/appui01-working-compositions-2026-09-14",
+    "pre_closeout_head": "3364ab4be02c04940608e8d33a17d6482b2c02bf",
+    "website_main_reconciled": "8b375780cdbdcb6e21940b6cf5db7c4badf21b19",
+    "engineering_main_reconciled": "2bfb0c1c3e8cb79acafe72d6fb80692bc818a407",
+    "parent_packet": "PKT-COMP-05-01",
+    "race_reconciliation": "Website main advanced only by Website Sol Bellweather PERSON-state closeout; live Website CURRENT_STATE explicitly freezes app UI, so COMP-06 remains non-contradicted and streams stay unmerged."
+  },
+  "artifact": {
+    "path": "prototypes/appui-01/component-system-causal-history-inspection-integration-01.html",
+    "sha256": "702ae52c5de128328e1d1acc86c1d7600440d1c1771043c929cda01014c862de",
+    "probe": "tools/appui_component_system_causal_history_inspection_matrix_probe.mjs",
+    "probe_sha256": "659581a4ddfeb9b29d0a04ae26558ba44011f8c492b990a0d2ef5ca0d2123f3c",
+    "matrix_sha256": "efa56d1222f9201c3321c8b0f206541e31465d3d427bac32e57404cce126d35a"
+  },
+  "source_authority": [
+    "docs/evidence/APPUI_01_CAUSAL_HISTORY_INSPECTION_FUNCTIONAL_STUDY_01.json",
+    "docs/evidence/APPUI_01_PHASE_3_CAUSAL_HISTORY_F2_D3_INTEGRATION_01.json",
+    "PKT-COMP-05-01 / PKT-COMP-04-01 / PKT-COMP-03-01 / PKT-COMP-02-01 / PKT-COMP-01-01"
+  ],
+  "mechanical_result": {
+    "cases": [
+      "normal-1600",
+      "normal-1024",
+      "normal-390",
+      "normal-320",
+      "forced-colors-320",
+      "text-200-percent-320",
+      "text-spacing-stress-320"
+    ],
+    "result": "PASS_ZERO_CURRENT_AND_DEEP_OVERFLOW_ALL_SEVEN_CASES",
+    "missing_button_names": 0,
+    "undersized_icon_buttons": 0,
+    "historical_focus": "PASS - the Scene-10 historical witness receives an independent solid 2px focus ring with 2px offset while the current ledger question remains selected",
+    "contextual_availability": "PASS - causal-history affordances disappear for unrelated selected meaning and restore when the current ledger question is reselected",
+    "deep_activation": "PASS - two theme deep-history surfaces open while zero Shaping surfaces remain visible",
+    "temporal_witnesses": "PASS - four deep historical cards remain dashed/labeled Historical and two current-question cards remain explicitly Current",
+    "return": "PASS - Back and Close restore trigger focus and the current ledger-question selection",
+    "external_resources": 0
+  },
+  "semantic_result": {
+    "current_origin": "PASS - Scene 12 and the unresolved second-ledger question remain named current origin at every depth.",
+    "adjacent_history": "PASS - the source-derived Scene-10 promise witness remains explicitly historical and secondary to the current question.",
+    "deep_history": "PASS - deeper causal investigation is temporary task depth and never becomes a permanent Archive/History mode.",
+    "selection_focus": "PASS - keyboard focus on historical material does not promote it into current-state material or move current-question selection.",
+    "return_semantics": "PASS - Back/Close is navigation only and creates no replay, rollback, Undo, branch or current-state rewrite meaning.",
+    "disclosure_provenance": "PASS - causal relevance, uncertainty, private/Character-bounded knowledge, claims, beliefs, memories and provenance remain bounded capacities.",
+    "theme_parity": "PASS - Light F2, Dark D3 and forced-colors preserve temporal meaning structurally rather than through color/darkness."
+  },
+  "recursive_audit": {
+    "first_matrix_finding": "At 320px / 200% text, the source-derived footnote's slash-delimited non-authority phrase produced one foot overflow plus document-level overflow in both current and deep states.",
+    "correction": "Added overflow-wrap containment to the footnote only; no semantic architecture or frozen visual role changed.",
+    "rerun_result": "CLEAN_ZERO_OVERFLOW_ALL_SEVEN_CASES",
+    "semantic_retune": false,
+    "visual_role_retune": false,
+    "permanent_history_mode_created": false,
+    "historical_material_promoted_to_current": false
+  },
+  "visual_evidence": {
+    "current_wide_sha256": "74d4320cebec8fbc9a90155b2f69dc8e3ffc89949a550e5f50cc3079553d9ccd",
+    "deep_wide_sha256": "2b6e918679f25abe499dd29f849eefde30486eee4efec337cd407b73970ffe09",
+    "current_narrow_sha256": "0bc7379cd3a3ef41d722905c50a14fcf692681610e59d5a241dbe56c07fe28d7",
+    "deep_narrow_sha256": "575ed641e3e67f3565976d6edbfa96ee4fb6bbea9d36dc5656d5317a9a9abe34"
+  },
+  "non_authority": [
+    "No permanent Archive/History application mode is created.",
+    "No consequence review, replay, rollback, branching or mutation mechanics are created.",
+    "No exhaustive causal graph, inference engine, causal score or generated-explanation authority is created.",
+    "No final truth/claim/belief/memory/provenance schema is created.",
+    "No Stage successor, production token or native WinUI/XAML authority is created."
+  ],
+  "conclusion": "APPUI_COMP_06_REAL_CAUSAL_HISTORY_INSPECTION_PASS",
+  "next_boundary": "Open APPUI-COMP-07 for truth / knowledge / disclosure inspection inside the COMP shell, preserving source/provenance and creator-global versus Character-bounded disclosure without freezing a final epistemic data model.",
+  "approval": "APPROVED BY STANDING DIRECTOR DELEGATION - CLEAN RECURSIVE AUDIT"
+}

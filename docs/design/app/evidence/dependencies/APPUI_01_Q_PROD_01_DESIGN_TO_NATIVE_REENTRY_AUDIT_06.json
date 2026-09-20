@@ -1,0 +1,48 @@
+{
+  "schema": "kymaean.appui-q-prod-01-design-to-native-reentry-audit.v1",
+  "status": "TRIGGER_SATISFIED_NATIVE_HANDOFF_OPEN",
+  "date": "2026-09-16",
+  "program": "APPUI-NATIVE-HANDOFF-01",
+  "authority": {
+    "design_baseline": "052a2e0ff5966ea59c3990ad95b7146d7feda73e",
+    "website_main": "e483f0af35166534fff1455f68e287cc9190d91a",
+    "engineering_main": "933edb017c29389f573bb1d86202676fef64fa63",
+    "engineering_queue": "Q-PROD-01 ACTIVE",
+    "director_amendment": "Rylascoo/Ensemble-Project/docs/KYMAEAN_PRODUCT_BUILD_AHEAD_OF_DEFERRED_E0_VALIDATION_DIRECTOR_AMENDMENT_2026_09_17.md"
+  },
+  "changed_governing_fact": "The Director amendment explicitly permits real product construction, native ARM64 shell work, and UI/design implementation convergence before deferred E0 closes. It directs app-facing Design work through Design Sol.",
+  "prior_hold_disposition": "APPUI_01_NATIVE_HANDOFF_PREREQUISITE_AUDIT_05.json remains historically correct at its exact Engineering baseline; its Phase-D/P2 prerequisite conclusion is superseded by the later Director sequencing amendment, not corrected retroactively.",
+  "implementation_baseline": {
+    "engineering_worktree": "C:/Users/Wiryl/Sol Dev/Ensemble-Project-Worktrees/q-prod-01-vertical-slice-2026-09-17",
+    "engineering_branch": "product/q-prod-01-vertical-slice-2026-09-17",
+    "native_ui_files_at_activation": 0,
+    "source_projects": [
+      "src/Ensemble.E0.Core/Ensemble.E0.Core.csproj",
+      "src/Ensemble.E0.Harness/Ensemble.E0.Harness.csproj"
+    ]
+  },
+  "cross_lane_resolution": {
+    "product_spaces": [
+      "Studio",
+      "Stage",
+      "Archive"
+    ],
+    "design_navigation_authority": "The names are product-semantic spaces. Current Design law explicitly rejects the recovered Studio/Stage/Archive permanent top-level navigation topology. COMP-02 instead validates quiet Home/Productions/Settings durable navigation and task-dependent workspaces.",
+    "implementation_rule": "The native routing model must be capable of the Studio/Stage/Archive semantic spaces without forcing those historical labels into permanent top-level navigation. Presentation follows current APPUI authority until a named Product/Design successor changes it."
+  },
+  "lawful_scope": [
+    "implementation-ready Design contract for the Q-PROD-01 native shell scaffold",
+    "semantic mapping from product spaces to accepted APPUI workspaces",
+    "current visual/state/icon/typography references as provisional implementation inputs",
+    "native-surface acceptance criteria for later Design convergence"
+  ],
+  "non_authority": [
+    "No WinUI control-class selection or Engineering architecture ownership",
+    "No production token naming API",
+    "No final font packaging/subsetting/localization decision",
+    "No shipping Stage image/package decision",
+    "No Product-gated Scene/Take/Perspective/provider/Performer semantics",
+    "No native runtime/accessibility/WACK/Store validation claim"
+  ],
+  "result": "OPEN APPUI-NATIVE-HANDOFF-01 and publish one Design-owned implementation contract/reference map for Engineering Q-PROD-01 consumption."
+}

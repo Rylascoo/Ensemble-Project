@@ -1,0 +1,52 @@
+{
+  "schema": "kymaean.cross-lane-design-return.v1",
+  "status": "READY_FOR_ENGINEERING_CORRECTION",
+  "date": "2026-09-17",
+  "source_role": "Design Sol",
+  "target_role": "Engineering Sol",
+  "queue_item": "Q-DESIGN-20",
+  "design_audit": "docs/evidence/APPUI_01_Q_DESIGN_20_NATIVE_CONVERGENCE_AUDIT_07.json",
+  "engineering_source_reviewed": "34a3745e12c42247fe4e1663697bf55452f9d505",
+  "engineering_current_main": "2c165539fcfb4541d90e177ac09a9800fc0169e8",
+  "reviewed_ui_source_drift_after_review_source": "NONE; current Project main adds separate persistence infrastructure but does not change the reviewed native UI/Application/demo/test sources",
+  "disposition": "NATIVE_ARCHITECTURE_ACCEPTED_BOUNDED_UI_CORRECTIONS_REQUIRED",
+  "design_successor_required": false,
+  "corrections": [
+    "NC-01: label OpportunityCharacterId-derived state as Current Opportunity / explicit Director attention-opportunity meaning rather than generic Current focus.",
+    "NC-02: remove implementation/debug/evidence vocabulary from creator-facing shaping, Productions and Settings surfaces; do not replace it with invented Product semantics.",
+    "NC-03: make STA F2 structural inline-start edge witness the primary persistent durable-route selection carrier; keep keyboard focus independent and quiet the generic selected fill.",
+    "NC-04: translate MAT F1 Subtractive Channel into restrained native edge-open application-field geometry without card proliferation or semantic meaning.",
+    "NC-05: consume Segoe Fluent Back E72B through FICON F1 Native Quiet Carrier with an accessible name; no bespoke replacement glyph."
+  ],
+  "preserve": [
+    "Home / Productions / Settings durable routing",
+    "Production shaping / Live Stage / History semantic routing separation",
+    "current Production/current situation dominance",
+    "exact Light F2 / Dark D3 role values",
+    "invariant dark Stage in ordinary Light/Dark themes",
+    "Back navigation semantics and proven focus return",
+    "720x520 native minimum-track contract",
+    "High Contrast system-color resource strategy",
+    "quiet row-based Productions collection"
+  ],
+  "placeholders_may_remain": [
+    "system typeface while Source Sans 3 production packaging/localization remains unresolved",
+    "simple invariant-dark Stage field while S1 native/shipping asset packaging remains unresolved",
+    "non-final Windows package/titlebar image assets"
+  ],
+  "required_review_return": [
+    "exact Engineering commit/ref containing only evidence-earned native corrections plus any separately authorized concurrent Product work",
+    "same-state Light/Dark captures after NC-01 through NC-05",
+    "keyboard focus-return evidence after the Back carrier change",
+    "720x520 observation after MAT/selection geometry changes",
+    "explicit statement of Source Sans 3 and S1 Stage placeholder status",
+    "exact-final High Contrast capture if a permitted path becomes available; otherwise preserve the known limitation without bypass"
+  ],
+  "stop_conditions": [
+    "a correction would require new Product semantics",
+    "WinUI makes the structural edge witness or MAT channel impossible without a material native contradiction",
+    "a correction would require bespoke Product/domain icon invention",
+    "a correction would change Stage semantics or frozen Stage pixels rather than presentation/placeholder integration"
+  ],
+  "next": "Engineering applies the five bounded corrections and returns exact native evidence. Design then performs a short acceptance pass; no speculative APPUI successor is opened in the meantime."
+}

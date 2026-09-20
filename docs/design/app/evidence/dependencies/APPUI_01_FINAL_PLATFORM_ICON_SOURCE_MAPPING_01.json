@@ -1,0 +1,114 @@
+{
+  "schema": "kymaean.appui-ficon-asset-source-mapping.v1",
+  "status": "FROZEN_PRE_EXPOSURE_SOURCE_MAPPING",
+  "date": "2026-09-16",
+  "program": "APPUI-FICON-ASSET-01",
+  "platform": "Microsoft Windows 11 desktop / Windows App SDK design target",
+  "source_policy": {
+    "native_family": "Segoe Fluent Icons via SymbolThemeFontFamily",
+    "font_binary_to_ship": false,
+    "preferred_native_primitive": "SymbolIcon when enum member exists; FontIcon via SymbolThemeFontFamily only for frozen glyph absent from Symbol enum",
+    "reference_icon_size_px": 20,
+    "allowed_design_reference_sizes_px": [
+      16,
+      20,
+      24
+    ]
+  },
+  "external_guidance": [
+    {
+      "source": "Microsoft Learn — Segoe Fluent Icons font",
+      "url": "https://learn.microsoft.com/windows/apps/design/style/segoe-fluent-icons-font",
+      "retrieved": "2026-09-16",
+      "finding": "Windows 11 recommends Segoe Fluent Icons; FontIcon/SymbolIcon may use system font; crisp reference sizes include 16,20,24."
+    },
+    {
+      "source": "Microsoft Learn — Icons in Windows apps",
+      "url": "https://learn.microsoft.com/windows/apps/develop/ui/controls/icons",
+      "retrieved": "2026-09-16",
+      "finding": "System icon fonts are the common Windows-app icon path; SymbolThemeFontFamily resolves the default system icon family."
+    },
+    {
+      "source": "Microsoft Learn — Microsoft.UI.Xaml.Controls.Symbol",
+      "url": "https://learn.microsoft.com/windows/windows-app-sdk/api/winrt/microsoft.ui.xaml.controls.symbol?view=windows-app-sdk-1.8",
+      "retrieved": "2026-09-16",
+      "finding": "Symbol enum exposes Back/Cancel/More/Setting/Find/Play/Pause and binds through SymbolThemeFontFamily; Windows App SDK 1.5+ uses current glyph codes."
+    }
+  ],
+  "verbs": [
+    {
+      "semantic": "Back",
+      "native_primitive": "SymbolIcon",
+      "symbol": "Back",
+      "glyph": "E72B",
+      "fixture_accessible_name": "Back"
+    },
+    {
+      "semantic": "Close",
+      "native_primitive": "SymbolIcon",
+      "symbol": "Cancel",
+      "glyph": "E711",
+      "fixture_accessible_name": "Close",
+      "note": "E711 is retained from FICON-01 as the conventional X carrier; accessible name supplies Close semantics."
+    },
+    {
+      "semantic": "Search",
+      "native_primitive": "SymbolIcon",
+      "symbol": "Find",
+      "glyph": "E721",
+      "fixture_accessible_name": "Search"
+    },
+    {
+      "semantic": "Settings",
+      "native_primitive": "SymbolIcon",
+      "symbol": "Setting",
+      "glyph": "E713",
+      "fixture_accessible_name": "Settings"
+    },
+    {
+      "semantic": "More",
+      "native_primitive": "SymbolIcon",
+      "symbol": "More",
+      "glyph": "E712",
+      "fixture_accessible_name": "More"
+    },
+    {
+      "semantic": "Navigation disclosure",
+      "native_primitive": "FontIcon",
+      "font_family_resource": "SymbolThemeFontFamily",
+      "glyph": "E76C",
+      "glyph_name": "ChevronRight",
+      "fixture_accessible_name": "Disclosure",
+      "note": "Real product accessible name must describe the disclosed target/context."
+    },
+    {
+      "semantic": "Play",
+      "native_primitive": "SymbolIcon",
+      "symbol": "Play",
+      "glyph": "E768",
+      "fixture_accessible_name": "Play"
+    },
+    {
+      "semantic": "Pause",
+      "native_primitive": "SymbolIcon",
+      "symbol": "Pause",
+      "glyph": "E769",
+      "fixture_accessible_name": "Pause"
+    }
+  ],
+  "frozen_constraints": [
+    "FICON-01 F1 Native Quiet Carrier treatment unchanged",
+    "no default accent coloring",
+    "focus ring remains independent from icon glyph",
+    "selection witness remains independent from icon glyph",
+    "no Threshold K geometry inside functional icons",
+    "no bespoke Product/domain glyphs",
+    "no font/SVG binary committed as shipping asset"
+  ],
+  "non_authority": [
+    "No WinUI/XAML implementation claim.",
+    "No production token API or package decision.",
+    "No Product command semantics beyond already-frozen conventional verb meanings.",
+    "No website/shared-brand-final iconography."
+  ]
+}

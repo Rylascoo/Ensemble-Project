@@ -1,0 +1,85 @@
+{
+  "schema": "kymaean.appui-phase3-production-lifecycle-utilities-f2-d3-integration.v1",
+  "status": "PHASE_3_PRODUCTION_LIFECYCLE_UTILITIES_INTEGRATION_PASS",
+  "date": "2026-09-15",
+  "program": "APPUI-01 Phase 3 - Kymaean Visual-Language Integration",
+  "authority": {
+    "design_branch": "design/appui01-working-compositions-2026-09-14",
+    "pre_exposure_method_ref": "983c126a486a816642c53e71c4796775731a0ead",
+    "website_main_reconciled": "10434eb5eb79793055d002e8742b288fb5268e12",
+    "engineering_main_reconciled": "46c5d7fc8597b33012e2f083fd42113a47b83e77",
+    "functional_parent": "docs/evidence/APPUI_01_PRODUCTION_LIFECYCLE_UTILITIES_FUNCTIONAL_STUDY_01.json"
+  },
+  "artifact": {
+    "repository_path": "prototypes/appui-01/phase3-production-lifecycle-utilities-f2-d3-integration-01.html",
+    "html_sha256": "69c821e4882197561015432f0bccb7c42ab08facedef868c7bc7427423ebcdc8",
+    "browser_probe_path": "tools/appui_phase3_production_lifecycle_utilities_f2_d3_matrix_probe.mjs",
+    "browser_probe_sha256": "e88b4ac9ac6e3f5d781cd6edeec7a57869ca772eee17b335976efb7ee76f97c0",
+    "drive_folder_id": "1E6n1eOK_HYTF-fAiw7AbBYlvtNvn3HDE",
+    "drive_html_id": "1ujA-DFPvVcDX_DJJ7H4GOWgNW5TdeW4H",
+    "drive_png_id": "1Gpa2sYVtW4XVXsElvAAIMAyvG6LrAJAu",
+    "drive_png_sha256": "c31b6f46bc9f4198e260c75a3bdb26ceb926f42e5a569e4af7a8a6c4acb61d23"
+  },
+  "fixed_visual_inputs": {
+    "light": "CLR-01 F2 Monochrome + Intruder",
+    "dark": "D3 Ink Aubergine - provisional incumbent",
+    "material": "MAT-01 F1 Subtractive Channel",
+    "typography": "TYP-02 F1 Ratio Ladder"
+  },  "mechanical_preflight": {
+    "environment": "Microsoft Edge Chromium CDP; exact self-contained HTML; no external resources",
+    "cases": [
+      {"mode":"normal","width":1600,"overflow_elements":0},
+      {"mode":"normal","width":1024,"overflow_elements":0},
+      {"mode":"normal","width":390,"overflow_elements":0},
+      {"mode":"normal","width":320,"overflow_elements":0},
+      {"mode":"forced_colors","width":320,"forced_colors_active":true,"overflow_elements":0},
+      {"mode":"text_200_percent","width":320,"overflow_elements":0},
+      {"mode":"text_spacing","width":320,"overflow_elements":0}
+    ],
+    "invariants_each_case": {"apps":2,"workspaces":2,"utility_capacities":5,"states":4,"boundaries":4},
+    "images": 0,
+    "external_resources": 0,
+    "replacement_characters": 0,
+    "control_character_corruption": 0,
+    "accent_usages": 0,
+    "contrast": {
+      "light_primary_field": 13.691,
+      "light_secondary_field": 5.875,
+      "light_boundary_field": 3.667,
+      "d3_primary_field": 14.216,
+      "d3_secondary_field": 7.997,
+      "d3_boundary_field": 3.124
+    },
+    "result": "PASS"
+  },  "design_result": {
+    "secondary_scope_hierarchy": "PASS - utilities remain deliberate application/Production scope and do not displace current-situation-first creative work.",
+    "navigation_vs_effect": "PASS - opening/selecting/closing the utility surface remains navigation until Product authority defines an effective mutation boundary.",
+    "provisional_vs_effective": "PASS - the distinction remains textual/structural rather than color-coded.",
+    "provider_vs_character": "PASS - provider/configuration machinery remains infrastructure and does not replace Character identity or Performer semantics.",
+    "portability_boundary": "PASS - route/capacity does not imply import/export/overwrite/merge mutation.",
+    "diagnostics_boundary": "PASS - diagnostics/recovery remain non-fictional infrastructure explanation.",
+    "theme_result": "PASS - D3 does not make utilities more privileged, severe or admin-like than Light F2.",
+    "accent_result": "PASS - teal is defined by the palette but unused in this carrier because no authoritative selection requires it.",
+    "d3_disposition": "SURVIVES_EIGHTH_REPRESENTATIVE_SECTION_STILL_PROVISIONAL"
+  },
+  "recursive_audit": {
+    "findings": [],
+    "corrections": [],
+    "wide_visual_review": "CLEAN",
+    "narrow_visual_review": "CLEAN",
+    "post_matrix_semantic_review": "CLEAN",
+    "color_retuned_after_exposure": false,
+    "admin_mode_created": false,
+    "semantic_status_color_created": false,
+    "product_command_authority_created": false
+  },
+  "non_authority": [
+    "D3 is not frozen as the final Dark palette by this local PASS.",
+    "No provider/model/cost policy, authentication, assignment or availability behavior is created.",
+    "No portable Production format, import/export/overwrite/merge workflow or confirmation contract is created.",
+    "No diagnostic/recovery command set, severity system, production token freeze, native implementation or Stage successor is created."
+  ],
+  "conclusion": "PRODUCTION_LIFECYCLE_UTILITIES_F2_D3_INTEGRATION_PASS_D3_STILL_PROVISIONAL",
+  "approval": "APPROVED BY STANDING DIRECTOR DELEGATION - CLEAN RECURSIVE AUDIT",
+  "next": "Evaluate selected Light F2 plus exact provisional D3 on the accepted Character-bounded Workspace while preserving the same Production and persistent Character identity under materially changed disclosure and exact creator-context return."
+}

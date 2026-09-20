@@ -1,0 +1,79 @@
+{
+  "schema": "kymaean.appui-causal-history-inspection-functional-study.v1",
+  "status": "POST_PHASE1_SECTION_DETAIL_PASS",
+  "date": "2026-09-14",
+  "program": "APPUI-01 - Detailed functional studies inside frozen Phase-1 architecture",
+  "authority": {
+    "design_repository": "Rylascoo/Ensemble-Website",
+    "design_branch": "design/appui01-working-compositions-2026-09-14",
+    "pre_study_ref": "3f6fcc5462358d225fa47c8476c84546251d1f2a",
+    "frozen_global_baseline": "Wireframe 01R - Revised Structural Baseline",
+    "phase1_status": "FROZEN_PASS"
+  },
+  "question": "Can causal/history inspection deepen from meaningful current material while preserving explicit current-versus-historical status, bounded disclosure, semantic origin and exact return without creating a permanent Archive/History mode or inventing consequence/replay/rollback semantics?",
+  "inherited_law": [
+    "History is reached from meaningful current material rather than permanent top-level navigation.",
+    "Historical material must remain distinguishable from current Scene material at every depth.",
+    "Back/Close is navigation rather than Undo/replay/rollback.",
+    "Character-bounded/private disclosure must not leak through history inspection.",
+    "Causal provenance capacity may be reserved without freezing exhaustive causal-model semantics.",
+    "Light and Dark preserve one semantic system; no Stage successor is created."
+  ],
+  "artifact": {
+    "repository_path": "prototypes/appui-01/causal-history-inspection-functional-study-01.html",
+    "html_sha256": "4d33fde48e7e9f55c95e490ad92a59e21444d973203a700514450593222221ec",
+    "browser_probe_path": "tools/appui_history_browser_probe.mjs",
+    "browser_probe_sha256": "1e4e0a8eec7bd4afdefda7d3a2b24eb18fd95ca7a7999d3b6ac3d45d93f6c278",    "drive_folder_id": "1E_sO0bP8IYcwxRLMpOK8HAiKO3DXXCKc",
+    "drive_png_id": "1jCrYGnuqzfzRsE1WwVvGanSgzsPFjbF9",
+    "drive_html_id": "1C2D2_6GbAMoc9BOyqNeqJyuqHj9QGfEY",
+    "drive_png_sha256": "0d57a35e8d79033f076b050904e652c42728a8324f962ad87d60af3548351c5b"
+  },
+  "design_result": {
+    "entry_rule": "A meaningful current question or other current material may open adjacent causal/history context; History is not a permanent app mode.",
+    "temporal_rule": "Historical witnesses remain explicitly historical whether adjacent, selected or expanded as the primary investigation surface.",
+    "origin_rule": "The current Production/Scene/question remains the semantic origin and exact return target throughout deeper history inspection.",
+    "return_rule": "Close/Back restores the same current question, selection and focus origin without replay, rollback, undo or current-state rewrite.",
+    "causal_relevance_rule": "The interface may explain why a historical witness is relevant without freezing an exhaustive causal graph, inference model, score or generated explanation authority.",
+    "disclosure_rule": "Private/Character-bounded knowledge, claims, beliefs, memories, uncertainty and provenance remain bounded where Product authority supports them.",
+    "responsive_rule": "wide current+adjacent-history coexistence -> medium history overlay/substitution -> narrow sequential current/cause/deeper-history; temporal status and return remain invariant.",
+    "theme_parity": "PASS - Light/Dark preserve identical current/history and disclosure semantics"
+  },
+  "mechanical_preflight": {
+    "environment": "Microsoft Edge Chromium CDP; exact self-contained HTML; no external resources",
+    "cases": [
+      {"mode": "normal", "width": 1600, "horizontal_overflow": false, "overflow_elements": 0},
+      {"mode": "normal", "width": 1024, "horizontal_overflow": false, "overflow_elements": 0},
+      {"mode": "normal", "width": 390, "horizontal_overflow": false, "overflow_elements": 0},
+      {"mode": "normal", "width": 320, "horizontal_overflow": false, "overflow_elements": 0},
+      {"mode": "forced_colors", "width": 320, "forced_colors_active": true, "horizontal_overflow": false, "overflow_elements": 0}
+    ],    "images": 0,
+    "external_resources": 0,
+    "result": "PASS"
+  },
+  "recursive_audit": {
+    "first_visual_pass_findings": [
+      "One historical-context sentence said opening a prior witness must not make it 'current truth', conflating temporal state with truth status."
+    ],
+    "corrections": [
+      "Changed 'current truth' to 'current-state material' so a historical fact can remain true without being represented as current Scene state; reran the full browser/visual audit."
+    ],
+    "rerun_result": "CLEAN",
+    "permanent_archive_or_history_mode_created": false,
+    "historical_material_promoted_to_current": false,
+    "exhaustive_causal_model_frozen": false,
+    "consequence_review_or_rollback_semantics_frozen": false,
+    "disclosure_boundary_weakened": false,
+    "phase2_stage_visual_work_started": false,
+    "final_visual_language_started": false
+  },
+  "non_authority": [
+    "Exact History/causal labels, chronology graphics, provenance field schemas and navigation commands remain provisional.",
+    "Exact consequence review, rollback, replay, branching, mutation and causal-inference semantics remain Product-defined.",
+    "Exact truth/claim/belief/memory/private-knowledge schema remains Product-defined; this study preserves only bounded inspection capacity.",
+    "Final typography, palette, materials, icons, specialized maps, motion and native WinUI behavior remain open.",
+    "No Stage visual successor, runtime/package/Store authority or native accessibility-device proof is created."
+  ],
+  "conclusion": "CAUSAL_HISTORY_INSPECTION_FUNCTIONAL_DETAIL_PASS",
+  "approval": "APPROVED BY STANDING DIRECTOR DELEGATION - CLEAN RECURSIVE AUDIT",
+  "next": "Detail truth/knowledge/disclosure inspection inside the frozen shell, preserving source/provenance and creator-global versus Character-bounded disclosure without inventing a final epistemic data model."
+}

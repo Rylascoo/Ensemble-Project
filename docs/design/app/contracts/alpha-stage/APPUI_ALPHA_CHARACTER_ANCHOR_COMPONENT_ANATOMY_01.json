@@ -1,0 +1,110 @@
+{
+  "status": "ACTIVE DESIGN EVIDENCE",
+  "packet_id": "APPUI-ALPHA-CHARACTER-ANCHOR-01",
+  "title": "Kymaean Alpha Character Anchor & Component Anatomy 01",
+  "authority": {
+    "design_repo": "Rylascoo/Ensemble-Website",
+    "design_branch": "design/appui01-working-compositions-2026-09-14",
+    "engineering_repo": "Rylascoo/Ensemble-Project",
+    "engineering_ref_observed": "2137e8c9db1a9c7817a3cda872e43c6cf72cdc3d",
+    "engineer_2_status": "working independently; no Engineering mutation or coordination interruption",
+    "design_architecture_ready": "NOT READY"
+  },
+  "source_authority": [
+    "docs/KYMAEAN_LANE_A_STAGE_CARRIER_SELECTION_01.md",
+    "docs/KYMAEAN_LANE_A_STAGE_CONE_INTERACTION_01.md",
+    "APPUI Phase 2 Present-Character Density Stress 01",
+    "APPUI Phase 3 Static App Visual System Reference 01",
+    "APPUI Component System — Foundational Control Grammar 01",
+    "docs/evidence/APPUI_ALPHA_STAGE_INTERACTION_SPATIAL_GRAMMAR_01.json",
+    "docs/evidence/APPUI_ALPHA_STAGE_STATE_WITNESS_REDUNDANCY_GRAMMAR_01.json"
+  ],
+  "thesis": "A Stage Character is a place in the shared room, not a card. The cone carries atmospheric presence; the floor/name hinge carries explicit identity and creator interaction; creator chrome stays outside fiction.",
+  "anatomy": {
+    "A0": "Semantic target region — generous but visually hidden interaction/accessibility target.",
+    "A1": "Cone presence — atmospheric Character volume; never a hard UI container.",
+    "A2": "Floor contact/pool — Stage contact and preferred local modulation/interaction region.",
+    "A3": "Identity line — human-readable Character name as primary explicit identity.",
+    "A4": "State witness line — compact explicit supported Stage state where applicable.",
+    "A5": "Keyboard focus witness — transient structural focus at floor/name semantic target.",
+    "A6": "Creator selection witness — persistent structural selection at floor/name hinge.",
+    "A7": "Contextual-action attachment — application-side actions adjacent to anchor, outside cone.",
+    "A8": "Relationship/shared-field witness — ensemble-level only; not permanent Character metadata."
+  },
+  "invariants": [
+    "semantic target bounds remain visually hidden",
+    "cone never becomes a selectable card/container",
+    "floor pool is not a meter/score/progress control",
+    "name outranks color/portrait/position/provider/Performer as identity",
+    "state witness remains subordinate to name and explicit when needed",
+    "focus and selection remain independent and may coexist",
+    "creator actions remain outside fictional carrier",
+    "relationship salience remains ensemble-level",
+    "infrastructure never enters Character anchor",
+    "same anatomy survives White and Black application themes",
+    "same anatomy survives sparse and dense Stage arrangements"
+  ],
+  "density_rules": {
+    "sparse": [
+      "preserve negative space",
+      "do not inflate anchors into portrait monuments/cards",
+      "do not add metadata just because room exists",
+      "retain relational rather than mechanical centering"
+    ],
+    "dense": [
+      "compress decoration before semantics",
+      "preserve name/state/floor-name hinge",
+      "selection remains local",
+      "do not fall back to boxed columns or equal dashboard tiles",
+      "2-5 remains design-stress evidence only, not Product cardinality"
+    ]
+  },
+  "prohibited": [
+    "portrait card replacing cone",
+    "full-cone selected container",
+    "permanent badge/pip stack",
+    "embedded action buttons inside cone",
+    "color-coded identity without explicit name",
+    "floor pool as score/meter",
+    "generic highlight merging states",
+    "relationship metadata permanently attached to anchors",
+    "infrastructure/error styling on Character carrier",
+    "dense-layout fallback to equal dashboard tiles"
+  ],
+  "open_variables": [
+    "exact cone dimensions/beam width/falloff/blur/intensity",
+    "exact floor-pool dimensions/blur/overlap/material",
+    "final name/state typography/wrapping/truncation",
+    "final Character colors/textures",
+    "semantic hit-target metrics",
+    "native focus/selection metrics",
+    "final opportunity/performance modulation",
+    "relationship/shared-field geometry",
+    "contextual-action placement/labels",
+    "motion/timing/transitions",
+    "native accessibility/touch/pointer validation"
+  ],
+  "drive": {
+    "folder_id": "1ZaxYARCLFFi33psHy3GkBEhyyqhUX2tr",
+    "document_id": "1R3hzOM_d7C1uJ8bsHhLctEFNgdZWoOmlgYiTJicldVU",
+    "document_title": "Kymaean Alpha Character Anchor & Component Anatomy 01"
+  },
+  "non_authority": [
+    "No new Product/runtime semantics",
+    "No final pixel geometry",
+    "No motion/timing authority",
+    "No final Character color/type package",
+    "No relationship/opportunity algorithm",
+    "No native control/accessibility validation",
+    "No Engineering mutation"
+  ],
+  "audit": {
+    "contradictions_found_and_resolved": [
+      "Older rectangular/boxed selection concepts remain superseded by floor/name-local focus/selection.",
+      "Density evidence is retained as carrier stress only and cannot become a Product cardinality rule.",
+      "Component-system focus/selection mechanics are reused semantically without turning the Stage carrier into a generic app component.",
+      "Contextual creator actions are kept adjacent/outside the cone so creator authority does not masquerade as fictional Character action."
+    ],
+    "clean_result": true
+  }
+}

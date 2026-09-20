@@ -1,0 +1,70 @@
+{
+  "schema": "kymaean.appui-phase3-persistence-recovery-f2-d3-integration.v1",
+  "status": "PHASE_3_PERSISTENCE_RECOVERY_INTEGRATION_PASS_D3_PROVISIONAL",
+  "date": "2026-09-15",
+  "program": "APPUI-01 Phase 3 - Kymaean Visual-Language Integration",
+  "authority": {
+    "design_branch": "design/appui01-working-compositions-2026-09-14",
+    "method_freeze_ref": "46abc451ff2a539b3b0bf03879a61aaba02c97f7",
+    "website_main_reconciled": "842f7f631ef9a5ca87ce9342217910c6036cab1b",
+    "engineering_main_reconciled": "46c5d7fc8597b33012e2f083fd42113a47b83e77",
+    "functional_parent": "docs/evidence/APPUI_01_PERSISTENCE_RECOVERY_STATUS_FUNCTIONAL_STUDY_01.json",
+    "method_parent": "docs/evidence/APPUI_01_PHASE_3_PERSISTENCE_RECOVERY_F2_D3_INTEGRATION_METHOD_01.json"
+  },
+  "artifact": {
+    "repository_path": "prototypes/appui-01/phase3-persistence-recovery-f2-d3-integration-01.html",
+    "html_sha256": "e02b8086938a4e77eb71c83b70936fa3bf2be8b31bcb002caf9acb20ca0e5d5b",
+    "browser_probe_path": "tools/appui_phase3_persistence_recovery_f2_d3_matrix_probe.mjs",
+    "browser_probe_sha256": "cd43a2183a04d650a6cef8e2946071543993df561ea9f7e3b21d3a8929da5768",
+    "drive_folder_id": "1E6n1eOK_HYTF-fAiw7AbBYlvtNvn3HDE",
+    "drive_html_id": "17BdnZADMpXtjVhMudVlsqLl5WP6SRoUa",
+    "drive_png_id": "1bVyaxUXxTevX65YWUApcbnB0859_FM4c",
+    "drive_png_sha256": "b663fe2713278a0b5b909f3825a13ae1c3e17eb8fbc3e6ae92ac263c62e42fb4"
+  },
+  "design_result": {
+    "theme_parity": "PASS - matched Light F2 and D3 healthy states remain equally quiet; matched exception states remain equally explicit and non-fictional",
+    "healthy_rule": "Healthy persistence gains no ambient status chrome in either theme.",
+    "exception_rule": "The same persistence exception is explained with retained task context and a dashed infrastructure panel in both themes; darkness adds no severity semantics.",
+    "accent_rule": "PASS - teal/accent has zero actual usages in this carrier and therefore cannot encode health, save success, recovery, warning, corruption or severity.",
+    "separation_rule": "read-only != Character refusal; persistence failure != corruption/integrity concern; recovery != fictional rewind or causal history",
+    "return_rule": "Prior task, semantic origin and focus remain the recovery target when Product-defined recovery succeeds safely.",
+    "d3_local_disposition": "SURVIVES_SEVENTH_REPRESENTATIVE_SECTION_STILL_PROVISIONAL"
+  },
+  "mechanical_preflight": {
+    "environment": "Microsoft Edge Chromium CDP; exact self-contained HTML; no external resources",
+    "cases": [
+      {"mode":"normal","width":1600,"apps":4,"healthy_witnesses":2,"exception_panels":2,"horizontal_overflow":false,"overflow_elements":0},
+      {"mode":"normal","width":1024,"apps":4,"healthy_witnesses":2,"exception_panels":2,"horizontal_overflow":false,"overflow_elements":0},
+      {"mode":"normal","width":390,"apps":4,"healthy_witnesses":2,"exception_panels":2,"horizontal_overflow":false,"overflow_elements":0},
+      {"mode":"normal","width":320,"apps":4,"healthy_witnesses":2,"exception_panels":2,"horizontal_overflow":false,"overflow_elements":0},
+      {"mode":"forced_colors","width":320,"forced_colors_active":true,"horizontal_overflow":false,"overflow_elements":0},
+      {"mode":"text_200_percent","width":320,"horizontal_overflow":false,"overflow_elements":0},
+      {"mode":"text_spacing","width":320,"horizontal_overflow":false,"overflow_elements":0}
+    ],
+    "contrast": {"light_primary_field":13.691,"light_secondary_field":5.875,"light_boundary_field":3.667,"d3_primary_field":14.216,"d3_secondary_field":7.997,"d3_boundary_field":3.124},
+    "images": 0,
+    "external_resources": 0,
+    "result": "PASS"
+  },
+  "recursive_audit": {
+    "first_carrier_rejected": "The first temporary builder was itself mojibake and produced replacement/control characters; no visual or D3 judgment was accepted from it.",
+    "carrier_repair": "Rebuilt from the accepted functional source with ASCII-only builder code and HTML entities; regenerated carrier contained exactly four matched app specimens, zero replacement characters and zero invalid control characters.",
+    "accessibility_finding": "At 320px / 200% text, the matched Light and D3 exception grids each exceeded their internal width by 2px.",
+    "accessibility_correction": "Added min-width:0 and overflow wrapping protection to the exception container and children; all seven matrix cases then passed with zero overflow.",
+    "visual_audit": "Matched healthy and exception specimens show no theme-induced severity, ominousness, fictionalization or false recovery/safety cue.",
+    "color_values_retuned_after_exposure": false,
+    "semantic_status_colors_created": false,
+    "fictional_failure_behavior_created": false,
+    "storage_or_recovery_implementation_frozen": false,
+    "result": "CLEAN"
+  },
+  "non_authority": [
+    "No final autosave/save-point, durability, transactionality, local/cloud, backup, repair, conflict or lost-work semantics are created.",
+    "No recovery algorithm, read-only policy, corruption validation, fallback behavior or severity system is frozen.",
+    "No Production color token freeze, semantic status-color system, native implementation or Stage successor is created.",
+    "D3 remains provisional despite surviving this seventh representative section."
+  ],
+  "conclusion": "PERSISTENCE_RECOVERY_F2_D3_REPRESENTATIVE_INTEGRATION_PASS_D3_STILL_PROVISIONAL",
+  "approval": "APPROVED BY STANDING DIRECTOR DELEGATION - CLEAN RECURSIVE AUDIT",
+  "next": "Continue D3 evaluation on the next already-approved application architecture section before any production dark-token freeze."
+}

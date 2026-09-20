@@ -1,0 +1,59 @@
+{
+  "schema": "kymaean.appui-phase3-production-shaping-f2-d3-integration.v1",
+  "status": "PHASE_3_REPRESENTATIVE_SECTION_PASS_D3_SURVIVES_PROVISIONALLY",
+  "date": "2026-09-15",
+  "program": "APPUI-01 Phase 3 - Kymaean Visual-Language Integration",
+  "method": "docs/evidence/APPUI_01_PHASE_3_SHAPING_F2_D3_INTEGRATION_METHOD_01.json",
+  "functional_authority": "docs/evidence/APPUI_01_PRODUCTION_SHAPING_CURRENT_POSSIBILITY_FUNCTIONAL_STUDY_01.json",
+  "artifact": {
+    "repository_path": "prototypes/appui-01/phase3-production-shaping-f2-d3-integration-01.html",
+    "html_sha256": "b3809c2214a41876f24b4ca78c79bc070445c1deecad56d706ed409553689f82",
+    "browser_probe": "tools/appui_phase3_shaping_f2_d3_matrix_probe.mjs",
+    "drive_folder_id": "1E6n1eOK_HYTF-fAiw7AbBYlvtNvn3HDE",
+    "drive_html_id": "1W3K8ZZ_nnMtSe-y5TIKrefTY-7R_cyHb",
+    "drive_png_id": "1wiY8CDk99tTwDnRd5S0SDU8bLHkV8mdF",
+    "drive_png_sha256": "6c30db546f7f51ba50598ec4739c9f4ea9eb201bee5222311ed3ec7b1c5b67ad"
+  },
+  "fixed_visual_inputs": {
+    "light": "selected CLR-01 F2 Monochrome + Intruder exact APP roles",
+    "dark": "provisional D3 Ink Aubergine exact frozen translation roles",
+    "material": "MAT-01 F1 Subtractive Channel",
+    "typography": "TYP-02 F1 Ratio Ladder / system-ui carrier",
+    "state": "STA-01 F2 Ring + Edge Witness"
+  },
+  "mechanical_result": "PASS_ZERO_OVERFLOW_ALL_SEVEN_CASES"
+  ,"matrix": [
+    {"mode":"normal","width":1600,"overflow_elements":0},
+    {"mode":"normal","width":1024,"overflow_elements":0},
+    {"mode":"normal","width":390,"overflow_elements":0},
+    {"mode":"normal","width":320,"overflow_elements":0},
+    {"mode":"forced_colors","width":320,"forced_colors_active":true,"overflow_elements":0},
+    {"mode":"text_200_percent","width":320,"overflow_elements":0},
+    {"mode":"text_spacing","width":320,"overflow_elements":0}
+  ],
+  "recursive_audit": {
+    "corrections_before_closeout": [
+      "Narrow header stamp width caused four internal overflow witnesses; responsive wrapping restored zero-overflow without changing visual roles.",
+      "First visual pass incorrectly colored a schematic rail item teal despite no accepted navigation-selection state there; the unauthorized color witness was removed."
+    ],
+    "situation_first_hierarchy": "PASS",
+    "contextual_inspector_subordination": "PASS",
+    "selection_vs_keyboard_focus": "PASS - selected relationship uses edge witness; separate focused pressure uses structural outer ring.",
+    "accent_scarcity": "PASS - teal remains confined to authorized selected-meaning reinforcement.",
+    "light_dark_semantic_parity": "PASS",
+    "D3_local_assessment": "PASS - denser Shaping workspace retains hierarchy and mystery without mud, generic graphite collapse or Stage-competing emphasis.",
+    "post_exposure_color_retune": "NONE"
+  },
+  "disposition": {
+    "section": "PASS",
+    "D3": "SURVIVES_THIS_REPRESENTATIVE_SECTION_PROVISIONALLY",
+    "D3_final_dark_freeze": false
+  },
+  "non_authority": [
+    "No final production palette or theme tokens are frozen.",
+    "No semantic status-color system is created.",
+    "No Product-gated Shaping control or Stage successor is introduced.",
+    "No native implementation or Phase-3 convergence authority is created."
+  ],
+  "next": "Continue representative-section evaluation using selected Light F2 plus exact provisional D3 on the next already-approved detailed architecture section."
+}

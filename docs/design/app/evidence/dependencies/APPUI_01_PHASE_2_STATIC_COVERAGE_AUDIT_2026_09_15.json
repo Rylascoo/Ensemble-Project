@@ -1,0 +1,68 @@
+{
+  "schema": "kymaean.appui-phase2-static-coverage-audit.v1",
+  "status": "STATIC_COVERAGE_INCOMPLETE_TWO_GAPS",
+  "date": "2026-09-15",
+  "program": "APPUI-01 Phase 2 - Stage and Live Production Experience",
+  "repository": "Rylascoo/Ensemble-Website",
+  "authority": {
+    "design_ref": "05165b9f6e8935fcba8d89b5e51373ce3830441f",
+    "three_phase_program": "docs/evidence/APPUI_01_THREE_PHASE_PROGRAM_AND_STAGE_INTERFACE_ENVELOPE_AUDIT_2026_09_14.json",
+    "phase2_entry_gate": "docs/evidence/APPUI_01_PHASE_2_ENTRY_GATE_ENGINEERING_RECONCILIATION_2026_09_15.json",
+    "stage_envelope": "docs/KYMAEAN_APPUI_PHASE_1_STAGE_INTERFACE_ENVELOPE_AND_LAYOUT_MAP_01.md",
+    "architecture_proposal": "docs/KYMAEAN_APP_INFORMATION_RELATIONSHIP_ARCHITECTURE_PROPOSAL_01.md",
+    "visual_crosswalk": "docs/KYMAEAN_APP_ARCHITECTURE_TO_VISUAL_REQUIREMENTS_CROSSWALK_01.md",
+    "stage_anchor": "PKT-STAGE-CORE-02",
+    "fresh_engineering_ref": "e8b702a5b37d208d7caeeb6ffeb5a6beacf24f85"
+  },
+  "completed_static_studies": [
+    "Stage-to-Shell Adjacency + Live Workspace",
+    "Current Performance + Immediate Causal Context",
+    "Selected Character + Stage State Inspection",
+    "Present-Character Density Stress",
+    "Stage Exception + Recovery Presentation",
+    "Silence / Listening / System Non-Response"
+  ],
+  "coverage_matrix": [
+    {"requirement":"Character presence and identity","status":"COVERED","evidence":"selected-state and density studies"},
+    {"requirement":"Director attention/opportunity distinct from selection/focus","status":"COVERED","evidence":"selected-state study"},
+    {"requirement":"current performed speech/current moment without transcript dominance","status":"COVERED","evidence":"current-performance study"},
+    {"requirement":"listening and performed silence","status":"COVERED","evidence":"silence/listening/non-response study"},
+    {"requirement":"relationship salience when materially relevant","status":"STATIC_GAP","evidence":"capacity reserved by authority but no Phase-2 presentation witness yet"},
+    {"requirement":"nonverbal action and refusal as Character-legible performance","status":"STATIC_GAP","evidence":"authoritative requirement exists; no affirmative Phase-2 witness yet"},
+    {"requirement":"current versus historical causal support","status":"COVERED","evidence":"current-performance/immediate-causal-context study"},
+    {"requirement":"creator selection/inspection outside fictional agency","status":"COVERED","evidence":"selected-state inspection study"},
+    {"requirement":"responsive Stage framing and 2-5 design-stress range","status":"COVERED","evidence":"Stage-shell and density studies"},
+    {"requirement":"capability/unavailable/recovery truth outside fiction","status":"COVERED","evidence":"Stage exception/recovery study"},
+    {"requirement":"intervention response/effect semantics","status":"BLOCKED_PRODUCT_DEFINED","evidence":"creator intervention taxonomy/effects remain unresolved"},
+    {"requirement":"consequence emergence/acceptance mechanics","status":"BLOCKED_PRODUCT_DEFINED","evidence":"Take/consequence semantics remain unresolved"},
+    {"requirement":"transcript-dependent motion/state transitions","status":"BLOCKED_Q_DESIGN_02","evidence":"E0-E behavioral evidence still absent"},
+    {"requirement":"timer/Pause, Observed Cues/provenance, provider/model/cost, Performer assignment","status":"BLOCKED_OR_PROVISIONAL","evidence":"Phase-2 entry gate reserves but does not harden these capacities"}
+  ],
+  "engineering_reconciliation": {
+    "main": "e8b702a5b37d208d7caeeb6ffeb5a6beacf24f85",
+    "checkpoint": "E0-D active; P01 Slot 1 activation integrated; provider traffic remains zero until frozen execution gates pass",
+    "phase_d_product_semantics_promoted": false,
+    "e0e_behavioral_evidence_available": false,
+    "q_design_02": "BLOCKED",
+    "effect_on_design": "Engineering progress does not unlock transcript-dependent Stage motion/integration and does not invalidate the static shell/Stage envelope."
+  },
+  "recursive_audit": {
+    "result": "TWO_MATERIAL_STATIC_GAPS_FOUND",
+    "gap_1": "Relationship salience is explicitly required as Stage-capable when truthful/material, but the six accepted Phase-2 studies have no direct relationship-salience witness.",
+    "gap_2": "Performance grammar explicitly requires nonverbal action and refusal to remain representable without chat dominance; existing Phase-2 studies affirm speech and silence but do not directly prove these modalities.",
+    "not_gaps_because_blocked": [
+      "intervention effect semantics",
+      "consequence/Take acceptance mechanics",
+      "transcript ontology and transcript-dependent motion",
+      "timer/Pause runtime semantics",
+      "Observed Cues/provenance",
+      "provider/model/cost and Performer assignment"
+    ]
+  },
+  "disposition": "DO_NOT_CLOSE_STATIC_PHASE_2_YET",
+  "next": [
+    "Run a bounded static relationship-salience Stage composition preserving selection/opportunity/agency independence and leaving exact arc/pip geometry open.",
+    "Then run a bounded nonverbal-action/refusal representation composition preserving performance modality without transcript-first UI, motive inference or Product/runtime semantics.",
+    "After both pass, rerun this closeout audit before any Phase-3 entry disposition."
+  ]
+}

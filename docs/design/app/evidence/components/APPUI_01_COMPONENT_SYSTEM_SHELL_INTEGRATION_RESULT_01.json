@@ -1,0 +1,78 @@
+{
+  "schema": "kymaean.appui-component-system-shell-integration-result.v1",
+  "status": "CLOSED_REAL_SHELL_INTEGRATION_PASS",
+  "date": "2026-09-16",
+  "program_id": "APPUI-COMP-02",
+  "repository": "Rylascoo/Ensemble-Website",
+  "authority": {
+    "design_head_pre_close": "c8643e823384e8af13810dd83cf3d56259fe1102",
+    "method": "docs/evidence/APPUI_01_COMPONENT_SYSTEM_SHELL_INTEGRATION_METHOD_01.json",
+    "component_foundation": "docs/KYMAEAN_APPUI_COMPONENT_SYSTEM_FOUNDATION_01.md",
+    "website_main_reconciled": "cc312f3fd974f3c564aba0d210f64b75e195b0b2",
+    "engineering_main_reconciled": "e007ed2838c892f2d7734dcf6ac87b6b00022684"
+  },
+  "carrier": {
+    "path": "prototypes/appui-01/component-system-shell-integration-01.html",
+    "sha256": "57ef7392d61d56cd19c7369a2e27ca758d8cee25007e3f914dfe10ea2d7c4b3b",
+    "probe": "tools/appui_component_system_shell_integration_matrix_probe.mjs",
+    "probe_sha256": "978b029f012aa7d549943f11641deb5be01a7b6bc7c87639aa739a2442417fb6"
+  },
+  "mechanical_result": {
+    "matrix_sha256": "94351f301caff89c82ce8eecfcb2814b23e1b66edf57b571c13f79ad40d11b06",
+    "cases": [
+      "normal-1600",
+      "normal-1024",
+      "normal-390",
+      "normal-320",
+      "forced-colors-320",
+      "text-200-percent-320",
+      "text-spacing-stress-320"
+    ],
+    "all_pass": true,
+    "observed": [
+      "zero horizontal overflow",
+      "zero missing button accessible names",
+      "zero undersized icon-only controls",
+      "solid 2px focus with 2px offset",
+      "production switcher remains within viewport with zero row overflow",
+      "zero external resources"
+    ]
+  },
+  "visual_result": {
+    "current_thread_dominance": "PASS",
+    "durable_navigation_recedes": "PASS",
+    "generic_dashboard_card_grid": "PASS - avoided",
+    "dark_stage_invariance": "PASS",
+    "production_switching_transient_scope_change": "PASS",
+    "narrow_primary_reading_sequence": "PASS"
+  },
+  "repairs": [
+    "Initial narrow titlebar/scope geometry was tightened without changing frozen visual roles.",
+    "Production-switcher containment and narrow-row wrapping were repaired geometrically.",
+    "Final pass reran the complete seven-case matrix cleanly; no F2/D3/MAT/TYP/STA/FICON/Stage retune occurred."
+  ],
+  "authority_created": [
+    "The accepted Production/Home resume hierarchy and COMP-01 control grammar integrate as one credible application shell reference.",
+    "Durable app navigation is limited to quiet Home / Productions / Settings routes at this gate; it is not a domain ontology.",
+    "Current Production scope and Resume/current-situation meaning dominate browse/create and application utilities.",
+    "Production switching is a transient scope-change surface; Other Productions remain quiet collection rows rather than cover/card tiles."
+  ],
+  "explicit_non_authority": [
+    "No Scene lifecycle, Take/Rehearsal/branching, Perspective-switching, provider/model/cost or Performer-assignment semantics are created.",
+    "No bespoke domain icon family, Bellweather placement, final font files, motion/Stage successor, production tokens or native WinUI/XAML implementation is created.",
+    "Browser evidence is design/reference evidence only and is not native Windows accessibility, runtime, WACK or Store validation."
+  ],
+  "recursive_audit": {
+    "live_authority": "PASS",
+    "frozen_mechanisms": "PASS",
+    "product_boundary": "PASS",
+    "responsive_accessibility": "PASS",
+    "visual_hierarchy": "PASS",
+    "card_dashboard_regression": "PASS",
+    "concurrent_website_isolation": "PASS",
+    "cross_stream_merge_safety": "PASS - no convenience merge/rebase"
+  },
+  "conclusion": "PASS - COMP-02 closes the first real application-shell integration above the frozen component and visual foundations without inventing unresolved Product semantics.",
+  "approval": "APPROVED BY STANDING DIRECTOR DELEGATION - CLEAN RECURSIVE AUDIT.",
+  "next_boundary": "Continue APPUI real-interface design from this shell reference into the next bounded unresolved application workspace/detail question; do not reopen COMP-01/02 or Product-gated Stage semantics without a lawful trigger."
+}

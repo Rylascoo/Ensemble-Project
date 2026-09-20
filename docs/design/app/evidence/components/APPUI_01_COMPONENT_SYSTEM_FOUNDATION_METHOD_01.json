@@ -1,0 +1,20 @@
+{
+  "schema": "kymaean.appui-component-system-foundation-method.v1",
+  "status": "METHOD_FROZEN_PRE_EXPOSURE",
+  "date": "2026-09-16",
+  "program": "APPUI-COMP-01 - Kymaean Application Component System",
+  "repository": "Rylascoo/Ensemble-Website",
+  "authorization": "Director explicitly instructed Design Sol to continue unfinished application UI design after confirming that architecture/Stage baseline were not the whole finished interface.",
+  "authority": {
+    "design_head": "54f0984e7cf0d74af2bd90f196deb8489f800b6e",
+    "website_main": "2ea43f7c811438218f2553d9e92a4d3ee1466c0c",
+    "engineering_main": "fcd13ce3460c58ed17cfce012683a523ff381bc2",
+    "static_system": "docs/KYMAEAN_APPUI_PHASE_3_STATIC_APP_VISUAL_SYSTEM_01.md",
+    "component_coverage": "docs/evidence/APPUI_01_PHASE_1_COMPONENT_COVERAGE_AUDIT_2026_09_14.json",
+    "ficon_result": "docs/evidence/APPUI_01_PHASE_3_FUNCTIONAL_PLATFORM_ICON_TREATMENT_RESULT_01.json"
+  },
+  "question": "Can one Product-independent foundational control grammar make Kymaean feel coherent at everyday interaction scale while preserving F2 Light, D3 Dark, MAT F1, TYP F1, STA F2, FICON F1 and all current semantic boundaries?",
+  "in_scope": ["actions and icon buttons", "text/search/multiline/read-only/invalid input states", "checkbox/radio/switch choice controls", "selectable/focusable collection rows", "disclosure and transient menu/dialog surfaces", "explicit non-color semantic feedback", "wide/medium/narrow/forced-colors/200%-text/text-spacing survival"],
+  "out_of_scope": ["Scene/Take/Rehearsal/branching control semantics", "provider/model/cost and Performer assignment", "Stage redesign or Stage successor", "bespoke domain icons", "final production tokens or native WinUI/XAML mapping", "final typeface/font files", "motion or transcript-dependent interaction"],
+  "frozen_rules": ["Primary action uses monochrome hierarchy; teal is not default action or status color.", "Selection may receive teal reinforcement only with an independent structural witness.", "Keyboard focus is a separate 2px outer ring with 2px offset.", "Repeated cards, pills, glows and ornamental rounded tiles may not become the component identity.", "Bounded controls and transient panels may use functional borders/elevation without replacing MAT F1 topology.", "Consequence/invalid/unavailable meaning must survive without hue.", "Conventional Fluent glyphs may appear only for generic platform verbs under FICON F1.", "Icon-only controls must retain accessible names and at least a 32px carrier in the deterministic reference."]
+}

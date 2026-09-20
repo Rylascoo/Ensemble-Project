@@ -1,0 +1,85 @@
+{
+  "schema": "kymaean.design-gate-packet.v1",
+  "framework": "docs/evidence/DESIGN_PACKET_AND_SYNTHESIS_FRAMEWORK_01.json",
+  "packet_id": "PKT-COMP-08-01",
+  "packet_class": "COMPOSITION_PACKET",
+  "status": "PROVISIONAL_INCUMBENT",
+  "date": "2026-09-16",
+  "gate_or_program": "APPUI-COMP-08 - Persistence / Recovery Integration",
+  "design_axis": "APP VISUAL real persistence/recovery infrastructure-status flow",
+  "bounded_question": "Can healthy persistence remain absent from ordinary deep Character work while a truthful infrastructure exception can interrupt, remain unresolved after explanation closes, and return exactly after externally resolved recovery without fictionalization or a frozen recovery implementation?",
+  "authority": {
+    "repository": "Rylascoo/Ensemble-Website",
+    "baseline_commit": "dea96de54c6ce1db284d9eb8af1a0340d5f3634e",
+    "governing_method_or_contract": [
+      "docs/evidence/APPUI_01_COMPONENT_SYSTEM_PERSISTENCE_RECOVERY_INTEGRATION_METHOD_01.json",
+      "docs/evidence/APPUI_01_PERSISTENCE_RECOVERY_STATUS_FUNCTIONAL_STUDY_01.json",
+      "docs/evidence/APPUI_01_PHASE_3_PERSISTENCE_RECOVERY_F2_D3_INTEGRATION_01.json",
+      "docs/evidence/packets/PKT_COMP_07_TRUTH_KNOWLEDGE_DISCLOSURE_INTEGRATION_01.json",
+      "docs/evidence/packets/PKT_COMP_04_CONTEXTUAL_DEEP_INSPECTION_INTEGRATION_01.json"
+    ],
+    "close_reconciliation": {
+      "website_main": "8b375780cdbdcb6e21940b6cf5db7c4badf21b19",
+      "engineering_main": "3d7a5419afd1c502ce6aaba8f3ca906b48d6a868",
+      "effect": "No contradiction at construction close; both lanes add no persistence/recovery Product semantics that supersede the accepted Design law."
+    }
+  },  "controlled_inputs": [
+    "PKT-COMP-07-01 continuity",
+    "PKT-COMP-04-01 deep-task / exact-return law",
+    "PKT-COMP-02-01 shell / PKT-COMP-01-01 controls",
+    "Light F2 / Dark D3 / MAT F1 / TYP F1 / STA F2 / FICON F1",
+    "accepted persistence/recovery functional and Phase-3 evidence"
+  ],
+  "local_result": {
+    "summary": "Ordinary Julian deep Character inspection is visually free of persistence status when healthy; an injected infrastructure exception names the retained task without fictionalization, Close leaves unresolved status unresolved, and externally simulated recovery returns to quiet task/focus.",
+    "recommended_incumbent": "Persistence / Recovery Flow 01",
+    "survivors_or_closure": ["Persistence / Recovery Flow 01"]
+  },
+  "evidence": {
+    "mechanical": [
+      "seven-case healthy + exception + unresolved + recovered matrix PASS",
+      "carrier SHA-256 085e37b7abe955348d842055d253f216973264fa56380f15e6b8d02ad9dfe54d",
+      "probe SHA-256 b0ba234ccafd046febe063ad827cea1554a329c35f9395bf21446aeda158c9fc",
+      "matrix SHA-256 5bb036809e6d3e98a38a69c30f925d85f2065acea4e25616631ec7cd00cbc8bb"
+    ],
+    "visual": [
+      "wide/narrow healthy Light/Dark deep Character task with zero persistence status/explanatory copy",
+      "wide/narrow exception Light/Dark pair with dashed infrastructure witness",
+      "wide unresolved state proving Close did not recover or repair",
+      "identical semantic treatment across Light/Dark and forced colors"
+    ],
+    "interaction": [
+      "Close explanation restores retained task focus while unresolved status remains visible",
+      "Reopen explanation is navigation only",
+      "test-only external recovered state removes status and restores exact retained task focus",
+      "no user-facing recovery/save/retry/repair command is introduced"
+    ]
+  },  "dependencies": {
+    "requires": ["PKT-COMP-07-01","PKT-COMP-04-01","PKT-COMP-02-01","PKT-COMP-01-01","accepted persistence/recovery evidence"],
+    "constrains": ["Future persistence/recovery carriers preserve healthy quiet state, infrastructure-versus-fiction separation, failure-versus-integrity distinction, Close != recovery and exact safe task/focus return unless a named successor supersedes them."],
+    "must_not_be_confused_with": ["autosave policy","save/retry/repair command set","fictional Character behavior","timeline rollback","native recovery implementation"]
+  },
+  "explicit_non_authority": [
+    "No autosave/save-point/durability/transactionality/local-cloud/backup architecture.",
+    "No retry/repair/conflict/fallback/data-loss/recovery algorithm, read-only policy or integrity validation.",
+    "No Scene/Take/branch/rehearsal/consequence semantics or severity/status color system.",
+    "No Stage successor, production tokens, native implementation, shipping or Store authority."
+  ],
+  "canonical_artifacts": {
+    "repository": [
+      "docs/evidence/APPUI_01_COMPONENT_SYSTEM_PERSISTENCE_RECOVERY_INTEGRATION_METHOD_01.json",
+      "docs/evidence/APPUI_01_COMPONENT_SYSTEM_PERSISTENCE_RECOVERY_INTEGRATION_RESULT_01.json",
+      "prototypes/appui-01/component-system-persistence-recovery-integration-01.html",
+      "tools/appui_component_system_persistence_recovery_matrix_probe.mjs"
+    ],
+    "director_review_surface": {
+      "entry_point": "self-contained COMP-08 HTML carrier",
+      "what_to_review": "healthy quiet state, truthful infrastructure exception, unresolved-after-Close state, failure-versus-integrity separation and exact recovered task/focus return",
+      "diagnostics_not_for_aesthetic_choice": ["matrix JSON","DOM/probe output"]
+    }
+  },
+  "synthesis_state": {
+    "tested_with_packet_ids": ["PKT-COMP-01-01","PKT-COMP-02-01","PKT-COMP-04-01","PKT-COMP-07-01"],
+    "whole_app_synthesis_status": "REAL_PERSISTENCE_RECOVERY_VALIDATED_PRODUCTION_LIFECYCLE_UTILITIES_NEXT"
+  }
+}

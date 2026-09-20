@@ -1,0 +1,83 @@
+{
+  "schema": "kymaean.design-gate-packet.v1",
+  "framework": "docs/evidence/DESIGN_PACKET_AND_SYNTHESIS_FRAMEWORK_01.json",
+  "packet_id": "PKT-COMP-04-01",
+  "packet_class": "COMPOSITION_PACKET",
+  "status": "PROVISIONAL_INCUMBENT",
+  "date": "2026-09-16",
+  "gate_or_program": "APPUI-COMP-04 - Contextual + Deep Inspection Integration",
+  "design_axis": "APP VISUAL real contextual-to-deep inspection task flow",
+  "bounded_question": "Can the accepted inspection grammar operate inside the COMP shell with one selected entity, exact origin and exact return without becoming a permanent app mode or inventing Product edit semantics?",
+  "authority": {
+    "repository": "Rylascoo/Ensemble-Website",
+    "baseline_commit": "079ebb998059955015b70c4dbc935bf4a37435e1",
+    "governing_method_or_contract": [
+      "docs/evidence/APPUI_01_COMPONENT_SYSTEM_CONTEXTUAL_DEEP_INSPECTION_INTEGRATION_METHOD_01.json",
+      "docs/evidence/APPUI_01_CONTEXTUAL_DEEP_INSPECTION_SURFACE_FAMILY_FUNCTIONAL_STUDY_01.json",
+      "docs/evidence/APPUI_01_PHASE_3_CONTEXTUAL_DEEP_INSPECTION_F2_D3_INTEGRATION_01.json",
+      "docs/evidence/packets/PKT_COMP_03_SHAPING_WORKSPACE_INTEGRATION_01.json"
+    ],
+    "close_reconciliation": {
+      "website_main": "fdf4f87b939c54358125e36aa2b81f070fdd1e6f",
+      "engineering_main": "2bfb0c1c3e8cb79acafe72d6fb80692bc818a407",
+      "effect": "No contradiction. Website remains a separate app-UI-frozen stream and Engineering remains pre-Phase-D with no new inspection Product semantics."
+    }
+  },
+  "controlled_inputs": [
+    "PKT-COMP-03-01 Shaping origin",
+    "PKT-COMP-02-01 shell",
+    "PKT-COMP-01-01 controls",
+    "Light F2 / Dark D3 / MAT F1 / TYP F1 / STA F2 / FICON F1",
+    "accepted contextual/deep inspection grammar"
+  ],  "local_result": {
+    "summary": "The selected Julian ↔ Elara relationship now moves from Shaping contextual inspection into a deep task surface and returns exactly to the same semantic origin, selection and trigger focus in Light and Dark.",
+    "recommended_incumbent": "Contextual + Deep Inspection Flow 01",
+    "survivors_or_closure": ["Contextual + Deep Inspection Flow 01"]
+  },
+  "evidence": {
+    "mechanical": [
+      "seven-case contextual + deep matrix PASS",
+      "carrier SHA-256 3b6596fc04bd8d5e142ce339cc42c7710459d84115d775218f37c7395bbf7792",
+      "probe SHA-256 8f3488bc1be3d2ddcc4a3fec8bbe1b723ca3698bdf5f29b55178e36408937c3d",
+      "matrix SHA-256 6faad6ae073e47f43e51298ebca07bf13438ffaaf69625d8ed20cc078db7a85d"
+    ],
+    "visual": [
+      "wide contextual Light/Dark pair",
+      "wide exclusive deep Light/Dark pair",
+      "390px contextual and exclusive deep sequential states",
+      "historical dashed and provisional dotted non-color witnesses"
+    ],
+    "interaction": [
+      "deep activation succeeds in both themes",
+      "zero visible Shaping surfaces while deep state is open",
+      "Back and Close each restore originating trigger focus",
+      "selected relationship remains unchanged after return"
+    ]
+  },
+  "dependencies": {
+    "requires": ["PKT-COMP-03-01","PKT-COMP-02-01","PKT-COMP-01-01","accepted inspection functional/Phase-3 evidence"],
+    "constrains": ["Future inspection carriers preserve same-entity continuity, named semantic origin, exact focus return, Back/Close != Undo and structural current/history plus provisional/effective distinctions unless a named successor supersedes them."],
+    "must_not_be_confused_with": ["new application mode","final Product entity taxonomy","database editor","native WinUI inspector","Product commit/save/undo contract"]
+  },  "explicit_non_authority": [
+    "No exhaustive Product entity taxonomy or data schema.",
+    "No commit/save/validation/undo, Scene lifecycle, consequence, Perspective, Take/Rehearsal/branching, provider/model/cost or Performer semantics.",
+    "No Bellweather placement, bespoke domain icons, motion/Stage successor, production tokens, native implementation, shipping or Store authority."
+  ],
+  "canonical_artifacts": {
+    "repository": [
+      "docs/evidence/APPUI_01_COMPONENT_SYSTEM_CONTEXTUAL_DEEP_INSPECTION_INTEGRATION_METHOD_01.json",
+      "docs/evidence/APPUI_01_COMPONENT_SYSTEM_CONTEXTUAL_DEEP_INSPECTION_INTEGRATION_RESULT_01.json",
+      "prototypes/appui-01/component-system-contextual-deep-inspection-integration-01.html",
+      "tools/appui_component_system_contextual_deep_inspection_matrix_probe.mjs"
+    ],
+    "director_review_surface": {
+      "entry_point": "self-contained COMP-04 HTML carrier",
+      "what_to_review": "contextual versus deep task depth, selected-entity continuity, semantic-origin visibility, structural history/provisional state and exact return",
+      "diagnostics_not_for_aesthetic_choice": ["matrix JSON","DOM/probe output"]
+    }
+  },
+  "synthesis_state": {
+    "tested_with_packet_ids": ["PKT-COMP-01-01","PKT-COMP-02-01","PKT-COMP-03-01"],
+    "whole_app_synthesis_status": "REAL_CONTEXTUAL_DEEP_INSPECTION_VALIDATED_WHOLE_PRODUCTION_CHARACTER_MANAGEMENT_NEXT"
+  }
+}

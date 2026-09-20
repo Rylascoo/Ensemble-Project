@@ -1,0 +1,89 @@
+{
+  "schema": "kymaean.appui-production-lifecycle-utilities-functional-study.v1",
+  "status": "POST_PHASE1_SECTION_DETAIL_PASS",
+  "date": "2026-09-15",
+  "program": "APPUI-01 - Detailed functional studies inside frozen Phase-1 architecture",
+  "authority": {
+    "design_repository": "Rylascoo/Ensemble-Website",
+    "design_branch": "design/appui01-working-compositions-2026-09-14",
+    "pre_study_ref": "136d93a5ead6a16388f9096a20de30924fedb96a",
+    "frozen_global_baseline": "Wireframe 01R - Revised Structural Baseline",
+    "phase1_status": "FROZEN_PASS"
+  },
+  "question": "Can settings, portable Production handling, provider configuration, diagnostics and recovery utilities be coherently reachable without becoming permanent creative navigation or freezing Product-dependent commands?",
+  "inherited_law": [
+    "Utilities live at application or Production scope outside the theatrical Stage.",
+    "Ordinary creative work remains current-situation-first; infrastructure stays secondary.",
+    "Navigation into a utility surface does not itself mutate Production or provider state.",
+    "Provider machinery remains distinct from Character identity and Performer assignment.",
+    "Diagnostics and recovery remain truthful infrastructure rather than fiction.",
+    "Portable format, provider/cost policy and exact commands remain Product/Phase-D dependent."
+  ],
+  "artifact": {
+    "repository_path": "prototypes/appui-01/production-lifecycle-utilities-functional-study-01.html",
+    "html_sha256": "66b7b4152a42ffcca9876cb4eea446e0a1bd52944623d8c94fca4c39c375a4e5",
+    "browser_probe_path": "tools/appui_utilities_browser_probe.mjs",
+    "browser_probe_sha256": "c87133483dd8d06f095fc816051a86d46b03df0a0248d387f32de02d7a1b6e19",
+    "drive_folder_id": "1E_sO0bP8IYcwxRLMpOK8HAiKO3DXXCKc",
+    "drive_png_id": "1VUpWvKOSMy1qAPGoH4ou4szm9SOl8a6Z",
+    "drive_html_id": "147DEBZmaQIxhkYI5cYfjTwrMWEVdCTog",
+    "drive_png_sha256": "fb94db2041a5e6a7bfdad72c1b5ad42db9e91767cdd7fc58dfbea6bb949dd83c"
+  },
+  "design_result": {
+    "route_role": "Deliberate secondary application/Production scope; never a permanent creative home equal to Home/Shaping/current situation.",
+    "capacity_witnesses": [
+      "settings",
+      "portable_Production",
+      "provider_configuration",
+      "diagnostics",
+      "recovery_utilities"
+    ],
+    "navigation_rule": "Opening/selecting/closing a utility surface is navigation only until Product authority defines an effective mutation boundary.",
+    "state_grammar": [
+      "utility surface open != Production mutation",
+      "provisional configuration != effective configuration",
+      "provider/capability unavailable != Character refusal or fictional failure",
+      "portable Production navigation != import/export/overwrite/merge mutation",
+      "diagnostics != fiction",
+      "Back/Close != Undo"
+    ],
+    "origin_rule": "Current Production/Scene/task and focus-return target remain retained; Close/Back returns to that origin when still valid.",
+    "theme_parity": "PASS - Light/Dark preserve one hierarchy and non-authority boundary",
+    "responsive_rule": "wide utility task + retained origin context -> medium overlay/substitution -> narrow sequential surfaces; authority state and return remain invariant"
+  },
+  "mechanical_preflight": {
+    "environment": "Microsoft Edge Chromium CDP; exact self-contained HTML; no external resources",
+    "cases": [
+      {"mode": "normal", "width": 1600, "horizontal_overflow": false, "overflow_elements": 0},
+      {"mode": "normal", "width": 1024, "horizontal_overflow": false, "overflow_elements": 0},
+      {"mode": "normal", "width": 390, "horizontal_overflow": false, "overflow_elements": 0},
+      {"mode": "normal", "width": 320, "horizontal_overflow": false, "overflow_elements": 0},
+      {"mode": "forced_colors", "width": 320, "forced_colors_active": true, "horizontal_overflow": false, "overflow_elements": 0}
+    ],
+    "images": 0,
+    "external_resources": 0,
+    "result": "PASS"
+  },
+  "recursive_audit": {
+    "visual_findings": [],
+    "semantic_findings": [],
+    "rerun_result": "CLEAN",
+    "permanent_admin_mode_created": false,
+    "portable_format_frozen": false,
+    "provider_cost_policy_frozen": false,
+    "repair_or_recovery_command_set_frozen": false,
+    "phase2_stage_visual_work_started": false,
+    "final_visual_language_started": false
+  },
+  "non_authority": [
+    "Exact utility labels, menu placement, dialogs, commands and confirmation behavior remain provisional.",
+    "Exact portable Production format, merge/overwrite rules, compatibility behavior and destinations remain Product-defined.",
+    "Exact provider/model/cost policy, authentication, assignment and availability behavior remain Product-defined.",
+    "Exact diagnostic, repair, fallback, recovery and destructive-action semantics remain Product-defined.",
+    "Final typography, palette, materials, icons, motion and native WinUI behavior remain open.",
+    "No Stage visual successor, runtime/package/Store authority or native accessibility-device proof is created."
+  ],
+  "conclusion": "PRODUCTION_LIFECYCLE_UTILITIES_FUNCTIONAL_DETAIL_PASS",
+  "approval": "APPROVED BY STANDING DIRECTOR DELEGATION - CLEAN RECURSIVE AUDIT",
+  "next": "Detail the Character-bounded workspace inside the frozen shell, preserving the same Production and persistent Character identity while materially changing disclosure, removing creator-only information and restoring the exact prior creator context on return."
+}
