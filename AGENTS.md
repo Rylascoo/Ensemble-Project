@@ -31,7 +31,7 @@ Engineering Sol owns, inside delegated engineering authority:
 
 Engineering Sol does **not** own product constitution/ODR/provider admissibility/spend, Design taste/law, or external validation gates assigned to the Director or another authority surface.
 
-Q-ADMIN-05 prepares `docs/design/app/` as the Project receiving boundary for application UX/UI contracts and app-specific Design evidence. Authority/document transfer has not yet executed: the exact Website sources named by `docs/design/app/AUTHORITY.md` retain their present authority until an accepted transfer package lands. Website continues to own website design/implementation; Drive continues to own shared creative masters. Co-location never gives Engineering Design judgment or App Design implementation authority.
+Q-ADMIN-05 has received and validated the app-design authority candidate under `docs/design/app/`, but source relinquishment is pending. The exact Website sources sealed by `docs/design/app/TRANSFER_RECEIPT.json` remain governing app-design authority until Ryladmin audits the cross-repository receipt and authorizes final handoff. No App Design transfer lease remains active. Website continues to own website design/implementation; Drive continues to own shared creative masters. Co-location never gives Engineering Design judgment or App Design implementation authority.
 
 A future Project Administrator/Codex dispatcher may route and execute operational work, but it never becomes engineering authority and never substitutes for Engineering Sol's accountable judgment. See `docs/PROJECT_AGENT_ORCHESTRATION_PROTOCOL.md`.
 
@@ -100,7 +100,7 @@ Canonical sources:
 4. Director decisions and durable policy records;
 5. `Rylascoo/Ensemble-Website` / Drive for Design-owned truth when relevant.
 
-After Q-ADMIN-05 transfer acceptance, current application-design truth is rooted at `docs/design/app/AUTHORITY.md`; exact historical Website refs remain provenance rather than a second live copy. During the prepared-but-not-transferred interval, that file is a receiving contract/manifest only.
+After Ryladmin authorizes final Q-ADMIN-05 handoff, current application-design truth will be rooted at `docs/design/app/AUTHORITY.md`; exact historical Website refs will remain provenance rather than a second live copy. During the present `RECEIVED / VALIDATED / SOURCE RELINQUISHMENT PENDING` interval, that root is the sealed Project candidate and receipt, not independently mutable app-design authority.
 
 Google Drive `Ensemble Project` is the active project visual/research/master-asset workspace, never engineering validation authority.
 

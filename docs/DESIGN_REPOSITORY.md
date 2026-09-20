@@ -4,7 +4,7 @@ Status: cross-lane locator only — not design, product, phase, or validation au
 
 ## Canonical design surfaces
 
-- Prepared application-design receiving boundary: `docs/design/app/AUTHORITY.md` (Q-ADMIN-05 transfer not yet executed).
+- Received and validated application-design candidate: `docs/design/app/AUTHORITY.md`; exact transitional receipt: `docs/design/app/TRANSFER_RECEIPT.json` (source relinquishment pending).
 - Website design/implementation repository: `Rylascoo/Ensemble-Website`.
 - Canonical visual workspace / master-asset Drive root: `Ensemble Project` (`1VKomZE6PSaEM9c7q22p4r_N6UY0HM2D8`).
 - Active Kymaean visual workspace: `Ensemble Project / 03 Visual Identity & Artwork / Kymaean` (`1MJrfMi1EZ_Wk3-IqC_BMMz1GTYpsrMnz`).
@@ -31,9 +31,9 @@ The active `Kymaean` workspace beneath `03 Visual Identity & Artwork` further se
 
 ## Boundary with GitHub
 
-During Q-ADMIN-05 preparation, the exact app UI/UX sources listed by `docs/design/app/AUTHORITY.md` remain authoritative at their Website refs. After accepted transfer, Project `docs/design/app/` owns current app UX/UI contracts, app design-system/state/accessibility/motion/disclosure contracts and necessary app-specific evidence; Website retains history and transition pointers rather than a second live copy.
+During the current Q-ADMIN-05 receipt-pending interval, the exact Website sources sealed by `docs/design/app/TRANSFER_RECEIPT.json` remain governing app-design authority. After Ryladmin-authorized final handoff, Project `docs/design/app/` owns current app UX/UI contracts, app design-system/state/accessibility/motion/disclosure contracts and necessary app-specific evidence; Website retains history and transition pointers rather than a second live copy.
 
-`Rylascoo/Ensemble-Website` owns website design/implementation and website-specific design evidence. It may consume pinned shared/app contracts but does not own current app-design authority after transfer.
+`Rylascoo/Ensemble-Website` owns website design/implementation and website-specific design evidence. It remains governing app-design authority while source relinquishment is pending; after final handoff it may consume pinned shared/app contracts but does not retain a second current app-design authority.
 
 Google Drive `Ensemble Project` owns visual exploration, renders, imagery, source/master visual assets, motion/animation material, Store/marketing assets, and design research/reference material.
 

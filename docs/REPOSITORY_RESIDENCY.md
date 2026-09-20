@@ -14,7 +14,7 @@ Canonical for:
 - engineering source, tests, fixtures, build/CI/tooling, architecture and validation evidence;
 - engineering work-package and implementation records;
 - product/policy constitution, Director decisions, provider admissibility, and Open Design Register proposals/resolutions, regardless of which lane raised the question;
-- current application UX/UI contracts, app design system/state/accessibility/motion/disclosure contracts and necessary app-specific Design evidence under `docs/design/app/` after accepted Q-ADMIN-05 transfer;
+- the received and validated application-design candidate under `docs/design/app/`, becoming current application UX/UI contract/evidence authority only after Ryladmin-authorized final Q-ADMIN-05 handoff;
 - compact cross-lane locators/contracts needed by engineering.
 
 ### `Rylascoo/Ensemble-Website`
@@ -24,7 +24,7 @@ Canonical Git repository for:
 - website-specific interaction/accessibility/motion evidence and prototypes;
 - website expressions of shared identity and approved distributable derivatives.
 
-During Q-ADMIN-05 preparation, the exact Website app-design sources named by `docs/design/app/AUTHORITY.md` remain authoritative in place. After accepted transfer, Website preserves their history/provenance and points live app consumers to Project; it does not retain a second evolving app-design authority.
+During Q-ADMIN-05 receipt-pending status, the exact Website app-design sources sealed by `docs/design/app/TRANSFER_RECEIPT.json` remain governing authority in place. After Ryladmin-authorized final handoff, Website preserves their history/provenance and points live app consumers to Project; it does not retain a second evolving app-design authority.
 
 ### Google Drive `Ensemble Project`
 
@@ -46,7 +46,7 @@ Every questionable artifact is resolved to one class:
 1. **Engineering-native** — remains in `Ensemble-Project`.
 2. **Product/policy central** — remains in `Ensemble-Project`, even when drafted by Design Sol or the evidence lane. Originating-lane qualification remains explicit.
 3. **Cross-lane pointer/contract** — remains only where the consuming lane needs a compact durable reference; the referenced artifact keeps one canonical home.
-4. **Application-design-native** — after accepted Q-ADMIN-05 transfer, belongs under Project `docs/design/app/` with Design authority distinct from Engineering.
+4. **Application-design-native** — the validated candidate is received under Project `docs/design/app/`; after final handoff it becomes current Design authority distinct from Engineering.
 5. **Website-design-native** — belongs in `Ensemble-Website`.
 6. **Shared creative master/reference** — belongs in the canonical Drive workspace; repository derivatives/pointers preserve exact provenance.
 7. **Administrator-runtime-native** — belongs in `Ryladmin` only when it implements already-approved Administrator law.
