@@ -37,6 +37,8 @@ The former long Engineering personality prompt is historical migration input onc
 
 `docs/PROJECT_CODEX_ADMINISTRATOR_ESTABLISHMENT_DIRECTOR_AUTHORIZATION_2026_09_19.md` records the Director-approved Ryladmin/Codex establishment program and conditional successor commissioning. It preserves existing failed evidence, owning-lane authority, and default-off runtime capabilities until tested admission; routine in-scope establishment work no longer needs repeated broad permission.
 
+`docs/PROJECT_CLAUDE_CHAT_INDEPENDENT_REVIEW_DIRECTOR_AMENDMENT_2026_09_19.md` admits Claude Project Chat as a concurrent read-only independent advisory/falsification lane with no worktree/write lease, no project authority, and no credential grant. It is distinct from Claude Code and does not retry or commission C9A.
+
 The role hierarchy is:
 
 - **Director** — product/policy/provider/spend/consequential authority;
