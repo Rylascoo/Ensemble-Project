@@ -1,0 +1,75 @@
+{
+  "schema": "kymaean.appui-phase2-current-performance-immediate-causal-context-composition.v1",
+  "status": "PASS_STATIC_CURRENT_PERFORMANCE_CAUSAL_CONTEXT",
+  "date": "2026-09-15",
+  "program": "APPUI-01-P2-PERF-CTX-01",
+  "repository": "Rylascoo/Ensemble-Website",
+  "authority": {
+    "design_parent_ref": "c50d28df71afc8c0a86ac29f426a105ac13371dc",
+    "phase2_entry_gate": "docs/evidence/APPUI_01_PHASE_2_ENTRY_GATE_ENGINEERING_RECONCILIATION_2026_09_15.json",
+    "stage_shell_predecessor": "docs/evidence/APPUI_01_PHASE_2_STAGE_SHELL_ADJACENCY_LIVE_WORKSPACE_COMPOSITION_01.json",
+    "stage_anchor": "PKT-STAGE-CORE-02",
+    "engineering_ref": "60b85fbcb36e265e3910444714143d944ffef841"
+  },
+  "question": "Can one current performed moment remain dominant while a small amount of immediately relevant causal context supports comprehension without turning historical material into another current Stage, transcript authority or a permanent Archive mode?",
+  "result": "PASS",
+  "carrier": {
+    "path": "prototypes/appui-01/phase2-current-performance-immediate-causal-context-composition-01.html",
+    "sha256": "10a2a479fa52053449634b8388622c26d6a390d28deca1364439529a944d5fcd",
+    "production_authority": false
+  },
+  "drive": {
+    "folder_id": "14-C5PrxDjO_X2a1j3Ip7oLN5QYXzDj2p",
+    "png_id": "1LzPvrkTpQ_vVgBsFcZTxTU-RdAaKoEQH",
+    "png_sha256": "7616971c3e1bc1396d366ed8671942557a2fe2057ff6fb34ce2a9d42b6b03bfc",
+    "html_id": "1nb5VT6DfCg7hgDqCkdzYI0dn4UC9vdaA",
+    "html_sha256": "10a2a479fa52053449634b8388622c26d6a390d28deca1364439529a944d5fcd"
+  },
+  "accepted_grammar": [
+    "One current performed moment remains the dominant live Stage meaning.",
+    "Immediately relevant prior material may sit adjacent only when it explains why the present moment matters.",
+    "Historical material remains explicitly historical at every disclosure depth and does not become current-state material by opening or selection.",
+    "Current performance -> adjacent cause -> deeper causal history -> exact return is navigation/disclosure, not replay, rollback or Undo.",
+    "Current unresolved questions may remain current while pointing toward historical causal material.",
+    "Narrow layouts sequence current performance, causal context and deeper history without requiring simultaneous columns."
+  ],
+  "cross_lane_boundaries": [
+    "No transcript ontology or density law is frozen.",
+    "No Beat/Turn terminology is established.",
+    "No transcript-dependent animation, cadence or succession claim is made; Q-DESIGN-02 remains blocked.",
+    "No timer/Pause semantics, Take/consequence acceptance, Observed Cues authority or provider/Performer mechanics are created."
+  ],
+  "browser_preflight": {
+    "modes": [
+      {"id": "normal-1600", "result": "PASS", "overflow": 0},
+      {"id": "normal-1024", "result": "PASS", "overflow": 0},
+      {"id": "normal-390", "result": "PASS", "overflow": 0},
+      {"id": "normal-320", "result": "PASS", "overflow": 0},
+      {"id": "forced-colors-320", "result": "PASS", "overflow": 0}
+    ],
+    "shell_specimens": 2,
+    "stage_specimens": 2,
+    "character_witnesses": 10,
+    "causal_context_specimens": 2,
+    "return_flow_steps": 5,
+    "explicitly_unresolved_capacity_witnesses": 6,
+    "external_resources": 0
+  },
+  "recursive_audit": {
+    "result": "CLEAN_AFTER_FIXTURE_REPAIR",
+    "defects_repaired": [
+      "Initial illustrative Scene-12 Stage witness incorrectly placed Mira in the current Scene, conflicting with the frozen whole-Production Character-management study where Mira is explicitly off-Scene relative to Scene 12.",
+      "Mira was replaced with Keir in the Stage witness; no Character-management authority or Scene membership was changed."
+    ],
+    "wide_visual_review": "PASS",
+    "narrow_visual_review": "PASS"
+  },
+  "explicit_non_authority": [
+    "No replacement or redesign of PKT-STAGE-CORE-02.",
+    "No final transcript, performance-history, timing, motion, acceptance or consequence architecture.",
+    "No final palette, typeface, material, iconography, native control or WinUI implementation claim.",
+    "No Phase-D, provider, runtime, validation or shipping authority."
+  ],
+  "next_boundary": "Detail selected Character + Stage state inspection as a static Stage-specific handoff: preserve speaking/listening/current-opportunity/creator-selection distinctions and contextual inspection without inventing new state semantics, redundant identity symbols, pips, motion or Product-gated controls.",
+  "approval": "APPROVED BY STANDING DIRECTOR DELEGATION — CLEAN RECURSIVE AUDIT."
+}

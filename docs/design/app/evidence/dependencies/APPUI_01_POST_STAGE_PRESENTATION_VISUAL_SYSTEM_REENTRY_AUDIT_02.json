@@ -1,0 +1,26 @@
+{
+  "schema": "kymaean.appui-visual-system-reentry-audit.v1",
+  "status": "SELECT_TYP_ASSET_01_FINAL_TYPEFACE",
+  "date": "2026-09-16",
+  "audit_id": "APPUI-01-POST-STAGE-PRESENTATION-VISUAL-SYSTEM-REENTRY-02",
+  "authority": {
+    "design_branch": "design/appui01-working-compositions-2026-09-14",
+    "baseline": "89ab1757b18fc9779681dcd719a5cc5501aa0526",
+    "website_main": "e483f0af35166534fff1455f68e287cc9190d91a",
+    "engineering_main": "526893a0f518b52bceddb311514de12ec826b9b3",
+    "director_trigger": "Director said continue at the post-S1 visual-system hold.",
+    "prior_static_axis_audit": "docs/evidence/APPUI_01_PHASE_3_POST_FICON_REMAINING_STATIC_AXES_AUDIT_01.json"
+  },
+  "finding": "The prior post-FICON audit explicitly leaves final typeface/font asset selection OPEN_NOT_ACTIVATED and names explicit authorization as a lawful re-entry trigger. S1 has since resolved the Stage-to-shell static-presentation gap, so typography asset convergence is the highest-leverage remaining Product-independent app visual-system question.",
+  "selected_program": "TYP-ASSET-01 — Final Typeface / Font Asset Convergence",
+  "not_selected": {
+    "another_APPUI_component": "COMP-01..11 coverage is closed; no COMP-12.",
+    "Stage_refinement": "S1 resolved the current static presentation boundary; no S2 is earned.",
+    "motion": "held behind transcript/E0 evidence.",
+    "domain_icons": "blocked on stable Product vocabulary.",
+    "native_handoff": "post-E0 productization remains blocked.",
+    "wordmark_symbol": "current packets expose no new contradiction requiring immediate geometry redesign."
+  },
+  "project_queue_reconciliation": "Project Q-DESIGN-19 is stale relative to later Website authority that selected Light F2/Dark D3. Do not mutate Project during active E0-D; reconcile the queue later through the owning Project/Administrator lane.",
+  "next": "Freeze TYP-ASSET-01 source manifest and method before candidate exposure."
+}

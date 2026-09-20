@@ -1,0 +1,115 @@
+{
+  "status": "ACTIVE DESIGN EVIDENCE",
+  "packet_id": "APPUI-ALPHA-STATIC-CONFORMANCE-01",
+  "title": "Kymaean Alpha Static Conformance Matrix 01",
+  "authority": {
+    "design_repo": "Rylascoo/Ensemble-Website",
+    "design_branch": "design/appui01-working-compositions-2026-09-14",
+    "engineering_repo": "Rylascoo/Ensemble-Project",
+    "engineering_ref_observed": "c8da0c1f42a40d7e3f492e0e76b343d648c69bd6",
+    "engineer_2_status": "ACTIVE under ENG2-QPROD01-DESIGNARCH-02; must rebase/republish/revalidate PR #226",
+    "design_architecture_ready": "NOT READY",
+    "boundary": "Existing Design-authorized static work may proceed. New runtime-dependent Design meaning requires integrated exact-main Engineering truth."
+  },
+  "source_set": [
+    "docs/evidence/APPUI_ALPHA_FOUNDATIONAL_UI_STAGE_CONSTITUTION_01.json",
+    "docs/evidence/APPUI_ALPHA_STAGE_INTERACTION_SPATIAL_GRAMMAR_01.json",
+    "docs/evidence/APPUI_ALPHA_STAGE_INFORMATION_DISCLOSURE_ARCHITECTURE_01.json",
+    "docs/evidence/APPUI_ALPHA_STAGE_STATE_WITNESS_REDUNDANCY_GRAMMAR_01.json",
+    "docs/evidence/APPUI_ALPHA_CHARACTER_ANCHOR_COMPONENT_ANATOMY_01.json",
+    "docs/evidence/APPUI_ALPHA_STAGE_ENSEMBLE_RESPONSIVE_COMPOSITION_LAW_01.json"
+  ],
+  "classification_key": {
+    "active_static_law": "May be used now for static UI architecture, composition, component design, review and falsification.",
+    "conditional_design_capacity": "Design defines how a meaning should be represented if/when Product truth exposes it; not a build-now requirement.",
+    "gated_or_open": "Design may not invent; wait for integrated Product/Engineering authority or later evidence.",
+    "prohibited_drift": "Non-conforming even if visually attractive or implementation-convenient."
+  },
+  "active_static_law": [
+    "White and Black are the only Alpha user-facing themes and preserve identical architecture/semantics.",
+    "Durable visible shell routes are Home, Productions, Settings; Current Production remains contextual.",
+    "Studio/Stage/Archive remain semantic spaces, not permanent top-level tabs.",
+    "Stage is invariant dark and one shared relational theatrical/social field.",
+    "Character carrier is cone presence with floor/name identity+interaction hinge.",
+    "Character name is primary explicit identity and does not depend on color/portrait/motion/position/provider/Performer.",
+    "Focus and selection remain independent and localize to floor/name semantic target.",
+    "Every essential state requires structural/textual redundancy before color/motion reinforcement.",
+    "Contextual/deep disclosure is invoked and preserves exact semantic return; Back/Close is not Undo.",
+    "Current/historical/provisional/infrastructure meanings remain distinct.",
+    "Infrastructure remains outside fiction.",
+    "Responsive geometry yields secondary context before Character identity/state semantics.",
+    "2-5 present Characters remain static design-stress evidence only, not Product cardinality.",
+    "No default grid/card/carousel/pagination/hidden-roster fallback is authorized."
+  ],
+  "conditional_design_capacities": [
+    "current performance content and presentation",
+    "listening/performed silence/nonverbal action/refusal data",
+    "Current Opportunity presentation",
+    "relationship salience presentation",
+    "deeper Character state/content",
+    "causal/history content",
+    "Character-bounded perspective content"
+  ],
+  "gated_or_open": [
+    "persisted Production-internal content beyond currently earned Product truth",
+    "exact Scene lifecycle",
+    "Take/Rehearsal/branching/consequence semantics",
+    "exact transcript placement/density/scroll/grouping/Beat-Turn ontology",
+    "motion/timing/cadence/entry-exit/reflow/performance pacing",
+    "opportunity/relationship/turn algorithms",
+    "provider/model/cost/fallback and Performer mechanics",
+    "exact Character edit effect/commit semantics",
+    "counts beyond tested 2-5",
+    "exact Stage/Character geometry and breakpoints",
+    "native WinUI/GPU/hit-testing/screen-reader/high-contrast behavior"
+  ],
+  "key_reconciliation": "Static Design capacity is not currently earned Product state. Implementation may render conditional capacities only when integrated Product truth actually exposes them.",
+  "contradiction_audit": {
+    "unresolved_direct_contradictions": 0,
+    "reconciliations": [
+      "Studio/Stage/Archive are semantic spaces only; Home/Productions/Settings govern durable visible navigation.",
+      "Light F2/Dark D3 remain research lineage; Alpha user-facing theme names are White/Black.",
+      "A separate state line may be absent when no distinct state needs communication; essential distinct states still require structural/textual redundancy.",
+      "Contextual actions may sit adjacent to a selected anchor but remain transient application chrome and may move to overlay/sequential surfaces.",
+      "Theme parity requires the same composition for the same state/viewport but does not freeze final pixel geometry.",
+      "Performance/opportunity/relationship/history presentation rules are conditional capacities until Product truth exists."
+    ],
+    "clean_result": true
+  },
+  "prohibited_drift": [
+    "permanent Studio/Stage/Archive tabs",
+    "mandatory Current Production fourth nav item",
+    "scenic-image-first Stage or required portraits",
+    "equal Character card/grid/2x2 dashboard",
+    "full-cone selected container",
+    "one generic glow for focus+selection+opportunity+speaking",
+    "color-only or motion-only state",
+    "permanent relationship graph/history rail/inspector",
+    "embedded creator buttons inside Character cones",
+    "infrastructure represented as Character behavior",
+    "unsupported semantic meaning assigned from center/proximity/scale",
+    "automatic carousel/pagination/hidden-roster/horizontal-scroll density fallback",
+    "theme-specific behavior or narrow-only feature removal",
+    "invented runtime content used to populate a Design-defined capacity"
+  ],
+  "failure_routing": {
+    "static_design_conflict": "Repair the smallest Design layer against L-264 through L-269.",
+    "conditional_capacity_without_product_truth": "Do not invent data/behavior; wait for integrated Engineering authority.",
+    "density_or_responsive_evidence_exceeded": "Open a new bounded Design study.",
+    "native_implementation_question": "Route to Engineering after an authorized consumer boundary exists.",
+    "product_semantic_question": "Route through Product/Engineering/ODR authority.",
+    "motion_timing_transcript_question": "Remain separately gated; do not smuggle through static implementation."
+  },
+  "drive": {
+    "folder_id": "1ZaxYARCLFFi33psHy3GkBEhyyqhUX2tr",
+    "document_id": "1V4AwkiLOp1GIw6HdWRvNPCgMlO_1yuQMC6vgY0s051k",
+    "document_title": "Kymaean Alpha Static Conformance Matrix 01"
+  },
+  "non_authority": [
+    "No new Product/runtime semantics",
+    "No promotion of conditional capacities into implementation requirements",
+    "No native validation claim",
+    "No final motion/transcript/state algorithm authority",
+    "No Engineering mutation"
+  ]
+}

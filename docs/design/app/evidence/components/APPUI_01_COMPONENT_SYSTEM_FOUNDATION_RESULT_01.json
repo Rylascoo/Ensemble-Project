@@ -1,0 +1,52 @@
+{
+  "schema": "kymaean.appui-component-system-foundation-result.v1",
+  "status": "CLOSED_FOUNDATIONAL_CONTROL_GRAMMAR_PASS",
+  "date": "2026-09-16",
+  "program_id": "APPUI-COMP-01",
+  "repository": "Rylascoo/Ensemble-Website",
+  "authority": {
+    "pre_close_head": "54f0984e7cf0d74af2bd90f196deb8489f800b6e",
+    "method": "docs/evidence/APPUI_01_COMPONENT_SYSTEM_FOUNDATION_METHOD_01.json",
+    "preflight": "docs/evidence/APPUI_01_COMPONENT_SYSTEM_FOUNDATION_PREFLIGHT_01.json",
+    "static_system": "docs/KYMAEAN_APPUI_PHASE_3_STATIC_APP_VISUAL_SYSTEM_01.md",
+    "ficon_result": "docs/evidence/APPUI_01_PHASE_3_FUNCTIONAL_PLATFORM_ICON_TREATMENT_RESULT_01.json",
+    "website_main_reconciled": "e0e6cf26441745547f0e09cc2c27ea6ba8059a2b",
+    "engineering_main_reconciled": "e007ed2838c892f2d7734dcf6ac87b6b00022684"
+  },
+  "resolution_mode": "DIRECTOR_AUTHORIZED_DESIGN_SOL",
+  "director_authorization": "The Director explicitly instructed Design Sol to continue the unfinished application-interface design after confirming that the existing architecture and Stage baseline were not a complete UI.",
+  "local_result": {
+    "actions": "PASS - primary action uses monochrome Primary/Field contrast; secondary uses functional boundary; quiet action may shed persistent border; high-consequence action uses stronger/double structure rather than a semantic hue.",
+    "inputs": "PASS - bounded fields remain functional rather than identity-bearing; read-only uses explicit label plus dashed structure; invalid uses explicit corrective text plus stronger structure.",
+    "choices": "PASS - checkbox/radio/switch selection may use accent reinforcement while keeping explicit state/label structure.",
+    "collections": "PASS - rows remain quiet and separator-based; selection uses STA F2 edge witness; keyboard focus remains a separate outer ring.",
+    "disclosure_transients": "PASS - disclosure remains progressive; menus/dialogs may use bounded surface and restrained functional elevation without replacing MAT F1 topology.",
+    "feedback": "PASS - pending/read-only/unavailable/invalid states remain explicit and hue-independent.",
+    "responsive_accessibility": "PASS - seven-case matrix survives 1600/1024/390/320, forced colors, 200% text and text-spacing stress with zero layout overflow and complete button naming."
+  },
+  "authority_created": [
+    "The APPUI foundational control grammar above is the default design-reference basis for Product-independent Kymaean application controls.",
+    "Primary action hierarchy is not teal; teal remains scarce selection reinforcement.",
+    "Functional control borders and transient elevation are permitted when they serve affordance/separation, but repeated card/tile chrome is not the component identity."
+  ],
+  "explicit_non_authority": [
+    "No Product-gated Scene/Take/Rehearsal/provider/Performer control semantics are created.",
+    "No Stage successor or Stage behavior is changed.",
+    "No bespoke domain iconography, final icon asset package, typeface file, production token API or native WinUI/XAML mapping is created.",
+    "No shipping/runtime/Store accessibility validation is claimed.",
+    "Bellweather app-brand mascot visual authority is preserved as a separate integration input; this gate does not place or implement the mascot in app UI."
+  ],
+  "recursive_audit": {
+    "frozen_system": "PASS",
+    "product_boundary": "PASS",
+    "stage_boundary": "PASS",
+    "light_dark_parity": "PASS",
+    "focus_selection": "PASS",
+    "hue_independence": "PASS",
+    "responsive_accessibility": "PASS",
+    "card_identity_regression": "PASS"
+  },
+  "conclusion": "PASS - a coherent Product-independent component foundation now exists above the frozen architecture/static visual system without reopening any closed APPUI visual decision.",
+  "approval": "APPROVED BY STANDING DIRECTOR DELEGATION - CLEAN RECURSIVE AUDIT.",
+  "next_boundary": "Open APPUI-COMP-02: apply this foundation to the actual application shell, durable scope/navigation, command regions and Production/resume workspace without inventing unresolved Product semantics."
+}

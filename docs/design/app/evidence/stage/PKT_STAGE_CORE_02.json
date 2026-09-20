@@ -1,0 +1,65 @@
+{
+  "schema": "kymaean.design-packet.v1",
+  "packet_id": "PKT-STAGE-CORE-02",
+  "status": "DIRECTOR_DELEGATED_FROZEN_CORE_APP_BASELINE",
+  "date": "2026-09-11",
+  "axis": "native app / Stage core visual convergence / default background successor",
+  "authority": "standing Director delegation after clean Design Sol recursive audit under the Director-frozen Stage-carrier law",
+  "source_authority": "docs/KYMAEAN_STAGE_CORE_BASELINE_AND_BACKGROUND_SUCCESSOR_AUTHORITY_01.md",
+  "audit": "docs/evidence/STAGE_CORE_BACKGROUND_SUCCESSOR_01_AUDIT.json",
+  "visual_master": {
+    "packet_id": "PKT-STAGE-CORE-02",
+    "drive_folder_id": "1InxQnCo7s1MTz3hegYoU1H-qhjwXFfXo",
+    "drive_folder": "Ensemble Project / Kymaean / 04 Lane A — Product UI Reintegration — Active / 12 Core Stage Background Successor 01 — Frozen",
+    "drive_file_id": "1uSzrNEAHs72BdswbOhMfMaK92eFROCfH",
+    "file_name": "Kymaean Core Stage Background Successor 01 — Frozen.png",
+    "sha256": "7f3b3a815d71d1aa47350e69824f14f92a5dd399cf0c68bf16074827ead6b3c0",
+    "dimensions": "1672x941",
+    "uploaded_size_bytes": 1431659
+  },
+  "predecessor": {
+    "packet_id": "PKT-STAGE-CORE-01",
+    "drive_file_id": "1PIlvYvyE17VGxOZ3JCvWYz1LuqkoOENy",
+    "sha256": "4e86d51b78bc6dc73877741c5190f2a25f59c45305f609bbcb2fc6ac19c25fcc",
+    "dimensions": "1672x941",
+    "uploaded_size_bytes": 1797028
+  },
+  "current_contribution": "Frozen five-character cone Stage with a context-agnostic Kymaean causal-field background replacing the Missing Raft island/storm scenery while preserving the incumbent carrier, floor/name interaction hinge, state separation and creator-action boundaries.",
+  "production_authority": false,
+  "phase": "C_CONTROLLED_VISUAL_CONVERGENCE",
+  "frozen": [
+    "five-character Stage composition",
+    "cone-of-light Character carrier",
+    "cone geometry and one-cone-per-Character relation",
+    "floor-pool/name interaction hinge",
+    "explicit Character names and truthful state annotations",
+    "no portrait/card dependency",
+    "state separation and listening presence",
+    "creator actions outside cones",
+    "dark shared Stage floor",
+    "context-agnostic default background direction: deep near-black spatial causal field rather than story-specific literal scenery",
+    "background subordination to cone/floor hierarchy"
+  ],
+  "provisional": [
+    "right-rail semantics/provenance",
+    "Observed Cues remains blocked from hardening",
+    "inter-character arc meaning",
+    "three-pip meaning",
+    "exact redundant identity symbols",
+    "final palette/type/motion",
+    "exact causal-field texture/noise/current values are visual-master evidence, not production tokens",
+    "timer/Pause runtime semantics",
+    "provider/cost placement",
+    "performance/transcript placement"
+  ],
+  "odr_not_resolved": [
+    "ODR-05",
+    "ODR-07",
+    "ODR-14",
+    "ODR-15",
+    "ODR-19",
+    "ODR-30"
+  ],
+  "replacement_rule": "PKT-STAGE-CORE-02 is the current frozen core app visual baseline until a later explicitly scoped successor preserves the frozen carrier, passes the governing audit contract and is promoted under current Design authority.",
+  "next_boundary": "Run one bounded post-background Phase-C re-entry audit to select the next single incumbent-refinement variable. Do not open another render or implementation package in the same step; Observed Cues remains blocked."
+}

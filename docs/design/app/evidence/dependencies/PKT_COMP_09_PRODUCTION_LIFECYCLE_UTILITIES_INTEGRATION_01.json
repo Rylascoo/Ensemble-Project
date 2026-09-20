@@ -1,0 +1,86 @@
+{
+  "schema": "kymaean.design-gate-packet.v1",
+  "framework": "docs/evidence/DESIGN_PACKET_AND_SYNTHESIS_FRAMEWORK_01.json",
+  "packet_id": "PKT-COMP-09-01",
+  "packet_class": "COMPOSITION_PACKET",
+  "status": "PROVISIONAL_INCUMBENT",
+  "date": "2026-09-16",
+  "gate_or_program": "APPUI-COMP-09 - Production Lifecycle Utilities Integration",
+  "design_axis": "APP VISUAL real secondary Production lifecycle-utilities route",
+  "bounded_question": "Can five source-defined utility capacities be deliberately reached through the existing Settings route while retaining creative origin/focus, remaining secondary to Shaping and avoiding Product-dependent command authority?",
+  "authority": {
+    "repository": "Rylascoo/Ensemble-Website",
+    "baseline_commit": "bfc629112847fd260ea45c2ac16ebf8980a1e8ae",
+    "governing_method_or_contract": [
+      "docs/evidence/APPUI_01_COMPONENT_SYSTEM_PRODUCTION_LIFECYCLE_UTILITIES_INTEGRATION_METHOD_01.json",
+      "docs/evidence/APPUI_01_PRODUCTION_LIFECYCLE_UTILITIES_FUNCTIONAL_STUDY_01.json",
+      "docs/evidence/APPUI_01_PHASE_3_PRODUCTION_LIFECYCLE_UTILITIES_F2_D3_INTEGRATION_01.json",
+      "docs/evidence/packets/PKT_COMP_08_PERSISTENCE_RECOVERY_INTEGRATION_01.json",
+      "docs/evidence/packets/PKT_COMP_03_SHAPING_WORKSPACE_INTEGRATION_01.json"
+    ],
+    "close_reconciliation": {
+      "website_main": "8b375780cdbdcb6e21940b6cf5db7c4badf21b19",
+      "engineering_main": "3d7a5419afd1c502ce6aaba8f3ca906b48d6a868",
+      "effect": "No contradiction at construction close; neither lane supplies Product utility-command semantics that supersede the accepted Design boundaries."
+    }
+  },  "controlled_inputs": [
+    "PKT-COMP-08-01 infrastructure/fiction continuity",
+    "PKT-COMP-03-01 situation-first creative origin",
+    "PKT-COMP-02-01 thin shell / PKT-COMP-01-01 controls",
+    "Light F2 / Dark D3 / MAT F1 / TYP F1 / STA F2 / FICON F1",
+    "accepted Production Lifecycle Utilities functional and Phase-3 evidence"
+  ],
+  "local_result": {
+    "summary": "The existing Settings route now opens five descriptive utility capacities—Settings, Portable Production, Provider configuration, Diagnostics and Recovery utilities—while retaining The White Current/Scene 12 creative origin and exact focus return; no Product-effect command is introduced.",
+    "recommended_incumbent": "Production Lifecycle Utilities Flow 01",
+    "survivors_or_closure": ["Production Lifecycle Utilities Flow 01"]
+  },
+  "evidence": {
+    "mechanical": [
+      "seven-case origin + utility + return matrix PASS",
+      "carrier SHA-256 e8e203062e9be8a3f8265fa52430a129489536237931ce1577b6d64ea8e6f50b",
+      "probe SHA-256 97a18899e13dfac30be65d3329aeb180f0bab9dd3ee82fc3f8b77e6f05a56636",
+      "matrix SHA-256 d2f890aab3dbe88e77551f635e308893a579ef6b8589d84652bb3b9926a61ee8"
+    ],
+    "visual": [
+      "wide/narrow creative origin Light/Dark pair",
+      "wide/narrow Settings utility Light/Dark pair with retained Production context",
+      "Settings capacity selected structurally while Portable Production carries independent focus",
+      "no admin-dashboard or technical-control-center hierarchy"
+    ],
+    "interaction": [
+      "Settings route opens utilities while Shaping hides",
+      "five capacity rows update descriptive detail only",
+      "zero buttons exactly labeled Import/Export/Apply/Save/Connect/Repair/Recover",
+      "Back/Close restore original meaningful-element selection and creative focus"
+    ]
+  },  "dependencies": {
+    "requires": ["PKT-COMP-08-01","PKT-COMP-03-01","PKT-COMP-02-01","PKT-COMP-01-01","accepted utilities evidence"],
+    "constrains": ["Future utility carriers preserve secondary Settings-route scope, navigation-versus-effect distinction, provider/Character separation, portability non-mutation, non-fictional diagnostics and exact creative return unless a named successor supersedes them."],
+    "must_not_be_confused_with": ["administration home","portable file-format authority","provider control center","diagnostic command suite","native Settings implementation"]
+  },
+  "explicit_non_authority": [
+    "No final utility labels, menu placement, dialogs, commands or confirmation behavior.",
+    "No portable Production format, merge/overwrite/compatibility behavior or destinations.",
+    "No provider/model/cost policy, authentication, assignment, availability or Performer semantics.",
+    "No diagnostic, repair, fallback, recovery or destructive-action semantics.",
+    "No Production token freeze, infrastructure status colors, Stage successor, native implementation, shipping or Store authority."
+  ],
+  "canonical_artifacts": {
+    "repository": [
+      "docs/evidence/APPUI_01_COMPONENT_SYSTEM_PRODUCTION_LIFECYCLE_UTILITIES_INTEGRATION_METHOD_01.json",
+      "docs/evidence/APPUI_01_COMPONENT_SYSTEM_PRODUCTION_LIFECYCLE_UTILITIES_INTEGRATION_RESULT_01.json",
+      "prototypes/appui-01/component-system-production-lifecycle-utilities-integration-01.html",
+      "tools/appui_component_system_production_lifecycle_utilities_matrix_probe.mjs"
+    ],
+    "director_review_surface": {
+      "entry_point": "self-contained COMP-09 HTML carrier",
+      "what_to_review": "Settings-route hierarchy, five utility capacities, absence of effect commands, provider/portability/diagnostic boundaries and exact creative return",
+      "diagnostics_not_for_aesthetic_choice": ["matrix JSON","DOM/probe output"]
+    }
+  },
+  "synthesis_state": {
+    "tested_with_packet_ids": ["PKT-COMP-01-01","PKT-COMP-02-01","PKT-COMP-03-01","PKT-COMP-08-01"],
+    "whole_app_synthesis_status": "REAL_PRODUCTION_LIFECYCLE_UTILITIES_VALIDATED_CHARACTER_BOUNDED_WORKSPACE_NEXT"
+  }
+}

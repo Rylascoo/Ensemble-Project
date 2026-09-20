@@ -1,0 +1,79 @@
+{
+  "schema": "kymaean.appui-component-system-foundation-preflight.v1",
+  "status": "MECHANICAL_AND_VISUAL_PREFLIGHT_PASS",
+  "date": "2026-09-16",
+  "program_id": "APPUI-COMP-01",
+  "repository": "Rylascoo/Ensemble-Website",
+  "authority": {
+    "design_branch": "design/appui01-working-compositions-2026-09-14",
+    "pre_close_head": "54f0984e7cf0d74af2bd90f196deb8489f800b6e",
+    "method": "docs/evidence/APPUI_01_COMPONENT_SYSTEM_FOUNDATION_METHOD_01.json",
+    "method_sha256": "15673b3b2ea0d67136560192ba8c47d7de99913172b8f1fa40a6240a0bffe690",
+    "website_main_reconciled": "e0e6cf26441745547f0e09cc2c27ea6ba8059a2b",
+    "engineering_main_reconciled": "e007ed2838c892f2d7734dcf6ac87b6b00022684"
+  },
+  "carrier": {
+    "path": "prototypes/appui-01/component-system-foundation-01.html",
+    "sha256": "ee2d3aebc79ee4af94a8295c43cf8b1b3bf3b82818fcd776b3c6e661d904cf50",
+    "probe": "tools/appui_component_system_foundation_matrix_probe.mjs",
+    "probe_sha256": "fbddff6e3a4b38fc1b2121633418ff65f136430ad5b4afd01ccf0c0bf7013703",
+    "matrix_sha256": "8b9093a996f39730b70c5ff94897d853079be0112af7afe4399cc50d5b901fdc"
+  },
+  "matrix": {
+    "cases": [
+      "normal-1600",
+      "normal-1024",
+      "normal-390",
+      "normal-320",
+      "forced-colors-320",
+      "text-200-percent-320",
+      "text-spacing-stress-320"
+    ],
+    "all_cases_pass": true,
+    "overflow_elements_each": 0,
+    "missing_button_names_each": 0,
+    "undersized_icon_buttons_each": 0,
+    "undersized_text_inputs_each": 0,
+    "focus_outline_each": "solid 2px / 2px offset",
+    "fluent_font_available_each": true,
+    "theme_count_each": 2,
+    "button_count_each": 30,
+    "text_input_count_each": 10,
+    "choice_family_count_each": 10,
+    "row_count_each": 6,
+    "notice_count_each": 8,
+    "dialog_count_each": 2,
+    "menu_count_each": 2,
+    "external_resources_each": 0
+  },
+  "review_images": {
+    "wide_drive_id": "1Gd6Qi26vut0uV_z6OvWjD0XAnhg41s8h",
+    "wide_sha256": "47dbe9bd83ca265d3e1c96b454772b5531184aff00238eddff9c481670cbde45",
+    "narrow_drive_id": "19JqxKwhU986sxQvrofowHix6X_WFzt6G",
+    "narrow_sha256": "435d093d2eb7aded486b9e4ae75d1abe1b5cd3b60dce8b698e23cf9de8b938d9",
+    "html_drive_id": "1lhA7UwZlDHtBThAgj-YSoLBDAtchfpHM"
+  },
+  "construction_note": {
+    "responsive_repairs": [
+      "min-width containment for grid/control descendants",
+      "nonshrinking 38px switch track",
+      "narrow notice stacking and overflow wrapping"
+    ],
+    "design_retune_after_exposure": false,
+    "probe_only_repairs": [
+      "removed redundant contrast calculation after harness exception",
+      "excluded intrinsic form-control text scrolling from layout-overflow reporting"
+    ],
+    "frozen_visual_roles_changed": false
+  },
+  "visual_review": {
+    "wide": "PASS - monochrome primary action hierarchy remains distinct from teal selection; controls remain subordinate to task structure; transient elevation reads as functional.",
+    "narrow": "PASS - control families sequence cleanly; focus/selection remain independently legible; no card-grid identity emerges; Light/Dark preserve one interaction hierarchy.",
+    "forced_system_integrity": "PASS - F2 Light, D3 Dark, MAT F1, TYP F1, STA F2, FICON F1 and invariant dark Stage authority remain untouched."
+  },
+  "approval": "APPROVED BY STANDING DIRECTOR DELEGATION - CLEAN RECURSIVE AUDIT.",
+  "fresh_cross_lane_reconciliation": {
+    "website": "Bellweather remains foundational app-brand visual authority while Website main opens a non-production mascot integration study; exact Website law explicitly freezes app UI, so COMP-01 contains no mascot implementation and is not contradicted.",
+    "engineering": "E0-D remains ACTIVE / PREWINDOW HOLD with the same frozen P02 Slot-1 window and no new Product semantics; COMP-01 Product-independent scope remains valid."
+  }
+}

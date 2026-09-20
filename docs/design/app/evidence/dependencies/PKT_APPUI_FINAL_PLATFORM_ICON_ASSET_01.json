@@ -1,0 +1,88 @@
+{
+  "schema": "kymaean.design-gate-packet.v1",
+  "framework": "docs/evidence/DESIGN_PACKET_AND_SYNTHESIS_FRAMEWORK_01.json",
+  "packet_id": "PKT-FICON-ASSET-01-01",
+  "packet_class": "GATE_MECHANISM_PACKET",
+  "status": "PROVISIONAL_INCUMBENT",
+  "date": "2026-09-16",
+  "gate_or_program": "APPUI-FICON-ASSET-01 — Conventional Platform Icon Asset / Specification",
+  "design_axis": "system-backed conventional Windows platform icon source/mapping package",
+  "bounded_question": "Can the eight already-authorized conventional verbs move from fixture glyphs to a stable system-backed design-reference mapping without custom assets or changing F1 Native Quiet Carrier?",
+  "authority": {
+    "repository": "Rylascoo/Ensemble-Website",
+    "method": "docs/evidence/APPUI_01_FINAL_PLATFORM_ICON_ASSET_SPEC_METHOD_01.json",
+    "mapping": "docs/evidence/APPUI_01_FINAL_PLATFORM_ICON_SOURCE_MAPPING_01.json",
+    "result": "docs/evidence/APPUI_01_FINAL_PLATFORM_ICON_ASSET_SPEC_RESULT_01.json",
+    "pre_exposure_commit": "f2dc82470cbf610d9129d9eabb872e07b2f8b511"
+  },
+  "local_result": {
+    "summary": "PASS: all eight frozen mappings survive mechanical and visual falsification unchanged.",
+    "recommended_incumbent": "Segoe Fluent Icons system-backed mapping + F1 Native Quiet Carrier",
+    "survivors_or_closure": [
+      "Back E72B",
+      "Close E711",
+      "Search E721",
+      "Settings E713",
+      "More E712",
+      "Navigation disclosure E76C",
+      "Play E768",
+      "Pause E769"
+    ],
+    "primary_reference_size_px": 20,
+    "scale_validation_px": [
+      16,
+      24
+    ]
+  },
+  "current_contribution": "Closes the conventional platform-icon design-reference source/mapping gap while leaving bespoke Product/domain iconography and native/production packaging separately gated.",
+  "production_authority": false,
+  "evidence": {
+    "mechanical": [
+      "7/7 matrix cases PASS",
+      "48/48 scale/mapping cells PASS",
+      "matrix SHA-256 cd6061fc1d3194aa24e2d998d21e4c40212267be96cf31ae90a2a4eba24ede9f"
+    ],
+    "visual": [
+      "wide/narrow Light F2 + Dark D3 frozen review surfaces",
+      "all eight verbs legible at 16/20/24"
+    ],
+    "system_source": [
+      "Segoe Fluent Icons Version 1.54 observed on SurfSeven; local hash is validation evidence only, not shipping pin"
+    ]
+  },
+  "dependencies": {
+    "requires": [
+      "PKT-FICON-01-01 F1 Native Quiet Carrier",
+      "Light F2 / Dark D3 static APP VISUAL system",
+      "STA F2 focus/selection independence"
+    ],
+    "constrains": [
+      "Use the frozen mappings for these conventional verbs in future design-reference work unless a named successor finds a platform contradiction.",
+      "Use platform/native glyph source rather than inventing Kymaean replacements for these conventional meanings."
+    ],
+    "must_not_be_confused_with": [
+      "bespoke/domain icon family",
+      "production icon bundle/token API",
+      "native implementation validation",
+      "app icon / Threshold K identity geometry"
+    ]
+  },
+  "canonical_artifacts": {
+    "repository": [
+      "docs/evidence/APPUI_01_FINAL_PLATFORM_ICON_ASSET_SPEC_METHOD_01.json",
+      "docs/evidence/APPUI_01_FINAL_PLATFORM_ICON_SOURCE_MAPPING_01.json",
+      "docs/evidence/APPUI_01_FINAL_PLATFORM_ICON_ASSET_SPEC_RESULT_01.json",
+      "prototypes/appui-01/final-platform-icon-asset-spec-01.html",
+      "tools/appui_final_platform_icon_asset_matrix_probe.mjs"
+    ],
+    "drive_evidence_folder": "03 Visual Identity & Artwork / Kymaean / 04 Lane A - Product UI Reintegration - Active / 22 APPUI-FICON-ASSET-01 Conventional Platform Icon Asset Specification 01"
+  },
+  "explicit_non_authority": [
+    "No system font/SVG binary is shipped or committed.",
+    "No bespoke/domain glyphs or Product-gated symbol vocabulary.",
+    "No production icon token API/package decision.",
+    "No native WinUI/XAML implementation validation, ARM64 runtime claim or Store result.",
+    "No Stage, motion, type, color, symbol, wordmark or Product semantic redesign."
+  ],
+  "next_boundary": "Run a consolidated post-static-asset re-entry audit. Do not invent bespoke/domain icons or native/production mapping work without its prerequisite trigger."
+}

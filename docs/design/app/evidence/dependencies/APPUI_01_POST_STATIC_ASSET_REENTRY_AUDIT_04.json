@@ -1,0 +1,79 @@
+{
+  "schema": "kymaean.appui-post-static-asset-reentry-audit.v1",
+  "status": "COMPLETE_NO_ADDITIONAL_STATIC_SAFE_GATE_ACTIVATED",
+  "date": "2026-09-16",
+  "program": "APPUI-01 post TYP-ASSET-01 + FICON-ASSET-01 re-entry audit",
+  "authority": {
+    "appui_head": "e2e8342ed9adbb40bd8245c19419b45ae01a4565",
+    "website_main": "e483f0af35166534fff1455f68e287cc9190d91a",
+    "engineering_main": "e01e4eb8de0a04e91c1e8ccd4f11595ab25e1a7f",
+    "static_system": "docs/KYMAEAN_APPUI_PHASE_3_STATIC_APP_VISUAL_SYSTEM_01.md",
+    "post_ficon_audit": "docs/evidence/APPUI_01_PHASE_3_POST_FICON_REMAINING_STATIC_AXES_AUDIT_01.json",
+    "component_convergence": "docs/evidence/APPUI_01_COMPONENT_INTEGRATION_COVERAGE_CONVERGENCE_AUDIT_01.json"
+  },
+  "new_evidence": [
+    "PKT-TYP-ASSET-01-01 selects Source Sans 3 as design-reference supporting typeface.",
+    "PKT-FICON-ASSET-01-01 closes conventional system-backed platform verb source/mapping.",
+    "PKT-APPUI-STAGE-PRESENTATION-01 S1 already resolves shell-facing Stage presentation.",
+    "APPUI-COMP-01..11 remain complete with no COMP-12."
+  ],
+  "axes": [
+    {
+      "axis": "bespoke Kymaean/Product-domain icon family",
+      "disposition": "BLOCKED_PRODUCT_VOCABULARY",
+      "reason": "Stable meanings for unresolved Scene/Take/Perspective/provider/Performer controls are still not available. Conventional platform verb closure does not create domain vocabulary."
+    },
+    {
+      "axis": "motion/transitions/transcript-dependent micro-interactions",
+      "disposition": "HOLD_E0_EVIDENCE",
+      "reason": "Q-DESIGN-02 remains blocked on behavioral evidence; E0-E remains blocked while E0-D is active. Static states remain semantic authority."
+    },
+    {
+      "axis": "Stage material/color successor",
+      "disposition": "HOLD_NO_CONTRARY_EVIDENCE",
+      "reason": "PKT-STAGE-CORE-02 plus S1 remain coherent; no new evidence earns Stage repaint/material/color successor."
+    },
+    {
+      "axis": "production token package / design-to-native handoff",
+      "disposition": "NOT_AUTOMATIC_REQUIRES_SEPARATE_NATIVE_OR_IMPLEMENTATION_TRIGGER",
+      "reason": "Earlier convergence law explicitly requires a separately authorized asset or implementation gate. Font/icon design-reference closure does not prove WinUI resource, control, layout, localization, ARM64 or packaging constraints."
+    },
+    {
+      "axis": "production font packaging/localization/fallback/native typography",
+      "disposition": "DEFERRED_IMPLEMENTATION_LOCALIZATION_TRIGGER",
+      "reason": "Source Sans 3 is selected only at design-reference level; packaging/subsetting/localization/native mapping requires implementation evidence."
+    },
+    {
+      "axis": "production icon binaries/native mapping validation",
+      "disposition": "DEFERRED_IMPLEMENTATION_TRIGGER",
+      "reason": "System-backed mapping is design-reference only; real SymbolIcon/FontIcon behavior belongs to native implementation validation."
+    },
+    {
+      "axis": "website/shared-brand palette or iconography finalization",
+      "disposition": "SEPARATE_WORKSTREAM",
+      "reason": "APP VISUAL cannot silently finalize Website/shared-brand identity."
+    },
+    {
+      "axis": "component expansion / Stage extraction successor",
+      "disposition": "CLOSED_NO_SEQUENCE_SUCCESSOR",
+      "reason": "COMP coverage is complete and S1 resolves the Stage presentation boundary; no COMP-12 or S2 is earned."
+    }
+  ],
+  "recursive_audit": {
+    "static_system_integrity": "PASS — Light F2, Dark D3, MAT F1, TYP F1 + Source Sans 3, STA F2, FICON F1 + system mapping, Stage source/presentation remain coherent.",
+    "product_boundary": "PASS — no unresolved Product control vocabulary invented.",
+    "engineering_boundary": "PASS — P03 Slot 1 authorization/prewindow creates no UI semantics and E0-E remains blocked.",
+    "native_boundary": "PASS — no production token or WinUI claim inferred without implementation evidence.",
+    "website_boundary": "PASS — concurrent Website stream remains separate."
+  },
+  "result": "No additional static-safe APP VISUAL gate is earned. Design enters an authority hold pending a new Product/native/implementation/E0/shared-brand contradiction or explicit separately scoped handoff with its prerequisite evidence.",
+  "lawful_reentry": [
+    "native implementation exposes a real visual/resource/layout constraint",
+    "Product semantics stabilize a currently blocked domain vocabulary",
+    "E0 behavioral evidence releases motion/transcript-dependent work",
+    "localization/coverage testing contradicts the selected typeface path",
+    "shared-brand/Website authority changes materially",
+    "Director explicitly opens a separately scoped handoff whose prerequisites are already satisfied"
+  ],
+  "next_boundary": "HOLD. Do not create COMP-12, S2, bespoke domain icons, production tokens, or native resource mappings by sequence alone."
+}

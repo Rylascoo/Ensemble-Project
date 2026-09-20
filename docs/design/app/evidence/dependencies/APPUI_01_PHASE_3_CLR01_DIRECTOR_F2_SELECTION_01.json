@@ -1,0 +1,55 @@
+{
+  "schema": "kymaean.appui-phase3-clr01-director-selection.v1",
+  "status": "DIRECTOR_SELECTED_F2_COLOR_LOGIC",
+  "date": "2026-09-15",
+  "program": "APPUI-01 Phase 3 - Kymaean Visual-Language Integration",
+  "repository": "Rylascoo/Ensemble-Website",
+  "authority": {
+    "design_branch": "design/appui01-working-compositions-2026-09-14",
+    "pre_decision_ref": "63f631ad2af6df6a4c8157ea21dfd383d7e4d190",
+    "contextual_reentry_evidence": "docs/evidence/APPUI_01_PHASE_3_CLR01_HOME_CONTEXTUAL_REENTRY_01.json",
+    "prior_design_sol_view": "docs/evidence/CLR_01_DESIGN_SOL_INDEPENDENT_VIEW_02.json",
+    "director_deferral": "docs/evidence/CLR_01_DIRECTOR_DEFERRAL_TO_APP_ASSET_CONVERGENCE_01.json",
+    "fresh_engineering_ref": "40409d0d438afe4631c07e41d38fa1179d358664",
+    "website_main": "4bb91292171e0d503d3a4e058ee421436221a793"
+  },
+  "decision": {
+    "selected_family": "F2",
+    "selected_name": "Monochrome + Intruder",
+    "director_statement": "i agree",
+    "decision_context": "Director agreed with Design Sol's F2 preference after reviewing complete visual artworks representing F1 and F2 in representative app context."
+  },
+  "selected_reference_app_values": {
+    "field": "#F4F3F7",
+    "primary": "#221B2D",
+    "secondary": "#5C5565",
+    "accent": "#006F73",
+    "boundary": "#7D7486",
+    "soft_surface": "#EAE8EF"
+  },
+  "adjudication": {
+    "contextual_result": "F1_AND_F2_BOTH_SURVIVED_OBJECTIVE_CONTEXTUAL_FALSIFICATION",
+    "design_sol_preference_preserved": "F2",
+    "director_selection": "F2",
+    "reasoning_summary": [
+      "F2 reads quieter, stranger and more distinctly Kymaean while allowing the dark Stage to remain the emotional center.",
+      "F1 remains valid but carries the previously recorded premium editorial / heritage genericity reservation.",
+      "F2's violet/teal creative-tool familiarity risk remains active and requires sparse accent use rather than saturation or decorative spread."
+    ]
+  },
+  "artwork_role": {
+    "status": "ATMOSPHERIC_DIRECTOR_WITNESS_ONLY",
+    "note": "The complete generated F1/F2 artworks informed color-world and emotional-temperature judgment only. Their invented imagery, icons, component details and density are not architecture authority and are not adopted as UI implementation."
+  },
+  "authority_created": [
+    "F2 Monochrome + Intruder is the selected Phase-3 CLR color-logic direction.",
+    "The frozen F2 APP role values are the reference input to the Light/Dark translation successor study."
+  ],
+  "authority_not_created": [
+    "No production color tokens or final palette are frozen.",
+    "No semantic status-color system is created.",
+    "No dark-theme tokens are invented by this selection.",
+    "No component, imagery, iconography, motion, native implementation or Phase-3 convergence authority is created."
+  ],
+  "next_boundary": "Derive and falsify a Light/Dark F2 translation on the accepted representative Home scaffold. Light/Dark must preserve identical semantic hierarchy, Stage darkness, focus != selection, sparse accent discipline, forced-colors comprehension and non-color-dependent state meaning before any production-token claim."
+}

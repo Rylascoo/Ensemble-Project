@@ -1,0 +1,44 @@
+{
+  "schema": "kymaean.appui-phase3-shaping-f2-d3-integration-method.v1",
+  "status": "METHOD_FROZEN_PRE_EXPOSURE",
+  "date": "2026-09-15",
+  "program": "APPUI-01 Phase 3 - Kymaean Visual-Language Integration",
+  "question": "Does selected Light F2 plus exact provisional D3 Dark preserve the accepted Production Shaping / Current Possibility architecture under a denser decision-and-inspection workspace without semantic or visual regression?",
+  "fixed_functional_carrier": {
+    "path": "prototypes/appui-01/production-shaping-current-possibility-functional-study-01.html",
+    "sha256": "0daf646afad575be0fbf0b075897b376bd927ab1cd4d288bcaa25d83f50d007a",
+    "evidence": "docs/evidence/APPUI_01_PRODUCTION_SHAPING_CURRENT_POSSIBILITY_FUNCTIONAL_STUDY_01.json"
+  },
+  "fixed_visual_inputs": {
+    "light_F2": {"field":"#F4F3F7","primary":"#221B2D","secondary":"#5C5565","accent":"#006F73","boundary":"#7D7486","soft_surface":"#EAE8EF"},
+    "dark_D3": {"field":"#19141D","primary":"#F4F0F5","secondary":"#BEB4C0","accent":"#249A9C","boundary":"#756A79","soft_surface":"#261F29"},
+    "material": "MAT-01 F1 Subtractive Channel",
+    "typography": "TYP-02 F1 Ratio Ladder / system-ui carrier",
+    "state": "STA-01 F2 Ring + Edge Witness"
+  },
+  "fixed_semantics": [
+    "Situation-first hierarchy remains unchanged.",
+    "Current possibility remains a creator working frame, not a predictive recommendation surface.",
+    "Contextual inspector remains subordinate to current situation.",
+    "Selection remains inspection state only; keyboard focus remains independent.",
+    "Current/historical and provisional/effective distinctions remain non-color-dependent.",
+    "No Product-gated controls or Stage successor are introduced."
+  ],
+  "mechanical_gate": ["1600","1024","390","320","320_forced_colors","320_text_200_percent","320_text_spacing"]
+  ,"falsification": [
+    "D3 fails if the denser Shaping workspace becomes muddy or visually flatter than selected Light F2.",
+    "D3 fails if violet/aubergine structure becomes more salient than current situation, selected meaning or contextual inspection hierarchy.",
+    "D3 fails if teal spreads beyond scarce structural state reinforcement or begins to imply product/status meaning.",
+    "Integration fails if MAT F1 becomes decorative segmentation or changes functional grouping.",
+    "Integration fails if TYP F1 harms scanability or 200% text/text-spacing behavior.",
+    "Integration fails if selected meaning and keyboard focus become visually conflated.",
+    "Any Product-semantic invention or Shaping IA change invalidates the study."
+  ],
+  "execution_law": [
+    "Use exact frozen F2 and D3 role values; no color retune after first complete render.",
+    "Derive from the accepted functional carrier rather than reconstructing its hierarchy from memory.",
+    "Mechanical corrections may restore responsive/accessibility behavior but may not alter the frozen color roles or semantic architecture.",
+    "D3 remains provisional even after a local PASS; continued representative-section evaluation is required before final dark-token freeze."
+  ],
+  "next_gate": "Materialize the exact Shaping carrier with MAT F1 + TYP F1 + STA F2 and selected Light F2 / provisional D3 Dark, then run the full seven-condition matrix and recursive visual-semantic audit."
+}

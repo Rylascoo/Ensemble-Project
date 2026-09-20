@@ -1,0 +1,112 @@
+{
+  "schema": "kymaean.appui-phase2-entry-gate-engineering-reconciliation.v1",
+  "status": "PHASE_2_BOUNDED_ENTRY_OPEN",
+  "date": "2026-09-15",
+  "program": "APPUI-01 - Windows 11 ARM64 Working App Visual Prototype",
+  "repository": "Rylascoo/Ensemble-Website",
+  "design_authority": {
+    "branch": "design/appui01-working-compositions-2026-09-14",
+    "entry_parent_ref": "bf464ec4dd052c54b3fbf1aeaaa6d4b50acfac06",
+    "phase1_closeout": "docs/evidence/APPUI_01_PHASE_1_DETAILED_SECTION_COVERAGE_CLOSEOUT_AUDIT_2026_09_15.json",
+    "phase1_map": "docs/KYMAEAN_APPUI_PHASE_1_STAGE_INTERFACE_ENVELOPE_AND_LAYOUT_MAP_01.md",
+    "stage_authority": "docs/KYMAEAN_STAGE_CORE_BASELINE_AND_BACKGROUND_SUCCESSOR_AUTHORITY_01.md",
+    "stage_packet": "docs/evidence/packets/PKT_STAGE_CORE_02.json"
+  },
+  "fresh_engineering_reconciliation": {
+    "repository": "Rylascoo/Ensemble-Project",
+    "main": "60b85fbcb36e265e3910444714143d944ffef841",
+    "read_at_exact_ref": [
+      "AGENTS.md",
+      "CURRENT_STATE.md",
+      "docs/PROJECT_EXECUTION_QUEUE.md"
+    ],
+    "checkpoint": "E0 experimental program - Q-E0D-01 ablation controls",
+    "e0d_state": "BLOCKED; snapshot refresh + native revalidation complete; live execution not authorized; provider traffic zero",
+    "phase_d_product_runtime_semantics_promoted": false,
+    "q_design_02": "BLOCKED - transcript-dependent Stage motion / integration decisions requiring behavioral evidence",
+    "q_design_02_prerequisite": "Real blinded E0-A vs E0-E evidence as required by the design repository"
+  },
+  "stage_anchor": {
+    "packet_id": "PKT-STAGE-CORE-02",
+    "drive_file_id": "1uSzrNEAHs72BdswbOhMfMaK92eFROCfH",
+    "file_name": "Kymaean Core Stage Background Successor 01 - Frozen.png",
+    "sha256": "7f3b3a815d71d1aa47350e69824f14f92a5dd399cf0c68bf16074827ead6b3c0",
+    "dimensions": [1672, 941],
+    "local_authenticated_copy_hash_verified": true,
+    "frozen_meanings": [
+      "cone-of-light Character carrier and one-cone-per-present-Character relation",
+      "floor/name interaction hinge and explicit human-readable Character names",
+      "state separation including selection, current opportunity, speaking and listening/rest",
+      "listening presence",
+      "creator actions outside Character cones",
+      "dark shared Stage field and context-agnostic causal-field background",
+      "quiet ensemble-first hierarchy"
+    ],
+    "still_provisional": [
+      "right-rail semantics and Observed Cues",
+      "inter-Character arcs and three-pip meaning",
+      "exact redundant identity symbol",
+      "final palette, type and motion",
+      "timer/Pause runtime semantics",
+      "provider/cost placement",
+      "performance/transcript placement"
+    ]
+  },
+  "authority_reconciliation": {
+    "phase1_shell_precedence": "The later Director-approved APPUI Phase-1 shell governs application information architecture. Historical Studio/Stage/Archive topology and permanent rail/dashboard placement visible in the Stage raster are not re-promoted by Phase-2 entry.",
+    "stage_precedence": "PKT-STAGE-CORE-02 continues to govern the Stage carrier, Stage-field visual anchor, causal-field background and frozen Character/state relationships. Phase 2 may frame and adjacent-compose around that anchor but may not silently redesign its frozen geometry/scenery.",
+    "resolved_tension": "The canonical Stage raster is source authority for its frozen Stage meanings, not blanket authority for every historical shell label or provisional rail/control depicted around those meanings.",
+    "representative_shell_now_exists": true,
+    "representative_shell_basis": "Frozen APPUI Phase 1 plus completed detailed section studies"
+  },
+  "phase2_entry": {
+    "result": "OPEN_BOUNDED",
+    "permitted_now": [
+      "static/non-transcript-dependent Stage-to-shell adjacency and composition",
+      "Watch-posture hierarchy and density using already-authoritative meanings",
+      "Stage-field placement within the frozen Phase-1 shell",
+      "selected-entity contextual inspection adjacency without fictionalizing selection",
+      "current Scene/Production identity and truthful capability status outside the Stage field",
+      "responsive Stage framing while preserving semantic relationships"
+    ],
+    "blocked_or_provisional": [
+      "transcript-dependent Stage motion or integration decisions under Q-DESIGN-02",
+      "final transcript/recent-beats placement or terminology",
+      "timer/Pause behavior",
+      "Observed Cues or right-rail provenance semantics",
+      "Take/rehearsal/branching/consequence acceptance mechanics",
+      "final Presentation Perspective control mechanics",
+      "provider/model/cost and Performer assignment mechanics",
+      "final palette/type/motion tokens or native WinUI implementation"
+    ]
+  },
+  "first_phase2_gate": {
+    "id": "APPUI-01-P2-STAGE-SHELL-01",
+    "name": "Stage-to-Shell Adjacency and Live Workspace Composition 01",
+    "scope": "Resolve the static Stage/live-workspace relationship around the frozen Stage anchor before any motion/transcript-dependent Stage successor work.",
+    "must_preserve": [
+      "Phase-1 shell information architecture",
+      "PKT-STAGE-CORE-02 frozen Stage meanings",
+      "Light/Dark co-equality with a dark Stage in both",
+      "selection/focus distinct from fictional salience/opportunity",
+      "creator authority outside Character carriers",
+      "exact return/focus and infrastructure/fiction boundaries"
+    ],
+    "must_not_do": [
+      "reopen Phase-1 architecture",
+      "copy obsolete Studio/Stage/Archive topology as current navigation",
+      "harden provisional right-rail/Observed-Cues semantics",
+      "consume Q-DESIGN-02 transcript-dependent motion authority",
+      "invent Phase-D product/runtime controls"
+    ]
+  },
+  "recursive_audit": {
+    "result": "CLEAN",
+    "phase1_reopened": false,
+    "engineering_dependency_respected": true,
+    "q_design_02_respected": true,
+    "stage_anchor_preserved": true,
+    "product_semantic_invention": false,
+    "next_action": "Open APPUI-01-P2-STAGE-SHELL-01 as a static Stage-to-shell adjacency/live-workspace composition study."
+  }
+}

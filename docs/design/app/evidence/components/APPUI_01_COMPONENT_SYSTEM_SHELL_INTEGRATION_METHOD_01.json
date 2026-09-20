@@ -1,0 +1,85 @@
+{
+  "schema": "kymaean.appui-component-system-shell-integration-method.v1",
+  "status": "METHOD_FROZEN_PRE_CONSTRUCTION",
+  "date": "2026-09-16",
+  "program_id": "APPUI-COMP-02",
+  "repository": "Rylascoo/Ensemble-Website",
+  "authority": {
+    "design_head": "c8643e823384e8af13810dd83cf3d56259fe1102",
+    "website_main": "e0e6cf26441745547f0e09cc2c27ea6ba8059a2b",
+    "engineering_main": "e007ed2838c892f2d7734dcf6ac87b6b00022684",
+    "component_foundation": "docs/KYMAEAN_APPUI_COMPONENT_SYSTEM_FOUNDATION_01.md",
+    "phase1_map": "docs/KYMAEAN_APPUI_PHASE_1_STAGE_INTERFACE_ENVELOPE_AND_LAYOUT_MAP_01.md",
+    "home_functional_study": "prototypes/appui-01/production-home-resume-functional-study-01.html",
+    "home_visual_integration": "prototypes/appui-01/phase3-production-home-visual-language-integration-01.html"
+  },
+  "bounded_question": "Can the accepted Production/Home hierarchy and COMP-01 control grammar form one credible Kymaean application shell without inventing unresolved Product semantics or becoming a generic card/dashboard UI?",
+  "frozen_inputs": [
+    "Light F2 / Dark D3",
+    "MAT F1 Subtractive Channel",
+    "TYP F1 Ratio Ladder",
+    "STA F2 Ring + Edge Witness",
+    "FICON F1 Native Quiet Carrier",
+    "invariant dark Stage/Scene witness",
+    "current Production before library management",
+    "Production -> current situation -> meaningful element -> contextual inspection/editing"
+  ],
+  "shell_scope": [
+    "durable app identity and Production scope selector",
+    "Home and Production-browse navigation",
+    "quiet Search / Settings / More platform verbs",
+    "subordinate New Production action",
+    "current Production resume target",
+    "current Scene / what matters / recent movement reorientation",
+    "Other Productions collection rows",
+    "transient Production switching surface",
+    "wide-to-narrow shell collapse"
+  ],  "construction_law": [
+    "Use text for unresolved domain navigation; do not invent bespoke Scene/Take/Perspective/Character glyphs.",
+    "Use conventional Fluent/platform symbols only for familiar software verbs already covered by FICON F1.",
+    "Current Production and resume target must dominate durable navigation and library management.",
+    "Supporting current meaning uses one continuous authored field with separators/channels rather than repeated cards.",
+    "Other Productions use quiet collection rows rather than cover-art tiles or dashboard cards.",
+    "Primary resume action stays monochrome; teal is reserved for real selection reinforcement.",
+    "Healthy persistence stays quiet; exceptions remain application-side and explicit.",
+    "Bellweather remains a separate app-brand integration input and is not placed by this gate."
+  ],
+  "mechanical_matrix": [
+    "normal-1600",
+    "normal-1024",
+    "normal-390",
+    "normal-320",
+    "forced-colors-320",
+    "text-200-percent-320",
+    "text-spacing-stress-320"
+  ],
+  "mechanical_acceptance": [
+    "zero page-level horizontal overflow",
+    "zero missing button accessible names",
+    "zero undersized icon-only controls below 32px reference carrier",
+    "visible solid 2px keyboard focus with 2px offset",
+    "selection witness remains structurally independent from focus",
+    "no external resources or image dependency",
+    "Light/Dark preserve identical navigation and command meaning"
+  ],
+  "visual_falsification": [
+    "current situation must visually dominate shell chrome",
+    "durable navigation must recede rather than become a product taxonomy",
+    "the Home must not read as a generic SaaS dashboard/card grid",
+    "the dark Scene/Stage witness must remain invariant across themes",
+    "Production switching must read as transient scope change, not a permanent library takeover",
+    "narrow layout must preserve one primary reading sequence without horizontal escape"
+  ],
+  "explicit_non_goals": [
+    "Scene lifecycle commands",
+    "Take/Rehearsal/branching controls",
+    "Perspective switching semantics",
+    "provider/model/cost or Performer assignment controls",
+    "bespoke domain icon family",
+    "Bellweather mascot placement",
+    "final typeface/font files",
+    "motion or Stage successor",
+    "production tokens or WinUI/XAML implementation"
+  ],
+  "result_law": "Responsive repairs may alter geometry only. Any change to frozen F2/D3/MAT/TYP/STA/FICON/Stage mechanisms requires a separately named successor rather than silent COMP-02 retuning."
+}

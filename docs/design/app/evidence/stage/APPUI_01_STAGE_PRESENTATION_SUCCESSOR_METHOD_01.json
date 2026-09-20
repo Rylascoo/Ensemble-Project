@@ -1,0 +1,82 @@
+{
+  "schema": "kymaean.appui-stage-presentation-successor-method.v1",
+  "status": "FROZEN_PRE_EXPOSURE_METHOD",
+  "date": "2026-09-16",
+  "gate": "APPUI-01-STAGE-PRESENTATION-SUCCESSOR-01",
+  "repository": "Rylascoo/Ensemble-Website",
+  "authority": {
+    "appui_parent_ref": "1c383c0e1f05b5b7d9f3ed72e941a5aaa155a95f",
+    "website_main_reconciled": "e483f0af35166534fff1455f68e287cc9190d91a",
+    "engineering_main_reconciled": "526893a0f518b52bceddb311514de12ec826b9b3",
+    "director_trigger": "Director said continue after the exact-full-raster integration HOLD and recommended bounded Stage-presentation successor.",
+    "predecessor_result": "docs/evidence/APPUI_01_REAL_ASSEMBLY_EXACT_STAGE_SHELL_ADJACENCY_RESULT_01.json",
+    "stage_authority": "docs/KYMAEAN_STAGE_CORE_BASELINE_AND_BACKGROUND_SUCCESSOR_AUTHORITY_01.md",
+    "stage_packet": "docs/evidence/packets/PKT_STAGE_CORE_02.json",
+    "crop_precedent": "docs/evidence/APPUI_01_WORKING_COMPOSITION_PASS_01_2026_09_14.json"
+  },
+  "source": {
+    "drive_file_id": "1uSzrNEAHs72BdswbOhMfMaK92eFROCfH",
+    "sha256": "7f3b3a815d71d1aa47350e69824f14f92a5dd399cf0c68bf16074827ead6b3c0",
+    "bytes": 1431659,
+    "dimensions": [1672, 941]
+  },
+  "question": "Can a pixel-preserving Stage-field presentation remove obsolete embedded application chrome while preserving all frozen five-Character Stage meanings and integrating cleanly with the completed shell?",
+  "candidates": [
+    {
+      "id": "R1_RECT_FIELD_CONTROL",
+      "kind": "exact rectangular crop control",
+      "source_rect": [200, 185, 1235, 555],
+      "output_dimensions": [1035, 370],
+      "alpha_notches": [],
+      "purpose": "Control whether one rectangle can preserve all five cone units without carrying unacceptable embedded legacy chrome."
+    },
+    {
+      "id": "S1_STEPPED_FIELD_EXTRACTION",
+      "kind": "exact-pixel crop plus transparent authority notch",
+      "source_rect": [200, 185, 1235, 555],
+      "output_dimensions": [1035, 370],
+      "alpha_notches": [[0, 0, 115, 65]],
+      "notch_source_region": [200, 185, 315, 250],
+      "purpose": "Remove only the upper-left inherited Live Performance strip fragment that geometrically overlaps the rectangle required to preserve Marlowe and Wren. Retained pixels remain byte-for-byte pixel values from the frozen master."
+    }
+  ],
+  "coordinate_basis": "One disposable 100px coordinate-grid overlay of the frozen master was used only to locate legacy-chrome and frozen-carrier boundaries. It is not candidate evidence and coordinates are frozen before candidate materialization.",
+  "frozen_meaning_requirements": [
+    "all five Character cone/floor/name/state units remain materially complete",
+    "shared dark Stage floor remains visible",
+    "Character-relative spatial composition remains readable",
+    "selection/current-opportunity/listening/speaking separation remains legible",
+    "no portrait/card dependency is introduced",
+    "causal-field background remains subordinate to cone/floor hierarchy"
+  ],
+  "must_remove_or_avoid": [
+    "Studio / Stage / Archive top-level navigation",
+    "embedded Production/Scene labels when the completed shell already supplies current scope",
+    "provisional right rail / Live Summary / Active Tensions / Observed Cues",
+    "legacy creator-action bar and footer",
+    "partial UI fragments that read as active controls or navigation"
+  ],
+  "mechanical_law": [
+    "Source hash, byte size and 1672x941 dimensions must verify before extraction.",
+    "Crop uses integer pixel coordinates only; no resize, interpolation, filtering or color transform is permitted.",
+    "For S1, RGB values of every retained pixel must exactly equal the corresponding source pixel; the only changed channel is alpha=0 inside the preregistered notch.",
+    "Derived candidate PNGs are disposable/Drive evidence and are not committed as new canonical Stage masters.",
+    "Light F2 and Dark D3 must use identical candidate pixels.",
+    "No external resources may be required by the review carrier."
+  ],
+  "falsifiers": [
+    "Any frozen cone/floor/name/state unit is clipped or made materially less legible.",
+    "Any legacy embedded chrome remains and competes with the completed shell.",
+    "The transparent notch reads as a conspicuous missing block or damages Stage depth.",
+    "The extraction makes the Stage feel like a decorative thumbnail rather than the dominant live-work field.",
+    "Light/Dark shell context changes Stage meaning.",
+    "Any Product-open transcript/action/rail semantics are implicitly promoted by presentation."
+  ],
+  "matrix": ["1600", "1024", "390", "320", "320_forced_colors", "320_text_200_percent", "320_text_spacing"],
+  "selection_law": "A candidate may be selected only if it survives mechanical checks and recursive visual falsification without result-aware coordinate or mask changes. If both survive materially, stop for Director taste. If neither survives, close HOLD and recommend a separately authorized rebuilt Stage presentation asset.",
+  "non_authority": [
+    "No PKT-STAGE-CORE-02 replacement or Stage semantic successor is created by method activation.",
+    "No cone redesign, new background generation, inpainting, repaint, recolor, typography change or Product command semantics are authorized.",
+    "No production token, WinUI/XAML, native accessibility, shipping or Store authority is created."
+  ]
+}

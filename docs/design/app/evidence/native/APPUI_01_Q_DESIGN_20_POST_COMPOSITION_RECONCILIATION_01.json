@@ -1,0 +1,59 @@
+{
+  "schema": "kymaean.appui-q-design-20-post-composition-reconciliation.v1",
+  "status": "DESIGN_ACCEPTANCE_PENDING_BOUNDED_PRESENTATION_CORRECTIONS",
+  "date": "2026-09-18",
+  "queue_item": "Q-DESIGN-20",
+  "design_repository": "Rylascoo/Ensemble-Website",
+  "design_baseline": "bd20f25ae48f75ff3ceecfb355104c42babe373c",
+  "website_main_observed": "06a5a2bf4b62c1c8d7e0fd2957d234848f0f6699",
+  "engineering_repository": "Rylascoo/Ensemble-Project",
+  "engineering_main_observed": "2137e8c9db1a9c7817a3cda872e43c6cf72cdc3d",
+  "prior_q_design_20_native_source": "248435944815a34e4caac761ed308ed3b07e325b",
+  "later_windows_composition_source": "ac8122c24d81731671802b57220d3c631e8c9975",
+  "governing_design_audit": "docs/evidence/APPUI_01_Q_DESIGN_20_NATIVE_CONVERGENCE_AUDIT_07.json",
+  "engineering_return": "docs/evidence/APPUI_01_Q_DESIGN_20_ENGINEERING_RETURN_01.json",
+  "engineering_fact": [
+    "Current integrated Application truth establishes ApplicationScope Home / ProductionLibrary / CurrentProduction / Settings and keeps ProductSpace Studio / Stage / Archive independent inside an opened Production.",
+    "The Application validation evidence explicitly states that final navigation labels and visual design are not established by that Product contract.",
+    "Current Windows presentation is limited to earned Production library/name and Product-space orientation; richer persisted Production-internal content remains unearned and DESIGN_ARCHITECTURE_READY remains NOT READY."
+  ],
+  "current_exact_main_design_check": {
+    "NC-01": "PASS_BY_ABSENCE: current Windows presentation no longer exposes opportunity UI, so it does not mislabel authoritative opportunity as generic focus. If/when earned opportunity presentation returns, Current Opportunity semantics remain required.",
+    "NC-02": "PARTIAL_REGRESSION: provider/provisional/experimental language remains absent, but ordinary creator copy now exposes storage/implementation phrasing such as persisted Production and local app data.",
+    "NC-03": "PASS: NavigationView selected backgrounds remain transparent, preserving the quiet structural selection strategy rather than a dominant generic fill.",
+    "NC-04": "REGRESSION: the later Windows composition removed the MAT F1 restrained edge-open subtractive field channels from MainPage.xaml.",
+    "NC-05": "SUPERSEDED_BY_CURRENT_SHELL_SHAPE: the earlier Back carrier is absent because CurrentProduction was promoted to a persistent NavigationView item. That visual promotion is not required by Product authority and conflicts with existing Design shell law."
+  },
+  "bounded_design_successor": {
+    "id": "APPUI-QDESIGN20-R2",
+    "scope": "native presentation reconciliation only; no new Product semantics",
+    "returns": [
+      "R2-01: preserve ApplicationScope.CurrentProduction as Product truth but do not present Current Production as a fourth permanent durable shell NavigationView item. Keep Home / Productions / Settings as the durable visible shell routes; enter the opened Production as contextual content.",
+      "R2-02: restore MAT F1 restrained edge-open subtractive-channel field geometry without assigning navigation, health, progress, truth or fictional semantics.",
+      "R2-03: remove storage/implementation phrasing such as persisted and local app data from ordinary creator copy. Keep explicit Recover as the already-earned Product operation, but explain state in creator language rather than backend language.",
+      "R2-04: once Current Production is contextual again, restore the native quiet Back carrier using the frozen Segoe Fluent E72B mapping with accessible name/tooltip/focus visuals. It may return to the Production library using already-earned ApplicationScope navigation; do not invent a general navigation-history Product contract."
+    ],
+    "preserve": [
+      "the integrated ApplicationScope and ProductSpace contracts",
+      "stable Production identity and ProductionName-only persisted presentation truth",
+      "Home / Productions / Settings durable shell hierarchy",
+      "Light F2 / Dark D3 visual roles",
+      "STA F2 quiet structural selection witness",
+      "invariant-dark Stage placeholder boundary",
+      "Source Sans 3 and S1 as unresolved production-packaging placeholders",
+      "High Contrast limitation without safety bypass"
+    ],
+    "prohibitions": [
+      "no richer Studio / Stage / Archive persisted content",
+      "no Current Opportunity UI until Application truth exposes it",
+      "no new provider, Performer, Scene, Situation, Take or causal-history semantics",
+      "no Bellweather app placement",
+      "no Home A/B or FIRSTUSE selection",
+      "no Engineering repository mutation from Design"
+    ]
+  },
+  "cross_lane_disposition": "Return the bounded presentation requirements after the active Engineer #2 Application/Product architecture audit reaches its integration boundary. Engineer #3 requires a new explicit Windows consumer lease before mutation.",
+  "central_queue_reconciliation": "Q-DESIGN-20 remains ACTIVE / Design acceptance pending. Do not mark it DONE until the bounded post-composition presentation return is implemented and exact native evidence is re-reviewed. Project queue mutation is intentionally not performed from this Design branch while Engineering has an active Application/Product architecture lease.",
+  "design_successor_needed": true,
+  "approval": "APPROVED BY STANDING DIRECTOR DELEGATION - CLEAN POST-COMPOSITION RECONCILIATION AUDIT."
+}

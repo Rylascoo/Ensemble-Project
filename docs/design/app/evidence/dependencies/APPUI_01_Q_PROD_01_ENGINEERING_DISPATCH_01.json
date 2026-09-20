@@ -1,0 +1,41 @@
+{
+  "schema": "kymaean.cross-lane-dispatch.v1",
+  "status": "READY_FOR_ENGINEERING_CONSUMPTION",
+  "date": "2026-09-16",
+  "source_role": "Design Sol",
+  "target_role": "Engineering Sol",
+  "queue_item": "Q-PROD-01",
+  "source_repository": "Rylascoo/Ensemble-Website",
+  "source_baseline": "052a2e0ff5966ea59c3990ad95b7146d7feda73e",
+  "target_repository": "Rylascoo/Ensemble-Project",
+  "target_baseline": "933edb017c29389f573bb1d86202676fef64fa63",
+  "bounded_task": "Consume PKT-APPUI-NATIVE-HANDOFF-01 while scaffolding the first native ARM64 shell. Keep Studio/Stage/Archive as semantic route capabilities rather than automatically restoring historical permanent top-level navigation; preserve current APPUI shell/state/visual constraints and report real native contradictions back to Design.",
+  "allowed_scope": [
+    "native shell scaffold",
+    "provisional theme/resource translation",
+    "system-backed platform icon mappings",
+    "deterministic fixture/demo routing",
+    "native validation appropriate to Engineering authority"
+  ],
+  "prohibited_scope": [
+    "mutating Design-owned authority",
+    "inventing Product-open controls",
+    "treating placeholders as final Design",
+    "claiming final architecture/Store acceptance",
+    "repurposing frozen E0 provider credentials"
+  ],
+  "required_return": [
+    "exact Engineering commit/ref",
+    "native ARM64 launch/test evidence",
+    "same-state Light/Dark screenshots",
+    "route/state map",
+    "focus-return/high-contrast/min-window observations",
+    "list of design references and placeholders",
+    "native constraint/deviation report"
+  ],
+  "stop_conditions": [
+    "Design contract cannot be represented without changing a frozen Product semantic",
+    "native platform constraint materially contradicts the handoff",
+    "implementation would require a Product-open command or new domain glyph"
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "schema": "kymaean.appui-ficon-asset-method.v1",
+  "status": "FROZEN_PRE_EXPOSURE_METHOD",
+  "date": "2026-09-16",
+  "program": "APPUI-FICON-ASSET-01",
+  "question": "Can the eight already-authorized conventional verbs be promoted from fixture glyphs into one system-backed design-reference source/mapping package while preserving F1 Native Quiet Carrier, theme parity and accessibility without shipping custom icon assets?",
+  "authority": {
+    "baseline_commit": "534982c8b257166c7920725ec54c71a48c78f531",
+    "reentry_audit": "docs/evidence/APPUI_01_POST_TYP_ASSET_VISUAL_SYSTEM_REENTRY_AUDIT_03.json",
+    "ficon_packet": "docs/evidence/packets/PKT_FICON_01_FUNCTIONAL_PLATFORM_ICON_TREATMENT_01.json",
+    "source_mapping": "docs/evidence/APPUI_01_FINAL_PLATFORM_ICON_SOURCE_MAPPING_01.json",
+    "website_main": "e483f0af35166534fff1455f68e287cc9190d91a",
+    "engineering_main": "2c5afea71b3f3a03413e80f014f2ddeaa7ae1bd8"
+  },
+  "carrier": "one deterministic HTML reference using Segoe Fluent Icons system font, exact eight glyph codepoints, Light F2 and Dark D3, F1 quiet-at-rest controls, selected/focused witness, 16/20/24 scale samples",
+  "matrix": [
+    "1600",
+    "1024",
+    "390",
+    "320",
+    "320_forced_colors",
+    "320_text_200_percent",
+    "320_text_spacing"
+  ],
+  "mechanical_pass": [
+    "Segoe Fluent Icons resolves on SurfSeven Windows 11",
+    "exact 8 semantic/glyph mappings present in both themes",
+    "20px primary reference and 16/24 scale samples render without clipping",
+    "zero horizontal/internal overflow",
+    "all icon-only controls have nonempty accessible names",
+    "focus remains solid 2px with 2px offset",
+    "zero external resources"
+  ],
+  "visual_falsifiers": [
+    "glyph meaning appears wrong or ambiguous in context",
+    "F1 quiet carrier becomes persistent tile/widget chrome",
+    "icon color starts carrying selection/status meaning",
+    "scale change damages stroke/readability",
+    "Light/Dark changes meaning",
+    "the mapping looks like a bespoke Kymaean icon family rather than native platform verbs"
+  ],
+  "repair_law": "Only common carrier/probe geometry or instrumentation defects may be repaired. No glyph substitution, semantic relabeling, family change, or candidate redraw after exposure.",
+  "selection_law": "This is a mapping validation gate, not a new aesthetic family competition. If the frozen mappings survive mechanical and visual falsification, close PASS. Any semantic/glyph conflict closes HOLD for that mapping; do not silently substitute after exposure.",
+  "non_authority": [
+    "No native implementation validation.",
+    "No production asset/token package.",
+    "No bespoke domain icons.",
+    "No Product-gated commands.",
+    "No Stage/motion/type/color redesign."
+  ]
+}

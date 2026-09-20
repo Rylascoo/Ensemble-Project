@@ -1,0 +1,70 @@
+{
+  "schema": "kymaean.appui-phase2-stage-shell-adjacency-live-workspace-composition.v1",
+  "status": "PHASE_2_BOUNDED_COMPOSITION_PASS",
+  "date": "2026-09-15",
+  "program": "APPUI-01-P2-STAGE-SHELL-01 — Stage-to-Shell Adjacency and Live Workspace Composition 01",
+  "repository": "Rylascoo/Ensemble-Website",
+  "authority": {
+    "design_parent_ref": "5a57f22350ddabcf26f4f446368874dc162dcc94",
+    "phase2_entry_gate": "docs/evidence/APPUI_01_PHASE_2_ENTRY_GATE_ENGINEERING_RECONCILIATION_2026_09_15.json",
+    "engineering_ref": "60b85fbcb36e265e3910444714143d944ffef841",
+    "stage_packet": "PKT-STAGE-CORE-02",
+    "stage_master_sha256": "7f3b3a815d71d1aa47350e69824f14f92a5dd399cf0c68bf16074827ead6b3c0"
+  },
+  "carrier": {
+    "path": "prototypes/appui-01/phase2-stage-shell-adjacency-live-workspace-composition-01.html",
+    "sha256": "616ef480abc8d57bde551c804635d0a104d74babd8f7e600c4272fca45ae52cf",
+    "static_only": true,
+    "external_resources": 0,
+    "images": 0
+  },
+  "drive_archive": {
+    "folder_id": "14-C5PrxDjO_X2a1j3Ip7oLN5QYXzDj2p",
+    "png_file_id": "1t-vg977NDjYOe9hie3bzDFDC9T9qvdjG",
+    "png_sha256": "aa1ff2e39428837b2b7292b92fb0cc3a413fed67ea5f98c8b2a49000810563b7",
+    "html_file_id": "1Iif2nPRDnKtbZIctqYpg788nUl2U6YWw",
+    "html_sha256": "616ef480abc8d57bde551c804635d0a104d74babd8f7e600c4272fca45ae52cf"
+  },
+  "browser_preflight": [
+    {"mode":"normal","width":1600,"viewport_overflow":false,"overflow_elements":0,"shells":2,"stages":2,"cones":10,"blocked_capacity_witnesses":6},
+    {"mode":"normal","width":1024,"viewport_overflow":false,"overflow_elements":0,"shells":2,"stages":2,"cones":10,"blocked_capacity_witnesses":6},
+    {"mode":"normal","width":390,"viewport_overflow":false,"overflow_elements":0,"shells":2,"stages":2,"cones":10,"blocked_capacity_witnesses":6},
+    {"mode":"normal","width":320,"viewport_overflow":false,"overflow_elements":0,"shells":2,"stages":2,"cones":10,"blocked_capacity_witnesses":6},
+    {"mode":"forced-colors","width":320,"forced_colors_active":true,"viewport_overflow":false,"overflow_elements":0,"shells":2,"stages":2,"cones":10,"blocked_capacity_witnesses":6}
+  ],
+  "resolved_composition_law": [
+    "The dark Stage is the dominant live-work surface; shell, contextual inspector and support material remain subordinate.",
+    "Light and Dark shell presentations preserve the same Stage meanings and interaction hierarchy.",
+    "Watch posture may become sparse and Inspect posture may add contextual detail without changing the application information architecture.",
+    "Keyboard focus, creator selection, current opportunity, Character agency and infrastructure status remain distinct meanings.",
+    "Creator-authority surfaces remain outside Character cones.",
+    "Wide, medium and narrow layouts preserve selected identity, disclosure, Stage origin and exact return semantics without requiring simultaneous columns.",
+    "Five Characters remain a composition witness rather than an active-Scene cardinality law."
+  ],
+  "reserved_not_hardened": [
+    "transcript / recent-history placement, density, Beat terminology and transcript-dependent motion",
+    "timer / Pause semantics or auto-advance behavior",
+    "Observed Cues / provenance authority",
+    "creator intervention taxonomy, confirmation and effect semantics",
+    "Take / rehearsal / consequence review mechanics",
+    "provider / model / cost and Performer assignment semantics"
+  ],
+  "recursive_audit": {
+    "result": "CLEAN_AFTER_TWO_REPAIRS",
+    "repairs": [
+      "The first successful browser run reported ten internal overflow witnesses caused by Character name/state text extending beyond cone boxes. Name/state geometry was constrained without changing cone meaning or overall Stage composition.",
+      "The first visual render exposed double-encoded punctuation and identity text. The source was repaired from mojibake to exact UTF-8, restoring KYMÆAN, em dashes, arrows, middle dots and not-equal signs before the full matrix reran."
+    ],
+    "final_visual_review": "Wide and narrow final renders are mechanically and semantically clean after both repairs."
+  },
+  "explicit_non_authority": [
+    "No Stage successor, cone-carrier redesign or replacement of PKT-STAGE-CORE-02.",
+    "No transcript-dependent Stage motion or Q-DESIGN-02 activation.",
+    "No final palette, typography, material, iconography, motion token, WinUI or native implementation authority.",
+    "No Product/Phase-D resolution of Scene, Perspective, Take, consequence, provider, Performer or persistence mechanics."
+  ],
+  "conclusion": {
+    "result": "PASS",
+    "next_boundary": "Detail current-performance and immediate causal-context hierarchy as a static Stage-adjacent composition without hardening transcript ontology, cadence or motion."
+  }
+}

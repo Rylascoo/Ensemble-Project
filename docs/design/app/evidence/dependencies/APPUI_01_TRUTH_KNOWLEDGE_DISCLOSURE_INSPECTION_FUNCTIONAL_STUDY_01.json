@@ -1,0 +1,90 @@
+{
+  "schema": "kymaean.appui-truth-knowledge-disclosure-inspection-functional-study.v1",
+  "status": "POST_PHASE1_SECTION_DETAIL_PASS",
+  "date": "2026-09-14",
+  "program": "APPUI-01 - Detailed functional studies inside frozen Phase-1 architecture",
+  "authority": {
+    "design_repository": "Rylascoo/Ensemble-Website",
+    "design_branch": "design/appui01-working-compositions-2026-09-14",
+    "pre_study_ref": "2d5150b7f3aa46db562d01de32dc10b099c05f79",
+    "frozen_global_baseline": "Wireframe 01R - Revised Structural Baseline",
+    "phase1_status": "FROZEN_PASS"
+  },
+  "question": "Can truth/knowledge/disclosure inspection support creator-global and Character-bounded views, provenance and uncertainty capacity, and exact return behavior without leaking hidden material or freezing a final epistemic taxonomy/storage model?",
+  "inherited_law": [
+    "Character-bounded disclosure must never leak creator-global information.",
+    "Truth status and temporal status remain independently represented.",
+    "Unknown, false, absent and withheld/private are not interchangeable.",
+    "Fact, claim, belief, suspicion, memory, provenance and uncertainty may be capacity witnesses only where Product authority supports them.",
+    "Deep inspection is contextual capacity rather than permanent ontology navigation.",
+    "Light and Dark preserve one semantic system; no Phase-2 Stage successor is created."
+  ],
+  "artifact": {
+    "repository_path": "prototypes/appui-01/truth-knowledge-disclosure-inspection-functional-study-01.html",
+    "html_sha256": "592d253bd970cdff59a31d463b7b5e335f7776c2c7055a6f5dcdb8fe58f541ab",
+    "browser_probe_path": "tools/appui_disclosure_browser_probe.mjs",
+    "browser_probe_sha256": "19a9f180d94658ba88328cee76f87095a503c108b479f9e5c4b165d3b482388e",
+    "drive_folder_id": "1E_sO0bP8IYcwxRLMpOK8HAiKO3DXXCKc",
+    "drive_png_id": "1VGMSLv-Gcebsm6ZvCqyKX479Rfq1aBFD",
+    "drive_html_id": "1UVfsxic9OeUb0C0yPi2e57BWdE3m8CRx",
+    "drive_png_sha256": "ea49a3de821e1cd8f4d4cdbc9eabdaebc8e41f9093d6a49a99a9926a82baf70f"
+  },
+  "design_result": {
+    "creator_global_role": "May expose Product-supported truth/claim/knowledge/provenance distinctions for creator inspection without defining a final data model.",
+    "character_bounded_role": "Presents only Product-supported Character-visible material; material outside the boundary is not enumerated, counted, summarized or hinted by default.",
+    "disclosure_switch_rule": "Changing disclosure changes visibility, not persistent Character identity or underlying Product-supported Production state.",
+    "witness_types": ["fact_or_supported_truth", "claim_or_report", "belief_or_suspicion", "memory", "private_or_withheld", "provenance", "uncertainty"],
+    "taxonomy_rule": "Witnesses prove inspection capacity only and do not freeze exhaustive Product entity types, storage schema or inference policy.",
+    "state_grammar": [
+      "unknown != false",
+      "withheld_or_private != absent",
+      "claim != fact",
+      "memory != objective history",
+      "historical_status != truth_status",
+      "creator_global_visibility != Character_bounded_visibility"
+    ],
+    "depth_rule": "Source, belief, memory or uncertainty detail may deepen only within the active disclosure boundary.",
+    "return_rule": "Close/Back restores the exact creator-global semantic origin and focus; no knowledge transfer or Production mutation is implied.",
+    "theme_parity": "PASS - Light/Dark preserve identical records, disclosure boundary and state meaning",
+    "responsive_rule": "wide adjacency -> medium overlay/substitution -> narrow sequential surfaces; disclosure strength and exact return remain invariant"
+  },
+  "mechanical_preflight": {
+    "environment": "Microsoft Edge Chromium CDP; exact self-contained HTML; no external resources",
+    "cases": [
+      {"mode": "normal", "width": 1600, "horizontal_overflow": false, "overflow_elements": 0},
+      {"mode": "normal", "width": 1024, "horizontal_overflow": false, "overflow_elements": 0},
+      {"mode": "normal", "width": 390, "horizontal_overflow": false, "overflow_elements": 0},
+      {"mode": "normal", "width": 320, "horizontal_overflow": false, "overflow_elements": 0},
+      {"mode": "forced_colors", "width": 320, "forced_colors_active": true, "horizontal_overflow": false, "overflow_elements": 0}
+    ],
+    "images": 0,
+    "external_resources": 0,
+    "result": "PASS"
+  },
+  "recursive_audit": {
+    "first_visual_pass_findings": [
+      "One section-law sentence used the phrase 'creator-global truth store', which implied a concrete storage/data-model architecture outside this study's authority."
+    ],
+    "corrections": [
+      "Replaced 'creator-global truth store' with 'underlying Product-supported Production state' and reran all viewport and forced-colors checks."
+    ],
+    "rerun_result": "CLEAN",
+    "hidden_metadata_leak_created": false,
+    "final_epistemic_taxonomy_frozen": false,
+    "storage_model_frozen": false,
+    "inference_policy_frozen": false,
+    "permanent_knowledge_mode_created": false,
+    "phase2_stage_visual_work_started": false,
+    "final_visual_language_started": false
+  },
+  "non_authority": [
+    "Exact epistemic entity types, fields, truth authority, confidence semantics, inference policy and storage model remain Product-defined.",
+    "Exact knowledge transfer, discovery, forgetting, deception, contradiction resolution and consequence semantics remain open.",
+    "Exact Scene lifecycle, Perspective switching, Take/Rehearsal/branching, transcript/timer/Pause, provider/model/cost and Performer assignment remain open.",
+    "Final typography, palette, materials, icons, diagrams, motion and native WinUI behavior remain open.",
+    "No Stage visual successor, runtime/package/Store authority or native accessibility-device proof is created."
+  ],
+  "conclusion": "TRUTH_KNOWLEDGE_DISCLOSURE_INSPECTION_FUNCTIONAL_DETAIL_PASS",
+  "approval": "APPROVED BY STANDING DIRECTOR DELEGATION - CLEAN RECURSIVE AUDIT",
+  "next": "Detail persistence/recovery status inside the frozen shell: healthy persistence remains quiet; interruption/recovery remains truthful application state outside fiction; exact prior task, semantic origin and focus restore without inventing Character behavior."
+}

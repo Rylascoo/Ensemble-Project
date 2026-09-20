@@ -1,0 +1,114 @@
+{
+  "schema": "kymaean.design-gate-packet.v1",
+  "framework": "docs/evidence/DESIGN_PACKET_AND_SYNTHESIS_FRAMEWORK_01.json",
+  "packet_id": "PKT-APPUI-STAGE-PRESENTATION-01",
+  "packet_class": "COMPOSITION_PACKET",
+  "status": "PROVISIONAL_INCUMBENT",
+  "date": "2026-09-16",
+  "gate_or_program": "APPUI-01 Stage Presentation Successor 01",
+  "design_axis": "APP VISUAL Stage presentation / exact-pixel shell-facing extraction",
+  "bounded_question": "Can PKT-STAGE-CORE-02 be presented inside the completed shell without its historical embedded application chrome while preserving the frozen five-Character Stage field exactly?",
+  "authority": {
+    "repository": "Rylascoo/Ensemble-Website",
+    "baseline_commit": "1c383c0e1f05b5b7d9f3ed72e941a5aaa155a95f",
+    "governing_method_or_contract": [
+      "docs/evidence/APPUI_01_STAGE_PRESENTATION_SUCCESSOR_METHOD_01.json",
+      "docs/evidence/APPUI_01_REAL_ASSEMBLY_EXACT_STAGE_SHELL_ADJACENCY_RESULT_01.json",
+      "docs/evidence/packets/PKT_STAGE_CORE_02.json"
+    ],
+    "close_reconciliation": {
+      "website_main": "e483f0af35166534fff1455f68e287cc9190d91a",
+      "engineering_main": "526893a0f518b52bceddb311514de12ec826b9b3",
+      "effect": "No newer Website/Engineering authority altered APPUI or Stage/Product semantics at selection time."
+    }
+  },
+  "controlled_inputs": [
+    "PKT-STAGE-CORE-02 exact Drive master",
+    "completed APPUI shell and Light F2/Dark D3 roles",
+    "two preregistered pixel-preserving candidates R1 and S1"
+  ],
+  "local_result": {
+    "summary": "R1 and S1 both pass the identical seven-case mechanical matrix. R1 is rejected because the embedded 00:27:14 / Live Performance fragment survives. S1 is the sole visual survivor: an exact 1035x370 source extraction with one preregistered transparent 115x65 authority notch, preserving every retained RGB pixel and all five cone/floor/name/state units.",
+    "recommended_incumbent": "S1_STEPPED_FIELD_EXTRACTION",
+    "survivors_or_closure": [
+      "S1_STEPPED_FIELD_EXTRACTION"
+    ],
+    "rejections": [
+      "R1_RECT_FIELD_CONTROL — orphaned legacy control fragment"
+    ]
+  },
+  "evidence": {
+    "mechanical": [
+      "seven-case matrix PASS for both candidates",
+      "S1 retained RGB pixel equality PASS",
+      "Light/Dark identical candidate pixels PASS",
+      "zero overflow, external resources, unnamed buttons or undersized icon controls",
+      "2px focus with 2px offset"
+    ],
+    "visual": [
+      "R1 wide review fails on orphaned legacy timer/control fragment",
+      "S1 wide/narrow review preserves Stage dominance and all five Character units",
+      "S1 transparent notch is visually absorbed by the existing dark field and does not read as a missing block"
+    ],
+    "hashes": {
+      "source": "7f3b3a815d71d1aa47350e69824f14f92a5dd399cf0c68bf16074827ead6b3c0",
+      "s1_png": "bb3e21f43edde49b92c9272812f5f7bc23a2fc1bc4ea4fb58d96d950faf90319",
+      "r1_png": "869aa94535f2d9be8e01ab075711668f1be97d6f5a36ec7f82713c5060f5c5e0",
+      "matrix": "9079cd1b4728dca35e47244b96fd846db45a1859ffa637acc7f69129df18772c"
+    }
+  },
+  "dependencies": {
+    "requires": [
+      "PKT-STAGE-CORE-02",
+      "PKT-COMP-02-01 through PKT-COMP-11-01 completed shell evidence"
+    ],
+    "constrains": [
+      "Use S1 as the current shell-facing static Stage presentation reference unless a named successor supersedes it.",
+      "Keep PKT-STAGE-CORE-02 as the frozen Stage semantic/pixel source authority."
+    ],
+    "must_not_be_confused_with": [
+      "new Stage master",
+      "Stage semantic successor",
+      "production asset/token",
+      "native image pipeline",
+      "shipping UI implementation"
+    ]
+  },
+  "explicit_non_authority": [
+    "No PKT-STAGE-CORE-02 replacement.",
+    "No Product semantics or Stage interaction mechanics.",
+    "No native WinUI/XAML, Store, runtime or production-token authority."
+  ],
+  "canonical_artifacts": {
+    "repository": [
+      "docs/evidence/APPUI_01_STAGE_PRESENTATION_SUCCESSOR_METHOD_01.json",
+      "docs/evidence/APPUI_01_STAGE_PRESENTATION_SUCCESSOR_RESULT_01.json",
+      "prototypes/appui-01/stage-presentation-successor-01.template.html",
+      "tools/materialize_appui_stage_presentation_successor.py",
+      "tools/appui_stage_presentation_successor_matrix_probe.mjs"
+    ],
+    "drive_visual_masters": [
+      "20 APPUI-01 Stage Presentation Successor 01 / S1 Stepped Stage Field Extraction.png",
+      "20 APPUI-01 Stage Presentation Successor 01 / S1 Completed Shell - Wide.png",
+      "20 APPUI-01 Stage Presentation Successor 01 / S1 Completed Shell - Narrow.png"
+    ],
+    "director_review_surface": {
+      "entry_point": "S1 Completed Shell - Wide.png with narrow companion",
+      "what_to_review": "Stage dominance, absence of duplicate chrome, all five Character units, and clean Light/Dark shell adjacency",
+      "diagnostics_not_for_aesthetic_choice": [
+        "S1 Seven Case Matrix.json",
+        "S1 Runtime Materialization Manifest.json"
+      ]
+    }
+  },
+  "synthesis_state": {
+    "tested_with_packet_ids": [
+      "PKT-STAGE-CORE-02",
+      "PKT-COMP-01-01",
+      "PKT-COMP-02-01",
+      "PKT-COMP-11-01"
+    ],
+    "whole_app_synthesis_status": "STAGE_PRESENTATION_SUCCESSOR_S1_PROVISIONAL_INCUMBENT_FULL_RASTER_HOLD_RESOLVED",
+    "next_boundary": "HOLD further Stage presentation refinement pending a new lawful trigger."
+  }
+}

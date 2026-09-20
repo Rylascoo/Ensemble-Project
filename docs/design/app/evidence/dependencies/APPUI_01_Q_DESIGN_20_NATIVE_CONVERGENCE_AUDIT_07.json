@@ -1,0 +1,88 @@
+{
+  "schema": "kymaean.appui-q-design-20-native-convergence-audit.v1",
+  "status": "DESIGN_REVIEW_COMPLETE_ENGINEERING_CORRECTIONS_REQUIRED",
+  "date": "2026-09-17",
+  "queue_item": "Q-DESIGN-20",
+  "design_repository": "Rylascoo/Ensemble-Website",
+  "design_baseline": "0225f9527420d41b2c04a3bc50a30ecf2130d3c9",
+  "engineering_repository": "Rylascoo/Ensemble-Project",
+  "engineering_current_main": "2c165539fcfb4541d90e177ac09a9800fc0169e8",
+  "engineering_integrated_checkpoint": "1c6600e8f2d487515cb0029a88752a9d3f9428de",
+  "machine_tested_source": "34a3745e12c42247fe4e1663697bf55452f9d505",
+  "reviewed_ui_source_drift_to_current_main": "NONE; post-checkpoint Project changes add persistence infrastructure and solution registration without changing Kymaean.Windows, Kymaean.Application, Kymaean.Infrastructure.Demo or application tests",
+  "governing_design_contract": "docs/KYMAEAN_APPUI_NATIVE_IMPLEMENTATION_HANDOFF_01.md",
+  "reference_map": "docs/evidence/APPUI_01_NATIVE_IMPLEMENTATION_REFERENCE_MAP_01.json",
+  "engineering_validation": "Rylascoo/Ensemble-Project/docs/evidence/Q_PROD_01_FIRST_NATIVE_VERTICAL_SLICE_ARM64_VALIDATION_2026_09_17.md",
+  "conclusion": "The native architecture is compatible with APPUI authority. No new Design mechanism is required. Five bounded implementation corrections are required before Q-DESIGN-20 can close.",
+  "passes": [
+    "Home / Productions / Settings remain the only durable visible shell routes; Studio / Stage / Archive remain semantic destinations expressed as Production shaping / Live Stage / History.",
+    "Current Production and current situation visibly dominate the shell.",
+    "Light F2 and Dark D3 resource values match the Design reference exactly; Light/Dark meaning is unchanged.",
+    "Stage remains invariant dark in Light and Dark; the current dark native Stage is a lawful scaffold placeholder while S1 shipping/native asset packaging remains unresolved.",
+    "Back is navigation rather than causal Undo; final-package UI Automation proves focus return to Open live stage.",
+    "The final native minimum track is measured at 720x520 and protects the usable shell envelope.",
+    "Production browsing uses a separator row rather than a repeated card grid.",
+    "High Contrast resources use Windows system colors; preceding UI-identical native High Contrast observation is readable and the exact-final recapture limitation is explicitly carried."
+  ],
+  "required_corrections": [
+    {
+      "id": "NC-01",
+      "severity": "SEMANTIC",
+      "finding": "OpportunityDisplayName is sourced from OpportunityCharacterId but displayed under the label Current focus.",
+      "required_return": "Preserve the Current Opportunity / Director attention-opportunity meaning explicitly; do not relabel the authoritative opportunity as generic UI focus. Current Opportunity remains salience, not obligation, intent or turn order."
+    },
+    {
+      "id": "NC-02",
+      "severity": "SEMANTIC_COPY",
+      "finding": "Creator-facing surfaces expose implementation/evidence vocabulary including deterministic local Scene, provisional slice, local deterministic fixture, provider and experimental controls.",
+      "required_return": "Remove implementation/debug/evidence language from ordinary creator UI. Keep such facts in evidence or diagnostics, not Production shaping, Productions or ordinary Settings copy. Do not invent replacement Product semantics merely to fill space."
+    },
+    {
+      "id": "NC-03",
+      "severity": "VISUAL_SYSTEM",
+      "finding": "NavigationView supplies a dominant filled selected row. A small edge indicator exists, but the fill becomes the primary selected-state carrier, especially in High Contrast.",
+      "required_return": "Adapt the native selected-route treatment so STA F2's persistent structural inline-start witness is primary and keyboard focus remains independently visible. Accent may reinforce the witness; generic selected fill must not become the identity/state mechanism."
+    },
+    {
+      "id": "NC-04",
+      "severity": "VISUAL_SYSTEM",
+      "finding": "The native shell is a conventional flat field and does not yet express MAT F1 Subtractive Channel topology.",
+      "required_return": "Introduce the restrained edge-open subtractive channel mechanism on the application field without card proliferation, navigation/progress meaning or Stage repaint. Literal native geometry remains an Engineering choice."
+    },
+    {
+      "id": "NC-05",
+      "severity": "PLATFORM_ICON",
+      "finding": "Back is rendered as a text-only generic Button even though Back is one of the frozen conventional system-backed verbs.",
+      "required_return": "Consume the frozen Segoe Fluent Back mapping E72B through the native quiet-carrier treatment with an accessible name. A text label may remain if native clarity requires it, but no custom Kymaean Back glyph should be invented."
+    }
+  ],
+  "accepted_placeholders": [
+    "System/native typeface remains permitted while Source Sans 3 production packaging, localization and metrics remain unresolved.",
+    "The simple invariant-dark Stage surface remains permitted as a scaffold placeholder; S1 remains the shell-facing static Stage reference but no shipping/native asset pipeline is created here.",
+    "Windows package/titlebar image assets remain non-final packaging placeholders and are not APPUI visual acceptance."
+  ],
+  "guards": [
+    "Do not convert Production shaping / Live Stage / History into new permanent durable navigation tabs.",
+    "Do not add a tab-style selected semantic state merely to decorate the three workspace launch controls; current workspace meaning may remain established by the active content surface.",
+    "Do not use teal as health, success, truth, warning, history or fictional-state color.",
+    "Do not bypass the remote safety layer to force an exact-final High Contrast recapture.",
+    "Do not reopen Home Options A/B, FIRSTUSE-01, Stage semantics, bespoke domain icons or production token APIs from this audit."
+  ],
+  "native_evidence": {
+    "final_light_capture_sha256": "0f6f0075fa889db2df2d98d4c5833435dafa9b47987bb2239580580fecd432fa",
+    "final_dark_capture_sha256": "20a212aabbb1e6483b2af9b799ded8f959fe13beea6f9a3f659d336d6e943bc8",
+    "final_runtime_metadata_sha256": "386316ec06c0532e6cbbd2a671eec60baf45ce0ce4dcd8ad2ea7856676821212",
+    "pre_minfix_high_contrast_capture_sha256": "c6f0f6a723f34186e80c8e827d990de439c15dcde70349f262b6740fc9f8054c",
+    "pre_minfix_focus_return_capture_sha256": "56657ac5a35600fa87bcbba119f5e79c12675ca21513cf2625063b6167ff67d7",
+    "pre_minfix_keyboard_focus_return_sha256": "629248fdf6801a10400dc758bb4daf57e26e83f63b6d8ee49d1e99073f4e137a",
+    "pre_minfix_720x520_capture_sha256": "fa48185323fa412921b62f11d9ab490e014df4e087d0f94224437d6903c84ef1",
+    "package_sha256": "ab1b012e7dc27ad3e2f3960123bc1d18f80d092f0bdbceb87b6d43e24210b0ea",
+    "native_machine": "0xAA64",
+    "minimum_track": "720x520"
+  },
+  "high_contrast_limit": "Exact-final High Contrast recapture is unavailable because the remote safety layer blocked the OS toggle. The immediately preceding UI-identical source was observed successfully and App.xaml uses Windows HighContrast system-color resources. This is sufficient for bounded Design review but is not final-package native High Contrast validation.",
+  "design_successor_needed": false,
+  "engineering_return": "docs/evidence/APPUI_01_Q_DESIGN_20_ENGINEERING_RETURN_01.json",
+  "q_design_20_state_after_review": "ACTIVE_ENGINEERING_CORRECTION_RETURN_PENDING",
+  "approval": "APPROVED BY STANDING DIRECTOR DELEGATION - CLEAN BOUNDED NATIVE CONVERGENCE AUDIT."
+}

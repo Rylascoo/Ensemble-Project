@@ -1,0 +1,96 @@
+{
+  "schema": "kymaean.design-gate-packet.v1",
+  "framework": "docs/evidence/DESIGN_PACKET_AND_SYNTHESIS_FRAMEWORK_01.json",
+  "packet_id": "PKT-COMP-02-01",
+  "packet_class": "COMPOSITION_PACKET",
+  "status": "PROVISIONAL_INCUMBENT",
+  "date": "2026-09-16",
+  "gate_or_program": "APPUI-COMP-02 - Application Shell + Production Resume Integration",
+  "design_axis": "APP VISUAL real application shell integration",
+  "bounded_question": "Can the accepted Production/Home hierarchy and COMP-01 control grammar form one credible Kymaean application shell without inventing unresolved Product semantics or becoming a generic card/dashboard UI?",
+  "authority": {
+    "repository": "Rylascoo/Ensemble-Website",
+    "baseline_commit": "c8643e823384e8af13810dd83cf3d56259fe1102",
+    "governing_method_or_contract": [
+      "docs/evidence/APPUI_01_COMPONENT_SYSTEM_SHELL_INTEGRATION_METHOD_01.json",
+      "docs/KYMAEAN_APPUI_COMPONENT_SYSTEM_FOUNDATION_01.md",
+      "docs/KYMAEAN_APPUI_PHASE_1_STAGE_INTERFACE_ENVELOPE_AND_LAYOUT_MAP_01.md"
+    ],
+    "close_reconciliation": {
+      "website_main": "cc312f3fd974f3c564aba0d210f64b75e195b0b2",
+      "engineering_main": "e007ed2838c892f2d7734dcf6ac87b6b00022684",
+      "effect": "No contradiction. Concurrent Website work explicitly freezes app UI and Engineering adds no new Phase-D Product semantics."
+    }
+  },
+  "controlled_inputs": [
+    "Light F2 / Dark D3",
+    "MAT F1",
+    "TYP F1",
+    "STA F2",
+    "FICON F1",
+    "invariant dark Stage witness",
+    "COMP-01 foundational control grammar",
+    "accepted Production/Home resume hierarchy"
+  ],
+  "local_result": {
+    "summary": "One thin durable shell now integrates current Production scope, quiet Home/Productions/Settings navigation, platform verbs, current-situation/resume hierarchy, Other Productions rows and a transient Production switcher across Light/Dark and narrow/wide states.",
+    "recommended_incumbent": "Application Shell + Production Resume 01",
+    "survivors_or_closure": [
+      "Application Shell + Production Resume 01"
+    ]
+  },
+  "evidence": {
+    "mechanical": [
+      "seven-case matrix PASS",
+      "carrier SHA-256 57ef7392d61d56cd19c7369a2e27ca758d8cee25007e3f914dfe10ea2d7c4b3b",
+      "probe SHA-256 978b029f012aa7d549943f11641deb5be01a7b6bc7c87639aa739a2442417fb6",
+      "matrix SHA-256 94351f301caff89c82ce8eecfcb2814b23e1b66edf57b571c13f79ad40d11b06"
+    ],
+    "visual": [
+      "wide Light/Dark paired shell",
+      "390px Light/Dark narrow stack",
+      "320px Production-switcher-open state"
+    ],
+    "accessibility": [
+      "forced-colors 320 PASS",
+      "200% text 320 PASS",
+      "text-spacing stress 320 PASS",
+      "focus independent from selection",
+      "zero external resources"
+    ]
+  },
+  "dependencies": {
+    "requires": [
+      "PKT-COMP-01-01",
+      "selected static APP VISUAL system",
+      "Phase-1 accepted Production/Home hierarchy"
+    ],
+    "constrains": [
+      "Future real app-interface carriers should preserve current-thread dominance, quiet durable shell, transient Production switching, row-based other-Production browsing and sparse teal selection reinforcement unless a named successor supersedes them."
+    ],
+    "must_not_be_confused_with": [
+      "final Product navigation taxonomy",
+      "native WinUI shell",
+      "production token package",
+      "Stage interaction semantics"
+    ]
+  },
+  "explicit_non_authority": [
+    "No Product-gated Scene/Take/Rehearsal/branching/Perspective/provider/Performer semantics.",
+    "No Bellweather placement, bespoke domain icons, final fonts, production tokens, native implementation, shipping or Store authority."
+  ],
+  "canonical_artifacts": {
+    "repository": [
+      "docs/evidence/APPUI_01_COMPONENT_SYSTEM_SHELL_INTEGRATION_METHOD_01.json",
+      "docs/evidence/APPUI_01_COMPONENT_SYSTEM_SHELL_INTEGRATION_RESULT_01.json",
+      "prototypes/appui-01/component-system-shell-integration-01.html",
+      "tools/appui_component_system_shell_integration_matrix_probe.mjs"
+    ]
+  },
+  "synthesis_state": {
+    "tested_with_packet_ids": [
+      "PKT-COMP-01-01"
+    ],
+    "whole_app_synthesis_status": "REAL_SHELL_INTEGRATION_VALIDATED_NEXT_APPUI_DETAIL_BOUNDARY"
+  }
+}

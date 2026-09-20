@@ -1,0 +1,47 @@
+{
+  "schema": "kymaean.appui-phase3-causal-history-f2-d3-integration-method.v1",
+  "status": "METHOD_FROZEN_PRE_EXPOSURE",
+  "date": "2026-09-15",
+  "program": "APPUI-01 Phase 3 - Kymaean Visual-Language Integration",
+  "functional_parent": "docs/evidence/APPUI_01_CAUSAL_HISTORY_INSPECTION_FUNCTIONAL_STUDY_01.json",
+  "pre_exposure_ref": "2fefc572a7f39322e015a3416a6892acc708f0a4",
+  "question": "Can selected Light F2 and exact provisional D3 preserve causal/history inspection without letting darkness, accent or surface depth become temporal-state semantics?",
+  "fixed_inputs": {
+    "light_f2": {"field":"#F4F3F7","primary":"#221B2D","secondary":"#5C5565","accent":"#006F73","boundary":"#7D7486","soft_surface":"#EAE8EF"},
+    "dark_d3": {"field":"#19141D","primary":"#F4F0F5","secondary":"#BEB4C0","accent":"#249A9C","boundary":"#756A79","soft_surface":"#261F29"},
+    "material": "MAT-01 F1 Subtractive Channel",
+    "typography": "TYP-02 F1 Ratio Ladder / system-ui carrier",
+    "state": "STA-01 F2 Ring + Edge Witness"
+  },
+  "frozen_semantics": [
+    "Current Scene/question remains the semantic origin.",
+    "Historical witnesses remain explicitly historical at every depth.",
+    "Selection/focus never promote historical material into current state.",
+    "Back/Close is navigation, not Undo/replay/rollback.",
+    "Disclosure/provenance boundaries remain intact.",
+    "No permanent History/Archive mode is created."
+  ],  "falsification": [
+    "D3 fails if darkness itself makes historical material read as past/inactive/archived more strongly than structural historical witnesses do.",
+    "D3 fails if current material appears more authoritative merely because of theme brightness or surface contrast.",
+    "D3 fails if teal spreads into historical/current meaning, causality, truth, disclosure or provenance.",
+    "Integration fails if historical dashed/label structure weakens or becomes redundant to color.",
+    "Integration fails if current question, causal adjacency or exact return hierarchy changes from the accepted functional carrier.",
+    "Any consequence/replay/rollback/branching semantics added by presentation invalidate the study."
+  ],
+  "mechanical_gate": [
+    "1600",
+    "1024",
+    "390",
+    "320",
+    "320_forced_colors",
+    "320_text_200_percent",
+    "320_text_spacing"
+  ],
+  "execution_law": [
+    "Derive from the exact accepted causal/history carrier.",
+    "Use exact frozen Light F2 and provisional D3 role values; no post-exposure retune.",
+    "Mechanical repairs may restore accessibility/responsive behavior but may not change color roles or temporal semantics.",
+    "A local PASS extends D3 evidence only; it does not freeze final dark tokens or close Phase 3."
+  ],
+  "next_gate": "Materialize selected Light F2 plus exact provisional D3 on the accepted causal/history carrier, run the seven-condition matrix, and recursively audit temporal-state honesty before preservation."
+}

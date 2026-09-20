@@ -1,0 +1,51 @@
+{
+  "schema": "kymaean.appui-phase3-director-d3-static-app-dark-selection.v1",
+  "status": "DIRECTOR_SELECTED_D3_STATIC_APP_DARK_DIRECTION",
+  "date": "2026-09-15",
+  "program": "APPUI-01 Phase 3 - Kymaean Visual-Language Integration",
+  "repository": "Rylascoo/Ensemble-Website",
+  "authority": {
+    "design_branch": "design/appui01-working-compositions-2026-09-14",
+    "pre_decision_ref": "5e465395a197a497af4dfacf413696bca335ce3e",
+    "convergence_audit": "docs/evidence/APPUI_01_PHASE_3_REPRESENTATIVE_SECTION_CONVERGENCE_AUDIT_01.json",
+    "selected_light": "docs/evidence/APPUI_01_PHASE_3_CLR01_DIRECTOR_F2_SELECTION_01.json",
+    "fresh_engineering_ref": "bd32532133b4dbc66d2ffd1a7f77c3d0a2fd38dd",
+    "website_main": "10434eb5eb79793055d002e8742b288fb5268e12"
+  },
+  "decision": {
+    "selected_dark_direction": "D3",
+    "selected_name": "Ink Aubergine",
+    "director_statement": "continue",
+    "decision_context": "The Director continued from the explicit D3 selection gate after the aggregate 10/10 representative-section convergence audit qualified D3 for selection."
+  },
+  "selected_reference_dark_values": {
+    "field": "#19141D",
+    "primary": "#F4F0F5",
+    "secondary": "#BEB4C0",
+    "accent": "#249A9C",
+    "boundary": "#756A79",
+    "soft_surface": "#261F29"
+  },  "adjudication": {
+    "aggregate_result": "10_OF_10_REPRESENTATIVE_SECTIONS_PASS",
+    "exact_d3_values_preserved": "10_OF_10",
+    "post_exposure_d3_retunes": 0,
+    "semantic_color_collapses": 0,
+    "director_selection": "D3_INK_AUBERGINE",
+    "scope": "STATIC_APP_VISUAL_DARK_DIRECTION"
+  },
+  "authority_created": [
+    "D3 Ink Aubergine is the selected static APP VISUAL Dark direction.",
+    "Selected Light F2 Monochrome + Intruder and selected Dark D3 Ink Aubergine form the Phase-3 static app theme-direction pair.",
+    "The exact frozen F2 and D3 role values are reference inputs to successor app visual-system consolidation."
+  ],
+  "authority_not_created": [
+    "No production palette/token package or final shipping palette is frozen.",
+    "No semantic status-color system is created.",
+    "No Stage color successor, transcript-dependent motion or micro-interaction authority is created.",
+    "No native WinUI/XAML, ARM64 runtime, implementation accessibility, Store or shipping-asset authority is created.",
+    "No website palette or shared-brand-final color authority is created.",
+    "No Product-gated Scene/Take/Perspective/provider/Performer semantics are promoted."
+  ],
+  "fresh_engineering_disposition": "Engineering main remains E0-D on hold with E0-E blocked; no Phase-D Product semantics invalidate this selection.",
+  "next_boundary": "Consolidate the selected static app visual language across the proven architecture: F2 Light + D3 Dark, MAT-01 F1, TYP-02 F1 and STA-01 F2 where authoritative. Produce an app-visual design-role/component specification without converting it into production tokens or implementation authority."
+}

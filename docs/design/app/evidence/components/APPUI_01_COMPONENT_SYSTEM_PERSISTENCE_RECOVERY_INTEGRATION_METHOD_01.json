@@ -1,0 +1,69 @@
+{
+  "schema": "kymaean.appui-component-system-persistence-recovery-integration-method.v1",
+  "status": "METHOD_FROZEN_PRE_CONSTRUCTION",
+  "date": "2026-09-16",
+  "program_id": "APPUI-COMP-08",
+  "repository": "Rylascoo/Ensemble-Website",
+  "authority": {
+    "design_head": "dea96de54c6ce1db284d9eb8af1a0340d5f3634e",
+    "website_main": "8b375780cdbdcb6e21940b6cf5db7c4badf21b19",
+    "engineering_main": "3d7a5419afd1c502ce6aaba8f3ca906b48d6a868",
+    "parent_packet": "PKT-COMP-07-01",
+    "return_law_packet": "PKT-COMP-04-01",
+    "functional_study": "docs/evidence/APPUI_01_PERSISTENCE_RECOVERY_STATUS_FUNCTIONAL_STUDY_01.json",
+    "visual_study": "docs/evidence/APPUI_01_PHASE_3_PERSISTENCE_RECOVERY_F2_D3_INTEGRATION_01.json"
+  },
+  "bounded_question": "Can a real-shell deep Character task stay visually quiet while persistence is healthy, surface an explicit non-fictional infrastructure exception when needed, and restore the exact prior task/origin/focus after externally resolved recovery without inventing storage/recovery commands or fictional Character behavior?",
+  "frozen_inputs": [
+    "PKT-COMP-04-01 deep-task / exact-return grammar",
+    "PKT-COMP-02-01 shell / PKT-COMP-01-01 controls",
+    "Light F2 / Dark D3 / MAT F1 / TYP F1 / STA F2 / FICON F1",
+    "accepted persistence/recovery functional and Phase-3 evidence",
+    "source witness: Deep Character inspection · Julian · persistent material"
+  ],  "construction_law": [
+    "Healthy persistence creates no permanent status chip, footer, banner or success color merely to prove persistence exists.",
+    "Persistence in progress, read-only, recovery-needed, persistence failure and integrity concern are application/infrastructure states outside fiction.",
+    "Persistence failure != corruption/integrity concern; read-only != Character refusal; recovery != fictional rewind, another Take, branch, rehearsal or consequence reversal.",
+    "The exception surface must retain and name the exact prior task: Deep Character inspection · Julian · persistent material.",
+    "Closing an explanation is navigation only and must not imply recovery, durability, repair, discard or Production mutation.",
+    "No user-facing save/retry/repair/recover command is invented. A deterministic test hook may simulate external infrastructure state transitions solely to prove presentation and return behavior.",
+    "When the test hook marks recovery resolved, the exception witness disappears, healthy persistence returns to silence, and focus returns to the retained prior-task target.",
+    "Accent/color may not encode healthy, saved, recovery success, warning, corruption, severity or safety."
+  ],
+  "mechanical_matrix": [
+    "normal-1600",
+    "normal-1024",
+    "normal-390",
+    "normal-320",
+    "forced-colors-320",
+    "text-200-percent-320",
+    "text-spacing-stress-320"
+  ],
+  "mechanical_acceptance": [
+    "zero page/internal horizontal overflow in healthy, exception-open, explanation-closed-unresolved and recovered states",
+    "zero missing button accessible names and zero undersized icon-only controls",
+    "healthy state has zero visible persistence-status witnesses",
+    "exception state names retained task/origin and exposes explicit infrastructure status in both themes",
+    "Close explanation restores prior-task focus but leaves unresolved status visibly unresolved",
+    "externally simulated recovered state removes all persistence status and restores exact prior-task focus",
+    "zero fictional Character/Stage/causal-history meaning created by infrastructure states",
+    "zero external resources or image dependency"
+  ],  "visual_falsification": [
+    "Healthy persistence fails if ordinary creative work gains ambient saved/status chrome.",
+    "Darkness may not imply greater severity, corruption, danger or fiction; Light may not imply safety or successful durability.",
+    "Exception presentation fails if application status reads as Julian silence/refusal/incapacity, Stage action or Production causal history.",
+    "Persistence failure and integrity concern must not collapse into one meaning.",
+    "Closing the explanation must visibly remain unresolved rather than looking repaired or recovered.",
+    "Narrow sequencing must preserve prior task, infrastructure explanation and exact focus return."
+  ],
+  "explicit_non_goals": [
+    "autosave/save-point/durability/transactionality policy",
+    "local/cloud/backup architecture",
+    "repair/conflict/fallback/data-loss semantics",
+    "recovery algorithm, read-only policy or integrity validation",
+    "Scene/Take/branch/rehearsal/consequence semantics",
+    "severity/status color system",
+    "Stage successor, production tokens or native WinUI/XAML implementation"
+  ],
+  "result_law": "Only responsive containment and test-state plumbing may be repaired after exposure. Any change to persistence/recovery semantics, fiction boundary or frozen visual roles requires a separately named successor."
+}

@@ -1,0 +1,115 @@
+{
+  "schema": "kymaean.design-gate-packet.v1",
+  "framework": "docs/evidence/DESIGN_PACKET_AND_SYNTHESIS_FRAMEWORK_01.json",
+  "packet_id": "PKT-COMP-06-01",
+  "packet_class": "COMPOSITION_PACKET",
+  "status": "PROVISIONAL_INCUMBENT",
+  "date": "2026-09-16",
+  "gate_or_program": "APPUI-COMP-06 - Causal + History Inspection Integration",
+  "design_axis": "APP VISUAL real current-question to causal-history task flow",
+  "bounded_question": "Can one current unresolved question deepen into adjacent historical cause and deeper history inside the COMP shell while preserving temporal status, bounded disclosure, exact origin and exact return without creating a permanent Archive/History mode or rollback semantics?",
+  "authority": {
+    "repository": "Rylascoo/Ensemble-Website",
+    "baseline_commit": "3364ab4be02c04940608e8d33a17d6482b2c02bf",
+    "governing_method_or_contract": [
+      "docs/evidence/APPUI_01_COMPONENT_SYSTEM_CAUSAL_HISTORY_INSPECTION_INTEGRATION_METHOD_01.json",
+      "docs/evidence/APPUI_01_CAUSAL_HISTORY_INSPECTION_FUNCTIONAL_STUDY_01.json",
+      "docs/evidence/APPUI_01_PHASE_3_CAUSAL_HISTORY_F2_D3_INTEGRATION_01.json",
+      "docs/evidence/packets/PKT_COMP_05_WHOLE_PRODUCTION_CHARACTER_MANAGEMENT_INTEGRATION_01.json",
+      "docs/evidence/packets/PKT_COMP_04_CONTEXTUAL_DEEP_INSPECTION_INTEGRATION_01.json"
+    ],
+    "close_reconciliation": {
+      "website_main": "8b375780cdbdcb6e21940b6cf5db7c4badf21b19",
+      "engineering_main": "2bfb0c1c3e8cb79acafe72d6fb80692bc818a407",
+      "effect": "No contradiction. Website main advanced only for non-production Bellweather PERSON-state work and explicitly freezes app UI; Engineering supplies no new causal/history Product semantics."
+    }
+  },
+  "controlled_inputs": [
+    "PKT-COMP-05-01 continuity",
+    "PKT-COMP-04-01 deep-inspection return law",
+    "PKT-COMP-03-01 situation-first current-question origin",
+    "PKT-COMP-02-01 shell / PKT-COMP-01-01 controls",
+    "Light F2 / Dark D3 / MAT F1 / TYP F1 / STA F2 / FICON F1",
+    "accepted source-derived Scene-12 ledger question + Scene-10 historical witness"
+  ],
+  "local_result": {
+    "summary": "The current Scene-12 ledger question now opens one adjacent Scene-10 historical cause and then exclusive deeper causal-history depth. Historical focus never moves current selection, every prior witness stays dashed/labeled Historical, and Back/Close return to the same current question and trigger focus.",
+    "recommended_incumbent": "Causal + History Inspection Flow 01",
+    "survivors_or_closure": [
+      "Causal + History Inspection Flow 01"
+    ]
+  },
+  "evidence": {
+    "mechanical": [
+      "seven-case current + deep-history matrix PASS",
+      "carrier SHA-256 702ae52c5de128328e1d1acc86c1d7600440d1c1771043c929cda01014c862de",
+      "probe SHA-256 659581a4ddfeb9b29d0a04ae26558ba44011f8c492b990a0d2ef5ca0d2123f3c",
+      "matrix SHA-256 efa56d1222f9201c3321c8b0f206541e31465d3d427bac32e57404cce126d35a"
+    ],
+    "visual": [
+      "wide current Light/Dark pair with selected current question and independently focused dashed historical witness",
+      "wide deep Light/Dark pair with solid Current card beside dashed Historical cards",
+      "390px current and deep sequential layouts",
+      "historical status remains textual/structural rather than color/darkness-dependent"
+    ],
+    "interaction": [
+      "causal-history affordance disappears when unrelated meaning is selected and restores for the current ledger question",
+      "history witness focus is independent from current-question selection",
+      "deep history opens in both themes while Shaping is hidden",
+      "Back and Close each restore causal-history trigger focus and current-question selection"
+    ]
+  },
+  "dependencies": {
+    "requires": [
+      "PKT-COMP-05-01",
+      "PKT-COMP-04-01",
+      "PKT-COMP-03-01",
+      "PKT-COMP-02-01",
+      "PKT-COMP-01-01",
+      "accepted causal/history evidence"
+    ],
+    "constrains": [
+      "Future causal/history carriers preserve current semantic origin, explicit historical status at every depth, bounded disclosure/provenance, contextual availability and exact return unless a named successor supersedes them."
+    ],
+    "must_not_be_confused_with": [
+      "permanent Archive/History navigation",
+      "consequence review",
+      "replay/rollback/Undo",
+      "causal inference engine",
+      "native WinUI history browser"
+    ]
+  },
+  "explicit_non_authority": [
+    "No permanent Archive/History application mode.",
+    "No consequence review, replay, rollback, branching or mutation mechanics.",
+    "No exhaustive causal graph, causal score, inference engine or generated-explanation authority.",
+    "No final truth/claim/belief/memory/private-knowledge/provenance schema.",
+    "No motion/Stage successor, production tokens, native implementation, shipping or Store authority."
+  ],
+  "canonical_artifacts": {
+    "repository": [
+      "docs/evidence/APPUI_01_COMPONENT_SYSTEM_CAUSAL_HISTORY_INSPECTION_INTEGRATION_METHOD_01.json",
+      "docs/evidence/APPUI_01_COMPONENT_SYSTEM_CAUSAL_HISTORY_INSPECTION_INTEGRATION_RESULT_01.json",
+      "prototypes/appui-01/component-system-causal-history-inspection-integration-01.html",
+      "tools/appui_component_system_causal_history_inspection_matrix_probe.mjs"
+    ],
+    "director_review_surface": {
+      "entry_point": "self-contained COMP-06 HTML carrier",
+      "what_to_review": "current-question primacy, historical structural status, causal adjacency, exclusive deep history, bounded disclosure and exact return",
+      "diagnostics_not_for_aesthetic_choice": [
+        "matrix JSON",
+        "DOM/probe output"
+      ]
+    }
+  },
+  "synthesis_state": {
+    "tested_with_packet_ids": [
+      "PKT-COMP-01-01",
+      "PKT-COMP-02-01",
+      "PKT-COMP-03-01",
+      "PKT-COMP-04-01",
+      "PKT-COMP-05-01"
+    ],
+    "whole_app_synthesis_status": "REAL_CAUSAL_HISTORY_VALIDATED_TRUTH_KNOWLEDGE_DISCLOSURE_NEXT"
+  }
+}

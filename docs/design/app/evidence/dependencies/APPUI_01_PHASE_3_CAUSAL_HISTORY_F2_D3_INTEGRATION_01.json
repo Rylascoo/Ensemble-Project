@@ -1,0 +1,76 @@
+{
+  "schema": "kymaean.appui-phase3-causal-history-f2-d3-integration.v1",
+  "status": "PHASE_3_CAUSAL_HISTORY_INTEGRATION_PASS_D3_PROVISIONAL_SURVIVES",
+  "date": "2026-09-15",
+  "program": "APPUI-01 Phase 3 - Kymaean Visual-Language Integration",
+  "method": "docs/evidence/APPUI_01_PHASE_3_CAUSAL_HISTORY_F2_D3_INTEGRATION_METHOD_01.json",
+  "functional_parent": "docs/evidence/APPUI_01_CAUSAL_HISTORY_INSPECTION_FUNCTIONAL_STUDY_01.json",
+  "authority": {
+    "design_branch": "design/appui01-working-compositions-2026-09-14",
+    "pre_integration_ref": "ec2035c8446cfec7aa2b40bbcaee3d9cba50c92c",
+    "website_main_reconciled": "842f7f631ef9a5ca87ce9342217910c6036cab1b",
+    "engineering_main_reconciled": "399024b54b8c2c66525d081e816740f055f26f6a"
+  },
+  "artifact": {
+    "path": "prototypes/appui-01/phase3-causal-history-f2-d3-integration-01.html",
+    "sha256": "3c8cdecb019b162effd68d2e1f184d5c747de0d1e5766528ad0afc8dad735614",
+    "probe": "tools/appui_phase3_causal_history_f2_d3_matrix_probe.mjs",
+    "probe_sha256": "4b8cb2ed887e869cf9b77a9baa0c5462ec13546cef790057d9642735a4be4ea1",
+    "source_functional_sha256": "4d33fde48e7e9f55c95e490ad92a59e21444d973203a700514450593222221ec"
+  },
+  "drive": {
+    "archive_folder_id": "1E6n1eOK_HYTF-fAiw7AbBYlvtNvn3HDE",
+    "html_id": "11NhWLHrBmZlR2TkBibOceNjV8og2Uklu",
+    "png_id": "18lTiVYAukoWYKRViWiscHwRFqGNd6Djg",
+    "png_sha256": "4c57e1cb9e12594f27dab1407577fc8dc78d7ab453822e0007b4f5efc87719e2"
+  },
+  "themes": {
+    "light_f2": {"field":"#F4F3F7","primary":"#221B2D","secondary":"#5C5565","accent":"#006F73","boundary":"#7D7486","soft_surface":"#EAE8EF"},
+    "dark_d3": {"field":"#19141D","primary":"#F4F0F5","secondary":"#BEB4C0","accent":"#249A9C","boundary":"#756A79","soft_surface":"#261F29"}
+  },
+  "contrast": {
+    "light_text_field": 13.691,
+    "light_secondary_field": 5.875,
+    "light_boundary_field": 3.667,
+    "light_accent_field": 4.909,
+    "d3_text_field": 14.216,
+    "d3_secondary_field": 7.997,
+    "d3_boundary_field": 3.124,
+    "d3_accent_field": 4.714
+  },
+  "matrix": {
+    "cases": ["1600","1024","390","320","320_forced_colors","320_text_200_percent","320_text_spacing"],
+    "result": "PASS_ZERO_OVERFLOW_AFTER_TEXT200_APPBAR_REPAIR",
+    "invariants_each_case": {"apps":2,"material_fields":2,"depth_themes":2,"historical_witnesses":4,"selected_witnesses":2,"focus_witnesses":2},
+    "forced_colors_active_when_required": true,
+    "images": 0,
+    "external_resources": 0
+  },
+  "integration_result": {
+    "current_vs_historical": "PASS - current question and historical witnesses remain textually and structurally distinct in both themes.",
+    "causal_adjacency": "PASS - adjacent historical cause remains secondary to the current question without becoming a permanent mode.",
+    "deep_history": "PASS - deeper history remains dashed/labeled historical in matched Light F2 and D3 presentations.",
+    "selection_focus": "PASS - current selected question uses sparse accent edge while keyboard focus is independently shown on historical relevance context.",
+    "return_semantics": "PASS - return-current remains explicit; no Undo/replay/rollback meaning is created.",
+    "disclosure_provenance": "PASS - causal relevance and bounded disclosure remain textual/structural, not color-coded."
+  },
+  "recursive_audit": {
+    "first_mechanical_finding": "At 320px / 200% text, the appbar Current situation control forced eleven overflow witnesses and document-level horizontal overflow.",
+    "correction": "At narrow widths the appbar now wraps and the ghost control may wrap naturally; no color role or temporal semantic changed.",
+    "rerun_result": "CLEAN_ZERO_OVERFLOW_ALL_SEVEN_CASES",
+    "post_exposure_color_retune": "NONE",
+    "darkness_as_history_semantics_created": false,
+    "lightness_as_current_authority_created": false,
+    "semantic_status_color_created": false,
+    "permanent_history_mode_created": false,
+    "d3_local_disposition": "SURVIVES_CAUSAL_HISTORY_SECTION_BUT_REMAINS_PROVISIONAL"
+  },
+  "non_authority": [
+    "D3 is not frozen as final dark palette by this local PASS.",
+    "No production color tokens or semantic status colors are created.",
+    "No consequence review, replay, rollback, branching, exhaustive causal graph, inference or provenance schema is frozen.",
+    "No native implementation, Stage successor, runtime/package authority or Phase-3 convergence claim is created."
+  ],
+  "next_boundary": "Evaluate exact selected Light F2 plus exact provisional D3 on the accepted Truth / Knowledge / Disclosure Inspection architecture without using color to encode epistemic status or disclosure scope.",
+  "approval": "APPROVED BY STANDING DIRECTOR DELEGATION - CLEAN RECURSIVE AUDIT"
+}

@@ -1,0 +1,88 @@
+{
+  "schema": "kymaean.appui-production-home-resume-functional-study.v1",
+  "status": "POST_PHASE1_SECTION_DETAIL_PASS",
+  "date": "2026-09-14",
+  "program": "APPUI-01 - Detailed functional studies inside frozen Phase-1 architecture",
+  "authority": {
+    "design_repository": "Rylascoo/Ensemble-Website",
+    "design_branch": "design/appui01-working-compositions-2026-09-14",
+    "pre_study_ref": "a87416f038f8e67d8fe380800374e0b1f5d0ab94",
+    "director_instruction": "Work through individual sections of the already-completed app architecture before moving on, using the order that makes the most design sense.",
+    "frozen_global_baseline": "Wireframe 01R - Revised Structural Baseline",
+    "phase1_status": "FROZEN_PASS"
+  },
+  "question": "Can Production Home / Resume be made implementation-usefully specific without reopening the frozen shell, turning Home into a Production-library dashboard, inventing Phase-D controls, or beginning final visual-language design?",
+  "inherited_law": [
+    "Home is resume-first and current-situation-first.",
+    "The current Production and resume point dominate; other Productions remain subordinate.",
+    "Concise current situation, meaningful stakes and relevant recent movement support mental re-entry.",
+    "Situation-first meaning outranks ontology/category-first navigation.",
+    "Light and Dark are co-equal semantic presentations.",
+    "Healthy persistence remains quiet; infrastructure exceptions never become fictional behavior.",
+    "Production cover/scenic imagery is not a requirement."
+  ],
+  "artifact": {
+    "repository_path": "prototypes/appui-01/production-home-resume-functional-study-01.html",
+    "html_sha256": "5e68160c4015d14cf61a6529947bd241b4eba2f7c78cd609f04f60aad994c402",
+    "browser_probe_path": "tools/appui_home_browser_probe.mjs",
+    "browser_probe_sha256": "324c2b35b2c89f61ab184e9cc81561fdd485530a7a2b8bd4ffc85f23068dff61",
+    "drive_folder_id": "1E_sO0bP8IYcwxRLMpOK8HAiKO3DXXCKc",
+    "drive_png_id": "1gYGWwhGi9LcO7k3oaVPi19vLIRK0K2ip",
+    "drive_html_id": "12Zf4xjDyglwtA36rOYK6ABHWgzrr4ljq",
+    "drive_png_sha256": "d4a631b42a9122c8d3dd3c8cd07fd1b2021a9a1ce402e229fe889fe3cbc1fcee"
+  },
+  "design_result": {
+    "primary_hierarchy": [
+      "Current Production + concise current situation",
+      "Resume current work as the strongest action",
+      "Current Scene, what matters now, and recent relevant movement as supporting re-entry context",
+      "Other Productions / browse / create as subordinate switching paths"
+    ],
+    "interaction_priority": ["resume", "reorient", "follow meaning", "switch_or_create"],
+    "light_dark_parity": "PASS - same hierarchy, commands and state meaning; styling remains provisional",
+    "imagery_requirement": "NONE - no scenic/cover images are required by the section architecture",
+    "persistence_rule": "healthy state quiet; recovery/read-only failure explicit outside fictional meaning",
+    "no_active_scene_rule": "Production remains primary; exact next-Scene creation remains Product-defined",
+    "capability_failure_rule": "technical unavailability never becomes Character silence/refusal or effective performance",
+    "responsive_order": "current Production -> resume target -> current Scene -> what matters -> recent movement -> other Productions"
+  },
+  "mechanical_preflight": {
+    "environment": "Microsoft Edge Chromium CDP via deterministic self-contained browser probe",
+    "cases": [
+      {"mode": "normal", "width": 1600, "horizontal_overflow": false, "overflow_elements": 0},
+      {"mode": "normal", "width": 1024, "horizontal_overflow": false, "overflow_elements": 0},
+      {"mode": "normal", "width": 390, "horizontal_overflow": false, "overflow_elements": 0},
+      {"mode": "normal", "width": 320, "horizontal_overflow": false, "overflow_elements": 0},
+      {"mode": "forced_colors", "width": 320, "forced_colors_active": true, "horizontal_overflow": false, "overflow_elements": 0}
+    ],
+    "images": 0,
+    "external_resources": 0,
+    "result": "PASS"
+  },
+  "recursive_audit": {
+    "first_visual_pass_findings": [
+      "The label 'recent consequential movement' overclaimed causal/effective meaning for mixed re-entry activity.",
+      "The no-active-Scene helper sentence risked sounding like a frozen next-Scene creation command."
+    ],
+    "corrections": [
+      "Changed the supporting block to 'recent relevant movement' and replaced inspection/audit-like examples with neutral relevant-change fixtures.",
+      "Changed the no-active-Scene text to state that exact next-Scene creation remains Product-defined."
+    ],
+    "rerun_result": "CLEAN",
+    "global_shell_reopened": false,
+    "phase2_stage_visual_work_started": false,
+    "product_gated_control_frozen": false,
+    "final_visual_language_started": false,
+    "tooling_note": "A combined forced-colors Edge launch once exited before DevToolsActivePort creation; isolated rerun passed with forced-colors active. Artifact bytes were unchanged."
+  },
+  "non_authority": [
+    "Final labels, icons, typography, palette, material and motion remain open.",
+    "Production imagery/cover art remains optional and unselected.",
+    "Exact Scene lifecycle and next-Scene creation controls remain Product-defined.",
+    "Consequence review, Perspective switching, Take/Rehearsal/branching, provider/model/cost, Performer assignment, portable Production and export workflows remain open.",
+    "No WinUI/XAML/native-accessibility/runtime/ARM64/package/Store authority is created."
+  ],
+  "conclusion": "PRODUCTION_HOME_RESUME_FUNCTIONAL_DETAIL_PASS",
+  "approval": "APPROVED BY STANDING DIRECTOR DELEGATION - CLEAN RECURSIVE AUDIT",
+  "next": "Detail Production Shaping / Current Possibility inside the same frozen shell, preserving situation-first navigation and following meaningful elements into contextual/deep inspection."
+}

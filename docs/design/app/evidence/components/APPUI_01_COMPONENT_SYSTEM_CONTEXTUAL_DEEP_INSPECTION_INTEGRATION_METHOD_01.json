@@ -1,0 +1,72 @@
+{
+  "schema": "kymaean.appui-component-system-contextual-deep-inspection-integration-method.v1",
+  "status": "METHOD_FROZEN_PRE_CONSTRUCTION",
+  "date": "2026-09-16",
+  "program_id": "APPUI-COMP-04",
+  "repository": "Rylascoo/Ensemble-Website",
+  "authority": {
+    "design_head": "079ebb998059955015b70c4dbc935bf4a37435e1",
+    "website_main": "fdf4f87b939c54358125e36aa2b81f070fdd1e6f",
+    "engineering_main": "2bfb0c1c3e8cb79acafe72d6fb80692bc818a407",
+    "shaping_packet": "PKT-COMP-03-01",
+    "shell_packet": "PKT-COMP-02-01",
+    "component_packet": "PKT-COMP-01-01",
+    "functional_study": "docs/evidence/APPUI_01_CONTEXTUAL_DEEP_INSPECTION_SURFACE_FAMILY_FUNCTIONAL_STUDY_01.json",
+    "visual_study": "docs/evidence/APPUI_01_PHASE_3_CONTEXTUAL_DEEP_INSPECTION_F2_D3_INTEGRATION_01.json"
+  },
+  "bounded_question": "Can the accepted contextual-to-deep inspection grammar operate as an actual transition inside the COMP shell while preserving the selected entity, semantic origin, exact return/focus behavior and state distinctions without becoming a permanent app mode or inventing Product edit semantics?",
+  "frozen_inputs": [
+    "PKT-COMP-03-01 situation-first Shaping workspace",
+    "PKT-COMP-02-01 durable shell",
+    "PKT-COMP-01-01 foundational control grammar",
+    "Light F2 / Dark D3 / MAT F1 / TYP F1 / STA F2 / FICON F1",
+    "accepted contextual + deep inspection surface-family grammar"
+  ],  "construction_law": [
+    "Contextual inspection remains subordinate relevant-here capacity reached from a selected meaningful element.",
+    "Deep inspection is a deliberate continuation of the same selected entity, not a new permanent application mode.",
+    "Deep inspection must name and preserve Production/current-situation/selected-entity origin.",
+    "Back and Close return to the same Shaping semantic origin and restore focus to the deep-inspection trigger; neither means Undo.",
+    "Selection remains independent from keyboard focus, fictional attention, Director opportunity and Character agency.",
+    "Current/historical and provisional/effective distinctions remain textual/structural and hue-independent.",
+    "Character identity remains distinct from Performer/provider assignment and disclosure boundaries remain unchanged.",
+    "Exact edit, commit, save, validation and undo semantics remain Product-defined and are not invented."
+  ],
+  "mechanical_matrix": [
+    "normal-1600",
+    "normal-1024",
+    "normal-390",
+    "normal-320",
+    "forced-colors-320",
+    "text-200-percent-320",
+    "text-spacing-stress-320"
+  ],
+  "mechanical_acceptance": [
+    "zero page-level and internal horizontal overflow",
+    "zero missing button accessible names",
+    "zero undersized icon-only controls below 32px reference carrier",
+    "solid 2px keyboard focus with 2px offset",
+    "deep activation succeeds in both themes from the selected relationship contextual inspector",
+    "deep surface preserves exact named origin and selected relationship identity",
+    "Back restores Shaping with the same relationship selected and focus returned to the deep-inspection trigger",
+    "Close follows the same semantic return contract and does not alter selection or effective state",
+    "zero external resources or image dependency"
+  ],  "visual_falsification": [
+    "deep inspection must feel like temporary task depth from Shaping, not a second application shell or database editor",
+    "the selected relationship identity and origin must remain obvious before and during deep inspection",
+    "historical and provisional material must not look current/effective or become color-coded state",
+    "dark D3 must preserve inspection-layer separation without turning depth into undifferentiated aubergine",
+    "narrow sequential presentation must preserve origin and return without requiring simultaneous columns",
+    "durable Home / Productions / Settings chrome must remain visually quieter than the inspection task"
+  ],
+  "explicit_non_goals": [
+    "final Product entity taxonomy or data schema",
+    "commit/save/undo semantics",
+    "Scene lifecycle, Take/Rehearsal/branching or consequence controls",
+    "Perspective switching semantics",
+    "provider/model/cost or Performer assignment controls",
+    "Bellweather placement or bespoke domain icons",
+    "motion or Stage successor",
+    "production tokens or native WinUI/XAML implementation"
+  ],
+  "result_law": "Responsive and interaction-plumbing repairs may change geometry/DOM mechanics only. Any change to the accepted inspection semantics or frozen F2/D3/MAT/TYP/STA/FICON/Stage mechanisms requires a separately named successor rather than silent COMP-04 retuning."
+}

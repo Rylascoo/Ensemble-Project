@@ -1,0 +1,86 @@
+{
+  "schema": "kymaean.appui-production-shaping-current-possibility-functional-study.v1",
+  "status": "POST_PHASE1_SECTION_DETAIL_PASS",
+  "date": "2026-09-14",
+  "program": "APPUI-01 - Detailed functional studies inside frozen Phase-1 architecture",
+  "authority": {
+    "design_repository": "Rylascoo/Ensemble-Website",
+    "design_branch": "design/appui01-working-compositions-2026-09-14",
+    "pre_study_ref": "27edc0e64c3d21368c66056a6c3df0474027171e",
+    "frozen_global_baseline": "Wireframe 01R - Revised Structural Baseline",
+    "phase1_status": "FROZEN_PASS"
+  },
+  "question": "Can Production Shaping / Current Possibility become implementation-usefully specific while remaining situation-first, preserving contextual/deep inspection, and avoiding ontology-first navigation or Product-open control invention?",
+  "inherited_law": [
+    "Production Shaping is situation-first.",
+    "Preferred path is Production -> current situation -> meaningful element -> contextual/deep inspection.",
+    "People Here, Relationships in Motion, Pressures Now, Open Questions and World Context may orient the current situation but do not become mandatory top-level silos.",
+    "Selection and keyboard focus remain distinct from fictional Director opportunity, relationship salience and Character agency.",
+    "Current/historical and provisional/effective meaning remain distinguishable.",
+    "Light and Dark are co-equal semantic presentations; the Stage baseline is untouched."
+  ],
+  "artifact": {
+    "repository_path": "prototypes/appui-01/production-shaping-current-possibility-functional-study-01.html",
+    "html_sha256": "0daf646afad575be0fbf0b075897b376bd927ab1cd4d288bcaa25d83f50d007a",
+    "browser_probe_path": "tools/appui_shaping_browser_probe.mjs",
+    "browser_probe_sha256": "ba3e7f23826c3bf1d1c9bd122a00686100194ef3c2a5bf2569c81f6d1e0b575c",
+    "drive_folder_id": "1E_sO0bP8IYcwxRLMpOK8HAiKO3DXXCKc",
+    "drive_png_id": "1wEjq3kp145m4LiTKhfCFbXKuPnfsMKAW",
+    "drive_html_id": "1yalGCvjgGd_v85W-x-5tqq8wtrb5bpK6",
+    "drive_png_sha256": "e350f178b940c761dcc845fe84b3924495d0357674e96985e46895e81bcddeb8"
+  },
+  "design_result": {
+    "primary_hierarchy": [
+      "Current Scene / current situation remains the primary creative frame.",
+      "Meaningful people, relationships, pressures, questions and world conditions are surfaced in relation to that situation.",
+      "Contextual inspection opens near the current situation after meaningful selection.",
+      "Deep object-oriented inspection/editing appears only after deliberate follow-through.",
+      "Whole-Production Character access and causal/history depth are available without silently changing current Scene membership or status."
+    ],
+    "interaction_priority": ["orient", "follow_meaning", "inspect_or_shape", "return"],
+    "selection_rule": "keyboard focus may move without creating selection; selection is inspection state only and does not imply fictional attention or agency",
+    "current_possibility_rule": "working creative frame only; no predictive or generated next-action authority is implied",
+    "history_rule": "history is reached causally from meaningful current material and remains explicitly historical rather than becoming a global Archive mode",
+    "theme_parity": "PASS - same hierarchy, disclosure and state meaning in Light/Dark",
+    "responsive_rule": "orientation and inspector yield space before the current situation; narrow layouts use sequential primary surfaces with semantic return"
+  },
+  "mechanical_preflight": {
+    "environment": "Microsoft Edge Chromium CDP; exact self-contained HTML; no external resources",
+    "cases": [
+      {"mode": "normal", "width": 1600, "horizontal_overflow": false, "overflow_elements": 0},
+      {"mode": "normal", "width": 1024, "horizontal_overflow": false, "overflow_elements": 0},
+      {"mode": "normal", "width": 390, "horizontal_overflow": false, "overflow_elements": 0},
+      {"mode": "normal", "width": 320, "horizontal_overflow": false, "overflow_elements": 0},
+      {"mode": "forced_colors", "width": 320, "forced_colors_active": true, "horizontal_overflow": false, "overflow_elements": 0}
+    ],
+    "images": 0,
+    "external_resources": 0,
+    "result": "PASS"
+  },
+  "recursive_audit": {
+    "first_visual_pass_findings": [
+      "The state panel named focus/selection as distinct but did not explicitly demonstrate that keyboard focus can move without selection.",
+      "The phrase current possibility could be misread as a predictive/generated recommendation surface unless bounded explicitly."
+    ],
+    "corrections": [
+      "Added an explicit focus-independent witness to the no-selection state.",
+      "Added section law that current possibility is the creator's working frame and does not imply predictive/generated next-action authority."
+    ],
+    "rerun_result": "CLEAN",
+    "global_shell_reopened": false,
+    "ontology_first_navigation_restored": false,
+    "phase2_stage_visual_work_started": false,
+    "product_gated_control_frozen": false,
+    "final_visual_language_started": false
+  },
+  "non_authority": [
+    "Exact orientation labels, navigation placement and commands remain provisional.",
+    "Final typography, palette, materials, icons and motion remain open.",
+    "Scene lifecycle, consequence review, Presentation Perspective switching, Take/Rehearsal/branching, transcript/timer/Pause, provider/model/cost, Performer assignment, portable Production, manuscript/export and specialized maps remain Product/Engineering gated.",
+    "No Stage visual successor or Phase-2 authority is created.",
+    "No WinUI/XAML/native-accessibility/runtime/ARM64/package/Store authority is created."
+  ],
+  "conclusion": "PRODUCTION_SHAPING_CURRENT_POSSIBILITY_FUNCTIONAL_DETAIL_PASS",
+  "approval": "APPROVED BY STANDING DIRECTOR DELEGATION - CLEAN RECURSIVE AUDIT",
+  "next": "Detail the selected-entity contextual inspector and deep-inspection surface family inside the frozen shell, preserving semantic origin, disclosure, state distinctions and exact return behavior."
+}

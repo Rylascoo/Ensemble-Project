@@ -1,0 +1,106 @@
+{
+  "schema": "kymaean.appui-stage-presentation-successor-result.v1",
+  "status": "PASS_PROMOTE_S1_STAGE_PRESENTATION_REFERENCE",
+  "date": "2026-09-16",
+  "gate": "APPUI-01-STAGE-PRESENTATION-SUCCESSOR-01",
+  "method": "docs/evidence/APPUI_01_STAGE_PRESENTATION_SUCCESSOR_METHOD_01.json",
+  "authority": {
+    "repository": "Rylascoo/Ensemble-Website",
+    "branch": "design/appui01-working-compositions-2026-09-14",
+    "baseline_commit": "1c383c0e1f05b5b7d9f3ed72e941a5aaa155a95f",
+    "website_main_reconciled": "e483f0af35166534fff1455f68e287cc9190d91a",
+    "engineering_main_reconciled": "526893a0f518b52bceddb311514de12ec826b9b3",
+    "director_authorization": "continue after exact-full-raster integration HOLD"
+  },
+  "source": {
+    "packet": "PKT-STAGE-CORE-02",
+    "sha256": "7f3b3a815d71d1aa47350e69824f14f92a5dd399cf0c68bf16074827ead6b3c0",
+    "bytes": 1431659,
+    "dimensions": [
+      1672,
+      941
+    ]
+  },
+  "artifacts": {
+    "method_sha256": "ce6d074c3b8df82e7f59d820ab77a3823d1ab76af026977ac8cd4eedb9b7c712",
+    "template": "prototypes/appui-01/stage-presentation-successor-01.template.html",
+    "template_sha256": "9c2a6f5a70a0f01af3bc0337a9df68126df33697518619f2e42121017ee6076d",
+    "materializer": "tools/materialize_appui_stage_presentation_successor.py",
+    "materializer_sha256": "96acb4b42869b4394de8da1b1fa7e857df4dc3453759e8824506a5beeb7ce9b1",
+    "probe": "tools/appui_stage_presentation_successor_matrix_probe.mjs",
+    "probe_sha256": "5af6ec854f21bc2a360de822acfe56af96a601fe75a198537298fbdfe67e91cf"
+  },
+  "candidate_results": [
+    {
+      "id": "R1_RECT_FIELD_CONTROL",
+      "mechanical": "PASS_ALL_SEVEN_CASES",
+      "visual": "REJECT",
+      "png_sha256": "869aa94535f2d9be8e01ab075711668f1be97d6f5a36ec7f82713c5060f5c5e0",
+      "reason": "The orphaned 00:27:14 / Live Performance strip survives as a partial active-control fragment and conflicts with the completed shell."
+    },
+    {
+      "id": "S1_STEPPED_FIELD_EXTRACTION",
+      "mechanical": "PASS_ALL_SEVEN_CASES",
+      "visual": "PASS_PROMOTE",
+      "png_sha256": "bb3e21f43edde49b92c9272812f5f7bc23a2fc1bc4ea4fb58d96d950faf90319",
+      "dimensions": [
+        1035,
+        370
+      ],
+      "transparent_pixels": 7475,
+      "retained_pixel_rule": "Every retained RGB pixel exactly equals the corresponding PKT-STAGE-CORE-02 source pixel; only the preregistered 115x65 alpha notch is transparent.",
+      "reason": "Removes the overlapping legacy strip while preserving all five cone/floor/name/state units and the Stage field without duplicate shell chrome."
+    }
+  ],
+  "mechanical_result": {
+    "cases": [
+      "normal-1600",
+      "normal-1024",
+      "normal-390",
+      "normal-320",
+      "forced-colors-320",
+      "text-200-percent-320",
+      "text-spacing-stress-320"
+    ],
+    "matrix_sha256": "9079cd1b4728dca35e47244b96fd846db45a1859ffa637acc7f69129df18772c",
+    "result": "PASS_ZERO_OVERFLOW_ALL_SEVEN_CASES_BOTH_CANDIDATES",
+    "light_dark_pixel_identity": "PASS",
+    "missing_button_names": 0,
+    "undersized_icon_buttons": 0,
+    "keyboard_focus": "PASS_SOLID_2PX_WITH_2PX_OFFSET",
+    "external_resources": 0
+  },
+  "recursive_audit": {
+    "coordinate_grid": "Disposable only; not preserved as candidate evidence.",
+    "background_source_recovery": "No recoverable background-only intermediate or deterministic source was found in the frozen Drive folder, repository history or machine-wide Sol Dev search.",
+    "frozen_selection": "R1 and S1 coordinates/mask were frozen before shell exposure and were not tuned from result-aware review.",
+    "r1_falsifier": "FAIL_PARTIAL_LEGACY_CONTROL_FRAGMENT",
+    "s1_falsifiers": "CLEAN; notch is visually absorbed by the dark Stage field, five Character units remain complete, and no duplicate chrome remains.",
+    "determinism": "Final S1 rerun reproduced candidate/runtime/matrix hashes exactly."
+  },
+  "drive_evidence": {
+    "folder": "03 Visual Identity & Artwork / Kymaean / 04 Lane A — Product UI Reintegration — Active / 20 APPUI-01 Stage Presentation Successor 01",
+    "s1_png_sha256": "bb3e21f43edde49b92c9272812f5f7bc23a2fc1bc4ea4fb58d96d950faf90319",
+    "s1_wide_sha256": "d22c613a00f65a1576e174aee131c4c2c7e8b22001ec4e151da7a3a8b5bc9397",
+    "s1_narrow_sha256": "496a2881fb1ebb91627d768c7ed53741e4050f04a74d63b822eb6e16d24ce006",
+    "manifest_sha256": "1822ed9e5945db653c8cc021e084f6ea6c4f081bb7e3c9d439b8298dfae08057",
+    "matrix_sha256": "9079cd1b4728dca35e47244b96fd846db45a1859ffa637acc7f69129df18772c",
+    "r1_control_sha256": "869aa94535f2d9be8e01ab075711668f1be97d6f5a36ec7f82713c5060f5c5e0",
+    "r1_wide_sha256": "739d5f88b09023f769eadebfeab65e0eeb2a6132105e9e004ede955f4fc0e1e7"
+  },
+  "disposition": {
+    "selected": "S1_STEPPED_FIELD_EXTRACTION",
+    "packet": "PKT-APPUI-STAGE-PRESENTATION-01",
+    "stage_core_authority": "UNCHANGED_PKT_STAGE_CORE_02",
+    "presentation_authority": "CURRENT_PROVISIONAL_SHELL_FACING_DESIGN_REFERENCE",
+    "full_raster_hold": "RESOLVED_BY_BOUNDED_PRESENTATION_SUCCESSOR",
+    "component_program": "REMAINS_CLOSED_11_OF_11"
+  },
+  "non_authority": [
+    "S1 does not replace or supersede PKT-STAGE-CORE-02.",
+    "No cone/background/Character/state pixel meaning is redesigned.",
+    "No Product command, transcript, provider/Performer, production-token, native WinUI/XAML, shipping or Store authority is created."
+  ],
+  "next_boundary": "HOLD further Stage presentation refinement. Re-enter only for new Director/Product/native/implementation evidence or a separately authorized visual-system program; do not invent a second extraction tweak by sequence alone.",
+  "conclusion": "PASS_PROMOTE_S1_STAGE_PRESENTATION_REFERENCE"
+}

@@ -1,0 +1,97 @@
+{
+  "schema": "kymaean.appui-phase2-present-character-density-stress.v1",
+  "status": "PASS_STATIC_2_TO_5_DENSITY_STRESS",
+  "date": "2026-09-15",
+  "program": "APPUI-01-P2-DENSITY-01",
+  "repository": "Rylascoo/Ensemble-Website",
+  "authority": {
+    "design_parent_ref": "bfb11a4d79182b478140b19d189731d244606926",
+    "phase2_entry_gate": "docs/evidence/APPUI_01_PHASE_2_ENTRY_GATE_ENGINEERING_RECONCILIATION_2026_09_15.json",
+    "stage_anchor": "PKT-STAGE-CORE-02",
+    "stage_authority": "docs/KYMAEAN_STAGE_CORE_BASELINE_AND_BACKGROUND_SUCCESSOR_AUTHORITY_01.md",
+    "engineering_ref": "60b85fbcb36e265e3910444714143d944ffef841"
+  },
+  "question": "Can the frozen cone/name/floor Stage carrier remain legible and theatrical across the authority-named 2–5 Character design-stress range without implying Scene cardinality law?",
+  "result": "PASS",
+  "carrier": {
+    "path": "prototypes/appui-01/phase2-present-character-density-stress-composition-01.html",
+    "sha256": "86a3e6339866c200a11a8020253f4289ecdc9d3d4443db9adfc74b75441b3612",
+    "production_authority": false
+  },
+  "visual_result": {
+    "png_sha256": "5aea6f52a42ef078fdb687d55c41eac97fb621c9c882d4202bc4e9b5f079a1be",
+    "specimens": [
+      2,
+      3,
+      4,
+      5
+    ],
+    "total_character_witnesses": 14
+  },
+  "accepted_findings": [
+    "Sparse two-Character composition may retain large theatrical negative space without inflating Characters into portrait/avatar monuments.",
+    "Three- and four-Character layouts can vary spacing while preserving a relational ensemble field and independently readable states.",
+    "The five-Character incumbent witness remains legible without converting Characters into cards or dashboard rows.",
+    "Human-readable names remain the explicit identity anchor at every tested density.",
+    "Listening Characters remain visibly present; speaking, creator selection and current opportunity remain separate meanings.",
+    "Narrow layouts compress the same Stage field without horizontal scrolling or substituting a different information architecture."
+  ],
+  "browser_preflight": {
+    "modes": [
+      {
+        "id": "normal-1600",
+        "result": "PASS",
+        "overflow": 0
+      },
+      {
+        "id": "normal-1024",
+        "result": "PASS",
+        "overflow": 0
+      },
+      {
+        "id": "normal-390",
+        "result": "PASS",
+        "overflow": 0
+      },
+      {
+        "id": "normal-320",
+        "result": "PASS",
+        "overflow": 0
+      },
+      {
+        "id": "forced-colors-320",
+        "result": "PASS",
+        "overflow": 0
+      }
+    ],
+    "character_witnesses": 14,
+    "images": 0,
+    "external_resources": 0,
+    "wide_visual_review": "PASS",
+    "narrow_visual_review": "PASS"
+  },
+  "recursive_audit": {
+    "result": "CLEAN",
+    "defects_repaired": [],
+    "utf8_integrity": "PASS",
+    "fixture_coherence": "PASS — Gilligan’s Isle / The Missing Raft family only",
+    "cardinality_boundary": "PASS — every 2–5 statement remains design-stress evidence only"
+  },
+  "explicit_non_authority": [
+    "2 and 5 are not minimum/maximum Scene counts; ODR-30 remains open.",
+    "No Character membership, entry/exit, addition/removal, scheduling or persistence rule is defined.",
+    "No dynamic reflow, animation, cadence or transcript-dependent motion authority is created; Q-DESIGN-02 remains blocked.",
+    "Counts outside 2–5 are not ruled out by this study.",
+    "PKT-STAGE-CORE-02 remains the Stage anchor; this board does not replace it.",
+    "No intervention/Take/consequence/provider/Performer/runtime/shipping authority is created."
+  ],
+  "next_boundary": "Detail Stage-specific unavailable/interrupted/recovery presentation as a static live-workspace exception study, reusing frozen Phase-1 infrastructure-versus-fiction law without inventing runtime behavior.",
+  "approval": "APPROVED BY STANDING DIRECTOR DELEGATION — CLEAN RECURSIVE AUDIT.",
+  "drive": {
+    "folder_id": "14-C5PrxDjO_X2a1j3Ip7oLN5QYXzDj2p",
+    "png_id": "1hj3lsNS_2CZh4F58nqYTIiHYFJipP2wF",
+    "png_sha256": "5aea6f52a42ef078fdb687d55c41eac97fb621c9c882d4202bc4e9b5f079a1be",
+    "html_id": "1a8VtQSOtd2WCTB9nS2SYk72Z_5_Np22x",
+    "html_sha256": "86a3e6339866c200a11a8020253f4289ecdc9d3d4443db9adfc74b75441b3612"
+  }
+}

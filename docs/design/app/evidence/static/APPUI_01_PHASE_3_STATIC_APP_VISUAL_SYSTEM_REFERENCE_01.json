@@ -1,0 +1,70 @@
+{
+  "schema": "kymaean.appui-phase3-static-app-visual-system-reference.v1",
+  "status": "PHASE_3_STATIC_APP_VISUAL_SYSTEM_REFERENCE_PASS",
+  "date": "2026-09-15",
+  "program": "APPUI-01 Phase 3 - Kymaean Visual-Language Integration",
+  "repository": "Rylascoo/Ensemble-Website",
+  "authority": {
+    "design_branch": "design/appui01-working-compositions-2026-09-14",
+    "design_head_before_reference_closeout": "64acf96e84488ce44e01a2045654734c353cd529",
+    "canonical_static_system": "docs/KYMAEAN_APPUI_PHASE_3_STATIC_APP_VISUAL_SYSTEM_01.md",
+    "consolidation_evidence": "docs/evidence/APPUI_01_PHASE_3_STATIC_APP_VISUAL_SYSTEM_CONSOLIDATION_01.json",
+    "director_dark_selection": "docs/evidence/APPUI_01_PHASE_3_DIRECTOR_D3_STATIC_APP_DARK_SELECTION_01.json",
+    "website_main_reconciled": "4a847ddd942598bba6e8e8a6febd4e9ce9f3c65d",
+    "engineering_main_reconciled": "bd32532133b4dbc66d2ffd1a7f77c3d0a2fd38dd"
+  },
+  "carrier": {
+    "path": "prototypes/appui-01/phase3-static-app-visual-system-reference-01.html",
+    "sha256": "fc957bbad87c382bf8cdd414efcaaabcb8adbf87e1677ee9849ba9e620c9f66f",
+    "probe": "tools/appui_phase3_static_app_visual_system_reference_matrix_probe.mjs",
+    "probe_sha256": "ecc0c913db477920f31dc5327c53ac2f7053acfed2c69a6987e29a363bd4b72d"
+  },
+  "drive": {
+    "archive_folder_id": "1E6n1eOK_HYTF-fAiw7AbBYlvtNvn3HDE",
+    "html_id": "1Tr64MOk6gyvZ8OQ6J6STIca2rXA6hP76",
+    "png_id": "10i7nkdNVVDkuZb6Uke3Iw0Kk5JTRUMZt",
+    "png_sha256": "7af492d0c6b1bb6a41e5400b3e2832308346261b10adf18f8dde8979d187ee87"
+  },
+  "matrix": {
+    "cases": ["1600", "1024", "390", "320", "320_forced_colors", "320_text_200_percent", "320_text_spacing"],
+    "result": "PASS_ZERO_OVERFLOW",
+    "forced_colors_active_when_required": true,
+    "invariants_each_case": {
+      "themes": 2,
+      "material_fields": 2,
+      "color_role_witnesses": 12,
+      "state_controls": 10,
+      "selected_witnesses": 4,
+      "focus_witnesses": 4,
+      "semantic_witnesses": 8,
+      "stage_witnesses": 2,
+      "system_laws": 4
+    }
+  },
+  "contrast": {
+    "LIGHT": {"primary": 15.055, "secondary": 6.461, "boundary": 4.032, "accent": 5.398},
+    "D3": {"primary": 16.072, "secondary": 9.04, "boundary": 3.532, "accent": 5.329}
+  },
+  "recursive_audit": {
+    "visual_review": "CLEAN_WIDE_AND_NARROW",
+    "theme_parity": "PASS - Light F2 and Dark D3 communicate identical meaning and hierarchy.",
+    "material": "PASS - MAT F1 remains restrained continuous-field topology rather than card identity.",
+    "typography": "PASS - TYP F1 remains subordinate hierarchy rather than the primary identity carrier.",
+    "state": "PASS - STA F2 keeps selection structurally distinct from keyboard focus.",
+    "stage": "PASS - both theme specimens use the same invariant dark Stage witness.",
+    "semantic_color": "PASS - current/historical/provisional/infrastructure witnesses remain structural/textual rather than color-dependent.",
+    "encoding": "PASS - zero replacement characters and zero invalid control characters.",
+    "external_resources": "PASS - self-contained carrier with no external resources.",
+    "result": "CLEAN"
+  },
+  "non_authority": [
+    "The reference carrier is design evidence, not an application screen or component library.",
+    "No production token package or naming API is frozen.",
+    "No native WinUI/XAML, Windows accessibility, ARM64 runtime or shipping-asset authority is created.",
+    "No Stage successor, motion/micro-interaction or Product-gated control authority is created.",
+    "No website palette or shared-brand-final authority is created."
+  ],
+  "conclusion": "PASS - the compact reference faithfully materializes the canonical static APP VISUAL system without expanding its authority.",
+  "approval": "APPROVED BY STANDING DIRECTOR DELEGATION - CLEAN REFERENCE-CARRIER AUDIT.",
+  "next_boundary": "Audit remaining Phase-3 static APP VISUAL axes against the canonical system and Product gates; open only the strongest unresolved axis that can be advanced without motion/E0-E, native implementation, or shared-brand-final authority."
+}

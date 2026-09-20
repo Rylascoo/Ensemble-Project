@@ -1,0 +1,84 @@
+{
+  "schema": "kymaean.appui-component-system-contextual-deep-inspection-integration-result.v1",
+  "status": "CLOSED_REAL_CONTEXTUAL_DEEP_INSPECTION_PASS",
+  "date": "2026-09-16",
+  "program_id": "APPUI-COMP-04",
+  "repository": "Rylascoo/Ensemble-Website",
+  "authority": {
+    "design_head_pre_close": "079ebb998059955015b70c4dbc935bf4a37435e1",
+    "method": "docs/evidence/APPUI_01_COMPONENT_SYSTEM_CONTEXTUAL_DEEP_INSPECTION_INTEGRATION_METHOD_01.json",
+    "shaping_packet": "PKT-COMP-03-01",
+    "shell_packet": "PKT-COMP-02-01",
+    "component_packet": "PKT-COMP-01-01",
+    "functional_study": "docs/evidence/APPUI_01_CONTEXTUAL_DEEP_INSPECTION_SURFACE_FAMILY_FUNCTIONAL_STUDY_01.json",
+    "visual_study": "docs/evidence/APPUI_01_PHASE_3_CONTEXTUAL_DEEP_INSPECTION_F2_D3_INTEGRATION_01.json",
+    "website_main_reconciled": "fdf4f87b939c54358125e36aa2b81f070fdd1e6f",
+    "engineering_main_reconciled": "2bfb0c1c3e8cb79acafe72d6fb80692bc818a407"
+  },
+  "carrier": {
+    "path": "prototypes/appui-01/component-system-contextual-deep-inspection-integration-01.html",
+    "sha256": "3b6596fc04bd8d5e142ce339cc42c7710459d84115d775218f37c7395bbf7792",
+    "probe": "tools/appui_component_system_contextual_deep_inspection_matrix_probe.mjs",
+    "probe_sha256": "8f3488bc1be3d2ddcc4a3fec8bbe1b723ca3698bdf5f29b55178e36408937c3d"
+  },
+  "mechanical_result": {
+    "matrix_sha256": "6faad6ae073e47f43e51298ebca07bf13438ffaaf69625d8ed20cc078db7a85d",
+    "cases": ["normal-1600","normal-1024","normal-390","normal-320","forced-colors-320","text-200-percent-320","text-spacing-stress-320"],
+    "all_pass": true,    "observed": [
+      "zero contextual-state horizontal overflow in every case",
+      "zero deep-state horizontal overflow in every case",
+      "zero missing button accessible names and zero undersized icon-only controls",
+      "solid 2px keyboard focus with 2px offset while focus differs from selection",
+      "deep activation succeeds in both themes while the Shaping surface is exclusively hidden",
+      "Back and Close each restore focus to the originating deep-inspection trigger",
+      "the same selected relationship survives deep open/return in both themes",
+      "zero external resources or images"
+    ]
+  },
+  "visual_result": {
+    "contextual_role": "PASS - relevant-here inspection stays subordinate to current Shaping meaning",
+    "deep_role": "PASS - the same selected relationship gains temporary task depth without becoming a second app mode",
+    "origin_and_return": "PASS - Production/current-situation/relationship origin remains explicit and return semantics remain structural",
+    "current_vs_historical": "PASS - historical context is dashed and explicitly labeled",
+    "provisional_vs_effective": "PASS - provisional shaping capacity is dotted/labeled and explicitly non-effective",
+    "light_dark_semantic_parity": "PASS",
+    "narrow_sequential_depth": "PASS"
+  },
+  "repairs": [
+    "The first complete deep-state render exposed that authored .shaping display:grid overrode the HTML hidden attribute, leaving contextual Shaping visible beneath deep inspection.",
+    "Added an explicit .shaping[hidden]{display:none} rule and a probe invariant requiring zero visible Shaping surfaces while deep inspection is open.",
+    "The complete contextual/deep seven-case matrix was rerun after correction with no semantic or frozen visual-role retune."
+  ],
+  "authority_created": [
+    "Contextual and deep inspection now operate as one continuous real-shell task flow above COMP-03.",
+    "Deep inspection preserves the same selected entity and exact semantic origin rather than creating a new global app mode.",
+    "Back and Close are navigation with exact focus return, not Undo and not state mutation.",
+    "Historical and provisional material remain structural/textual distinctions independent from theme color."
+  ],  "explicit_non_authority": [
+    "No exhaustive Product entity taxonomy or persistent data schema is created.",
+    "No commit/save/validation/undo, Scene lifecycle, Take/Rehearsal/branching, consequence, Perspective, provider/model/cost or Performer-assignment semantics are created.",
+    "No Bellweather placement, bespoke domain icons, motion/Stage successor, production tokens or native WinUI/XAML implementation is created.",
+    "Browser evidence remains design/reference evidence only and is not native Windows accessibility, runtime, WACK or Store validation."
+  ],
+  "recursive_audit": {
+    "live_authority": "PASS",
+    "accepted_inspection_semantics": "PASS",
+    "deep_surface_exclusivity": "PASS",
+    "exact_return_and_focus": "PASS",
+    "current_history_and_provisional_effective": "PASS",
+    "selection_focus_independence": "PASS",
+    "product_boundary": "PASS",
+    "responsive_accessibility": "PASS",
+    "concurrent_website_isolation": "PASS",
+    "cross_stream_merge_safety": "PASS - no convenience merge/rebase"
+  },
+  "review_artifacts": {
+    "context_wide_png_sha256": "5caea5684a9bb5b36b6923a770a8cf32eb7f4c7afeb6006b5326a9f9d35650ec",
+    "deep_wide_png_sha256": "672255f9c863abf80cebe1b651059931be7a67a9472b776998d3dba4a6a1afcf",
+    "context_narrow_png_sha256": "97d33e235c5c4d6ac85c73e0b258673847fc75e843a508ee2b9ca027de00fe30",
+    "deep_narrow_png_sha256": "92a6dab33618a9fc337c985f5d8a75b3b414e81fe55d37ce2248a00faf117409"
+  },
+  "conclusion": "PASS - COMP-04 validates contextual-to-deep inspection as one continuous real-shell task flow with exact origin/return and no Product-semantic invention.",
+  "approval": "APPROVED BY STANDING DIRECTOR DELEGATION - CLEAN RECURSIVE AUDIT.",
+  "next_boundary": "Open APPUI-COMP-05 for whole-Production Character management inside the COMP shell, preserving off-Scene explicitness, Scene-membership non-implication, persistent Character identity and Character-versus-Performer separation without creating a permanent People silo."
+}

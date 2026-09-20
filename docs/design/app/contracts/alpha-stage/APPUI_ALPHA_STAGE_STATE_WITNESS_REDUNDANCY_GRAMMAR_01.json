@@ -1,0 +1,102 @@
+{
+  "status": "ACTIVE DESIGN EVIDENCE",
+  "packet_id": "APPUI-ALPHA-STATE-WITNESS-01",
+  "title": "Kymaean Alpha Stage State Witness & Redundancy Grammar 01",
+  "authority": {
+    "design_repo": "Rylascoo/Ensemble-Website",
+    "design_branch": "design/appui01-working-compositions-2026-09-14",
+    "engineering_repo": "Rylascoo/Ensemble-Project",
+    "engineering_ref_observed": "2137e8c9db1a9c7817a3cda872e43c6cf72cdc3d",
+    "engineer_2_status": "working independently; this packet does not mutate Engineering",
+    "design_architecture_ready": "NOT READY"
+  },
+  "source_authority": [
+    "docs/KYMAEAN_LANE_A_STAGE_CARRIER_SELECTION_01.md",
+    "docs/KYMAEAN_LANE_A_STAGE_CONE_INTERACTION_01.md",
+    "APPUI Phase 2 Present-Character Density Stress 01",
+    "APPUI Phase 2 Silence / Listening / System Non-Response 01",
+    "APPUI Phase 2 Relationship Salience Composition 01",
+    "APPUI Phase 2 Nonverbal Action / Refusal Composition 01",
+    "APPUI Phase 3 Static App Visual System Reference 01",
+    "docs/evidence/APPUI_ALPHA_STAGE_INTERACTION_SPATIAL_GRAMMAR_01.json",
+    "docs/evidence/APPUI_ALPHA_STAGE_INFORMATION_DISCLOSURE_ARCHITECTURE_01.json"
+  ],
+  "redundancy_principle": "Every essential state requires a structural or textual witness that survives loss of color and motion. Decorative variation may reinforce, never replace, semantic witness.",
+  "witness_layers": {
+    "I": "Identity — human-readable Character name + stable programmatic identity; no color/portrait/position dependence.",
+    "P": "Presence/performance — listening, speaking/performing, performed silence, nonverbal action, refusal remain explicit fictional meanings.",
+    "O": "Opportunity — explicit independent non-color witness only when Product truth exposes current opportunity.",
+    "C": "Creator interaction — keyboard focus and creator selection remain independent; focus uses solid outer ring reference, selection uses persistent structural edge witness at floor/name hinge.",
+    "R": "Relationship salience — quiet composition-level grouping, never type/score/obligation/permanent graph.",
+    "T": "Temporal/effect — current solid+label, historical dashed+label, provisional/non-effective dotted+label for supporting information.",
+    "A": "Application/infrastructure — explicit application-side status outside Character fictional carriers."
+  },
+  "collision_rules": [
+    "identity must remain readable before all other emphasis",
+    "performance state remains explicit independently of opportunity/selection",
+    "opportunity stays independent from focus/selection/performance/relationship salience",
+    "focus and selection may coexist and remain separately perceivable",
+    "relationship salience must not obscure individual Character state",
+    "temporal/effect status applies to information surfaces, not automatically to Character performance",
+    "infrastructure must not mutate fictional Character presentation"
+  ],
+  "stress_cases": [
+    "selected+listening Character while another speaks",
+    "selected Character while another has current opportunity",
+    "focus inside inspector while Stage selection persists",
+    "speaking Character in salient relationship while neither member is selected",
+    "performed silence with different selected and opportunity Characters",
+    "historical causal context open while Stage performance remains current",
+    "technical non-response outside Stage with fictional states unchanged",
+    "focus+selection on same Character without creating opportunity/performance"
+  ],
+  "prohibited": [
+    "color-only identity/state",
+    "motion-only state",
+    "portrait-only identity",
+    "full-cone selected card",
+    "one generic glow for focus+selection+opportunity+speaking",
+    "dimmed listener as absence",
+    "silence as blank output",
+    "refusal as system error",
+    "relationship score/graph inferred from proximity",
+    "technical state painted into Character performance",
+    "new pip/icon vocabulary without separately justified semantic need"
+  ],
+  "open_variables": [
+    "final Character colors/textures",
+    "exact cone/floor modulation for performance/opportunity",
+    "final Stage state labels/copy",
+    "redundant Character identity symbol",
+    "relationship-salience geometry",
+    "native focus/selection metrics beyond static reference intent",
+    "motion/timing/cadence/transitions",
+    "state/opportunity/relationship algorithms",
+    "final performance-modality iconography",
+    "screen-reader/native accessibility implementation",
+    "forced-colors/high-contrast native validation"
+  ],
+  "drive": {
+    "folder_id": "1ZaxYARCLFFi33psHy3GkBEhyyqhUX2tr",
+    "document_id": "1xloJUI1zPBWZ9gzZj8qYi7wuRY4pI6k7MLrOeYdJ9sw",
+    "document_title": "Kymaean Alpha Stage State Witness & Redundancy Grammar 01"
+  },
+  "non_authority": [
+    "No new Product/runtime semantics",
+    "No opportunity algorithm",
+    "No relationship algorithm",
+    "No motion/timing authority",
+    "No final icon/symbol vocabulary",
+    "No native accessibility validation",
+    "No Engineering mutation"
+  ],
+  "audit": {
+    "contradictions_found_and_resolved": [
+      "Older color/glow-heavy treatments are retained only as reinforcement; essential state now requires structural/textual witness.",
+      "Historical neutral pips/redundant symbols remain test instrumentation and are not promoted into final identity vocabulary.",
+      "STA F2 focus/selection mechanics are preserved while Stage-specific placement is constrained to floor/name interaction hinge rather than full-cone container.",
+      "Current/historical/provisional structural vocabulary is confined to information/effect status and is not silently reused as Character-performance semantics."
+    ],
+    "clean_result": true
+  }
+}

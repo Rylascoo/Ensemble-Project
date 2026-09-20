@@ -1,0 +1,72 @@
+{
+  "schema": "kymaean.appui-phase2-nonverbal-action-refusal-composition.v1",
+  "status": "PHASE_2_BOUNDED_COMPOSITION_PASS",
+  "date": "2026-09-15",
+  "program": "APPUI-01-P2-PERFMOD-01",
+  "repository": "Rylascoo/Ensemble-Website",
+  "authority": {
+    "design_parent_ref": "39ba45df8ee4a34e4eb37b933199db7d32a3bbdc",
+    "phase2_program": "docs/evidence/APPUI_01_THREE_PHASE_PROGRAM_AND_STAGE_INTERFACE_ENVELOPE_AUDIT_2026_09_14.json",
+    "phase1_stage_envelope": "docs/KYMAEAN_APPUI_PHASE_1_STAGE_INTERFACE_ENVELOPE_AND_LAYOUT_MAP_01.md",
+    "architecture_proposal": "docs/KYMAEAN_APP_INFORMATION_RELATIONSHIP_ARCHITECTURE_PROPOSAL_01.md",
+    "visual_crosswalk": "docs/KYMAEAN_APP_ARCHITECTURE_TO_VISUAL_REQUIREMENTS_CROSSWALK_01.md",
+    "stage_anchor": "PKT-STAGE-CORE-02",
+    "engineering_ref": "e8b702a5b37d208d7caeeb6ffeb5a6beacf24f85",
+    "q_design_02": "BLOCKED - transcript-dependent Stage motion/integration still lacks E0-A vs E0-E behavioral evidence"
+  },
+  "question": "Can nonverbal action and refusal remain explicit Character-legible performance without dialogue-bubble dependence, missing-output ambiguity, technical-failure confusion, motive inference or runtime semantics?",
+  "result": "PASS",
+  "carrier": {
+    "path": "prototypes/appui-01/phase2-nonverbal-action-refusal-composition-01.html",
+    "sha256": "5d1c4a3baccfe22f5d729bcb82c4884e81604d03a07c7ad949f552b4194ea8d4",
+    "browser_probe": "tools/appui_phase2_nonverbal_action_refusal_browser_probe.mjs",
+    "browser_probe_sha256": "055d1d8ee400f242b4bb5cf2c60be64865e9b353b43b15a00e476d6342304238",
+    "static_only": true,
+    "images": 0,
+    "external_resources": 0
+  },
+  "drive": {
+    "folder_id": "14-C5PrxDjO_X2a1j3Ip7oLN5QYXzDj2p",
+    "png_id": "1e2Ckkj5wLi_dwHZiI8Sm8UJ6-SY5Lo4g",
+    "png_sha256": "dfb000a7620f5b2bf05057a5f98d61bba2e9e2fb4404fa96d526cdf891a0bddc",
+    "html_id": "1ZLsLP2yMX1NmN-72ySRE8D3iY7sGPCc4",
+    "html_sha256": "5d1c4a3baccfe22f5d729bcb82c4884e81604d03a07c7ad949f552b4194ea8d4"
+  },
+  "browser_matrix": [
+    {"mode":"normal","width":1600,"overflow":false,"overflow_elements":0,"shells":3,"stages":3,"cones":15,"forced_colors":false},
+    {"mode":"normal","width":1024,"overflow":false,"overflow_elements":0,"shells":3,"stages":3,"cones":15,"forced_colors":false},
+    {"mode":"normal","width":390,"overflow":false,"overflow_elements":0,"shells":3,"stages":3,"cones":15,"forced_colors":false},
+    {"mode":"normal","width":320,"overflow":false,"overflow_elements":0,"shells":3,"stages":3,"cones":15,"forced_colors":false},
+    {"mode":"forced","width":320,"overflow":false,"overflow_elements":0,"shells":3,"stages":3,"cones":15,"forced_colors":true}
+  ],
+  "accepted_grammar": [
+    "Listening, nonverbal action and refusal can remain distinct current Stage meanings on the same Character carrier family.",
+    "Nonverbal action may be current Character performance without requiring quoted dialogue, a speech bubble or transcript-first hierarchy.",
+    "Refusal may be explicit Character agency and must not be confused with missing output, provider failure or incapacity.",
+    "Creator selection and Director opportunity remain independent from performance modality; opportunity does not require response.",
+    "Performance modality does not establish motive, emotion, relationship meaning, causal effect or acceptance."
+  ],
+  "recursive_audit": {
+    "mechanical": "PASS - 1600/1024/390/320 and 320 forced-colors; zero viewport/internal overflow, images or external resources.",
+    "visual": "PASS - wide and narrow renders preserve the same three-way modality comparison and reading order.",
+    "semantic": "PASS after repairs",
+    "repairs": [
+      "Removed the inherited technical-status caption class from the refusal specimen so fictional refusal does not inherit infrastructure styling.",
+      "Applied the same explicit performed-state emphasis to refusal and nonverbal action so refusal does not read as a weaker modality.",
+      "Replaced stale silence/system explanatory sections with action/refusal-specific interpretation guards and non-authority boundaries."
+    ],
+    "utf8": "PASS - no replacement/mojibake characters detected."
+  },
+  "explicit_non_authority": [
+    "No action/gesture ontology, refusal taxonomy, multimodal representation contract or final label/icon treatment is frozen.",
+    "No motive, emotion, intention, resistance, preference, incapacity or psychological interpretation is inferred.",
+    "No duration, turn length, pause interval, beat, transcript cadence, animation timing or response threshold is established.",
+    "No causal effect, accepted Take, consequence, history mutation, Scene progression or changed-opportunity semantics are established.",
+    "No transcript/provenance placement, Stage-motion successor, provider behavior, Performer semantics or Phase-D Product control is promoted."
+  ],
+  "disposition": {
+    "static_gap_closed": true,
+    "phase2_static_closeout_audit_required": true,
+    "next": "Rerun consolidated Phase-2 static coverage against all eight accepted bounded studies, then fresh-reconcile Engineering before any Phase-3 entry decision."
+  }
+}

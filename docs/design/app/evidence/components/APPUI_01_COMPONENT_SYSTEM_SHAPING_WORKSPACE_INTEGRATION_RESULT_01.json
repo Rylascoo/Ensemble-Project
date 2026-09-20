@@ -1,0 +1,81 @@
+{
+  "schema": "kymaean.appui-component-system-shaping-workspace-integration-result.v1",
+  "status": "CLOSED_REAL_SHAPING_WORKSPACE_PASS",
+  "date": "2026-09-16",
+  "program_id": "APPUI-COMP-03",
+  "repository": "Rylascoo/Ensemble-Website",
+  "authority": {
+    "design_head_pre_close": "cb4211c9619fb01ff7da73face9b59c237aaf347",
+    "method": "docs/evidence/APPUI_01_COMPONENT_SYSTEM_SHAPING_WORKSPACE_INTEGRATION_METHOD_01.json",
+    "shell_packet": "PKT-COMP-02-01",
+    "component_packet": "PKT-COMP-01-01",
+    "functional_study": "docs/evidence/APPUI_01_PRODUCTION_SHAPING_CURRENT_POSSIBILITY_FUNCTIONAL_STUDY_01.json",
+    "visual_study": "docs/evidence/APPUI_01_PHASE_3_PRODUCTION_SHAPING_F2_D3_INTEGRATION_01.json",
+    "website_main_reconciled": "fdf4f87b939c54358125e36aa2b81f070fdd1e6f",
+    "engineering_main_reconciled": "2bfb0c1c3e8cb79acafe72d6fb80692bc818a407"
+  },
+  "carrier": {
+    "path": "prototypes/appui-01/component-system-shaping-workspace-integration-01.html",
+    "sha256": "d65329d90ea968c7336d2b80610a9893192cf3727a70ad6584644d574e53bdaf",
+    "probe": "tools/appui_component_system_shaping_workspace_matrix_probe.mjs",
+    "probe_sha256": "b271c64550b0c6f9f08b2c32b587cddc82329f81f13f0b368e50dad618f2adb9"
+  },
+  "mechanical_result": {
+    "matrix_sha256": "9e9e67dbe6d4b118843089c4fd7364c691e80f29fc3fe367b7048d9075100fca",
+    "cases": ["normal-1600","normal-1024","normal-390","normal-320","forced-colors-320","text-200-percent-320","text-spacing-stress-320"],
+    "all_pass": true,    "observed": [
+      "zero page-level and internal horizontal overflow in every case",
+      "zero missing button accessible names",
+      "zero undersized icon-only controls",
+      "solid 2px keyboard focus with 2px offset",
+      "one selected meaningful element per theme",
+      "keyboard focus can target a different meaningful element without moving selection",
+      "meaningful-element activation updates contextual inspection in both themes",
+      "zero external resources or images"
+    ]
+  },
+  "visual_result": {
+    "situation_first_hierarchy": "PASS",
+    "ontology_browser_regression": "PASS - avoided",
+    "continuous_authored_field": "PASS",
+    "contextual_inspector_subordination": "PASS",
+    "light_dark_semantic_parity": "PASS",
+    "narrow_primary_sequence": "PASS - current situation and meaningful elements precede secondary orientation and inspection",
+    "selection_vs_focus": "PASS - teal edge selection and independent keyboard focus ring are simultaneously visible"
+  },
+  "repairs": [
+    "Initial 200-percent-text pass exposed internal board-heading overflow; overflow wrapping was added without changing app hierarchy or visual roles.",
+    "Initial narrow pass placed secondary situation orientation before the current situation; responsive ordering was corrected so primary current meaning precedes secondary orientation.",
+    "Probe evidence was corrected so screenshot capture precedes activation, visibly preserving selection versus focus separation while activation remains machine-tested afterward."
+  ],
+  "authority_created": [
+    "Production Shaping / Current Possibility is now validated as a real workspace inside the COMP-02 shell rather than only a prior architecture/visual study.",
+    "Shaping remains current-Production depth reached from current meaning; it does not become a new permanent global navigation destination.",
+    "Current situation and meaningful elements dominate; orientation and contextual inspection remain subordinate.",
+    "Selected meaning updates contextual inspection while keyboard focus remains independently movable."
+  ],  "explicit_non_authority": [
+    "No Scene lifecycle, Take/Rehearsal/branching, Perspective switching, provider/model/cost or Performer-assignment semantics are created.",
+    "Current possibility is not promoted into predictive/generated next-action authority.",
+    "No bespoke domain icon family, Bellweather placement, final font files, motion/Stage successor, production tokens or native WinUI/XAML implementation is created.",
+    "Browser evidence remains design/reference evidence only and is not native Windows accessibility, runtime, WACK or Store validation."
+  ],
+  "recursive_audit": {
+    "live_authority": "PASS",
+    "accepted_shaping_semantics": "PASS",
+    "frozen_visual_mechanisms": "PASS",
+    "product_boundary": "PASS",
+    "responsive_accessibility": "PASS",
+    "selection_focus_independence": "PASS",
+    "ontology_dashboard_regression": "PASS",
+    "concurrent_website_isolation": "PASS",
+    "cross_stream_merge_safety": "PASS - no convenience merge/rebase"
+  },
+  "review_artifacts": {
+    "wide_png_sha256": "36457e7607e513e56cb90c45193d5175283bf8a64c6f6eddfe07a46b305e219b",
+    "narrow_png_sha256": "8da5d9b673a73c85ae66a439e2ce3c36c4a20c7e1f95d291155ea48edb087b25",
+    "status": "local deterministic review renders; canonical durable artifact is the self-contained HTML carrier"
+  },
+  "conclusion": "PASS - COMP-03 promotes the accepted situation-first Shaping architecture into a credible real-shell workspace without changing its semantics or inventing Product-gated controls.",
+  "approval": "APPROVED BY STANDING DIRECTOR DELEGATION - CLEAN RECURSIVE AUDIT.",
+  "next_boundary": "Open APPUI-COMP-04 as the next bounded real-interface integration: selected-entity contextual plus deep inspection inside the COMP shell, preserving semantic origin/return, current/history and provisional/effective distinctions without creating Product taxonomy or Stage controls."
+}

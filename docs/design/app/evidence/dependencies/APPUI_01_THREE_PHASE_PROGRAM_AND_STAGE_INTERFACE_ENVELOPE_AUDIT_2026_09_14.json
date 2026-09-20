@@ -1,0 +1,134 @@
+{
+  "schema": "kymaean.appui-three-phase-program-audit.v1",
+  "status": "DIRECTOR_DECISION_ACTIVE_AUDITED",
+  "date": "2026-09-14",
+  "program": "APPUI-01 - Windows 11 ARM64 Working App Visual Prototype",
+  "repository": "Rylascoo/Ensemble-Website",
+  "director_decision": {
+    "sequence": [
+      "PHASE_1_APP_UI_ARCHITECTURE_AND_LAYOUT",
+      "PHASE_2_STAGE_AND_LIVE_PRODUCTION_EXPERIENCE",
+      "PHASE_3_KYMAEAN_DESIGN_LANGUAGE_INTEGRATION"
+    ],
+    "phase_1_stage_rule": "Map the Stage functional/interface envelope before freezing surrounding layout, but do not open new Stage visual-design work during Phase 1.",
+    "stage_theme_rule": "The Stage remains dark in both Light and Dark application themes.",
+    "design_residency": "Design work remains in Ensemble-Website and authenticated Drive; Ensemble-Project is read-only architecture/product/runtime input."
+  },
+  "sources_checked": {
+    "design_ref": "98509a2577466692512e894188d1a4e50aecaafe",
+    "engineering_ref": "36b9c4c2644d6d47c957e7910d0c609e260b5432",
+    "engineering_program_state": "E0-D blocked; post-E0 product-runtime architecture Phase D not yet frozen.",
+    "recovered_intake_drive_folder_id": "17gL7K_OnO9JEdYKDnd_lv-NkB-ehmocM",
+    "recovered_intake_role": "UNREVIEWED_INSPIRATION_ONLY"
+  },
+  "audit_pass_1_findings": [
+    "Current APPUI continuity still described Stage rendering as parallel with UI-layout work, conflicting with the Director's newer sequential three-phase decision.",
+    "The proposed Stage envelope risked treating E0-only pipeline states such as Accepted/Rejected/Alternate Take as required product-facing controls even though final Take/rehearsal UX remains a later product-runtime decision.",
+    "An exact final Stage control inventory cannot yet be frozen because Engineering Phase D still owns unresolved Scene lifecycle, consequence review, Presentation Perspective, branching/Another Take/Rehearsal minimums and minimum Stage semantics.",
+    "The earlier Stage-proper versus Stage-workspace split was too coarse for reliable layout allocation.",
+    "The phase plan lacked explicit exit criteria and a mandatory Engineering architecture re-sync gate before Stage visual design begins."
+  ],
+  "repairs": [
+    "Make the three phases sequential; Stage visual work no longer runs in parallel with Phase 1.",
+    "Use a Stage Interface Envelope in Phase 1 to reserve semantic capacity without choosing final Stage controls or visual behavior.",
+    "Classify requirements by authority/certainty so E0 implementation detail cannot harden into product UI accidentally.",
+    "Use four interface layers: app shell, live-workspace frame, Stage field, and transient/deep task surfaces.",
+    "Add explicit Phase 1 exit criteria and an Engineering Phase-D re-sync gate before Phase 2."
+  ],
+  "stage_interface_envelope": {
+    "purpose": "Prevent Phase 1 from producing a shell that later lacks room for required live-production semantics, without prematurely designing the Stage.",
+    "layers": {
+      "L0_APP_SHELL": "Production/application scope, durable navigation, app-level settings/help/diagnostics.",
+      "L1_LIVE_WORKSPACE_FRAME": "Scene/context anchors, semantic status, contextual commands, inspector host and supporting live-workspace information.",
+      "L2_STAGE_FIELD": "The dark theatrical field where persistent Characters, presence, relationship/attention and performed action remain primary.",
+      "L3_TRANSIENT_OR_DEEP_SURFACES": "Intervention, Character-bounded performance, causal/history inspection, consequence review, capability explanation and other task-duration surfaces."
+    },
+    "certainty_classes": {
+      "A_CURRENT_DESIGN_BASELINE": [
+        "dark Stage in both app themes",
+        "current frozen five-Character Stage composition as the active visual baseline, not a product-wide cast-cardinality law",
+        "one cone/presence carrier per displayed Character in the current baseline",
+        "explicit Character identity/name anchoring",
+        "truthful state separation and listening presence",
+        "no portrait/card dependency",
+        "creator action does not occupy Character cones"
+      ],
+      "B_PRODUCT_SEMANTIC_MUST_REPRESENT": [
+        "persistent Production and current Scene context",
+        "persistent Character identity",
+        "current action, dialogue, silence or refusal without chat-transcript dominance",
+        "current Director attention/opportunity and relationship salience when materially relevant, without freezing its visual treatment",
+        "current Presentation Perspective when disclosure materially differs",
+        "current versus historical inspection distinction",
+        "provisional/non-effective versus effective/accepted material distinction where applicable",
+        "truthful capability/unavailable state when it blocks an action",
+        "explicit creator-authority intervention boundary",
+        "context and causal inspection without silently mutating Production truth"
+      ],
+      "C_UX_OPEN_OR_PHASE_D_DEPENDENT": [
+        "displayed Character-count adaptation beyond the current frozen five-Character visual baseline",
+        "exact Scene lifecycle controls and state labels",
+        "exact Presentation Perspective switching control",
+        "creator consequence-review mechanics",
+        "Another Take, branching and Rehearsal minimums if any",
+        "exact Take/review decision controls",
+        "timer/Pause semantics",
+        "performance/transcript placement",
+        "provider/model/cost placement",
+        "right-rail/provenance semantics and Observed Cues",
+        "exact consequence/history deep-inspection composition"
+      ],
+      "D_INTERNAL_E0_NOT_DEFAULT_UI": [
+        "CandidatePerformance object naming",
+        "IntegrityDisposition",
+        "StateInterpreter and StateAuthority pipeline machinery",
+        "E0Take Accepted/Rejected/Alternate enum names",
+        "RunId, StateHash, content hashes and orchestration identifiers",
+        "provider-attempt internals except where later diagnostics deliberately expose them"
+      ]
+    }
+  },
+  "phase_1": {
+    "name": "APPLICATION_UI_ARCHITECTURE_AND_LAYOUT",
+    "work": [
+      "Complete the Stage Interface Envelope first.",
+      "Synthesize current app architecture with recovered UI-layout evidence without inheriting obsolete Studio/Stage/Archive navigation literally.",
+      "Design task-dependent Production, live-workspace, deep-inspection and Character-bounded compositions in co-equal Light/Dark shells.",
+      "Cover wide, medium and narrow/adaptive behavior plus keyboard/focus/accessibility reading order.",
+      "Exercise empty, loading, unavailable, historical, provisional/effective and selected-entity states.",
+      "Keep PKT-STAGE-CORE-02 as the Stage placeholder/baseline; create no new Stage visual language."
+    ],
+    "exit_criteria": [
+      "Every A/B Stage-envelope requirement has a coherent home or transition without forcing a final C-class control.",
+      "Representative functional states work without information-architecture redesign in both Light and Dark themes.",
+      "Primary work surface, inspector, commands and semantic status remain task-dependent rather than one fixed dashboard grid.",
+      "Recovered layout inspiration improves hierarchy/density without reviving obsolete product modes.",
+      "A fresh Engineering architecture read finds no product-semantic change that invalidates the layout envelope."
+    ]
+  },
+  "phase_2": {
+    "name": "STAGE_AND_LIVE_PRODUCTION_EXPERIENCE",
+    "entry_gate": "Phase 1 exit criteria pass and Engineering architecture is fresh-reconciled.",
+    "work": [
+      "Design the live Stage experience itself: Character presence, attention, relationship, performed action, silence/listening, intervention response, live text support, consequence emergence and motion/state transitions.",
+      "Use recovered presence/spotlight/monumental-space studies as inspiration without promoting them as authority.",
+      "Preserve product semantics and accessibility while refining or explicitly succeeding current Stage visual authority through the normal Design process."
+    ],
+    "change_rule": "Phase 2 may request evidence-driven Phase 1 layout adjustments, but may not casually reopen shell/navigation architecture for aesthetic preference."
+  },
+  "phase_3": {
+    "name": "KYMAEAN_DESIGN_LANGUAGE_INTEGRATION",
+    "entry_gate": "Application layout and Stage/live-production experience are sufficiently stable.",
+    "work": [
+      "Integrate refined material/surface language, identity accents, final functional icon treatment, micro-interactions, trace/history treatments, transitions and other secondary visual expression inside the proven framework.",
+      "Use recovered brand/material/threshold/trace explorations as inspiration while respecting current app-icon, CPS, accessibility and product authority."
+    ],
+    "change_rule": "Phase 3 must not alter information architecture merely to accommodate decoration; architectural changes require a demonstrated functional defect."
+  },
+  "architecture_resync_rule": "Fresh-read Ensemble-Project at the Phase 1 freeze boundary and again before any Phase 2 Stage-control hardening. If Engineering Phase D promotes new product semantics, update the envelope first; do not infer UI from E0 internals.",
+  "recursive_audit": {
+    "pass_2": "CLEAN_AFTER_REPAIRS",
+    "remaining_irreducible_boundary": "Exact final Stage controls cannot be frozen until post-E0 product-runtime architecture resolves the relevant Phase D questions; Phase 1 therefore freezes capacity and relationships, not those controls."
+  },
+  "supersession": "This decision supersedes only the prior wording that Stage visual rendering continues in parallel with APPUI layout work. Co-equal Light/Dark shells, invariant dark Stage, Design/Engineering repository separation and deferred secondary ornament remain active."
+}

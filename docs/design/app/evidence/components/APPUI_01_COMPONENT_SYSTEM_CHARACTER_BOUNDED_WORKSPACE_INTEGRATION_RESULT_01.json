@@ -1,0 +1,82 @@
+{
+  "schema": "kymaean.appui-component-system-character-bounded-workspace-integration-result.v1",
+  "status": "CLOSED_REAL_CHARACTER_BOUNDED_WORKSPACE_PASS",
+  "date": "2026-09-16",
+  "program_id": "APPUI-COMP-10",
+  "method": "docs/evidence/APPUI_01_COMPONENT_SYSTEM_CHARACTER_BOUNDED_WORKSPACE_INTEGRATION_METHOD_01.json",
+  "authority": {
+    "design_repository": "Rylascoo/Ensemble-Website",
+    "design_branch": "design/appui01-working-compositions-2026-09-14",
+    "pre_closeout_head": "c54edfcf56667d472745ba47df0e4c4a26984131",
+    "website_main_reconciled": "94fd60f3a51485f052c25d753459a45240d845d4",
+    "engineering_main_reconciled": "3d7a5419afd1c502ce6aaba8f3ca906b48d6a868",
+    "parent_packet": "PKT-COMP-09-01"
+  },
+  "artifact": {
+    "path": "prototypes/appui-01/component-system-character-bounded-workspace-integration-01.html",
+    "sha256": "f109095957b45e0c8c3252672a24b4cd9e6b1005da210021c7affefb3116a18c",
+    "probe": "tools/appui_component_system_character_bounded_workspace_matrix_probe.mjs",
+    "probe_sha256": "ee10ac2c2b0ec194ee5b3a4174bc307e7aaa22189d295585cb2a1f86f817c793",
+    "matrix_sha256": "b8e7e5a59dee8d84bcb36c7e68b0b4ece95bf3941330b69d69ce183aa32bbe04"
+  },
+  "source_authority": [
+    "docs/evidence/APPUI_01_CHARACTER_BOUNDED_WORKSPACE_FUNCTIONAL_STUDY_01.json",
+    "docs/evidence/APPUI_01_PHASE_3_CHARACTER_BOUNDED_WORKSPACE_F2_D3_INTEGRATION_01.json",
+    "PKT-COMP-09-01 / PKT-COMP-07-01 / PKT-COMP-03-01 / PKT-COMP-02-01 / PKT-COMP-01-01"
+  ],
+  "mechanical_result": {
+    "cases": [
+      "normal-1600",
+      "normal-1024",
+      "normal-390",
+      "normal-320",
+      "forced-colors-320",
+      "text-200-percent-320",
+      "text-spacing-stress-320"
+    ],
+    "result": "PASS_ZERO_ORIGIN_BOUNDED_RETURN_OVERFLOW_ALL_SEVEN_CASES",
+    "missing_button_names": 0,
+    "undersized_icon_buttons": 0,
+    "contextual_availability": "PASS - bounded-workspace trigger disappears for non-Julian selection and restores for Julian",
+    "bounded_activation": "PASS - two theme bounded workspaces open while zero Shaping surfaces remain visible",
+    "selection_focus": "PASS - Observable now remains selected while Known/remembered receives independent solid 2px focus with 2px offset",
+    "hidden_material": "PASS - zero forbidden creator-only/provider/diagnostic/recovery terms and zero creator-only/infrastructure selectors inside bounded views",
+    "theme_parity": "PASS - Light F2 and Dark D3 bounded views contain identical represented information",
+    "return": "PASS - Back and Close restore Julian selection and bounded-workspace trigger focus",
+    "external_resources": 0
+  },
+  "semantic_result": {
+    "same_production": "PASS - The White Current remains the Production before, during and after bounded work.",
+    "persistent_identity": "PASS - Julian remains one persistent Character; bounded work does not duplicate, recast or replace identity.",
+    "material_disclosure_change": "PASS - bounded representation contains only permitted current observations, Character-linked context, relationship cue and agency capacity rather than a cosmetically altered creator view.",
+    "creator_only_absence": "PASS - inaccessible creator material is not dimmed, redacted, counted, placeholdered, summarized or advertised in the bounded workspace.",
+    "infrastructure_boundary": "PASS - provider/capability/diagnostics/recovery material does not appear as Julian-visible information or fictional explanation.",
+    "agency_boundary": "PASS - action/speech/silence remain capacity only; creator navigation/focus does not become Character action, attention or intention.",
+    "return_semantics": "PASS - returning transfers no hidden knowledge and creates no Undo or Production mutation."
+  },
+  "recursive_audit": {
+    "invalid_first_exposure": "The first transform was invalid evidence: a PowerShell rewrite re-encoded non-ASCII literals, corrupted inserted text and prevented several exact semantic replacements, leaving stale COMP-09/relationship copy.",
+    "repair": "Discarded that exposure, rebuilt all affected semantic blocks from ASCII-only source plus HTML entities, verified zero replacement/mojibake markers and zero stale COMP-09 tokens, then performed the first valid matrix exposure.",
+    "valid_matrix_result": "CLEAN_ZERO_OVERFLOW_ALL_SEVEN_CASES_WITH_HIDDEN_MATERIAL_NONLEAKAGE",
+    "post_exposure_visual_findings": [],
+    "semantic_retune_after_valid_exposure": false,
+    "visual_role_retune_after_valid_exposure": false,
+    "creator_only_leak_created": false,
+    "perspective_control_frozen": false
+  },
+  "visual_evidence": {
+    "origin_wide_sha256": "c8e580f51828f243a42ddbc3977d022f75605b0608f3f893fd22e05faaafb895",
+    "bounded_wide_sha256": "100240eaca477591aea065d7fd18c48a678c9d9208a052b1567af7ae393ab07f",
+    "origin_narrow_sha256": "07fd4616918c5fbc483cd2f226d0bd98ee9a9e694a098b286cf5148f608c1646",
+    "bounded_narrow_sha256": "b4f60a25956e10f567117e569a17b38525d4f39f32f5f5bf95de868b5a6ec450"
+  },
+  "non_authority": [
+    "No final Perspective selector, Take a Seat command, entry/exit label, timing or confirmation semantics are created.",
+    "No final knowledge schema, inference policy, knowledge-transfer or forgetting semantics are created.",
+    "No final performance input grammar, provider/Performer assignment or Stage successor is created.",
+    "No production-token freeze or native WinUI/XAML authority is created."
+  ],
+  "conclusion": "APPUI_COMP_10_REAL_CHARACTER_BOUNDED_WORKSPACE_PASS",
+  "next_boundary": "Open APPUI-COMP-11 for empty / unavailable / loading / transitional workspace states inside the COMP shell without inventing Product-gated lifecycle/provider semantics or allowing infrastructure failure to become fiction.",
+  "approval": "APPROVED BY STANDING DIRECTOR DELEGATION - CLEAN RECURSIVE AUDIT"
+}

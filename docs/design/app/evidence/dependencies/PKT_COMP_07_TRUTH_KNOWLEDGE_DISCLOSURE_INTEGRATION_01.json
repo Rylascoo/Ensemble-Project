@@ -1,0 +1,111 @@
+{
+  "schema": "kymaean.design-gate-packet.v1",
+  "framework": "docs/evidence/DESIGN_PACKET_AND_SYNTHESIS_FRAMEWORK_01.json",
+  "packet_id": "PKT-COMP-07-01",
+  "packet_class": "COMPOSITION_PACKET",
+  "status": "PROVISIONAL_INCUMBENT",
+  "date": "2026-09-16",
+  "gate_or_program": "APPUI-COMP-07 - Truth / Knowledge / Disclosure Integration",
+  "design_axis": "APP VISUAL real creator-global to Character-bounded disclosure task flow",
+  "bounded_question": "Can creator-global truth/knowledge inspection and a Julian-bounded view operate as nested COMP-shell task depth with provenance capacity, hidden-material non-leakage and exact return without permanent Knowledge navigation or a frozen epistemic model?",
+  "authority": {
+    "repository": "Rylascoo/Ensemble-Website",
+    "baseline_commit": "bada2102e0d20510cb5b8230d53a0bcfd7beea5f",
+    "governing_method_or_contract": [
+      "docs/evidence/APPUI_01_COMPONENT_SYSTEM_TRUTH_KNOWLEDGE_DISCLOSURE_INTEGRATION_METHOD_01.json",
+      "docs/evidence/APPUI_01_TRUTH_KNOWLEDGE_DISCLOSURE_INSPECTION_FUNCTIONAL_STUDY_01.json",
+      "docs/evidence/APPUI_01_PHASE_3_TRUTH_KNOWLEDGE_DISCLOSURE_F2_D3_INTEGRATION_01.json",
+      "docs/evidence/packets/PKT_COMP_06_CAUSAL_HISTORY_INSPECTION_INTEGRATION_01.json",
+      "docs/evidence/packets/PKT_COMP_04_CONTEXTUAL_DEEP_INSPECTION_INTEGRATION_01.json"
+    ],
+    "close_reconciliation": {
+      "website_main": "8b375780cdbdcb6e21940b6cf5db7c4badf21b19",
+      "engineering_main": "3d7a5419afd1c502ce6aaba8f3ca906b48d6a868",
+      "effect": "No contradiction. Website main explicitly freezes app UI; Engineering advanced only E0-D experimental terminal/queue evidence and introduces no disclosure Product semantics."
+    }
+  },
+  "controlled_inputs": [
+    "PKT-COMP-06-01 current-question continuity",
+    "PKT-COMP-04-01 exclusive deep-inspection + exact-return law",
+    "PKT-COMP-02-01 shell / PKT-COMP-01-01 controls",
+    "Light F2 / Dark D3 / MAT F1 / TYP F1 / STA F2 / FICON F1",
+    "accepted truth/knowledge/disclosure functional and Phase-3 evidence"
+  ],
+  "local_result": {
+    "summary": "The Scene-12 ledger question now opens source-derived creator-global Fact/Claim/Private/Provenance inspection, then an optional Julian-bounded subview that exposes only Julian-visible claim material and returns exactly without knowledge transfer or Production mutation.",
+    "recommended_incumbent": "Truth / Knowledge / Disclosure Flow 01",
+    "survivors_or_closure": [
+      "Truth / Knowledge / Disclosure Flow 01"
+    ]
+  },
+  "evidence": {
+    "mechanical": [
+      "seven-case current + creator-global + Julian-bounded matrix PASS",
+      "carrier SHA-256 b9481b1457d7cb8452fd640996b1580173da9e40c75082f86854d1217500a60e",
+      "probe SHA-256 c9ac876b12d76d58137b8587a389f70909b1f85e9c64058e053cd5144a95628c",
+      "matrix SHA-256 c6b4b09690331c4b2616b5b089eeac61c63c01a2893a1b5c54636f311ac6df96"
+    ],
+    "visual": [
+      "wide current Light/Dark pair with bounded disclosure affordance subordinate to current meaning",
+      "wide creator-global Light/Dark pair with Claim selected and Provenance independently focused",
+      "wide Julian-bounded Light/Dark pair with no private-record/count/placeholder hint",
+      "390px creator-global and Julian-bounded sequential surfaces"
+    ],
+    "interaction": [
+      "disclosure affordance disappears for unrelated meaning and restores for the selected ledger question",
+      "Claim selection remains independent from Provenance keyboard focus",
+      "Julian-bounded Back restores creator-global trigger focus and Claim selection",
+      "creator-global Back/Close restore current-question selection and disclosure-trigger focus"
+    ]
+  },
+  "dependencies": {
+    "requires": [
+      "PKT-COMP-06-01",
+      "PKT-COMP-04-01",
+      "PKT-COMP-02-01",
+      "PKT-COMP-01-01",
+      "accepted disclosure evidence"
+    ],
+    "constrains": [
+      "Future disclosure carriers preserve stable Character identity, no bounded-view metadata leakage, structural epistemic distinctions and exact nested return unless a named successor supersedes them."
+    ],
+    "must_not_be_confused_with": [
+      "permanent Knowledge/Truth navigation",
+      "final epistemic taxonomy",
+      "truth database",
+      "knowledge-transfer mechanic",
+      "native WinUI disclosure browser"
+    ]
+  },
+  "explicit_non_authority": [
+    "No final epistemic taxonomy, field schema, storage model, truth authority, confidence semantics or inference policy.",
+    "No knowledge transfer, discovery, forgetting, deception, contradiction-resolution or consequence semantics.",
+    "No permanent Knowledge/Truth application mode.",
+    "No motion/Stage successor, production tokens, native implementation, shipping or Store authority."
+  ],
+  "canonical_artifacts": {
+    "repository": [
+      "docs/evidence/APPUI_01_COMPONENT_SYSTEM_TRUTH_KNOWLEDGE_DISCLOSURE_INTEGRATION_METHOD_01.json",
+      "docs/evidence/APPUI_01_COMPONENT_SYSTEM_TRUTH_KNOWLEDGE_DISCLOSURE_INTEGRATION_RESULT_01.json",
+      "prototypes/appui-01/component-system-truth-knowledge-disclosure-integration-01.html",
+      "tools/appui_component_system_truth_knowledge_disclosure_matrix_probe.mjs"
+    ],
+    "director_review_surface": {
+      "entry_point": "self-contained COMP-07 HTML carrier",
+      "what_to_review": "creator-global versus Julian-bounded visibility, Claim-versus-Fact structure, independent Provenance focus, hidden-material non-leakage and nested exact return",
+      "diagnostics_not_for_aesthetic_choice": [
+        "matrix JSON",
+        "DOM/probe output"
+      ]
+    }
+  },
+  "synthesis_state": {
+    "tested_with_packet_ids": [
+      "PKT-COMP-01-01",
+      "PKT-COMP-02-01",
+      "PKT-COMP-04-01",
+      "PKT-COMP-06-01"
+    ],
+    "whole_app_synthesis_status": "REAL_TRUTH_KNOWLEDGE_DISCLOSURE_VALIDATED_PERSISTENCE_RECOVERY_NEXT"
+  }
+}

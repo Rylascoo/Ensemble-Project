@@ -1,0 +1,75 @@
+{
+  "schema": "kymaean.design-gate-packet.v1",
+  "framework": "docs/evidence/DESIGN_PACKET_AND_SYNTHESIS_FRAMEWORK_01.json",
+  "packet_id": "PKT-APPUI-NATIVE-HANDOFF-01",
+  "packet_class": "IMPLEMENTATION_HANDOFF_PACKET",
+  "status": "READY_FOR_ENGINEERING_CONSUMPTION",
+  "date": "2026-09-16",
+  "gate_or_program": "APPUI-NATIVE-HANDOFF-01 — Q-PROD-01 Design-to-Native Implementation Contract",
+  "design_axis": "native shell implementation translation of accepted APPUI authority",
+  "bounded_question": "How should Q-PROD-01 consume the completed APPUI design system in its first native ARM64 shell without reviving obsolete navigation, freezing unresolved Product semantics, or treating browser evidence as native validation?",
+  "authority": {
+    "design_repository": "Rylascoo/Ensemble-Website",
+    "design_baseline": "052a2e0ff5966ea59c3990ad95b7146d7feda73e",
+    "engineering_repository": "Rylascoo/Ensemble-Project",
+    "engineering_main": "933edb017c29389f573bb1d86202676fef64fa63",
+    "engineering_queue_item": "Q-PROD-01",
+    "director_amendment": "docs/KYMAEAN_PRODUCT_BUILD_AHEAD_OF_DEFERRED_E0_VALIDATION_DIRECTOR_AMENDMENT_2026_09_17.md",
+    "reentry_audit": "docs/evidence/APPUI_01_Q_PROD_01_DESIGN_TO_NATIVE_REENTRY_AUDIT_06.json",
+    "handoff": "docs/KYMAEAN_APPUI_NATIVE_IMPLEMENTATION_HANDOFF_01.md",
+    "reference_map": "docs/evidence/APPUI_01_NATIVE_IMPLEMENTATION_REFERENCE_MAP_01.json"
+  },
+  "current_contribution": "Opens the first implementation convergence contract: semantic Studio/Stage/Archive routing is separated from visible permanent navigation; current Home/Productions/Settings shell, static visual roles, Source Sans 3 reference, system-backed icons, state grammar and S1 Stage presentation are translated into provisional native implementation inputs.",
+  "production_authority": false,
+  "dependencies": {
+    "requires": [
+      "Q-PROD-01 ACTIVE under Director build-ahead amendment",
+      "PKT-COMP-02-01 through PKT-COMP-11-01",
+      "PKT-APPUI-STAGE-PRESENTATION-01",
+      "PKT-TYP-ASSET-01-01",
+      "PKT-FICON-ASSET-01-01"
+    ],
+    "constrains": [
+      "First native shell must not force historical Studio/Stage/Archive top-level navigation.",
+      "Native scaffold must preserve task dominance, focus/selection independence, Light/Dark semantic parity and invariant dark Stage.",
+      "Placeholder code remains provisional and cannot silently redefine Design authority."
+    ],
+    "must_not_be_confused_with": [
+      "final production token package",
+      "final Product navigation taxonomy",
+      "native accessibility/runtime validation",
+      "shipping asset package",
+      "final architecture"
+    ]
+  },
+  "canonical_artifacts": {
+    "repository": [
+      "docs/evidence/APPUI_01_Q_PROD_01_DESIGN_TO_NATIVE_REENTRY_AUDIT_06.json",
+      "docs/KYMAEAN_APPUI_NATIVE_IMPLEMENTATION_HANDOFF_01.md",
+      "docs/evidence/APPUI_01_NATIVE_IMPLEMENTATION_REFERENCE_MAP_01.json"
+    ]
+  },
+  "native_return_gate": {
+    "target": "Design Sol",
+    "when": "first Q-PROD-01 native shell scaffold exists",
+    "required_evidence": [
+      "exact Engineering ref",
+      "ARM64 launch evidence",
+      "Light/Dark same-state screenshots",
+      "route/state map",
+      "keyboard/focus-return evidence",
+      "high-contrast observation",
+      "actual minimum-window behavior",
+      "Design references/placeholders consumed",
+      "native constraints requiring design deviation"
+    ]
+  },
+  "explicit_non_authority": [
+    "No WinUI control-class decision.",
+    "No final resource-key/token API.",
+    "No production font/package or shipping Stage asset.",
+    "No Product-open command semantics.",
+    "No WACK/Store/native validation claim."
+  ],
+  "next_boundary": "Engineering consumes this packet in Q-PROD-01. Design re-enters on the first native shell evidence or a material Product/native constraint."
+}

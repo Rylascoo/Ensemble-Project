@@ -1,0 +1,62 @@
+{
+  "schema": "kymaean.appui-section-functional-study.v1",
+  "status": "SECTION_FUNCTIONAL_DETAIL_PASS",
+  "date": "2026-09-15",
+  "section": "EMPTY_UNAVAILABLE_TRANSITIONAL_WORKSPACE",
+  "program": "APPUI-01 - Windows 11 ARM64 Working App Visual Prototype",
+  "repository": "Rylascoo/Ensemble-Website",
+  "authority": {
+    "design_parent_ref": "dc051d4b0a5bf009d552780cbb481e99a7a18583",
+    "engineering_ref_at_phase1_freeze": "36b9c4c2644d6d47c957e7910d0c609e260b5432",
+    "phase1_law": "docs/KYMAEAN_APPUI_PHASE_1_STAGE_INTERFACE_ENVELOPE_AND_LAYOUT_MAP_01.md",
+    "phase1_freeze": "docs/evidence/APPUI_01_PHASE_1_INTERACTION_STATE_STRESS_TEST_AND_FREEZE_2026_09_14.json"
+  },
+  "carrier": {
+    "path": "prototypes/appui-01/empty-unavailable-transitional-workspace-functional-study-01.html",
+    "sha256": "A7ACCBCDF62C779234C1DC1F7E31F732DD11690726A8098E349C109BE759D4DE",
+    "browser_probe": "tools/appui_transitional_browser_probe.mjs",
+    "browser_probe_sha256": "A69590EDEC34B2845740FC891D414CEB5E17E87F6B6DE1692C3EDF181C217D53"
+  },
+  "drive_archive": {
+    "folder_id": "1E_sO0bP8IYcwxRLMpOK8HAiKO3DXXCKc",
+    "png_id": "1iqEIlSe2h2o5mGtmK6wwplznpg_gwOf3",
+    "png_sha256": "66613E467B268740AE73FAE632E855BD85A8D450E19894A07FABF92B9133BEA5",
+    "html_id": "1kLzzjZY7xfsyoCgnK3SjoamPoSS8ELRy",
+    "html_sha256": "A7ACCBCDF62C779234C1DC1F7E31F732DD11690726A8098E349C109BE759D4DE"
+  },
+  "browser_preflight": {
+    "normal_1600": {"overflow": false, "overflow_elements": 0, "states": 5, "images": 0, "external_resources": 0},
+    "normal_1024": {"overflow": false, "overflow_elements": 0, "states": 5, "images": 0, "external_resources": 0},
+    "normal_390": {"overflow": false, "overflow_elements": 0, "states": 5, "images": 0, "external_resources": 0},
+    "normal_320": {"overflow": false, "overflow_elements": 0, "states": 5, "images": 0, "external_resources": 0},
+    "forced_colors_320": {"forced_colors": true, "overflow": false, "overflow_elements": 0, "states": 5, "images": 0, "external_resources": 0}
+  },
+  "resolved_state_families": [
+    "empty / none selected: valid state; empty != error",
+    "loading / transitional: application state; loading != fictional delay",
+    "capability unavailable: technical state; unavailable != Character refusal",
+    "cancelled / failed attempt: no accepted Production mutation; failure != narrative event",
+    "provisional / non-effective: visibly distinct from current/effective state"
+  ],
+  "resolved_rules": [
+    "No active Scene remains a valid Production state and does not require invented Stage content or Scene lifecycle controls.",
+    "The same shell survives absence, loading, unavailable capability, failure/cancellation and provisionality without information-architecture redesign.",
+    "Transient application work preserves the prior semantic origin and focus-return target where possible.",
+    "Provider/runtime/recovery conditions remain infrastructure and do not become Character behavior, fictional time passage or causal history.",
+    "A failed or cancelled technical attempt does not imply accepted Production change, consequence or history.",
+    "Back/Close returns to retained context when valid and is not Undo."
+  ],
+  "recursive_audit": {
+    "result": "CLEAN",
+    "repairs": [],
+    "note": "Wide and narrow visual review plus responsive and forced-colors checks found no semantic or mechanical correction after the carrier reached first complete form."
+  },
+  "non_authority": [
+    "No Create/Start/Resume Scene, Take, branch, rehearsal, retry or provider-fallback control is frozen.",
+    "No loading duration, progress algorithm, cancellation, retry, recovery or failure policy is frozen.",
+    "No final provider/model/cost, Scene lifecycle, consequence, transcript/timer/Pause or runtime/package behavior is created.",
+    "No final typography, palette, icons, materials, motion, WinUI/runtime/package or Store authority is created."
+  ],
+  "conclusion": "PASS: empty, unavailable, loading, failed/cancelled and provisional conditions fit the frozen Phase-1 shell while preserving application truth and fictional boundaries.",
+  "next_boundary": "Run a consolidated Phase-1 detailed-section coverage audit to identify any remaining already-authorized section detail before fresh Engineering reconciliation and Phase-2 entry."
+}

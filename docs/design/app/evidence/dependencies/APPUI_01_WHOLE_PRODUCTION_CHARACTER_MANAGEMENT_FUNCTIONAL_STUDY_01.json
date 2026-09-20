@@ -1,0 +1,80 @@
+{
+  "schema": "kymaean.appui-whole-production-character-management-functional-study.v1",
+  "status": "POST_PHASE1_SECTION_DETAIL_PASS",
+  "date": "2026-09-14",
+  "program": "APPUI-01 - Detailed functional studies inside frozen Phase-1 architecture",
+  "authority": {
+    "design_repository": "Rylascoo/Ensemble-Website",
+    "design_branch": "design/appui01-working-compositions-2026-09-14",
+    "pre_study_ref": "0ee464dcb7083568890ac59036998ffc9f3e2838",
+    "frozen_global_baseline": "Wireframe 01R - Revised Structural Baseline",
+    "phase1_status": "FROZEN_PASS"
+  },
+  "question": "Can persistent Characters remain reachable, inspectable and creator-editable beyond the current Scene while preserving Scene membership/selection, Character identity and exact return semantics without creating a permanent People silo or inventing casting/Performer mechanics?",
+  "inherited_law": [
+    "Whole-Production Character management must exist without making People a mandatory top-level silo.",
+    "Character identity is persistent and distinct from Performer/provider assignment.",
+    "Off-Scene inspection/editing must not silently alter current Scene membership or selection.",
+    "Creator edits are not fictional Character actions.",
+    "Focus, selection and scope remain distinct; Back/Close is navigation rather than Undo.",
+    "Light and Dark preserve one semantic system; no Stage successor is created."
+  ],
+  "artifact": {
+    "repository_path": "prototypes/appui-01/whole-production-character-management-functional-study-01.html",
+    "html_sha256": "56dc3d7d525c4597b24ed5f78aa38143dd2c23828254c4703871cd4ad1c2b226",
+    "browser_probe_path": "tools/appui_character_management_browser_probe.mjs",
+    "browser_probe_sha256": "88ed3b11c65c514a1de9419a1efb34cea378c84bf2897e723d162bc7562c0d8e",    "drive_folder_id": "1E_sO0bP8IYcwxRLMpOK8HAiKO3DXXCKc",
+    "drive_png_id": "1LdnZkS-O6Sx-XwSa7wSLfgB1QotTzAon",
+    "drive_html_id": "1Kok52iuOKfNqqUwgYXjiKcfVz-KVROLt",
+    "drive_png_sha256": "b81420a87c83312eb8a3e63a76ebfa05fec50e10e7b6df441e21adee6b033d26"
+  },
+  "design_result": {
+    "access_rule": "Whole-Production Character reach is a deliberate Production-scope capacity; everyday Shaping remains situation-first.",
+    "scope_rule": "Management selection is local to the Production-level surface and does not replace the stored current-Scene selection.",
+    "membership_rule": "Opening, selecting, editing or creating a persistent Character does not imply add/remove/current-Scene participation.",
+    "identity_rule": "Persistent Character identity remains stable across Scene presence, off-Scene state and Performer/provider assignment changes.",
+    "creator_edit_rule": "Persistent Character edits are creator-authority work and never become fictional Character action, memory, refusal or performance.",
+    "creation_rule": "Architecture reserves persistent Character creation without freezing Scene participation, casting, lifecycle, merge/delete/archive or duplicate semantics.",
+    "return_rule": "Close/Back restores the prior current Scene, stored Scene selection and originating focus target; effective persistent edits remain effective.",
+    "responsive_rule": "wide list+detail adjacency -> medium overlay/substitution -> narrow sequential list/detail/deep-inspection while scope and origin remain invariant.",
+    "theme_parity": "PASS - Light/Dark preserve identical Production/Scene scope and selection semantics"
+  },
+  "mechanical_preflight": {
+    "environment": "Microsoft Edge Chromium CDP; exact self-contained HTML; no external resources",
+    "cases": [
+      {"mode": "normal", "width": 1600, "horizontal_overflow": false, "overflow_elements": 0},
+      {"mode": "normal", "width": 1024, "horizontal_overflow": false, "overflow_elements": 0},
+      {"mode": "normal", "width": 390, "horizontal_overflow": false, "overflow_elements": 0},
+      {"mode": "normal", "width": 320, "horizontal_overflow": false, "overflow_elements": 0},
+      {"mode": "forced_colors", "width": 320, "forced_colors_active": true, "horizontal_overflow": false, "overflow_elements": 0}
+    ],    "images": 0,
+    "external_resources": 0,
+    "result": "PASS"
+  },
+  "recursive_audit": {
+    "first_visual_pass_findings": [
+      "The heading 'Persistent cast' could imply casting/Performer mechanics rather than persistent Character identity."
+    ],
+    "corrections": [
+      "Changed both Light/Dark headings from 'Persistent cast' to 'Persistent Characters' and reran the complete browser/visual audit."
+    ],
+    "rerun_result": "CLEAN",
+    "permanent_people_silo_created": false,
+    "implicit_scene_membership_mutation_created": false,
+    "scene_selection_overwritten_by_management_selection": false,
+    "character_performer_identity_conflated": false,
+    "casting_or_participation_semantics_frozen": false,
+    "phase2_stage_visual_work_started": false,
+    "final_visual_language_started": false
+  },
+  "non_authority": [
+    "Exact Production-Character surface label, commands, create/edit affordances and field groupings remain provisional.",
+    "Exact Scene add/remove/participation, casting, lifecycle, duplicate/merge/delete/archive semantics remain Product-defined.",
+    "Exact Performer/provider/model assignment and availability policy remain open.",
+    "Final typography, palette, materials, icons, portraits, imagery, motion and native WinUI behavior remain open.",
+    "No Stage visual successor, runtime/package/Store authority or native accessibility-device proof is created."
+  ],
+  "conclusion": "WHOLE_PRODUCTION_CHARACTER_MANAGEMENT_FUNCTIONAL_DETAIL_PASS",
+  "approval": "APPROVED BY STANDING DIRECTOR DELEGATION - CLEAN RECURSIVE AUDIT",
+  "next": "Detail causal/history inspection inside the frozen shell, preserving current-versus-historical distinction, semantic origin and exact return without creating a permanent Archive/History mode."
+}

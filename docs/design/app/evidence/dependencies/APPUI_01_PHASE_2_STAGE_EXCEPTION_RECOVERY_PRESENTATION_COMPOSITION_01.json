@@ -1,0 +1,79 @@
+{
+  "schema": "kymaean.appui-phase2-stage-exception-recovery-presentation.v1",
+  "status": "PASS_STATIC_STAGE_EXCEPTION_RECOVERY_PRESENTATION",
+  "date": "2026-09-15",
+  "program": "APPUI-01-P2-EXCEPTION-01",
+  "repository": "Rylascoo/Ensemble-Website",
+  "authority": {
+    "design_parent_ref": "275d0063e9af5876854469a51be4583435f3ddad",
+    "phase2_entry_gate": "docs/evidence/APPUI_01_PHASE_2_ENTRY_GATE_ENGINEERING_RECONCILIATION_2026_09_15.json",
+    "phase1_persistence_law": "docs/evidence/APPUI_01_PERSISTENCE_RECOVERY_STATUS_FUNCTIONAL_STUDY_01.json",
+    "phase1_exception_law": "docs/evidence/APPUI_01_EMPTY_UNAVAILABLE_TRANSITIONAL_WORKSPACE_FUNCTIONAL_STUDY_01.json",
+    "stage_anchor": "PKT-STAGE-CORE-02",
+    "engineering_ref": "60b85fbcb36e265e3910444714143d944ffef841"
+  },
+  "question": "Can technical unavailability, interruption and recovery be made explicit around the frozen Stage without becoming Character behavior, fictional time, causal history, accepted Production change or implied Stage restart?",
+  "result": "PASS",
+  "carrier": {
+    "path": "prototypes/appui-01/phase2-stage-exception-recovery-presentation-composition-01.html",
+    "sha256": "b4f63aae1944c40aae006c5dd63bccc4119ba207d3acf7349b8ec87a34291da5",
+    "production_authority": false
+  },
+  "drive": {
+    "folder_id": "14-C5PrxDjO_X2a1j3Ip7oLN5QYXzDj2p",
+    "png_id": "1Sf9aCY6USkjt3mi-MtqycMKg4pKbDnjw",
+    "png_sha256": "87bfe08c09fb6147969287d3ecf61e5739ac207a358ad976854828973ba2c4e8",
+    "html_id": "1S_atpBn50GWwAAL3_36_zGD0ee9EzQJf",
+    "html_sha256": "b4f63aae1944c40aae006c5dd63bccc4119ba207d3acf7349b8ec87a34291da5"
+  },
+  "accepted_grammar": [
+    "Healthy infrastructure remains quiet; no permanent status chrome is required merely because persistence or capability state exists.",
+    "When requested capability is unavailable before fiction, the existing Stage context and Character states remain unchanged while the application explains the technical boundary outside the fiction.",
+    "Capability unavailable is not Character refusal, incapacity, silence, waiting, fictional absence or narrative event.",
+    "Persistence in progress is application state, not fictional delay and does not advance Scene time.",
+    "Persistence failure is distinct from corruption/integrity concern; neither becomes story damage.",
+    "Read-only or recovery-needed application truth may constrain creator action without rewriting Character agency or Production history.",
+    "Return restores prior application task/context/focus when safe and is not a Take, rewind, replay or Undo."
+  ],
+  "exception_state_witnesses": [
+    "healthy_or_quiet",
+    "persistence_in_progress",
+    "capability_unavailable",
+    "persistence_failure",
+    "integrity_concern",
+    "read_only_or_recovery_needed"
+  ],
+  "browser_preflight": {
+    "modes": [
+      {"id": "normal-1600", "result": "PASS", "overflow": 0},
+      {"id": "normal-1024", "result": "PASS", "overflow": 0},
+      {"id": "normal-390", "result": "PASS", "overflow": 0},
+      {"id": "normal-320", "result": "PASS", "overflow": 0},
+      {"id": "forced-colors-320", "result": "PASS", "overflow": 0}
+    ],
+    "stage_specimens": 2,
+    "character_witnesses": 10,
+    "images": 0,
+    "external_resources": 0,
+    "utf8_mojibake_or_replacement_characters": 0
+  },
+  "recursive_audit": {
+    "result": "CLEAN_AFTER_REPAIRS",
+    "defects_repaired": [
+      "The first exception specimen relabeled all Characters as 'Prior current state', which invented a new Stage-state vocabulary and risked implying stale/frozen fiction. The final specimen preserves the existing speaking/listening/current-opportunity states unchanged.",
+      "The state-preservation rewrite introduced mojibake through a PowerShell encoding path. The exact source was repaired byte-safely to UTF-8 and all five browser cases were rerun."
+    ],
+    "wide_visual_review": "PASS",
+    "narrow_visual_review": "PASS"
+  },
+  "explicit_non_authority": [
+    "No retry, provider-fallback, cancellation, timeout, progress or automatic recovery policy is frozen.",
+    "No autosave/save-point, transactionality, local/cloud, backup, conflict or durability semantics are frozen.",
+    "No technical failure creates dialogue, silence, refusal, Character incapacity, Scene history or accepted consequence.",
+    "No recovery outcome implies Scene restart, Another Take, rehearsal, branch, timeline rollback or replay.",
+    "No transcript-dependent motion, cadence, timing or turn-taking authority is consumed; Q-DESIGN-02 remains blocked.",
+    "No final labels, severity vocabulary, icons, notifications/dialogs, provider/model/cost semantics, WinUI implementation, runtime or shipping authority is created."
+  ],
+  "next_boundary": "Run a consolidated Phase-2 static-coverage audit against the entry gate, Stage authority and five completed static studies. Identify any materially under-detailed non-transcript-dependent Stage surface before fresh Engineering reconciliation or holding for Q-DESIGN-02.",
+  "approval": "APPROVED BY STANDING DIRECTOR DELEGATION — CLEAN RECURSIVE AUDIT."
+}

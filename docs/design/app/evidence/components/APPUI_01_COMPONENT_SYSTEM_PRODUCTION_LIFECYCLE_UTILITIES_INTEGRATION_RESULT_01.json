@@ -1,0 +1,73 @@
+{
+  "schema": "kymaean.appui-component-system-production-lifecycle-utilities-integration-result.v1",
+  "status": "CLOSED_REAL_PRODUCTION_LIFECYCLE_UTILITIES_PASS",
+  "date": "2026-09-16",
+  "program_id": "APPUI-COMP-09",
+  "method": "docs/evidence/APPUI_01_COMPONENT_SYSTEM_PRODUCTION_LIFECYCLE_UTILITIES_INTEGRATION_METHOD_01.json",
+  "authority": {
+    "design_repository": "Rylascoo/Ensemble-Website",
+    "design_branch": "design/appui01-working-compositions-2026-09-14",
+    "pre_closeout_head": "bfc629112847fd260ea45c2ac16ebf8980a1e8ae",
+    "website_main_reconciled": "8b375780cdbdcb6e21940b6cf5db7c4badf21b19",
+    "engineering_main_reconciled": "3d7a5419afd1c502ce6aaba8f3ca906b48d6a868",
+    "parent_packet": "PKT-COMP-08-01"
+  },
+  "artifact": {
+    "path": "prototypes/appui-01/component-system-production-lifecycle-utilities-integration-01.html",
+    "sha256": "e8e203062e9be8a3f8265fa52430a129489536237931ce1577b6d64ea8e6f50b",
+    "probe": "tools/appui_component_system_production_lifecycle_utilities_matrix_probe.mjs",
+    "probe_sha256": "97a18899e13dfac30be65d3329aeb180f0bab9dd3ee82fc3f8b77e6f05a56636",
+    "matrix_sha256": "d2f890aab3dbe88e77551f635e308893a579ef6b8589d84652bb3b9926a61ee8"
+  },
+  "source_authority": [
+    "docs/evidence/APPUI_01_PRODUCTION_LIFECYCLE_UTILITIES_FUNCTIONAL_STUDY_01.json",
+    "docs/evidence/APPUI_01_PHASE_3_PRODUCTION_LIFECYCLE_UTILITIES_F2_D3_INTEGRATION_01.json",
+    "PKT-COMP-08-01 / PKT-COMP-03-01 / PKT-COMP-02-01 / PKT-COMP-01-01"
+  ],  "mechanical_result": {
+    "cases": ["normal-1600","normal-1024","normal-390","normal-320","forced-colors-320","text-200-percent-320","text-spacing-stress-320"],
+    "result": "PASS_ZERO_OVERFLOW_ORIGIN_UTILITY_RETURN_ALL_SEVEN_CASES",
+    "missing_button_names": 0,
+    "undersized_icon_buttons": 0,
+    "utility_capacity_rows": "PASS - exactly five per theme / ten total",
+    "secondary_route": "PASS - Settings opens two utility surfaces while both Shaping workspaces hide; retained creative origin remains named",
+    "selection_focus": "PASS - Settings capacity remains selected while Portable Production can carry independent solid 2px focus with 2px offset",
+    "forbidden_product_commands": "PASS - zero buttons exactly labeled Import, Export, Apply, Save, Connect, Repair or Recover",
+    "capacity_boundaries": "PASS - all five capacity/detail pairs resolve; provider, portable, diagnostics and recovery non-authority assertions pass in both themes",
+    "return": "PASS - Back/Close restore both Shaping workspaces, original Julian ↔ Elara selection and pre-utility creative focus",
+    "external_resources": 0
+  },
+  "semantic_result": {
+    "route_role": "PASS - existing Settings becomes the deliberate utility entry; no new Utilities/Admin top-level destination is created.",
+    "creative_hierarchy": "PASS - The White Current/current Production remains visible above utility depth and ordinary Shaping is restored exactly on return.",
+    "navigation_vs_effect": "PASS - utility rows are descriptive navigation capacity only; no form field or mutation control is present.",
+    "provider_vs_character": "PASS - provider machinery is explicitly infrastructure and separate from Character identity/Performer assignment; unavailable capability is not fictional refusal/failure.",
+    "portability_boundary": "PASS - Portable Production route explicitly denies import/export/overwrite/merge mutation from navigation.",
+    "diagnostics_recovery_boundary": "PASS - diagnostics stay outside Stage/causal history and recovery route explicitly repairs nothing by opening.",
+    "theme_parity": "PASS - Light/Dark/forced-colors preserve identical secondary hierarchy; utility selection uses structure/currentColor and no status/effect color semantics are created."
+  },  "recursive_audit": {
+    "first_matrix_finding": "At 320px / 200% text, three repeated outer-board overflow witnesses occurred in the COMP-09 header/lede because slash-delimited application/Production copy resisted wrapping.",
+    "correction": "Added min-width/max-width plus anywhere/word-break wrapping to the board heading container and lede only; no utility hierarchy, command boundary, selection grammar or visual role changed.",
+    "rerun_result": "CLEAN_ZERO_OVERFLOW_ALL_SEVEN_CASES",
+    "wide_visual_review": "CLEAN - utility surface remains subordinate to retained Production context and does not read as a privileged administration center.",
+    "narrow_visual_review": "CLEAN - Settings route, retained origin, capacity list/detail and creative return remain sequential and legible without an admin grid.",
+    "product_command_authority_created": false,
+    "permanent_admin_mode_created": false,
+    "semantic_status_color_created": false
+  },
+  "visual_evidence": {
+    "origin_wide_sha256": "fe1e0787bd500a47f2355a0fa55c3e3c691101cc83f2783a6629c497e774535c",
+    "utilities_wide_sha256": "eeaed0e1fd67d8e864af43589ff0a9ad3f88c84ad28ca5c2ce0fa05da3f209e1",
+    "origin_narrow_sha256": "aa6b64bf5123aa60b3f530d8f0e457a5b9ca2ba12ebd95891651e146e5678cac",
+    "utilities_narrow_sha256": "dbb910924926c358c8681fcb3c7200aa4aa78aaf33cacbc2d6714ee066c5c2b3"
+  },
+  "non_authority": [
+    "No final utility labels, menu placement, dialogs, commands or confirmation behavior is created.",
+    "No portable Production format, merge/overwrite/compatibility behavior or destinations are created.",
+    "No provider/model/cost policy, authentication, assignment, availability or Performer semantics are created.",
+    "No diagnostic, repair, fallback, recovery or destructive-action semantics are created.",
+    "No Production token freeze, infrastructure status colors, Stage successor or native WinUI/XAML authority is created."
+  ],
+  "conclusion": "APPUI_COMP_09_REAL_PRODUCTION_LIFECYCLE_UTILITIES_PASS",
+  "next_boundary": "Open APPUI-COMP-10 for the full Character-bounded workspace inside the COMP shell, preserving the same Production and persistent Character identity under materially reduced disclosure, excluding creator-only infrastructure/material and restoring the exact prior creator context on return.",
+  "approval": "APPROVED BY STANDING DIRECTOR DELEGATION - CLEAN RECURSIVE AUDIT"
+}

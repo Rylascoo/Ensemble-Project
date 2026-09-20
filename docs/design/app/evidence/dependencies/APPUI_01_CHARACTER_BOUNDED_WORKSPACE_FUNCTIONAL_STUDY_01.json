@@ -1,0 +1,65 @@
+{
+  "schema": "kymaean.appui-section-functional-study.v1",
+  "status": "SECTION_FUNCTIONAL_DETAIL_PASS",
+  "date": "2026-09-15",
+  "section": "CHARACTER_BOUNDED_WORKSPACE",
+  "program": "APPUI-01 - Windows 11 ARM64 Working App Visual Prototype",
+  "repository": "Rylascoo/Ensemble-Website",
+  "authority": {
+    "design_parent_ref": "c84464e0430659eee05cfe2b12e0b72ea2e7db17",
+    "engineering_ref_at_phase1_freeze": "36b9c4c2644d6d47c957e7910d0c609e260b5432",
+    "phase1_law": "docs/KYMAEAN_APPUI_PHASE_1_STAGE_INTERFACE_ENVELOPE_AND_LAYOUT_MAP_01.md",
+    "phase1_freeze": "docs/evidence/APPUI_01_PHASE_1_INTERACTION_STATE_STRESS_TEST_AND_FREEZE_2026_09_14.json"
+  },
+  "carrier": {
+    "path": "prototypes/appui-01/character-bounded-workspace-functional-study-01.html",
+    "sha256": "F1CE1ED09A4C1388EBE4592EDB8A4316088BF9C9870A3BEEA012E9AB0AB9A584",
+    "browser_probe": "tools/appui_character_bounded_browser_probe.mjs",
+    "browser_probe_sha256": "715F929AD5A9BB6DDE7BDED1D2B0B82A0EF9791BB50E9F235BE3B7185AED5608"
+  },
+  "drive_archive": {
+    "folder_id": "1E_sO0bP8IYcwxRLMpOK8HAiKO3DXXCKc",
+    "png_id": "1NfKPgXOfeBrfF6gEzC6dCG_DqEQ9MSoH",
+    "png_sha256": "A4483BD61629C476BC337EA49D30A63818495291FDE04AF1DD235979A7EB3B7E",
+    "html_id": "10XAgIK3rTHyPqdS7Di2v2FsJUmFQGqMD",
+    "html_sha256": "F1CE1ED09A4C1388EBE4592EDB8A4316088BF9C9870A3BEEA012E9AB0AB9A584"
+  },
+  "browser_preflight": {
+    "normal_1600": {"overflow": false, "overflow_elements": 0, "images": 0, "external_resources": 0},
+    "normal_1024": {"overflow": false, "overflow_elements": 0, "images": 0, "external_resources": 0},
+    "normal_390": {"overflow": false, "overflow_elements": 0, "images": 0, "external_resources": 0},
+    "normal_320": {"overflow": false, "overflow_elements": 0, "images": 0, "external_resources": 0},
+    "forced_colors_320": {"forced_colors": true, "overflow": false, "overflow_elements": 0, "images": 0, "external_resources": 0}
+  },
+  "resolved_rules": [
+    "Character-bounded work preserves the same Production and persistent Character identity while materially changing permitted disclosure.",
+    "Creator-only information is absent/inaccessible in bounded representation rather than merely dimmed, teased, counted or summarized.",
+    "Permitted current context and observable cues become primary inside the bounded view.",
+    "Entering bounded work does not duplicate, recast or replace the persistent Character.",
+    "Creator navigation, focus and selection remain interaction witnesses and never become Character action or fictional salience.",
+    "Only already-authorized action, speech or silence witnesses are reserved here as Character agency capacity; final performance input mechanics remain Product-defined.",
+    "Provider/model/cost, capability failure, diagnostics and recovery remain creator/application infrastructure and do not leak into Character perception by default.",
+    "Close/Back restores the prior creator semantic origin and focus when still valid; navigation is not Undo and transfers no hidden knowledge."
+  ],
+  "responsive_contract": {
+    "wide": "bounded task may remain primary with permitted adjacent context only when the active disclosure boundary allows it",
+    "medium": "bounded task remains primary while secondary permitted context overlays or substitutes",
+    "narrow": "sequential bounded task/detail/return surfaces preserve identity, disclosure, semantic origin and focus restoration"
+  },
+  "recursive_audit": {
+    "result": "CLEAN_AFTER_SEMANTIC_REPAIR",
+    "repairs": [
+      "Removed the unapproved 'waiting' agency witness so the board stays within already-authorized action, speech and silence capacity.",
+      "Replaced the overly specific selection-versus-Character-attention wording with the broader authorized selection-versus-fictional-salience distinction.",
+      "Reran wide, medium, narrow and forced-colors checks after the semantic repairs."
+    ]
+  },
+  "non_authority": [
+    "No final Presentation Perspective selector, entry/exit label, timing or confirmation semantics are frozen.",
+    "No final knowledge schema, inference policy or knowledge-transfer semantics are frozen.",
+    "No performance input grammar, Take a Seat command, performer/provider assignment or Stage visual successor is created.",
+    "No final typography, palette, icons, materials, motion, WinUI/runtime/package or Store authority is created."
+  ],
+  "conclusion": "PASS: Character-bounded work materially changes disclosure while preserving Production identity, persistent Character identity, agency boundaries and exact creator-context return.",
+  "next_boundary": "Detail empty, unavailable, loading and transitional workspace states inside the frozen Phase-1 shell without inventing Product-gated lifecycle or provider semantics."
+}

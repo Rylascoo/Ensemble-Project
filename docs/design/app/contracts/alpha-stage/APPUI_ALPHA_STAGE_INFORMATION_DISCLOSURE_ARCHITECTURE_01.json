@@ -1,0 +1,101 @@
+{
+  "status": "ACTIVE DESIGN EVIDENCE",
+  "packet_id": "APPUI-ALPHA-DISCLOSURE-01",
+  "title": "Kymaean Alpha Stage Information & Disclosure Architecture 01",
+  "authority": {
+    "design_repo": "Rylascoo/Ensemble-Website",
+    "design_branch": "design/appui01-working-compositions-2026-09-14",
+    "engineering_repo": "Rylascoo/Ensemble-Project",
+    "engineering_ref_observed": "2137e8c9db1a9c7817a3cda872e43c6cf72cdc3d",
+    "design_architecture_ready": "NOT READY"
+  },
+  "source_authority": [
+    "APPUI Phase 1 Design Synthesis and Review Notes",
+    "APPUI Phase 1 Production Home / Resume Functional Study 01",
+    "APPUI Phase 1 Interaction and State Stress Test 01",
+    "APPUI Phase 1 Empty / Unavailable / Transitional Workspace Functional Study 01",
+    "APPUI Phase 1 Whole-Production Character Management Functional Study 01",
+    "APPUI Phase 2 Stage-to-Shell Adjacency Live Workspace Composition 01",
+    "APPUI Phase 2 Current Performance + Immediate Causal Context Composition 01",
+    "APPUI Phase 2 Selected Character + Stage State Inspection Composition 01",
+    "APPUI Phase 2 Stage Exception + Recovery Presentation 01",
+    "docs/evidence/APPUI_ALPHA_FOUNDATIONAL_UI_STAGE_CONSTITUTION_01.json",
+    "docs/evidence/APPUI_ALPHA_STAGE_INTERACTION_SPATIAL_GRAMMAR_01.json"
+  ],
+  "disclosure_model": {
+    "principle": "current situation -> meaningful target -> contextual reveal -> deep task surface when needed -> exact semantic return",
+    "depths": {
+      "D0": "Re-entry/orientation: current Production, current situation, resume point, concise current meaning, subordinate routes.",
+      "D1": "Current task/Stage: current Scene/live Stage or other current Production task is primary.",
+      "D2": "Contextual reveal: nearby information about selected meaningful element or directly relevant cause.",
+      "D3": "Deep task surface: deeper Character inspection, expanded causal history, Production-level Character access, bounded perspective, technical detail, or another separately authorized focused task.",
+      "R": "Return: restore originating semantic target and keyboard focus when still valid."
+    },
+    "note": "D0/D1/D2/D3/R are Design presentation-depth shorthand only; they are not Product modes, runtime states, or visible labels."
+  },
+  "frozen_static_rules": [
+    "Home is resume-first/current-situation-first, not a Production-library dashboard.",
+    "Stage/current task dominates when live work is active.",
+    "Focus precedes and remains independent from creator selection.",
+    "Creator selection establishes contextual origin without changing fiction.",
+    "Contextual reveal is invoked, nearby, and subordinate to the primary task.",
+    "Deep Character inspection preserves persistent identity and current Scene origin.",
+    "Whole-Production Character access preserves current Scene selection and does not add off-Scene Characters to the Scene.",
+    "Current performance may expose directly relevant causal context while current/historical status stays explicit.",
+    "Expanded history is a transient/deep route, not a permanent Archive rail.",
+    "Character-bounded perspective is a disclosure transformation inside the same Production.",
+    "No active Scene is a valid state and must not cause invented Stage/Scene lifecycle UI.",
+    "Loading/unavailable/recovery/provisional states remain application truth outside fiction.",
+    "Return restores semantic origin, creator selection and focus when valid; Back/Close is not Undo.",
+    "Wide/medium/narrow change presentation density, not semantic meaning.",
+    "White and Black preserve identical disclosure order and behavior."
+  ],
+  "permanent_stage_chrome_prohibited": [
+    "permanent Character inspector",
+    "permanent deep Character editor",
+    "permanent relationship/knowledge tool",
+    "permanent causal/history browser",
+    "permanent whole-Production Character manager",
+    "permanent persistence/provider diagnostics",
+    "permanent transcript/history metadata rail",
+    "permanent lifecycle/settings/export utilities"
+  ],
+  "open_variables": [
+    "final contextual/deep route labels",
+    "Scene creation/start/resume lifecycle",
+    "Take/Rehearsal/branching/consequence review",
+    "transcript density/scroll/grouping/motion/cadence/Beat-Turn ontology",
+    "timer/Pause behavior",
+    "opportunity computation/scheduling",
+    "provider/model/cost/fallback policy",
+    "Performer assignment mechanics",
+    "portable Production/import/export workflow",
+    "exact Character edit effect/commit semantics",
+    "native WinUI surface classes and runtime accessibility behavior"
+  ],
+  "drive": {
+    "folder_id": "1ZaxYARCLFFi33psHy3GkBEhyyqhUX2tr",
+    "document_id": "1tkii94d2Ha_GxNo8-Qu5qrFnQzCdHh4mg98uLMMLrW8",
+    "document_title": "Kymaean Alpha Stage Information & Disclosure Architecture 01"
+  },
+  "non_authority": [
+    "No new Product/runtime semantics",
+    "No final visible navigation taxonomy",
+    "No Scene lifecycle",
+    "No transcript ontology or timing",
+    "No Take/branch/consequence semantics",
+    "No provider/Performer mechanics",
+    "No persistence implementation claims",
+    "No native implementation validation"
+  ],
+  "audit": {
+    "contradictions_found_and_resolved": [
+      "Historical fixed inspector/right-rail treatments are reduced to contextual/transient capacities.",
+      "Historical People/World/Scenes category pressure is not carried forward as default navigation; situation-first disclosure governs.",
+      "History remains causal/deep rather than a permanent Archive rail.",
+      "Whole-Production Character management is retained as a task route without changing current Scene selection or creating a Character top-level silo.",
+      "Technical/loading/recovery states retain application truth and cannot enter fictional Stage semantics."
+    ],
+    "clean_result": true
+  }
+}

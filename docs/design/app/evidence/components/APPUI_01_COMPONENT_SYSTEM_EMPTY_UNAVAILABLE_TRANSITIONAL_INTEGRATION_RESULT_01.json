@@ -1,0 +1,75 @@
+{
+  "schema": "kymaean.appui-component-system-empty-unavailable-transitional-integration-result.v1",
+  "status": "CLOSED_REAL_EMPTY_UNAVAILABLE_TRANSITIONAL_PASS",
+  "date": "2026-09-16",
+  "program_id": "APPUI-COMP-11",
+  "method": "docs/evidence/APPUI_01_COMPONENT_SYSTEM_EMPTY_UNAVAILABLE_TRANSITIONAL_INTEGRATION_METHOD_01.json",
+  "authority": {
+    "design_repository": "Rylascoo/Ensemble-Website",
+    "design_branch": "design/appui01-working-compositions-2026-09-14",
+    "pre_closeout_head": "a9e8b3ca7a0d776716be67b30cbb8d301eba8448",
+    "website_main_reconciled": "94fd60f3a51485f052c25d753459a45240d845d4",
+    "engineering_main_reconciled": "526893a0f518b52bceddb311514de12ec826b9b3",
+    "parent_packet": "PKT-COMP-10-01"
+  },
+  "artifact": {
+    "path": "prototypes/appui-01/component-system-empty-unavailable-transitional-integration-01.html",
+    "sha256": "238424002c5d1e527a9d8c3b40f0df70c9e92f243ff6978495a7fa75581405ba",
+    "probe": "tools/appui_component_system_empty_unavailable_transitional_matrix_probe.mjs",
+    "probe_sha256": "fd5c1a03201d2b79187a38dc45c330bc38258810ca52ee78071caaf1352aa457",
+    "matrix_sha256": "fa34da69d4a3d1f95accc78e83bf658e7cae5cceeea4e1bfec51802fb84ffd21"
+  },
+  "source_authority": [
+    "docs/evidence/APPUI_01_EMPTY_UNAVAILABLE_TRANSITIONAL_WORKSPACE_FUNCTIONAL_STUDY_01.json",
+    "docs/evidence/APPUI_01_PHASE_3_EMPTY_UNAVAILABLE_TRANSITIONAL_F2_D3_INTEGRATION_01.json",
+    "PKT-COMP-10-01 / PKT-COMP-03-01 / PKT-COMP-02-01 / PKT-COMP-01-01"
+  ],  "mechanical_result": {
+    "cases": [
+      "normal-1600", "normal-1024", "normal-390", "normal-320",
+      "forced-colors-320", "text-200-percent-320", "text-spacing-stress-320"
+    ],
+    "result": "PASS_ZERO_ORIGIN_STATE_RETURN_OVERFLOW_ALL_SEVEN_CASES",
+    "missing_button_names": 0,
+    "undersized_icon_buttons": 0,
+    "state_activation": "PASS - all five state families replace Shaping inside both themes while preserving one shell",
+    "focus": "PASS - keyboard modality yields solid 2px focus with 2px offset on the state return control",
+    "forbidden_commands": "PASS - zero exact Create Scene / Start Scene / Resume Scene / Take / Branch / Rehearsal / Retry / Fallback / Recover buttons and zero form controls inside state surfaces",
+    "return": "PASS - Back and Close restore the retained creator selection/focus when valid",
+    "external_resources": 0
+  },
+  "semantic_result": {
+    "empty": "PASS - No active Scene is a valid Production state; empty is not error, deletion or fabricated Stage content.",
+    "empty_shell_framing": "PASS - empty state changes breadcrumb/header to Production, hides Current possibility and never coexists with a Current situation shell claim.",
+    "loading": "PASS - application transition remains technical state and creates no fictional delay, waiting, hesitation or relationship movement.",
+    "unavailable": "PASS - capability unavailability remains infrastructure and does not become Character refusal, silence, incapacity, emotion or hesitation.",
+    "failed_cancelled": "PASS - failed/cancelled attempt creates no accepted Production mutation, Character action, consequence or causal history.",
+    "provisional": "PASS - provisional/non-effective material remains distinct from current/effective through explicit labels and structure rather than theme/color.",
+    "theme_parity": "PASS - Light F2 and Dark D3 carry identical state truth; accent is not used as progress, success, availability, failure or severity meaning."
+  },  "recursive_audit": {
+    "probe_finding": "The first matrix aggregate failed only because the probe sampled :focus-visible after programmatic focus without first establishing keyboard modality; carrier state semantics, visibility, overflow and return assertions were already passing.",
+    "probe_repair": "Added a real Tab modality witness before each injected state; unchanged carrier bytes then passed the focus invariant in all seven cases.",
+    "visual_finding": "The first valid visual exposure showed No active Scene beneath a stale Current situation breadcrumb/current-possibility frame, which implied Scene-like current context despite the empty-state claim.",
+    "visual_repair": "Empty state now switches shell framing to Production / Current Production, hides Current possibility, generalizes return copy to retained context and restores the normal current-situation frame for all non-empty states and on return.",
+    "regression_guard": "The final probe asserts that empty state cannot pass while Current situation or Current possibility remains visible.",
+    "final_result": "CLEAN_ZERO_OVERFLOW_ALL_SEVEN_CASES_ALL_FIVE_STATE_FAMILIES",
+    "color_retuned_after_exposure": false,
+    "lifecycle_commands_created": false,
+    "provider_commands_created": false,
+    "fictional_failure_behavior_created": false
+  },
+  "visual_evidence": {
+    "origin_wide_sha256": "99033dbd20f77ea091b052ded805e5fda93adf40fb344f49afa2ae4f79aece94",
+    "empty_wide_sha256": "9dd5d3301128b9dc36488d3434171e24aafc7e345fed9c470df4b723e5d15dc2",
+    "unavailable_wide_sha256": "fcb32f63d6923745768fcb3ebb9414e3b439a83023166e47b9c1d28511513acb",
+    "provisional_wide_sha256": "ff40dafa04e2a5a886aca761839b02e8b76f952b2bb557a61b493d3a12354e74",
+    "empty_narrow_sha256": "4b692388f587e407bb06c781c499a579590dbc5963925a010bcbc10c620225fb",
+    "unavailable_narrow_sha256": "d352b56306d8d1a8956396130874c91ded9b54749265236b0ce4f6b145f1ddb4"
+  },  "non_authority": [
+    "No Create/Start/Resume Scene, Take, branch, rehearsal, retry, fallback or provider command is created.",
+    "No loading duration, progress algorithm, cancellation, retry, recovery, provider/model/cost or failure policy is frozen.",
+    "No final Scene lifecycle, consequence, timer/transcript/Pause, production token, native implementation or Stage successor authority is created."
+  ],
+  "conclusion": "APPUI_COMP_11_REAL_EMPTY_UNAVAILABLE_TRANSITIONAL_PASS",
+  "next_boundary": "Run a consolidated APPUI component-integration coverage/convergence audit across PKT-COMP-01-01 through PKT-COMP-11-01 before authorizing any new component gate; identify only already-authorized unresolved interface families and do not invent APPUI-COMP-12 by sequence alone.",
+  "approval": "APPROVED BY STANDING DIRECTOR DELEGATION - CLEAN RECURSIVE AUDIT"
+}

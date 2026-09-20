@@ -1,0 +1,29 @@
+{
+  "schema": "kymaean.appui-post-typ-asset-visual-system-reentry-audit.v1",
+  "status": "SELECT_APPUI_FICON_ASSET_01",
+  "date": "2026-09-16",
+  "repository": "Rylascoo/Ensemble-Website",
+  "baseline_commit": "534982c8b257166c7920725ec54c71a48c78f531",
+  "authority": {
+    "current_state": "CURRENT_STATE.md",
+    "post_ficon_audit": "docs/evidence/APPUI_01_PHASE_3_POST_FICON_REMAINING_STATIC_AXES_AUDIT_01.json",
+    "ficon_packet": "docs/evidence/packets/PKT_FICON_01_FUNCTIONAL_PLATFORM_ICON_TREATMENT_01.json",
+    "typ_asset_packet": "docs/evidence/packets/PKT_TYP_ASSET_01_FINAL_TYPEFACE_01.json",
+    "website_main": "e483f0af35166534fff1455f68e287cc9190d91a",
+    "engineering_main": "2c5afea71b3f3a03413e80f014f2ddeaa7ae1bd8",
+    "director_trigger": "continue after TYP-ASSET-01 closure"
+  },
+  "reentry_review": {
+    "APPUI-COMP-12": "INELIGIBLE component coverage already closed 11/11",
+    "Stage_presentation_S2": "INELIGIBLE S1 resolved static presentation and no contrary evidence exists",
+    "typeface_refinement": "INELIGIBLE TYP-ASSET-01 just closed one-survivor without contradiction",
+    "bespoke_domain_icons": "BLOCKED stable Product vocabulary remains unavailable",
+    "motion": "HOLD transcript/E0 dependent",
+    "production_token_handoff": "DEFERRED native/implementation boundary not yet earned",
+    "final_platform_icon_asset_spec": "ELIGIBLE explicit later APP VISUAL asset gate reserved by post-FICON audit and Director continuation now activates it"
+  },
+  "selection": "APPUI-FICON-ASSET-01 — Conventional Platform Icon Source / Mapping Package",
+  "scope": "Finalize design-reference source/mapping for the eight already-frozen conventional verbs above F1 Native Quiet Carrier. Preserve glyph meaning/treatment; do not invent domain vocabulary or native implementation.",
+  "queue_note": "Project Q-DESIGN-19 remains stale historical CLR state. Engineering is still inside E0-D closeout, so no Project mutation is performed for Design synchronization.",
+  "conclusion": "APPUI_FICON_ASSET_01_SELECTED"
+}

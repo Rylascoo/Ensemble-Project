@@ -1,0 +1,135 @@
+{
+  "status": "ACTIVE DESIGN EVIDENCE",
+  "packet_id": "APPUI-ALPHA-ENSEMBLE-RESPONSIVE-01",
+  "title": "Kymaean Alpha Stage Ensemble Layout & Responsive Composition Law 01",
+  "authority": {
+    "design_repo": "Rylascoo/Ensemble-Website",
+    "design_branch": "design/appui01-working-compositions-2026-09-14",
+    "engineering_repo": "Rylascoo/Ensemble-Project",
+    "engineering_ref_observed": "fc16200b63c5e86684c6e54342bea5b4d9103423",
+    "engineering_boundary": "DESIGN_ARCHITECTURE_READY = NOT READY; existing Design-authorized work may proceed; new runtime-dependent Design meaning still requires integrated exact-main Engineering truth.",
+    "engineer_2_status": "active independently under ENG2-QPROD01-DESIGNARCH-02; no Engineering mutation or interruption from Design"
+  },
+  "source_authority": [
+    "APPUI Phase 2 Present-Character Density Stress 01",
+    "APPUI Phase 2 Stage-to-Shell Adjacency + Live Workspace Composition 01",
+    "APPUI Phase 2 Selected Character + Stage State Inspection Composition 01",
+    "APPUI Phase 2 Current Performance + Immediate Causal Context Composition 01",
+    "APPUI Phase 1 Interaction State Stress Test 01",
+    "docs/evidence/APPUI_ALPHA_CHARACTER_ANCHOR_COMPONENT_ANATOMY_01.json",
+    "docs/evidence/APPUI_ALPHA_STAGE_STATE_WITNESS_REDUNDANCY_GRAMMAR_01.json"
+  ],
+  "ensemble_thesis": "One shared social Stage field contains multiple independent Character anchors. Composition is relational, not slot/grid based; negative space is meaningful; spatial position never silently creates Product meaning.",
+  "tested_density": {
+    "range": "2–5 present Characters",
+    "status": "design-stress evidence only",
+    "not_authority": [
+      "no Product minimum",
+      "no Product maximum",
+      "no Scene membership law",
+      "no runtime addition/removal behavior",
+      "no automatic solution for counts beyond 5"
+    ],
+    "beyond_range_rule": "If future Product truth exceeds current density evidence and the shared-field acceptance tests fail, open a new bounded Design study rather than silently introduce grid, carousel, pagination, hidden roster, or horizontal-scroll behavior."
+  },
+  "placement_rules": [
+    "center position does not imply protagonist/speaker/selection/importance",
+    "left-right position does not encode turn order",
+    "near-far position does not encode relationship type/strength",
+    "scale/height differences cannot establish rank/authority",
+    "focus/selection/performance/opportunity/relationship salience remain independent from placement",
+    "no visible grid/cell scaffolding around anchors"
+  ],
+  "density_rules": {
+    "sparse_2": [
+      "preserve generous negative space",
+      "do not inflate anchors into portrait monuments/cards",
+      "do not add metadata merely because space exists",
+      "do not force bilateral symmetry"
+    ],
+    "open_3": [
+      "preserve an open social field",
+      "avoid three equal columns",
+      "keep all state meanings independent"
+    ],
+    "moderate_4": [
+      "reduce spacing without losing anchor anatomy",
+      "never fall back to 2x2 dashboard",
+      "selection remains local"
+    ],
+    "dense_5": [
+      "compress decoration before identity/state",
+      "listeners remain visibly present",
+      "selection does not consume neighboring anchors",
+      "no horizontal scroll required by current tested evidence"
+    ]
+  },
+  "responsive_rules": {
+    "wide": "Stage remains largest contiguous live surface; full ensemble stays visible where tested density permits; invoked inspector/causal context may be adjacent and subordinate.",
+    "medium": "Stage remains primary; anchors recompose within same semantic field; inspector/context overlays, collapses, or substitutes before Character identity/state degrades.",
+    "narrow": "Stage/current performance remains primary; Character anchors recompose for legibility; contextual/deep surfaces become sequential; Back/Close restores exact Stage origin/focus when valid.",
+    "continuity": [
+      "identity follows Character, not coordinates",
+      "selection follows semantic target, not pixel position",
+      "focus restoration follows semantic origin",
+      "theme/viewport never changes feature availability",
+      "responsive adaptation cannot mutate Production truth"
+    ]
+  },
+  "compression_order": [
+    "reduce decorative spacing/atmosphere first",
+    "reduce simultaneous contextual adjacency second",
+    "move contextual/deep surfaces to overlay/substitute/sequential presentation third",
+    "never remove names/state distinctions or merge focus/selection before secondary UI yields",
+    "never invent carousel/paging/hidden roster/horizontal-scroll as a shortcut"
+  ],
+  "prohibited": [
+    "equal-card grid default",
+    "2x2 or column dashboard fallback",
+    "automatic carousel/pagination/hidden roster",
+    "semantic left-to-right turn order",
+    "center-equals-protagonist law",
+    "scale-equals-importance law",
+    "selection-triggered reflow",
+    "theme-specific Stage arrangement",
+    "wide-only state meaning",
+    "narrow-only feature removal"
+  ],
+  "open_variables": [
+    "exact Character coordinates/spacing",
+    "exact Stage camera/perspective",
+    "exact arc/curve/alignment geometry",
+    "exact cone scaling by viewport",
+    "exact narrow Character arrangement",
+    "exact width breakpoints",
+    "counts beyond tested 2–5",
+    "entry/exit/reflow motion",
+    "Scene membership/cast-cardinality behavior",
+    "performance/opportunity/relationship algorithms",
+    "native layout/GPU/hit-testing/accessibility metrics"
+  ],
+  "drive": {
+    "folder_id": "1ZaxYARCLFFi33psHy3GkBEhyyqhUX2tr",
+    "document_id": "1POr_uLQs5GAag2ajoRD6aZbfJJyYQSsMGTOXKGcISgA",
+    "document_title": "Kymaean Alpha Stage Ensemble Layout & Responsive Composition Law 01"
+  },
+  "non_authority": [
+    "No new Product/runtime semantics",
+    "No cast cardinality",
+    "No Scene membership behavior",
+    "No scrolling/paging/carousel behavior",
+    "No final geometry/breakpoints",
+    "No motion/reflow authority",
+    "No Engineering mutation"
+  ],
+  "audit": {
+    "engineering_refresh_reconciliation": "Project main advanced to fc16200b63c5e86684c6e54342bea5b4d9103423. The refresh preserves DESIGN_ARCHITECTURE_READY = NOT READY and explicitly allows existing Design-authorized work to proceed; therefore this static layout unit remains in-bounds.",
+    "contradictions_found_and_resolved": [
+      "The 2–5 density study is preserved as evidence, not converted into a Product cardinality rule.",
+      "Responsive adjacency evidence is consolidated without freezing exact breakpoints or native panels.",
+      "Narrow layouts may sequence secondary surfaces, but no narrow-only Product mode or feature removal is created.",
+      "Future density beyond evidence fails closed to a new Design study rather than defaulting to dashboard/grid/carousel behavior."
+    ],
+    "clean_result": true
+  }
+}

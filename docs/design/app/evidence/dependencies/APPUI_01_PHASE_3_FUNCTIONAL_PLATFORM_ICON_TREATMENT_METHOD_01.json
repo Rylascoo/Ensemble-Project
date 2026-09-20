@@ -1,0 +1,62 @@
+{
+  "schema": "kymaean.appui-phase3-functional-platform-icon-treatment-method.v1",
+  "status": "METHOD_FROZEN_PRE_EXPOSURE",
+  "date": "2026-09-15",
+  "program_id": "APPUI-FICON-01",
+  "question": "How should conventional Windows/Fluent software verbs sit inside the selected static APP VISUAL system without redrawing platform meaning, spreading accent color, or turning MAT/STA mechanisms into decorative icon chrome?",
+  "authority": {
+    "parent_audit": "docs/evidence/APPUI_01_PHASE_3_REMAINING_STATIC_AXES_AUDIT_01.json",
+    "canonical_static_system": "docs/KYMAEAN_APPUI_PHASE_3_STATIC_APP_VISUAL_SYSTEM_01.md",
+    "visual_grammar": "docs/KYMAEAN_VISUAL_SYSTEM_GRAMMAR_PROPOSAL_01.md#14-iconography--native-verbs-bespoke-domain-meaning"
+  },
+  "frozen_meanings": ["Back", "Close", "Search", "Settings", "More", "Navigation disclosure", "Play", "Pause"],
+  "glyph_source": "Segoe Fluent Icons with Segoe MDL2 Assets fallback; conventional symbol meaning only.",
+  "prohibited": [
+    "No bespoke Kymaean domain glyphs.",
+    "No Threshold K, app-icon or wordmark geometry reused as interface icon anatomy.",
+    "No Product-gated Scene/Take/Perspective/provider/Performer symbol invention.",
+    "No default teal icon color or semantic status color.",
+    "No motion as a scored differentiator."
+  ],
+  "candidate_treatments": {
+    "CNEG": {"name":"Persistent Filled Tile","role":"ineligible calibration control","treatment":"Every icon sits in a persistent soft-surface square tile."},
+    "F1": {"name":"Native Quiet Carrier","treatment":"Platform glyph uses currentColor on a visually quiet/transparent carrier at rest; structural focus appears only when focused; labels remain available where context requires."},
+    "F2": {"name":"Persistent Boundary Button","treatment":"Platform glyph sits in a persistent thin-boundary control box even at rest."},
+    "F3": {"name":"Material Channel Hook","treatment":"Platform glyph is attached to a subtractive MAT edge/channel witness as its default visual carrier."}
+  },
+  "mechanical_matrix": {
+    "themes": ["Light F2", "Dark D3"],
+    "sizes_css_px": [16, 20, 24],
+    "viewports_css_px": [1200, 320],
+    "modes": ["normal", "forced-colors", "200% text", "text-spacing stress"],
+    "required_checks": [
+      "No horizontal document/internal overflow.",
+      "Every icon-only control has an accessible name.",
+      "Conventional glyph source is locally available or the case is invalid.",
+      "Focus-visible remains a structural ring independent from icon color.",
+      "CurrentColor glyphs remain legible in Light, Dark and forced-colors.",
+      "At-rest conventional verbs do not require accent color.",
+      "Labeled examples remain readable at 200% text and text-spacing stress.",
+      "No external network/resource dependency."
+    ]
+  },
+  "subjective_falsification": [
+    "Treatment redraws or obscures a familiar platform verb instead of preserving native meaning.",
+    "Icon chrome becomes more visually authoritative than the task/content.",
+    "Every icon begins to read as a card/tile or dashboard widget.",
+    "MAT subtractive topology is reduced to a decorative icon badge.",
+    "Teal spreads into default icon color or semantic status meaning.",
+    "Focus and selection become inseparable from icon treatment.",
+    "Treatment resembles Threshold K/app-icon anatomy strongly enough to create a second mark.",
+    "Light and Dark no longer read as the same icon system."
+  ],
+  "result_law": {
+    "CNEG_cannot_survive": true,
+    "no_post_exposure_retune": true,
+    "replacement_candidate_after_result": false,
+    "maximum_survivors": 1,
+    "bespoke_domain_icons_remain_blocked": true,
+    "production_token_authority": false
+  },
+  "next_gate": "Materialize CNEG/F1/F2/F3 with the same conventional Fluent verbs in selected Light F2 and Dark D3, run the complete mechanical/accessibility matrix, then perform subjective falsification on normal-color wide and narrow evidence."
+}

@@ -1,0 +1,72 @@
+{
+  "schema": "kymaean.appui-component-system-character-bounded-workspace-integration-method.v1",
+  "status": "FROZEN_PRE_EXPOSURE",
+  "date": "2026-09-16",
+  "program_id": "APPUI-COMP-10",
+  "authority": {
+    "design_repository": "Rylascoo/Ensemble-Website",
+    "design_branch": "design/appui01-working-compositions-2026-09-14",
+    "pre_exposure_head": "c54edfcf56667d472745ba47df0e4c4a26984131",
+    "website_main_reconciled": "8b375780cdbdcb6e21940b6cf5db7c4badf21b19",
+    "engineering_main_reconciled": "3d7a5419afd1c502ce6aaba8f3ca906b48d6a868",
+    "functional_parent": "docs/evidence/APPUI_01_CHARACTER_BOUNDED_WORKSPACE_FUNCTIONAL_STUDY_01.json",
+    "visual_parent": "docs/evidence/APPUI_01_PHASE_3_CHARACTER_BOUNDED_WORKSPACE_F2_D3_INTEGRATION_01.json",
+    "component_parent": "PKT-COMP-09-01"
+  },
+  "bounded_question": "Can the same Production and same persistent Julian move from creator-global context into a materially reduced Character-bounded workspace inside the real COMP shell, with creator-only material absent and exact creator-context return, without freezing final Perspective or performance mechanics?",
+  "fixed_inputs": {
+    "light": "Light F2",
+    "dark": "Dark D3",
+    "material": "MAT F1",
+    "typography": "TYP F1",
+    "state": "STA F2",
+    "icons": "FICON F1"
+  },
+  "must_preserve": [
+    "The White Current and Julian remain the same Production and persistent Character across creator-global and bounded states.",
+    "Creator-only causal, private, provider, capability, diagnostics and recovery material is absent from bounded representation rather than dimmed, teased, counted, redacted or summarized.",
+    "Permitted current context and observable cues become primary in the Julian-bounded workspace.",
+    "Disclosure change does not duplicate, recast or replace Julian.",
+    "Creator focus/selection remains UI state and does not imply Julian's fictional salience or agency.",
+    "Creator navigation into bounded work is not itself Character action; only already-authorized action, speech or silence remain agency capacities.",
+    "Unknown, withheld and absent remain distinct concepts without forcing a final epistemic schema.",
+    "Back/Close restores the exact creator semantic origin and focus when still valid and transfers no hidden knowledge.",
+    "Theme changes presentation only and never stands in for disclosure authority."
+  ],
+  "falsification": [
+    "Bounded state preserves creator-only rows in disabled, dimmed, blurred, redacted, placeholder or counted form.",
+    "Any provider/model/cost/capability/diagnostic/recovery information appears as Julian-visible information or fictional explanation.",
+    "Darkness itself implies secrecy, privacy, lesser truth or Character-bounded authority.",
+    "Lightness itself implies creator-global authority or more complete reality.",
+    "Entering bounded work creates a second Julian, a duplicate Production, a recast identity or a permanent top-level app mode.",
+    "Creator selection/focus is presented as Julian noticing, choosing or intending.",
+    "A final Perspective selector, Take a Seat command, performance input grammar or knowledge-transfer model is implied."
+  ],
+  "matrix": [
+    "normal-1600",
+    "normal-1024",
+    "normal-390",
+    "normal-320",
+    "forced-colors-320",
+    "text-200-percent-320",
+    "text-spacing-stress-320"
+  ],
+  "mechanical_gates": [
+    "zero page and internal horizontal overflow in every matrix case",
+    "zero missing button accessible names and zero undersized icon-only controls",
+    "solid 2px keyboard focus with 2px offset",
+    "creator and bounded states each preserve exactly one Julian identity per theme",
+    "creator-only witness count is zero inside every bounded workspace",
+    "provider/infrastructure witness count is zero inside every bounded workspace",
+    "Back and Close restore the exact creator-origin trigger focus and retained selection",
+    "zero external resources or images"
+  ],
+  "non_authority": [
+    "No final Perspective selector, entry/exit label, timing or confirmation semantics are created.",
+    "No final knowledge schema, inference policy, knowledge-transfer or forgetting semantics are created.",
+    "No performance input grammar, Take a Seat command, provider/Performer assignment or Stage successor is created.",
+    "No production-token freeze or native WinUI/XAML authority is created."
+  ],
+  "no_retune_after_exposure": true,
+  "next": "Materialize one creator-global origin and one Julian-bounded workspace inside the COMP shell, run the frozen seven-case matrix, recursively audit hidden-material absence and exact return, and preserve only if clean."
+}

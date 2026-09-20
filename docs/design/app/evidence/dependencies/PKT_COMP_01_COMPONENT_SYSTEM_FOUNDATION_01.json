@@ -1,0 +1,154 @@
+{
+  "schema": "kymaean.design-gate-packet.v1",
+  "framework": "docs/evidence/DESIGN_PACKET_AND_SYNTHESIS_FRAMEWORK_01.json",
+  "packet_id": "PKT-COMP-01-01",
+  "packet_class": "GATE_MECHANISM_PACKET",
+  "status": "PROVISIONAL_INCUMBENT",
+  "date": "2026-09-16",
+  "gate_or_program": "APPUI-COMP-01 - Kymaean Application Component System Foundation",
+  "design_axis": "APP VISUAL foundational Product-independent component and interaction grammar",
+  "bounded_question": "How should everyday Kymaean controls behave and look at interaction scale without reopening the frozen app architecture/static visual system or inventing unresolved Product semantics?",
+  "authority": {
+    "repository": "Rylascoo/Ensemble-Website",
+    "baseline_commit": "54f0984e7cf0d74af2bd90f196deb8489f800b6e",
+    "current_state_at_close": "CURRENT_STATE.md",
+    "governing_method_or_contract": [
+      "docs/evidence/APPUI_01_COMPONENT_SYSTEM_FOUNDATION_METHOD_01.json",
+      "docs/evidence/APPUI_01_COMPONENT_SYSTEM_FOUNDATION_PREFLIGHT_01.json",
+      "docs/KYMAEAN_APPUI_COMPONENT_SYSTEM_FOUNDATION_01.md"
+    ],
+    "drive_sources_if_material": [
+      "1lhA7UwZlDHtBThAgj-YSoLBDAtchfpHM",
+      "1Gd6Qi26vut0uV_z6OvWjD0XAnhg41s8h",
+      "19JqxKwhU986sxQvrofowHix6X_WFzt6G"
+    ],
+    "close_reconciliation": {
+      "website_main": "e0e6cf26441745547f0e09cc2c27ea6ba8059a2b",
+      "engineering_main": "e007ed2838c892f2d7734dcf6ac87b6b00022684",
+      "effect": "No contradiction. Bellweather remains app-brand visual authority while the new Website mascot exploration is non-production and explicitly freezes app UI; Engineering adds no APPUI Product semantics."
+    }
+  },
+  "controlled_inputs": [
+    "Light F2 / Dark D3 role system",
+    "MAT F1 / TYP F1 / STA F2",
+    "FICON F1 for conventional platform verbs",
+    "Phase-1 component-coverage and layout law",
+    "Seven-case responsive/accessibility matrix"
+  ],
+  "excluded_variables": [
+    "Product-gated Scene/Take/Rehearsal/provider/Performer semantics",
+    "Stage redesign",
+    "bespoke domain glyphs",
+    "motion",
+    "final typeface/font files",
+    "production/native tokens and shipping behavior"
+  ],
+  "local_result": {
+    "summary": "A coherent Product-independent foundational control grammar survives deterministic and visual review in Light and Dark across wide/narrow/accessibility stress.",
+    "survivors_or_closure": [
+      "Foundational Control Grammar 01"
+    ],
+    "recommended_incumbent": "Foundational Control Grammar 01",
+    "alternates": [],
+    "rejections": []
+  },
+  "judgment": {
+    "design_sol_view": "The foundation is visually Kymaean because it keeps the field/task dominant, makes controls quiet until operated, reserves teal from default action/status meaning, and keeps focus/selection structurally separate.",
+    "director_view_or_delegation": "Director explicitly authorized continuation of unfinished app-interface design; Design Sol executed and closed this bounded Product-independent gate under standing design delegation.",
+    "resolution_mode": "DIRECTOR_AUTHORIZED_DESIGN_SOL"
+  },
+  "evidence": {
+    "mechanical": [
+      "Seven-case matrix PASS with zero layout overflow",
+      "0 missing button names",
+      "0 undersized icon buttons",
+      "0 undersized text inputs",
+      "solid 2px focus / 2px offset in every case",
+      "carrier SHA-256 ee2d3aebc79ee4af94a8295c43cf8b1b3bf3b82818fcd776b3c6e661d904cf50",
+      "probe SHA-256 fbddff6e3a4b38fc1b2121633418ff65f136430ad5b4afd01ccf0c0bf7013703"
+    ],
+    "visual": [
+      "Drive wide 1Gd6Qi26vut0uV_z6OvWjD0XAnhg41s8h / SHA-256 47dbe9bd83ca265d3e1c96b454772b5531184aff00238eddff9c481670cbde45",
+      "Drive narrow 19JqxKwhU986sxQvrofowHix6X_WFzt6G / SHA-256 435d093d2eb7aded486b9e4ae75d1abe1b5cd3b60dce8b698e23cf9de8b938d9",
+      "docs/evidence/APPUI_01_COMPONENT_SYSTEM_FOUNDATION_RESULT_01.json"
+    ],
+    "accessibility": [
+      "1600/1024/390/320 normal layout PASS",
+      "forced-colors 320 PASS",
+      "200% text 320 PASS",
+      "text-spacing stress 320 PASS",
+      "focus remains independent from selection",
+      "semantic feedback remains hue-independent"
+    ],
+    "invalid_or_superseded_attempts": [
+      "Initial probe contrast helper failed before diagnostics and was removed as redundant harness logic; it did not change the carrier.",
+      "Initial narrow/200%-text geometry exposed min-width and switch-shrink defects; responsive-only repairs were made before final freeze without retuning frozen visual roles."
+    ]
+  },
+  "dependencies": {
+    "requires": [
+      "KYMAEAN APPUI Phase 3 Static App Visual System 01",
+      "FICON F1 Native Quiet Carrier",
+      "Phase-1 layout/component coverage law"
+    ],
+    "constrains": [
+      "Later Product-independent APP VISUAL controls default to this action/input/choice/row/disclosure/transient/feedback grammar unless an explicit successor supersedes it."
+    ],
+    "must_not_be_confused_with": [
+      "Shipping WinUI control library",
+      "Production design-token package",
+      "Product command taxonomy",
+      "Stage interaction semantics"
+    ]
+  },
+  "known_integration_sensitivities": [
+    "Primary app commands must not casually switch to teal-filled buttons.",
+    "Dense toolbars must keep FICON F1 quiet rather than adding persistent boxed icon chrome.",
+    "Real workspace panels must not multiply functional control boundaries into a card-grid identity.",
+    "High-consequence and error states require explicit language and structure rather than a future semantic-color shortcut."
+  ],
+  "explicit_non_authority": [
+    "No Product-gated command semantics.",
+    "No Stage successor or behavior change.",
+    "No bespoke domain glyphs or final icon asset package.",
+    "No final font files, production tokens, WinUI/XAML mapping, shipping/package/Store authority.",
+    "No Bellweather mascot placement/implementation is created by this component-foundation packet."
+  ],
+  "lawful_reentry_triggers": [
+    "new integration evidence",
+    "direct contradiction",
+    "materially changed product/engineering truth",
+    "changed governing contract",
+    "explicit new/refinement program"
+  ],
+  "canonical_artifacts": {
+    "repository": [
+      "docs/KYMAEAN_APPUI_COMPONENT_SYSTEM_FOUNDATION_01.md",
+      "docs/evidence/APPUI_01_COMPONENT_SYSTEM_FOUNDATION_METHOD_01.json",
+      "docs/evidence/APPUI_01_COMPONENT_SYSTEM_FOUNDATION_PREFLIGHT_01.json",
+      "docs/evidence/APPUI_01_COMPONENT_SYSTEM_FOUNDATION_RESULT_01.json",
+      "prototypes/appui-01/component-system-foundation-01.html",
+      "tools/appui_component_system_foundation_matrix_probe.mjs"
+    ],
+    "drive_visual_masters": [
+      "1lhA7UwZlDHtBThAgj-YSoLBDAtchfpHM",
+      "1Gd6Qi26vut0uV_z6OvWjD0XAnhg41s8h",
+      "19JqxKwhU986sxQvrofowHix6X_WFzt6G"
+    ],
+    "director_review_surface": {
+      "entry_point": "wide + narrow Foundational Control Grammar 01 renders",
+      "what_to_review": "everyday action/input/choice/row/disclosure/transient/feedback hierarchy in Light F2 and Dark D3",
+      "diagnostics_not_for_aesthetic_choice": [
+        "matrix JSON",
+        "DOM/probe output"
+      ]
+    }
+  },
+  "synthesis_state": {
+    "tested_with_packet_ids": [
+      "PKT-FICON-01-01"
+    ],
+    "latest_composition_packet": null,
+    "whole_app_synthesis_status": "FOUNDATION_VALIDATED_REAL_SHELL_INTEGRATION_NEXT"
+  }
+}

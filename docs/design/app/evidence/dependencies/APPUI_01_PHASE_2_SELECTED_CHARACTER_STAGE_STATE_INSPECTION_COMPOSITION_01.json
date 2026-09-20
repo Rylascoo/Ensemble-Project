@@ -1,0 +1,68 @@
+{
+  "schema": "kymaean.appui-phase2-selected-character-stage-state-inspection-composition.v1",
+  "status": "PASS_STATIC_SELECTED_CHARACTER_STAGE_STATE_INSPECTION",
+  "date": "2026-09-15",
+  "program": "APPUI-01-P2-SELSTATE-01",
+  "repository": "Rylascoo/Ensemble-Website",
+  "authority": {
+    "design_parent_ref": "c9101c97cc5697e9073b73821126e3daa6d8a8d6",
+    "phase2_entry_gate": "docs/evidence/APPUI_01_PHASE_2_ENTRY_GATE_ENGINEERING_RECONCILIATION_2026_09_15.json",
+    "stage_anchor": "PKT-STAGE-CORE-02",
+    "engineering_ref": "60b85fbcb36e265e3910444714143d944ffef841"
+  },
+  "question": "Can creator focus/selection and contextual inspection coexist with speaking/listening/current-opportunity Stage meanings without any one state visually or semantically impersonating another?",
+  "result": "PASS",
+  "carrier": {
+    "path": "prototypes/appui-01/phase2-selected-character-stage-state-inspection-composition-01.html",
+    "sha256": "9682301948870f8b08c08a3c5cae239309084effea9f7410eaae69b1f6d12b5a",
+    "production_authority": false
+  },
+  "drive": {
+    "folder_id": "14-C5PrxDjO_X2a1j3Ip7oLN5QYXzDj2p",
+    "png_id": "13yLbVvVYFiVA_Vl3ThL6UFIGY6Lf1CK3",
+    "png_sha256": "770db6d21eec69d0abf25c49d16f6ed7313f091c926d88fd79447897cc9d8ca1",
+    "html_id": "1IQ7OJDtSJM4A4fDHLu4WAB8HtWGKPyhD",
+    "html_sha256": "9682301948870f8b08c08a3c5cae239309084effea9f7410eaae69b1f6d12b5a"
+  },  "accepted_grammar": [
+    "Keyboard focus is a navigation witness and may move without selection or fictional change.",
+    "Creator selection establishes an inspection target and does not imply fictional salience, current opportunity or Character agency.",
+    "Speaking/listening remain current Stage state; listening Characters remain visibly present.",
+    "Current opportunity remains a separate Stage/Director-facing meaning and is not inferred from focus, selection or inspector presence.",
+    "Selected Character inspection follows Stage -> focus -> selection -> contextual inspection -> deeper inspection -> exact return without changing Character identity or Production truth.",
+    "Human-readable Character names remain the explicit identity anchor; color/portrait/glow are insufficient identity or state carriers."
+  ],
+  "fixture_basis": "Gilligan’s Isle / The Missing Raft with Marlowe, Dr. Voss, Wren, Iona and Keir is used only as the frozen Stage-anchor illustrative witness. Five Characters are not promoted to a cardinality law.",
+  "browser_preflight": {
+    "modes": [
+      {"id": "normal-1600", "result": "PASS", "overflow": 0},
+      {"id": "normal-1024", "result": "PASS", "overflow": 0},
+      {"id": "normal-390", "result": "PASS", "overflow": 0},
+      {"id": "normal-320", "result": "PASS", "overflow": 0},
+      {"id": "forced-colors-320", "result": "PASS", "overflow": 0}
+    ],
+    "shell_specimens": 2,
+    "stage_specimens": 2,
+    "character_witnesses": 10,
+    "contextual_inspector_specimens": 2,
+    "return_flow_steps": 5,
+    "explicitly_unresolved_capacity_witnesses": 6,
+    "external_resources": 0
+  },  "recursive_audit": {
+    "result": "CLEAN_AFTER_REPAIRS",
+    "defects_repaired": [
+      "Initial Character name/state children expanded cone scroll width at every required viewport; labels were constrained to the carrier width with wrapping while preserving visible identity/state text.",
+      "The geometry-repair write path double-encoded UTF-8 punctuation/identity text; exact UTF-8 was restored and the complete matrix rerun.",
+      "The first shell mixed The White Current/The Tides Remember with the Missing Raft Character set; it was corrected to the frozen Stage anchor’s Gilligan’s Isle/The Missing Raft fixture."
+    ],
+    "wide_visual_review": "PASS",
+    "narrow_visual_review": "PASS"
+  },
+  "explicit_non_authority": [
+    "No new cone geometry, floor/name hinge, pips, redundant identity symbol or portrait dependency.",
+    "No Director opportunity algorithm or scheduling semantics.",
+    "No transcript-dependent motion, cadence, timing or turn-taking authority; Q-DESIGN-02 remains blocked.",
+    "No intervention/Take/consequence/provider/Performer semantics and no Phase-D/runtime/shipping authority."
+  ],
+  "next_boundary": "Run a static 2–5 present-Character composition/density stress study using the frozen cone/name/floor carrier as a design witness only. Do not infer a minimum/maximum active-Scene cardinality, reopen ODR-30, or replace PKT-STAGE-CORE-02.",
+  "approval": "APPROVED BY STANDING DIRECTOR DELEGATION — CLEAN RECURSIVE AUDIT."
+}
