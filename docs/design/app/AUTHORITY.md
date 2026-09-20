@@ -1,8 +1,8 @@
-# Application Design Transfer Receipt Authority
+# Application Design Authority
 
-Status: **RECEIVED / VALIDATED / SOURCE RELINQUISHMENT PENDING**
+Status: **APP DESIGN AUTHORITY ACTIVE / PROJECT RECONCILED / RYLADMIN CLOSEOUT PENDING**
 
-Package: `ADMIN-Q05-TRANSFER-01`. This is a frozen receipt, not a second independently mutable authority. Website remains the governing app-design authority until Ryladmin performs its cross-repository receipt audit and authorizes relinquishment. Q-ADMIN-05 is not complete.
+Package: `ADMIN-Q05-TRANSFER-01`. Project receipt and Website source relinquishment are complete. This file is the entry point for current application-design work under a separately granted bounded lease. The transfer receipt remains frozen provenance; Q-ADMIN-05 is not globally complete until Ryladmin performs final closeout.
 
 ## Exact authority and receipt
 
@@ -14,7 +14,7 @@ Machine-readable receipt: `docs/design/app/TRANSFER_RECEIPT.json`. Lease: `docs/
 
 ## C03 — received App Design role and routing clauses
 
-App Design Sol is accountable for application UX/UI judgment and receives the frozen app contracts at this root. Engineering remains accountable for Product architecture, source, tests, runtime, build and validation. A contract or browser result never promotes Product semantics, runtime, native accessibility, ARM64, WACK or Store evidence.
+App Design Sol is accountable for application UX/UI judgment and current app contracts at this root. Engineering remains accountable for Product architecture, source, tests, runtime, build and validation. A contract or browser result never promotes Product semantics, runtime, native accessibility, ARM64, WACK or Store evidence.
 
 Fresh App Design work must recover exact live refs and the owning current-state surface, then this authority entry, the frozen receipt, selected ledger decisions and their exact dependency graph. Historical states and source-era next actions do not reopen work. The central Project execution queue remains the single sequencing register and cannot override stronger Product/Design authority.
 
@@ -24,15 +24,15 @@ Current Product truth is an input to Design judgment, not an aesthetic decision.
 
 Frozen criteria, budgets, status and identity must survive transfer. Any future in-lane approval requires correction and a complete clean recursive audit, recorded as APPROVED BY STANDING DIRECTOR DELEGATION — CLEAN RECURSIVE AUDIT. That delegation does not decide Product/policy, Engineering or irreducible Director taste. Design evidence/ledger continuity accompanies actual later Design events; this transfer consumes no render or new experiment.
 
-One artifact has one canonical home. App-specific design/motion belongs Project after relinquishment; Website-specific design/motion stays Website; genuinely cross-surface principles are Ryladmin governance references; shared visual/creative masters stay Google Drive. No Website-only implementation, artwork, release or hosting law is imported. Source historical lineage is preserved by exact immutable references.
+One artifact has one canonical home. App-specific design/motion belongs Project; Website-specific design/motion stays Website; genuinely cross-surface principles are Ryladmin governance references; shared visual/creative masters stay Google Drive. No Website-only implementation, artwork, release or hosting law is imported. Source historical lineage is preserved by exact immutable references.
 
 C03 sources are the four current-main objects/ranges sealed in the Website oracle. Their exact identities and scopes are recorded in the receipt. This section receives app-side role/routing constraints only and does not amend foreign repository law. Engineer #1 must reconcile the central queue/root current-state receiving checkpoint in its separately owned continuity surface; that cross-project closure is not claimed here.
 
 ## Holds and lawful next boundary
 
-Home A/B: `UNRESOLVED_APP_DESIGN_DECISION`. FIRSTUSE: `EVIDENCE_PENDING_ADOPTION`. PR #226: `CONTINUE_HOLD`; eventual resume requires fresh Project main, final transferred Design authority, current Product truth, exclusive Engineering lease and semantic reconciliation. ADMIN-EST-CONTRACTS-01 remains pending; recurring automation remains NOT READY.
+Home A/B: `UNRESOLVED_APP_DESIGN_DECISION`. FIRSTUSE: `EVIDENCE_PENDING_ADOPTION`. PR #226: `CONTINUE_HOLD`. Final transferred Design authority is satisfied, but eventual resume still requires fresh Project main, current Product truth, an exclusive Engineering lease and semantic reconciliation. ADMIN-EST-CONTRACTS-01 remains pending; recurring automation remains NOT READY.
 
-After this receipt passes validation and integrates, the exact next Q-ADMIN-05 task is Ryladmin's cross-repository receipt audit and coordinated owning routing reconciliation. Only that later authority may authorize Website relinquishment. This receipt does not authorize it.
+The exact next Q-ADMIN-05 task is Ryladmin's final cross-repository authority-graph verification and global closeout. This Project reconciliation does not close Q-ADMIN-05 globally or authorize Product implementation.
 
 ## Reproducing frozen reference evidence
 
@@ -42,7 +42,7 @@ The receipt validation record qualifies the COMP-09 inherited label-encoding wit
 
 ## Received artifact inventory
 
-Every entry below is governed by the transitional boundary above. JSON/prototype/tool bytes preserve frozen source evidence; source-era role/next-action fields are provenance, not current execution permission. Exact source dependencies that remain pointers are immutable pinned dependencies, not independently evolving Project copies. Scope and transformation are explicit in the receipt.
+Every entry below remains governed by its transferred contract and immutable receipt provenance. JSON/prototype/tool bytes preserve frozen source evidence; source-era role/next-action fields and transitional status lines are provenance, not current execution permission. Exact source dependencies that remain pointers are immutable pinned dependencies, not independently evolving Project copies. Scope and transformation are explicit in the receipt.
 
 - `docs/design/app/.gitattributes`
 - `docs/design/app/DESIGN_LEDGER.md`
