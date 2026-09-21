@@ -436,6 +436,7 @@ Native correction authority is exact source `2484359...`; later evidence/integra
 | Annotated tag | `validation/q-prod-02-r2-native-arm64-compile-2026-09-21` |
 | Evidence | `docs/evidence/Q_PROD_02_Q_DESIGN_20_R2_NATIVE_ARM64_VALIDATION_2026_09_21.md` |
 | Native ARM64 | Application 57/57, Persistence 129/129 PASS; WinUI Release compile 0 warnings/errors |
+| Hosted exact-head | Draft PR #244 candidate `c5d14a01ec150e117b05ce5c2e997ab80d949042`: Validation gate #1126 and E0-E preparation gate #163 PASS; no native-rung promotion |
 | Limits | Exact-source UI runtime/visual/accessibility behavior, packaging and Design acceptance NOT TESTED; Q-DESIGN-20 remains pending |
 
 The source tag binds the tested Windows code; subsequent continuity edits do not inherit runtime or visual validation.

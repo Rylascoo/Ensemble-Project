@@ -20,10 +20,10 @@ Producer PR #240 integrated at `9516a27ca019d2c6af304f46da89bde215449df4`; consu
 
 Consumer native evidence remains bound to `e07267185cbae7caa62f70bc9f9a39852c0eedd0`, tag `validation/q-prod-01-lossless-persistence-consumer-native-arm64`; the reassessment earns no new runtime evidence.
 
-Q-PROD-02 R2 Windows source candidate `f7678811c715f3c3cfe6daed95a38737fedc0ba2` implements exactly APPUI-QDESIGN20-R2-01..04. Native ARM64 Application 57/57, Persistence 129/129 and WinUI compile PASS; UI runtime/visual evidence NOT TESTED. See `docs/evidence/Q_PROD_02_Q_DESIGN_20_R2_NATIVE_ARM64_VALIDATION_2026_09_21.md`. Q-DESIGN-20 acceptance remains pending.
+Q-PROD-02 R2 Windows source `f7678811c715f3c3cfe6daed95a38737fedc0ba2` implements exactly APPUI-QDESIGN20-R2-01..04. Native ARM64 Application 57/57, Persistence 129/129 and WinUI compile PASS; UI runtime/visual evidence NOT TESTED. Draft PR #244; exact-head CI at `c5d14a01ec150e117b05ce5c2e997ab80d949042` PASS. See `docs/evidence/Q_PROD_02_Q_DESIGN_20_R2_NATIVE_ARM64_VALIDATION_2026_09_21.md`. Q-DESIGN-20 acceptance remains pending.
 
 Append/replay remain separately gated; no automatic recovery/retry/rollback, Character knowledge mutation or stronger concurrency guarantee. Home A/B unresolved; FIRSTUSE pending. Provider, deferred E0, final architecture, Alpha/Beta/release, WACK/Store remain separately gated. Preserved provider chain: `docs/evidence/E0D_Q_E0D_01_P03_SLOT1_PREEXECUTION_ACTIVATION_2026_09_17.md`.
 
 ## Next
 
-Finish Q-PROD-02 reviewable PR and exact-head checks; return exact evidence to App Design Sol under Q-DESIGN-20. Do not merge without Director authorization. New World-current UI requires a later reconciled Design scope.
+Return PR #244 and exact native evidence to App Design Sol under Q-DESIGN-20; obtain UI interaction/visual evidence and Design acceptance. Do not merge without Director authorization. New World-current UI requires a later reconciled Design scope.
