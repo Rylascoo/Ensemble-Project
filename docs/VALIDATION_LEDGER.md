@@ -367,6 +367,28 @@ Exact native authority is policy source `c352d96...`; this manager closeout reco
 
 This terminal closeout adds no Product/Persistence semantics, provider authority, deferred-E0 execution, WACK/Store authority, or higher validation rung.
 
+### Q-PROD-01 World-current-truth successor checkpoint
+
+| Field | Fact |
+|---|---|
+| Package | `QPROD01-NATIVE-PRODUCER-01` |
+| Fresh base | `3a42bcd60047f260eadfce3781afb3bcefcbdd87`; exact-main Validation #1108 PASS |
+| Historical producer | `dc1780e46ef999eb01e214671486b83186ca04c4`; PR #226 preserved open/unmerged as the superseded predecessor |
+| Exact runtime source | `168c5d306afc88202e9d5d30aacaeca8e4119dc6`; seven production/test blobs initially byte-identical to the producer |
+| Reviewed corrected candidate | `0a48949d6c1e02be420bb9204b3b85b08fd76150`; six direct null-contract tests added after review, no runtime-source change |
+| Successor PR | Draft PR #240; no merge authority |
+| Validation tag | `validation/q-prod-01-world-current-truth-successor-native-arm64` -> exact runtime source |
+| Evidence | `docs/evidence/Q_PROD_01_WORLD_CURRENT_TRUTH_SUCCESSOR_NATIVE_ARM64_VALIDATION_2026_09_20.md` |
+| Host | SurfSeven, native Windows ARM64, repository .NET 9 baseline |
+| Native tests | focused World-current contract 19/19 PASS; Application 57/57 PASS; Persistence 85/85 PASS; Core 628/628 PASS |
+| WinUI compiler | ARM64 Release PASS, 0 warnings/errors |
+| Repository guards | law PASS; final staged census 511/390/30/91/0; oracle 674/17/657; diff/protected-diff/commissioning closeout PASS |
+| Review | exact-SHA behavioral no-write review found no actionable findings after correction; effective sandbox was workspace-write, so technical containment was not proven |
+| Earned contract | immutable canonical `WorldCurrentTruth` / `WorldCurrentState`; creator-specific whole-state replacement; old histories empty; deterministic replay; null/duplicate rejection; typed failure preserves prior usable projection/navigation |
+| Authority scope | Application producer only; no Persistence consumer/encoding, Character knowledge, UI, provider, deferred-E0, final architecture, release, WACK or Store authority |
+
+Exact runtime authority remains `168c5d3...`; the corrected review candidate adds tests only. The draft PR's later continuity commit and hosted checks do not inflate compiler evidence into native runtime or merge authority.
+
 ### Q-DESIGN-20 bounded native-corrections checkpoint
 
 | Field | Fact |

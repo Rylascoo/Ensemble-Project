@@ -124,6 +124,50 @@ public sealed class ProductApplication
         return Query();
     }
 
+    public ProductAccessResult<ProductApplicationProjection>
+        ReplaceWorldCurrentState(WorldCurrentState currentState)
+    {
+        ArgumentNullException.ThrowIfNull(currentState);
+
+        if (_currentProduction is null || _currentProductionReplay is null)
+        {
+            throw new InvalidOperationException(
+                "A Production must be open before changing its World current state.");
+        }
+
+        if (_catalog is not IProductionWorldStateWriter writer)
+        {
+            throw new InvalidOperationException(
+                "The configured Production catalog does not support World current-state mutation.");
+        }
+
+        var access = writer.ReplaceWorldCurrentState(
+            _currentProduction.Id,
+            currentState);
+
+        if (!access.IsSuccess)
+        {
+            return ProductAccessResult<ProductApplicationProjection>.Failure(
+                access.FailureKind);
+        }
+
+        var replay = access.Value;
+        if (!string.Equals(
+                _currentProduction.ProductionName,
+                replay.ProductionName,
+                StringComparison.Ordinal)
+            || !replay.WorldCurrentState.Equals(currentState))
+        {
+            return ProductAccessResult<ProductApplicationProjection>.Failure(
+                ProductAccessFailureKind.Invalid);
+        }
+
+        _currentProductionReplay = replay;
+
+        return ProductAccessResult<ProductApplicationProjection>.Success(
+            Query());
+    }
+
     private ProductAccessResult<ProductApplicationProjection>
         CompleteProductionAccess(
             ProductionSummary summary,
