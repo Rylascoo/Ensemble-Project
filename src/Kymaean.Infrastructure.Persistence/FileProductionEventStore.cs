@@ -95,7 +95,11 @@ internal static class ProductionEventCodec
 {
     private const string ContractProperty = "contract";
     private const string ProductionNameProperty = "productionName";
+    private const string ProductionNameCodeUnitsProperty = "productionNameUtf16Be";
+    private const string TruthsProperty = "truthsUtf16Be";
     private const string ProductionCreatedContractFamily = "kymaean.production.created.v";
+    private const string ReplacementContractFamily =
+        "kymaean.production.creator-replaced-world-current-state.v";
 
     public static byte[] Encode(ProductionEvent productionEvent)
     {
@@ -108,8 +112,21 @@ internal static class ProductionEventCodec
             case ProductionCreatedEvent created:
                 writer.WriteString(
                     ContractProperty,
-                    ProductionPersistenceVersionPolicy.ProductionCreatedContractV1);
-                writer.WriteString(ProductionNameProperty, created.ProductionName);
+                    ProductionPersistenceVersionPolicy.ProductionCreatedContractV2);
+                writer.WriteBase64String(
+                    ProductionNameCodeUnitsProperty, Utf16CodeUnits.Encode(created.ProductionName));
+                break;
+            case CreatorReplacedWorldCurrentStateEvent replaced:
+                writer.WriteString(
+                    ContractProperty,
+                    ProductionPersistenceVersionPolicy.CreatorReplacedWorldCurrentStateContractV1);
+                writer.WriteStartArray(TruthsProperty);
+                foreach (var truth in replaced.CurrentState.Truths)
+                {
+                    writer.WriteBase64StringValue(Utf16CodeUnits.Encode(truth.Text));
+                }
+
+                writer.WriteEndArray();
                 break;
             default:
                 throw new NotSupportedException(
@@ -134,13 +151,23 @@ internal static class ProductionEventCodec
             {
                 ProductionPersistenceVersionPolicy.ProductionCreatedContractV1 =>
                     DecodeProductionCreated(root),
+                ProductionPersistenceVersionPolicy.ProductionCreatedContractV2 =>
+                    DecodeProductionCreatedV2(root),
+                ProductionPersistenceVersionPolicy.CreatorReplacedWorldCurrentStateContractV1 =>
+                    DecodeReplacement(root),
                 _ when contract.StartsWith(
                     ProductionCreatedContractFamily,
                     StringComparison.Ordinal) =>
                     throw ProductionPersistenceVersionPolicy.UnsupportedEventContract(
                         "ProductionCreated event contract",
                         contract,
-                        ProductionPersistenceVersionPolicy.ProductionCreatedContractV1),
+                        ProductionPersistenceVersionPolicy.ProductionCreatedContractV1 + ", " +
+                        ProductionPersistenceVersionPolicy.ProductionCreatedContractV2),
+                _ when contract.StartsWith(ReplacementContractFamily, StringComparison.Ordinal) =>
+                    throw ProductionPersistenceVersionPolicy.UnsupportedEventContract(
+                        "CreatorReplacedWorldCurrentState event contract",
+                        contract,
+                        ProductionPersistenceVersionPolicy.CreatorReplacedWorldCurrentStateContractV1),
                 _ => throw new InvalidDataException(
                     $"Unsupported Production event contract '{contract}'.")
             };
@@ -154,6 +181,11 @@ internal static class ProductionEventCodec
         {
             throw new InvalidDataException(
                 "Production event payload violates its Application contract.", exception);
+        }
+        catch (InvalidOperationException exception)
+        {
+            throw new InvalidDataException(
+                "Production event payload contains invalid JSON string data.", exception);
         }
     }
 
@@ -171,6 +203,35 @@ internal static class ProductionEventCodec
             throw new InvalidDataException(
                 "Production event payload must be a JSON object.");
         }
+    }
+
+    private static ProductionCreatedEvent DecodeProductionCreatedV2(JsonElement root)
+    {
+        RequireExactProperties(root, ContractProperty, ProductionNameCodeUnitsProperty);
+        return new ProductionCreatedEvent(ReadCodeUnits(root.GetProperty(ProductionNameCodeUnitsProperty)));
+    }
+
+    private static CreatorReplacedWorldCurrentStateEvent DecodeReplacement(JsonElement root)
+    {
+        RequireExactProperties(root, ContractProperty, TruthsProperty);
+        var truths = root.GetProperty(TruthsProperty);
+        if (truths.ValueKind != JsonValueKind.Array)
+        {
+            throw new InvalidDataException("World current truths must be an array.");
+        }
+
+        return new CreatorReplacedWorldCurrentStateEvent(new WorldCurrentState(
+            truths.EnumerateArray().Select(value => new WorldCurrentTruth(ReadCodeUnits(value)))));
+    }
+
+    private static string ReadCodeUnits(JsonElement value)
+    {
+        if (value.ValueKind != JsonValueKind.String || !value.TryGetBytesFromBase64(out var bytes))
+        {
+            throw new InvalidDataException("UTF-16 code-unit data must be Base64.");
+        }
+
+        return Utf16CodeUnits.Decode(bytes);
     }
 
     private static string ReadRequiredString(JsonElement root, string propertyName)

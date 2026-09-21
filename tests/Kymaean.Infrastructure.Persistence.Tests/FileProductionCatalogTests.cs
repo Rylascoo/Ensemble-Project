@@ -297,7 +297,7 @@ public sealed class FileProductionCatalogTests
         WriteIdentity(entry, id);
         new FileProductionJournal(entry).Append(
             Encoding.UTF8.GetBytes(
-                "{\"contract\":\"kymaean.production.created.v2\",\"productionName\":\"Future\"}"));
+                "{\"contract\":\"kymaean.production.created.v3\",\"productionName\":\"Future\"}"));
 
         var result = new FileProductionCatalog(directory.Path).OpenProduction(id);
 

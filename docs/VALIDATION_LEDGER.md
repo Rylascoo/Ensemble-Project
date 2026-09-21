@@ -389,6 +389,23 @@ This terminal closeout adds no Product/Persistence semantics, provider authority
 
 Exact runtime authority remains `168c5d3...`; the corrected review candidate adds tests only. Integration main and the documentation-only closeout do not inherit native runtime authority or inflate compiler evidence.
 
+### Q-PROD-01 lossless Persistence consumer candidate
+
+| Field | Fact |
+|---|---|
+| Base | `fb5c8d630b5aec1d6ab75bb57b7ffc65da79c00f` |
+| Exact tested/reviewed candidate | `e07267185cbae7caa62f70bc9f9a39852c0eedd0` |
+| Validation tag | `validation/q-prod-01-lossless-persistence-consumer-native-arm64` |
+| Evidence | `docs/evidence/Q_PROD_01_LOSSLESS_PERSISTENCE_CONSUMER_NATIVE_ARM64_VALIDATION_2026_09_21.md` |
+| Director decision | `docs/Q_PROD_01_LOSSLESS_UTF16_PERSISTENCE_CONTRACT_2026_09_21.md` |
+| Native Windows ARM64 | focused 44/44, Persistence 129/129, Application 57/57, Core 628/628 PASS; WinUI Release 0 warnings/errors |
+| Earned contract | known-ID writer; one replacement append; exact UTF-16 creation v2/replacement v1; legacy creation v1 decode; full snapshot v2; raw portable export/replay |
+| Review | no actionable findings; exact-ref behaviorally no-write reviewer; workspace-write/auto_review, technical containment unproven |
+| Disposition | returned candidate, integration pending; `DESIGN_ARCHITECTURE_READY = NOT READY` |
+| Limits | no Application-domain narrowing, UI/provider/deferred-E0/final-architecture/release/WACK/Store authority; hosted checks separately required |
+
+Machine evidence binds the candidate and identical tested runtime/test/build blobs. Initial setup failures and two corrected snapshot-fixture failures are retained in the evidence record. No validation claim is inflated by a later documentation-only commit.
+
 ### Q-DESIGN-20 bounded native-corrections checkpoint
 
 | Field | Fact |

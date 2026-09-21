@@ -1,6 +1,6 @@
 # Ensemble Current State
 
-Updated: 2026-09-20
+Updated: 2026-09-21
 
 ## Authority
 
@@ -8,18 +8,20 @@ Engineering/Product: `Rylascoo/Ensemble-Project`. Bootstrap: `AGENTS.md`; author
 
 Q-ADMIN-04/05 CLOSED. Ryladmin global closeout is verified at `b2fff3573f27aeed2c81028febe7a662aa1f43fb`. Project `docs/design/app/` owns app Design; Website owns website/history; Drive owns shared masters. Receipt provenance is immutable; no App Design lease is open. Inherited closeout-pending text in the Design entry is superseded by this Engineering reconciliation without changing Design law.
 
-Q-ADMIN-06 / PR #238 is **MERGED / CLOSED** at integrated setup main `8a52450bd63df967f654b199d4c321a25ceba5fe`. `docs/NATIVE_CODEX_APPLICATION_WORKFLOW.md` is the native/manual successor; autonomous API administration and permanent Engineering deputies are retired. The canonical portable **Ensemble Application** Desktop environment is integrated and verified.
+Q-ADMIN-06 / PR #238 is **MERGED / CLOSED** at integrated setup main `8a52450bd63df967f654b199d4c321a25ceba5fe`. `docs/NATIVE_CODEX_APPLICATION_WORKFLOW.md` is the native/manual successor; autonomous API administration and permanent Engineering deputies are retired. The Ensemble Application environment is integrated.
 
 Native explorer/reviewer delegation works through normal ChatGPT/Codex authentication without API-key-dependent Agents API infrastructure. Parent policy may widen requested reviewer read-only child policy; claim technical containment only after verifying effective policy. Existing gates remain.
 
 ## Product checkpoint and disposition
 
-QPROD01-NATIVE-PRODUCER-01 is **INTEGRATED / CLOSED** through PR #240 at main `9516a27ca019d2c6af304f46da89bde215449df4`. World-current-truth is authoritative on main; machine-tested source `168c5d306afc88202e9d5d30aacaeca8e4119dc6`, reviewed candidate `0a48949d6c1e02be420bb9204b3b85b08fd76150`, tag `validation/q-prod-01-world-current-truth-successor-native-arm64`.
+QPROD01-NATIVE-PRODUCER-01 is INTEGRATED / CLOSED through PR #240 at `9516a27ca019d2c6af304f46da89bde215449df4`. Historical producer/PR #226 remains closed unmerged and preserved.
 
-Historical producer `dc1780e46ef999eb01e214671486b83186ca04c4` is preserved provenance. PR #226 is **CLOSED / unmerged / superseded**; branch, tag and worktree remain. Native ARM64: focused 19/19, Application 57/57, Persistence 85/85, Core 628/628, WinUI Release 0 warnings/errors; guards PASS; review found no actionable finding. Evidence: `docs/evidence/Q_PROD_01_WORLD_CURRENT_TRUTH_SUCCESSOR_NATIVE_ARM64_VALIDATION_2026_09_20.md`. `DESIGN_ARCHITECTURE_READY = NOT READY`; #225 remains transport only.
+WORLD-CURRENT-TRUTH PERSISTENCE CONSUMER is RETURNED / INTEGRATION PENDING on `codex/qprod01-lossless-persistence-consumer-2026-09-21`. Base `fb5c8d630b5aec1d6ab75bb57b7ffc65da79c00f`; tested/reviewed candidate `e07267185cbae7caa62f70bc9f9a39852c0eedd0`; tag `validation/q-prod-01-lossless-persistence-consumer-native-arm64`.
 
-Home A/B remains unresolved; FIRSTUSE pending adoption. No provider traffic, deferred E0 execution, final architecture/Alpha/release/WACK/Store promotion. Ryladmin PR #90 is merged, but live install/maintenance and C10/C11/automation remain blocked; no runtime commissioned here. Historical custom Reviewer suspension does not bar native exact-ref review under the workflow's effective-policy/no-write rules. Preserved provider chain: `docs/evidence/E0D_Q_E0D_01_P03_SLOT1_PREEXECUTION_ACTIVATION_2026_09_17.md`.
+Director retained exact arbitrary UTF-16. Lossless replacement v1, creation v2 with v1 decode, snapshot v2 and raw export are validated. Focused 44/44, Persistence 129/129, Application 57/57, Core 628/628; ARM64 WinUI Release 0 warnings/errors. Review: no actionable findings; behavioral no-write, technical containment unproven. Decision: `docs/Q_PROD_01_LOSSLESS_UTF16_PERSISTENCE_CONTRACT_2026_09_21.md`. Evidence: `docs/evidence/Q_PROD_01_LOSSLESS_PERSISTENCE_CONSUMER_NATIVE_ARM64_VALIDATION_2026_09_21.md`.
+
+`DESIGN_ARCHITECTURE_READY = NOT READY` pending consumer integration/reassessment. #225 remains OPEN historical transport. Home A/B unresolved; FIRSTUSE pending. No UI/provider/deferred-E0/final-architecture/Alpha/release/WACK/Store authority. Ryladmin live runtime/automation remains blocked. Preserved provider chain: `docs/evidence/E0D_Q_E0D_01_P03_SLOT1_PREEXECUTION_ACTIVATION_2026_09_17.md`.
 
 ## Next
 
-The exact next executable package is **WORLD-CURRENT-TRUTH PERSISTENCE CONSUMER** from fresh main with one exclusive writer. No Persistence-consumer implementation began here; no UI, provider, deferred-E0, final-architecture, release, WACK or Store authority is open.
+Director disposition of the returned consumer draft after exact-head hosted checks. Do not merge without authorization. After authorized integration and exact-main checks, explicitly reassess architecture readiness; no automatic readiness promotion.

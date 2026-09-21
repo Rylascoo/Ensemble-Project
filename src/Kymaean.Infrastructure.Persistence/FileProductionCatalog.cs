@@ -2,7 +2,7 @@ using Kymaean.Application;
 
 namespace Kymaean.Infrastructure.Persistence;
 
-public sealed class FileProductionCatalog : IProductionCatalog
+public sealed class FileProductionCatalog : IProductionCatalog, IProductionWorldStateWriter
 {
     private const string CatalogDirectoryName = "production-catalog";
     private const string EntryDirectoryPrefix = "entry-";
@@ -103,6 +103,22 @@ public sealed class FileProductionCatalog : IProductionCatalog
             : ProductAccessResult<ProductionCatalogEntry>.Success(match);
     }
 
+    public ProductAccessResult<ProductionReplayProjection> ReplaceWorldCurrentState(
+        ProductionId productionId,
+        WorldCurrentState currentState)
+    {
+        ArgumentNullException.ThrowIfNull(productionId);
+        ArgumentNullException.ThrowIfNull(currentState);
+        var entry = ResolveProductionEntry(productionId);
+        if (!entry.IsSuccess)
+        {
+            return ProductAccessResult<ProductionReplayProjection>.Failure(entry.FailureKind);
+        }
+
+        return ReadProjection(entry.Value.DirectoryPath, recover: false,
+            replacement: new CreatorReplacedWorldCurrentStateEvent(currentState));
+    }
+
     private ProductAccessResult<ProductionReplayProjection> AccessProduction(
         ProductionId productionId,
         bool recover)
@@ -199,7 +215,8 @@ public sealed class FileProductionCatalog : IProductionCatalog
 
     private static ProductAccessResult<ProductionReplayProjection> ReadProjection(
         string directoryPath,
-        bool recover)
+        bool recover,
+        CreatorReplacedWorldCurrentStateEvent? replacement = null)
     {
         FileProductionEventStore store;
         try
@@ -216,6 +233,11 @@ public sealed class FileProductionCatalog : IProductionCatalog
         ProductionJournalAnchor? anchor;
         try
         {
+            if (replacement is not null)
+            {
+                store.Append(replacement);
+            }
+
             var history = recover
                 ? store.RecoverValidatedHistory()
                 : store.LoadValidatedHistory();

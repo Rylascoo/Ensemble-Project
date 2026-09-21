@@ -124,10 +124,10 @@ internal static class ProductionProjectionSnapshotCache
             return false;
         }
 
-        var expectedContentLength =
+        var nameEnd =
             (long)PrefixLength +
             ((long)nameLength * sizeof(ushort));
-        if (content.Length != expectedContentLength)
+        if (nameEnd > content.Length - sizeof(uint))
         {
             return false;
         }
@@ -141,8 +141,49 @@ internal static class ProductionProjectionSnapshotCache
             offset += sizeof(ushort);
         }
 
-        projection = new ProductionReplayProjection(
-            new string(characters));
+        var truthCount = BinaryPrimitives.ReadUInt32BigEndian(content.Slice(offset, sizeof(uint)));
+        offset += sizeof(uint);
+        if (truthCount > (content.Length - offset) / sizeof(uint))
+        {
+            return false;
+        }
+
+        var truths = new List<WorldCurrentTruth>();
+        try
+        {
+            for (var index = 0U; index < truthCount; index++)
+            {
+                if (content.Length - offset < sizeof(uint))
+                {
+                    return false;
+                }
+
+                var length = BinaryPrimitives.ReadUInt32BigEndian(content.Slice(offset, sizeof(uint)));
+                offset += sizeof(uint);
+                if (length > (content.Length - offset) / sizeof(ushort))
+                {
+                    return false;
+                }
+
+                var byteLength = checked((int)length * sizeof(ushort));
+                truths.Add(new WorldCurrentTruth(Utf16CodeUnits.Decode(content.Slice(offset, byteLength))));
+                offset += byteLength;
+            }
+
+            if (offset != content.Length)
+            {
+                return false;
+            }
+
+            projection = new ProductionReplayProjection(
+                new string(characters), new WorldCurrentState(truths));
+        }
+        catch (ArgumentException)
+        {
+            // Even a checksummed cache can contain invalid Application values.
+            return false;
+        }
+
         return true;
     }
 
@@ -159,8 +200,13 @@ internal static class ProductionProjectionSnapshotCache
         }
 
         var name = projection.ProductionName;
-        var content = new byte[
-            checked(PrefixLength + checked(name.Length * sizeof(ushort)))];
+        var contentLength = checked(PrefixLength + checked(name.Length * sizeof(ushort)) + sizeof(uint));
+        foreach (var truth in projection.WorldCurrentState.Truths)
+        {
+            contentLength = checked(contentLength + sizeof(uint) + checked(truth.Text.Length * sizeof(ushort)));
+        }
+
+        var content = new byte[contentLength];
 
         FormatFamilyMagic.CopyTo(content, 0);
         BinaryPrimitives.WriteUInt32BigEndian(
@@ -187,6 +233,19 @@ internal static class ProductionProjectionSnapshotCache
                 content.AsSpan(offset, sizeof(ushort)),
                 character);
             offset += sizeof(ushort);
+        }
+
+        BinaryPrimitives.WriteUInt32BigEndian(content.AsSpan(offset, sizeof(uint)),
+            checked((uint)projection.WorldCurrentState.Truths.Length));
+        offset += sizeof(uint);
+        foreach (var truth in projection.WorldCurrentState.Truths)
+        {
+            BinaryPrimitives.WriteUInt32BigEndian(content.AsSpan(offset, sizeof(uint)),
+                checked((uint)truth.Text.Length));
+            offset += sizeof(uint);
+            var bytes = Utf16CodeUnits.Encode(truth.Text);
+            bytes.CopyTo(content, offset);
+            offset += bytes.Length;
         }
 
         var checksum = SHA256.HashData(content);
