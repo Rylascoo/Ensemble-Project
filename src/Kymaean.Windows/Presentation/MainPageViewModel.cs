@@ -19,7 +19,7 @@ public sealed class MainPageViewModel : INotifyPropertyChanged
         if (startup.IsInfrastructureFailure)
         {
             _statusMessage =
-                "Kymaean could not access local app data.";
+                "Kymaean could not open your Productions.";
             return;
         }
 
@@ -33,7 +33,7 @@ public sealed class MainPageViewModel : INotifyPropertyChanged
         {
             _statusMessage = DescribeFailure(
                 productStartup.FailureKind,
-                "The local Production catalog");
+                "The Production library");
         }
     }
 
@@ -57,6 +57,19 @@ public sealed class MainPageViewModel : INotifyPropertyChanged
     public string ActiveProductSpace =>
         _projection?.ActiveProductSpace?.ToString() ?? string.Empty;
 
+    public string PageTitle => ActiveShellRoute switch
+    {
+        ShellRoute.Home => "Home",
+        ShellRoute.Productions => "Productions",
+        ShellRoute.CurrentProduction => CurrentProductionName,
+        ShellRoute.Settings => "Settings",
+        _ => throw new ArgumentOutOfRangeException(nameof(ActiveShellRoute))
+    };
+
+    public string PageSummary => IsCurrentProduction
+        ? "Current Production"
+        : LibrarySummary;
+
     public bool IsHome => ActiveShellRoute == ShellRoute.Home;
     public bool IsProductions => ActiveShellRoute == ShellRoute.Productions;
     public bool IsCurrentProduction =>
@@ -73,12 +86,12 @@ public sealed class MainPageViewModel : INotifyPropertyChanged
 
     public string LibrarySummary =>
         _application is null
-            ? "The local Production catalog is unavailable."
+            ? "Your Productions are unavailable."
             : Productions.Count switch
             {
-                0 => "No Productions are available in local app data.",
-                1 => "1 Production is available in local app data.",
-                _ => $"{Productions.Count} Productions are available in local app data."
+                0 => "No Productions are available.",
+                1 => "1 Production is available.",
+                _ => $"{Productions.Count} Productions are available."
             };
 
     public void NavigateShell(ShellRoute route)
@@ -163,6 +176,8 @@ public sealed class MainPageViewModel : INotifyPropertyChanged
         OnPropertyChanged(nameof(IsProductions));
         OnPropertyChanged(nameof(IsCurrentProduction));
         OnPropertyChanged(nameof(IsSettings));
+        OnPropertyChanged(nameof(PageTitle));
+        OnPropertyChanged(nameof(PageSummary));
     }
 
     private static string DescribeFailure(
@@ -171,9 +186,9 @@ public sealed class MainPageViewModel : INotifyPropertyChanged
         failureKind switch
         {
             ProductAccessFailureKind.Incompatible =>
-                $"{subject} uses an unsupported saved-data version.",
+                $"Kymaean cannot open {subject.ToLowerInvariant()} in this version.",
             ProductAccessFailureKind.Invalid =>
-                $"{subject} contains invalid saved state.",
+                $"Kymaean cannot open {subject.ToLowerInvariant()} because its contents are invalid.",
             _ => throw new ArgumentOutOfRangeException(nameof(failureKind))
         };
 
