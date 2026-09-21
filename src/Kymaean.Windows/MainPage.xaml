@@ -211,14 +211,14 @@
                         <Grid Visibility="{Binding IsCurrentProduction, Converter={StaticResource BoolToVisibility}}">
                             <StackPanel Spacing="10">
                                 <Button
-                                    AutomationProperties.Name="Back to Productions"
+                                    AutomationProperties.Name="Back"
                                     Background="Transparent"
                                     BorderBrush="Transparent"
                                     Click="OnBackToProductionsClicked"
                                     FocusVisualMargin="2"
                                     HorizontalAlignment="Left"
                                     Padding="6"
-                                    ToolTipService.ToolTip="Back to Productions"
+                                    ToolTipService.ToolTip="Back"
                                     UseSystemFocusVisuals="True">
                                     <FontIcon
                                         FontFamily="{ThemeResource SymbolThemeFontFamily}"
