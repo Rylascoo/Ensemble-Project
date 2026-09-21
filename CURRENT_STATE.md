@@ -24,4 +24,4 @@ Append/replay remain separately gated; no automatic recovery/retry/rollback, Cha
 
 ## Next
 
-Design Sol: fresh authority/readiness reconciliation under a separately bounded App Design scope. No immediate Engineering prerequisite blocks that reconciliation. Next independent Product package: Q-PROD-02, bounded read-only Windows presentation of earned known-Production World-current truth. Define/open its scope before implementation; do not infer history-query, lifecycle, provider or new Design authority.
+Design Sol: fresh authority/readiness reconciliation under a separately bounded App Design scope. No immediate Engineering prerequisite blocks that reconciliation. Next independent Product package: Q-PROD-02, Windows presentation repairs APPUI-QDESIGN20-R2-01..04. Open its scope before implementation; return native evidence to Design under Q-DESIGN-20. New World-current UI requires later reconciled Design scope.
