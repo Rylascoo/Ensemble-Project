@@ -389,7 +389,7 @@ This terminal closeout adds no Product/Persistence semantics, provider authority
 
 Exact runtime authority remains `168c5d3...`; the corrected review candidate adds tests only. Integration main and the documentation-only closeout do not inherit native runtime authority or inflate compiler evidence.
 
-### Q-PROD-01 lossless Persistence consumer candidate
+### Q-PROD-01 lossless Persistence consumer integrated checkpoint
 
 | Field | Fact |
 |---|---|
@@ -401,8 +401,9 @@ Exact runtime authority remains `168c5d3...`; the corrected review candidate add
 | Native Windows ARM64 | focused 44/44, Persistence 129/129, Application 57/57, Core 628/628 PASS; WinUI Release 0 warnings/errors |
 | Earned contract | known-ID writer; one replacement append; exact UTF-16 creation v2/replacement v1; legacy creation v1 decode; full snapshot v2; raw portable export/replay |
 | Review | no actionable findings; exact-ref behaviorally no-write reviewer; workspace-write/auto_review, technical containment unproven |
-| Disposition | returned candidate, integration pending; `DESIGN_ARCHITECTURE_READY = NOT READY` |
-| Limits | no Application-domain narrowing, UI/provider/deferred-E0/final-architecture/release/WACK/Store authority; hosted checks separately required |
+| Integration | PR #242 merged at `4283505a0cd44dae9fa812893ec79d9a052ee6f9`; exact-main push Validation #1119 (35566903678) PASS; runtime/test/build blobs identical to tested candidate |
+| Disposition | consumer integrated / CLOSED; Issue #225 fulfilled / CLOSED. Explicit Engineering reassessment records `DESIGN_ARCHITECTURE_READY = READY` in `docs/evidence/Q_PROD_01_DESIGN_ARCHITECTURE_READINESS_REASSESSMENT_2026_09_21.md`; no new native runtime claim |
+| Limits | no Application-domain narrowing, new UI/provider/deferred-E0/final-architecture/release/WACK/Store authority; readiness is bounded architecture handoff only |
 
 Machine evidence binds the candidate and identical tested runtime/test/build blobs. Initial setup failures and two corrected snapshot-fixture failures are retained in the evidence record. No validation claim is inflated by a later documentation-only commit.
 

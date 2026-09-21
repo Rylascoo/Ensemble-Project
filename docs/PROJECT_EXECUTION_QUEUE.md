@@ -2,7 +2,7 @@
 
 Status: ACTIVE OPERATIONAL REGISTER ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â sequencing and backlog only. This file does not carry phase, provider, product, design, or validation authority. `CURRENT_STATE.md` remains the only active engineering checkpoint/next-action authority; lane-specific current-state files retain their own volatile boundaries.
 
-Updated: 2026-09-20
+Updated: 2026-09-21
 
 ## Queue law
 
@@ -77,7 +77,8 @@ Q-ADMIN-04/05 closure and the native successor do not reclassify Q-ADMIN-02/03 h
 
 | ID | Lane | Status | Work | Prerequisite / hard boundary | Exit / successor |
 |---|---|---|---|---|---|
-| Q-PROD-01 | Engineering / Product | PRODUCER CLOSED; PERSISTENCE CONSUMER RETURNED / INTEGRATION PENDING | Producer integrated through PR #240 at `9516a27ca019d2c6af304f46da89bde215449df4`; consumer tested/reviewed candidate `e07267185cbae7caa62f70bc9f9a39852c0eedd0`. Director decision: `docs/Q_PROD_01_LOSSLESS_UTF16_PERSISTENCE_CONTRACT_2026_09_21.md`; validation: `docs/evidence/Q_PROD_01_LOSSLESS_PERSISTENCE_CONSUMER_NATIVE_ARM64_VALIDATION_2026_09_21.md`. Historical producer/PR #226 remains preserved; #225 remains OPEN interface provenance. | `DESIGN_ARCHITECTURE_READY = NOT READY` pending consumer integration/reassessment. Lossless UTF-16 Persistence candidate only; no Application-domain, UI/provider or deferred-E0 authority change. | Director disposition of consumer draft after exact-head checks; merge requires authorization. Following integration/exact-main validation, explicit architecture-readiness reassessment. |
+| Q-PROD-01 | Engineering / Product | DONE - DESIGN-UNBLOCKING ARCHITECTURE MILESTONE COMPLETE | Producer #240 and consumer #242 integrated; consumer main `4283505a0cd44dae9fa812893ec79d9a052ee6f9`, exact-main Validation #1119 PASS. Issue #225 CLOSED / fulfilled; historical PR #226 closed unmerged/preserved. | `DESIGN_ARCHITECTURE_READY = READY` for the exact earned contracts and limits in `docs/evidence/Q_PROD_01_DESIGN_ARCHITECTURE_READINESS_REASSESSMENT_2026_09_21.md`. No complete-P1/final-architecture/provider/release or blanket Design unblocking claim. | Design Sol fresh bounded reconciliation; no immediate Engineering prerequisite. Later Product construction moves to Q-PROD-02. |
+| Q-PROD-02 | Engineering / Product | PREPARATION-READY - SEPARATE BOUNDED OPENING REQUIRED | Define a read-only Windows presentation consumer of integrated known-Production World-current truth, using existing Application projections/navigation and adopted Design law. | Fresh main/exclusive scope; preserve contextual Current Production, quiet Back and infrastructure separation. No new history-query API, writer control, lifecycle, ontology, provider or visual selection. Stop for genuinely new Product/Design decisions. | Independent build-ahead successor supported by roadmap P2/P4 and existing post-composition Design reconciliation; no Home A/B or FIRSTUSE selection prerequisite. Not executed by the readiness reassessment. |
 
 ## Post-E0 program order
 
