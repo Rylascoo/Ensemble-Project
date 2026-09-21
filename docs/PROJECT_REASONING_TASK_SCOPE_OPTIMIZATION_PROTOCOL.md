@@ -2,6 +2,8 @@
 
 Status: ACTIVE CANONICAL CROSS-PROJECT WORKFLOW LAW
 
+Native Project mechanics successor (2026-09-20): `docs/NATIVE_CODEX_APPLICATION_WORKFLOW.md` replaces future Administrator/persistent Engineering Relay routing with manual Director/ChatGPT reconciliation and bounded native Codex tasks. Its one-writer/supporting-agent rule and complete-package continuation apply. Historical model labels below are not current configuration; current guidance belongs in the tooling snapshot/task/UI. External-surface headers apply to actual external handoffs, not every native supporting subtask. Authority, task-scope, review and validation disciplines below remain active.
+
 Protocol version: 0.4
 
 Date: 2026-09-09

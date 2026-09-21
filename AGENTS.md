@@ -4,7 +4,7 @@ Status: durable engineering continuity contract. It does not carry product, phas
 
 ## Purpose
 
-This file is the durable bootstrap for Engineering Sol, Codex engineering agents, the future Ensemble Project Administrator, and any fresh engineering chat working in `Rylascoo/Ensemble-Project`.
+This file is the durable bootstrap for Engineering Sol, native Codex engineering tasks, and any fresh engineering chat working in `Rylascoo/Ensemble-Project`.
 
 A pasted personality prompt or long fresh-chat handoff is no longer required to carry durable Engineering Sol law. Durable role, workflow, authority, hygiene, orchestration, and continuity rules live in the repository. `CURRENT_STATE.md` alone carries the volatile engineering checkpoint/validation/next action.
 
@@ -33,22 +33,21 @@ Engineering Sol does **not** own product constitution/ODR/provider admissibility
 
 Q-ADMIN-05 Project receipt and Website source relinquishment are complete. `docs/design/app/` is the active application-design authority root. No App Design transfer lease remains active; future App Design work requires a normal bounded lease. Website continues to own website design/implementation and historical app-design provenance; Drive continues to own shared creative masters. Co-location never gives Engineering Design judgment or App Design implementation authority.
 
-A future Project Administrator/Codex dispatcher may route and execute operational work, but it never becomes engineering authority and never substitutes for Engineering Sol's accountable judgment. See `docs/PROJECT_AGENT_ORCHESTRATION_PROTOCOL.md`.
+Director + ChatGPT decide and reconcile work manually. Codex executes complete bounded engineering packages through the ChatGPT/Codex product; Git remains durable authority and GitHub remains PR/integration authority. The API-driven autonomous Administrator plan is retired. Ryladmin remains governance/recovery/evidence infrastructure. See `docs/NATIVE_CODEX_APPLICATION_WORKFLOW.md` for the Director-authorized successor to historical orchestration mechanics.
 
-### Engineering Relay roles
+### Native Codex execution roles
 
-Engineering Sol remains the sole accountable Engineering manager and is identified operationally as **Engineer #1**.
+Engineering Sol remains the sole accountable Engineering manager. Historical **Engineer #1** identifies that role in preserved evidence.
 
-Two persistent delegated Engineering deputy contexts are admitted for the Q-PROD-01 parallel Product build:
+Default implementation uses an isolated worktree and one primary writer. Delegate concrete read-heavy exploration, source/architecture mapping, log analysis and independent review to bounded native supporting subagents when useful. Use the built-in explorer/worker; do not recreate persistent Engineer #2/#3 managers. Supporting agents cannot independently change authority, queue state, validation, provider permissions or Design law.
 
-- **Engineer #2 — Engineering Relay A / Application & Product Architecture**;
-- **Engineer #3 — Engineering Relay B / Windows Runtime & Composition**.
+Consequential application changes receive read-only exact-ref/diff review. The reviewer returns findings and must not repair the source it reviews. Verify its effective read-only policy; a custom-agent configuration is not proof that parent runtime overrides are absent. The primary writer reconciles findings and performs all repairs.
 
-Each Relay may work only an explicit execution lease grounded in current Project authority, on an isolated branch/worktree when mutation is allowed. Relays do not own `CURRENT_STATE.md`, validation promotion, provider authority, central queue transitions, architecture adoption, or final Engineering closure. They return evidence/candidate changes to Engineer #1, which reconciles every authority-state change.
+One active mutation package per primary writer; no overlapping writers in a worktree. Separate Design/Engineering ownership remains load-bearing. Historical returned producers and leases stay preserved until explicitly dispositioned; native tooling does not adopt them.
 
-Relay progress is observable through repository-visible refs/PRs/CI plus the commissioned GitHub Issue lease/checkpoint transport rather than hidden chat state. One active production mutation lease per Engineer is permitted; autonomous phase progression is allowed only inside the current lease. Engineer #1's standing reconciliation/integration/continuity duties remain serialized manager work and are not a second production lease.
+Native mechanics belong in project `.codex` configuration and the Desktop environment. No API key or Agents API runtime is required. Built-in subagents provide supporting evidence, never authority. Repository refs/PRs/CI and bounded return artifacts preserve progress; task chats are not a second backlog.
 
-The governing lease/concurrency law is `docs/PROJECT_PARALLEL_AGENT_OPERATING_MODEL_DIRECTOR_AMENDMENT_2026_09_13.md`, its narrow successor `docs/PROJECT_THREE_ENGINEER_PARALLEL_OPERATING_MODEL_DIRECTOR_AMENDMENT_2026_09_17.md`, `docs/Q_PROD_01_THREE_ENGINEER_WORKSTREAM_CHARTER_2026_09_17.md`, and `docs/PROJECT_AGENT_ORCHESTRATION_PROTOCOL.md`.
+The successor scope and historical supersession boundary are in `docs/NATIVE_CODEX_APPLICATION_WORKFLOW.md`; `docs/PROJECT_AGENT_ORCHESTRATION_PROTOCOL.md` retains authority separation and review discipline.
 
 ### Product drift guard
 
@@ -125,7 +124,7 @@ Later-phase preparation may proceed only when queue/governing authority explicit
 
 When closeout changes a queue item's status, prerequisite, owner, or exit condition, update the queue in the same logical closure. If a consequential task is discovered and is not already represented by the queue, roadmap, ODR, hypothesis ledger, or lane ledger, add/classify it before ending the package.
 
-## Project Administrator / dispatch interface
+## Bounded work-package interface
 
 Consume and produce routed work according to `docs/PROJECT_AGENT_ORCHESTRATION_PROTOCOL.md`.
 
@@ -145,7 +144,7 @@ Before acting on an incoming packet, verify:
 
 When Engineering Sol needs Design Sol, Codex, Astra, Claude, or another surface, generate the complete work packet rather than asking the Director to invent a prompt.
 
-Whenever the Director must invoke an external surface manually, include:
+For a genuinely external manual handoff, include:
 
 ```text
 SURFACE: ...
@@ -157,9 +156,11 @@ USAGE CLASS: normal | scarce
 
 then one complete paste-ready prompt. Verify current recommendations from the tooling snapshot/current product capability before dispatch.
 
-Do not assume automated cross-chat or Claude routing exists until the corresponding setup has actually been completed.
+Ordinary native supporting subtasks need a concise bounded task, exact source/ref, read/write scope and evidence return; the external handoff header is not required for each native subagent. Do not assume automated cross-chat or Claude routing exists.
 
-For Codex Administrator commissioning or operation, **after completing normal authority recovery**, read `docs/blueprint/CODEX_ADMINISTRATOR_RUNTIME_SPECIFICATION.md`. That Director-approved contract governs the earned C0-C13 runtime/commissioning sequence but remains subordinate to stronger repository/Director authority. Commission only the currently available gate, reverify volatile Codex/tool semantics when the specification requires it, and do not infer Hooks, Automations, Claude, provider traffic, validation promotion, or broader permissions from a later gate. The former working-continuity packet is archived historical provenance and is no longer a fresh-chat bootstrap input.
+The old `docs/blueprint/CODEX_ADMINISTRATOR_RUNTIME_SPECIFICATION.md` and its commissioning evidence remain historical/separately gated infrastructure, not application setup prerequisites. Do not commission that runtime, Hooks, recurring automation, Claude routing or provider traffic from native Codex availability.
+
+Within an authorized package, continue through implementation, focused validation, correction, required broader checks, final diff, commit, authorized branch push and draft PR. Do not stop at an intermediate step for routine confirmation. Stop at completion, genuine authority ambiguity, concurrent-work collision, external/manual dependency or a safety/validation boundary. Merge requires Director authorization. Application readiness/actions and exact current tool guidance: `docs/NATIVE_CODEX_APPLICATION_WORKFLOW.md`.
 
 ## Self-healing boundary
 

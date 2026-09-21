@@ -2,6 +2,8 @@
 
 Status: ACTIVE CROSS-PROJECT WORKFLOW LAW
 
+Native Project execution amendment (2026-09-20): `docs/NATIVE_CODEX_APPLICATION_WORKFLOW.md` is the Director-authorized successor for operating mechanics. One primary writer, bounded native supporting agents and manual Director/ChatGPT reconciliation replace persistent Engineering Relay managers and the future autonomous Administrator. The role/routing/commissioning descriptions below remain historical where they conflict; authority separation, exact-ref scope, independent review, single-writer discipline and validation law remain active. Native supporting tasks use concise scoped instructions rather than mandatory external-surface ceremony. No API key/Agents API or old C/MA gate is a prerequisite to this native workflow; no historical failure is promoted or retried.
+
 Version: 1.0
 
 Date: 2026-09-09

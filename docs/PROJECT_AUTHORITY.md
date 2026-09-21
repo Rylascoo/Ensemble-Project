@@ -31,6 +31,8 @@ The former long Engineering personality prompt is historical migration input onc
 
 ## Agent / orchestration authority
 
+Current Director successor: `docs/NATIVE_CODEX_APPLICATION_WORKFLOW.md` retires the API-driven autonomous Administrator plan and persistent Engineering Relay management for native Project work. Director + ChatGPT reconcile manually; one native Codex primary writer executes bounded packages with supporting subagents and independent read-only review. It supersedes conflicting runtime/default-off/routing mechanics in the historical amendments below, while preserving their Product, Design, provider, ownership and validation boundaries. Ryladmin remains governance/recovery/evidence infrastructure; none of its failed or unearned runtime gates is promoted.
+
 `docs/PROJECT_AGENT_ORCHESTRATION_PROTOCOL.md` is the **canonical cross-project agent-orchestration law**.
 
 `docs/PROJECT_PARALLEL_AGENT_OPERATING_MODEL_DIRECTOR_AMENDMENT_2026_09_13.md` is the Director-approved amendment governing delegated Relay leases, the Ryladmin runtime-ownership split, and the gated MA-series admission path.
@@ -39,18 +41,18 @@ The former long Engineering personality prompt is historical migration input onc
 
 `docs/PROJECT_CLAUDE_CHAT_INDEPENDENT_REVIEW_DIRECTOR_AMENDMENT_2026_09_19.md` admits Claude Project Chat as a concurrent read-only independent advisory/falsification lane with no worktree/write lease, no project authority, and no credential grant. It is distinct from Claude Code and does not retry or commission C9A.
 
-Q-ADMIN-05 is the active governance program recorded by Ryladmin `docs/Q_ADMIN_05_APP_DESIGN_AUTHORITY_SEPARATION_CHARTER_2026_09_20.md`. PR #235 integrated the received and validated package rooted at `docs/design/app/AUTHORITY.md`; Website subsequently relinquished active app-design authority under Ryladmin authorization. Project `docs/design/app/` is now active authority, while `docs/design/app/TRANSFER_RECEIPT.json` preserves the exact transitional identity. The expired receipt lease grants no continuing App Design write authority. This transition does not resume Product work, commission automation or relocate the single queue; Ryladmin still owns global Q-ADMIN-05 closeout.
+Q-ADMIN-05 is CLOSED in Ryladmin `main@b2fff3573f27aeed2c81028febe7a662aa1f43fb`, `docs/Q_ADMIN_05_APP_DESIGN_AUTHORITY_SEPARATION_CLOSEOUT_2026_09_20.md`. PR #235 integrated the received package and Website relinquished active app-design authority. Project `docs/design/app/` is active authority; its frozen receipt is immutable provenance and its expired transfer lease grants no continuing Design write authority. Inherited closeout-pending/Administrator-next-action prose at the Design entry is superseded by this Engineering continuity reconciliation, without changing Design contracts. Native preparation authorizes reconciliation and the next bounded package definition, not automatic Product adoption, merge, provider traffic or automation.
 
 The role hierarchy is:
 
 - **Director** — product/policy/provider/spend/consequential authority;
 - **Engineering Sol** — sole accountable Engineering manager for this repository;
-- **Engineering Relay** — delegated Engineering deputy for bounded execution leases, never independent Engineering authority;
+- **native supporting subagent** — bounded explorer/reviewer/executor under the primary task, never independent Engineering authority or a persistent deputy manager;
 - **App Design Sol** — accountable application UX/UI manager for current app contracts/evidence, with a separately granted bounded `docs/design/app/**` lease and no implementation/Engineering authority;
 - **Website Design Sol** — accountable website design/implementation manager for `Rylascoo/Ensemble-Website` after transfer;
 - **Shared creative-master authority** — Drive-scoped Design work under explicit grant; neither repository silently owns the masters;
 - **Design Relay** — delegated Design deputy for bounded execution leases, never independent Design authority;
-- **Ensemble Project Administrator** — operational dispatcher/project-operations agent, never a third project authority;
+- **Ryladmin governance/recovery** — evidence and operational infrastructure, never an autonomous LLM runtime or third project authority in this workflow;
 - **Codex execution agents** — bounded executors/tool users;
 - **scarce specialist models** — high-capability allocations for justified tasks, never authority;
 - **independent reviewers such as Claude** — adversarial/advisory evidence, never authority.
