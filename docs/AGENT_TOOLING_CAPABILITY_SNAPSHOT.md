@@ -2,7 +2,15 @@
 
 Status: ACTIVE VOLATILE OPERATING SNAPSHOT — NOT PRODUCT OR ARCHITECTURE LAW
 
-Verified: 2026-09-11
+Native Project workflow verified: 2026-09-20. Historical runtime snapshot below: 2026-09-11.
+
+## Current native Project workflow
+
+`docs/NATIVE_CODEX_APPLICATION_WORKFLOW.md` supersedes the retired API-driven autonomous Administrator and persistent Engineering Relay mechanics. Installed Codex CLI is 0.155.0-alpha.9.2; this Desktop task exposes native subagents under the current product session. Project `.codex/config.toml` enables two supporting agents; built-in worker/explorer are retained and a read-only exact-ref reviewer is defined. Verify effective permissions because live parent overrides may supersede reviewer defaults. No API-key-dependent runtime is used.
+
+Next bounded Application producer adoption/revalidation: Codex **gpt-5.6-sol / high**, confirmed available in this host's current model menu. Model/effort remains volatile task/config metadata. Reverify at invocation; supporting agents inherit parent selection unless explicitly overridden. This does not assert subscription quotas or billing availability.
+
+The rest of this document preserves the separate commissioned-runtime history. Its default-off native agents, suspended custom Reviewer, C9A/C10 failures and C11+ gates are not prerequisites to the native Project workflow and are not reclassified as passed. No legacy runtime launch, automatic routing, recurring automation or provider traffic is authorized here.
 
 ## Purpose
 

@@ -32,6 +32,8 @@ Canonical visual workspace/master-asset surface for design exploration, renders,
 
 ### `Rylascoo/Ryladmin`
 
+Current native Project workflow: `docs/NATIVE_CODEX_APPLICATION_WORKFLOW.md`. Ryladmin remains governance/recovery/evidence infrastructure; the API-driven autonomous LLM Administrator plan is retired. The runtime-native inventory below describes separately gated historical infrastructure, not a prerequisite or authorization to commission it for Application work. No files are transferred by this clarification.
+
 Canonical only for Administrator runtime implementation and Administrator continuity delegated by `Ensemble-Project` law:
 - versioned Administrator launchers, role profiles, process supervision, shared-Git locking, runtime schemas/manifests, deterministic runtime tests, install/recovery/rollback tooling;
 - Administrator commissioning/continuity records and exact implementation provenance;
