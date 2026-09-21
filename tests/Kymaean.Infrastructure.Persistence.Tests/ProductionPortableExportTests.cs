@@ -180,7 +180,7 @@ public sealed class ProductionPortableExportTests
         WriteIdentity(entry, id);
         new FileProductionJournal(entry).Append(
             Encoding.UTF8.GetBytes(
-                "{\"contract\":\"kymaean.production.created.v2\",\"productionName\":\"Future Harbor\"}"));
+                "{\"contract\":\"kymaean.production.created.v3\",\"productionName\":\"Future Harbor\"}"));
 
         var result = new FileProductionExporter(directory.Path)
             .ExportProduction(id);

@@ -34,7 +34,7 @@ public sealed class FileProductionEventStoreTests
         var payload = Encoding.UTF8.GetString(journal.ReadAll().Single().Payload.Span);
 
         Assert.AreEqual(
-            "{\"contract\":\"kymaean.production.created.v1\",\"productionName\":\"Glass Harbor\"}",
+            "{\"contract\":\"kymaean.production.created.v2\",\"productionNameUtf16Be\":\"AEcAbABhAHMAcwAgAEgAYQByAGIAbwBy\"}",
             payload);
     }
 
@@ -44,15 +44,15 @@ public sealed class FileProductionEventStoreTests
         using var directory = new TestDirectory();
         var journal = new FileProductionJournal(directory.Path);
         journal.Append(Encoding.UTF8.GetBytes(
-            "{\"contract\":\"kymaean.production.created.v2\",\"productionName\":\"Harbor\"}"));
+            "{\"contract\":\"kymaean.production.created.v3\",\"productionName\":\"Harbor\"}"));
 
         var store = new FileProductionEventStore(directory.Path);
         var exception = Assert.ThrowsExactly<ProductionPersistenceCompatibilityException>(
             () => store.LoadAll());
 
         Assert.AreEqual("ProductionCreated event contract", exception.Artifact);
-        Assert.AreEqual("kymaean.production.created.v2", exception.FoundIdentifier);
-        Assert.AreEqual("kymaean.production.created.v1", exception.SupportedIdentifier);
+        Assert.AreEqual("kymaean.production.created.v3", exception.FoundIdentifier);
+        Assert.AreEqual("kymaean.production.created.v1, kymaean.production.created.v2", exception.SupportedIdentifier);
     }
 
     [TestMethod]
@@ -156,7 +156,7 @@ public sealed class FileProductionEventStoreTests
         journal.Append(CreatedPayload("Harbor"));
         var committedHead = File.ReadAllBytes(HeadPath(directory.Path));
         journal.Append(Encoding.UTF8.GetBytes(
-            "{\"contract\":\"kymaean.production.created.v2\",\"productionName\":\"Future\"}"));
+            "{\"contract\":\"kymaean.production.created.v3\",\"productionName\":\"Future\"}"));
         File.WriteAllBytes(HeadPath(directory.Path), committedHead);
 
         var store = new FileProductionEventStore(directory.Path);
