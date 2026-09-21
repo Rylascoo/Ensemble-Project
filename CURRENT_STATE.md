@@ -14,12 +14,12 @@ Native explorer/reviewer delegation works through normal ChatGPT/Codex authentic
 
 ## Product checkpoint and disposition
 
-Q-PROD-01 remains provisional and is executable only through the bounded package below. Integrated Application/Persistence/Windows evidence and tags remain in `docs/VALIDATION_LEDGER.md`; policy source `c352d96fc3a10ea5e0a517c4057e4173000288d3`. This closeout changes no Product source.
+Q-PROD-01 producer adoption is **RETURNED / INTEGRATION PENDING** on draft PR #240. Fresh base `3a42bcd60047f260eadfce3781afb3bcefcbdd87`; machine-tested source `168c5d306afc88202e9d5d30aacaeca8e4119dc6`; corrected reviewed candidate `0a48949d6c1e02be420bb9204b3b85b08fd76150`; tag `validation/q-prod-01-world-current-truth-successor-native-arm64`.
 
-PR #226 producer `dc1780e46ef999eb01e214671486b83186ca04c4` remains **OPEN / unmerged / preserved**. Disposition: **RESUME** for fresh-main adoption/revalidation, not automatic adoption or old-worktree resumption. Setup/transfer holds are satisfied; old leases stay closed. `DESIGN_ARCHITECTURE_READY = NOT READY`; #225 remains transport pending producer integration and a separate Persistence consumer lease.
+PR #226 remains **OPEN / unmerged / preserved** as the superseded predecessor; its branch, tag and worktree are unchanged. Native ARM64: focused 19/19, Application 57/57, Persistence 85/85, Core 628/628, WinUI Release 0 warnings/errors; guards PASS; review found no actionable finding. Evidence: `docs/evidence/Q_PROD_01_WORLD_CURRENT_TRUTH_SUCCESSOR_NATIVE_ARM64_VALIDATION_2026_09_20.md`. No UI/provider/Character-knowledge/Persistence-consumer mutation. `DESIGN_ARCHITECTURE_READY = NOT READY`; #225 remains transport only.
 
 Home A/B remains unresolved; FIRSTUSE pending adoption. No provider traffic, deferred E0 execution, final architecture/Alpha/release/WACK/Store promotion. Ryladmin PR #90 is merged, but live install/maintenance and C10/C11/automation remain blocked; no runtime commissioned here. Historical custom Reviewer suspension does not bar native exact-ref review under the workflow's effective-policy/no-write rules. Preserved provider chain: `docs/evidence/E0D_Q_E0D_01_P03_SLOT1_PREEXECUTION_ACTIVATION_2026_09_17.md`.
 
 ## Next
 
-Invoke **QPROD01-NATIVE-PRODUCER-01** from freshly resolved main with one fresh exclusive native writer. Scope/acceptance/validation: `docs/NATIVE_CODEX_APPLICATION_WORKFLOW.md`; setup results/limits: `docs/evidence/NATIVE_CODEX_APPLICATION_PREPARATION_2026_09_20.md`. This transition opens no UI, provider, deferred-E0 or Persistence-consumer implementation authority.
+Director disposition is draft PR #240; do not merge without authorization. After protected integration and exact-main green, invoke the separate **WORLD-CURRENT-TRUTH PERSISTENCE CONSUMER** package from fresh main. No UI, provider or deferred-E0 authority is open.
