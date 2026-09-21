@@ -373,10 +373,10 @@ This terminal closeout adds no Product/Persistence semantics, provider authority
 |---|---|
 | Package | `QPROD01-NATIVE-PRODUCER-01` |
 | Fresh base | `3a42bcd60047f260eadfce3781afb3bcefcbdd87`; exact-main Validation #1108 PASS |
-| Historical producer | `dc1780e46ef999eb01e214671486b83186ca04c4`; PR #226 preserved open/unmerged as the superseded predecessor |
+| Historical producer | `dc1780e46ef999eb01e214671486b83186ca04c4`; PR #226 closed unmerged as superseded; branch, tag and worktree preserved |
 | Exact runtime source | `168c5d306afc88202e9d5d30aacaeca8e4119dc6`; seven production/test blobs initially byte-identical to the producer |
 | Reviewed corrected candidate | `0a48949d6c1e02be420bb9204b3b85b08fd76150`; six direct null-contract tests added after review, no runtime-source change |
-| Successor PR | Draft PR #240; no merge authority |
+| Successor PR | PR #240 merged normally from exact head `1c14bdcb600d7a0a08d29044fff646bfb2c7e406`; integrated Project main `9516a27ca019d2c6af304f46da89bde215449df4` |
 | Validation tag | `validation/q-prod-01-world-current-truth-successor-native-arm64` -> exact runtime source |
 | Evidence | `docs/evidence/Q_PROD_01_WORLD_CURRENT_TRUTH_SUCCESSOR_NATIVE_ARM64_VALIDATION_2026_09_20.md` |
 | Host | SurfSeven, native Windows ARM64, repository .NET 9 baseline |
@@ -387,7 +387,7 @@ This terminal closeout adds no Product/Persistence semantics, provider authority
 | Earned contract | immutable canonical `WorldCurrentTruth` / `WorldCurrentState`; creator-specific whole-state replacement; old histories empty; deterministic replay; null/duplicate rejection; typed failure preserves prior usable projection/navigation |
 | Authority scope | Application producer only; no Persistence consumer/encoding, Character knowledge, UI, provider, deferred-E0, final architecture, release, WACK or Store authority |
 
-Exact runtime authority remains `168c5d3...`; the corrected review candidate adds tests only. The draft PR's later continuity commit and hosted checks do not inflate compiler evidence into native runtime or merge authority.
+Exact runtime authority remains `168c5d3...`; the corrected review candidate adds tests only. Integration main and the documentation-only closeout do not inherit native runtime authority or inflate compiler evidence.
 
 ### Q-DESIGN-20 bounded native-corrections checkpoint
 
