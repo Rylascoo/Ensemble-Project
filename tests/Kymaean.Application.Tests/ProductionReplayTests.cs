@@ -20,6 +20,27 @@ public sealed class ProductionReplayTests
     }
 
     [TestMethod]
+    public void WorldCurrentTruthRejectsNullText()
+    {
+        Assert.ThrowsExactly<ArgumentNullException>(
+            () => new WorldCurrentTruth(null!));
+    }
+
+    [TestMethod]
+    public void WorldCurrentStateRejectsNullTruthSequence()
+    {
+        Assert.ThrowsExactly<ArgumentNullException>(
+            () => new WorldCurrentState(null!));
+    }
+
+    [TestMethod]
+    public void WorldCurrentStateRejectsNullTruth()
+    {
+        Assert.ThrowsExactly<ArgumentException>(
+            () => new WorldCurrentState([null!]));
+    }
+
+    [TestMethod]
     public void WorldCurrentStateCanonicalizesTruthOrder()
     {
         var first = State("The bridge is flooded.", "Dawn has broken.");
@@ -35,6 +56,20 @@ public sealed class ProductionReplayTests
     {
         Assert.ThrowsExactly<ArgumentException>(
             () => State("The gate is locked.", "The gate is locked."));
+    }
+
+    [TestMethod]
+    public void WorldCurrentStateReplacementEventRejectsNullState()
+    {
+        Assert.ThrowsExactly<ArgumentNullException>(
+            () => new CreatorReplacedWorldCurrentStateEvent(null!));
+    }
+
+    [TestMethod]
+    public void ProductionReplayProjectionRejectsNullWorldCurrentState()
+    {
+        Assert.ThrowsExactly<ArgumentNullException>(
+            () => new ProductionReplayProjection("The Glass Harbor", null!));
     }
 
     [TestMethod]

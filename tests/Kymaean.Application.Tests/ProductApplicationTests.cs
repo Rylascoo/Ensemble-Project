@@ -366,6 +366,16 @@ public sealed class ProductApplicationTests
     }
 
     [TestMethod]
+    public void ReplacingWorldCurrentStateRejectsNullState()
+    {
+        var application = Start(
+            new StubCatalog(Summary("P-001", "First")));
+
+        Assert.ThrowsExactly<ArgumentNullException>(
+            () => application.ReplaceWorldCurrentState(null!));
+    }
+
+    [TestMethod]
     public void ReplacingWorldCurrentStateRequiresWriterCapability()
     {
         var summary = Summary("P-001", "First");
