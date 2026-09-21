@@ -427,6 +427,19 @@ Machine evidence binds the candidate and identical tested runtime/test/build blo
 
 Native correction authority is exact source `2484359...`; later evidence/integration commits do not inherit machine-test authority.
 
+### Q-PROD-02 / Q-DESIGN-20 R2 Windows presentation candidate
+
+| Field | Fact |
+|---|---|
+| Base | `c27689ab690c23265e8dbe6cfc6691e428723ee0` |
+| Exact tested source | `f7678811c715f3c3cfe6daed95a38737fedc0ba2` |
+| Annotated tag | `validation/q-prod-02-r2-native-arm64-compile-2026-09-21` |
+| Evidence | `docs/evidence/Q_PROD_02_Q_DESIGN_20_R2_NATIVE_ARM64_VALIDATION_2026_09_21.md` |
+| Native ARM64 | Application 57/57, Persistence 129/129 PASS; WinUI Release compile 0 warnings/errors |
+| Limits | Exact-source UI runtime/visual/accessibility behavior, packaging and Design acceptance NOT TESTED; Q-DESIGN-20 remains pending |
+
+The source tag binds the tested Windows code; subsequent continuity edits do not inherit runtime or visual validation.
+
 ### Supporting provider-evidence continuity
 
 The promoted checkpoint does not erase the still-current evidence chain that established the provider/runtime boundary. These records remain supporting evidence only and do not override the promoted checkpoint:
