@@ -432,14 +432,15 @@ Native correction authority is exact source `2484359...`; later evidence/integra
 | Field | Fact |
 |---|---|
 | Base | `c27689ab690c23265e8dbe6cfc6691e428723ee0` |
-| Exact tested source | `f7678811c715f3c3cfe6daed95a38737fedc0ba2` |
-| Annotated tag | `validation/q-prod-02-r2-native-arm64-compile-2026-09-21` |
+| Exact tested source | `95d133dfbb8e6e0c5b9519dd2c0b668416c93218` |
+| Annotated tag | `validation/q-prod-02-r2-native-arm64-ui-2026-09-21` |
 | Evidence | `docs/evidence/Q_PROD_02_Q_DESIGN_20_R2_NATIVE_ARM64_VALIDATION_2026_09_21.md` |
-| Native ARM64 | Application 57/57, Persistence 129/129 PASS; WinUI Release compile 0 warnings/errors |
-| Hosted exact-head | Draft PR #244 candidate `c5d14a01ec150e117b05ce5c2e997ab80d949042`: Validation gate #1126 and E0-E preparation gate #163 PASS; no native-rung promotion |
-| Limits | Exact-source UI runtime/visual/accessibility behavior, packaging and Design acceptance NOT TESTED; Q-DESIGN-20 remains pending |
+| Native ARM64 | Exact-source Application 57/57 PASS; WinUI Release build 0 warnings/errors. Earlier Persistence 129/129 PASS is bound to `f7678811c715f3c3cfe6daed95a38737fedc0ba2`; the final two-string XAML accessibility delta did not require a Persistence rerun. |
+| Native UI | Exact-source launch, Open and Recover to contextual Current Production, three durable shell items, Back name/tooltip/focus return, Light F2/Dark D3 same-state captures, MAT F1 field and 720×520 observed; artifact hashes and limits in evidence record. |
+| Hosted exact-head | Draft PR #244 candidate `c5d14a01ec150e117b05ce5c2e997ab80d949042`: Validation gate #1126 and E0-E preparation gate #163 PASS. New final-head checks pending; hosted checks do not raise the native rung. |
+| Limits | High Contrast exact-source recapture and Q-DESIGN-20 acceptance pending; temporary unsigned UI package is not WACK or Store validation. |
 
-The source tag binds the tested Windows code; subsequent continuity edits do not inherit runtime or visual validation.
+The source tag binds the tested Windows code; subsequent continuity edits do not inherit runtime or visual validation. The earlier compile-only source and `validation/q-prod-02-r2-native-arm64-compile-2026-09-21` tag remain preserved.
 
 ### Supporting provider-evidence continuity
 
