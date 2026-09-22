@@ -22,4 +22,4 @@ High Contrast exact-source recapture, Source Sans 3/S1 packaging, WACK/Store, pr
 
 ## Next
 
-Successor audit: `docs/evidence/Q_PROD_04_SUCCESSOR_SELECTION_PRODUCTION_CREATION_2026_09_22.md`. The next justified Product lane is bounded **Create Production** only, required by the roadmap's Alpha flow, but implementation is blocked on Director choices for identity issuance, successful-create Application state and duplicate-name policy. Rename/delete/import/restore, FIRSTUSE, Home, Character/Scene ontology and provider work remain separate.
+Q-PROD-04 Director decision is frozen in `docs/Q_PROD_04_PRODUCTION_CREATION_DIRECTOR_DECISION_2026_09_22.md`: A/A/A — catalog-generated opaque identity; creation updates the known catalog but does not implicitly open; duplicate creator-facing names are allowed. Open one bounded Application + Persistence creation package from this exact main. UI/FIRSTUSE/Home and rename/delete/import/restore remain separate.
