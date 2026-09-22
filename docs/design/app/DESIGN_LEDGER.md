@@ -992,3 +992,22 @@ Structured reconciliation: `docs/design/app/evidence/native/APPUI_01_Q_DESIGN_23
 **APPROVED BY STANDING DIRECTOR DELEGATION — CLEAN RECURSIVE AUDIT.**
 
 Q-PROD-07 may implement Windows presentation/tests only. Product/Persistence mutation is a stop condition; exact native ARM64 evidence and Design acceptance must return before integration.
+
+
+---
+
+## Q-DESIGN-23 native acceptance — 2026-09-22
+
+**State:** ACCEPTED / PENDING INTEGRATION / EXACT SOURCE `9ea74391adf0a2f259c205ae88128324d4a52148`
+
+The Q-PROD-07 native return satisfies the adopted Production Characters presentation contract without Product/Persistence mutation. Native ARM64 Application 72/72 and Persistence 141/141 pass; WinUI ARM64 Release passes with zero warnings/errors.
+
+Target-device evidence proves the contextual **Characters** surface, valid empty Cast, exact UTF-16 name preservation, duplicate-name legality with conditional Character codes, exact returned-row focus, Back/Cancel focus return, typed Invalid/Incompatible, real environmental non-confirmation, ordinary-open re-establishment, no durable navigation/ProductSpace change, preserved World truths, Light/Dark parity and 720×520 vertical reachability with no horizontal scroll.
+
+The recursive Design audit confirms the intended simplification survived implementation: no historical Off-Scene/current-Scene labels, local management-selection model, Character editor/detail layer, Scene membership, or Performer/provider semantics entered the native surface. The Production and Character duplicate-code paths now share one Windows-presentation fingerprint helper, and a native regression proved existing duplicate Production codes remain exact.
+
+Evidence: `docs/evidence/Q_PROD_07_CHARACTER_PRESENTATION_NATIVE_ARM64_VALIDATION_2026_09_22.md`. Structured acceptance: `docs/design/app/evidence/native/APPUI_01_Q_DESIGN_23_CHARACTER_PRESENTATION_NATIVE_ACCEPTANCE_2026_09_22.json`.
+
+**ACCEPTED BY STANDING DIRECTOR DELEGATION — CLEAN RECURSIVE AUDIT.**
+
+High Contrast exact-source proof, Source Sans 3/S1 packaging and all unearned Character/Scene/provider/release semantics remain open. Native/runtime authority stays bound to exact executable source `9ea74391...`.
