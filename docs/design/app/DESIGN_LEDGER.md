@@ -854,3 +854,20 @@ Destination reference: `docs/design/app/AUTHORITY.md` and the bundle/identity ma
 
 
 Full source identities, scoped dependencies, dispositions and destination hashes: `docs/design/app/TRANSFER_RECEIPT.json`.
+
+---
+
+## Project-native Q-DESIGN-20 R2 acceptance — 2026-09-21
+
+**State:** ACCEPTED FOR INTEGRATION / EXACT CANDIDATE SOURCE `150f7c57b523f6d95e8f85a5b1c20ad769c3a120` / PR #244 UNMERGED
+
+Project-native App Design acceptance re-read the adopted post-composition reconciliation, static visual-system law and exact Q-PROD-02 native evidence. R2-01 contextual Current Production, R2-02 MAT F1 subtractive field, R2-03 creator-facing copy and R2-04 quiet E72B Back all pass at the candidate boundary.
+
+The acceptance pass found one assistive-technology leak not visible in the screenshots: the Productions ListItem inherited the internal `ProductionSummary { Id = ..., ProductionName = ... }` object representation as its UI Automation name. That violated the same creator-language boundary as R2-03. The smallest bounded correction set the generated row container's Automation name to the already-earned `ProductionName`. Exact-current native ARM64 verification now reports the row exactly as `Glass Harbor` with zero internal object/fixture-ID leakage; Application 57/57 and the WinUI Release build pass.
+
+Full visual captures remain bound to visually identical source `95d133dfbb8e6e0c5b9519dd2c0b668416c93218`; the final accessibility-only delta changes no visible geometry, copy, theme role, navigation or Product semantics. High Contrast, Source Sans 3/S1 packaging and release/WACK/Store validation remain outside this acceptance.
+
+Canonical acceptance record: `docs/design/app/evidence/native/APPUI_01_Q_DESIGN_20_R2_NATIVE_ACCEPTANCE_2026_09_21.json`.
+
+Q-DESIGN-20 is accepted at the candidate source but remains integration-pending until PR #244 merges and exact-main validation passes. This acceptance does not authorize World-current UI or any other unearned Product/Design semantics.
+

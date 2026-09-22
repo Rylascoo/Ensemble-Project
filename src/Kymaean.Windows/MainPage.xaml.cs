@@ -1,6 +1,7 @@
 using Kymaean.Application;
 using Kymaean.Windows.Presentation;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Automation;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 
@@ -38,7 +39,23 @@ public sealed partial class MainPage : Page
             return;
         }
 
-        viewModel.NavigateShell(route);
+        if (viewModel.ActiveShellRoute != route)
+        {
+            viewModel.NavigateShell(route);
+        }
+    }
+
+    private void OnProductionContainerContentChanging(
+        ListViewBase sender,
+        ContainerContentChangingEventArgs args)
+    {
+        if (args.ItemContainer is ListViewItem container &&
+            args.Item is ProductionSummary production)
+        {
+            AutomationProperties.SetName(
+                container,
+                production.ProductionName);
+        }
     }
 
     private void OnProductionSelectionChanged(
@@ -58,7 +75,7 @@ public sealed partial class MainPage : Page
         if (DataContext is MainPageViewModel viewModel &&
             viewModel.OpenSelectedProduction())
         {
-            ShellNavigation.SelectedItem = CurrentProductionNavigationItem;
+            ShellNavigation.SelectedItem = null;
         }
     }
 
@@ -67,7 +84,19 @@ public sealed partial class MainPage : Page
         if (DataContext is MainPageViewModel viewModel &&
             viewModel.RecoverSelectedProduction())
         {
-            ShellNavigation.SelectedItem = CurrentProductionNavigationItem;
+            ShellNavigation.SelectedItem = null;
         }
+    }
+
+    private void OnBackToProductionsClicked(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is not MainPageViewModel viewModel)
+        {
+            return;
+        }
+
+        viewModel.NavigateShell(ShellRoute.Productions);
+        ShellNavigation.SelectedItem = ProductionsNavigationItem;
+        ProductionsNavigationItem.Focus(FocusState.Keyboard);
     }
 }

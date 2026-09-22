@@ -33,15 +33,10 @@
                 Foreground="{ThemeResource KymaeanPrimaryBrush}"
                 Tag="Home" />
             <NavigationViewItem
+                x:Name="ProductionsNavigationItem"
                 Content="Productions"
                 Foreground="{ThemeResource KymaeanPrimaryBrush}"
                 Tag="Productions" />
-            <NavigationViewItem
-                x:Name="CurrentProductionNavigationItem"
-                Content="Current Production"
-                Foreground="{ThemeResource KymaeanPrimaryBrush}"
-                IsEnabled="{Binding HasCurrentProduction}"
-                Tag="CurrentProduction" />
             <NavigationViewItem
                 Content="Settings"
                 Foreground="{ThemeResource KymaeanPrimaryBrush}"
@@ -49,6 +44,31 @@
         </NavigationView.MenuItems>
 
         <Grid Background="{ThemeResource KymaeanSoftSurfaceBrush}">
+            <Grid IsHitTestVisible="False">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.09*" />
+                    <ColumnDefinition Width="0.30*" />
+                    <ColumnDefinition Width="0.61*" />
+                </Grid.ColumnDefinitions>
+                <Border
+                    Grid.Column="1"
+                    Height="16"
+                    VerticalAlignment="Top"
+                    Background="{ThemeResource KymaeanFieldBrush}" />
+                <Grid
+                    Grid.Column="2"
+                    Width="20"
+                    HorizontalAlignment="Right">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.57*" />
+                        <RowDefinition Height="0.23*" />
+                        <RowDefinition Height="0.20*" />
+                    </Grid.RowDefinitions>
+                    <Border
+                        Grid.Row="1"
+                        Background="{ThemeResource KymaeanFieldBrush}" />
+                </Grid>
+            </Grid>
             <Grid Padding="28,24,36,36">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -66,11 +86,11 @@
                         FontSize="30"
                         FontWeight="SemiBold"
                         Foreground="{ThemeResource KymaeanPrimaryBrush}"
-                        Text="Productions" />
+                        Text="{Binding PageTitle}" />
                     <TextBlock
                         FontSize="14"
                         Foreground="{ThemeResource KymaeanSecondaryBrush}"
-                        Text="{Binding LibrarySummary}" />
+                        Text="{Binding PageSummary}" />
                     <Border
                         Height="1"
                         Margin="0,12,0,0"
@@ -104,7 +124,7 @@
                                     Text="Home" />
                                 <TextBlock
                                     Foreground="{ThemeResource KymaeanSecondaryBrush}"
-                                    Text="Open a persisted Production from the library when one is available."
+                                    Text="Open a Production from your library when one is available."
                                     TextWrapping="Wrap" />
                                 <Border
                                     Margin="0,10,0,0"
@@ -143,7 +163,7 @@
                                     Text="Productions" />
                                 <TextBlock
                                     Foreground="{ThemeResource KymaeanSecondaryBrush}"
-                                    Text="Choose a persisted Production to open, or explicitly recover it."
+                                    Text="Choose a Production to open, or use Recover when needed."
                                     TextWrapping="Wrap" />
                             </StackPanel>
 
@@ -151,6 +171,7 @@
                                 x:Name="ProductionList"
                                 Grid.Row="1"
                                 Margin="0,18,0,0"
+                                ContainerContentChanging="OnProductionContainerContentChanging"
                                 ItemsSource="{Binding Productions}"
                                 SelectionChanged="OnProductionSelectionChanged"
                                 SelectionMode="Single">
@@ -190,20 +211,24 @@
 
                         <Grid Visibility="{Binding IsCurrentProduction, Converter={StaticResource BoolToVisibility}}">
                             <StackPanel Spacing="10">
+                                <Button
+                                    AutomationProperties.Name="Back"
+                                    Background="Transparent"
+                                    BorderBrush="Transparent"
+                                    Click="OnBackToProductionsClicked"
+                                    FocusVisualMargin="2"
+                                    HorizontalAlignment="Left"
+                                    Padding="6"
+                                    ToolTipService.ToolTip="Back"
+                                    UseSystemFocusVisuals="True">
+                                    <FontIcon
+                                        FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                                        FontSize="20"
+                                        Glyph="&#xE72B;" />
+                                </Button>
                                 <TextBlock
-                                    FontSize="12"
-                                    FontWeight="SemiBold"
                                     Foreground="{ThemeResource KymaeanSecondaryBrush}"
-                                    Text="CURRENT PRODUCTION" />
-                                <TextBlock
-                                    AutomationProperties.HeadingLevel="Level2"
-                                    FontSize="28"
-                                    FontWeight="SemiBold"
-                                    Foreground="{ThemeResource KymaeanPrimaryBrush}"
-                                    Text="{Binding CurrentProductionName}" />
-                                <TextBlock
-                                    Foreground="{ThemeResource KymaeanSecondaryBrush}"
-                                    Text="The persisted Production history is open."
+                                    Text="This Production is open."
                                     TextWrapping="Wrap" />
                                 <StackPanel
                                     Margin="0,12,0,0"
