@@ -1,8 +1,8 @@
 # Application Design Authority
 
-Status: **APP DESIGN AUTHORITY ACTIVE / PROJECT RECONCILED / RYLADMIN CLOSEOUT PENDING**
+Status: **APP DESIGN AUTHORITY ACTIVE / PROJECT-NATIVE / TRANSFER PROVENANCE FROZEN**
 
-Package: `ADMIN-Q05-TRANSFER-01`. Project receipt and Website source relinquishment are complete. This file is the entry point for current application-design work under a separately granted bounded lease. The transfer receipt remains frozen provenance; Q-ADMIN-05 is not globally complete until Ryladmin performs final closeout.
+The historical `ADMIN-Q05-TRANSFER-01` receipt remains frozen provenance. Project receipt, Website relinquishment and Q-ADMIN-05 global closeout are complete. This file is the current application-Design authority entry; fresh work should read `docs/design/app/CURRENT_CONTRACTS.md` before traversing transferred historical evidence.
 
 ## Exact authority and receipt
 
@@ -12,9 +12,9 @@ The exact receiving manifest remains preserved at [Project receiving authority](
 
 Machine-readable receipt: `docs/design/app/TRANSFER_RECEIPT.json`. Lease: `docs/design/app/TRANSFER_LEASE.md`. Decision receipt: `docs/design/app/DESIGN_LEDGER.md`.
 
-## C03 — received App Design role and routing clauses
+## Historical transfer role/routing clauses
 
-App Design Sol is accountable for application UX/UI judgment and current app contracts at this root. Engineering remains accountable for Product architecture, source, tests, runtime, build and validation. A contract or browser result never promotes Product semantics, runtime, native accessibility, ARM64, WACK or Store evidence.
+The current **Design** role owns application UX/UI judgment and Design acceptance at this root. The **Implementation** role owns source/tests/build/runtime mutation; Product/Architecture semantics remain separately authoritative. Historical `App Design Sol` / `Engineering` labels below are provenance. A contract or browser result never promotes Product semantics, runtime, native accessibility, ARM64, WACK or Store evidence.
 
 Fresh App Design work must recover exact live refs and the owning current-state surface, then this authority entry, the frozen receipt, selected ledger decisions and their exact dependency graph. Historical states and source-era next actions do not reopen work. The central Project execution queue remains the single sequencing register and cannot override stronger Product/Design authority.
 
@@ -30,9 +30,11 @@ C03 sources are the four current-main objects/ranges sealed in the Website oracl
 
 ## Holds and lawful next boundary
 
-Home A/B: `UNRESOLVED_APP_DESIGN_DECISION`. FIRSTUSE: `EVIDENCE_PENDING_ADOPTION`. PR #226: `CONTINUE_HOLD`. Final transferred Design authority is satisfied, but eventual resume still requires fresh Project main, current Product truth, an exclusive Engineering lease and semantic reconciliation. ADMIN-EST-CONTRACTS-01 remains pending; recurring automation remains NOT READY.
+Current Design bootstrap: `docs/design/app/CURRENT_CONTRACTS.md`.
 
-The exact next Q-ADMIN-05 task is Ryladmin's final cross-repository authority-graph verification and global closeout. This Project reconciliation does not close Q-ADMIN-05 globally or authorize Product implementation.
+Home A/B remains `UNRESOLVED_APP_DESIGN_DECISION`. FIRSTUSE remains `EVIDENCE_PENDING_ADOPTION`. Q-DESIGN-22 Create Production presentation is adopted under the Project-native contract and is independent of those two holds. High Contrast exact-source proof and Source Sans 3/S1 shipping packaging remain open.
+
+No current App Design work depends on a Ryladmin closeout, historical PR #226, a special Design persona, or recurring automation.
 
 ## Reproducing frozen reference evidence
 
@@ -44,6 +46,8 @@ The receipt validation record qualifies the COMP-09 inherited label-encoding wit
 
 Post-transfer Design work adopted on Project authority lives here rather than rewriting the frozen receipt provenance.
 
+- `docs/design/app/CURRENT_CONTRACTS.md` — concise active Design bootstrap/index.
+- `docs/design/app/contracts/CREATE_PRODUCTION_PRESENTATION.md` — Q-DESIGN-22 creator-facing Create Production presentation contract.
 - `docs/design/app/contracts/WORLD_CURRENT_TRUTH_PRESENTATION.md` — Q-DESIGN-21 creator World-current inspection/replacement presentation contract.
 - `docs/design/app/evidence/native/APPUI_01_Q_DESIGN_21_WORLD_CURRENT_TRUTH_PRESENTATION_CONTRACT_01.json` — exact Product-source reconciliation, recursive audit and Engineering return boundary.
 

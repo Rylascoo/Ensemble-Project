@@ -1,18 +1,30 @@
-# Ensemble Engineering Bootstrap Contract
+# Ensemble Project Bootstrap Contract
 
 Status: durable engineering continuity contract. It does not carry product, phase, validation, or provider authority.
 
 ## Purpose
 
-This file is the durable bootstrap for Engineering Sol, native Codex engineering tasks, and any fresh engineering chat working in `Rylascoo/Ensemble-Project`.
+This file is the durable bootstrap for application work in `Rylascoo/Ensemble-Project`, regardless of which ChatGPT/Codex surface performs the task.
 
-A pasted personality prompt or long fresh-chat handoff is no longer required to carry durable Engineering Sol law. Durable role, workflow, authority, hygiene, orchestration, and continuity rules live in the repository. `CURRENT_STATE.md` alone carries the volatile engineering checkpoint/validation/next action.
+A pasted personality prompt, special agent identity, or long fresh-chat handoff is not required. Durable role, workflow, authority, hygiene, orchestration, and continuity rules live in the repository. `CURRENT_STATE.md` alone carries the volatile project checkpoint/validation/next action.
 
 Historical handoffs and personality prompts are continuity evidence only.
 
-## Engineering Sol role
+## Task roles and accountability
 
-Engineering Sol is the accountable engineering manager for **Ensemble**, shipping publicly as **Kymaean**.
+Operational personas are retired. Historical evidence may still say **Engineering Sol**, **Design Sol**, **Engineer #1/#2/#3**, Relay, or Administrator; those names are provenance, not separate current project identities.
+
+Every current task declares one or more roles:
+
+- **Implementation** — source/tests/build/persistence/Windows mutation inside an already-authorized scope;
+- **Design** — application UX/UI, interaction, accessibility, visual/state presentation, and Design acceptance;
+- **Product / Architecture** — Product semantics, contracts, ontology boundaries, ODR input, and architecture decisions subject to Director authority;
+- **Independent Review** — behaviorally no-write exact-ref/diff falsification; it does not repair the candidate it reviews;
+- **Governance / Recovery** — authority reconciliation, repository continuity, evidence provenance, branch/worktree disposition, and exceptional Ryladmin recovery.
+
+The **Director** retains product constitution, consequential policy, provider/spend authority, irreducible Design taste, and explicit merge authorization where repository law requires it.
+
+A single model may perform different roles in different bounded tasks. The role and mutation authority matter; the persona name does not.
 
 Product orientation:
 
@@ -20,24 +32,14 @@ Product orientation:
 
 This summary is durable orientation, not a substitute for current source/Blueprint authority.
 
-Engineering Sol owns, inside delegated engineering authority:
+`docs/design/app/` is the active application-design authority root. Website owns website design/implementation and historical app-design provenance; Drive owns shared creative masters. Co-location never lets Implementation redefine Design or Design invent Product/runtime semantics.
 
-- engineering architecture and implementation reasoning;
-- patch boundaries and source/test/evidence reconciliation;
-- engineering validation interpretation without rung inflation;
-- engineering queue/state continuity;
-- recursive engineering audit;
-- final engineering adoption of executor/reviewer evidence.
-
-Engineering Sol does **not** own product constitution/ODR/provider admissibility/spend, Design taste/law, or external validation gates assigned to the Director or another authority surface.
-
-Q-ADMIN-05 Project receipt and Website source relinquishment are complete. `docs/design/app/` is the active application-design authority root. No App Design transfer lease remains active; future App Design work requires a normal bounded lease. Website continues to own website design/implementation and historical app-design provenance; Drive continues to own shared creative masters. Co-location never gives Engineering Design judgment or App Design implementation authority.
-
-Director + ChatGPT decide and reconcile work manually. Codex executes complete bounded engineering packages through the ChatGPT/Codex product; Git remains durable authority and GitHub remains PR/integration authority. The API-driven autonomous Administrator plan is retired. Ryladmin remains governance/recovery/evidence infrastructure. See `docs/NATIVE_CODEX_APPLICATION_WORKFLOW.md` for the Director-authorized successor to historical orchestration mechanics.
+Director + ChatGPT reconcile work manually. Codex is reserved for bounded implementation/debugging when it materially helps; Git remains durable authority and GitHub remains PR/integration authority. Ryladmin is exceptional governance/recovery/evidence infrastructure, not a normal application-work identity or autonomous runtime.
 
 ### Native Codex execution roles
+### Native Codex execution roles
 
-Engineering Sol remains the sole accountable Engineering manager. Historical **Engineer #1** identifies that role in preserved evidence.
+For an Implementation task, one primary writer is accountable for the bounded change. Historical **Engineering Sol** / **Engineer #1** labels identify prior responsibility only.
 
 Default implementation uses an isolated worktree and one primary writer. Delegate concrete read-heavy exploration, source/architecture mapping, log analysis and independent review to bounded native supporting subagents when useful. Use the built-in explorer/worker; do not recreate persistent Engineer #2/#3 managers. Supporting agents cannot independently change authority, queue state, validation, provider permissions or Design law.
 
@@ -79,11 +81,14 @@ Do not reconstruct current authority from an old handoff, personality prompt, br
 
 Long handoffs are convenience packets, not project memory. The prior `01_PERSONALITY_Ensemble_Engineering.md` prompt is migration input/history after its still-valid durable rules are absorbed into repository law.
 
-A fresh Engineering chat should normally need only a minimal pointer such as:
+A fresh application chat should normally need only a minimal pointer such as:
 
 ```text
-Resume Engineering Sol from Rylascoo/Ensemble-Project.
+Resume Ensemble from live Rylascoo/Ensemble-Project authority.
+ROLE: Implementation
 ```
+
+Use `ROLE: Design`, `ROLE: Product / Architecture`, or `ROLE: Independent Review` when that is the actual task.
 
 The agent then executes this bootstrap and exact-ref reconciliation.
 
@@ -97,7 +102,7 @@ Canonical sources:
 2. `CURRENT_STATE.md` for volatile engineering checkpoint/validation/next action;
 3. source/tests/fixtures/commits/current evidence;
 4. Director decisions and durable policy records;
-5. `Rylascoo/Ensemble-Website` / Drive for Design-owned truth when relevant.
+5. Project `docs/design/app/` for current application Design, `Rylascoo/Ensemble-Website` for website-only Design/history, and Drive for shared creative masters when relevant.
 
 Current application-design truth is rooted at `docs/design/app/AUTHORITY.md`. The exact Website sources and `docs/design/app/TRANSFER_RECEIPT.json` remain immutable transfer provenance rather than a second live authority.
 
@@ -142,7 +147,7 @@ Before acting on an incoming packet, verify:
 - stop/failure conditions;
 - whether baseline state moved since dispatch.
 
-When Engineering Sol needs Design Sol, Codex, Astra, Claude, or another surface, generate the complete work packet rather than asking the Director to invent a prompt.
+When one task role needs another role or external execution surface, generate the complete bounded work packet rather than asking the Director to reconstruct project context.
 
 For a genuinely external manual handoff, include:
 
@@ -190,4 +195,4 @@ Before ending a substantive engineering work package:
 - leave every live branch/local worktree explained or dispositioned;
 - leave no silent change in project/provider/validation authority.
 
-A clean closeout means repository continuity is sufficient for the next Engineering Sol to resume without the Director reconstructing the previous chat.
+A clean closeout means repository continuity is sufficient for the next task to resume without the Director reconstructing the previous chat.

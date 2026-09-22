@@ -923,3 +923,20 @@ Canonical audit: `docs/design/app/evidence/native/APPUI_01_Q_DESIGN_22_CREATE_PR
 
 No FIRSTUSE adoption, Home selection, creation UI implementation, rename/delete/import/restore or richer Product ontology is created by this audit.
 
+---
+
+## Q-DESIGN-22 Create Production presentation contract — 2026-09-22
+
+**State:** CONTRACT ADOPTED / ENGINEERING HANDOFF READY / NATIVE ACCEPTANCE PENDING
+
+Q-UNITY-01 recursively audited the earlier disambiguation fork. Revising Q-PROD-04 D3 to exact-name uniqueness would add a catalog-wide historical invariant, cross-instance creation-race/locking semantics, migration/compatibility implications and a truthful duplicate-name failure taxonomy. The already-integrated A/A/A Product contract therefore remains unchanged.
+
+`docs/design/app/contracts/CREATE_PRODUCTION_PRESENTATION.md` freezes the smaller consumer-side solution. Create Production lives in the durable Productions route; success returns to the library without implicit Open; exact duplicate-name groups receive a conditional presentation-only **Production code** derived from SHA-256 of exact UTF-16BE opaque Product identity. The code is not Product state, a filesystem locator, a sort authority or an editable field. Unique-name rows show no code. Accessibility mirrors the visible distinction.
+
+FIRSTUSE remains pending and Home A/B remains unresolved. Neither is needed by this bounded creation surface.
+
+Structured reconciliation: `docs/design/app/evidence/native/APPUI_01_Q_DESIGN_22_CREATE_PRODUCTION_PRESENTATION_RECONCILIATION_01.json`.
+
+**APPROVED BY DIRECTOR Q-UNITY-01 SIMPLIFICATION AUTHORIZATION — CLEAN RECURSIVE AUDIT.**
+
+Q-PROD-05 may implement the Windows presentation only. Product/Persistence mutation is a stop condition; native evidence returns here for acceptance.

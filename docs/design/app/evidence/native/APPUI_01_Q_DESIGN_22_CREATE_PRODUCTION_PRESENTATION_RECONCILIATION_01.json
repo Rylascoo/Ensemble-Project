@@ -1,6 +1,6 @@
 {
   "schema": "kymaean.appui-q-design-22-create-production-presentation-reconciliation.v1",
-  "status": "BLOCKED_PRODUCT_DISAMBIGUATION_DECISION_REQUIRED",
+  "status": "ADOPTED_ENGINEERING_HANDOFF_READY_NATIVE_ACCEPTANCE_PENDING",
   "date": "2026-09-22",
   "exact_project_main": "2bd3e5a20babfb7a2d28c459fe6c6f7b94078e97",
   "exact_main_validation": "#1165 PASS",
@@ -54,5 +54,16 @@
     "No Home A/B alternative is selected.",
     "No rename/delete/import/restore or richer Product ontology is created."
   ],
-  "next": "Director chooses A or B. C is preserved only as a falsified baseline. After that Q-DESIGN-22 can freeze the bounded creation presentation contract and Q-PROD-05 may implement it."
+  "next": "Open Q-PROD-05 as a bounded Windows-only creation presentation package. Product/Persistence mutation is a stop condition.",
+  "unification_disposition": {
+    "selected_option": "A",
+    "contract": "docs/design/app/contracts/CREATE_PRODUCTION_PRESENTATION.md",
+    "rationale": [
+      "Preserves the already-integrated A/A/A Product contract.",
+      "Avoids a new catalog-global name invariant, cross-instance locking/race semantics, migration burden, and duplicate-name Product failure taxonomy.",
+      "Keeps disambiguation presentation-only and conditional on an actual same-name group."
+    ],
+    "rejected_tentative_simplification": "Revising D3 to exact-name uniqueness was reconsidered during Q-UNITY-01 and rejected because correct enforcement adds more Product/Persistence complexity than the bounded presentation fingerprint."
+  },
+  "approval": "APPROVED BY DIRECTOR Q-UNITY-01 SIMPLIFICATION AUTHORIZATION — CLEAN RECURSIVE AUDIT"
 }

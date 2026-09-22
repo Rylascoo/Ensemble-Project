@@ -3,13 +3,31 @@
 ## Source-of-truth order
 
 1. Frozen Ensemble Blueprint and approved phase specifications.
-2. GitHub `CURRENT_STATE.md` for the active engineering checkpoint, validation classification, and next action.
+2. GitHub `CURRENT_STATE.md` for the active project checkpoint, validation classification, and next action.
 3. GitHub source, tests, fixture versions/hashes, commits, and PR evidence.
 4. Director decisions and durable evidence/decision records.
 5. The owning Design surface: Project `docs/design/app/` for application design, `Rylascoo/Ensemble-Website` for website design, and Drive for shared creative masters/references. Exact Website app-design sources sealed by `docs/design/app/TRANSFER_RECEIPT.json` are historical transfer provenance.
 6. Historical chat/source material only when a narrow continuity ambiguity cannot be resolved from durable project state.
 
 No navigation index, ledger, README, handoff, archived evidence file, historical branch snapshot, personality prompt, agent bootstrap file, Administrator task list, dispatch issue, external-model report, or execution queue independently advances phase authority.
+
+## Current operational model
+
+Application work has one active repository authority root: **`Rylascoo/Ensemble-Project`**.
+
+Current work is organized by **role, scope, and mutation authority**, not by persistent assistant persona:
+
+- Implementation;
+- Design;
+- Product / Architecture;
+- Independent Review;
+- Governance / Recovery.
+
+Website is website-only plus historical application-design provenance. Drive owns shared creative masters. Ryladmin is exceptional governance/recovery/evidence infrastructure. None is a second active application authority.
+
+Historical documents may retain Engineering Sol / Design Sol / Engineer #1/#2/#3 / Relay / Administrator wording as provenance. Fresh work must translate those labels into the current role model rather than recreating separate project identities.
+
+Codex is an implementation/debugging tool, not the project manager. GitHub/files are preferred for authority recovery, review, evidence, continuity, and ordinary repository decisions. Remote Desktop Commander is used only when target-machine/local-Git evidence cannot be obtained economically elsewhere.
 
 ## Product and policy authority
 
@@ -21,11 +39,11 @@ Program planning remains in `docs/roadmap/KYMAEAN_ARCHITECTURE_AND_SHIP_PLAN.md`
 
 `docs/PROJECT_EXECUTION_QUEUE.md` is the durable operational sequencing/backlog register. It exists to prevent authorized work, deferred work, prerequisites, and cross-lane gates from being lost between chats. It cannot advance a phase, activate provider traffic, resolve an ODR, promote validation, or override `CURRENT_STATE.md`, frozen Blueprint order, current source/evidence, Director decisions, or a lane-specific current-state file. Queue preparation status must be distinguished from experiment/runtime execution status.
 
-## Engineering authority
+## Implementation authority
 
 GitHub is the canonical engineering workspace. Changes should be patch-first and reviewed against the smallest affected surface. `docs/ENGINEERING_HYGIENE_CONSTITUTION.md` is active project law for engineering hygiene and repository-surface lifecycle unless stronger frozen authority overrides it.
 
-Root `AGENTS.md` is the durable Engineering Sol/fresh-chat/bootstrap and closeout procedure. It governs how state is resolved; it does not itself state what the current phase is.
+Root `AGENTS.md` is the durable project bootstrap and closeout procedure. It governs how state is resolved; it does not itself state what the current phase is.
 
 The former long Engineering personality prompt is historical migration input once its still-valid durable rules are absorbed into repository law. A prompt does not outrank this repository.
 
@@ -43,19 +61,17 @@ Current Director successor: `docs/NATIVE_CODEX_APPLICATION_WORKFLOW.md` retires 
 
 Q-ADMIN-05 is CLOSED in Ryladmin `main@b2fff3573f27aeed2c81028febe7a662aa1f43fb`, `docs/Q_ADMIN_05_APP_DESIGN_AUTHORITY_SEPARATION_CLOSEOUT_2026_09_20.md`. PR #235 integrated the received package and Website relinquished active app-design authority. Project `docs/design/app/` is active authority; its frozen receipt is immutable provenance and its expired transfer lease grants no continuing Design write authority. Inherited closeout-pending/Administrator-next-action prose at the Design entry is superseded by this Engineering continuity reconciliation, without changing Design contracts. Native preparation authorizes reconciliation and the next bounded package definition, not automatic Product adoption, merge, provider traffic or automation.
 
-The role hierarchy is:
+The active role hierarchy is:
 
-- **Director** — product/policy/provider/spend/consequential authority;
-- **Engineering Sol** — sole accountable Engineering manager for this repository;
-- **native supporting subagent** — bounded explorer/reviewer/executor under the primary task, never independent Engineering authority or a persistent deputy manager;
-- **App Design Sol** — accountable application UX/UI manager for current app contracts/evidence, with a separately granted bounded `docs/design/app/**` lease and no implementation/Engineering authority;
-- **Website Design Sol** — accountable website design/implementation manager for `Rylascoo/Ensemble-Website` after transfer;
-- **Shared creative-master authority** — Drive-scoped Design work under explicit grant; neither repository silently owns the masters;
-- **Design Relay** — delegated Design deputy for bounded execution leases, never independent Design authority;
-- **Ryladmin governance/recovery** — evidence and operational infrastructure, never an autonomous LLM runtime or third project authority in this workflow;
-- **Codex execution agents** — bounded executors/tool users;
-- **scarce specialist models** — high-capability allocations for justified tasks, never authority;
-- **independent reviewers such as Claude** — adversarial/advisory evidence, never authority.
+- **Director** — product/policy/provider/spend/consequential authority and explicit merge authorization where required;
+- **Implementation** — bounded source/tests/build/runtime mutation under current Product/Design authority;
+- **Design** — application UX/UI judgment and Design acceptance; no Product or implementation authority by implication;
+- **Product / Architecture** — contract/ontology/architecture reasoning subject to Director authority;
+- **Independent Review** — exact-ref/diff falsification with no self-repair authority;
+- **Governance / Recovery** — authority, provenance, repository continuity, branch/worktree lifecycle and exceptional recovery;
+- **Codex/supporting agents** — bounded executors/tools, never authority.
+
+Historical Sol/Engineer/Relay/Administrator identity labels do not create additional current managers.
 
 The Administrator may resolve refs/queue/CI, construct work packages, create isolated execution contexts, route questions, and collect evidence. It may not resolve ODRs, authorize provider traffic/spend, promote validation, choose Design taste, redesign frozen architecture/methods, or silently adjudicate cross-lane disagreement.
 
@@ -74,7 +90,7 @@ Exact model names must not be frozen into Core/Application architecture merely b
 ## Register, evidence, and navigation roles
 
 - `docs/DOCUMENT_INDEX.md` is navigation only. It is deliberately excluded from document-census authority traversal, so linking a file there cannot make that file current.
-- `docs/PROJECT_EXECUTION_QUEUE.md` tracks ordered operational work, prerequisites, parallel preparation, and backlog closure; it cannot override stronger authority or make a blocked item executable.
+- `docs/PROJECT_EXECUTION_QUEUE.md` tracks only current/deferred operational work and prerequisites; completed pre-unification sequencing is archived at `docs/history/PROJECT_EXECUTION_QUEUE_PRE_UNIFICATION_2026_09_22.md`. Neither surface can override stronger authority or make a blocked item executable.
 - `docs/VALIDATION_LEDGER.md` records validation facts and durable validation tags. It cannot advance the current checkpoint or inflate a validation rung.
 - `docs/HYPOTHESIS_LEDGER.md` records explicitly unverified assumptions and their verification triggers. A hypothesis never becomes a decision or fact merely by being listed.
 - `docs/EVIDENCE_LANE_CHARTER.md` defines the independent measurement/falsification lane and its E0-E authorship/preparation exception. It carries no phase, ODR, design, provider, or product authority.
@@ -107,7 +123,7 @@ It cannot override frozen architecture, `CURRENT_STATE.md`, source/test evidence
 
 `Rylascoo/Ensemble-Website` owns website design/implementation and website-specific evidence. Drive `Ensemble Project` owns shared brand/creative masters and cross-surface visual references. Referencing a master never transfers its ownership.
 
-App Design Sol and Engineering Sol use independent worktrees and explicit non-overlapping leases. Design cannot mutate `src/**`, `tests/**`, build/CI, the Validation Ledger or central queue merely because its contracts are co-located. Engineering cannot silently redefine an active Design contract; implementation deviations return for explicit cross-lane reconciliation/adoption.
+Design and Implementation tasks use explicit non-overlapping mutation scopes. Design cannot mutate `src/**`, `tests/**`, build/CI or validation authority merely because its contracts are co-located. Implementation cannot silently redefine an active Design contract; deviations return for explicit reconciliation/adoption.
 
 Design artifacts are evidence and Design direction unless explicitly adopted at their owning status. Design authority does not create Engineering phase, validation or Product implementation authority.
 
