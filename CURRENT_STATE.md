@@ -6,22 +6,25 @@ Updated: 2026-09-22
 
 Application Product, Implementation and App Design authority: `Rylascoo/Ensemble-Project`. Fresh work reads `AGENTS.md`, this file, `docs/PROJECT_AUTHORITY.md`, `docs/PROJECT_EXECUTION_QUEUE.md`, `docs/VALIDATION_LEDGER.md`, and `docs/design/app/CURRENT_CONTRACTS.md` for Design/UI work.
 
-Current tasks use roles, not persistent personas. Website is website-only plus historical app-Design provenance; Drive owns shared masters; Ryladmin is exceptional governance/recovery/evidence infrastructure.
+Current tasks use roles, not persistent personas.
 
 ## Checkpoint
 
-`DESIGN_ARCHITECTURE_READY = READY`.
+`DESIGN_ARCHITECTURE_READY = READY`. Q-PROD-02/03/04/05 and Q-DESIGN-20/21/22 are integrated. PR #247 merged at `abf7626b038625dd1a4ed32ee643d1232e011b8c`; exact-main Validation #1182 PASS. Post-closeout main `c41d07fcd8108fb57932b56db0c4a7061d15d533`; Validation #1184 PASS.
 
-Q-PROD-02/03/04/05 and Q-DESIGN-20/21/22 are **DONE / INTEGRATED**.
+Q-UNITY-01 is complete: `docs/Q_UNITY_01_PROJECT_UNIFICATION_AND_SIMPLIFICATION_2026_09_22.md`. The active project is role-based / Project-rooted.
 
-Q-PROD-05 / Q-DESIGN-22 merged through PR #247 at `abf7626b038625dd1a4ed32ee643d1232e011b8c`; exact-main Validation #1182 PASS. Exact native source `200f2c1faa73b524353822f3ee09eced74dc019d`: Application 66/66, Persistence 135/135, ARM64 WinUI Release PASS. Create Production is creator-facing in Productions, preserves exact-name semantics, does not auto-open, focuses the exact returned row, and conditionally disambiguates duplicate names with presentation-only Production codes.
+## Active simplification
 
-Q-UNITY-01 is complete: `docs/Q_UNITY_01_PROJECT_UNIFICATION_AND_SIMPLIFICATION_2026_09_22.md`. Active workflow is Project-rooted and role-based; historical sequencing/evidence is compactly indexed.
+Q-UNITY-02 retires disconnected first-slice workspace/demo Product scaffolding before real Character/Cast work. Evidence:
+`docs/evidence/Q_UNITY_02_DISCONNECTED_WORKSPACE_DEMO_SCAFFOLD_RETIREMENT_2026_09_22.md`.
+
+Scope is deletion of the unused `WorkspaceApplication` / `WorkspaceProjection` / `IProductionStore` / `Kymaean.Infrastructure.Demo` surface and its direct tests/build references only. Integrated ProductApplication/Persistence/Windows contracts and canonical E0 fixtures remain untouched.
 
 ## Open gates
 
-Home A/B and FIRSTUSE remain unresolved/unadopted. Rename/delete/import/restore, Character/Scene ontology, provider/Performer, Stage motion, deferred E0, High Contrast proof, Source Sans 3/S1 packaging, final architecture, WACK/Store and release remain separately gated.
+Home A/B, FIRSTUSE, Character/Scene Product ontology, provider/Performer, Stage motion, deferred E0, High Contrast, Source Sans 3/S1 packaging, final architecture, WACK/Store and release remain separately gated.
 
 ## Next
 
-Run a fresh read-only successor-selection reconciliation from this integrated state. Prefer the smallest Alpha-flow Product gap; do not infer rename/delete/import/restore, Character/Scene semantics, provider behavior or FIRSTUSE/Home decisions merely to keep implementation moving.
+Validate Q-UNITY-02. After integration, run Q-PROD-06 successor selection for the smallest persistent Character / Production Cast identity foundation; do not combine it with Scene membership or Performer casting.

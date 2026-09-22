@@ -5,9 +5,5 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Kymaean.Application\Kymaean.Application.csproj" />
-    <ProjectReference Include="..\..\src\Kymaean.Infrastructure.Demo\Kymaean.Infrastructure.Demo.csproj" />
-    <None Include="..\..\fixtures\missing-raft\missing-raft-0.1.0.json"
-          Link="Fixtures\missing-raft-0.1.0.json"
-          CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>
