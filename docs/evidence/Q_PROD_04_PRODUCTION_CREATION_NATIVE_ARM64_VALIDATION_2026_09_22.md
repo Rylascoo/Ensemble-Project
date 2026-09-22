@@ -1,6 +1,6 @@
 # Q-PROD-04 Production creation — native ARM64 validation
 
-Date: 2026-09-22. Status: exact-source implementation candidate; Director A/A/A Product contract implemented; PR #246 unmerged.
+Date: 2026-09-22. Status: exact-source Product creation implementation integrated; Q-PROD-04 closed.
 
 ## Identity
 
@@ -64,12 +64,14 @@ New native tests establish:
 
 ## Hosted exact-source validation
 
-- push Validation #1160: **PASS**;
-- PR Validation #1161: **PASS**.
+- exact-source push Validation #1160: **PASS**;
+- exact-source PR Validation #1161: **PASS**;
+- final evidence/continuity head `1f9ded8aea55d28afb61c171b366c650201e2d93`: push Validation #1162 **PASS**; PR Validation #1163 **PASS**; E0-E preparation #176 **PASS**;
+- integrated main `bb356f0bedd80c3f5b9a0985e81cc63ea5b6fb44`: exact-main Validation #1164 **PASS**.
 - Repository law, document census, oracle coverage, Core/Application/Persistence regressions and ARM64 cross-compilation all passed.
 
 ## Validation boundary
 
 This is Application/Persistence/native target-device evidence only. No creation UI has been implemented or accepted. FIRSTUSE and Home A/B remain unresolved Design gates. No Alpha/final-architecture/provider/WACK/Store/release authority is created.
 
-Integration requires final evidence/continuity head hosted PASS and explicit Director merge authorization.
+PR #246 merged at `bb356f0bedd80c3f5b9a0985e81cc63ea5b6fb44`; exact-main Validation #1164 passed. Q-PROD-04 is closed. Creation UI/FIRSTUSE/Home and rename/delete/import/restore remain separately gated.

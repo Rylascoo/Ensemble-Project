@@ -463,7 +463,7 @@ Runtime/UI evidence remains bound to the exact tested sources above; the merge a
 
 Native authority remains bound to the exact tested source; integration and later documentation do not inflate the evidence rung.
 
-### Q-PROD-04 Production creation candidate
+### Q-PROD-04 Production creation integrated checkpoint
 
 | Field | Fact |
 |---|---|
@@ -474,8 +474,11 @@ Native authority remains bound to the exact tested source; integration and later
 | Earned Application contract | Application-owned `IProductionCreator`; creation returns opaque ID + authoritative creation replay; known list updates; active scope/current Production/ProductSpace remain unchanged; duplicate names allowed |
 | Earned Persistence contract | catalog-generated opaque identity; independent technical locator; fully formed pending construction outside discoverable catalog; complete directory publication; exact UTF-16 identity/name preservation; no partial catalog entry on pre-publication failure |
 | Native ARM64 | Application 66/66 PASS; Persistence 135/135 PASS; WinUI Release build PASS, 0 warnings/errors |
-| Hosted exact-source | push Validation #1160 PASS; PR Validation #1161 PASS |
+| Final PR head | `1f9ded8aea55d28afb61c171b366c650201e2d93`; push Validation #1162 PASS; PR Validation #1163 PASS; E0-E preparation #176 PASS |
+| Integrated main | PR #246 merge `bb356f0bedd80c3f5b9a0985e81cc63ea5b6fb44`; push-triggered exact-main Validation #1164 PASS |
 | Limits | no creation UI/FIRSTUSE/Home, rename/delete/import/restore, Character/Scene/provider semantics, Alpha/final architecture, WACK/Store/release authority |
+
+Native authority remains bound to the exact tested source; integration and this documentation closeout do not inflate the evidence rung.
 
 ### Supporting provider-evidence continuity
 

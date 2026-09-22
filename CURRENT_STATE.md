@@ -14,12 +14,14 @@ Q-ADMIN-04/05/06 are CLOSED. Website owns website/history; Drive owns shared mas
 
 Q-PROD-02 / Q-DESIGN-20 are DONE / INTEGRATED through PR #244 at `2470ed1068454e3ff5cfd573dcc266328bd1d1cc`.
 
-Q-PROD-03 / Q-DESIGN-21 are **DONE / INTEGRATED**. PR #245 merged at `969dfc790a00d2cdbc61d7c3d28a95ceb96b6f72`; exact-main Validation #1155 PASS. Exact tested executable source `75faeb827162c89b537d2a944473b89eabfc22ea`: native ARM64 Application 57/57, Persistence 129/129 and WinUI Release build PASS. Native evidence: `docs/evidence/Q_PROD_03_WORLD_CURRENT_TRUTH_PRESENTATION_NATIVE_ARM64_VALIDATION_2026_09_21.md`. Design acceptance: `docs/design/app/evidence/native/APPUI_01_Q_DESIGN_21_WORLD_CURRENT_TRUTH_NATIVE_ACCEPTANCE_2026_09_21.json`.
+Q-PROD-03 / Q-DESIGN-21 are DONE / INTEGRATED through PR #245 at `969dfc790a00d2cdbc61d7c3d28a95ceb96b6f72`.
 
-Integrated World-current presentation is contextual inside Current Production and preserves exact whole-set creator truth, valid empty state, confirmed replay, typed Invalid/Incompatible non-effect and environmental **Confirmation unavailable** without retry/rollback semantics. No Product/Persistence source semantics were changed.
+Q-PROD-04 is **DONE / INTEGRATED**. PR #246 merged at `bb356f0bedd80c3f5b9a0985e81cc63ea5b6fb44`; exact-main Validation #1164 PASS. Exact tested executable source `8f7d5f05909dd88f6dd24e20b60b80ae5b36f5cc`: native ARM64 Application 66/66, Persistence 135/135 and WinUI Release build PASS. Native evidence: `docs/evidence/Q_PROD_04_PRODUCTION_CREATION_NATIVE_ARM64_VALIDATION_2026_09_22.md`.
+
+Integrated Create Production contract is Director A/A/A: catalog-generated opaque identity; known-list update without implicit open/navigation; duplicate creator-facing names allowed. Existing exact-name and lossless persistence semantics are preserved. No creation UI/FIRSTUSE/Home behavior, rename/delete/import/restore, Character/Scene ontology, provider or Stage semantics were added.
 
 High Contrast exact-source recapture, Source Sans 3/S1 packaging, WACK/Store, provider work, deferred E0 completion and release authority remain unearned. Home A/B unresolved; FIRSTUSE pending. Preserved provider chain: `docs/evidence/E0D_Q_E0D_01_P03_SLOT1_PREEXECUTION_ACTIVATION_2026_09_17.md`.
 
 ## Next
 
-Q-PROD-04 exact source `8f7d5f05909dd88f6dd24e20b60b80ae5b36f5cc` implements the Director-approved A/A/A Create Production contract. Native ARM64 Application 66/66, Persistence 135/135 and WinUI Release build PASS; push Validation #1160 and PR Validation #1161 PASS. Evidence: `docs/evidence/Q_PROD_04_PRODUCTION_CREATION_NATIVE_ARM64_VALIDATION_2026_09_22.md`. PR #246 remains draft/unmerged pending final-head hosted validation and Director merge authorization. UI/FIRSTUSE/Home and rename/delete/import/restore remain separate.
+Run a fresh read-only successor-selection reconciliation now that Product creation is integrated. Prefer the smallest creator-facing consumer that uses earned creation semantics without silently adopting FIRSTUSE, selecting Home A/B, or inventing rename/delete/import/restore.
