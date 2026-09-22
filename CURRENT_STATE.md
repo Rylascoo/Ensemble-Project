@@ -24,8 +24,8 @@ Q-PROD-06 is **DONE / INTEGRATED** through PR #249; exact-main Validation #1226 
 
 Q-DESIGN-23 is **ADOPTED / NATIVE ACCEPTANCE PENDING**. Contract: `docs/design/app/contracts/PRODUCTION_CAST_CHARACTER_ESTABLISHMENT_PRESENTATION.md`. Current-Production **Characters** is a read-only Cast list + bounded **New Character** flow with duplicate codes, focus/return and environmental non-confirmation; Scene/edit/deeper-detail semantics remain excluded.
 
-Q-PROD-07 implementation is active. Exact executable candidate `9ea74391adf0a2f259c205ae88128324d4a52148`: native ARM64 environment PASS, Application 72/72 PASS, Persistence 141/141 PASS, WinUI Release build PASS with 0 warnings/errors. Native UI has passed empty Cast, exact UTF-16 creation, duplicate-name codes/exact row focus, Back/Cancel focus, World-truth regression, typed Incompatible/Invalid, real lock-contention non-confirmation, ordinary-open re-establishment, accessibility leakage, and 720×520 vertical reachability; Light/Dark capture reconciliation is in progress. Validation #1254 executable jobs passed; overall failure was checkpoint staleness only.
+Q-PROD-07 / Q-DESIGN-23 is **VALIDATED / DESIGN-ACCEPTED / PENDING INTEGRATION**. Exact executable `9ea74391adf0a2f259c205ae88128324d4a52148`: native ARM64 Application 72/72, Persistence 141/141, WinUI Release 0 warnings/errors; full Character UI matrix and exact-source review PASS. Evidence: `docs/evidence/Q_PROD_07_CHARACTER_PRESENTATION_NATIVE_ARM64_VALIDATION_2026_09_22.md`.
 
 ## Next
 
-Finish Q-PROD-07 exact-source recursive review + Light/Dark/native evidence, correct any finding, then obtain Design acceptance and final hosted gates before integration. Product/Persistence changes remain a stop condition.
+Run final hosted gates on the documentation-only Q-PROD-07 head, then integrate under standing Director authorization if clean. Native authority remains bound to `9ea74391...`; High Contrast, Source Sans 3/S1 and all Scene/provider/release gates remain open.
