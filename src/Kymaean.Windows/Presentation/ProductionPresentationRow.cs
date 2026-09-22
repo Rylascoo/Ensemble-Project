@@ -49,7 +49,7 @@ public sealed class ProductionPresentationRow
                     new ProductionPresentationRow(
                         production,
                         duplicateCodes.GetValueOrDefault(
-                            production.Id)))
+                            production.Id.Value)))
             .ToArray();
     }
 }
