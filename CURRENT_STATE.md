@@ -10,16 +10,16 @@ Q-ADMIN-04/05/06 are CLOSED. Website owns website/history; Drive owns shared mas
 
 ## Product checkpoint
 
-`DESIGN_ARCHITECTURE_READY = READY`. Q-PROD-01's design-unblocking milestone is complete under `docs/evidence/Q_PROD_01_DESIGN_ARCHITECTURE_READINESS_REASSESSMENT_2026_09_21.md`.
+`DESIGN_ARCHITECTURE_READY = READY`. Q-PROD-02 / Q-DESIGN-20 are DONE / INTEGRATED through PR #244 at `2470ed1068454e3ff5cfd573dcc266328bd1d1cc`; exact-main Validation #1145 PASS.
 
-Q-PROD-02 / Q-DESIGN-20 are DONE / INTEGRATED. PR #244 merged at `2470ed1068454e3ff5cfd573dcc266328bd1d1cc`; exact-main Validation #1145 PASS. Exact accessibility-corrected executable source: `150f7c57b523f6d95e8f85a5b1c20ad769c3a120`; full visual/native source: `95d133dfbb8e6e0c5b9519dd2c0b668416c93218`.
+Q-DESIGN-21 contract is adopted in `docs/design/app/contracts/WORLD_CURRENT_TRUTH_PRESENTATION.md`. Exact-main Design-contract baseline `d77685f73f6271e4cf86902b5471da90fbe11ad4`; Validation #1147 PASS.
 
-Q-DESIGN-21 has adopted the creator World-current truth presentation contract: `docs/design/app/contracts/WORLD_CURRENT_TRUTH_PRESENTATION.md`, with audit record `docs/design/app/evidence/native/APPUI_01_Q_DESIGN_21_WORLD_CURRENT_TRUTH_PRESENTATION_CONTRACT_01.json`. It preserves whole-state replacement, canonical exact text, empty state, confirmed replay, typed Invalid/Incompatible outcomes and environmental post-submission non-confirmation without retry/rollback semantics.
+Q-PROD-03 is ACTIVE on `qprod03/world-current-truth-presentation-2026-09-21`: bounded Windows implementation only. It consumes existing ProductApplication / WorldCurrentState contracts; no Product/Persistence mutation is authorized.
 
-Q-PROD-03 is PREPARATION-READY for a separate bounded Windows implementation. No Product/Persistence change, World-current history/query, Character knowledge, provider, Stage, Home A/B or FIRSTUSE expansion is authorized. High Contrast, Source Sans 3/S1 packaging, WACK/Store and release remain unearned.
+Scope: contextual Current Production -> World truths; authoritative empty/non-empty inspection; exact-text local whole-set proposal/review; confirmed replay success; typed Invalid/Incompatible non-effect; environmental **Confirmation unavailable** with last-confirmed/submitted separation. No history/query, Character knowledge, lifecycle, retry/rollback/idempotence, provider, Stage, Home A/B or FIRSTUSE expansion.
 
-Append/replay remain separately gated; no automatic retry/rollback, Character knowledge mutation or stronger concurrency guarantee is created. Preserved provider chain: `docs/evidence/E0D_Q_E0D_01_P03_SLOT1_PREEXECUTION_ACTIVATION_2026_09_17.md`.
+High Contrast, Source Sans 3/S1 packaging, WACK/Store and release remain unearned. Preserved provider chain: `docs/evidence/E0D_Q_E0D_01_P03_SLOT1_PREEXECUTION_ACTIVATION_2026_09_17.md`.
 
 ## Next
 
-Open Q-PROD-03 from fresh exact main: implement only the adopted World-current inspection/replacement presentation contract in the Windows shell, preserve current Product/Persistence contracts, return native ARM64/UI evidence to Q-DESIGN-21, and do not merge before Design acceptance.
+Validate the Q-PROD-03 Windows candidate with hosted gates, then native ARM64/UI evidence. Stop on any Product/Persistence semantic change. Return exact evidence to Q-DESIGN-21 for acceptance; do not merge before acceptance.

@@ -99,4 +99,109 @@ public sealed partial class MainPage : Page
         ShellNavigation.SelectedItem = ProductionsNavigationItem;
         ProductionsNavigationItem.Focus(FocusState.Keyboard);
     }
+
+    private void OnOpenWorldTruthsClicked(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is not MainPageViewModel viewModel)
+        {
+            return;
+        }
+
+        viewModel.OpenWorldTruths();
+        WorldTruthBackButton.Focus(FocusState.Keyboard);
+    }
+
+    private void OnBackFromWorldTruthsClicked(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is not MainPageViewModel viewModel)
+        {
+            return;
+        }
+
+        viewModel.CloseWorldTruthsToOverview();
+        WorldTruthsButton.Focus(FocusState.Keyboard);
+    }
+
+    private void OnEditWorldTruthsClicked(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is not MainPageViewModel viewModel)
+        {
+            return;
+        }
+
+        viewModel.BeginWorldTruthEdit();
+        AddWorldTruthButton.Focus(FocusState.Keyboard);
+    }
+
+    private void OnAddWorldTruthClicked(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is MainPageViewModel viewModel)
+        {
+            viewModel.AddWorldTruthDraft();
+        }
+    }
+
+    private void OnRemoveWorldTruthClicked(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is MainPageViewModel viewModel &&
+            sender is Button button &&
+            button.DataContext is WorldTruthDraftItem item)
+        {
+            viewModel.RemoveWorldTruthDraft(item);
+        }
+    }
+
+    private void OnReviewWorldTruthsClicked(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is MainPageViewModel viewModel &&
+            viewModel.ReviewWorldTruthReplacement())
+        {
+            ReplaceWorldTruthsButton.Focus(FocusState.Keyboard);
+        }
+    }
+
+    private void OnBackToWorldTruthEditClicked(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is not MainPageViewModel viewModel)
+        {
+            return;
+        }
+
+        viewModel.ReturnToWorldTruthEdit();
+        AddWorldTruthButton.Focus(FocusState.Keyboard);
+    }
+
+    private void OnCancelWorldTruthProposalClicked(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is not MainPageViewModel viewModel)
+        {
+            return;
+        }
+
+        viewModel.CancelWorldTruthProposal();
+        EditWorldTruthsButton.Focus(FocusState.Keyboard);
+    }
+
+    private async void OnReplaceWorldTruthsClicked(
+        object sender,
+        RoutedEventArgs e)
+    {
+        if (DataContext is not MainPageViewModel viewModel ||
+            !viewModel.BeginWorldTruthReplacementSubmission())
+        {
+            return;
+        }
+
+        await Task.Yield();
+        viewModel.CompleteWorldTruthReplacementSubmission();
+
+        if (viewModel.IsWorldTruthInspection)
+        {
+            EditWorldTruthsButton.Focus(FocusState.Keyboard);
+        }
+        else
+        {
+            WorldTruthBackButton.Focus(FocusState.Keyboard);
+        }
+    }
 }

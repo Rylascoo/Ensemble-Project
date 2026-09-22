@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Kymaean.Application;
@@ -10,7 +11,18 @@ public sealed class MainPageViewModel : INotifyPropertyChanged
     private ProductApplicationProjection? _projection;
     private ProductionSummary? _selectedProduction;
     private ShellRoute _activeShellRoute = ShellRoute.Home;
+    private CurrentProductionPresentation _currentProductionPresentation =
+        CurrentProductionPresentation.Overview;
+    private IReadOnlyList<string> _currentWorldTruths = Array.Empty<string>();
+    private IReadOnlyList<string> _reviewWorldTruths = Array.Empty<string>();
+    private IReadOnlyList<string> _submittedWorldTruths = Array.Empty<string>();
+    private IReadOnlyList<string> _lastConfirmedWorldTruths = Array.Empty<string>();
+    private IReadOnlyList<string> _notAppliedWorldTruths = Array.Empty<string>();
     private string _statusMessage = string.Empty;
+    private string _worldTruthDraftValidationMessage = string.Empty;
+    private string _worldTruthStatusMessage = string.Empty;
+    private string _worldTruthFailureMessage = string.Empty;
+    private bool _worldTruthConfirmationUnavailable;
 
     public MainPageViewModel(WindowsStartupResult startup)
     {
@@ -76,6 +88,38 @@ public sealed class MainPageViewModel : INotifyPropertyChanged
         ActiveShellRoute == ShellRoute.CurrentProduction;
     public bool IsSettings => ActiveShellRoute == ShellRoute.Settings;
 
+    public bool IsCurrentProductionOverview =>
+        IsCurrentProduction &&
+        _currentProductionPresentation == CurrentProductionPresentation.Overview;
+
+    public bool IsWorldTruthSurface =>
+        IsCurrentProduction &&
+        _currentProductionPresentation != CurrentProductionPresentation.Overview;
+
+    public bool IsWorldTruthInspection =>
+        IsCurrentProduction &&
+        _currentProductionPresentation == CurrentProductionPresentation.WorldTruthInspection;
+
+    public bool IsWorldTruthEdit =>
+        IsCurrentProduction &&
+        _currentProductionPresentation == CurrentProductionPresentation.WorldTruthEdit;
+
+    public bool IsWorldTruthReview =>
+        IsCurrentProduction &&
+        _currentProductionPresentation == CurrentProductionPresentation.WorldTruthReview;
+
+    public bool IsWorldTruthSubmitting =>
+        IsCurrentProduction &&
+        _currentProductionPresentation == CurrentProductionPresentation.WorldTruthSubmitting;
+
+    public bool IsWorldTruthTypedFailure =>
+        IsCurrentProduction &&
+        _currentProductionPresentation == CurrentProductionPresentation.WorldTruthTypedFailure;
+
+    public bool IsWorldTruthConfirmationUnavailable =>
+        IsCurrentProduction &&
+        _currentProductionPresentation == CurrentProductionPresentation.WorldTruthConfirmationUnavailable;
+
     public bool CanAccessSelection =>
         _application is not null && _selectedProduction is not null;
 
@@ -93,6 +137,42 @@ public sealed class MainPageViewModel : INotifyPropertyChanged
                 1 => "1 Production is available.",
                 _ => $"{Productions.Count} Productions are available."
             };
+
+    public IReadOnlyList<string> CurrentWorldTruths => _currentWorldTruths;
+    public bool HasCurrentWorldTruths => _currentWorldTruths.Count > 0;
+    public bool HasNoCurrentWorldTruths => !HasCurrentWorldTruths;
+
+    public ObservableCollection<WorldTruthDraftItem> WorldTruthDraftItems { get; } =
+        new();
+
+    public IReadOnlyList<string> ReviewWorldTruths => _reviewWorldTruths;
+    public bool HasReviewWorldTruths => _reviewWorldTruths.Count > 0;
+    public bool HasNoReviewWorldTruths => !HasReviewWorldTruths;
+
+    public IReadOnlyList<string> SubmittedWorldTruths => _submittedWorldTruths;
+    public bool HasSubmittedWorldTruths => _submittedWorldTruths.Count > 0;
+    public bool HasNoSubmittedWorldTruths => !HasSubmittedWorldTruths;
+
+    public IReadOnlyList<string> LastConfirmedWorldTruths => _lastConfirmedWorldTruths;
+    public bool HasLastConfirmedWorldTruths => _lastConfirmedWorldTruths.Count > 0;
+    public bool HasNoLastConfirmedWorldTruths => !HasLastConfirmedWorldTruths;
+
+    public IReadOnlyList<string> NotAppliedWorldTruths => _notAppliedWorldTruths;
+    public bool HasNotAppliedWorldTruths => _notAppliedWorldTruths.Count > 0;
+    public bool HasNoNotAppliedWorldTruths => !HasNotAppliedWorldTruths;
+
+    public string WorldTruthDraftValidationMessage =>
+        _worldTruthDraftValidationMessage;
+
+    public bool HasWorldTruthDraftValidationMessage =>
+        !string.IsNullOrWhiteSpace(_worldTruthDraftValidationMessage);
+
+    public string WorldTruthStatusMessage => _worldTruthStatusMessage;
+
+    public bool HasWorldTruthStatusMessage =>
+        !string.IsNullOrWhiteSpace(_worldTruthStatusMessage);
+
+    public string WorldTruthFailureMessage => _worldTruthFailureMessage;
 
     public void NavigateShell(ShellRoute route)
     {
@@ -135,6 +215,195 @@ public sealed class MainPageViewModel : INotifyPropertyChanged
     public bool RecoverSelectedProduction() =>
         AccessSelectedProduction(recover: true);
 
+    public void OpenWorldTruths()
+    {
+        RequireOpenProduction();
+
+        if (_worldTruthConfirmationUnavailable)
+        {
+            _currentProductionPresentation =
+                CurrentProductionPresentation.WorldTruthConfirmationUnavailable;
+        }
+        else
+        {
+            RefreshCurrentWorldTruthsFromProjection();
+            _currentProductionPresentation =
+                CurrentProductionPresentation.WorldTruthInspection;
+        }
+
+        RaiseWorldTruthProperties();
+    }
+
+    public void CloseWorldTruthsToOverview()
+    {
+        if (!_worldTruthConfirmationUnavailable)
+        {
+            ClearWorldTruthProposal();
+        }
+
+        _currentProductionPresentation =
+            CurrentProductionPresentation.Overview;
+        RaiseWorldTruthProperties();
+    }
+
+    public void BeginWorldTruthEdit()
+    {
+        RequireOpenProduction();
+        if (_worldTruthConfirmationUnavailable)
+        {
+            throw new InvalidOperationException(
+                "World current truth cannot be edited until authoritative state is re-established.");
+        }
+
+        WorldTruthDraftItems.Clear();
+        foreach (var truth in _currentWorldTruths)
+        {
+            WorldTruthDraftItems.Add(new WorldTruthDraftItem(truth));
+        }
+
+        _reviewWorldTruths = Array.Empty<string>();
+        _worldTruthDraftValidationMessage = string.Empty;
+        _worldTruthStatusMessage = string.Empty;
+        _currentProductionPresentation =
+            CurrentProductionPresentation.WorldTruthEdit;
+        RaiseWorldTruthProperties();
+    }
+
+    public void AddWorldTruthDraft()
+    {
+        if (!IsWorldTruthEdit)
+        {
+            return;
+        }
+
+        WorldTruthDraftItems.Add(new WorldTruthDraftItem());
+        SetDraftValidationMessage(string.Empty);
+    }
+
+    public void RemoveWorldTruthDraft(WorldTruthDraftItem item)
+    {
+        ArgumentNullException.ThrowIfNull(item);
+        if (!IsWorldTruthEdit)
+        {
+            return;
+        }
+
+        WorldTruthDraftItems.Remove(item);
+        SetDraftValidationMessage(string.Empty);
+    }
+
+    public bool ReviewWorldTruthReplacement()
+    {
+        if (!IsWorldTruthEdit)
+        {
+            return false;
+        }
+
+        if (!TryCanonicalizeDraft(out var canonical))
+        {
+            return false;
+        }
+
+        _reviewWorldTruths = canonical;
+        _currentProductionPresentation =
+            CurrentProductionPresentation.WorldTruthReview;
+        RaiseWorldTruthProperties();
+        return true;
+    }
+
+    public void ReturnToWorldTruthEdit()
+    {
+        if (!IsWorldTruthReview)
+        {
+            return;
+        }
+
+        _currentProductionPresentation =
+            CurrentProductionPresentation.WorldTruthEdit;
+        RaiseWorldTruthProperties();
+    }
+
+    public void CancelWorldTruthProposal()
+    {
+        if (_worldTruthConfirmationUnavailable)
+        {
+            return;
+        }
+
+        ClearWorldTruthProposal();
+        _currentProductionPresentation =
+            CurrentProductionPresentation.WorldTruthInspection;
+        RaiseWorldTruthProperties();
+    }
+
+    public bool BeginWorldTruthReplacementSubmission()
+    {
+        if (!IsWorldTruthReview || _worldTruthConfirmationUnavailable)
+        {
+            return false;
+        }
+
+        _submittedWorldTruths = _reviewWorldTruths.ToArray();
+        _lastConfirmedWorldTruths = _currentWorldTruths.ToArray();
+        _worldTruthStatusMessage = string.Empty;
+        _worldTruthFailureMessage = string.Empty;
+        _currentProductionPresentation =
+            CurrentProductionPresentation.WorldTruthSubmitting;
+        RaiseWorldTruthProperties();
+        return true;
+    }
+
+    public void CompleteWorldTruthReplacementSubmission()
+    {
+        if (!IsWorldTruthSubmitting || _application is null)
+        {
+            return;
+        }
+
+        try
+        {
+            var replacement = new WorldCurrentState(
+                _submittedWorldTruths.Select(
+                    text => new WorldCurrentTruth(text)));
+
+            var result = _application.ReplaceWorldCurrentState(replacement);
+            if (!result.IsSuccess)
+            {
+                _notAppliedWorldTruths = _submittedWorldTruths.ToArray();
+                _worldTruthFailureMessage = result.FailureKind switch
+                {
+                    ProductAccessFailureKind.Incompatible =>
+                        "This Production's current world truths can't be changed in this version.",
+                    ProductAccessFailureKind.Invalid =>
+                        "Kymaean can't change this Production's current world truths because its contents are invalid.",
+                    _ => throw new ArgumentOutOfRangeException()
+                };
+                _currentProductionPresentation =
+                    CurrentProductionPresentation.WorldTruthTypedFailure;
+                RaiseWorldTruthProperties();
+                return;
+            }
+
+            _projection = result.Value;
+            _worldTruthConfirmationUnavailable = false;
+            RefreshCurrentWorldTruthsFromProjection();
+            ClearWorldTruthProposal();
+            _worldTruthStatusMessage =
+                "Current world truths updated.";
+            _currentProductionPresentation =
+                CurrentProductionPresentation.WorldTruthInspection;
+            RaiseWorldTruthProperties();
+        }
+        catch (IOException)
+        {
+            EnterWorldTruthConfirmationUnavailable();
+        }
+        catch (UnauthorizedAccessException)
+        {
+            EnterWorldTruthConfirmationUnavailable();
+        }
+    }
+
     private bool AccessSelectedProduction(bool recover)
     {
         if (_application is null || _selectedProduction is null)
@@ -159,6 +428,7 @@ public sealed class MainPageViewModel : INotifyPropertyChanged
         _projection = result.Value;
         _activeShellRoute = ShellRoute.CurrentProduction;
         _statusMessage = string.Empty;
+        ResetWorldTruthPresentationFromAuthoritativeProjection();
 
         OnPropertyChanged(nameof(CurrentProductionName));
         OnPropertyChanged(nameof(ActiveProductSpace));
@@ -167,6 +437,98 @@ public sealed class MainPageViewModel : INotifyPropertyChanged
         OnPropertyChanged(nameof(HasStatusMessage));
         RaiseShellProperties();
         return true;
+    }
+
+    private void ResetWorldTruthPresentationFromAuthoritativeProjection()
+    {
+        _worldTruthConfirmationUnavailable = false;
+        _currentProductionPresentation =
+            CurrentProductionPresentation.Overview;
+        RefreshCurrentWorldTruthsFromProjection();
+        ClearWorldTruthProposal();
+        _lastConfirmedWorldTruths = Array.Empty<string>();
+        _notAppliedWorldTruths = Array.Empty<string>();
+        _worldTruthFailureMessage = string.Empty;
+        _worldTruthStatusMessage = string.Empty;
+    }
+
+    private void RefreshCurrentWorldTruthsFromProjection()
+    {
+        _currentWorldTruths =
+            _projection?.CurrentProductionReplay?.WorldCurrentState.Truths
+                .Select(truth => truth.Text)
+                .ToArray()
+            ?? Array.Empty<string>();
+
+        OnPropertyChanged(nameof(CurrentWorldTruths));
+        OnPropertyChanged(nameof(HasCurrentWorldTruths));
+        OnPropertyChanged(nameof(HasNoCurrentWorldTruths));
+    }
+
+    private bool TryCanonicalizeDraft(out string[] canonical)
+    {
+        var values = WorldTruthDraftItems
+            .Select(item => item.Text)
+            .ToArray();
+
+        if (values.Any(string.IsNullOrWhiteSpace))
+        {
+            canonical = Array.Empty<string>();
+            SetDraftValidationMessage(
+                "Each world truth needs text, or remove the empty row.");
+            return false;
+        }
+
+        var unique = new HashSet<string>(StringComparer.Ordinal);
+        if (values.Any(value => !unique.Add(value)))
+        {
+            canonical = Array.Empty<string>();
+            SetDraftValidationMessage(
+                "Each current world truth must be unique.");
+            return false;
+        }
+
+        canonical = values
+            .OrderBy(value => value, StringComparer.Ordinal)
+            .ToArray();
+        SetDraftValidationMessage(string.Empty);
+        return true;
+    }
+
+    private void EnterWorldTruthConfirmationUnavailable()
+    {
+        _worldTruthConfirmationUnavailable = true;
+        _currentProductionPresentation =
+            CurrentProductionPresentation.WorldTruthConfirmationUnavailable;
+        _worldTruthFailureMessage = string.Empty;
+        _worldTruthStatusMessage = string.Empty;
+        RaiseWorldTruthProperties();
+    }
+
+    private void ClearWorldTruthProposal()
+    {
+        WorldTruthDraftItems.Clear();
+        _reviewWorldTruths = Array.Empty<string>();
+        _submittedWorldTruths = Array.Empty<string>();
+        _notAppliedWorldTruths = Array.Empty<string>();
+        _worldTruthDraftValidationMessage = string.Empty;
+        _worldTruthFailureMessage = string.Empty;
+    }
+
+    private void SetDraftValidationMessage(string message)
+    {
+        _worldTruthDraftValidationMessage = message;
+        OnPropertyChanged(nameof(WorldTruthDraftValidationMessage));
+        OnPropertyChanged(nameof(HasWorldTruthDraftValidationMessage));
+    }
+
+    private void RequireOpenProduction()
+    {
+        if (_application is null || !HasCurrentProduction)
+        {
+            throw new InvalidOperationException(
+                "A Production must be open before inspecting its current world truths.");
+        }
     }
 
     private void RaiseShellProperties()
@@ -178,6 +540,36 @@ public sealed class MainPageViewModel : INotifyPropertyChanged
         OnPropertyChanged(nameof(IsSettings));
         OnPropertyChanged(nameof(PageTitle));
         OnPropertyChanged(nameof(PageSummary));
+        RaiseWorldTruthProperties();
+    }
+
+    private void RaiseWorldTruthProperties()
+    {
+        OnPropertyChanged(nameof(IsCurrentProductionOverview));
+        OnPropertyChanged(nameof(IsWorldTruthSurface));
+        OnPropertyChanged(nameof(IsWorldTruthInspection));
+        OnPropertyChanged(nameof(IsWorldTruthEdit));
+        OnPropertyChanged(nameof(IsWorldTruthReview));
+        OnPropertyChanged(nameof(IsWorldTruthSubmitting));
+        OnPropertyChanged(nameof(IsWorldTruthTypedFailure));
+        OnPropertyChanged(nameof(IsWorldTruthConfirmationUnavailable));
+        OnPropertyChanged(nameof(ReviewWorldTruths));
+        OnPropertyChanged(nameof(HasReviewWorldTruths));
+        OnPropertyChanged(nameof(HasNoReviewWorldTruths));
+        OnPropertyChanged(nameof(SubmittedWorldTruths));
+        OnPropertyChanged(nameof(HasSubmittedWorldTruths));
+        OnPropertyChanged(nameof(HasNoSubmittedWorldTruths));
+        OnPropertyChanged(nameof(LastConfirmedWorldTruths));
+        OnPropertyChanged(nameof(HasLastConfirmedWorldTruths));
+        OnPropertyChanged(nameof(HasNoLastConfirmedWorldTruths));
+        OnPropertyChanged(nameof(NotAppliedWorldTruths));
+        OnPropertyChanged(nameof(HasNotAppliedWorldTruths));
+        OnPropertyChanged(nameof(HasNoNotAppliedWorldTruths));
+        OnPropertyChanged(nameof(WorldTruthDraftValidationMessage));
+        OnPropertyChanged(nameof(HasWorldTruthDraftValidationMessage));
+        OnPropertyChanged(nameof(WorldTruthStatusMessage));
+        OnPropertyChanged(nameof(HasWorldTruthStatusMessage));
+        OnPropertyChanged(nameof(WorldTruthFailureMessage));
     }
 
     private static string DescribeFailure(
@@ -198,5 +590,16 @@ public sealed class MainPageViewModel : INotifyPropertyChanged
         PropertyChanged?.Invoke(
             this,
             new PropertyChangedEventArgs(propertyName));
+    }
+
+    private enum CurrentProductionPresentation
+    {
+        Overview,
+        WorldTruthInspection,
+        WorldTruthEdit,
+        WorldTruthReview,
+        WorldTruthSubmitting,
+        WorldTruthTypedFailure,
+        WorldTruthConfirmationUnavailable
     }
 }

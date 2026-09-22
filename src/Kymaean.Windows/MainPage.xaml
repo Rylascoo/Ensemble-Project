@@ -9,6 +9,18 @@
 
     <Page.Resources>
         <presentation:BooleanToVisibilityConverter x:Key="BoolToVisibility" />
+        <DataTemplate x:Key="WorldTruthTextTemplate">
+            <Border
+                Padding="0,8"
+                BorderBrush="{ThemeResource KymaeanBoundaryBrush}"
+                BorderThickness="0,0,0,1">
+                <TextBlock
+                    AutomationProperties.Name="{Binding}"
+                    Foreground="{ThemeResource KymaeanPrimaryBrush}"
+                    Text="{Binding}"
+                    TextWrapping="Wrap" />
+            </Border>
+        </DataTemplate>
     </Page.Resources>
 
     <NavigationView
@@ -209,7 +221,7 @@
                             </StackPanel>
                         </Grid>
 
-                        <Grid Visibility="{Binding IsCurrentProduction, Converter={StaticResource BoolToVisibility}}">
+                        <Grid Visibility="{Binding IsCurrentProductionOverview, Converter={StaticResource BoolToVisibility}}">
                             <StackPanel Spacing="10">
                                 <Button
                                     AutomationProperties.Name="Back"
@@ -241,6 +253,292 @@
                                     <TextBlock
                                         Foreground="{ThemeResource KymaeanPrimaryBrush}"
                                         Text="{Binding ActiveProductSpace}" />
+                                </StackPanel>
+                                <Button
+                                    x:Name="WorldTruthsButton"
+                                    AutomationProperties.Name="World truths"
+                                    Margin="0,12,0,0"
+                                    HorizontalAlignment="Left"
+                                    Click="OnOpenWorldTruthsClicked"
+                                    Content="World truths" />
+                            </StackPanel>
+                        </Grid>
+
+                        <Grid Visibility="{Binding IsWorldTruthSurface, Converter={StaticResource BoolToVisibility}}">
+                            <StackPanel Spacing="12">
+                                <Button
+                                    x:Name="WorldTruthBackButton"
+                                    AutomationProperties.Name="Back"
+                                    Background="Transparent"
+                                    BorderBrush="Transparent"
+                                    Click="OnBackFromWorldTruthsClicked"
+                                    FocusVisualMargin="2"
+                                    HorizontalAlignment="Left"
+                                    Padding="6"
+                                    ToolTipService.ToolTip="Back"
+                                    UseSystemFocusVisuals="True">
+                                    <FontIcon
+                                        FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                                        FontSize="20"
+                                        Glyph="&#xE72B;" />
+                                </Button>
+
+                                <StackPanel
+                                    Spacing="10"
+                                    Visibility="{Binding IsWorldTruthInspection, Converter={StaticResource BoolToVisibility}}">
+                                    <TextBlock
+                                        AutomationProperties.HeadingLevel="Level2"
+                                        FontSize="24"
+                                        FontWeight="SemiBold"
+                                        Foreground="{ThemeResource KymaeanPrimaryBrush}"
+                                        Text="Current world truths" />
+                                    <TextBlock
+                                        Foreground="{ThemeResource KymaeanSecondaryBrush}"
+                                        Text="What is currently true in this Production's world."
+                                        TextWrapping="Wrap" />
+                                    <TextBlock
+                                        FontSize="13"
+                                        Foreground="{ThemeResource KymaeanSecondaryBrush}"
+                                        Text="Creator view — this does not describe what any Character knows or believes."
+                                        TextWrapping="Wrap" />
+                                    <Border
+                                        Padding="10,8"
+                                        BorderBrush="{ThemeResource KymaeanBoundaryBrush}"
+                                        BorderThickness="0,1,0,1"
+                                        Visibility="{Binding HasWorldTruthStatusMessage, Converter={StaticResource BoolToVisibility}}">
+                                        <TextBlock
+                                            AutomationProperties.Name="{Binding WorldTruthStatusMessage}"
+                                            Foreground="{ThemeResource KymaeanPrimaryBrush}"
+                                            Text="{Binding WorldTruthStatusMessage}"
+                                            TextWrapping="Wrap" />
+                                    </Border>
+                                    <ItemsControl
+                                        ItemTemplate="{StaticResource WorldTruthTextTemplate}"
+                                        ItemsSource="{Binding CurrentWorldTruths}" />
+                                    <TextBlock
+                                        Foreground="{ThemeResource KymaeanSecondaryBrush}"
+                                        Text="There are no current world truths."
+                                        Visibility="{Binding HasNoCurrentWorldTruths, Converter={StaticResource BoolToVisibility}}" />
+                                    <Button
+                                        x:Name="EditWorldTruthsButton"
+                                        AutomationProperties.Name="Edit replacement"
+                                        HorizontalAlignment="Left"
+                                        Click="OnEditWorldTruthsClicked"
+                                        Content="Edit replacement" />
+                                </StackPanel>
+
+                                <StackPanel
+                                    Spacing="10"
+                                    Visibility="{Binding IsWorldTruthEdit, Converter={StaticResource BoolToVisibility}}">
+                                    <TextBlock
+                                        AutomationProperties.HeadingLevel="Level2"
+                                        FontSize="24"
+                                        FontWeight="SemiBold"
+                                        Foreground="{ThemeResource KymaeanPrimaryBrush}"
+                                        Text="Proposed replacement" />
+                                    <TextBlock
+                                        Foreground="{ThemeResource KymaeanSecondaryBrush}"
+                                        Text="Changes here are local until you review and replace the entire current world truth set."
+                                        TextWrapping="Wrap" />
+                                    <ItemsControl ItemsSource="{Binding WorldTruthDraftItems}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid Margin="0,0,0,8">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBox
+                                                        AutomationProperties.Name="World truth text"
+                                                        MinWidth="300"
+                                                        AcceptsReturn="True"
+                                                        Text="{Binding Text, Mode=TwoWay}"
+                                                        TextWrapping="Wrap" />
+                                                    <Button
+                                                        Grid.Column="1"
+                                                        AutomationProperties.Name="Remove world truth"
+                                                        Margin="8,0,0,0"
+                                                        VerticalAlignment="Top"
+                                                        Click="OnRemoveWorldTruthClicked"
+                                                        Content="Remove" />
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                    <Button
+                                        x:Name="AddWorldTruthButton"
+                                        AutomationProperties.Name="Add world truth"
+                                        HorizontalAlignment="Left"
+                                        Click="OnAddWorldTruthClicked"
+                                        Content="Add world truth" />
+                                    <TextBlock
+                                        AutomationProperties.Name="{Binding WorldTruthDraftValidationMessage}"
+                                        Foreground="{ThemeResource KymaeanPrimaryBrush}"
+                                        Text="{Binding WorldTruthDraftValidationMessage}"
+                                        TextWrapping="Wrap"
+                                        Visibility="{Binding HasWorldTruthDraftValidationMessage, Converter={StaticResource BoolToVisibility}}" />
+                                    <StackPanel Orientation="Horizontal" Spacing="8">
+                                        <Button
+                                            AutomationProperties.Name="Review replacement"
+                                            Click="OnReviewWorldTruthsClicked"
+                                            Content="Review replacement" />
+                                        <Button
+                                            AutomationProperties.Name="Cancel replacement"
+                                            Click="OnCancelWorldTruthProposalClicked"
+                                            Content="Cancel" />
+                                    </StackPanel>
+                                </StackPanel>
+
+                                <StackPanel
+                                    Spacing="12"
+                                    Visibility="{Binding IsWorldTruthReview, Converter={StaticResource BoolToVisibility}}">
+                                    <TextBlock
+                                        AutomationProperties.HeadingLevel="Level2"
+                                        FontSize="24"
+                                        FontWeight="SemiBold"
+                                        Foreground="{ThemeResource KymaeanPrimaryBrush}"
+                                        Text="Review replacement" />
+                                    <TextBlock
+                                        FontWeight="SemiBold"
+                                        Foreground="{ThemeResource KymaeanPrimaryBrush}"
+                                        Text="This will replace the entire current world truth set."
+                                        TextWrapping="Wrap" />
+                                    <TextBlock
+                                        FontWeight="SemiBold"
+                                        Foreground="{ThemeResource KymaeanSecondaryBrush}"
+                                        Text="Current world truths" />
+                                    <ItemsControl
+                                        ItemTemplate="{StaticResource WorldTruthTextTemplate}"
+                                        ItemsSource="{Binding CurrentWorldTruths}" />
+                                    <TextBlock
+                                        Foreground="{ThemeResource KymaeanSecondaryBrush}"
+                                        Text="The current set is empty."
+                                        Visibility="{Binding HasNoCurrentWorldTruths, Converter={StaticResource BoolToVisibility}}" />
+                                    <TextBlock
+                                        Margin="0,8,0,0"
+                                        FontWeight="SemiBold"
+                                        Foreground="{ThemeResource KymaeanSecondaryBrush}"
+                                        Text="Proposed replacement" />
+                                    <ItemsControl
+                                        ItemTemplate="{StaticResource WorldTruthTextTemplate}"
+                                        ItemsSource="{Binding ReviewWorldTruths}" />
+                                    <TextBlock
+                                        Foreground="{ThemeResource KymaeanSecondaryBrush}"
+                                        Text="The proposed replacement is empty."
+                                        Visibility="{Binding HasNoReviewWorldTruths, Converter={StaticResource BoolToVisibility}}" />
+                                    <StackPanel Orientation="Horizontal" Spacing="8">
+                                        <Button
+                                            AutomationProperties.Name="Back to edit replacement"
+                                            Click="OnBackToWorldTruthEditClicked"
+                                            Content="Back to edit" />
+                                        <Button
+                                            x:Name="ReplaceWorldTruthsButton"
+                                            AutomationProperties.Name="Replace current world truths"
+                                            Click="OnReplaceWorldTruthsClicked"
+                                            Content="Replace current world truths" />
+                                        <Button
+                                            AutomationProperties.Name="Cancel replacement"
+                                            Click="OnCancelWorldTruthProposalClicked"
+                                            Content="Cancel" />
+                                    </StackPanel>
+                                </StackPanel>
+
+                                <StackPanel
+                                    Spacing="8"
+                                    Visibility="{Binding IsWorldTruthSubmitting, Converter={StaticResource BoolToVisibility}}">
+                                    <TextBlock
+                                        AutomationProperties.HeadingLevel="Level2"
+                                        FontSize="24"
+                                        FontWeight="SemiBold"
+                                        Foreground="{ThemeResource KymaeanPrimaryBrush}"
+                                        Text="Updating current world truths" />
+                                    <TextBlock
+                                        Foreground="{ThemeResource KymaeanSecondaryBrush}"
+                                        Text="Kymaean is confirming the replacement."
+                                        TextWrapping="Wrap" />
+                                </StackPanel>
+
+                                <StackPanel
+                                    Spacing="10"
+                                    Visibility="{Binding IsWorldTruthTypedFailure, Converter={StaticResource BoolToVisibility}}">
+                                    <TextBlock
+                                        AutomationProperties.HeadingLevel="Level2"
+                                        FontSize="24"
+                                        FontWeight="SemiBold"
+                                        Foreground="{ThemeResource KymaeanPrimaryBrush}"
+                                        Text="Replacement not applied" />
+                                    <TextBlock
+                                        AutomationProperties.Name="{Binding WorldTruthFailureMessage}"
+                                        Foreground="{ThemeResource KymaeanPrimaryBrush}"
+                                        Text="{Binding WorldTruthFailureMessage}"
+                                        TextWrapping="Wrap" />
+                                    <TextBlock
+                                        FontWeight="SemiBold"
+                                        Foreground="{ThemeResource KymaeanSecondaryBrush}"
+                                        Text="Current world truths" />
+                                    <ItemsControl
+                                        ItemTemplate="{StaticResource WorldTruthTextTemplate}"
+                                        ItemsSource="{Binding CurrentWorldTruths}" />
+                                    <TextBlock
+                                        Foreground="{ThemeResource KymaeanSecondaryBrush}"
+                                        Text="The current set is empty."
+                                        Visibility="{Binding HasNoCurrentWorldTruths, Converter={StaticResource BoolToVisibility}}" />
+                                    <TextBlock
+                                        Margin="0,8,0,0"
+                                        FontWeight="SemiBold"
+                                        Foreground="{ThemeResource KymaeanSecondaryBrush}"
+                                        Text="Not applied" />
+                                    <ItemsControl
+                                        ItemTemplate="{StaticResource WorldTruthTextTemplate}"
+                                        ItemsSource="{Binding NotAppliedWorldTruths}" />
+                                    <TextBlock
+                                        Foreground="{ThemeResource KymaeanSecondaryBrush}"
+                                        Text="The not-applied replacement is empty."
+                                        Visibility="{Binding HasNoNotAppliedWorldTruths, Converter={StaticResource BoolToVisibility}}" />
+                                </StackPanel>
+
+                                <StackPanel
+                                    Spacing="10"
+                                    Visibility="{Binding IsWorldTruthConfirmationUnavailable, Converter={StaticResource BoolToVisibility}}">
+                                    <TextBlock
+                                        AutomationProperties.HeadingLevel="Level2"
+                                        FontSize="24"
+                                        FontWeight="SemiBold"
+                                        Foreground="{ThemeResource KymaeanPrimaryBrush}"
+                                        Text="Confirmation unavailable" />
+                                    <TextBlock
+                                        Foreground="{ThemeResource KymaeanPrimaryBrush}"
+                                        Text="Kymaean couldn't confirm whether the replacement became current."
+                                        TextWrapping="Wrap" />
+                                    <TextBlock
+                                        FontWeight="SemiBold"
+                                        Foreground="{ThemeResource KymaeanSecondaryBrush}"
+                                        Text="Last confirmed world truths" />
+                                    <ItemsControl
+                                        ItemTemplate="{StaticResource WorldTruthTextTemplate}"
+                                        ItemsSource="{Binding LastConfirmedWorldTruths}" />
+                                    <TextBlock
+                                        Foreground="{ThemeResource KymaeanSecondaryBrush}"
+                                        Text="The last confirmed set was empty."
+                                        Visibility="{Binding HasNoLastConfirmedWorldTruths, Converter={StaticResource BoolToVisibility}}" />
+                                    <TextBlock
+                                        Margin="0,8,0,0"
+                                        FontWeight="SemiBold"
+                                        Foreground="{ThemeResource KymaeanSecondaryBrush}"
+                                        Text="Submitted replacement" />
+                                    <ItemsControl
+                                        ItemTemplate="{StaticResource WorldTruthTextTemplate}"
+                                        ItemsSource="{Binding SubmittedWorldTruths}" />
+                                    <TextBlock
+                                        Foreground="{ThemeResource KymaeanSecondaryBrush}"
+                                        Text="The submitted replacement was empty."
+                                        Visibility="{Binding HasNoSubmittedWorldTruths, Converter={StaticResource BoolToVisibility}}" />
+                                    <TextBlock
+                                        Margin="0,8,0,0"
+                                        FontSize="13"
+                                        Foreground="{ThemeResource KymaeanSecondaryBrush}"
+                                        Text="Open the Production again to establish authoritative current world truths before making another replacement."
+                                        TextWrapping="Wrap" />
                                 </StackPanel>
                             </StackPanel>
                         </Grid>
