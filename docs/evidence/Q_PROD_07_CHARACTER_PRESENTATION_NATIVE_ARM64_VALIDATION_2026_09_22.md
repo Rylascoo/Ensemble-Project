@@ -1,7 +1,7 @@
 # Q-PROD-07 Production Characters presentation — native ARM64 validation
 
 Date: 2026-09-22  
-Status: **VALIDATED / EXACT-SOURCE REVIEW CLEAN / DESIGN ACCEPTANCE READY**  
+Status: **VALIDATED / EXACT-SOURCE REVIEW CLEAN / DESIGN ACCEPTED / PENDING INTEGRATION**  
 Exact integrated base: `4f836d53a4e18ae92fa408cc87a9d9e2c3702fbe`  
 Exact executable source: `9ea74391adf0a2f259c205ae88128324d4a52148`  
 Governing Design contract: `docs/design/app/contracts/PRODUCTION_CAST_CHARACTER_ESTABLISHMENT_PRESENTATION.md`
@@ -151,4 +151,4 @@ The documentation commit does not inherit native runtime authority; native/UI ev
 - Source Sans 3 / S1 shipping packaging, WACK, Store and release remain open;
 - no Character edit/deeper ontology, Scene membership/lifecycle, Performer/provider, Pressure, Take or Rehearsal semantics are created.
 
-Q-PROD-07 is ready for Q-DESIGN-23 native acceptance and final integration closeout.
+Q-DESIGN-23 native acceptance is recorded at `docs/design/app/evidence/native/APPUI_01_Q_DESIGN_23_CHARACTER_PRESENTATION_NATIVE_ACCEPTANCE_2026_09_22.json`. Q-PROD-07 / Q-DESIGN-23 is ready for final hosted exact-head gates and integration.
