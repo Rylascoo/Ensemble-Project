@@ -22,4 +22,4 @@ High Contrast exact-source recapture, Source Sans 3/S1 packaging, WACK/Store, pr
 
 ## Next
 
-Run a fresh read-only successor-selection reconciliation against the live roadmap, Open Design Register, current Product source and outstanding gates. Do not invent Product lifecycle/ontology/UI semantics merely to keep implementation moving; open the next bounded package only when its prerequisites and authority are explicit.
+Successor audit: `docs/evidence/Q_PROD_04_SUCCESSOR_SELECTION_PRODUCTION_CREATION_2026_09_22.md`. The next justified Product lane is bounded **Create Production** only, required by the roadmap's Alpha flow, but implementation is blocked on Director choices for identity issuance, successful-create Application state and duplicate-name policy. Rename/delete/import/restore, FIRSTUSE, Home, Character/Scene ontology and provider work remain separate.
