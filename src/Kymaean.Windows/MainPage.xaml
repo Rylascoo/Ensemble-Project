@@ -171,16 +171,10 @@
                                 x:Name="ProductionList"
                                 Grid.Row="1"
                                 Margin="0,18,0,0"
+                                ContainerContentChanging="OnProductionContainerContentChanging"
                                 ItemsSource="{Binding Productions}"
                                 SelectionChanged="OnProductionSelectionChanged"
                                 SelectionMode="Single">
-                                <ListView.ItemContainerStyle>
-                                    <Style TargetType="ListViewItem">
-                                        <Setter
-                                            Property="AutomationProperties.Name"
-                                            Value="{Binding ProductionName}" />
-                                    </Style>
-                                </ListView.ItemContainerStyle>
                                 <ListView.ItemTemplate>
                                     <DataTemplate x:DataType="application:ProductionSummary">
                                         <Border
