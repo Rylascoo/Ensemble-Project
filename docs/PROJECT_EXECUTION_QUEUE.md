@@ -21,7 +21,7 @@ This file now carries only current, deferred, or blocking work. Completed histor
 
 | ID | Role | Status | Work | Hard boundary / successor |
 |---|---|---|---|---|
-| Q-PROD-06 | Product / Architecture / Implementation | MERGE-READY — PENDING AUTHORITY | Persistent Character identity + replay-derived Production Cast foundation is implemented, recursively reviewed and validated. Evidence: `docs/evidence/Q_PROD_06_CHARACTER_CAST_IDENTITY_FOUNDATION_NATIVE_ARM64_VALIDATION_2026_09_22.md`. | Require final hosted pass on the latest documentation-only head, then merge only under required authority. No Character UI, Scene membership, Performer/provider, knowledge/belief/memory, Pressure, Take or Rehearsal semantics. |
+| Q-DESIGN-23 | Design | ACTIVE — BOUNDED CONTRACT AUDIT | Define the current-Production Cast inspection + explicit Character establishment presentation contract from integrated Q-PROD-06. Evidence: `docs/evidence/Q_DESIGN_23_SUCCESSOR_SELECTION_PRODUCTION_CAST_CHARACTER_ESTABLISHMENT_PRESENTATION_2026_09_22.md`. | Contract only first. No permanent People route, Scene membership/lifecycle, Off-Scene/current-Scene labels, Character edit/rename/delete/deeper ontology, Performer/provider, Pressure, Take or Rehearsal semantics. |
 | Q-ADMIN-07 | Governance / Recovery | DEFERRED — LOCAL RESIDUE ONLY | Disposition remaining local historical/deferred worktrees after owner/status/evidence review. | Remote branch clutter is closed by Q-UNITY-01; preserve ambiguous local evidence and the unique historical PR #226 branch. |
 
 ## Deferred E0 / architecture gates
