@@ -26,6 +26,8 @@ Q-PROD-06 is **DONE / INTEGRATED**. PR #249 merged at `1ca940a8235411b378aa2e507
 
 Evidence: `docs/evidence/Q_PROD_06_CHARACTER_CAST_IDENTITY_FOUNDATION_NATIVE_ARM64_VALIDATION_2026_09_22.md`.
 
+Q-DESIGN-23 is **ADOPTED / ENGINEERING HANDOFF READY / NATIVE ACCEPTANCE PENDING**. Contract: `docs/design/app/contracts/PRODUCTION_CAST_CHARACTER_ESTABLISHMENT_PRESENTATION.md`. The minimum creator-facing surface is current-Production **Characters**: read-only replay-derived Character rows plus bounded **New Character** creation, conditional presentation-only duplicate Character codes, exact focus/return, and explicit environmental non-confirmation. Historical Off-Scene/current-Scene/edit/deeper-detail semantics remain excluded.
+
 ## Next
 
-Q-DESIGN-23 successor selection is complete: `docs/evidence/Q_DESIGN_23_SUCCESSOR_SELECTION_PRODUCTION_CAST_CHARACTER_ESTABLISHMENT_PRESENTATION_2026_09_22.md`. Define the smallest App Design contract for current-Production Cast inspection + explicit Character establishment, consuming only the integrated identity/name/CreateCharacter contract. Do not adopt historical prototype Off-Scene/current-Scene/edit/deeper-detail semantics, create a permanent People route, or infer Scene membership, Performer/provider, Pressure, Take or Rehearsal behavior.
+Implement Q-PROD-07 in Windows presentation only against the integrated Q-PROD-06 Product contract and adopted Q-DESIGN-23 contract. Product/Persistence changes are a stop condition. Require exact tests, ARM64 WinUI build/runtime evidence, recursive review, and Design native acceptance before integration.
