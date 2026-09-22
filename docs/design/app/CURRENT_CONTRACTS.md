@@ -50,11 +50,11 @@ This does **not** itself adopt Character UI, Scene membership/lifecycle, Off-Sce
 
 ### Q-DESIGN-23 — Characters / Character establishment
 
-**ADOPTED / ENGINEERING HANDOFF READY / NATIVE ACCEPTANCE PENDING.** Contract: `contracts/PRODUCTION_CAST_CHARACTER_ESTABLISHMENT_PRESENTATION.md`.
+**ACCEPTED / PENDING INTEGRATION.** Contract: `contracts/PRODUCTION_CAST_CHARACTER_ESTABLISHMENT_PRESENTATION.md`. Exact native source: `9ea74391adf0a2f259c205ae88128324d4a52148`.
 
 Current-Production **Characters** is a read-only replay-derived list plus bounded **New Character** creation. Duplicate exact names use conditional presentation-only Character codes. No Scene labels, richer Character editor, Performer/provider assignment or permanent People route is adopted.
 
-Native reconciliation record: `evidence/native/APPUI_01_Q_DESIGN_23_PRODUCTION_CAST_CHARACTER_PRESENTATION_CONTRACT_01.json`.
+Contract reconciliation: `evidence/native/APPUI_01_Q_DESIGN_23_PRODUCTION_CAST_CHARACTER_PRESENTATION_CONTRACT_01.json`. Native acceptance: `evidence/native/APPUI_01_Q_DESIGN_23_CHARACTER_PRESENTATION_NATIVE_ACCEPTANCE_2026_09_22.json`.
 
 ## Explicit unresolved / gated items
 
