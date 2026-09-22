@@ -22,8 +22,10 @@ Evidence: `docs/evidence/Q_UNITY_02_DISCONNECTED_WORKSPACE_DEMO_SCAFFOLD_RETIREM
 
 Home A/B, FIRSTUSE, rename/delete/import/restore, Character/Scene ontology beyond the next audit, provider/Performer, Stage motion, deferred E0, High Contrast, Source Sans 3/S1 packaging, final architecture, WACK/Store and release remain separately gated.
 
-Q-PROD-06 implementation is active in draft PR #249. Exact corrected executable candidate `a89a90c820b57c3307a668a5ee4e68384d3ce930`: native ARM64 Application 72/72 PASS, Persistence 140/140 PASS, and WinUI ARM64 Release build PASS with 0 warnings/errors. Hosted Validation #1205 executable jobs passed; the overall run failed only because this checkpoint exceeded the repository freshness limit.
+Q-PROD-06 is validated in PR #249 and pending integration. Exact executable source `90905c8952f77a7d6f926350fa5ada0796be56bf`: native ARM64 environment verifier PASS, Application 72/72 PASS, Persistence 141/141 PASS, WinUI ARM64 Release build PASS with 0 warnings/errors; hosted Validation #1211 PASS and E0-E preparation #186 PASS. Recursive review repaired World-replacement Cast isolation and malformed snapshot-count allocation, then a fresh exact-ref no-write audit found no remaining substantive finding.
+
+Evidence: `docs/evidence/Q_PROD_06_CHARACTER_CAST_IDENTITY_FOUNDATION_NATIVE_ARM64_VALIDATION_2026_09_22.md`.
 
 ## Next
 
-Require fresh exact-head hosted Validation PASS, complete the native environment-verifier gate, obtain fresh independent exact-candidate review, then record final evidence and integrate only if all gates are clean. Preserve the bounded Q-PROD-06 contract: `Character != Performer`; no Character UI, Scene membership, Performer/provider assignment, deeper Character ontology, Pressure, Take or Rehearsal semantics.
+Run final hosted gates on the documentation-only PR head, then integrate PR #249 only with the required merge authority. Preserve the bounded Q-PROD-06 contract: `Character != Performer`; no Character UI, Scene membership, Performer/provider assignment, deeper Character ontology, Pressure, Take or Rehearsal semantics.
