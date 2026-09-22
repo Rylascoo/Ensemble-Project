@@ -22,6 +22,8 @@ Evidence: `docs/evidence/Q_UNITY_02_DISCONNECTED_WORKSPACE_DEMO_SCAFFOLD_RETIREM
 
 Home A/B, FIRSTUSE, rename/delete/import/restore, Character/Scene ontology beyond the next audit, provider/Performer, Stage motion, deferred E0, High Contrast, Source Sans 3/S1 packaging, final architecture, WACK/Store and release remain separately gated.
 
+Q-PROD-06 implementation is active in draft PR #249. Exact corrected executable candidate `a89a90c820b57c3307a668a5ee4e68384d3ce930`: native ARM64 Application 72/72 PASS, Persistence 140/140 PASS, and WinUI ARM64 Release build PASS with 0 warnings/errors. Hosted Validation #1205 executable jobs passed; the overall run failed only because this checkpoint exceeded the repository freshness limit.
+
 ## Next
 
-Q-PROD-06 successor selection is complete: `docs/evidence/Q_PROD_06_SUCCESSOR_SELECTION_CHARACTER_CAST_IDENTITY_FOUNDATION_2026_09_22.md`. Implement only the bounded persistent Character identity + replay-derived Production Cast foundation in Application/Persistence. Preserve `Character != Performer`; no Character UI, Scene membership, Performer/provider assignment, deeper Character ontology, Pressure, Take or Rehearsal semantics.
+Require fresh exact-head hosted Validation PASS, complete the native environment-verifier gate, obtain fresh independent exact-candidate review, then record final evidence and integrate only if all gates are clean. Preserve the bounded Q-PROD-06 contract: `Character != Performer`; no Character UI, Scene membership, Performer/provider assignment, deeper Character ontology, Pressure, Take or Rehearsal semantics.
