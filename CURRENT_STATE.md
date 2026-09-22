@@ -24,4 +24,4 @@ High Contrast exact-source recapture, Source Sans 3/S1 packaging, WACK/Store, pr
 
 ## Next
 
-Run a fresh read-only successor-selection reconciliation now that Product creation is integrated. Prefer the smallest creator-facing consumer that uses earned creation semantics without silently adopting FIRSTUSE, selecting Home A/B, or inventing rename/delete/import/restore.
+Q-DESIGN-22 creation-presentation reconciliation is recorded in `docs/design/app/evidence/native/APPUI_01_Q_DESIGN_22_CREATE_PRODUCTION_PRESENTATION_RECONCILIATION_01.json`. Productions/library placement is independently supportable without adopting FIRSTUSE or selecting Home A/B, but duplicate Product names expose one creator-facing disambiguation decision before UI implementation. Director decision required: preserve duplicates with a conditional stable presentation fingerprint (recommended) or revise D3 to exact-name uniqueness.

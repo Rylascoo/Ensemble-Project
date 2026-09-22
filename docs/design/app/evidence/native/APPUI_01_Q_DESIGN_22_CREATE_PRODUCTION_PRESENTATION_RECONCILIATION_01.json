@@ -1,0 +1,58 @@
+{
+  "schema": "kymaean.appui-q-design-22-create-production-presentation-reconciliation.v1",
+  "status": "BLOCKED_PRODUCT_DISAMBIGUATION_DECISION_REQUIRED",
+  "date": "2026-09-22",
+  "exact_project_main": "2bd3e5a20babfb7a2d28c459fe6c6f7b94078e97",
+  "exact_main_validation": "#1165 PASS",
+  "product_authority": {
+    "qprod04_decision": "docs/Q_PROD_04_PRODUCTION_CREATION_DIRECTOR_DECISION_2026_09_22.md",
+    "integrated_pr": 246,
+    "integrated_main": "bb356f0bedd80c3f5b9a0985e81cc63ea5b6fb44",
+    "exact_tested_source": "8f7d5f05909dd88f6dd24e20b60b80ae5b36f5cc"
+  },
+  "reconciled_facts": [
+    "Create Production is now earned Product behavior.",
+    "Creation does not implicitly open, navigate, replace a current Production or change ProductSpace.",
+    "Duplicate ProductionName values are allowed and stable ProductionId is the authority that disambiguates them.",
+    "Current ProductionSummary exposes only ProductionId + ProductionName.",
+    "Current native Productions list renders only ProductionName and assigns that same name as the ListItem accessibility name.",
+    "FIRSTUSE remains evidence-pending-adoption and Home A/B remains unresolved."
+  ],
+  "design_findings": {
+    "safe_without_firstuse_or_home": [
+      "Creation belongs first in the durable Productions/library route, not Home.",
+      "A contextual New Production action and creation form can be designed without adopting FIRSTUSE.",
+      "Successful creation must return to the Productions context and must not auto-open.",
+      "FIRSTUSE may later invoke the same earned creation flow if separately adopted."
+    ],
+    "blocker": "Because duplicate names are Product-valid while the current creator-facing summary exposes only the name, two distinct Productions can be visually and programmatically indistinguishable in the library. Shipping creation UI without a stable creator-facing disambiguation rule would make an earned Product identity unreachable in ordinary creator interaction."
+  },
+  "options": [
+    {
+      "id": "A",
+      "title": "Preserve duplicate names; add a stable presentation-only identity fingerprint",
+      "contract": "When two or more visible ProductionName values are exact duplicates, render a deterministic short fingerprint derived only from exact ProductionId code units; expand the fingerprint length until unique within the current list. The fingerprint is presentation metadata, not a filesystem locator, Product name, sort authority or editable field.",
+      "impact": "Preserves the approved A/A/A Product contract; requires a bounded deterministic presentation algorithm and accessibility copy."
+    },
+    {
+      "id": "B",
+      "title": "Revise D3 to exact-name uniqueness",
+      "contract": "Reject creation when another Production has the exact same ProductionName code units. Stored text remains untrimmed/un-normalized; only exact ordinal equality is prohibited.",
+      "impact": "Simpler UI, but reopens the Director-approved duplicate-name Product decision and adds a new catalog constraint."
+    },
+    {
+      "id": "C",
+      "title": "Allow visually identical duplicates without disambiguation",
+      "contract": "No additional presentation rule.",
+      "impact": "Not recommended: creator selection and accessibility can no longer reliably communicate which stable Production identity is being acted on."
+    }
+  ],
+  "recommendation": "A — preserve the already-approved duplicate-name Product contract and add a stable, conditional presentation fingerprint only when exact duplicate names are present.",
+  "nonauthority": [
+    "No creation UI is implemented by this audit.",
+    "No FIRSTUSE evidence is adopted.",
+    "No Home A/B alternative is selected.",
+    "No rename/delete/import/restore or richer Product ontology is created."
+  ],
+  "next": "Director chooses A or B. C is preserved only as a falsified baseline. After that Q-DESIGN-22 can freeze the bounded creation presentation contract and Q-PROD-05 may implement it."
+}

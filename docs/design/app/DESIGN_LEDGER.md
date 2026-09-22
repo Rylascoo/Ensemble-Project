@@ -907,3 +907,19 @@ Evidence: `docs/evidence/Q_PROD_03_WORLD_CURRENT_TRUTH_PRESENTATION_NATIVE_ARM64
 
 Q-DESIGN-21 is integrated through PR #245 at `969dfc790a00d2cdbc61d7c3d28a95ceb96b6f72`; exact-main Validation #1155 passed. Q-DESIGN-21 is closed. This closure creates no history/query, Character-knowledge, lifecycle, provider, Stage, Home A/B or FIRSTUSE authority.
 
+---
+
+## Q-DESIGN-22 Create Production presentation reconciliation — 2026-09-22
+
+**State:** BLOCKED / PRODUCT DISAMBIGUATION DECISION REQUIRED / NO UI IMPLEMENTATION
+
+Fresh reconciliation after Q-PROD-04 integration confirms the smallest creator-facing consumer can live entirely in the durable **Productions** route. A contextual **New Production** action, exact-name entry, explicit creation effect and post-create return to the library do not require FIRSTUSE adoption or a Home A/B choice. Successful creation must not auto-open because the adopted Product contract explicitly separates Create from Open.
+
+One downstream collision is now explicit. Q-PROD-04 deliberately allows duplicate `ProductionName` values and says stable `ProductionId` disambiguates them, while the current `ProductionSummary` and native library expose only the name as creator-facing row text/accessibility name. Two same-name Productions can therefore become indistinguishable to the creator even though Product identity remains distinct.
+
+The bounded reconciliation records two viable Director choices: preserve duplicate names and add a conditional stable presentation-only fingerprint derived from exact Product identity, or revise D3 to exact-name uniqueness. Leaving visually identical duplicates undisambiguated is rejected as an accessibility/creator-agency failure.
+
+Canonical audit: `docs/design/app/evidence/native/APPUI_01_Q_DESIGN_22_CREATE_PRODUCTION_PRESENTATION_RECONCILIATION_01.json`.
+
+No FIRSTUSE adoption, Home selection, creation UI implementation, rename/delete/import/restore or richer Product ontology is created by this audit.
+
