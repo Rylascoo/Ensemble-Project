@@ -156,6 +156,118 @@ public sealed partial class MainPage : Page
         ProductionsNavigationItem.Focus(FocusState.Keyboard);
     }
 
+    private void OnCharacterContainerContentChanging(
+        ListViewBase sender,
+        ContainerContentChangingEventArgs args)
+    {
+        if (args.ItemContainer is ListViewItem container &&
+            args.Item is CharacterPresentationRow character)
+        {
+            AutomationProperties.SetName(
+                container,
+                character.AccessibleName);
+        }
+    }
+
+    private void OnOpenCharactersClicked(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is not MainPageViewModel viewModel)
+        {
+            return;
+        }
+
+        viewModel.OpenCharacters();
+        CharacterBackButton.Focus(FocusState.Keyboard);
+    }
+
+    private void OnBackFromCharactersClicked(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is not MainPageViewModel viewModel)
+        {
+            return;
+        }
+
+        viewModel.CloseCharactersToOverview();
+        CharactersButton.Focus(FocusState.Keyboard);
+    }
+
+    private void OnNewCharacterClicked(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is not MainPageViewModel viewModel)
+        {
+            return;
+        }
+
+        viewModel.BeginCharacterCreation();
+        CharacterNameTextBox.Focus(FocusState.Keyboard);
+    }
+
+    private void OnCancelCharacterCreationClicked(
+        object sender,
+        RoutedEventArgs e)
+    {
+        if (DataContext is not MainPageViewModel viewModel)
+        {
+            return;
+        }
+
+        viewModel.CancelCharacterCreation();
+        NewCharacterButton.Focus(FocusState.Keyboard);
+    }
+
+    private async void OnCreateCharacterClicked(
+        object sender,
+        RoutedEventArgs e)
+    {
+        if (DataContext is not MainPageViewModel viewModel ||
+            !viewModel.BeginCharacterCreationSubmission())
+        {
+            CharacterNameTextBox.Focus(FocusState.Keyboard);
+            return;
+        }
+
+        var created = viewModel.CompleteCharacterCreationSubmission();
+        if (created is null)
+        {
+            if (viewModel.IsCharacterTypedFailure)
+            {
+                CharacterTypedFailureBackButton.Focus(FocusState.Keyboard);
+            }
+            else
+            {
+                CharacterBackButton.Focus(FocusState.Keyboard);
+            }
+
+            return;
+        }
+
+        CharacterList.ScrollIntoView(created);
+        await Task.Yield();
+
+        if (CharacterList.ContainerFromItem(created)
+            is ListViewItem container)
+        {
+            container.Focus(FocusState.Keyboard);
+        }
+        else
+        {
+            CharacterList.Focus(FocusState.Keyboard);
+        }
+    }
+
+    private void OnBackFromCharacterFailureClicked(
+        object sender,
+        RoutedEventArgs e)
+    {
+        if (DataContext is not MainPageViewModel viewModel)
+        {
+            return;
+        }
+
+        viewModel.ReturnFromCharacterTypedFailure();
+        NewCharacterButton.Focus(FocusState.Keyboard);
+    }
+
     private void OnOpenWorldTruthsClicked(object sender, RoutedEventArgs e)
     {
         if (DataContext is not MainPageViewModel viewModel)
