@@ -21,7 +21,7 @@ This file now carries only current, deferred, or blocking work. Completed histor
 
 | ID | Role | Status | Work | Hard boundary / successor |
 |---|---|---|---|---|
-| Q-PROD-07 / Q-DESIGN-23 | Implementation / Design acceptance | ACTIVE — WINDOWS CHARACTER PRESENTATION | Implement the adopted current-Production Characters inspection + New Character flow. Contract: `docs/design/app/contracts/PRODUCTION_CAST_CHARACTER_ESTABLISHMENT_PRESENTATION.md`. | Windows presentation/tests only; Product/Persistence mutation is a stop condition. No Scene membership/lifecycle, Character edit/deeper ontology, Performer/provider, Pressure, Take or Rehearsal semantics. |
+| Q-PROD-07 / Q-DESIGN-23 | Implementation / Design acceptance | VALIDATED — PENDING INTEGRATION | Windows Characters inspection + New Character flow is implemented, recursively reviewed, natively validated and Design-accepted. Evidence: `docs/evidence/Q_PROD_07_CHARACTER_PRESENTATION_NATIVE_ARM64_VALIDATION_2026_09_22.md`. | Final hosted exact-head gates then integration. Product/Persistence unchanged; Scene membership/lifecycle, Character edit/deeper ontology, Performer/provider, Pressure, Take and Rehearsal remain gated. |
 | Q-ADMIN-07 | Governance / Recovery | DEFERRED — LOCAL RESIDUE ONLY | Disposition remaining local historical/deferred worktrees after owner/status/evidence review. | Remote branch clutter is closed by Q-UNITY-01; preserve ambiguous local evidence and the unique historical PR #226 branch. |
 
 ## Deferred E0 / architecture gates
