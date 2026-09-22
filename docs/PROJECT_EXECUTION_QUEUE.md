@@ -4,7 +4,7 @@ Status: **ACTIVE CURRENT-WORK REGISTER**
 
 Updated: 2026-09-22
 
-The complete pre-unification sequencing/history is preserved at `docs/history/PROJECT_EXECUTION_QUEUE_PRE_UNIFICATION_2026_09_22.md`.
+The complete pre-unification sequencing/history is preserved at `docs/evidence/archive/PROJECT_EXECUTION_QUEUE_PRE_UNIFICATION_2026_09_22.md`.
 
 This file now carries only current, deferred, or blocking work. Completed history belongs in evidence/validation/Design ledgers and Git history, not in the everyday execution surface.
 
@@ -30,7 +30,7 @@ This file now carries only current, deferred, or blocking work. Completed histor
 
 | ID | Status | Boundary |
 |---|---|---|
-| Q-E0D-01 | DEFERRED VALIDATION | Preserve consumed P01/P02 evidence and unconsumed P03 namespace; no auto-launch/provider traffic. |
+| Q-E0D-01 | DEFERRED VALIDATION | Preserve consumed P01/P02 evidence and unconsumed P03 namespace; no auto-launch/provider traffic. Current chain: `docs/evidence/E0D_CURRENT_DEFERRED_VALIDATION_INDEX_2026_09_22.md`. |
 | Q-E0E-RUN | DEFERRED | Resume only under current deferred-E0/Director/provider authority. |
 | Q-E0F-01 | DEFERRED | Resume after E0-E closure. |
 | Q-E0G-01 | DEFERRED | Resume after E0-F closure. |

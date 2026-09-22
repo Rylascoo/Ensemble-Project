@@ -25,7 +25,7 @@ Codex is reserved for substantial implementation/debugging. GitHub/files handle 
 
 - `CURRENT_STATE.md` remains the sole volatile project checkpoint.
 - `docs/PROJECT_EXECUTION_QUEUE.md` is reduced to current/deferred/blocking work only.
-- The complete pre-unification queue is preserved at `docs/history/PROJECT_EXECUTION_QUEUE_PRE_UNIFICATION_2026_09_22.md`.
+- The complete pre-unification queue is preserved at `docs/evidence/archive/PROJECT_EXECUTION_QUEUE_PRE_UNIFICATION_2026_09_22.md`.
 - App Design gains `docs/design/app/CURRENT_CONTRACTS.md` as the short active bootstrap.
 - `AGENTS.md`, `PROJECT_AUTHORITY.md` and App Design authority now describe roles instead of persona identities.
 

@@ -90,7 +90,7 @@ Exact model names must not be frozen into Core/Application architecture merely b
 ## Register, evidence, and navigation roles
 
 - `docs/DOCUMENT_INDEX.md` is navigation only. It is deliberately excluded from document-census authority traversal, so linking a file there cannot make that file current.
-- `docs/PROJECT_EXECUTION_QUEUE.md` tracks only current/deferred operational work and prerequisites; completed pre-unification sequencing is archived at `docs/history/PROJECT_EXECUTION_QUEUE_PRE_UNIFICATION_2026_09_22.md`. Neither surface can override stronger authority or make a blocked item executable.
+- `docs/PROJECT_EXECUTION_QUEUE.md` tracks only current/deferred operational work and prerequisites; completed pre-unification sequencing is archived at `docs/evidence/archive/PROJECT_EXECUTION_QUEUE_PRE_UNIFICATION_2026_09_22.md`. Neither surface can override stronger authority or make a blocked item executable.
 - `docs/VALIDATION_LEDGER.md` records validation facts and durable validation tags. It cannot advance the current checkpoint or inflate a validation rung.
 - `docs/HYPOTHESIS_LEDGER.md` records explicitly unverified assumptions and their verification triggers. A hypothesis never becomes a decision or fact merely by being listed.
 - `docs/EVIDENCE_LANE_CHARTER.md` defines the independent measurement/falsification lane and its E0-E authorship/preparation exception. It carries no phase, ODR, design, provider, or product authority.

@@ -36,7 +36,7 @@ Q-DESIGN-22 contract: `docs/design/app/contracts/CREATE_PRODUCTION_PRESENTATION.
 
 Q-PROD-05 is the next bounded implementation package: Productions route only; New Production -> exact name -> Create Production; successful creation returns to the list and selects/focuses the exact new Production by returned ID; no implicit Open; duplicate-name groups show conditional presentation-only Production codes; no Product/Persistence source changes; no FIRSTUSE or Home A/B adoption; no rename/delete/import/restore.
 
-High Contrast exact-source proof, Source Sans 3/S1 packaging, provider work, deferred E0, final architecture, WACK/Store and release remain unearned.
+High Contrast exact-source proof, Source Sans 3/S1 packaging, provider work, deferred E0, final architecture, WACK/Store and release remain unearned. Deferred E0-D continuity is indexed at `docs/evidence/E0D_CURRENT_DEFERRED_VALIDATION_INDEX_2026_09_22.md`.
 
 ## Next
 
