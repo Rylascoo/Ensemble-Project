@@ -24,4 +24,4 @@ Home A/B, FIRSTUSE, rename/delete/import/restore, Character/Scene ontology beyon
 
 ## Next
 
-Run Q-PROD-06 as a **read-only Product / Architecture successor-selection audit** for the minimum persistent Character / Production Cast identity foundation. Preserve `Character != Performer`. Do not implement or infer Scene membership, Performer/provider assignment, knowledge/belief/memory, Pressure, Take or Rehearsal semantics.
+Q-PROD-06 successor selection is complete: `docs/evidence/Q_PROD_06_SUCCESSOR_SELECTION_CHARACTER_CAST_IDENTITY_FOUNDATION_2026_09_22.md`. Implement only the bounded persistent Character identity + replay-derived Production Cast foundation in Application/Persistence. Preserve `Character != Performer`; no Character UI, Scene membership, Performer/provider assignment, deeper Character ontology, Pressure, Take or Rehearsal semantics.

@@ -21,7 +21,7 @@ This file now carries only current, deferred, or blocking work. Completed histor
 
 | ID | Role | Status | Work | Hard boundary / successor |
 |---|---|---|---|---|
-| Q-PROD-06 | Product / Architecture | ACTIVE — READ-ONLY SUCCESSOR AUDIT | Select the minimum persistent Character / Production Cast identity foundation from live Product/Blueprint/ODR/source evidence. | No implementation; no Scene membership, Performer/provider assignment, knowledge/belief/memory, Pressure, Take or Rehearsal semantics. |
+| Q-PROD-06 | Product / Architecture / Implementation | ACTIVE — BOUNDED IDENTITY FOUNDATION | Implement the selected persistent Character identity + replay-derived Production Cast contract. Evidence: `docs/evidence/Q_PROD_06_SUCCESSOR_SELECTION_CHARACTER_CAST_IDENTITY_FOUNDATION_2026_09_22.md`. | Application + Persistence only; no Character UI, Scene membership, Performer/provider, knowledge/belief/memory, Pressure, Take or Rehearsal semantics. |
 | Q-ADMIN-07 | Governance / Recovery | DEFERRED — LOCAL RESIDUE ONLY | Disposition remaining local historical/deferred worktrees after owner/status/evidence review. | Remote branch clutter is closed by Q-UNITY-01; preserve ambiguous local evidence and the unique historical PR #226 branch. |
 
 ## Deferred E0 / architecture gates
