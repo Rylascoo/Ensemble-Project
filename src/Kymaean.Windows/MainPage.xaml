@@ -352,7 +352,7 @@
                                                         AutomationProperties.Name="World truth text"
                                                         MinWidth="300"
                                                         AcceptsReturn="True"
-                                                        Text="{Binding Text, Mode=TwoWay}"
+                                                        Text="{Binding Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                         TextWrapping="Wrap" />
                                                     <Button
                                                         Grid.Column="1"
