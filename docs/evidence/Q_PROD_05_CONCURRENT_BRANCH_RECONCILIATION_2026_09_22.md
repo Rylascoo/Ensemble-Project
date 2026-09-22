@@ -17,7 +17,7 @@ Neither changed Product/Persistence source. Both passed compiler/Application/Per
 
 The canonical candidate is selected because it more exactly matches the adopted Q-DESIGN-22 contract:
 
-1. **Submission transition:** it separates begin/complete submission and yields once to the UI, making the pending application transition representable and disabling repeated Create/Cancel submission while pending.
+1. **Submission boundary:** it separates begin/complete submission, captures the exact submitted name, and disables repeated Create/Cancel submission while pending. Completion begins synchronously before any event-loop yield, avoiding a navigation/interleaving race; the only yield is after successful list selection so the exact row container can receive keyboard focus.
 2. **Fingerprint collision law:** it extends only colliding Production-code prefixes in 4-hex increments, exactly matching the contract rather than extending every code in the same-name group.
 3. **Narrow layout:** it removes the inherited 360px row minimum and wraps both name/code, reducing 720×520 overflow risk.
 4. **Exact selection:** the presentation row is the selected item and carries the authoritative `ProductionId`; post-create selection/focus is bound to the exact returned row, never a name lookup.
