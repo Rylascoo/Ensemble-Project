@@ -889,3 +889,21 @@ Structured audit: `docs/design/app/evidence/native/APPUI_01_Q_DESIGN_21_WORLD_CU
 
 Q-DESIGN-21 remains open only for native acceptance. Q-PROD-03 may now be opened as a separate bounded Windows implementation package; Product/Persistence changes are a stop condition.
 
+---
+
+## Q-DESIGN-21 native acceptance — 2026-09-21
+
+**State:** ACCEPTED FOR INTEGRATION / EXACT SOURCE `75faeb827162c89b537d2a944473b89eabfc22ea` / PR #245 UNMERGED
+
+The native Q-PROD-03 return satisfies the adopted World-current presentation contract without Product/Persistence mutation. Exact ARM64 tests/build pass; native UI proves authoritative non-empty and valid empty inspection, exact-text local proposal, blank/duplicate blocking, explicit whole-set review, confirmed authoritative replay, valid empty replacement, distinct Invalid/Incompatible outcomes and the required environmental **Confirmation unavailable** state.
+
+The environmental state preserves the contract's most important correction: `Last confirmed world truths` and `Submitted replacement` remain separate; the surface asserts neither applied nor failed and exposes no retry/rollback control. Existing ordinary Open re-established authoritative inspection after environmental contention.
+
+Light F2/Dark D3, 720x520 observation, World-truth Back focus return and creator-facing accessibility passed. UI Automation found zero tested internal truth/draft/Production object names or fixture identifiers. High Contrast exact-source recapture and shipping font/Stage packaging remain open and do not become implicit PASS.
+
+Evidence: `docs/evidence/Q_PROD_03_WORLD_CURRENT_TRUTH_PRESENTATION_NATIVE_ARM64_VALIDATION_2026_09_21.md`. Structured acceptance: `docs/design/app/evidence/native/APPUI_01_Q_DESIGN_21_WORLD_CURRENT_TRUTH_NATIVE_ACCEPTANCE_2026_09_21.json`.
+
+**APPROVED BY STANDING DIRECTOR DELEGATION — CLEAN RECURSIVE AUDIT.**
+
+Q-DESIGN-21 remains integration-pending until PR #245 merges and exact-main Validation passes.
+
