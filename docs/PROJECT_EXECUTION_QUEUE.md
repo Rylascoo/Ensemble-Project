@@ -21,7 +21,7 @@ This file now carries only current, deferred, or blocking work. Completed histor
 
 | ID | Role | Status | Work | Hard boundary / successor |
 |---|---|---|---|---|
-| Q-UNITY-02 | Governance / Recovery / Implementation | ACTIVE — DEMO SCAFFOLD RETIREMENT | Remove disconnected `WorkspaceApplication`/`WorkspaceProjection`/`IProductionStore` and `Kymaean.Infrastructure.Demo` first-slice scaffold plus direct tests/build references. | No integrated Product/Persistence/Windows semantics or canonical E0 fixture mutation. Validate then integrate before Q-PROD-06 Character/Cast successor selection. |
+| Q-PROD-06 | Product / Architecture | ACTIVE — READ-ONLY SUCCESSOR AUDIT | Select the minimum persistent Character / Production Cast identity foundation from live Product/Blueprint/ODR/source evidence. | No implementation; no Scene membership, Performer/provider assignment, knowledge/belief/memory, Pressure, Take or Rehearsal semantics. |
 | Q-ADMIN-07 | Governance / Recovery | DEFERRED — LOCAL RESIDUE ONLY | Disposition remaining local historical/deferred worktrees after owner/status/evidence review. | Remote branch clutter is closed by Q-UNITY-01; preserve ambiguous local evidence and the unique historical PR #226 branch. |
 
 ## Deferred E0 / architecture gates
