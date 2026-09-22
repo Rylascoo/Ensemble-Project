@@ -42,12 +42,20 @@ World-current truth is creator/Production truth, whole-state replacement, exact 
 
 Creation is contextual work in **Productions**, does not auto-open, does not adopt FIRSTUSE/Home, and conditionally disambiguates exact duplicate names with a presentation-only stable Production code derived from opaque identity.
 
+### Q-PROD-06 — Character identity / Production Cast Product input
+
+**DONE / INTEGRATED PRODUCT INPUT.** PR #249 merged at `1ca940a8235411b378aa2e50737bc261ce79494b`; exact-main Validation #1226 PASS. Product now exposes opaque persistent Character identity, exact creator-facing Character name, duplicate-name legality, replay-derived Production Cast and explicit Character establishment against the current open Production.
+
+This does **not** itself adopt Character UI, Scene membership/lifecycle, Off-Scene/current-Scene labels, Character edit/rename/delete/deeper ontology, Performer/provider assignment, Pressure, Take or Rehearsal semantics.
+
+Q-DESIGN-23 is the active bounded Design contract audit for Production Cast inspection + Character establishment presentation. Successor evidence: `../../evidence/Q_DESIGN_23_SUCCESSOR_SELECTION_PRODUCTION_CAST_CHARACTER_ESTABLISHMENT_PRESENTATION_2026_09_22.md`.
+
 ## Explicit unresolved / gated items
 
 - Home re-entry A/B: unresolved.
 - FIRSTUSE: evidence pending adoption.
 - rename/delete/import/restore: no current Product/UI authority.
-- Character/Circumstance/Scene/Pressure/Take/Rehearsal Product semantics: separately gated.
+- Character semantics beyond integrated identity/name/establishment, plus Circumstance/Scene/Pressure/Take/Rehearsal Product semantics: separately gated.
 - provider/Performer: separately gated.
 - transcript-dependent Stage motion: blocked.
 - deferred E0 convergence/final architecture: not complete.
