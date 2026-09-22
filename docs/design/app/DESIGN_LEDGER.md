@@ -961,3 +961,34 @@ Evidence: `docs/evidence/Q_PROD_05_CREATE_PRODUCTION_PRESENTATION_NATIVE_ARM64_V
 
 Q-DESIGN-22 is integrated through PR #247 at `abf7626b038625dd1a4ed32ee643d1232e011b8c`; exact-main Validation #1182 passed. Q-DESIGN-22 is closed. FIRSTUSE/Home A/B and all unearned lifecycle/provider/Stage/release semantics remain separate.
 
+
+
+---
+
+## Q-DESIGN-23 Production Characters / Character establishment presentation contract — 2026-09-22
+
+**State:** CONTRACT ADOPTED / ENGINEERING HANDOFF READY / NATIVE ACCEPTANCE PENDING
+
+Integrated Q-PROD-06 now gives Design a real persistent Character identity/name contract, duplicate-name legality, replay-derived Production Cast and explicit Character establishment against the current open Production. Exact integrated baseline `fcbc9677af7720711db058a303c5510ccba85aa4`; exact-main Validation #1235 PASS.
+
+The recursive audit rejected literal adoption of the historical whole-Production Character-management prototype. That reference contains Off-Scene/current-Scene labels, management selection, edit/shaping capacity and richer Character detail that current Product has not earned. Carrying those forward would silently invent Scene membership and deeper Character ontology.
+
+`docs/design/app/contracts/PRODUCTION_CAST_CHARACTER_ESTABLISHMENT_PRESENTATION.md` adopts the smaller native contract:
+
+- contextual Current Production **Characters**, not a permanent People route;
+- read-only replay-derived Character rows with no fake detail inspector or management-selection state;
+- valid empty **No Characters yet.** state;
+- bounded **New Character** / **Character name** / **Create Character** flow;
+- exact input preservation and duplicate-name legality;
+- conditional presentation-only **Character code** for exact duplicate names, using the already-adopted identity-fingerprint pattern;
+- exact created-row focus by returned Character identity without creating Product selection;
+- separate **Confirmation unavailable** state for environmental post-submission ambiguity;
+- no Scene membership/lifecycle, Character editing, Performer/provider, Pressure, Take or Rehearsal semantics.
+
+The audit also identifies one implementation simplification: Character and Production duplicate-name disambiguation should share one presentation identity-fingerprint helper rather than maintain parallel SHA-256/UTF-16BE algorithms.
+
+Structured reconciliation: `docs/design/app/evidence/native/APPUI_01_Q_DESIGN_23_PRODUCTION_CAST_CHARACTER_PRESENTATION_CONTRACT_01.json`.
+
+**APPROVED BY STANDING DIRECTOR DELEGATION — CLEAN RECURSIVE AUDIT.**
+
+Q-PROD-07 may implement Windows presentation/tests only. Product/Persistence mutation is a stop condition; exact native ARM64 evidence and Design acceptance must return before integration.
