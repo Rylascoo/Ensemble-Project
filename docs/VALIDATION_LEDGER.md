@@ -445,20 +445,23 @@ Native correction authority is exact source `2484359...`; later evidence/integra
 
 Runtime/UI evidence remains bound to the exact tested sources above; the merge and later documentation closeout do not inflate native authority.
 
-### Q-PROD-03 / Q-DESIGN-21 World-current presentation candidate
+### Q-PROD-03 / Q-DESIGN-21 World-current presentation integrated checkpoint
 
 | Field | Fact |
 |---|---|
 | Base | `d77685f73f6271e4cf86902b5471da90fbe11ad4`; exact-main Validation #1147 PASS |
 | Exact tested executable source | `75faeb827162c89b537d2a944473b89eabfc22ea` |
 | Evidence | `docs/evidence/Q_PROD_03_WORLD_CURRENT_TRUTH_PRESENTATION_NATIVE_ARM64_VALIDATION_2026_09_21.md` |
-| Design acceptance | `docs/design/app/evidence/native/APPUI_01_Q_DESIGN_21_WORLD_CURRENT_TRUTH_NATIVE_ACCEPTANCE_2026_09_21.json`; ACCEPTED FOR INTEGRATION |
+| Design acceptance | `docs/design/app/evidence/native/APPUI_01_Q_DESIGN_21_WORLD_CURRENT_TRUTH_NATIVE_ACCEPTANCE_2026_09_21.json`; ACCEPTED / INTEGRATED |
 | Native ARM64 | Application 57/57 PASS; Persistence 129/129 PASS; WinUI Release build PASS, 0 warnings/errors |
-| Native UI | contextual route, non-empty/empty inspection, blank/duplicate blocking, exact UTF-16 preservation, canonical whole-state review, confirmed replay, valid empty replacement, Incompatible, Invalid, environmental Confirmation unavailable, re-open re-establishment, Light/Dark, 720x520 and focus return PASS |
+| Native UI | contextual route, non-empty/empty inspection, blank/duplicate blocking, exact UTF-16 preservation, canonical whole-state review, confirmed replay, valid empty replacement, Incompatible, Invalid, environmental Confirmation unavailable, ordinary-open re-establishment, Light/Dark, 720x520 and focus return PASS |
 | Accessibility | zero tested internal WorldCurrentTruth/WorldTruthDraftItem/ProductionSummary/fixture-ID/entry-path names; Back restores World truths focus |
 | Package | temporary ARM64 MSIX SHA-256 `BF50ABA83CA9E10B893BFCBA3D7364E3C1528B0EE966972FF195BCE44991D364`; unregistered after evidence |
-| Hosted exact-source | push Validation #1151 PASS; PR Validation #1152 PASS; E0-E preparation #174 PASS |
+| Final PR head | `128f207bd68f7a999498ea578cc67a98137ed7e9`; push Validation #1153 PASS; PR Validation #1154 PASS; E0-E preparation #175 PASS |
+| Integrated main | PR #245 merge `969dfc790a00d2cdbc61d7c3d28a95ceb96b6f72`; push-triggered exact-main Validation #1155 PASS |
 | Limits | High Contrast exact-source recapture, Source Sans 3/S1 packaging, WACK/Store/release remain unearned; no Product/Persistence semantics changed |
+
+Native authority remains bound to the exact tested source; integration and later documentation do not inflate the evidence rung.
 
 ### Supporting provider-evidence continuity
 

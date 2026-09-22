@@ -893,7 +893,7 @@ Q-DESIGN-21 remains open only for native acceptance. Q-PROD-03 may now be opened
 
 ## Q-DESIGN-21 native acceptance — 2026-09-21
 
-**State:** ACCEPTED FOR INTEGRATION / EXACT SOURCE `75faeb827162c89b537d2a944473b89eabfc22ea` / PR #245 UNMERGED
+**State:** ACCEPTED / INTEGRATED / EXACT SOURCE `75faeb827162c89b537d2a944473b89eabfc22ea` / PR #245 MERGED AT `969dfc790a00d2cdbc61d7c3d28a95ceb96b6f72`
 
 The native Q-PROD-03 return satisfies the adopted World-current presentation contract without Product/Persistence mutation. Exact ARM64 tests/build pass; native UI proves authoritative non-empty and valid empty inspection, exact-text local proposal, blank/duplicate blocking, explicit whole-set review, confirmed authoritative replay, valid empty replacement, distinct Invalid/Incompatible outcomes and the required environmental **Confirmation unavailable** state.
 
@@ -905,5 +905,5 @@ Evidence: `docs/evidence/Q_PROD_03_WORLD_CURRENT_TRUTH_PRESENTATION_NATIVE_ARM64
 
 **APPROVED BY STANDING DIRECTOR DELEGATION — CLEAN RECURSIVE AUDIT.**
 
-Q-DESIGN-21 remains integration-pending until PR #245 merges and exact-main Validation passes.
+Q-DESIGN-21 is integrated through PR #245 at `969dfc790a00d2cdbc61d7c3d28a95ceb96b6f72`; exact-main Validation #1155 passed. Q-DESIGN-21 is closed. This closure creates no history/query, Character-knowledge, lifecycle, provider, Stage, Home A/B or FIRSTUSE authority.
 

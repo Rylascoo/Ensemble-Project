@@ -1,6 +1,6 @@
 # Q-PROD-03 World-current truth presentation — native ARM64 validation
 
-Date: 2026-09-21. Status: exact-source native candidate; Q-DESIGN-21 accepted for integration; PR #245 unmerged.
+Date: 2026-09-21. Status: exact-source native implementation integrated; Q-DESIGN-21 accepted; Q-PROD-03 / Q-DESIGN-21 closed.
 
 ## Identity
 
@@ -17,7 +17,7 @@ Host: SurfSeven, Windows 11 ARM64, native ARM64 PowerShell / .NET 9.0.317.
 - `tools/test-application.ps1 -Full`: Application **57/57 PASS**, Persistence **129/129 PASS**, native `win-arm64`.
 - `dotnet build src/Kymaean.Windows/Kymaean.Windows.csproj -c Release -p:Platform=ARM64 -r win-arm64`: **PASS**, 0 warnings / 0 errors.
 - Temporary ARM64 MSIX SHA-256: `BF50ABA83CA9E10B893BFCBA3D7364E3C1528B0EE966972FF195BCE44991D364`. Publish emitted only the known symbols-package warning because `mspdbcmf.exe` is unavailable; this does not alter the warning-free Release build.
-- Exact-source hosted checks: push Validation #1151 PASS; PR Validation #1152 PASS; E0-E preparation #174 PASS.
+- Exact-source hosted checks: push Validation #1151 PASS; PR Validation #1152 PASS; E0-E preparation #174 PASS. Final evidence/acceptance head `128f207bd68f7a999498ea578cc67a98137ed7e9`: push Validation #1153 PASS; PR Validation #1154 PASS; E0-E preparation #175 PASS.
 
 ## Exact native UI return
 
@@ -58,3 +58,10 @@ Artifacts remain in `C:\Users\Wiryl\Sol Dev\admin-scratch\qprod03-native-75faeb8
 The temporary package was unregistered; the host's original Dark app theme was restored; the exact-source worktree was clean. High Contrast exact-source recapture was not performed. Source Sans 3/S1 packaging, WACK, Store and release authority remain open.
 
 No history/timeline/query, Scene/current-situation, Character knowledge/belief, lifecycle, provider/Performer, Stage, retry/rollback/idempotence, Home A/B or FIRSTUSE semantics were added.
+
+## Integration closeout
+
+PR #245 merged to Project main at `969dfc790a00d2cdbc61d7c3d28a95ceb96b6f72`. Push-triggered exact-main Validation #1155 passed. Q-PROD-03 and Q-DESIGN-21 are closed.
+
+The merge and this documentation closeout do not inherit or inflate native runtime authority beyond exact tested source `75faeb827162c89b537d2a944473b89eabfc22ea`. Remaining High Contrast, Source Sans 3/S1 packaging, WACK/Store/release, provider, lifecycle, history/query and Character-knowledge gates remain unchanged.
+

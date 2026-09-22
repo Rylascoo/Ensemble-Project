@@ -1,6 +1,6 @@
 {
   "schema": "kymaean.appui-q-design-21-world-current-truth-native-acceptance.v1",
-  "status": "ACCEPTED_FOR_INTEGRATION",
+  "status": "ACCEPTED_INTEGRATED",
   "date": "2026-09-21",
   "queue_item": "Q-DESIGN-21",
   "pull_request": 245,
@@ -33,6 +33,18 @@
     "No history/query, Character knowledge, Scene/current-situation, provider, Stage, lifecycle, retry/rollback/idempotence, Home A/B or FIRSTUSE authority."
   ],
   "approval": "APPROVED BY STANDING DIRECTOR DELEGATION — CLEAN RECURSIVE AUDIT",
-  "integration_pending": true,
-  "next": "Require exact-final-head hosted PASS after evidence/continuity closeout, then PR #245 may integrate. After merge, require exact-main Validation before Q-PROD-03/Q-DESIGN-21 close."
+  "integration_pending": false,
+  "next": "Q-DESIGN-21 / Q-PROD-03 closed. Run a fresh roadmap/ODR/current-source successor-selection reconciliation before opening another implementation package.",
+  "integrated_main": "969dfc790a00d2cdbc61d7c3d28a95ceb96b6f72",
+  "final_pr_head": "128f207bd68f7a999498ea578cc67a98137ed7e9",
+  "final_head_hosted": {
+    "push_validation": "#1153 PASS",
+    "pr_validation": "#1154 PASS",
+    "e0e_preparation": "#175 PASS"
+  },
+  "exact_main_validation": {
+    "run_number": 1155,
+    "conclusion": "PASS",
+    "event": "push"
+  }
 }

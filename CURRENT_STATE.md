@@ -1,6 +1,6 @@
 # Ensemble Current State
 
-Updated: 2026-09-21
+Updated: 2026-09-22
 
 ## Authority
 
@@ -10,16 +10,16 @@ Q-ADMIN-04/05/06 are CLOSED. Website owns website/history; Drive owns shared mas
 
 ## Product checkpoint
 
-`DESIGN_ARCHITECTURE_READY = READY`. Q-PROD-02 / Q-DESIGN-20 are DONE / INTEGRATED through PR #244 at `2470ed1068454e3ff5cfd573dcc266328bd1d1cc`; exact-main Validation #1145 PASS.
+`DESIGN_ARCHITECTURE_READY = READY`.
 
-Q-DESIGN-21 contract is adopted in `docs/design/app/contracts/WORLD_CURRENT_TRUTH_PRESENTATION.md`. Exact-main Design-contract baseline `d77685f73f6271e4cf86902b5471da90fbe11ad4`; Validation #1147 PASS.
+Q-PROD-02 / Q-DESIGN-20 are DONE / INTEGRATED through PR #244 at `2470ed1068454e3ff5cfd573dcc266328bd1d1cc`.
 
-Q-PROD-03 exact tested source `75faeb827162c89b537d2a944473b89eabfc22ea` implements the bounded Windows surface with no Product/Persistence source change. Native ARM64 Application 57/57, Persistence 129/129 and WinUI Release build PASS; exact UI evidence is in `docs/evidence/Q_PROD_03_WORLD_CURRENT_TRUTH_PRESENTATION_NATIVE_ARM64_VALIDATION_2026_09_21.md`.
+Q-PROD-03 / Q-DESIGN-21 are **DONE / INTEGRATED**. PR #245 merged at `969dfc790a00d2cdbc61d7c3d28a95ceb96b6f72`; exact-main Validation #1155 PASS. Exact tested executable source `75faeb827162c89b537d2a944473b89eabfc22ea`: native ARM64 Application 57/57, Persistence 129/129 and WinUI Release build PASS. Native evidence: `docs/evidence/Q_PROD_03_WORLD_CURRENT_TRUTH_PRESENTATION_NATIVE_ARM64_VALIDATION_2026_09_21.md`. Design acceptance: `docs/design/app/evidence/native/APPUI_01_Q_DESIGN_21_WORLD_CURRENT_TRUTH_NATIVE_ACCEPTANCE_2026_09_21.json`.
 
-Q-DESIGN-21 = **ACCEPTED FOR INTEGRATION** at that source. Empty/non-empty inspection, exact-text whole-set replacement, confirmed replay, typed Invalid/Incompatible, environmental **Confirmation unavailable**, Light/Dark, 720x520, focus return and accessibility passed.
+Integrated World-current presentation is contextual inside Current Production and preserves exact whole-set creator truth, valid empty state, confirmed replay, typed Invalid/Incompatible non-effect and environmental **Confirmation unavailable** without retry/rollback semantics. No Product/Persistence source semantics were changed.
 
-High Contrast, Source Sans 3/S1 packaging, WACK/Store and release remain unearned. Preserved provider chain: `docs/evidence/E0D_Q_E0D_01_P03_SLOT1_PREEXECUTION_ACTIVATION_2026_09_17.md`.
+High Contrast exact-source recapture, Source Sans 3/S1 packaging, WACK/Store, provider work, deferred E0 completion and release authority remain unearned. Home A/B unresolved; FIRSTUSE pending. Preserved provider chain: `docs/evidence/E0D_Q_E0D_01_P03_SLOT1_PREEXECUTION_ACTIVATION_2026_09_17.md`.
 
 ## Next
 
-Require exact-final-head hosted PASS after this evidence/continuity closeout. PR #245 remains draft/unmerged until that gate. After integration, require exact-main Validation before closing Q-PROD-03/Q-DESIGN-21.
+Run a fresh read-only successor-selection reconciliation against the live roadmap, Open Design Register, current Product source and outstanding gates. Do not invent Product lifecycle/ontology/UI semantics merely to keep implementation moving; open the next bounded package only when its prerequisites and authority are explicit.
