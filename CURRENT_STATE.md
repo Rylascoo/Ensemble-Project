@@ -22,4 +22,4 @@ High Contrast exact-source recapture, Source Sans 3/S1 packaging, WACK/Store, pr
 
 ## Next
 
-Q-PROD-04 Director decision is frozen in `docs/Q_PROD_04_PRODUCTION_CREATION_DIRECTOR_DECISION_2026_09_22.md`: A/A/A — catalog-generated opaque identity; creation updates the known catalog but does not implicitly open; duplicate creator-facing names are allowed. Open one bounded Application + Persistence creation package from this exact main. UI/FIRSTUSE/Home and rename/delete/import/restore remain separate.
+Q-PROD-04 exact source `8f7d5f05909dd88f6dd24e20b60b80ae5b36f5cc` implements the Director-approved A/A/A Create Production contract. Native ARM64 Application 66/66, Persistence 135/135 and WinUI Release build PASS; push Validation #1160 and PR Validation #1161 PASS. Evidence: `docs/evidence/Q_PROD_04_PRODUCTION_CREATION_NATIVE_ARM64_VALIDATION_2026_09_22.md`. PR #246 remains draft/unmerged pending final-head hosted validation and Director merge authorization. UI/FIRSTUSE/Home and rename/delete/import/restore remain separate.
