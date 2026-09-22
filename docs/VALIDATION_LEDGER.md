@@ -497,6 +497,23 @@ Native authority remains bound to the exact tested source; integration and this 
 
 Native authority remains bound to exact source `200f2c1...`; merge/documentation commits do not inherit or inflate target-device evidence.
 
+### Q-PROD-06 Character / Production Cast identity foundation checkpoint
+
+| Field | Fact |
+|---|---|
+| Base | `0cfadc6121a187335df3016d925ea0584b40a1b9` |
+| Draft PR | #249 |
+| Exact tested/reviewed executable source | `90905c8952f77a7d6f926350fa5ada0796be56bf` |
+| Evidence | `docs/evidence/Q_PROD_06_CHARACTER_CAST_IDENTITY_FOUNDATION_NATIVE_ARM64_VALIDATION_2026_09_22.md` |
+| Earned Product contract | Application-owned opaque Character identity; exact creator-facing Character name; duplicate names legal; replay-derived Production Cast; explicit creator Character establishment in the existing Production journal |
+| Native ARM64 | environment verifier PASS; Application 72/72 PASS; Persistence 141/141 PASS; WinUI Release build PASS, 0 warnings/errors |
+| Hosted exact-source gates | Validation #1211 PASS; E0-E preparation #186 PASS |
+| Review | fresh exact-ref no-write review CLEAN after correcting World-replacement Cast isolation and malformed snapshot count allocation |
+| Persistence | lossless versioned Character event; deterministic replay; reopen/explicit recovery/export; snapshot v3 remains rebuildable/non-authoritative |
+| Limits | no Character UI, Scene membership, Performer/provider, deeper Character ontology, Pressure/Take/Rehearsal, provider traffic, deferred-E0, final architecture, release/WACK/Store authority |
+
+Native machine-test authority remains bound to executable source `90905c8...`; evidence/state/integration commits do not inherit or inflate it.
+
 ### Supporting provider-evidence continuity
 
 The promoted checkpoint does not erase the still-current evidence chain that established the provider/runtime boundary. These records remain supporting evidence only and do not override the promoted checkpoint:
