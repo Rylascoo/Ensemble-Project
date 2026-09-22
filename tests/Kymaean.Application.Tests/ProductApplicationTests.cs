@@ -511,6 +511,36 @@ public sealed class ProductApplicationTests
     }
 
     [TestMethod]
+    public void WorldCurrentStateCastMismatchReturnsInvalidAndPreservesState()
+    {
+        var summary = Summary("P-001", "First");
+        var prior = State("The gate is open.");
+        var requested = State("The gate is closed.");
+        var existingCast = new ProductionCast(
+            [new CharacterSummary(new CharacterId("C-1"), "Marlowe")]);
+        var changedCast = new ProductionCast(
+            [
+                new CharacterSummary(new CharacterId("C-1"), "Marlowe"),
+                new CharacterSummary(new CharacterId("C-2"), "Wren")
+            ]);
+        var catalog = new StubCatalog(summary);
+        catalog.SetOpenSuccess(
+            summary.Id,
+            new ProductionReplayProjection("First", prior, existingCast));
+        catalog.SetWorldStateSuccess(
+            summary.Id,
+            new ProductionReplayProjection("First", requested, changedCast));
+        var application = Start(catalog);
+        application.OpenProduction(summary.Id, ProductSpace.Stage);
+        var before = application.Query();
+
+        var result = application.ReplaceWorldCurrentState(requested);
+
+        AssertFailure(result, ProductAccessFailureKind.Invalid);
+        AssertSameState(before, application.Query());
+    }
+
+    [TestMethod]
     public void ResultSuccessRejectsNullValue()
     {
         Assert.ThrowsExactly<ArgumentNullException>(

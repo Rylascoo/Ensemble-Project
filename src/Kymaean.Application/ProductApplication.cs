@@ -134,7 +134,8 @@ public sealed class ProductApplication
                 productionName,
                 creation.Replay.ProductionName,
                 StringComparison.Ordinal) ||
-            !creation.Replay.WorldCurrentState.IsEmpty)
+            !creation.Replay.WorldCurrentState.IsEmpty ||
+            !creation.Replay.ProductionCast.IsEmpty)
         {
             return ProductAccessResult<ProductionCreation>.Failure(
                 ProductAccessFailureKind.Invalid);
@@ -146,6 +147,65 @@ public sealed class ProductApplication
             .ToImmutableArray();
 
         return ProductAccessResult<ProductionCreation>.Success(creation);
+    }
+
+    public ProductAccessResult<CharacterCreation> CreateCharacter(
+        string characterName)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(characterName);
+
+        if (_currentProduction is null || _currentProductionReplay is null)
+        {
+            throw new InvalidOperationException(
+                "A Production must be open before establishing a Character.");
+        }
+
+        if (_catalog is not IProductionCharacterCreator creator)
+        {
+            throw new InvalidOperationException(
+                "The configured Production catalog does not support Character creation.");
+        }
+
+        var before = _currentProductionReplay;
+        var created = creator.CreateCharacter(
+            _currentProduction.Id,
+            characterName);
+        if (!created.IsSuccess)
+        {
+            return ProductAccessResult<CharacterCreation>.Failure(
+                created.FailureKind);
+        }
+
+        var creation = created.Value;
+        var character = creation.Character;
+        var replay = creation.Replay;
+
+        if (before.ProductionCast.Characters.Any(
+                existing => existing.Id == character.Id)
+            || !string.Equals(
+                characterName,
+                character.CharacterName,
+                StringComparison.Ordinal)
+            || !string.Equals(
+                before.ProductionName,
+                replay.ProductionName,
+                StringComparison.Ordinal)
+            || !before.WorldCurrentState.Equals(replay.WorldCurrentState))
+        {
+            return ProductAccessResult<CharacterCreation>.Failure(
+                ProductAccessFailureKind.Invalid);
+        }
+
+        var expectedCast = new ProductionCast(
+            before.ProductionCast.Characters.Add(character));
+        if (!expectedCast.Equals(replay.ProductionCast))
+        {
+            return ProductAccessResult<CharacterCreation>.Failure(
+                ProductAccessFailureKind.Invalid);
+        }
+
+        _currentProductionReplay = replay;
+        return ProductAccessResult<CharacterCreation>.Success(creation);
     }
 
     public ProductApplicationProjection NavigateProduction(ProductSpace destination)
@@ -179,6 +239,7 @@ public sealed class ProductApplication
                 "The configured Production catalog does not support World current-state mutation.");
         }
 
+        var before = _currentProductionReplay;
         var access = writer.ReplaceWorldCurrentState(
             _currentProduction.Id,
             currentState);
@@ -194,7 +255,8 @@ public sealed class ProductApplication
                 _currentProduction.ProductionName,
                 replay.ProductionName,
                 StringComparison.Ordinal)
-            || !replay.WorldCurrentState.Equals(currentState))
+            || !replay.WorldCurrentState.Equals(currentState)
+            || !before.ProductionCast.Equals(replay.ProductionCast))
         {
             return ProductAccessResult<ProductApplicationProjection>.Failure(
                 ProductAccessFailureKind.Invalid);

@@ -269,7 +269,7 @@ public sealed class WorldCurrentPersistenceTests
         AssertState(state, fixture.Catalog.OpenProduction(fixture.Id).Value.WorldCurrentState);
         AssertSnapshot(fixture, "Harbor", state);
 
-        // A checksummed v2 cache with an invalid name is still just a cache miss.
+        // A checksummed v3 cache with an invalid name is still just a cache miss.
         var invalid = snapshot[..^32];
         for (var offset = 56; offset < nameEnd; offset += 2)
         {
@@ -351,7 +351,7 @@ public sealed class WorldCurrentPersistenceTests
     private static void AssertSnapshot(Fixture fixture, string name, WorldCurrentState state)
     {
         var bytes = File.ReadAllBytes(fixture.Snapshot);
-        Assert.AreEqual(2U, BinaryPrimitives.ReadUInt32BigEndian(bytes.AsSpan(8, 4)));
+        Assert.AreEqual(3U, BinaryPrimitives.ReadUInt32BigEndian(bytes.AsSpan(8, 4)));
         CollectionAssert.AreEqual(SHA256.HashData(bytes.AsSpan(0, bytes.Length - 32)), bytes[^32..]);
         var offset = 52;
         AssertUnits(name, ReadSnapshotText(bytes, ref offset));
@@ -363,6 +363,10 @@ public sealed class WorldCurrentPersistenceTests
             AssertUnits(truth.Text, ReadSnapshotText(bytes, ref offset));
         }
 
+        var characterCount =
+            BinaryPrimitives.ReadUInt32BigEndian(bytes.AsSpan(offset, 4));
+        offset += 4;
+        Assert.AreEqual(0U, characterCount);
         Assert.AreEqual(bytes.Length - 32, offset);
     }
 

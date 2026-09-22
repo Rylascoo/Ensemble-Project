@@ -22,6 +22,10 @@ Evidence: `docs/evidence/Q_UNITY_02_DISCONNECTED_WORKSPACE_DEMO_SCAFFOLD_RETIREM
 
 Home A/B, FIRSTUSE, rename/delete/import/restore, Character/Scene ontology beyond the next audit, provider/Performer, Stage motion, deferred E0, High Contrast, Source Sans 3/S1 packaging, final architecture, WACK/Store and release remain separately gated.
 
+Q-PROD-06 is validated in PR #249 and pending integration. Exact executable source `90905c8952f77a7d6f926350fa5ada0796be56bf`: native ARM64 environment verifier PASS, Application 72/72 PASS, Persistence 141/141 PASS, WinUI ARM64 Release build PASS with 0 warnings/errors; hosted Validation #1211 PASS and E0-E preparation #186 PASS. Recursive review repaired World-replacement Cast isolation and malformed snapshot-count allocation, then a fresh exact-ref no-write audit found no remaining substantive finding.
+
+Evidence: `docs/evidence/Q_PROD_06_CHARACTER_CAST_IDENTITY_FOUNDATION_NATIVE_ARM64_VALIDATION_2026_09_22.md`.
+
 ## Next
 
-Q-PROD-06 successor selection is complete: `docs/evidence/Q_PROD_06_SUCCESSOR_SELECTION_CHARACTER_CAST_IDENTITY_FOUNDATION_2026_09_22.md`. Implement only the bounded persistent Character identity + replay-derived Production Cast foundation in Application/Persistence. Preserve `Character != Performer`; no Character UI, Scene membership, Performer/provider assignment, deeper Character ontology, Pressure, Take or Rehearsal semantics.
+Q-PROD-06 is merge-ready pending required merge authority. Documentation closeout head `63cf46c0aaa4947316e451ec3ab0d534f3d53b25` passed Validation #1220 and E0-E preparation #190; require a final hosted pass on this later documentation-only closeout head before merge. Preserve the bounded contract: `Character != Performer`; no Character UI, Scene membership, Performer/provider assignment, deeper Character ontology, Pressure, Take or Rehearsal semantics.

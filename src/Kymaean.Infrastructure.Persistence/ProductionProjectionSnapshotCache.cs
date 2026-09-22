@@ -7,8 +7,6 @@ namespace Kymaean.Infrastructure.Persistence;
 internal static class ProductionProjectionSnapshotCache
 {
     private const int HashLength = 32;
-    private const int PrefixLength =
-        8 + sizeof(uint) + sizeof(ulong) + HashLength + sizeof(uint);
     private const int ChecksumLength = 32;
     private const string SnapshotFileName = ".projection.snapshot";
     private const string PendingPrefix = ".pending-projection-snapshot-";
@@ -46,12 +44,9 @@ internal static class ProductionProjectionSnapshotCache
         }
         catch (IOException)
         {
-            // Snapshot persistence is optional acceleration only. Authoritative
-            // journal validation/replay has already succeeded before this call.
         }
         catch (UnauthorizedAccessException)
         {
-            // An unavailable cache must not retroactively invalidate Product state.
         }
     }
 
@@ -68,7 +63,9 @@ internal static class ProductionProjectionSnapshotCache
         }
 
         var bytes = File.ReadAllBytes(path);
-        if (bytes.Length < PrefixLength + ChecksumLength)
+        if (bytes.Length <
+            FormatFamilyMagic.Length + sizeof(uint) + sizeof(ulong) +
+            HashLength + (3 * sizeof(uint)) + ChecksumLength)
         {
             return false;
         }
@@ -76,98 +73,71 @@ internal static class ProductionProjectionSnapshotCache
         var contentLength = bytes.Length - ChecksumLength;
         var content = bytes.AsSpan(0, contentLength);
         var storedChecksum = bytes.AsSpan(contentLength, ChecksumLength);
-        var computedChecksum = SHA256.HashData(content);
         if (!CryptographicOperations.FixedTimeEquals(
                 storedChecksum,
-                computedChecksum))
+                SHA256.HashData(content)))
         {
             return false;
         }
 
-        if (!content[..FormatFamilyMagic.Length].SequenceEqual(
-                FormatFamilyMagic))
+        var offset = 0;
+        if (!TryReadExact(content, ref offset, FormatFamilyMagic.Length, out var magic)
+            || !magic.SequenceEqual(FormatFamilyMagic)
+            || !TryReadUInt32(content, ref offset, out var version)
+            || version != ProductionPersistenceVersionPolicy.ProductionProjectionSnapshotVersion
+            || !TryReadUInt64(content, ref offset, out var sequence)
+            || sequence != expectedAnchor.Sequence
+            || !TryReadExact(content, ref offset, HashLength, out var storedRecordHash))
         {
             return false;
         }
 
-        var version = BinaryPrimitives.ReadUInt32BigEndian(
-            content.Slice(FormatFamilyMagic.Length, sizeof(uint)));
-        if (version !=
-            ProductionPersistenceVersionPolicy.ProductionProjectionSnapshotVersion)
-        {
-            return false;
-        }
-
-        var sequenceOffset = FormatFamilyMagic.Length + sizeof(uint);
-        var sequence = BinaryPrimitives.ReadUInt64BigEndian(
-            content.Slice(sequenceOffset, sizeof(ulong)));
-        if (sequence != expectedAnchor.Sequence)
-        {
-            return false;
-        }
-
-        var hashOffset = sequenceOffset + sizeof(ulong);
-        var expectedHash = Convert.FromHexString(
-            expectedAnchor.RecordHash);
+        var expectedHash = Convert.FromHexString(expectedAnchor.RecordHash);
         if (!CryptographicOperations.FixedTimeEquals(
-                content.Slice(hashOffset, HashLength),
+                storedRecordHash,
                 expectedHash))
         {
             return false;
         }
 
-        var nameLengthOffset = hashOffset + HashLength;
-        var nameLength = BinaryPrimitives.ReadUInt32BigEndian(
-            content.Slice(nameLengthOffset, sizeof(uint)));
-        if (nameLength > int.MaxValue)
-        {
-            return false;
-        }
-
-        var nameEnd =
-            (long)PrefixLength +
-            ((long)nameLength * sizeof(ushort));
-        if (nameEnd > content.Length - sizeof(uint))
-        {
-            return false;
-        }
-
-        var characters = new char[(int)nameLength];
-        var offset = PrefixLength;
-        for (var index = 0; index < characters.Length; index++)
-        {
-            characters[index] = (char)BinaryPrimitives.ReadUInt16BigEndian(
-                content.Slice(offset, sizeof(ushort)));
-            offset += sizeof(ushort);
-        }
-
-        var truthCount = BinaryPrimitives.ReadUInt32BigEndian(content.Slice(offset, sizeof(uint)));
-        offset += sizeof(uint);
-        if (truthCount > (content.Length - offset) / sizeof(uint))
-        {
-            return false;
-        }
-
-        var truths = new List<WorldCurrentTruth>();
         try
         {
+            if (!TryReadUtf16String(content, ref offset, out var productionName)
+                || !TryReadUInt32(content, ref offset, out var truthCount)
+                || truthCount > int.MaxValue)
+            {
+                return false;
+            }
+
+            var truths = new List<WorldCurrentTruth>();
             for (var index = 0U; index < truthCount; index++)
             {
-                if (content.Length - offset < sizeof(uint))
+                if (!TryReadUtf16String(content, ref offset, out var truth))
+                {
+                    return false;
+                }
+                truths.Add(new WorldCurrentTruth(truth));
+            }
+
+            if (!TryReadUInt32(content, ref offset, out var characterCount)
+                || characterCount > int.MaxValue)
+            {
+                return false;
+            }
+
+            var characters = new List<CharacterSummary>();
+            for (var index = 0U; index < characterCount; index++)
+            {
+                if (!TryReadUtf16String(content, ref offset, out var characterId)
+                    || !TryReadUtf16String(content, ref offset, out var characterName))
                 {
                     return false;
                 }
 
-                var length = BinaryPrimitives.ReadUInt32BigEndian(content.Slice(offset, sizeof(uint)));
-                offset += sizeof(uint);
-                if (length > (content.Length - offset) / sizeof(ushort))
-                {
-                    return false;
-                }
-
-                var byteLength = checked((int)length * sizeof(ushort));
-                truths.Add(new WorldCurrentTruth(Utf16CodeUnits.Decode(content.Slice(offset, byteLength))));
-                offset += byteLength;
+                characters.Add(
+                    new CharacterSummary(
+                        new CharacterId(characterId),
+                        characterName));
             }
 
             if (offset != content.Length)
@@ -176,11 +146,16 @@ internal static class ProductionProjectionSnapshotCache
             }
 
             projection = new ProductionReplayProjection(
-                new string(characters), new WorldCurrentState(truths));
+                productionName,
+                new WorldCurrentState(truths),
+                new ProductionCast(characters));
         }
         catch (ArgumentException)
         {
-            // Even a checksummed cache can contain invalid Application values.
+            return false;
+        }
+        catch (OverflowException)
+        {
             return false;
         }
 
@@ -199,55 +174,33 @@ internal static class ProductionProjectionSnapshotCache
                 "Validated journal anchor is not SHA-256 sized.");
         }
 
-        var name = projection.ProductionName;
-        var contentLength = checked(PrefixLength + checked(name.Length * sizeof(ushort)) + sizeof(uint));
-        foreach (var truth in projection.WorldCurrentState.Truths)
-        {
-            contentLength = checked(contentLength + sizeof(uint) + checked(truth.Text.Length * sizeof(ushort)));
-        }
-
-        var content = new byte[contentLength];
-
-        FormatFamilyMagic.CopyTo(content, 0);
-        BinaryPrimitives.WriteUInt32BigEndian(
-            content.AsSpan(FormatFamilyMagic.Length, sizeof(uint)),
+        using var stream = new MemoryStream();
+        stream.Write(FormatFamilyMagic);
+        WriteUInt32(
+            stream,
             ProductionPersistenceVersionPolicy.ProductionProjectionSnapshotVersion);
+        WriteUInt64(stream, anchor.Sequence);
+        stream.Write(recordHash);
+        WriteUtf16String(stream, projection.ProductionName);
 
-        var sequenceOffset = FormatFamilyMagic.Length + sizeof(uint);
-        BinaryPrimitives.WriteUInt64BigEndian(
-            content.AsSpan(sequenceOffset, sizeof(ulong)),
-            anchor.Sequence);
-
-        var hashOffset = sequenceOffset + sizeof(ulong);
-        recordHash.CopyTo(content, hashOffset);
-
-        var nameLengthOffset = hashOffset + HashLength;
-        BinaryPrimitives.WriteUInt32BigEndian(
-            content.AsSpan(nameLengthOffset, sizeof(uint)),
-            checked((uint)name.Length));
-
-        var offset = PrefixLength;
-        foreach (var character in name)
-        {
-            BinaryPrimitives.WriteUInt16BigEndian(
-                content.AsSpan(offset, sizeof(ushort)),
-                character);
-            offset += sizeof(ushort);
-        }
-
-        BinaryPrimitives.WriteUInt32BigEndian(content.AsSpan(offset, sizeof(uint)),
+        WriteUInt32(
+            stream,
             checked((uint)projection.WorldCurrentState.Truths.Length));
-        offset += sizeof(uint);
         foreach (var truth in projection.WorldCurrentState.Truths)
         {
-            BinaryPrimitives.WriteUInt32BigEndian(content.AsSpan(offset, sizeof(uint)),
-                checked((uint)truth.Text.Length));
-            offset += sizeof(uint);
-            var bytes = Utf16CodeUnits.Encode(truth.Text);
-            bytes.CopyTo(content, offset);
-            offset += bytes.Length;
+            WriteUtf16String(stream, truth.Text);
         }
 
+        WriteUInt32(
+            stream,
+            checked((uint)projection.ProductionCast.Characters.Length));
+        foreach (var character in projection.ProductionCast.Characters)
+        {
+            WriteUtf16String(stream, character.Id.Value);
+            WriteUtf16String(stream, character.CharacterName);
+        }
+
+        var content = stream.ToArray();
         var checksum = SHA256.HashData(content);
         var framed = new byte[content.Length + checksum.Length];
         content.CopyTo(framed, 0);
@@ -256,13 +209,11 @@ internal static class ProductionProjectionSnapshotCache
         var pendingPath = Path.Combine(
             entryDirectory,
             $"{PendingPrefix}{Guid.NewGuid():N}");
-        var finalPath = Path.Combine(
-            entryDirectory,
-            SnapshotFileName);
+        var finalPath = Path.Combine(entryDirectory, SnapshotFileName);
 
         try
         {
-            using (var stream = new FileStream(
+            using (var output = new FileStream(
                        pendingPath,
                        new FileStreamOptions
                        {
@@ -275,19 +226,106 @@ internal static class ProductionProjectionSnapshotCache
                                FileOptions.WriteThrough,
                        }))
             {
-                stream.Write(framed);
-                stream.Flush(flushToDisk: true);
+                output.Write(framed);
+                output.Flush(flushToDisk: true);
             }
 
-            File.Move(
-                pendingPath,
-                finalPath,
-                overwrite: true);
+            File.Move(pendingPath, finalPath, overwrite: true);
         }
         finally
         {
             TryDeletePending(pendingPath);
         }
+    }
+
+    private static bool TryReadUtf16String(
+        ReadOnlySpan<byte> content,
+        ref int offset,
+        out string value)
+    {
+        value = string.Empty;
+        if (!TryReadUInt32(content, ref offset, out var length)
+            || length > int.MaxValue
+            || length > (content.Length - offset) / sizeof(ushort))
+        {
+            return false;
+        }
+
+        var byteLength = checked((int)length * sizeof(ushort));
+        value = Utf16CodeUnits.Decode(content.Slice(offset, byteLength));
+        offset += byteLength;
+        return true;
+    }
+
+    private static bool TryReadUInt32(
+        ReadOnlySpan<byte> content,
+        ref int offset,
+        out uint value)
+    {
+        value = 0;
+        if (offset < 0 || offset > content.Length - sizeof(uint))
+        {
+            return false;
+        }
+
+        value = BinaryPrimitives.ReadUInt32BigEndian(
+            content.Slice(offset, sizeof(uint)));
+        offset += sizeof(uint);
+        return true;
+    }
+
+    private static bool TryReadUInt64(
+        ReadOnlySpan<byte> content,
+        ref int offset,
+        out ulong value)
+    {
+        value = 0;
+        if (offset < 0 || offset > content.Length - sizeof(ulong))
+        {
+            return false;
+        }
+
+        value = BinaryPrimitives.ReadUInt64BigEndian(
+            content.Slice(offset, sizeof(ulong)));
+        offset += sizeof(ulong);
+        return true;
+    }
+
+    private static bool TryReadExact(
+        ReadOnlySpan<byte> content,
+        ref int offset,
+        int length,
+        out ReadOnlySpan<byte> value)
+    {
+        value = default;
+        if (offset < 0 || length < 0 || offset > content.Length - length)
+        {
+            return false;
+        }
+
+        value = content.Slice(offset, length);
+        offset += length;
+        return true;
+    }
+
+    private static void WriteUtf16String(Stream stream, string value)
+    {
+        WriteUInt32(stream, checked((uint)value.Length));
+        stream.Write(Utf16CodeUnits.Encode(value));
+    }
+
+    private static void WriteUInt32(Stream stream, uint value)
+    {
+        Span<byte> bytes = stackalloc byte[sizeof(uint)];
+        BinaryPrimitives.WriteUInt32BigEndian(bytes, value);
+        stream.Write(bytes);
+    }
+
+    private static void WriteUInt64(Stream stream, ulong value)
+    {
+        Span<byte> bytes = stackalloc byte[sizeof(ulong)];
+        BinaryPrimitives.WriteUInt64BigEndian(bytes, value);
+        stream.Write(bytes);
     }
 
     private static void DeletePendingFiles(string entryDirectory)
