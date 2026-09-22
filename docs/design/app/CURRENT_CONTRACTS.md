@@ -48,7 +48,13 @@ Creation is contextual work in **Productions**, does not auto-open, does not ado
 
 This does **not** itself adopt Character UI, Scene membership/lifecycle, Off-Scene/current-Scene labels, Character edit/rename/delete/deeper ontology, Performer/provider assignment, Pressure, Take or Rehearsal semantics.
 
-Q-DESIGN-23 is the active bounded Design contract audit for Production Cast inspection + Character establishment presentation. Successor evidence: `../../evidence/Q_DESIGN_23_SUCCESSOR_SELECTION_PRODUCTION_CAST_CHARACTER_ESTABLISHMENT_PRESENTATION_2026_09_22.md`.
+### Q-DESIGN-23 — Characters / Character establishment
+
+**ADOPTED / ENGINEERING HANDOFF READY / NATIVE ACCEPTANCE PENDING.** Contract: `contracts/PRODUCTION_CAST_CHARACTER_ESTABLISHMENT_PRESENTATION.md`.
+
+Current-Production **Characters** is a read-only replay-derived list plus bounded **New Character** creation. Duplicate exact names use conditional presentation-only Character codes. No Scene labels, richer Character editor, Performer/provider assignment or permanent People route is adopted.
+
+Native reconciliation record: `evidence/native/APPUI_01_Q_DESIGN_23_PRODUCTION_CAST_CHARACTER_PRESENTATION_CONTRACT_01.json`.
 
 ## Explicit unresolved / gated items
 

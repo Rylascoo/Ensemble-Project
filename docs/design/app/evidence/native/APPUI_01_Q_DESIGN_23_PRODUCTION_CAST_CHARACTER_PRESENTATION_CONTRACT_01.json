@@ -1,0 +1,58 @@
+{
+  "schema": "kymaean.appui-q-design-23-production-cast-character-presentation-contract.v1",
+  "status": "ADOPTED_ENGINEERING_HANDOFF_READY_NATIVE_ACCEPTANCE_PENDING",
+  "date": "2026-09-22",
+  "queue_item": "Q-DESIGN-23",
+  "exact_project_main": "fcbc9677af7720711db058a303c5510ccba85aa4",
+  "exact_main_validation": "#1235 PASS",
+  "contract": "docs/design/app/contracts/PRODUCTION_CAST_CHARACTER_ESTABLISHMENT_PRESENTATION.md",
+  "product_sources": {
+    "character_identity": "src/Kymaean.Application/CharacterIdentity.cs",
+    "character_creation": "src/Kymaean.Application/CharacterCreation.cs",
+    "product_application": "src/Kymaean.Application/ProductApplication.cs",
+    "persistence_catalog": "src/Kymaean.Infrastructure.Persistence/FileProductionCatalog.cs"
+  },
+  "product_evidence": [
+    "docs/evidence/Q_PROD_06_CHARACTER_CAST_IDENTITY_FOUNDATION_NATIVE_ARM64_VALIDATION_2026_09_22.md",
+    "docs/evidence/Q_DESIGN_23_SUCCESSOR_SELECTION_PRODUCTION_CAST_CHARACTER_ESTABLISHMENT_PRESENTATION_2026_09_22.md"
+  ],
+  "inherited_design_law": [
+    "docs/design/app/contracts/STATIC_VISUAL_SYSTEM.md",
+    "docs/design/app/contracts/NATIVE_IMPLEMENTATION_HANDOFF.md",
+    "docs/design/app/contracts/APP_AND_FAILURE_STATES.md",
+    "docs/design/app/contracts/ACCESSIBILITY.md",
+    "docs/design/app/evidence/components/APPUI_01_COMPONENT_SYSTEM_WHOLE_PRODUCTION_CHARACTER_MANAGEMENT_INTEGRATION_METHOD_01.json",
+    "docs/design/app/evidence/components/APPUI_01_COMPONENT_SYSTEM_WHOLE_PRODUCTION_CHARACTER_MANAGEMENT_INTEGRATION_RESULT_01.json"
+  ],
+  "adopted_presentation": {
+    "surface": "Characters",
+    "entry": "Current Production contextual depth",
+    "empty": "No Characters yet.",
+    "create_action": "New Character",
+    "field": "Character name",
+    "submit": "Create Character",
+    "success": "Character created.",
+    "duplicate_disambiguation": "Conditional Character code derived from opaque CharacterId using the adopted Production-code fingerprint pattern",
+    "nonconfirmation_heading": "Confirmation unavailable",
+    "nonconfirmation_meaning": "Kymaean couldn't confirm whether this Character was created.",
+    "nonconfirmation_groups": [
+      "Last confirmed Characters",
+      "Submitted Character"
+    ]
+  },
+  "recursive_audit": {
+    "finding": "Historical whole-Production Character-management evidence contains Off-Scene/current-Scene labels, local management selection, edit/shaping capacity and richer detail that current Product has not earned.",
+    "correction": "Adopt only Production-context reach, identity/Performer separation, focus/return and visual/accessibility law; reduce the native contract to a read-only Characters list plus bounded New Character flow. Add no detail inspector or management selection state.",
+    "improvement": "Share conditional identity-fingerprint presentation logic with existing duplicate Production codes rather than duplicate hashing behavior.",
+    "result": "CLEAN"
+  },
+  "prohibitions": [
+    "No Scene membership/lifecycle or Off-Scene/current-Scene labels.",
+    "No Character edit/rename/delete/deeper ontology.",
+    "No Performer/provider semantics.",
+    "No permanent People/Characters route.",
+    "No provider/deferred-E0/release authority."
+  ],
+  "approval": "APPROVED BY STANDING DIRECTOR DELEGATION — CLEAN RECURSIVE AUDIT",
+  "next": "Open Q-PROD-07 as the bounded Windows implementation package. Product/Persistence changes are a stop condition."
+}
