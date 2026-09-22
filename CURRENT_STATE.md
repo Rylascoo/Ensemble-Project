@@ -18,7 +18,7 @@ Q-PROD-02 / PR #244: exact accessibility-corrected executable source `150f7c57b5
 
 Q-DESIGN-20 is **ACCEPTED FOR INTEGRATION** at the candidate source. Acceptance record: `docs/design/app/evidence/native/APPUI_01_Q_DESIGN_20_R2_NATIVE_ACCEPTANCE_2026_09_21.json`. PR #244 remains unmerged pending exact-final-head hosted validation and Director merge authorization.
 
-Append/replay remain separately gated; no automatic retry/rollback, Character knowledge mutation, stronger concurrency guarantee, World-current UI, provider work, deferred-E0 closure, final architecture, Alpha/Beta/release, WACK or Store authority is created. Home A/B unresolved; FIRSTUSE pending.
+Append/replay remain separately gated; no automatic retry/rollback, Character knowledge mutation, stronger concurrency guarantee, World-current UI, provider work, deferred-E0 closure, final architecture, Alpha/Beta/release, WACK or Store authority is created. Home A/B unresolved; FIRSTUSE pending. Preserved provider chain: `docs/evidence/E0D_Q_E0D_01_P03_SLOT1_PREEXECUTION_ACTIVATION_2026_09_17.md`.
 
 ## Next
 
