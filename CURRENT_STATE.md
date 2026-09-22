@@ -40,4 +40,4 @@ High Contrast exact-source proof, Source Sans 3/S1 packaging, provider work, def
 
 ## Next
 
-After this exact-main unification commit passes hosted validation, open Q-PROD-05 as a Windows-only implementation package and return exact native evidence to Q-DESIGN-22 before merge.
+Q-UNITY-01 exact-main Validation #1169 PASS. Q-PROD-05 is ACTIVE on `qprod05/create-production-presentation-2026-09-22` from exact main `a6bac97f3fe543d36aa28067d8c566f7d0882d7c`. Implement Windows-only Create Production presentation, run hosted validation, then exact native ARM64/UI evidence for Q-DESIGN-22 acceptance. Product/Persistence mutation is a stop condition.
