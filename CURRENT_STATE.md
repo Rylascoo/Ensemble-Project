@@ -12,7 +12,7 @@ Current tasks use roles, not persistent personas.
 
 `DESIGN_ARCHITECTURE_READY = READY`. Q-PROD-02/03/04/05 and Q-DESIGN-20/21/22 are integrated. PR #247 merged at `abf7626b038625dd1a4ed32ee643d1232e011b8c`; exact-main Validation #1182 PASS. Post-closeout main `c41d07fcd8108fb57932b56db0c4a7061d15d533`; Validation #1184 PASS.
 
-Q-UNITY-01 is complete and the active project is role-based / Project-rooted.
+Q-UNITY-01 is complete: `docs/Q_UNITY_01_PROJECT_UNIFICATION_AND_SIMPLIFICATION_2026_09_22.md`. The active project is role-based / Project-rooted.
 
 ## Active simplification
 
