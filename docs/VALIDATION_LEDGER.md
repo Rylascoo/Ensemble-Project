@@ -427,7 +427,7 @@ Machine evidence binds the candidate and identical tested runtime/test/build blo
 
 Native correction authority is exact source `2484359...`; later evidence/integration commits do not inherit machine-test authority.
 
-### Q-PROD-02 / Q-DESIGN-20 R2 Windows presentation candidate
+### Q-PROD-02 / Q-DESIGN-20 R2 Windows presentation integrated checkpoint
 
 | Field | Fact |
 |---|---|
@@ -435,14 +435,15 @@ Native correction authority is exact source `2484359...`; later evidence/integra
 | Exact accessibility-corrected executable source | `150f7c57b523f6d95e8f85a5b1c20ad769c3a120` |
 | Prior full visual/native source | `95d133dfbb8e6e0c5b9519dd2c0b668416c93218`; tagged `validation/q-prod-02-r2-native-arm64-ui-2026-09-21` |
 | Evidence | `docs/evidence/Q_PROD_02_Q_DESIGN_20_R2_NATIVE_ARM64_VALIDATION_2026_09_21.md` |
-| Design acceptance | `docs/design/app/evidence/native/APPUI_01_Q_DESIGN_20_R2_NATIVE_ACCEPTANCE_2026_09_21.json`; ACCEPTED FOR INTEGRATION, merge pending |
-| Native ARM64 | Exact-current Application 57/57 PASS; WinUI Release build 0 warnings/errors. Earlier Persistence 129/129 PASS remains bound to `f7678811c715f3c3cfe6daed95a38737fedc0ba2`; the accessibility-only Windows delta does not alter Persistence. |
-| Native UI | Full Open/Recover, contextual Current Production, three durable shell items, Back name/tooltip/focus return, Light F2/Dark D3, MAT F1 and 720x520 evidence remains bound to visually identical `95d133...`. At exact-current `150f7c...`, native UI Automation reports the Production row name exactly `Glass Harbor` with zero `ProductionSummary`/fixture-ID leakage. |
-| Exact-current temporary MSIX | SHA-256 `F0E0FF8C7CE857FC1832F6CBCCD0C681D14366BA570205EFB981F208172BDB9F`; temporary package unregistered after evidence. Publish-only symbols warning does not alter the zero-warning main Release build. |
-| Hosted pre-closeout | E0-E preparation #169 PASS at `150f7c...`. Validation #1138 had all code/test/compiler/census/oracle jobs PASS and failed only repository law because `CURRENT_STATE.md` had become five commits stale during the bounded accessibility correction; this continuity commit repairs that administrative freshness. |
-| Limits | High Contrast exact-source recapture remains unearned; Source Sans 3/S1 packaging placeholders remain; temporary unsigned package is not WACK/Store/release validation; integration and exact-main validation remain pending. |
+| Design acceptance | `docs/design/app/evidence/native/APPUI_01_Q_DESIGN_20_R2_NATIVE_ACCEPTANCE_2026_09_21.json`; ACCEPTED / INTEGRATED |
+| Native ARM64 | Exact-current Application 57/57 PASS; WinUI Release build 0 warnings/errors. Persistence 129/129 remains bound to `f7678811c715f3c3cfe6daed95a38737fedc0ba2`. |
+| Native UI | Full Open/Recover, contextual Current Production, three durable shell items, Back name/tooltip/focus return, Light F2/Dark D3, MAT F1 and 720x520 evidence at visually identical `95d133...`; exact-current UIA reports Production row exactly `Glass Harbor` with zero internal object/ID leakage. |
+| Exact-current temporary MSIX | SHA-256 `F0E0FF8C7CE857FC1832F6CBCCD0C681D14366BA570205EFB981F208172BDB9F`; temporary package unregistered. |
+| Final PR head | `56450a0b97939ac5c2ca6224c6f426dba6b31c3b`; Validation #1144 PASS; E0-E preparation #172 PASS |
+| Integrated main | PR #244 merge `2470ed1068454e3ff5cfd573dcc266328bd1d1cc`; push-triggered exact-main Validation #1145 PASS |
+| Limits | High Contrast exact-source recapture, Source Sans 3/S1 packaging, WACK/Store/release remain unearned. World-current UI remains separately gated. |
 
-The previous visual validation tag remains correctly bound to `95d133...`; no tag is falsely promoted to the later accessibility-only source. Candidate Design acceptance does not itself integrate PR #244 or authorize later World-current UI.
+Runtime/UI evidence remains bound to the exact tested sources above; the merge and later documentation closeout do not inflate native authority.
 
 ### Supporting provider-evidence continuity
 

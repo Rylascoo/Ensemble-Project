@@ -859,7 +859,7 @@ Full source identities, scoped dependencies, dispositions and destination hashes
 
 ## Project-native Q-DESIGN-20 R2 acceptance — 2026-09-21
 
-**State:** ACCEPTED FOR INTEGRATION / EXACT CANDIDATE SOURCE `150f7c57b523f6d95e8f85a5b1c20ad769c3a120` / PR #244 UNMERGED
+**State:** ACCEPTED / INTEGRATED / EXACT CANDIDATE SOURCE `150f7c57b523f6d95e8f85a5b1c20ad769c3a120` / PR #244 MERGED AT `2470ed1068454e3ff5cfd573dcc266328bd1d1cc`
 
 Project-native App Design acceptance re-read the adopted post-composition reconciliation, static visual-system law and exact Q-PROD-02 native evidence. R2-01 contextual Current Production, R2-02 MAT F1 subtractive field, R2-03 creator-facing copy and R2-04 quiet E72B Back all pass at the candidate boundary.
 
@@ -869,5 +869,5 @@ Full visual captures remain bound to visually identical source `95d133dfbb8e6e0c
 
 Canonical acceptance record: `docs/design/app/evidence/native/APPUI_01_Q_DESIGN_20_R2_NATIVE_ACCEPTANCE_2026_09_21.json`.
 
-Q-DESIGN-20 is accepted at the candidate source but remains integration-pending until PR #244 merges and exact-main validation passes. This acceptance does not authorize World-current UI or any other unearned Product/Design semantics.
+Q-DESIGN-20 is accepted and integrated through PR #244 at `2470ed1068454e3ff5cfd573dcc266328bd1d1cc`; exact-main Validation #1145 passed. Q-DESIGN-20 is closed. The only newly available successor is bounded Q-DESIGN-21 contract formation for creator World-current truth inspection/replacement; no UI implementation or other unearned Product/Design semantics are authorized.
 

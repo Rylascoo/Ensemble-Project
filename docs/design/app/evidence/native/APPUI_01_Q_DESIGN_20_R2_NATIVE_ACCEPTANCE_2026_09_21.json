@@ -1,6 +1,6 @@
 {
   "schema": "kymaean.appui-q-design-20-r2-native-acceptance.v1",
-  "status": "ACCEPTED_FOR_INTEGRATION",
+  "status": "ACCEPTED_INTEGRATED",
   "date": "2026-09-21",
   "role": "App Design Acceptance",
   "queue_item": "Q-DESIGN-20",
@@ -41,6 +41,12 @@
     "Temporary unsigned package is not WACK, Store, installed-release or release validation.",
     "World-current UI remains a later separately gated Design/Engineering scope."
   ],
-  "integration_pending": true,
-  "next": "Require exact-final-head hosted validation after continuity closeout. If green, PR #244 may proceed only with explicit Director merge authorization; then require exact-main validation before Q-DESIGN-20/Q-PROD-02 close."
+  "integration_pending": false,
+  "next": "Q-DESIGN-20 closed. Q-DESIGN-21 may define the bounded creator World-current inspection/replacement presentation contract; no World-current UI implementation is authorized until that contract is adopted and a separate Engineering package opens.",
+  "integrated_main": "2470ed1068454e3ff5cfd573dcc266328bd1d1cc",
+  "exact_main_validation": {
+    "run_number": 1145,
+    "conclusion": "PASS",
+    "event": "push"
+  }
 }

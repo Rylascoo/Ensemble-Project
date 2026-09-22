@@ -1,6 +1,6 @@
 # Q-PROD-02 / Q-DESIGN-20 R2 native ARM64 validation
 
-Date: 2026-09-21. Status: Engineering implementation candidate; App Design accepted for integration; merge pending.
+Date: 2026-09-21. Status: Engineering implementation integrated; App Design accepted; Q-PROD-02 / Q-DESIGN-20 closed.
 
 ## Identity and scope
 
@@ -73,8 +73,8 @@ The full Light/Dark, MAT F1, Open/Recover, Back/focus and 720×520 screenshots r
 
 ## Validation limits and next boundary
 
-Candidate Design acceptance is now **Q-DESIGN-20 = ACCEPTED FOR INTEGRATION** at exact accessibility-corrected source `150f7c...`, recorded in `docs/design/app/evidence/native/APPUI_01_Q_DESIGN_20_R2_NATIVE_ACCEPTANCE_2026_09_21.json`. This does not integrate PR #244 or create exact-main authority.
+Design acceptance is **Q-DESIGN-20 = ACCEPTED / INTEGRATED** at exact accessibility-corrected source `150f7c...`, recorded in `docs/design/app/evidence/native/APPUI_01_Q_DESIGN_20_R2_NATIVE_ACCEPTANCE_2026_09_21.json`. PR #244 merged at `2470ed1068454e3ff5cfd573dcc266328bd1d1cc`; push-triggered exact-main Validation #1145 passed.
 
 High Contrast exact-source recapture remains unearned because no normal permitted toggle path was established; no bypass was attempted. Source Sans 3 and S1 shipping/native packaging remain unresolved placeholders. The temporary unsigned MSIX is not package-quality, WACK, Store or release validation.
 
-Require exact-final-head hosted validation after the continuity/acceptance closeout. PR #244 must remain unmerged until Director authorization. New World-current inspection/replacement UI remains a later separate lane and may not overtake Q-PROD-02 integration plus exact-main validation; append and authoritative replay remain separately gated.
+Q-PROD-02 and Q-DESIGN-20 are closed. Q-DESIGN-21 may now define the bounded creator World-current inspection/replacement presentation contract. No World-current UI implementation is authorized until that contract is adopted and a separate Engineering package opens; append and authoritative replay remain separately gated.
