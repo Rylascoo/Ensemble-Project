@@ -109,7 +109,7 @@ internal static class ProductionProjectionSnapshotCache
                 return false;
             }
 
-            var truths = new List<WorldCurrentTruth>(checked((int)truthCount));
+            var truths = new List<WorldCurrentTruth>();
             for (var index = 0U; index < truthCount; index++)
             {
                 if (!TryReadUtf16String(content, ref offset, out var truth))
@@ -125,8 +125,7 @@ internal static class ProductionProjectionSnapshotCache
                 return false;
             }
 
-            var characters =
-                new List<CharacterSummary>(checked((int)characterCount));
+            var characters = new List<CharacterSummary>();
             for (var index = 0U; index < characterCount; index++)
             {
                 if (!TryReadUtf16String(content, ref offset, out var characterId)
