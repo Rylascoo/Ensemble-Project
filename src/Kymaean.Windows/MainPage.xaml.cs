@@ -1,6 +1,7 @@
 using Kymaean.Application;
 using Kymaean.Windows.Presentation;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Automation;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 
@@ -41,6 +42,19 @@ public sealed partial class MainPage : Page
         if (viewModel.ActiveShellRoute != route)
         {
             viewModel.NavigateShell(route);
+        }
+    }
+
+    private void OnProductionContainerContentChanging(
+        ListViewBase sender,
+        ContainerContentChangingEventArgs args)
+    {
+        if (args.ItemContainer is ListViewItem container &&
+            args.Item is ProductionSummary production)
+        {
+            AutomationProperties.SetName(
+                container,
+                production.ProductionName);
         }
     }
 
