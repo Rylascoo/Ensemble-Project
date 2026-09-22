@@ -165,6 +165,7 @@
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
                             <StackPanel Spacing="8">
                                 <TextBlock
@@ -177,34 +178,111 @@
                                     Foreground="{ThemeResource KymaeanSecondaryBrush}"
                                     Text="Choose a Production to open, or use Recover when needed."
                                     TextWrapping="Wrap" />
+                                <Button
+                                    x:Name="NewProductionButton"
+                                    AutomationProperties.Name="New Production"
+                                    HorizontalAlignment="Left"
+                                    Click="OnNewProductionClicked"
+                                    Content="New Production"
+                                    Visibility="{Binding IsProductionCreationFormClosed, Converter={StaticResource BoolToVisibility}}" />
                             </StackPanel>
 
-                            <ListView
-                                x:Name="ProductionList"
+                            <Border
                                 Grid.Row="1"
-                                Margin="0,18,0,0"
-                                ContainerContentChanging="OnProductionContainerContentChanging"
-                                ItemsSource="{Binding Productions}"
-                                SelectionChanged="OnProductionSelectionChanged"
-                                SelectionMode="Single">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate x:DataType="application:ProductionSummary">
-                                        <Border
-                                            MinWidth="360"
-                                            Padding="12"
-                                            BorderBrush="{ThemeResource KymaeanBoundaryBrush}"
-                                            BorderThickness="0,0,0,1">
-                                            <TextBlock
-                                                FontSize="18"
-                                                Foreground="{ThemeResource KymaeanPrimaryBrush}"
-                                                Text="{x:Bind ProductionName}" />
-                                        </Border>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
+                                Margin="0,16,0,0"
+                                Padding="0,12"
+                                BorderBrush="{ThemeResource KymaeanBoundaryBrush}"
+                                BorderThickness="0,1,0,1"
+                                Visibility="{Binding IsProductionCreationFormOpen, Converter={StaticResource BoolToVisibility}}">
+                                <StackPanel Spacing="8">
+                                    <TextBlock
+                                        AutomationProperties.HeadingLevel="Level3"
+                                        FontSize="18"
+                                        FontWeight="SemiBold"
+                                        Foreground="{ThemeResource KymaeanPrimaryBrush}"
+                                        Text="New Production" />
+                                    <TextBlock
+                                        Foreground="{ThemeResource KymaeanSecondaryBrush}"
+                                        Text="Create a Production here, then open it when you are ready."
+                                        TextWrapping="Wrap" />
+                                    <TextBlock
+                                        FontWeight="SemiBold"
+                                        Foreground="{ThemeResource KymaeanSecondaryBrush}"
+                                        Text="Production name" />
+                                    <TextBox
+                                        x:Name="ProductionNameTextBox"
+                                        AutomationProperties.Name="Production name"
+                                        MaxWidth="560"
+                                        HorizontalAlignment="Stretch"
+                                        Text="{Binding ProductionNameDraft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBlock
+                                        AutomationProperties.Name="{Binding ProductionCreationValidationMessage}"
+                                        Foreground="{ThemeResource KymaeanPrimaryBrush}"
+                                        Text="{Binding ProductionCreationValidationMessage}"
+                                        TextWrapping="Wrap"
+                                        Visibility="{Binding HasProductionCreationValidationMessage, Converter={StaticResource BoolToVisibility}}" />
+                                    <TextBlock
+                                        Foreground="{ThemeResource KymaeanSecondaryBrush}"
+                                        Text="Creating Production…"
+                                        Visibility="{Binding IsProductionCreationPending, Converter={StaticResource BoolToVisibility}}" />
+                                    <StackPanel
+                                        Orientation="Horizontal"
+                                        Spacing="8">
+                                        <Button
+                                            AutomationProperties.Name="Create Production"
+                                            Click="OnCreateProductionClicked"
+                                            Content="Create Production"
+                                            IsEnabled="{Binding IsProductionCreationEnabled}" />
+                                        <Button
+                                            AutomationProperties.Name="Cancel Production creation"
+                                            Click="OnCancelProductionCreationClicked"
+                                            Content="Cancel"
+                                            IsEnabled="{Binding IsProductionCreationEnabled}" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
 
                             <StackPanel
                                 Grid.Row="2"
+                                Margin="0,18,0,0"
+                                Spacing="8">
+                                <TextBlock
+                                    Foreground="{ThemeResource KymaeanSecondaryBrush}"
+                                    Text="No Productions yet."
+                                    Visibility="{Binding HasNoProductions, Converter={StaticResource BoolToVisibility}}" />
+                                <ListView
+                                    x:Name="ProductionList"
+                                    ContainerContentChanging="OnProductionContainerContentChanging"
+                                    ItemsSource="{Binding ProductionRows}"
+                                    SelectionChanged="OnProductionSelectionChanged"
+                                    SelectionMode="Single">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate x:DataType="presentation:ProductionPresentationRow">
+                                            <Border
+                                                Padding="12"
+                                                BorderBrush="{ThemeResource KymaeanBoundaryBrush}"
+                                                BorderThickness="0,0,0,1">
+                                                <StackPanel Spacing="2">
+                                                    <TextBlock
+                                                        FontSize="18"
+                                                        Foreground="{ThemeResource KymaeanPrimaryBrush}"
+                                                        Text="{x:Bind ProductionName}"
+                                                        TextWrapping="Wrap" />
+                                                    <TextBlock
+                                                        FontSize="12"
+                                                        Foreground="{ThemeResource KymaeanSecondaryBrush}"
+                                                        Text="{x:Bind ProductionCodeLabel}"
+                                                        TextWrapping="Wrap"
+                                                        Visibility="{Binding HasProductionCode, Converter={StaticResource BoolToVisibility}}" />
+                                                </StackPanel>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </StackPanel>
+
+                            <StackPanel
+                                Grid.Row="3"
                                 Margin="0,16,0,0"
                                 Orientation="Horizontal"
                                 Spacing="8">

@@ -4,40 +4,22 @@ Updated: 2026-09-22
 
 ## Authority
 
-Application Product, Implementation and App Design authority: `Rylascoo/Ensemble-Project`.
+Application Product, Implementation and App Design authority: `Rylascoo/Ensemble-Project`. Fresh work reads `AGENTS.md`, this file, `docs/PROJECT_AUTHORITY.md`, `docs/PROJECT_EXECUTION_QUEUE.md`, `docs/VALIDATION_LEDGER.md`, and `docs/design/app/CURRENT_CONTRACTS.md` for Design/UI work.
 
-Fresh work reads: `AGENTS.md`, this file, `docs/PROJECT_AUTHORITY.md`, `docs/PROJECT_EXECUTION_QUEUE.md`, `docs/VALIDATION_LEDGER.md`, and `docs/design/app/CURRENT_CONTRACTS.md` when Design/UI is involved.
+Current tasks use roles, not persistent personas. Website is website-only plus historical app-Design provenance; Drive owns shared masters; Ryladmin is exceptional governance/recovery/evidence infrastructure.
 
-Website is website-only plus historical app-Design provenance. Drive owns shared creative masters. Ryladmin is exceptional governance/recovery/evidence infrastructure.
+## Checkpoint
 
-Current tasks use roles — Implementation, Design, Product/Architecture, Independent Review, Governance/Recovery — not persistent Sol/Engineer personas.
+`DESIGN_ARCHITECTURE_READY = READY`. Q-PROD-02/03/04 and Q-DESIGN-20/21 are integrated.
 
-## Integrated Product checkpoint
+Q-UNITY-01 is complete at main `a6bac97f3fe543d36aa28067d8c566f7d0882d7c`; Validation #1169 PASS.
 
-`DESIGN_ARCHITECTURE_READY = READY`.
+Q-PROD-05 / Q-DESIGN-22 exact executable source `200f2c1faa73b524353822f3ee09eced74dc019d` implements the Windows Create Production presentation with no Product/Persistence source change. Native ARM64 Application 66/66, Persistence 135/135 and WinUI Release build PASS. Empty/whitespace/exact-text creation, no implicit Open, exact created-row focus, conditional duplicate-name Production codes, Open/Recover regression, Light/Dark, 720×520 and accessibility all PASS.
 
-- Q-PROD-02 / Q-DESIGN-20: DONE / INTEGRATED, PR #244.
-- Q-PROD-03 / Q-DESIGN-21: DONE / INTEGRATED, PR #245.
-- Q-PROD-04 Create Production: DONE / INTEGRATED, PR #246 at `bb356f0bedd80c3f5b9a0985e81cc63ea5b6fb44`; exact-main Validation #1164 PASS. Exact native source `8f7d5f05909dd88f6dd24e20b60b80ae5b36f5cc`: Application 66/66, Persistence 135/135, ARM64 WinUI Release PASS.
+Evidence: `docs/evidence/Q_PROD_05_CREATE_PRODUCTION_PRESENTATION_NATIVE_ARM64_VALIDATION_2026_09_22.md`.
 
-Q-PROD-04 remains A/A/A: catalog-generated opaque identity; creation updates the known list without implicit open/navigation; duplicate creator-facing names are allowed.
-
-## Q-UNITY-01
-
-Project unification/simplification is adopted in `docs/Q_UNITY_01_PROJECT_UNIFICATION_AND_SIMPLIFICATION_2026_09_22.md`.
-
-Active workflow is role-based and Project-rooted. The old full execution queue is archived. App Design has a short current-contract index. Sixteen fully ancestral remote branches were retired; only `main` plus the one-unique-commit historical PR #226 producer remain live remotely.
-
-Recursive simplification rejected reopening Q-PROD-04 D3: exact-name uniqueness would add a catalog invariant, locking/race, migration and failure-taxonomy burden. Q-DESIGN-22 instead preserves duplicates and conditionally presents a stable Production code only when a same-name group requires disambiguation.
-
-## Current Design / implementation boundary
-
-Q-DESIGN-22 contract: `docs/design/app/contracts/CREATE_PRODUCTION_PRESENTATION.md`.
-
-Q-PROD-05 is the next bounded implementation package: Productions route only; New Production -> exact name -> Create Production; successful creation returns to the list and selects/focuses the exact new Production by returned ID; no implicit Open; duplicate-name groups show conditional presentation-only Production codes; no Product/Persistence source changes; no FIRSTUSE or Home A/B adoption; no rename/delete/import/restore.
-
-High Contrast exact-source proof, Source Sans 3/S1 packaging, provider work, deferred E0, final architecture, WACK/Store and release remain unearned. Deferred E0-D continuity is indexed at `docs/evidence/E0D_CURRENT_DEFERRED_VALIDATION_INDEX_2026_09_22.md`.
+Q-DESIGN-22 = **ACCEPTED FOR INTEGRATION**. PR #247 remains draft/unmerged. Concurrent alternate `qprod05/create-production-windows-2026-09-22@ce46c78f21bd14aeb04694348bc7dd7ba079f0ba` is superseded and preserved only until canonical integration/exact-main validation.
 
 ## Next
 
-After this exact-main unification commit passes hosted validation, open Q-PROD-05 as a Windows-only implementation package and return exact native evidence to Q-DESIGN-22 before merge.
+Require exact-final-head hosted PASS after evidence closeout. Then PR #247 requires explicit Director merge authorization. FIRSTUSE/Home A/B, High Contrast, Source Sans 3/S1 packaging, provider/deferred-E0/final-architecture/WACK/Store/release gates remain unchanged.

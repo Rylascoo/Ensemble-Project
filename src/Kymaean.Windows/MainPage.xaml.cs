@@ -50,11 +50,11 @@ public sealed partial class MainPage : Page
         ContainerContentChangingEventArgs args)
     {
         if (args.ItemContainer is ListViewItem container &&
-            args.Item is ProductionSummary production)
+            args.Item is ProductionPresentationRow production)
         {
             AutomationProperties.SetName(
                 container,
-                production.ProductionName);
+                production.AccessibleName);
         }
     }
 
@@ -66,7 +66,63 @@ public sealed partial class MainPage : Page
             sender is ListView listView)
         {
             viewModel.SelectProduction(
-                listView.SelectedItem as ProductionSummary);
+                listView.SelectedItem as ProductionPresentationRow);
+        }
+    }
+
+    private void OnNewProductionClicked(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is not MainPageViewModel viewModel)
+        {
+            return;
+        }
+
+        viewModel.OpenProductionCreationForm();
+        ProductionNameTextBox.Focus(FocusState.Keyboard);
+    }
+
+    private void OnCancelProductionCreationClicked(
+        object sender,
+        RoutedEventArgs e)
+    {
+        if (DataContext is not MainPageViewModel viewModel)
+        {
+            return;
+        }
+
+        viewModel.CancelProductionCreation();
+        NewProductionButton.Focus(FocusState.Keyboard);
+    }
+
+    private async void OnCreateProductionClicked(
+        object sender,
+        RoutedEventArgs e)
+    {
+        if (DataContext is not MainPageViewModel viewModel ||
+            !viewModel.BeginProductionCreationSubmission())
+        {
+            return;
+        }
+
+        var created = viewModel.CompleteProductionCreationSubmission();
+        if (created is null)
+        {
+            ProductionNameTextBox.Focus(FocusState.Keyboard);
+            return;
+        }
+
+        ProductionList.SelectedItem = created;
+        ProductionList.ScrollIntoView(created);
+        await Task.Yield();
+
+        if (ProductionList.ContainerFromItem(created)
+            is ListViewItem container)
+        {
+            container.Focus(FocusState.Keyboard);
+        }
+        else
+        {
+            ProductionList.Focus(FocusState.Keyboard);
         }
     }
 

@@ -9,7 +9,14 @@ public sealed class MainPageViewModel : INotifyPropertyChanged
 {
     private readonly ProductApplication? _application;
     private ProductApplicationProjection? _projection;
-    private ProductionSummary? _selectedProduction;
+    private IReadOnlyList<ProductionPresentationRow> _productionRows =
+        Array.Empty<ProductionPresentationRow>();
+    private ProductionPresentationRow? _selectedProductionRow;
+    private bool _isProductionCreationFormOpen;
+    private bool _isProductionCreationPending;
+    private string _productionNameDraft = string.Empty;
+    private string _submittedProductionName = string.Empty;
+    private string _productionCreationValidationMessage = string.Empty;
     private ShellRoute _activeShellRoute = ShellRoute.Home;
     private CurrentProductionPresentation _currentProductionPresentation =
         CurrentProductionPresentation.Overview;
@@ -40,6 +47,7 @@ public sealed class MainPageViewModel : INotifyPropertyChanged
         {
             _application = productStartup.Value;
             _projection = _application.Query();
+            RefreshProductionRows();
         }
         else
         {
@@ -58,7 +66,14 @@ public sealed class MainPageViewModel : INotifyPropertyChanged
             ? Array.Empty<ProductionSummary>()
             : _projection.Productions;
 
-    public bool HasProductions => Productions.Count > 0;
+    public IReadOnlyList<ProductionPresentationRow> ProductionRows =>
+        _productionRows;
+
+    public ProductionPresentationRow? SelectedProductionRow =>
+        _selectedProductionRow;
+
+    public bool HasProductions => ProductionRows.Count > 0;
+    public bool HasNoProductions => !HasProductions;
 
     public bool HasCurrentProduction =>
         _projection?.HasCurrentProduction == true;
@@ -121,7 +136,7 @@ public sealed class MainPageViewModel : INotifyPropertyChanged
         _currentProductionPresentation == CurrentProductionPresentation.WorldTruthConfirmationUnavailable;
 
     public bool CanAccessSelection =>
-        _application is not null && _selectedProduction is not null;
+        _application is not null && _selectedProductionRow is not null;
 
     public bool HasStatusMessage =>
         !string.IsNullOrWhiteSpace(_statusMessage);
@@ -133,7 +148,7 @@ public sealed class MainPageViewModel : INotifyPropertyChanged
             ? "Your Productions are unavailable."
             : Productions.Count switch
             {
-                0 => "No Productions are available.",
+                0 => "No Productions yet.",
                 1 => "1 Production is available.",
                 _ => $"{Productions.Count} Productions are available."
             };
@@ -174,6 +189,49 @@ public sealed class MainPageViewModel : INotifyPropertyChanged
 
     public string WorldTruthFailureMessage => _worldTruthFailureMessage;
 
+    public bool IsProductionCreationFormOpen =>
+        _isProductionCreationFormOpen;
+
+    public bool IsProductionCreationFormClosed =>
+        !_isProductionCreationFormOpen;
+
+    public bool IsProductionCreationPending =>
+        _isProductionCreationPending;
+
+    public bool IsProductionCreationEnabled =>
+        _isProductionCreationFormOpen && !_isProductionCreationPending;
+
+    public string ProductionNameDraft
+    {
+        get => _productionNameDraft;
+        set
+        {
+            if (string.Equals(
+                    _productionNameDraft,
+                    value,
+                    StringComparison.Ordinal))
+            {
+                return;
+            }
+
+            _productionNameDraft = value;
+            OnPropertyChanged();
+
+            if (!string.IsNullOrEmpty(
+                    _productionCreationValidationMessage))
+            {
+                SetProductionCreationValidationMessage(string.Empty);
+            }
+        }
+    }
+
+    public string ProductionCreationValidationMessage =>
+        _productionCreationValidationMessage;
+
+    public bool HasProductionCreationValidationMessage =>
+        !string.IsNullOrWhiteSpace(
+            _productionCreationValidationMessage);
+
     public void NavigateShell(ShellRoute route)
     {
         if (!Enum.IsDefined(route))
@@ -184,6 +242,12 @@ public sealed class MainPageViewModel : INotifyPropertyChanged
         if (route == ShellRoute.CurrentProduction && !HasCurrentProduction)
         {
             return;
+        }
+
+        if (route != ShellRoute.Productions &&
+            _isProductionCreationFormOpen)
+        {
+            CloseProductionCreationForm();
         }
 
         if (_application is not null)
@@ -203,10 +267,126 @@ public sealed class MainPageViewModel : INotifyPropertyChanged
         RaiseShellProperties();
     }
 
-    public void SelectProduction(ProductionSummary? production)
+    public void SelectProduction(ProductionPresentationRow? production)
     {
-        _selectedProduction = production;
+        _selectedProductionRow = production;
+        OnPropertyChanged(nameof(SelectedProductionRow));
         OnPropertyChanged(nameof(CanAccessSelection));
+    }
+
+    public void OpenProductionCreationForm()
+    {
+        if (_application is null)
+        {
+            return;
+        }
+
+        _statusMessage = string.Empty;
+        _productionNameDraft = string.Empty;
+        _submittedProductionName = string.Empty;
+        _isProductionCreationFormOpen = true;
+        _isProductionCreationPending = false;
+        SetProductionCreationValidationMessage(string.Empty);
+        OnPropertyChanged(nameof(StatusMessage));
+        OnPropertyChanged(nameof(HasStatusMessage));
+        RaiseProductionCreationProperties();
+    }
+
+    public void CancelProductionCreation()
+    {
+        if (_isProductionCreationPending)
+        {
+            return;
+        }
+
+        CloseProductionCreationForm();
+    }
+
+    public bool BeginProductionCreationSubmission()
+    {
+        if (_application is null ||
+            !_isProductionCreationFormOpen ||
+            _isProductionCreationPending)
+        {
+            return false;
+        }
+
+        if (string.IsNullOrWhiteSpace(_productionNameDraft))
+        {
+            SetProductionCreationValidationMessage(
+                "Production name is required.");
+            return false;
+        }
+
+        _submittedProductionName = _productionNameDraft;
+        _isProductionCreationPending = true;
+        SetProductionCreationValidationMessage(string.Empty);
+        RaiseProductionCreationProperties();
+        return true;
+    }
+
+    public ProductionPresentationRow?
+        CompleteProductionCreationSubmission()
+    {
+        if (_application is null || !_isProductionCreationPending)
+        {
+            return null;
+        }
+
+        try
+        {
+            var result = _application.CreateProduction(
+                _submittedProductionName);
+
+            if (!result.IsSuccess)
+            {
+                SetProductionCreationValidationMessage(
+                    result.FailureKind switch
+                    {
+                        ProductAccessFailureKind.Incompatible =>
+                            "A Production can't be created in this version.",
+                        ProductAccessFailureKind.Invalid =>
+                            "Kymaean can't create this Production because its contents are invalid.",
+                        _ => throw new ArgumentOutOfRangeException()
+                    });
+                return null;
+            }
+
+            _projection = _application.Query();
+            RefreshProductionRows(result.Value.Id);
+
+            var createdRow = _selectedProductionRow
+                ?? throw new InvalidOperationException(
+                    "Created Production is missing from the current library.");
+
+            _statusMessage = "Production created.";
+            CloseProductionCreationForm();
+            OnPropertyChanged(nameof(StatusMessage));
+            OnPropertyChanged(nameof(HasStatusMessage));
+            OnPropertyChanged(nameof(PageSummary));
+            return createdRow;
+        }
+        catch (IOException)
+        {
+            _statusMessage =
+                "Kymaean couldn't create this Production.";
+            OnPropertyChanged(nameof(StatusMessage));
+            OnPropertyChanged(nameof(HasStatusMessage));
+            return null;
+        }
+        catch (UnauthorizedAccessException)
+        {
+            _statusMessage =
+                "Kymaean couldn't create this Production.";
+            OnPropertyChanged(nameof(StatusMessage));
+            OnPropertyChanged(nameof(HasStatusMessage));
+            return null;
+        }
+        finally
+        {
+            _isProductionCreationPending = false;
+            RaiseProductionCreationProperties();
+        }
     }
 
     public bool OpenSelectedProduction() =>
@@ -406,14 +586,14 @@ public sealed class MainPageViewModel : INotifyPropertyChanged
 
     private bool AccessSelectedProduction(bool recover)
     {
-        if (_application is null || _selectedProduction is null)
+        if (_application is null || _selectedProductionRow is null)
         {
             return false;
         }
 
         var result = recover
-            ? _application.RecoverProduction(_selectedProduction.Id)
-            : _application.OpenProduction(_selectedProduction.Id);
+            ? _application.RecoverProduction(_selectedProductionRow.Id)
+            : _application.OpenProduction(_selectedProductionRow.Id);
 
         if (!result.IsSuccess)
         {
@@ -437,6 +617,63 @@ public sealed class MainPageViewModel : INotifyPropertyChanged
         OnPropertyChanged(nameof(HasStatusMessage));
         RaiseShellProperties();
         return true;
+    }
+
+    private void RefreshProductionRows(
+        ProductionId? selectedId = null)
+    {
+        selectedId ??= _selectedProductionRow?.Id;
+
+        _productionRows = ProductionPresentationRow.Build(
+            Productions);
+        _selectedProductionRow = selectedId is null
+            ? null
+            : _productionRows.FirstOrDefault(
+                row => row.Id == selectedId);
+
+        OnPropertyChanged(nameof(ProductionRows));
+        OnPropertyChanged(nameof(SelectedProductionRow));
+        OnPropertyChanged(nameof(HasProductions));
+        OnPropertyChanged(nameof(HasNoProductions));
+        OnPropertyChanged(nameof(CanAccessSelection));
+        OnPropertyChanged(nameof(LibrarySummary));
+    }
+
+    private void CloseProductionCreationForm()
+    {
+        _isProductionCreationFormOpen = false;
+        _productionNameDraft = string.Empty;
+        _submittedProductionName = string.Empty;
+        _productionCreationValidationMessage = string.Empty;
+        OnPropertyChanged(nameof(ProductionNameDraft));
+        RaiseProductionCreationProperties();
+    }
+
+    private void SetProductionCreationValidationMessage(
+        string message)
+    {
+        _productionCreationValidationMessage = message;
+        OnPropertyChanged(
+            nameof(ProductionCreationValidationMessage));
+        OnPropertyChanged(
+            nameof(HasProductionCreationValidationMessage));
+    }
+
+    private void RaiseProductionCreationProperties()
+    {
+        OnPropertyChanged(
+            nameof(IsProductionCreationFormOpen));
+        OnPropertyChanged(
+            nameof(IsProductionCreationFormClosed));
+        OnPropertyChanged(
+            nameof(IsProductionCreationPending));
+        OnPropertyChanged(
+            nameof(IsProductionCreationEnabled));
+        OnPropertyChanged(nameof(ProductionNameDraft));
+        OnPropertyChanged(
+            nameof(ProductionCreationValidationMessage));
+        OnPropertyChanged(
+            nameof(HasProductionCreationValidationMessage));
     }
 
     private void ResetWorldTruthPresentationFromAuthoritativeProjection()

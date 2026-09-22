@@ -940,3 +940,24 @@ Structured reconciliation: `docs/design/app/evidence/native/APPUI_01_Q_DESIGN_22
 **APPROVED BY DIRECTOR Q-UNITY-01 SIMPLIFICATION AUTHORIZATION — CLEAN RECURSIVE AUDIT.**
 
 Q-PROD-05 may implement the Windows presentation only. Product/Persistence mutation is a stop condition; native evidence returns here for acceptance.
+
+---
+
+## Q-DESIGN-22 native acceptance — 2026-09-22
+
+**State:** ACCEPTED FOR INTEGRATION / EXACT SOURCE `200f2c1faa73b524353822f3ee09eced74dc019d` / PR #247 UNMERGED
+
+The Q-PROD-05 native return satisfies the adopted Create Production presentation contract with no Product/Persistence mutation. Native ARM64 Application 66/66 and Persistence 135/135 pass; the WinUI Release build passes with zero warnings/errors.
+
+Exact target-device interaction proves valid empty library presentation, local whitespace blocking, exact accepted-name code-unit preservation, no implicit Open, exact returned-row keyboard focus, no code on a unique name, distinct conditional Production codes on exact duplicate names, and preserved explicit Open/Recover. UI Automation exposes creator-facing name/code labels and no tested internal object or raw opaque identity.
+
+Independent exact-diff review found one sequencing defect in the predecessor: a pre-Product event-loop yield could permit navigation to clear captured presentation state before synchronous Product completion. The smallest correction removed that yield; exact source `200f2c1...` was then revalidated natively. The post-success yield remains only for list-container focus realization.
+
+Light F2 / Dark D3 and 720×520 preserve the quiet field hierarchy. Narrow creation/list states use ordinary vertical scrolling and no page-level horizontal overflow was observed. High Contrast and shipping font/Stage packaging remain open and do not become implicit PASS.
+
+Evidence: `docs/evidence/Q_PROD_05_CREATE_PRODUCTION_PRESENTATION_NATIVE_ARM64_VALIDATION_2026_09_22.md`. Structured acceptance: `docs/design/app/evidence/native/APPUI_01_Q_DESIGN_22_CREATE_PRODUCTION_NATIVE_ACCEPTANCE_2026_09_22.json`.
+
+**APPROVED BY STANDING DIRECTOR DELEGATION — CLEAN RECURSIVE AUDIT.**
+
+Q-DESIGN-22 remains integration-pending until PR #247 merges and exact-main validation passes.
+
