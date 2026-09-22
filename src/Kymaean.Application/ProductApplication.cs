@@ -5,7 +5,7 @@ namespace Kymaean.Application;
 public sealed class ProductApplication
 {
     private readonly IProductionCatalog _catalog;
-    private readonly ImmutableArray<ProductionSummary> _productions;
+    private ImmutableArray<ProductionSummary> _productions;
     private ProductionSummary? _currentProduction;
     private ProductionReplayProjection? _currentProductionReplay;
     private ApplicationScope _activeScope = ApplicationScope.Home;
@@ -108,6 +108,44 @@ public sealed class ProductApplication
             summary,
             _catalog.RecoverProduction(productionId),
             destination);
+    }
+
+    public ProductAccessResult<ProductionCreation> CreateProduction(
+        string productionName)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(productionName);
+
+        if (_catalog is not IProductionCreator creator)
+        {
+            throw new InvalidOperationException(
+                "The configured Production catalog does not support Production creation.");
+        }
+
+        var created = creator.CreateProduction(productionName);
+        if (!created.IsSuccess)
+        {
+            return ProductAccessResult<ProductionCreation>.Failure(
+                created.FailureKind);
+        }
+
+        var creation = created.Value;
+        if (_productions.Any(item => item.Id == creation.Id) ||
+            !string.Equals(
+                productionName,
+                creation.Replay.ProductionName,
+                StringComparison.Ordinal) ||
+            !creation.Replay.WorldCurrentState.IsEmpty)
+        {
+            return ProductAccessResult<ProductionCreation>.Failure(
+                ProductAccessFailureKind.Invalid);
+        }
+
+        _productions = _productions
+            .Add(creation.Summary)
+            .OrderBy(item => item.Id.Value, StringComparer.Ordinal)
+            .ToImmutableArray();
+
+        return ProductAccessResult<ProductionCreation>.Success(creation);
     }
 
     public ProductApplicationProjection NavigateProduction(ProductSpace destination)
