@@ -104,7 +104,6 @@ public sealed partial class MainPage : Page
             return;
         }
 
-        await Task.Yield();
         var created = viewModel.CompleteProductionCreationSubmission();
         if (created is null)
         {
