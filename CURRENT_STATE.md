@@ -20,10 +20,10 @@ Producer PR #240 integrated at `9516a27ca019d2c6af304f46da89bde215449df4`; consu
 
 Consumer native evidence remains bound to `e07267185cbae7caa62f70bc9f9a39852c0eedd0`, tag `validation/q-prod-01-lossless-persistence-consumer-native-arm64`; the reassessment earns no new runtime evidence.
 
-Q-PROD-02 R2 exact executable source `95d133dfbb8e6e0c5b9519dd2c0b668416c93218` implements APPUI-QDESIGN20-R2-01..04 with Back name/tooltip exactly `Back`. Native ARM64 Application 57/57 and WinUI Release build PASS; prior Persistence 129/129 remains bound to `f7678811c715f3c3cfe6daed95a38737fedc0ba2`. Exact-source Open/Recover, Back/focus, Light/Dark, MAT F1 and 720x520 UI evidence is in `docs/evidence/Q_PROD_02_Q_DESIGN_20_R2_NATIVE_ARM64_VALIDATION_2026_09_21.md`. Draft PR #244; Q-DESIGN-20 acceptance pending.
+Q-PROD-02 R2 exact accessibility-corrected executable source `150f7c57b523f6d95e8f85a5b1c20ad769c3a120` implements APPUI-QDESIGN20-R2-01..04. Full visual/native interaction evidence remains bound to visually identical source `95d133dfbb8e6e0c5b9519dd2c0b668416c93218`; exact-current native UI Automation now exposes the Production row as `Glass Harbor` with no internal `ProductionSummary`/ID leak. Native ARM64 Application 57/57 and WinUI Release build PASS; prior Persistence 129/129 remains bound to `f7678811c715f3c3cfe6daed95a38737fedc0ba2`. Candidate Design acceptance is recorded in `docs/design/app/evidence/native/APPUI_01_Q_DESIGN_20_R2_NATIVE_ACCEPTANCE_2026_09_21.json`. Draft PR #244 remains unmerged; integration and exact-final-head hosted validation remain pending.
 
 Append/replay remain separately gated; no automatic recovery/retry/rollback, Character knowledge mutation or stronger concurrency guarantee. Home A/B unresolved; FIRSTUSE pending. Provider, deferred E0, final architecture, Alpha/Beta/release, WACK/Store remain separately gated. Preserved provider chain: `docs/evidence/E0D_Q_E0D_01_P03_SLOT1_PREEXECUTION_ACTIVATION_2026_09_17.md`.
 
 ## Next
 
-Return PR #244 and exact native evidence to App Design Sol under Q-DESIGN-20 for Design acceptance. Do not merge without Director authorization. New World-current UI requires a later reconciled Design scope.
+Q-DESIGN-20 is accepted at the exact candidate source, with integration pending. Require exact-final-head hosted validation after this continuity closeout; if green, PR #244 is ready for explicit Director merge authorization. Do not open World-current UI until #244 is integrated and exact-main validation is green.

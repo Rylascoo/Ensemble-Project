@@ -1,0 +1,46 @@
+{
+  "schema": "kymaean.appui-q-design-20-r2-native-acceptance.v1",
+  "status": "ACCEPTED_FOR_INTEGRATION",
+  "date": "2026-09-21",
+  "role": "App Design Acceptance",
+  "queue_item": "Q-DESIGN-20",
+  "pull_request": 244,
+  "base": "c27689ab690c23265e8dbe6cfc6691e428723ee0",
+  "exact_accessibility_corrected_source": "150f7c57b523f6d95e8f85a5b1c20ad769c3a120",
+  "full_visual_native_source": "95d133dfbb8e6e0c5b9519dd2c0b668416c93218",
+  "prior_visual_validation_tag": "validation/q-prod-02-r2-native-arm64-ui-2026-09-21",
+  "governing_reconciliation": "docs/design/app/evidence/native/APPUI_01_Q_DESIGN_20_POST_COMPOSITION_RECONCILIATION_01.json",
+  "engineering_evidence": "docs/evidence/Q_PROD_02_Q_DESIGN_20_R2_NATIVE_ARM64_VALIDATION_2026_09_21.md",
+  "disposition": {
+    "R2-01": "PASS — Home / Productions / Settings remain the durable shell routes; Open/Recover enter contextual Current Production; Back returns specifically to ProductionLibrary.",
+    "R2-02": "PASS — restrained edge-open MAT F1 top/right subtractive channels remain one non-semantic authored field.",
+    "R2-03": "PASS AFTER BOUNDED ACCESSIBILITY CORRECTION — visible creator copy avoids backend/storage vocabulary; exact-current UI Automation exposes the Production row as ProductionName only, with no ProductionSummary/fixture-ID leak.",
+    "R2-04": "PASS — Back uses system SymbolThemeFontFamily E72B at 20 px, accessible name and tooltip exactly Back, native focus visuals, and Productions focus return."
+  },
+  "visual_evidence": {
+    "dark_1200x800_sha256": "AD3571FE02BA42A86683CD817E9E6CFF11A01AB814C8FD7160E94494D7AABC6E",
+    "light_1200x800_sha256": "B594AE45018261A2AC71806323AD53B81D0E8511E41913B52FCCB6757DA36B7C",
+    "dark_720x520_sha256": "32FB6DE95260B4273C6A04A94C34BE1860E10F4E618C4703CB3847A6BEF74544",
+    "back_tooltip_sha256": "8541814C53A2060B9D1006E76C55E22EE290826F12E30C038826E20673A6A40F",
+    "note": "Captures are bound to 95d133...; the final exact-source delta is accessibility-only and has no visual styling/layout effect."
+  },
+  "exact_current_native_evidence": {
+    "application_tests": "57/57 PASS",
+    "winui_arm64_release": "PASS — 0 warnings / 0 errors",
+    "persistence": "129/129 PASS remains bound to f7678811c715f3c3cfe6daed95a38737fedc0ba2; final delta is Windows presentation/accessibility only",
+    "temporary_msix_sha256": "F0E0FF8C7CE857FC1832F6CBCCD0C681D14366BA570205EFB981F208172BDB9F",
+    "uia_list_item_name": "Glass Harbor",
+    "uia_glass_harbor_exact_count": 1,
+    "uia_internal_leak_count": 0,
+    "temporary_package_unregistered": true
+  },
+  "preserved_limits": [
+    "High Contrast exact-source recapture remains unearned; no safety bypass.",
+    "Source Sans 3 production packaging/localization remains unresolved.",
+    "S1 shipping/native Stage asset packaging remains unresolved.",
+    "Temporary unsigned package is not WACK, Store, installed-release or release validation.",
+    "World-current UI remains a later separately gated Design/Engineering scope."
+  ],
+  "integration_pending": true,
+  "next": "Require exact-final-head hosted validation after continuity closeout. If green, PR #244 may proceed only with explicit Director merge authorization; then require exact-main validation before Q-DESIGN-20/Q-PROD-02 close."
+}
