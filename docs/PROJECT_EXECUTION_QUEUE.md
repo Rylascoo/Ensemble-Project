@@ -54,4 +54,5 @@ This file now carries only current, deferred, or blocking work. Completed histor
 - `docs/HYPOTHESIS_LEDGER.md` — unverified assumptions and triggers.
 - `docs/VALIDATION_LEDGER.md` — exact validation facts/rungs.
 - `docs/design/app/CURRENT_CONTRACTS.md` — active application-Design bootstrap.
+- `docs/evidence/LEGACY_CURRENT_EVIDENCE_INDEX_2026_09_22.md` — compact reachability for still-current historical evidence removed from the active queue.
 - `docs/roadmap/KYMAEAN_ARCHITECTURE_AND_SHIP_PLAN.md` — program order.
