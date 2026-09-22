@@ -12,7 +12,7 @@ Current tasks use roles, not persistent personas.
 
 `DESIGN_ARCHITECTURE_READY = READY`. Q-PROD-02/03/04/05 and Q-DESIGN-20/21/22 are integrated.
 
-Q-UNITY-01 project unification is complete.
+Q-UNITY-01 project unification is complete: `docs/Q_UNITY_01_PROJECT_UNIFICATION_AND_SIMPLIFICATION_2026_09_22.md`.
 
 Q-UNITY-02 is **DONE / INTEGRATED**. PR #248 merged at `b939238ad990a0141b2b969954372bcf9875224d`; exact-merge-main Validation #1192 PASS. Exact native executable source `31da99d240eb593697a18ae314f320473b1194ab`: ARM64 environment PASS, Application/Persistence `-Full` regression PASS, Persistence 135/135 PASS, ARM64 WinUI Release build PASS with 0 warnings/errors, full solution Release build PASS. The disconnected `WorkspaceApplication` / `WorkspaceProjection` / `IProductionStore` / `Kymaean.Infrastructure.Demo` model is retired without changing canonical E0 fixtures or integrated Product/Persistence/Windows semantics.
 
