@@ -1,7 +1,7 @@
 # Q-PROD-06 Character / Production Cast identity foundation — native ARM64 validation
 
 Date: 2026-09-22  
-Status: **VALIDATED / INDEPENDENT EXACT-CANDIDATE REVIEW CLEAN / PENDING INTEGRATION**  
+Status: **INTEGRATED / INDEPENDENT EXACT-CANDIDATE REVIEW CLEAN**  
 Baseline main: `0cfadc6121a187335df3016d925ea0584b40a1b9`  
 Draft PR: #249  
 Exact executable source: `90905c8952f77a7d6f926350fa5ada0796be56bf`
@@ -68,4 +68,6 @@ No provider traffic or deferred-E0 execution was performed.
 
 Native runtime/test authority belongs only to executable source `90905c8952f77a7d6f926350fa5ada0796be56bf`. Subsequent evidence/state commits may describe this result but do not inherit or inflate native authority.
 
-Documentation closeout head `63cf46c0aaa4947316e451ec3ab0d534f3d53b25` passed Validation #1220 and E0-E preparation #190 after the successor-selection provenance edge was restored. Q-PROD-06 is therefore merge-ready subject only to the required merge authority and a final hosted pass on any later documentation-only closeout head.
+Documentation closeout head `63cf46c0aaa4947316e451ec3ab0d534f3d53b25` passed Validation #1220 and E0-E preparation #190 after the successor-selection provenance edge was restored. Final PR head `784ac6dc7b324bb5daf12eaaf65086c3834fe1ec` passed Validation #1225 and E0-E preparation #192.
+
+PR #249 merged normally at `1ca940a8235411b378aa2e50737bc261ce79494b`. Push-triggered exact-main Validation #1226 PASS confirmed the integrated merge commit. Q-PROD-06 is closed/integrated. Native authority remains bound to executable source `90905c8952f77a7d6f926350fa5ada0796be56bf`; merge and documentation commits do not inflate it.
