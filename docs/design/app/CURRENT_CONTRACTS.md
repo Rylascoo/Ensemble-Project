@@ -38,7 +38,7 @@ World-current truth is creator/Production truth, whole-state replacement, exact 
 
 ### Q-DESIGN-22 — Create Production
 
-**ACCEPTED FOR INTEGRATION / PR #247 UNMERGED.** Contract: `contracts/CREATE_PRODUCTION_PRESENTATION.md`. Native evidence: `../../evidence/Q_PROD_05_CREATE_PRODUCTION_PRESENTATION_NATIVE_ARM64_VALIDATION_2026_09_22.md`.
+**DONE / INTEGRATED.** Contract: `contracts/CREATE_PRODUCTION_PRESENTATION.md`. PR #247 merged at `abf7626b038625dd1a4ed32ee643d1232e011b8c`; exact-main Validation #1182 PASS. Native authority remains bound to exact source `200f2c1faa73b524353822f3ee09eced74dc019d`.
 
 Creation is contextual work in **Productions**, does not auto-open, does not adopt FIRSTUSE/Home, and conditionally disambiguates exact duplicate names with a presentation-only stable Production code derived from opaque identity.
 

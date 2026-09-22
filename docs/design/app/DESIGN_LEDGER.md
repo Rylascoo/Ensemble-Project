@@ -945,7 +945,7 @@ Q-PROD-05 may implement the Windows presentation only. Product/Persistence mutat
 
 ## Q-DESIGN-22 native acceptance — 2026-09-22
 
-**State:** ACCEPTED FOR INTEGRATION / EXACT SOURCE `200f2c1faa73b524353822f3ee09eced74dc019d` / PR #247 UNMERGED
+**State:** ACCEPTED / INTEGRATED / EXACT SOURCE `200f2c1faa73b524353822f3ee09eced74dc019d` / PR #247 MERGED AT `abf7626b038625dd1a4ed32ee643d1232e011b8c`
 
 The Q-PROD-05 native return satisfies the adopted Create Production presentation contract with no Product/Persistence mutation. Native ARM64 Application 66/66 and Persistence 135/135 pass; the WinUI Release build passes with zero warnings/errors.
 
@@ -959,5 +959,5 @@ Evidence: `docs/evidence/Q_PROD_05_CREATE_PRODUCTION_PRESENTATION_NATIVE_ARM64_V
 
 **APPROVED BY STANDING DIRECTOR DELEGATION — CLEAN RECURSIVE AUDIT.**
 
-Q-DESIGN-22 remains integration-pending until PR #247 merges and exact-main validation passes.
+Q-DESIGN-22 is integrated through PR #247 at `abf7626b038625dd1a4ed32ee643d1232e011b8c`; exact-main Validation #1182 passed. Q-DESIGN-22 is closed. FIRSTUSE/Home A/B and all unearned lifecycle/provider/Stage/release semantics remain separate.
 

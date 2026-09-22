@@ -480,22 +480,22 @@ Native authority remains bound to the exact tested source; integration and later
 
 Native authority remains bound to the exact tested source; integration and this documentation closeout do not inflate the evidence rung.
 
-### Q-PROD-05 / Q-DESIGN-22 Create Production presentation candidate
+### Q-PROD-05 / Q-DESIGN-22 Create Production presentation integrated checkpoint
 
 | Field | Fact |
 |---|---|
 | Base | `a6bac97f3fe543d36aa28067d8c566f7d0882d7c`; Q-UNITY-01 exact-main Validation #1169 PASS |
 | Exact tested executable source | `200f2c1faa73b524353822f3ee09eced74dc019d` |
 | Evidence | `docs/evidence/Q_PROD_05_CREATE_PRODUCTION_PRESENTATION_NATIVE_ARM64_VALIDATION_2026_09_22.md` |
-| Design acceptance | `docs/design/app/evidence/native/APPUI_01_Q_DESIGN_22_CREATE_PRODUCTION_NATIVE_ACCEPTANCE_2026_09_22.json`; ACCEPTED FOR INTEGRATION |
-| Review | pre-call event-loop yield race found in predecessor and corrected before exact-source native revalidation |
+| Design acceptance | `docs/design/app/evidence/native/APPUI_01_Q_DESIGN_22_CREATE_PRODUCTION_NATIVE_ACCEPTANCE_2026_09_22.json`; ACCEPTED / INTEGRATED |
 | Native ARM64 | Application 66/66 PASS; Persistence 135/135 PASS; WinUI Release PASS, 0 warnings/errors |
-| Native UI | empty library, whitespace block, exact UTF-16 name, no implicit Open, exact created-row focus, unique-row no-code, duplicate code disambiguation, Open/Recover, Light/Dark, 720x520 PASS |
-| Accessibility | duplicate accessible names include visible Production code; unique rows omit code; zero tested internal object/raw identity leakage |
-| Package | temporary ARM64 MSIX SHA-256 `348369C0EB9B138660975A0042CD0A3A3D65B522C6F283B610681334AC8F2D31`; unregistered after evidence |
-| Hosted exact source | push Validation #1176 PASS; PR Validation #1177 PASS; E0-E preparation #178 PASS |
-| Docs-only successor | `f833b07b253aea86ca6fb8e8dd2ce621cdda0725`; push #1178, PR #1179, E0-E #179 all PASS |
+| Native UI | empty/New Production, whitespace block, exact UTF-16 name, no implicit Open, exact created-row focus, unique-row no-code, duplicate-code disambiguation, Open/Recover, Light/Dark, 720x520 PASS |
+| Package | temporary ARM64 MSIX SHA-256 `348369C0EB9B138660975A0042CD0A3A3D65B522C6F283B610681334AC8F2D31`; unregistered |
+| Final PR head | `96fe9397c2e44894dab9769ec2d01af5798cfb7a`; push Validation #1180 PASS; PR Validation #1181 PASS; E0-E preparation #180 PASS |
+| Integrated main | PR #247 merge `abf7626b038625dd1a4ed32ee643d1232e011b8c`; exact-main Validation #1182 PASS |
 | Limits | no Product/Persistence mutation; FIRSTUSE/Home A/B, High Contrast, Source Sans 3/S1, provider/deferred-E0/release gates remain open |
+
+Native authority remains bound to exact source `200f2c1...`; merge/documentation commits do not inherit or inflate target-device evidence.
 
 ### Supporting provider-evidence continuity
 

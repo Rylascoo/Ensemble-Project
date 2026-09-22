@@ -21,9 +21,6 @@ This file now carries only current, deferred, or blocking work. Completed histor
 
 | ID | Role | Status | Work | Hard boundary / successor |
 |---|---|---|---|---|
-| Q-UNITY-01 | Governance / Recovery / Product / Design | DONE | Unified active authority/workflow language, archived the historical queue, introduced the short Design index, reduced live remote refs, and resolved the Create Production duplicate-name complication without reopening Product semantics. | Evidence: `docs/Q_UNITY_01_PROJECT_UNIFICATION_AND_SIMPLIFICATION_2026_09_22.md`. |
-| Q-DESIGN-22 | Design | ACCEPTED — INTEGRATION PENDING | Create Production presentation accepted at exact source `200f2c1faa73b524353822f3ee09eced74dc019d`; empty/exact-name/no-auto-open/exact-focus/duplicate-code/accessibility/Light-Dark/720 evidence passes. | Acceptance: `docs/design/app/evidence/native/APPUI_01_Q_DESIGN_22_CREATE_PRODUCTION_NATIVE_ACCEPTANCE_2026_09_22.json`. Integrate PR #247 only after exact-final-head hosted PASS and Director merge authorization. |
-| Q-PROD-05 | Implementation | READY FOR DIRECTOR INTEGRATION — DRAFT PR #247 | Windows New Production form, exact returned-row selection/focus and conditional duplicate-name Production-code presentation implemented with no Product/Persistence source change. | Exact source `200f2c1faa73b524353822f3ee09eced74dc019d`; native Application 66/66, Persistence 135/135, ARM64 WinUI 0 warnings/errors; evidence in `docs/evidence/Q_PROD_05_CREATE_PRODUCTION_PRESENTATION_NATIVE_ARM64_VALIDATION_2026_09_22.md`. Require final-head hosted PASS, then Director merge authorization. |
 | Q-ADMIN-07 | Governance / Recovery | DEFERRED — LOCAL RESIDUE ONLY | Disposition remaining local historical/deferred worktrees after owner/status/evidence review. | Remote branch clutter is closed by Q-UNITY-01; preserve ambiguous local evidence and the unique historical PR #226 branch. |
 
 ## Deferred E0 / architecture gates

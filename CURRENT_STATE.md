@@ -10,16 +10,18 @@ Current tasks use roles, not persistent personas. Website is website-only plus h
 
 ## Checkpoint
 
-`DESIGN_ARCHITECTURE_READY = READY`. Q-PROD-02/03/04 and Q-DESIGN-20/21 are integrated.
+`DESIGN_ARCHITECTURE_READY = READY`.
 
-Q-UNITY-01 is complete at main `a6bac97f3fe543d36aa28067d8c566f7d0882d7c`; Validation #1169 PASS.
+Q-PROD-02/03/04/05 and Q-DESIGN-20/21/22 are **DONE / INTEGRATED**.
 
-Q-PROD-05 / Q-DESIGN-22 exact executable source `200f2c1faa73b524353822f3ee09eced74dc019d` implements the Windows Create Production presentation with no Product/Persistence source change. Native ARM64 Application 66/66, Persistence 135/135 and WinUI Release build PASS. Empty/whitespace/exact-text creation, no implicit Open, exact created-row focus, conditional duplicate-name Production codes, Open/Recover regression, Light/Dark, 720×520 and accessibility all PASS.
+Q-PROD-05 / Q-DESIGN-22 merged through PR #247 at `abf7626b038625dd1a4ed32ee643d1232e011b8c`; exact-main Validation #1182 PASS. Exact native source `200f2c1faa73b524353822f3ee09eced74dc019d`: Application 66/66, Persistence 135/135, ARM64 WinUI Release PASS. Create Production is creator-facing in Productions, preserves exact-name semantics, does not auto-open, focuses the exact returned row, and conditionally disambiguates duplicate names with presentation-only Production codes.
 
-Evidence: `docs/evidence/Q_PROD_05_CREATE_PRODUCTION_PRESENTATION_NATIVE_ARM64_VALIDATION_2026_09_22.md`.
+Q-UNITY-01 is complete. Active workflow is Project-rooted and role-based; historical sequencing/evidence is compactly indexed.
 
-Q-DESIGN-22 = **ACCEPTED FOR INTEGRATION**. PR #247 remains draft/unmerged. Concurrent alternate `qprod05/create-production-windows-2026-09-22@ce46c78f21bd14aeb04694348bc7dd7ba079f0ba` is superseded and preserved only until canonical integration/exact-main validation.
+## Open gates
+
+Home A/B and FIRSTUSE remain unresolved/unadopted. Rename/delete/import/restore, Character/Scene ontology, provider/Performer, Stage motion, deferred E0, High Contrast proof, Source Sans 3/S1 packaging, final architecture, WACK/Store and release remain separately gated.
 
 ## Next
 
-Require exact-final-head hosted PASS after evidence closeout. Then PR #247 requires explicit Director merge authorization. FIRSTUSE/Home A/B, High Contrast, Source Sans 3/S1 packaging, provider/deferred-E0/final-architecture/WACK/Store/release gates remain unchanged.
+Run a fresh read-only successor-selection reconciliation from this integrated state. Prefer the smallest Alpha-flow Product gap; do not infer rename/delete/import/restore, Character/Scene semantics, provider behavior or FIRSTUSE/Home decisions merely to keep implementation moving.

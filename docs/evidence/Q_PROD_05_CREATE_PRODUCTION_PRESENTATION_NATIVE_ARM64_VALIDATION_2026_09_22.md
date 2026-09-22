@@ -1,6 +1,6 @@
 # Q-PROD-05 Create Production presentation — native ARM64 validation
 
-Date: 2026-09-22. Status: exact-source native candidate; Q-DESIGN-22 accepted for integration; PR #247 unmerged.
+Date: 2026-09-22. Status: exact-source native implementation integrated; Q-PROD-05 / Q-DESIGN-22 closed.
 
 ## Identity
 
@@ -79,3 +79,10 @@ Scratch-only captures remain in `C:\Users\Wiryl\Sol Dev\admin-scratch\qprod05-na
 The temporary package was unregistered, the host's original Dark app theme was restored, and the exact-source worktree was clean.
 
 High Contrast exact-source recapture remains unearned. Source Sans 3/S1 shipping packaging, WACK, Store and release authority remain open. FIRSTUSE and Home A/B remain unchanged. No rename/delete/import/restore, Character/Scene, provider/Performer, Stage or deferred-E0 semantics were added.
+
+## Integration closeout
+
+Final PR head `96fe9397c2e44894dab9769ec2d01af5798cfb7a` passed push Validation #1180, PR Validation #1181 and E0-E preparation #180. PR #247 merged to Project main at `abf7626b038625dd1a4ed32ee643d1232e011b8c`; exact-main Validation #1182 passed.
+
+Q-PROD-05 and Q-DESIGN-22 are closed. Native/runtime authority remains bound to exact tested executable source `200f2c1faa73b524353822f3ee09eced74dc019d`. The merge and this documentation closeout do not promote unresolved FIRSTUSE/Home, High Contrast, packaging, provider, deferred-E0 or release gates.
+

@@ -1,6 +1,6 @@
 {
   "schema": "kymaean.appui-q-design-22-create-production-native-acceptance.v1",
-  "status": "ACCEPTED_FOR_INTEGRATION",
+  "status": "ACCEPTED_INTEGRATED",
   "date": "2026-09-22",
   "role": "Design",
   "queue_item": "Q-DESIGN-22",
@@ -48,6 +48,18 @@
     "No rename/delete/import/restore, Character/Scene, provider/Performer, Stage, deferred-E0, WACK/Store or release authority."
   ],
   "approval": "APPROVED BY STANDING DIRECTOR DELEGATION — CLEAN RECURSIVE AUDIT",
-  "integration_pending": true,
-  "next": "Require exact-final-head hosted PASS after evidence/continuity closeout, then explicit Director merge authorization for PR #247."
+  "integration_pending": false,
+  "next": "Q-PROD-05 / Q-DESIGN-22 closed. Run a fresh successor-selection reconciliation before opening another implementation package.",
+  "final_pr_head": "96fe9397c2e44894dab9769ec2d01af5798cfb7a",
+  "integrated_main": "abf7626b038625dd1a4ed32ee643d1232e011b8c",
+  "final_head_hosted": {
+    "push_validation": "#1180 PASS",
+    "pr_validation": "#1181 PASS",
+    "e0e_preparation": "#180 PASS"
+  },
+  "exact_main_validation": {
+    "run_number": 1182,
+    "conclusion": "PASS",
+    "event": "push"
+  }
 }
