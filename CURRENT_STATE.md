@@ -10,21 +10,18 @@ Current tasks use roles, not persistent personas.
 
 ## Checkpoint
 
-`DESIGN_ARCHITECTURE_READY = READY`. Q-PROD-02/03/04/05 and Q-DESIGN-20/21/22 are integrated. PR #247 merged at `abf7626b038625dd1a4ed32ee643d1232e011b8c`; exact-main Validation #1182 PASS. Post-closeout main `c41d07fcd8108fb57932b56db0c4a7061d15d533`; Validation #1184 PASS.
+`DESIGN_ARCHITECTURE_READY = READY`. Q-PROD-02/03/04/05 and Q-DESIGN-20/21/22 are integrated.
 
-Q-UNITY-01 is complete: `docs/Q_UNITY_01_PROJECT_UNIFICATION_AND_SIMPLIFICATION_2026_09_22.md`. The active project is role-based / Project-rooted.
+Q-UNITY-01 project unification is complete.
 
-## Active simplification
+Q-UNITY-02 is **DONE / INTEGRATED**. PR #248 merged at `b939238ad990a0141b2b969954372bcf9875224d`; exact-merge-main Validation #1192 PASS. Exact native executable source `31da99d240eb593697a18ae314f320473b1194ab`: ARM64 environment PASS, Application/Persistence `-Full` regression PASS, Persistence 135/135 PASS, ARM64 WinUI Release build PASS with 0 warnings/errors, full solution Release build PASS. The disconnected `WorkspaceApplication` / `WorkspaceProjection` / `IProductionStore` / `Kymaean.Infrastructure.Demo` model is retired without changing canonical E0 fixtures or integrated Product/Persistence/Windows semantics.
 
-Q-UNITY-02 retires disconnected first-slice workspace/demo Product scaffolding before real Character/Cast work. Evidence:
-`docs/evidence/Q_UNITY_02_DISCONNECTED_WORKSPACE_DEMO_SCAFFOLD_RETIREMENT_2026_09_22.md`.
-
-Scope is deletion of the unused `WorkspaceApplication` / `WorkspaceProjection` / `IProductionStore` / `Kymaean.Infrastructure.Demo` surface and its direct tests/build references only. Integrated ProductApplication/Persistence/Windows contracts and canonical E0 fixtures remain untouched.
+Evidence: `docs/evidence/Q_UNITY_02_DISCONNECTED_WORKSPACE_DEMO_SCAFFOLD_RETIREMENT_2026_09_22.md`.
 
 ## Open gates
 
-Home A/B, FIRSTUSE, Character/Scene Product ontology, provider/Performer, Stage motion, deferred E0, High Contrast, Source Sans 3/S1 packaging, final architecture, WACK/Store and release remain separately gated.
+Home A/B, FIRSTUSE, rename/delete/import/restore, Character/Scene ontology beyond the next audit, provider/Performer, Stage motion, deferred E0, High Contrast, Source Sans 3/S1 packaging, final architecture, WACK/Store and release remain separately gated.
 
 ## Next
 
-Validate Q-UNITY-02. After integration, run Q-PROD-06 successor selection for the smallest persistent Character / Production Cast identity foundation; do not combine it with Scene membership or Performer casting.
+Run Q-PROD-06 as a **read-only Product / Architecture successor-selection audit** for the minimum persistent Character / Production Cast identity foundation. Preserve `Character != Performer`. Do not implement or infer Scene membership, Performer/provider assignment, knowledge/belief/memory, Pressure, Take or Rehearsal semantics.
