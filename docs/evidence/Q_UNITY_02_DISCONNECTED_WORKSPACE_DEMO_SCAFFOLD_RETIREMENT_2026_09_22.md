@@ -56,3 +56,44 @@ Require repository law/document census, Application/Persistence regression, ARM6
 After integration, run Q-PROD-06 successor selection for the smallest real **persistent Character / Production Cast identity foundation** before any Scene-membership contract.
 
 **APPROVED UNDER DIRECTOR Q-UNITY SIMPLIFICATION CONTINUATION.**
+
+## Exact-head hosted validation
+
+Exact executable candidate reviewed and validated: `31da99d240eb593697a18ae314f320473b1194ab`.
+
+- PR Validation #1189: **PASS**.
+- E0-E preparation #182: **PASS**.
+- Validation jobs include repository law, document authority census, oracle coverage, Product Application regression, Product persistence regression, Core regression, and ARM64 cross-compile gates.
+- Hosted validation remains compiler/regression evidence; it is not promoted into native ARM64 runtime authority.
+
+## Native Windows ARM64 validation
+
+Native validation ran on SurfSeven against detached exact source
+`31da99d240eb593697a18ae314f320473b1194ab`.
+
+- application environment verifier: **PASS** on ARM64 OS / ARM64 process;
+- `tools/test-application.ps1 -Full`: **PASS** for native win-arm64 Application and Persistence regressions;
+- Persistence regression observed: **135/135 PASS**;
+- `Kymaean.Windows` Release `win-arm64` build: **PASS**, 0 warnings / 0 errors;
+- full `Ensemble.sln` Release build: **PASS**, 0 warnings / 0 errors;
+- `git diff --check`: **PASS**;
+- final worktree status: **clean**.
+
+This validation does not claim package registration, packaged runtime, WACK, Store, provider, or deferred-E0 behavior because Q-UNITY-02 does not change those surfaces and they were not exercised here.
+
+## Independent exact-candidate review
+
+Read-only review of exact candidate `31da99d...` is **CLEAN**.
+
+The review confirmed:
+
+- all executable deletions are confined to the disconnected `WorkspaceApplication` / `WorkspaceProjection` / `IProductionStore` / Demo surface and its direct tests/build-law references;
+- current `ProductApplication` remains intact;
+- current Windows composition references only `Kymaean.Application` + `Kymaean.Infrastructure.Persistence`;
+- the canonical `fixtures/missing-raft/missing-raft-0.1.0.json` remains present and unchanged by this PR;
+- `Ensemble.E0.Core` / Harness source is untouched;
+- historical evidence that names `IProductionStore`, `WorkspaceProjection`, or `Kymaean.Infrastructure.Demo` remains preserved as historical evidence;
+- no current Product contract or executable Windows dependency requires the removed types;
+- the result reduces duplicate ontology/persistence ambiguity before real Character/Cast identity work.
+
+The evidence-record commit that follows this review is documentation-only. Native evidence remains bound to executable source `31da99d...`; final PR integration still requires exact-head hosted validation after this record is committed.
