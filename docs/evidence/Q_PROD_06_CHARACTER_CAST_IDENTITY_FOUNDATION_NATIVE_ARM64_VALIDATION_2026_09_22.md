@@ -5,6 +5,7 @@ Status: **VALIDATED / INDEPENDENT EXACT-CANDIDATE REVIEW CLEAN / PENDING INTEGRA
 Baseline main: `0cfadc6121a187335df3016d925ea0584b40a1b9`  
 Draft PR: #249  
 Exact executable source: `90905c8952f77a7d6f926350fa5ada0796be56bf`
+Authorization / successor selection: `docs/evidence/Q_PROD_06_SUCCESSOR_SELECTION_CHARACTER_CAST_IDENTITY_FOUNDATION_2026_09_22.md`
 
 ## Earned scope
 
