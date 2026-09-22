@@ -97,9 +97,13 @@ internal static class ProductionEventCodec
     private const string ProductionNameProperty = "productionName";
     private const string ProductionNameCodeUnitsProperty = "productionNameUtf16Be";
     private const string TruthsProperty = "truthsUtf16Be";
+    private const string CharacterIdCodeUnitsProperty = "characterIdUtf16Be";
+    private const string CharacterNameCodeUnitsProperty = "characterNameUtf16Be";
     private const string ProductionCreatedContractFamily = "kymaean.production.created.v";
     private const string ReplacementContractFamily =
         "kymaean.production.creator-replaced-world-current-state.v";
+    private const string CharacterCreatedContractFamily =
+        "kymaean.production.character-created.v";
 
     public static byte[] Encode(ProductionEvent productionEvent)
     {
@@ -128,6 +132,17 @@ internal static class ProductionEventCodec
 
                 writer.WriteEndArray();
                 break;
+            case CharacterCreatedEvent created:
+                writer.WriteString(
+                    ContractProperty,
+                    ProductionPersistenceVersionPolicy.CharacterCreatedContractV1);
+                writer.WriteBase64String(
+                    CharacterIdCodeUnitsProperty,
+                    Utf16CodeUnits.Encode(created.CharacterId.Value));
+                writer.WriteBase64String(
+                    CharacterNameCodeUnitsProperty,
+                    Utf16CodeUnits.Encode(created.CharacterName));
+                break;
             default:
                 throw new NotSupportedException(
                     $"Production event type '{productionEvent.GetType().Name}' cannot be persisted.");
@@ -155,6 +170,8 @@ internal static class ProductionEventCodec
                     DecodeProductionCreatedV2(root),
                 ProductionPersistenceVersionPolicy.CreatorReplacedWorldCurrentStateContractV1 =>
                     DecodeReplacement(root),
+                ProductionPersistenceVersionPolicy.CharacterCreatedContractV1 =>
+                    DecodeCharacterCreated(root),
                 _ when contract.StartsWith(
                     ProductionCreatedContractFamily,
                     StringComparison.Ordinal) =>
@@ -168,6 +185,11 @@ internal static class ProductionEventCodec
                         "CreatorReplacedWorldCurrentState event contract",
                         contract,
                         ProductionPersistenceVersionPolicy.CreatorReplacedWorldCurrentStateContractV1),
+                _ when contract.StartsWith(CharacterCreatedContractFamily, StringComparison.Ordinal) =>
+                    throw ProductionPersistenceVersionPolicy.UnsupportedEventContract(
+                        "CharacterCreated event contract",
+                        contract,
+                        ProductionPersistenceVersionPolicy.CharacterCreatedContractV1),
                 _ => throw new InvalidDataException(
                     $"Unsupported Production event contract '{contract}'.")
             };
@@ -222,6 +244,19 @@ internal static class ProductionEventCodec
 
         return new CreatorReplacedWorldCurrentStateEvent(new WorldCurrentState(
             truths.EnumerateArray().Select(value => new WorldCurrentTruth(ReadCodeUnits(value)))));
+    }
+
+    private static CharacterCreatedEvent DecodeCharacterCreated(JsonElement root)
+    {
+        RequireExactProperties(
+            root,
+            ContractProperty,
+            CharacterIdCodeUnitsProperty,
+            CharacterNameCodeUnitsProperty);
+        return new CharacterCreatedEvent(
+            new CharacterId(
+                ReadCodeUnits(root.GetProperty(CharacterIdCodeUnitsProperty))),
+            ReadCodeUnits(root.GetProperty(CharacterNameCodeUnitsProperty)));
     }
 
     private static string ReadCodeUnits(JsonElement value)

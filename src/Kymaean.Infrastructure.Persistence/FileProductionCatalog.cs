@@ -2,7 +2,11 @@ using Kymaean.Application;
 
 namespace Kymaean.Infrastructure.Persistence;
 
-public sealed class FileProductionCatalog : IProductionCatalog, IProductionWorldStateWriter, IProductionCreator
+public sealed class FileProductionCatalog :
+    IProductionCatalog,
+    IProductionWorldStateWriter,
+    IProductionCreator,
+    IProductionCharacterCreator
 {
     private const string CatalogDirectoryName = "production-catalog";
     private const string EntryDirectoryPrefix = "entry-";
@@ -180,6 +184,56 @@ public sealed class FileProductionCatalog : IProductionCatalog, IProductionWorld
             : ProductAccessResult<ProductionCatalogEntry>.Success(match);
     }
 
+    public ProductAccessResult<CharacterCreation> CreateCharacter(
+        ProductionId productionId,
+        string characterName)
+    {
+        ArgumentNullException.ThrowIfNull(productionId);
+        ArgumentException.ThrowIfNullOrWhiteSpace(characterName);
+
+        var entry = ResolveProductionEntry(productionId);
+        if (!entry.IsSuccess)
+        {
+            return ProductAccessResult<CharacterCreation>.Failure(
+                entry.FailureKind);
+        }
+
+        var current = ReadProjection(
+            entry.Value.DirectoryPath,
+            recover: false);
+        if (!current.IsSuccess)
+        {
+            return ProductAccessResult<CharacterCreation>.Failure(
+                current.FailureKind);
+        }
+
+        CharacterId characterId;
+        do
+        {
+            characterId = new CharacterId(Guid.NewGuid().ToString("N"));
+        }
+        while (current.Value.ProductionCast.Characters.Any(
+            character => character.Id == characterId));
+
+        var character = new CharacterSummary(
+            characterId,
+            characterName);
+        var updated = ReadProjection(
+            entry.Value.DirectoryPath,
+            recover: false,
+            append: new CharacterCreatedEvent(
+                characterId,
+                characterName));
+        if (!updated.IsSuccess)
+        {
+            return ProductAccessResult<CharacterCreation>.Failure(
+                updated.FailureKind);
+        }
+
+        return ProductAccessResult<CharacterCreation>.Success(
+            new CharacterCreation(character, updated.Value));
+    }
+
     public ProductAccessResult<ProductionReplayProjection> ReplaceWorldCurrentState(
         ProductionId productionId,
         WorldCurrentState currentState)
@@ -192,8 +246,10 @@ public sealed class FileProductionCatalog : IProductionCatalog, IProductionWorld
             return ProductAccessResult<ProductionReplayProjection>.Failure(entry.FailureKind);
         }
 
-        return ReadProjection(entry.Value.DirectoryPath, recover: false,
-            replacement: new CreatorReplacedWorldCurrentStateEvent(currentState));
+        return ReadProjection(
+            entry.Value.DirectoryPath,
+            recover: false,
+            append: new CreatorReplacedWorldCurrentStateEvent(currentState));
     }
 
     private ProductAccessResult<ProductionReplayProjection> AccessProduction(
@@ -293,7 +349,7 @@ public sealed class FileProductionCatalog : IProductionCatalog, IProductionWorld
     private static ProductAccessResult<ProductionReplayProjection> ReadProjection(
         string directoryPath,
         bool recover,
-        CreatorReplacedWorldCurrentStateEvent? replacement = null)
+        ProductionEvent? append = null)
     {
         FileProductionEventStore store;
         try
@@ -310,9 +366,9 @@ public sealed class FileProductionCatalog : IProductionCatalog, IProductionWorld
         ProductionJournalAnchor? anchor;
         try
         {
-            if (replacement is not null)
+            if (append is not null)
             {
-                store.Append(replacement);
+                store.Append(append);
             }
 
             var history = recover
