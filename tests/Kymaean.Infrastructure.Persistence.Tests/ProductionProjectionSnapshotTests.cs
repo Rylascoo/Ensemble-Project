@@ -231,6 +231,60 @@ public sealed class ProductionProjectionSnapshotTests
     }
 
     [TestMethod]
+    public void OversizedSnapshotCountsFallBackWithoutUntrustedCapacityAllocation()
+    {
+        using var directory = new TestDirectory();
+        var id = new ProductionId("snapshot-count-bounds");
+        var entry = CreateProduction(
+            directory.Path,
+            1,
+            id,
+            "Count Harbor");
+        var catalog = new FileProductionCatalog(directory.Path);
+        Assert.IsTrue(catalog.OpenProduction(id).IsSuccess);
+
+        var snapshotPath = SnapshotPath(entry);
+        var bytes = File.ReadAllBytes(snapshotPath);
+        var nameLength = checked((int)
+            BinaryPrimitives.ReadUInt32BigEndian(
+                bytes.AsSpan(52, sizeof(uint))));
+        var truthCountOffset =
+            SnapshotPrefixLength + (nameLength * sizeof(ushort));
+
+        BinaryPrimitives.WriteUInt32BigEndian(
+            bytes.AsSpan(truthCountOffset, sizeof(uint)),
+            (uint)int.MaxValue);
+        RecomputeSnapshotChecksum(bytes);
+        File.WriteAllBytes(snapshotPath, bytes);
+
+        var truthCountResult = catalog.OpenProduction(id);
+
+        Assert.IsTrue(truthCountResult.IsSuccess);
+        Assert.AreEqual("Count Harbor", truthCountResult.Value.ProductionName);
+        AssertSnapshot(entry, "Count Harbor");
+
+        bytes = File.ReadAllBytes(snapshotPath);
+        nameLength = checked((int)
+            BinaryPrimitives.ReadUInt32BigEndian(
+                bytes.AsSpan(52, sizeof(uint))));
+        truthCountOffset =
+            SnapshotPrefixLength + (nameLength * sizeof(ushort));
+        var characterCountOffset = truthCountOffset + sizeof(uint);
+
+        BinaryPrimitives.WriteUInt32BigEndian(
+            bytes.AsSpan(characterCountOffset, sizeof(uint)),
+            (uint)int.MaxValue);
+        RecomputeSnapshotChecksum(bytes);
+        File.WriteAllBytes(snapshotPath, bytes);
+
+        var characterCountResult = catalog.OpenProduction(id);
+
+        Assert.IsTrue(characterCountResult.IsSuccess);
+        Assert.AreEqual("Count Harbor", characterCountResult.Value.ProductionName);
+        AssertSnapshot(entry, "Count Harbor");
+    }
+
+    [TestMethod]
     public void ValidSnapshotCannotMaskCorruptJournal()
     {
         using var directory = new TestDirectory();
