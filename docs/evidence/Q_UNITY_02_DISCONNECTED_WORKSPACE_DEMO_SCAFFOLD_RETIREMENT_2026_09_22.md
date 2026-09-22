@@ -1,7 +1,7 @@
 # Q-UNITY-02 disconnected workspace/demo scaffold retirement
 
 Date: 2026-09-22  
-Status: **BOUNDED SIMPLIFICATION CANDIDATE / NO PRODUCT SEMANTIC CHANGE**
+Status: **INTEGRATED / NO PRODUCT SEMANTIC CHANGE / CLEAN RECURSIVE AUDIT**
 
 Exact base: `c41d07fcd8108fb57932b56db0c4a7061d15d533`; exact-main Validation #1184 PASS.
 
@@ -96,4 +96,17 @@ The review confirmed:
 - no current Product contract or executable Windows dependency requires the removed types;
 - the result reduces duplicate ontology/persistence ambiguity before real Character/Cast identity work.
 
-The evidence-record commit that follows this review is documentation-only. Native evidence remains bound to executable source `31da99d...`; final PR integration still requires exact-head hosted validation after this record is committed.
+The evidence-record commit that follows this review is documentation-only. Native evidence remains bound to executable source `31da99d...`.
+
+## Integration closeout
+
+- final PR head: `bd33ec62144d59455e84350b7da786dcda6eebc2`;
+- final PR-head Validation #1191: **PASS**;
+- final PR-head E0-E preparation #183: **PASS**;
+- PR #248 merged to `main` at `b939238ad990a0141b2b969954372bcf9875224d`;
+- exact-merge-main Validation #1192: **PASS**;
+- Q-UNITY-02 is **DONE / INTEGRATED**.
+
+The active source no longer carries the duplicate Workspace/Demo Product model. Historical evidence remains intact, canonical E0 fixture authority is unchanged, and no Character/Cast semantics were introduced by this cleanup.
+
+Exact successor: read-only Q-PROD-06 successor-selection audit for the minimum persistent Character / Production Cast identity foundation. Implementation is not authorized by this closeout.
