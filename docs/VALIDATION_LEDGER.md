@@ -515,6 +515,24 @@ Native authority remains bound to exact source `200f2c1...`; merge/documentation
 
 Native machine-test authority remains bound to executable source `90905c8...`; merge/evidence/state commits do not inherit or inflate it.
 
+### Q-PROD-07 / Q-DESIGN-23 Character presentation checkpoint
+
+| Field | Fact |
+|---|---|
+| Integrated base | `4f836d53a4e18ae92fa408cc87a9d9e2c3702fbe`; exact-main Validation #1246 PASS |
+| Exact tested/reviewed executable source | `9ea74391adf0a2f259c205ae88128324d4a52148` |
+| Product evidence | `docs/evidence/Q_PROD_07_CHARACTER_PRESENTATION_NATIVE_ARM64_VALIDATION_2026_09_22.md` |
+| Design contract | `docs/design/app/contracts/PRODUCTION_CAST_CHARACTER_ESTABLISHMENT_PRESENTATION.md` |
+| Design acceptance | `docs/design/app/evidence/native/APPUI_01_Q_DESIGN_23_CHARACTER_PRESENTATION_NATIVE_ACCEPTANCE_2026_09_22.json` |
+| Native ARM64 | environment PASS; Application 72/72 PASS; Persistence 141/141 PASS; WinUI Release PASS, 0 warnings/errors |
+| Native UI | empty/exact/duplicate/focus/typed-failure/non-confirmation/reopen/accessibility/Light-Dark/720x520 PASS |
+| Temporary MSIX | `88CE8B964615396496C7C24413B6187F7CD1691589F45519DC685399C36888CD`; 27,978,853 bytes; disposable validation only |
+| Hosted checkpoint | documentation successor `2a72a9f7521bd66e1a3211f4bc74a1491fc497c0`; Validation #1256 PASS |
+| Review | exact executable no-write review CLEAN; shared Production-code regression PASS |
+| Limits | High Contrast, Source Sans 3/S1, Character edit/deeper ontology, Scene membership/lifecycle, Performer/provider, Pressure/Take/Rehearsal, deferred-E0, release/WACK/Store remain unearned |
+
+Native/runtime authority remains bound to executable source `9ea74391...`; later evidence/state/integration commits do not inherit or inflate it.
+
 ### Supporting provider-evidence continuity
 
 The promoted checkpoint does not erase the still-current evidence chain that established the provider/runtime boundary. These records remain supporting evidence only and do not override the promoted checkpoint:

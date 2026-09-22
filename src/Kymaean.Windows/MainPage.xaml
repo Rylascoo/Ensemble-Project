@@ -21,6 +21,28 @@
                     TextWrapping="Wrap" />
             </Border>
         </DataTemplate>
+        <DataTemplate
+            x:Key="CharacterRowTemplate"
+            x:DataType="presentation:CharacterPresentationRow">
+            <Border
+                AutomationProperties.Name="{x:Bind AccessibleName}"
+                Padding="10,8"
+                BorderBrush="{ThemeResource KymaeanBoundaryBrush}"
+                BorderThickness="0,0,0,1">
+                <StackPanel Spacing="2">
+                    <TextBlock
+                        Foreground="{ThemeResource KymaeanPrimaryBrush}"
+                        Text="{x:Bind CharacterName}"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        FontSize="12"
+                        Foreground="{ThemeResource KymaeanSecondaryBrush}"
+                        Text="{x:Bind CharacterCodeLabel}"
+                        TextWrapping="Wrap"
+                        Visibility="{Binding HasCharacterCode, Converter={StaticResource BoolToVisibility}}" />
+                </StackPanel>
+            </Border>
+        </DataTemplate>
     </Page.Resources>
 
     <NavigationView
@@ -339,6 +361,12 @@
                                     HorizontalAlignment="Left"
                                     Click="OnOpenWorldTruthsClicked"
                                     Content="World truths" />
+                                <Button
+                                    x:Name="CharactersButton"
+                                    AutomationProperties.Name="Characters"
+                                    HorizontalAlignment="Left"
+                                    Click="OnOpenCharactersClicked"
+                                    Content="Characters" />
                             </StackPanel>
                         </Grid>
 
@@ -616,6 +644,190 @@
                                         FontSize="13"
                                         Foreground="{ThemeResource KymaeanSecondaryBrush}"
                                         Text="Open the Production again to establish authoritative current world truths before making another replacement."
+                                        TextWrapping="Wrap" />
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+
+                        <Grid Visibility="{Binding IsCharacterSurface, Converter={StaticResource BoolToVisibility}}">
+                            <StackPanel Spacing="12">
+                                <Button
+                                    x:Name="CharacterBackButton"
+                                    AutomationProperties.Name="Back"
+                                    Background="Transparent"
+                                    BorderBrush="Transparent"
+                                    Click="OnBackFromCharactersClicked"
+                                    FocusVisualMargin="2"
+                                    HorizontalAlignment="Left"
+                                    Padding="6"
+                                    ToolTipService.ToolTip="Back"
+                                    UseSystemFocusVisuals="True">
+                                    <FontIcon
+                                        FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                                        FontSize="20"
+                                        Glyph="&#xE72B;" />
+                                </Button>
+
+                                <StackPanel
+                                    Spacing="10"
+                                    Visibility="{Binding IsCharacterInspection, Converter={StaticResource BoolToVisibility}}">
+                                    <TextBlock
+                                        AutomationProperties.HeadingLevel="Level2"
+                                        FontSize="24"
+                                        FontWeight="SemiBold"
+                                        Foreground="{ThemeResource KymaeanPrimaryBrush}"
+                                        Text="Characters" />
+                                    <Border
+                                        Padding="10,8"
+                                        BorderBrush="{ThemeResource KymaeanBoundaryBrush}"
+                                        BorderThickness="0,1,0,1"
+                                        Visibility="{Binding HasCharacterStatusMessage, Converter={StaticResource BoolToVisibility}}">
+                                        <TextBlock
+                                            AutomationProperties.Name="{Binding CharacterStatusMessage}"
+                                            Foreground="{ThemeResource KymaeanPrimaryBrush}"
+                                            Text="{Binding CharacterStatusMessage}"
+                                            TextWrapping="Wrap" />
+                                    </Border>
+                                    <ListView
+                                        x:Name="CharacterList"
+                                        ContainerContentChanging="OnCharacterContainerContentChanging"
+                                        ItemTemplate="{StaticResource CharacterRowTemplate}"
+                                        ItemsSource="{Binding CharacterRows}"
+                                        SelectionMode="None" />
+                                    <TextBlock
+                                        Foreground="{ThemeResource KymaeanSecondaryBrush}"
+                                        Text="No Characters yet."
+                                        Visibility="{Binding HasNoCharacters, Converter={StaticResource BoolToVisibility}}" />
+                                    <Button
+                                        x:Name="NewCharacterButton"
+                                        AutomationProperties.Name="New Character"
+                                        HorizontalAlignment="Left"
+                                        Click="OnNewCharacterClicked"
+                                        Content="New Character" />
+                                </StackPanel>
+
+                                <StackPanel
+                                    Spacing="10"
+                                    Visibility="{Binding IsCharacterCreation, Converter={StaticResource BoolToVisibility}}">
+                                    <TextBlock
+                                        AutomationProperties.HeadingLevel="Level2"
+                                        FontSize="24"
+                                        FontWeight="SemiBold"
+                                        Foreground="{ThemeResource KymaeanPrimaryBrush}"
+                                        Text="New Character" />
+                                    <TextBox
+                                        x:Name="CharacterNameTextBox"
+                                        AutomationProperties.Name="Character name"
+                                        Header="Character name"
+                                        HorizontalAlignment="Stretch"
+                                        Text="{Binding CharacterNameDraft, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBlock
+                                        AutomationProperties.Name="{Binding CharacterCreationValidationMessage}"
+                                        Foreground="{ThemeResource KymaeanPrimaryBrush}"
+                                        Text="{Binding CharacterCreationValidationMessage}"
+                                        TextWrapping="Wrap"
+                                        Visibility="{Binding HasCharacterCreationValidationMessage, Converter={StaticResource BoolToVisibility}}" />
+                                    <StackPanel Orientation="Horizontal" Spacing="8">
+                                        <Button
+                                            x:Name="CreateCharacterButton"
+                                            AutomationProperties.Name="Create Character"
+                                            Click="OnCreateCharacterClicked"
+                                            Content="Create Character"
+                                            IsEnabled="{Binding IsCharacterCreationEnabled}" />
+                                        <Button
+                                            AutomationProperties.Name="Cancel Character creation"
+                                            Click="OnCancelCharacterCreationClicked"
+                                            Content="Cancel" />
+                                    </StackPanel>
+                                </StackPanel>
+
+                                <StackPanel
+                                    Spacing="8"
+                                    Visibility="{Binding IsCharacterSubmitting, Converter={StaticResource BoolToVisibility}}">
+                                    <TextBlock
+                                        AutomationProperties.HeadingLevel="Level2"
+                                        FontSize="24"
+                                        FontWeight="SemiBold"
+                                        Foreground="{ThemeResource KymaeanPrimaryBrush}"
+                                        Text="Confirming Character" />
+                                    <TextBlock
+                                        Foreground="{ThemeResource KymaeanSecondaryBrush}"
+                                        Text="Kymaean is confirming the new Character."
+                                        TextWrapping="Wrap" />
+                                </StackPanel>
+
+                                <StackPanel
+                                    Spacing="10"
+                                    Visibility="{Binding IsCharacterTypedFailure, Converter={StaticResource BoolToVisibility}}">
+                                    <TextBlock
+                                        AutomationProperties.HeadingLevel="Level2"
+                                        FontSize="24"
+                                        FontWeight="SemiBold"
+                                        Foreground="{ThemeResource KymaeanPrimaryBrush}"
+                                        Text="Character not created" />
+                                    <TextBlock
+                                        AutomationProperties.Name="{Binding CharacterFailureMessage}"
+                                        Foreground="{ThemeResource KymaeanPrimaryBrush}"
+                                        Text="{Binding CharacterFailureMessage}"
+                                        TextWrapping="Wrap" />
+                                    <TextBlock
+                                        FontWeight="SemiBold"
+                                        Foreground="{ThemeResource KymaeanSecondaryBrush}"
+                                        Text="Current Characters" />
+                                    <ItemsControl
+                                        ItemTemplate="{StaticResource CharacterRowTemplate}"
+                                        ItemsSource="{Binding CharacterRows}" />
+                                    <TextBlock
+                                        Foreground="{ThemeResource KymaeanSecondaryBrush}"
+                                        Text="No Characters yet."
+                                        Visibility="{Binding HasNoCharacters, Converter={StaticResource BoolToVisibility}}" />
+                                    <Button
+                                        x:Name="CharacterTypedFailureBackButton"
+                                        AutomationProperties.Name="Back to Characters"
+                                        HorizontalAlignment="Left"
+                                        Click="OnBackFromCharacterFailureClicked"
+                                        Content="Back to Characters" />
+                                </StackPanel>
+
+                                <StackPanel
+                                    Spacing="10"
+                                    Visibility="{Binding IsCharacterConfirmationUnavailable, Converter={StaticResource BoolToVisibility}}">
+                                    <TextBlock
+                                        AutomationProperties.HeadingLevel="Level2"
+                                        FontSize="24"
+                                        FontWeight="SemiBold"
+                                        Foreground="{ThemeResource KymaeanPrimaryBrush}"
+                                        Text="Confirmation unavailable" />
+                                    <TextBlock
+                                        Foreground="{ThemeResource KymaeanPrimaryBrush}"
+                                        Text="Kymaean couldn't confirm whether this Character was created."
+                                        TextWrapping="Wrap" />
+                                    <TextBlock
+                                        FontWeight="SemiBold"
+                                        Foreground="{ThemeResource KymaeanSecondaryBrush}"
+                                        Text="Last confirmed Characters" />
+                                    <ItemsControl
+                                        ItemTemplate="{StaticResource CharacterRowTemplate}"
+                                        ItemsSource="{Binding LastConfirmedCharacterRows}" />
+                                    <TextBlock
+                                        Foreground="{ThemeResource KymaeanSecondaryBrush}"
+                                        Text="There were no last confirmed Characters."
+                                        Visibility="{Binding HasNoLastConfirmedCharacters, Converter={StaticResource BoolToVisibility}}" />
+                                    <TextBlock
+                                        Margin="0,8,0,0"
+                                        FontWeight="SemiBold"
+                                        Foreground="{ThemeResource KymaeanSecondaryBrush}"
+                                        Text="Submitted Character" />
+                                    <TextBlock
+                                        AutomationProperties.Name="{Binding SubmittedCharacterName}"
+                                        Foreground="{ThemeResource KymaeanPrimaryBrush}"
+                                        Text="{Binding SubmittedCharacterName}"
+                                        TextWrapping="Wrap" />
+                                    <TextBlock
+                                        Margin="0,8,0,0"
+                                        FontSize="13"
+                                        Foreground="{ThemeResource KymaeanSecondaryBrush}"
+                                        Text="Open the Production again to establish authoritative Characters before creating another Character."
                                         TextWrapping="Wrap" />
                                 </StackPanel>
                             </StackPanel>

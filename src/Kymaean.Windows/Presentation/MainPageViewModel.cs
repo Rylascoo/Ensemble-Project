@@ -12,6 +12,16 @@ public sealed class MainPageViewModel : INotifyPropertyChanged
     private IReadOnlyList<ProductionPresentationRow> _productionRows =
         Array.Empty<ProductionPresentationRow>();
     private ProductionPresentationRow? _selectedProductionRow;
+    private IReadOnlyList<CharacterPresentationRow> _characterRows =
+        Array.Empty<CharacterPresentationRow>();
+    private IReadOnlyList<CharacterPresentationRow> _lastConfirmedCharacterRows =
+        Array.Empty<CharacterPresentationRow>();
+    private string _characterNameDraft = string.Empty;
+    private string _submittedCharacterName = string.Empty;
+    private string _characterCreationValidationMessage = string.Empty;
+    private string _characterStatusMessage = string.Empty;
+    private string _characterFailureMessage = string.Empty;
+    private bool _characterConfirmationUnavailable;
     private bool _isProductionCreationFormOpen;
     private bool _isProductionCreationPending;
     private string _productionNameDraft = string.Empty;
@@ -109,7 +119,13 @@ public sealed class MainPageViewModel : INotifyPropertyChanged
 
     public bool IsWorldTruthSurface =>
         IsCurrentProduction &&
-        _currentProductionPresentation != CurrentProductionPresentation.Overview;
+        _currentProductionPresentation is
+            CurrentProductionPresentation.WorldTruthInspection or
+            CurrentProductionPresentation.WorldTruthEdit or
+            CurrentProductionPresentation.WorldTruthReview or
+            CurrentProductionPresentation.WorldTruthSubmitting or
+            CurrentProductionPresentation.WorldTruthTypedFailure or
+            CurrentProductionPresentation.WorldTruthConfirmationUnavailable;
 
     public bool IsWorldTruthInspection =>
         IsCurrentProduction &&
@@ -134,6 +150,35 @@ public sealed class MainPageViewModel : INotifyPropertyChanged
     public bool IsWorldTruthConfirmationUnavailable =>
         IsCurrentProduction &&
         _currentProductionPresentation == CurrentProductionPresentation.WorldTruthConfirmationUnavailable;
+
+    public bool IsCharacterSurface =>
+        IsCurrentProduction &&
+        _currentProductionPresentation is
+            CurrentProductionPresentation.CharacterInspection or
+            CurrentProductionPresentation.CharacterCreation or
+            CurrentProductionPresentation.CharacterSubmitting or
+            CurrentProductionPresentation.CharacterTypedFailure or
+            CurrentProductionPresentation.CharacterConfirmationUnavailable;
+
+    public bool IsCharacterInspection =>
+        IsCurrentProduction &&
+        _currentProductionPresentation == CurrentProductionPresentation.CharacterInspection;
+
+    public bool IsCharacterCreation =>
+        IsCurrentProduction &&
+        _currentProductionPresentation == CurrentProductionPresentation.CharacterCreation;
+
+    public bool IsCharacterSubmitting =>
+        IsCurrentProduction &&
+        _currentProductionPresentation == CurrentProductionPresentation.CharacterSubmitting;
+
+    public bool IsCharacterTypedFailure =>
+        IsCurrentProduction &&
+        _currentProductionPresentation == CurrentProductionPresentation.CharacterTypedFailure;
+
+    public bool IsCharacterConfirmationUnavailable =>
+        IsCurrentProduction &&
+        _currentProductionPresentation == CurrentProductionPresentation.CharacterConfirmationUnavailable;
 
     public bool CanAccessSelection =>
         _application is not null && _selectedProductionRow is not null;
@@ -188,6 +233,67 @@ public sealed class MainPageViewModel : INotifyPropertyChanged
         !string.IsNullOrWhiteSpace(_worldTruthStatusMessage);
 
     public string WorldTruthFailureMessage => _worldTruthFailureMessage;
+
+    public IReadOnlyList<CharacterPresentationRow> CharacterRows =>
+        _characterRows;
+
+    public bool HasCharacters => _characterRows.Count > 0;
+    public bool HasNoCharacters => !HasCharacters;
+
+    public IReadOnlyList<CharacterPresentationRow> LastConfirmedCharacterRows =>
+        _lastConfirmedCharacterRows;
+
+    public bool HasLastConfirmedCharacters =>
+        _lastConfirmedCharacterRows.Count > 0;
+
+    public bool HasNoLastConfirmedCharacters =>
+        !HasLastConfirmedCharacters;
+
+    public string SubmittedCharacterName => _submittedCharacterName;
+
+    public string CharacterNameDraft
+    {
+        get => _characterNameDraft;
+        set
+        {
+            if (string.Equals(
+                    _characterNameDraft,
+                    value,
+                    StringComparison.Ordinal))
+            {
+                return;
+            }
+
+            _characterNameDraft = value;
+            OnPropertyChanged();
+
+            if (!string.IsNullOrEmpty(
+                    _characterCreationValidationMessage))
+            {
+                SetCharacterCreationValidationMessage(string.Empty);
+            }
+        }
+    }
+
+    public string CharacterCreationValidationMessage =>
+        _characterCreationValidationMessage;
+
+    public bool HasCharacterCreationValidationMessage =>
+        !string.IsNullOrWhiteSpace(
+            _characterCreationValidationMessage);
+
+    public string CharacterStatusMessage => _characterStatusMessage;
+
+    public bool HasCharacterStatusMessage =>
+        !string.IsNullOrWhiteSpace(_characterStatusMessage);
+
+    public string CharacterFailureMessage => _characterFailureMessage;
+
+    public bool HasCharacterFailureMessage =>
+        !string.IsNullOrWhiteSpace(_characterFailureMessage);
+
+    public bool IsCharacterCreationEnabled =>
+        IsCharacterCreation && !_characterConfirmationUnavailable;
 
     public bool IsProductionCreationFormOpen =>
         _isProductionCreationFormOpen;
@@ -394,6 +500,174 @@ public sealed class MainPageViewModel : INotifyPropertyChanged
 
     public bool RecoverSelectedProduction() =>
         AccessSelectedProduction(recover: true);
+
+    public void OpenCharacters()
+    {
+        if (_application is null || !HasCurrentProduction)
+        {
+            throw new InvalidOperationException(
+                "A Production must be open before inspecting its Characters.");
+        }
+
+        if (_characterConfirmationUnavailable)
+        {
+            _currentProductionPresentation =
+                CurrentProductionPresentation.CharacterConfirmationUnavailable;
+        }
+        else
+        {
+            RefreshCharacterRows();
+            ClearCharacterTransientState();
+            _currentProductionPresentation =
+                CurrentProductionPresentation.CharacterInspection;
+        }
+
+        RaiseCharacterProperties();
+    }
+
+    public void CloseCharactersToOverview()
+    {
+        if (!_characterConfirmationUnavailable)
+        {
+            ClearCharacterTransientState();
+        }
+
+        _currentProductionPresentation =
+            CurrentProductionPresentation.Overview;
+        RaiseCharacterProperties();
+    }
+
+    public void BeginCharacterCreation()
+    {
+        if (!IsCharacterInspection ||
+            _characterConfirmationUnavailable)
+        {
+            return;
+        }
+
+        _characterNameDraft = string.Empty;
+        _submittedCharacterName = string.Empty;
+        _characterCreationValidationMessage = string.Empty;
+        _characterFailureMessage = string.Empty;
+        _characterStatusMessage = string.Empty;
+        _lastConfirmedCharacterRows =
+            Array.Empty<CharacterPresentationRow>();
+        _currentProductionPresentation =
+            CurrentProductionPresentation.CharacterCreation;
+        RaiseCharacterProperties();
+    }
+
+    public void CancelCharacterCreation()
+    {
+        if (!IsCharacterCreation)
+        {
+            return;
+        }
+
+        ClearCharacterTransientState();
+        _currentProductionPresentation =
+            CurrentProductionPresentation.CharacterInspection;
+        RaiseCharacterProperties();
+    }
+
+    public bool BeginCharacterCreationSubmission()
+    {
+        if (_application is null ||
+            !IsCharacterCreation ||
+            _characterConfirmationUnavailable)
+        {
+            return false;
+        }
+
+        if (string.IsNullOrWhiteSpace(_characterNameDraft))
+        {
+            SetCharacterCreationValidationMessage(
+                "Character name is required.");
+            return false;
+        }
+
+        _submittedCharacterName = _characterNameDraft;
+        _lastConfirmedCharacterRows = _characterRows.ToArray();
+        _characterFailureMessage = string.Empty;
+        _characterStatusMessage = string.Empty;
+        _currentProductionPresentation =
+            CurrentProductionPresentation.CharacterSubmitting;
+        RaiseCharacterProperties();
+        return true;
+    }
+
+    public CharacterPresentationRow?
+        CompleteCharacterCreationSubmission()
+    {
+        if (_application is null || !IsCharacterSubmitting)
+        {
+            return null;
+        }
+
+        try
+        {
+            var result = _application.CreateCharacter(
+                _submittedCharacterName);
+
+            if (!result.IsSuccess)
+            {
+                _characterFailureMessage = result.FailureKind switch
+                {
+                    ProductAccessFailureKind.Incompatible =>
+                        "A Character can't be created in this version.",
+                    ProductAccessFailureKind.Invalid =>
+                        "Kymaean can't create this Character because this Production's contents are invalid.",
+                    _ => throw new ArgumentOutOfRangeException()
+                };
+                _currentProductionPresentation =
+                    CurrentProductionPresentation.CharacterTypedFailure;
+                RaiseCharacterProperties();
+                return null;
+            }
+
+            _projection = _application.Query();
+            var createdRow = RefreshCharacterRows(
+                result.Value.Character.Id)
+                ?? throw new InvalidOperationException(
+                    "Created Character is missing from the authoritative Production Cast.");
+
+            _characterConfirmationUnavailable = false;
+            _characterNameDraft = string.Empty;
+            _submittedCharacterName = string.Empty;
+            _lastConfirmedCharacterRows =
+                Array.Empty<CharacterPresentationRow>();
+            _characterCreationValidationMessage = string.Empty;
+            _characterFailureMessage = string.Empty;
+            _characterStatusMessage = "Character created.";
+            _currentProductionPresentation =
+                CurrentProductionPresentation.CharacterInspection;
+            RaiseCharacterProperties();
+            return createdRow;
+        }
+        catch (IOException)
+        {
+            EnterCharacterConfirmationUnavailable();
+            return null;
+        }
+        catch (UnauthorizedAccessException)
+        {
+            EnterCharacterConfirmationUnavailable();
+            return null;
+        }
+    }
+
+    public void ReturnFromCharacterTypedFailure()
+    {
+        if (!IsCharacterTypedFailure)
+        {
+            return;
+        }
+
+        ClearCharacterTransientState();
+        _currentProductionPresentation =
+            CurrentProductionPresentation.CharacterInspection;
+        RaiseCharacterProperties();
+    }
 
     public void OpenWorldTruths()
     {
@@ -609,6 +883,7 @@ public sealed class MainPageViewModel : INotifyPropertyChanged
         _activeShellRoute = ShellRoute.CurrentProduction;
         _statusMessage = string.Empty;
         ResetWorldTruthPresentationFromAuthoritativeProjection();
+        ResetCharacterPresentationFromAuthoritativeProjection();
 
         OnPropertyChanged(nameof(CurrentProductionName));
         OnPropertyChanged(nameof(ActiveProductSpace));
@@ -617,6 +892,65 @@ public sealed class MainPageViewModel : INotifyPropertyChanged
         OnPropertyChanged(nameof(HasStatusMessage));
         RaiseShellProperties();
         return true;
+    }
+
+    private CharacterPresentationRow? RefreshCharacterRows(
+        CharacterId? focusedId = null)
+    {
+        var characters =
+            _projection?.CurrentProductionReplay?.ProductionCast.Characters
+                .ToArray()
+            ?? Array.Empty<CharacterSummary>();
+
+        _characterRows = CharacterPresentationRow.Build(characters);
+
+        OnPropertyChanged(nameof(CharacterRows));
+        OnPropertyChanged(nameof(HasCharacters));
+        OnPropertyChanged(nameof(HasNoCharacters));
+
+        return focusedId is null
+            ? null
+            : _characterRows.FirstOrDefault(
+                row => row.Id == focusedId);
+    }
+
+    private void ResetCharacterPresentationFromAuthoritativeProjection()
+    {
+        _characterConfirmationUnavailable = false;
+        RefreshCharacterRows();
+        ClearCharacterTransientState();
+    }
+
+    private void ClearCharacterTransientState()
+    {
+        _characterNameDraft = string.Empty;
+        _submittedCharacterName = string.Empty;
+        _lastConfirmedCharacterRows =
+            Array.Empty<CharacterPresentationRow>();
+        _characterCreationValidationMessage = string.Empty;
+        _characterStatusMessage = string.Empty;
+        _characterFailureMessage = string.Empty;
+    }
+
+    private void EnterCharacterConfirmationUnavailable()
+    {
+        _characterConfirmationUnavailable = true;
+        _characterCreationValidationMessage = string.Empty;
+        _characterStatusMessage = string.Empty;
+        _characterFailureMessage = string.Empty;
+        _currentProductionPresentation =
+            CurrentProductionPresentation.CharacterConfirmationUnavailable;
+        RaiseCharacterProperties();
+    }
+
+    private void SetCharacterCreationValidationMessage(
+        string message)
+    {
+        _characterCreationValidationMessage = message;
+        OnPropertyChanged(
+            nameof(CharacterCreationValidationMessage));
+        OnPropertyChanged(
+            nameof(HasCharacterCreationValidationMessage));
     }
 
     private void RefreshProductionRows(
@@ -778,6 +1112,33 @@ public sealed class MainPageViewModel : INotifyPropertyChanged
         OnPropertyChanged(nameof(PageTitle));
         OnPropertyChanged(nameof(PageSummary));
         RaiseWorldTruthProperties();
+        RaiseCharacterProperties();
+    }
+
+    private void RaiseCharacterProperties()
+    {
+        OnPropertyChanged(nameof(IsCurrentProductionOverview));
+        OnPropertyChanged(nameof(IsCharacterSurface));
+        OnPropertyChanged(nameof(IsCharacterInspection));
+        OnPropertyChanged(nameof(IsCharacterCreation));
+        OnPropertyChanged(nameof(IsCharacterSubmitting));
+        OnPropertyChanged(nameof(IsCharacterTypedFailure));
+        OnPropertyChanged(nameof(IsCharacterConfirmationUnavailable));
+        OnPropertyChanged(nameof(CharacterRows));
+        OnPropertyChanged(nameof(HasCharacters));
+        OnPropertyChanged(nameof(HasNoCharacters));
+        OnPropertyChanged(nameof(LastConfirmedCharacterRows));
+        OnPropertyChanged(nameof(HasLastConfirmedCharacters));
+        OnPropertyChanged(nameof(HasNoLastConfirmedCharacters));
+        OnPropertyChanged(nameof(SubmittedCharacterName));
+        OnPropertyChanged(nameof(CharacterNameDraft));
+        OnPropertyChanged(nameof(CharacterCreationValidationMessage));
+        OnPropertyChanged(nameof(HasCharacterCreationValidationMessage));
+        OnPropertyChanged(nameof(CharacterStatusMessage));
+        OnPropertyChanged(nameof(HasCharacterStatusMessage));
+        OnPropertyChanged(nameof(CharacterFailureMessage));
+        OnPropertyChanged(nameof(HasCharacterFailureMessage));
+        OnPropertyChanged(nameof(IsCharacterCreationEnabled));
     }
 
     private void RaiseWorldTruthProperties()
@@ -837,6 +1198,11 @@ public sealed class MainPageViewModel : INotifyPropertyChanged
         WorldTruthReview,
         WorldTruthSubmitting,
         WorldTruthTypedFailure,
-        WorldTruthConfirmationUnavailable
+        WorldTruthConfirmationUnavailable,
+        CharacterInspection,
+        CharacterCreation,
+        CharacterSubmitting,
+        CharacterTypedFailure,
+        CharacterConfirmationUnavailable
     }
 }

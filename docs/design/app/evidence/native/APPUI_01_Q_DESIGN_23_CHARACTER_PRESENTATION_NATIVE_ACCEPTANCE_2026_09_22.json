@@ -1,0 +1,42 @@
+{
+  "schema": "kymaean.appui-q-design-23-character-presentation-native-acceptance.v1",
+  "status": "ACCEPTED_PENDING_INTEGRATION",
+  "date": "2026-09-22",
+  "queue_item": "Q-DESIGN-23 / Q-PROD-07",
+  "exact_executable_source": "9ea74391adf0a2f259c205ae88128324d4a52148",
+  "product_base": "4f836d53a4e18ae92fa408cc87a9d9e2c3702fbe",
+  "contract": "docs/design/app/contracts/PRODUCTION_CAST_CHARACTER_ESTABLISHMENT_PRESENTATION.md",
+  "native_evidence": "docs/evidence/Q_PROD_07_CHARACTER_PRESENTATION_NATIVE_ARM64_VALIDATION_2026_09_22.md",
+  "acceptance": {
+    "contextual_surface": "PASS - Characters is Current Production depth beside World truths and is not durable navigation.",
+    "empty_state": "PASS - No Characters yet. + New Character.",
+    "exact_text": "PASS - accepted UTF-16 code units preserved without trim or normalization.",
+    "duplicate_names": "PASS - duplicate names remain valid and receive conditional presentation-only Character codes.",
+    "identity_focus": "PASS - successful creation focuses exact returned Character row by identity.",
+    "focus_return": "PASS - Back -> Characters; Cancel -> New Character.",
+    "productspace": "PASS - Stage remains current ProductSpace; Character work does not navigate.",
+    "typed_failures": "PASS - creator-language Incompatible/Invalid preserve confirmed presentation.",
+    "environmental_nonconfirmation": "PASS - Last confirmed Characters and Submitted Character are distinct; no retry/rollback/success/failure invention.",
+    "reestablishment": "PASS - ordinary Production Open clears ambiguity from authoritative replay.",
+    "accessibility": "PASS - zero tested internal Character/Product/storage identity leakage.",
+    "width": "PASS - 720x520 has no horizontal scroll; vertical scrolling reaches New Character.",
+    "theme_parity": "PASS - Light F2 / Dark D3 carry the same Character information.",
+    "world_truth_regression": "PASS - authoritative Harbor bell and World-truth focus return preserved.",
+    "production_code_regression": "PASS - shared identity helper preserves conditional duplicate Production codes."
+  },
+  "recursive_audit": {
+    "historical_overreach_removed": "PASS - no Off-Scene/current-Scene labels, management-selection model, editor/detail surface, Scene or Performer semantics entered native UI.",
+    "implementation_complexity": "PASS - list + bounded creation only; no fake Character detail layer.",
+    "shared_helper": "PASS - one presentation fingerprint implementation now serves Production and Character rows without Product identity exposure.",
+    "native_cleanup": "PASS - disposable registration removed and original Dark app theme restored.",
+    "result": "CLEAN"
+  },
+  "unresolved": [
+    "High Contrast exact-source proof remains open.",
+    "Source Sans 3 and S1 shipping packaging remain open.",
+    "Character edit/deeper ontology, Scene lifecycle/membership, Performer/provider, Pressure/Take/Rehearsal remain separately gated.",
+    "No release/WACK/Store authority is created."
+  ],
+  "approval": "ACCEPTED BY STANDING DIRECTOR DELEGATION — CLEAN RECURSIVE AUDIT",
+  "next": "Integrate Q-PROD-07 / Q-DESIGN-23 only after final hosted exact-head gates; native authority remains bound to exact executable source."
+}
