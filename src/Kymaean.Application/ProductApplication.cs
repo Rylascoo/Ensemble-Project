@@ -239,6 +239,7 @@ public sealed class ProductApplication
                 "The configured Production catalog does not support World current-state mutation.");
         }
 
+        var before = _currentProductionReplay;
         var access = writer.ReplaceWorldCurrentState(
             _currentProduction.Id,
             currentState);
@@ -254,7 +255,8 @@ public sealed class ProductApplication
                 _currentProduction.ProductionName,
                 replay.ProductionName,
                 StringComparison.Ordinal)
-            || !replay.WorldCurrentState.Equals(currentState))
+            || !replay.WorldCurrentState.Equals(currentState)
+            || !before.ProductionCast.Equals(replay.ProductionCast))
         {
             return ProductAccessResult<ProductApplicationProjection>.Failure(
                 ProductAccessFailureKind.Invalid);
