@@ -28,4 +28,4 @@ Evidence: `docs/evidence/Q_PROD_06_CHARACTER_CAST_IDENTITY_FOUNDATION_NATIVE_ARM
 
 ## Next
 
-Run final hosted gates on the documentation-only PR head, then integrate PR #249 only with the required merge authority. Preserve the bounded Q-PROD-06 contract: `Character != Performer`; no Character UI, Scene membership, Performer/provider assignment, deeper Character ontology, Pressure, Take or Rehearsal semantics.
+Q-PROD-06 is merge-ready pending required merge authority. Documentation closeout head `63cf46c0aaa4947316e451ec3ab0d534f3d53b25` passed Validation #1220 and E0-E preparation #190; require a final hosted pass on this later documentation-only closeout head before merge. Preserve the bounded contract: `Character != Performer`; no Character UI, Scene membership, Performer/provider assignment, deeper Character ontology, Pressure, Take or Rehearsal semantics.
