@@ -463,6 +463,20 @@ Runtime/UI evidence remains bound to the exact tested sources above; the merge a
 
 Native authority remains bound to the exact tested source; integration and later documentation do not inflate the evidence rung.
 
+### Q-PROD-04 Production creation candidate
+
+| Field | Fact |
+|---|---|
+| Base | `f8a5a6008b2bad93a8a13b1927da302c34113e33`; exact-main Validation #1158 PASS |
+| Director contract | `docs/Q_PROD_04_PRODUCTION_CREATION_DIRECTOR_DECISION_2026_09_22.md`; A/A/A |
+| Exact tested executable source | `8f7d5f05909dd88f6dd24e20b60b80ae5b36f5cc` |
+| Evidence | `docs/evidence/Q_PROD_04_PRODUCTION_CREATION_NATIVE_ARM64_VALIDATION_2026_09_22.md` |
+| Earned Application contract | Application-owned `IProductionCreator`; creation returns opaque ID + authoritative creation replay; known list updates; active scope/current Production/ProductSpace remain unchanged; duplicate names allowed |
+| Earned Persistence contract | catalog-generated opaque identity; independent technical locator; fully formed pending construction outside discoverable catalog; complete directory publication; exact UTF-16 identity/name preservation; no partial catalog entry on pre-publication failure |
+| Native ARM64 | Application 66/66 PASS; Persistence 135/135 PASS; WinUI Release build PASS, 0 warnings/errors |
+| Hosted exact-source | push Validation #1160 PASS; PR Validation #1161 PASS |
+| Limits | no creation UI/FIRSTUSE/Home, rename/delete/import/restore, Character/Scene/provider semantics, Alpha/final architecture, WACK/Store/release authority |
+
 ### Supporting provider-evidence continuity
 
 The promoted checkpoint does not erase the still-current evidence chain that established the provider/runtime boundary. These records remain supporting evidence only and do not override the promoted checkpoint:

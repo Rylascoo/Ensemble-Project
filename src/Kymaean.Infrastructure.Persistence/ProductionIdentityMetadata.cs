@@ -10,6 +10,50 @@ internal static class ProductionIdentityMetadata
     private const int ChecksumLength = 32;
     private static readonly byte[] FormatFamilyMagic = "KYMIDN01"u8.ToArray();
 
+    public static void Write(
+        string path,
+        ProductionId productionId)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(path);
+        ArgumentNullException.ThrowIfNull(productionId);
+
+        var value = productionId.Value;
+        var content = new byte[
+            HeaderLength + checked(value.Length * sizeof(ushort))];
+
+        FormatFamilyMagic.CopyTo(content, 0);
+        BinaryPrimitives.WriteUInt32BigEndian(
+            content.AsSpan(8, sizeof(uint)),
+            ProductionPersistenceVersionPolicy.ProductionIdentityMetadataVersion);
+        BinaryPrimitives.WriteUInt32BigEndian(
+            content.AsSpan(12, sizeof(uint)),
+            checked((uint)value.Length));
+
+        var offset = HeaderLength;
+        foreach (var character in value)
+        {
+            BinaryPrimitives.WriteUInt16BigEndian(
+                content.AsSpan(offset, sizeof(ushort)),
+                character);
+            offset += sizeof(ushort);
+        }
+
+        var checksum = SHA256.HashData(content);
+        using var stream = new FileStream(
+            path,
+            new FileStreamOptions
+            {
+                Mode = FileMode.CreateNew,
+                Access = FileAccess.Write,
+                Share = FileShare.None,
+                BufferSize = 4096,
+                Options = FileOptions.SequentialScan | FileOptions.WriteThrough,
+            });
+        stream.Write(content);
+        stream.Write(checksum);
+        stream.Flush(flushToDisk: true);
+    }
+
     public static ProductionId Read(string path)
     {
         using var stream = new FileStream(

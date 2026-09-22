@@ -2,13 +2,16 @@ using Kymaean.Application;
 
 namespace Kymaean.Infrastructure.Persistence;
 
-public sealed class FileProductionCatalog : IProductionCatalog, IProductionWorldStateWriter
+public sealed class FileProductionCatalog : IProductionCatalog, IProductionWorldStateWriter, IProductionCreator
 {
     private const string CatalogDirectoryName = "production-catalog";
     private const string EntryDirectoryPrefix = "entry-";
     private const int LocatorHexLength = 32;
     private const string IdentityFileName = "identity.kid";
 
+    private const string CreationPendingPrefix = ".production-create-";
+
+    private readonly string _applicationRoot;
     private readonly string _catalogDirectory;
 
     public FileProductionCatalog(string rootDirectory)
@@ -21,19 +24,19 @@ public sealed class FileProductionCatalog : IProductionCatalog, IProductionWorld
         bool createDirectories)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(rootDirectory);
-        var applicationRoot = Path.GetFullPath(rootDirectory);
+        _applicationRoot = Path.GetFullPath(rootDirectory);
         _catalogDirectory = Path.Combine(
-            applicationRoot,
+            _applicationRoot,
             CatalogDirectoryName);
 
         if (createDirectories)
         {
-            Directory.CreateDirectory(applicationRoot);
+            Directory.CreateDirectory(_applicationRoot);
             Directory.CreateDirectory(_catalogDirectory);
             return;
         }
 
-        RequireExistingDirectory(applicationRoot);
+        RequireExistingDirectory(_applicationRoot);
         RequireExistingDirectory(_catalogDirectory);
     }
 
@@ -78,6 +81,80 @@ public sealed class FileProductionCatalog : IProductionCatalog, IProductionWorld
     public ProductAccessResult<ProductionReplayProjection> OpenProduction(
         ProductionId productionId) =>
         AccessProduction(productionId, recover: false);
+
+    public ProductAccessResult<ProductionCreation> CreateProduction(
+        string productionName)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(productionName);
+
+        var listed = ListProductions();
+        if (!listed.IsSuccess)
+        {
+            return ProductAccessResult<ProductionCreation>.Failure(
+                listed.FailureKind);
+        }
+
+        ProductionId productionId;
+        do
+        {
+            productionId = new ProductionId(Guid.NewGuid().ToString("N"));
+        }
+        while (listed.Value.Any(item => item.Id == productionId));
+
+        string finalPath;
+        do
+        {
+            finalPath = Path.Combine(
+                _catalogDirectory,
+                EntryDirectoryPrefix + Guid.NewGuid().ToString("N"));
+        }
+        while (Directory.Exists(finalPath) || File.Exists(finalPath));
+
+        string pendingPath;
+        do
+        {
+            pendingPath = Path.Combine(
+                _applicationRoot,
+                CreationPendingPrefix + Guid.NewGuid().ToString("N"));
+        }
+        while (Directory.Exists(pendingPath) || File.Exists(pendingPath));
+
+        var published = false;
+        try
+        {
+            Directory.CreateDirectory(pendingPath);
+            ProductionIdentityMetadata.Write(
+                Path.Combine(pendingPath, IdentityFileName),
+                productionId);
+
+            var replay = new ProductionApplication(
+                new FileProductionEventStore(pendingPath))
+                .Create(productionName);
+
+            if (!string.Equals(
+                    replay.ProductionName,
+                    productionName,
+                    StringComparison.Ordinal) ||
+                !replay.WorldCurrentState.IsEmpty)
+            {
+                throw new InvalidDataException(
+                    "New Production replay does not match its creation contract.");
+            }
+
+            Directory.Move(pendingPath, finalPath);
+            published = true;
+
+            return ProductAccessResult<ProductionCreation>.Success(
+                new ProductionCreation(productionId, replay));
+        }
+        finally
+        {
+            if (!published)
+            {
+                TryDeleteDirectory(pendingPath);
+            }
+        }
+    }
 
     public ProductAccessResult<ProductionReplayProjection> RecoverProduction(
         ProductionId productionId) =>
@@ -282,6 +359,23 @@ public sealed class FileProductionCatalog : IProductionCatalog, IProductionWorld
 
         return ProductAccessResult<ProductionReplayProjection>.Success(
             projection);
+    }
+
+    private static void TryDeleteDirectory(string path)
+    {
+        try
+        {
+            if (Directory.Exists(path))
+            {
+                Directory.Delete(path, recursive: true);
+            }
+        }
+        catch (IOException)
+        {
+        }
+        catch (UnauthorizedAccessException)
+        {
+        }
     }
 
     private static void RequireExistingDirectory(string path)
