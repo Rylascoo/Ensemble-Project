@@ -66,4 +66,6 @@ No provider traffic or deferred-E0 execution was performed.
 
 ## Evidence boundary
 
-Native runtime/test authority belongs only to executable source `90905c8952f77a7d6f926350fa5ada0796be56bf`. Subsequent evidence/state commits may describe this result but do not inherit or inflate native authority. Q-PROD-06 remains pending integration until the final documentation-only PR head passes its hosted gates.
+Native runtime/test authority belongs only to executable source `90905c8952f77a7d6f926350fa5ada0796be56bf`. Subsequent evidence/state commits may describe this result but do not inherit or inflate native authority.
+
+Documentation closeout head `63cf46c0aaa4947316e451ec3ab0d534f3d53b25` passed Validation #1220 and E0-E preparation #190 after the successor-selection provenance edge was restored. Q-PROD-06 is therefore merge-ready subject only to the required merge authority and a final hosted pass on any later documentation-only closeout head.
