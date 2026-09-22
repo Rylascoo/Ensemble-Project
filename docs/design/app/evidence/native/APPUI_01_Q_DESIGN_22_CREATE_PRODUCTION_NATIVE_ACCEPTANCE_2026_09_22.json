@@ -1,0 +1,53 @@
+{
+  "schema": "kymaean.appui-q-design-22-create-production-native-acceptance.v1",
+  "status": "ACCEPTED_FOR_INTEGRATION",
+  "date": "2026-09-22",
+  "role": "Design",
+  "queue_item": "Q-DESIGN-22",
+  "pull_request": 247,
+  "base": "a6bac97f3fe543d36aa28067d8c566f7d0882d7c",
+  "exact_tested_executable_source": "200f2c1faa73b524353822f3ee09eced74dc019d",
+  "documentation_successor": "f833b07b253aea86ca6fb8e8dd2ce621cdda0725",
+  "contract": "docs/design/app/contracts/CREATE_PRODUCTION_PRESENTATION.md",
+  "engineering_evidence": "docs/evidence/Q_PROD_05_CREATE_PRODUCTION_PRESENTATION_NATIVE_ARM64_VALIDATION_2026_09_22.md",
+  "review": {
+    "finding": "Pre-review candidate yielded before the synchronous Product creation call, creating an event-loop interleaving window in which navigation could clear submitted presentation state.",
+    "correction": "Removed the pre-Product yield at 200f2c1; Product completion now begins synchronously after exact submission capture. Post-success yield remains only for row-container focus realization.",
+    "result": "PASS_AFTER_BOUNDED_CORRECTION"
+  },
+  "disposition": {
+    "empty_library": "PASS — No Productions yet and New Production remain creator-facing and contextual to Productions.",
+    "exact_name": "PASS — accepted code units survive without trim/case-fold/Unicode normalization.",
+    "creation_effect": "PASS — success returns to library; no implicit Open or ProductSpace change.",
+    "exact_focus": "PASS — returned ProductionId selects/focuses the exact created row.",
+    "duplicate_disambiguation": "PASS — same-name rows receive distinct conditional Production codes derived from exact opaque identity; unique rows show no code.",
+    "accessibility": "PASS — creator-facing accessible names match visible name/code distinction with zero tested internal object/raw identity leakage.",
+    "regression": "PASS — Open/Recover and existing shell behavior remain intact.",
+    "visual": "PASS — Light/Dark and 720×520 preserve the accepted quiet field hierarchy without horizontal overflow."
+  },
+  "native": {
+    "application_tests": "66/66 PASS",
+    "persistence_tests": "135/135 PASS",
+    "winui_arm64_release": "PASS — 0 warnings / 0 errors",
+    "msix_sha256": "348369C0EB9B138660975A0042CD0A3A3D65B522C6F283B610681334AC8F2D31",
+    "temporary_package_unregistered": true,
+    "theme_restored": true,
+    "uia_internal_leak_count": 0
+  },
+  "screenshots": {
+    "dark_empty_1200x800": "E3762DC5D17E7B035A102DDDC8B532019F24ADF617517FE7794F7B386EEA2DCE",
+    "dark_create_720x520": "FBF31DB1C3DBB134F286FE3F7D592E4836D987BA71A03D89D5B1E9B9C9467115",
+    "dark_duplicates_1200x800": "4CABBF5934885F617F1B8F443E10333C76CF61773A792FA5564FF0D309FE4DA9",
+    "light_duplicates_1200x800": "4BEC0BF8AD7448C5B2608A2A3DED02E60162A99A537B55FF464377923BFD442F",
+    "light_duplicates_720x520": "9B12C2F42B7E39394E52C05CBA669FBC1DBDC1D1032F6F30A66DF92A23D20FED"
+  },
+  "preserved_limits": [
+    "High Contrast exact-source recapture remains unearned.",
+    "Source Sans 3/S1 shipping packaging remains unresolved.",
+    "FIRSTUSE and Home A/B remain unresolved/pending.",
+    "No rename/delete/import/restore, Character/Scene, provider/Performer, Stage, deferred-E0, WACK/Store or release authority."
+  ],
+  "approval": "APPROVED BY STANDING DIRECTOR DELEGATION — CLEAN RECURSIVE AUDIT",
+  "integration_pending": true,
+  "next": "Require exact-final-head hosted PASS after evidence/continuity closeout, then explicit Director merge authorization for PR #247."
+}
