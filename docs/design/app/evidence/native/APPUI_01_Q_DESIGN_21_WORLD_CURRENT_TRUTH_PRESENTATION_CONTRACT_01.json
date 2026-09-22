@@ -1,0 +1,69 @@
+{
+  "schema": "kymaean.appui-q-design-21-world-current-truth-presentation-contract.v1",
+  "status": "ADOPTED_ENGINEERING_HANDOFF_READY_NATIVE_ACCEPTANCE_PENDING",
+  "date": "2026-09-21",
+  "queue_item": "Q-DESIGN-21",
+  "exact_project_main": "41c8912eee34ca00932feabaca99e34bd027e08f",
+  "exact_main_validation": "#1146 PASS",
+  "product_sources": {
+    "world_current_state": "src/Kymaean.Application/WorldCurrentState.cs",
+    "product_application": "src/Kymaean.Application/ProductApplication.cs",
+    "product_projection": "src/Kymaean.Application/ProductApplicationProjection.cs",
+    "writer_port": "src/Kymaean.Application/IProductionWorldStateWriter.cs",
+    "access_result": "src/Kymaean.Application/ProductAccessResult.cs",
+    "persistence_writer": "src/Kymaean.Infrastructure.Persistence/FileProductionCatalog.cs"
+  },
+  "engineering_evidence": [
+    "docs/evidence/Q_PROD_01_DESIGN_ARCHITECTURE_READINESS_REASSESSMENT_2026_09_21.md",
+    "docs/Q_PROD_01_LOSSLESS_UTF16_PERSISTENCE_CONTRACT_2026_09_21.md",
+    "docs/evidence/Q_PROD_01_WORLD_CURRENT_TRUTH_SUCCESSOR_NATIVE_ARM64_VALIDATION_2026_09_20.md"
+  ],
+  "inherited_design_law": [
+    "docs/design/app/contracts/STATIC_VISUAL_SYSTEM.md",
+    "docs/design/app/contracts/NATIVE_IMPLEMENTATION_HANDOFF.md",
+    "docs/design/app/contracts/APP_AND_FAILURE_STATES.md",
+    "docs/design/app/evidence/dependencies/APPUI_01_TRUTH_KNOWLEDGE_DISCLOSURE_INSPECTION_FUNCTIONAL_STUDY_01.json",
+    "docs/design/app/evidence/components/APPUI_01_COMPONENT_SYSTEM_TRUTH_KNOWLEDGE_DISCLOSURE_INTEGRATION_METHOD_01.json"
+  ],
+  "product_facts": [
+    "World current truth is an immutable ordinally canonical set of exact nonblank unique text.",
+    "Creation-only history legitimately yields the empty set.",
+    "Creator replacement is whole-state replacement, not per-row CRUD.",
+    "Success is confirmed only by authoritative replay returned from the Product writer boundary.",
+    "Typed Invalid/Incompatible failures preserve the prior Application projection and integrated Persistence tests prove no further append on those rejected source states.",
+    "Environmental I/O/access remains exceptional. Because append precedes authoritative replay, a post-submission environmental exception can leave commit status unconfirmed.",
+    "No Character knowledge mutation follows from World-current replacement."
+  ],
+  "adopted_presentation": {
+    "route": "contextual depth inside Current Production; no durable navigation or ProductSpace addition",
+    "heading": "Current world truths",
+    "empty": "There are no current world truths.",
+    "boundary": "Creator view — this does not describe what any Character knows or believes.",
+    "draft": "Proposed replacement",
+    "review_action": "Review replacement",
+    "whole_state_witness": "This will replace the entire current world truth set.",
+    "submit_action": "Replace current world truths",
+    "success": "Current world truths updated.",
+    "nonconfirmed_heading": "Confirmation unavailable",
+    "nonconfirmed_meaning": "Kymaean couldn't confirm whether the replacement became current.",
+    "nonconfirmed_groups": [
+      "Last confirmed world truths",
+      "Submitted replacement"
+    ]
+  },
+  "recursive_audit": {
+    "finding": "Inherited generic failed/cancelled APPUI law says no accepted mutation. Applying that carrier to a post-submission environmental exception would contradict current Product/Persistence evidence because append and authoritative replay are separately gated.",
+    "correction": "Create a distinct environmental non-confirmation presentation that asserts neither success nor failure, separates last-confirmed state from submitted replacement, and creates no retry/rollback/idempotence promise.",
+    "result": "CLEAN"
+  },
+  "prohibitions": [
+    "No history/timeline/query UI.",
+    "No per-truth epistemic taxonomy/provenance/confidence invention.",
+    "No Scene/current-situation or Character knowledge/belief semantics.",
+    "No retry/recovery/rollback/idempotence algorithm.",
+    "No provider/Performer/Stage/Home-A-B/FIRSTUSE expansion.",
+    "No Product or Persistence mutation from Design."
+  ],
+  "approval": "APPROVED BY STANDING DIRECTOR DELEGATION — CLEAN RECURSIVE AUDIT",
+  "next": "Open one bounded Q-PROD-03 Windows implementation package; return exact native evidence to Q-DESIGN-21. Stop if Product/Persistence contracts need change."
+}

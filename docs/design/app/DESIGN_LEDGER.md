@@ -871,3 +871,21 @@ Canonical acceptance record: `docs/design/app/evidence/native/APPUI_01_Q_DESIGN_
 
 Q-DESIGN-20 is accepted and integrated through PR #244 at `2470ed1068454e3ff5cfd573dcc266328bd1d1cc`; exact-main Validation #1145 passed. Q-DESIGN-20 is closed. The only newly available successor is bounded Q-DESIGN-21 contract formation for creator World-current truth inspection/replacement; no UI implementation or other unearned Product/Design semantics are authorized.
 
+---
+
+## Q-DESIGN-21 World-current truth presentation contract — 2026-09-21
+
+**State:** CONTRACT ADOPTED / ENGINEERING HANDOFF READY / NATIVE ACCEPTANCE PENDING
+
+Fresh Project reconciliation at `41c8912eee34ca00932feabaca99e34bd027e08f` (exact-main Validation #1146 PASS) confirms the earned World-current Product contract is now stable enough for a bounded presentation decision. `docs/design/app/contracts/WORLD_CURRENT_TRUTH_PRESENTATION.md` freezes creator inspection, valid empty state, exact-text local proposal, explicit whole-state review, authoritative-replay success, typed Invalid/Incompatible presentation and environmental post-submission non-confirmation.
+
+Recursive audit found one material inherited-law conflict: the older generic failed/cancelled carrier says no accepted mutation, but current Persistence appends before authoritative replay, so an environmental exception after submission does not prove that nothing committed. Q-DESIGN-21 therefore defines a separate **Confirmation unavailable** state that labels the old view **Last confirmed world truths**, keeps the **Submitted replacement** separate, asserts neither success nor failure, disables further mutation until authoritative inspection is re-established, and creates no retry/recovery/rollback/idempotence promise.
+
+The contract explicitly refuses the older truth/knowledge study's unearned fact/claim/belief/provenance capacities: current Product exposes only exact creator World-current truth text. No Character knowledge transfer, history/timeline/query, Scene/current-situation, provider, Stage, Home A/B or FIRSTUSE semantics are introduced.
+
+Structured audit: `docs/design/app/evidence/native/APPUI_01_Q_DESIGN_21_WORLD_CURRENT_TRUTH_PRESENTATION_CONTRACT_01.json`.
+
+**APPROVED BY STANDING DIRECTOR DELEGATION — CLEAN RECURSIVE AUDIT.**
+
+Q-DESIGN-21 remains open only for native acceptance. Q-PROD-03 may now be opened as a separate bounded Windows implementation package; Product/Persistence changes are a stop condition.
+

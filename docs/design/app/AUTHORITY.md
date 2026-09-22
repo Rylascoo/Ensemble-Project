@@ -40,6 +40,15 @@ Reference probes/materializers retain their exact original bytes and source-rela
 
 The receipt validation record qualifies the COMP-09 inherited label-encoding witness and shutdown timeout. Its complete matrix reproduced the frozen source hash exactly; this is transfer fidelity, not a new clean semantic-validation claim. Ten other component processes and both Stage matrices completed. No historical rejection/HOLD or adoption status was changed.
 
+## Project-native successor contracts
+
+Post-transfer Design work adopted on Project authority lives here rather than rewriting the frozen receipt provenance.
+
+- `docs/design/app/contracts/WORLD_CURRENT_TRUTH_PRESENTATION.md` — Q-DESIGN-21 creator World-current inspection/replacement presentation contract.
+- `docs/design/app/evidence/native/APPUI_01_Q_DESIGN_21_WORLD_CURRENT_TRUTH_PRESENTATION_CONTRACT_01.json` — exact Product-source reconciliation, recursive audit and Engineering return boundary.
+
+These Project-native successors may rely on transferred law but may not mutate the immutable transfer receipt or retroactively rewrite source-era status text.
+
 ## Received artifact inventory
 
 Every entry below remains governed by its transferred contract and immutable receipt provenance. JSON/prototype/tool bytes preserve frozen source evidence; source-era role/next-action fields and transitional status lines are provenance, not current execution permission. Exact source dependencies that remain pointers are immutable pinned dependencies, not independently evolving Project copies. Scope and transformation are explicit in the receipt.
