@@ -24,6 +24,8 @@ Q-PROD-06 is **DONE / INTEGRATED** through PR #249 at `1ca940a8235411b378aa2e507
 
 Q-DESIGN-23 is **ADOPTED / ENGINEERING HANDOFF READY / NATIVE ACCEPTANCE PENDING**. Contract: `docs/design/app/contracts/PRODUCTION_CAST_CHARACTER_ESTABLISHMENT_PRESENTATION.md`. The minimum creator-facing surface is current-Production **Characters**: read-only replay-derived Character rows plus bounded **New Character** creation, conditional presentation-only duplicate Character codes, exact focus/return, and explicit environmental non-confirmation. Historical Off-Scene/current-Scene/edit/deeper-detail semantics remain excluded.
 
+Q-PROD-07 implementation is active. Exact executable candidate `9ea74391adf0a2f259c205ae88128324d4a52148`: native ARM64 environment PASS, Application 72/72 PASS, Persistence 141/141 PASS, WinUI Release build PASS with 0 warnings/errors. Native UI has passed empty Cast, exact UTF-16 creation, duplicate-name codes/exact row focus, Back/Cancel focus, World-truth regression, typed Incompatible/Invalid, real lock-contention non-confirmation, ordinary-open re-establishment, accessibility leakage, and 720×520 vertical reachability; Light/Dark capture reconciliation is in progress. Validation #1254 executable jobs passed; overall failure was checkpoint staleness only.
+
 ## Next
 
-Implement Q-PROD-07 in Windows presentation only against the integrated Q-PROD-06 Product contract and adopted Q-DESIGN-23 contract. Product/Persistence changes are a stop condition. Require exact tests, ARM64 WinUI build/runtime evidence, recursive review, and Design native acceptance before integration.
+Finish Q-PROD-07 exact-source recursive review + Light/Dark/native evidence, correct any finding, then obtain Design acceptance and final hosted gates before integration. Product/Persistence changes remain a stop condition.
