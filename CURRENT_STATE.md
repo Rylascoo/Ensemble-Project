@@ -14,12 +14,12 @@ Q-ADMIN-04/05/06 are CLOSED. Website owns website/history; Drive owns shared mas
 
 Q-DESIGN-21 contract is adopted in `docs/design/app/contracts/WORLD_CURRENT_TRUTH_PRESENTATION.md`. Exact-main Design-contract baseline `d77685f73f6271e4cf86902b5471da90fbe11ad4`; Validation #1147 PASS.
 
-Q-PROD-03 is ACTIVE on `qprod03/world-current-truth-presentation-2026-09-21`: bounded Windows implementation only. It consumes existing ProductApplication / WorldCurrentState contracts; no Product/Persistence mutation is authorized.
+Q-PROD-03 exact tested source `75faeb827162c89b537d2a944473b89eabfc22ea` implements the bounded Windows surface with no Product/Persistence source change. Native ARM64 Application 57/57, Persistence 129/129 and WinUI Release build PASS; exact UI evidence is in `docs/evidence/Q_PROD_03_WORLD_CURRENT_TRUTH_PRESENTATION_NATIVE_ARM64_VALIDATION_2026_09_21.md`.
 
-Scope: contextual Current Production -> World truths; authoritative empty/non-empty inspection; exact-text local whole-set proposal/review; confirmed replay success; typed Invalid/Incompatible non-effect; environmental **Confirmation unavailable** with last-confirmed/submitted separation. No history/query, Character knowledge, lifecycle, retry/rollback/idempotence, provider, Stage, Home A/B or FIRSTUSE expansion.
+Q-DESIGN-21 = **ACCEPTED FOR INTEGRATION** at that source. Empty/non-empty inspection, exact-text whole-set replacement, confirmed replay, typed Invalid/Incompatible, environmental **Confirmation unavailable**, Light/Dark, 720x520, focus return and accessibility passed.
 
 High Contrast, Source Sans 3/S1 packaging, WACK/Store and release remain unearned. Preserved provider chain: `docs/evidence/E0D_Q_E0D_01_P03_SLOT1_PREEXECUTION_ACTIVATION_2026_09_17.md`.
 
 ## Next
 
-Validate the Q-PROD-03 Windows candidate with hosted gates, then native ARM64/UI evidence. Stop on any Product/Persistence semantic change. Return exact evidence to Q-DESIGN-21 for acceptance; do not merge before acceptance.
+Require exact-final-head hosted PASS after this evidence/continuity closeout. PR #245 remains draft/unmerged until that gate. After integration, require exact-main Validation before closing Q-PROD-03/Q-DESIGN-21.

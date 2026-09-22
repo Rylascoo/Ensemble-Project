@@ -1,0 +1,38 @@
+{
+  "schema": "kymaean.appui-q-design-21-world-current-truth-native-acceptance.v1",
+  "status": "ACCEPTED_FOR_INTEGRATION",
+  "date": "2026-09-21",
+  "queue_item": "Q-DESIGN-21",
+  "pull_request": 245,
+  "contract": "docs/design/app/contracts/WORLD_CURRENT_TRUTH_PRESENTATION.md",
+  "base": "d77685f73f6271e4cf86902b5471da90fbe11ad4",
+  "exact_tested_source": "75faeb827162c89b537d2a944473b89eabfc22ea",
+  "engineering_evidence": "docs/evidence/Q_PROD_03_WORLD_CURRENT_TRUTH_PRESENTATION_NATIVE_ARM64_VALIDATION_2026_09_21.md",
+  "disposition": {
+    "contextual_route": "PASS — contextual Current Production depth; durable Home/Productions/Settings hierarchy unchanged.",
+    "authoritative_inspection": "PASS — exact non-empty set and valid empty set are presented without invented taxonomy.",
+    "replacement": "PASS — local proposal remains non-effective, blank/exact duplicates are blocked, review states whole-set replacement, empty replacement is valid.",
+    "replay_confirmation": "PASS — success is presented only from returned authoritative replay; exact code units were preserved end-to-end.",
+    "typed_failures": "PASS — Incompatible and Invalid remain distinguishable, preserve prior confirmed view and label proposal Not applied.",
+    "environmental_nonconfirmation": "PASS — Confirmation unavailable asserts neither success nor failure, separates last-confirmed from submitted, exposes no retry/rollback control.",
+    "accessibility": "PASS — Back restores trigger focus; truth surfaces expose visible creator text with zero tested internal object/ID leakage.",
+    "visual": "PASS — Light F2/Dark D3 parity and 720x520 responsive observation preserve the accepted quiet field hierarchy."
+  },
+  "recursive_audit": {
+    "result": "CLEAN",
+    "notes": [
+      "No Product/Persistence file changed.",
+      "The non-confirmation state correctly supersedes the older generic no-accepted-mutation failed/cancelled carrier for this specific environmental writer boundary.",
+      "No fact/claim/belief/provenance capacities from older exploratory Design evidence were imported because current Product truth does not expose them."
+    ]
+  },
+  "preserved_limits": [
+    "High Contrast exact-source recapture remains unearned.",
+    "Source Sans 3/S1 packaging remains unresolved.",
+    "Temporary unsigned package is not WACK, Store or release validation.",
+    "No history/query, Character knowledge, Scene/current-situation, provider, Stage, lifecycle, retry/rollback/idempotence, Home A/B or FIRSTUSE authority."
+  ],
+  "approval": "APPROVED BY STANDING DIRECTOR DELEGATION — CLEAN RECURSIVE AUDIT",
+  "integration_pending": true,
+  "next": "Require exact-final-head hosted PASS after evidence/continuity closeout, then PR #245 may integrate. After merge, require exact-main Validation before Q-PROD-03/Q-DESIGN-21 close."
+}
