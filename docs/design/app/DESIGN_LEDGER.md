@@ -1046,6 +1046,6 @@ The Director adopted `contracts/SCENE_INITIAL_ROSTER_PRESENTATION.md` and author
 The explicit falsifier survives adoption: later native evidence that Scene codes cannot provide usable accessible distinction must return the smallest missing Product requirement, potentially persistent creator-authored naming. No schema change, Windows implementation or Product successor is authorized. Full decision: `evidence/SCENE_PRESENTATION_CONTRACT_DECISION_2026_09_23.md`.
 
 
-## Q-DESIGN-24 clarified implementation entry — 2026-09-23
+## Q-DESIGN-24 clarified implementation entry â€” 2026-09-23
 
 Director approved ProductionId-keyed session uncertainty, post-Open witness removal with neutral transient unconfirmed-outcome announcement, and affected-Production full-hash collision availability. Exact law: `docs/design/app/contracts/SCENE_INITIAL_ROSTER_PRESENTATION.md`; decision: `docs/design/app/evidence/SCENE_PRESENTATION_CONTRACT_DECISION_2026_09_23.md`. Bounded Windows empirical implementation authorized; provisional verdict INCONCLUSIVE. No native, creator or Narrator acceptance or Product expansion. Earlier implementation-not-authorized entries are historical.

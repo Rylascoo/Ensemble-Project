@@ -55,7 +55,7 @@ public sealed partial class MainPage
         // Clear native checkbox state as well as the identity draft, including reused containers.
         foreach (var checkBox in Descendants<CheckBox>(ScenePicker)) checkBox.IsChecked = false;
         UpdateLayout();
-        SceneDraftHeading.Focus(FocusState.Programmatic);
+        FocusSceneTarget(SceneDraftHeading);
         AnnounceScene("New Scene. Choose Characters from this Production. You can leave the initial roster empty.");
     }
 
@@ -95,13 +95,19 @@ public sealed partial class MainPage
             button.StartBringIntoView();
             button.Focus(FocusState.Keyboard);
         }
-        else ScenesHeading.Focus(FocusState.Programmatic);
+        else FocusSceneTarget(ScenesHeading);
     }
 
     private void FocusSceneNotice()
     {
         SceneNotice.StartBringIntoView();
-        SceneNotice.Focus(FocusState.Programmatic);
+        FocusSceneTarget(SceneNotice);
+    }
+
+    private static void FocusSceneTarget(Control target)
+    {
+        if (!target.Focus(FocusState.Programmatic))
+            throw new InvalidOperationException("Scene presentation focus target is unavailable.");
     }
 
     private void AnnounceScene(string message)

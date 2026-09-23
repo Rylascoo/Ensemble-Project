@@ -378,11 +378,11 @@
                                 <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" FontSize="20" Glyph="&#xE72B;" />
                             </Button>
                             <StackPanel Spacing="12" Visibility="{Binding IsScenes, Converter={StaticResource BoolToVisibility}}">
-                                <ContentControl x:Name="ScenesHeading" IsTabStop="False" AutomationProperties.HeadingLevel="Level2">
+                                <ContentControl x:Name="ScenesHeading" IsTabStop="True" AutomationProperties.HeadingLevel="Level2">
                                     <TextBlock FontSize="24" Text="{Binding SceneListHeading}" TextWrapping="Wrap" />
                                 </ContentControl>
                                 <TextBlock Text="Established Scenes and their initial rosters." TextWrapping="Wrap" />
-                                <ContentControl x:Name="SceneNotice" IsTabStop="False" AutomationProperties.LiveSetting="Polite"
+                                <ContentControl x:Name="SceneNotice" IsTabStop="True" AutomationProperties.LiveSetting="Polite"
                                                 AutomationProperties.Name="{Binding SceneNotice}"
                                                 Visibility="{Binding HasSceneNotice, Converter={StaticResource BoolToVisibility}}">
                                     <TextBlock Text="{Binding SceneNotice}" TextWrapping="Wrap" />
@@ -420,7 +420,7 @@
                                            Visibility="{Binding InspectedScene.IsEmpty, Converter={StaticResource BoolToVisibility}}" />
                             </StackPanel>
                             <StackPanel Spacing="12" Visibility="{Binding IsSceneDraft, Converter={StaticResource BoolToVisibility}}">
-                                <ContentControl x:Name="SceneDraftHeading" IsTabStop="False" AutomationProperties.HeadingLevel="Level2"
+                                <ContentControl x:Name="SceneDraftHeading" IsTabStop="True" AutomationProperties.HeadingLevel="Level2"
                                                 AutomationProperties.Name="New Scene. Choose Characters from this Production. You can leave the initial roster empty.">
                                     <TextBlock Text="New Scene" FontSize="24" />
                                 </ContentControl>
