@@ -18,16 +18,14 @@ Q-UNITY-02 is **DONE / INTEGRATED** through PR #248; exact-main Validation #1192
 
 ## Open gates
 
-Home A/B, FIRSTUSE, rename/delete/import/restore, Character semantics beyond identity/name, Scene ontology/lifecycle, provider/Performer, Stage motion, deferred E0, High Contrast, Source Sans 3/S1 packaging, final architecture, WACK/Store and release remain separately gated.
+Home A/B, FIRSTUSE, rename/delete/import/restore, Character semantics beyond identity/name, Scene semantics beyond identity/initial roster, provider/Performer, Stage motion, deferred E0, High Contrast, Source Sans 3/S1 packaging, final architecture, WACK/Store and release remain gated.
 
 Q-PROD-06 is **DONE / INTEGRATED** through PR #249; exact-main Validation #1226 PASS. Product owns persistent Character identity/name, establishment and replay-derived Production Cast; `Character != Performer` and Production Cast != Scene Roster.
 
 Q-PROD-07 / Q-DESIGN-23 is **DONE / INTEGRATED** through PR #252 at `7d79581aac869f8e81fc0a5267b1f14fde394246`; push-triggered exact-main Validation #1266 PASS. Current-Production **Characters** is the adopted read-only Cast list + bounded **New Character** flow. Native/runtime authority remains bound to exact executable `9ea74391adf0a2f259c205ae88128324d4a52148`. Evidence: `docs/evidence/Q_PROD_07_CHARACTER_PRESENTATION_NATIVE_ARM64_VALIDATION_2026_09_22.md`.
 
+Q-PROD-08 is **DONE / INTEGRATED** through PR #257 at `9e4a1e30d6d40b46c0fca5e24f6735d3453b2d45`; exact-main Validation #1283 PASS. Product owns opaque Scene identity, creator-established initial Scene Roster constrained to Production Cast, replay-derived Production Scenes and versioned `creator-established-scene.v1` persistence. Native authority remains `31e16cbe274f9b90192bba67cd443fa3320ed8e2`. Current Scene, roster mutation, endings/cardinality, Character Core, Performer/provider, Opportunity/Performance and Scene UI remain gated. Evidence: `docs/evidence/Q_PROD_08_SCENE_IDENTITY_INITIAL_ROSTER_NATIVE_ARM64_VALIDATION_2026_09_22.md`.
+
 ## Next
 
-Q-PROD-08 is **NATIVE VALIDATED / INDEPENDENT REVIEW CLEAN / PENDING INTEGRATION**. Exact executable `31e16cbe274f9b90192bba67cd443fa3320ed8e2`: Application 84/84 PASS; Persistence 148/148 PASS; ARM64 WinUI Release PASS, 0 warnings/errors. Scene identity + initial-roster scope and all exclusions remain unchanged. Evidence: `docs/evidence/Q_PROD_08_SCENE_IDENTITY_INITIAL_ROSTER_NATIVE_ARM64_VALIDATION_2026_09_22.md`.
-
-Native authority remains bound to `31e16cb...`. Run final hosted branch/PR gates; integration remains Director-gated. Deferred-E0 exposure/reversibility remains provisional as recorded.
-
-Q-ADMIN-08: **.NET 10 native probe complete / Director disposition pending**. All projects including ARM64 WinUI compile cleanly under SDK 10.0.400; existing `dotnet test` is blocked pre-test by the .NET 10 VSTest/MTP runner boundary. Retarget remains Director-gated.
+No application implementation package is active. Q-ADMIN-08 is the next Director decision: the .NET 10 native probe is complete, but retarget remains unauthorized. Choose **RETARGET NOW**, **RETARGET BY DATE/GATE**, or **ACCEPT UNSUPPORTED PERIOD**. Then run fresh Product/Design successor selection; do not infer Q-PROD-09.

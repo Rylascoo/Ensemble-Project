@@ -548,7 +548,8 @@ Native/runtime authority remains bound to executable source `9ea74391...`; later
 | Native ARM64 | environment PASS; Application 84/84 PASS; Persistence 148/148 PASS; WinUI Release PASS, 0 warnings/errors |
 | Review | predecessor review found post-append replay interleaving + projection Cast/Scene consistency defects; both corrected; final exact-ref static read-only review CLEAN |
 | Reversibility | no Scene-event migration adapter exists: **UNEARNED**; later semantic change must version/migrate/fail closed, never silently ignore durable history |
-| Hosted state | pending documentation-head branch/PR gates; native authority remains bound to exact executable above |
+| Hosted branch/PR | documentation head `43176756bac1b3726f00d1525496e41a9f0e529e`; push Validation #1281 PASS; PR Validation #1282 PASS; E0-E preparation #202 PASS |
+| Integrated main | PR #257 merge `9e4a1e30d6d40b46c0fca5e24f6735d3453b2d45`; push-triggered exact-main Validation #1283 PASS |
 | Limits | no current Scene, roster mutation, ending/cardinality, Character Core, Performer/provider, Opportunity/Performance, Scene UI, provider traffic, deferred-E0 execution, .NET 10 retarget or release authority |
 
 Native/runtime authority remains bound to exact source `31e16cbe...`; evidence/state/hosted/integration commits do not inherit or inflate it.

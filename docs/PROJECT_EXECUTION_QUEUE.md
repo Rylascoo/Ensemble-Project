@@ -19,11 +19,12 @@ This file now carries only current, deferred, or blocking work. Completed histor
 
 ## Current application work
 
+No Product/Application implementation package is currently `ACTIVE`; Q-PROD-08 closed through PR #257 and is intentionally absent from this current-work table.
+
 | ID | Role | Status | Work | Hard boundary / successor |
 |---|---|---|---|---|
-| Q-PROD-08 | Product / Architecture -> Implementation | VALIDATED — PENDING INTEGRATION | Exact executable `31e16cbe274f9b90192bba67cd443fa3320ed8e2`; native ARM64 + independent review CLEAN. Evidence: `docs/evidence/Q_PROD_08_SCENE_IDENTITY_INITIAL_ROSTER_NATIVE_ARM64_VALIDATION_2026_09_22.md`. | Final hosted branch/PR gates, then Director merge authorization. No current Scene, roster mutation, ending/cardinality, Character Core, Performer/provider, Opportunity/Performance or Scene UI. |
-| Q-ADMIN-07 | Governance / Recovery | DEFERRED — LOCAL RESIDUE ONLY | Disposition remaining local historical/deferred worktrees after owner/status/evidence review. | Remote branch clutter is closed by Q-UNITY-01; preserve ambiguous local evidence and the unique historical PR #226 branch. |
-| Q-ADMIN-08 | Governance / Product Architecture | DIRECTOR DECISION PENDING — NATIVE PROBE COMPLETE | .NET 10 decision input + native probe: `docs/evidence/Q_ADMIN_08_DOTNET10_MIGRATION_DECISION_INPUT_2026_09_22.md`. | Retarget remains unauthorized. Probe: all project/WinUI builds PASS; test execution requires .NET 10 MTP runner/workflow migration. Director chooses RETARGET NOW / RETARGET BY DATE-GATE / ACCEPT UNSUPPORTED PERIOD. |
+| Q-ADMIN-08 | Governance / Product Architecture | DIRECTOR DECISION REQUIRED — NATIVE PROBE COMPLETE | .NET 10 decision input + native probe: `docs/evidence/Q_ADMIN_08_DOTNET10_MIGRATION_DECISION_INPUT_2026_09_22.md`. | Retarget remains unauthorized. Director chooses RETARGET NOW / RETARGET BY DATE-GATE / ACCEPT UNSUPPORTED PERIOD. |
+| Q-ADMIN-07 | Governance / Recovery | DEFERRED — LOCAL RESIDUE ONLY | Disposition remaining local historical/deferred worktrees after owner/status/evidence review. | Preserve ambiguous local evidence and the unique historical PR #226 branch; merged remote refs require archive-tag-before-delete handling. |
 
 ## Deferred E0 / architecture gates
 
