@@ -26,4 +26,6 @@ Q-PROD-07 / Q-DESIGN-23 is **DONE / INTEGRATED** through PR #252 at `7d79581aac8
 
 ## Next
 
-No successor implementation package is authorized yet. Reconcile the current roadmap, ODRs, Product source and Design gates and select the smallest lawful successor before opening another implementation package. Q-ADMIN-07 remains deferred local-residue cleanup; all separately gated Scene/provider/Stage/deferred-E0/High-Contrast/typography/release work stays closed until its own prerequisite is satisfied.
+Q-PROD-08 is **SELECTED / IMPLEMENTATION AUTHORIZED**: Product Scene identity + initial roster foundation only. Scene identity is opaque; initial roster is a subset of existing Production Cast; replay/persistence use the existing Production journal. Current Scene, roster mutation, Scene ending/cardinality, Character Core, provider/Performer, Opportunity/Performance and Scene UI remain excluded. Evidence: `docs/evidence/Q_PROD_08_SUCCESSOR_SELECTION_SCENE_IDENTITY_INITIAL_ROSTER_FOUNDATION_2026_09_22.md`.
+
+Implementation requires the normal isolated writer, exact review and native ARM64 validation path before integration.

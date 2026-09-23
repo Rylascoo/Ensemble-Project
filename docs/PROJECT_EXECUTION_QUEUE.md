@@ -19,10 +19,9 @@ This file now carries only current, deferred, or blocking work. Completed histor
 
 ## Current application work
 
-No application implementation package is currently `ACTIVE`; Q-PROD-07 / Q-DESIGN-23 closed through PR #252 and is intentionally absent from this current-work table.
-
 | ID | Role | Status | Work | Hard boundary / successor |
 |---|---|---|---|---|
+| Q-PROD-08 | Product / Architecture -> Implementation | ACTIVE — IMPLEMENTATION AUTHORIZED | Scene identity + initial roster foundation from `docs/evidence/Q_PROD_08_SUCCESSOR_SELECTION_SCENE_IDENTITY_INITIAL_ROSTER_FOUNDATION_2026_09_22.md`. | Application/Persistence/tests only. No current Scene, roster mutation, Scene ending/cardinality, Character Core, Performer/provider, Opportunity/Performance or Scene UI. Native ARM64 validation + exact review required before integration. |
 | Q-ADMIN-07 | Governance / Recovery | DEFERRED — LOCAL RESIDUE ONLY | Disposition remaining local historical/deferred worktrees after owner/status/evidence review. | Remote branch clutter is closed by Q-UNITY-01; preserve ambiguous local evidence and the unique historical PR #226 branch. |
 
 ## Deferred E0 / architecture gates
