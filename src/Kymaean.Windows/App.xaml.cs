@@ -25,6 +25,7 @@ public partial class App : Microsoft.UI.Xaml.Application
                     global::Windows.Storage.ApplicationData.Current.LocalFolder.Path;
 #if KYMAEAN_DIRECTOR_PREVIEW
                 _previewLease = Preview.PreviewEnvironment.Acquire(applicationRoot);
+                Preview.PreviewEnvironment.RequireAdmission(applicationRoot, args.Arguments);
                 applicationRoot = Preview.PreviewEnvironment.SelectedDataRoot(applicationRoot);
 #endif
                 var catalog = new FileProductionCatalog(applicationRoot);

@@ -6,6 +6,9 @@ $PreviewCompatibility = 'qprod08-journal-v1'
 
 function Assert-PlainTree([string]$Path) {
     $item = Get-Item -LiteralPath $Path -Force
+    for ($ancestor = [IO.DirectoryInfo]::new([IO.Path]::GetFullPath($Path)); $null -ne $ancestor; $ancestor = $ancestor.Parent) {
+        if ($ancestor.Exists -and ($ancestor.Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0) { throw "Reparse ancestor refused: $Path" }
+    }
     if (($item.Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0) { throw "Reparse path refused: $Path" }
     if ($item.PSIsContainer) {
         foreach ($child in Get-ChildItem -LiteralPath $Path -Force) { Assert-PlainTree $child.FullName }
@@ -21,6 +24,21 @@ function Assert-Inventory([string]$Path, $Expected) {
     $actual = @(Get-Inventory $Path) | ConvertTo-Json -Depth 6 -Compress
     $wanted = @($Expected) | ConvertTo-Json -Depth 6 -Compress
     if ($actual -cne $wanted) { throw "Inventory mismatch: $Path" }
+}
+function Get-AuthoritativeInventory($Inventory) {
+    @($Inventory | Where-Object { $_.path -cnotmatch '/data/production-catalog/entry-[^/]+/(\.projection\.snapshot|\.pending-projection-snapshot-[^/]+)$' })
+}
+function Assert-PreservedProfiles([string]$Path, $Expected) {
+    $actual = @(Get-AuthoritativeInventory @(Get-Inventory $Path)) | ConvertTo-Json -Depth 6 -Compress
+    $wanted = @(Get-AuthoritativeInventory $Expected) | ConvertTo-Json -Depth 6 -Compress
+    if ($actual -cne $wanted) { throw 'Authoritative profile data changed; refuse resume/refresh.' }
+}
+function Set-ActivationGate([string]$LocalState, [string]$Stage, [string]$Source, [string]$Mode, [string]$Nonce = '') {
+    $root = Join-Path $LocalState 'DirectorPreview'
+    New-Item -ItemType Directory -Path $root -Force | Out-Null
+    $temporary = Join-Path $root ('activation-' + [Guid]::NewGuid().ToString('N') + '.tmp')
+    Write-NewJson $temporary ([ordered]@{ source=$Source; executable=[IO.Path]::GetFullPath((Join-Path $Stage 'layout/Kymaean.Windows.exe')); mode=$Mode; nonce=$Nonce })
+    [IO.File]::Move($temporary, (Join-Path $root 'activation.json'), $true)
 }
 function Write-NewJson([string]$Path, $Value) {
     $stream = [IO.File]::Open($Path, [IO.FileMode]::CreateNew, [IO.FileAccess]::Write, [IO.FileShare]::None)
@@ -69,7 +87,7 @@ function Assert-Stage([string]$Stage) {
     return $receipt
 }
 
-function Start-VerifiedPreview($Package, [string]$Source) {
+function Start-VerifiedPreview($Package, [string]$Source, [string]$Nonce = '') {
     if (-not ('DirectorPreviewNative' -as [type])) {
         Add-Type -TypeDefinition @'
 using System;
@@ -80,7 +98,7 @@ interface IPreviewActivationManager {
  [PreserveSig] int ActivateApplication([MarshalAs(UnmanagedType.LPWStr)] string id, [MarshalAs(UnmanagedType.LPWStr)] string args, uint options, out uint pid);
 }
 public static class DirectorPreviewNative {
- public static uint Activate(string id) { uint pid; var m=(IPreviewActivationManager)new PreviewActivationManager(); Marshal.ThrowExceptionForHR(m.ActivateApplication(id,"",2,out pid)); return pid; }
+ public static uint Activate(string id, string args) { uint pid; var m=(IPreviewActivationManager)new PreviewActivationManager(); Marshal.ThrowExceptionForHR(m.ActivateApplication(id,args,2,out pid)); return pid; }
  [DllImport("kernel32.dll", SetLastError=true)] public static extern bool IsWow64Process2(IntPtr process, out ushort processMachine, out ushort nativeMachine);
 }
 '@
@@ -88,7 +106,7 @@ public static class DirectorPreviewNative {
     $localState = Get-PreviewLocalState $Package
     $launches = Join-Path $localState 'DirectorPreview/launches'
     $before = if (Test-Path -LiteralPath $launches) { @(Get-ChildItem -LiteralPath $launches -File | ForEach-Object Name) } else { @() }
-    $previewProcessId = [DirectorPreviewNative]::Activate($Package.PackageFamilyName + '!App')
+    $previewProcessId = [DirectorPreviewNative]::Activate($Package.PackageFamilyName + '!App', $Nonce)
     $launchFile = $null
     for ($attempt = 0; $attempt -lt 100; $attempt++) {
         Start-Sleep -Milliseconds 100

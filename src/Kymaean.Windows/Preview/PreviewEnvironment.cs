@@ -51,6 +51,26 @@ internal static class PreviewEnvironment
         return data;
     }
 
+    public static void RequireAdmission(string localState, string arguments)
+    {
+        var source = typeof(PreviewEnvironment).Assembly.GetCustomAttributes<AssemblyMetadataAttribute>()
+            .Single(a => a.Key == "DirectorPreviewSource").Value!;
+        ValidateAdmission(localState, arguments, source, Environment.ProcessPath!);
+    }
+
+    internal static void ValidateAdmission(string localState, string arguments, string source, string executable)
+    {
+        using var document = JsonDocument.Parse(File.ReadAllText(SafePath(Root(localState), "activation.json")));
+        var gate = document.RootElement;
+        if (gate.GetProperty("source").GetString() != source ||
+            !string.Equals(gate.GetProperty("executable").GetString(), Path.GetFullPath(executable), StringComparison.OrdinalIgnoreCase))
+            throw new IOException("Preview executable has no matching admission.");
+        var mode = gate.GetProperty("mode").GetString();
+        if (mode != "admitted" && !(mode == "smoke" && !string.IsNullOrEmpty(arguments) &&
+            arguments == gate.GetProperty("nonce").GetString()))
+            throw new IOException("Preview refresh is incomplete; ordinary activation is blocked.");
+    }
+
     public static void CheckTree(string path)
     {
         foreach (var entry in Directory.EnumerateFileSystemEntries(path))

@@ -4,7 +4,7 @@ param(
     [string]$Stage, [string]$ExpectedSource, [string]$ProfileId,
     [ValidateSet('director','empty','rich','falsifier')][string]$Kind = 'empty', [string]$Name,
     [switch]$Resume,
-    [ValidateSet('None','BeforeRegistration','AfterRegistration')][string]$TestFailure = 'None')
+    [ValidateSet('None','BeforeRegistration','AfterRegistration','AfterReceipt')][string]$TestFailure = 'None')
 . "$PSScriptRoot/common.ps1"
 if ([Runtime.InteropServices.RuntimeInformation]::OSArchitecture -ne 'Arm64' -or [Runtime.InteropServices.RuntimeInformation]::ProcessArchitecture -ne 'Arm64') { throw 'Use native ARM64 PowerShell on Windows ARM64.' }
 $control = Join-Path $env:LOCALAPPDATA 'KymaeanDirectorPreview'
@@ -61,9 +61,22 @@ try {
     }
     if ($pending.localState) {
         if (!$dataLock) { $dataLock = Open-PreviewLock $pending.localState }
-        Assert-Inventory (Join-Path $pending.localState 'DirectorPreview/profiles') $pending.before
+        Assert-PreservedProfiles (Join-Path $pending.localState 'DirectorPreview/profiles') $pending.before
         if ((Get-Content (Join-Path $pending.localState 'DirectorPreview/active-profile.json') -Raw) -cne $pending.selection) { throw 'Selected profile changed after interrupted refresh.' }
     }
+    $completedReceipt = Join-Path $control "refresh-$($pending.run).json"
+    if (Test-Path $completedReceipt) {
+        $completed = Get-Content $completedReceipt -Raw | ConvertFrom-Json
+        if ($completed.status -cne 'PASS' -or $completed.source -cne $build.source -or $completed.buildHash -cne $pending.buildHash -or !$package -or [IO.Path]::GetFullPath($package.InstallLocation) -ne [IO.Path]::GetFullPath((Join-Path $Stage 'layout'))) { throw 'Existing completion receipt does not match this transaction.' }
+        $localState = Get-PreviewLocalState $package
+        if (!$dataLock) { $dataLock = Open-PreviewLock $localState }
+        Assert-PreservedProfiles (Join-Path $localState 'DirectorPreview/profiles') $completed.after
+        Move-Item -LiteralPath $pendingPath -Destination (Join-Path $control "completed-$($pending.run).json")
+        Set-ActivationGate $localState $Stage $build.source 'admitted'
+        Write-Output 'RESUMED_COMPLETION=PASS'
+        return
+    }
+    if ($pending.localState) { Set-ActivationGate $pending.localState $Stage $build.source 'blocked' }
     if ($TestFailure -eq 'BeforeRegistration') { throw 'TEST: interrupted before registration; pending receipt preserved.' }
     # Same identity development registration only. No uninstall or persisted-data rollback path exists.
     Add-AppxPackage -Register (Join-Path $Stage 'layout/AppxManifest.xml') -ErrorAction Stop
@@ -80,12 +93,14 @@ try {
         } elseif (!(Test-Path (Join-Path $localState 'DirectorPreview/active-profile.json'))) { throw 'Existing profile data has no selection; reconcile explicitly.' }
     }
     $replayBefore = Invoke-Profiles $Stage @('verify',$localState)
-    $launch = Start-VerifiedPreview $package $build.source
+    $nonce = [Guid]::NewGuid().ToString('N')
+    Set-ActivationGate $localState $Stage $build.source 'smoke' $nonce
+    $launch = Start-VerifiedPreview $package $build.source $nonce
     $process = Get-Process -Id $launch.pid
     if (!$process.CloseMainWindow() -or !$process.WaitForExit(10000)) { throw 'Preview smoke did not close gracefully; no force termination.' }
     $dataLock = Open-PreviewLock $localState
     if ($pending.localState) {
-        Assert-Inventory (Join-Path $localState 'DirectorPreview/profiles') $pending.before
+        Assert-PreservedProfiles (Join-Path $localState 'DirectorPreview/profiles') $pending.before
         if ((Get-Content (Join-Path $localState 'DirectorPreview/active-profile.json') -Raw) -cne $pending.selection) { throw 'Refresh changed selected profile.' }
     }
     $after = @(Get-Inventory (Join-Path $localState 'DirectorPreview/profiles'))
@@ -93,7 +108,9 @@ try {
     $replayAfter = Invoke-Profiles $Stage @('verify',$localState)
     if (($replayBefore | ConvertTo-Json -Depth 8 -Compress) -cne ($replayAfter | ConvertTo-Json -Depth 8 -Compress)) { throw 'Profile replay changed during refresh.' }
     Write-NewJson (Join-Path $control "refresh-$($pending.run).json") ([ordered]@{ status='PASS'; source=$build.source; identity=$PreviewIdentity; stage=$Stage; buildHash=$pending.buildHash; previous=$pending.previous; backup=$pending.backup; before=$pending.before; after=$after; launch=$launch; replay=$replayAfter; authority='Development Preview only; not merge approval or Design acceptance.' })
+    if ($TestFailure -eq 'AfterReceipt') { throw 'TEST: interrupted after success receipt; completion must resume idempotently.' }
     # Retain the transaction record; completion moves only the small marker, never application data.
     Move-Item -LiteralPath $pendingPath -Destination (Join-Path $control "completed-$($pending.run).json")
+    Set-ActivationGate $localState $Stage $build.source 'admitted'
     [ordered]@{ result='PASS'; source=$build.source; stage=$Stage; identity=$PreviewIdentity; localState=$localState } | ConvertTo-Json
 } finally { if($dataLock){$dataLock.Dispose()}; $controlLock.Dispose() }

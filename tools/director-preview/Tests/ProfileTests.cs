@@ -90,4 +90,23 @@ public sealed class ProfileTests
 
     [TestMethod]
     public void PathEscapeRejected() => Assert.Throws<IOException>(() => PreviewEnvironment.SafePath(_root, "..", "other"));
+
+    [TestMethod]
+    public void NativeAdmissionRejectsIncompleteRefreshAndWrongBinary()
+    {
+        using var lease = PreviewEnvironment.Acquire(_root);
+        var executable = Path.Combine(_root, "Kymaean.Windows.exe");
+        void Gate(string mode) => File.WriteAllText(Path.Combine(PreviewEnvironment.Root(_root), "activation.json"),
+            JsonSerializer.Serialize(new { source = Source, executable, mode, nonce = "one-smoke" }));
+        Assert.Throws<IOException>(() => PreviewEnvironment.ValidateAdmission(_root, "", Source, executable));
+        Gate("blocked");
+        Assert.Throws<IOException>(() => PreviewEnvironment.ValidateAdmission(_root, "one-smoke", Source, executable));
+        Gate("smoke");
+        Assert.Throws<IOException>(() => PreviewEnvironment.ValidateAdmission(_root, "", Source, executable));
+        PreviewEnvironment.ValidateAdmission(_root, "one-smoke", Source, executable);
+        Gate("admitted");
+        PreviewEnvironment.ValidateAdmission(_root, "", Source, executable);
+        Assert.Throws<IOException>(() => PreviewEnvironment.ValidateAdmission(_root, "", new string('a', 40), executable));
+        Assert.Throws<IOException>(() => PreviewEnvironment.ValidateAdmission(_root, "", Source, executable + ".other"));
+    }
 }
