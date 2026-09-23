@@ -25,6 +25,14 @@ The historical E0 checkpoint below retains its separate scope. The Q-ADMIN-08 in
 | Integration | Director-authorized PR #259 merged at `7650fa40488fd19741c5bd0b65830d50fd62fa7b`; exact-main [Validation #1291](https://github.com/Rylascoo/Ensemble-Project/actions/runs/35828613021) PASS. Merge tree equals final PR head. |
 | Authority boundary | .NET 10 is the integrated platform baseline. Native runtime authority remains the exact executable above; no Product/provider/deferred-E0/release promotion. |
 
+## Q-DESIGN-24 partial Windows empirical checkpoint
+
+Exact executable source `bb209ac1eaf5248e5566ef240fcf5978892fe9bf`; partial-evidence tag `validation/q-design-24-windows-partial-arm64`. Evidence: `docs/evidence/Q_DESIGN_24_WINDOWS_EMPIRICAL_EVIDENCE_2026_09_23.md`; measured inventory: `docs/evidence/Q_DESIGN_24_WINDOWS_EMPIRICAL_MEASUREMENTS_2026_09_23.json`.
+
+Native ARM64 focused presentation 11/11, Application 84/84, Persistence 148/148, Core 628/628 and Harness 155/155 PASS; WinUI Release zero warnings/errors. Isolated native launch and the explicitly enumerated Dark/125% keyboard, roster, uncertainty/fresh-replay flows observed. Independent exact-ref source review CLEAN after corrections, behaviorally no-write with no proven technical containment.
+
+This is PARTIAL evidence, not promoted clean Design or usability/accessibility acceptance. Provisional verdict INCONCLUSIVE; UIA, complete DPI/text/minimum-window matrix, native stress, Director creator tasks and human Narrator remain unearned. Earlier integrated .NET 10 baseline authority and all Product/provider/deferred-E0/release gates remain unchanged. No merge authorization.
+
 ## Preserved promoted E0 machine-tested checkpoint
 
 | Field | Fact |

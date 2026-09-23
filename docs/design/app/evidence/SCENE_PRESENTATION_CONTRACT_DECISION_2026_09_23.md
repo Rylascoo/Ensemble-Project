@@ -1,11 +1,13 @@
 # Scene presentation sufficiency decision
 
-Status: **DIRECTOR-ADOPTED / STATIC REVIEW COMPLETE / NO IMPLEMENTATION AUTHORITY**
+Status: **DIRECTOR-ADOPTED / STATIC REVIEW COMPLETE / BOUNDED EMPIRICAL IMPLEMENTATION AUTHORIZED**
 
 Date: 2026-09-23. Package: **Q-DESIGN-24**.
 Contract: `docs/design/app/contracts/SCENE_INITIAL_ROSTER_PRESENTATION.md`.
 
 ## Director disposition and ownership
+
+Later Director disposition (2026-09-23) authorizes bounded Windows empirical implementation after recording three exact clarifications in the contract: ProductionId-keyed session uncertainty; removal of submitted witness/block after successful ordinary Open with a neutral transient unknown-outcome announcement; and affected-Production full-hash collision availability. These clarify Design only. Earlier no-implementation/next-authorization prose records historical stages and is superseded. The expanded authorization incorporates Director-supplied independent Claude advisory disposition **SAFE AFTER SPECIFIC TEST-PLAN AMENDMENTS**, not native evidence. Entry plan and provisional **INCONCLUSIVE** verdict: `docs/evidence/Q_DESIGN_24_WINDOWS_EMPIRICAL_EVIDENCE_2026_09_23.md`. No Product successor or executable merge is authorized.
 
 The Director's 2026-09-23 task disposition selected a bounded Scene presentation-contract package and authorized presentation-only treatment derived from integrated Q-PROD-08 truth. It explicitly prohibited implementation, new Product/Persistence schema, persistent Scene naming, currentness/lifecycle/roster mutation and the other exclusions preserved in the contract. It required a stop and smallest exact Product question if presentation-only distinction proved insufficient.
 
@@ -56,6 +58,14 @@ All PASS entries below mean **contract-level reasoning PASS**, not executed UI, 
 | Navigation during uncertainty | Session block retained until successful ordinary Open | PASS |
 | Creator demands memorable persistent labels | Not claimed satisfied by codes; smallest naming question returns to Director | Explicit falsifier |
 
+## Director Task A discoverability correction — 2026-09-23
+
+The first uncoached Director creator attempt did not reach the Scene-code sufficiency question. The Director found Production/Settings and the Current Production Characters/Scenes entries, but after entering those surfaces reported no clear next action or enough information to know how to perform the requested Scene task. Task A therefore records **FAIL — presentation/discoverability boundary**, not Product falsification.
+
+Native/source diagnosis found that the Windows candidate technically exposed Scene code + **Inspect initial roster** for every row, but a long collection reduced the surface to repeated metadata/actions: empty versus populated initial rosters were not visible until inspection; **New Scene** sat after the full collection; focus on lower rows could move the orientation out of view. Existing Drive APPUI composition studies were consulted as visual/composition references only. Their durable pattern is orientation -> meaningful existing truth -> explicit action -> exact return; they do not import their older Scene/currentness semantics into current Product.
+
+The Director approved the smallest Design correction within Q-DESIGN-24: keep heading/orientation and **New Scene** with the stable task frame; show each Scene code with a compact initial-roster preview derived only from already-authoritative Q-PROD-08 roster/Character truth, including explicit **Empty initial roster**; keep long Scene rows in a bounded scrolling region; retain opaque-identity focus/return. No Scene name, currentness, ordering meaning, lifecycle, roster mutation or Product/Persistence change is created. Task A must restart uncoached after the corrected native candidate is prepared.
+
 ## Recursive audit and limits
 
 First pass removed three tempting authority leaks: position-based Scene naming, roster-as-identity matching after uncertain submission, and per-roster duplicate-name grouping that could hide a Character code. A further pass reconciled Q-PROD-08's append repair rather than copying stale post-append-read mechanics from the older Character presentation contract.
@@ -79,4 +89,11 @@ The Director explicitly ADOPTED Q-DESIGN-24 and authorized PR #261 merge subject
 
 Adoption accepts bounded Scene inspection and initial-roster establishment as Design authority. Native usability, memorability, accessibility, layout, focus, collision handling and screen-reader delivery remain NOT EMPIRICALLY VALIDATED. The future Windows package is the empirical test of the contract. If codes fail usable accessible distinction, stop and return the smallest Product requirement, potentially persistent creator-authored Scene naming. Do not silently add Product schema.
 
-Windows implementation is NOT authorized. Product/Persistence, current/active Scene, lifecycle, roster mutation, persistent names, Stage, Character Core, Performer/provider, Opportunity/Performance, deferred-E0 and release boundaries remain unchanged. No Q-PROD-09 is created. Next: Director disposition of the smallest bounded Windows implementation proposal.
+That adoption-stage implementation prohibition is superseded by the later bounded empirical Windows authorization recorded above. Product/Persistence, current/active Scene, lifecycle, roster mutation, persistent names, Stage, Character Core, Performer/provider, Opportunity/Performance, deferred-E0 and release boundaries remain unchanged. No Q-PROD-09 is created. Current work remains the bounded Q-DESIGN-24-WINDOWS empirical package only.
+
+
+## Distinct native Design acceptance — candidate bb209ac — 2026-09-23
+
+**ACCEPTANCE WITHHELD / INCONCLUSIVE**, separate from the clean implementation source review and the unexecuted Director creator protocol. Design inspected native Dark screenshots and real-key observations: bounded Scene/initial-roster language, always-visible derived codes, full-Cast duplicate codes in subset review/detail, exact returned-identity focus, conservative typed non-confirmation and neutral ordinary-reopen announcement match the contract in the observed flows. Native inspection found invisible container tab stops and unrevealed headings; Implementation corrected them and the first-Tab/visible-heading rerun passed. These were presentation defects, not Product falsification.
+
+Required UIA, human Narrator, scaling/text/minimum-window, Light parity and complete native stress evidence remain unearned. The available automation returned no accessibility tree, so Design cannot grant clean accessibility/native acceptance. No missing Product semantic has been demonstrated, and creator tasks have not been scored. Exact evidence/remaining matrix: `docs/evidence/Q_DESIGN_24_WINDOWS_EMPIRICAL_EVIDENCE_2026_09_23.md`. The presentation-code falsifier remains armed.

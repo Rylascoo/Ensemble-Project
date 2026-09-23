@@ -132,6 +132,7 @@ public sealed partial class MainPage : Page
             viewModel.OpenSelectedProduction())
         {
             ShellNavigation.SelectedItem = null;
+            AnnounceScene(viewModel.StatusMessage);
         }
     }
 

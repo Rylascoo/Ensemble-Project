@@ -45,6 +45,7 @@ jobs:
         with:
           dotnet-version: '10.0.400'
       - run: dotnet test --project tests/Kymaean.Application.Tests/Kymaean.Application.Tests.csproj -c Release
+      - run: dotnet test --project tests/Kymaean.Windows.Presentation.Tests/Kymaean.Windows.Presentation.Tests.csproj -c Release
 
   product-persistence-tests:
     name: Product persistence tests (x64 regression, non-authoritative)

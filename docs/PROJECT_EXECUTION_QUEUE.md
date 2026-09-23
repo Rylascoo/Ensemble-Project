@@ -19,10 +19,11 @@ This file now carries only current, deferred, or blocking work. Completed histor
 
 ## Current application work
 
-Q-ADMIN-08 is DONE / INTEGRATED through PR #259; its platform validation remains in `docs/VALIDATION_LEDGER.md`. The Director adopted Q-DESIGN-24 on 2026-09-23: `docs/design/app/contracts/SCENE_INITIAL_ROSTER_PRESENTATION.md`; decision: `docs/design/app/evidence/SCENE_PRESENTATION_CONTRACT_DECISION_2026_09_23.md`. Contract work is complete. Next is separate Director authorization of a bounded Windows empirical implementation package; none is active or authorized. The presentation-code falsifier remains controlling.
+Q-ADMIN-08 is DONE / INTEGRATED through PR #259; its platform validation remains in `docs/VALIDATION_LEDGER.md`. The Director adopted Q-DESIGN-24 on 2026-09-23: `docs/design/app/contracts/SCENE_INITIAL_ROSTER_PRESENTATION.md`; decision: `docs/design/app/evidence/SCENE_PRESENTATION_CONTRACT_DECISION_2026_09_23.md`. The Director subsequently authorized bounded Windows empirical implementation after recording the approved clarifications. Plan/evidence: `docs/evidence/Q_DESIGN_24_WINDOWS_EMPIRICAL_EVIDENCE_2026_09_23.md`. The presentation-code falsifier remains controlling.
 
 | ID | Role | Status | Work | Hard boundary / successor |
 |---|---|---|---|---|
+| Q-DESIGN-24-WINDOWS | Implementation / Design | ACTIVE — DESIGN CORRECTION / HUMAN RERUN | Initial candidate bb209ac reached native Director Task A but failed at presentation/discoverability before Scene-code sufficiency was tested. Approved Design-only correction is implemented on the writer branch; focused tests/build pass. | Prepare fresh isolated corrected native candidate, rerun Task A uncoached, then continue remaining native/Director/Narrator evidence only if Task A clears. Verdict INCONCLUSIVE; no merge or Product successor. |
 | Q-ADMIN-07 | Governance / Recovery | DEFERRED — LOCAL RESIDUE ONLY | Disposition remaining local historical/deferred worktrees after owner/status/evidence review. | Preserve ambiguous local evidence and the unique historical PR #226 branch; merged remote refs require archive-tag-before-delete handling. |
 
 ## Deferred E0 / architecture gates
