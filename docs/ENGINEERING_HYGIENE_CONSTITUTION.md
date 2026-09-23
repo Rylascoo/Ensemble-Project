@@ -104,6 +104,14 @@ Filenames are not a reliable proxy. Classify the assertion by reading it.
 
 Preserve reference-oracle assertions that encode durable externally meaningful/canonical behavior. If an oracle must change, require the authority/evidence that changed the underlying contract rather than casually updating expected output to make a test green.
 
+## Deferred-validation exposure for durable Product formats
+
+While mandatory deferred experiments or convergence gates remain open, any Q-PROD package that adds or changes a durable Product event family, journal/storage schema, persistent identity, or replay-derived Product primitive must include a package-local exposure statement before executable closeout.
+
+It must enumerate relevant deferred gates; classify exposure; state a falsifier; name the replaceable boundary; state version/migration/fail-closed behavior if durable history is later reshaped; prove affected rebuildable caches reconstruct from causal authority; and record consequential gate provenance by role when Git authorship cannot distinguish roles.
+
+Do not predict deferred results to make a package appear safe. Unresolved exposure stays unresolved/provisional. Silent ignoring or reinterpretation of authoritative history is prohibited.
+
 ## Patch / deliverable discipline
 
 ### Patch-first
