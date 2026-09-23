@@ -195,7 +195,7 @@ Resolve only launch-critical questions, including minimum Scene lifecycle/observ
 
 Do not force every ODR item into V1.
 
-Framework support remains a separate Director decision; no ordinary patch may silently retarget it. The Director authorized Q-ADMIN-08 **RETARGET NOW** on 2026-09-23. Its dedicated .NET 10 migration must clear fresh native validation, review and integration gates before replacing the integrated .NET 9 baseline: `docs/evidence/Q_ADMIN_08_DOTNET10_MIGRATION_NATIVE_ARM64_VALIDATION_2026_09_23.md`.
+Framework support remains a separate Director decision; no ordinary patch may silently retarget it. The Director authorized Q-ADMIN-08 **RETARGET NOW** on 2026-09-23. The dedicated migration cleared native validation, independent review and hosted gates and integrated through PR #259 at `7650fa40488fd19741c5bd0b65830d50fd62fa7b` (exact-main Validation #1291 PASS). .NET 10 replaces .NET 9 as the integrated baseline; Product and release boundaries remain unchanged: `docs/evidence/Q_ADMIN_08_DOTNET10_MIGRATION_NATIVE_ARM64_VALIDATION_2026_09_23.md`.
 
 Exit: approved product-runtime architecture and stable-enough Application/persistence/provider/presentation contracts for parallel productization.
 

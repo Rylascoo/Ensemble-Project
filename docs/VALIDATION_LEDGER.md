@@ -4,9 +4,9 @@ Status: validation fact register only. This file cannot advance phase/checkpoint
 
 ## Current promoted machine-tested checkpoint
 
-The historical E0 checkpoint below retains its separate scope. The Q-ADMIN-08 platform candidate is recorded in the next section; it does not authorize deferred-E0 execution.
+The historical E0 checkpoint below retains its separate scope. The Q-ADMIN-08 integrated platform checkpoint is recorded in the next section; it does not authorize deferred-E0 execution.
 
-## Q-ADMIN-08 .NET 10 platform migration candidate
+## Q-ADMIN-08 integrated .NET 10 platform checkpoint
 
 | Field | Fact |
 |---|---|
@@ -21,7 +21,9 @@ The historical E0 checkpoint below retains its separate scope. The Q-ADMIN-08 pl
 | Review | Exact-ref independent review clean; behaviorally no-write, technical write containment not proven |
 | Evidence | `docs/evidence/Q_ADMIN_08_DOTNET10_MIGRATION_NATIVE_ARM64_VALIDATION_2026_09_23.md`; `docs/evidence/Q_ADMIN_08_DOTNET10_MIGRATION_MEASUREMENTS_2026_09_23.json` |
 | Hosted evidence checkpoint | `46b7d7a22ca0de4b4af0561ff576b12fa4edd69e`: push Validation #1287, PR Validation #1288 and PR E0-E preparation #204 PASS |
-| Integration boundary | Draft PR #259, unmerged; Director executable merge authorization and fresh final-head checks remain required. No Product/provider/deferred-E0/release promotion. |
+| Final PR head gates | `670309d2fcd6db7654db043c02b08a4705866183`: push Validation #1289, PR Validation #1290 and PR E0-E preparation #205 PASS |
+| Integration | Director-authorized PR #259 merged at `7650fa40488fd19741c5bd0b65830d50fd62fa7b`; exact-main [Validation #1291](https://github.com/Rylascoo/Ensemble-Project/actions/runs/35828613021) PASS. Merge tree equals final PR head. |
+| Authority boundary | .NET 10 is the integrated platform baseline. Native runtime authority remains the exact executable above; no Product/provider/deferred-E0/release promotion. |
 
 ## Preserved promoted E0 machine-tested checkpoint
 
