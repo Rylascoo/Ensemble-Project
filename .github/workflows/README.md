@@ -20,6 +20,6 @@ Reviewed 2026-09-07 from official GitHub release/tag metadata and pinned by exac
 - `actions/setup-dotnet` v6.0.0 -> `a98b56852c35b8e3190ac28c8c2271da59106c68` (`node24`)
 - `actions/setup-python` v7.0.0 -> `5fda3b95a4ea91299a34e894583c3862153e4b97` (`node24`)
 
-The .NET SDK remains explicitly `9.0.317`; action-runtime modernization does not authorize a framework/toolchain generation change. Re-review upstream release/runtime metadata before changing these action pins.
+Q-ADMIN-08 selects .NET SDK `10.0.400` and Microsoft Testing Platform through `global.json`; project test commands use `dotnet test --project <path>`. The action revisions above are unchanged. Migration authority and evidence: `docs/evidence/Q_ADMIN_08_DOTNET10_MIGRATION_NATIVE_ARM64_VALIDATION_2026_09_23.md`. Re-review upstream release/runtime metadata before changing these action pins.
 
 Target execution of the pinned Harness remains a native Windows ARM64 validation rung. None of the repository-integrity or Linux x64 jobs substitutes for native execution evidence.

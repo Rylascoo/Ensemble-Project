@@ -4,6 +4,27 @@ Status: validation fact register only. This file cannot advance phase/checkpoint
 
 ## Current promoted machine-tested checkpoint
 
+The historical E0 checkpoint below retains its separate scope. The Q-ADMIN-08 platform candidate is recorded in the next section; it does not authorize deferred-E0 execution.
+
+## Q-ADMIN-08 .NET 10 platform migration candidate
+
+| Field | Fact |
+|---|---|
+| Exact executable | `4b2d286a4baf1bb01b222aceda26fbaae8772c15` |
+| Fresh .NET 9 comparison base | `5ae2bf2307df4faa8c7342303419ba3fc5e620e1`; integrated Q-PROD-08 included |
+| Annotated tag | `validation/q-admin-08-dotnet10-native-arm64` |
+| Tag object | `d347b67a749a5d92a6ed8c1108255e808688fa2a`, verified to peel to the exact executable |
+| Native environment | SurfSeven, Windows ARM64, SDK 10.0.400 / runtime 10.0.11 / win-arm64 |
+| Native validation | Eleven Release builds, zero warnings/errors; Application 84/84, Persistence 148/148, Core 628/628, Harness 155/155, preparation 10/10 PASS; same 1,025 discovered tests as fresh .NET 9 baseline |
+| Runtime and compatibility | Isolated ARM64 WinUI launch/clean close PASS; .NET 9/10 bidirectional reopen/export/snapshot rebuild/recovery byte comparisons PASS |
+| Dependency comparison | Package pins and all retained resolved versions/content hashes unchanged; SDK 10 prunes three framework-provided test-only transitive packages |
+| Review | Exact-ref independent review clean; behaviorally no-write, technical write containment not proven |
+| Evidence | `docs/evidence/Q_ADMIN_08_DOTNET10_MIGRATION_NATIVE_ARM64_VALIDATION_2026_09_23.md`; `docs/evidence/Q_ADMIN_08_DOTNET10_MIGRATION_MEASUREMENTS_2026_09_23.json` |
+| Hosted evidence checkpoint | `46b7d7a22ca0de4b4af0561ff576b12fa4edd69e`: push Validation #1287, PR Validation #1288 and PR E0-E preparation #204 PASS |
+| Integration boundary | Draft PR #259, unmerged; Director executable merge authorization and fresh final-head checks remain required. No Product/provider/deferred-E0/release promotion. |
+
+## Preserved promoted E0 machine-tested checkpoint
+
 | Field | Fact |
 |---|---|
 | Exact checkout | `8770a6361233e8a877a966c45eb6f62c5b3ca182` |
