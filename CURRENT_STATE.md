@@ -10,9 +10,7 @@ Application Product, Implementation and App Design authority: `Rylascoo/Ensemble
 
 `DESIGN_ARCHITECTURE_READY = READY`. Q-PROD-02/03/04/05 and Q-DESIGN-20/21/22 are integrated.
 
-Q-UNITY-01 project unification is complete: `docs/Q_UNITY_01_PROJECT_UNIFICATION_AND_SIMPLIFICATION_2026_09_22.md`.
-
-Q-UNITY-02 is **DONE / INTEGRATED** through PR #248; exact-main Validation #1192 PASS. The disconnected workspace/demo scaffold is retired without changing canonical E0 or integrated Product semantics. Evidence: `docs/evidence/Q_UNITY_02_DISCONNECTED_WORKSPACE_DEMO_SCAFFOLD_RETIREMENT_2026_09_22.md`.
+Q-UNITY-01/02 are complete; unification: `docs/Q_UNITY_01_PROJECT_UNIFICATION_AND_SIMPLIFICATION_2026_09_22.md`; scaffold retirement: `docs/evidence/Q_UNITY_02_DISCONNECTED_WORKSPACE_DEMO_SCAFFOLD_RETIREMENT_2026_09_22.md`.
 
 ## Open gates
 
@@ -28,4 +26,4 @@ Q-PROD-08 is **DONE / INTEGRATED** through PR #257 at `9e4a1e30d6d40b46c0fca5e24
 
 Q-ADMIN-08 is **DONE / INTEGRATED** through PR #259 at `7650fa40488fd19741c5bd0b65830d50fd62fa7b`; exact-main Validation #1291 PASS. .NET 10 is the integrated baseline. Native authority remains `4b2d286a4baf1bb01b222aceda26fbaae8772c15`, tag `validation/q-admin-08-dotnet10-native-arm64`. Evidence: `docs/evidence/Q_ADMIN_08_DOTNET10_MIGRATION_NATIVE_ARM64_VALIDATION_2026_09_23.md`.
 
-Next: fresh Product/Design successor reconciliation against current roadmap, ODRs, source and Design authority for Director disposition. No Product implementation package or Q-PROD-09 is authorized.
+Next: Director review of Q-DESIGN-24's documentation-only Scene presentation contract and static sufficiency decision: `docs/design/app/contracts/SCENE_INITIAL_ROSTER_PRESENTATION.md`. Presentation-only Scene codes are proposed; no Product schema or Windows implementation is authorized. No Q-PROD-09 exists.

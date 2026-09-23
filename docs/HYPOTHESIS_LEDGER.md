@@ -85,4 +85,4 @@ The following are decisions or scope gates and must not be reclassified as assum
 - Standing project-relevant synthetic Free-tier authority is active; no paid-route, private/user-derived material, automatic retry/fallback, or consumed-run replay authority exists.
 - Free-tier live experiments remain canonical synthetic Missing Raft-only.
 - One attempt per probabilistic role invocation, zero automatic retries, no automatic fallback, the USD 5 shadow ceiling, evidence immutability, and experiment order remain fixed.
-- .NET 10 requires later Director approval; GitHub plan-dependent branch protection is deferred; Stage remains design-lane authority.
+- .NET 10 is the integrated baseline under Director-authorized Q-ADMIN-08; exact native authority and limits are recorded in `docs/evidence/Q_ADMIN_08_DOTNET10_MIGRATION_NATIVE_ARM64_VALIDATION_2026_09_23.md`. GitHub plan-dependent branch protection is deferred; Stage remains design-lane authority.

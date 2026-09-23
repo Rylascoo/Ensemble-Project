@@ -1023,3 +1023,13 @@ The accepted Q-DESIGN-23 native return integrated without expanding Product or D
 The integrated contract remains exactly the contextual read-only **Characters** list plus bounded **New Character** establishment. Historical Off-Scene/current-Scene labels, management selection, richer Character editing/detail, Scene membership/lifecycle and Performer/provider semantics remain unadopted. High Contrast, Source Sans 3/S1 and later Scene/provider/release work remain separately gated.
 
 Successor selection requires fresh current-authority reconciliation; this closeout creates no Q-PROD-08 or new implementation permission.
+
+---
+
+## Q-DESIGN-24 Scene presentation sufficiency — 2026-09-23
+
+**State: STATIC DESIGN SUFFICIENCY ACCEPTED FOR DIRECTOR REVIEW / NOT IMPLEMENTATION-AUTHORIZED.**
+
+At exact Product baseline `a225fc56acc1ef4514538562491d28d7a6bb4fb4`, the Director selected a documentation-only contract using integrated Q-PROD-08 identity, initial roster, Cast-order canonicalization and replay-derived Scenes. `contracts/SCENE_INITIAL_ROSTER_PRESENTATION.md` proposes contextual Scenes inspection and explicit establishment, derived Scene codes, full-Cast duplicate Character disambiguation, valid empty rosters, identity-based focus and conservative non-confirmation presentation.
+
+Decision and recursive falsification: `evidence/SCENE_PRESENTATION_CONTRACT_DECISION_2026_09_23.md`. Static case analysis found no necessary new Product semantic. Native usability/accessibility and implementation remain NOT TESTED; Director adoption is pending. If codes cannot provide usable accessible distinction, return the smallest exact Product naming/semantic question rather than inventing it in Design. No persistent Scene name, currentness/lifecycle, roster mutation, Stage/provider or release authority is created.

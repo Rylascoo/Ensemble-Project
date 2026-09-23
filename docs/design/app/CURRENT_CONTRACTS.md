@@ -2,7 +2,7 @@
 
 Status: **ACTIVE BOOTSTRAP INDEX**
 
-Updated: 2026-09-22
+Updated: 2026-09-23
 
 Read this file after `docs/design/app/AUTHORITY.md`. It is intentionally short. The transferred archive, Design Ledger, prototypes and receipt remain provenance/evidence and should be opened only when a current contract points to them or a narrow ambiguity requires them.
 
@@ -56,12 +56,22 @@ Current-Production **Characters** is a read-only replay-derived list plus bounde
 
 Contract reconciliation: `evidence/native/APPUI_01_Q_DESIGN_23_PRODUCTION_CAST_CHARACTER_PRESENTATION_CONTRACT_01.json`. Native acceptance: `evidence/native/APPUI_01_Q_DESIGN_23_CHARACTER_PRESENTATION_NATIVE_ACCEPTANCE_2026_09_22.json`.
 
+### Q-PROD-08 — Scene identity / initial roster Product input
+
+**DONE / INTEGRATED PRODUCT INPUT.** Product owns opaque Scene identity, creator-established initial rosters constrained to Production Cast, Cast-order canonicalization and replay-derived Production Scenes. Evidence: `docs/evidence/Q_PROD_08_SCENE_IDENTITY_INITIAL_ROSTER_NATIVE_ARM64_VALIDATION_2026_09_22.md`.
+
+This does not adopt Scene presentation, names, currentness, lifecycle, roster mutation, endings or cardinality policy.
+
+### Q-DESIGN-24 — Scene presentation contract
+
+**DIRECTOR REVIEW PENDING / IMPLEMENTATION NOT AUTHORIZED.** The Director authorized a documentation-only test of presentation sufficiency using Q-PROD-08 truth. Proposal: `contracts/SCENE_INITIAL_ROSTER_PRESENTATION.md`. Static Design decision: `evidence/SCENE_PRESENTATION_CONTRACT_DECISION_2026_09_23.md`. Derived Scene codes are proposed presentation treatment only. No native/empirical accessibility acceptance or Product schema expansion is claimed.
+
 ## Explicit unresolved / gated items
 
 - Home re-entry A/B: unresolved.
 - FIRSTUSE: evidence pending adoption.
 - rename/delete/import/restore: no current Product/UI authority.
-- Character semantics beyond integrated identity/name/establishment, plus Circumstance/Scene/Pressure/Take/Rehearsal Product semantics: separately gated.
+- Character semantics beyond integrated identity/name/establishment; Scene semantics beyond integrated identity/initial roster; Circumstance/Pressure/Take/Rehearsal: separately gated. Scene presentation remains unimplemented, with Q-DESIGN-24 pending Director review.
 - provider/Performer: separately gated.
 - transcript-dependent Stage motion: blocked.
 - deferred E0 convergence/final architecture: not complete.

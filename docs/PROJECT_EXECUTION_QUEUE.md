@@ -19,10 +19,11 @@ This file now carries only current, deferred, or blocking work. Completed histor
 
 ## Current application work
 
-Q-ADMIN-08 is DONE / INTEGRATED through PR #259; exact-main Validation #1291 PASS at `7650fa40488fd19741c5bd0b65830d50fd62fa7b`. Its platform validation is recorded in `docs/VALIDATION_LEDGER.md`. No Product successor is active. Next is fresh Product/Design successor reconciliation for Director disposition; this does not authorize implementation. Completed Q-ADMIN-08 and Q-PROD-08 are absent from this current-work table.
+Q-ADMIN-08 is DONE / INTEGRATED through PR #259; its platform validation remains in `docs/VALIDATION_LEDGER.md`. The Director selected Q-DESIGN-24, a documentation-only Scene presentation sufficiency package, on 2026-09-23. Its contract and static Design decision are ready for Director review. No Product implementation successor is active or authorized.
 
 | ID | Role | Status | Work | Hard boundary / successor |
 |---|---|---|---|---|
+| Q-DESIGN-24 | Design; bounded Governance / Recovery continuity | BLOCKED — DIRECTOR REVIEW | Review `docs/design/app/contracts/SCENE_INITIAL_ROSTER_PRESENTATION.md` and `docs/design/app/evidence/SCENE_PRESENTATION_CONTRACT_DECISION_2026_09_23.md`. | Contract-only return complete; Director adoption and later separate implementation authorization required. Stop for the smallest Product decision if presentation-only Scene distinction is insufficient. |
 | Q-ADMIN-07 | Governance / Recovery | DEFERRED — LOCAL RESIDUE ONLY | Disposition remaining local historical/deferred worktrees after owner/status/evidence review. | Preserve ambiguous local evidence and the unique historical PR #226 branch; merged remote refs require archive-tag-before-delete handling. |
 
 ## Deferred E0 / architecture gates
