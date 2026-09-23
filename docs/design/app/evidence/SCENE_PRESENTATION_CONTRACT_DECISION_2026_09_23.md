@@ -1,6 +1,6 @@
 # Scene presentation sufficiency decision
 
-Status: **DESIGN STATIC REVIEW COMPLETE / DIRECTOR REVIEW PENDING / NO IMPLEMENTATION AUTHORITY**
+Status: **DIRECTOR-ADOPTED / STATIC REVIEW COMPLETE / NO IMPLEMENTATION AUTHORITY**
 
 Date: 2026-09-23. Package: **Q-DESIGN-24**.
 Contract: `docs/design/app/contracts/SCENE_INITIAL_ROSTER_PRESENTATION.md`.
@@ -68,6 +68,15 @@ Deferred E0 exposure is inherited rather than removed: no direct identity/initia
 
 ## Continuity repairs and next gate
 
-The hypothesis ledger's stale .NET 10 approval sentence is replaced with the integrated Q-ADMIN-08 fact and its evidence link. The Design bootstrap now recognizes Q-PROD-08 identity/initial-roster Product truth while keeping Scene presentation unimplemented and this contract pending Director review. Neither repair changes authority.
+The hypothesis ledger's stale .NET 10 approval sentence is replaced with the integrated Q-ADMIN-08 fact and its evidence link. The Design bootstrap now recognizes Q-PROD-08 identity/initial-roster Product truth while keeping Scene presentation unimplemented. The subsequent Director adoption below changes Design status only. Neither repair changes authority.
 
-Q-DESIGN-24 is registered as awaiting Director review. The next decision is whether to adopt this bounded contract or invoke its falsifier with the smallest missing Product requirement. No Windows implementation, merge or Product successor is authorized by this return.
+The initial return requested Director review; the disposition below supersedes that pending status. The completed contract package is removed from the active queue table; separate Windows implementation authorization is the next gate.
+
+
+## Director adoption — 2026-09-23
+
+The Director explicitly ADOPTED Q-DESIGN-24 and authorized PR #261 merge subject to a fresh exact-head/base/gate recheck. The reviewed contract at `d02cc0d074d46c0bdd0c60a9cffc86eccb8019f8` passed independent static review after the Invalid-result correction; final-head Validation #1297/#1298 and non-network E0-E preparation #208 passed. This adoption closeout changes status/next action only, not presentation behavior. Earlier review-pending statements in the static record describe the original return, not current authority.
+
+Adoption accepts bounded Scene inspection and initial-roster establishment as Design authority. Native usability, memorability, accessibility, layout, focus, collision handling and screen-reader delivery remain NOT EMPIRICALLY VALIDATED. The future Windows package is the empirical test of the contract. If codes fail usable accessible distinction, stop and return the smallest Product requirement, potentially persistent creator-authored Scene naming. Do not silently add Product schema.
+
+Windows implementation is NOT authorized. Product/Persistence, current/active Scene, lifecycle, roster mutation, persistent names, Stage, Character Core, Performer/provider, Opportunity/Performance, deferred-E0 and release boundaries remain unchanged. No Q-PROD-09 is created. Next: Director disposition of the smallest bounded Windows implementation proposal.

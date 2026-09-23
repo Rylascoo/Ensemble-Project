@@ -46,7 +46,7 @@ The receipt validation record qualifies the COMP-09 inherited label-encoding wit
 
 Post-transfer Design work adopted on Project authority lives here rather than rewriting the frozen receipt provenance.
 
-Pending Director review, not adopted implementation law: `docs/design/app/contracts/SCENE_INITIAL_ROSTER_PRESENTATION.md` (Q-DESIGN-24), with static decision evidence at `docs/design/app/evidence/SCENE_PRESENTATION_CONTRACT_DECISION_2026_09_23.md`. The Director authorized this documentation-only sufficiency test; no implementation or Product extension follows from its presence here.
+Director-adopted bounded Design authority (2026-09-23), not implementation permission: `docs/design/app/contracts/SCENE_INITIAL_ROSTER_PRESENTATION.md` (Q-DESIGN-24), with static decision evidence at `docs/design/app/evidence/SCENE_PRESENTATION_CONTRACT_DECISION_2026_09_23.md`. The Director adopted this contract without claiming empirical usability/accessibility validation. Its falsifier remains active; no implementation or Product extension is authorized.
 
 - `docs/design/app/CURRENT_CONTRACTS.md` — concise active Design bootstrap/index.
 - `docs/design/app/contracts/CREATE_PRODUCTION_PRESENTATION.md` — Q-DESIGN-22 creator-facing Create Production presentation contract.

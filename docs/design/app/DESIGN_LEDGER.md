@@ -1033,3 +1033,14 @@ Successor selection requires fresh current-authority reconciliation; this closeo
 At exact Product baseline `a225fc56acc1ef4514538562491d28d7a6bb4fb4`, the Director selected a documentation-only contract using integrated Q-PROD-08 identity, initial roster, Cast-order canonicalization and replay-derived Scenes. `contracts/SCENE_INITIAL_ROSTER_PRESENTATION.md` proposes contextual Scenes inspection and explicit establishment, derived Scene codes, full-Cast duplicate Character disambiguation, valid empty rosters, identity-based focus and conservative non-confirmation presentation.
 
 Decision and recursive falsification: `evidence/SCENE_PRESENTATION_CONTRACT_DECISION_2026_09_23.md`. Static case analysis found no necessary new Product semantic. Native usability/accessibility and implementation remain NOT TESTED; Director adoption is pending. If codes cannot provide usable accessible distinction, return the smallest exact Product naming/semantic question rather than inventing it in Design. No persistent Scene name, currentness/lifecycle, roster mutation, Stage/provider or release authority is created.
+
+
+---
+
+## Q-DESIGN-24 Director adoption — 2026-09-23
+
+**State: DIRECTOR-ADOPTED DESIGN CONTRACT / IMPLEMENTATION NOT AUTHORIZED.**
+
+The Director adopted `contracts/SCENE_INITIAL_ROSTER_PRESENTATION.md` and authorized PR #261 merge subject to fresh exact-head/base/gate verification. This supersedes the preceding review-pending status. Adoption covers the bounded inspection/initial-roster establishment experience only. Native usability, memorability, accessibility, layout, focus, collision handling and screen-reader delivery remain empirically unvalidated.
+
+The explicit falsifier survives adoption: later native evidence that Scene codes cannot provide usable accessible distinction must return the smallest missing Product requirement, potentially persistent creator-authored naming. No schema change, Windows implementation or Product successor is authorized. Full decision: `evidence/SCENE_PRESENTATION_CONTRACT_DECISION_2026_09_23.md`.

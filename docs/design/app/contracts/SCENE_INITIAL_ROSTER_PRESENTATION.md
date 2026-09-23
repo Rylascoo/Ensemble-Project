@@ -1,6 +1,6 @@
 # Established Scenes / initial roster presentation contract
 
-Status: **DESIGN PROPOSAL / STATIC SUFFICIENCY ACCEPTED BY DESIGN / DIRECTOR REVIEW PENDING / IMPLEMENTATION NOT AUTHORIZED**
+Status: **DIRECTOR-ADOPTED DESIGN CONTRACT / NATIVE EMPIRICAL VALIDATION NOT EARNED / IMPLEMENTATION NOT AUTHORIZED**
 
 Package: **Q-DESIGN-24**. Date: 2026-09-23.
 Exact Product baseline: `a225fc56acc1ef4514538562491d28d7a6bb4fb4`.
@@ -8,11 +8,11 @@ Decision and falsification evidence: `docs/design/app/evidence/SCENE_PRESENTATIO
 
 ## Authority and purpose
 
-The Director authorized a documentation-only test of integrated Q-PROD-08 sufficiency: opaque Scene identity, initial Scene Roster, Production-Cast-order canonicalization and replay-derived Production Scenes. This proposed contract closes that Design question without extending Product. Director review of this return and separate implementation authorization remain required.
+The Director authorized a documentation-only test of integrated Q-PROD-08 sufficiency: opaque Scene identity, initial Scene Roster, Production-Cast-order canonicalization and replay-derived Production Scenes. The Director adopted this bounded contract on 2026-09-23 without extending Product. Separate Windows implementation authorization remains required; adoption is not empirical validation.
 
 Product inputs are `src/Kymaean.Application/SceneIdentity.cs`, `SceneCreation.cs`, `ProductionReplay.cs`, `ProductApplication.cs` and `src/Kymaean.Infrastructure.Persistence/FileProductionCatalog.cs` at the exact baseline. Q-PROD-08 authority and native evidence remain in `docs/evidence/Q_PROD_08_SUCCESSOR_SELECTION_SCENE_IDENTITY_INITIAL_ROSTER_FOUNDATION_2026_09_22.md` and `docs/evidence/Q_PROD_08_SCENE_IDENTITY_INITIAL_ROSTER_NATIVE_ARM64_VALIDATION_2026_09_22.md`.
 
-This contract proposes presentation; it does not rename Product types or amend their semantics. Initial membership is not evidence of current presence, Character observation, knowledge, Performer assignment or eligibility for an actual running performance.
+This contract governs bounded presentation; it does not rename Product types or amend their semantics. Initial membership is not evidence of current presence, Character observation, knowledge, Performer assignment or eligibility for an actual running performance.
 
 ## Context and inspection
 
@@ -110,7 +110,7 @@ Preserve Home / Productions / Settings, contextual Current Production, quiet Bac
 
 STOP and return the smallest Product decision if usable, accessible inspection/establishment requires persistent creator-authored Scene names or another missing Product semantic. Do not hide the deficiency in a label, local persistent state, fake selection model or reinterpretation of membership.
 
-Static case analysis supports sufficiency for this bounded task; actual usability/native accessibility is not tested. Codes support exact distinction, not evocative naming or memorability. If Director review or later authorized native evidence finds code-based distinction inadequate, reopen the falsifier before implementation expansion.
+Static case analysis supports sufficiency for this bounded task; actual usability/native accessibility is not tested. Codes support exact distinction, not evocative naming or memorability. If later authorized native implementation/evidence shows that Scene codes are not usable and accessible for distinguishing established Scenes, STOP and return the smallest missing Product requirement, potentially persistent creator-authored naming. Adoption does not prevent that falsification or authorize schema expansion.
 
 No Windows implementation is authorized. No Product/Persistence schema, persistent Scene names, current/active Scene, switching, lifecycle, roster mutation, endings/cardinality law, Stage activity, Character Core, Performer/provider, Opportunity/Performance, Take/Rehearsal, consequence/branching, provider traffic, deferred-E0 execution, final architecture or release/WACK/Store authority is created.
 

@@ -64,14 +64,14 @@ This does not adopt Scene presentation, names, currentness, lifecycle, roster mu
 
 ### Q-DESIGN-24 — Scene presentation contract
 
-**DIRECTOR REVIEW PENDING / IMPLEMENTATION NOT AUTHORIZED.** The Director authorized a documentation-only test of presentation sufficiency using Q-PROD-08 truth. Proposal: `contracts/SCENE_INITIAL_ROSTER_PRESENTATION.md`. Static Design decision: `evidence/SCENE_PRESENTATION_CONTRACT_DECISION_2026_09_23.md`. Derived Scene codes are proposed presentation treatment only. No native/empirical accessibility acceptance or Product schema expansion is claimed.
+**DIRECTOR-ADOPTED / IMPLEMENTATION NOT AUTHORIZED.** The Director adopted the bounded Q-PROD-08 presentation contract on 2026-09-23. Contract: `contracts/SCENE_INITIAL_ROSTER_PRESENTATION.md`. Static Design decision: `evidence/SCENE_PRESENTATION_CONTRACT_DECISION_2026_09_23.md`. Derived Scene codes are adopted presentation treatment only; their usability/accessibility remains falsifiable by later authorized native evidence. No empirical acceptance or Product schema expansion is claimed.
 
 ## Explicit unresolved / gated items
 
 - Home re-entry A/B: unresolved.
 - FIRSTUSE: evidence pending adoption.
 - rename/delete/import/restore: no current Product/UI authority.
-- Character semantics beyond integrated identity/name/establishment; Scene semantics beyond integrated identity/initial roster; Circumstance/Pressure/Take/Rehearsal: separately gated. Scene presentation remains unimplemented, with Q-DESIGN-24 pending Director review.
+- Character semantics beyond integrated identity/name/establishment; Scene semantics beyond integrated identity/initial roster; Circumstance/Pressure/Take/Rehearsal: separately gated. Q-DESIGN-24 is adopted Design authority; Scene presentation remains unimplemented and requires separate authorization.
 - provider/Performer: separately gated.
 - transcript-dependent Stage motion: blocked.
 - deferred E0 convergence/final architecture: not complete.

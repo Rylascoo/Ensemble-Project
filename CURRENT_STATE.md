@@ -26,4 +26,4 @@ Q-PROD-08 is **DONE / INTEGRATED** through PR #257 at `9e4a1e30d6d40b46c0fca5e24
 
 Q-ADMIN-08 is **DONE / INTEGRATED** through PR #259 at `7650fa40488fd19741c5bd0b65830d50fd62fa7b`; exact-main Validation #1291 PASS. .NET 10 is the integrated baseline. Native authority remains `4b2d286a4baf1bb01b222aceda26fbaae8772c15`, tag `validation/q-admin-08-dotnet10-native-arm64`. Evidence: `docs/evidence/Q_ADMIN_08_DOTNET10_MIGRATION_NATIVE_ARM64_VALIDATION_2026_09_23.md`.
 
-Next: Director review of Q-DESIGN-24's documentation-only Scene presentation contract and static sufficiency decision: `docs/design/app/contracts/SCENE_INITIAL_ROSTER_PRESENTATION.md`. Presentation-only Scene codes are proposed; no Product schema or Windows implementation is authorized. No Q-PROD-09 exists.
+Q-DESIGN-24 is DIRECTOR-ADOPTED: `docs/design/app/contracts/SCENE_INITIAL_ROSTER_PRESENTATION.md`. Next: separate Director authorization of a bounded Windows implementation as the native empirical test of this contract. Its presentation-code falsifier remains active. No Product schema change, Windows implementation or Q-PROD-09 is authorized.
