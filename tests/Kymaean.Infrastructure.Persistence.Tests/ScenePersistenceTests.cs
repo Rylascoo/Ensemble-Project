@@ -1,3 +1,4 @@
+using System.Buffers.Binary;
 using System.Text;
 using Kymaean.Application;
 using Kymaean.Infrastructure.Persistence;
@@ -111,6 +112,51 @@ public sealed class ScenePersistenceTests
         Assert.AreEqual(
             established.Value.Scene,
             inspected.Value.Projection.ProductionScenes.Scenes.Single());
+    }
+
+    [TestMethod]
+    public void DeletedSnapshotRebuildsIdenticalCastAndSceneFromJournal()
+    {
+        using var directory = new TestDirectory();
+        var catalog = new FileProductionCatalog(directory.Path);
+        var production = catalog.CreateProduction("Harbor");
+        Assert.IsTrue(production.IsSuccess);
+        var first = catalog.CreateCharacter(production.Value.Id, "Marlowe");
+        var second = catalog.CreateCharacter(production.Value.Id, "Wren");
+        Assert.IsTrue(first.IsSuccess);
+        Assert.IsTrue(second.IsSuccess);
+
+        var established = catalog.EstablishScene(
+            production.Value.Id,
+            new SceneRoster(
+                [second.Value.Character.Id, first.Value.Character.Id]));
+        Assert.IsTrue(established.IsSuccess);
+
+        var authoritative = established.Value.Replay;
+        CollectionAssert.AreEqual(
+            new[] { first.Value.Character.Id, second.Value.Character.Id },
+            authoritative.ProductionScenes.Scenes.Single().InitialRoster.CharacterIds
+                .ToArray());
+
+        var entry = Directory.GetDirectories(
+            Path.Combine(directory.Path, "production-catalog"),
+            "entry-*").Single();
+        var snapshot = Path.Combine(entry, ".projection.snapshot");
+        Assert.IsTrue(File.Exists(snapshot));
+        File.Delete(snapshot);
+        Assert.IsFalse(File.Exists(snapshot));
+
+        var reopened = new FileProductionCatalog(directory.Path)
+            .OpenProduction(production.Value.Id);
+
+        Assert.IsTrue(reopened.IsSuccess);
+        Assert.AreEqual(authoritative.ProductionCast, reopened.Value.ProductionCast);
+        Assert.AreEqual(authoritative.ProductionScenes, reopened.Value.ProductionScenes);
+        Assert.IsTrue(File.Exists(snapshot));
+        Assert.AreEqual(
+            4U,
+            BinaryPrimitives.ReadUInt32BigEndian(
+                File.ReadAllBytes(snapshot).AsSpan(8, sizeof(uint))));
     }
 
     [TestMethod]
