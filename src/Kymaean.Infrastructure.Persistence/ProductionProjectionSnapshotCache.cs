@@ -65,7 +65,7 @@ internal static class ProductionProjectionSnapshotCache
         var bytes = File.ReadAllBytes(path);
         if (bytes.Length <
             FormatFamilyMagic.Length + sizeof(uint) + sizeof(ulong) +
-            HashLength + (3 * sizeof(uint)) + ChecksumLength)
+            HashLength + (4 * sizeof(uint)) + ChecksumLength)
         {
             return false;
         }
@@ -140,6 +140,42 @@ internal static class ProductionProjectionSnapshotCache
                         characterName));
             }
 
+            if (!TryReadUInt32(content, ref offset, out var sceneCount)
+                || sceneCount > int.MaxValue)
+            {
+                return false;
+            }
+
+            var scenes = new List<EstablishedScene>();
+            for (var sceneIndex = 0U; sceneIndex < sceneCount; sceneIndex++)
+            {
+                if (!TryReadUtf16String(content, ref offset, out var sceneId)
+                    || !TryReadUInt32(content, ref offset, out var rosterCount)
+                    || rosterCount > int.MaxValue)
+                {
+                    return false;
+                }
+
+                var roster = new List<CharacterId>();
+                for (var rosterIndex = 0U; rosterIndex < rosterCount; rosterIndex++)
+                {
+                    if (!TryReadUtf16String(
+                            content,
+                            ref offset,
+                            out var characterId))
+                    {
+                        return false;
+                    }
+
+                    roster.Add(new CharacterId(characterId));
+                }
+
+                scenes.Add(
+                    new EstablishedScene(
+                        new SceneId(sceneId),
+                        new SceneRoster(roster)));
+            }
+
             if (offset != content.Length)
             {
                 return false;
@@ -148,7 +184,8 @@ internal static class ProductionProjectionSnapshotCache
             projection = new ProductionReplayProjection(
                 productionName,
                 new WorldCurrentState(truths),
-                new ProductionCast(characters));
+                new ProductionCast(characters),
+                new ProductionScenes(scenes));
         }
         catch (ArgumentException)
         {
@@ -198,6 +235,21 @@ internal static class ProductionProjectionSnapshotCache
         {
             WriteUtf16String(stream, character.Id.Value);
             WriteUtf16String(stream, character.CharacterName);
+        }
+
+        WriteUInt32(
+            stream,
+            checked((uint)projection.ProductionScenes.Scenes.Length));
+        foreach (var scene in projection.ProductionScenes.Scenes)
+        {
+            WriteUtf16String(stream, scene.Id.Value);
+            WriteUInt32(
+                stream,
+                checked((uint)scene.InitialRoster.CharacterIds.Length));
+            foreach (var characterId in scene.InitialRoster.CharacterIds)
+            {
+                WriteUtf16String(stream, characterId.Value);
+            }
         }
 
         var content = stream.ToArray();

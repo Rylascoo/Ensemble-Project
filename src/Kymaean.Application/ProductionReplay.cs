@@ -6,7 +6,8 @@ public sealed record ProductionReplayProjection
         : this(
             productionName,
             WorldCurrentState.Empty,
-            ProductionCast.Empty)
+            ProductionCast.Empty,
+            ProductionScenes.Empty)
     {
     }
 
@@ -16,7 +17,8 @@ public sealed record ProductionReplayProjection
         : this(
             productionName,
             worldCurrentState,
-            ProductionCast.Empty)
+            ProductionCast.Empty,
+            ProductionScenes.Empty)
     {
     }
 
@@ -24,14 +26,54 @@ public sealed record ProductionReplayProjection
         string productionName,
         WorldCurrentState worldCurrentState,
         ProductionCast productionCast)
+        : this(
+            productionName,
+            worldCurrentState,
+            productionCast,
+            ProductionScenes.Empty)
+    {
+    }
+
+    public ProductionReplayProjection(
+        string productionName,
+        WorldCurrentState worldCurrentState,
+        ProductionCast productionCast,
+        ProductionScenes productionScenes)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(productionName);
         ArgumentNullException.ThrowIfNull(worldCurrentState);
         ArgumentNullException.ThrowIfNull(productionCast);
+        ArgumentNullException.ThrowIfNull(productionScenes);
+
+        foreach (var scene in productionScenes.Scenes)
+        {
+            SceneRoster canonicalRoster;
+            try
+            {
+                canonicalRoster = SceneRoster.Canonicalize(
+                    productionCast,
+                    scene.InitialRoster.CharacterIds);
+            }
+            catch (ArgumentException exception)
+            {
+                throw new ArgumentException(
+                    "Every Production Scene roster Character must exist in the Production Cast.",
+                    nameof(productionScenes),
+                    exception);
+            }
+
+            if (!canonicalRoster.Equals(scene.InitialRoster))
+            {
+                throw new ArgumentException(
+                    "Production Scene rosters must follow Production Cast order.",
+                    nameof(productionScenes));
+            }
+        }
 
         ProductionName = productionName;
         WorldCurrentState = worldCurrentState;
         ProductionCast = productionCast;
+        ProductionScenes = productionScenes;
     }
 
     public string ProductionName { get; }
@@ -39,6 +81,8 @@ public sealed record ProductionReplayProjection
     public WorldCurrentState WorldCurrentState { get; }
 
     public ProductionCast ProductionCast { get; }
+
+    public ProductionScenes ProductionScenes { get; }
 }
 
 public static class ProductionReplay
@@ -85,7 +129,45 @@ public static class ProductionReplay
                             projection.ProductionCast.Characters.Add(
                                 new CharacterSummary(
                                     created.CharacterId,
-                                    created.CharacterName))));
+                                    created.CharacterName))),
+                        projection.ProductionScenes);
+                    break;
+
+                case CreatorEstablishedSceneEvent when projection is null:
+                    throw new InvalidOperationException(
+                        "A Scene cannot be established before Production creation.");
+
+                case CreatorEstablishedSceneEvent established:
+                    if (projection.ProductionScenes.Scenes.Any(
+                            scene => scene.Id == established.SceneId))
+                    {
+                        throw new InvalidOperationException(
+                            "Production history contains duplicate Scene identity.");
+                    }
+
+                    SceneRoster canonicalRoster;
+                    try
+                    {
+                        canonicalRoster = SceneRoster.Canonicalize(
+                            projection.ProductionCast,
+                            established.InitialRoster.CharacterIds);
+                    }
+                    catch (ArgumentException exception)
+                    {
+                        throw new InvalidOperationException(
+                            "A Scene roster contains a Character outside the Production Cast.",
+                            exception);
+                    }
+
+                    projection = new ProductionReplayProjection(
+                        projection.ProductionName,
+                        projection.WorldCurrentState,
+                        projection.ProductionCast,
+                        new ProductionScenes(
+                            projection.ProductionScenes.Scenes.Add(
+                                new EstablishedScene(
+                                    established.SceneId,
+                                    canonicalRoster))));
                     break;
 
                 case CreatorReplacedWorldCurrentStateEvent when projection is null:
@@ -96,7 +178,8 @@ public static class ProductionReplay
                     projection = new ProductionReplayProjection(
                         projection.ProductionName,
                         replaced.CurrentState,
-                        projection.ProductionCast);
+                        projection.ProductionCast,
+                        projection.ProductionScenes);
                     break;
 
                 default:

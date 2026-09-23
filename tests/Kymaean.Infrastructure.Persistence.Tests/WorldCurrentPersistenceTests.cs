@@ -351,7 +351,7 @@ public sealed class WorldCurrentPersistenceTests
     private static void AssertSnapshot(Fixture fixture, string name, WorldCurrentState state)
     {
         var bytes = File.ReadAllBytes(fixture.Snapshot);
-        Assert.AreEqual(3U, BinaryPrimitives.ReadUInt32BigEndian(bytes.AsSpan(8, 4)));
+        Assert.AreEqual(4U, BinaryPrimitives.ReadUInt32BigEndian(bytes.AsSpan(8, 4)));
         CollectionAssert.AreEqual(SHA256.HashData(bytes.AsSpan(0, bytes.Length - 32)), bytes[^32..]);
         var offset = 52;
         AssertUnits(name, ReadSnapshotText(bytes, ref offset));
@@ -367,6 +367,10 @@ public sealed class WorldCurrentPersistenceTests
             BinaryPrimitives.ReadUInt32BigEndian(bytes.AsSpan(offset, 4));
         offset += 4;
         Assert.AreEqual(0U, characterCount);
+        var sceneCount =
+            BinaryPrimitives.ReadUInt32BigEndian(bytes.AsSpan(offset, 4));
+        offset += 4;
+        Assert.AreEqual(0U, sceneCount);
         Assert.AreEqual(bytes.Length - 32, offset);
     }
 

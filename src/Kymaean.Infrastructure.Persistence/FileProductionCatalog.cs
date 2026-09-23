@@ -6,7 +6,8 @@ public sealed class FileProductionCatalog :
     IProductionCatalog,
     IProductionWorldStateWriter,
     IProductionCreator,
-    IProductionCharacterCreator
+    IProductionCharacterCreator,
+    IProductionSceneCreator
 {
     private const string CatalogDirectoryName = "production-catalog";
     private const string EntryDirectoryPrefix = "entry-";
@@ -139,7 +140,9 @@ public sealed class FileProductionCatalog :
                     replay.ProductionName,
                     productionName,
                     StringComparison.Ordinal) ||
-                !replay.WorldCurrentState.IsEmpty)
+                !replay.WorldCurrentState.IsEmpty ||
+                !replay.ProductionCast.IsEmpty ||
+                !replay.ProductionScenes.IsEmpty)
             {
                 throw new InvalidDataException(
                     "New Production replay does not match its creation contract.");
@@ -232,6 +235,67 @@ public sealed class FileProductionCatalog :
 
         return ProductAccessResult<CharacterCreation>.Success(
             new CharacterCreation(character, updated.Value));
+    }
+
+    public ProductAccessResult<SceneCreation> EstablishScene(
+        ProductionId productionId,
+        SceneRoster initialRoster)
+    {
+        ArgumentNullException.ThrowIfNull(productionId);
+        ArgumentNullException.ThrowIfNull(initialRoster);
+
+        var entry = ResolveProductionEntry(productionId);
+        if (!entry.IsSuccess)
+        {
+            return ProductAccessResult<SceneCreation>.Failure(
+                entry.FailureKind);
+        }
+
+        var current = ReadProjection(
+            entry.Value.DirectoryPath,
+            recover: false);
+        if (!current.IsSuccess)
+        {
+            return ProductAccessResult<SceneCreation>.Failure(
+                current.FailureKind);
+        }
+
+        SceneRoster canonicalRoster;
+        try
+        {
+            canonicalRoster = SceneRoster.Canonicalize(
+                current.Value.ProductionCast,
+                initialRoster.CharacterIds);
+        }
+        catch (ArgumentException)
+        {
+            return ProductAccessResult<SceneCreation>.Failure(
+                ProductAccessFailureKind.Invalid);
+        }
+
+        SceneId sceneId;
+        do
+        {
+            sceneId = new SceneId(Guid.NewGuid().ToString("N"));
+        }
+        while (current.Value.ProductionScenes.Scenes.Any(
+            scene => scene.Id == sceneId));
+
+        var scene = new EstablishedScene(sceneId, canonicalRoster);
+        var updated = ReadProjection(
+            entry.Value.DirectoryPath,
+            recover: false,
+            append: new CreatorEstablishedSceneEvent(
+                sceneId,
+                canonicalRoster));
+        if (!updated.IsSuccess)
+        {
+            return ProductAccessResult<SceneCreation>.Failure(
+                updated.FailureKind);
+        }
+
+        return ProductAccessResult<SceneCreation>.Success(
+            new SceneCreation(scene, updated.Value));
     }
 
     public ProductAccessResult<ProductionReplayProjection> ReplaceWorldCurrentState(
@@ -366,14 +430,11 @@ public sealed class FileProductionCatalog :
         ProductionJournalAnchor? anchor;
         try
         {
-            if (append is not null)
-            {
-                store.Append(append);
-            }
-
-            var history = recover
-                ? store.RecoverValidatedHistory()
-                : store.LoadValidatedHistory();
+            var history = append is not null
+                ? store.AppendValidatedHistory(append)
+                : recover
+                    ? store.RecoverValidatedHistory()
+                    : store.LoadValidatedHistory();
             projection = history.Projection
                 ?? ProductionReplay.Rebuild(history.Events);
             anchor = history.Anchor;
