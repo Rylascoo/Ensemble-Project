@@ -211,6 +211,36 @@ public sealed class ScenePresentationTests
         finally { if (Directory.Exists(root)) Directory.Delete(root, true); }
     }
 
+    [TestMethod]
+    public void RealOsExclusiveJournalLockBlocksAppendAndFailedOpenPreservesWitness()
+    {
+        if (!OperatingSystem.IsWindows()) return; // OS evidence is native Windows only.
+        var root = Path.Combine(Path.GetTempPath(), "qdesign24-lock-" + Guid.NewGuid());
+        try
+        {
+            var catalog = new Kymaean.Infrastructure.Persistence.FileProductionCatalog(root);
+            var production = catalog.CreateProduction("Locked fixture").Value;
+            var vm = new MainPageViewModel(WindowsStartupResult.Product(ProductApplication.Start(catalog)));
+            vm.SelectProduction(vm.ProductionRows.Single()); Assert.IsTrue(vm.OpenSelectedProduction()); vm.OpenScenes();
+            var entry = Directory.GetDirectories(Path.Combine(root, "production-catalog"), "entry-*").Single();
+            using (var lease = new FileStream(Path.Combine(entry, ".journal.lock"), FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None))
+            {
+                vm.BeginSceneDraft(); Assert.IsNull(vm.EstablishScene());
+                Assert.IsTrue(vm.HasSceneUncertainty);
+                // The existing Open port may throw environmental IO; neither path clears the block.
+                try { Assert.IsFalse(vm.OpenSelectedProduction()); } catch (IOException) { }
+                Assert.IsTrue(vm.HasSceneUncertainty);
+                vm.NavigateShell(ShellRoute.Home); vm.NavigateShell(ShellRoute.CurrentProduction); vm.OpenScenes();
+                Assert.IsFalse(vm.BeginSceneDraft()); Assert.IsNull(vm.EstablishScene());
+            }
+            Assert.AreEqual(0, catalog.OpenProduction(production.Id).Value.ProductionScenes.Scenes.Length);
+            Assert.IsTrue(vm.OpenSelectedProduction()); vm.OpenScenes();
+            Assert.IsFalse(vm.HasSceneUncertainty); Assert.IsTrue(vm.BeginSceneDraft());
+            Assert.IsNotNull(vm.EstablishScene());
+        }
+        finally { if (Directory.Exists(root)) Directory.Delete(root, true); }
+    }
+
     private static (MainPageViewModel, Catalog) Start()
     {
         var catalog = new Catalog();

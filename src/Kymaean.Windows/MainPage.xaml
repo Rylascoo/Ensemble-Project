@@ -115,7 +115,7 @@
                         FontSize="11"
                         FontWeight="SemiBold"
                         Foreground="{ThemeResource KymaeanSecondaryBrush}"
-                        Text="KYMÃ†AN" />
+                        Text="KYMÆAN" />
                     <TextBlock
                         AutomationProperties.HeadingLevel="Level1"
                         FontSize="30"
@@ -246,7 +246,7 @@
                                         Visibility="{Binding HasProductionCreationValidationMessage, Converter={StaticResource BoolToVisibility}}" />
                                     <TextBlock
                                         Foreground="{ThemeResource KymaeanSecondaryBrush}"
-                                        Text="Creating Productionâ€¦"
+                                        Text="Creating Production…"
                                         Visibility="{Binding IsProductionCreationPending, Converter={StaticResource BoolToVisibility}}" />
                                     <StackPanel
                                         Orientation="Horizontal"
@@ -482,7 +482,7 @@
                                     <TextBlock
                                         FontSize="13"
                                         Foreground="{ThemeResource KymaeanSecondaryBrush}"
-                                        Text="Creator view â€” this does not describe what any Character knows or believes."
+                                        Text="Creator view — this does not describe what any Character knows or believes."
                                         TextWrapping="Wrap" />
                                     <Border
                                         Padding="10,8"
