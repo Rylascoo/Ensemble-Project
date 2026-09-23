@@ -1,6 +1,6 @@
 # Q-ADMIN-08 .NET 10 migration — native ARM64 validation
 
-Status: **NATIVE / HOSTED VALIDATION AND INDEPENDENT REVIEW PASS / DRAFT PR #259 / AWAITING EXECUTABLE MERGE AUTHORIZATION**
+Status: **DONE / INTEGRATED THROUGH PR #259 / EXACT-MAIN VALIDATION #1291 PASS**
 
 ## Authority and scope
 
@@ -63,11 +63,11 @@ Raw commands/results, dependency manifests and external probe: `C:\Users\Wiryl\S
 
 ## Continuity and hosted gate boundary
 
-Fresh live `main` remains `5ae2bf2307df4faa8c7342303419ba3fc5e620e1`. The twelve pre-existing live refs remain unchanged: ten merged provenance refs, `main`, and the unique closed/unmerged PR #226 branch. No historical ref/worktree was reset, adopted, pruned or deleted. This task adds only its isolated writer branch/worktree and exact validation tag; Q-ADMIN-07's ambiguous historical local residue remains deferred. Any future merged-ref removal must follow archive-tag-before-delete law.
+At the pre-merge checkpoint, live `main` was `5ae2bf2307df4faa8c7342303419ba3fc5e620e1`. At that checkpoint, the twelve pre-existing live refs were unchanged: ten merged provenance refs, `main`, and the unique closed/unmerged PR #226 branch. No historical ref/worktree was reset, adopted, pruned or deleted. This task adds only its isolated writer branch/worktree and exact validation tag; Q-ADMIN-07's ambiguous historical local residue remains deferred. Any future merged-ref removal must follow archive-tag-before-delete law.
 
 Read-only local continuity inventory found **49** registered worktrees, all resolving to the same Git common directory; the writer and primary `main` checkout were clean. Two preserved historical worktrees contain staged residue: `C:\Users\Wiryl\Sol Work\Ensemble-Project\worktrees\e0c-p01-blind-score-2026-09-13` at `5c0284cdf5f9a0ec7dfbef529f3196df1434e0ae` (six staged paths), and `C:\Users\Wiryl\Sol Work\Ensemble-Project\worktrees\e0c-p01-unblind-closeout-2026-09-13` at `e1c20e6f25fa876c8c9ee8fabb911bf8365025bc` (five staged paths). Both remain owner/evidence-disposition work under deferred Q-ADMIN-07, not migration inputs. Full paths/HEADs/status/Git ownership boundaries: scratch `worktree-continuity.json`, SHA-256 `dc26b0659f91d5a1daf5b7f470289cf2cc0a9433abf3ea9026236591b35b8526`.
 
-Draft [PR #259](https://github.com/Rylascoo/Ensemble-Project/pull/259) targets the unchanged exact main. At evidence head `46b7d7a22ca0de4b4af0561ff576b12fa4edd69e`, every exact-head workflow run completed successfully:
+At its initial evidence checkpoint, draft [PR #259](https://github.com/Rylascoo/Ensemble-Project/pull/259) targeted that unchanged exact main. At evidence head `46b7d7a22ca0de4b4af0561ff576b12fa4edd69e`, every exact-head workflow run completed successfully:
 
 | Event / gate | Run | Result |
 |---|---|---|
@@ -75,8 +75,16 @@ Draft [PR #259](https://github.com/Rylascoo/Ensemble-Project/pull/259) targets t
 | PR Validation | [#1288](https://github.com/Rylascoo/Ensemble-Project/actions/runs/35827470289) | PASS |
 | PR E0-E preparation | [#204](https://github.com/Rylascoo/Ensemble-Project/actions/runs/35827470327) | PASS |
 
-The hosted compiler/x64 gates remain distinct from native ARM64 evidence. Any later documentation-only closeout head requires fresh exact-head hosted checks before merge; no success is inferred by ancestry. Branch and annotated native validation tag are published. The PR stays draft and unmerged pending Director executable merge authorization.
+The hosted compiler/x64 gates remain distinct from native ARM64 evidence. Any later documentation-only closeout head requires fresh exact-head hosted checks before merge; no success is inferred by ancestry. Branch and annotated native validation tag are published. The initial draft/merge gate was subsequently satisfied as recorded below.
+
+## Authorized integration
+
+On 2026-09-23 the Director explicitly authorized merging PR #259. Fresh checks resolved final head `670309d2fcd6db7654db043c02b08a4705866183`, unchanged base `5ae2bf2307df4faa8c7342303419ba3fc5e620e1`, clean writer and successful exact-head push [Validation #1289](https://github.com/Rylascoo/Ensemble-Project/actions/runs/35828067514), PR [Validation #1290](https://github.com/Rylascoo/Ensemble-Project/actions/runs/35828071206), and PR [E0-E preparation #205](https://github.com/Rylascoo/Ensemble-Project/actions/runs/35828071213). Independent documentation review at the final head returned no actionable findings. Final guards passed: census 547 / 425 current / 30 historical / 92 archive / 0 unexplained; oracle coverage 803 documented / 17 asserted / 786 document-only; state distance 0 and 2,910 UTF-8 bytes.
+
+PR #259 merged with expected-head protection at `7650fa40488fd19741c5bd0b65830d50fd62fa7b`. Its tree is identical to the final PR head. Exact-main [Validation #1291](https://github.com/Rylascoo/Ensemble-Project/actions/runs/35828613021) completed successfully. The primary local main checkout fast-forwarded cleanly to that merge. .NET 10 is now the integrated baseline; native evidence remains bound to executable `4b2d286a4baf1bb01b222aceda26fbaae8772c15` and its annotated tag.
+
+The same isolated primary writer prepares documentation-only branch `codex/qadmin08-post-merge-closeout-2026-09-23` from the merge. The original migration branch remains preserved provenance; no historical branch/worktree is deleted or adopted. This closeout requires its own review, hosted checks and merge authorization.
 
 ## Exit boundary
 
-Stop at Director executable merge authorization after final-head checks. No Product successor begins. Q-ADMIN-07 and all unrelated historical branches/worktrees remain preserved.
+Next is fresh Product/Design successor reconciliation for Director disposition. No Product implementation package or Q-PROD-09 is authorized. Q-ADMIN-07 and all unrelated historical branches/worktrees remain preserved.
