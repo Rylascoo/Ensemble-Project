@@ -47,6 +47,7 @@
 
     <NavigationView
         x:Name="ShellNavigation"
+        IsEnabled="{Binding IsSceneNavigationEnabled}"
         AlwaysShowHeader="False"
         Background="{ThemeResource KymaeanFieldBrush}"
         IsBackButtonVisible="Collapsed"
@@ -367,8 +368,84 @@
                                     HorizontalAlignment="Left"
                                     Click="OnOpenCharactersClicked"
                                     Content="Characters" />
+                                <Button x:Name="ScenesButton" Content="Scenes" Click="OnOpenScenesClicked" HorizontalAlignment="Left" />
                             </StackPanel>
                         </Grid>
+
+                        <StackPanel Spacing="12" Visibility="{Binding IsSceneSurface, Converter={StaticResource BoolToVisibility}}">
+                            <Button x:Name="SceneBackButton" AutomationProperties.Name="Back" Click="OnSceneBackClicked"
+                                    Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Padding="6" UseSystemFocusVisuals="True">
+                                <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" FontSize="20" Glyph="&#xE72B;" />
+                            </Button>
+                            <StackPanel Spacing="12" Visibility="{Binding IsScenes, Converter={StaticResource BoolToVisibility}}">
+                                <ContentControl x:Name="ScenesHeading" IsTabStop="False" AutomationProperties.HeadingLevel="Level2">
+                                    <TextBlock FontSize="24" Text="{Binding SceneListHeading}" TextWrapping="Wrap" />
+                                </ContentControl>
+                                <TextBlock Text="Established Scenes and their initial rosters." TextWrapping="Wrap" />
+                                <ContentControl x:Name="SceneNotice" IsTabStop="False" AutomationProperties.LiveSetting="Polite"
+                                                AutomationProperties.Name="{Binding SceneNotice}"
+                                                Visibility="{Binding HasSceneNotice, Converter={StaticResource BoolToVisibility}}">
+                                    <TextBlock Text="{Binding SceneNotice}" TextWrapping="Wrap" />
+                                </ContentControl>
+                                <TextBlock Text="Scene codes cannot distinguish some Scenes. Their inspection actions and New Scene are unavailable."
+                                           TextWrapping="Wrap" Visibility="{Binding HasSceneCollision, Converter={StaticResource BoolToVisibility}}" />
+                                <TextBlock Text="No Scenes yet." Visibility="{Binding HasNoScenes, Converter={StaticResource BoolToVisibility}}" />
+                                <ItemsControl x:Name="SceneList" ItemsSource="{Binding SceneRows}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate x:DataType="presentation:ScenePresentationRow">
+                                            <StackPanel Spacing="6" Margin="0,8" AutomationProperties.Name="{x:Bind CodeLabel}">
+                                                <TextBlock Text="{x:Bind CodeLabel}" TextWrapping="Wrap" />
+                                                <Button Click="OnInspectSceneClicked" IsEnabled="{x:Bind CanInspect}" UseSystemFocusVisuals="True"
+                                                        AutomationProperties.Name="{x:Bind InspectName}" HorizontalAlignment="Left">
+                                                    <TextBlock Text="Inspect initial roster" TextWrapping="Wrap" />
+                                                </Button>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                                <StackPanel Spacing="8" Visibility="{Binding HasSceneUncertainty, Converter={StaticResource BoolToVisibility}}">
+                                    <TextBlock Text="Submitted initial roster" AutomationProperties.HeadingLevel="Level3" FontWeight="SemiBold" />
+                                    <ItemsControl ItemsSource="{Binding SubmittedSceneRoster}" ItemTemplate="{StaticResource CharacterRowTemplate}" />
+                                    <TextBlock Text="No Characters in this submitted initial roster." TextWrapping="Wrap"
+                                               Visibility="{Binding HasEmptySubmittedSceneRoster, Converter={StaticResource BoolToVisibility}}" />
+                                    <TextBlock Text="Open the Production again to inspect its recorded Scenes. A matching roster cannot confirm which submission created a Scene." TextWrapping="Wrap" />
+                                </StackPanel>
+                                <Button x:Name="NewSceneButton" Content="New Scene" Click="OnNewSceneClicked" IsEnabled="{Binding CanEstablishScene}" HorizontalAlignment="Left" />
+                            </StackPanel>
+                            <StackPanel Spacing="12" Visibility="{Binding IsSceneDetail, Converter={StaticResource BoolToVisibility}}">
+                                <TextBlock Text="Initial roster" AutomationProperties.HeadingLevel="Level2" FontSize="24" />
+                                <TextBlock Text="{Binding InspectedScene.CodeLabel}" TextWrapping="Wrap" />
+                                <ItemsControl ItemsSource="{Binding InspectedScene.Roster}" ItemTemplate="{StaticResource CharacterRowTemplate}" />
+                                <TextBlock Text="No Characters in this initial roster." TextWrapping="Wrap"
+                                           Visibility="{Binding InspectedScene.IsEmpty, Converter={StaticResource BoolToVisibility}}" />
+                            </StackPanel>
+                            <StackPanel Spacing="12" Visibility="{Binding IsSceneDraft, Converter={StaticResource BoolToVisibility}}">
+                                <ContentControl x:Name="SceneDraftHeading" IsTabStop="False" AutomationProperties.HeadingLevel="Level2"
+                                                AutomationProperties.Name="New Scene. Choose Characters from this Production. You can leave the initial roster empty.">
+                                    <TextBlock Text="New Scene" FontSize="24" />
+                                </ContentControl>
+                                <TextBlock Text="Initial roster" FontWeight="SemiBold" />
+                                <TextBlock Text="Choose Characters from this Production. You can leave the initial roster empty." TextWrapping="Wrap" />
+                                <TextBlock Text="No Characters in this Production yet. You can establish a Scene with an empty initial roster." TextWrapping="Wrap"
+                                           Visibility="{Binding HasNoSceneCast, Converter={StaticResource BoolToVisibility}}" />
+                                <ItemsControl x:Name="ScenePicker" ItemsSource="{Binding SceneCast}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate x:DataType="presentation:CharacterPresentationRow">
+                                            <CheckBox Checked="OnSceneCharacterChanged" Unchecked="OnSceneCharacterChanged"
+                                                      AutomationProperties.Name="{x:Bind AccessibleName}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                                                <TextBlock Text="{x:Bind AccessibleName}" TextWrapping="Wrap" />
+                                            </CheckBox>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                                <TextBlock Text="Review initial roster" AutomationProperties.HeadingLevel="Level3" FontWeight="SemiBold" />
+                                <ItemsControl ItemsSource="{Binding SceneDraftRoster}" ItemTemplate="{StaticResource CharacterRowTemplate}" />
+                                <TextBlock Text="No Characters in this initial roster." TextWrapping="Wrap"
+                                           Visibility="{Binding HasEmptySceneDraft, Converter={StaticResource BoolToVisibility}}" />
+                                <Button x:Name="EstablishSceneButton" Content="Establish Scene" Click="OnEstablishSceneClicked" IsEnabled="{Binding CanEstablishScene}" HorizontalAlignment="Left" />
+                                <Button Content="Cancel" Click="OnCancelSceneClicked" HorizontalAlignment="Left" />
+                            </StackPanel>
+                        </StackPanel>
 
                         <Grid Visibility="{Binding IsWorldTruthSurface, Converter={StaticResource BoolToVisibility}}">
                             <StackPanel Spacing="12">

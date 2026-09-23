@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kymaean.Infrastructure.Pers
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kymaean.Infrastructure.Persistence.Tests", "tests\Kymaean.Infrastructure.Persistence.Tests\Kymaean.Infrastructure.Persistence.Tests.csproj", "{7771AF41-3450-48C5-B6E2-E1426ED280DC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kymaean.Windows.Presentation.Tests", "tests\Kymaean.Windows.Presentation.Tests\Kymaean.Windows.Presentation.Tests.csproj", "{86F45926-4972-4614-98FB-C94108D44343}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -141,6 +143,18 @@ Global
 		{7771AF41-3450-48C5-B6E2-E1426ED280DC}.Release|x64.Build.0 = Release|Any CPU
 		{7771AF41-3450-48C5-B6E2-E1426ED280DC}.Release|x86.ActiveCfg = Release|Any CPU
 		{7771AF41-3450-48C5-B6E2-E1426ED280DC}.Release|x86.Build.0 = Release|Any CPU
+		{86F45926-4972-4614-98FB-C94108D44343}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86F45926-4972-4614-98FB-C94108D44343}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86F45926-4972-4614-98FB-C94108D44343}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{86F45926-4972-4614-98FB-C94108D44343}.Debug|x64.Build.0 = Debug|Any CPU
+		{86F45926-4972-4614-98FB-C94108D44343}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{86F45926-4972-4614-98FB-C94108D44343}.Debug|x86.Build.0 = Debug|Any CPU
+		{86F45926-4972-4614-98FB-C94108D44343}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86F45926-4972-4614-98FB-C94108D44343}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86F45926-4972-4614-98FB-C94108D44343}.Release|x64.ActiveCfg = Release|Any CPU
+		{86F45926-4972-4614-98FB-C94108D44343}.Release|x64.Build.0 = Release|Any CPU
+		{86F45926-4972-4614-98FB-C94108D44343}.Release|x86.ActiveCfg = Release|Any CPU
+		{86F45926-4972-4614-98FB-C94108D44343}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -155,5 +169,6 @@ Global
 		{5F58C99C-96B7-4025-A37B-4D5FB3CAC6B8} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{E096B24B-C8C8-4930-BB02-417CF860DECF} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{7771AF41-3450-48C5-B6E2-E1426ED280DC} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
+		{86F45926-4972-4614-98FB-C94108D44343} = {0AB3BF05-4346-4AA6-1389-037BE0695223}
 	EndGlobalSection
 EndGlobal
