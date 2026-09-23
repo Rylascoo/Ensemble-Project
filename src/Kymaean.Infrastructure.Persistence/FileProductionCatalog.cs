@@ -430,14 +430,11 @@ public sealed class FileProductionCatalog :
         ProductionJournalAnchor? anchor;
         try
         {
-            if (append is not null)
-            {
-                store.Append(append);
-            }
-
-            var history = recover
-                ? store.RecoverValidatedHistory()
-                : store.LoadValidatedHistory();
+            var history = append is not null
+                ? store.AppendValidatedHistory(append)
+                : recover
+                    ? store.RecoverValidatedHistory()
+                    : store.LoadValidatedHistory();
             projection = history.Projection
                 ?? ProductionReplay.Rebuild(history.Events);
             anchor = history.Anchor;

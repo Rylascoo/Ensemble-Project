@@ -28,6 +28,33 @@ public sealed class SceneReplayTests
     }
 
     [TestMethod]
+    public void ReplayProjectionRejectsSceneRosterOutsideOrOutOfCastOrder()
+    {
+        var cast = Cast("C-1", "C-2");
+
+        Assert.ThrowsExactly<ArgumentException>(
+            () => new ProductionReplayProjection(
+                "Harbor",
+                WorldCurrentState.Empty,
+                cast,
+                new ProductionScenes(
+                    [new EstablishedScene(
+                        new SceneId("S-1"),
+                        new SceneRoster([new CharacterId("C-3")]))])));
+
+        Assert.ThrowsExactly<ArgumentException>(
+            () => new ProductionReplayProjection(
+                "Harbor",
+                WorldCurrentState.Empty,
+                cast,
+                new ProductionScenes(
+                    [new EstablishedScene(
+                        new SceneId("S-1"),
+                        new SceneRoster(
+                            [new CharacterId("C-2"), new CharacterId("C-1")]))])));
+    }
+
+    [TestMethod]
     public void OldHistoryReplaysWithNoScenes()
     {
         var replay = ProductionReplay.Rebuild(

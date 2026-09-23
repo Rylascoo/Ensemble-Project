@@ -20,11 +20,22 @@ public sealed class FileProductionEventStore : IProductionEventStore
     internal static FileProductionEventStore OpenExisting(string rootDirectory) =>
         new(FileProductionJournal.OpenExisting(rootDirectory));
 
-    public void Append(ProductionEvent productionEvent)
+    public void Append(ProductionEvent productionEvent) =>
+        _ = AppendValidatedHistory(productionEvent);
+
+    internal ValidatedProductionHistory AppendValidatedHistory(
+        ProductionEvent productionEvent)
     {
         ArgumentNullException.ThrowIfNull(productionEvent);
         var payload = ProductionEventCodec.Encode(productionEvent);
-        _journal.AppendValidated(payload, ValidateEntries);
+        ValidatedProductionHistory? candidate = null;
+        _journal.AppendValidated(
+            payload,
+            entries => candidate = DecodeAndValidate(entries));
+
+        return candidate
+            ?? throw new InvalidOperationException(
+                "Production append did not validate a history.");
     }
 
     public IReadOnlyList<ProductionEvent> LoadAll() =>
@@ -45,12 +56,6 @@ public sealed class FileProductionEventStore : IProductionEventStore
         return recovered
             ?? throw new InvalidOperationException(
                 "Production recovery did not validate a history.");
-    }
-
-    private static void ValidateEntries(
-        IReadOnlyList<ProductionJournalEntry> entries)
-    {
-        _ = DecodeAndValidate(entries);
     }
 
     private static ValidatedProductionHistory DecodeAndValidate(

@@ -45,6 +45,31 @@ public sealed record ProductionReplayProjection
         ArgumentNullException.ThrowIfNull(productionCast);
         ArgumentNullException.ThrowIfNull(productionScenes);
 
+        foreach (var scene in productionScenes.Scenes)
+        {
+            SceneRoster canonicalRoster;
+            try
+            {
+                canonicalRoster = SceneRoster.Canonicalize(
+                    productionCast,
+                    scene.InitialRoster.CharacterIds);
+            }
+            catch (ArgumentException exception)
+            {
+                throw new ArgumentException(
+                    "Every Production Scene roster Character must exist in the Production Cast.",
+                    nameof(productionScenes),
+                    exception);
+            }
+
+            if (!canonicalRoster.Equals(scene.InitialRoster))
+            {
+                throw new ArgumentException(
+                    "Production Scene rosters must follow Production Cast order.",
+                    nameof(productionScenes));
+            }
+        }
+
         ProductionName = productionName;
         WorldCurrentState = worldCurrentState;
         ProductionCast = productionCast;
