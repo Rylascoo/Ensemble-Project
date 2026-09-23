@@ -1,12 +1,20 @@
 # Established Scenes / initial roster presentation contract
 
-Status: **DIRECTOR-ADOPTED DESIGN CONTRACT / NATIVE EMPIRICAL VALIDATION NOT EARNED / IMPLEMENTATION NOT AUTHORIZED**
+Status: **DIRECTOR-ADOPTED DESIGN CONTRACT / NATIVE EMPIRICAL VALIDATION NOT EARNED / BOUNDED WINDOWS EMPIRICAL IMPLEMENTATION AUTHORIZED**
 
 Package: **Q-DESIGN-24**. Date: 2026-09-23.
 Exact Product baseline: `a225fc56acc1ef4514538562491d28d7a6bb4fb4`.
 Decision and falsification evidence: `docs/design/app/evidence/SCENE_PRESENTATION_CONTRACT_DECISION_2026_09_23.md`.
 
 ## Authority and purpose
+
+Subsequent Director clarification and implementation authorization (2026-09-23) supersedes implementation-not-authorized wording below as historical. Before coding, the following exact treatments are adopted:
+
+- Uncertain submission is session-only, keyed by `ProductionId`. Opening B or successful ordinary Open of B neither clears A's uncertainty nor blocks establishment in B. Returning to A without successful ordinary Open of A restores its submitted witness and creation block. Failed Open of A, theme changes and ordinary navigation/presentation changes preserve A's state. Only successful ordinary Open of A clears A's operational uncertainty. There is no global block or cross-restart tracking.
+- Successful ordinary Open of affected A replaces displayed Scenes with fresh authoritative replay, removes the submitted-roster witness and clears its uncertainty establishment block. Never mark the earlier submission successful or failed, attribute a matching Scene, or create a durable attempt/pending record. Subsequent establishment is a new action, never retry. Present one neutral transient informational announcement: **Production reopened. Current Scenes are freshly loaded. The earlier submission was not confirmed as either successful or unsuccessful.** This is not a continuing block or persistent pending state.
+- Full Scene-hash collision is a presentation defect, never Product Invalid, environmental/persistence uncertainty, corruption, lifecycle or currentness. Disable per-Scene actions for colliding identities and New Scene establishment for that Production; preserve non-colliding unambiguous Scene actions, Back/navigation and unrelated Productions. Do not invent persistent identifiers, local names, index/roster identity or Product semantics. Ordinary Open may refresh replay but is not a recovery command. Clear the collision block only if the newly authoritative replay no longer contains the collision; otherwise the defect remains, including injected falsification evidence.
+
+These clarifications do not reopen Product authority. Expanded empirical entry conditions and evidence: `docs/evidence/Q_DESIGN_24_WINDOWS_EMPIRICAL_EVIDENCE_2026_09_23.md`. Provisional verdict **INCONCLUSIVE** until required native, independent review, Design acceptance, Director creator tasks and human Narrator evidence are complete. Sufficiency is limited to initial-roster inspection and establishment; re-arm the falsifier for future consequential Scene-selection tasks.
 
 The Director authorized a documentation-only test of integrated Q-PROD-08 sufficiency: opaque Scene identity, initial Scene Roster, Production-Cast-order canonicalization and replay-derived Production Scenes. The Director adopted this bounded contract on 2026-09-23 without extending Product. Separate Windows implementation authorization remains required; adoption is not empirical validation.
 

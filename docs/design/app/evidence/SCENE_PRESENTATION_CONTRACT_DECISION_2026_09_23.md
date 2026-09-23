@@ -1,11 +1,13 @@
 # Scene presentation sufficiency decision
 
-Status: **DIRECTOR-ADOPTED / STATIC REVIEW COMPLETE / NO IMPLEMENTATION AUTHORITY**
+Status: **DIRECTOR-ADOPTED / STATIC REVIEW COMPLETE / BOUNDED EMPIRICAL IMPLEMENTATION AUTHORIZED**
 
 Date: 2026-09-23. Package: **Q-DESIGN-24**.
 Contract: `docs/design/app/contracts/SCENE_INITIAL_ROSTER_PRESENTATION.md`.
 
 ## Director disposition and ownership
+
+Later Director disposition (2026-09-23) authorizes bounded Windows empirical implementation after recording three exact clarifications in the contract: ProductionId-keyed session uncertainty; removal of submitted witness/block after successful ordinary Open with a neutral transient unknown-outcome announcement; and affected-Production full-hash collision availability. These clarify Design only. Earlier no-implementation/next-authorization prose records historical stages and is superseded. The expanded authorization incorporates Director-supplied independent Claude advisory disposition **SAFE AFTER SPECIFIC TEST-PLAN AMENDMENTS**, not native evidence. Entry plan and provisional **INCONCLUSIVE** verdict: `docs/evidence/Q_DESIGN_24_WINDOWS_EMPIRICAL_EVIDENCE_2026_09_23.md`. No Product successor or executable merge is authorized.
 
 The Director's 2026-09-23 task disposition selected a bounded Scene presentation-contract package and authorized presentation-only treatment derived from integrated Q-PROD-08 truth. It explicitly prohibited implementation, new Product/Persistence schema, persistent Scene naming, currentness/lifecycle/roster mutation and the other exclusions preserved in the contract. It required a stop and smallest exact Product question if presentation-only distinction proved insufficient.
 
