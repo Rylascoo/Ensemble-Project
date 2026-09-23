@@ -20,7 +20,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
         with:
-          dotnet-version: '9.0.317'
+          dotnet-version: '10.0.400'
       - run: dotnet build src/Ensemble.E0.Core/Ensemble.E0.Core.csproj -c Release
       - run: dotnet build src/Ensemble.E0.Harness/Ensemble.E0.Harness.csproj -c Release
       - run: dotnet build tests/Ensemble.E0.Core.Tests/Ensemble.E0.Core.Tests.csproj -c Release
@@ -33,8 +33,8 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
         with:
-          dotnet-version: '9.0.317'
-      - run: dotnet test tests/Ensemble.E0.Core.Tests/Ensemble.E0.Core.Tests.csproj -c Release
+          dotnet-version: '10.0.400'
+      - run: dotnet test --project tests/Ensemble.E0.Core.Tests/Ensemble.E0.Core.Tests.csproj -c Release
 
   product-application-tests:
     name: Product Application tests (x64 regression, non-authoritative)
@@ -43,8 +43,8 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
         with:
-          dotnet-version: '9.0.317'
-      - run: dotnet test tests/Kymaean.Application.Tests/Kymaean.Application.Tests.csproj -c Release
+          dotnet-version: '10.0.400'
+      - run: dotnet test --project tests/Kymaean.Application.Tests/Kymaean.Application.Tests.csproj -c Release
 
   product-persistence-tests:
     name: Product persistence tests (x64 regression, non-authoritative)
@@ -53,8 +53,8 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
         with:
-          dotnet-version: '9.0.317'
-      - run: dotnet test tests/Kymaean.Infrastructure.Persistence.Tests/Kymaean.Infrastructure.Persistence.Tests.csproj -c Release
+          dotnet-version: '10.0.400'
+      - run: dotnet test --project tests/Kymaean.Infrastructure.Persistence.Tests/Kymaean.Infrastructure.Persistence.Tests.csproj -c Release
 
   product-windows-arm64-compile:
     name: Product WinUI compiler gate (ARM64 cross-compile)
@@ -64,7 +64,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
         with:
-          dotnet-version: '9.0.317'
+          dotnet-version: '10.0.400'
       - run: dotnet build src/Kymaean.Windows/Kymaean.Windows.csproj -c Release -p:Platform=ARM64 -r win-arm64
   repository-laws:
     name: Repository law enforcement

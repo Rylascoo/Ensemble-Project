@@ -33,10 +33,10 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
         with:
-          dotnet-version: '9.0.317'
+          dotnet-version: '10.0.400'
       - name: Cross-compile throwaway control for win-arm64
         run: dotnet build experiments/Ensemble.E0.PlaywrightControl/Ensemble.E0.PlaywrightControl.csproj -c Release -r win-arm64 --no-self-contained
       - name: Build deterministic preparation tests
         run: dotnet build experiments/Ensemble.E0.PlaywrightControl.Tests/Ensemble.E0.PlaywrightControl.Tests.csproj -c Release
       - name: Run deterministic preparation tests
-        run: dotnet test experiments/Ensemble.E0.PlaywrightControl.Tests/Ensemble.E0.PlaywrightControl.Tests.csproj -c Release --no-build
+        run: dotnet test --project experiments/Ensemble.E0.PlaywrightControl.Tests/Ensemble.E0.PlaywrightControl.Tests.csproj -c Release --no-build

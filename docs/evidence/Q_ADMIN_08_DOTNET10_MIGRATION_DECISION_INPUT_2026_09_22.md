@@ -1,6 +1,6 @@
 # Q-ADMIN-08 .NET 10 migration decision input — 2026-09-22
 
-Status: **NATIVE DISPOSABLE PROBE COMPLETE / DIRECTOR DISPOSITION PENDING / RETARGET NOT AUTHORIZED**
+Status: **PRESERVED DECISION INPUT / DIRECTOR CHOSE RETARGET NOW ON 2026-09-23**. Dedicated migration authority and fresh validation: `docs/evidence/Q_ADMIN_08_DOTNET10_MIGRATION_NATIVE_ARM64_VALIDATION_2026_09_23.md`. The disposable probe below remains decision evidence only.
 
 Exact probe baseline: `Rylascoo/Ensemble-Project@a2ab3a4287b0b3c3e42eef961877c3a973efd9aa`  
 Baseline exact-main Validation: #1277 PASS
@@ -71,4 +71,4 @@ The probe therefore narrows migration cost from “unknown project compatibility
 
 ## Boundaries
 
-No .NET 10 retarget or package upgrade is authorized here. Q-PROD-08 may proceed independently; any later retarget receives its own executable/native validation lineage.
+This decision-input record did not authorize a .NET 10 retarget or package upgrade. The Director subsequently authorized the dedicated migration linked above after Q-PROD-08 integration; that migration requires its own executable/native validation lineage.

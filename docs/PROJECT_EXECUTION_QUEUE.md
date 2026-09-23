@@ -2,7 +2,7 @@
 
 Status: **ACTIVE CURRENT-WORK REGISTER**
 
-Updated: 2026-09-22
+Updated: 2026-09-23
 
 The complete pre-unification sequencing/history is preserved at `docs/evidence/archive/PROJECT_EXECUTION_QUEUE_PRE_UNIFICATION_2026_09_22.md`.
 
@@ -19,11 +19,11 @@ This file now carries only current, deferred, or blocking work. Completed histor
 
 ## Current application work
 
-No Product/Application implementation package is currently `ACTIVE`; Q-PROD-08 closed through PR #257 and is intentionally absent from this current-work table.
+Q-ADMIN-08 is the sole active platform/tooling implementation package. No Product successor is active; Q-PROD-08 closed through PR #257 and is intentionally absent from this current-work table.
 
 | ID | Role | Status | Work | Hard boundary / successor |
 |---|---|---|---|---|
-| Q-ADMIN-08 | Governance / Product Architecture | DIRECTOR DECISION REQUIRED — NATIVE PROBE COMPLETE | .NET 10 decision input + native probe: `docs/evidence/Q_ADMIN_08_DOTNET10_MIGRATION_DECISION_INPUT_2026_09_22.md`. | Retarget remains unauthorized. Director chooses RETARGET NOW / RETARGET BY DATE-GATE / ACCEPT UNSUPPORTED PERIOD. |
+| Q-ADMIN-08 | Implementation / Governance | ACTIVE — RETARGET NOW AUTHORIZED | Dedicated .NET 10 SDK/TFM/Microsoft Testing Platform migration and fresh current-main comparison: `docs/evidence/Q_ADMIN_08_DOTNET10_MIGRATION_NATIVE_ARM64_VALIDATION_2026_09_23.md`. | No package-version or Product/Design/provider/E0/release change. Full native validation, exact-ref independent review, draft PR and hosted gates; stop at executable merge authorization. |
 | Q-ADMIN-07 | Governance / Recovery | DEFERRED — LOCAL RESIDUE ONLY | Disposition remaining local historical/deferred worktrees after owner/status/evidence review. | Preserve ambiguous local evidence and the unique historical PR #226 branch; merged remote refs require archive-tag-before-delete handling. |
 
 ## Deferred E0 / architecture gates

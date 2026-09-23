@@ -8,7 +8,7 @@ try {
     $projects = @('tests/Kymaean.Application.Tests/Kymaean.Application.Tests.csproj')
     if ($Full) { $projects += 'tests/Kymaean.Infrastructure.Persistence.Tests/Kymaean.Infrastructure.Persistence.Tests.csproj' }
     foreach ($project in $projects) {
-        $testArgs = @('test', $project, '-c', 'Release', '-r', 'win-arm64')
+        $testArgs = @('test', '--project', $project, '-c', 'Release', '-r', 'win-arm64')
         if ($Filter) { $testArgs += @('--filter', $Filter) }
         & dotnet @testArgs
         if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
