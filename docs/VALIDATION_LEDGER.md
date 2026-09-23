@@ -535,6 +535,24 @@ Native machine-test authority remains bound to executable source `90905c8...`; m
 
 Native/runtime authority remains bound to executable source `9ea74391...`; later evidence/state/integration commits do not inherit or inflate it.
 
+### Q-PROD-08 Scene identity / initial roster foundation checkpoint
+
+| Field | Fact |
+|---|---|
+| Base | `11f04eb45e0ddeb688016d8d23c1657b421d604d`; exact-main Validation #1280 PASS |
+| Exact tested/reviewed executable source | `31e16cbe274f9b90192bba67cd443fa3320ed8e2` |
+| Evidence | `docs/evidence/Q_PROD_08_SCENE_IDENTITY_INITIAL_ROSTER_NATIVE_ARM64_VALIDATION_2026_09_22.md` |
+| Earned Product contract | opaque Scene identity; initial Scene Roster subset of Production Cast; Cast-order canonicalization; replay-derived Production Scenes; explicit creator Scene establishment in existing Production journal |
+| Durable event | `kymaean.production.creator-established-scene.v1`; exact UTF-16 identity/roster payload; future same-family version -> Incompatible; unrelated unknown contract -> Invalid |
+| Persistence | reopen/recovery/export PASS; snapshot v4 remains rebuildable/non-authoritative; deletion rebuilds identical Cast + Scene from journal |
+| Native ARM64 | environment PASS; Application 84/84 PASS; Persistence 148/148 PASS; WinUI Release PASS, 0 warnings/errors |
+| Review | predecessor review found post-append replay interleaving + projection Cast/Scene consistency defects; both corrected; final exact-ref static read-only review CLEAN |
+| Reversibility | no Scene-event migration adapter exists: **UNEARNED**; later semantic change must version/migrate/fail closed, never silently ignore durable history |
+| Hosted state | pending documentation-head branch/PR gates; native authority remains bound to exact executable above |
+| Limits | no current Scene, roster mutation, ending/cardinality, Character Core, Performer/provider, Opportunity/Performance, Scene UI, provider traffic, deferred-E0 execution, .NET 10 retarget or release authority |
+
+Native/runtime authority remains bound to exact source `31e16cbe...`; evidence/state/hosted/integration commits do not inherit or inflate it.
+
 ### Supporting provider-evidence continuity
 
 The promoted checkpoint does not erase the still-current evidence chain that established the provider/runtime boundary. These records remain supporting evidence only and do not override the promoted checkpoint:

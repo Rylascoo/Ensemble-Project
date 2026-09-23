@@ -26,8 +26,8 @@ Q-PROD-07 / Q-DESIGN-23 is **DONE / INTEGRATED** through PR #252 at `7d79581aac8
 
 ## Next
 
-Q-PROD-08 is **SELECTED / IMPLEMENTATION AUTHORIZED**: Product Scene identity + initial roster foundation only. Scene identity is opaque; initial roster is a subset of existing Production Cast; replay/persistence use the existing Production journal. Current Scene, roster mutation, Scene ending/cardinality, Character Core, provider/Performer, Opportunity/Performance and Scene UI remain excluded. Evidence: `docs/evidence/Q_PROD_08_SUCCESSOR_SELECTION_SCENE_IDENTITY_INITIAL_ROSTER_FOUNDATION_2026_09_22.md`.
+Q-PROD-08 is **NATIVE VALIDATED / INDEPENDENT REVIEW CLEAN / PENDING INTEGRATION**. Exact executable `31e16cbe274f9b90192bba67cd443fa3320ed8e2`: Application 84/84 PASS; Persistence 148/148 PASS; ARM64 WinUI Release PASS, 0 warnings/errors. Scene identity + initial-roster scope and all exclusions remain unchanged. Evidence: `docs/evidence/Q_PROD_08_SCENE_IDENTITY_INITIAL_ROSTER_NATIVE_ARM64_VALIDATION_2026_09_22.md`.
 
-Implementation requires the normal isolated writer, exact review and native ARM64 validation path before integration. Deferred-E0 exposure/reversibility is now an explicit package guard.
+Native authority remains bound to `31e16cb...`. Run final hosted branch/PR gates; integration remains Director-gated. Deferred-E0 exposure/reversibility remains provisional as recorded.
 
 Q-ADMIN-08: **.NET 10 native probe complete / Director disposition pending**. All projects including ARM64 WinUI compile cleanly under SDK 10.0.400; existing `dotnet test` is blocked pre-test by the .NET 10 VSTest/MTP runner boundary. Retarget remains Director-gated.
