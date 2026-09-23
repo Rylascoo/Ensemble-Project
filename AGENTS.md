@@ -37,7 +37,6 @@ This summary is durable orientation, not a substitute for current source/Bluepri
 Director + ChatGPT reconcile work manually. Codex is reserved for bounded implementation/debugging when it materially helps; Git remains durable authority and GitHub remains PR/integration authority. Ryladmin is exceptional governance/recovery/evidence infrastructure, not a normal application-work identity or autonomous runtime.
 
 ### Native Codex execution roles
-### Native Codex execution roles
 
 For an Implementation task, one primary writer is accountable for the bounded change. Historical **Engineering Sol** / **Engineer #1** labels identify prior responsibility only.
 

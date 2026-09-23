@@ -50,7 +50,7 @@ This does **not** itself adopt Character UI, Scene membership/lifecycle, Off-Sce
 
 ### Q-DESIGN-23 — Characters / Character establishment
 
-**ACCEPTED / PENDING INTEGRATION.** Contract: `contracts/PRODUCTION_CAST_CHARACTER_ESTABLISHMENT_PRESENTATION.md`. Exact native source: `9ea74391adf0a2f259c205ae88128324d4a52148`.
+**DONE / INTEGRATED.** Contract: `contracts/PRODUCTION_CAST_CHARACTER_ESTABLISHMENT_PRESENTATION.md`. PR #252 merged at `7d79581aac869f8e81fc0a5267b1f14fde394246`; exact-main Validation #1266 PASS. Native/runtime authority remains bound to exact source `9ea74391adf0a2f259c205ae88128324d4a52148`.
 
 Current-Production **Characters** is a read-only replay-derived list plus bounded **New Character** creation. Duplicate exact names use conditional presentation-only Character codes. No Scene labels, richer Character editor, Performer/provider assignment or permanent People route is adopted.
 

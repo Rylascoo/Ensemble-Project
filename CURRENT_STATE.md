@@ -20,12 +20,10 @@ Q-UNITY-02 is **DONE / INTEGRATED** through PR #248; exact-main Validation #1192
 
 Home A/B, FIRSTUSE, rename/delete/import/restore, Character semantics beyond identity/name, Scene ontology/lifecycle, provider/Performer, Stage motion, deferred E0, High Contrast, Source Sans 3/S1 packaging, final architecture, WACK/Store and release remain separately gated.
 
-Q-PROD-06 is **DONE / INTEGRATED** through PR #249; exact-main Validation #1226 PASS. Product owns persistent Character identity/name, establishment and replay-derived Cast; `Character != Performer` and Cast != Scene Roster. Evidence: `docs/evidence/Q_PROD_06_CHARACTER_CAST_IDENTITY_FOUNDATION_NATIVE_ARM64_VALIDATION_2026_09_22.md`.
+Q-PROD-06 is **DONE / INTEGRATED** through PR #249; exact-main Validation #1226 PASS. Product owns persistent Character identity/name, establishment and replay-derived Production Cast; `Character != Performer` and Production Cast != Scene Roster.
 
-Q-DESIGN-23 is **ADOPTED / NATIVE ACCEPTANCE PENDING**. Contract: `docs/design/app/contracts/PRODUCTION_CAST_CHARACTER_ESTABLISHMENT_PRESENTATION.md`. Current-Production **Characters** is a read-only Cast list + bounded **New Character** flow with duplicate codes, focus/return and environmental non-confirmation; Scene/edit/deeper-detail semantics remain excluded.
-
-Q-PROD-07 / Q-DESIGN-23 is **VALIDATED / DESIGN-ACCEPTED / PENDING INTEGRATION**. Exact executable `9ea74391adf0a2f259c205ae88128324d4a52148`: native ARM64 Application 72/72, Persistence 141/141, WinUI Release 0 warnings/errors; full Character UI matrix and exact-source review PASS. Evidence: `docs/evidence/Q_PROD_07_CHARACTER_PRESENTATION_NATIVE_ARM64_VALIDATION_2026_09_22.md`.
+Q-PROD-07 / Q-DESIGN-23 is **DONE / INTEGRATED** through PR #252 at `7d79581aac869f8e81fc0a5267b1f14fde394246`; push-triggered exact-main Validation #1266 PASS. Current-Production **Characters** is the adopted read-only Cast list + bounded **New Character** flow. Native/runtime authority remains bound to exact executable `9ea74391adf0a2f259c205ae88128324d4a52148`. Evidence: `docs/evidence/Q_PROD_07_CHARACTER_PRESENTATION_NATIVE_ARM64_VALIDATION_2026_09_22.md`.
 
 ## Next
 
-Run final hosted gates on the documentation-only Q-PROD-07 head, then integrate under standing Director authorization if clean. Native authority remains bound to `9ea74391...`; High Contrast, Source Sans 3/S1 and all Scene/provider/release gates remain open.
+No successor implementation package is authorized yet. Reconcile the current roadmap, ODRs, Product source and Design gates and select the smallest lawful successor before opening another implementation package. Q-ADMIN-07 remains deferred local-residue cleanup; all separately gated Scene/provider/Stage/deferred-E0/High-Contrast/typography/release work stays closed until its own prerequisite is satisfied.

@@ -1,6 +1,6 @@
 {
   "schema": "kymaean.appui-q-design-23-production-cast-character-presentation-contract.v1",
-  "status": "ADOPTED_ENGINEERING_HANDOFF_READY_NATIVE_ACCEPTANCE_PENDING",
+  "status": "ADOPTED_INTEGRATED",
   "date": "2026-09-22",
   "queue_item": "Q-DESIGN-23",
   "exact_project_main": "fcbc9677af7720711db058a303c5510ccba85aa4",
@@ -54,5 +54,9 @@
     "No provider/deferred-E0/release authority."
   ],
   "approval": "APPROVED BY STANDING DIRECTOR DELEGATION — CLEAN RECURSIVE AUDIT",
-  "next": "Open Q-PROD-07 as the bounded Windows implementation package. Product/Persistence changes are a stop condition."
+  "next": "Q-DESIGN-23 / Q-PROD-07 closed. Historical whole-Production Character-management evidence remains constrained reference; select any successor from current Product/Design authority.",
+  "integration_pending": false,
+  "final_pr_head": "4f3db0c1333aa024a68504442017e8a9fd88475b",
+  "integrated_main": "7d79581aac869f8e81fc0a5267b1f14fde394246",
+  "integrated_main_validation": "#1266 PASS"
 }

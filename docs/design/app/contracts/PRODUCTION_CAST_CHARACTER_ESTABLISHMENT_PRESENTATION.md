@@ -1,10 +1,11 @@
 # Production Cast / Character establishment presentation contract
 
-Status: **ADOPTED / Q-DESIGN-23 ENGINEERING HANDOFF READY / NATIVE ACCEPTANCE PENDING**
+Status: **ADOPTED / INTEGRATED THROUGH Q-PROD-07**
 
 Date: 2026-09-22  
 Exact Product baseline: `Rylascoo/Ensemble-Project@fcbc9677af7720711db058a303c5510ccba85aa4`  
-Exact-main Validation: #1235 PASS
+Adoption-baseline Validation: #1235 PASS  
+Integrated main: `7d79581aac869f8e81fc0a5267b1f14fde394246`; exact-main Validation #1266 PASS
 
 ## Purpose
 

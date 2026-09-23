@@ -1011,3 +1011,15 @@ Evidence: `docs/evidence/Q_PROD_07_CHARACTER_PRESENTATION_NATIVE_ARM64_VALIDATIO
 **ACCEPTED BY STANDING DIRECTOR DELEGATION — CLEAN RECURSIVE AUDIT.**
 
 High Contrast exact-source proof, Source Sans 3/S1 packaging and all unearned Character/Scene/provider/release semantics remain open. Native/runtime authority stays bound to exact executable source `9ea74391...`.
+
+---
+
+## Q-DESIGN-23 integration closeout — 2026-09-22
+
+**State:** DONE / INTEGRATED / PR #252 / EXACT-MAIN VALIDATION #1266 PASS
+
+The accepted Q-DESIGN-23 native return integrated without expanding Product or Design authority. PR #252 merged to `main` at `7d79581aac869f8e81fc0a5267b1f14fde394246`; push-triggered exact-main Validation #1266 passed. Target-device authority remains bound to exact executable source `9ea74391adf0a2f259c205ae88128324d4a52148`.
+
+The integrated contract remains exactly the contextual read-only **Characters** list plus bounded **New Character** establishment. Historical Off-Scene/current-Scene labels, management selection, richer Character editing/detail, Scene membership/lifecycle and Performer/provider semantics remain unadopted. High Contrast, Source Sans 3/S1 and later Scene/provider/release work remain separately gated.
+
+Successor selection requires fresh current-authority reconciliation; this closeout creates no Q-PROD-08 or new implementation permission.

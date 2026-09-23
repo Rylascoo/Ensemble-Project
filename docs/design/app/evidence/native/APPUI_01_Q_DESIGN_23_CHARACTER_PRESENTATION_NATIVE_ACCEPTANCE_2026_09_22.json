@@ -1,6 +1,6 @@
 {
   "schema": "kymaean.appui-q-design-23-character-presentation-native-acceptance.v1",
-  "status": "ACCEPTED_PENDING_INTEGRATION",
+  "status": "ACCEPTED_INTEGRATED",
   "date": "2026-09-22",
   "queue_item": "Q-DESIGN-23 / Q-PROD-07",
   "exact_executable_source": "9ea74391adf0a2f259c205ae88128324d4a52148",
@@ -38,5 +38,9 @@
     "No release/WACK/Store authority is created."
   ],
   "approval": "ACCEPTED BY STANDING DIRECTOR DELEGATION — CLEAN RECURSIVE AUDIT",
-  "next": "Integrate Q-PROD-07 / Q-DESIGN-23 only after final hosted exact-head gates; native authority remains bound to exact executable source."
+  "next": "Q-PROD-07 / Q-DESIGN-23 closed. Run a fresh roadmap/ODR/current-source successor-selection reconciliation before opening another implementation package.",
+  "integration_pending": false,
+  "final_pr_head": "4f3db0c1333aa024a68504442017e8a9fd88475b",
+  "integrated_main": "7d79581aac869f8e81fc0a5267b1f14fde394246",
+  "exact_main_validation": "#1266 PASS"
 }

@@ -528,6 +528,8 @@ Native machine-test authority remains bound to executable source `90905c8...`; m
 | Native UI | empty/exact/duplicate/focus/typed-failure/non-confirmation/reopen/accessibility/Light-Dark/720x520 PASS |
 | Temporary MSIX | `88CE8B964615396496C7C24413B6187F7CD1691589F45519DC685399C36888CD`; 27,978,853 bytes; disposable validation only |
 | Hosted checkpoint | documentation successor `2a72a9f7521bd66e1a3211f4bc74a1491fc497c0`; Validation #1256 PASS |
+| Final PR head | `4f3db0c1333aa024a68504442017e8a9fd88475b`; branch push Validation #1264 PASS; PR Validation #1265 PASS; E0-E preparation #196 PASS |
+| Integrated main | PR #252 merge `7d79581aac869f8e81fc0a5267b1f14fde394246`; push-triggered exact-main Validation #1266 PASS |
 | Review | exact executable no-write review CLEAN; shared Production-code regression PASS |
 | Limits | High Contrast, Source Sans 3/S1, Character edit/deeper ontology, Scene membership/lifecycle, Performer/provider, Pressure/Take/Rehearsal, deferred-E0, release/WACK/Store remain unearned |
 
