@@ -19,7 +19,7 @@ This file now carries only current, deferred, or blocking work. Completed histor
 
 ## Current application work
 
-Q-ADMIN-08 is DONE / INTEGRATED through PR #259; exact-main Validation #1291 PASS at `7650fa40488fd19741c5bd0b65830d50fd62fa7b`. Its platform validation is recorded in `docs/VALIDATION_LEDGER.md`. No Product successor is active. Next is fresh Product/Design successor reconciliation for Director disposition; this does not authorize implementation. Completed Q-ADMIN-08 and Q-PROD-08 are absent from this current-work table.
+Q-ADMIN-08 is DONE / INTEGRATED through PR #259; its platform validation remains in `docs/VALIDATION_LEDGER.md`. The Director adopted Q-DESIGN-24 on 2026-09-23: `docs/design/app/contracts/SCENE_INITIAL_ROSTER_PRESENTATION.md`; decision: `docs/design/app/evidence/SCENE_PRESENTATION_CONTRACT_DECISION_2026_09_23.md`. Contract work is complete. Next is separate Director authorization of a bounded Windows empirical implementation package; none is active or authorized. The presentation-code falsifier remains controlling.
 
 | ID | Role | Status | Work | Hard boundary / successor |
 |---|---|---|---|---|
