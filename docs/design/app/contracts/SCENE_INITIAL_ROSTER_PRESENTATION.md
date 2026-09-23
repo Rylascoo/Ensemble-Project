@@ -16,7 +16,7 @@ Subsequent Director clarification and implementation authorization (2026-09-23) 
 
 These clarifications do not reopen Product authority. Expanded empirical entry conditions and evidence: `docs/evidence/Q_DESIGN_24_WINDOWS_EMPIRICAL_EVIDENCE_2026_09_23.md`. Provisional verdict **INCONCLUSIVE** until required native, independent review, Design acceptance, Director creator tasks and human Narrator evidence are complete. Sufficiency is limited to initial-roster inspection and establishment; re-arm the falsifier for future consequential Scene-selection tasks.
 
-The Director authorized a documentation-only test of integrated Q-PROD-08 sufficiency: opaque Scene identity, initial Scene Roster, Production-Cast-order canonicalization and replay-derived Production Scenes. The Director adopted this bounded contract on 2026-09-23 without extending Product. Separate Windows implementation authorization remains required; adoption is not empirical validation.
+The Director initially authorized a documentation-only test of integrated Q-PROD-08 sufficiency: opaque Scene identity, initial Scene Roster, Production-Cast-order canonicalization and replay-derived Production Scenes. The Director adopted this bounded contract on 2026-09-23 without extending Product. The later bounded Windows empirical authorization above is now active; adoption itself is still not empirical validation.
 
 Product inputs are `src/Kymaean.Application/SceneIdentity.cs`, `SceneCreation.cs`, `ProductionReplay.cs`, `ProductApplication.cs` and `src/Kymaean.Infrastructure.Persistence/FileProductionCatalog.cs` at the exact baseline. Q-PROD-08 authority and native evidence remain in `docs/evidence/Q_PROD_08_SUCCESSOR_SELECTION_SCENE_IDENTITY_INITIAL_ROSTER_FOUNDATION_2026_09_22.md` and `docs/evidence/Q_PROD_08_SCENE_IDENTITY_INITIAL_ROSTER_NATIVE_ARM64_VALIDATION_2026_09_22.md`.
 
@@ -25,10 +25,12 @@ This contract governs bounded presentation; it does not rename Product types or 
 ## Context and inspection
 
 - Add a contextual **Scenes** capability beside **Characters** and **World truths** within Current Production. No durable navigation item or ProductSpace change.
-- Heading: **Scenes**. Introductory copy: **Established Scenes and their initial rosters.**
+- Heading: **Scenes**. Introductory copy: **Established Scenes and their initial rosters.** Follow with an explicit next-action orientation: **Choose a Scene to inspect its initial roster, or establish a new Scene.**
+- Keep **New Scene** visible with the Scene orientation rather than placing it after a potentially long Scene collection. It remains available even when the Cast is empty, subject to the uncertainty/collision blocks below.
 - Render all established Scenes in replay collection order. Do not describe this as dramatic sequence, rank, timeline or currentness. No sorting/reordering control.
-- Each Scene has a derived **Scene code** and an **Inspect initial roster** action. The action enters a bounded read-only detail surface; inspection is presentation context only.
-- Empty collection: **No Scenes yet.** Keep **New Scene** available even when the Cast is empty.
+- Each Scene row has a derived **Scene code**, a compact presentation-only **initial-roster preview** from already-authoritative roster/Character truth, and an **Inspect initial roster** action. Empty rows state **Empty initial roster**. Nonempty preview may show a bounded leading subset plus an explicit remaining-count witness; duplicate Character names retain their Cast-wide Character codes. The preview is not Scene identity, currentness, lifecycle, rank or a roster-edit surface.
+- A long Scene collection scrolls inside its bounded list region so the **Scenes** heading, orientation and **New Scene** action remain the stable task frame while rows move. Focus/return still keys to opaque Scene identity.
+- Empty collection: **No Scenes yet.**
 - Detail heading: **Initial roster**. Show the Scene code and roster Character names, resolved by Character identity against the authoritative Production Cast, in canonical Cast order.
 - Empty roster: **No Characters in this initial roster.** This is valid data, not an invalid, ended or incomplete Scene.
 - Nonempty roster copy describes **Initial roster**, never “present now,” “active,” “on stage” or “off-scene.” No roster-edit action.
@@ -110,7 +112,7 @@ The Q-PROD-08 append repair returns exact candidate replay under the journal gat
 
 If a refreshed authoritative projection lacks a remembered focus identity, use the Scenes heading; never focus a different Scene by matching roster/code/index. Navigation and focus are not Undo, activation or Product selection.
 
-Scene row accessible name: **Scene code <code>**; associated action: **Inspect initial roster for Scene code <code>**. Character checkbox names include exact name and conditional **Character code <code>**; checked state is separately exposed by the native control. Status and errors must be programmatically announced without color dependence. No essential content is available only through tooltips or hover. Long names/codes and large rosters remain reachable with wrapping/vertical scrolling at 720x520, scaling and keyboard use.
+Scene row/action programmatic text includes **Scene code <code>** plus the same compact initial-roster preview so empty/populated meaning is not visual-only; the action remains **Inspect initial roster** for that exact code. Character checkbox names include exact name and conditional **Character code <code>**; checked state is separately exposed by the native control. Status and errors must be programmatically announced without color dependence. No essential content is available only through tooltips or hover. Long names/codes and large rosters remain reachable with wrapping/vertical scrolling at 720x520, scaling and keyboard use.
 
 Preserve Home / Productions / Settings, contextual Current Production, quiet Back, Light F2 / Dark D3 parity, MAT F1 and STA F2 focus/selection separation. No accent/color encodes identity, roster eligibility, status or currentness. This package earns no High Contrast, screen-reader, native layout or runtime PASS.
 
@@ -120,7 +122,7 @@ STOP and return the smallest Product decision if usable, accessible inspection/e
 
 Static case analysis supports sufficiency for this bounded task; actual usability/native accessibility is not tested. Codes support exact distinction, not evocative naming or memorability. If later authorized native implementation/evidence shows that Scene codes are not usable and accessible for distinguishing established Scenes, STOP and return the smallest missing Product requirement, potentially persistent creator-authored naming. Adoption does not prevent that falsification or authorize schema expansion.
 
-No Windows implementation is authorized. No Product/Persistence schema, persistent Scene names, current/active Scene, switching, lifecycle, roster mutation, endings/cardinality law, Stage activity, Character Core, Performer/provider, Opportunity/Performance, Take/Rehearsal, consequence/branching, provider traffic, deferred-E0 execution, final architecture or release/WACK/Store authority is created.
+The bounded Windows empirical package is the only current implementation authority. It creates no Product/Persistence schema, persistent Scene names, current/active Scene, switching, lifecycle, roster mutation, endings/cardinality law, Stage activity, Character Core, Performer/provider, Opportunity/Performance, Take/Rehearsal, consequence/branching, provider traffic, deferred-E0 execution, final architecture or release/WACK/Store authority.
 
 ## Evidence required only if implementation is later authorized
 

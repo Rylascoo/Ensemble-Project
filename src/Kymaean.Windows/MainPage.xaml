@@ -382,6 +382,11 @@
                                     <TextBlock FontSize="24" Text="{Binding SceneListHeading}" TextWrapping="Wrap" />
                                 </ContentControl>
                                 <TextBlock Text="Established Scenes and their initial rosters." TextWrapping="Wrap" />
+                                <TextBlock Foreground="{ThemeResource KymaeanSecondaryBrush}"
+                                           Text="Choose a Scene to inspect its initial roster, or establish a new Scene."
+                                           TextWrapping="Wrap" />
+                                <Button x:Name="NewSceneButton" Content="New Scene" Click="OnNewSceneClicked"
+                                        IsEnabled="{Binding CanEstablishScene}" HorizontalAlignment="Left" />
                                 <ContentControl x:Name="SceneNotice" IsTabStop="True" UseSystemFocusVisuals="True" AutomationProperties.LiveSetting="Polite"
                                                 AutomationProperties.Name="{Binding SceneNotice}"
                                                 Visibility="{Binding HasSceneNotice, Converter={StaticResource BoolToVisibility}}">
@@ -390,19 +395,27 @@
                                 <TextBlock Text="Scene codes cannot distinguish some Scenes. Their inspection actions and New Scene are unavailable."
                                            TextWrapping="Wrap" Visibility="{Binding HasSceneCollision, Converter={StaticResource BoolToVisibility}}" />
                                 <TextBlock Text="No Scenes yet." Visibility="{Binding HasNoScenes, Converter={StaticResource BoolToVisibility}}" />
-                                <ItemsControl IsTabStop="False" x:Name="SceneList" ItemsSource="{Binding SceneRows}">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate x:DataType="presentation:ScenePresentationRow">
-                                            <StackPanel Spacing="6" Margin="0,8" AutomationProperties.Name="{x:Bind CodeLabel}">
-                                                <TextBlock Text="{x:Bind CodeLabel}" TextWrapping="Wrap" />
-                                                <Button Click="OnInspectSceneClicked" IsEnabled="{x:Bind CanInspect}" UseSystemFocusVisuals="True"
-                                                        AutomationProperties.Name="{x:Bind InspectName}" HorizontalAlignment="Left">
-                                                    <TextBlock Text="Inspect initial roster" TextWrapping="Wrap" />
-                                                </Button>
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
+                                <Border BorderBrush="{ThemeResource KymaeanBoundaryBrush}" BorderThickness="1" MaxHeight="460">
+                                    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                                        <ItemsControl IsTabStop="False" x:Name="SceneList" ItemsSource="{Binding SceneRows}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate x:DataType="presentation:ScenePresentationRow">
+                                                    <Border Padding="12,10" BorderBrush="{ThemeResource KymaeanBoundaryBrush}" BorderThickness="0,0,0,1">
+                                                        <StackPanel Spacing="5" AutomationProperties.Name="{x:Bind InspectName}">
+                                                            <TextBlock FontWeight="SemiBold" Text="{x:Bind CodeLabel}" TextWrapping="Wrap" />
+                                                            <TextBlock FontSize="12" Foreground="{ThemeResource KymaeanSecondaryBrush}"
+                                                                       Text="{x:Bind RosterSummary}" TextWrapping="Wrap" />
+                                                            <Button Click="OnInspectSceneClicked" IsEnabled="{x:Bind CanInspect}" UseSystemFocusVisuals="True"
+                                                                    AutomationProperties.Name="{x:Bind InspectName}" HorizontalAlignment="Left">
+                                                                <TextBlock Text="Inspect initial roster" TextWrapping="Wrap" />
+                                                            </Button>
+                                                        </StackPanel>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </ScrollViewer>
+                                </Border>
                                 <StackPanel Spacing="8" Visibility="{Binding HasSceneUncertainty, Converter={StaticResource BoolToVisibility}}">
                                     <TextBlock Text="Submitted initial roster" AutomationProperties.HeadingLevel="Level3" FontWeight="SemiBold" />
                                     <ItemsControl IsTabStop="False" ItemsSource="{Binding SubmittedSceneRoster}" ItemTemplate="{StaticResource CharacterRowTemplate}" />
@@ -410,7 +423,6 @@
                                                Visibility="{Binding HasEmptySubmittedSceneRoster, Converter={StaticResource BoolToVisibility}}" />
                                     <TextBlock Text="Open the Production again to inspect its recorded Scenes. A matching roster cannot confirm which submission created a Scene." TextWrapping="Wrap" />
                                 </StackPanel>
-                                <Button x:Name="NewSceneButton" Content="New Scene" Click="OnNewSceneClicked" IsEnabled="{Binding CanEstablishScene}" HorizontalAlignment="Left" />
                             </StackPanel>
                             <StackPanel Spacing="12" Visibility="{Binding IsSceneDetail, Converter={StaticResource BoolToVisibility}}">
                                 <TextBlock Text="Initial roster" AutomationProperties.HeadingLevel="Level2" FontSize="24" />

@@ -63,6 +63,27 @@ public sealed class ScenePresentationTests
     }
 
     [TestMethod]
+    public void SceneRowsExposeMeaningfulInitialRosterPreview()
+    {
+        var cast = new ProductionCast([
+            new(new("C1"), "Marlowe"),
+            new(new("C2"), "Marlowe"),
+            new(new("C3"), "Third"),
+            new(new("C4"), "Fourth")
+        ]);
+        var castRows = CharacterPresentationRow.Build(cast.Characters);
+        var empty = new EstablishedScene(new("empty"), SceneRoster.Empty);
+        var populated = new EstablishedScene(new("populated"), new([new("C2"), new("C3"), new("C4")]));
+        var replay = new ProductionReplayProjection("A", WorldCurrentState.Empty, cast, new([empty, populated]));
+        var rows = ScenePresentationRow.Build(replay, castRows);
+
+        Assert.AreEqual("Empty initial roster", rows[0].RosterSummary);
+        StringAssert.StartsWith(rows[1].RosterSummary, "Initial roster: Marlowe, Character code ");
+        StringAssert.Contains(rows[1].RosterSummary, "Third");
+        StringAssert.Contains(rows[1].InspectName, rows[1].RosterSummary);
+    }
+
+    [TestMethod]
     public void UncertaintySurvivesNavigationOtherProductionAndFailedOpen()
     {
         var (vm, catalog) = Start();
