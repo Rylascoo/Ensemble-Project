@@ -1,7 +1,7 @@
 # Q-PROD-08 Scene identity + initial roster foundation — native ARM64 validation
 
 Date: 2026-09-22
-Status: **NATIVE VALIDATED / INDEPENDENT EXACT-CANDIDATE REVIEW CLEAN / PENDING INTEGRATION**
+Status: **INTEGRATED / NATIVE VALIDATED / INDEPENDENT EXACT-CANDIDATE REVIEW CLEAN**
 Baseline main: `11f04eb45e0ddeb688016d8d23c1657b421d604d`
 Exact executable source: `31e16cbe274f9b90192bba67cd443fa3320ed8e2`
 Product/Architecture authority: `docs/evidence/Q_PROD_08_SUCCESSOR_SELECTION_SCENE_IDENTITY_INITIAL_ROSTER_FOUNDATION_2026_09_22.md`
@@ -132,7 +132,13 @@ No deferred-E0 result is predicted or consumed by this implementation.
 - **Primary Implementation writer surface:** `qprod08-current-wt` on the bounded Q-PROD-08 branch; shared Git author identity is not used as role proof.
 - **Independent Review:** separate exact-ref Codex read-only review of executable `31e16cb...`, final result CLEAN after two earlier findings were repaired.
 - **Design acceptance:** **NOT APPLICABLE** — this package creates no Scene UI/presentation contract.
-- **Director merge authority:** **NOT YET EXERCISED** for the executable PR. Integration remains separately Director-gated.
+- **Director merge authority:** **EXERCISED** — PR #257 merge was explicitly authorized by the Director and completed; exact-main Validation #1283 PASS.
+
+## Integration closeout
+
+Final documentation head `43176756bac1b3726f00d1525496e41a9f0e529e` passed branch Validation #1281, PR Validation #1282 and E0-E preparation #202. Under explicit Director merge authorization, PR #257 merged to `main` at `9e4a1e30d6d40b46c0fca5e24f6735d3453b2d45`; push-triggered exact-main Validation #1283 passed.
+
+Native runtime/test authority remains bound to exact executable source `31e16cbe274f9b90192bba67cd443fa3320ed8e2`.
 
 ## Evidence boundary
 
