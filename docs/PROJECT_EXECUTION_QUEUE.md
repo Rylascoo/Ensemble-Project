@@ -19,9 +19,10 @@ This file now carries only current, deferred, or blocking work. Completed histor
 
 ## Current application work
 
+No application implementation package is currently `ACTIVE`; Q-PROD-07 / Q-DESIGN-23 closed through PR #252 and is intentionally absent from this current-work table.
+
 | ID | Role | Status | Work | Hard boundary / successor |
 |---|---|---|---|---|
-| Q-PROD-07 / Q-DESIGN-23 | Implementation / Design acceptance | VALIDATED — PENDING INTEGRATION | Windows Characters inspection + New Character flow is implemented, recursively reviewed, natively validated and Design-accepted. Evidence: `docs/evidence/Q_PROD_07_CHARACTER_PRESENTATION_NATIVE_ARM64_VALIDATION_2026_09_22.md`. | Final hosted exact-head gates then integration. Product/Persistence unchanged; Scene membership/lifecycle, Character edit/deeper ontology, Performer/provider, Pressure, Take and Rehearsal remain gated. |
 | Q-ADMIN-07 | Governance / Recovery | DEFERRED — LOCAL RESIDUE ONLY | Disposition remaining local historical/deferred worktrees after owner/status/evidence review. | Remote branch clutter is closed by Q-UNITY-01; preserve ambiguous local evidence and the unique historical PR #226 branch. |
 
 ## Deferred E0 / architecture gates

@@ -50,6 +50,8 @@ Post-transfer Design work adopted on Project authority lives here rather than re
 - `docs/design/app/contracts/CREATE_PRODUCTION_PRESENTATION.md` — Q-DESIGN-22 creator-facing Create Production presentation contract.
 - `docs/design/app/contracts/WORLD_CURRENT_TRUTH_PRESENTATION.md` — Q-DESIGN-21 creator World-current inspection/replacement presentation contract.
 - `docs/design/app/evidence/native/APPUI_01_Q_DESIGN_21_WORLD_CURRENT_TRUTH_PRESENTATION_CONTRACT_01.json` — exact Product-source reconciliation, recursive audit and Engineering return boundary.
+- `docs/design/app/contracts/PRODUCTION_CAST_CHARACTER_ESTABLISHMENT_PRESENTATION.md` — integrated Q-DESIGN-23 current-Production Characters / Character-establishment presentation contract.
+- `docs/design/app/evidence/native/APPUI_01_Q_DESIGN_23_CHARACTER_PRESENTATION_NATIVE_ACCEPTANCE_2026_09_22.json` — exact native acceptance and integration closeout metadata for Q-DESIGN-23 / Q-PROD-07.
 
 These Project-native successors may rely on transferred law but may not mutate the immutable transfer receipt or retroactively rewrite source-era status text.
 

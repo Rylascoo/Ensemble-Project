@@ -1,7 +1,7 @@
 # Q-PROD-07 Production Characters presentation — native ARM64 validation
 
 Date: 2026-09-22  
-Status: **VALIDATED / EXACT-SOURCE REVIEW CLEAN / DESIGN ACCEPTED / PENDING INTEGRATION**  
+Status: **VALIDATED / EXACT-SOURCE REVIEW CLEAN / DESIGN ACCEPTED / INTEGRATED**  
 Exact integrated base: `4f836d53a4e18ae92fa408cc87a9d9e2c3702fbe`  
 Exact executable source: `9ea74391adf0a2f259c205ae88128324d4a52148`  
 Governing Design contract: `docs/design/app/contracts/PRODUCTION_CAST_CHARACTER_ESTABLISHMENT_PRESENTATION.md`
@@ -141,6 +141,12 @@ After documentation-only checkpoint refresh, head `2a72a9f7521bd66e1a3211f4bc74a
 
 The documentation commit does not inherit native runtime authority; native/UI evidence remains bound to exact executable source `9ea74391adf0a2f259c205ae88128324d4a52148`.
 
+## Integration closeout
+
+Final PR head `4f3db0c1333aa024a68504442017e8a9fd88475b` passed branch-push Validation #1264, PR Validation #1265 and E0-E preparation #196. PR #252 merged to `main` at `7d79581aac869f8e81fc0a5267b1f14fde394246`; push-triggered exact-main Validation #1266 passed.
+
+These branch/evidence/integration commits do not promote target-device authority. Native/UI evidence remains bound to exact executable source `9ea74391adf0a2f259c205ae88128324d4a52148`.
+
 ## Cleanup and limits
 
 - disposable package registration removed;
@@ -151,4 +157,4 @@ The documentation commit does not inherit native runtime authority; native/UI ev
 - Source Sans 3 / S1 shipping packaging, WACK, Store and release remain open;
 - no Character edit/deeper ontology, Scene membership/lifecycle, Performer/provider, Pressure, Take or Rehearsal semantics are created.
 
-Q-DESIGN-23 native acceptance is recorded at `docs/design/app/evidence/native/APPUI_01_Q_DESIGN_23_CHARACTER_PRESENTATION_NATIVE_ACCEPTANCE_2026_09_22.json`. Q-PROD-07 / Q-DESIGN-23 is ready for final hosted exact-head gates and integration.
+Q-DESIGN-23 native acceptance is recorded at `docs/design/app/evidence/native/APPUI_01_Q_DESIGN_23_CHARACTER_PRESENTATION_NATIVE_ACCEPTANCE_2026_09_22.json`. Q-PROD-07 / Q-DESIGN-23 is integrated through PR #252; successor selection remains a separate current-authority decision.
