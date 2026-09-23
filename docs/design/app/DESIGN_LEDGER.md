@@ -1,5 +1,9 @@
 # Application Design Ledger — frozen receipt
 
+## Project-native Q-PREVIEW-01 method amendment — 2026-09-23
+
+Director-approved method and boundaries: `evidence/Q_PREVIEW_01_DIRECTOR_FEEDBACK_METHOD_2026_09_23.md`; reference map: `pointers/DIRECTOR_PREVIEW_VISUAL_REFERENCE_MAP.md`. Immediate Q-DESIGN-24 Task A rerun paused; ordinary Preview use may supply faithfully contextualized qualitative evidence. Original failure/correction/falsifier and acceptance substance remain intact. No Scene acceptance, Product change or whole-app redesign. This is a successor entry, not alteration of the frozen source decisions below.
+
 Status: **RECEIVED / VALIDATED / SOURCE RELINQUISHMENT PENDING**
 
 This is a received, frozen application-design contract, subordinate to the exact Website source until the Ryladmin cross-repository receipt audit authorizes relinquishment. It is not independently mutable Design authority. Source-era checkpoint, approval and next-action text records provenance; it does not reopen execution. Current Product/Engineering law controls implementation and validation. Browser/static evidence is not native-runtime evidence.

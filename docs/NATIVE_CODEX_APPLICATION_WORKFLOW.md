@@ -51,6 +51,8 @@ First test/build restores NuGet packages explicitly and may require task-scoped 
 
 ## Current package resolution
 
+Director Preview development registration is separately admitted by `docs/Q_PREVIEW_01_DIRECTOR_PREVIEW_FOUNDATION_2026_09_23.md`. It uses explicit development-only build composition and preserved profiles; it is not the release packaging action excluded above. Ordinary Director use supplies qualitative feedback under `docs/design/app/evidence/Q_PREVIEW_01_DIRECTOR_FEEDBACK_METHOD_2026_09_23.md`; deterministic regressions remain Engineering's responsibility. No provider, Alpha, Q-DESIGN-24 acceptance or merge authority follows from Preview availability.
+
 This workflow does not carry a durable “next Application package.” That was a bootstrap-era continuity shortcut and became stale after the Q-PROD-01 sequence completed.
 
 At every invocation, resolve the active implementation package from exact live `CURRENT_STATE.md` plus `docs/PROJECT_EXECUTION_QUEUE.md` after completing the root `AGENTS.md` bootstrap. The queue transports current sequencing; it does not override stronger Product/Design/Director authority.

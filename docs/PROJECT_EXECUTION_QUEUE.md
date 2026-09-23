@@ -19,10 +19,13 @@ This file now carries only current, deferred, or blocking work. Completed histor
 
 ## Current application work
 
-Q-ADMIN-08 is DONE / INTEGRATED through PR #259; its platform validation remains in `docs/VALIDATION_LEDGER.md`. The Director adopted Q-DESIGN-24 on 2026-09-23: `docs/design/app/contracts/SCENE_INITIAL_ROSTER_PRESENTATION.md`; decision: `docs/design/app/evidence/SCENE_PRESENTATION_CONTRACT_DECISION_2026_09_23.md`. Contract work is complete. Next is separate Director authorization of a bounded Windows empirical implementation package; none is active or authorized. The presentation-code falsifier remains controlling.
+Q-ADMIN-08 is integrated; platform validation remains in `docs/VALIDATION_LEDGER.md`. Director approval authorizes Q-PREVIEW-01 and pauses the immediate Q-DESIGN-24 Task A rerun. Scope: `docs/Q_PREVIEW_01_DIRECTOR_PREVIEW_FOUNDATION_2026_09_23.md`. The separate Scene empirical writer/PR #262 remains preserved, not accepted or merged. The presentation-code falsifier remains controlling.
 
 | ID | Role | Status | Work | Hard boundary / successor |
 |---|---|---|---|---|
+| Q-PREVIEW-01 | Implementation / Governance / Design method | ACTIVE | Persistent Director Preview foundation, external profiles, data-preserving refresh and validation. | One draft PR; separate merge authorization. No Product semantics, provider, visual redesign or Alpha. |
+| Q-DESIGN-24-WINDOWS | Implementation / Design | PAUSED — IMMEDIATE TASK A RERUN | Preserve corrected abada447 candidate, first failure and all evidence in separate PR #262. | INCONCLUSIVE; technical Preview admission only after foundation validation; human claims/falsifier remain. |
+| Current Production workspace composition | Design | DEFERRED — DIRECTOR DISPOSITION | Future bounded composition candidate identified during Preview reconciliation. | Not activated by Q-PREVIEW-01; no whole-app redesign. |
 | Q-ADMIN-07 | Governance / Recovery | DEFERRED — LOCAL RESIDUE ONLY | Disposition remaining local historical/deferred worktrees after owner/status/evidence review. | Preserve ambiguous local evidence and the unique historical PR #226 branch; merged remote refs require archive-tag-before-delete handling. |
 
 ## Deferred E0 / architecture gates

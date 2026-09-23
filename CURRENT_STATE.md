@@ -16,14 +16,14 @@ Q-UNITY-01/02 are complete; unification: `docs/Q_UNITY_01_PROJECT_UNIFICATION_AN
 
 Home A/B, FIRSTUSE, rename/delete/import/restore, Character semantics beyond identity/name, Scene semantics beyond identity/initial roster, provider/Performer, Stage motion, deferred E0, High Contrast, Source Sans 3/S1 packaging, final architecture, WACK/Store and release remain gated.
 
-Q-PROD-06 is **DONE / INTEGRATED** through PR #249; exact-main Validation #1226 PASS. Product owns persistent Character identity/name, establishment and replay-derived Production Cast; `Character != Performer` and Production Cast != Scene Roster.
+Q-PROD-06/07 and Q-DESIGN-23 are integrated: persistent Character identity/name, Production Cast, Characters list and New Character. Exact native evidence remains in `docs/VALIDATION_LEDGER.md`.
 
-Q-PROD-07 / Q-DESIGN-23 is **DONE / INTEGRATED** through PR #252; exact-main Validation #1266 PASS. Production **Characters** list + **New Character** native authority: `9ea74391adf0a2f259c205ae88128324d4a52148`. Evidence: `docs/evidence/Q_PROD_07_CHARACTER_PRESENTATION_NATIVE_ARM64_VALIDATION_2026_09_22.md`.
-
-Q-PROD-08 is **DONE / INTEGRATED** through PR #257 at `9e4a1e30d6d40b46c0fca5e24f6735d3453b2d45`; exact-main Validation #1283 PASS. Product owns opaque Scene identity, creator-established initial Scene Roster constrained to Production Cast, replay-derived Production Scenes and versioned `creator-established-scene.v1` persistence. Native authority remains `31e16cbe274f9b90192bba67cd443fa3320ed8e2`. Current Scene, roster mutation, endings/cardinality, Character Core, Performer/provider, Opportunity/Performance and Scene UI remain gated. Evidence: `docs/evidence/Q_PROD_08_SCENE_IDENTITY_INITIAL_ROSTER_NATIVE_ARM64_VALIDATION_2026_09_22.md`.
+Q-PROD-08 is integrated: opaque Scene identity, initial roster constrained to Cast and replay-derived Scenes. Evidence: `docs/evidence/Q_PROD_08_SCENE_IDENTITY_INITIAL_ROSTER_NATIVE_ARM64_VALIDATION_2026_09_22.md`. No current Scene, names, roster mutation or lifecycle.
 
 ## Next
 
 Q-ADMIN-08 is **DONE / INTEGRATED** through PR #259 at `7650fa40488fd19741c5bd0b65830d50fd62fa7b`; exact-main Validation #1291 PASS. .NET 10 is the integrated baseline. Native authority remains `4b2d286a4baf1bb01b222aceda26fbaae8772c15`, tag `validation/q-admin-08-dotnet10-native-arm64`. Evidence: `docs/evidence/Q_ADMIN_08_DOTNET10_MIGRATION_NATIVE_ARM64_VALIDATION_2026_09_23.md`.
 
-Q-DESIGN-24 is DIRECTOR-ADOPTED: `docs/design/app/contracts/SCENE_INITIAL_ROSTER_PRESENTATION.md`. Next: separate Director authorization of a bounded Windows implementation as the native empirical test of this contract. Its presentation-code falsifier remains active. No Product schema change, Windows implementation or Q-PROD-09 is authorized.
+Q-PREVIEW-01 is DIRECTOR-AUTHORIZED / IMPLEMENTATION: `docs/Q_PREVIEW_01_DIRECTOR_PREVIEW_FOUNDATION_2026_09_23.md`. Next: technical/native validation and independent review, then one draft PR; stop before merge. Evidence: `docs/evidence/Q_PREVIEW_01_NATIVE_ARM64_EVIDENCE_2026_09_23.md`.
+
+Q-DESIGN-24 corrected `abada447f4a6e4a8660146d641b2984bb38c5dec`, draft PR #262, remains separate and INCONCLUSIVE. Immediate Task A rerun PAUSED; first failure, correction and Scene-code falsifier preserved. Method: `docs/design/app/evidence/Q_PREVIEW_01_DIRECTOR_FEEDBACK_METHOD_2026_09_23.md`. No Scene acceptance/merge. Q-ALPHA-01 remains BLOCKED; no provider, Product schema or Q-PROD-09 authorization. Current Production visual refinement is not active.
