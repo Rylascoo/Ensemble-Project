@@ -30,4 +30,4 @@ Q-PROD-08 is **SELECTED / IMPLEMENTATION AUTHORIZED**: Product Scene identity + 
 
 Implementation requires the normal isolated writer, exact review and native ARM64 validation path before integration. Deferred-E0 exposure/reversibility is now an explicit package guard.
 
-Q-ADMIN-08: **.NET 10 decision input / native probe pending**; retarget remains Director-gated.
+Q-ADMIN-08: **.NET 10 native probe complete / Director disposition pending**. All projects including ARM64 WinUI compile cleanly under SDK 10.0.400; existing `dotnet test` is blocked pre-test by the .NET 10 VSTest/MTP runner boundary. Retarget remains Director-gated.

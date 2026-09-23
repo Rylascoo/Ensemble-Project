@@ -1,9 +1,9 @@
 # Q-ADMIN-08 .NET 10 migration decision input — 2026-09-22
 
-Status: **STATIC DECISION INPUT / NATIVE DISPOSABLE PROBE PENDING / RETARGET NOT AUTHORIZED**
+Status: **NATIVE DISPOSABLE PROBE COMPLETE / DIRECTOR DISPOSITION PENDING / RETARGET NOT AUTHORIZED**
 
-Exact Project baseline: `Rylascoo/Ensemble-Project@e82e9c236a07740c5983309d713f1bc1fe07a95e`  
-Baseline exact-main Validation: #1274 PASS
+Exact probe baseline: `Rylascoo/Ensemble-Project@a2ab3a4287b0b3c3e42eef961877c3a973efd9aa`  
+Baseline exact-main Validation: #1277 PASS
 
 ## Decision question
 
@@ -46,18 +46,22 @@ No current public-platform fact rules out .NET 10: current WinUI templates expli
 
 Unproven on Ensemble: restore resolution, all-project compile, tests, ARM64 WinUI/XAML build, native runtime, MSIX tooling, warnings-as-errors changes and deterministic/oracle stability.
 
-## Required disposable native probe
+## Native probe result
 
-Before a Director retarget decision, use an isolated throwaway worktree from fresh validated `main`. Do not push it or mutate authority.
+Completed on SurfSeven against exact validated baseline. Evidence: `docs/evidence/Q_ADMIN_08_DOTNET10_NATIVE_DISPOSABLE_PROBE_2026_09_22.md`.
 
-Temporarily change only SDK/TFM targeting needed for measurement:
-1. temporary `global.json` .NET 10 SDK selection;
-2. `net9.0` -> `net10.0`;
-3. `net9.0-windows10.0.26100.0` -> `net10.0-windows10.0.26100.0`.
+Measured result:
 
-Do not change package versions merely to obtain green. First-probe failures are evidence.
+- environment verifier and solution restore PASS under native ARM64 SDK 10.0.400;
+- all eleven retargeted projects build with current packages and zero warnings/errors;
+- ARM64 WinUI Release build PASS under `net10.0-windows10.0.26100.0`;
+- repository law and document census PASS;
+- actual test execution is blocked before assertions because the current .NET 10 invocation defaults to VSTest while the resolved Microsoft.Testing.Platform 2.1.0 rejects that path;
+- Microsoft documentation identifies `global.json` test-runner selection `Microsoft.Testing.Platform` as the .NET 10 correction path;
+- no package upgrade, source correction or Product-semantic change was required by the first probe;
+- native app launch/package/release validation remains unearned.
 
-Measure restore/dependency resolution; all Product/E0/experiment builds; Application/Persistence/Core/Harness and relevant experiment tests; ARM64 WinUI Release with zero warnings/errors; TFM-sensitive repository/oracle guards; and native ARM64 launch/smoke only if compilation succeeds.
+The probe therefore narrows migration cost from “unknown project compatibility” to a bounded test-runner/workflow migration plus full fresh validation.
 
 ## Director dispositions after probe
 
