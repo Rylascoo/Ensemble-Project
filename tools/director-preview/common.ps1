@@ -60,7 +60,9 @@ function Assert-Closed($Package) {
     if (!$Package) { return }
     $expected = [IO.Path]::GetFullPath((Join-Path $Package.InstallLocation 'Kymaean.Windows.exe'))
     foreach ($process in Get-Process -Name 'Kymaean.Windows' -ErrorAction SilentlyContinue) {
-        if (!$process.Path) { throw 'Cannot establish application quiescence.' }
+        # Other preserved Kymaean identities can be inaccessible. Storage quiescence
+        # is established by the Preview-only exclusive session lock, not by name.
+        if (!$process.Path) { continue }
         if ([IO.Path]::GetFullPath($process.Path) -eq $expected) { throw 'Close Director Preview before maintenance.' }
     }
 }

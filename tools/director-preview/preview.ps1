@@ -79,7 +79,7 @@ try {
     if ($pending.localState) { Set-ActivationGate $pending.localState $Stage $build.source 'blocked' }
     if ($TestFailure -eq 'BeforeRegistration') { throw 'TEST: interrupted before registration; pending receipt preserved.' }
     # Same identity development registration only. No uninstall or persisted-data rollback path exists.
-    Add-AppxPackage -Register (Join-Path $Stage 'layout/AppxManifest.xml') -ErrorAction Stop
+    Add-AppxPackage -Register ([IO.Path]::GetFullPath((Join-Path $Stage 'layout/AppxManifest.xml'))) -ErrorAction Stop
     $package = Get-PreviewPackage
     if (!$package -or [IO.Path]::GetFullPath($package.InstallLocation) -ne [IO.Path]::GetFullPath((Join-Path $Stage 'layout'))) { throw 'Registration did not select the exact staged layout.' }
     if ($TestFailure -eq 'AfterRegistration') { throw 'TEST: interrupted after registration; pending receipt preserved.' }

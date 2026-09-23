@@ -51,11 +51,14 @@ internal static class PreviewEnvironment
         return data;
     }
 
-    public static void RequireAdmission(string localState, string arguments)
+    public static void RequireAdmission(string localState)
     {
         var source = typeof(PreviewEnvironment).Assembly.GetCustomAttributes<AssemblyMetadataAttribute>()
             .Single(a => a.Key == "DirectorPreviewSource").Value!;
-        ValidateAdmission(localState, arguments, source, Environment.ProcessPath!);
+        // Packaged desktop activation passes arguments on the process command line;
+        // WinUI LaunchActivatedEventArgs.Arguments is empty for this activation path.
+        var arguments = Environment.GetCommandLineArgs().Skip(1).ToArray();
+        ValidateAdmission(localState, arguments.Length == 1 ? arguments[0] : "", source, Environment.ProcessPath!);
     }
 
     internal static void ValidateAdmission(string localState, string arguments, string source, string executable)
