@@ -23,7 +23,7 @@ This file now carries only current, deferred, or blocking work. Completed histor
 |---|---|---|---|---|
 | Q-PROD-08 | Product / Architecture -> Implementation | ACTIVE — IMPLEMENTATION AUTHORIZED | Scene identity + initial roster foundation from `docs/evidence/Q_PROD_08_SUCCESSOR_SELECTION_SCENE_IDENTITY_INITIAL_ROSTER_FOUNDATION_2026_09_22.md`. | Application/Persistence/tests only. No current Scene, roster mutation, Scene ending/cardinality, Character Core, Performer/provider, Opportunity/Performance or Scene UI. Native ARM64 validation + exact review required before integration. |
 | Q-ADMIN-07 | Governance / Recovery | DEFERRED — LOCAL RESIDUE ONLY | Disposition remaining local historical/deferred worktrees after owner/status/evidence review. | Remote branch clutter is closed by Q-UNITY-01; preserve ambiguous local evidence and the unique historical PR #226 branch. |
-| Q-ADMIN-08 | Governance / Product Architecture | DECISION INPUT — NATIVE PROBE PENDING | .NET 10 migration input: `docs/evidence/Q_ADMIN_08_DOTNET10_MIGRATION_DECISION_INPUT_2026_09_22.md`. | Retarget is not authorized. One disposable native ARM64 probe may measure migration cost; Director chooses disposition from evidence. |
+| Q-ADMIN-08 | Governance / Product Architecture | DIRECTOR DECISION PENDING — NATIVE PROBE COMPLETE | .NET 10 decision input + native probe: `docs/evidence/Q_ADMIN_08_DOTNET10_MIGRATION_DECISION_INPUT_2026_09_22.md`. | Retarget remains unauthorized. Probe: all project/WinUI builds PASS; test execution requires .NET 10 MTP runner/workflow migration. Director chooses RETARGET NOW / RETARGET BY DATE-GATE / ACCEPT UNSUPPORTED PERIOD. |
 
 ## Deferred E0 / architecture gates
 
