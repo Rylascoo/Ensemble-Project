@@ -49,14 +49,23 @@ On a fresh machine, manually install ARM64 PowerShell 7, ARM64 .NET 9 SDK compat
 
 First test/build restores NuGet packages explicitly and may require task-scoped network approval. Versions are pinned in projects, but there is no package lockfile, so do not claim fully locked dependency resolution. Missing assets require restore, not a machine install. Cache presence/asset presence does not prove build success. Native UI launch/runtime registration and actual-device acceptance remain separate; no new Windows App Runtime deployment, WACK or Store readiness is claimed.
 
-## Exact next Application package
+## Current package resolution
 
-**QPROD01-NATIVE-PRODUCER-01: adopt and revalidate the corrected World-current-truth producer. Disposition: RESUME.** This is the next bounded Product package, not executed by this setup PR. Start from freshly resolved Project main after setup integration; record the actual base SHA and claim one exclusive primary-writer worktree. Examined baseline is `daf5f541bb9caa73e249aa8a0ba219b34730a206`; producer is `dc1780e46ef999eb01e214671486b83186ca04c4` with merge-base `c8da0c1f42a40d7e3f492e0e76b343d648c69bd6`. Do not reuse the old producer worktree or move its ref automatically. Reconcile its exact seven-file Application/test delta onto the new baseline and preserve original validation provenance. Refresh stale PR #226 metadata only as part of that later authorized PR operation. A successor candidate may carry the same reviewed delta; that is not rejection/reconstruction of the semantic contract.
+This workflow does not carry a durable “next Application package.” That was a bootstrap-era continuity shortcut and became stale after the Q-PROD-01 sequence completed.
 
-Acceptance: immutable canonical `WorldCurrentTruth` state, creator-specific replacement event, old histories replay to empty state, deterministic ordered replay, null/duplicate rejection, typed failure preserves prior usable projection/navigation, no automatic Character knowledge or UI/provider change. Resolve any conflict with frozen Product law before implementation; original Blueprint text was not newly located by this setup audit, so the recovered refined authority audit must not be described as a fresh read of that original.
+At every invocation, resolve the active implementation package from exact live `CURRENT_STATE.md` plus `docs/PROJECT_EXECUTION_QUEUE.md` after completing the root `AGENTS.md` bootstrap. The queue transports current sequencing; it does not override stronger Product/Design/Director authority.
 
-Run native ARM64 Application tests, Persistence/Core regressions, explicit ARM64 WinUI compile, repository law/census/oracle/diff/race checks, independent immutable-ref review and exact-head hosted checks. Preserve exact source evidence/tag for any new validation claim. Return a draft/reviewable candidate; do not merge without authorization. This future package's invocation establishes its exclusive lease; setup does not reopen the old Engineer #2/#3 leases.
+When the current package is implementation-authorized:
 
-After producer integration, the first new implementation is the **World-current-truth Persistence consumer** described by corrected Issue #225: typed event encode/decode, known-Production writer, exactly one append and authoritative replay, cache preservation and raw portable-export replay. Current catalog does not implement the writer; event store only encodes creation events; snapshot cache contains only ProductionName. Separate bounded lease from fresh integrated main; no UI/provider work. Preserve typed `Incompatible`/`Invalid`/environmental failure distinctions, no auto-recovery, exact accepted string identity and existing concurrency policy. If the producer's permitted UTF-16 domain makes consumer encoding ambiguous, return that exact contract question before choosing a new domain rule.
+1. start from freshly resolved `main` and record the exact base SHA;
+2. use one fresh exclusive primary-writer Worktree;
+3. read the package's exact current contract/evidence named by `CURRENT_STATE.md` / queue;
+4. implement only that bounded scope;
+5. run focused then required broader validation;
+6. obtain immutable-ref independent review for consequential changes;
+7. preserve native ARM64 evidence at the exact executable source;
+8. push one reviewable branch/PR and stop at the merge or other genuine external authority gate.
 
-Home A/B and FIRSTUSE remain unresolved/pending and do not block this nonvisual producer slice. `DESIGN_ARCHITECTURE_READY = NOT READY` until consumer integration/reassessment. Provider traffic, deferred E0, final architecture/Alpha/release/WACK/Store and later UI work retain their independent gates. `docs/design/app/AUTHORITY.md` remains the Design entry point; its inherited closeout-pending/Administrator-next-action prose is superseded by the exact Engineering reconciliation here, not by edits to frozen receipt or Design contracts.
+Historical package-specific instructions below their own evidence records remain provenance only. Never resume an old producer, lease, issue, branch or worktree because this operating-model document once named it next.
+
+Home A/B, FIRSTUSE, provider traffic, deferred E0, final architecture/Alpha/release/WACK/Store and other separately gated work remain controlled by their current authority surfaces, not by this workflow.
