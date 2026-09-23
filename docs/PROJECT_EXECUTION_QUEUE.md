@@ -23,7 +23,7 @@ Q-ADMIN-08 is the sole active platform/tooling implementation package. No Produc
 
 | ID | Role | Status | Work | Hard boundary / successor |
 |---|---|---|---|---|
-| Q-ADMIN-08 | Implementation / Governance | ACTIVE — RETARGET NOW AUTHORIZED | Dedicated .NET 10 SDK/TFM/Microsoft Testing Platform migration and fresh current-main comparison: `docs/evidence/Q_ADMIN_08_DOTNET10_MIGRATION_NATIVE_ARM64_VALIDATION_2026_09_23.md`. | No package-version or Product/Design/provider/E0/release change. Full native validation, exact-ref independent review, draft PR and hosted gates; stop at executable merge authorization. |
+| Q-ADMIN-08 | Implementation / Governance | ACTIVE — NATIVE VALIDATION / REVIEW PASS | .NET 10 SDK/TFM/Microsoft Testing Platform migration at exact executable `4b2d286a4baf1bb01b222aceda26fbaae8772c15`: `docs/evidence/Q_ADMIN_08_DOTNET10_MIGRATION_NATIVE_ARM64_VALIDATION_2026_09_23.md`. | Draft PR + hosted gates next; stop at executable merge authorization. No package-version or Product/Design/provider/E0/release change or Product successor. |
 | Q-ADMIN-07 | Governance / Recovery | DEFERRED — LOCAL RESIDUE ONLY | Disposition remaining local historical/deferred worktrees after owner/status/evidence review. | Preserve ambiguous local evidence and the unique historical PR #226 branch; merged remote refs require archive-tag-before-delete handling. |
 
 ## Deferred E0 / architecture gates
