@@ -1,0 +1,104 @@
+{
+  "status": "PARTIAL_NATIVE_EVIDENCE_NOT_ACCEPTANCE",
+  "candidate": "bb209ac1eaf5248e5566ef240fcf5978892fe9bf",
+  "baseline": "69c68001836ed984df672587cecd41d340a31337",
+  "scratchRoot": "C:\\Users\\Wiryl\\Sol Dev\\admin-scratch\\qdesign24-native-20260923",
+  "files": [
+    {
+      "path": "new-scene-heading.png",
+      "bytes": 113703,
+      "sha256": "7150757f5f6de8bf9f40f3ffefd6e2dc83edd850f5ab9f0a3ddbf6ebdfce9a07"
+    },
+    {
+      "path": "confirmed-focus.png",
+      "bytes": 60581,
+      "sha256": "da05e8aba7c2573becb130f6b2b9095d00733472973c7368683de531f0679c7b"
+    },
+    {
+      "path": "uncertain-focus.png",
+      "bytes": 69396,
+      "sha256": "7fedb0cf2a2ac063e26d4ccd5d29c8ab16dda8b246389346aa387a97204f94d0"
+    },
+    {
+      "path": "uncertain-witness-block.png",
+      "bytes": 67280,
+      "sha256": "8b5b121c135d34b117e34db7c8295b2c6bb27bf035a9007d458f7a04bf18efde"
+    },
+    {
+      "path": "reopened-unknown.png",
+      "bytes": 50542,
+      "sha256": "9ac77a91d5280b717f3a672245bc6c58fdd8a35f98afcef1242f4d21e424a57c"
+    },
+    {
+      "path": "fresh-replay-code-growth.png",
+      "bytes": 67612,
+      "sha256": "5727b966f402c5b426f337193a2c17bf6ddeed9bc7c9aa314ebeb5d375a121d4"
+    },
+    {
+      "path": "candidate-bb209ac-hashes.json",
+      "bytes": 8024,
+      "sha256": "3c2e82d3339428322e11e6792bac98c4ab851e79fecf3a2d4f42fda2d5766bfe"
+    },
+    {
+      "path": "launch.json",
+      "bytes": 264,
+      "sha256": "c4f2673942fad0b6c1b406269680ad329af1ed3c9d9a681ea806fee03e0c8438"
+    },
+    {
+      "path": "prepare.ps1",
+      "bytes": 1897,
+      "sha256": "c32efd0e2cdc67ed56cd5706abfb3546a6bd3f6b4cf21b255304c6e35246f443"
+    },
+    {
+      "path": "activate.ps1",
+      "bytes": 1989,
+      "sha256": "024070c573a95ccc6d26e7474243346a6606cb20eef0b45caeb48d44ba9da8cc"
+    },
+    {
+      "path": "fixture/Program.cs",
+      "bytes": 3296,
+      "sha256": "97d9664bd718884df4a62a448ecaf363941cad60530766a8d928fc59be55e39f"
+    },
+    {
+      "path": "fixture/fixture.csproj",
+      "bytes": 450,
+      "sha256": "15572d827491821e82b0001255f1c2412d28b4b1403962b6982d6dbef28c4584"
+    },
+    {
+      "path": "fixture.json",
+      "bytes": 2493,
+      "sha256": "b369c1e6e34251caa34fda2438874ae7747de6ed5ff4a894df92299e14d5998f"
+    },
+    {
+      "path": "collision-fixture.json",
+      "bytes": 208,
+      "sha256": "a2a720b68acd28eb96f698ba6977a7e1ddb339eb77281aa9fd31d261938ddbd0"
+    }
+  ],
+  "native": {
+    "pid": 4344,
+    "path": "C:\\Users\\Wiryl\\Sol Dev\\admin-scratch\\qdesign24-native-20260923\\layout\\Kymaean.Windows.exe",
+    "processMachine": 0,
+    "nativeMachine": 43620,
+    "responding": true,
+    "package": "Kymaean.QDesign24.20260923_1z32rh13vfry6"
+  },
+  "windowMetrics": {
+    "dpi": 120,
+    "scalePercent": 125,
+    "physicalWidth": 1872,
+    "physicalHeight": 1178
+  },
+  "sceneCounts": [
+    55,
+    56,
+    57,
+    58,
+    58
+  ],
+  "uia": "NO_ACCESSIBILITY_TREE_RETURNED",
+  "humanNarrator": "NOT_RUN",
+  "directorCreatorTasks": "NOT_RUN",
+  "fullDpiTextSizeMatrix": "NOT_RUN",
+  "provisionalVerdict": "INCONCLUSIVE"
+}

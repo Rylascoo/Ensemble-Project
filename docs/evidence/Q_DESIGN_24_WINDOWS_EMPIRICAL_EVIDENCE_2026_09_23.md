@@ -41,4 +41,29 @@ Final verdict must be exactly one: **SUFFICIENT — SCOPE LIMITED**, **FALSIFIED
 
 ## Results
 
-Implementation, native execution, independent review, Design acceptance and human evidence have not yet been earned. This entry is recorded before build, not a validation claim.
+Exact executable candidate: `bb209ac1eaf5248e5566ef240fcf5978892fe9bf`. Exact-source independent review is CLEAN after focus eligibility, native container-tab/scroll corrections, Unicode preservation and environmental failed-Open correction. Reviewer was behaviorally no-write; effective workspace-write/automatic approval review means technical write containment was not proven. No reviewer tests, mutations or escalation.
+
+| Evidence | Result / scope |
+|---|---|
+| Native ARM64 environment | PASS: SurfSeven Windows build 26200, SDK 10.0.400; no runtime installation |
+| Focused presentation tests | 11/11 PASS; actual Windows source linked into platform-neutral test host, not a substitute for WinUI |
+| Application / Persistence / Core / Harness | 84 / 148 / 628 / 155 PASS on win-arm64; those source surfaces unchanged |
+| Final WinUI Release build | PASS, zero warnings/errors |
+| Code vectors | Independent Python UTF-16BE/surrogatepass + hashlib vectors; preserved real prefix collision `QDESIGN24-53141` / `QDESIGN24-81797` gives `F55024D1675E` / `F55024D1F9F5`; all-digit `QDESIGN24-4` -> `58955591`; digit/E/digit `QDESIGN24-6` -> `4E3C642D` |
+| Full-hash collision | Test-only conditional injection; normal Windows project never defines SCENE_PRESENTATION_TESTS. Affected actions/New Scene blocked; unrelated Scene and Production available. No native full-hash collision or natural SHA-256 collision claim |
+| Real journal / OS lock | PASS in native Windows presentation tests: external append then own append causes typed Invalid; session block prevents more append; fresh Open surfaces both. Exclusive FileShare.None journal lock prevents append, normal UI Open returns failure safely, witness/block survives; unlock + successful Open clears. No persistent security change |
+| Native launch | Isolated development identity `Kymaean.QDesign24.20260923`; exact copied binary/XBF parity preserved; processMachine 0 / nativeMachine 0xAA64, responsive. No normal app/library touched; disposable registration retained for human tasks |
+| Native observed flows | Dark, current 125% DPI, 1872x1178 physical window: 55 Scenes / 55 Cast reachable; exact Back return; heading visible focus; first Tab -> checkbox; Space selection; one duplicate-name member retains code in review/detail; success focuses created Scene; following Enter inspects without another append |
+| Native uncertainty/fresh replay | Scene count 55 -> confirmed 56 -> external collision fixture 57 -> uncertain own append 58; disabled New Scene/Home/library attempts left 58. Distinct typed non-confirmation, focused notice, submitted empty witness, ordinary Open neutral unknown-outcome announcement; fresh replay visibly grows existing code to 12 characters |
+| Native apparatus limit | Computer-use repeatedly returned null accessibility tree. Real keyboard/screenshot evidence exists; no UIA selected/current-state or screen-reader claim. Resize attempt did not establish 720x520 |
+| Deferred required observations | Full 100/150/200% DPI + 225% text + 720x520 combinations; Light parity; all native bypass/shortcut/theme/other-Production combinations; queued key-repeat stress; native slow-call; kill-mid-call diagnostic; human Narrator and Director creator tasks remain NOT RUN. Unit slow-call/reentry and per-Production cases passed; no substitution for native observations |
+
+Real further 12-hex prefix collision generation was not attempted; no injected prefix fixtures or CI brute force. The existing two real colliders distinguish late in their extended codes. Larger-code wrapping and human intelligibility remain unearned.
+
+Measurement and retained local evidence inventory: `docs/evidence/Q_DESIGN_24_WINDOWS_EMPIRICAL_MEASUREMENTS_2026_09_23.json`. Screenshots are scratch-only native evidence, not shipping assets. Normal app data and machine display/theme settings were not changed. The isolated app is closed; registration and fixtures are retained for the Director, not silently cleaned.
+
+## Human task apparatus / exact next boundary
+
+Retained scratch root: `C:/Users/Wiryl/Sol Dev/admin-scratch/qdesign24-native-20260923`. `activate.ps1` activates only the verified isolated identity. `fixture/fixture.csproj` references the copied exact Application/Persistence assemblies; no provider calls. `Scene Harbor` has 58 Scenes and 55 Cast, including empty/identical rosters and duplicate Marlowe names. `Other Harbor` has empty Cast/Scenes. `Collision Harbor` is untouched with `F55024D1` before growth. Facilitator runs the preserved helper with `grow-c` only during task C, then ordinary Open exposes both extended codes. Helper `external` adds one Scene to Scene Harbor behind the open UI for task D; the next explicit establishment can yield the genuine append-then-Invalid case. These are fixture operations, not product capabilities.
+
+Director tasks A-E above are protocol-ready but NOT executed or scored. Native accessibility/scaling evidence and clean Design acceptance remain required before any sufficient verdict. No executable merge is requested. Next action is the supervised native accessibility/scaling + Director creator/Narrator evidence session on this candidate; retain INCONCLUSIVE if apparatus or human evidence remains unavailable.

@@ -23,7 +23,7 @@ Q-ADMIN-08 is DONE / INTEGRATED through PR #259; its platform validation remains
 
 | ID | Role | Status | Work | Hard boundary / successor |
 |---|---|---|---|---|
-| Q-DESIGN-24-WINDOWS | Implementation / Design | ACTIVE | Initial-roster inspection and Scene establishment empirical test. | INCONCLUSIVE pending native/review/Design/Director creator/Narrator evidence; one draft PR, no merge or Product successor. |
+| Q-DESIGN-24-WINDOWS | Implementation / Design | ACTIVE — HUMAN/NATIVE EVIDENCE BOUNDARY | Candidate bb209ac; source review clean; empirical initial-roster inspection/establishment test incomplete. | INCONCLUSIVE pending native/review/Design/Director creator/Narrator evidence; one draft PR, no merge or Product successor. |
 | Q-ADMIN-07 | Governance / Recovery | DEFERRED — LOCAL RESIDUE ONLY | Disposition remaining local historical/deferred worktrees after owner/status/evidence review. | Preserve ambiguous local evidence and the unique historical PR #226 branch; merged remote refs require archive-tag-before-delete handling. |
 
 ## Deferred E0 / architecture gates
