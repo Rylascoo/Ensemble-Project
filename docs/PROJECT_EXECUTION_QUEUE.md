@@ -19,11 +19,11 @@ This file now carries only current, deferred, or blocking work. Completed histor
 
 ## Current application work
 
-Q-ADMIN-08 is the sole active platform/tooling implementation package. No Product successor is active; Q-PROD-08 closed through PR #257 and is intentionally absent from this current-work table.
+Q-ADMIN-08 is the sole current platform/tooling package; implementation and native validation are complete, with executable merge Director-gated. No Product successor is active; Q-PROD-08 closed through PR #257 and is intentionally absent from this current-work table.
 
 | ID | Role | Status | Work | Hard boundary / successor |
 |---|---|---|---|---|
-| Q-ADMIN-08 | Implementation / Governance | ACTIVE — NATIVE VALIDATION / REVIEW PASS | .NET 10 SDK/TFM/Microsoft Testing Platform migration at exact executable `4b2d286a4baf1bb01b222aceda26fbaae8772c15`: `docs/evidence/Q_ADMIN_08_DOTNET10_MIGRATION_NATIVE_ARM64_VALIDATION_2026_09_23.md`. | Draft PR + hosted gates next; stop at executable merge authorization. No package-version or Product/Design/provider/E0/release change or Product successor. |
+| Q-ADMIN-08 | Implementation / Governance | BLOCKED — EXECUTABLE MERGE AUTHORIZATION | Draft PR #259; native/review PASS at executable `4b2d286a4baf1bb01b222aceda26fbaae8772c15`; hosted gates PASS at evidence head `46b7d7a`. Evidence: `docs/evidence/Q_ADMIN_08_DOTNET10_MIGRATION_NATIVE_ARM64_VALIDATION_2026_09_23.md`. | Director merge authorization and fresh exact-final-head checks required. No package-version or Product/Design/provider/E0/release change or Product successor. |
 | Q-ADMIN-07 | Governance / Recovery | DEFERRED — LOCAL RESIDUE ONLY | Disposition remaining local historical/deferred worktrees after owner/status/evidence review. | Preserve ambiguous local evidence and the unique historical PR #226 branch; merged remote refs require archive-tag-before-delete handling. |
 
 ## Deferred E0 / architecture gates

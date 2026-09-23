@@ -26,4 +26,4 @@ Q-PROD-08 is **DONE / INTEGRATED** through PR #257 at `9e4a1e30d6d40b46c0fca5e24
 
 ## Next
 
-Q-ADMIN-08 **RETARGET NOW**: native .NET 10 validation/review PASS at `4b2d286a4baf1bb01b222aceda26fbaae8772c15`, tag `validation/q-admin-08-dotnet10-native-arm64`. Scope/evidence: `docs/evidence/Q_ADMIN_08_DOTNET10_MIGRATION_NATIVE_ARM64_VALIDATION_2026_09_23.md`. Next: draft PR and hosted gates, then stop at executable merge authorization. Main remains the .NET 9 integrated baseline. No Product successor is authorized; do not infer Q-PROD-09.
+Q-ADMIN-08 **AWAITING EXECUTABLE MERGE AUTHORIZATION**: draft PR #259. Native .NET 10 validation/review PASS at `4b2d286a4baf1bb01b222aceda26fbaae8772c15`, tag `validation/q-admin-08-dotnet10-native-arm64`; hosted Validation #1287/#1288 and preparation #204 PASS at evidence head `46b7d7a`. Evidence: `docs/evidence/Q_ADMIN_08_DOTNET10_MIGRATION_NATIVE_ARM64_VALIDATION_2026_09_23.md`. Fresh-check final PR head before merge. Main remains .NET 9 until integration. No Product successor/Q-PROD-09 is authorized.

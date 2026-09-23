@@ -20,7 +20,8 @@ The historical E0 checkpoint below retains its separate scope. The Q-ADMIN-08 pl
 | Dependency comparison | Package pins and all retained resolved versions/content hashes unchanged; SDK 10 prunes three framework-provided test-only transitive packages |
 | Review | Exact-ref independent review clean; behaviorally no-write, technical write containment not proven |
 | Evidence | `docs/evidence/Q_ADMIN_08_DOTNET10_MIGRATION_NATIVE_ARM64_VALIDATION_2026_09_23.md`; `docs/evidence/Q_ADMIN_08_DOTNET10_MIGRATION_MEASUREMENTS_2026_09_23.json` |
-| Integration boundary | Candidate only; draft PR/hosted gates and Director executable merge authorization remain required. No Product/provider/deferred-E0/release promotion. |
+| Hosted evidence checkpoint | `46b7d7a22ca0de4b4af0561ff576b12fa4edd69e`: push Validation #1287, PR Validation #1288 and PR E0-E preparation #204 PASS |
+| Integration boundary | Draft PR #259, unmerged; Director executable merge authorization and fresh final-head checks remain required. No Product/provider/deferred-E0/release promotion. |
 
 ## Preserved promoted E0 machine-tested checkpoint
 
