@@ -1,6 +1,6 @@
 # Q-PREVIEW-01 — KYMÆAN Director Preview Foundation
 
-Status: DIRECTOR-AUTHORIZED BOUNDED IMPLEMENTATION; no executable merge authorization.
+Status: NATIVE FOUNDATION PASS; draft [PR #263](https://github.com/Rylascoo/Ensemble-Project/pull/263); awaiting separate Director merge authorization.
 
 ## Authority and lease
 
@@ -55,3 +55,35 @@ Design method: `docs/design/app/evidence/Q_PREVIEW_01_DIRECTOR_FEEDBACK_METHOD_2
 5. Issue a separate admission receipt explicitly stating Preview admission != merge approval and Preview admission != Design acceptance. Use fresh fixture instances; never repoint old scratch data.
 
 This package returns the admission procedure, not an already-admitted Scene composite. Independent review, evidence and technical acceptance: `docs/evidence/Q_PREVIEW_01_NATIVE_ARM64_EVIDENCE_2026_09_23.md`.
+
+## Exact changed-file lease
+
+All changes from main are confined to these 25 files. Validation source is `6f4545df367e4aebe23789b3ff726ed131a968b6`; later evidence/closeout changes are documentation only.
+
+```text
+.github/workflows/gate.yml
+CURRENT_STATE.md
+Directory.Build.props
+docs/NATIVE_CODEX_APPLICATION_WORKFLOW.md
+docs/PROJECT_EXECUTION_QUEUE.md
+docs/Q_PREVIEW_01_DIRECTOR_PREVIEW_FOUNDATION_2026_09_23.md
+docs/VALIDATION_LEDGER.md
+docs/design/app/CURRENT_CONTRACTS.md
+docs/design/app/DESIGN_LEDGER.md
+docs/design/app/evidence/Q_PREVIEW_01_DIRECTOR_FEEDBACK_METHOD_2026_09_23.md
+docs/design/app/pointers/DIRECTOR_PREVIEW_VISUAL_REFERENCE_MAP.md
+docs/evidence/Q_PREVIEW_01_NATIVE_ARM64_EVIDENCE_2026_09_23.md
+docs/evidence/Q_PREVIEW_01_NATIVE_ARM64_MEASUREMENTS_2026_09_23.json
+src/Kymaean.Windows/App.xaml.cs
+src/Kymaean.Windows/Kymaean.Windows.csproj
+src/Kymaean.Windows/MainWindow.xaml.cs
+src/Kymaean.Windows/Preview/PreviewEnvironment.cs
+tools/director-preview/Profiles/Profiles.cs
+tools/director-preview/Profiles/Profiles.csproj
+tools/director-preview/Profiles/Program.cs
+tools/director-preview/Tests/ProfileTests.cs
+tools/director-preview/Tests/Tests.csproj
+tools/director-preview/build.ps1
+tools/director-preview/common.ps1
+tools/director-preview/preview.ps1
+```
