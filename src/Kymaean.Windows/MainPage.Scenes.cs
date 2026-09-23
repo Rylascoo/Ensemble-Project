@@ -106,7 +106,8 @@ public sealed partial class MainPage
 
     private static void FocusSceneTarget(Control target)
     {
-        if (!target.Focus(FocusState.Programmatic))
+        target.StartBringIntoView();
+        if (!target.Focus(FocusState.Keyboard))
             throw new InvalidOperationException("Scene presentation focus target is unavailable.");
     }
 
