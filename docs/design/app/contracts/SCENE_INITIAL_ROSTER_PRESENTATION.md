@@ -67,14 +67,16 @@ Existing typed failures remain distinct:
 | Result | Creator-facing presentation | Return |
 |---|---|---|
 | `Incompatible` | **A Scene can't be established in this version.** | Back to last confirmed Scenes; no retry, upgrade, migration or recovery command invented. |
-| `Invalid` | **Kymaean can't establish this Scene because this Production's contents are invalid.** | Back to last confirmed Scenes; no success, rollback or fictional consequence asserted. |
+| `Invalid` | **Scene not confirmed. Kymaean couldn't confirm whether this Scene was established from the Production's returned contents.** | Preserve the submitted witness and require ordinary reopening under the non-confirmation rules below. Do not claim the Production is corrupt or that nothing committed. |
 | Environmental I/O/access exception during submission | **Confirmation unavailable. Kymaean couldn't confirm whether this Scene was established.** | See non-confirmation rules below. |
 
-Do not expose internal contract identifiers, exception text, journal paths or opaque IDs. Programming/presentation defects are not reclassified as Product `Invalid` or environmental non-confirmation. These are bounded presentations of the current port, not new failure semantics.
+Do not expose internal contract identifiers, exception text, journal paths or opaque IDs. Programming/presentation defects are not reclassified as Product `Invalid` or environmental non-confirmation. Preserve the typed `Invalid` result separately from an environmental exception even though both need conservative submission handling. These are bounded presentations of the current port, not new failure semantics.
+
+The port does not prove non-commit for `Invalid`: persistence can append successfully, then Application can reject the returned replay against its cached projection (for example, another instance established a Scene since this instance opened the Production). Do not diagnose corruption or permit repeated submission from that stale projection. Unsupported concurrent use remains unsupported; this contract adds no multi-writer guarantee.
 
 ## Non-confirmation and ordinary reopening
 
-Keep two explicit groups: **Last confirmed Scenes** and **Submitted initial roster**. The latter contains only the captured Character name/code witnesses or **No Characters in this submitted initial roster.** It has no Scene code, because no authoritative created identity was returned. Never insert a guessed Scene row.
+For typed `Invalid` as well as environmental submission exceptions, keep two explicit groups: **Last confirmed Scenes** and **Submitted initial roster**. The latter contains only the captured Character name/code witnesses or **No Characters in this submitted initial roster.** It has no Scene code, because no authoritative created identity was returned through a successful Application result. Never insert a guessed Scene row.
 
 Copy: **Open the Production again to inspect its recorded Scenes. A matching roster cannot confirm which submission created a Scene.**
 
@@ -94,8 +96,8 @@ The Q-PROD-08 append repair returns exact candidate replay under the journal gat
 | Scenes -> New Scene | Form heading/instructions; next Tab reaches first checkbox, or Establish Scene when Cast is empty. |
 | Cancel -> Scenes | New Scene action. |
 | Confirmed establishment -> Scenes | Exact returned Scene inspection action. |
-| Typed failure -> Scenes | New Scene action; failed submission draft is discarded, not resubmitted. |
-| Non-confirmation | Focus its status heading; Back remains available. Returning to Scenes without successful Open focuses its uncertainty notice, not a disabled New Scene action. |
+| Incompatible -> Scenes | New Scene action; submission draft is discarded, not resubmitted. |
+| Invalid or environmental non-confirmation | Focus its distinct status heading; Back remains available. Returning to Scenes without successful Open focuses its uncertainty notice, not a disabled New Scene action; retain the submitted witness. |
 | Scenes -> Current Production | Scenes entry action. |
 
 If a refreshed authoritative projection lacks a remembered focus identity, use the Scenes heading; never focus a different Scene by matching roster/code/index. Navigation and focus are not Undo, activation or Product selection.
@@ -114,4 +116,4 @@ No Windows implementation is authorized. No Product/Persistence schema, persiste
 
 ## Evidence required only if implementation is later authorized
 
-Native return must cover empty/multiple/identical-roster Scenes; empty Cast/roster; more than five members; duplicate exact Character names with Cast-wide codes; deterministic Scene code distinction and injected prefix/full-collision handling; long/wrapping names/codes; exact identity focus/return; successful authoritative establishment; typed failures; real environmental uncertainty without guessed attribution; uncertainty surviving in-session navigation until successful ordinary Open; Light/Dark, 720x520, keyboard and UI Automation. These are future acceptance criteria, not executed evidence or permission to run them.
+Native return must cover empty/multiple/identical-roster Scenes; empty Cast/roster; more than five members; duplicate exact Character names with Cast-wide codes; deterministic Scene code distinction and injected prefix/full-collision handling; long/wrapping names/codes; exact identity focus/return; successful authoritative establishment; typed failures including post-append Application rejection from stale caller state; real environmental uncertainty without guessed attribution; Invalid/environmental uncertainty surviving in-session navigation until successful ordinary Open; Light/Dark, 720x520, keyboard and UI Automation. These are future acceptance criteria, not executed evidence or permission to run them.

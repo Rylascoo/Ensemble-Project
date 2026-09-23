@@ -49,7 +49,8 @@ All PASS entries below mean **contract-level reasoning PASS**, not executed UI, 
 | Prefix collision | Extend codes across full collection; recompute all labels together | PASS |
 | Full-hash collision | Block ambiguous actions, return presentation defect; no invented identity law | PASS as fail-closed boundary, not successful usability |
 | Focus/return after code extension | Track opaque identity internally; heading fallback if absent | PASS |
-| Typed Invalid/Incompatible | Preserve classifications; no invented rollback/recovery | PASS |
+| Typed Invalid/Incompatible | Preserve classifications; Invalid retains witness and blocks further establishment until ordinary Open | PASS |
+| Append succeeds but Application rejects replay against stale caller state | Typed Invalid does not prove non-commit or corruption; same conservative reopening boundary | PASS |
 | Environmental non-confirmation | Last-confirmed/Submitted separation; no guessed Scene code | PASS |
 | Reopen after uncertain identical-roster submission | No roster-based attribution; ordinary replay only, no automatic retry | PASS |
 | Navigation during uncertainty | Session block retained until successful ordinary Open | PASS |
@@ -57,7 +58,9 @@ All PASS entries below mean **contract-level reasoning PASS**, not executed UI, 
 
 ## Recursive audit and limits
 
-First pass removed three tempting authority leaks: position-based Scene naming, roster-as-identity matching after uncertain submission, and per-roster duplicate-name grouping that could hide a Character code. A further pass reconciled Q-PROD-08's append repair rather than copying stale post-append-read mechanics from the older Character presentation contract. The final author pass found no additional required Product primitive for the bounded inspection/establishment task.
+First pass removed three tempting authority leaks: position-based Scene naming, roster-as-identity matching after uncertain submission, and per-roster duplicate-name grouping that could hide a Character code. A further pass reconciled Q-PROD-08's append repair rather than copying stale post-append-read mechanics from the older Character presentation contract.
+
+Independent static review of candidate `4317bfa54213da9f99e3c32b21d3c7987e814f45` against the exact baseline found one P2 issue: typed Invalid can follow successful persistence append when Application rejects replay against stale caller state. The correction preserves the typed result, avoids claiming corruption/non-commit, retains the submission witness and blocks another establishment until successful ordinary Open. The static matrix and future acceptance criteria now explicitly cover this case. Reviewer policy was workspace-write/automatic approval review; review remained behaviorally no-write, with no tests or escalation and no proven technical write containment. The author restarted the failure/identity/scope audit after correction and found no additional required Product primitive.
 
 Design accepts **static sufficiency for Director review only**. No persistent name or current-Scene decision is requested on this evidence. This does not establish empirical usability, memorability, screen-reader delivery, native focus/layout, collision implementation, High Contrast, runtime or Director adoption. Those remain NOT TESTED / NOT ADOPTED as applicable. No render, provider call, test run or executable change was performed for this Design decision.
 
