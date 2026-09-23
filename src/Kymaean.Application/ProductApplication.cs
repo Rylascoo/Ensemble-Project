@@ -135,7 +135,8 @@ public sealed class ProductApplication
                 creation.Replay.ProductionName,
                 StringComparison.Ordinal) ||
             !creation.Replay.WorldCurrentState.IsEmpty ||
-            !creation.Replay.ProductionCast.IsEmpty)
+            !creation.Replay.ProductionCast.IsEmpty ||
+            !creation.Replay.ProductionScenes.IsEmpty)
         {
             return ProductAccessResult<ProductionCreation>.Failure(
                 ProductAccessFailureKind.Invalid);
@@ -190,7 +191,8 @@ public sealed class ProductApplication
                 before.ProductionName,
                 replay.ProductionName,
                 StringComparison.Ordinal)
-            || !before.WorldCurrentState.Equals(replay.WorldCurrentState))
+            || !before.WorldCurrentState.Equals(replay.WorldCurrentState)
+            || !before.ProductionScenes.Equals(replay.ProductionScenes))
         {
             return ProductAccessResult<CharacterCreation>.Failure(
                 ProductAccessFailureKind.Invalid);
@@ -206,6 +208,65 @@ public sealed class ProductApplication
 
         _currentProductionReplay = replay;
         return ProductAccessResult<CharacterCreation>.Success(creation);
+    }
+
+    public ProductAccessResult<SceneCreation> EstablishScene(
+        IEnumerable<CharacterId> initialRosterCharacterIds)
+    {
+        ArgumentNullException.ThrowIfNull(initialRosterCharacterIds);
+
+        if (_currentProduction is null || _currentProductionReplay is null)
+        {
+            throw new InvalidOperationException(
+                "A Production must be open before establishing a Scene.");
+        }
+
+        if (_catalog is not IProductionSceneCreator creator)
+        {
+            throw new InvalidOperationException(
+                "The configured Production catalog does not support Scene establishment.");
+        }
+
+        var before = _currentProductionReplay;
+        var canonicalRoster = SceneRoster.Canonicalize(
+            before.ProductionCast,
+            initialRosterCharacterIds);
+        var established = creator.EstablishScene(
+            _currentProduction.Id,
+            canonicalRoster);
+        if (!established.IsSuccess)
+        {
+            return ProductAccessResult<SceneCreation>.Failure(
+                established.FailureKind);
+        }
+
+        var creation = established.Value;
+        var scene = creation.Scene;
+        var replay = creation.Replay;
+
+        if (before.ProductionScenes.Scenes.Any(existing => existing.Id == scene.Id)
+            || !canonicalRoster.Equals(scene.InitialRoster)
+            || !string.Equals(
+                before.ProductionName,
+                replay.ProductionName,
+                StringComparison.Ordinal)
+            || !before.WorldCurrentState.Equals(replay.WorldCurrentState)
+            || !before.ProductionCast.Equals(replay.ProductionCast))
+        {
+            return ProductAccessResult<SceneCreation>.Failure(
+                ProductAccessFailureKind.Invalid);
+        }
+
+        var expectedScenes = new ProductionScenes(
+            before.ProductionScenes.Scenes.Add(scene));
+        if (!expectedScenes.Equals(replay.ProductionScenes))
+        {
+            return ProductAccessResult<SceneCreation>.Failure(
+                ProductAccessFailureKind.Invalid);
+        }
+
+        _currentProductionReplay = replay;
+        return ProductAccessResult<SceneCreation>.Success(creation);
     }
 
     public ProductApplicationProjection NavigateProduction(ProductSpace destination)
@@ -256,7 +317,8 @@ public sealed class ProductApplication
                 replay.ProductionName,
                 StringComparison.Ordinal)
             || !replay.WorldCurrentState.Equals(currentState)
-            || !before.ProductionCast.Equals(replay.ProductionCast))
+            || !before.ProductionCast.Equals(replay.ProductionCast)
+            || !before.ProductionScenes.Equals(replay.ProductionScenes))
         {
             return ProductAccessResult<ProductApplicationProjection>.Failure(
                 ProductAccessFailureKind.Invalid);

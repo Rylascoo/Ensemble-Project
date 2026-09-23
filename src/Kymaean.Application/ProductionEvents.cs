@@ -35,6 +35,23 @@ public sealed record CharacterCreatedEvent : ProductionEvent
     public string CharacterName { get; }
 }
 
+public sealed record CreatorEstablishedSceneEvent : ProductionEvent
+{
+    public CreatorEstablishedSceneEvent(
+        SceneId sceneId,
+        SceneRoster initialRoster)
+    {
+        ArgumentNullException.ThrowIfNull(sceneId);
+        ArgumentNullException.ThrowIfNull(initialRoster);
+        SceneId = sceneId;
+        InitialRoster = initialRoster;
+    }
+
+    public SceneId SceneId { get; }
+
+    public SceneRoster InitialRoster { get; }
+}
+
 public sealed record CreatorReplacedWorldCurrentStateEvent : ProductionEvent
 {
     public CreatorReplacedWorldCurrentStateEvent(WorldCurrentState currentState)

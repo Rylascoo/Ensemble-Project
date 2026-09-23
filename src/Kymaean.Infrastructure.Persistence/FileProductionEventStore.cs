@@ -99,11 +99,16 @@ internal static class ProductionEventCodec
     private const string TruthsProperty = "truthsUtf16Be";
     private const string CharacterIdCodeUnitsProperty = "characterIdUtf16Be";
     private const string CharacterNameCodeUnitsProperty = "characterNameUtf16Be";
+    private const string SceneIdCodeUnitsProperty = "sceneIdUtf16Be";
+    private const string RosterCharacterIdsCodeUnitsProperty =
+        "rosterCharacterIdsUtf16Be";
     private const string ProductionCreatedContractFamily = "kymaean.production.created.v";
     private const string ReplacementContractFamily =
         "kymaean.production.creator-replaced-world-current-state.v";
     private const string CharacterCreatedContractFamily =
         "kymaean.production.character-created.v";
+    private const string CreatorEstablishedSceneContractFamily =
+        "kymaean.production.creator-established-scene.v";
 
     public static byte[] Encode(ProductionEvent productionEvent)
     {
@@ -143,6 +148,22 @@ internal static class ProductionEventCodec
                     CharacterNameCodeUnitsProperty,
                     Utf16CodeUnits.Encode(created.CharacterName));
                 break;
+            case CreatorEstablishedSceneEvent established:
+                writer.WriteString(
+                    ContractProperty,
+                    ProductionPersistenceVersionPolicy.CreatorEstablishedSceneContractV1);
+                writer.WriteBase64String(
+                    SceneIdCodeUnitsProperty,
+                    Utf16CodeUnits.Encode(established.SceneId.Value));
+                writer.WriteStartArray(RosterCharacterIdsCodeUnitsProperty);
+                foreach (var characterId in established.InitialRoster.CharacterIds)
+                {
+                    writer.WriteBase64StringValue(
+                        Utf16CodeUnits.Encode(characterId.Value));
+                }
+
+                writer.WriteEndArray();
+                break;
             default:
                 throw new NotSupportedException(
                     $"Production event type '{productionEvent.GetType().Name}' cannot be persisted.");
@@ -172,6 +193,8 @@ internal static class ProductionEventCodec
                     DecodeReplacement(root),
                 ProductionPersistenceVersionPolicy.CharacterCreatedContractV1 =>
                     DecodeCharacterCreated(root),
+                ProductionPersistenceVersionPolicy.CreatorEstablishedSceneContractV1 =>
+                    DecodeCreatorEstablishedScene(root),
                 _ when contract.StartsWith(
                     ProductionCreatedContractFamily,
                     StringComparison.Ordinal) =>
@@ -190,6 +213,13 @@ internal static class ProductionEventCodec
                         "CharacterCreated event contract",
                         contract,
                         ProductionPersistenceVersionPolicy.CharacterCreatedContractV1),
+                _ when contract.StartsWith(
+                    CreatorEstablishedSceneContractFamily,
+                    StringComparison.Ordinal) =>
+                    throw ProductionPersistenceVersionPolicy.UnsupportedEventContract(
+                        "CreatorEstablishedScene event contract",
+                        contract,
+                        ProductionPersistenceVersionPolicy.CreatorEstablishedSceneContractV1),
                 _ => throw new InvalidDataException(
                     $"Unsupported Production event contract '{contract}'.")
             };
@@ -257,6 +287,30 @@ internal static class ProductionEventCodec
             new CharacterId(
                 ReadCodeUnits(root.GetProperty(CharacterIdCodeUnitsProperty))),
             ReadCodeUnits(root.GetProperty(CharacterNameCodeUnitsProperty)));
+    }
+
+    private static CreatorEstablishedSceneEvent DecodeCreatorEstablishedScene(
+        JsonElement root)
+    {
+        RequireExactProperties(
+            root,
+            ContractProperty,
+            SceneIdCodeUnitsProperty,
+            RosterCharacterIdsCodeUnitsProperty);
+
+        var roster = root.GetProperty(RosterCharacterIdsCodeUnitsProperty);
+        if (roster.ValueKind != JsonValueKind.Array)
+        {
+            throw new InvalidDataException(
+                "Scene roster Character identities must be an array.");
+        }
+
+        return new CreatorEstablishedSceneEvent(
+            new SceneId(
+                ReadCodeUnits(root.GetProperty(SceneIdCodeUnitsProperty))),
+            new SceneRoster(
+                roster.EnumerateArray().Select(
+                    value => new CharacterId(ReadCodeUnits(value)))));
     }
 
     private static string ReadCodeUnits(JsonElement value)
