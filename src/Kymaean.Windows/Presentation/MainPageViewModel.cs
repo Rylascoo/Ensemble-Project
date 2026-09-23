@@ -874,9 +874,20 @@ public sealed partial class MainPageViewModel : INotifyPropertyChanged
             return false;
         }
 
-        var result = recover
-            ? _application.RecoverProduction(_selectedProductionRow.Id)
-            : _application.OpenProduction(_selectedProductionRow.Id);
+        ProductAccessResult<ProductApplicationProjection> result;
+        try
+        {
+            result = recover
+                ? _application.RecoverProduction(_selectedProductionRow.Id)
+                : _application.OpenProduction(_selectedProductionRow.Id);
+        }
+        catch (Exception error) when (error is IOException or UnauthorizedAccessException)
+        {
+            _statusMessage = "Kymaean couldn't open the selected Production. Its last confirmed state is unchanged.";
+            OnPropertyChanged(nameof(StatusMessage));
+            OnPropertyChanged(nameof(HasStatusMessage));
+            return false;
+        }
 
         if (!result.IsSuccess)
         {

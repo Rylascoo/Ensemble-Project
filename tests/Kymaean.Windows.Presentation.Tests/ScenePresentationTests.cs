@@ -227,8 +227,8 @@ public sealed class ScenePresentationTests
             {
                 vm.BeginSceneDraft(); Assert.IsNull(vm.EstablishScene());
                 Assert.IsTrue(vm.HasSceneUncertainty);
-                // The existing Open port may throw environmental IO; neither path clears the block.
-                try { Assert.IsFalse(vm.OpenSelectedProduction()); } catch (IOException) { }
+                Assert.IsFalse(vm.OpenSelectedProduction());
+                StringAssert.Contains(vm.StatusMessage, "couldn't open");
                 Assert.IsTrue(vm.HasSceneUncertainty);
                 vm.NavigateShell(ShellRoute.Home); vm.NavigateShell(ShellRoute.CurrentProduction); vm.OpenScenes();
                 Assert.IsFalse(vm.BeginSceneDraft()); Assert.IsNull(vm.EstablishScene());
