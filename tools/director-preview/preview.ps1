@@ -37,6 +37,9 @@ try {
     $Stage = [IO.Path]::GetFullPath($Stage)
     $build = Assert-Stage $Stage
     if ($ExpectedSource -cnotmatch '^[a-f0-9]{40}$' -or $ExpectedSource -cne $build.source) { throw 'Explicit admitted source does not match staged source.' }
+    [xml]$stagedManifest = Get-Content (Join-Path $Stage 'layout/AppxManifest.xml') -Raw
+    if ($package -and [version]$stagedManifest.Package.Identity.Version -lt [version]$package.Version) { throw 'Preview binary downgrade refused; persisted data is never rolled back implicitly.' }
+    if ($package -and [version]$stagedManifest.Package.Identity.Version -eq [version]$package.Version -and [IO.Path]::GetFullPath($package.InstallLocation) -ne [IO.Path]::GetFullPath((Join-Path $Stage 'layout'))) { throw 'A different staged layout requires a newer development version.' }
     Assert-Closed $package
     $pending = $null
     if (Test-Path $pendingPath) {

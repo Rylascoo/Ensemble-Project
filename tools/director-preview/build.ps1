@@ -33,6 +33,11 @@ try {
     $manifestPath = Join-Path $layout 'AppxManifest.xml'
     [xml]$manifest = Get-Content -LiteralPath $manifestPath -Raw
     $manifest.Package.Identity.Name = $PreviewIdentity
+    # Same-version development registration can leave the previous layout active.
+    # A UTC development version is monotonic and stays within four UInt16 fields.
+    $versionTime = [DateTime]::UtcNow
+    $days = [int]($versionTime.Date - [DateTime]::new(2020,1,1)).TotalDays
+    $manifest.Package.Identity.Version = "1.$days.$($versionTime.Hour * 60 + $versionTime.Minute).$($versionTime.Second * 1000 + $versionTime.Millisecond)"
     $manifest.Package.Properties.DisplayName = $PreviewName
     $manifest.Package.Applications.Application.VisualElements.DisplayName = $PreviewName
     $manifest.Package.Applications.Application.VisualElements.Description = 'Local development preview; no release or Design acceptance claim.'
