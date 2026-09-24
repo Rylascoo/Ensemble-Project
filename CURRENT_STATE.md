@@ -18,9 +18,9 @@ Q-PROD-09 is fully closed through PR #266 and post-merge closeout PR #267 at `f8
 
 Director adoption on 2026-09-24 changes Q-DESIGN-24 to the **Sol + Claude dual-review UI loop**.
 
-PR #271 is the current bounded Scene finalization candidate at `d886fe992df709226e52ecc2f5a22f5977dbd5e6`, rebased on current main. It supersedes PR #262 as executable candidate without accepting or merging either older PR #262 or evidence PR #269.
+PR #271 is the current bounded Scene finalization candidate at `b462821ec17ca5ed4033a882d70bbafd7fa423a2`, rebased on current main. It supersedes PR #262 as executable candidate without accepting or merging older PR #262 or evidence PR #269.
 
-Primary Sol audit applied one presentation-only row-density/accessibility refinement. Native exact executable-source evidence: Scene presentation 12/12, Application 92/92, Persistence 153/153, Core 628/628, Harness 155/155 PASS; ARM64 Release WinUI PASS 0 warnings/errors. Independent Claude UI review remains required before Design disposition. Human Task A is a later milestone falsifier, not the ordinary iteration gate.
+Independent Claude Opus review is complete. Design reconciled its material bounded findings through accessibility hierarchy, list semantics, narrow-layout, uncertainty-copy and keyboard-navigation corrections without Product/Persistence change. Native tests remain Scene 12/12, Application 92/92, Persistence 153/153, Core 628/628, Harness 155/155 PASS; ARM64 Release WinUI PASS 0 warnings/errors. Preview is admitted through exact predecessor `15f9206f8aef49589819d9712ea94194dd980c9f`; exact-head Preview keyboard verification remains. Human comprehension/Narrator claims are later milestone falsifiers.
 
 Method: `docs/design/app/DUAL_REVIEW_UI_DEVELOPMENT_METHOD_2026_09_24.md`.
 
@@ -36,4 +36,4 @@ PR #265 remains draft/documentation-only/unmerged at `c0dbe79e7e491024f85f3cd51a
 
 ## Next
 
-Finish independent review and native Preview validation of PR #271, then return the bounded Q-DESIGN-24 disposition. No PR #262/#269/#271 merge or successor Product semantics by implication.
+Finish exact-head native Preview keyboard verification for PR #271 and return the bounded Q-DESIGN-24 disposition. No PR #262/#269/#271 merge or successor Product semantics by implication.
