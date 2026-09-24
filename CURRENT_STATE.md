@@ -18,9 +18,9 @@ Q-PROD-09 is fully closed through PR #266 and post-merge closeout PR #267 at `f8
 
 Director adoption on 2026-09-24 changes Q-DESIGN-24 to the **Sol + Claude dual-review UI loop**.
 
-PR #271 is **DESIGN ACCEPTED for its bounded Scene scope** at executable candidate `bdd6c094446be79b37e28c2ddb4a6c31996646b5`, rebased on current main. It supersedes PR #262 as executable candidate without accepting or merging older PR #262 or evidence PR #269. Merge remains Director authority.
+PR #271 is **DESIGN ACCEPTED for bounded Scene scope** at executable `bdd6c094446be79b37e28c2ddb4a6c31996646b5`; merge remains Director authority. Older PR #262 and evidence PR #269 remain unmerged.
 
-Independent Claude Opus review is complete and Design-reconciled. Exact-candidate native ARM64 evidence is clean: Scene presentation 12/12 PASS; Director Preview technical build, refresh and launch PASS; Application/Persistence/Core/Harness checks and ordinary/Preview ARM64 builds PASS; hosted push/PR gates PASS. Exact native keyboard verification confirms ListView row focus, Up/Down navigation and Tab entry to the matching inspection action. A final native screenshot exposed the prior right-column action outside the visible horizontal flow; `bdd6c09` corrects that falsifier by keeping each inspection action in the row's visible vertical flow. Human comprehension/Narrator/theme claims remain later milestone falsifiers.
+Claude Opus review is complete and reconciled without Product/Persistence change. Exact `bdd6c09` native ARM64 evidence passes Scene 12/12, Preview build/refresh/launch, Application/Persistence/Core/Harness, ordinary/Preview builds, hosted gates and ListView keyboard/action visibility. It corrects the prior right-column overflow falsifier with visible vertical action flow. Human comprehension/Narrator/theme claims remain later falsifiers.
 
 Method: `docs/design/app/DUAL_REVIEW_UI_DEVELOPMENT_METHOD_2026_09_24.md`.
 
