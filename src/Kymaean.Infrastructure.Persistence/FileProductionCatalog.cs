@@ -7,7 +7,8 @@ public sealed class FileProductionCatalog :
     IProductionWorldStateWriter,
     IProductionCreator,
     IProductionCharacterCreator,
-    IProductionSceneCreator
+    IProductionSceneCreator,
+    IProductionPerformanceCommitter
 {
     private const string CatalogDirectoryName = "production-catalog";
     private const string EntryDirectoryPrefix = "entry-";
@@ -296,6 +297,27 @@ public sealed class FileProductionCatalog :
 
         return ProductAccessResult<SceneCreation>.Success(
             new SceneCreation(scene, updated.Value));
+    }
+
+    public ProductAccessResult<ProductionReplayProjection> CommitAcceptedPerformance(
+        ProductionId productionId,
+        AcceptedPerformance acceptedPerformance)
+    {
+        ArgumentNullException.ThrowIfNull(productionId);
+        ArgumentNullException.ThrowIfNull(acceptedPerformance);
+
+        var entry = ResolveProductionEntry(productionId);
+        if (!entry.IsSuccess)
+        {
+            return ProductAccessResult<ProductionReplayProjection>.Failure(
+                entry.FailureKind);
+        }
+
+        return ReadProjection(
+            entry.Value.DirectoryPath,
+            recover: false,
+            append: new AcceptedPerformanceCommittedEvent(
+                acceptedPerformance));
     }
 
     public ProductAccessResult<ProductionReplayProjection> ReplaceWorldCurrentState(

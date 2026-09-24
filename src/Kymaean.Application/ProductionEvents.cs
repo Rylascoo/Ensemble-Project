@@ -62,3 +62,14 @@ public sealed record CreatorReplacedWorldCurrentStateEvent : ProductionEvent
 
     public WorldCurrentState CurrentState { get; }
 }
+
+public sealed record AcceptedPerformanceCommittedEvent : ProductionEvent
+{
+    public AcceptedPerformanceCommittedEvent(AcceptedPerformance performance)
+    {
+        ArgumentNullException.ThrowIfNull(performance);
+        Performance = performance;
+    }
+
+    public AcceptedPerformance Performance { get; }
+}

@@ -107,6 +107,9 @@ internal static class ProductionEventCodec
     private const string SceneIdCodeUnitsProperty = "sceneIdUtf16Be";
     private const string RosterCharacterIdsCodeUnitsProperty =
         "rosterCharacterIdsUtf16Be";
+    private const string VisibleTextCodeUnitsProperty = "visibleTextUtf16Be";
+    private const string CircumstanceTextCodeUnitsProperty =
+        "circumstanceTextUtf16Be";
     private const string ProductionCreatedContractFamily = "kymaean.production.created.v";
     private const string ReplacementContractFamily =
         "kymaean.production.creator-replaced-world-current-state.v";
@@ -114,6 +117,8 @@ internal static class ProductionEventCodec
         "kymaean.production.character-created.v";
     private const string CreatorEstablishedSceneContractFamily =
         "kymaean.production.creator-established-scene.v";
+    private const string AcceptedPerformanceCommittedContractFamily =
+        "kymaean.production.accepted-performance-committed.v";
 
     public static byte[] Encode(ProductionEvent productionEvent)
     {
@@ -169,6 +174,23 @@ internal static class ProductionEventCodec
 
                 writer.WriteEndArray();
                 break;
+            case AcceptedPerformanceCommittedEvent committed:
+                writer.WriteString(
+                    ContractProperty,
+                    ProductionPersistenceVersionPolicy.AcceptedPerformanceCommittedContractV1);
+                writer.WriteBase64String(
+                    SceneIdCodeUnitsProperty,
+                    Utf16CodeUnits.Encode(committed.Performance.SceneId.Value));
+                writer.WriteBase64String(
+                    CharacterIdCodeUnitsProperty,
+                    Utf16CodeUnits.Encode(committed.Performance.CharacterId.Value));
+                writer.WriteBase64String(
+                    VisibleTextCodeUnitsProperty,
+                    Utf16CodeUnits.Encode(committed.Performance.VisibleText));
+                writer.WriteBase64String(
+                    CircumstanceTextCodeUnitsProperty,
+                    Utf16CodeUnits.Encode(committed.Performance.Consequence.Text));
+                break;
             default:
                 throw new NotSupportedException(
                     $"Production event type '{productionEvent.GetType().Name}' cannot be persisted.");
@@ -200,6 +222,8 @@ internal static class ProductionEventCodec
                     DecodeCharacterCreated(root),
                 ProductionPersistenceVersionPolicy.CreatorEstablishedSceneContractV1 =>
                     DecodeCreatorEstablishedScene(root),
+                ProductionPersistenceVersionPolicy.AcceptedPerformanceCommittedContractV1 =>
+                    DecodeAcceptedPerformanceCommitted(root),
                 _ when contract.StartsWith(
                     ProductionCreatedContractFamily,
                     StringComparison.Ordinal) =>
@@ -225,6 +249,13 @@ internal static class ProductionEventCodec
                         "CreatorEstablishedScene event contract",
                         contract,
                         ProductionPersistenceVersionPolicy.CreatorEstablishedSceneContractV1),
+                _ when contract.StartsWith(
+                    AcceptedPerformanceCommittedContractFamily,
+                    StringComparison.Ordinal) =>
+                    throw ProductionPersistenceVersionPolicy.UnsupportedEventContract(
+                        "AcceptedPerformanceCommitted event contract",
+                        contract,
+                        ProductionPersistenceVersionPolicy.AcceptedPerformanceCommittedContractV1),
                 _ => throw new InvalidDataException(
                     $"Unsupported Production event contract '{contract}'.")
             };
@@ -316,6 +347,28 @@ internal static class ProductionEventCodec
             new SceneRoster(
                 roster.EnumerateArray().Select(
                     value => new CharacterId(ReadCodeUnits(value)))));
+    }
+
+    private static AcceptedPerformanceCommittedEvent DecodeAcceptedPerformanceCommitted(
+        JsonElement root)
+    {
+        RequireExactProperties(
+            root,
+            ContractProperty,
+            SceneIdCodeUnitsProperty,
+            CharacterIdCodeUnitsProperty,
+            VisibleTextCodeUnitsProperty,
+            CircumstanceTextCodeUnitsProperty);
+
+        return new AcceptedPerformanceCommittedEvent(
+            new AcceptedPerformance(
+                new SceneId(
+                    ReadCodeUnits(root.GetProperty(SceneIdCodeUnitsProperty))),
+                new CharacterId(
+                    ReadCodeUnits(root.GetProperty(CharacterIdCodeUnitsProperty))),
+                ReadCodeUnits(root.GetProperty(VisibleTextCodeUnitsProperty)),
+                new CharacterCircumstance(
+                    ReadCodeUnits(root.GetProperty(CircumstanceTextCodeUnitsProperty)))));
     }
 
     private static string ReadCodeUnits(JsonElement value)

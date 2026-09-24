@@ -1,3 +1,5 @@
+using System.Collections.Immutable;
+
 namespace Kymaean.Application;
 
 public sealed record ProductionReplayProjection
@@ -7,7 +9,8 @@ public sealed record ProductionReplayProjection
             productionName,
             WorldCurrentState.Empty,
             ProductionCast.Empty,
-            ProductionScenes.Empty)
+            ProductionScenes.Empty,
+            AcceptedPerformanceHistory.Empty)
     {
     }
 
@@ -18,7 +21,8 @@ public sealed record ProductionReplayProjection
             productionName,
             worldCurrentState,
             ProductionCast.Empty,
-            ProductionScenes.Empty)
+            ProductionScenes.Empty,
+            AcceptedPerformanceHistory.Empty)
     {
     }
 
@@ -30,7 +34,8 @@ public sealed record ProductionReplayProjection
             productionName,
             worldCurrentState,
             productionCast,
-            ProductionScenes.Empty)
+            ProductionScenes.Empty,
+            AcceptedPerformanceHistory.Empty)
     {
     }
 
@@ -39,11 +44,27 @@ public sealed record ProductionReplayProjection
         WorldCurrentState worldCurrentState,
         ProductionCast productionCast,
         ProductionScenes productionScenes)
+        : this(
+            productionName,
+            worldCurrentState,
+            productionCast,
+            productionScenes,
+            AcceptedPerformanceHistory.Empty)
+    {
+    }
+
+    public ProductionReplayProjection(
+        string productionName,
+        WorldCurrentState worldCurrentState,
+        ProductionCast productionCast,
+        ProductionScenes productionScenes,
+        AcceptedPerformanceHistory acceptedPerformanceHistory)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(productionName);
         ArgumentNullException.ThrowIfNull(worldCurrentState);
         ArgumentNullException.ThrowIfNull(productionCast);
         ArgumentNullException.ThrowIfNull(productionScenes);
+        ArgumentNullException.ThrowIfNull(acceptedPerformanceHistory);
 
         foreach (var scene in productionScenes.Scenes)
         {
@@ -70,10 +91,24 @@ public sealed record ProductionReplayProjection
             }
         }
 
+        foreach (var performance in acceptedPerformanceHistory.Performances)
+        {
+            var scene = productionScenes.Scenes.SingleOrDefault(
+                item => item.Id == performance.SceneId);
+            if (scene is null ||
+                !scene.InitialRoster.CharacterIds.Contains(performance.CharacterId))
+            {
+                throw new ArgumentException(
+                    "Every accepted Performance must belong to an established Scene roster Character.",
+                    nameof(acceptedPerformanceHistory));
+            }
+        }
+
         ProductionName = productionName;
         WorldCurrentState = worldCurrentState;
         ProductionCast = productionCast;
         ProductionScenes = productionScenes;
+        AcceptedPerformanceHistory = acceptedPerformanceHistory;
     }
 
     public string ProductionName { get; }
@@ -83,6 +118,8 @@ public sealed record ProductionReplayProjection
     public ProductionCast ProductionCast { get; }
 
     public ProductionScenes ProductionScenes { get; }
+
+    public AcceptedPerformanceHistory AcceptedPerformanceHistory { get; }
 }
 
 public static class ProductionReplay
@@ -130,7 +167,8 @@ public static class ProductionReplay
                                 new CharacterSummary(
                                     created.CharacterId,
                                     created.CharacterName))),
-                        projection.ProductionScenes);
+                        projection.ProductionScenes,
+                        projection.AcceptedPerformanceHistory);
                     break;
 
                 case CreatorEstablishedSceneEvent when projection is null:
@@ -167,7 +205,34 @@ public static class ProductionReplay
                             projection.ProductionScenes.Scenes.Add(
                                 new EstablishedScene(
                                     established.SceneId,
-                                    canonicalRoster))));
+                                    canonicalRoster))),
+                        projection.AcceptedPerformanceHistory);
+                    break;
+
+                case AcceptedPerformanceCommittedEvent when projection is null:
+                    throw new InvalidOperationException(
+                        "A Performance cannot be accepted before Production creation.");
+
+                case AcceptedPerformanceCommittedEvent committed:
+                    var performance = committed.Performance;
+                    var sourceScene = projection.ProductionScenes.Scenes
+                        .SingleOrDefault(scene => scene.Id == performance.SceneId);
+                    if (sourceScene is null ||
+                        !sourceScene.InitialRoster.CharacterIds.Contains(
+                            performance.CharacterId))
+                    {
+                        throw new InvalidOperationException(
+                            "An accepted Performance must belong to an established Scene roster Character.");
+                    }
+
+                    projection = new ProductionReplayProjection(
+                        projection.ProductionName,
+                        projection.WorldCurrentState,
+                        projection.ProductionCast,
+                        projection.ProductionScenes,
+                        new AcceptedPerformanceHistory(
+                            projection.AcceptedPerformanceHistory.Performances.Add(
+                                performance)));
                     break;
 
                 case CreatorReplacedWorldCurrentStateEvent when projection is null:
@@ -179,7 +244,8 @@ public static class ProductionReplay
                         projection.ProductionName,
                         replaced.CurrentState,
                         projection.ProductionCast,
-                        projection.ProductionScenes);
+                        projection.ProductionScenes,
+                        projection.AcceptedPerformanceHistory);
                     break;
 
                 default:
