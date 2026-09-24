@@ -419,23 +419,19 @@
                                         <ListView.ItemTemplate>
                                             <DataTemplate x:DataType="presentation:ScenePresentationRow">
                                                 <Border Padding="14,12" BorderBrush="{ThemeResource KymaeanBoundaryBrush}" BorderThickness="0,0,0,1">
-                                                    <Grid ColumnSpacing="20">
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="*" />
-                                                            <ColumnDefinition Width="Auto" />
-                                                        </Grid.ColumnDefinitions>
-                                                        <StackPanel Spacing="4" VerticalAlignment="Center">
+                                                    <StackPanel Spacing="8">
+                                                        <StackPanel Spacing="4">
                                                             <TextBlock FontWeight="SemiBold" Text="{x:Bind CodeLabel}" TextWrapping="Wrap"
                                                                        AutomationProperties.AccessibilityView="Raw" />
                                                             <TextBlock FontSize="14" Foreground="{ThemeResource KymaeanSecondaryBrush}"
                                                                        Text="{x:Bind RosterSummary}" TextWrapping="Wrap" />
                                                         </StackPanel>
-                                                        <Button Grid.Column="1" Click="OnInspectSceneClicked" IsEnabled="{x:Bind CanInspect}"
+                                                        <Button Click="OnInspectSceneClicked" IsEnabled="{x:Bind CanInspect}"
                                                                 UseSystemFocusVisuals="True" AutomationProperties.Name="{x:Bind InspectName}"
-                                                                HorizontalAlignment="Right" VerticalAlignment="Center">
+                                                                HorizontalAlignment="Left">
                                                             <TextBlock Text="Inspect initial roster" TextWrapping="Wrap" />
                                                         </Button>
-                                                    </Grid>
+                                                    </StackPanel>
                                                 </Border>
                                             </DataTemplate>
                                         </ListView.ItemTemplate>
