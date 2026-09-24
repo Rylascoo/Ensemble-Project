@@ -64,14 +64,19 @@ This does not adopt Scene presentation, names, currentness, lifecycle, roster mu
 
 ### Q-DESIGN-24 — Scene presentation contract
 
-**DIRECTOR-ADOPTED / BOUNDED EMPIRICAL IMPLEMENTATION AUTHORIZED / DUAL REVIEW ACTIVE.** The Director adopted the bounded Q-PROD-08 presentation contract on 2026-09-23 and later authorized the separate PR #262 Windows empirical package. On 2026-09-24 the Director adopted the Sol + Claude dual-review development method. Contract: `contracts/SCENE_INITIAL_ROSTER_PRESENTATION.md`. Evidence remains INCONCLUSIVE; no merge or Product schema expansion is claimed.
+**DONE / DESIGN ACCEPTED / INTEGRATED.** Contract: `contracts/SCENE_INITIAL_ROSTER_PRESENTATION.md`. The bounded Scene presentation passed the adopted Sol + Claude dual-review loop and Design acceptance at exact executable `bdd6c094446be79b37e28c2ddb4a6c31996646b5`. PR #271 merged at `20ba896e54ee533905af7b14a240d829f6ac3fc9`; exact-main Validation #1393 (`36071107439`) PASS. Merge/continuity commits do not inherit native runtime authority beyond the exact accepted executable.
+
+The final bounded presentation preserves derived Scene-code identity, initial-roster inspection/establishment, typed uncertainty handling, exact focus return and visible vertical inspection-action flow without Product/Persistence expansion. Human uncoached Scene-code comprehension/discoverability, Narrator intelligibility and High Contrast remain later falsifiers/claims; they are not recorded as PASS.
+
+PR #262 and evidence PR #269 remain unmerged historical branches and are not integration authority.
 
 ## Explicit unresolved / gated items
 
 - Home re-entry A/B: unresolved.
 - FIRSTUSE: evidence pending adoption.
 - rename/delete/import/restore: no current Product/UI authority.
-- Character semantics beyond integrated identity/name/establishment; Scene semantics beyond integrated identity/initial roster; Circumstance/Pressure/Take/Rehearsal: separately gated. Q-DESIGN-24 is authorized only for its bounded empirical Preview/Windows test; acceptance and merge remain unearned.
+- Character semantics beyond integrated identity/name/establishment; Scene semantics beyond integrated identity/initial-roster presentation; Circumstance/Pressure/Take/Rehearsal: separately gated.
+- Human Scene-code comprehension/discoverability, Narrator intelligibility and exact-source High Contrast proof remain open falsifiers.
 - provider/Performer: separately gated.
 - transcript-dependent Stage motion: blocked.
 - deferred E0 convergence/final architecture: not complete.

@@ -8,25 +8,21 @@ Application Product, Implementation and App Design authority: `Rylascoo/Ensemble
 
 ## Integrated checkpoint
 
-`DESIGN_ARCHITECTURE_READY = READY`. Q-PROD-02/03/04/05/06/07/08/09 and Q-DESIGN-20/21/22/23 are integrated. Q-ADMIN-08 and Q-PREVIEW-01 are integrated on .NET 10.
+`DESIGN_ARCHITECTURE_READY = READY`. Q-PROD-02/03/04/05/06/07/08/09 and Q-DESIGN-20/21/22/23/24 are integrated. Q-ADMIN-08 and Q-PREVIEW-01 are integrated on .NET 10.
 
-Q-PROD-09 is closed through PR #266 and closeout PR #267 at `f89d2e41fb28e875b1bdd3d1362637f3fcf1198d`; exact-main Validation `35966476382` PASS. Native machine-test authority remains `5038029c79b2177330cc06e81ac338f4b830ad3f`.
+Q-DESIGN-24 bounded Scene presentation merged through PR #271 at `20ba896e54ee533905af7b14a240d829f6ac3fc9`; exact-main Validation #1393 (`36071107439`) PASS. Design/native acceptance remains exact executable `bdd6c094446be79b37e28c2ddb4a6c31996646b5`; the merge does not inherit higher runtime authority. Human Scene-code comprehension/discoverability, Narrator intelligibility and High Contrast remain later falsifiers, not PASS claims. Durable closeout is folded into this state, the central queue and the App Design bootstrap.
+
+PR #262 and evidence PR #269 remain unmerged historical branches. PR #265 remains documentation-only/unmerged.
+
+Q-PROD-09 remains closed; native machine-test authority is `5038029c79b2177330cc06e81ac338f4b830ad3f`.
 
 Q-UNITY-01/02 remain current through `docs/Q_UNITY_01_PROJECT_UNIFICATION_AND_SIMPLIFICATION_2026_09_22.md` and `docs/evidence/Q_UNITY_02_DISCONNECTED_WORKSPACE_DEMO_SCAFFOLD_RETIREMENT_2026_09_22.md`.
 
 ## Active successor
 
-Q-DESIGN-24 PR #271 is **DESIGN ACCEPTED for bounded Scene scope** at executable `bdd6c094446be79b37e28c2ddb4a6c31996646b5`. The Director explicitly authorized merging PR #271 in the next fresh chat. Handoff: `docs/handoff/Q_DESIGN_24_PR_271_MERGE_AUTHORIZED_HANDOFF_2026_09_24.md`.
+Windows 11 ARM64 / Microsoft Store is the sole shipping target until release; cross-platform work waits.
 
-PR #262 and evidence PR #269 remain unmerged and are not authorized by implication. PR #265 remains documentation-only/unmerged.
-
-Exact `bdd6c094...` evidence passes native ARM64 Scene 12/12, Preview build/refresh/launch, Application/Persistence/Core/Harness, ordinary/Preview builds, hosted gates and native keyboard/action visibility. It corrects the prior right-column overflow with visible vertical action flow. Human Scene-code comprehension/discoverability, Narrator intelligibility and High Contrast remain later falsifiers; they are not claimed as PASS.
-
-Method: `docs/design/app/DUAL_REVIEW_UI_DEVELOPMENT_METHOD_2026_09_24.md`.
-
-## Completion doctrine
-
-Windows 11 ARM64 / Microsoft Store is the sole shipping target until release; cross-platform work waits. After Q-DESIGN-24, permit only a bounded platform-neutral Presentation separation that improves current Windows quality, then stop architecture analysis unless executable evidence falsifies the structure. NPU/local AI remains optional measured infrastructure, never Product correctness.
+Proceed with one bounded platform-neutral Presentation-seam decision only if it improves current Windows quality/testability without Product-semantic change. In parallel, establish a repeatable native ARM64 CI/performance baseline from current executable behavior. After the seam decision, architecture analysis stops unless executable evidence falsifies the current structure. NPU/local AI remains optional measured infrastructure, never Product correctness.
 
 ## Boundaries
 
@@ -34,4 +30,4 @@ No Product expansion, provider/network/spend, deferred-E0 execution, Current Pro
 
 ## Next
 
-Fresh-resolve `main`, PR #271 lineage/state/mergeability and required checks. Merge only if accepted executable `bdd6c094...` remains intact with continuity/documentation-only changes afterward and gates are clean. Executable changes require renewed Design acceptance. Then validate integrated `main`, close Q-DESIGN-24 durably, and proceed to the bounded Presentation-seam decision plus native ARM64 CI/performance baseline.
+Resolve the smallest Presentation seam that earns a concrete Windows benefit or record that no split is warranted; then establish the native ARM64 CI/performance baseline without optimizing ahead of measurement.
