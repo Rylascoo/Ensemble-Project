@@ -19,11 +19,11 @@ This file now carries only current, deferred, or blocking work. Completed histor
 
 ## Current application work
 
-Q-ADMIN-08, Q-PREVIEW-01 and Q-PROD-09 are integrated; Q-PROD-09 post-merge closeout is complete on main `f89d2e41fb28e875b1bdd3d1362637f3fcf1198d`, exact-main Validation `35966476382` PASS. Director continuation on 2026-09-24 reactivates Q-DESIGN-24 Task A through Director Preview; PR #262 remains preserved, INCONCLUSIVE and unmerged.
+Q-ADMIN-08, Q-PREVIEW-01 and Q-PROD-09 are integrated; Q-PROD-09 post-merge closeout is complete on main `f89d2e41fb28e875b1bdd3d1362637f3fcf1198d`, exact-main Validation `35966476382` PASS. Director adoption on 2026-09-24 changes Q-DESIGN-24 to the Sol + Claude dual-review UI-development loop; PR #262 remains preserved, INCONCLUSIVE and unmerged. Human Task A is a later milestone falsifier rather than the ordinary iteration gate.
 
 | ID | Role | Status | Work | Hard boundary / successor |
 |---|---|---|---|---|
-| Q-DESIGN-24-WINDOWS | Implementation / Design | ACTIVE — PREVIEW ADMISSION + TASK A RERUN | Compose corrected `abada447...` Scene executable/test diff with current validated Director Preview as PREVIEW COMPOSITE — NOT MERGE CANDIDATE; run technical/native admission checks; issue fresh receipt; rerun Task A uncoached. | INCONCLUSIVE; preserve first failure/falsifier. No PR #262 merge, Product expansion, provider/deferred-E0 work or automatic Design acceptance. |
+| Q-DESIGN-24-WINDOWS | Design / Independent Review / Implementation | ACTIVE — DUAL UI REVIEW | Audit the admitted corrected Scene experience using Design Sol + independent Claude Code review; reconcile against Blueprint/Product/Design authority; apply only bounded presentation corrections; rerun automated/native checks. | INCONCLUSIVE; human comprehension/Narrator claims remain later milestone falsifiers. No PR #262/#269 merge, Product expansion, provider/deferred-E0 work or automatic Design acceptance. |
 | Current Production workspace composition | Design | DEFERRED — DIRECTOR DISPOSITION | Future bounded composition candidate identified during Preview reconciliation. | Not activated by Q-PREVIEW-01; no whole-app redesign. |
 | Q-ADMIN-07 | Governance / Recovery | DEFERRED — LOCAL RESIDUE ONLY | Disposition remaining local historical/deferred worktrees after owner/status/evidence review. | Preserve ambiguous local evidence and the unique historical PR #226 branch; merged remote refs require archive-tag-before-delete handling. |
 

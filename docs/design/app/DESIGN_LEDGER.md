@@ -1,5 +1,12 @@
 # Application Design Ledger — frozen receipt
 
+## Project-native dual-review UI development adoption — 2026-09-24
+
+The Director adopted `DUAL_REVIEW_UI_DEVELOPMENT_METHOD_2026_09_24.md`. Design Sol owns UI/UX diagnosis and authority reconciliation; Claude Code is an independent read-only adversarial reviewer; automation owns deterministic checks; the Director is reserved for irreducible Product/taste decisions and milestone claims that inherently require a human observer. Human tasks are falsifiers/checkpoints rather than the ordinary iteration engine.
+
+For Q-DESIGN-24, preserve the first Task A FAIL, corrected candidate, admission evidence and Scene-code falsifier. Continue with the Sol + Claude review loop before any later human comprehension checkpoint. No Scene acceptance, PR #262/#269 merge, Product expansion or provider/deferred-E0 work is created.
+
+
 ## Project-native Q-DESIGN-24 Task A reactivation — 2026-09-24
 
 Director successor instruction reactivates the corrected Q-DESIGN-24 Task A evidence lane after Q-PROD-09 closure. Exact preserved candidate remains PR #262 head `abada447f4a6e4a8660146d641b2984bb38c5dec`; first Task A presentation/discoverability failure, correction and falsifier remain intact. Next evidence is a fresh Director Preview composite/admission followed by an uncoached Task A rerun. No Scene acceptance, PR #262 merge, Product expansion, provider/deferred-E0 work or Current Production composition.
