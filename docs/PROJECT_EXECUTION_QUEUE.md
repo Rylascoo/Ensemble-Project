@@ -19,13 +19,24 @@ This file now carries only current, deferred, or blocking work. Completed histor
 
 ## Current application work
 
-Q-ADMIN-08 is integrated; platform validation remains in `docs/VALIDATION_LEDGER.md`. Q-PREVIEW-01 is integrated through PR #263 at `247059a869d5f751f95b227d28f050be2b81a49c`, exact-main Validation #1310 PASS. The immediate Q-DESIGN-24 Task A rerun remains paused. Scope: `docs/Q_PREVIEW_01_DIRECTOR_PREVIEW_FOUNDATION_2026_09_23.md`. The separate Scene empirical writer/PR #262 remains preserved, not accepted or merged. The presentation-code falsifier remains controlling.
+Q-ADMIN-08 and Q-PREVIEW-01 are integrated. Corrected Q-DESIGN-24 remains separate in draft PR #262 and INCONCLUSIVE. A Preview-only local composite at `dd56b30aeaa01e69ccd0435a3b680d6c1b4cd350` earned TECHNICAL PREVIEW ADMISSION PASS on SurfSeven; this is not Scene Design acceptance or Product integration authority.
 
 | ID | Role | Status | Work | Hard boundary / successor |
 |---|---|---|---|---|
-| Q-DESIGN-24-WINDOWS | Implementation / Design | PAUSED — IMMEDIATE TASK A RERUN | Preserve corrected abada447 candidate, first failure and all evidence in separate PR #262. | INCONCLUSIVE; foundation validation satisfied, Preview admission awaits separate Director task and explicit receipt; human claims/falsifier remain. |
-| Current Production workspace composition | Design | DEFERRED — DIRECTOR DISPOSITION | Future bounded composition candidate identified during Preview reconciliation. | Not activated by Q-PREVIEW-01; no whole-app redesign. |
-| Q-ADMIN-07 | Governance / Recovery | DEFERRED — LOCAL RESIDUE ONLY | Disposition remaining local historical/deferred worktrees after owner/status/evidence review. | Preserve ambiguous local evidence and the unique historical PR #226 branch; merged remote refs require archive-tag-before-delete handling. |
+| First Product-native Performance — final decision analysis | Product / Architecture | **ACTIVE — READ-ONLY / FINAL ANALYSIS** | Resolve Q1 E0→Product acquisition mode, Q2 minimum Character context/access, and Q5 first consequence domain with concrete code footprints, falsifiers and deferred-E0 exposure. | No implementation, provider traffic, deferred-E0 consumption or Design mutation. Stopping rule: after Director disposition of Q1/Q2/Q5, next Product artifact is implementation unless new executable evidence is proven necessary. |
+| Q-DESIGN-24-WINDOWS | Implementation / Design | PAUSED — HUMAN ACCEPTANCE INCONCLUSIVE | Preserve corrected `abada447` candidate, first failure, Preview admission evidence and Scene-code falsifier in separate PR #262/local Preview apparatus. | Preview admission is technical only; no Scene acceptance/merge. Human comprehension/Narrator claims remain. |
+| Current Production workspace composition | Design | DEFERRED — DIRECTOR DISPOSITION | Future bounded composition candidate identified during Preview reconciliation. | Not activated; no whole-app redesign. |
+| Q-ADMIN-07 | Governance / Recovery | DEFERRED — LOCAL RESIDUE ONLY | Disposition remaining local historical/deferred worktrees after owner/status/evidence review. | Remote merged refs require explicit scope amendment plus archive-tag-before-delete law. Preserve diverged/ambiguous evidence. |
+
+## First Product-native Performance Director boundary
+
+Pending-integration Director dispositions are recorded on this continuity branch in:
+
+`docs/FIRST_PRODUCT_NATIVE_PERFORMANCE_DIRECTOR_DISPOSITION_2026_09_23.md`
+
+Key boundary: a deterministic test-adapter Performer counts for the first Product-native Performance, while first live AI Performance remains later. The first Product-native milestone must expose its committed consequence in the acting Character's own later bounded Product context.
+
+The final analysis owns only Q1/Q2/Q5. Opportunity, Scene targeting, provisional acceptance and invocation-scoped deterministic Performer binding have already been bounded for the first milestone; the record above is controlling continuity evidence until integrated.
 
 ## Deferred E0 / architecture gates
 
@@ -38,6 +49,8 @@ Q-ADMIN-08 is integrated; platform validation remains in `docs/VALIDATION_LEDGER
 | Q-E0-CONV | BLOCKED | Requires E0-A through E0-G closure or explicit falsification/disposition. |
 | Q-POSTE0-01 | BLOCKED | Final/frozen post-E0 runtime architecture requires deferred-E0 reconciliation. |
 | Q-POSTE0-02 | BLOCKED | Finalization after post-E0 architecture freeze. |
+
+Any future Q-PROD package that adds durable Performance/Take/consequence history must satisfy `docs/ENGINEERING_HYGIENE_CONSTITUTION.md` deferred-validation exposure law before executable closeout.
 
 ## Other gated Design / release work
 
