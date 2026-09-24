@@ -27,3 +27,14 @@ Persistent critical failure after permissible presentation correction still trig
 Read-only reconciliation found 13/14 historical inventory entries matching at `C:/Users/Wiryl/Sol Dev/admin-scratch/qdesign24-native-20260923`. All 54 `candidate-bb209ac-hashes.json` layout entries matched. `launch.json` differs: historical inventory records 264 bytes and PID 4344; current file is 265 bytes and PID 14648. Preserved `activate.ps1` writes launch.json on each activation, explaining its mutable PID/run-state role. Do not rewrite the original hash/receipt or claim that file still matches. Existing screenshots, helpers, fixtures, layout and registration remain untouched. New Preview launch receipts use unique filenames. Fresh Preview fixtures are new apparatus.
 
 Future Current Production workspace composition is recorded as a candidate for separate Director disposition. The foundation exposes the current application faithfully. Reference map: `docs/design/app/pointers/DIRECTOR_PREVIEW_VISUAL_REFERENCE_MAP.md`.
+
+
+## Director successor reactivation — 2026-09-24
+
+After Q-PROD-09 integration/closeout, the Director instructed continuation. This separately reactivates the corrected Q-DESIGN-24 Task A evidence lane only.
+
+The preserved first Task A FAIL remains evidence. The corrected source remains PR #262 head `abada447f4a6e4a8660146d641b2984bb38c5dec`; it is not accepted native authority and is not authorized for merge.
+
+Engineering must follow the integrated Preview foundation admission procedure: compose only the corrected Scene executable/test diff with current `main` as **PREVIEW COMPOSITE — NOT MERGE CANDIDATE**, preserve exact parent/source/patch/result identities, run focused/regression/native Preview checks, and issue a fresh admission receipt. Old scratch fixtures/receipts are not repointed.
+
+After admission, Task A restarts uncoached on a fresh fixture. The observation may establish only what the Director actually demonstrates. Task B-E, Narrator, accessibility/scaling, broader Design acceptance and the Scene-code falsifier remain unchanged. No Product/provider/deferred-E0 or Current Production composition authority is created.

@@ -19,11 +19,11 @@ This file now carries only current, deferred, or blocking work. Completed histor
 
 ## Current application work
 
-Q-ADMIN-08, Q-PREVIEW-01 and Q-PROD-09 are integrated; their validation remains in `docs/VALIDATION_LEDGER.md`. Q-PROD-09 merged through Director-authorized PR #266 at `f2cc34a1e997805d8d21262e4010f68a9f63a2f1`; exact-main Validation `35962610990` PASS. The immediate Q-DESIGN-24 Task A rerun remains paused; PR #262 remains preserved, not accepted or merged.
+Q-ADMIN-08, Q-PREVIEW-01 and Q-PROD-09 are integrated; Q-PROD-09 post-merge closeout is complete on main `f89d2e41fb28e875b1bdd3d1362637f3fcf1198d`, exact-main Validation `35966476382` PASS. Director continuation on 2026-09-24 reactivates Q-DESIGN-24 Task A through Director Preview; PR #262 remains preserved, INCONCLUSIVE and unmerged.
 
 | ID | Role | Status | Work | Hard boundary / successor |
 |---|---|---|---|---|
-| Q-DESIGN-24-WINDOWS | Implementation / Design | PAUSED — IMMEDIATE TASK A RERUN | Preserve corrected abada447 candidate, first failure and all evidence in separate PR #262. | INCONCLUSIVE; foundation validation satisfied, Preview admission awaits separate Director task and explicit receipt; human claims/falsifier remain. |
+| Q-DESIGN-24-WINDOWS | Implementation / Design | ACTIVE — PREVIEW ADMISSION + TASK A RERUN | Compose corrected `abada447...` Scene executable/test diff with current validated Director Preview as PREVIEW COMPOSITE — NOT MERGE CANDIDATE; run technical/native admission checks; issue fresh receipt; rerun Task A uncoached. | INCONCLUSIVE; preserve first failure/falsifier. No PR #262 merge, Product expansion, provider/deferred-E0 work or automatic Design acceptance. |
 | Current Production workspace composition | Design | DEFERRED — DIRECTOR DISPOSITION | Future bounded composition candidate identified during Preview reconciliation. | Not activated by Q-PREVIEW-01; no whole-app redesign. |
 | Q-ADMIN-07 | Governance / Recovery | DEFERRED — LOCAL RESIDUE ONLY | Disposition remaining local historical/deferred worktrees after owner/status/evidence review. | Preserve ambiguous local evidence and the unique historical PR #226 branch; merged remote refs require archive-tag-before-delete handling. |
 
