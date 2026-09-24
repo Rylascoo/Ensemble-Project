@@ -1,8 +1,10 @@
 # First Product-Native Performance — Q1 / Q2 / Q5 Director Disposition
 
-Status: **DIRECTOR-ADOPTED FOR BOUNDED PROVISIONAL PRODUCT MILESTONE / MERGE NOT AUTHORIZED**
+Status: **DIRECTOR-ADOPTED / PR #266 MERGED / BOUNDED PROVISIONAL PRODUCT MILESTONE**
 
 Date: 2026-09-24
+
+Integration status: the disposition itself did not authorize merge. The Director separately approved merge on 2026-09-24; PR #266 merged at `f2cc34a1e997805d8d21262e4010f68a9f63a2f1`, and exact-main Validation `35962610990` passed. This later merge does not broaden the Q1/Q2/Q5 semantics or any provider/deferred-E0/release boundary below.
 
 ## Provenance
 
@@ -106,7 +108,6 @@ Versioning/fail-closed law:
 
 This disposition does not authorize:
 
-- merge of draft PR #266;
 - merge of documentation PR #265 or Design PR #262;
 - first live AI Performance;
 - provider/model selection, credentials, network traffic or spend;
@@ -118,4 +119,4 @@ This disposition does not authorize:
 - Current Production visual refinement;
 - Q-ALPHA-01 or release advancement.
 
-After candidate validation and documentation closeout, the next consequential step is explicit Director merge disposition for PR #266.
+PR #266 merge is complete under separate Director authorization. No successor Product/provider/deferred-E0 task is auto-authorized; current next action is governed by `CURRENT_STATE.md`.

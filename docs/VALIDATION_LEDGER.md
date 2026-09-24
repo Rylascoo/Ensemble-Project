@@ -6,7 +6,7 @@ Status: validation fact register only. This file cannot advance phase/checkpoint
 
 The historical E0 checkpoint below retains its separate scope. The Q-ADMIN-08 integrated platform checkpoint is recorded in the next section; it does not authorize deferred-E0 execution.
 
-## Q-PROD-09 first Product-native Performance candidate
+## Q-PROD-09 integrated first Product-native Performance
 
 | Field | Fact |
 |---|---|
@@ -23,7 +23,9 @@ The historical E0 checkpoint below retains its separate scope. The Q-ADMIN-08 in
 | Independent review | successive exact-ref reviews found and drove repairs for stale-context append, concurrent-history post-write false failure, exact revision/ABA freshness, replay scaling and Product Performance-text validity. Final exact-source review returned no executable defect; its sole remaining P1 was the intentionally pending durable Q-PROD-09 authority/state reconciliation completed by the documentation closeout. Reviewer behaved no-write; technical write containment was not proven because its sandbox reported workspace-write. |
 | Provider scope | **No provider/model network traffic, credentials or spend performed** |
 | Evidence | `docs/evidence/Q_PROD_09_FIRST_PRODUCT_NATIVE_PERFORMANCE_NATIVE_ARM64_VALIDATION_2026_09_24.md` |
-| Authority scope | provisional first Product-native Performance candidate only; draft PR #266 remains unmerged; not live AI, final runtime architecture, deferred-E0 closure, Alpha/Beta/release, WACK or Store authority |
+| Integration | Director-authorized PR #266 merged at `f2cc34a1e997805d8d21262e4010f68a9f63a2f1`; exact-main Validation `35962610990` PASS. Integration/merge commits do not inherit native machine-test authority from `5038029c...`. |
+| Integration evidence | `docs/evidence/Q_PROD_09_FIRST_PRODUCT_NATIVE_PERFORMANCE_INTEGRATION_CLOSEOUT_2026_09_24.md` |
+| Authority scope | integrated provisional first Product-native Performance milestone only; not live AI, final runtime architecture, deferred-E0 closure, Alpha/Beta/release, WACK or Store authority |
 
 ## Q-PREVIEW-01 integrated development foundation
 

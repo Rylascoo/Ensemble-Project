@@ -19,11 +19,10 @@ This file now carries only current, deferred, or blocking work. Completed histor
 
 ## Current application work
 
-Q-ADMIN-08 and Q-PREVIEW-01 are integrated; their platform/Preview validation remains in `docs/VALIDATION_LEDGER.md`. Q-PROD-09 is now the active validated Product candidate after the Director's 2026-09-24 Q1/Q2/Q5 disposition. Draft PR #266 remains unmerged and requires separate Director merge authorization. The immediate Q-DESIGN-24 Task A rerun remains paused; PR #262 remains preserved, not accepted or merged.
+Q-ADMIN-08, Q-PREVIEW-01 and Q-PROD-09 are integrated; their validation remains in `docs/VALIDATION_LEDGER.md`. Q-PROD-09 merged through Director-authorized PR #266 at `f2cc34a1e997805d8d21262e4010f68a9f63a2f1`; exact-main Validation `35962610990` PASS. The immediate Q-DESIGN-24 Task A rerun remains paused; PR #262 remains preserved, not accepted or merged.
 
 | ID | Role | Status | Work | Hard boundary / successor |
 |---|---|---|---|---|
-| Q-PROD-09 | Implementation | ACTIVE — VALIDATED CANDIDATE / MERGE PENDING DIRECTOR | First Product-native Performance: Product-native semantic port; explicit established SceneId + CharacterId; actor-owned Circumstance-only bounded context; invocation-scoped Performer + consequence interpreter; one atomic accepted-Performance + additive Circumstance event; exact Product history-revision freshness. Source `5038029c79b2177330cc06e81ac338f4b830ad3f`, draft PR #266. | No merge without explicit Director authorization. No live AI/provider traffic, automatic Director, Current/Active Scene/lifecycle, ODR-19 resolution, deferred-E0 execution, final architecture or release promotion. Deferred-validation exposure remains open. |
 | Q-DESIGN-24-WINDOWS | Implementation / Design | PAUSED — IMMEDIATE TASK A RERUN | Preserve corrected abada447 candidate, first failure and all evidence in separate PR #262. | INCONCLUSIVE; foundation validation satisfied, Preview admission awaits separate Director task and explicit receipt; human claims/falsifier remain. |
 | Current Production workspace composition | Design | DEFERRED — DIRECTOR DISPOSITION | Future bounded composition candidate identified during Preview reconciliation. | Not activated by Q-PREVIEW-01; no whole-app redesign. |
 | Q-ADMIN-07 | Governance / Recovery | DEFERRED — LOCAL RESIDUE ONLY | Disposition remaining local historical/deferred worktrees after owner/status/evidence review. | Preserve ambiguous local evidence and the unique historical PR #226 branch; merged remote refs require archive-tag-before-delete handling. |
