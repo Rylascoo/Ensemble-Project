@@ -26,4 +26,4 @@ PR #265 remains draft/documentation-only/unmerged at `c0dbe79e7e491024f85f3cd51a
 
 ## Next
 
-This post-merge continuity closeout is documentation-only and requires separate merge authorization. After it integrates, stop and await a separate Director successor task; no live-AI/provider or deferred-E0 work is auto-authorized.
+Post-merge continuity closeout PR #267 is Director-authorized for merge by the 2026-09-24 continuation. Upon its integration, Q-PROD-09 is fully closed; stop and await a separate Director successor task. No live-AI/provider or deferred-E0 work is auto-authorized.
