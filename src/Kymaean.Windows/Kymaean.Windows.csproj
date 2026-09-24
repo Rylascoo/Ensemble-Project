@@ -36,4 +36,17 @@
   <PropertyGroup Condition="'$(DisableHasPackageAndPublishMenuAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
     <HasPackageAndPublishMenu>true</HasPackageAndPublishMenu>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(KymaeanDirectorPreview)' == 'true'">
+    <DefineConstants>$(DefineConstants);KYMAEAN_DIRECTOR_PREVIEW</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(KymaeanDirectorPreview)' == 'true'">
+    <AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute">
+      <_Parameter1>DirectorPreviewSource</_Parameter1>
+      <_Parameter2>$(PreviewSourceRevision)</_Parameter2>
+    </AssemblyAttribute>
+  </ItemGroup>
+  <Target Name="ValidateDirectorPreview" BeforeTargets="PrepareForBuild" Condition="'$(KymaeanDirectorPreview)' == 'true'">
+    <Error Condition="'$(Platform)' != 'ARM64' or '$(Configuration)' != 'Release'" Text="Director Preview requires Release ARM64." />
+    <Error Condition="!$([System.Text.RegularExpressions.Regex]::IsMatch('$(PreviewSourceRevision)', '^[0-9a-f]{40}$'))" Text="Director Preview requires an exact source revision." />
+  </Target>
 </Project>

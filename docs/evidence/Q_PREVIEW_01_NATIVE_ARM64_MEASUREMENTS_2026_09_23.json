@@ -1,0 +1,985 @@
+{
+  "status": "PASS",
+  "source": "6f4545df367e4aebe23789b3ff726ed131a968b6",
+  "baseline": "69c68001836ed984df672587cecd41d340a31337",
+  "validationTag": "validation/q-preview-01-native-arm64",
+  "tagObject": "a78f6fb8b8e8d50b475df115c701fef133b3dcff",
+  "identity": "Kymaean.DirectorPreview",
+  "packageFamily": "Kymaean.DirectorPreview_1z32rh13vfry6",
+  "version": "1.2457.1407.41011",
+  "native": {
+    "status": "PASS",
+    "source": "6f4545df367e4aebe23789b3ff726ed131a968b6",
+    "stage": "C:\\Users\\Wiryl\\Sol Dev\\director-preview\\builds\\native-refresh-9fba5c5d8f794eb4925da02add3fa9db",
+    "director": "260d74b41bfa485e81b0140fb9a5cb2b",
+    "empty": "086ef80f81184ad2b36b28b1ed27b3db",
+    "rich": "7f61676e6f3c479981bcf479352dd2a1",
+    "richReplica": "09e2d551a027482fbf8d431aa4dec2e8",
+    "falsifier": "9eaa96fa9b304286a2021a6ad5ec6c7e",
+    "results": [
+      {
+        "check": "InitialNativeAdmission",
+        "result": "PASS",
+        "detail": {
+          "pid": 25336,
+          "source": "6f4545df367e4aebe23789b3ff726ed131a968b6",
+          "profile": "260d74b41bfa485e81b0140fb9a5cb2b",
+          "executable": "C:\\Users\\Wiryl\\Sol Dev\\director-preview\\builds\\native-refresh-d915c77bab584c4ea0c7d3fc4f08dc7c\\layout\\Kymaean.Windows.exe",
+          "nativeMachine": 43620,
+          "processMachine": 0,
+          "title": "KYMÆAN Director Preview",
+          "receipt": "C:\\Users\\Wiryl\\AppData\\Local\\Packages\\Kymaean.DirectorPreview_1z32rh13vfry6\\LocalState\\DirectorPreview\\launches\\20260923T2330550666723-81b2d667ca464d8b833659b644f9ffff.json"
+        }
+      },
+      {
+        "check": "EmptyNativeProfile",
+        "result": "PASS",
+        "detail": {
+          "pid": 4212,
+          "source": "6f4545df367e4aebe23789b3ff726ed131a968b6",
+          "profile": "086ef80f81184ad2b36b28b1ed27b3db",
+          "executable": "C:\\Users\\Wiryl\\Sol Dev\\director-preview\\builds\\native-refresh-d915c77bab584c4ea0c7d3fc4f08dc7c\\layout\\Kymaean.Windows.exe",
+          "nativeMachine": 43620,
+          "processMachine": 0,
+          "title": "KYMÆAN Director Preview",
+          "receipt": "C:\\Users\\Wiryl\\AppData\\Local\\Packages\\Kymaean.DirectorPreview_1z32rh13vfry6\\LocalState\\DirectorPreview\\launches\\20260923T2331033573835-b48b480535a74a23bf77e2af82f16d4a.json"
+        }
+      },
+      {
+        "check": "RichNativeProfile",
+        "result": "PASS",
+        "detail": {
+          "pid": 23904,
+          "source": "6f4545df367e4aebe23789b3ff726ed131a968b6",
+          "profile": "7f61676e6f3c479981bcf479352dd2a1",
+          "executable": "C:\\Users\\Wiryl\\Sol Dev\\director-preview\\builds\\native-refresh-d915c77bab584c4ea0c7d3fc4f08dc7c\\layout\\Kymaean.Windows.exe",
+          "nativeMachine": 43620,
+          "processMachine": 0,
+          "title": "KYMÆAN Director Preview",
+          "receipt": "C:\\Users\\Wiryl\\AppData\\Local\\Packages\\Kymaean.DirectorPreview_1z32rh13vfry6\\LocalState\\DirectorPreview\\launches\\20260923T2331064140479-9c740d37a50940d199420b64c9571aea.json"
+        }
+      },
+      {
+        "check": "DirectorIsolation",
+        "result": "PASS",
+        "detail": "260d74b41bfa485e81b0140fb9a5cb2b"
+      },
+      {
+        "check": "WrongSourceRefused",
+        "result": "PASS",
+        "detail": "Explicit admitted source does not match staged source."
+      },
+      {
+        "check": "RunningPreviewRefused",
+        "result": "PASS",
+        "detail": "Close Director Preview before maintenance."
+      },
+      {
+        "check": "Fault-BeforeRegistration",
+        "result": "PASS",
+        "detail": "TEST: interrupted before registration; pending receipt preserved."
+      },
+      {
+        "check": "ToolLaunchBlocked-BeforeRegistration",
+        "result": "PASS",
+        "detail": "Interrupted refresh retained. Inspect it, then explicitly resume the same stage; no implicit rollback."
+      },
+      {
+        "check": "NativeActivationBlocked-BeforeRegistration",
+        "result": "PASS",
+        "detail": "C:\\Users\\Wiryl\\AppData\\Local\\Packages\\Kymaean.DirectorPreview_1z32rh13vfry6\\LocalState\\DirectorPreview\\launches\\20260923T2331181600589-25076fbbde1a453bb109d528ac464584.json"
+      },
+      {
+        "check": "Resume-BeforeRegistration",
+        "result": "PASS",
+        "detail": "C:\\Users\\Wiryl\\Sol Dev\\director-preview\\builds\\native-refresh-9fba5c5d8f794eb4925da02add3fa9db"
+      },
+      {
+        "check": "Fault-AfterRegistration",
+        "result": "PASS",
+        "detail": "TEST: interrupted after registration; pending receipt preserved."
+      },
+      {
+        "check": "ToolLaunchBlocked-AfterRegistration",
+        "result": "PASS",
+        "detail": "Interrupted refresh retained. Inspect it, then explicitly resume the same stage; no implicit rollback."
+      },
+      {
+        "check": "NativeActivationBlocked-AfterRegistration",
+        "result": "PASS",
+        "detail": "C:\\Users\\Wiryl\\AppData\\Local\\Packages\\Kymaean.DirectorPreview_1z32rh13vfry6\\LocalState\\DirectorPreview\\launches\\20260923T2331293187881-913854f4ec6e4bfaa7401f65ee4e05f1.json"
+      },
+      {
+        "check": "Resume-AfterRegistration",
+        "result": "PASS",
+        "detail": "C:\\Users\\Wiryl\\Sol Dev\\director-preview\\builds\\native-refresh-9fba5c5d8f794eb4925da02add3fa9db"
+      },
+      {
+        "check": "Fault-AfterReceipt",
+        "result": "PASS",
+        "detail": "TEST: interrupted after success receipt; completion must resume idempotently."
+      },
+      {
+        "check": "ToolLaunchBlocked-AfterReceipt",
+        "result": "PASS",
+        "detail": "Interrupted refresh retained. Inspect it, then explicitly resume the same stage; no implicit rollback."
+      },
+      {
+        "check": "NativeActivationBlocked-AfterReceipt",
+        "result": "PASS",
+        "detail": "C:\\Users\\Wiryl\\AppData\\Local\\Packages\\Kymaean.DirectorPreview_1z32rh13vfry6\\LocalState\\DirectorPreview\\launches\\20260923T2331430692188-cc4d51be6ab5447aa91e826171ba722c.json"
+      },
+      {
+        "check": "Resume-AfterReceipt",
+        "result": "PASS",
+        "detail": "C:\\Users\\Wiryl\\Sol Dev\\director-preview\\builds\\native-refresh-9fba5c5d8f794eb4925da02add3fa9db"
+      },
+      {
+        "check": "DirectorPreservedAfterRefreshAndFaults",
+        "result": "PASS",
+        "detail": "CA3201A1B8AF0097DBF50739CF8377488F9DC560A239D2667C77616A3837DD7B"
+      },
+      {
+        "check": "FreshFalsifierReplayPreservesJournals",
+        "result": "PASS",
+        "detail": "9eaa96fa9b304286a2021a6ad5ec6c7e"
+      },
+      {
+        "check": "NativeFixtureRepeatabilityAndReplay",
+        "result": "PASS",
+        "detail": [
+          {
+            "id": "086ef80f81184ad2b36b28b1ed27b3db",
+            "productions": []
+          },
+          {
+            "id": "09e2d551a027482fbf8d431aa4dec2e8",
+            "productions": [
+              {
+                "name": "The Harbor at Dawn",
+                "cast": 7,
+                "scenes": 4,
+                "truths": 2
+              },
+              {
+                "name": "An Empty Production",
+                "cast": 0,
+                "scenes": 0,
+                "truths": 0
+              }
+            ]
+          },
+          {
+            "id": "260d74b41bfa485e81b0140fb9a5cb2b",
+            "productions": []
+          },
+          {
+            "id": "6f9765f8559a459bad5582f0eaf1c338",
+            "productions": [
+              {
+                "name": "An Empty Production",
+                "cast": 0,
+                "scenes": 0,
+                "truths": 0
+              },
+              {
+                "name": "The Harbor at Dawn",
+                "cast": 7,
+                "scenes": 8,
+                "truths": 2
+              }
+            ]
+          },
+          {
+            "id": "7f61676e6f3c479981bcf479352dd2a1",
+            "productions": [
+              {
+                "name": "The Harbor at Dawn",
+                "cast": 7,
+                "scenes": 4,
+                "truths": 2
+              },
+              {
+                "name": "An Empty Production",
+                "cast": 0,
+                "scenes": 0,
+                "truths": 0
+              }
+            ]
+          },
+          {
+            "id": "95e7291445fc411595e1f9a29707e043",
+            "productions": []
+          },
+          {
+            "id": "9dbfe26d58c3440ba816031664aa42a2",
+            "productions": [
+              {
+                "name": "The Harbor at Dawn",
+                "cast": 7,
+                "scenes": 4,
+                "truths": 2
+              },
+              {
+                "name": "An Empty Production",
+                "cast": 0,
+                "scenes": 0,
+                "truths": 0
+              }
+            ]
+          },
+          {
+            "id": "9eaa96fa9b304286a2021a6ad5ec6c7e",
+            "productions": [
+              {
+                "name": "An Empty Production",
+                "cast": 0,
+                "scenes": 0,
+                "truths": 0
+              },
+              {
+                "name": "The Harbor at Dawn",
+                "cast": 7,
+                "scenes": 8,
+                "truths": 2
+              }
+            ]
+          },
+          {
+            "id": "a304d184fddc4733a5179db06a35d628",
+            "productions": []
+          },
+          {
+            "id": "a645ba31272e44059fc5b0606bd7b290",
+            "productions": [
+              {
+                "name": "An Empty Production",
+                "cast": 0,
+                "scenes": 0,
+                "truths": 0
+              },
+              {
+                "name": "The Harbor at Dawn",
+                "cast": 7,
+                "scenes": 8,
+                "truths": 2
+              }
+            ]
+          },
+          {
+            "id": "b1c1232d2a914af09e81aa49849b2aea",
+            "productions": [
+              {
+                "name": "The Harbor at Dawn",
+                "cast": 7,
+                "scenes": 4,
+                "truths": 2
+              },
+              {
+                "name": "An Empty Production",
+                "cast": 0,
+                "scenes": 0,
+                "truths": 0
+              }
+            ]
+          },
+          {
+            "id": "ddb6007cd960412fa0b792e3558c1e47",
+            "productions": [
+              {
+                "name": "An Empty Production",
+                "cast": 0,
+                "scenes": 0,
+                "truths": 0
+              },
+              {
+                "name": "The Harbor at Dawn",
+                "cast": 7,
+                "scenes": 4,
+                "truths": 2
+              }
+            ]
+          },
+          {
+            "id": "f1ccf8af09e34b69b2b1580ab57d9761",
+            "productions": [
+              {
+                "name": "The Harbor at Dawn",
+                "cast": 7,
+                "scenes": 4,
+                "truths": 2
+              },
+              {
+                "name": "An Empty Production",
+                "cast": 0,
+                "scenes": 0,
+                "truths": 0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "check": "OlderBuildRefused",
+        "result": "PASS",
+        "detail": "Preview binary downgrade refused; persisted data is never rolled back implicitly."
+      },
+      {
+        "check": "TamperedStageRefused",
+        "result": "PASS",
+        "detail": "Inventory mismatch: C:\\Users\\Wiryl\\Sol Dev\\director-preview\\builds\\rejected-tamper-9fba5c5d8f794eb4925da02add3fa9db\\layout"
+      },
+      {
+        "check": "FinalRichProfileNativeLaunch",
+        "result": "PASS",
+        "detail": {
+          "pid": 16708,
+          "source": "6f4545df367e4aebe23789b3ff726ed131a968b6",
+          "profile": "7f61676e6f3c479981bcf479352dd2a1",
+          "executable": "C:\\Users\\Wiryl\\Sol Dev\\director-preview\\builds\\native-refresh-9fba5c5d8f794eb4925da02add3fa9db\\layout\\Kymaean.Windows.exe",
+          "nativeMachine": 43620,
+          "processMachine": 0,
+          "title": "KYMÆAN Director Preview",
+          "receipt": "C:\\Users\\Wiryl\\AppData\\Local\\Packages\\Kymaean.DirectorPreview_1z32rh13vfry6\\LocalState\\DirectorPreview\\launches\\20260923T2331574606138-b7cbc6c7303949c5b6e3aebf29ba111b.json"
+        }
+      }
+    ]
+  },
+  "build": {
+    "schema": 1,
+    "identity": "Kymaean.DirectorPreview",
+    "name": "KYMÆAN Director Preview",
+    "source": "6f4545df367e4aebe23789b3ff726ed131a968b6",
+    "authorization": "Director Q-PREVIEW-01 approval 2026-09-23; versioned native foundation validation; no merge or Design acceptance",
+    "compatibility": "qprod08-journal-v1",
+    "status": "TECHNICAL_BUILD_CHECKS_PASS",
+    "checks": [
+      {
+        "command": "dotnet test --project tools/director-preview/Tests/Tests.csproj -c Release -r win-arm64",
+        "result": "PASS",
+        "log": "check-1.txt",
+        "sha256": "DDF15843454B261AED9A42A3485CBEB689CB15957C0CB6440522096D68A6C8D2"
+      },
+      {
+        "command": "dotnet test --project tests/Kymaean.Application.Tests/Kymaean.Application.Tests.csproj -c Release -r win-arm64",
+        "result": "PASS",
+        "log": "check-2.txt",
+        "sha256": "131931EDADA815D6408727372E564196A1C0123382DCB721A3739C7341C3126C"
+      },
+      {
+        "command": "dotnet test --project tests/Kymaean.Infrastructure.Persistence.Tests/Kymaean.Infrastructure.Persistence.Tests.csproj -c Release -r win-arm64",
+        "result": "PASS",
+        "log": "check-3.txt",
+        "sha256": "BAB08FCA9D1CFF6931936688235DC5DFAE7944517DB1ACCCCFFE4C3B2CCCD008"
+      },
+      {
+        "command": "dotnet test --project tests/Ensemble.E0.Core.Tests/Ensemble.E0.Core.Tests.csproj -c Release -r win-arm64",
+        "result": "PASS",
+        "log": "check-4.txt",
+        "sha256": "149DC53270A2B037ECAC641B89E3754046A7889431C93093097FA4BB34AD7DFD"
+      },
+      {
+        "command": "dotnet test --project tests/Ensemble.E0.Harness.Tests/Ensemble.E0.Harness.Tests.csproj -c Release -r win-arm64",
+        "result": "PASS",
+        "log": "check-5.txt",
+        "sha256": "BF5B0CFA9F2C31A34305C4C8438355AC5C91D163D67B43E46F651F5A7BDFCFB6"
+      },
+      {
+        "command": "dotnet build src/Kymaean.Windows/Kymaean.Windows.csproj -c Release -p:Platform=ARM64 -r win-arm64 -p:KymaeanDirectorPreview=true -p:PreviewSourceRevision=6f4545df367e4aebe23789b3ff726ed131a968b6",
+        "result": "PASS",
+        "log": "check-6.txt",
+        "sha256": "DDEA0FC21774A8D5B5C8367BB6D43CBB2CC1B04EAF3EC3E8F56E5ABC900D63E1"
+      },
+      {
+        "command": "dotnet build src/Kymaean.Windows/Kymaean.Windows.csproj -c Release -p:Platform=ARM64 -r win-arm64 -p:KymaeanDirectorPreview=false",
+        "result": "PASS",
+        "log": "check-7.txt",
+        "sha256": "1709432CF1973BDF476DF29DB187C6288085EE099F577C00F98275B987650100"
+      },
+      {
+        "command": "dotnet build tools/director-preview/Profiles/Profiles.csproj -c Release -r win-arm64",
+        "result": "PASS",
+        "log": "check-8.txt",
+        "sha256": "233CA15DA6617769B220EC41B721F75B143B559B8C1FE85BB92A7D12D47EF8C3"
+      }
+    ],
+    "layout": [
+      {
+        "path": "App.xbf",
+        "bytes": 2059,
+        "sha256": "bc94097d73ff2b36562d2672ecc8c887ad98472c7cd65aa9c33c77ab981e6730"
+      },
+      {
+        "path": "AppxManifest.xml",
+        "bytes": 2985,
+        "sha256": "bcb9b286aa27602241af95e74f659377e97f116e4713324f13e3794b469f7873"
+      },
+      {
+        "path": "Assets/AppIcon.ico",
+        "bytes": 370070,
+        "sha256": "b622196badeced33cc37b6fe166979395a1af41d6c421326be5f2671ce38260a"
+      },
+      {
+        "path": "Assets/LockScreenLogo.scale-200.png",
+        "bytes": 1090,
+        "sha256": "e984d6aa2d6f40aefc88b728f7e237eefabbdc5b0128df7b457d4c877f1233d7"
+      },
+      {
+        "path": "Assets/SplashScreen.scale-200.png",
+        "bytes": 12625,
+        "sha256": "67728828f1a1b3d6c12c30e6812096e9ffca4a7eced2c787725907370d0024cd"
+      },
+      {
+        "path": "Assets/Square150x150Logo.scale-200.png",
+        "bytes": 6357,
+        "sha256": "ad31b15fefd7d478fe9439a3086b32fd1eb7d51b8fe99e3be7607ca95d812bd1"
+      },
+      {
+        "path": "Assets/Square44x44Logo.scale-200.png",
+        "bytes": 1910,
+        "sha256": "e6b32f937da4211811da9eaa51e14248adf5100e2b972ff5803fd4e10ae53272"
+      },
+      {
+        "path": "Assets/Square44x44Logo.targetsize-24_altform-unplated.png",
+        "bytes": 574,
+        "sha256": "e7aa3d860ce3d95e7ec17f82c65295bace2a09b56f0b94290b635f65375cef87"
+      },
+      {
+        "path": "Assets/Square44x44Logo.targetsize-48_altform-lightunplated.png",
+        "bytes": 1091,
+        "sha256": "c8afdea34791a9a64a53c44f49141c05cd73b91e9b8497fe88dbfb0219feb22c"
+      },
+      {
+        "path": "Assets/StoreLogo.png",
+        "bytes": 1106,
+        "sha256": "4ded64b29f7f0d2cc865d32dd89febe2423f2de41851b37d18f7806467315f2f"
+      },
+      {
+        "path": "Assets/Wide310x150Logo.scale-200.png",
+        "bytes": 5843,
+        "sha256": "2b942434c18690cc43e8924036e5688eebbd39858fe1835357b2ee4078a2d45b"
+      },
+      {
+        "path": "Kymaean.Application.dll",
+        "bytes": 41472,
+        "sha256": "6f8b534154cd8f9b6db8237276d300921715dd51f7831cfe007ff6a63ce65034"
+      },
+      {
+        "path": "Kymaean.Application.pdb",
+        "bytes": 20588,
+        "sha256": "5d01095f28da03cb5ef4c37206f3c38f35936cdbb250204527b8337f16fa9ada"
+      },
+      {
+        "path": "Kymaean.Infrastructure.Persistence.dll",
+        "bytes": 56832,
+        "sha256": "2890239e04ced84d31e54c3baba3920ae007cc413c2b1e3b4dd8637f2cc32b1c"
+      },
+      {
+        "path": "Kymaean.Infrastructure.Persistence.pdb",
+        "bytes": 25632,
+        "sha256": "bd443157ab0cde2ee182020243ca6c4994d9c662dd3d978add50caf4845d8346"
+      },
+      {
+        "path": "Kymaean.Windows.build.appxrecipe",
+        "bytes": 21568,
+        "sha256": "b84062bddb21c392319f0530a6b148e3b79694781e2a9361646d9985aecd85a7"
+      },
+      {
+        "path": "Kymaean.Windows.deps.json",
+        "bytes": 15394,
+        "sha256": "ce7e0974525a4ab34a6439d3857b10bc1bce33c6d61b018849424c838984e652"
+      },
+      {
+        "path": "Kymaean.Windows.dll",
+        "bytes": 122368,
+        "sha256": "19ca64fb1c8da03596087179280f1c73ebb3318fd8e740f43b1618f440dc188d"
+      },
+      {
+        "path": "Kymaean.Windows.exe",
+        "bytes": 140800,
+        "sha256": "f2f5846aff184bc124471c7a73ef6621f5aba02d873547182b7363bd00449319"
+      },
+      {
+        "path": "Kymaean.Windows.pdb",
+        "bytes": 72900,
+        "sha256": "11f85d8b31172c5490728400c573db9df037ebaad640c116745c473793a50209"
+      },
+      {
+        "path": "Kymaean.Windows.runtimeconfig.json",
+        "bytes": 399,
+        "sha256": "3e965cd7cfd553c2ff4e842d8d8019aaae2da0a21d92ff85a87573dd8d1b95c6"
+      },
+      {
+        "path": "MainPage.xbf",
+        "bytes": 17016,
+        "sha256": "df0ef1b83763234e68cce91dad2b63fedddb7ad6b0fd58ed1e73603acbe1f85d"
+      },
+      {
+        "path": "MainWindow.xbf",
+        "bytes": 1073,
+        "sha256": "1889bd737e5e287941f5893d31b5f383fa56499a14857b2fc6768f4dec16b4a4"
+      },
+      {
+        "path": "Microsoft.Graphics.Imaging.Projection.dll",
+        "bytes": 26920,
+        "sha256": "47c36c633b6b7fdfcf9ae7016328568b09745cbf58ffc64f6718ff8a0cd21512"
+      },
+      {
+        "path": "Microsoft.InteractiveExperiences.Projection.dll",
+        "bytes": 1621272,
+        "sha256": "588f22ec752374bc7fbc8c4dd53a1eee36850eaaad94d175da09d3caeda1395a"
+      },
+      {
+        "path": "Microsoft.ML.OnnxRuntime.dll",
+        "bytes": 237632,
+        "sha256": "3a54782bfcaad084c528bee89e34584660ec31770b7eff8c28b7d253a0a36c9a"
+      },
+      {
+        "path": "Microsoft.Security.Authentication.OAuth.Projection.dll",
+        "bytes": 80696,
+        "sha256": "4bbfce3f3e7d15625681dae8f2caec2e4f3d5133d806037ccf0ccb97bab4c939"
+      },
+      {
+        "path": "Microsoft.Web.WebView2.Core.dll",
+        "bytes": 1108072,
+        "sha256": "ca7b3be399520c4a16a563c338f7a138f699b14b83b65b050ca2fc2741e79361"
+      },
+      {
+        "path": "Microsoft.Web.WebView2.Core.Projection.dll",
+        "bytes": 686192,
+        "sha256": "c0036e5306aa9758b6ce0c1b2da2aea9ac58ce2c2b328c52d15b22b720aeadf7"
+      },
+      {
+        "path": "Microsoft.Windows.AI.ContentSafety.Projection.dll",
+        "bytes": 37144,
+        "sha256": "ad9d16a091d06d28b956312f8f58de0423c133166271d32e2cfb8a32dd0b39ee"
+      },
+      {
+        "path": "Microsoft.Windows.AI.Foundation.Projection.dll",
+        "bytes": 25400,
+        "sha256": "d091292edbc84bc8a76c32760a7801a8fee51f3555041d0684273843235feae9"
+      },
+      {
+        "path": "Microsoft.Windows.AI.Imaging.Projection.dll",
+        "bytes": 84288,
+        "sha256": "d11edbadc08b9de6a26a234d7cbd7766497334a3528dc64bc26dabbf1c8cde29"
+      },
+      {
+        "path": "Microsoft.Windows.AI.MachineLearning.Projection.dll",
+        "bytes": 84232,
+        "sha256": "60eb181b3d30bbd0fe7cf9f5ea2d2ce5e0a8fb56da6cf9db91a373af1abc306a"
+      },
+      {
+        "path": "Microsoft.Windows.AI.Projection.dll",
+        "bytes": 26904,
+        "sha256": "69ff5b2fb68daabc49579340153922538c5ca14d6e5ae85aa10934f0ec9f77be"
+      },
+      {
+        "path": "Microsoft.Windows.AI.Text.Projection.dll",
+        "bytes": 107800,
+        "sha256": "e51d9ac687b7d1759c686e81037eb7653dc0f0f896af41a69e21ef5c4d980ade"
+      },
+      {
+        "path": "Microsoft.Windows.AI.Video.Projection.dll",
+        "bytes": 41752,
+        "sha256": "f8cd6de86665c983d4b362e4fb3b3839ddcde5354f3f8edf9178a4839b81e75f"
+      },
+      {
+        "path": "Microsoft.Windows.ApplicationModel.Background.Projection.dll",
+        "bytes": 25400,
+        "sha256": "93fc465da0b8eff22356c46d7fa17882adbe67b8f48e50ab6d7987cd358d01ff"
+      },
+      {
+        "path": "Microsoft.Windows.ApplicationModel.Background.UniversalBGTask.dll",
+        "bytes": 91960,
+        "sha256": "620321061d4b0ae77bdac6f9d12b744835c0e6a760a372130a3b56b7c38d70b8"
+      },
+      {
+        "path": "Microsoft.Windows.ApplicationModel.DynamicDependency.Projection.dll",
+        "bytes": 43832,
+        "sha256": "8f9a81f9c426b5340d6a80692ffd496a7a3d8e715d3e86160ca00e31580b4a11"
+      },
+      {
+        "path": "Microsoft.Windows.ApplicationModel.Resources.Projection.dll",
+        "bytes": 68960,
+        "sha256": "ab664c65b10d51dddbb6e237abd4eb1da2c05b075e787352f1ba6403a53594c8"
+      },
+      {
+        "path": "Microsoft.Windows.ApplicationModel.WindowsAppRuntime.Projection.dll",
+        "bytes": 49976,
+        "sha256": "1eb499c9d2e95bb5836510ff4c5175b67787bfb2cadc98ba7c0419b4de3f03f1"
+      },
+      {
+        "path": "Microsoft.Windows.AppLifecycle.Projection.dll",
+        "bytes": 40760,
+        "sha256": "2069e1089147641400908e3379479877eb77f40cf01e48b81bcfbcd7bcd5e64f"
+      },
+      {
+        "path": "Microsoft.Windows.AppNotifications.Builder.Projection.dll",
+        "bytes": 68408,
+        "sha256": "c2ccc60c6ca0e193617e5a68d6b3bcaec829427b44c92523f69d714cd5d78a37"
+      },
+      {
+        "path": "Microsoft.Windows.AppNotifications.Projection.dll",
+        "bytes": 61752,
+        "sha256": "185dac5d668e42b05b3be6f399c577abe05b0e3751965337d4550c4132e2157a"
+      },
+      {
+        "path": "Microsoft.Windows.BadgeNotifications.Projection.dll",
+        "bytes": 24376,
+        "sha256": "3f5ef67aec6441e465413371ffdb2063073f43b598cd5b8f8270f56793309114"
+      },
+      {
+        "path": "Microsoft.Windows.Foundation.Projection.dll",
+        "bytes": 30008,
+        "sha256": "860b2369b8cbd3fcd179f96f278f65981b9bf5461b29c722cc78eae1b477cdc5"
+      },
+      {
+        "path": "Microsoft.Windows.Management.Deployment.Projection.dll",
+        "bytes": 172856,
+        "sha256": "0da7f4fa936b65b14d8597724083202074eb4c5258aaead99144c593c415681e"
+      },
+      {
+        "path": "Microsoft.Windows.Media.Capture.Projection.dll",
+        "bytes": 37688,
+        "sha256": "95a8d7bc06d03763aec537b10ca3449adbb0134aad4ee6e42df83ce4c2df3315"
+      },
+      {
+        "path": "Microsoft.Windows.PushNotifications.Projection.dll",
+        "bytes": 44856,
+        "sha256": "d1551c8233e4eebb5944eb82731e87dcdc5e05a558a7910bd1f1f0f6a654ebce"
+      },
+      {
+        "path": "Microsoft.Windows.SDK.NET.dll",
+        "bytes": 26341408,
+        "sha256": "c633ab241cd09846c2aa409f0bee2026962610404a7bf132c75cbd66b0e5a9f4"
+      },
+      {
+        "path": "Microsoft.Windows.Search.Projection.dll",
+        "bytes": 190264,
+        "sha256": "9af7733db0af35f370ec792afe1a0a70eed0e6d8a8713ef936eb433eef1a2dcd"
+      },
+      {
+        "path": "Microsoft.Windows.Security.AccessControl.Projection.dll",
+        "bytes": 21304,
+        "sha256": "c333b08e77b089c8165ca02a079f0eeae323f2c338d503a3a9964fb0a61709a3"
+      },
+      {
+        "path": "Microsoft.Windows.Storage.Pickers.Projection.dll",
+        "bytes": 68408,
+        "sha256": "ed6c1d4b64680ad9695f68a8fc66b0306bb5341bf3083689d3625e7fafa7aa42"
+      },
+      {
+        "path": "Microsoft.Windows.Storage.Projection.dll",
+        "bytes": 38200,
+        "sha256": "b02beea6e73508e7ffa0fe4038bf81968c71125f4c13e4b93f72a779d2d7fea2"
+      },
+      {
+        "path": "Microsoft.Windows.System.Power.Projection.dll",
+        "bytes": 35128,
+        "sha256": "25230734062eb1a6b8937f4892365cc4ab00b09e39527b45c3111d9269965f63"
+      },
+      {
+        "path": "Microsoft.Windows.System.Projection.dll",
+        "bytes": 28472,
+        "sha256": "24db5c2c0e4c5a4abc5c2d1e9e0b69c57056ee60d56033b6ba767ab599104bdd"
+      },
+      {
+        "path": "Microsoft.Windows.Widgets.Projection.dll",
+        "bytes": 167264,
+        "sha256": "8d6e5d3418e2f6eff2b27df0ac51b7dc452a40fc4c98c86f61e305d04b21f89f"
+      },
+      {
+        "path": "Microsoft.WindowsAppRuntime.Bootstrap.dll",
+        "bytes": 402232,
+        "sha256": "23f923b26fe622de4f460d60d69e41599de892e63fdcaf204caedb2a6f1af0ff"
+      },
+      {
+        "path": "Microsoft.WindowsAppRuntime.Bootstrap.Net.dll",
+        "bytes": 16696,
+        "sha256": "8014a0d9a8c9e376d7e620f350933b42056cfc5f9cf1eb67feced096ec9b9c21"
+      },
+      {
+        "path": "Microsoft.WinUI.dll",
+        "bytes": 7336760,
+        "sha256": "c3b1c90d3a1c5966f19db50fb9e9849f8115e8d22abe9dd614584c2d74bc8c1c"
+      },
+      {
+        "path": "resources.pri",
+        "bytes": 22392,
+        "sha256": "a69849876b8c02a0fa78c04cecd61553513138631d8563261b6b393d21c6d290"
+      },
+      {
+        "path": "System.Numerics.Tensors.dll",
+        "bytes": 410936,
+        "sha256": "9d96dc759fdb54cbc3c26ee65cfd78ff32e3745f418119cc0811e63d3f29ecb9"
+      },
+      {
+        "path": "WebView2Loader.dll",
+        "bytes": 146024,
+        "sha256": "2bbac5865ecd9e1ab245f997de13e22c8f9a7f4cf803efc0e304180926c3b313"
+      },
+      {
+        "path": "WinRT.Runtime.dll",
+        "bytes": 528944,
+        "sha256": "bcf3a14e8712a90837fc5c0d8c8a24696af2bd7f74e9767597ec81ededfb23db"
+      }
+    ],
+    "profiles": [
+      {
+        "path": "Kymaean.Application.dll",
+        "bytes": 42496,
+        "sha256": "6d7a7d0cb1a8e2ae2630f1e055f7765306a00a2bb96c4108ad0973e6a46b4fe1"
+      },
+      {
+        "path": "Kymaean.Application.pdb",
+        "bytes": 20580,
+        "sha256": "e0ed6cec6ce6d9f120c62bf3514ee18c49617bd11a0bf7929555da3386ee5e8a"
+      },
+      {
+        "path": "Kymaean.Infrastructure.Persistence.dll",
+        "bytes": 57344,
+        "sha256": "70443d780b31e4a5272d3238293fcdafc5df1e2b6ae0430eefd5d89864ec6510"
+      },
+      {
+        "path": "Kymaean.Infrastructure.Persistence.pdb",
+        "bytes": 25620,
+        "sha256": "fee4efaab20dfec9e2ace3e047b556f99a8c21b64fa7c0e786b043ed802b5c16"
+      },
+      {
+        "path": "Profiles.deps.json",
+        "bytes": 1366,
+        "sha256": "c2552682430d7a767a1c7065d88682b34c2b60335307cf14e9b8b0fe90158696"
+      },
+      {
+        "path": "Profiles.dll",
+        "bytes": 25600,
+        "sha256": "e2611384229aebdde09cec69677f772e1a6ed029ef395f7fc92112a0888b3593"
+      },
+      {
+        "path": "Profiles.exe",
+        "bytes": 139776,
+        "sha256": "8d34f3c493dc71cc01cd86a64241319d332b0e4a7e613111297d7408b833f764"
+      },
+      {
+        "path": "Profiles.pdb",
+        "bytes": 14568,
+        "sha256": "78b57c71be890c5f0140e7d7f933cd40a122f4d02259153002612d9eea00b09d"
+      },
+      {
+        "path": "Profiles.runtimeconfig.json",
+        "bytes": 342,
+        "sha256": "c230a317a54dd960bcbeb5f347f52e18dc665a26f7efda2159fced9a5ac7e097"
+      }
+    ],
+    "nonAuthority": "Not merge approval, Design acceptance, Alpha, provider or release authority."
+  },
+  "artifacts": [
+    {
+      "path": "C:\\Users\\Wiryl\\AppData\\Local\\KymaeanDirectorPreview\\completed-0d4d97fa0fea448f9732c6fbb584436a.json",
+      "bytes": 22415,
+      "sha256": "0e200d2411fecbdfa7ff1426eb1598a3be6765d3dc6d245a86a44915e8a1f6b9"
+    },
+    {
+      "path": "C:\\Users\\Wiryl\\AppData\\Local\\KymaeanDirectorPreview\\completed-12234b95b8b64cc786783797eab43655.json",
+      "bytes": 66133,
+      "sha256": "8326e036ddccd15a54b831a270f072a9dacd603ada87a657c92cf9197ee9972c"
+    },
+    {
+      "path": "C:\\Users\\Wiryl\\AppData\\Local\\KymaeanDirectorPreview\\completed-27bc3cc0cbb1465cb8c06d52bd1ff0ee.json",
+      "bytes": 66643,
+      "sha256": "c4bcf0fe357d57f6d31a2664276325bb791037f4b254c17fd707fae11712f680"
+    },
+    {
+      "path": "C:\\Users\\Wiryl\\AppData\\Local\\KymaeanDirectorPreview\\completed-2b3af443a5ea402c977380a9ec576b24.json",
+      "bytes": 22927,
+      "sha256": "819e61b17e291474f1c32d0096816d236e172a03e5d3860bcb0b63d1a9abe7f0"
+    },
+    {
+      "path": "C:\\Users\\Wiryl\\AppData\\Local\\KymaeanDirectorPreview\\completed-3999bcb246b24684849feffec0e43bd6.json",
+      "bytes": 66643,
+      "sha256": "cd0b36223cc5bbc018244d6f2c3a0dd005cd9c5d5494407f1b2eba87b7a3e8ca"
+    },
+    {
+      "path": "C:\\Users\\Wiryl\\AppData\\Local\\KymaeanDirectorPreview\\completed-4f5570fce70043609e910775a7700171.json",
+      "bytes": 22927,
+      "sha256": "c3b7cfbc645880c83f6d44d9a7344d0b570e0ef26c2e0ffd1ddbf77b0ade9363"
+    },
+    {
+      "path": "C:\\Users\\Wiryl\\AppData\\Local\\KymaeanDirectorPreview\\completed-7f9d4699b39444d4b3e6ece4a67ac9ad.json",
+      "bytes": 44275,
+      "sha256": "b68957cbe02af4a1387ff7d1c1a928fa3ab22856c91f2da9da5ccbb8971b0db4"
+    },
+    {
+      "path": "C:\\Users\\Wiryl\\AppData\\Local\\KymaeanDirectorPreview\\completed-920c49042bf34e7b8730d6842aff60c8.json",
+      "bytes": 22927,
+      "sha256": "04c8a3007dbe928421535076f04341dccf08041bfd1792e066f0eda86d433c36"
+    },
+    {
+      "path": "C:\\Users\\Wiryl\\AppData\\Local\\KymaeanDirectorPreview\\completed-feba29f8cf434a558d2269f0b0d150ff.json",
+      "bytes": 1050,
+      "sha256": "0a3ee9d5e95e5e85d498a80a5c634879ec8df23e6943c8a1750a702e41e5d964"
+    },
+    {
+      "path": "C:\\Users\\Wiryl\\AppData\\Local\\KymaeanDirectorPreview\\diagnosed-unadmitted-86b7121ad7fb40e1af9b7da004890b2f.json",
+      "bytes": 574,
+      "sha256": "5b8195d1dc73182f77712a5732a2811fa38e8c65fae29757c6c2b8428b20cd84"
+    },
+    {
+      "path": "C:\\Users\\Wiryl\\AppData\\Local\\KymaeanDirectorPreview\\diagnosed-unadmitted-94f419884f264e1690cc2bae805879b9.json",
+      "bytes": 601,
+      "sha256": "8cfcfe3f9fbe949d1549c105f4e5ad53429e888a3de7174f06897873e497b600"
+    },
+    {
+      "path": "C:\\Users\\Wiryl\\AppData\\Local\\KymaeanDirectorPreview\\failed-before-registration-2765c9c8fb5f4a228c30b2b5bbb3c6aa.json",
+      "bytes": 544,
+      "sha256": "697b587bcde57c1d72a38d553719cc556e7101e9a71b22becfc4d8207a9a43b4"
+    },
+    {
+      "path": "C:\\Users\\Wiryl\\AppData\\Local\\KymaeanDirectorPreview\\failed-unadmitted-86b7121ad7fb40e1af9b7da004890b2f.json",
+      "bytes": 1033,
+      "sha256": "1dbbee86912a230410f11c7d8ab335212e7761cc1a70427ded424db94d009d7e"
+    },
+    {
+      "path": "C:\\Users\\Wiryl\\AppData\\Local\\KymaeanDirectorPreview\\failed-unadmitted-94f419884f264e1690cc2bae805879b9.json",
+      "bytes": 516,
+      "sha256": "f7417e17fc1ee54f1f04d389d9915b1acaa3a34e301ebc6827bc811259012a8d"
+    },
+    {
+      "path": "C:\\Users\\Wiryl\\AppData\\Local\\KymaeanDirectorPreview\\native-validation-9fba5c5d8f794eb4925da02add3fa9db.json",
+      "bytes": 11608,
+      "sha256": "a817ed6fcc912d1b55de98d133a2ec7432dc630b0b163509f4fd7353fae49288"
+    },
+    {
+      "path": "C:\\Users\\Wiryl\\AppData\\Local\\KymaeanDirectorPreview\\native-validation-failed-66ca4ad8a87d4b81b2a8f1300a8551bf.json",
+      "bytes": 3933,
+      "sha256": "a1dc0c362c4a351cafaef14cbba5f952d5b22dcd126055cff14da5305bff873f"
+    },
+    {
+      "path": "C:\\Users\\Wiryl\\AppData\\Local\\KymaeanDirectorPreview\\native-validation-failed-d915c77bab584c4ea0c7d3fc4f08dc7c.json",
+      "bytes": 5650,
+      "sha256": "26511435cc61e0d0cd33d5c839536ee675981fa5c50038e5bc1e7a6ef24fa747"
+    },
+    {
+      "path": "C:\\Users\\Wiryl\\AppData\\Local\\KymaeanDirectorPreview\\refresh-0d4d97fa0fea448f9732c6fbb584436a.json",
+      "bytes": 46151,
+      "sha256": "ba30a0817088b8aac708336ae0e39d6e0ab0728c3d5e968206d1f142411f58e2"
+    },
+    {
+      "path": "C:\\Users\\Wiryl\\AppData\\Local\\KymaeanDirectorPreview\\refresh-12234b95b8b64cc786783797eab43655.json",
+      "bytes": 135942,
+      "sha256": "fba2f95b8997b80e419c91f0f321fdb22c4f5b1216d290a15261f8a8cda7f515"
+    },
+    {
+      "path": "C:\\Users\\Wiryl\\AppData\\Local\\KymaeanDirectorPreview\\refresh-27bc3cc0cbb1465cb8c06d52bd1ff0ee.json",
+      "bytes": 136451,
+      "sha256": "16d9968e881d071c9279a0ed42902924a1effca78e3d96c412a5ecd2dc78982d"
+    },
+    {
+      "path": "C:\\Users\\Wiryl\\AppData\\Local\\KymaeanDirectorPreview\\refresh-2b3af443a5ea402c977380a9ec576b24.json",
+      "bytes": 46664,
+      "sha256": "dd4e74faebacb5713a069e26e27db1db6ff39edc5569849ca0984dd8db5161fc"
+    },
+    {
+      "path": "C:\\Users\\Wiryl\\AppData\\Local\\KymaeanDirectorPreview\\refresh-3999bcb246b24684849feffec0e43bd6.json",
+      "bytes": 136452,
+      "sha256": "f4902f82b2a054fafdd77908b46995e61f2a33e801257850675ccf4f90f71b0f"
+    },
+    {
+      "path": "C:\\Users\\Wiryl\\AppData\\Local\\KymaeanDirectorPreview\\refresh-4f5570fce70043609e910775a7700171.json",
+      "bytes": 46664,
+      "sha256": "c8dbd30c6504cbee9982bc263827fbda71b839eff5352930f43d5d2129836b5b"
+    },
+    {
+      "path": "C:\\Users\\Wiryl\\AppData\\Local\\KymaeanDirectorPreview\\refresh-7f9d4699b39444d4b3e6ece4a67ac9ad.json",
+      "bytes": 91048,
+      "sha256": "ce4151923f40fd0fb7fd4c79aabf1cdbc6038fbdc3a793d693ab89790aa1e137"
+    },
+    {
+      "path": "C:\\Users\\Wiryl\\AppData\\Local\\KymaeanDirectorPreview\\refresh-920c49042bf34e7b8730d6842aff60c8.json",
+      "bytes": 46664,
+      "sha256": "06c14b278c7f6ecb8ad4e7d1d7192b1ffc431e9863e1aac147d20a26e80f7a98"
+    },
+    {
+      "path": "C:\\Users\\Wiryl\\AppData\\Local\\KymaeanDirectorPreview\\refresh-feba29f8cf434a558d2269f0b0d150ff.json",
+      "bytes": 1731,
+      "sha256": "9f116cf4bcc5391ad7277bae686e66b876dec09dba3fb1b2011af51f51f5aae8"
+    },
+    {
+      "path": "C:\\Users\\Wiryl\\Sol Dev\\director-preview\\builds\\native-refresh-9fba5c5d8f794eb4925da02add3fa9db\\build-boundary.txt",
+      "bytes": 57,
+      "sha256": "020fd4ea1d0bd5c3e004a8a788d792e9cbc7b3faf513115acaab107e57b8ca5c"
+    },
+    {
+      "path": "C:\\Users\\Wiryl\\Sol Dev\\director-preview\\builds\\native-refresh-9fba5c5d8f794eb4925da02add3fa9db\\build.json",
+      "bytes": 15833,
+      "sha256": "22899e3d872b3121d4fefc121b17e88dec2212657d92af0bb4a798b48a7d1993"
+    },
+    {
+      "path": "C:\\Users\\Wiryl\\Sol Dev\\director-preview\\builds\\native-refresh-9fba5c5d8f794eb4925da02add3fa9db\\check-1.txt",
+      "bytes": 457,
+      "sha256": "ddf15843454b261aed9a42a3485cbeb689cb15957c0cb6440522096d68a6c8d2"
+    },
+    {
+      "path": "C:\\Users\\Wiryl\\Sol Dev\\director-preview\\builds\\native-refresh-9fba5c5d8f794eb4925da02add3fa9db\\check-2.txt",
+      "bytes": 502,
+      "sha256": "131931edada815d6408727372e564196a1c0123382dcb721a3739c7341c3126c"
+    },
+    {
+      "path": "C:\\Users\\Wiryl\\Sol Dev\\director-preview\\builds\\native-refresh-9fba5c5d8f794eb4925da02add3fa9db\\check-3.txt",
+      "bytes": 567,
+      "sha256": "bab08fca9d1cff6931936688235dc5dfae7944517db1accccffe4c3b2cccd008"
+    },
+    {
+      "path": "C:\\Users\\Wiryl\\Sol Dev\\director-preview\\builds\\native-refresh-9fba5c5d8f794eb4925da02add3fa9db\\check-4.txt",
+      "bytes": 495,
+      "sha256": "149dc53270a2b037ecac641b89e3754046a7889431c93093097fa4bb34ad7dfd"
+    },
+    {
+      "path": "C:\\Users\\Wiryl\\Sol Dev\\director-preview\\builds\\native-refresh-9fba5c5d8f794eb4925da02add3fa9db\\check-5.txt",
+      "bytes": 507,
+      "sha256": "bf5b0cfa9f2c31a34305c4c8438355ac5c91d163d67b43e46f651f5a7bdfcfb6"
+    },
+    {
+      "path": "C:\\Users\\Wiryl\\Sol Dev\\director-preview\\builds\\native-refresh-9fba5c5d8f794eb4925da02add3fa9db\\check-6.txt",
+      "bytes": 756,
+      "sha256": "ddea0fc21774a8d5b5c8367bb6d43cbb2cc1b04eaf3ec3e8f56e5abc900d63e1"
+    },
+    {
+      "path": "C:\\Users\\Wiryl\\Sol Dev\\director-preview\\builds\\native-refresh-9fba5c5d8f794eb4925da02add3fa9db\\check-7.txt",
+      "bytes": 740,
+      "sha256": "1709432cf1973bdf476df29db187c6288085ee099f577c00f98275b987650100"
+    },
+    {
+      "path": "C:\\Users\\Wiryl\\Sol Dev\\director-preview\\builds\\native-refresh-9fba5c5d8f794eb4925da02add3fa9db\\check-8.txt",
+      "bytes": 700,
+      "sha256": "233ca15da6617769b220ec41b721f75b143b559b8c1fe85bb92a7d12d47ef8c3"
+    },
+    {
+      "path": "C:\\Users\\Wiryl\\Sol Dev\\director-preview\\builds\\native-refresh-9fba5c5d8f794eb4925da02add3fa9db\\staging-derivation-9fba5c5d8f794eb4925da02add3fa9db.json",
+      "bytes": 441,
+      "sha256": "63210241acc4995081c47461ad70d8bfdc2bbffdf84d79507e3801919df9dd75"
+    },
+    {
+      "path": "C:\\Users\\Wiryl\\Sol Dev\\director-preview\\builds\\native-refresh-9fba5c5d8f794eb4925da02add3fa9db\\staging-derivation.json",
+      "bytes": 439,
+      "sha256": "5a9d55b84e3e1f4734442d63f9b3b613bfabcd76f826fcbb5a2bb5fec53e2a86"
+    },
+    {
+      "path": "C:\\Users\\Wiryl\\Sol Dev\\director-preview\\test-native-foundation-harness-v2.ps1",
+      "bytes": 7647,
+      "sha256": "2f6b22c3f8f5a4d88a3f5e0831fd1b638f97ec5a03939a9c399baaa3d3cc21bb"
+    },
+    {
+      "path": "C:\\Users\\Wiryl\\Sol Dev\\director-preview\\test-native-foundation-initial-harness.ps1",
+      "bytes": 7566,
+      "sha256": "55405981e99aaf4992dabfec8332d00c3d14d17a8a7569cf7f0c6fa95de59bc2"
+    },
+    {
+      "path": "C:\\Users\\Wiryl\\Sol Dev\\director-preview\\test-native-foundation.ps1",
+      "bytes": 7652,
+      "sha256": "26f7eb281f3172ac14a11dc800a280051fed65edad3c9afd362e153af6113688"
+    }
+  ],
+  "scope": "Native development Preview foundation only; no Scene candidate admission, Design acceptance, merge, Alpha, provider or release authority."
+}

@@ -79,4 +79,6 @@ This does not adopt Scene presentation, names, currentness, lifecycle, roster mu
 
 ## Operating rule
 
+Director-approved Preview feedback-method amendment (2026-09-23): `evidence/Q_PREVIEW_01_DIRECTOR_FEEDBACK_METHOD_2026_09_23.md`. This reconciles the later separate PR #262 empirical authorization and pauses immediate Task A sequencing without changing acceptance substance. Reference map: `pointers/DIRECTOR_PREVIEW_VISUAL_REFERENCE_MAP.md`. Current Production workspace composition remains a future, inactive candidate. Q-PREVIEW-01 implements infrastructure only.
+
 Current Product truth is an input to Design, not something Design may invent. Historical transferred capacities are not runtime permission. When a current Product contract changes, reconcile the smallest affected Design contract rather than reopening the whole transferred archive.

@@ -1,0 +1,12 @@
+<Project Sdk="MSTest.Sdk/4.1.0">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <DefineConstants>$(DefineConstants);KYMAEAN_DIRECTOR_PREVIEW</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../../src/Kymaean.Infrastructure.Persistence/Kymaean.Infrastructure.Persistence.csproj" />
+    <Compile Include="../Profiles/Profiles.cs" Link="Profiles.cs" />
+    <Compile Include="../../../src/Kymaean.Windows/Preview/PreviewEnvironment.cs" Link="PreviewEnvironment.cs" />
+  </ItemGroup>
+</Project>

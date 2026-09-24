@@ -19,6 +19,10 @@ public sealed partial class MainWindow : Window
     {
         ArgumentNullException.ThrowIfNull(startup);
         InitializeComponent();
+#if KYMAEAN_DIRECTOR_PREVIEW
+        Title = "KYMÆAN Director Preview";
+        AppTitleBar.Title = Title;
+#endif
 
         _windowProcedure = HandleWindowMessage;
         _windowHandle = WinRT.Interop.WindowNative.GetWindowHandle(this);

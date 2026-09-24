@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <DefineConstants>$(DefineConstants);KYMAEAN_DIRECTOR_PREVIEW</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../../src/Kymaean.Infrastructure.Persistence/Kymaean.Infrastructure.Persistence.csproj" />
+    <Compile Include="../../../src/Kymaean.Windows/Preview/PreviewEnvironment.cs" Link="PreviewEnvironment.cs" />
+  </ItemGroup>
+</Project>
