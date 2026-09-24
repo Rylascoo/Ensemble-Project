@@ -10,7 +10,7 @@ Application Product, Implementation and App Design authority: `Rylascoo/Ensemble
 
 `DESIGN_ARCHITECTURE_READY = READY`. Q-PROD-02/03/04/05/06/07/08/09 and Q-DESIGN-20/21/22/23/24 are integrated. Q-ADMIN-08 and Q-PREVIEW-01 are integrated on .NET 10.
 
-Q-DESIGN-24 bounded Scene presentation merged through PR #271 at `20ba896e54ee533905af7b14a240d829f6ac3fc9`; exact-main Validation #1393 (`36071107439`) PASS. Design/native acceptance remains exact executable `bdd6c094446be79b37e28c2ddb4a6c31996646b5`; the merge does not inherit higher runtime authority. Human Scene-code comprehension/discoverability, Narrator intelligibility and High Contrast remain later falsifiers, not PASS claims.
+Q-DESIGN-24 bounded Scene presentation merged through PR #271 at `20ba896e54ee533905af7b14a240d829f6ac3fc9`; exact-main Validation #1393 (`36071107439`) PASS. Design/native acceptance remains exact executable `bdd6c094446be79b37e28c2ddb4a6c31996646b5`; the merge does not inherit higher runtime authority. Human Scene-code comprehension/discoverability, Narrator intelligibility and High Contrast remain later falsifiers, not PASS claims. Durable closeout is folded into this state, the central queue and the App Design bootstrap.
 
 PR #262 and evidence PR #269 remain unmerged historical branches. PR #265 remains documentation-only/unmerged.
 
