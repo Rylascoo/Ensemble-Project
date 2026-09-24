@@ -213,7 +213,8 @@ internal static class ProductionProjectionSnapshotCache
                 new WorldCurrentState(truths),
                 new ProductionCast(characters),
                 new ProductionScenes(scenes),
-                new AcceptedPerformanceHistory(performances));
+                new AcceptedPerformanceHistory(performances),
+                new ProductionHistoryRevision(sequence));
         }
         catch (ArgumentException)
         {

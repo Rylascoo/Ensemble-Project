@@ -34,12 +34,19 @@ public sealed class PerformancePersistenceTests
         var expectedSource = catalog.OpenProduction(production.Value.Id);
         Assert.IsTrue(expectedSource.IsSuccess);
 
+        Assert.AreEqual(
+            4UL,
+            expectedSource.Value.HistoryRevision.Value);
+
         var committed = catalog.CommitAcceptedPerformance(
             production.Value.Id,
             expectedSource.Value,
             accepted);
 
         Assert.IsTrue(committed.IsSuccess);
+        Assert.AreEqual(
+            5UL,
+            committed.Value.HistoryRevision.Value);
         Assert.AreEqual(
             accepted,
             committed.Value.AcceptedPerformanceHistory.Performances.Single());
@@ -56,6 +63,9 @@ public sealed class PerformancePersistenceTests
         var reopened = new FileProductionCatalog(directory.Path)
             .OpenProduction(production.Value.Id);
         Assert.IsTrue(reopened.IsSuccess);
+        Assert.AreEqual(
+            5UL,
+            reopened.Value.HistoryRevision.Value);
         Assert.AreEqual(marker, File.GetLastWriteTimeUtc(snapshot));
         Assert.AreEqual(
             accepted,
@@ -64,6 +74,9 @@ public sealed class PerformancePersistenceTests
         File.Delete(Path.Combine(entry, ".journal.head"));
         var recovered = catalog.RecoverProduction(production.Value.Id);
         Assert.IsTrue(recovered.IsSuccess);
+        Assert.AreEqual(
+            5UL,
+            recovered.Value.HistoryRevision.Value);
         Assert.AreEqual(
             accepted,
             recovered.Value.AcceptedPerformanceHistory.Performances.Single());
@@ -75,6 +88,9 @@ public sealed class PerformancePersistenceTests
             exported.Value.ToArray());
         Assert.IsTrue(inspected.IsSuccess);
         Assert.AreEqual(5, inspected.Value.EventCount);
+        Assert.AreEqual(
+            5UL,
+            inspected.Value.Projection.HistoryRevision.Value);
         Assert.AreEqual(
             accepted,
             inspected.Value.Projection.AcceptedPerformanceHistory
@@ -142,6 +158,66 @@ public sealed class PerformancePersistenceTests
         CollectionAssert.AreEqual(
             new[] { other },
             reopened.Value.AcceptedPerformanceHistory.Performances.ToArray());
+    }
+
+    [TestMethod]
+    public void SemanticallyIdempotentJournalAdvanceStillInvalidatesPerformanceSourceRevision()
+    {
+        using var directory = new TestDirectory();
+        var catalog = new FileProductionCatalog(directory.Path);
+        var production = catalog.CreateProduction("Harbor");
+        Assert.IsTrue(production.IsSuccess);
+        var character = catalog.CreateCharacter(production.Value.Id, "Marlowe");
+        Assert.IsTrue(character.IsSuccess);
+        var scene = catalog.EstablishScene(
+            production.Value.Id,
+            new SceneRoster([character.Value.Character.Id]));
+        Assert.IsTrue(scene.IsSuccess);
+
+        var staleSource = catalog.OpenProduction(production.Value.Id);
+        Assert.IsTrue(staleSource.IsSuccess);
+        Assert.AreEqual(
+            3UL,
+            staleSource.Value.HistoryRevision.Value);
+
+        var idempotentAdvance = catalog.ReplaceWorldCurrentState(
+            production.Value.Id,
+            staleSource.Value.WorldCurrentState);
+        Assert.IsTrue(idempotentAdvance.IsSuccess);
+        Assert.AreEqual(
+            staleSource.Value.WorldCurrentState,
+            idempotentAdvance.Value.WorldCurrentState);
+        Assert.AreEqual(
+            4UL,
+            idempotentAdvance.Value.HistoryRevision.Value);
+
+        var entry = Directory.GetDirectories(
+            Path.Combine(directory.Path, "production-catalog"),
+            "entry-*").Single();
+        var before = new FileProductionJournal(entry).ReadAll().ToArray();
+
+        var staleAttempt = catalog.CommitAcceptedPerformance(
+            production.Value.Id,
+            staleSource.Value,
+            new AcceptedPerformance(
+                scene.Value.Scene.Id,
+                character.Value.Character.Id,
+                "I brace the door.",
+                new CharacterCircumstance(
+                    "Marlowe is braced against the door.")));
+
+        Assert.IsFalse(staleAttempt.IsSuccess);
+        Assert.AreEqual(
+            ProductAccessFailureKind.Invalid,
+            staleAttempt.FailureKind);
+
+        var after = new FileProductionJournal(entry).ReadAll().ToArray();
+        Assert.AreEqual(before.Length, after.Length);
+        for (var index = 0; index < before.Length; index++)
+        {
+            Assert.AreEqual(before[index].Sequence, after[index].Sequence);
+            Assert.AreEqual(before[index].RecordHash, after[index].RecordHash);
+        }
     }
 
     [TestMethod]

@@ -2,6 +2,11 @@ using System.Collections.Immutable;
 
 namespace Kymaean.Application;
 
+public readonly record struct ProductionHistoryRevision(ulong Value)
+{
+    public static ProductionHistoryRevision Unspecified => default;
+}
+
 public sealed record ProductionReplayProjection
 {
     public ProductionReplayProjection(string productionName)
@@ -10,7 +15,8 @@ public sealed record ProductionReplayProjection
             WorldCurrentState.Empty,
             ProductionCast.Empty,
             ProductionScenes.Empty,
-            AcceptedPerformanceHistory.Empty)
+            AcceptedPerformanceHistory.Empty,
+            ProductionHistoryRevision.Unspecified)
     {
     }
 
@@ -22,7 +28,8 @@ public sealed record ProductionReplayProjection
             worldCurrentState,
             ProductionCast.Empty,
             ProductionScenes.Empty,
-            AcceptedPerformanceHistory.Empty)
+            AcceptedPerformanceHistory.Empty,
+            ProductionHistoryRevision.Unspecified)
     {
     }
 
@@ -35,7 +42,8 @@ public sealed record ProductionReplayProjection
             worldCurrentState,
             productionCast,
             ProductionScenes.Empty,
-            AcceptedPerformanceHistory.Empty)
+            AcceptedPerformanceHistory.Empty,
+            ProductionHistoryRevision.Unspecified)
     {
     }
 
@@ -49,7 +57,8 @@ public sealed record ProductionReplayProjection
             worldCurrentState,
             productionCast,
             productionScenes,
-            AcceptedPerformanceHistory.Empty)
+            AcceptedPerformanceHistory.Empty,
+            ProductionHistoryRevision.Unspecified)
     {
     }
 
@@ -59,6 +68,23 @@ public sealed record ProductionReplayProjection
         ProductionCast productionCast,
         ProductionScenes productionScenes,
         AcceptedPerformanceHistory acceptedPerformanceHistory)
+        : this(
+            productionName,
+            worldCurrentState,
+            productionCast,
+            productionScenes,
+            acceptedPerformanceHistory,
+            ProductionHistoryRevision.Unspecified)
+    {
+    }
+
+    public ProductionReplayProjection(
+        string productionName,
+        WorldCurrentState worldCurrentState,
+        ProductionCast productionCast,
+        ProductionScenes productionScenes,
+        AcceptedPerformanceHistory acceptedPerformanceHistory,
+        ProductionHistoryRevision historyRevision)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(productionName);
         ArgumentNullException.ThrowIfNull(worldCurrentState);
@@ -109,6 +135,7 @@ public sealed record ProductionReplayProjection
         ProductionCast = productionCast;
         ProductionScenes = productionScenes;
         AcceptedPerformanceHistory = acceptedPerformanceHistory;
+        HistoryRevision = historyRevision;
     }
 
     public string ProductionName { get; }
@@ -120,6 +147,8 @@ public sealed record ProductionReplayProjection
     public ProductionScenes ProductionScenes { get; }
 
     public AcceptedPerformanceHistory AcceptedPerformanceHistory { get; }
+
+    public ProductionHistoryRevision HistoryRevision { get; }
 }
 
 public static class ProductionReplay
@@ -129,7 +158,12 @@ public static class ProductionReplay
     {
         ArgumentNullException.ThrowIfNull(history);
 
-        ProductionReplayProjection? projection = null;
+        string? productionName = null;
+        var worldCurrentState = WorldCurrentState.Empty;
+        var characters = new List<CharacterSummary>();
+        var scenes = new List<EstablishedScene>();
+        var performances = new List<AcceptedPerformance>();
+
         for (var index = 0; index < history.Count; index++)
         {
             var productionEvent = history[index]
@@ -138,46 +172,38 @@ public static class ProductionReplay
 
             switch (productionEvent)
             {
-                case ProductionCreatedEvent created when projection is null:
-                    projection = new ProductionReplayProjection(
-                        created.ProductionName);
+                case ProductionCreatedEvent created when productionName is null:
+                    productionName = created.ProductionName;
                     break;
 
                 case ProductionCreatedEvent:
                     throw new InvalidOperationException(
                         "Production history contains more than one creation event.");
 
-                case CharacterCreatedEvent when projection is null:
+                case CharacterCreatedEvent when productionName is null:
                     throw new InvalidOperationException(
                         "A Character cannot be established before Production creation.");
 
                 case CharacterCreatedEvent created:
-                    if (projection.ProductionCast.Characters.Any(
+                    if (characters.Any(
                             character => character.Id == created.CharacterId))
                     {
                         throw new InvalidOperationException(
                             "Production history contains duplicate Character identity.");
                     }
 
-                    projection = new ProductionReplayProjection(
-                        projection.ProductionName,
-                        projection.WorldCurrentState,
-                        new ProductionCast(
-                            projection.ProductionCast.Characters.Add(
-                                new CharacterSummary(
-                                    created.CharacterId,
-                                    created.CharacterName))),
-                        projection.ProductionScenes,
-                        projection.AcceptedPerformanceHistory);
+                    characters.Add(
+                        new CharacterSummary(
+                            created.CharacterId,
+                            created.CharacterName));
                     break;
 
-                case CreatorEstablishedSceneEvent when projection is null:
+                case CreatorEstablishedSceneEvent when productionName is null:
                     throw new InvalidOperationException(
                         "A Scene cannot be established before Production creation.");
 
                 case CreatorEstablishedSceneEvent established:
-                    if (projection.ProductionScenes.Scenes.Any(
-                            scene => scene.Id == established.SceneId))
+                    if (scenes.Any(scene => scene.Id == established.SceneId))
                     {
                         throw new InvalidOperationException(
                             "Production history contains duplicate Scene identity.");
@@ -187,7 +213,7 @@ public static class ProductionReplay
                     try
                     {
                         canonicalRoster = SceneRoster.Canonicalize(
-                            projection.ProductionCast,
+                            new ProductionCast(characters),
                             established.InitialRoster.CharacterIds);
                     }
                     catch (ArgumentException exception)
@@ -197,26 +223,20 @@ public static class ProductionReplay
                             exception);
                     }
 
-                    projection = new ProductionReplayProjection(
-                        projection.ProductionName,
-                        projection.WorldCurrentState,
-                        projection.ProductionCast,
-                        new ProductionScenes(
-                            projection.ProductionScenes.Scenes.Add(
-                                new EstablishedScene(
-                                    established.SceneId,
-                                    canonicalRoster))),
-                        projection.AcceptedPerformanceHistory);
+                    scenes.Add(
+                        new EstablishedScene(
+                            established.SceneId,
+                            canonicalRoster));
                     break;
 
-                case AcceptedPerformanceCommittedEvent when projection is null:
+                case AcceptedPerformanceCommittedEvent when productionName is null:
                     throw new InvalidOperationException(
                         "A Performance cannot be accepted before Production creation.");
 
                 case AcceptedPerformanceCommittedEvent committed:
                     var performance = committed.Performance;
-                    var sourceScene = projection.ProductionScenes.Scenes
-                        .SingleOrDefault(scene => scene.Id == performance.SceneId);
+                    var sourceScene = scenes.SingleOrDefault(
+                        scene => scene.Id == performance.SceneId);
                     if (sourceScene is null ||
                         !sourceScene.InitialRoster.CharacterIds.Contains(
                             performance.CharacterId))
@@ -225,27 +245,15 @@ public static class ProductionReplay
                             "An accepted Performance must belong to an established Scene roster Character.");
                     }
 
-                    projection = new ProductionReplayProjection(
-                        projection.ProductionName,
-                        projection.WorldCurrentState,
-                        projection.ProductionCast,
-                        projection.ProductionScenes,
-                        new AcceptedPerformanceHistory(
-                            projection.AcceptedPerformanceHistory.Performances.Add(
-                                performance)));
+                    performances.Add(performance);
                     break;
 
-                case CreatorReplacedWorldCurrentStateEvent when projection is null:
+                case CreatorReplacedWorldCurrentStateEvent when productionName is null:
                     throw new InvalidOperationException(
                         "World current state cannot be established before Production creation.");
 
                 case CreatorReplacedWorldCurrentStateEvent replaced:
-                    projection = new ProductionReplayProjection(
-                        projection.ProductionName,
-                        replaced.CurrentState,
-                        projection.ProductionCast,
-                        projection.ProductionScenes,
-                        projection.AcceptedPerformanceHistory);
+                    worldCurrentState = replaced.CurrentState;
                     break;
 
                 default:
@@ -254,8 +262,19 @@ public static class ProductionReplay
             }
         }
 
-        return projection
-            ?? throw new InvalidOperationException(
+        if (productionName is null)
+        {
+            throw new InvalidOperationException(
                 "Production history does not contain a creation event.");
+        }
+
+        return new ProductionReplayProjection(
+            productionName,
+            worldCurrentState,
+            new ProductionCast(characters),
+            new ProductionScenes(scenes),
+            new AcceptedPerformanceHistory(performances),
+            new ProductionHistoryRevision(
+                checked((ulong)history.Count)));
     }
 }
