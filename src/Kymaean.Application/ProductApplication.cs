@@ -136,7 +136,8 @@ public sealed class ProductApplication
                 StringComparison.Ordinal) ||
             !creation.Replay.WorldCurrentState.IsEmpty ||
             !creation.Replay.ProductionCast.IsEmpty ||
-            !creation.Replay.ProductionScenes.IsEmpty)
+            !creation.Replay.ProductionScenes.IsEmpty ||
+            !creation.Replay.AcceptedPerformanceHistory.IsEmpty)
         {
             return ProductAccessResult<ProductionCreation>.Failure(
                 ProductAccessFailureKind.Invalid);
@@ -192,7 +193,10 @@ public sealed class ProductApplication
                 replay.ProductionName,
                 StringComparison.Ordinal)
             || !before.WorldCurrentState.Equals(replay.WorldCurrentState)
-            || !before.ProductionScenes.Equals(replay.ProductionScenes))
+            || !before.ProductionScenes.Equals(replay.ProductionScenes)
+            || !PreservesAcceptedPerformanceHistory(
+                before.AcceptedPerformanceHistory,
+                replay.AcceptedPerformanceHistory))
         {
             return ProductAccessResult<CharacterCreation>.Failure(
                 ProductAccessFailureKind.Invalid);
@@ -251,7 +255,10 @@ public sealed class ProductApplication
                 replay.ProductionName,
                 StringComparison.Ordinal)
             || !before.WorldCurrentState.Equals(replay.WorldCurrentState)
-            || !before.ProductionCast.Equals(replay.ProductionCast))
+            || !before.ProductionCast.Equals(replay.ProductionCast)
+            || !PreservesAcceptedPerformanceHistory(
+                before.AcceptedPerformanceHistory,
+                replay.AcceptedPerformanceHistory))
         {
             return ProductAccessResult<SceneCreation>.Failure(
                 ProductAccessFailureKind.Invalid);
@@ -267,6 +274,101 @@ public sealed class ProductApplication
 
         _currentProductionReplay = replay;
         return ProductAccessResult<SceneCreation>.Success(creation);
+    }
+
+    public ProductAccessResult<PerformanceExecution> Perform(
+        PerformanceOpportunity opportunity,
+        IProductPerformer performer,
+        IProductConsequenceInterpreter consequenceInterpreter)
+    {
+        ArgumentNullException.ThrowIfNull(opportunity);
+        ArgumentNullException.ThrowIfNull(performer);
+        ArgumentNullException.ThrowIfNull(consequenceInterpreter);
+
+        if (_currentProduction is null || _currentProductionReplay is null)
+        {
+            throw new InvalidOperationException(
+                "A Production must be open before performing a Character.");
+        }
+
+        if (_catalog is not IProductionPerformanceCommitter committer)
+        {
+            throw new InvalidOperationException(
+                "The configured Production catalog does not support accepted Performance commits.");
+        }
+
+        var before = _currentProductionReplay;
+        var scene = before.ProductionScenes.Scenes
+            .SingleOrDefault(existing => existing.Id == opportunity.SceneId);
+        var character = before.ProductionCast.Characters
+            .SingleOrDefault(existing => existing.Id == opportunity.CharacterId);
+
+        if (scene is null ||
+            character is null ||
+            !scene.InitialRoster.CharacterIds.Contains(opportunity.CharacterId))
+        {
+            return ProductAccessResult<PerformanceExecution>.Failure(
+                ProductAccessFailureKind.Invalid);
+        }
+
+        var context = new CharacterPerformanceContext(
+            opportunity.SceneId,
+            opportunity.CharacterId,
+            character.CharacterName,
+            before.AcceptedPerformanceHistory.Performances
+                .Where(performance =>
+                    performance.CharacterId == opportunity.CharacterId)
+                .Select(performance => performance.Consequence));
+
+        var candidate = performer.Perform(context)
+            ?? throw new InvalidOperationException(
+                "The Performer returned no Performance candidate.");
+
+        var proposedConsequence = consequenceInterpreter.Interpret(
+            context,
+            candidate)
+            ?? throw new InvalidOperationException(
+                "The consequence interpreter returned no Circumstance proposal.");
+
+        var accepted = ProvisionalPerformanceAcceptancePolicy.Accept(
+            opportunity,
+            candidate,
+            proposedConsequence);
+
+        var committed = committer.CommitAcceptedPerformance(
+            _currentProduction.Id,
+            before,
+            accepted);
+        if (!committed.IsSuccess)
+        {
+            return ProductAccessResult<PerformanceExecution>.Failure(
+                committed.FailureKind);
+        }
+
+        var replay = committed.Value;
+        if (!string.Equals(
+                before.ProductionName,
+                replay.ProductionName,
+                StringComparison.Ordinal)
+            || !before.WorldCurrentState.Equals(replay.WorldCurrentState)
+            || !before.ProductionCast.Equals(replay.ProductionCast)
+            || !before.ProductionScenes.Equals(replay.ProductionScenes))
+        {
+            return ProductAccessResult<PerformanceExecution>.Failure(
+                ProductAccessFailureKind.Invalid);
+        }
+
+        var expectedHistory = new AcceptedPerformanceHistory(
+            before.AcceptedPerformanceHistory.Performances.Add(accepted));
+        if (!expectedHistory.Equals(replay.AcceptedPerformanceHistory))
+        {
+            return ProductAccessResult<PerformanceExecution>.Failure(
+                ProductAccessFailureKind.Invalid);
+        }
+
+        _currentProductionReplay = replay;
+        return ProductAccessResult<PerformanceExecution>.Success(
+            new PerformanceExecution(accepted, replay));
     }
 
     public ProductApplicationProjection NavigateProduction(ProductSpace destination)
@@ -318,7 +420,10 @@ public sealed class ProductApplication
                 StringComparison.Ordinal)
             || !replay.WorldCurrentState.Equals(currentState)
             || !before.ProductionCast.Equals(replay.ProductionCast)
-            || !before.ProductionScenes.Equals(replay.ProductionScenes))
+            || !before.ProductionScenes.Equals(replay.ProductionScenes)
+            || !PreservesAcceptedPerformanceHistory(
+                before.AcceptedPerformanceHistory,
+                replay.AcceptedPerformanceHistory))
         {
             return ProductAccessResult<ProductApplicationProjection>.Failure(
                 ProductAccessFailureKind.Invalid);
@@ -328,6 +433,26 @@ public sealed class ProductApplication
 
         return ProductAccessResult<ProductApplicationProjection>.Success(
             Query());
+    }
+
+    private static bool PreservesAcceptedPerformanceHistory(
+        AcceptedPerformanceHistory before,
+        AcceptedPerformanceHistory after)
+    {
+        if (after.Performances.Length < before.Performances.Length)
+        {
+            return false;
+        }
+
+        for (var index = 0; index < before.Performances.Length; index++)
+        {
+            if (!before.Performances[index].Equals(after.Performances[index]))
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private ProductAccessResult<ProductApplicationProjection>

@@ -1,29 +1,34 @@
 # Ensemble Current State
 
-Updated: 2026-09-23
+Updated: 2026-09-24
 
 ## Authority
 
 Application Product, Implementation and App Design authority: `Rylascoo/Ensemble-Project`. Fresh work reads `AGENTS.md`, this file, `docs/PROJECT_AUTHORITY.md`, `docs/PROJECT_EXECUTION_QUEUE.md`, `docs/VALIDATION_LEDGER.md`, and `docs/design/app/CURRENT_CONTRACTS.md` for Design/UI work.
 
-## Checkpoint
+## Integrated checkpoint
 
-`DESIGN_ARCHITECTURE_READY = READY`. Q-PROD-02/03/04/05 and Q-DESIGN-20/21/22 are integrated.
+`DESIGN_ARCHITECTURE_READY = READY`. Q-PROD-02/03/04/05/06/07/08 and Q-DESIGN-20/21/22/23 are integrated. Q-ADMIN-08 and Q-PREVIEW-01 are integrated on .NET 10. Integrated main at this candidate checkpoint is `f685a21a699f3c9300a8db15358aa5d5d125115f`.
 
-Q-UNITY-01/02 are complete; unification: `docs/Q_UNITY_01_PROJECT_UNIFICATION_AND_SIMPLIFICATION_2026_09_22.md`; scaffold retirement: `docs/evidence/Q_UNITY_02_DISCONNECTED_WORKSPACE_DEMO_SCAFFOLD_RETIREMENT_2026_09_22.md`.
+Q-UNITY-01/02 remain current through `docs/Q_UNITY_01_PROJECT_UNIFICATION_AND_SIMPLIFICATION_2026_09_22.md` and `docs/evidence/Q_UNITY_02_DISCONNECTED_WORKSPACE_DEMO_SCAFFOLD_RETIREMENT_2026_09_22.md`.
 
-## Open gates
+## Active Product candidate
 
-Home A/B, FIRSTUSE, rename/delete/import/restore, Character semantics beyond identity/name, Scene semantics beyond identity/initial roster, provider/Performer, Stage motion, deferred E0, High Contrast, Source Sans 3/S1 packaging, final architecture, WACK/Store and release remain gated.
+Q-PROD-09 is Director-authorized for the **bounded provisional first Product-native Performance milestone** by `docs/FIRST_PRODUCT_NATIVE_PERFORMANCE_Q1_Q2_Q5_DIRECTOR_DISPOSITION_2026_09_24.md`.
 
-Q-PROD-06/07 and Q-DESIGN-23 are integrated: persistent Character identity/name, Production Cast, Characters list and New Character. Exact native evidence remains in `docs/VALIDATION_LEDGER.md`.
+Adopted scope: Product-native semantic port; explicit established `SceneId + CharacterId`; actor context limited to SceneId, CharacterId, CharacterName and that actor's committed Circumstances; invocation-scoped Performer and separate consequence interpreter; exactly one additive Character Circumstance per accepted first-slice Performance; one atomic accepted-Performance/consequence event; Product history revision checked under the journal lock before append.
 
-Q-PROD-08 is integrated: opaque Scene identity, initial roster constrained to Cast and replay-derived Scenes. Evidence: `docs/evidence/Q_PROD_08_SCENE_IDENTITY_INITIAL_ROSTER_NATIVE_ARM64_VALIDATION_2026_09_22.md`. No current Scene, names, roster mutation or lifecycle.
+Exact native source: `5038029c79b2177330cc06e81ac338f4b830ad3f`.
+Tag: `validation/q-prod-09-first-product-native-performance-native-arm64-r2` (object `aadeb922b5105a60458cbcdff0dd4cf9dac0173b`, exact peel verified).
+Evidence: `docs/evidence/Q_PROD_09_FIRST_PRODUCT_NATIVE_PERFORMANCE_NATIVE_ARM64_VALIDATION_2026_09_24.md`.
+Draft PR #266 remains **UNMERGED**; merge requires explicit Director authorization.
+
+## Boundaries
+
+First live AI Performance remains later. Q-PROD-09 creates no provider/model/credential/network/spend authority, persistent provider casting, automatic Director, Current/Active Scene or lifecycle, ODR-19 closure, deferred-E0 execution/convergence, final architecture, Alpha/Beta/release, WACK or Store authority. Deferred gates remain as listed in `docs/PROJECT_EXECUTION_QUEUE.md`; accepted v1 history may never be silently reinterpreted.
+
+Documentation PR #265 remains draft/unmerged at `c0dbe79e7e491024f85f3cd51abdfcdd907da889`. Q-DESIGN-24 / draft PR #262 remains separate and INCONCLUSIVE. Q-ALPHA-01 remains BLOCKED. Current Production visual refinement remains inactive.
 
 ## Next
 
-Q-ADMIN-08 is **DONE / INTEGRATED** through PR #259 at `7650fa40488fd19741c5bd0b65830d50fd62fa7b`; exact-main Validation #1291 PASS. .NET 10 is the integrated baseline. Native authority remains `4b2d286a4baf1bb01b222aceda26fbaae8772c15`, tag `validation/q-admin-08-dotnet10-native-arm64`. Evidence: `docs/evidence/Q_ADMIN_08_DOTNET10_MIGRATION_NATIVE_ARM64_VALIDATION_2026_09_23.md`.
-
-Q-PREVIEW-01 is DONE / INTEGRATED through PR #263 at `247059a869d5f751f95b227d28f050be2b81a49c`; exact-main Validation #1310 PASS. Native source remains `6f4545df367e4aebe23789b3ff726ed131a968b6`, tag `validation/q-preview-01-native-arm64`. Identity: KYMÆAN Director Preview. Evidence: `docs/evidence/Q_PREVIEW_01_NATIVE_ARM64_EVIDENCE_2026_09_23.md`. Next: stop after integration closeout; await a separate Director task for Scene Preview admission under `docs/Q_PREVIEW_01_DIRECTOR_PREVIEW_FOUNDATION_2026_09_23.md`.
-
-Q-DESIGN-24 corrected `abada447f4a6e4a8660146d641b2984bb38c5dec`, draft PR #262, remains separate and INCONCLUSIVE. Immediate Task A rerun PAUSED; first failure, correction and Scene-code falsifier preserved. Method: `docs/design/app/evidence/Q_PREVIEW_01_DIRECTOR_FEEDBACK_METHOD_2026_09_23.md`. No Scene acceptance/merge. Q-ALPHA-01 remains BLOCKED; no provider, Product schema or Q-PROD-09 authorization. Current Production visual refinement is not active.
+Hosted closeout validation at `862c56a82c11265ccbbaa412835e4708f6d9e46e` PASS: push #35961852982, PR #35961856533, non-network E0-E #35961856483. Next: **Director merge disposition for draft PR #266**. Do not merge PR #266, PR #265 or PR #262 by implication.

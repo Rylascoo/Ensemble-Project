@@ -65,7 +65,7 @@ internal static class ProductionProjectionSnapshotCache
         var bytes = File.ReadAllBytes(path);
         if (bytes.Length <
             FormatFamilyMagic.Length + sizeof(uint) + sizeof(ulong) +
-            HashLength + (4 * sizeof(uint)) + ChecksumLength)
+            HashLength + (5 * sizeof(uint)) + ChecksumLength)
         {
             return false;
         }
@@ -176,6 +176,33 @@ internal static class ProductionProjectionSnapshotCache
                         new SceneRoster(roster)));
             }
 
+            if (!TryReadUInt32(content, ref offset, out var performanceCount)
+                || performanceCount > int.MaxValue)
+            {
+                return false;
+            }
+
+            var performances = new List<AcceptedPerformance>();
+            for (var performanceIndex = 0U;
+                 performanceIndex < performanceCount;
+                 performanceIndex++)
+            {
+                if (!TryReadUtf16String(content, ref offset, out var sceneId)
+                    || !TryReadUtf16String(content, ref offset, out var characterId)
+                    || !TryReadUtf16String(content, ref offset, out var visibleText)
+                    || !TryReadUtf16String(content, ref offset, out var circumstanceText))
+                {
+                    return false;
+                }
+
+                performances.Add(
+                    new AcceptedPerformance(
+                        new SceneId(sceneId),
+                        new CharacterId(characterId),
+                        visibleText,
+                        new CharacterCircumstance(circumstanceText)));
+            }
+
             if (offset != content.Length)
             {
                 return false;
@@ -185,7 +212,9 @@ internal static class ProductionProjectionSnapshotCache
                 productionName,
                 new WorldCurrentState(truths),
                 new ProductionCast(characters),
-                new ProductionScenes(scenes));
+                new ProductionScenes(scenes),
+                new AcceptedPerformanceHistory(performances),
+                new ProductionHistoryRevision(sequence));
         }
         catch (ArgumentException)
         {
@@ -250,6 +279,18 @@ internal static class ProductionProjectionSnapshotCache
             {
                 WriteUtf16String(stream, characterId.Value);
             }
+        }
+
+        WriteUInt32(
+            stream,
+            checked((uint)projection.AcceptedPerformanceHistory.Performances.Length));
+        foreach (var performance in
+                 projection.AcceptedPerformanceHistory.Performances)
+        {
+            WriteUtf16String(stream, performance.SceneId.Value);
+            WriteUtf16String(stream, performance.CharacterId.Value);
+            WriteUtf16String(stream, performance.VisibleText);
+            WriteUtf16String(stream, performance.Consequence.Text);
         }
 
         var content = stream.ToArray();

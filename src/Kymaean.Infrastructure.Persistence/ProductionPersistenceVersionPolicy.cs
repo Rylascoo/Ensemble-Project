@@ -4,7 +4,7 @@ internal static class ProductionPersistenceVersionPolicy
 {
     public const uint JournalSchemaVersion = 1;
     public const uint ProductionIdentityMetadataVersion = 1;
-    public const uint ProductionProjectionSnapshotVersion = 4;
+    public const uint ProductionProjectionSnapshotVersion = 5;
     public const uint ProductionPortableExportVersion = 1;
     public const string ProductionCreatedContractV1 = "kymaean.production.created.v1";
     public const string ProductionCreatedContractV2 = "kymaean.production.created.v2";
@@ -14,6 +14,8 @@ internal static class ProductionPersistenceVersionPolicy
         "kymaean.production.character-created.v1";
     public const string CreatorEstablishedSceneContractV1 =
         "kymaean.production.creator-established-scene.v1";
+    public const string AcceptedPerformanceCommittedContractV1 =
+        "kymaean.production.accepted-performance-committed.v1";
 
     public static void RequireJournalSchema(uint foundVersion, string artifact)
     {

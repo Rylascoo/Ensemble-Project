@@ -6,6 +6,25 @@ Status: validation fact register only. This file cannot advance phase/checkpoint
 
 The historical E0 checkpoint below retains its separate scope. The Q-ADMIN-08 integrated platform checkpoint is recorded in the next section; it does not authorize deferred-E0 execution.
 
+## Q-PROD-09 first Product-native Performance candidate
+
+| Field | Fact |
+|---|---|
+| Exact native source | `5038029c79b2177330cc06e81ac338f4b830ad3f` |
+| Base | integrated `main@f685a21a699f3c9300a8db15358aa5d5d125115f` |
+| Annotated tag | `validation/q-prod-09-first-product-native-performance-native-arm64-r2` |
+| Tag object / peel | `aadeb922b5105a60458cbcdff0dd4cf9dac0173b` -> `5038029c79b2177330cc06e81ac338f4b830ad3f` |
+| Native environment | SurfSeven, Windows ARM64, SDK 10.0.400 / runtime 10.0.11 / RID `win-arm64` |
+| Native Application | **92/92 PASS** |
+| Native Persistence | **153/153 PASS** |
+| Native WinUI build | ARM64 Release **PASS**, 0 warnings / 0 errors |
+| Source hygiene | `git diff --check main...5038029c...` clean; detached validation worktree clean |
+| Hosted source-head gates | push run 35960989225 and PR run 35960992415: Application, Persistence, Core, compiler, WinUI ARM64 cross-compile, document census and oracle jobs PASS; only repository-law failed because pre-closeout `CURRENT_STATE.md` was stale by 8/9 commits |
+| Independent review | successive exact-ref reviews found and drove repairs for stale-context append, concurrent-history post-write false failure, exact revision/ABA freshness, replay scaling and Product Performance-text validity. Final exact-source review returned no executable defect; its sole remaining P1 was the intentionally pending durable Q-PROD-09 authority/state reconciliation completed by the documentation closeout. Reviewer behaved no-write; technical write containment was not proven because its sandbox reported workspace-write. |
+| Provider scope | **No provider/model network traffic, credentials or spend performed** |
+| Evidence | `docs/evidence/Q_PROD_09_FIRST_PRODUCT_NATIVE_PERFORMANCE_NATIVE_ARM64_VALIDATION_2026_09_24.md` |
+| Authority scope | provisional first Product-native Performance candidate only; draft PR #266 remains unmerged; not live AI, final runtime architecture, deferred-E0 closure, Alpha/Beta/release, WACK or Store authority |
+
 ## Q-PREVIEW-01 integrated development foundation
 
 Exact source `6f4545df367e4aebe23789b3ff726ed131a968b6`, annotated tag `validation/q-preview-01-native-arm64` (object `a78f6fb8b8e8d50b475df115c701fef133b3dcff`, exact peel verified). SurfSeven ARM64: 1,023 tests PASS (Preview 8, Application 84, Persistence 148, Core 628, Harness 155); ordinary/Preview builds and compile-boundary checks PASS. Separate development identity, native activation/architecture, empty/rich/falsifier isolation, Director workspace preservation, same-identity versioned update, before/after-registration and receipt-gap failure/recovery PASS. Independent final exact-ref review clean, behaviorally no-write; technical write containment unproven.

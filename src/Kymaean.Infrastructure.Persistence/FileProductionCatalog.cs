@@ -7,7 +7,8 @@ public sealed class FileProductionCatalog :
     IProductionWorldStateWriter,
     IProductionCreator,
     IProductionCharacterCreator,
-    IProductionSceneCreator
+    IProductionSceneCreator,
+    IProductionPerformanceCommitter
 {
     private const string CatalogDirectoryName = "production-catalog";
     private const string EntryDirectoryPrefix = "entry-";
@@ -298,6 +299,30 @@ public sealed class FileProductionCatalog :
             new SceneCreation(scene, updated.Value));
     }
 
+    public ProductAccessResult<ProductionReplayProjection> CommitAcceptedPerformance(
+        ProductionId productionId,
+        ProductionReplayProjection expectedSource,
+        AcceptedPerformance acceptedPerformance)
+    {
+        ArgumentNullException.ThrowIfNull(productionId);
+        ArgumentNullException.ThrowIfNull(expectedSource);
+        ArgumentNullException.ThrowIfNull(acceptedPerformance);
+
+        var entry = ResolveProductionEntry(productionId);
+        if (!entry.IsSuccess)
+        {
+            return ProductAccessResult<ProductionReplayProjection>.Failure(
+                entry.FailureKind);
+        }
+
+        return ReadProjection(
+            entry.Value.DirectoryPath,
+            recover: false,
+            append: new AcceptedPerformanceCommittedEvent(
+                acceptedPerformance),
+            expectedSource: expectedSource);
+    }
+
     public ProductAccessResult<ProductionReplayProjection> ReplaceWorldCurrentState(
         ProductionId productionId,
         WorldCurrentState currentState)
@@ -413,7 +438,8 @@ public sealed class FileProductionCatalog :
     private static ProductAccessResult<ProductionReplayProjection> ReadProjection(
         string directoryPath,
         bool recover,
-        ProductionEvent? append = null)
+        ProductionEvent? append = null,
+        ProductionReplayProjection? expectedSource = null)
     {
         FileProductionEventStore store;
         try
@@ -431,7 +457,7 @@ public sealed class FileProductionCatalog :
         try
         {
             var history = append is not null
-                ? store.AppendValidatedHistory(append)
+                ? store.AppendValidatedHistory(append, expectedSource)
                 : recover
                     ? store.RecoverValidatedHistory()
                     : store.LoadValidatedHistory();

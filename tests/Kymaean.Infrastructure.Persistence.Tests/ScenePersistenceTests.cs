@@ -154,7 +154,7 @@ public sealed class ScenePersistenceTests
         Assert.AreEqual(authoritative.ProductionScenes, reopened.Value.ProductionScenes);
         Assert.IsTrue(File.Exists(snapshot));
         Assert.AreEqual(
-            4U,
+            5U,
             BinaryPrimitives.ReadUInt32BigEndian(
                 File.ReadAllBytes(snapshot).AsSpan(8, sizeof(uint))));
     }

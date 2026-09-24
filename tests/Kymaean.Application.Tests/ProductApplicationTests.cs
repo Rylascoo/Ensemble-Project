@@ -426,6 +426,45 @@ public sealed class ProductApplicationTests
     }
 
     [TestMethod]
+    public void WorldCurrentStateReplacementAcceptsConcurrentPerformanceHistoryExtension()
+    {
+        var summary = Summary("P-001", "First");
+        var prior = State("The gate is open.");
+        var requested = State("The gate is closed.");
+        var character = new CharacterSummary(new CharacterId("C-1"), "Marlowe");
+        var cast = new ProductionCast([character]);
+        var scene = new EstablishedScene(
+            new SceneId("S-1"),
+            new SceneRoster([character.Id]));
+        var before = new ProductionReplayProjection(
+            "First",
+            prior,
+            cast,
+            new ProductionScenes([scene]));
+        var concurrent = new AcceptedPerformance(
+            scene.Id,
+            character.Id,
+            "I keep watch.",
+            new CharacterCircumstance("Marlowe is keeping watch."));
+        var after = new ProductionReplayProjection(
+            "First",
+            requested,
+            cast,
+            new ProductionScenes([scene]),
+            new AcceptedPerformanceHistory([concurrent]));
+        var catalog = new StubCatalog(summary);
+        catalog.SetOpenSuccess(summary.Id, before);
+        catalog.SetWorldStateSuccess(summary.Id, after);
+        var application = Start(catalog);
+        application.OpenProduction(summary.Id, ProductSpace.Stage);
+
+        var result = application.ReplaceWorldCurrentState(requested);
+
+        Assert.IsTrue(result.IsSuccess);
+        Assert.AreEqual(after, application.Query().CurrentProductionReplay);
+    }
+
+    [TestMethod]
     public void WorldCurrentStateIncompatibleFailurePreservesPriorState()
     {
         var summary = Summary("P-001", "First");

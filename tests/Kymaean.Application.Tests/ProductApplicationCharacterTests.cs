@@ -38,6 +38,46 @@ public sealed class ProductApplicationCharacterTests
     }
 
     [TestMethod]
+    public void CreateCharacterAcceptsConcurrentPerformanceHistoryExtension()
+    {
+        var production = Summary("P-1", "Harbor");
+        var marlowe = Character("C-1", "Marlowe");
+        var wren = Character("C-2", "Wren");
+        var scene = new EstablishedScene(
+            new SceneId("S-0"),
+            new SceneRoster([marlowe.Id]));
+        var before = new ProductionReplayProjection(
+            "Harbor",
+            WorldCurrentState.Empty,
+            new ProductionCast([marlowe]),
+            new ProductionScenes([scene]));
+        var concurrent = new AcceptedPerformance(
+            scene.Id,
+            marlowe.Id,
+            "I keep watch.",
+            new CharacterCircumstance("Marlowe is keeping watch."));
+        var after = new ProductionReplayProjection(
+            "Harbor",
+            WorldCurrentState.Empty,
+            new ProductionCast([marlowe, wren]),
+            new ProductionScenes([scene]),
+            new AcceptedPerformanceHistory([concurrent]));
+        var catalog = new CharacterCatalog(production, before)
+        {
+            CreationResult =
+                ProductAccessResult<CharacterCreation>.Success(
+                    new CharacterCreation(wren, after))
+        };
+        var application = Start(catalog);
+        Assert.IsTrue(application.OpenProduction(production.Id).IsSuccess);
+
+        var result = application.CreateCharacter("Wren");
+
+        Assert.IsTrue(result.IsSuccess);
+        Assert.AreEqual(after, application.Query().CurrentProductionReplay);
+    }
+
+    [TestMethod]
     public void CreateCharacterRequiresOpenProductionAndCapability()
     {
         var production = Summary("P-1", "Harbor");

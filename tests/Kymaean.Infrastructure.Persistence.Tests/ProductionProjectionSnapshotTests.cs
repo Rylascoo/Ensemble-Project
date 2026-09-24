@@ -193,7 +193,7 @@ public sealed class ProductionProjectionSnapshotTests
             "Version Harbor",
             reopened.Value.ProductionName);
         Assert.AreEqual(
-            4U,
+            5U,
             SnapshotVersion(entry));
         AssertSnapshot(entry, "Version Harbor");
     }
@@ -538,13 +538,14 @@ public sealed class ProductionProjectionSnapshotTests
             (productionName.Length * sizeof(ushort)) +
             sizeof(uint) +
             sizeof(uint) +
+            sizeof(uint) +
             sizeof(uint)];
 
         Encoding.ASCII.GetBytes("KYMSNP01")
             .CopyTo(content, 0);
         BinaryPrimitives.WriteUInt32BigEndian(
             content.AsSpan(8, sizeof(uint)),
-            4);
+            5);
         BinaryPrimitives.WriteUInt64BigEndian(
             content.AsSpan(12, sizeof(ulong)),
             sequence);
@@ -624,7 +625,7 @@ public sealed class ProductionProjectionSnapshotTests
                     SnapshotChecksumLength),
                 expectedChecksum));
         Assert.AreEqual(
-            4U,
+            5U,
             SnapshotVersion(entryDirectory));
         Assert.AreEqual(
             expectedName,
