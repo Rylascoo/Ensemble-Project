@@ -21,6 +21,8 @@ This file now carries only current, deferred, or blocking work. Completed histor
 
 Q-ADMIN-08, Q-PREVIEW-01 and Q-PROD-09 are integrated; Q-PROD-09 post-merge closeout is complete on main `f89d2e41fb28e875b1bdd3d1362637f3fcf1198d`, exact-main Validation `35966476382` PASS. Director adoption on 2026-09-24 changes Q-DESIGN-24 to the Sol + Claude dual-review UI-development loop; PR #262 remains preserved, INCONCLUSIVE and unmerged. Human Task A is a later milestone falsifier rather than the ordinary iteration gate.
 
+Program completion doctrine: Windows 11 ARM64 / Microsoft Store is the sole shipping target until release. Cross-platform work is deferred. After Q-DESIGN-24, one bounded platform-neutral Presentation separation may proceed only if it improves current Windows quality without Product-semantic change; after that, architecture analysis stops unless executable evidence falsifies the current structure. NPU/local AI remains optional measured infrastructure, not a correctness dependency.
+
 | ID | Role | Status | Work | Hard boundary / successor |
 |---|---|---|---|---|
 | Q-DESIGN-24-WINDOWS | Design / Independent Review / Implementation | ACTIVE — DUAL UI REVIEW | Audit the admitted corrected Scene experience using Design Sol + independent Claude Code review; reconcile against Blueprint/Product/Design authority; apply only bounded presentation corrections; rerun automated/native checks. | INCONCLUSIVE; human comprehension/Narrator claims remain later milestone falsifiers. No PR #262/#269 merge, Product expansion, provider/deferred-E0 work or automatic Design acceptance. |

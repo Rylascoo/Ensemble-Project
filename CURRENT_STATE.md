@@ -24,9 +24,17 @@ Default next work: Design Sol audits the admitted Scene experience; Claude Code 
 
 Method: `docs/design/app/DUAL_REVIEW_UI_DEVELOPMENT_METHOD_2026_09_24.md`.
 
+## Completion doctrine
+
+Director adoption on 2026-09-24 sets **Windows 11 ARM64 / Microsoft Store as the sole shipping target until the Windows product is complete**. Cross-platform UI/framework work waits until after Store release; preserve future options only through low-cost clean boundaries.
+
+After Q-DESIGN-24, allow one bounded platform-neutral Presentation separation if it improves current Windows testability/maintainability without changing Product semantics. Then impose an **architecture-analysis moratorium**: no further architecture memo/refactor cycle unless executable evidence exposes a contradiction, safety/security requirement, platform constraint or implementation impossibility. Priority becomes the complete Windows vertical: polished UI -> authorized runtime/provider path -> durable Performance/Take/replay -> Alpha -> Beta hardening -> immutable ARM64 RC -> Store.
+
+NPU/local AI is optional infrastructure and must earn inclusion through measured Surface hardware evidence; it is never required for Product correctness.
+
 ## Boundaries
 
-No PR #262 merge, Scene Product-schema expansion, persistent Scene naming, Current/Active Scene/lifecycle, provider/model/credential/network/spend, deferred-E0 execution, Current Production composition, ODR closure, Alpha/Beta/release, WACK or Store authority is created.
+No PR #262 merge, Scene Product-schema expansion, persistent Scene naming, Current/Active Scene/lifecycle, provider/model/credential/network/spend, deferred-E0 execution, Current Production composition, ODR closure, Alpha/Beta/release or Store authority is created. Cross-platform implementation is deferred until after the Microsoft Store release.
 
 PR #265 remains draft/documentation-only/unmerged at `c0dbe79e7e491024f85f3cd51abdfcdd907da889`. Q-ALPHA-01 remains BLOCKED.
 
