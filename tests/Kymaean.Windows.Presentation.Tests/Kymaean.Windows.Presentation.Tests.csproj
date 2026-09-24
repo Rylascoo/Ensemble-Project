@@ -1,0 +1,13 @@
+<Project Sdk="MSTest.Sdk/4.1.0">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <DefineConstants>$(DefineConstants);SCENE_PRESENTATION_TESTS</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../src/Kymaean.Application/Kymaean.Application.csproj" />
+    <ProjectReference Include="../../src/Kymaean.Infrastructure.Persistence/Kymaean.Infrastructure.Persistence.csproj" />
+    <Compile Include="../../src/Kymaean.Windows/Presentation/*.cs" Exclude="../../src/Kymaean.Windows/Presentation/BooleanToVisibilityConverter.cs" Link="Presentation/%(Filename)%(Extension)" />
+    <Compile Include="../../src/Kymaean.Windows/WindowsStartupResult.cs" Link="WindowsStartupResult.cs" />
+  </ItemGroup>
+</Project>
