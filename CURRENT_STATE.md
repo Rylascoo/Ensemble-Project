@@ -12,7 +12,7 @@ Application Product, Implementation and App Design authority: `Rylascoo/Ensemble
 
 Q-PROD-09 is closed through PR #266 and closeout PR #267 at `f89d2e41fb28e875b1bdd3d1362637f3fcf1198d`; exact-main Validation `35966476382` PASS. Native machine-test authority remains `5038029c79b2177330cc06e81ac338f4b830ad3f`.
 
-Q-UNITY-01/02 remain current through their recorded Project/evidence documents.
+Q-UNITY-01/02 remain current through `docs/Q_UNITY_01_PROJECT_UNIFICATION_AND_SIMPLIFICATION_2026_09_22.md` and `docs/evidence/Q_UNITY_02_DISCONNECTED_WORKSPACE_DEMO_SCAFFOLD_RETIREMENT_2026_09_22.md`.
 
 ## Active successor
 
