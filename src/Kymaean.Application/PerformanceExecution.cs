@@ -1,4 +1,6 @@
 using System.Collections.Immutable;
+using System.Globalization;
+using System.Text;
 
 namespace Kymaean.Application;
 
@@ -68,8 +70,7 @@ public sealed record PerformanceCandidate
 {
     public PerformanceCandidate(string visibleText)
     {
-        ArgumentNullException.ThrowIfNull(visibleText);
-        VisibleText = visibleText;
+        VisibleText = ProductPerformanceText.Validate(visibleText);
     }
 
     public string VisibleText { get; }
@@ -108,12 +109,11 @@ public sealed record AcceptedPerformance
     {
         ArgumentNullException.ThrowIfNull(sceneId);
         ArgumentNullException.ThrowIfNull(characterId);
-        ArgumentNullException.ThrowIfNull(visibleText);
         ArgumentNullException.ThrowIfNull(consequence);
 
         SceneId = sceneId;
         CharacterId = characterId;
-        VisibleText = visibleText;
+        VisibleText = ProductPerformanceText.Validate(visibleText);
         Consequence = consequence;
     }
 
@@ -204,5 +204,80 @@ internal static class ProvisionalPerformanceAcceptancePolicy
             opportunity.CharacterId,
             candidate.VisibleText,
             new CharacterCircumstance(consequence.Text));
+    }
+}
+
+internal static class ProductPerformanceText
+{
+    public static string Validate(string value)
+    {
+        ArgumentNullException.ThrowIfNull(value);
+
+        if (value.Length == 0)
+        {
+            return value;
+        }
+
+        for (var index = 0; index < value.Length; index++)
+        {
+            var character = value[index];
+            if (char.IsHighSurrogate(character))
+            {
+                if (index + 1 >= value.Length ||
+                    !char.IsLowSurrogate(value[index + 1]))
+                {
+                    throw new ArgumentException(
+                        "Performance text contains invalid Unicode.",
+                        nameof(value));
+                }
+
+                index++;
+            }
+            else if (char.IsLowSurrogate(character))
+            {
+                throw new ArgumentException(
+                    "Performance text contains invalid Unicode.",
+                    nameof(value));
+            }
+        }
+
+        if (!value.IsNormalized(NormalizationForm.FormC))
+        {
+            throw new ArgumentException(
+                "Performance text must already be Unicode NFC.",
+                nameof(value));
+        }
+
+        var hasDisplayBearingScalar = false;
+        foreach (var rune in value.EnumerateRunes())
+        {
+            var category = Rune.GetUnicodeCategory(rune);
+            if (category == UnicodeCategory.Control &&
+                rune.Value is not 0x09 and not 0x0A)
+            {
+                throw new ArgumentException(
+                    "Performance text contains a forbidden control character.",
+                    nameof(value));
+            }
+
+            if (!Rune.IsWhiteSpace(rune) &&
+                category is not UnicodeCategory.Control and
+                not UnicodeCategory.Format and
+                not UnicodeCategory.NonSpacingMark and
+                not UnicodeCategory.SpacingCombiningMark and
+                not UnicodeCategory.EnclosingMark)
+            {
+                hasDisplayBearingScalar = true;
+            }
+        }
+
+        if (!hasDisplayBearingScalar)
+        {
+            throw new ArgumentException(
+                "Non-silent Performance text must contain visible Character-legible content.",
+                nameof(value));
+        }
+
+        return value;
     }
 }

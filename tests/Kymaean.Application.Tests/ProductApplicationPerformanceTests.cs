@@ -84,6 +84,35 @@ public sealed class ProductApplicationPerformanceTests
     }
 
     [TestMethod]
+    public void PerformanceTextAllowsExactSilenceAndRejectsInvisibleOrMalformedNonSilence()
+    {
+        Assert.AreEqual(
+            string.Empty,
+            new PerformanceCandidate(string.Empty).VisibleText);
+
+        foreach (var invalid in new[]
+                 {
+                     "   ",
+                     "\u200B",
+                     "\u0301",
+                     "e\u0301",
+                     "\r",
+                     new string(new[] { (char)0xD800 })
+                 })
+        {
+            Assert.ThrowsExactly<ArgumentException>(
+                () => new PerformanceCandidate(invalid));
+        }
+
+        Assert.ThrowsExactly<ArgumentException>(
+            () => new AcceptedPerformance(
+                new SceneId("S-1"),
+                new CharacterId("C-1"),
+                "\u200B",
+                new CharacterCircumstance("Marlowe is waiting.")));
+    }
+
+    [TestMethod]
     public void UnknownSceneOrCharacterOutsideRosterFailsBeforePerformerAndCommit()
     {
         var production = new ProductionSummary(new ProductionId("P-1"), "Harbor");
