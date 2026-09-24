@@ -18,7 +18,7 @@ Q-PROD-09 is fully closed through PR #266 and post-merge closeout PR #267 at `f8
 
 Director adoption on 2026-09-24 changes Q-DESIGN-24 to the **Sol + Claude dual-review UI loop**.
 
-PR #271 is **DESIGN ACCEPTED for bounded Scene scope** at executable `bdd6c094446be79b37e28c2ddb4a6c31996646b5`; merge remains Director authority. Older PR #262 and evidence PR #269 remain unmerged.
+PR #271 is **DESIGN ACCEPTED for bounded Scene scope** at executable `bdd6c094446be79b37e28c2ddb4a6c31996646b5`. On 2026-09-24 the Director explicitly authorized merging PR #271 in the next fresh chat. Older PR #262 and evidence PR #269 remain unmerged and are not authorized by implication.
 
 Claude Opus review is complete and reconciled without Product/Persistence change. Exact `bdd6c09` native ARM64 evidence passes Scene 12/12, Preview build/refresh/launch, Application/Persistence/Core/Harness, ordinary/Preview builds, hosted gates and ListView keyboard/action visibility. It corrects the prior right-column overflow falsifier with visible vertical action flow. Human comprehension/Narrator/theme claims remain later falsifiers.
 
@@ -36,4 +36,4 @@ PR #265 remains draft/documentation-only/unmerged at `c0dbe79e7e491024f85f3cd51a
 
 ## Next
 
-Director merge disposition for draft PR #271. If merge is authorized, close Q-DESIGN-24 on integrated main and proceed to the bounded Presentation-seam decision plus ARM64 CI/performance baseline. No PR #262/#269/#271 merge or successor Product semantics by implication.
+Fresh chat: fresh-resolve main, PR #271 and its checks first. If PR #271 remains the Design-accepted executable lineage plus continuity-only handoff changes with clean required gates, execute the Director-authorized merge, then close Q-DESIGN-24 on integrated main. If executable source changed after the accepted `bdd6c094...`, do not inherit acceptance automatically. No PR #262/#269 merge or successor Product semantics by implication.
