@@ -4,26 +4,42 @@ Updated: 2026-09-23
 
 ## Authority
 
-Application Product, Implementation and App Design authority: `Rylascoo/Ensemble-Project`. Fresh work reads `AGENTS.md`, this file, `docs/PROJECT_AUTHORITY.md`, `docs/PROJECT_EXECUTION_QUEUE.md`, `docs/VALIDATION_LEDGER.md`, and `docs/design/app/CURRENT_CONTRACTS.md` for Design/UI work.
+Integrated application authority remains `Rylascoo/Ensemble-Project` main. Fresh work reads `AGENTS.md`, this file, `docs/PROJECT_AUTHORITY.md`, `docs/PROJECT_EXECUTION_QUEUE.md`, `docs/VALIDATION_LEDGER.md`, and `docs/design/app/CURRENT_CONTRACTS.md` for Design/UI work.
 
-## Checkpoint
+This continuity branch records Director decisions newer than integrated main and does not itself authorize executable Product work.
 
-`DESIGN_ARCHITECTURE_READY = READY`. Q-PROD-02/03/04/05 and Q-DESIGN-20/21/22 are integrated.
+## Integrated baseline
 
-Q-UNITY-01/02 are complete; unification: `docs/Q_UNITY_01_PROJECT_UNIFICATION_AND_SIMPLIFICATION_2026_09_22.md`; scaffold retirement: `docs/evidence/Q_UNITY_02_DISCONNECTED_WORKSPACE_DEMO_SCAFFOLD_RETIREMENT_2026_09_22.md`.
+Expected integrated main: `f685a21a699f3c9300a8db15358aa5d5d125115f`.
 
-## Open gates
+Q-ADMIN-08 (.NET 10) and Q-PREVIEW-01 are integrated. Q-PROD-06/07/08 remain integrated: persistent Character identity/name + Production Cast, and opaque Scene identity + initial roster/replay-derived Scenes.
 
-Home A/B, FIRSTUSE, rename/delete/import/restore, Character semantics beyond identity/name, Scene semantics beyond identity/initial roster, provider/Performer, Stage motion, deferred E0, High Contrast, Source Sans 3/S1 packaging, final architecture, WACK/Store and release remain gated.
+Corrected Q-DESIGN-24 remains draft PR #262 at `abada447f4a6e4a8660146d641b2984bb38c5dec`, unmerged and Design-INCONCLUSIVE. Preview-only local composite `dd56b30aeaa01e69ccd0435a3b680d6c1b4cd350` earned TECHNICAL PREVIEW ADMISSION PASS on SurfSeven; this is not Scene acceptance or Product integration authority. Q-ALPHA-01 remains BLOCKED.
 
-Q-PROD-06/07 and Q-DESIGN-23 are integrated: persistent Character identity/name, Production Cast, Characters list and New Character. Exact native evidence remains in `docs/VALIDATION_LEDGER.md`.
+## Active objective
 
-Q-PROD-08 is integrated: opaque Scene identity, initial roster constrained to Cast and replay-derived Scenes. Evidence: `docs/evidence/Q_PROD_08_SCENE_IDENTITY_INITIAL_ROSTER_NATIVE_ARM64_VALIDATION_2026_09_22.md`. No current Scene, names, roster mutation or lifecycle.
+**First Product-native Performance — final read-only Product/Architecture analysis.**
 
-## Next
+Director disposition record:
+`docs/FIRST_PRODUCT_NATIVE_PERFORMANCE_DIRECTOR_DISPOSITION_2026_09_23.md`
 
-Q-ADMIN-08 is **DONE / INTEGRATED** through PR #259 at `7650fa40488fd19741c5bd0b65830d50fd62fa7b`; exact-main Validation #1291 PASS. .NET 10 is the integrated baseline. Native authority remains `4b2d286a4baf1bb01b222aceda26fbaae8772c15`, tag `validation/q-admin-08-dotnet10-native-arm64`. Evidence: `docs/evidence/Q_ADMIN_08_DOTNET10_MIGRATION_NATIVE_ARM64_VALIDATION_2026_09_23.md`.
+Fresh-chat handoff:
+`docs/handoff/FIRST_PRODUCT_NATIVE_PERFORMANCE_FINAL_ANALYSIS_HANDOFF_2026_09_23.md`
 
-Q-PREVIEW-01 is DONE / INTEGRATED through PR #263 at `247059a869d5f751f95b227d28f050be2b81a49c`; exact-main Validation #1310 PASS. Native source remains `6f4545df367e4aebe23789b3ff726ed131a968b6`, tag `validation/q-preview-01-native-arm64`. Identity: KYMÆAN Director Preview. Evidence: `docs/evidence/Q_PREVIEW_01_NATIVE_ARM64_EVIDENCE_2026_09_23.md`. Next: stop after integration closeout; await a separate Director task for Scene Preview admission under `docs/Q_PREVIEW_01_DIRECTOR_PREVIEW_FOUNDATION_2026_09_23.md`.
+A deterministic test-adapter Performer counts for the first Product-native Performance; first live AI Performance is later. The first milestone must make its committed consequence observable in the acting Character's own later bounded Product context.
 
-Q-DESIGN-24 corrected `abada447f4a6e4a8660146d641b2984bb38c5dec`, draft PR #262, remains separate and INCONCLUSIVE. Immediate Task A rerun PAUSED; first failure, correction and Scene-code falsifier preserved. Method: `docs/design/app/evidence/Q_PREVIEW_01_DIRECTOR_FEEDBACK_METHOD_2026_09_23.md`. No Scene acceptance/merge. Q-ALPHA-01 remains BLOCKED; no provider, Product schema or Q-PROD-09 authorization. Current Production visual refinement is not active.
+Already bounded for this first milestone:
+- explicit typed Opportunity for one established `SceneId + CharacterId`; no automatic Director selection;
+- explicit established `SceneId`; no Current/Active Scene semantics;
+- bounded deterministic provisional Take/consequence policy; ODR-19 remains open;
+- invocation-scoped deterministic Performer adapter; no persistent provider/model/understudy casting.
+
+Exactly three coupled questions remain: **Q1** E0→Product acquisition mode, **Q2** minimum Character context/access, **Q5** first consequence domain.
+
+## Stopping rule / next
+
+Complete one final read-only Q1/Q2/Q5 pass with concrete code footprints, MEASURED/INFERRED/PROPOSED labels, falsifiers, and deferred-validation exposure.
+
+After independent review and Director disposition of Q1/Q2/Q5, the next Product artifact is a bounded **implementation package**. Do not open another architecture memo unless this final pass proves new executable evidence is required.
+
+No provider traffic, deferred-E0 consumption, Product implementation, Q-DESIGN-24 merge, Current Production visual refinement, or release authority is created by this checkpoint.
