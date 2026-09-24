@@ -66,24 +66,36 @@ public sealed class CharacterPerformanceContext
 
 public sealed record PerformanceCandidate
 {
-    public PerformanceCandidate(
-        string visibleText,
-        string proposedCircumstance)
+    public PerformanceCandidate(string visibleText)
     {
         ArgumentNullException.ThrowIfNull(visibleText);
-        ArgumentException.ThrowIfNullOrWhiteSpace(proposedCircumstance);
         VisibleText = visibleText;
-        ProposedCircumstance = proposedCircumstance;
     }
 
     public string VisibleText { get; }
+}
 
-    public string ProposedCircumstance { get; }
+public sealed record CharacterCircumstanceProposal
+{
+    public CharacterCircumstanceProposal(string text)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(text);
+        Text = text;
+    }
+
+    public string Text { get; }
 }
 
 public interface IProductPerformer
 {
     PerformanceCandidate Perform(CharacterPerformanceContext context);
+}
+
+public interface IProductConsequenceInterpreter
+{
+    CharacterCircumstanceProposal Interpret(
+        CharacterPerformanceContext context,
+        PerformanceCandidate performance);
 }
 
 public sealed record AcceptedPerformance
@@ -180,15 +192,17 @@ internal static class ProvisionalPerformanceAcceptancePolicy
 {
     public static AcceptedPerformance Accept(
         PerformanceOpportunity opportunity,
-        PerformanceCandidate candidate)
+        PerformanceCandidate candidate,
+        CharacterCircumstanceProposal consequence)
     {
         ArgumentNullException.ThrowIfNull(opportunity);
         ArgumentNullException.ThrowIfNull(candidate);
+        ArgumentNullException.ThrowIfNull(consequence);
 
         return new AcceptedPerformance(
             opportunity.SceneId,
             opportunity.CharacterId,
             candidate.VisibleText,
-            new CharacterCircumstance(candidate.ProposedCircumstance));
+            new CharacterCircumstance(consequence.Text));
     }
 }

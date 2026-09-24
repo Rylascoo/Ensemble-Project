@@ -276,10 +276,12 @@ public sealed class ProductApplication
 
     public ProductAccessResult<PerformanceExecution> Perform(
         PerformanceOpportunity opportunity,
-        IProductPerformer performer)
+        IProductPerformer performer,
+        IProductConsequenceInterpreter consequenceInterpreter)
     {
         ArgumentNullException.ThrowIfNull(opportunity);
         ArgumentNullException.ThrowIfNull(performer);
+        ArgumentNullException.ThrowIfNull(consequenceInterpreter);
 
         if (_currentProduction is null || _currentProductionReplay is null)
         {
@@ -320,9 +322,16 @@ public sealed class ProductApplication
             ?? throw new InvalidOperationException(
                 "The Performer returned no Performance candidate.");
 
+        var proposedConsequence = consequenceInterpreter.Interpret(
+            context,
+            candidate)
+            ?? throw new InvalidOperationException(
+                "The consequence interpreter returned no Circumstance proposal.");
+
         var accepted = ProvisionalPerformanceAcceptancePolicy.Accept(
             opportunity,
-            candidate);
+            candidate,
+            proposedConsequence);
 
         var committed = committer.CommitAcceptedPerformance(
             _currentProduction.Id,

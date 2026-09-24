@@ -48,21 +48,23 @@ public sealed class ProductApplicationPerformanceTests
             CommitResult = ProductAccessResult<ProductionReplayProjection>.Success(after)
         };
         var performer = new CapturingPerformer(
-            new PerformanceCandidate(
-                accepted.VisibleText,
-                accepted.Consequence.Text));
+            new PerformanceCandidate(accepted.VisibleText));
+        var interpreter = new CapturingConsequenceInterpreter(
+            new CharacterCircumstanceProposal(accepted.Consequence.Text));
         var application = Start(catalog);
         Assert.IsTrue(application.OpenProduction(production.Id).IsSuccess);
 
         var result = application.Perform(
             new PerformanceOpportunity(scene.Id, marlowe.Id),
-            performer);
+            performer,
+            interpreter);
 
         Assert.IsTrue(result.IsSuccess);
         Assert.AreEqual(accepted, result.Value.AcceptedPerformance);
         Assert.AreEqual(after, result.Value.Replay);
         Assert.AreEqual(after, application.Query().CurrentProductionReplay);
         Assert.AreEqual(1, performer.InvocationCount);
+        Assert.AreEqual(1, interpreter.InvocationCount);
         Assert.AreEqual(1, catalog.CommitCount);
 
         var context = performer.LastContext!;
@@ -98,22 +100,27 @@ public sealed class ProductApplicationPerformanceTests
             new ProductionScenes([scene]));
         var catalog = new PerformanceCatalog(production, replay);
         var performer = new CapturingPerformer(
-            new PerformanceCandidate("No.", "No consequence."));
+            new PerformanceCandidate("No."));
+        var interpreter = new CapturingConsequenceInterpreter(
+            new CharacterCircumstanceProposal("No consequence."));
         var application = Start(catalog);
         Assert.IsTrue(application.OpenProduction(production.Id).IsSuccess);
 
         var missingScene = application.Perform(
             new PerformanceOpportunity(new SceneId("S-404"), marlowe.Id),
-            performer);
+            performer,
+            interpreter);
         var outsideRoster = application.Perform(
             new PerformanceOpportunity(scene.Id, wren.Id),
-            performer);
+            performer,
+            interpreter);
 
         Assert.IsFalse(missingScene.IsSuccess);
         Assert.AreEqual(ProductAccessFailureKind.Invalid, missingScene.FailureKind);
         Assert.IsFalse(outsideRoster.IsSuccess);
         Assert.AreEqual(ProductAccessFailureKind.Invalid, outsideRoster.FailureKind);
         Assert.AreEqual(0, performer.InvocationCount);
+        Assert.AreEqual(0, interpreter.InvocationCount);
         Assert.AreEqual(0, catalog.CommitCount);
         Assert.AreEqual(replay, application.Query().CurrentProductionReplay);
     }
@@ -132,18 +139,21 @@ public sealed class ProductApplicationPerformanceTests
             new ProductionCast([character]),
             new ProductionScenes([scene]));
         var performer = new CapturingPerformer(
-            new PerformanceCandidate("Line.", "Marlowe is alert."));
+            new PerformanceCandidate("Line."));
+        var interpreter = new CapturingConsequenceInterpreter(
+            new CharacterCircumstanceProposal("Marlowe is alert."));
         var opportunity = new PerformanceOpportunity(scene.Id, character.Id);
 
         var unopened = Start(new PerformanceCatalog(production, replay));
         Assert.ThrowsExactly<InvalidOperationException>(
-            () => unopened.Perform(opportunity, performer));
+            () => unopened.Perform(opportunity, performer, interpreter));
 
         var readOnly = Start(new ReadOnlyCatalog(production, replay));
         Assert.IsTrue(readOnly.OpenProduction(production.Id).IsSuccess);
         Assert.ThrowsExactly<InvalidOperationException>(
-            () => readOnly.Perform(opportunity, performer));
+            () => readOnly.Perform(opportunity, performer, interpreter));
         Assert.AreEqual(0, performer.InvocationCount);
+        Assert.AreEqual(0, interpreter.InvocationCount);
     }
 
     [TestMethod]
@@ -171,9 +181,9 @@ public sealed class ProductApplicationPerformanceTests
         var result = application.Perform(
             new PerformanceOpportunity(scene.Id, character.Id),
             new CapturingPerformer(
-                new PerformanceCandidate(
-                    "Line.",
-                    "Marlowe is alert.")));
+                new PerformanceCandidate("Line.")),
+            new CapturingConsequenceInterpreter(
+                new CharacterCircumstanceProposal("Marlowe is alert.")));
 
         Assert.IsFalse(result.IsSuccess);
         Assert.AreEqual(ProductAccessFailureKind.Incompatible, result.FailureKind);
@@ -214,6 +224,26 @@ public sealed class ProductApplicationPerformanceTests
             InvocationCount++;
             LastContext = context;
             return _candidate;
+        }
+    }
+
+    private sealed class CapturingConsequenceInterpreter :
+        IProductConsequenceInterpreter
+    {
+        private readonly CharacterCircumstanceProposal _proposal;
+
+        public CapturingConsequenceInterpreter(
+            CharacterCircumstanceProposal proposal) =>
+            _proposal = proposal;
+
+        public int InvocationCount { get; private set; }
+
+        public CharacterCircumstanceProposal Interpret(
+            CharacterPerformanceContext context,
+            PerformanceCandidate performance)
+        {
+            InvocationCount++;
+            return _proposal;
         }
     }
 
