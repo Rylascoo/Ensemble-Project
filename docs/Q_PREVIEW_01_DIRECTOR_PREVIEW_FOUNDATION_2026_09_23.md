@@ -1,6 +1,6 @@
 # Q-PREVIEW-01 — KYMÆAN Director Preview Foundation
 
-Status: NATIVE FOUNDATION PASS; draft [PR #263](https://github.com/Rylascoo/Ensemble-Project/pull/263); awaiting separate Director merge authorization.
+Status: DONE / INTEGRATED via Director-authorized [PR #263](https://github.com/Rylascoo/Ensemble-Project/pull/263), merge `247059a869d5f751f95b227d28f050be2b81a49c`, exact-main Validation #1310 PASS. Native authority remains `6f4545df367e4aebe23789b3ff726ed131a968b6`.
 
 ## Authority and lease
 

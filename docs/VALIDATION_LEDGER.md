@@ -6,11 +6,11 @@ Status: validation fact register only. This file cannot advance phase/checkpoint
 
 The historical E0 checkpoint below retains its separate scope. The Q-ADMIN-08 integrated platform checkpoint is recorded in the next section; it does not authorize deferred-E0 execution.
 
-## Q-PREVIEW-01 unmerged development foundation
+## Q-PREVIEW-01 integrated development foundation
 
 Exact source `6f4545df367e4aebe23789b3ff726ed131a968b6`, annotated tag `validation/q-preview-01-native-arm64` (object `a78f6fb8b8e8d50b475df115c701fef133b3dcff`, exact peel verified). SurfSeven ARM64: 1,023 tests PASS (Preview 8, Application 84, Persistence 148, Core 628, Harness 155); ordinary/Preview builds and compile-boundary checks PASS. Separate development identity, native activation/architecture, empty/rich/falsifier isolation, Director workspace preservation, same-identity versioned update, before/after-registration and receipt-gap failure/recovery PASS. Independent final exact-ref review clean, behaviorally no-write; technical write containment unproven.
 
-Evidence: `docs/evidence/Q_PREVIEW_01_NATIVE_ARM64_EVIDENCE_2026_09_23.md`; measurements: `docs/evidence/Q_PREVIEW_01_NATIVE_ARM64_MEASUREMENTS_2026_09_23.json`. This is an unmerged development Preview checkpoint, not promotion of the integrated main checkpoint, PR #262 admission/merge/Design acceptance, Q-ALPHA-01, provider or release authority.
+Evidence: `docs/evidence/Q_PREVIEW_01_NATIVE_ARM64_EVIDENCE_2026_09_23.md`; measurements: `docs/evidence/Q_PREVIEW_01_NATIVE_ARM64_MEASUREMENTS_2026_09_23.json`. Director-authorized PR #263 merged at `247059a869d5f751f95b227d28f050be2b81a49c`; exact-main push [Validation #1310](https://github.com/Rylascoo/Ensemble-Project/actions/runs/35939979664) PASS. Integrated identity: `Kymaean.DirectorPreview` / KYMÆAN Director Preview. Merge and documentation SHAs do not inherit native machine-test authority. PR #262 remains separate, INCONCLUSIVE and unmerged; Q-ALPHA-01 remains BLOCKED. No Scene admission, provider or release authority.
 
 ## Q-ADMIN-08 integrated .NET 10 platform checkpoint
 
