@@ -410,6 +410,12 @@
                                               ScrollViewer.VerticalScrollBarVisibility="Disabled"
                                               ScrollViewer.VerticalScrollMode="Disabled"
                                               ContainerContentChanging="OnSceneContainerContentChanging">
+                                        <ListView.ItemContainerStyle>
+                                            <Style TargetType="ListViewItem">
+                                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                                <Setter Property="IsFocusEngagementEnabled" Value="True" />
+                                            </Style>
+                                        </ListView.ItemContainerStyle>
                                         <ListView.ItemTemplate>
                                             <DataTemplate x:DataType="presentation:ScenePresentationRow">
                                                 <Border Padding="14,12" BorderBrush="{ThemeResource KymaeanBoundaryBrush}" BorderThickness="0,0,0,1">

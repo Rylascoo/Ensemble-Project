@@ -178,7 +178,6 @@ public sealed partial class MainPage : Page
             args.Item is ScenePresentationRow scene)
         {
             AutomationProperties.SetName(container, scene.CodeLabel);
-            container.IsTabStop = false;
         }
     }
 
