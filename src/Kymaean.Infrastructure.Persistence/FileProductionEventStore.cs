@@ -24,14 +24,41 @@ public sealed class FileProductionEventStore : IProductionEventStore
         _ = AppendValidatedHistory(productionEvent);
 
     internal ValidatedProductionHistory AppendValidatedHistory(
-        ProductionEvent productionEvent)
+        ProductionEvent productionEvent,
+        ProductionReplayProjection? expectedSource = null)
     {
         ArgumentNullException.ThrowIfNull(productionEvent);
         var payload = ProductionEventCodec.Encode(productionEvent);
         ValidatedProductionHistory? candidate = null;
         _journal.AppendValidated(
             payload,
-            entries => candidate = DecodeAndValidate(entries));
+            entries =>
+            {
+                if (expectedSource is not null)
+                {
+                    if (entries.Count < 2)
+                    {
+                        throw new InvalidOperationException(
+                            "A conditional Production append requires existing authoritative history.");
+                    }
+
+                    var sourceEntries = entries
+                        .Take(entries.Count - 1)
+                        .ToArray();
+                    var sourceHistory = DecodeAndValidate(sourceEntries);
+                    var currentSource = sourceHistory.Projection
+                        ?? throw new InvalidOperationException(
+                            "A conditional Production append requires an existing replay projection.");
+
+                    if (!expectedSource.Equals(currentSource))
+                    {
+                        throw new InvalidOperationException(
+                            "Production authority changed after the Performance context was composed.");
+                    }
+                }
+
+                candidate = DecodeAndValidate(entries);
+            });
 
         return candidate
             ?? throw new InvalidOperationException(

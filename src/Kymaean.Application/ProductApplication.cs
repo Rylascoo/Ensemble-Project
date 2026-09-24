@@ -335,6 +335,7 @@ public sealed class ProductApplication
 
         var committed = committer.CommitAcceptedPerformance(
             _currentProduction.Id,
+            before,
             accepted);
         if (!committed.IsSuccess)
         {

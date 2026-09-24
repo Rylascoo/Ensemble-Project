@@ -31,8 +31,12 @@ public sealed class PerformancePersistenceTests
             new CharacterCircumstance(
                 "Marlowe is braced against the door."));
 
+        var expectedSource = catalog.OpenProduction(production.Value.Id);
+        Assert.IsTrue(expectedSource.IsSuccess);
+
         var committed = catalog.CommitAcceptedPerformance(
             production.Value.Id,
+            expectedSource.Value,
             accepted);
 
         Assert.IsTrue(committed.IsSuccess);
@@ -75,6 +79,69 @@ public sealed class PerformancePersistenceTests
             accepted,
             inspected.Value.Projection.AcceptedPerformanceHistory
                 .Performances.Single());
+    }
+
+    [TestMethod]
+    public void StalePerformanceContextFailsBeforeJournalMutation()
+    {
+        using var directory = new TestDirectory();
+        var catalog = new FileProductionCatalog(directory.Path);
+        var production = catalog.CreateProduction("Harbor");
+        Assert.IsTrue(production.IsSuccess);
+        var character = catalog.CreateCharacter(production.Value.Id, "Marlowe");
+        Assert.IsTrue(character.IsSuccess);
+        var scene = catalog.EstablishScene(
+            production.Value.Id,
+            new SceneRoster([character.Value.Character.Id]));
+        Assert.IsTrue(scene.IsSuccess);
+
+        var staleSource = catalog.OpenProduction(production.Value.Id);
+        Assert.IsTrue(staleSource.IsSuccess);
+
+        var other = new AcceptedPerformance(
+            scene.Value.Scene.Id,
+            character.Value.Character.Id,
+            "I look toward the window.",
+            new CharacterCircumstance("Marlowe is watching the window."));
+        var first = catalog.CommitAcceptedPerformance(
+            production.Value.Id,
+            staleSource.Value,
+            other);
+        Assert.IsTrue(first.IsSuccess);
+
+        var entry = Directory.GetDirectories(
+            Path.Combine(directory.Path, "production-catalog"),
+            "entry-*").Single();
+        var before = new FileProductionJournal(entry).ReadAll().ToArray();
+
+        var staleAttempt = catalog.CommitAcceptedPerformance(
+            production.Value.Id,
+            staleSource.Value,
+            new AcceptedPerformance(
+                scene.Value.Scene.Id,
+                character.Value.Character.Id,
+                "I brace the door.",
+                new CharacterCircumstance(
+                    "Marlowe is braced against the door.")));
+
+        Assert.IsFalse(staleAttempt.IsSuccess);
+        Assert.AreEqual(
+            ProductAccessFailureKind.Invalid,
+            staleAttempt.FailureKind);
+
+        var after = new FileProductionJournal(entry).ReadAll().ToArray();
+        Assert.AreEqual(before.Length, after.Length);
+        for (var index = 0; index < before.Length; index++)
+        {
+            Assert.AreEqual(before[index].Sequence, after[index].Sequence);
+            Assert.AreEqual(before[index].RecordHash, after[index].RecordHash);
+        }
+
+        var reopened = catalog.OpenProduction(production.Value.Id);
+        Assert.IsTrue(reopened.IsSuccess);
+        CollectionAssert.AreEqual(
+            new[] { other },
+            reopened.Value.AcceptedPerformanceHistory.Performances.ToArray());
     }
 
     [TestMethod]

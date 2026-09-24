@@ -282,9 +282,11 @@ public sealed class ProductApplicationPerformanceTests
 
         public ProductAccessResult<ProductionReplayProjection> CommitAcceptedPerformance(
             ProductionId productionId,
+            ProductionReplayProjection expectedSource,
             AcceptedPerformance acceptedPerformance)
         {
             Assert.AreEqual(_production.Id, productionId);
+            Assert.AreEqual(_replay, expectedSource);
             CommitCount++;
             return CommitResult;
         }
