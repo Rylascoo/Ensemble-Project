@@ -23,7 +23,7 @@ Q-ADMIN-08, Q-PREVIEW-01 and Q-PROD-09 are integrated; Q-PROD-09 post-merge clos
 
 | ID | Role | Status | Work | Hard boundary / successor |
 |---|---|---|---|---|
-| Q-DESIGN-24-WINDOWS | Implementation / Design | ACTIVE — PREVIEW ADMISSION + TASK A RERUN | Compose corrected `abada447...` Scene executable/test diff with current validated Director Preview as PREVIEW COMPOSITE — NOT MERGE CANDIDATE; run technical/native admission checks; issue fresh receipt; rerun Task A uncoached. | INCONCLUSIVE; preserve first failure/falsifier. No PR #262 merge, Product expansion, provider/deferred-E0 work or automatic Design acceptance. |
+| Q-DESIGN-24-WINDOWS | Implementation / Design | ACTIVE — UNCOACHED TASK A READY | Corrected Scene composite `285146a...` is admitted to Director Preview with fresh rich profile `92314cf2...`; evidence: `docs/evidence/Q_DESIGN_24_PREVIEW_TASK_A_ADMISSION_2026_09_24.md`. Director performs Task A uncoached. | INCONCLUSIVE; preserve first failure/falsifier. Preview admission != merge approval != Design acceptance. No PR #262 merge, Product expansion or provider/deferred-E0 work. |
 | Current Production workspace composition | Design | DEFERRED — DIRECTOR DISPOSITION | Future bounded composition candidate identified during Preview reconciliation. | Not activated by Q-PREVIEW-01; no whole-app redesign. |
 | Q-ADMIN-07 | Governance / Recovery | DEFERRED — LOCAL RESIDUE ONLY | Disposition remaining local historical/deferred worktrees after owner/status/evidence review. | Preserve ambiguous local evidence and the unique historical PR #226 branch; merged remote refs require archive-tag-before-delete handling. |
 

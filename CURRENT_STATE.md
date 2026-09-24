@@ -33,4 +33,6 @@ PR #265 remains draft/documentation-only/unmerged at `c0dbe79e7e491024f85f3cd51a
 
 ## Next
 
-Admit the corrected Q-DESIGN-24 candidate into Director Preview and return the uncoached Task A observation for Design disposition. No merge or successor Product semantics by implication.
+Q-DESIGN-24 corrected Preview composite is technically admitted for Task A. Admission evidence: `docs/evidence/Q_DESIGN_24_PREVIEW_TASK_A_ADMISSION_2026_09_24.md`.
+
+Fresh rich profile `92314cf22262414eb4d7239e6103c665` is selected and the admitted native Preview is open for the Director. Next: **uncoached Task A observation only**. PR #262 remains INCONCLUSIVE/unmerged; no merge or successor Product semantics by implication.
