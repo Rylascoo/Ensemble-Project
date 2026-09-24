@@ -16,21 +16,24 @@ Q-PROD-09 is fully closed through PR #266 and post-merge closeout PR #267 at `f8
 
 ## Active successor
 
-Director continuation on 2026-09-24 reactivates **Q-DESIGN-24 Task A only**.
+Director adoption on 2026-09-24 changes Q-DESIGN-24 to the **Sol + Claude dual-review UI loop**.
 
-Exact preserved corrected Scene candidate: PR #262 / `abada447f4a6e4a8660146d641b2984bb38c5dec`. Verdict remains **INCONCLUSIVE** and PR #262 remains unmerged.
+PR #262 remains exact corrected source `abada447f4a6e4a8660146d641b2984bb38c5dec`, INCONCLUSIVE and unmerged. Corrected Preview admission evidence is preserved in draft PR #269 at `138d7c5957f5ae74a4b39864c8d21f0de853a81a`.
 
-Next bounded work: compose the corrected Scene executable/test diff with current validated Director Preview as **PREVIEW COMPOSITE — NOT MERGE CANDIDATE**, run technical/native Preview admission checks, issue a fresh admission receipt, then rerun Task A uncoached. Preserve the first Task A presentation/discoverability failure and all prior evidence.
+Default next work: Design Sol audits the admitted Scene experience; Claude Code independently performs the fixed adversarial UI review; Design reconciles and applies only bounded presentation corrections; automation/native checks verify them. Human Task A becomes a later milestone falsifier, not the ordinary iteration gate.
 
-Method: `docs/design/app/evidence/Q_PREVIEW_01_DIRECTOR_FEEDBACK_METHOD_2026_09_23.md`.
-Contract: `docs/design/app/contracts/SCENE_INITIAL_ROSTER_PRESENTATION.md`.
+Method: `docs/design/app/DUAL_REVIEW_UI_DEVELOPMENT_METHOD_2026_09_24.md`.
+
+## Completion doctrine
+
+Windows 11 ARM64 / Microsoft Store is the sole shipping target until release; cross-platform work waits. After Q-DESIGN-24, permit only a bounded platform-neutral Presentation separation that improves current Windows quality, then stop architecture analysis unless executable evidence falsifies the structure. NPU/local AI remains optional measured infrastructure, never Product correctness.
 
 ## Boundaries
 
-No PR #262 merge, Scene Product-schema expansion, persistent Scene naming, Current/Active Scene/lifecycle, provider/model/credential/network/spend, deferred-E0 execution, Current Production composition, ODR closure, Alpha/Beta/release, WACK or Store authority is created.
+No PR #262 merge, Product expansion, provider/network/spend, deferred-E0 execution, Current Production composition, ODR closure, Alpha/Beta/release or Store authority is created.
 
 PR #265 remains draft/documentation-only/unmerged at `c0dbe79e7e491024f85f3cd51abdfcdd907da889`. Q-ALPHA-01 remains BLOCKED.
 
 ## Next
 
-Admit the corrected Q-DESIGN-24 candidate into Director Preview and return the uncoached Task A observation for Design disposition. No merge or successor Product semantics by implication.
+Run the dual-review pass on the admitted corrected Scene UI, reconcile findings, and iterate natively. Human diagnosis is not required. No PR #262/#269 merge or successor Product semantics by implication.

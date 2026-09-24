@@ -38,3 +38,14 @@ The preserved first Task A FAIL remains evidence. The corrected source remains P
 Engineering must follow the integrated Preview foundation admission procedure: compose only the corrected Scene executable/test diff with current `main` as **PREVIEW COMPOSITE — NOT MERGE CANDIDATE**, preserve exact parent/source/patch/result identities, run focused/regression/native Preview checks, and issue a fresh admission receipt. Old scratch fixtures/receipts are not repointed.
 
 After admission, Task A restarts uncoached on a fresh fixture. The observation may establish only what the Director actually demonstrates. Task B-E, Narrator, accessibility/scaling, broader Design acceptance and the Scene-code falsifier remain unchanged. No Product/provider/deferred-E0 or Current Production composition authority is created.
+
+
+## Director dual-review acceleration amendment — 2026-09-24
+
+The Director adopted `docs/design/app/DUAL_REVIEW_UI_DEVELOPMENT_METHOD_2026_09_24.md`.
+
+This supersedes the immediate-human-rerun sequencing requirement for ordinary UI iteration without erasing any prior human evidence. The preserved first Task A FAIL and the Scene-code falsifier remain valid. Corrected Task A human evidence remains useful later if the project claims actual uncoached comprehension/discoverability, but it is no longer required before Design can continue refining the UI.
+
+Default iteration is now: Design Sol primary audit -> independent Claude Code adversarial review -> Design reconciliation -> bounded correction -> automated/native validation -> Preview refresh. The Director is not asked to diagnose defects or prescribe repairs.
+
+This method change creates no Product semantics, executable acceptance, PR #262/#269 merge authority, provider/deferred-E0 authority or release promotion.
