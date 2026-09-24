@@ -401,7 +401,7 @@
                                             <ItemsControl.ItemTemplate>
                                                 <DataTemplate x:DataType="presentation:ScenePresentationRow">
                                                     <Border Padding="14,12" BorderBrush="{ThemeResource KymaeanBoundaryBrush}" BorderThickness="0,0,0,1">
-                                                        <Grid ColumnSpacing="20">
+                                                        <Grid ColumnSpacing="20" AutomationProperties.Name="{x:Bind CodeLabel}">
                                                             <Grid.ColumnDefinitions>
                                                                 <ColumnDefinition Width="*" />
                                                                 <ColumnDefinition Width="Auto" />

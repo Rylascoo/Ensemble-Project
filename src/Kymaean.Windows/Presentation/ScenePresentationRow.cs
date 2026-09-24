@@ -14,7 +14,7 @@ public sealed record ScenePresentationRow(
         ? "Empty initial roster"
         : $"Initial roster: {string.Join(", ", Roster.Take(3).Select(character => character.AccessibleName))}" +
           (Roster.Count > 3 ? $" +{Roster.Count - 3} more" : string.Empty);
-    public string InspectName => $"Inspect initial roster for {CodeLabel}. {RosterSummary}";
+    public string InspectName => $"Inspect initial roster for {CodeLabel}";
 
     public static IReadOnlyList<ScenePresentationRow> Build(
         ProductionReplayProjection replay,

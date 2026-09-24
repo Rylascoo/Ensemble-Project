@@ -80,7 +80,7 @@ public sealed class ScenePresentationTests
         Assert.AreEqual("Empty initial roster", rows[0].RosterSummary);
         StringAssert.StartsWith(rows[1].RosterSummary, "Initial roster: Marlowe, Character code ");
         StringAssert.Contains(rows[1].RosterSummary, "Third");
-        StringAssert.Contains(rows[1].InspectName, rows[1].RosterSummary);
+        Assert.AreEqual($"Inspect initial roster for {rows[1].CodeLabel}", rows[1].InspectName);
     }
 
     [TestMethod]
