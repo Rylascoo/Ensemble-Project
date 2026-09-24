@@ -286,7 +286,7 @@ public sealed class ProductApplicationPerformanceTests
             AcceptedPerformance acceptedPerformance)
         {
             Assert.AreEqual(_production.Id, productionId);
-            Assert.AreEqual(_replay, expectedSource);
+            Assert.AreEqual(expectedSource, _replay);
             CommitCount++;
             return CommitResult;
         }
