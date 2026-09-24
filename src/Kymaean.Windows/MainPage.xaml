@@ -381,9 +381,10 @@
                             </Button>
                             <StackPanel Spacing="12" Visibility="{Binding IsScenes, Converter={StaticResource BoolToVisibility}}">
                                 <ContentControl x:Name="ScenesHeading" IsTabStop="True" UseSystemFocusVisuals="True"
-                                                HorizontalAlignment="Left" AutomationProperties.HeadingLevel="Level2">
+                                                HorizontalAlignment="Left" AutomationProperties.HeadingLevel="Level2"
+                                                AutomationProperties.Name="{Binding SceneListHeading}">
                                     <TextBlock FontSize="24" FontWeight="SemiBold" Foreground="{ThemeResource KymaeanPrimaryBrush}"
-                                               Text="{Binding SceneListHeading}" TextWrapping="Wrap" />
+                                               Text="{Binding SceneListHeading}" TextWrapping="Wrap" AutomationProperties.AccessibilityView="Raw" />
                                 </ContentControl>
                                 <TextBlock Text="{Binding SceneListDescription}" TextWrapping="Wrap" />
                                 <TextBlock Foreground="{ThemeResource KymaeanSecondaryBrush}"
@@ -398,7 +399,7 @@
                                                 HorizontalAlignment="Left" AutomationProperties.HeadingLevel="Level3"
                                                 AutomationProperties.Name="{Binding SceneNotice}"
                                                 Visibility="{Binding HasSceneNotice, Converter={StaticResource BoolToVisibility}}">
-                                    <TextBlock Text="{Binding SceneNotice}" TextWrapping="Wrap" />
+                                    <TextBlock Text="{Binding SceneNotice}" TextWrapping="Wrap" AutomationProperties.AccessibilityView="Raw" />
                                 </ContentControl>
                                 <TextBlock Text="No Scenes yet." Visibility="{Binding HasNoScenes, Converter={StaticResource BoolToVisibility}}" />
                                 <Border BorderBrush="{ThemeResource KymaeanBoundaryBrush}" BorderThickness="1"
@@ -443,7 +444,7 @@
                                 </StackPanel>
                             </StackPanel>
                             <StackPanel Spacing="12" Visibility="{Binding IsSceneDetail, Converter={StaticResource BoolToVisibility}}">
-                                <ContentControl AutomationProperties.HeadingLevel="Level2"
+                                <ContentControl IsTabStop="False" AutomationProperties.HeadingLevel="Level2"
                                                 AutomationProperties.Name="{Binding InspectedScene.DetailHeadingName}" HorizontalAlignment="Left">
                                     <StackPanel Spacing="4">
                                         <TextBlock Text="Initial roster" FontSize="24" FontWeight="SemiBold"
@@ -460,7 +461,8 @@
                                 <ContentControl x:Name="SceneDraftHeading" IsTabStop="True" UseSystemFocusVisuals="True" HorizontalAlignment="Left"
                                                 AutomationProperties.HeadingLevel="Level2"
                                                 AutomationProperties.Name="New Scene. Choose Characters from this Production. You can leave the initial roster empty.">
-                                    <TextBlock Text="New Scene" FontSize="24" FontWeight="SemiBold" Foreground="{ThemeResource KymaeanPrimaryBrush}" />
+                                    <TextBlock Text="New Scene" FontSize="24" FontWeight="SemiBold" Foreground="{ThemeResource KymaeanPrimaryBrush}"
+                                               AutomationProperties.AccessibilityView="Raw" />
                                 </ContentControl>
                                 <TextBlock Text="Initial roster" FontWeight="SemiBold" />
                                 <TextBlock Text="Choose Characters from this Production. You can leave the initial roster empty." TextWrapping="Wrap" />
