@@ -36,6 +36,48 @@ public sealed class ProductApplicationSceneTests
     }
 
     [TestMethod]
+    public void EstablishSceneAcceptsConcurrentPerformanceHistoryExtension()
+    {
+        var production = new ProductionSummary(new ProductionId("P-1"), "Harbor");
+        var cast = Cast("C-1");
+        var existingScene = new EstablishedScene(
+            new SceneId("S-0"),
+            new SceneRoster([new CharacterId("C-1")]));
+        var before = new ProductionReplayProjection(
+            "Harbor",
+            new WorldCurrentState([new WorldCurrentTruth("Existing.")]),
+            cast,
+            new ProductionScenes([existingScene]));
+        var newScene = new EstablishedScene(
+            new SceneId("S-1"),
+            new SceneRoster([new CharacterId("C-1")]));
+        var concurrent = new AcceptedPerformance(
+            existingScene.Id,
+            new CharacterId("C-1"),
+            "I keep watch.",
+            new CharacterCircumstance("Name C-1 is keeping watch."));
+        var after = new ProductionReplayProjection(
+            before.ProductionName,
+            before.WorldCurrentState,
+            before.ProductionCast,
+            new ProductionScenes([existingScene, newScene]),
+            new AcceptedPerformanceHistory([concurrent]));
+        var catalog = new SceneCatalog(production, before)
+        {
+            EstablishmentResult =
+                ProductAccessResult<SceneCreation>.Success(
+                    new SceneCreation(newScene, after))
+        };
+        var application = Start(catalog);
+        Assert.IsTrue(application.OpenProduction(production.Id).IsSuccess);
+
+        var result = application.EstablishScene([new CharacterId("C-1")]);
+
+        Assert.IsTrue(result.IsSuccess);
+        Assert.AreEqual(after, application.Query().CurrentProductionReplay);
+    }
+
+    [TestMethod]
     public void EstablishSceneRequiresOpenProductionAndCapability()
     {
         var production = new ProductionSummary(new ProductionId("P-1"), "Harbor");

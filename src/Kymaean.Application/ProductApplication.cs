@@ -194,7 +194,8 @@ public sealed class ProductApplication
                 StringComparison.Ordinal)
             || !before.WorldCurrentState.Equals(replay.WorldCurrentState)
             || !before.ProductionScenes.Equals(replay.ProductionScenes)
-            || !before.AcceptedPerformanceHistory.Equals(
+            || !PreservesAcceptedPerformanceHistory(
+                before.AcceptedPerformanceHistory,
                 replay.AcceptedPerformanceHistory))
         {
             return ProductAccessResult<CharacterCreation>.Failure(
@@ -255,7 +256,8 @@ public sealed class ProductApplication
                 StringComparison.Ordinal)
             || !before.WorldCurrentState.Equals(replay.WorldCurrentState)
             || !before.ProductionCast.Equals(replay.ProductionCast)
-            || !before.AcceptedPerformanceHistory.Equals(
+            || !PreservesAcceptedPerformanceHistory(
+                before.AcceptedPerformanceHistory,
                 replay.AcceptedPerformanceHistory))
         {
             return ProductAccessResult<SceneCreation>.Failure(
@@ -419,7 +421,8 @@ public sealed class ProductApplication
             || !replay.WorldCurrentState.Equals(currentState)
             || !before.ProductionCast.Equals(replay.ProductionCast)
             || !before.ProductionScenes.Equals(replay.ProductionScenes)
-            || !before.AcceptedPerformanceHistory.Equals(
+            || !PreservesAcceptedPerformanceHistory(
+                before.AcceptedPerformanceHistory,
                 replay.AcceptedPerformanceHistory))
         {
             return ProductAccessResult<ProductApplicationProjection>.Failure(
@@ -430,6 +433,26 @@ public sealed class ProductApplication
 
         return ProductAccessResult<ProductApplicationProjection>.Success(
             Query());
+    }
+
+    private static bool PreservesAcceptedPerformanceHistory(
+        AcceptedPerformanceHistory before,
+        AcceptedPerformanceHistory after)
+    {
+        if (after.Performances.Length < before.Performances.Length)
+        {
+            return false;
+        }
+
+        for (var index = 0; index < before.Performances.Length; index++)
+        {
+            if (!before.Performances[index].Equals(after.Performances[index]))
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private ProductAccessResult<ProductApplicationProjection>
