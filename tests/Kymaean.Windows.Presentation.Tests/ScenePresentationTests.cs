@@ -73,14 +73,17 @@ public sealed class ScenePresentationTests
         ]);
         var castRows = CharacterPresentationRow.Build(cast.Characters);
         var empty = new EstablishedScene(new("empty"), SceneRoster.Empty);
-        var populated = new EstablishedScene(new("populated"), new([new("C2"), new("C3"), new("C4")]));
+        var populated = new EstablishedScene(new("populated"), new([new("C1"), new("C2"), new("C3"), new("C4")]));
         var replay = new ProductionReplayProjection("A", WorldCurrentState.Empty, cast, new([empty, populated]));
         var rows = ScenePresentationRow.Build(replay, castRows);
 
-        Assert.AreEqual("Empty initial roster", rows[0].RosterSummary);
+        Assert.AreEqual("No Characters in this initial roster.", rows[0].RosterSummary);
         StringAssert.StartsWith(rows[1].RosterSummary, "Initial roster: Marlowe, Character code ");
-        StringAssert.Contains(rows[1].RosterSummary, "Third");
+        StringAssert.Contains(rows[1].RosterSummary, "; Marlowe, Character code ");
+        StringAssert.Contains(rows[1].RosterSummary, "; Third");
+        StringAssert.EndsWith(rows[1].RosterSummary, "; +1 more");
         Assert.AreEqual($"Inspect initial roster for {rows[1].CodeLabel}", rows[1].InspectName);
+        Assert.AreEqual($"Initial roster. {rows[1].CodeLabel}", rows[1].DetailHeadingName);
     }
 
     [TestMethod]
@@ -91,6 +94,10 @@ public sealed class ScenePresentationTests
         vm.BeginSceneDraft();
         Assert.IsNull(vm.EstablishScene());
         Assert.IsTrue(vm.HasSceneUncertainty);
+        Assert.AreEqual("Last confirmed Scenes", vm.SceneListHeading);
+        Assert.AreEqual("Last confirmed Scenes and their initial rosters.", vm.SceneListDescription);
+        Assert.AreEqual("Choose a last confirmed Scene to inspect its initial roster.", vm.SceneListInstruction);
+        StringAssert.Contains(vm.SceneNewSceneHelp, "opened again");
         foreach (var route in new[] { ShellRoute.Home, ShellRoute.Productions, ShellRoute.Settings, ShellRoute.CurrentProduction })
         {
             vm.NavigateShell(route);
@@ -195,6 +202,7 @@ public sealed class ScenePresentationTests
         {
             Open(vm, "A"); vm.OpenScenes();
             Assert.IsTrue(vm.HasSceneCollision); Assert.IsFalse(vm.HasSceneUncertainty);
+            StringAssert.Contains(vm.SceneNewSceneHelp, "cannot distinguish");
             Assert.IsFalse(vm.BeginSceneDraft());
             Assert.IsFalse(vm.InspectScene(new("collision-a")));
             Assert.IsTrue(vm.InspectScene(new("unambiguous")));

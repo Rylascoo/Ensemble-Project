@@ -170,6 +170,18 @@ public sealed partial class MainPage : Page
         }
     }
 
+    private void OnSceneContainerContentChanging(
+        ListViewBase sender,
+        ContainerContentChangingEventArgs args)
+    {
+        if (args.ItemContainer is ListViewItem container &&
+            args.Item is ScenePresentationRow scene)
+        {
+            AutomationProperties.SetName(container, scene.CodeLabel);
+            container.IsTabStop = false;
+        }
+    }
+
     private void OnOpenCharactersClicked(object sender, RoutedEventArgs e)
     {
         if (DataContext is not MainPageViewModel viewModel)

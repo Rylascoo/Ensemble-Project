@@ -11,10 +11,11 @@ public sealed record ScenePresentationRow(
     public string CodeLabel => Code is null ? "Scene code unavailable" : $"Scene code {Code}";
     public bool IsEmpty => Roster.Count == 0;
     public string RosterSummary => IsEmpty
-        ? "Empty initial roster"
-        : $"Initial roster: {string.Join(", ", Roster.Take(3).Select(character => character.AccessibleName))}" +
-          (Roster.Count > 3 ? $" +{Roster.Count - 3} more" : string.Empty);
+        ? "No Characters in this initial roster."
+        : $"Initial roster: {string.Join("; ", Roster.Take(3).Select(character => character.AccessibleName))}" +
+          (Roster.Count > 3 ? $"; +{Roster.Count - 3} more" : string.Empty);
     public string InspectName => $"Inspect initial roster for {CodeLabel}";
+    public string DetailHeadingName => $"Initial roster. {CodeLabel}";
 
     public static IReadOnlyList<ScenePresentationRow> Build(
         ProductionReplayProjection replay,

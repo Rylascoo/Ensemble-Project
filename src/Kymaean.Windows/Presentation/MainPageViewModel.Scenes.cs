@@ -33,6 +33,7 @@ public sealed partial class MainPageViewModel
     public bool CanEstablishScene => IsSceneSurface && !_sceneSubmitting && !HasSceneUncertainty && !HasSceneCollision;
     public IReadOnlyList<ScenePresentationRow> SceneRows => Uncertainty?.LastConfirmed ?? _sceneRows;
     public bool HasNoScenes => SceneRows.Count == 0;
+    public bool HasScenes => !HasNoScenes;
     public IReadOnlyList<CharacterPresentationRow> SceneCast => _sceneCast;
     public bool HasNoSceneCast => _sceneCast.Count == 0;
     public IReadOnlyList<CharacterPresentationRow> SceneDraftRoster => _sceneCast.Where(row => _sceneDraft.Contains(row.Id)).ToArray();
@@ -43,6 +44,17 @@ public sealed partial class MainPageViewModel
     public string SceneNotice => Uncertainty?.Message ?? _sceneStatus;
     public bool HasSceneNotice => SceneNotice.Length != 0;
     public string SceneListHeading => HasSceneUncertainty ? "Last confirmed Scenes" : "Scenes";
+    public string SceneListDescription => HasSceneUncertainty
+        ? "Last confirmed Scenes and their initial rosters."
+        : "Established Scenes and their initial rosters.";
+    public string SceneListInstruction => HasSceneUncertainty
+        ? "Choose a last confirmed Scene to inspect its initial roster."
+        : "Choose a Scene to inspect its initial roster, or establish a new Scene.";
+    public string SceneNewSceneHelp => HasSceneCollision
+        ? "New Scene is unavailable because Kymaean cannot distinguish some established Scenes safely."
+        : HasSceneUncertainty
+            ? "New Scene is unavailable until the Production is opened again and its recorded Scenes are freshly loaded."
+            : string.Empty;
 
     public void OpenScenes()
     {
@@ -191,9 +203,9 @@ public sealed partial class MainPageViewModel
     {
         foreach (var property in new[] { nameof(IsCurrentProductionOverview), nameof(IsSceneSurface), nameof(IsScenes),
             nameof(IsSceneDetail), nameof(IsSceneDraft), nameof(IsSceneNavigationEnabled), nameof(HasSceneUncertainty),
-            nameof(HasSceneCollision), nameof(CanEstablishScene), nameof(SceneRows), nameof(HasNoScenes), nameof(SceneCast),
+            nameof(HasSceneCollision), nameof(CanEstablishScene), nameof(SceneRows), nameof(HasNoScenes), nameof(HasScenes), nameof(SceneCast),
             nameof(HasNoSceneCast), nameof(SceneDraftRoster), nameof(HasEmptySceneDraft), nameof(InspectedScene),
             nameof(SubmittedSceneRoster), nameof(HasEmptySubmittedSceneRoster), nameof(SceneNotice), nameof(HasSceneNotice),
-            nameof(SceneListHeading) }) OnPropertyChanged(property);
+            nameof(SceneListHeading), nameof(SceneListDescription), nameof(SceneListInstruction), nameof(SceneNewSceneHelp) }) OnPropertyChanged(property);
     }
 }

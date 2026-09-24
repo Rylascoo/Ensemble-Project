@@ -16,7 +16,7 @@ public sealed partial class MainPage
         UpdateLayout();
         if (model.HasSceneUncertainty) FocusSceneNotice();
         else SceneBackButton.Focus(FocusState.Keyboard);
-        AnnounceScene("Scenes. Established Scenes and their initial rosters.");
+        AnnounceScene($"{model.SceneListHeading}. {model.SceneListDescription}");
     }
 
     private void OnSceneBackClicked(object sender, RoutedEventArgs e)
@@ -114,8 +114,9 @@ public sealed partial class MainPage
     private void AnnounceScene(string message)
     {
         if (message.Length == 0) return;
-        var peer = FrameworkElementAutomationPeer.FromElement(this) ?? new FrameworkElementAutomationPeer(this);
-        peer.RaiseNotificationEvent(AutomationNotificationKind.Other,
+        var peer = FrameworkElementAutomationPeer.FromElement(this) ??
+            FrameworkElementAutomationPeer.CreatePeerForElement(this);
+        peer?.RaiseNotificationEvent(AutomationNotificationKind.Other,
             AutomationNotificationProcessing.ImportantMostRecent, message, "ScenePresentation");
     }
 
