@@ -12,18 +12,25 @@ Application Product, Implementation and App Design authority: `Rylascoo/Ensemble
 
 Q-UNITY-01/02 remain current through `docs/Q_UNITY_01_PROJECT_UNIFICATION_AND_SIMPLIFICATION_2026_09_22.md` and `docs/evidence/Q_UNITY_02_DISCONNECTED_WORKSPACE_DEMO_SCAFFOLD_RETIREMENT_2026_09_22.md`.
 
-Q-PROD-09 first Product-native Performance integrated through Director-authorized PR #266 at `f2cc34a1e997805d8d21262e4010f68a9f63a2f1`; exact-main Validation `35962610990` PASS.
+Q-PROD-09 is fully closed through PR #266 and post-merge closeout PR #267 at `f89d2e41fb28e875b1bdd3d1362637f3fcf1198d`; exact-main Validation `35966476382` PASS. Native machine-test authority remains `5038029c79b2177330cc06e81ac338f4b830ad3f`.
 
-Native machine-test authority remains exact source `5038029c79b2177330cc06e81ac338f4b830ad3f`, tag `validation/q-prod-09-first-product-native-performance-native-arm64-r2`. Product/Director disposition: `docs/FIRST_PRODUCT_NATIVE_PERFORMANCE_Q1_Q2_Q5_DIRECTOR_DISPOSITION_2026_09_24.md`. Native evidence: `docs/evidence/Q_PROD_09_FIRST_PRODUCT_NATIVE_PERFORMANCE_NATIVE_ARM64_VALIDATION_2026_09_24.md`. Integration closeout: `docs/evidence/Q_PROD_09_FIRST_PRODUCT_NATIVE_PERFORMANCE_INTEGRATION_CLOSEOUT_2026_09_24.md`.
+## Active successor
+
+Director continuation on 2026-09-24 reactivates **Q-DESIGN-24 Task A only**.
+
+Exact preserved corrected Scene candidate: PR #262 / `abada447f4a6e4a8660146d641b2984bb38c5dec`. Verdict remains **INCONCLUSIVE** and PR #262 remains unmerged.
+
+Next bounded work: compose the corrected Scene executable/test diff with current validated Director Preview as **PREVIEW COMPOSITE — NOT MERGE CANDIDATE**, run technical/native Preview admission checks, issue a fresh admission receipt, then rerun Task A uncoached. Preserve the first Task A presentation/discoverability failure and all prior evidence.
+
+Method: `docs/design/app/evidence/Q_PREVIEW_01_DIRECTOR_FEEDBACK_METHOD_2026_09_23.md`.
+Contract: `docs/design/app/contracts/SCENE_INITIAL_ROSTER_PRESENTATION.md`.
 
 ## Boundaries
 
-First live AI Performance remains later. Q-PROD-09 creates no provider/model/credential/network/spend authority, persistent provider casting, automatic Director, Current/Active Scene or lifecycle, ODR-13/19/30 closure, deferred-E0 execution/convergence, final architecture, Current Production visual refinement, Alpha/Beta/release, WACK or Store authority. Accepted v1 Product history may never be silently reinterpreted.
+No PR #262 merge, Scene Product-schema expansion, persistent Scene naming, Current/Active Scene/lifecycle, provider/model/credential/network/spend, deferred-E0 execution, Current Production composition, ODR closure, Alpha/Beta/release, WACK or Store authority is created.
 
-Deferred gates remain as sequenced in `docs/PROJECT_EXECUTION_QUEUE.md`.
-
-PR #265 remains draft/documentation-only/unmerged at `c0dbe79e7e491024f85f3cd51abdfcdd907da889`. Q-DESIGN-24 / PR #262 remains separate and INCONCLUSIVE. Q-ALPHA-01 remains BLOCKED.
+PR #265 remains draft/documentation-only/unmerged at `c0dbe79e7e491024f85f3cd51abdfcdd907da889`. Q-ALPHA-01 remains BLOCKED.
 
 ## Next
 
-Post-merge continuity closeout PR #267 is Director-authorized for merge by the 2026-09-24 continuation. Upon its integration, Q-PROD-09 is fully closed; stop and await a separate Director successor task. No live-AI/provider or deferred-E0 work is auto-authorized.
+Admit the corrected Q-DESIGN-24 candidate into Director Preview and return the uncoached Task A observation for Design disposition. No merge or successor Product semantics by implication.

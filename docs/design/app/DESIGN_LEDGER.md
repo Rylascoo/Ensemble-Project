@@ -1,5 +1,12 @@
 # Application Design Ledger — frozen receipt
 
+## Project-native Q-DESIGN-24 Task A reactivation — 2026-09-24
+
+Director successor instruction reactivates the corrected Q-DESIGN-24 Task A evidence lane after Q-PROD-09 closure. Exact preserved candidate remains PR #262 head `abada447f4a6e4a8660146d641b2984bb38c5dec`; first Task A presentation/discoverability failure, correction and falsifier remain intact. Next evidence is a fresh Director Preview composite/admission followed by an uncoached Task A rerun. No Scene acceptance, PR #262 merge, Product expansion, provider/deferred-E0 work or Current Production composition.
+
+Method: `evidence/Q_PREVIEW_01_DIRECTOR_FEEDBACK_METHOD_2026_09_23.md`.
+
+
 ## Project-native Q-PREVIEW-01 method amendment — 2026-09-23
 
 Director-approved method and boundaries: `evidence/Q_PREVIEW_01_DIRECTOR_FEEDBACK_METHOD_2026_09_23.md`; reference map: `pointers/DIRECTOR_PREVIEW_VISUAL_REFERENCE_MAP.md`. Immediate Q-DESIGN-24 Task A rerun paused; ordinary Preview use may supply faithfully contextualized qualitative evidence. Original failure/correction/falsifier and acceptance substance remain intact. No Scene acceptance, Product change or whole-app redesign. This is a successor entry, not alteration of the frozen source decisions below.
