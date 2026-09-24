@@ -147,6 +147,7 @@
                     Grid.Row="1"
                     Margin="0,26,0,0"
                     HorizontalScrollBarVisibility="Disabled"
+                    HorizontalScrollMode="Disabled"
                     VerticalScrollBarVisibility="Auto">
                     <Grid>
                         <Grid Visibility="{Binding IsHome, Converter={StaticResource BoolToVisibility}}">
