@@ -24,61 +24,59 @@ internal static class PresentationIdentityCode
                 continue;
             }
 
-            var hashes = duplicates.ToDictionary(
-                item => identityValueSelector(item),
-                item => HashIdentity(identityValueSelector(item)),
-                StringComparer.Ordinal);
-            var prefixLengths = duplicates.ToDictionary(
-                item => identityValueSelector(item),
-                _ => 8,
-                StringComparer.Ordinal);
-
-            while (true)
+            foreach (var (identity, code) in BuildSceneCodes(duplicates.Select(identityValueSelector).ToArray()))
             {
-                var collisions = duplicates
-                    .GroupBy(
-                        item =>
-                        {
-                            var identity = identityValueSelector(item);
-                            return hashes[identity][..prefixLengths[identity]];
-                        },
-                        StringComparer.Ordinal)
-                    .Where(candidate => candidate.Count() > 1)
-                    .ToArray();
-
-                if (collisions.Length == 0)
-                {
-                    break;
-                }
-
-                foreach (var collision in collisions)
-                {
-                    foreach (var item in collision)
-                    {
-                        var identity = identityValueSelector(item);
-                        var nextLength = prefixLengths[identity] + 4;
-                        if (nextLength > hashes[identity].Length)
-                        {
-                            throw new InvalidOperationException(
-                                "Presentation identity fingerprints collide.");
-                        }
-
-                        prefixLengths[identity] = nextLength;
-                    }
-                }
-            }
-
-            foreach (var item in duplicates)
-            {
-                var identity = identityValueSelector(item);
-                result[identity] = hashes[identity][..prefixLengths[identity]];
+                result[identity] = code ?? throw new InvalidOperationException("Presentation identity fingerprints collide.");
             }
         }
 
         return result;
     }
 
-    private static string HashIdentity(string value)
+    public static IReadOnlyDictionary<string, string?> BuildSceneCodes(IReadOnlyList<string> identities)
+    {
+#if SCENE_PRESENTATION_TESTS
+        if (FullHashCollisionIdentitiesForTest is { } collision)
+            return ResolveSceneHashes(identities.ToDictionary(id => id,
+                id => collision.Contains(id) ? new string('F', 64) : HashIdentity(id), StringComparer.Ordinal));
+#endif
+        return ResolveSceneHashes(identities.ToDictionary(id => id, HashIdentity, StringComparer.Ordinal));
+    }
+
+    // Only tests compile the injection entry point. The retail build has no hash override.
+#if SCENE_PRESENTATION_TESTS
+    internal static IReadOnlySet<string>? FullHashCollisionIdentitiesForTest { get; set; }
+    internal static IReadOnlyDictionary<string, string?> InjectFullCollisionForTest(
+        IReadOnlyDictionary<string, string> hashes) => ResolveSceneHashes(hashes);
+#endif
+
+    private static IReadOnlyDictionary<string, string?> ResolveSceneHashes(
+        IReadOnlyDictionary<string, string> hashes)
+    {
+        var result = new Dictionary<string, string?>(StringComparer.Ordinal);
+        var fullCollisions = hashes.GroupBy(pair => pair.Value, StringComparer.Ordinal)
+            .Where(group => group.Count() > 1).SelectMany(group => group.Select(pair => pair.Key))
+            .ToHashSet(StringComparer.Ordinal);
+        foreach (var (identity, hash) in hashes)
+        {
+            if (fullCollisions.Contains(identity))
+            {
+                result.Add(identity, null);
+                continue;
+            }
+
+            var length = 8;
+            while (hashes.Any(other => other.Key != identity &&
+                       other.Value.AsSpan(0, length).SequenceEqual(hash.AsSpan(0, length))))
+            {
+                length += 4;
+            }
+            result.Add(identity, hash[..length]);
+        }
+        return result;
+    }
+
+    internal static string HashIdentity(string value)
     {
         ArgumentNullException.ThrowIfNull(value);
 

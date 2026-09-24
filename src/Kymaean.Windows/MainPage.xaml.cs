@@ -132,6 +132,7 @@ public sealed partial class MainPage : Page
             viewModel.OpenSelectedProduction())
         {
             ShellNavigation.SelectedItem = null;
+            AnnounceScene(viewModel.StatusMessage);
         }
     }
 
@@ -166,6 +167,17 @@ public sealed partial class MainPage : Page
             AutomationProperties.SetName(
                 container,
                 character.AccessibleName);
+        }
+    }
+
+    private void OnSceneContainerContentChanging(
+        ListViewBase sender,
+        ContainerContentChangingEventArgs args)
+    {
+        if (args.ItemContainer is ListViewItem container &&
+            args.Item is ScenePresentationRow scene)
+        {
+            AutomationProperties.SetName(container, scene.CodeLabel);
         }
     }
 

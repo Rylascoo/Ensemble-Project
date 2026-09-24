@@ -10,17 +10,17 @@ Application Product, Implementation and App Design authority: `Rylascoo/Ensemble
 
 `DESIGN_ARCHITECTURE_READY = READY`. Q-PROD-02/03/04/05/06/07/08/09 and Q-DESIGN-20/21/22/23 are integrated. Q-ADMIN-08 and Q-PREVIEW-01 are integrated on .NET 10.
 
-Q-UNITY-01/02 remain current through `docs/Q_UNITY_01_PROJECT_UNIFICATION_AND_SIMPLIFICATION_2026_09_22.md` and `docs/evidence/Q_UNITY_02_DISCONNECTED_WORKSPACE_DEMO_SCAFFOLD_RETIREMENT_2026_09_22.md`.
+Q-PROD-09 is closed through PR #266 and closeout PR #267 at `f89d2e41fb28e875b1bdd3d1362637f3fcf1198d`; exact-main Validation `35966476382` PASS. Native machine-test authority remains `5038029c79b2177330cc06e81ac338f4b830ad3f`.
 
-Q-PROD-09 is fully closed through PR #266 and post-merge closeout PR #267 at `f89d2e41fb28e875b1bdd3d1362637f3fcf1198d`; exact-main Validation `35966476382` PASS. Native machine-test authority remains `5038029c79b2177330cc06e81ac338f4b830ad3f`.
+Q-UNITY-01/02 remain current through `docs/Q_UNITY_01_PROJECT_UNIFICATION_AND_SIMPLIFICATION_2026_09_22.md` and `docs/evidence/Q_UNITY_02_DISCONNECTED_WORKSPACE_DEMO_SCAFFOLD_RETIREMENT_2026_09_22.md`.
 
 ## Active successor
 
-Director adoption on 2026-09-24 changes Q-DESIGN-24 to the **Sol + Claude dual-review UI loop**.
+Q-DESIGN-24 PR #271 is **DESIGN ACCEPTED for bounded Scene scope** at executable `bdd6c094446be79b37e28c2ddb4a6c31996646b5`. The Director explicitly authorized merging PR #271 in the next fresh chat. Handoff: `docs/handoff/Q_DESIGN_24_PR_271_MERGE_AUTHORIZED_HANDOFF_2026_09_24.md`.
 
-PR #262 remains exact corrected source `abada447f4a6e4a8660146d641b2984bb38c5dec`, INCONCLUSIVE and unmerged. Corrected Preview admission evidence is preserved in draft PR #269 at `138d7c5957f5ae74a4b39864c8d21f0de853a81a`.
+PR #262 and evidence PR #269 remain unmerged and are not authorized by implication. PR #265 remains documentation-only/unmerged.
 
-Default next work: Design Sol audits the admitted Scene experience; Claude Code independently performs the fixed adversarial UI review; Design reconciles and applies only bounded presentation corrections; automation/native checks verify them. Human Task A becomes a later milestone falsifier, not the ordinary iteration gate.
+Exact `bdd6c094...` evidence passes native ARM64 Scene 12/12, Preview build/refresh/launch, Application/Persistence/Core/Harness, ordinary/Preview builds, hosted gates and native keyboard/action visibility. It corrects the prior right-column overflow with visible vertical action flow. Human Scene-code comprehension/discoverability, Narrator intelligibility and High Contrast remain later falsifiers; they are not claimed as PASS.
 
 Method: `docs/design/app/DUAL_REVIEW_UI_DEVELOPMENT_METHOD_2026_09_24.md`.
 
@@ -30,10 +30,8 @@ Windows 11 ARM64 / Microsoft Store is the sole shipping target until release; cr
 
 ## Boundaries
 
-No PR #262 merge, Product expansion, provider/network/spend, deferred-E0 execution, Current Production composition, ODR closure, Alpha/Beta/release or Store authority is created.
-
-PR #265 remains draft/documentation-only/unmerged at `c0dbe79e7e491024f85f3cd51abdfcdd907da889`. Q-ALPHA-01 remains BLOCKED.
+No Product expansion, provider/network/spend, deferred-E0 execution, Current Production composition, ODR closure, Alpha/Beta/release or Store authority is created.
 
 ## Next
 
-Run the dual-review pass on the admitted corrected Scene UI, reconcile findings, and iterate natively. Human diagnosis is not required. No PR #262/#269 merge or successor Product semantics by implication.
+Fresh-resolve `main`, PR #271 lineage/state/mergeability and required checks. Merge only if accepted executable `bdd6c094...` remains intact with continuity/documentation-only changes afterward and gates are clean. Executable changes require renewed Design acceptance. Then validate integrated `main`, close Q-DESIGN-24 durably, and proceed to the bounded Presentation-seam decision plus native ARM64 CI/performance baseline.

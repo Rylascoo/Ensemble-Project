@@ -5,7 +5,7 @@ using Kymaean.Application;
 
 namespace Kymaean.Windows.Presentation;
 
-public sealed class MainPageViewModel : INotifyPropertyChanged
+public sealed partial class MainPageViewModel : INotifyPropertyChanged
 {
     private readonly ProductApplication? _application;
     private ProductApplicationProjection? _projection;
@@ -340,6 +340,7 @@ public sealed class MainPageViewModel : INotifyPropertyChanged
 
     public void NavigateShell(ShellRoute route)
     {
+        if (_sceneSubmitting) return;
         if (!Enum.IsDefined(route))
         {
             throw new ArgumentOutOfRangeException(nameof(route));
@@ -369,12 +370,16 @@ public sealed class MainPageViewModel : INotifyPropertyChanged
                 });
         }
 
+        _statusMessage = string.Empty;
+        OnPropertyChanged(nameof(StatusMessage));
+        OnPropertyChanged(nameof(HasStatusMessage));
         _activeShellRoute = route;
         RaiseShellProperties();
     }
 
     public void SelectProduction(ProductionPresentationRow? production)
     {
+        if (_sceneSubmitting) return;
         _selectedProductionRow = production;
         OnPropertyChanged(nameof(SelectedProductionRow));
         OnPropertyChanged(nameof(CanAccessSelection));
@@ -382,6 +387,7 @@ public sealed class MainPageViewModel : INotifyPropertyChanged
 
     public void OpenProductionCreationForm()
     {
+        if (_sceneSubmitting) return;
         if (_application is null)
         {
             return;
@@ -503,6 +509,7 @@ public sealed class MainPageViewModel : INotifyPropertyChanged
 
     public void OpenCharacters()
     {
+        if (_sceneSubmitting) return;
         if (_application is null || !HasCurrentProduction)
         {
             throw new InvalidOperationException(
@@ -671,6 +678,7 @@ public sealed class MainPageViewModel : INotifyPropertyChanged
 
     public void OpenWorldTruths()
     {
+        if (_sceneSubmitting) return;
         RequireOpenProduction();
 
         if (_worldTruthConfirmationUnavailable)
@@ -860,14 +868,26 @@ public sealed class MainPageViewModel : INotifyPropertyChanged
 
     private bool AccessSelectedProduction(bool recover)
     {
+        if (_sceneSubmitting) return false;
         if (_application is null || _selectedProductionRow is null)
         {
             return false;
         }
 
-        var result = recover
-            ? _application.RecoverProduction(_selectedProductionRow.Id)
-            : _application.OpenProduction(_selectedProductionRow.Id);
+        ProductAccessResult<ProductApplicationProjection> result;
+        try
+        {
+            result = recover
+                ? _application.RecoverProduction(_selectedProductionRow.Id)
+                : _application.OpenProduction(_selectedProductionRow.Id);
+        }
+        catch (Exception error) when (error is IOException or UnauthorizedAccessException)
+        {
+            _statusMessage = "Kymaean couldn't open the selected Production. Its last confirmed state is unchanged.";
+            OnPropertyChanged(nameof(StatusMessage));
+            OnPropertyChanged(nameof(HasStatusMessage));
+            return false;
+        }
 
         if (!result.IsSuccess)
         {
@@ -880,8 +900,8 @@ public sealed class MainPageViewModel : INotifyPropertyChanged
         }
 
         _projection = result.Value;
+        OnSceneProductionOpened(recover);
         _activeShellRoute = ShellRoute.CurrentProduction;
-        _statusMessage = string.Empty;
         ResetWorldTruthPresentationFromAuthoritativeProjection();
         ResetCharacterPresentationFromAuthoritativeProjection();
 
@@ -1113,6 +1133,7 @@ public sealed class MainPageViewModel : INotifyPropertyChanged
         OnPropertyChanged(nameof(PageSummary));
         RaiseWorldTruthProperties();
         RaiseCharacterProperties();
+        RaiseSceneProperties();
     }
 
     private void RaiseCharacterProperties()
@@ -1203,6 +1224,10 @@ public sealed class MainPageViewModel : INotifyPropertyChanged
         CharacterCreation,
         CharacterSubmitting,
         CharacterTypedFailure,
-        CharacterConfirmationUnavailable
+        CharacterConfirmationUnavailable,
+        Scenes,
+        SceneDetail,
+        SceneDraft,
+        SceneSubmitting
     }
 }
