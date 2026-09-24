@@ -19,12 +19,11 @@ This file now carries only current, deferred, or blocking work. Completed histor
 
 ## Current application work
 
-Q-ADMIN-08 is integrated; platform validation remains in `docs/VALIDATION_LEDGER.md`. Director approval authorizes Q-PREVIEW-01 and pauses the immediate Q-DESIGN-24 Task A rerun. Scope: `docs/Q_PREVIEW_01_DIRECTOR_PREVIEW_FOUNDATION_2026_09_23.md`. The separate Scene empirical writer/PR #262 remains preserved, not accepted or merged. The presentation-code falsifier remains controlling.
+Q-ADMIN-08 is integrated; platform validation remains in `docs/VALIDATION_LEDGER.md`. Q-PREVIEW-01 is integrated through PR #263 at `247059a869d5f751f95b227d28f050be2b81a49c`, exact-main Validation #1310 PASS. The immediate Q-DESIGN-24 Task A rerun remains paused. Scope: `docs/Q_PREVIEW_01_DIRECTOR_PREVIEW_FOUNDATION_2026_09_23.md`. The separate Scene empirical writer/PR #262 remains preserved, not accepted or merged. The presentation-code falsifier remains controlling.
 
 | ID | Role | Status | Work | Hard boundary / successor |
 |---|---|---|---|---|
-| Q-PREVIEW-01 | Implementation / Governance / Design method | NATIVE PASS — DIRECTOR MERGE DISPOSITION | Exact 6f4545d foundation validated; independent review clean; draft PR #263; evidence in VALIDATION_LEDGER. | Exact-head hosted gates and separate merge authorization. No Product semantics, provider, visual redesign or Alpha. |
-| Q-DESIGN-24-WINDOWS | Implementation / Design | PAUSED — IMMEDIATE TASK A RERUN | Preserve corrected abada447 candidate, first failure and all evidence in separate PR #262. | INCONCLUSIVE; technical Preview admission only after foundation validation; human claims/falsifier remain. |
+| Q-DESIGN-24-WINDOWS | Implementation / Design | PAUSED — IMMEDIATE TASK A RERUN | Preserve corrected abada447 candidate, first failure and all evidence in separate PR #262. | INCONCLUSIVE; foundation validation satisfied, Preview admission awaits separate Director task and explicit receipt; human claims/falsifier remain. |
 | Current Production workspace composition | Design | DEFERRED — DIRECTOR DISPOSITION | Future bounded composition candidate identified during Preview reconciliation. | Not activated by Q-PREVIEW-01; no whole-app redesign. |
 | Q-ADMIN-07 | Governance / Recovery | DEFERRED — LOCAL RESIDUE ONLY | Disposition remaining local historical/deferred worktrees after owner/status/evidence review. | Preserve ambiguous local evidence and the unique historical PR #226 branch; merged remote refs require archive-tag-before-delete handling. |
 

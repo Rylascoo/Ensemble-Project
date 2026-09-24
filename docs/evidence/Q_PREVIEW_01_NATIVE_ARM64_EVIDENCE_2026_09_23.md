@@ -1,6 +1,6 @@
 # Q-PREVIEW-01 native ARM64 evidence
 
-Status: NATIVE FOUNDATION PASS / NO MERGE AUTHORIZATION.
+Status: NATIVE FOUNDATION PASS / DIRECTOR-AUTHORIZED INTEGRATION COMPLETE. The pre-merge return below is historical; the integration record supersedes its stop-before-merge boundary.
 
 Package/lease: `docs/Q_PREVIEW_01_DIRECTOR_PREVIEW_FOUNDATION_2026_09_23.md`. Director-approved implementation from exact main `69c68001836ed984df672587cecd41d340a31337`. No result below promotes Q-DESIGN-24, Alpha, Product/provider, packaging/WACK or Store authority.
 
@@ -46,3 +46,15 @@ At that exact evidence head, hosted push [Validation #1306](https://github.com/R
 Final live reconciliation before closeout: main remains `69c68001836ed984df672587cecd41d340a31337`; PR #262 remains draft/open at `abada447f4a6e4a8660146d641b2984bb38c5dec`. Only the new Preview branch/tag were pushed. Existing root/historical worktrees and their Q-ADMIN-07 disposition remain unchanged. Stop before merge; the Director must separately authorize PR #263 integration. The package document supplies the later Scene preview-admission procedure, not acceptance or a composite source ref.
 
 Old Scene scratch preservation and mutable-launch reconciliation are recorded in `docs/design/app/evidence/Q_PREVIEW_01_DIRECTOR_FEEDBACK_METHOD_2026_09_23.md`. No old apparatus was changed.
+
+## Director-authorized integration closeout — 2026-09-23
+
+Fresh pre-merge checks confirmed main `69c68001836ed984df672587cecd41d340a31337`, exact PR #263 head `dfa59e8c8a1991720593a48119cbd2dbfc244631`, open/unmerged state and all hosted gates PASS (Validation #1308/#1309 and preparation #213). PR #262 remained draft/open at `abada447f4a6e4a8660146d641b2984bb38c5dec`.
+
+PR #263 merged at `247059a869d5f751f95b227d28f050be2b81a49c` (2026-09-24 00:47:02 UTC). Merge tree exactly equals the authorized head. Push-triggered exact-main [Validation #1310](https://github.com/Rylascoo/Ensemble-Project/actions/runs/35939979664) completed SUCCESS before integration was declared. Native authority remains exclusively `6f4545df367e4aebe23789b3ff726ed131a968b6` and its annotated validation tag; no merge/documentation SHA is promoted to native evidence.
+
+A documentation-only closeout is required because the merged state/queue still described awaiting merge. Its lease is exactly CURRENT_STATE, PROJECT_EXECUTION_QUEUE, VALIDATION_LEDGER, the package record and this evidence record. It retires the completed active queue entry and records integration without executable changes. Director authorization includes this necessary integration closeout. No branch/worktree cleanup is performed; Q-ADMIN-07 preservation and archive-tag-before-delete law remain controlling.
+
+SurfSeven read-only status: `Kymaean.DirectorPreview_1z32rh13vfry6`, visible KYMÆAN Director Preview, remains registered at the preserved `native-refresh-9fba5c5d8f794eb4925da02add3fa9db/layout`; admission mode admitted at exact native source; no pending refresh. Selected profile `7f61676e6f3c479981bcf479352dd2a1`, recipe rich-v1, compatibility qprod08-journal-v1. Director workspace and all other profiles remain retained. Integration does not refresh registration, rewrite profile data or launch an evaluation.
+
+Q-ALPHA-01 remains BLOCKED. PR #262 remains separate and unmerged; Scene treatment remains INCONCLUSIVE, immediate Task A rerun PAUSED, first failure/correction/falsifier preserved. Stop after clean integration closeout. The next lawful Scene boundary is a separate Director task for an explicitly receipted Preview-only admission of exact corrected source `abada447f4a6e4a8660146d641b2984bb38c5dec` against the validated foundation, using PREVIEW COMPOSITE — NOT MERGE CANDIDATE if necessary. No composite, Scene acceptance/merge, Product successor or Current Production visual refinement is activated here.
