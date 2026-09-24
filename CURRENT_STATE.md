@@ -18,9 +18,9 @@ Q-PROD-09 is fully closed through PR #266 and post-merge closeout PR #267 at `f8
 
 Director adoption on 2026-09-24 changes Q-DESIGN-24 to the **Sol + Claude dual-review UI loop**.
 
-PR #271 is the current bounded Scene finalization candidate at `b462821ec17ca5ed4033a882d70bbafd7fa423a2`, rebased on current main. It supersedes PR #262 as executable candidate without accepting or merging older PR #262 or evidence PR #269.
+PR #271 is **DESIGN ACCEPTED for its bounded Scene scope** at executable candidate `bdd6c094446be79b37e28c2ddb4a6c31996646b5`, rebased on current main. It supersedes PR #262 as executable candidate without accepting or merging older PR #262 or evidence PR #269. Merge remains Director authority.
 
-Independent Claude Opus review is complete. Design reconciled its material bounded findings through accessibility hierarchy, list semantics, narrow-layout, uncertainty-copy and keyboard-navigation corrections without Product/Persistence change. Native tests remain Scene 12/12, Application 92/92, Persistence 153/153, Core 628/628, Harness 155/155 PASS; ARM64 Release WinUI PASS 0 warnings/errors. Preview is admitted through exact predecessor `15f9206f8aef49589819d9712ea94194dd980c9f`; exact-head Preview keyboard verification remains. Human comprehension/Narrator claims are later milestone falsifiers.
+Independent Claude Opus review is complete and Design-reconciled. Exact-candidate native ARM64 evidence is clean: Scene presentation 12/12 PASS; Director Preview technical build, refresh and launch PASS; Application/Persistence/Core/Harness checks and ordinary/Preview ARM64 builds PASS; hosted push/PR gates PASS. Exact native keyboard verification confirms ListView row focus, Up/Down navigation and Tab entry to the matching inspection action. A final native screenshot exposed the prior right-column action outside the visible horizontal flow; `bdd6c09` corrects that falsifier by keeping each inspection action in the row's visible vertical flow. Human comprehension/Narrator/theme claims remain later milestone falsifiers.
 
 Method: `docs/design/app/DUAL_REVIEW_UI_DEVELOPMENT_METHOD_2026_09_24.md`.
 
@@ -36,4 +36,4 @@ PR #265 remains draft/documentation-only/unmerged at `c0dbe79e7e491024f85f3cd51a
 
 ## Next
 
-Finish exact-head native Preview keyboard verification for PR #271 and return the bounded Q-DESIGN-24 disposition. No PR #262/#269/#271 merge or successor Product semantics by implication.
+Director merge disposition for draft PR #271. If merge is authorized, close Q-DESIGN-24 on integrated main and proceed to the bounded Presentation-seam decision plus ARM64 CI/performance baseline. No PR #262/#269/#271 merge or successor Product semantics by implication.
