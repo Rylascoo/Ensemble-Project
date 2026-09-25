@@ -12,6 +12,8 @@ Application Product, Implementation and App Design authority: `Rylascoo/Ensemble
 
 Current integrated `main`: `34ff50c23b411da33d16e615ace780088b257f4a` (PR #274). Exact-main Validation #1417 PASS. Presentation-seam native/runtime baseline authority remains exact `5205f13dd6872372f4c9ed8f7b078dabb854646a`; merge/continuity commits do not inherit that native rung.
 
+Q-UNITY-01/02 remain current through `docs/Q_UNITY_01_PROJECT_UNIFICATION_AND_SIMPLIFICATION_2026_09_22.md` and `docs/evidence/Q_UNITY_02_DISCONNECTED_WORKSPACE_DEMO_SCAFFOLD_RETIREMENT_2026_09_22.md`.
+
 ## Active Q-DESIGN-25
 
 Director continuation activated **Current Production workspace composition** as one bounded App Design package.
