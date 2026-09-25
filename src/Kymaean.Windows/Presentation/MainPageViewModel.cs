@@ -7,6 +7,7 @@ namespace Kymaean.Windows.Presentation;
 
 public sealed partial class MainPageViewModel : INotifyPropertyChanged
 {
+    private const int OverviewPreviewLimit = 3;
     private readonly ProductApplication? _application;
     private ProductApplicationProjection? _projection;
     private IReadOnlyList<ProductionPresentationRow> _productionRows =
@@ -211,6 +212,26 @@ public sealed partial class MainPageViewModel : INotifyPropertyChanged
     public IReadOnlyList<string> CurrentWorldTruths => _currentWorldTruths;
     public bool HasCurrentWorldTruths => _currentWorldTruths.Count > 0;
     public bool HasNoCurrentWorldTruths => !HasCurrentWorldTruths;
+    public bool HasWorldTruthOverviewUncertainty =>
+        _worldTruthConfirmationUnavailable;
+    public string WorldTruthOverviewDescription =>
+        HasWorldTruthOverviewUncertainty
+            ? "Kymaean couldn't confirm whether the replacement became current."
+            : "What is currently established about this Production's world.";
+    private IReadOnlyList<string> OverviewWorldTruthSource =>
+        HasWorldTruthOverviewUncertainty
+            ? _lastConfirmedWorldTruths
+            : _currentWorldTruths;
+    public IReadOnlyList<string> OverviewWorldTruths =>
+        OverviewWorldTruthSource.Take(OverviewPreviewLimit).ToArray();
+    public bool HasOverviewWorldTruths => OverviewWorldTruthSource.Count > 0;
+    public bool HasNoOverviewWorldTruths => !HasOverviewWorldTruths;
+    public bool HasMoreOverviewWorldTruths =>
+        OverviewWorldTruthSource.Count > OverviewPreviewLimit;
+    public string WorldTruthOverviewEmptyMessage =>
+        HasWorldTruthOverviewUncertainty
+            ? "The last confirmed set was empty."
+            : "There are no current world truths.";
 
     public ObservableCollection<WorldTruthDraftItem> WorldTruthDraftItems { get; } =
         new();
@@ -249,6 +270,26 @@ public sealed partial class MainPageViewModel : INotifyPropertyChanged
 
     public bool HasCharacters => _characterRows.Count > 0;
     public bool HasNoCharacters => !HasCharacters;
+    public bool HasCharacterOverviewUncertainty =>
+        _characterConfirmationUnavailable;
+    public string CharacterOverviewDescription =>
+        HasCharacterOverviewUncertainty
+            ? "Kymaean couldn't confirm whether this Character was created."
+            : "Characters already established in this Production.";
+    private IReadOnlyList<CharacterPresentationRow> OverviewCharacterSource =>
+        HasCharacterOverviewUncertainty
+            ? _lastConfirmedCharacterRows
+            : _characterRows;
+    public IReadOnlyList<CharacterPresentationRow> OverviewCharacterRows =>
+        OverviewCharacterSource.Take(OverviewPreviewLimit).ToArray();
+    public bool HasOverviewCharacters => OverviewCharacterSource.Count > 0;
+    public bool HasNoOverviewCharacters => !HasOverviewCharacters;
+    public bool HasMoreOverviewCharacters =>
+        OverviewCharacterSource.Count > OverviewPreviewLimit;
+    public string CharacterOverviewEmptyMessage =>
+        HasCharacterOverviewUncertainty
+            ? "There were no last confirmed Characters."
+            : "No Characters yet.";
 
     public IReadOnlyList<CharacterPresentationRow> LastConfirmedCharacterRows =>
         _lastConfirmedCharacterRows;
@@ -647,6 +688,7 @@ public sealed partial class MainPageViewModel : INotifyPropertyChanged
                 result.Value.Character.Id)
                 ?? throw new InvalidOperationException(
                     "Created Character is missing from the authoritative Production Cast.");
+            RefreshSceneRows();
 
             _characterConfirmationUnavailable = false;
             _characterNameDraft = string.Empty;
@@ -937,6 +979,11 @@ public sealed partial class MainPageViewModel : INotifyPropertyChanged
         OnPropertyChanged(nameof(CharacterRows));
         OnPropertyChanged(nameof(HasCharacters));
         OnPropertyChanged(nameof(HasNoCharacters));
+        OnPropertyChanged(nameof(OverviewCharacterRows));
+        OnPropertyChanged(nameof(HasOverviewCharacters));
+        OnPropertyChanged(nameof(HasNoOverviewCharacters));
+        OnPropertyChanged(nameof(HasMoreOverviewCharacters));
+        OnPropertyChanged(nameof(CharacterOverviewEmptyMessage));
 
         return focusedId is null
             ? null
@@ -1064,6 +1111,11 @@ public sealed partial class MainPageViewModel : INotifyPropertyChanged
         OnPropertyChanged(nameof(CurrentWorldTruths));
         OnPropertyChanged(nameof(HasCurrentWorldTruths));
         OnPropertyChanged(nameof(HasNoCurrentWorldTruths));
+        OnPropertyChanged(nameof(OverviewWorldTruths));
+        OnPropertyChanged(nameof(HasOverviewWorldTruths));
+        OnPropertyChanged(nameof(HasNoOverviewWorldTruths));
+        OnPropertyChanged(nameof(HasMoreOverviewWorldTruths));
+        OnPropertyChanged(nameof(WorldTruthOverviewEmptyMessage));
     }
 
     private bool TryCanonicalizeDraft(out string[] canonical)
@@ -1155,6 +1207,13 @@ public sealed partial class MainPageViewModel : INotifyPropertyChanged
         OnPropertyChanged(nameof(IsCharacterSubmitting));
         OnPropertyChanged(nameof(IsCharacterTypedFailure));
         OnPropertyChanged(nameof(IsCharacterConfirmationUnavailable));
+        OnPropertyChanged(nameof(HasCharacterOverviewUncertainty));
+        OnPropertyChanged(nameof(CharacterOverviewDescription));
+        OnPropertyChanged(nameof(OverviewCharacterRows));
+        OnPropertyChanged(nameof(HasOverviewCharacters));
+        OnPropertyChanged(nameof(HasNoOverviewCharacters));
+        OnPropertyChanged(nameof(HasMoreOverviewCharacters));
+        OnPropertyChanged(nameof(CharacterOverviewEmptyMessage));
         OnPropertyChanged(nameof(CharacterRows));
         OnPropertyChanged(nameof(HasCharacters));
         OnPropertyChanged(nameof(HasNoCharacters));
@@ -1182,6 +1241,13 @@ public sealed partial class MainPageViewModel : INotifyPropertyChanged
         OnPropertyChanged(nameof(IsWorldTruthSubmitting));
         OnPropertyChanged(nameof(IsWorldTruthTypedFailure));
         OnPropertyChanged(nameof(IsWorldTruthConfirmationUnavailable));
+        OnPropertyChanged(nameof(HasWorldTruthOverviewUncertainty));
+        OnPropertyChanged(nameof(WorldTruthOverviewDescription));
+        OnPropertyChanged(nameof(OverviewWorldTruths));
+        OnPropertyChanged(nameof(HasOverviewWorldTruths));
+        OnPropertyChanged(nameof(HasNoOverviewWorldTruths));
+        OnPropertyChanged(nameof(HasMoreOverviewWorldTruths));
+        OnPropertyChanged(nameof(WorldTruthOverviewEmptyMessage));
         OnPropertyChanged(nameof(ReviewWorldTruths));
         OnPropertyChanged(nameof(HasReviewWorldTruths));
         OnPropertyChanged(nameof(HasNoReviewWorldTruths));

@@ -1,5 +1,21 @@
 # Application Design Ledger — frozen receipt
 
+## Project-native Q-DESIGN-25 Current Production workspace acceptance — 2026-09-25
+
+**State:** DESIGN ACCEPTED / INTEGRATION PENDING / EXACT EXECUTABLE `a05f00e64d16a5bc13bd1def03912472fd62c25b`
+
+The Director’s continuation activated the previously deferred bounded Current Production composition candidate. Design reconciled current Product and App Design contracts without adopting historical current-Scene, Pressure, relationship, history, resume or provider semantics. The accepted workspace is one continuous contextual field: ProductSpace orientation, World truths, Characters and Scenes/initial rosters, each using presentation-only bounded preview disclosure into its already-adopted deeper action. This recovery did not read or change Drive masters.
+
+The primary native audit and independent adversarial review drove five bounded corrections: narrow first-viewport hierarchy, World empty-copy consistency, World/Character nonconfirmation honesty, Scene roster Character-code re-derivation after confirmed duplicate Character creation, and uncertainty-aware empty Scene copy. Exact-a05 native ARM64 Presentation 17/17, Preview 8/8, Application 92/92, Persistence 153/153, Core 628/628 and Harness 155/155 pass; ordinary/Preview ARM64 builds pass with zero warnings/errors; exact-source Preview refresh passes.
+
+Contract: `contracts/CURRENT_PRODUCTION_WORKSPACE_COMPOSITION.md`. Evidence: `docs/evidence/Q_DESIGN_25_CURRENT_PRODUCTION_WORKSPACE_COMPOSITION_NATIVE_ARM64_VALIDATION_2026_09_25.md`.
+
+No human comprehension, Narrator or High Contrast PASS is claimed. No Product/Persistence, provider, lifecycle, deferred-E0, Alpha/Beta/release, WACK or Store authority is created.
+
+Fresh recovery review at exact `a05f00e...` is CLEAN, behaviorally no-write with clean before/after checkout. Effective workspace-write policy leaves technical containment unproven. The Director explicitly authorized reconciliation of preserved local `a05f00e...` / `fe605def...` work in this task; merge remains separately gated.
+
+**APPROVED BY STANDING DIRECTOR DELEGATION — CLEAN RECURSIVE AUDIT.** Bounded acceptance under the Director-adopted dual-review method.
+
 ## Project-native dual-review UI development adoption — 2026-09-24
 
 The Director adopted `DUAL_REVIEW_UI_DEVELOPMENT_METHOD_2026_09_24.md`. Design Sol owns UI/UX diagnosis and authority reconciliation; Claude Code is an independent read-only adversarial reviewer; automation owns deterministic checks; the Director is reserved for irreducible Product/taste decisions and milestone claims that inherently require a human observer. Human tasks are falsifiers/checkpoints rather than the ordinary iteration engine.
