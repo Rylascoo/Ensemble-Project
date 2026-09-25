@@ -4,20 +4,22 @@ Status: validation fact register only. This file cannot advance phase/checkpoint
 
 ## Current promoted machine-tested checkpoint
 
-## Presentation seam / native ARM64 baseline candidate — 2026-09-24
+## Presentation seam / native ARM64 baseline integrated — 2026-09-24
 
 | Field | Fact |
 |---|---|
 | Integrated base | `2e13177ebf60d34aff41a9ec634b24bedaf0b9c4` |
 | Exact application seam | `c11c842c9e75ce1db1555a660919562bb74c055b` |
 | Exact native baseline checkout | `5205f13dd6872372f4c9ed8f7b078dabb854646a` (only `tools/native-arm64-baseline.ps1` after the reviewed app commit) |
-| Seam falsifier | **FALSIFIED**: prior Presentation tests source-linked/recompiled shipping files; candidate creates one `net10.0` `Kymaean.Presentation` assembly consumed by WinUI and tests. |
+| Seam result | Prior source-link testing boundary was insufficient; integrated structure uses one `net10.0` `Kymaean.Presentation` assembly consumed by WinUI and Presentation tests. |
 | Native SurfSeven | Presentation 12/12; Preview 8/8; Application 92/92; Persistence 153/153; Core 628/628; Harness 155/155 PASS; ordinary/Preview WinUI + Profiles Release ARM64 builds PASS, 0 warnings/errors |
 | Native Preview | exact-source refresh PASS; 3/3 verified native ARM64 launches/clean closes PASS; harness-inclusive launch median 4,152 ms; median working set 153,923,584 bytes |
-| Hosted | exact-source push Validation #1404 / run `36076373096` PASS |
-| Independent review | exact app commit `c11c842...`, Codex CLI read-only sandbox: **CLEAN — no material defect**; worktree mutation check PASS |
-| Evidence | `docs/evidence/PRESENTATION_SEAM_NATIVE_ARM64_BASELINE_2026_09_24.json` |
-| Limits | Timings are regression baselines, not product KPIs or an optimization claim. No Product/Persistence semantics, cross-platform UI implementation, provider/NPU correctness dependency, release/WACK/Store authority. Integration still requires Director merge authorization. |
+| Independent review | exact app commit `c11c842...`, Codex CLI enforced read-only sandbox: **CLEAN — no material defect**; worktree mutation check PASS |
+| PR-head gates | final head `233b516bd267ce09c609cc2be04da4be77535627`: Validation #1409 PASS; E0-E preparation #241 PASS |
+| Integration | Director-authorized PR #273 merged at `14133395ac40df28e193c443f077dd7c02078e31`; exact-main Validation #1410 / run `36077914162` PASS |
+| Native evidence | `docs/evidence/PRESENTATION_SEAM_NATIVE_ARM64_BASELINE_2026_09_24.json` |
+| Integration closeout | `docs/evidence/PRESENTATION_SEAM_NATIVE_ARM64_BASELINE_INTEGRATION_CLOSEOUT_2026_09_24.md` |
+| Limits | Merge/documentation commits do not inherit native runtime authority from `5205f13...`. Timings remain regression baselines, not Product KPIs or an optimization claim. No Product/Persistence expansion, provider/NPU correctness dependency, deferred-E0 activation, release/WACK/Store authority. |
 
 
 The historical E0 checkpoint below retains its separate scope. The Q-ADMIN-08 integrated platform checkpoint is recorded in the next section; it does not authorize deferred-E0 execution.
