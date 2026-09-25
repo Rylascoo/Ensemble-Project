@@ -1,6 +1,6 @@
 # Ensemble Current State
 
-Updated: 2026-09-24
+Updated: 2026-09-25
 
 ## Authority
 
@@ -10,22 +10,27 @@ Application Product, Implementation and App Design authority: `Rylascoo/Ensemble
 
 `DESIGN_ARCHITECTURE_READY = READY`. Q-PROD-02/03/04/05/06/07/08/09, Q-DESIGN-20/21/22/23/24, Q-ADMIN-08 and Q-PREVIEW-01 are integrated.
 
-The bounded Presentation seam and native ARM64 baseline are integrated through Director-authorized PR #273 at `14133395ac40df28e193c443f077dd7c02078e31`; exact-main Validation #1410 / run `36077914162` PASS.
+Current integrated `main`: `34ff50c23b411da33d16e615ace780088b257f4a` (PR #274). Exact-main Validation #1417 PASS. Presentation-seam native/runtime baseline authority remains exact `5205f13dd6872372f4c9ed8f7b078dabb854646a`; merge/continuity commits do not inherit that native rung.
 
-Reviewed application seam: `c11c842c9e75ce1db1555a660919562bb74c055b`. Native/runtime baseline authority: exact `5205f13dd6872372f4c9ed8f7b078dabb854646a`. The merge does not inherit that native authority.
+## Active Q-DESIGN-25
 
-Evidence: `docs/evidence/PRESENTATION_SEAM_NATIVE_ARM64_BASELINE_2026_09_24.json`; integration closeout: `docs/evidence/PRESENTATION_SEAM_NATIVE_ARM64_BASELINE_INTEGRATION_CLOSEOUT_2026_09_24.md`.
+Director continuation activated **Current Production workspace composition** as one bounded App Design package.
 
-Q-UNITY-01/02 remain current through `docs/Q_UNITY_01_PROJECT_UNIFICATION_AND_SIMPLIFICATION_2026_09_22.md` and `docs/evidence/Q_UNITY_02_DISCONNECTED_WORKSPACE_DEMO_SCAFFOLD_RETIREMENT_2026_09_22.md`.
+Exact candidate branch: `qdesign25/current-production-workspace-review-repair-2026-09-25`  
+Exact candidate: `d0c6424d382a049f182775fe15b93fff84dbb3c9`.
 
-## Completion doctrine
+Scope: one continuous contextual Current Production workspace using only earned Product truth — ProductSpace orientation, current World truths, Production Cast, established Scenes/initial rosters, existing uncertainty/nonconfirmation witnesses and exact return/focus. Three-item previews are presentation-only bounded disclosure. No whole-app redesign or new current-Scene/pressure/history/provider semantics.
 
-Windows 11 ARM64 / Microsoft Store remains the sole shipping target until release. The single authorized Presentation-seam architecture decision is complete; broad architecture analysis is now closed unless executable evidence falsifies the integrated structure. `tools/native-arm64-baseline.ps1` is the standing target-machine regression mechanism. Its timings are regression evidence, not Product KPIs or an optimization claim. NPU/local AI remains optional measured infrastructure.
+Exact-candidate native facts from a clean detached checkout: Presentation tests **16/16 PASS**; WinUI Release ARM64 **PASS, 0 warnings / 0 errors**; full Director Preview technical build **PASS**; exact-source Preview refresh **PASS**.
 
-## Boundaries
+The repaired candidate preserves World/Character nonconfirmation on overview return and refreshes derived Scene roster Character-code presentation after successful Character creation. Final clean independent read-only review is still pending; therefore **Design acceptance, PR readiness and merge authority are not yet earned**.
 
-No Product/Persistence expansion, provider/network/spend, deferred-E0 activation, Current Production workspace composition, ODR closure, Alpha/Beta/release/WACK/Store authority is created. PR #262/#269/#265 remain unmerged.
+Recovery: `docs/handoff/Q_DESIGN_25_CURRENT_PRODUCTION_FINAL_REVIEW_HANDOFF_2026_09_25.md`.
+
+## Completion doctrine / boundaries
+
+Windows 11 ARM64 / Microsoft Store remains the sole shipping target until release. Broad architecture analysis stays closed unless executable evidence falsifies the structure. No Product/Persistence expansion, provider/network/spend, deferred-E0 activation, ODR closure, Alpha/Beta/release/WACK/Store authority is created. PR #262/#269/#265 remain unmerged.
 
 ## Next
 
-No new implementation lane is activated by the seam/baseline closeout. The strongest named future App Design candidate is **Current Production workspace composition**, but it remains `DEFERRED — DIRECTOR DISPOSITION`. Otherwise the next Product/Design package must be explicitly activated from current authority. Do not reopen broad architecture research.
+Fresh-resolve live refs. Run one independent **read-only** review of exact `d0c6424...` from a clean checkout. If material findings exist, apply only the smallest bounded correction and rerun native/Preview evidence. If clean, record Q-DESIGN-25 Design acceptance and prepare the bounded PR. Do not infer merge authority.
