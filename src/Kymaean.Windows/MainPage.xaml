@@ -408,7 +408,7 @@
                                             Visibility="{Binding HasCurrentWorldTruths, Converter={StaticResource BoolToVisibility}}" />
                                         <TextBlock
                                             Foreground="{ThemeResource KymaeanSecondaryBrush}"
-                                            Text="No current world truths yet."
+                                            Text="There are no current world truths."
                                             Visibility="{Binding HasNoCurrentWorldTruths, Converter={StaticResource BoolToVisibility}}" />
                                         <TextBlock
                                             FontSize="12"
