@@ -80,7 +80,7 @@ Primary native evidence at exact candidate: Presentation tests **16/16 PASS**, W
 
 The candidate includes two review repairs: World/Character nonconfirmation remains visibly non-authoritative when returning to the overview, and successful Character creation refreshes derived Scene roster presentation so duplicate Character names remain safely disambiguated. These are presentation consequences of existing Product truth, not new Product semantics.
 
-A final clean independent read-only review is still required before Design acceptance or PR readiness. Handoff: `../handoff/Q_DESIGN_25_CURRENT_PRODUCTION_FINAL_REVIEW_HANDOFF_2026_09_25.md`.
+A final clean independent read-only review is still required before Design acceptance or PR readiness. Handoff: `docs/handoff/Q_DESIGN_25_CURRENT_PRODUCTION_FINAL_REVIEW_HANDOFF_2026_09_25.md`.
 
 ## Explicit unresolved / gated items
 
