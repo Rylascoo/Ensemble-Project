@@ -8,6 +8,7 @@ Status: **DESIGN ACCEPTED / INTEGRATION PENDING**
 
 - integrated base: `34ff50c23b411da33d16e615ace780088b257f4a`
 - accepted executable: `a05f00e64d16a5bc13bd1def03912472fd62c25b`
+- annotated validation tag: `validation/q-design-25-current-production-native-arm64`; object `4611cdf77c32711fb2a1fb72c2db15d3f471789a`, peeling to the accepted executable
 - executable/test scope from base: `src/Kymaean.Windows/MainPage.xaml`, `src/Kymaean.Windows/Presentation/MainPageViewModel.cs`, `src/Kymaean.Windows/Presentation/MainPageViewModel.Scenes.cs`, `tests/Kymaean.Windows.Presentation.Tests/ScenePresentationTests.cs`
 - no Application, Persistence, Core/Harness, provider or schema mutation.
 
@@ -53,8 +54,31 @@ These establish native composition/theme/viewport evidence only. They do not est
 
 ## Independent review
 
-Claude Code supplied the first adversarial pass and found one copy mismatch, corrected in the accepted lineage. Later Claude attempts were unavailable/stalled, so the established fallback used Codex CLI 0.154.0 / GPT-6 Astra under an enforced `read-only` sandbox. Reviewers drove uncertainty/staleness repairs. Final exact-a05 read-only review found **no material UI defect**; its sole remaining finding was stale authority/queue metadata, closed by the documentation/continuity package after executable acceptance. The reviewer did not run the native validations above.
+Claude Code supplied the first adversarial pass and found one copy mismatch, corrected in the accepted lineage. Later Claude attempts were unavailable/stalled. Preserved Codex reports drove the uncertainty/staleness repairs; an exact-d0c report found the empty Scene preview could assert absence after nonconfirmation, corrected in `a05f00e...`. A preserved exact-a05 report found no material UI defect and requested authority/queue reconciliation. Those CLI reports described read-only execution; this recovery did not independently verify their original process containment. The collided earlier worktree review is excluded.
+
+Fresh recovery review: native reviewer task `/root/qdesign25_independent_review`, supplied exact authority `13cdcef3fb27c73f44b07e4d492427e693e3d72a`, base `34ff50c...`, executable `a05f00e...`, the Preview receipt and all six exact-a05 captures above. It reviewed an independent clean detached checkout at `C:/Users/Wiryl/Sol Dev/admin-scratch/qdesign25-recovery-review-01a0da86`. **CLEAN — no material correctness, UI regression, architecture-boundary or missing-test finding.** HEAD/status matched before and after, `git diff --check` passed, and no mutation, test/build, escalation, provider or delegation occurred. Effective policy was workspace-write / auto_review: behavioral no-write was observed; technical write containment was not proven.
+
+The review challenged World/Character/Scene uncertainty, empty Scene absence, duplicate-Character roster freshness, complete-set identity derivation before three-item disclosure, 720x520 hierarchy, Light/Dark and empty-state parity, copy, focus/accessibility risks, dashboard drift and semantic leakage. It preserved the continuous field, three durable routes, explicit last-confirmed witnesses and focused regression coverage. Initial-viewport screenshots do not prove scrolled interaction, keyboard/UIA delivery, large-text stress, Narrator, High Contrast or human comprehension.
+
+## Recovery evidence and disposition
+
+The Director explicitly authorized reconciliation of the preserved local repair/acceptance lineage `a05f00e...` / `fe605def0717dcc5488397b6c4e9141a985c7fbf` in this recovery task. GitHub still resolved main `34ff50c...`, original candidate `d0c6424d382a049f182775fe15b93fff84dbb3c9`, and handoff `13cdcef...`. Exact-main Validation #1417 (`36081026811`) and handoff Validation #1428 (`36177104086`) PASS. Candidate #1421 failed repository-law enforcement while its compiler/regression jobs passed; it is not relabeled green.
+
+The fresh review and owning Design recursive audit support **APPROVED BY STANDING DIRECTOR DELEGATION — CLEAN RECURSIVE AUDIT** for this bounded composition. Continuity corrections retain the accepted executable unchanged, restore Q-UNITY evidence reachability, qualify review containment, and stop at PR/Director disposition. No Drive master was read or changed during recovery.
+
+Preserved native evidence was read and hash-checked rather than silently rerun or promoted:
+
+- Preview stage: `C:/Users/Wiryl/Sol Dev/admin-scratch/qdesign25-current-production-preview/a05f00e64d16-8d84616ad65f447387fb2c4f09f4f433`; `build.json` has the hash above. All eight referenced validation logs match their receipt hashes and record the listed native tests/builds.
+- Exact-source refresh receipt: `C:/Users/Wiryl/AppData/Local/KymaeanDirectorPreview/refresh-077909d2f9c54179861a8a55890f6a72.json`; SHA-256 `A363896ACD1F3A31596EEA77E8D02471064D80277E06F831B6E2C77AC7C7C5FF`; status PASS, exact-a05 source and matching build hash.
+- Native captures: `C:/Users/Wiryl/Sol Dev/admin-scratch/qdesign25-a05-*.png`, with the six exact identities above. All hashes matched; the fresh reviewer inspected all six.
+- Fresh Presentation regression at a clean detached exact-a05 checkout `C:/Users/Wiryl/Sol Dev/admin-scratch/qdesign25-recovery-native-01a0da86`: **17/17 PASS**, net10.0 / ARM64. Log: `C:/Users/Wiryl/Sol Dev/admin-scratch/qdesign25-recovery-01a0da86-presentation.log`. The initial sandbox attempt failed before discovery on inaccessible user NuGet.Config; the scoped owner-context run passed. No runtime/toolchain installation or source repair was required.
+
+Local ownership: the recovery primary owns isolated clone `C:/Users/Wiryl/Sol Dev/Ensemble-Project-Worktrees/codex-qdesign25-closeout-01a0da86`, branch `codex/qdesign25-current-production-closeout-2026-09-25`; the detached native validator is its linked worktree. The independent reviewer used a separate clone. All derive from an exact Git bundle read from the trusted task checkout; original repair, collision, handoff and historical worktrees remain preserved. No safe.directory/ACL/ownership change was made. Canonical local main was clean and 0 ahead / 54 behind, then fast-forwarded under the shared-Git lock to fetched `34ff50c...`; Q-DESIGN-25 remains unmerged.
+
+All 31 recovered live branch heads were inventoried: main, 23 ancestral refs, four divergent side histories and three ahead refs. Ancestral refs retain archive-before-delete disposition; PR #262/#269/#265 and the Website audit PR #275 remain separate. The unique historical #226 producer remains preserved. Original d0c candidate and handoff refs are recovery provenance pending Director disposition; Q-ADMIN-07 owns wider local residue. No branch deletion or historical candidate adoption beyond the explicit Q-DESIGN-25 reconciliation occurred.
 
 ## Limits
+
+Fresh Presentation log SHA-256: `A4B05DB5581EA29D7376726969BFA8E370F63EFF56D2D986A855A10C5B427383`; exact-a05 validator remained clean after execution.
 
 No Product/Persistence expansion, current Scene/situation, pressure/relationship/history, provider/Performer, lifecycle, deferred-E0, architecture reopening, Alpha/Beta/release, WACK or Store authority. Merge/integration commits do not inherit native machine-test authority from `a05f00e...`.

@@ -41,8 +41,8 @@ High Contrast exact-source proof and human Scene-code comprehension/discoverabil
 
 ## Acceptance
 
-Primary Design/native audit, iterative correction, native Director Preview evidence and independent read-only review found no remaining material UI defect in the bounded composition. The independent reviewer’s sole final finding was stale authority/queue continuity; the Q-DESIGN-25 closeout package reconciles that metadata without changing the accepted executable.
+Primary Design/native audit, iterative correction, native Director Preview evidence and fresh independent behavioral no-write review found no remaining material UI defect in the bounded composition. The prior stale authority/queue finding is reconciled by this closeout without changing the accepted executable. The recovery reviewer had effective workspace-write permissions; technical write containment was not proven, and no mutation occurred.
 
 Evidence: `docs/evidence/Q_DESIGN_25_CURRENT_PRODUCTION_WORKSPACE_COMPOSITION_NATIVE_ARM64_VALIDATION_2026_09_25.md`.
 
-**ACCEPTED BY DESIGN SOL UNDER THE DIRECTOR-ADOPTED DUAL-REVIEW METHOD — CLEAN BOUNDD UI AUDIT.**
+**APPROVED BY STANDING DIRECTOR DELEGATION — CLEAN RECURSIVE AUDIT.** Design acceptance applies only to this bounded composition under the Director-adopted dual-review method.

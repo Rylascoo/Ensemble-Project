@@ -10,11 +10,12 @@ Status: validation fact register only. This file cannot advance phase/checkpoint
 |---|---|
 | Base | `34ff50c23b411da33d16e615ace780088b257f4a` |
 | Exact Design-accepted executable | `a05f00e64d16a5bc13bd1def03912472fd62c25b` |
+| Annotated validation tag | `validation/q-design-25-current-production-native-arm64`, exact accepted executable above |
 | Scope | Windows XAML + Presentation projections + focused Presentation tests only; no Application/Persistence/Core/provider mutation |
 | Native ARM64 | Presentation 17/17; Preview 8/8; Application 92/92; Persistence 153/153; Core 628/628; Harness 155/155 PASS |
 | Builds | ordinary + Director Preview WinUI Release ARM64 PASS, 0 warnings/errors; Profiles PASS; build boundary PASS |
 | Preview | exact-source refresh PASS; Light/Dark 1200×800 + 720×520 and empty-state captures preserved by SHA-256 in evidence |
-| Review | primary recursive audit + independent read-only review; no material UI defect remained after bounded corrections; final review requested only authority/queue reconciliation |
+| Review | fresh independent exact-a05 behavioral no-write review CLEAN; clean before/after; effective workspace-write policy means technical containment unproven. Prior stale-authority finding reconciled in closeout. |
 | Contract | `docs/design/app/contracts/CURRENT_PRODUCTION_WORKSPACE_COMPOSITION.md` |
 | Evidence | `docs/evidence/Q_DESIGN_25_CURRENT_PRODUCTION_WORKSPACE_COMPOSITION_NATIVE_ARM64_VALIDATION_2026_09_25.md` |
 | Limits | integration pending; no human comprehension/Narrator/High Contrast PASS; no Product/Persistence/provider/deferred-E0/release authority |
