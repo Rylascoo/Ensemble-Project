@@ -1,0 +1,122 @@
+{
+  "schema": 1,
+  "date": "2026-09-24",
+  "status": "PRESENTATION_SEAM_VALIDATED_AND_NATIVE_ARM64_BASELINE_ESTABLISHED_NO_OPTIMIZATION_CLAIM",
+  "repository": "Rylascoo/Ensemble-Project",
+  "branch": "engineering/presentation-seam-2026-09-24",
+  "integrated_base": "2e13177ebf60d34aff41a9ec634b24bedaf0b9c4",
+  "seam_application_commit": "c11c842c9e75ce1db1555a660919562bb74c055b",
+  "baseline_harness_commit": "5205f13dd6872372f4c9ed8f7b078dabb854646a",
+  "decision_falsifier": {
+    "question": "Would a new Presentation project be unnecessary because the existing folder boundary already gave WinUI and tests the same compiled presentation assembly?",
+    "result": "FALSIFIED",
+    "evidence": "Before the seam, Kymaean.Windows.Presentation.Tests recompiled ../../src/Kymaean.Windows/Presentation/*.cs and linked WindowsStartupResult.cs. The Windows app compiled its own copy. Candidate c11c842 introduces one net10.0 Kymaean.Presentation assembly referenced by both WinUI and Presentation tests while leaving WinUI-only BooleanToVisibilityConverter/XAML/focus/automation in Kymaean.Windows."
+  },
+  "scope": {
+    "product_semantics_changed": false,
+    "persistence_changed": false,
+    "cross_platform_ui_implementation": false,
+    "provider_network_spend": false,
+    "npu_dependency": false
+  },
+  "pre_seam_reference": {
+    "source": "2e13177ebf60d34aff41a9ec634b24bedaf0b9c4",
+    "architecture": "Arm64",
+    "sdk": "10.0.400",
+    "presentation_tests": "12/12 PASS",
+    "presentation_tests_ms": 7212,
+    "preview_build_ms": 75603,
+    "preview_refresh_ms": 9961,
+    "verified_launch_ms": [
+      4363,
+      4149,
+      4199
+    ],
+    "verified_launch_median_ms": 4199,
+    "role": "same-method comparison reference only; not a performance acceptance threshold"
+  },
+  "candidate_native": {
+    "source": "5205f13dd6872372f4c9ed8f7b078dabb854646a",
+    "host": "SurfSeven",
+    "os_architecture": "Arm64",
+    "process_architecture": "Arm64",
+    "sdk": "10.0.400",
+    "presentation_tests": {
+      "passed": 12,
+      "failed": 0,
+      "log_sha256": "6A5C49BD17D19A9C95782322699F370F86EC688B6E9B2E5A01808F904953C28C",
+      "elapsed_ms": 3445
+    },
+    "preview_tests": {
+      "passed": 8,
+      "failed": 0
+    },
+    "application_tests": {
+      "passed": 92,
+      "failed": 0
+    },
+    "persistence_tests": {
+      "passed": 153,
+      "failed": 0
+    },
+    "core_tests": {
+      "passed": 628,
+      "failed": 0
+    },
+    "harness_tests": {
+      "passed": 155,
+      "failed": 0
+    },
+    "preview_winui_release_arm64": "PASS_0_WARNINGS_0_ERRORS",
+    "ordinary_winui_release_arm64": "PASS_0_WARNINGS_0_ERRORS",
+    "preview_profiles_release_arm64": "PASS_0_WARNINGS_0_ERRORS",
+    "preview_build_receipt_sha256": "BB8504C5DCC70F849D2B309388480510D8983C2854A7A8BF859A3C6B4741020A",
+    "preview_build_ms": 59441,
+    "preview_refresh": "PASS",
+    "preview_refresh_ms": 8302,
+    "verified_launches": [
+      {
+        "elapsed_ms": 4152,
+        "working_set_bytes": 161275904,
+        "private_memory_bytes": 67092480,
+        "process_machine": 0,
+        "native_machine": "0xAA64"
+      },
+      {
+        "elapsed_ms": 4113,
+        "working_set_bytes": 153923584,
+        "private_memory_bytes": 64016384,
+        "process_machine": 0,
+        "native_machine": "0xAA64"
+      },
+      {
+        "elapsed_ms": 4269,
+        "working_set_bytes": 153600000,
+        "private_memory_bytes": 62464000,
+        "process_machine": 0,
+        "native_machine": "0xAA64"
+      }
+    ],
+    "verified_launch_median_ms": 4152,
+    "verified_launch_median_working_set_bytes": 153923584,
+    "graceful_close": "3/3 PASS"
+  },
+  "hosted": {
+    "push_validation_run_number": 1404,
+    "push_validation_run_id": 36076373096,
+    "source": "5205f13dd6872372f4c9ed8f7b078dabb854646a",
+    "result": "PASS"
+  },
+  "independent_review": {
+    "exact_application_commit": "c11c842c9e75ce1db1555a660919562bb74c055b",
+    "reviewer": "Codex CLI 0.154.0 / gpt-6-astra",
+    "sandbox": "read-only",
+    "reasoning_effort": "medium",
+    "result": "CLEAN_NO_MATERIAL_DEFECT",
+    "mutation_check": "PASS_HEAD_5205F13_AND_WORKTREE_CLEAN",
+    "optional_note": "Formatting-only churn in PresentationIdentityCode.cs and ScenePresentationRow.cs could be reduced; no corrective change required.",
+    "validation_limit": "Static exact-ref review only; native/runtime authority comes from separate SurfSeven evidence."
+  },
+  "measurement_policy": "Wall-clock values include build/test/Preview harness and process-verification overhead. Single runs are regression baselines, not product KPIs and do not establish an optimization improvement.",
+  "authority_boundary": "Candidate evidence only. Integration/merge requires separate Director authorization. No Alpha/Beta/release/WACK/Store authority."
+}

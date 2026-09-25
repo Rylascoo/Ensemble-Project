@@ -20,6 +20,9 @@ EXPECTED_PROJECT_REFERENCES: dict[str, set[str]] = {
         "src/Ensemble.E0.Harness/Ensemble.E0.Harness.csproj",
     },
     "src/Kymaean.Application/Kymaean.Application.csproj": set(),
+    "src/Kymaean.Windows/Presentation/Kymaean.Presentation.csproj": {
+        "src/Kymaean.Application/Kymaean.Application.csproj",
+    },
     "src/Kymaean.Infrastructure.Persistence/Kymaean.Infrastructure.Persistence.csproj": {
         "src/Kymaean.Application/Kymaean.Application.csproj",
     },
@@ -29,6 +32,7 @@ EXPECTED_PROJECT_REFERENCES: dict[str, set[str]] = {
     "src/Kymaean.Windows/Kymaean.Windows.csproj": {
         "src/Kymaean.Application/Kymaean.Application.csproj",
         "src/Kymaean.Infrastructure.Persistence/Kymaean.Infrastructure.Persistence.csproj",
+        "src/Kymaean.Windows/Presentation/Kymaean.Presentation.csproj",
     },
     "tests/Kymaean.Application.Tests/Kymaean.Application.Tests.csproj": {
         "src/Kymaean.Application/Kymaean.Application.csproj",
@@ -36,6 +40,7 @@ EXPECTED_PROJECT_REFERENCES: dict[str, set[str]] = {
     "tests/Kymaean.Windows.Presentation.Tests/Kymaean.Windows.Presentation.Tests.csproj": {
         "src/Kymaean.Application/Kymaean.Application.csproj",
         "src/Kymaean.Infrastructure.Persistence/Kymaean.Infrastructure.Persistence.csproj",
+        "src/Kymaean.Windows/Presentation/Kymaean.Presentation.csproj",
     },
 }
 

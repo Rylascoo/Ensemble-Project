@@ -194,24 +194,48 @@ public sealed class ScenePresentationTests
     [TestMethod]
     public void FullCollisionBlocksOnlyAffectedActionsAndPersistsAcrossOpen()
     {
-        var (vm, catalog) = Start();
-        catalog.ExternalScene("A", "collision-a"); catalog.ExternalScene("A", "collision-b");
-        catalog.ExternalScene("A", "unambiguous");
-        PresentationIdentityCode.FullHashCollisionIdentitiesForTest = new HashSet<string> { "collision-a", "collision-b" };
-        try
+        var collisionIds = new HashSet<string>
         {
-            Open(vm, "A"); vm.OpenScenes();
-            Assert.IsTrue(vm.HasSceneCollision); Assert.IsFalse(vm.HasSceneUncertainty);
-            StringAssert.Contains(vm.SceneNewSceneHelp, "cannot distinguish");
-            Assert.IsFalse(vm.BeginSceneDraft());
-            Assert.IsFalse(vm.InspectScene(new("collision-a")));
-            Assert.IsTrue(vm.InspectScene(new("unambiguous")));
-            Assert.AreEqual(new SceneId("unambiguous"), vm.ReturnFromSceneDetail());
-            Open(vm, "A"); vm.OpenScenes(); Assert.IsTrue(vm.HasSceneCollision);
-            Open(vm, "B"); vm.OpenScenes(); Assert.IsTrue(vm.BeginSceneDraft());
-            Assert.IsNotNull(vm.EstablishScene());
-        }
-        finally { PresentationIdentityCode.FullHashCollisionIdentitiesForTest = null; }
+            "collision-a",
+            "collision-b"
+        };
+        var (vm, catalog) = Start(
+            identities =>
+                PresentationIdentityCode.InjectFullCollisionForTest(
+                    identities.ToDictionary(
+                        identity => identity,
+                        identity =>
+                            collisionIds.Contains(identity)
+                                ? new string('F', 64)
+                                : PresentationIdentityCode.HashIdentity(identity),
+                        StringComparer.Ordinal)));
+
+        catalog.ExternalScene("A", "collision-a");
+        catalog.ExternalScene("A", "collision-b");
+        catalog.ExternalScene("A", "unambiguous");
+
+        Open(vm, "A");
+        vm.OpenScenes();
+        Assert.IsTrue(vm.HasSceneCollision);
+        Assert.IsFalse(vm.HasSceneUncertainty);
+        StringAssert.Contains(
+            vm.SceneNewSceneHelp,
+            "cannot distinguish");
+        Assert.IsFalse(vm.BeginSceneDraft());
+        Assert.IsFalse(vm.InspectScene(new("collision-a")));
+        Assert.IsTrue(vm.InspectScene(new("unambiguous")));
+        Assert.AreEqual(
+            new SceneId("unambiguous"),
+            vm.ReturnFromSceneDetail());
+
+        Open(vm, "A");
+        vm.OpenScenes();
+        Assert.IsTrue(vm.HasSceneCollision);
+
+        Open(vm, "B");
+        vm.OpenScenes();
+        Assert.IsTrue(vm.BeginSceneDraft());
+        Assert.IsNotNull(vm.EstablishScene());
     }
 
     [TestMethod]
@@ -222,7 +246,7 @@ public sealed class ScenePresentationTests
         {
             var catalog = new Kymaean.Infrastructure.Persistence.FileProductionCatalog(root);
             var production = catalog.CreateProduction("Fixture").Value;
-            var vm = new MainPageViewModel(WindowsStartupResult.Product(ProductApplication.Start(catalog)));
+            var vm = new MainPageViewModel(PresentationStartupResult.Product(ProductApplication.Start(catalog)));
             vm.SelectProduction(vm.ProductionRows.Single()); Assert.IsTrue(vm.OpenSelectedProduction()); vm.OpenScenes();
             // Another caller changes the journal behind Application's cached projection.
             Assert.IsTrue(catalog.EstablishScene(production.Id, SceneRoster.Empty).IsSuccess);
@@ -249,7 +273,7 @@ public sealed class ScenePresentationTests
         {
             var catalog = new Kymaean.Infrastructure.Persistence.FileProductionCatalog(root);
             var production = catalog.CreateProduction("Locked fixture").Value;
-            var vm = new MainPageViewModel(WindowsStartupResult.Product(ProductApplication.Start(catalog)));
+            var vm = new MainPageViewModel(PresentationStartupResult.Product(ProductApplication.Start(catalog)));
             vm.SelectProduction(vm.ProductionRows.Single()); Assert.IsTrue(vm.OpenSelectedProduction()); vm.OpenScenes();
             var entry = Directory.GetDirectories(Path.Combine(root, "production-catalog"), "entry-*").Single();
             using (var lease = new FileStream(Path.Combine(entry, ".journal.lock"), FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None))
@@ -270,11 +294,18 @@ public sealed class ScenePresentationTests
         finally { if (Directory.Exists(root)) Directory.Delete(root, true); }
     }
 
-    private static (MainPageViewModel, Catalog) Start()
+    private static (MainPageViewModel, Catalog) Start(
+        Func<IReadOnlyList<string>, IReadOnlyDictionary<string, string?>>? sceneCodeBuilder = null)
     {
         var catalog = new Catalog();
-        var vm = new MainPageViewModel(WindowsStartupResult.Product(ProductApplication.Start(catalog)));
-        Open(vm, "A"); vm.OpenScenes();
+        var startup =
+            PresentationStartupResult.Product(
+                ProductApplication.Start(catalog));
+        var vm = sceneCodeBuilder is null
+            ? new MainPageViewModel(startup)
+            : new MainPageViewModel(startup, sceneCodeBuilder);
+        Open(vm, "A");
+        vm.OpenScenes();
         return (vm, catalog);
     }
     private static void Open(MainPageViewModel vm, string id)

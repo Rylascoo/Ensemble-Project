@@ -196,7 +196,7 @@ public sealed partial class MainPageViewModel
     {
         if (_projection?.CurrentProductionReplay is not { } replay) return;
         _sceneCast = CharacterPresentationRow.Build(replay.ProductionCast.Characters);
-        _sceneRows = ScenePresentationRow.Build(replay, _sceneCast);
+        _sceneRows = ScenePresentationRow.Build(replay, _sceneCast, _sceneCodeBuilder);
     }
 
     private void RaiseSceneProperties()

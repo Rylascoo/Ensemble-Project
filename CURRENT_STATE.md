@@ -4,30 +4,28 @@ Updated: 2026-09-24
 
 ## Authority
 
-Application Product, Implementation and App Design authority: `Rylascoo/Ensemble-Project`. Fresh work reads `AGENTS.md`, this file, `docs/PROJECT_AUTHORITY.md`, `docs/PROJECT_EXECUTION_QUEUE.md`, `docs/VALIDATION_LEDGER.md`, and `docs/design/app/CURRENT_CONTRACTS.md` for Design/UI work.
+Application Product, Implementation and App Design authority: `Rylascoo/Ensemble-Project`. Fresh work reads `AGENTS.md`, this file, `docs/PROJECT_AUTHORITY.md`, `docs/PROJECT_EXECUTION_QUEUE.md`, `docs/VALIDATION_LEDGER.md`, and `docs/design/app/CURRENT_CONTRACTS.md`.
 
 ## Integrated checkpoint
 
-`DESIGN_ARCHITECTURE_READY = READY`. Q-PROD-02/03/04/05/06/07/08/09 and Q-DESIGN-20/21/22/23/24 are integrated. Q-ADMIN-08 and Q-PREVIEW-01 are integrated on .NET 10.
-
-Q-DESIGN-24 bounded Scene presentation merged through PR #271 at `20ba896e54ee533905af7b14a240d829f6ac3fc9`; exact-main Validation #1393 (`36071107439`) PASS. Design/native acceptance remains exact executable `bdd6c094446be79b37e28c2ddb4a6c31996646b5`; the merge does not inherit higher runtime authority. Human Scene-code comprehension/discoverability, Narrator intelligibility and High Contrast remain later falsifiers, not PASS claims. Durable closeout is folded into this state, the central queue and the App Design bootstrap.
-
-PR #262 and evidence PR #269 remain unmerged historical branches. PR #265 remains documentation-only/unmerged.
-
-Q-PROD-09 remains closed; native machine-test authority is `5038029c79b2177330cc06e81ac338f4b830ad3f`.
+`DESIGN_ARCHITECTURE_READY = READY`. Q-PROD-02/03/04/05/06/07/08/09 and Q-DESIGN-20/21/22/23/24 are integrated. Q-ADMIN-08 and Q-PREVIEW-01 are integrated on .NET 10. Q-DESIGN-24 closed on main `2e13177ebf60d34aff41a9ec634b24bedaf0b9c4`; exact-main Validation #1402 PASS.
 
 Q-UNITY-01/02 remain current through `docs/Q_UNITY_01_PROJECT_UNIFICATION_AND_SIMPLIFICATION_2026_09_22.md` and `docs/evidence/Q_UNITY_02_DISCONNECTED_WORKSPACE_DEMO_SCAFFOLD_RETIREMENT_2026_09_22.md`.
 
 ## Active successor
 
-Windows 11 ARM64 / Microsoft Store is the sole shipping target until release; cross-platform work waits.
+Presentation-seam falsifier is resolved: prior tests recompiled linked Presentation source rather than the assembly WinUI loaded. Candidate branch `engineering/presentation-seam-2026-09-24` introduces one `net10.0` `Kymaean.Presentation` assembly shared by WinUI/tests; WinUI-only XAML/focus/automation remains Windows-owned.
 
-Proceed with one bounded platform-neutral Presentation-seam decision only if it improves current Windows quality/testability without Product-semantic change. In parallel, establish a repeatable native ARM64 CI/performance baseline from current executable behavior. After the seam decision, architecture analysis stops unless executable evidence falsifies the current structure. NPU/local AI remains optional measured infrastructure, never Product correctness.
+Exact reviewed application source: `c11c842c9e75ce1db1555a660919562bb74c055b`. Exact native baseline checkout: `5205f13dd6872372f4c9ed8f7b078dabb854646a` (tooling-only after app source). SurfSeven ARM64: Presentation 12/12, Preview 8/8, Application 92/92, Persistence 153/153, Core 628/628, Harness 155/155 PASS; ordinary/Preview builds PASS 0 warnings/errors; exact refresh and 3/3 verified launches PASS. Hosted Validation #1404 PASS. Independent read-only review: CLEAN.
 
-## Boundaries
+Evidence: `docs/evidence/PRESENTATION_SEAM_NATIVE_ARM64_BASELINE_2026_09_24.json`.
 
-No Product expansion, provider/network/spend, deferred-E0 execution, Current Production composition, ODR closure, Alpha/Beta/release or Store authority is created.
+## Completion doctrine / boundaries
+
+Windows 11 ARM64 / Microsoft Store remains the sole shipping target. The one bounded Presentation-seam decision is complete on the candidate; after integration, stop architecture analysis unless executable evidence falsifies the structure. Baseline timings are regression evidence, not optimization KPIs. NPU/local AI remains optional measured infrastructure.
+
+No Product/Persistence expansion, provider/network/spend, deferred-E0 execution, Current Production composition, ODR closure, Alpha/Beta/release/WACK/Store authority is created. PR #262/#269/#265 remain unmerged.
 
 ## Next
 
-Resolve the smallest Presentation seam that earns a concrete Windows benefit or record that no split is warranted; then establish the native ARM64 CI/performance baseline without optimizing ahead of measurement.
+Open the bounded seam/baseline PR and require clean PR gates. Merge is **not authorized by implication**; stop at Director merge disposition.

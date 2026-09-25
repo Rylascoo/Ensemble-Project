@@ -1,36 +1,34 @@
 using Kymaean.Application;
+using Kymaean.Windows.Presentation;
 
 namespace Kymaean.Windows;
 
 public sealed class WindowsStartupResult
 {
-    private readonly ProductAccessResult<ProductApplication>? _productStartup;
-
-    private WindowsStartupResult(
-        ProductAccessResult<ProductApplication>? productStartup,
-        bool isInfrastructureFailure)
+    private WindowsStartupResult(PresentationStartupResult presentation)
     {
-        _productStartup = productStartup;
-        IsInfrastructureFailure = isInfrastructureFailure;
+        ArgumentNullException.ThrowIfNull(presentation);
+        Presentation = presentation;
     }
 
-    public bool IsInfrastructureFailure { get; }
+    internal PresentationStartupResult Presentation { get; }
+
+    public bool IsInfrastructureFailure =>
+        Presentation.IsInfrastructureFailure;
 
     public ProductAccessResult<ProductApplication> ProductStartup =>
-        !IsInfrastructureFailure && _productStartup is not null
-            ? _productStartup
-            : throw new InvalidOperationException(
-                "Infrastructure startup failure has no Product startup result.");
+        Presentation.ProductStartup;
 
     internal static WindowsStartupResult Product(
         ProductAccessResult<ProductApplication> productStartup)
     {
         ArgumentNullException.ThrowIfNull(productStartup);
-        return new WindowsStartupResult(productStartup, false);
+        return new WindowsStartupResult(
+            PresentationStartupResult.Product(productStartup));
     }
 
     internal static WindowsStartupResult InfrastructureFailure() =>
-        new(null, true);
+        new(PresentationStartupResult.InfrastructureFailure());
 }
 
 internal static class WindowsStartupComposition

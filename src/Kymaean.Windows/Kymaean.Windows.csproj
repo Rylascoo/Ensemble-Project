@@ -26,6 +26,11 @@
   <ItemGroup>
     <ProjectReference Include="..\Kymaean.Application\Kymaean.Application.csproj" />
     <ProjectReference Include="..\Kymaean.Infrastructure.Persistence\Kymaean.Infrastructure.Persistence.csproj" />
+    <ProjectReference Include="Presentation\Kymaean.Presentation.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Presentation\**\*.cs" />
+    <Compile Include="Presentation\BooleanToVisibilityConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Manifest Include="$(ApplicationManifest)" />
