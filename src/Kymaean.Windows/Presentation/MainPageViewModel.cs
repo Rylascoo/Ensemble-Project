@@ -7,6 +7,7 @@ namespace Kymaean.Windows.Presentation;
 
 public sealed partial class MainPageViewModel : INotifyPropertyChanged
 {
+    private const int OverviewPreviewLimit = 3;
     private readonly ProductApplication? _application;
     private ProductApplicationProjection? _projection;
     private IReadOnlyList<ProductionPresentationRow> _productionRows =
@@ -211,6 +212,10 @@ public sealed partial class MainPageViewModel : INotifyPropertyChanged
     public IReadOnlyList<string> CurrentWorldTruths => _currentWorldTruths;
     public bool HasCurrentWorldTruths => _currentWorldTruths.Count > 0;
     public bool HasNoCurrentWorldTruths => !HasCurrentWorldTruths;
+    public IReadOnlyList<string> OverviewWorldTruths =>
+        _currentWorldTruths.Take(OverviewPreviewLimit).ToArray();
+    public bool HasMoreOverviewWorldTruths =>
+        _currentWorldTruths.Count > OverviewPreviewLimit;
 
     public ObservableCollection<WorldTruthDraftItem> WorldTruthDraftItems { get; } =
         new();
@@ -249,6 +254,10 @@ public sealed partial class MainPageViewModel : INotifyPropertyChanged
 
     public bool HasCharacters => _characterRows.Count > 0;
     public bool HasNoCharacters => !HasCharacters;
+    public IReadOnlyList<CharacterPresentationRow> OverviewCharacterRows =>
+        _characterRows.Take(OverviewPreviewLimit).ToArray();
+    public bool HasMoreOverviewCharacters =>
+        _characterRows.Count > OverviewPreviewLimit;
 
     public IReadOnlyList<CharacterPresentationRow> LastConfirmedCharacterRows =>
         _lastConfirmedCharacterRows;
@@ -937,6 +946,8 @@ public sealed partial class MainPageViewModel : INotifyPropertyChanged
         OnPropertyChanged(nameof(CharacterRows));
         OnPropertyChanged(nameof(HasCharacters));
         OnPropertyChanged(nameof(HasNoCharacters));
+        OnPropertyChanged(nameof(OverviewCharacterRows));
+        OnPropertyChanged(nameof(HasMoreOverviewCharacters));
 
         return focusedId is null
             ? null
@@ -1064,6 +1075,8 @@ public sealed partial class MainPageViewModel : INotifyPropertyChanged
         OnPropertyChanged(nameof(CurrentWorldTruths));
         OnPropertyChanged(nameof(HasCurrentWorldTruths));
         OnPropertyChanged(nameof(HasNoCurrentWorldTruths));
+        OnPropertyChanged(nameof(OverviewWorldTruths));
+        OnPropertyChanged(nameof(HasMoreOverviewWorldTruths));
     }
 
     private bool TryCanonicalizeDraft(out string[] canonical)

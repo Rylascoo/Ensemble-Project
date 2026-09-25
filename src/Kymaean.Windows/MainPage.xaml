@@ -43,6 +43,27 @@
                 </StackPanel>
             </Border>
         </DataTemplate>
+        <DataTemplate
+            x:Key="SceneOverviewRowTemplate"
+            x:DataType="presentation:ScenePresentationRow">
+            <Border
+                Padding="0,8"
+                BorderBrush="{ThemeResource KymaeanBoundaryBrush}"
+                BorderThickness="0,0,0,1">
+                <StackPanel Spacing="2">
+                    <TextBlock
+                        FontWeight="SemiBold"
+                        Foreground="{ThemeResource KymaeanPrimaryBrush}"
+                        Text="{x:Bind CodeLabel}"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        FontSize="12"
+                        Foreground="{ThemeResource KymaeanSecondaryBrush}"
+                        Text="{x:Bind RosterSummary}"
+                        TextWrapping="Wrap" />
+                </StackPanel>
+            </Border>
+        </DataTemplate>
     </Page.Resources>
 
     <NavigationView
@@ -324,7 +345,10 @@
                         </Grid>
 
                         <Grid Visibility="{Binding IsCurrentProductionOverview, Converter={StaticResource BoolToVisibility}}">
-                            <StackPanel Spacing="10">
+                            <StackPanel
+                                MaxWidth="900"
+                                HorizontalAlignment="Stretch"
+                                Spacing="18">
                                 <Button
                                     AutomationProperties.Name="Back"
                                     Background="Transparent"
@@ -340,36 +364,141 @@
                                         FontSize="20"
                                         Glyph="&#xE72B;" />
                                 </Button>
-                                <TextBlock
-                                    Foreground="{ThemeResource KymaeanSecondaryBrush}"
-                                    Text="This Production is open."
-                                    TextWrapping="Wrap" />
-                                <StackPanel
-                                    Margin="0,12,0,0"
-                                    Orientation="Horizontal"
-                                    Spacing="8">
+
+                                <StackPanel Spacing="6">
                                     <TextBlock
-                                        FontWeight="SemiBold"
                                         Foreground="{ThemeResource KymaeanSecondaryBrush}"
-                                        Text="Product space" />
-                                    <TextBlock
-                                        Foreground="{ThemeResource KymaeanPrimaryBrush}"
-                                        Text="{Binding ActiveProductSpace}" />
+                                        Text="Use the material already established in this Production, then open deeper work only when you need it."
+                                        TextWrapping="Wrap" />
+                                    <StackPanel
+                                        Orientation="Horizontal"
+                                        Spacing="8">
+                                        <TextBlock
+                                            FontWeight="SemiBold"
+                                            Foreground="{ThemeResource KymaeanSecondaryBrush}"
+                                            Text="Product space" />
+                                        <TextBlock
+                                            Foreground="{ThemeResource KymaeanPrimaryBrush}"
+                                            Text="{Binding ActiveProductSpace}" />
+                                    </StackPanel>
                                 </StackPanel>
-                                <Button
-                                    x:Name="WorldTruthsButton"
-                                    AutomationProperties.Name="World truths"
-                                    Margin="0,12,0,0"
-                                    HorizontalAlignment="Left"
-                                    Click="OnOpenWorldTruthsClicked"
-                                    Content="World truths" />
-                                <Button
-                                    x:Name="CharactersButton"
-                                    AutomationProperties.Name="Characters"
-                                    HorizontalAlignment="Left"
-                                    Click="OnOpenCharactersClicked"
-                                    Content="Characters" />
-                                <Button x:Name="ScenesButton" AutomationProperties.Name="Scenes" Content="Scenes" Click="OnOpenScenesClicked" HorizontalAlignment="Left" />
+
+                                <Border
+                                    Padding="0,18,0,0"
+                                    BorderBrush="{ThemeResource KymaeanBoundaryBrush}"
+                                    BorderThickness="0,1,0,0">
+                                    <StackPanel Spacing="8">
+                                        <TextBlock
+                                            AutomationProperties.HeadingLevel="Level2"
+                                            FontSize="20"
+                                            FontWeight="SemiBold"
+                                            Foreground="{ThemeResource KymaeanPrimaryBrush}"
+                                            Text="World truths" />
+                                        <TextBlock
+                                            Foreground="{ThemeResource KymaeanSecondaryBrush}"
+                                            Text="What is currently established about this Production's world."
+                                            TextWrapping="Wrap" />
+                                        <ItemsControl
+                                            ItemsSource="{Binding OverviewWorldTruths}"
+                                            ItemTemplate="{StaticResource WorldTruthTextTemplate}"
+                                            Visibility="{Binding HasCurrentWorldTruths, Converter={StaticResource BoolToVisibility}}" />
+                                        <TextBlock
+                                            Foreground="{ThemeResource KymaeanSecondaryBrush}"
+                                            Text="No current world truths yet."
+                                            Visibility="{Binding HasNoCurrentWorldTruths, Converter={StaticResource BoolToVisibility}}" />
+                                        <TextBlock
+                                            FontSize="12"
+                                            Foreground="{ThemeResource KymaeanSecondaryBrush}"
+                                            Text="More world truths are available."
+                                            Visibility="{Binding HasMoreOverviewWorldTruths, Converter={StaticResource BoolToVisibility}}" />
+                                        <Button
+                                            x:Name="WorldTruthsButton"
+                                            AutomationProperties.Name="World truths"
+                                            HorizontalAlignment="Left"
+                                            Click="OnOpenWorldTruthsClicked"
+                                            Content="World truths" />
+                                    </StackPanel>
+                                </Border>
+
+                                <Border
+                                    Padding="0,18,0,0"
+                                    BorderBrush="{ThemeResource KymaeanBoundaryBrush}"
+                                    BorderThickness="0,1,0,0">
+                                    <StackPanel Spacing="8">
+                                        <TextBlock
+                                            AutomationProperties.HeadingLevel="Level2"
+                                            FontSize="20"
+                                            FontWeight="SemiBold"
+                                            Foreground="{ThemeResource KymaeanPrimaryBrush}"
+                                            Text="Characters" />
+                                        <TextBlock
+                                            Foreground="{ThemeResource KymaeanSecondaryBrush}"
+                                            Text="Characters already established in this Production."
+                                            TextWrapping="Wrap" />
+                                        <ItemsControl
+                                            ItemsSource="{Binding OverviewCharacterRows}"
+                                            ItemTemplate="{StaticResource CharacterRowTemplate}"
+                                            Visibility="{Binding HasCharacters, Converter={StaticResource BoolToVisibility}}" />
+                                        <TextBlock
+                                            Foreground="{ThemeResource KymaeanSecondaryBrush}"
+                                            Text="No Characters yet."
+                                            Visibility="{Binding HasNoCharacters, Converter={StaticResource BoolToVisibility}}" />
+                                        <TextBlock
+                                            FontSize="12"
+                                            Foreground="{ThemeResource KymaeanSecondaryBrush}"
+                                            Text="More Characters are available."
+                                            Visibility="{Binding HasMoreOverviewCharacters, Converter={StaticResource BoolToVisibility}}" />
+                                        <Button
+                                            x:Name="CharactersButton"
+                                            AutomationProperties.Name="Characters"
+                                            HorizontalAlignment="Left"
+                                            Click="OnOpenCharactersClicked"
+                                            Content="Characters" />
+                                    </StackPanel>
+                                </Border>
+
+                                <Border
+                                    Padding="0,18,0,0"
+                                    BorderBrush="{ThemeResource KymaeanBoundaryBrush}"
+                                    BorderThickness="0,1,0,0">
+                                    <StackPanel Spacing="8">
+                                        <TextBlock
+                                            AutomationProperties.HeadingLevel="Level2"
+                                            FontSize="20"
+                                            FontWeight="SemiBold"
+                                            Foreground="{ThemeResource KymaeanPrimaryBrush}"
+                                            Text="{Binding SceneListHeading}" />
+                                        <TextBlock
+                                            Foreground="{ThemeResource KymaeanSecondaryBrush}"
+                                            Text="{Binding SceneListDescription}"
+                                            TextWrapping="Wrap" />
+                                        <TextBlock
+                                            AutomationProperties.Name="{Binding SceneNotice}"
+                                            Foreground="{ThemeResource KymaeanPrimaryBrush}"
+                                            Text="{Binding SceneNotice}"
+                                            TextWrapping="Wrap"
+                                            Visibility="{Binding HasSceneNotice, Converter={StaticResource BoolToVisibility}}" />
+                                        <ItemsControl
+                                            ItemsSource="{Binding OverviewSceneRows}"
+                                            ItemTemplate="{StaticResource SceneOverviewRowTemplate}"
+                                            Visibility="{Binding HasScenes, Converter={StaticResource BoolToVisibility}}" />
+                                        <TextBlock
+                                            Foreground="{ThemeResource KymaeanSecondaryBrush}"
+                                            Text="No Scenes yet."
+                                            Visibility="{Binding HasNoScenes, Converter={StaticResource BoolToVisibility}}" />
+                                        <TextBlock
+                                            FontSize="12"
+                                            Foreground="{ThemeResource KymaeanSecondaryBrush}"
+                                            Text="More Scenes are available."
+                                            Visibility="{Binding HasMoreOverviewScenes, Converter={StaticResource BoolToVisibility}}" />
+                                        <Button
+                                            x:Name="ScenesButton"
+                                            AutomationProperties.Name="Scenes"
+                                            HorizontalAlignment="Left"
+                                            Click="OnOpenScenesClicked"
+                                            Content="Scenes" />
+                                    </StackPanel>
+                                </Border>
                             </StackPanel>
                         </Grid>
 

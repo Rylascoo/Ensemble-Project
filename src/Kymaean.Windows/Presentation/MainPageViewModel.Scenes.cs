@@ -34,6 +34,10 @@ public sealed partial class MainPageViewModel
     public IReadOnlyList<ScenePresentationRow> SceneRows => Uncertainty?.LastConfirmed ?? _sceneRows;
     public bool HasNoScenes => SceneRows.Count == 0;
     public bool HasScenes => !HasNoScenes;
+    public IReadOnlyList<ScenePresentationRow> OverviewSceneRows =>
+        SceneRows.Take(OverviewPreviewLimit).ToArray();
+    public bool HasMoreOverviewScenes =>
+        SceneRows.Count > OverviewPreviewLimit;
     public IReadOnlyList<CharacterPresentationRow> SceneCast => _sceneCast;
     public bool HasNoSceneCast => _sceneCast.Count == 0;
     public IReadOnlyList<CharacterPresentationRow> SceneDraftRoster => _sceneCast.Where(row => _sceneDraft.Contains(row.Id)).ToArray();
@@ -197,13 +201,16 @@ public sealed partial class MainPageViewModel
         if (_projection?.CurrentProductionReplay is not { } replay) return;
         _sceneCast = CharacterPresentationRow.Build(replay.ProductionCast.Characters);
         _sceneRows = ScenePresentationRow.Build(replay, _sceneCast, _sceneCodeBuilder);
+        OnPropertyChanged(nameof(OverviewSceneRows));
+        OnPropertyChanged(nameof(HasMoreOverviewScenes));
     }
 
     private void RaiseSceneProperties()
     {
         foreach (var property in new[] { nameof(IsCurrentProductionOverview), nameof(IsSceneSurface), nameof(IsScenes),
             nameof(IsSceneDetail), nameof(IsSceneDraft), nameof(IsSceneNavigationEnabled), nameof(HasSceneUncertainty),
-            nameof(HasSceneCollision), nameof(CanEstablishScene), nameof(SceneRows), nameof(HasNoScenes), nameof(HasScenes), nameof(SceneCast),
+            nameof(HasSceneCollision), nameof(CanEstablishScene), nameof(SceneRows), nameof(HasNoScenes), nameof(HasScenes),
+            nameof(OverviewSceneRows), nameof(HasMoreOverviewScenes), nameof(SceneCast),
             nameof(HasNoSceneCast), nameof(SceneDraftRoster), nameof(HasEmptySceneDraft), nameof(InspectedScene),
             nameof(SubmittedSceneRoster), nameof(HasEmptySubmittedSceneRoster), nameof(SceneNotice), nameof(HasSceneNotice),
             nameof(SceneListHeading), nameof(SceneListDescription), nameof(SceneListInstruction), nameof(SceneNewSceneHelp) }) OnPropertyChanged(property);

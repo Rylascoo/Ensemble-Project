@@ -87,6 +87,52 @@ public sealed class ScenePresentationTests
     }
 
     [TestMethod]
+    public void CurrentProductionOverviewUsesBoundedEarnedProjectionPreviews()
+    {
+        var (vm, catalog) = Start();
+        catalog.ExternalWorld("A", "First", "Second", "Third", "Fourth");
+        for (var i = 0; i < 5; i++) catalog.ExternalScene("A", $"overview-{i}");
+
+        Open(vm, "A");
+
+        Assert.IsTrue(vm.IsCurrentProductionOverview);
+        CollectionAssert.AreEqual(
+            new[] { "First", "Fourth", "Second" },
+            vm.OverviewWorldTruths.ToArray());
+        Assert.IsTrue(vm.HasMoreOverviewWorldTruths);
+        Assert.AreEqual(3, vm.OverviewCharacterRows.Count);
+        Assert.IsTrue(vm.HasMoreOverviewCharacters);
+        Assert.AreEqual(3, vm.OverviewSceneRows.Count);
+        Assert.IsTrue(vm.HasMoreOverviewScenes);
+        CollectionAssert.AreEqual(
+            vm.SceneRows.Take(3).Select(row => row.Id).ToArray(),
+            vm.OverviewSceneRows.Select(row => row.Id).ToArray());
+    }
+
+    [TestMethod]
+    public void CurrentProductionOverviewPreservesSceneNonconfirmationWitness()
+    {
+        var (vm, catalog) = Start();
+        catalog.ExternalScene("A", "confirmed-before-attempt");
+        Open(vm, "A");
+        vm.OpenScenes();
+        catalog.Failure = ProductAccessFailureKind.Invalid;
+        Assert.IsTrue(vm.BeginSceneDraft());
+        Assert.IsNull(vm.EstablishScene());
+        Assert.IsTrue(vm.HasSceneUncertainty);
+
+        vm.CloseScenes();
+
+        Assert.IsTrue(vm.IsCurrentProductionOverview);
+        Assert.AreEqual("Last confirmed Scenes", vm.SceneListHeading);
+        Assert.AreEqual(1, vm.OverviewSceneRows.Count);
+        Assert.AreEqual(
+            new SceneId("confirmed-before-attempt"),
+            vm.OverviewSceneRows.Single().Id);
+        StringAssert.StartsWith(vm.SceneNotice, "Scene not confirmed.");
+    }
+
+    [TestMethod]
     public void UncertaintySurvivesNavigationOtherProductionAndFailedOpen()
     {
         var (vm, catalog) = Start();
@@ -318,14 +364,21 @@ public sealed class ScenePresentationTests
     {
         private readonly ProductionSummary[] _productions = [new(new("A"), "A"), new(new("B"), "B")];
         private readonly Dictionary<string, List<EstablishedScene>> _scenes = new() { ["A"] = [], ["B"] = [] };
+        private readonly Dictionary<string, WorldCurrentState> _worlds = new()
+        {
+            ["A"] = WorldCurrentState.Empty,
+            ["B"] = WorldCurrentState.Empty
+        };
         public ProductAccessFailureKind? Failure { get; set; }
         public Exception? Error { get; set; }
         public bool FailOpen { get; set; }
         public Action? DuringCall { get; set; }
         public int Calls { get; private set; }
         private static ProductionCast Cast => new(Enumerable.Range(0, 7).Select(i => new CharacterSummary(new($"C{i}"), "Same")));
-        private ProductionReplayProjection Replay(string id) => new(id, WorldCurrentState.Empty, Cast, new(_scenes[id]));
+        private ProductionReplayProjection Replay(string id) => new(id, _worlds[id], Cast, new(_scenes[id]));
         public void ExternalScene(string id, string sceneId) => _scenes[id].Add(new(new(sceneId), SceneRoster.Empty));
+        public void ExternalWorld(string id, params string[] truths) =>
+            _worlds[id] = new WorldCurrentState(truths.Select(truth => new WorldCurrentTruth(truth)));
         public ProductAccessResult<IReadOnlyList<ProductionSummary>> ListProductions() => ProductAccessResult<IReadOnlyList<ProductionSummary>>.Success(_productions);
         public ProductAccessResult<ProductionReplayProjection> OpenProduction(ProductionId id) => FailOpen
             ? ProductAccessResult<ProductionReplayProjection>.Failure(ProductAccessFailureKind.Invalid)
