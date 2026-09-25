@@ -2,7 +2,7 @@
 
 Status: **ACTIVE BOOTSTRAP INDEX**
 
-Updated: 2026-09-24
+Updated: 2026-09-25
 
 Read this file after `docs/design/app/AUTHORITY.md`. It is intentionally short. The transferred archive, Design Ledger, prototypes and receipt remain provenance/evidence and should be opened only when a current contract points to them or a narrow ambiguity requires them.
 
@@ -70,6 +70,18 @@ The final bounded presentation preserves derived Scene-code identity, initial-ro
 
 PR #262 and evidence PR #269 remain unmerged historical branches and are not integration authority.
 
+### Q-DESIGN-25 — Current Production workspace composition
+
+**ACTIVE CANDIDATE / FINAL INDEPENDENT REVIEW PENDING.** Exact candidate: `d0c6424d382a049f182775fe15b93fff84dbb3c9`.
+
+The candidate composes the already-open Production as one continuous contextual workspace using only earned Product truth: ProductSpace orientation, current World truths, Production Cast, established Scenes/initial rosters, existing uncertainty/nonconfirmation witnesses and exact return/focus behavior. Overview disclosure is presentation-only and bounded to three items per section; full identity/disambiguation is computed from the complete authoritative projection before truncation.
+
+Primary native evidence at exact candidate: Presentation tests **16/16 PASS**, WinUI Release ARM64 build **0 warnings / 0 errors**, full Director Preview technical build **PASS**, exact-source Preview refresh **PASS**.
+
+The candidate includes two review repairs: World/Character nonconfirmation remains visibly non-authoritative when returning to the overview, and successful Character creation refreshes derived Scene roster presentation so duplicate Character names remain safely disambiguated. These are presentation consequences of existing Product truth, not new Product semantics.
+
+A final clean independent read-only review is still required before Design acceptance or PR readiness. Handoff: `../handoff/Q_DESIGN_25_CURRENT_PRODUCTION_FINAL_REVIEW_HANDOFF_2026_09_25.md`.
+
 ## Explicit unresolved / gated items
 
 - Home re-entry A/B: unresolved.
@@ -84,6 +96,6 @@ PR #262 and evidence PR #269 remain unmerged historical branches and are not int
 
 ## Operating rule
 
-Director-approved Preview feedback method: `evidence/Q_PREVIEW_01_DIRECTOR_FEEDBACK_METHOD_2026_09_23.md`. Current accelerated UI loop: `DUAL_REVIEW_UI_DEVELOPMENT_METHOD_2026_09_24.md`. Design owns diagnosis; Claude Code provides independent read-only review; automation owns deterministic claims; Director input is reserved for irreducible decisions and milestone human evidence. Reference map: `pointers/DIRECTOR_PREVIEW_VISUAL_REFERENCE_MAP.md`. Current Production workspace composition remains inactive.
+Director-approved Preview feedback method: `evidence/Q_PREVIEW_01_DIRECTOR_FEEDBACK_METHOD_2026_09_23.md`. Current accelerated UI loop: `DUAL_REVIEW_UI_DEVELOPMENT_METHOD_2026_09_24.md`. Design owns diagnosis; Claude Code provides independent read-only review; automation owns deterministic claims; Director input is reserved for irreducible decisions and milestone human evidence. Reference map: `pointers/DIRECTOR_PREVIEW_VISUAL_REFERENCE_MAP.md`. Q-DESIGN-25 Current Production workspace composition is active at the bounded candidate above; it is not yet Design-accepted.
 
 Current Product truth is an input to Design, not something Design may invent. Historical transferred capacities are not runtime permission. When a current Product contract changes, reconcile the smallest affected Design contract rather than reopening the whole transferred archive.
