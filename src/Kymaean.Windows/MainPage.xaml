@@ -399,17 +399,28 @@
                                             Foreground="{ThemeResource KymaeanPrimaryBrush}"
                                             Text="World truths" />
                                         <TextBlock
+                                            AutomationProperties.HeadingLevel="Level3"
+                                            FontWeight="SemiBold"
+                                            Foreground="{ThemeResource KymaeanPrimaryBrush}"
+                                            Text="Confirmation unavailable"
+                                            Visibility="{Binding HasWorldTruthOverviewUncertainty, Converter={StaticResource BoolToVisibility}}" />
+                                        <TextBlock
                                             Foreground="{ThemeResource KymaeanSecondaryBrush}"
-                                            Text="What is currently established about this Production's world."
+                                            Text="{Binding WorldTruthOverviewDescription}"
                                             TextWrapping="Wrap" />
+                                        <TextBlock
+                                            FontWeight="SemiBold"
+                                            Foreground="{ThemeResource KymaeanSecondaryBrush}"
+                                            Text="Last confirmed world truths"
+                                            Visibility="{Binding HasWorldTruthOverviewUncertainty, Converter={StaticResource BoolToVisibility}}" />
                                         <ItemsControl
                                             ItemsSource="{Binding OverviewWorldTruths}"
                                             ItemTemplate="{StaticResource WorldTruthTextTemplate}"
-                                            Visibility="{Binding HasCurrentWorldTruths, Converter={StaticResource BoolToVisibility}}" />
+                                            Visibility="{Binding HasOverviewWorldTruths, Converter={StaticResource BoolToVisibility}}" />
                                         <TextBlock
                                             Foreground="{ThemeResource KymaeanSecondaryBrush}"
-                                            Text="There are no current world truths."
-                                            Visibility="{Binding HasNoCurrentWorldTruths, Converter={StaticResource BoolToVisibility}}" />
+                                            Text="{Binding WorldTruthOverviewEmptyMessage}"
+                                            Visibility="{Binding HasNoOverviewWorldTruths, Converter={StaticResource BoolToVisibility}}" />
                                         <TextBlock
                                             FontSize="12"
                                             Foreground="{ThemeResource KymaeanSecondaryBrush}"
@@ -436,17 +447,28 @@
                                             Foreground="{ThemeResource KymaeanPrimaryBrush}"
                                             Text="Characters" />
                                         <TextBlock
+                                            AutomationProperties.HeadingLevel="Level3"
+                                            FontWeight="SemiBold"
+                                            Foreground="{ThemeResource KymaeanPrimaryBrush}"
+                                            Text="Confirmation unavailable"
+                                            Visibility="{Binding HasCharacterOverviewUncertainty, Converter={StaticResource BoolToVisibility}}" />
+                                        <TextBlock
                                             Foreground="{ThemeResource KymaeanSecondaryBrush}"
-                                            Text="Characters already established in this Production."
+                                            Text="{Binding CharacterOverviewDescription}"
                                             TextWrapping="Wrap" />
+                                        <TextBlock
+                                            FontWeight="SemiBold"
+                                            Foreground="{ThemeResource KymaeanSecondaryBrush}"
+                                            Text="Last confirmed Characters"
+                                            Visibility="{Binding HasCharacterOverviewUncertainty, Converter={StaticResource BoolToVisibility}}" />
                                         <ItemsControl
                                             ItemsSource="{Binding OverviewCharacterRows}"
                                             ItemTemplate="{StaticResource CharacterRowTemplate}"
-                                            Visibility="{Binding HasCharacters, Converter={StaticResource BoolToVisibility}}" />
+                                            Visibility="{Binding HasOverviewCharacters, Converter={StaticResource BoolToVisibility}}" />
                                         <TextBlock
                                             Foreground="{ThemeResource KymaeanSecondaryBrush}"
-                                            Text="No Characters yet."
-                                            Visibility="{Binding HasNoCharacters, Converter={StaticResource BoolToVisibility}}" />
+                                            Text="{Binding CharacterOverviewEmptyMessage}"
+                                            Visibility="{Binding HasNoOverviewCharacters, Converter={StaticResource BoolToVisibility}}" />
                                         <TextBlock
                                             FontSize="12"
                                             Foreground="{ThemeResource KymaeanSecondaryBrush}"

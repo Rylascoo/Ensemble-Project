@@ -133,6 +133,91 @@ public sealed class ScenePresentationTests
     }
 
     [TestMethod]
+    public void OverviewPreservesWorldAndCharacterNonconfirmationOnReturn()
+    {
+        var (vm, catalog) = Start();
+        vm.CloseScenes();
+
+        vm.OpenWorldTruths();
+        vm.BeginWorldTruthEdit();
+        vm.AddWorldTruthDraft();
+        vm.WorldTruthDraftItems.Single().Text = "Proposed";
+        Assert.IsTrue(vm.ReviewWorldTruthReplacement());
+        Assert.IsTrue(vm.BeginWorldTruthReplacementSubmission());
+        catalog.WorldError = new IOException();
+        vm.CompleteWorldTruthReplacementSubmission();
+        Assert.IsTrue(vm.IsWorldTruthConfirmationUnavailable);
+
+        vm.CloseWorldTruthsToOverview();
+
+        Assert.IsTrue(vm.IsCurrentProductionOverview);
+        Assert.IsTrue(vm.HasWorldTruthOverviewUncertainty);
+        Assert.AreEqual(
+            "Kymaean couldn't confirm whether the replacement became current.",
+            vm.WorldTruthOverviewDescription);
+        Assert.IsTrue(vm.HasNoOverviewWorldTruths);
+        Assert.AreEqual(
+            "The last confirmed set was empty.",
+            vm.WorldTruthOverviewEmptyMessage);
+        CollectionAssert.AreEqual(
+            new[] { "Proposed" },
+            vm.SubmittedWorldTruths.ToArray());
+
+        catalog.WorldError = null;
+        catalog.SetCast("A");
+        Open(vm, "A");
+        vm.OpenCharacters();
+        vm.BeginCharacterCreation();
+        vm.CharacterNameDraft = "Marlowe";
+        Assert.IsTrue(vm.BeginCharacterCreationSubmission());
+        catalog.CharacterError = new IOException();
+        Assert.IsNull(vm.CompleteCharacterCreationSubmission());
+        Assert.IsTrue(vm.IsCharacterConfirmationUnavailable);
+
+        vm.CloseCharactersToOverview();
+
+        Assert.IsTrue(vm.IsCurrentProductionOverview);
+        Assert.IsTrue(vm.HasCharacterOverviewUncertainty);
+        Assert.AreEqual(
+            "Kymaean couldn't confirm whether this Character was created.",
+            vm.CharacterOverviewDescription);
+        Assert.IsTrue(vm.HasNoOverviewCharacters);
+        Assert.AreEqual(
+            "There were no last confirmed Characters.",
+            vm.CharacterOverviewEmptyMessage);
+        Assert.AreEqual("Marlowe", vm.SubmittedCharacterName);
+    }
+
+    [TestMethod]
+    public void ConfirmedDuplicateCharacterRefreshesSceneOverviewDisambiguation()
+    {
+        var (vm, catalog) = Start();
+        catalog.SetCast("A", "Marlowe");
+        catalog.ExternalScene("A", "scene-with-marlowe", "C0");
+        Open(vm, "A");
+
+        var before = vm.OverviewSceneRows.Single().Roster.Single();
+        Assert.AreEqual(new CharacterId("C0"), before.Id);
+        Assert.IsFalse(before.HasCharacterCode);
+
+        vm.OpenCharacters();
+        vm.BeginCharacterCreation();
+        vm.CharacterNameDraft = "Marlowe";
+        Assert.IsTrue(vm.BeginCharacterCreationSubmission());
+        Assert.IsNotNull(vm.CompleteCharacterCreationSubmission());
+        vm.CloseCharactersToOverview();
+
+        Assert.AreEqual(2, vm.OverviewCharacterRows.Count);
+        Assert.IsTrue(vm.OverviewCharacterRows.All(row => row.HasCharacterCode));
+        var after = vm.OverviewSceneRows.Single().Roster.Single();
+        Assert.AreEqual(new CharacterId("C0"), after.Id);
+        Assert.IsTrue(after.HasCharacterCode);
+        Assert.AreEqual(
+            vm.OverviewCharacterRows.Single(row => row.Id == after.Id).CharacterCode,
+            after.CharacterCode);
+    }
+
+    [TestMethod]
     public void UncertaintySurvivesNavigationOtherProductionAndFailedOpen()
     {
         var (vm, catalog) = Start();
@@ -360,7 +445,11 @@ public sealed class ScenePresentationTests
         Assert.IsTrue(vm.OpenSelectedProduction());
     }
 
-    private sealed class Catalog : IProductionCatalog, IProductionSceneCreator
+    private sealed class Catalog :
+        IProductionCatalog,
+        IProductionSceneCreator,
+        IProductionCharacterCreator,
+        IProductionWorldStateWriter
     {
         private readonly ProductionSummary[] _productions = [new(new("A"), "A"), new(new("B"), "B")];
         private readonly Dictionary<string, List<EstablishedScene>> _scenes = new() { ["A"] = [], ["B"] = [] };
@@ -369,14 +458,33 @@ public sealed class ScenePresentationTests
             ["A"] = WorldCurrentState.Empty,
             ["B"] = WorldCurrentState.Empty
         };
+        private readonly Dictionary<string, List<CharacterSummary>> _casts = new()
+        {
+            ["A"] = DefaultCast(),
+            ["B"] = DefaultCast()
+        };
         public ProductAccessFailureKind? Failure { get; set; }
         public Exception? Error { get; set; }
+        public Exception? CharacterError { get; set; }
+        public Exception? WorldError { get; set; }
         public bool FailOpen { get; set; }
         public Action? DuringCall { get; set; }
         public int Calls { get; private set; }
-        private static ProductionCast Cast => new(Enumerable.Range(0, 7).Select(i => new CharacterSummary(new($"C{i}"), "Same")));
-        private ProductionReplayProjection Replay(string id) => new(id, _worlds[id], Cast, new(_scenes[id]));
-        public void ExternalScene(string id, string sceneId) => _scenes[id].Add(new(new(sceneId), SceneRoster.Empty));
+        private static List<CharacterSummary> DefaultCast() =>
+            Enumerable.Range(0, 7)
+                .Select(i => new CharacterSummary(new($"C{i}"), "Same"))
+                .ToList();
+        private ProductionCast Cast(string id) => new(_casts[id]);
+        private ProductionReplayProjection Replay(string id) => new(id, _worlds[id], Cast(id), new(_scenes[id]));
+        public void SetCast(string id, params string[] names) =>
+            _casts[id] = names.Select((name, index) => new CharacterSummary(new($"C{index}"), name)).ToList();
+        public void ExternalScene(string id, string sceneId, params string[] characterIds) =>
+            _scenes[id].Add(
+                new(
+                    new(sceneId),
+                    characterIds.Length == 0
+                        ? SceneRoster.Empty
+                        : new SceneRoster(characterIds.Select(value => new CharacterId(value)))));
         public void ExternalWorld(string id, params string[] truths) =>
             _worlds[id] = new WorldCurrentState(truths.Select(truth => new WorldCurrentTruth(truth)));
         public ProductAccessResult<IReadOnlyList<ProductionSummary>> ListProductions() => ProductAccessResult<IReadOnlyList<ProductionSummary>>.Success(_productions);
@@ -384,6 +492,23 @@ public sealed class ScenePresentationTests
             ? ProductAccessResult<ProductionReplayProjection>.Failure(ProductAccessFailureKind.Invalid)
             : ProductAccessResult<ProductionReplayProjection>.Success(Replay(id.Value));
         public ProductAccessResult<ProductionReplayProjection> RecoverProduction(ProductionId id) => OpenProduction(id);
+        public ProductAccessResult<CharacterCreation> CreateCharacter(ProductionId id, string characterName)
+        {
+            if (CharacterError is not null) throw CharacterError;
+            var list = _casts[id.Value];
+            var character = new CharacterSummary(new($"C{list.Count}"), characterName);
+            list.Add(character);
+            return ProductAccessResult<CharacterCreation>.Success(
+                new CharacterCreation(character, Replay(id.Value)));
+        }
+        public ProductAccessResult<ProductionReplayProjection> ReplaceWorldCurrentState(
+            ProductionId id,
+            WorldCurrentState currentState)
+        {
+            if (WorldError is not null) throw WorldError;
+            _worlds[id.Value] = currentState;
+            return ProductAccessResult<ProductionReplayProjection>.Success(Replay(id.Value));
+        }
         public ProductAccessResult<SceneCreation> EstablishScene(ProductionId id, SceneRoster roster)
         {
             Calls++; DuringCall?.Invoke();
