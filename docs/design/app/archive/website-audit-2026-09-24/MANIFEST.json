@@ -1,0 +1,353 @@
+{
+  "schema": "ensemble.website-app-design-migration-completeness-mirror.v1",
+  "date": "2026-09-24",
+  "website_pre_renovation": "43801c0be01f7892b42b7127468e844b9e2aa822",
+  "qadmin05_source": "846c60ee448abf7d5c57bdd64de55cb9294880e2",
+  "project_base": "34ff50c23b411da33d16e615ace780088b257f4a",
+  "authority_effect": "NONE — reference/provenance continuity only",
+  "adoption_effect": "NONE — Home A/B remains unresolved; FIRSTUSE remains pending; Phase-C predecessor records are historical/non-current",
+  "entries": [
+    {
+      "class": "QADMIN05_POINTER_SOURCE_MIRROR",
+      "source_ref": "4c73d02c6a1c85d860024a9e2d55b3ef490906b3",
+      "source_path": "docs/evidence/APPUI_01_HOME_REENTRY_TWO_OPTION_REVIEW_SET_01.json",
+      "source_blob": "d6a57a098c55686338163d71464d17730d079104",
+      "bytes": 2031,
+      "sha256": "2187998f969771c0ecff153271bbdeb32bc46fd86499b54f11f40809e6360046",
+      "mirror_path": "docs/design/app/archive/website-audit-2026-09-24/pointers/docs/evidence/APPUI_01_HOME_REENTRY_TWO_OPTION_REVIEW_SET_01.json"
+    },
+    {
+      "class": "QADMIN05_POINTER_SOURCE_MIRROR",
+      "source_ref": "4c73d02c6a1c85d860024a9e2d55b3ef490906b3",
+      "source_path": "docs/evidence/APPUI_01_HOME_SCENE_HORIZON_STUDY_01.json",
+      "source_blob": "fa575d4330fc05a62689e13f53eb361228c84f6c",
+      "bytes": 3018,
+      "sha256": "eb4c2522dd4f44192dd30090d6751d8c47425948a8d6f3d1fd9d2e4a5f695ac1",
+      "mirror_path": "docs/design/app/archive/website-audit-2026-09-24/pointers/docs/evidence/APPUI_01_HOME_SCENE_HORIZON_STUDY_01.json"
+    },
+    {
+      "class": "QADMIN05_POINTER_SOURCE_MIRROR",
+      "source_ref": "4c73d02c6a1c85d860024a9e2d55b3ef490906b3",
+      "source_path": "docs/evidence/APPUI_01_HOME_THRESHOLD_REENTRY_STUDY_01.json",
+      "source_blob": "0d9a424d3dc6dcab2532f195c72ea9816d5a24bc",
+      "bytes": 8423,
+      "sha256": "e2aca64cc289b08a65bef6b6852615838acdb3badc57225d8b816bce83d28b79",
+      "mirror_path": "docs/design/app/archive/website-audit-2026-09-24/pointers/docs/evidence/APPUI_01_HOME_THRESHOLD_REENTRY_STUDY_01.json"
+    },
+    {
+      "class": "QADMIN05_POINTER_SOURCE_MIRROR",
+      "source_ref": "4c73d02c6a1c85d860024a9e2d55b3ef490906b3",
+      "source_path": "prototypes/appui-01/home-scene-horizon-study-01.html",
+      "source_blob": "293a9ebf790bcf6ee549f3665a0791e9226de6a9",
+      "bytes": 14304,
+      "sha256": "8ec602d61d7c87644c89d2da02d6ab2f3626487a67beefa4c5e065a504312718",
+      "mirror_path": "docs/design/app/archive/website-audit-2026-09-24/pointers/prototypes/appui-01/home-scene-horizon-study-01.html"
+    },
+    {
+      "class": "QADMIN05_POINTER_SOURCE_MIRROR",
+      "source_ref": "4c73d02c6a1c85d860024a9e2d55b3ef490906b3",
+      "source_path": "prototypes/appui-01/home-threshold-reentry-study-01.html",
+      "source_blob": "46c23ea21958329049f607ef454cf0a9cf945208",
+      "bytes": 15111,
+      "sha256": "2b19eb20781be9a1d5b4c3bfc2f7a1ed06efe9d5829fc5fdf5a3564e3bbe3073",
+      "mirror_path": "docs/design/app/archive/website-audit-2026-09-24/pointers/prototypes/appui-01/home-threshold-reentry-study-01.html"
+    },
+    {
+      "class": "QADMIN05_POINTER_SOURCE_MIRROR",
+      "source_ref": "4c73d02c6a1c85d860024a9e2d55b3ef490906b3",
+      "source_path": "prototypes/appui-01/home-two-option-review-board-01.html",
+      "source_blob": "747019563e79b3f60ab769ff9a1ffd38d3e74922",
+      "bytes": 6050,
+      "sha256": "5ead98cfadda13193c4ac81dbcd1f225ebd2e60d49ba77fa58c9d17671828987",
+      "mirror_path": "docs/design/app/archive/website-audit-2026-09-24/pointers/prototypes/appui-01/home-two-option-review-board-01.html"
+    },
+    {
+      "class": "QADMIN05_POINTER_SOURCE_MIRROR",
+      "source_ref": "e2e4119dcffc9082378a822c048523c9675c1bf6",
+      "source_path": "docs/evidence/APPUI_FIRSTUSE_01_INTERACTION_ACCESSIBILITY_CLOSEOUT_02_2026_09_17.json",
+      "source_blob": "d0c54939e2350557b075787e2b3402289e485935",
+      "bytes": 3349,
+      "sha256": "64a316c853256b190f27cf43fa94f814e3b914ce0d56b95cb822cdf150923ca1",
+      "mirror_path": "docs/design/app/archive/website-audit-2026-09-24/pointers/docs/evidence/APPUI_FIRSTUSE_01_INTERACTION_ACCESSIBILITY_CLOSEOUT_02_2026_09_17.json"
+    },
+    {
+      "class": "QADMIN05_POINTER_SOURCE_MIRROR",
+      "source_ref": "e2e4119dcffc9082378a822c048523c9675c1bf6",
+      "source_path": "prototypes/appui-01/first-use-entry-experience-02.html",
+      "source_blob": "fa52681ccc8e8b28bd9e126b3b9cace9119ba854",
+      "bytes": 15327,
+      "sha256": "ad5784dc283b1fa01fb35305f23325fd03b1cd4636a7d47b76d934767d5ae56f",
+      "mirror_path": "docs/design/app/archive/website-audit-2026-09-24/pointers/prototypes/appui-01/first-use-entry-experience-02.html"
+    },
+    {
+      "class": "PHASE_C_HISTORICAL_REFERENCE",
+      "source_ref": "405c8d014300e8154f1cd5dc0e0c326d0498533a",
+      "source_path": "docs/evidence/PHASE_C_SHARED_IDENTITY_COMPLETION_AUDIT_01.json",
+      "source_blob": "c28430fc1d9e87cafc42f834398b688253503087",
+      "bytes": 11848,
+      "sha256": "13291d7d1f09114bf59063229fdc018ed277cd077d4dc5174650c8f9a0346d49",
+      "mirror_path": "docs/design/app/archive/website-audit-2026-09-24/phase-c/docs/evidence/PHASE_C_SHARED_IDENTITY_COMPLETION_AUDIT_01.json"
+    },
+    {
+      "class": "PHASE_C_HISTORICAL_REFERENCE",
+      "source_ref": "405c8d014300e8154f1cd5dc0e0c326d0498533a",
+      "source_path": "docs/evidence/packets/PKT_CPS_01_CANONICAL_CHARACTER_PRESENCE_SYSTEM_01.json",
+      "source_blob": "fd50fc0317d72cf200d4168e8619c3abec274b94",
+      "bytes": 5868,
+      "sha256": "a5809cc02bedff5eab6bcea2ade77c21ba507b95a3eddfb5238f1c38db032772",
+      "mirror_path": "docs/design/app/archive/website-audit-2026-09-24/phase-c/docs/evidence/packets/PKT_CPS_01_CANONICAL_CHARACTER_PRESENCE_SYSTEM_01.json"
+    },
+    {
+      "class": "PHASE_C_HISTORICAL_REFERENCE",
+      "source_ref": "405c8d014300e8154f1cd5dc0e0c326d0498533a",
+      "source_path": "docs/evidence/CPS_01_CANONICAL_CHARACTER_PRESENCE_SYSTEM_METHOD_01.json",
+      "source_blob": "69a1f7b2f94d110d971338f00537ba12e830c135",
+      "bytes": 13991,
+      "sha256": "3069f468a0fb98964758154f82e126d7a4296a529b78885c90818235527d6dc4",
+      "mirror_path": "docs/design/app/archive/website-audit-2026-09-24/phase-c/docs/evidence/CPS_01_CANONICAL_CHARACTER_PRESENCE_SYSTEM_METHOD_01.json"
+    },
+    {
+      "class": "PHASE_C_HISTORICAL_REFERENCE",
+      "source_ref": "405c8d014300e8154f1cd5dc0e0c326d0498533a",
+      "source_path": "docs/evidence/CPS_01_MECHANICAL_ACCESSIBILITY_PREFLIGHT_01.json",
+      "source_blob": "fcc2a9e730bb2311d1b6f0df687621bb0a8fb80f",
+      "bytes": 5827,
+      "sha256": "6cb91ac47baf957e15fe8fef6d8daa9cab5cadc9c97d22acf3fb4ee98b486275",
+      "mirror_path": "docs/design/app/archive/website-audit-2026-09-24/phase-c/docs/evidence/CPS_01_MECHANICAL_ACCESSIBILITY_PREFLIGHT_01.json"
+    },
+    {
+      "class": "PHASE_C_HISTORICAL_REFERENCE",
+      "source_ref": "405c8d014300e8154f1cd5dc0e0c326d0498533a",
+      "source_path": "docs/evidence/CPS_01_DESIGN_SOL_ARCHITECTURE_EVALUATION_01.json",
+      "source_blob": "6877cdae498e8985def05c13b4d387ac079adcd2",
+      "bytes": 6013,
+      "sha256": "b85fd86efc65bd74d1def8c2e9445f343257801c04cd3510de02eea222e19137",
+      "mirror_path": "docs/design/app/archive/website-audit-2026-09-24/phase-c/docs/evidence/CPS_01_DESIGN_SOL_ARCHITECTURE_EVALUATION_01.json"
+    },
+    {
+      "class": "PHASE_C_HISTORICAL_REFERENCE",
+      "source_ref": "405c8d014300e8154f1cd5dc0e0c326d0498533a",
+      "source_path": "docs/evidence/CPS_01_DIRECTOR_ARCHITECTURE_DECISION_01.json",
+      "source_blob": "6a3397f896df9b15872eb5618c327c77e3c46281",
+      "bytes": 2100,
+      "sha256": "02f14c5360b07ca6b5d04f80e16fb9877976eee0c4a0ec10f1d9a924f82413a8",
+      "mirror_path": "docs/design/app/archive/website-audit-2026-09-24/phase-c/docs/evidence/CPS_01_DIRECTOR_ARCHITECTURE_DECISION_01.json"
+    },
+    {
+      "class": "PHASE_C_HISTORICAL_REFERENCE",
+      "source_ref": "405c8d014300e8154f1cd5dc0e0c326d0498533a",
+      "source_path": "prototypes/cps-01/carrier.html",
+      "source_blob": "70a0d48fe1eab4438a37ca23b2a4b7cd0a46f631",
+      "bytes": 15453,
+      "sha256": "28fb10f481345288b8dc1cb278caf60a804027b82a1a4fd7058ccdd9f04ea65e",
+      "mirror_path": "docs/design/app/archive/website-audit-2026-09-24/phase-c/prototypes/cps-01/carrier.html"
+    },
+    {
+      "class": "PHASE_C_HISTORICAL_REFERENCE",
+      "source_ref": "405c8d014300e8154f1cd5dc0e0c326d0498533a",
+      "source_path": "tools/cps01_browser_probe.mjs",
+      "source_blob": "4805df95ed378110acad19fa784e86ca3ef73dbd",
+      "bytes": 5870,
+      "sha256": "a351cd302afa27365206af1338c00e463efffaa1dba16c8bb1d48d036b6ec8b2",
+      "mirror_path": "docs/design/app/archive/website-audit-2026-09-24/phase-c/tools/cps01_browser_probe.mjs"
+    },
+    {
+      "class": "PHASE_C_HISTORICAL_REFERENCE",
+      "source_ref": "405c8d014300e8154f1cd5dc0e0c326d0498533a",
+      "source_path": "tools/verify_cps01.py",
+      "source_blob": "adc8cb476ffa8347ed5d7aa2a86ba96d1657b56a",
+      "bytes": 9028,
+      "sha256": "0097ab89bc908c383bcb7d47f2727bb6144574667d1528e3eb8867abb270716e",
+      "mirror_path": "docs/design/app/archive/website-audit-2026-09-24/phase-c/tools/verify_cps01.py"
+    },
+    {
+      "class": "PHASE_C_HISTORICAL_REFERENCE",
+      "source_ref": "405c8d014300e8154f1cd5dc0e0c326d0498533a",
+      "source_path": "docs/evidence/PHASE_C_POST_CPS_01_REENTRY_AUDIT_07.json",
+      "source_blob": "9b6f51e01bc53f486c682ab80236f8efead4b106",
+      "bytes": 5904,
+      "sha256": "7623092491bdc705351cc74d856ab15b61be04a71ae0d72ef3f5e27c956080f3",
+      "mirror_path": "docs/design/app/archive/website-audit-2026-09-24/phase-c/docs/evidence/PHASE_C_POST_CPS_01_REENTRY_AUDIT_07.json"
+    },
+    {
+      "class": "PHASE_C_HISTORICAL_REFERENCE",
+      "source_ref": "405c8d014300e8154f1cd5dc0e0c326d0498533a",
+      "source_path": "docs/evidence/packets/PKT_DUR_01_INTEGRATED_IDENTITY_DURABILITY_01.json",
+      "source_blob": "9c9c8dbe70a41bc4f7037fba1fb2b80db6888f76",
+      "bytes": 10187,
+      "sha256": "a792c7508de8c3741b89cfba9face7d1ea78ff1608ff307c43d00db9bbaf330c",
+      "mirror_path": "docs/design/app/archive/website-audit-2026-09-24/phase-c/docs/evidence/packets/PKT_DUR_01_INTEGRATED_IDENTITY_DURABILITY_01.json"
+    },
+    {
+      "class": "PHASE_C_HISTORICAL_REFERENCE",
+      "source_ref": "405c8d014300e8154f1cd5dc0e0c326d0498533a",
+      "source_path": "docs/evidence/DUR_01_INTEGRATED_IDENTITY_DURABILITY_METHOD_01.json",
+      "source_blob": "7f8fd6886ce506652252163880aabab6cbbf68a2",
+      "bytes": 7600,
+      "sha256": "7b82ddc895843f27e7ca8b0740b5108fa0b44f2a29507e129cf6aa14e9d8c308",
+      "mirror_path": "docs/design/app/archive/website-audit-2026-09-24/phase-c/docs/evidence/DUR_01_INTEGRATED_IDENTITY_DURABILITY_METHOD_01.json"
+    },
+    {
+      "class": "PHASE_C_HISTORICAL_REFERENCE",
+      "source_ref": "405c8d014300e8154f1cd5dc0e0c326d0498533a",
+      "source_path": "docs/evidence/DUR_01_MECHANICAL_ACCESSIBILITY_PREFLIGHT_01.json",
+      "source_blob": "6d95c583f228d3b40cb46e170341580366054e98",
+      "bytes": 15094,
+      "sha256": "2c845d354e13ee872a74cf4a82b1533f6168f94711baa4d88cdbad7b2a2de3e8",
+      "mirror_path": "docs/design/app/archive/website-audit-2026-09-24/phase-c/docs/evidence/DUR_01_MECHANICAL_ACCESSIBILITY_PREFLIGHT_01.json"
+    },
+    {
+      "class": "PHASE_C_HISTORICAL_REFERENCE",
+      "source_ref": "405c8d014300e8154f1cd5dc0e0c326d0498533a",
+      "source_path": "docs/evidence/DUR_01_DESIGN_SOL_INTEGRATED_DURABILITY_EVALUATION_01.json",
+      "source_blob": "603fab2df1a54771d5b938a51749a53b8334b2be",
+      "bytes": 4168,
+      "sha256": "84ffd1639b169cc32040e308e9e1cb459437fe2ff6bd506663d213aea1d87a4a",
+      "mirror_path": "docs/design/app/archive/website-audit-2026-09-24/phase-c/docs/evidence/DUR_01_DESIGN_SOL_INTEGRATED_DURABILITY_EVALUATION_01.json"
+    },
+    {
+      "class": "PHASE_C_HISTORICAL_REFERENCE",
+      "source_ref": "405c8d014300e8154f1cd5dc0e0c326d0498533a",
+      "source_path": "prototypes/dur-01/carrier.html",
+      "source_blob": "43b2fcbeb5e0e077432b98f4225530dcda479ec7",
+      "bytes": 17223,
+      "sha256": "88384760873d44198cf94f1ac242eeaa8d30027b61f9760073ad40a3bffde971",
+      "mirror_path": "docs/design/app/archive/website-audit-2026-09-24/phase-c/prototypes/dur-01/carrier.html"
+    },
+    {
+      "class": "PHASE_C_HISTORICAL_REFERENCE",
+      "source_ref": "405c8d014300e8154f1cd5dc0e0c326d0498533a",
+      "source_path": "tools/dur01_browser_probe.mjs",
+      "source_blob": "b2c42b589b77cae866bdb64d9c5abf1ef53b3362",
+      "bytes": 6305,
+      "sha256": "06b440e91ea57a8231518595f67fe0bbbe59160c32bf8192866e48300a9e918d",
+      "mirror_path": "docs/design/app/archive/website-audit-2026-09-24/phase-c/tools/dur01_browser_probe.mjs"
+    },
+    {
+      "class": "PHASE_C_HISTORICAL_REFERENCE",
+      "source_ref": "405c8d014300e8154f1cd5dc0e0c326d0498533a",
+      "source_path": "tools/verify_dur01.py",
+      "source_blob": "ad3df04843630dce5b372626bb9378e04993281e",
+      "bytes": 5820,
+      "sha256": "e4bad4f76994e1950d42e7200fc0d0374e607f54e74cf059f010d372512657df",
+      "mirror_path": "docs/design/app/archive/website-audit-2026-09-24/phase-c/tools/verify_dur01.py"
+    },
+    {
+      "class": "PHASE_C_HISTORICAL_REFERENCE",
+      "source_ref": "405c8d014300e8154f1cd5dc0e0c326d0498533a",
+      "source_path": "docs/evidence/PHASE_C_POST_DUR_01_REENTRY_AUDIT_08.json",
+      "source_blob": "00e9031fb5324e445fbb89db449faa4399b95b25",
+      "bytes": 7150,
+      "sha256": "305e4c7fff0ddd58cd0c43fb0da5a9c62f6535e231a5818d28e0246e0ab29447",
+      "mirror_path": "docs/design/app/archive/website-audit-2026-09-24/phase-c/docs/evidence/PHASE_C_POST_DUR_01_REENTRY_AUDIT_08.json"
+    },
+    {
+      "class": "PHASE_C_HISTORICAL_REFERENCE",
+      "source_ref": "405c8d014300e8154f1cd5dc0e0c326d0498533a",
+      "source_path": "docs/evidence/packets/PKT_APPICON_01_PRIMARY_APP_ICON_DESIGN_MASTER_01.json",
+      "source_blob": "a0dfc74be88deb8b589b57110bcad9957c287156",
+      "bytes": 4663,
+      "sha256": "9e0782c3e13642c3239e421e5079847da122022f0244400b2f31ddea1f15add0",
+      "mirror_path": "docs/design/app/archive/website-audit-2026-09-24/phase-c/docs/evidence/packets/PKT_APPICON_01_PRIMARY_APP_ICON_DESIGN_MASTER_01.json"
+    },
+    {
+      "class": "PHASE_C_HISTORICAL_REFERENCE",
+      "source_ref": "405c8d014300e8154f1cd5dc0e0c326d0498533a",
+      "source_path": "docs/evidence/APPICON_01_PRIMARY_APP_ICON_DESIGN_MASTER_METHOD_01.json",
+      "source_blob": "ded22352613beba43efc8a29a8b821079dbe91ce",
+      "bytes": 5344,
+      "sha256": "37bd7fff587779167a2062868430829f2fc660da7753214ea15a1f43b0c7712a",
+      "mirror_path": "docs/design/app/archive/website-audit-2026-09-24/phase-c/docs/evidence/APPICON_01_PRIMARY_APP_ICON_DESIGN_MASTER_METHOD_01.json"
+    },
+    {
+      "class": "PHASE_C_HISTORICAL_REFERENCE",
+      "source_ref": "405c8d014300e8154f1cd5dc0e0c326d0498533a",
+      "source_path": "docs/evidence/APPICON_01_MECHANICAL_ACCESSIBILITY_PREFLIGHT_01.json",
+      "source_blob": "df4213fffcc602a9d136c1637320f241cc07dd5b",
+      "bytes": 7113,
+      "sha256": "bec35eccabc14429ec4e15eb5e912c9b2a993a2d765e4a7d3148e56f650ec1ea",
+      "mirror_path": "docs/design/app/archive/website-audit-2026-09-24/phase-c/docs/evidence/APPICON_01_MECHANICAL_ACCESSIBILITY_PREFLIGHT_01.json"
+    },
+    {
+      "class": "PHASE_C_HISTORICAL_REFERENCE",
+      "source_ref": "405c8d014300e8154f1cd5dc0e0c326d0498533a",
+      "source_path": "docs/evidence/APPICON_01_DESIGN_SOL_ENVELOPE_EVALUATION_01.json",
+      "source_blob": "06aaa9db67882382861e5c4f1b9baa7ed0ed082a",
+      "bytes": 3887,
+      "sha256": "960d5266aec673010b28a306582d669a3ea7047f414d7bc65567167e634a565d",
+      "mirror_path": "docs/design/app/archive/website-audit-2026-09-24/phase-c/docs/evidence/APPICON_01_DESIGN_SOL_ENVELOPE_EVALUATION_01.json"
+    },
+    {
+      "class": "PHASE_C_HISTORICAL_REFERENCE",
+      "source_ref": "405c8d014300e8154f1cd5dc0e0c326d0498533a",
+      "source_path": "prototypes/appicon-01/carrier.html",
+      "source_blob": "b6aea7ef52ac104215b699d5f678050197fe3126",
+      "bytes": 7694,
+      "sha256": "0a5a4fcbdd4927830f32aba54e8bd9d1a5512d4d74c592d717bc81258fb933f1",
+      "mirror_path": "docs/design/app/archive/website-audit-2026-09-24/phase-c/prototypes/appicon-01/carrier.html"
+    },
+    {
+      "class": "PHASE_C_HISTORICAL_REFERENCE",
+      "source_ref": "405c8d014300e8154f1cd5dc0e0c326d0498533a",
+      "source_path": "tools/appicon01_browser_probe.mjs",
+      "source_blob": "09ff294c8fceedb570179247c29280db25b3eac2",
+      "bytes": 4660,
+      "sha256": "22af9f2365a7df6141cf9997bdbef446d5202ec83691eade9c7a34ad8735d46a",
+      "mirror_path": "docs/design/app/archive/website-audit-2026-09-24/phase-c/tools/appicon01_browser_probe.mjs"
+    },
+    {
+      "class": "PHASE_C_HISTORICAL_REFERENCE",
+      "source_ref": "405c8d014300e8154f1cd5dc0e0c326d0498533a",
+      "source_path": "tools/verify_appicon01.py",
+      "source_blob": "ecf51d270150f09a033d87f45b734b4d07349da3",
+      "bytes": 8186,
+      "sha256": "fb199e2f6d6257e8856b177819ad597a5307c2136e25b26500fb2ee2df175cbc",
+      "mirror_path": "docs/design/app/archive/website-audit-2026-09-24/phase-c/tools/verify_appicon01.py"
+    },
+    {
+      "class": "PHASE_C_HISTORICAL_REFERENCE",
+      "source_ref": "405c8d014300e8154f1cd5dc0e0c326d0498533a",
+      "source_path": "docs/evidence/PHASE_C_POST_APPICON_01_REENTRY_AUDIT_09.json",
+      "source_blob": "e6251901b75b2972f484a92676a7453a38b4387f",
+      "bytes": 8033,
+      "sha256": "fe16dba8eb40664533de5af833f94f1fefc1ba5ef94b4c9bdee9e98524808ab0",
+      "mirror_path": "docs/design/app/archive/website-audit-2026-09-24/phase-c/docs/evidence/PHASE_C_POST_APPICON_01_REENTRY_AUDIT_09.json"
+    },
+    {
+      "class": "PHASE_C_HISTORICAL_CONTEXT",
+      "source_ref": "405c8d014300e8154f1cd5dc0e0c326d0498533a",
+      "source_path": "docs/evidence/IMG_01_SHARED_IMAGE_CHARACTER_ART_DIRECTION_METHOD_01.json",
+      "source_blob": "24f15c90e43a2a5945971b3a9000020ea98a04f9",
+      "bytes": 11664,
+      "sha256": "2d7cbdc5471b0c97f156d9bf1928eba0f12ba821ac954dce4d1c3877a1c8be13",
+      "mirror_path": "docs/design/app/archive/website-audit-2026-09-24/phase-c/docs/evidence/IMG_01_SHARED_IMAGE_CHARACTER_ART_DIRECTION_METHOD_01.json"
+    },
+    {
+      "class": "PHASE_C_HISTORICAL_CONTEXT",
+      "source_ref": "405c8d014300e8154f1cd5dc0e0c326d0498533a",
+      "source_path": "docs/evidence/IMG_01_FROZEN_ART_DIRECTION_FAMILIES_01.json",
+      "source_blob": "263443debc048cde6bc20ee0ee1afd8dd934f681",
+      "bytes": 14244,
+      "sha256": "13513408875a6f4f6ba8be8e5aaead83bf616d38cb821f36291e82d2f79e8207",
+      "mirror_path": "docs/design/app/archive/website-audit-2026-09-24/phase-c/docs/evidence/IMG_01_FROZEN_ART_DIRECTION_FAMILIES_01.json"
+    },
+    {
+      "class": "PHASE_C_HISTORICAL_CONTEXT",
+      "source_ref": "405c8d014300e8154f1cd5dc0e0c326d0498533a",
+      "source_path": "docs/evidence/IMG_01_RAW_EXEMPLAR_METHOD_BOUND_EVALUATION_01.json",
+      "source_blob": "37b3c30b91ce4ab4a7c538649a1e0158d308f2db",
+      "bytes": 9679,
+      "sha256": "f17a98b1b64ac7ea471f356912c88c547027bc20381c2bab8796b5addeb05257",
+      "mirror_path": "docs/design/app/archive/website-audit-2026-09-24/phase-c/docs/evidence/IMG_01_RAW_EXEMPLAR_METHOD_BOUND_EVALUATION_01.json"
+    },
+    {
+      "class": "PHASE_C_HISTORICAL_CONTEXT",
+      "source_ref": "405c8d014300e8154f1cd5dc0e0c326d0498533a",
+      "source_path": "docs/evidence/IMG_01_DIRECTOR_PRIOR_CONCORDANCE_01.json",
+      "source_blob": "99ef56ab724a9c3b2cda15b9f590ba0b5ff43c02",
+      "bytes": 5241,
+      "sha256": "1ddf51fa28ddea497b8dd1da353f26733c0cf1a7a857e02020e1322a9c06ce27",
+      "mirror_path": "docs/design/app/archive/website-audit-2026-09-24/phase-c/docs/evidence/IMG_01_DIRECTOR_PRIOR_CONCORDANCE_01.json"
+    }
+  ]
+}

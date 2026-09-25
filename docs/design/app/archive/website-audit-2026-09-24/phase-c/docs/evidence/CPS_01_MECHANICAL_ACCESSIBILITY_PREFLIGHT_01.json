@@ -1,0 +1,177 @@
+{
+  "schema": "kymaean.cps-01.mechanical-accessibility-preflight.v1",
+  "status": "PASS_COMPLETE_MATRIX_POST_REPAIR",
+  "date": "2026-09-14",
+  "program": "CPS-01",
+  "authority": {
+    "method": "docs/evidence/CPS_01_CANONICAL_CHARACTER_PRESENCE_SYSTEM_METHOD_01.json",
+    "method_sha256": "3069f468a0fb98964758154f82e126d7a4296a529b78885c90818235527d6dc4",
+    "carrier": "prototypes/cps-01/carrier.html",
+    "carrier_sha256": "28fb10f481345288b8dc1cb278caf60a804027b82a1a4fd7058ccdd9f04ea65e",
+    "browser_probe": "tools/cps01_browser_probe.mjs",
+    "browser_probe_sha256": "a351cd302afa27365206af1338c00e463efffaa1dba16c8bb1d48d036b6ec8b2"
+  },
+  "repairs_before_scoring": [
+    "Browser probe page-context diagnostic no longer referenced Node-side mode state.",
+    "Each headless browser run uses an isolated absolute profile and closes through CDP lifecycle cleanup.",
+    "Long role labels wrap at narrow width and the 200% text test enlarges text without incorrectly doubling identity geometry.",
+    "CPS-C relational pair no longer mirrors/mutates the canonical identity scaffold; relation is expressed only through shared layout/spacing."
+  ],
+  "matrix": {
+    "normal-1440": {
+      "viewport": {
+        "width": 1440,
+        "height": 12000,
+        "scrollWidth": 1440,
+        "scrollHeight": 12000
+      },
+      "forced_colors": false,
+      "reduced_motion": false,
+      "text_scale_percent": 100,
+      "overflow_count": 0,
+      "image_count": 0,
+      "external_resource_count": 0,
+      "motion_dependency_count": 0,
+      "minimum_visible_crop_signature_segments": 2,
+      "app_web_identity_match": true
+    },
+    "normal-320": {
+      "viewport": {
+        "width": 320,
+        "height": 12000,
+        "scrollWidth": 305,
+        "scrollHeight": 13992
+      },
+      "forced_colors": false,
+      "reduced_motion": false,
+      "text_scale_percent": 100,
+      "overflow_count": 0,
+      "image_count": 0,
+      "external_resource_count": 0,
+      "motion_dependency_count": 0,
+      "minimum_visible_crop_signature_segments": 3,
+      "app_web_identity_match": true
+    },
+    "text200-1440": {
+      "viewport": {
+        "width": 1440,
+        "height": 12000,
+        "scrollWidth": 1440,
+        "scrollHeight": 12000
+      },
+      "forced_colors": false,
+      "reduced_motion": false,
+      "text_scale_percent": 200,
+      "overflow_count": 0,
+      "image_count": 0,
+      "external_resource_count": 0,
+      "motion_dependency_count": 0,
+      "minimum_visible_crop_signature_segments": 2,
+      "app_web_identity_match": true
+    },
+    "text200-320": {
+      "viewport": {
+        "width": 320,
+        "height": 12000,
+        "scrollWidth": 305,
+        "scrollHeight": 31369
+      },
+      "forced_colors": false,
+      "reduced_motion": false,
+      "text_scale_percent": 200,
+      "overflow_count": 0,
+      "image_count": 0,
+      "external_resource_count": 0,
+      "motion_dependency_count": 0,
+      "minimum_visible_crop_signature_segments": 3,
+      "app_web_identity_match": true
+    },
+    "forced-1440": {
+      "viewport": {
+        "width": 1440,
+        "height": 12000,
+        "scrollWidth": 1440,
+        "scrollHeight": 12000
+      },
+      "forced_colors": true,
+      "reduced_motion": false,
+      "text_scale_percent": 100,
+      "overflow_count": 0,
+      "image_count": 0,
+      "external_resource_count": 0,
+      "motion_dependency_count": 0,
+      "minimum_visible_crop_signature_segments": 2,
+      "app_web_identity_match": true
+    },
+    "forced-320": {
+      "viewport": {
+        "width": 320,
+        "height": 12000,
+        "scrollWidth": 305,
+        "scrollHeight": 13992
+      },
+      "forced_colors": true,
+      "reduced_motion": false,
+      "text_scale_percent": 100,
+      "overflow_count": 0,
+      "image_count": 0,
+      "external_resource_count": 0,
+      "motion_dependency_count": 0,
+      "minimum_visible_crop_signature_segments": 3,
+      "app_web_identity_match": true
+    },
+    "reduced-1440": {
+      "viewport": {
+        "width": 1440,
+        "height": 12000,
+        "scrollWidth": 1440,
+        "scrollHeight": 12000
+      },
+      "forced_colors": false,
+      "reduced_motion": true,
+      "text_scale_percent": 100,
+      "overflow_count": 0,
+      "image_count": 0,
+      "external_resource_count": 0,
+      "motion_dependency_count": 0,
+      "minimum_visible_crop_signature_segments": 2,
+      "app_web_identity_match": true
+    }
+  },
+  "cross_mode_assertions": {
+    "roles": [
+      "MICRO",
+      "COMPACT",
+      "FOCUSED",
+      "CROPPED_FRAGMENT",
+      "RELATIONAL_PAIR",
+      "ENSEMBLE_THREE",
+      "MONOCHROME_HIGH_CONTRAST",
+      "NO_IMAGE",
+      "STATIC_REDUCED_MOTION",
+      "APP_WEB_TRANSLATION"
+    ],
+    "candidate_count": 3,
+    "card_count": 30,
+    "zero_unintended_overflow_all_modes": true,
+    "zero_images_all_modes": true,
+    "zero_external_resources_all_modes": true,
+    "zero_motion_dependencies_all_modes": true,
+    "no_image_role_contains_no_depiction_layer": true,
+    "crop_survival_minimum_two_signature_segments": true,
+    "app_web_identity_and_signature_preserved": true,
+    "forced_colors_verified_at_1440_and_320": true,
+    "text_200_percent_verified_at_1440_and_320": true,
+    "reduced_motion_static_survival_verified": true
+  },
+  "candidate_mechanical_eligibility": {
+    "CPS-A": "ELIGIBLE_FOR_FROZEN_METHOD_SCORING",
+    "CPS-B": "ELIGIBLE_FOR_FROZEN_METHOD_SCORING",
+    "CPS-C": "ELIGIBLE_FOR_FROZEN_METHOD_SCORING"
+  },
+  "authority_limit": "Browser evidence establishes deterministic carrier behavior only. It creates no WinUI/native/runtime/production authority and does not select a canonical Character architecture.",
+  "recursive_audit": {
+    "status": "CLEAN_POST_REPAIR_PREFLIGHT",
+    "scoring_started_before_clean_preflight": false
+  }
+}

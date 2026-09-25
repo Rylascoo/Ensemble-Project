@@ -1,0 +1,206 @@
+{
+  "schema": "kymaean.appui-home-threshold-reentry-study.v1",
+  "status": "DIRECTOR_REVIEW_OPTION_A_DEFERRED_NO_SELECTION",
+  "date": "2026-09-17",
+  "program": "APPUI-HOME-THRESHOLD-REENTRY-01",
+  "authority": {
+    "appui_baseline": "0225f9527420d41b2c04a3bc50a30ecf2130d3c9",
+    "website_main": "538fa349e046041e2759748d54fda176ac6a9749",
+    "website_boundary": "PR #101 preserves Bellweather as website-focused; any separately opened future app study is Home/entry-only; no app placement is authorized.",
+    "engineering_main": "84d0450c5f42f0340c58cdd89eee33daccc6c9e4",
+    "native_handoff": "PKT-APPUI-NATIVE-HANDOFF-01 remains unchanged and Q-DESIGN-20 native convergence remains separately triggered by stable native evidence.",
+    "director_opening": "Director agreed to re-enter the existing Home composition and audit it as the actual Kymaean entry experience."
+  },
+  "incumbent_audit": [
+    "Accepted Home semantics remain sound: current Production and resume point dominate; Other Productions stay subordinate.",
+    "The incumbent dark resume block reads too much like a compact dashboard/Stage surrogate on Home.",
+    "The separate Re-entry orientation count column over-instruments information that should remain supporting context.",
+    "Three co-equal context columns flatten current-situation hierarchy.",
+    "Four co-equal Production cells read more tile-like than the component-system row grammar prefers."
+  ],
+  "candidate_changes": [
+    "Moves Current Production and current situation onto the authored field as the dominant threshold content.",
+    "Reduces Stage from full resume-card background to a bounded dark Scene aperture, preserving invariant Stage darkness without making Home itself the Stage.",
+    "Moves Character/pressure/question counts into quiet inline orientation support.",
+    "Uses asymmetric current-context composition: What matters now dominates; recent movement stays narrower and historical.",
+    "Turns Other Productions into quiet rows with subordinate Open/Create affordances.",
+    "Preserves Home/Productions/Settings shell, F2 Light, D3 Dark, MAT F1, TYP F1, STA F2 and no new Product semantics.",
+    "Places no Bellweather asset, mascot carrier or Bellweather-specific UI language."
+  ],
+  "artifact": {
+    "html": "prototypes/appui-01/home-threshold-reentry-study-01.html",
+    "html_sha256": "2b19eb20781be9a1d5b4c3bfc2f7a1ed06efe9d5829fc5fdf5a3564e3bbe3073",
+    "probe": "tools/appui_home_threshold_reentry_probe.mjs",
+    "probe_sha256": "ead01560ef5cad27b4e48d9951e5ed40a8f88c234a1b5c6e164be569d7044123"
+  },
+  "browser_matrix": [
+    {
+      "mode": "normal",
+      "forcedColors": false,
+      "viewport": {
+        "width": 1600,
+        "height": 2600,
+        "scrollWidth": 1600,
+        "scrollHeight": 2600
+      },
+      "overflowElements": [],
+      "appCount": 2,
+      "materialFieldCount": 2,
+      "selectedWitnessCount": 2,
+      "focusWitnessCount": 2,
+      "imageCount": 0,
+      "externalResources": []
+    },
+    {
+      "mode": "normal",
+      "forcedColors": false,
+      "viewport": {
+        "width": 1180,
+        "height": 2600,
+        "scrollWidth": 1180,
+        "scrollHeight": 2600
+      },
+      "overflowElements": [],
+      "appCount": 2,
+      "materialFieldCount": 2,
+      "selectedWitnessCount": 2,
+      "focusWitnessCount": 2,
+      "imageCount": 0,
+      "externalResources": []
+    },
+    {
+      "mode": "normal",
+      "forcedColors": false,
+      "viewport": {
+        "width": 680,
+        "height": 2600,
+        "scrollWidth": 665,
+        "scrollHeight": 3320
+      },
+      "overflowElements": [],
+      "appCount": 2,
+      "materialFieldCount": 2,
+      "selectedWitnessCount": 2,
+      "focusWitnessCount": 2,
+      "imageCount": 0,
+      "externalResources": []
+    },
+    {
+      "mode": "normal",
+      "forcedColors": false,
+      "viewport": {
+        "width": 390,
+        "height": 2600,
+        "scrollWidth": 375,
+        "scrollHeight": 3617
+      },
+      "overflowElements": [],
+      "appCount": 2,
+      "materialFieldCount": 2,
+      "selectedWitnessCount": 2,
+      "focusWitnessCount": 2,
+      "imageCount": 0,
+      "externalResources": []
+    },
+    {
+      "mode": "normal",
+      "forcedColors": false,
+      "viewport": {
+        "width": 320,
+        "height": 2600,
+        "scrollWidth": 305,
+        "scrollHeight": 3838
+      },
+      "overflowElements": [],
+      "appCount": 2,
+      "materialFieldCount": 2,
+      "selectedWitnessCount": 2,
+      "focusWitnessCount": 2,
+      "imageCount": 0,
+      "externalResources": []
+    },
+    {
+      "mode": "forced",
+      "forcedColors": true,
+      "viewport": {
+        "width": 320,
+        "height": 2600,
+        "scrollWidth": 305,
+        "scrollHeight": 3838
+      },
+      "overflowElements": [],
+      "appCount": 2,
+      "materialFieldCount": 2,
+      "selectedWitnessCount": 2,
+      "focusWitnessCount": 2,
+      "imageCount": 0,
+      "externalResources": []
+    },
+    {
+      "mode": "text200",
+      "forcedColors": false,
+      "viewport": {
+        "width": 320,
+        "height": 2600,
+        "scrollWidth": 305,
+        "scrollHeight": 10224
+      },
+      "overflowElements": [],
+      "appCount": 2,
+      "materialFieldCount": 2,
+      "selectedWitnessCount": 2,
+      "focusWitnessCount": 2,
+      "imageCount": 0,
+      "externalResources": []
+    },
+    {
+      "mode": "spacing",
+      "forcedColors": false,
+      "viewport": {
+        "width": 320,
+        "height": 2600,
+        "scrollWidth": 305,
+        "scrollHeight": 3968
+      },
+      "overflowElements": [],
+      "appCount": 2,
+      "materialFieldCount": 2,
+      "selectedWitnessCount": 2,
+      "focusWitnessCount": 2,
+      "imageCount": 0,
+      "externalResources": []
+    }
+  ],
+  "recursive_audit": {
+    "first_pass_defects": [
+      "1180 comparison geometry squeezed three stake columns",
+      "320px 200% text overflowed board/appbar",
+      "narrow New Production row ordering was awkward"
+    ],
+    "responsive_repair": "Stack comparison specimens earlier, allow narrow appbar wrapping, strengthen min-width/overflow-wrap rules, and explicitly place narrow Production-row cells.",
+    "second_pass_defect": "PowerShell rewrite mojibaked non-ASCII characters.",
+    "encoding_repair": "Repaired bytes with explicit cp1252-to-UTF8 recovery and rewrote canonical UTF-8.",
+    "final_matrix": "PASS_ZERO_OVERFLOW_ALL_8_CASES",
+    "forced_colors": "PASS",
+    "text_200_percent": "PASS",
+    "text_spacing": "PASS",
+    "light_dark_semantic_parity": "PASS",
+    "bellweather_placement": "NONE",
+    "hosted_gate_repair": {
+      "discovery": "The review push exposed an inherited CHARART-01 checkpoint verifier defect already present in the APPUI baseline: it treated the registry latest_reentry_audit_sha256 as the immutable CHARART activation hash even though that registry field had advanced with later APPUI re-entry audits.",
+      "registry_repair": "Added explicit active_charart_activation_audit + active_charart_activation_audit_sha256 historical fields and corrected latest_reentry_audit_sha256 to the actual current Audit-06 bytes.",
+      "verifier_repair": "verify_charart01.py now verifies the immutable CHARART activation separately, verifies the moving latest APPUI re-entry path/hash self-consistently, and no longer freezes the live active_app_ui_status to its 2026-09-14 value.",
+      "authority_effect": "NONE: CHARART remains Director-terminated, attempt consumed, no master adopted; APPUI Home candidate and native handoff semantics are unchanged."
+    }
+  },
+  "design_sol_view": "Option A is the quieter threshold-led successor: Production identity and Resume lead; Stage is a bounded aperture; Other Productions remain visible as subdued rows. No preference is frozen while the two-option review is deferred.",
+  "non_authority": [
+    "No Bellweather app integration is opened.",
+    "No Product navigation/Scene/Take/Perspective/provider/Performer semantics change.",
+    "No native WinUI/XAML or Q-DESIGN-20 convergence claim.",
+    "No final production token, font, Stage package or motion authority."
+  ],
+  "next": "Review Option A against Option B later. Until a Director selection, the prior accepted Home remains authoritative and neither successor may merge as adopted Home.",
+  "review_set": "APPUI-HOME-REENTRY-TWO-OPTION-REVIEW-01",
+  "option": "A_THRESHOLD_REENTRY"
+}

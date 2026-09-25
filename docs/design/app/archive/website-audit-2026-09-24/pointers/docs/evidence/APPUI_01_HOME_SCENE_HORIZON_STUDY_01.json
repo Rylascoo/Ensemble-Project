@@ -1,0 +1,54 @@
+{
+  "schema": "kymaean.appui-home-scene-horizon-study.v1",
+  "status": "DIRECTOR_REVIEW_OPTION_B_DEFERRED_NO_SELECTION",
+  "date": "2026-09-17",
+  "program": "APPUI-HOME-SCENE-HORIZON-01",
+  "review_set": "APPUI-HOME-REENTRY-TWO-OPTION-REVIEW-01",
+  "option": "B_SCENE_HORIZON",
+  "authority": {
+    "appui_baseline": "0225f9527420d41b2c04a3bc50a30ecf2130d3c9",
+    "website_main": "538fa349e046041e2759748d54fda176ac6a9749",
+    "website_boundary": "PR #101 preserves Bellweather as website-focused; any separately opened future app study is Home/entry-only; no app placement is authorized.",
+    "engineering_main": "84d0450c5f42f0340c58cdd89eee33daccc6c9e4",
+    "native_handoff": "PKT-APPUI-NATIVE-HANDOFF-01 remains unchanged and Q-DESIGN-20 native convergence remains separately triggered by stable native evidence.",
+    "director_opening": "Director agreed to re-enter the existing Home composition and audit it as the actual Kymaean entry experience."
+  },
+  "candidate_changes": [
+    "Keeps Current Production and explicit Resume action above the Scene witness.",
+    "Expands the invariant dark Scene witness into a wide horizontal horizon without turning Home into Stage.",
+    "Treats Alliance / World / Question as continuing narrative threads instead of metrics or cards.",
+    "Keeps Recent relevant movement as a narrower historical column.",
+    "Compresses Other Productions into a quiet switcher strip rather than rows or tiles.",
+    "Preserves Home/Productions/Settings, F2 Light, D3 Dark, MAT F1, TYP F1, STA F2 and all existing Product meaning.",
+    "Places no Bellweather asset, mascot carrier or Bellweather-specific UI language."
+  ],
+  "artifact": {
+    "html": "prototypes/appui-01/home-scene-horizon-study-01.html",
+    "html_sha256": "8ec602d61d7c87644c89d2da02d6ab2f3626487a67beefa4c5e065a504312718",
+    "probe": "tools/appui_home_scene_horizon_probe.mjs",
+    "probe_sha256": "27e8f7ff6fd24185dff5dd8589c0c7986559d63fe628331268c73e335d7f41a2"
+  },
+  "browser_matrix_summary": {
+    "cases": 8,
+    "result": "PASS_ZERO_OVERFLOW_ALL_8_CASES",
+    "widths": [
+      1600,
+      1180,
+      680,
+      390,
+      320
+    ],
+    "forced_colors": "PASS",
+    "text_200_percent": "PASS",
+    "text_spacing": "PASS",
+    "light_dark_semantic_parity": "PASS"
+  },
+  "design_sol_view": "Option B is the more immersive Scene-led successor: the current Scene becomes the visual horizon while Production title and Resume remain semantically primary. No preference is frozen while the two-option review is deferred.",
+  "non_authority": [
+    "No Bellweather app integration is opened.",
+    "No Product navigation/Scene/Take/Perspective/provider/Performer semantics change.",
+    "No native WinUI/XAML or Q-DESIGN-20 convergence claim.",
+    "No final production token, font, Stage package or motion authority."
+  ],
+  "next": "Review Option B against Option A later. Until a Director selection, the prior accepted Home remains authoritative and neither successor may merge as adopted Home."
+}

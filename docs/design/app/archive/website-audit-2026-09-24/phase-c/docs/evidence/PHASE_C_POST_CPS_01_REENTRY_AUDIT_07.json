@@ -1,0 +1,100 @@
+{
+  "schema": "kymaean.phase-c-post-cps-01-reentry-audit.v1",
+  "status": "COMPLETE_DUR_01_ACTIVATED",
+  "date": "2026-09-14",
+  "phase": "C_CONTROLLED_VISUAL_CONVERGENCE",
+  "baseline": {
+    "website_main": "b9b9946e05af6d39e0555295611837ba546e659c",
+    "active_serial_head": "82e91265ccee9955604d1386e6cdb4c37cfd2b57",
+    "concurrent_site_branch": "site/placeholder-v2-1-atmospheric-finish-2026-09-14",
+    "concurrent_site_head": "a1a961829cddcc701d06e9dfb0e6014ead9983be",
+    "cps_b_decision_sha256": "02f14c5360b07ca6b5d04f80e16fb9877976eee0c4a0ec10f1d9a924f82413a8",
+    "phase_c_completion_audit": "docs/evidence/PHASE_C_SHARED_IDENTITY_COMPLETION_AUDIT_01.json"
+  },
+  "objective": "Re-audit the remaining Phase C shared-identity requirements after Director selection of CPS-B; repair deterministic continuity drift; select one next Design-owned program only if its previously stated prerequisite is now satisfied without entering CLR, Stage-to-shell, Phase D, product semantics or runtime authority.",
+  "continuity_repair": {
+    "finding": "DESIGN_PACKET_REGISTRY_01.json packet row already records CPS-B selected, while synthesis_policy still says DIRECTOR_ADJUDICATION_PENDING_B_VS_C.",
+    "classification": "STALE_DUPLICATE_STATUS_DETERMINISTIC_REPAIR",
+    "design_result_changed": false
+  },
+  "requirement_updates": [
+    {
+      "requirement": "Character/human imagery principles",
+      "classification": "PROVISIONAL_CANONICAL_SYSTEM_ESTABLISHED",
+      "evidence": "CPS-B is Director-selected canonical Character-presence architecture; IMG-F1 is optional expressive-depiction evidence only; IMG-F2 remains targeted-refinement-required; IMG-F3 remains rejected.",
+      "remaining": "Final Character appearance/portrait/art family remains unresolved and subordinate to CPS-B."
+    },
+    {
+      "requirement": "image/art direction",
+      "classification": "PARTIAL_PRINCIPLES_ESTABLISHED_FINAL_ARTWORK_UNRESOLVED",
+      "evidence": "IMG-01 establishes lawful expressive-depiction roles/restraints and rejects environmental spectacle; CPS-01 separates depiction from canonical identity.",
+      "remaining": "No final expressive artwork family or renderer successor is selected."
+    },
+    {
+      "requirement": "small-scale/monochrome/high-contrast durability",
+      "classification": "READY_FOR_DEDICATED_INTEGRATED_GATE",
+      "evidence": "C0/O3/TYP-02/MAT-01/STA-01/MOT/CPS-B now provide enough current/provisional packet content to stress as one system; prior tests were local rather than integrated.",
+      "remaining": "Integrated shared-identity durability has not yet been tested."
+    },
+    {
+      "requirement": "cross-surface translation",
+      "classification": "PARTIAL",
+      "evidence": "CPS-B and prior CMP/APP-SYN evidence establish translation principles, but representative real app integration remains absent.",
+      "remaining": "DUR-01 may test deterministic APP/WEB reduction only; Stage-to-shell and real-app assembly stay held."
+    }
+  ],
+  "candidate_next_programs": [
+    {
+      "program": "DUR-01 — Integrated Identity Durability",
+      "disposition": "ACTIVATE",
+      "reason": "The earlier DEFER_NEXT prerequisite is now satisfied at the principle/system level: IMG-01 plus CPS-B define the Character/depiction envelope needed to judge integrated reduction without requiring final artwork."
+    },
+    {
+      "program": "Expressive Character-art successor",
+      "disposition": "DEFER",
+      "reason": "Final artwork remains unresolved, but no new renderer generation is required to test identity durability. A later artwork successor must be subordinate to CPS-B and separately authorized."
+    },
+    {
+      "program": "CLR F2/F1 contextual adjudication",
+      "disposition": "HOLD",
+      "reason": "Director deferral until representative real assembly remains binding."
+    },
+    {
+      "program": "Stage-to-app-shell adjacency",
+      "disposition": "HOLD",
+      "reason": "APP-SYN pressure exists but the follow-on gate remains unactivated and materially depends on real assembly/context."
+    },
+    {
+      "program": "Phase D native app visual foundation",
+      "disposition": "BLOCK",
+      "reason": "Phase C exit is not established and CPS-B/DUR-01 create no implementation authority."
+    }
+  ],
+  "selected_program": {
+    "id": "DUR-01",
+    "name": "Integrated Identity Durability",
+    "type": "DETERMINISTIC_NON_RENDER_SHARED_IDENTITY_STRESS_GATE",
+    "authority": "APPROVED_BY_STANDING_DIRECTOR_DELEGATION_AFTER_CLEAN_RECURSIVE_AUDIT"
+  },
+  "hard_boundaries": [
+    "No new Character artwork or renderer generation inside DUR-01.",
+    "Do not select CLR F2/F1 or create palette tokens.",
+    "Preserve PKT-STAGE-CORE-02 exactly; do not copy or modify Stage geometry/scenery.",
+    "Do not promote provisional C0/O3/TYP/MAT/STA/MOT packets to final authority merely because they survive durability testing.",
+    "Do not enter Phase D, claim native/runtime/production authority, invent product semantics or resolve ODR questions.",
+    "Any material failure opens the smallest bounded successor/refinement gate; do not rewrite closed packet history."
+  ],
+  "recursive_audit": {
+    "authority_consistent": true,
+    "cps_b_decision_preserved": true,
+    "img01_history_preserved": true,
+    "dur01_prior_defer_next_prerequisite_now_satisfied": true,
+    "final_artwork_not_falsely_claimed": true,
+    "clr_deferral_preserved": true,
+    "stage_unchanged": true,
+    "phase_d_not_authorized": true,
+    "material_defects_remaining": false,
+    "approval": "APPROVED BY STANDING DIRECTOR DELEGATION — CLEAN RECURSIVE AUDIT."
+  },
+  "result": "ACTIVATE DUR-01 as the next bounded deterministic Phase C program. Repair the stale CPS synthesis-policy status, freeze DUR-01 criteria before construction, then build and preflight one neutral integrated durability carrier. No other gate is activated."
+}

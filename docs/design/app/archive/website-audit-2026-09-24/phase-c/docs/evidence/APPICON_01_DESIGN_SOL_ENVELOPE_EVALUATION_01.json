@@ -1,0 +1,80 @@
+{
+  "schema": "kymaean.appicon-01.design-sol-envelope-evaluation.v1",
+  "status": "CLOSED_SINGLE_SURVIVOR",
+  "date": "2026-09-14",
+  "program": "APPICON-01",
+  "method_sha256": "37bd7fff587779167a2062868430829f2fc660da7753214ea15a1f43b0c7712a",
+  "preflight_sha256": "bec35eccabc14429ec4e15eb5e912c9b2a993a2d765e4a7d3148e56f650ec1ea",
+  "carrier_sha256": "0a5a4fcbdd4927830f32aba54e8bd9d1a5512d4d74c592d717bc81258fb933f1",
+  "candidate_results": {
+    "E06": {
+      "class": "ENVELOPE_SURVIVES",
+      "rank": 1,
+      "dimensions": {
+        "MICRO_IDENTITY_RECOVERY": "PASS",
+        "FIELD_BALANCE": "PASS",
+        "EDGE_PRESSURE_RESTRAINT": "PASS",
+        "COMPACT_DISTINCTIVENESS": "PASS",
+        "MONOCHROME_SURVIVAL": "PASS",
+        "FORCED_COLOR_SURVIVAL": "PASS",
+        "EXACT_C0_FIDELITY": "PASS",
+        "NON_GENERIC_APP_TILE_PRESSURE": "PASS",
+        "CROSS_SURFACE_IDENTITY_CONTINUITY": "PASS",
+        "PROVISIONAL_AUTHORITY_RESTRAINT": "PASS"
+      },
+      "reason": "Only E06 preserves materially strong Threshold-K recovery at 16/20/24 while retaining visible square-field breathing room. At 16px its rendered C0 bounds are about 9.12×12.63px with all three paths visible and roughly 9–22% edge breathing depending on side; it is assertive without crowding."
+    },
+    "E12": {
+      "class": "TARGETED_REFINEMENT_REQUIRED",
+      "rank": 2,
+      "dimensions": {
+        "MICRO_IDENTITY_RECOVERY": "FAIL",
+        "FIELD_BALANCE": "FAIL",
+        "EDGE_PRESSURE_RESTRAINT": "PASS",
+        "COMPACT_DISTINCTIVENESS": "FAIL",
+        "MONOCHROME_SURVIVAL": "PASS",
+        "FORCED_COLOR_SURVIVAL": "PASS",
+        "EXACT_C0_FIDELITY": "PASS",
+        "NON_GENERIC_APP_TILE_PRESSURE": "PASS",
+        "CROSS_SURFACE_IDENTITY_CONTINUITY": "PASS",
+        "PROVISIONAL_AUTHORITY_RESTRAINT": "PASS"
+      },
+      "reason": "Exact C0 fidelity and accessibility survive, but the 12% inset underfills the required 16px role: rendered C0 is about 7.88×10.91px and becomes too timid relative to the available field. Same-gate retuning is prohibited; E06 already supplies the lawful less-inset solution."
+    },
+    "E18": {
+      "class": "REJECTED",
+      "rank": 3,
+      "dimensions": {
+        "MICRO_IDENTITY_RECOVERY": "FAIL",
+        "FIELD_BALANCE": "FAIL",
+        "EDGE_PRESSURE_RESTRAINT": "PASS",
+        "COMPACT_DISTINCTIVENESS": "FAIL",
+        "MONOCHROME_SURVIVAL": "PASS",
+        "FORCED_COLOR_SURVIVAL": "PASS",
+        "EXACT_C0_FIDELITY": "PASS",
+        "NON_GENERIC_APP_TILE_PRESSURE": "FAIL",
+        "CROSS_SURFACE_IDENTITY_CONTINUITY": "PASS",
+        "PROVISIONAL_AUTHORITY_RESTRAINT": "PASS"
+      },
+      "reason": "The 18% inset is materially over-small across the compact end. At 16px rendered C0 is about 6.64×9.19px, pushing the authored mark toward generic undersized-glyph/punctuation behavior despite exact geometry and clean mechanics."
+    }
+  },
+  "survivors": [
+    "E06"
+  ],
+  "director_adjudication_required": false,
+  "conclusion": "E06 is the sole APPICON-01 survivor and becomes the current Phase C app-icon design-master deployment envelope around exact immutable C0. This does not upgrade C0 to final symbol authority or create Store/package/shipping implementation authority.",
+  "no_retune": {
+    "criteria_frozen_before_construction": true,
+    "candidate_geometry_changed_after_preference": false,
+    "carrier_changed_after_valid_matrix": false
+  },
+  "explicit_non_authority": [
+    "No C0 anatomy refinement or new symbol concept.",
+    "No final shared-identity or trademark claim.",
+    "No CLR, material, Stage, Character-art or product-semantic authority.",
+    "No Store/package/MSIX/shipping/native/runtime implementation authority.",
+    "No Phase C exit by APPICON-01 alone."
+  ],
+  "audit_result": "APPROVED BY STANDING DIRECTOR DELEGATION — CLEAN FROZEN-CRITERIA SINGLE-SURVIVOR CLOSURE."
+}

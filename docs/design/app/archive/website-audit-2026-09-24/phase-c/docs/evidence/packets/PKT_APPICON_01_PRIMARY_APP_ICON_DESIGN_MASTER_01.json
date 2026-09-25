@@ -1,0 +1,95 @@
+{
+  "schema": "kymaean.design-gate-packet.v1",
+  "framework": "docs/evidence/DESIGN_PACKET_AND_SYNTHESIS_FRAMEWORK_01.json",
+  "packet_id": "PKT-APPICON-01-01",
+  "packet_class": "GATE_MECHANISM_PACKET",
+  "status": "FROZEN_LOCAL_RESULT",
+  "date": "2026-09-14",
+  "gate_or_program": "APPICON-01 — Primary App Icon Design-Master Convergence",
+  "design_axis": "exact-C0 app-icon square deployment envelope",
+  "bounded_question": "Which neutral square deployment envelope, if any, allows exact immutable C0 Threshold K to function as a design-master app icon across compact scales and accessibility modes without changing C0 geometry or claiming shipping authority?",
+  "authority": {
+    "activation_audit": "docs/evidence/PHASE_C_POST_DUR_01_REENTRY_AUDIT_08.json",
+    "activation_audit_sha256": "305e4c7fff0ddd58cd0c43fb0da5a9c62f6535e231a5818d28e0246e0ab29447",
+    "method": "docs/evidence/APPICON_01_PRIMARY_APP_ICON_DESIGN_MASTER_METHOD_01.json",
+    "method_sha256": "37bd7fff587779167a2062868430829f2fc660da7753214ea15a1f43b0c7712a"
+  },
+  "controlled_inputs": [
+    "exact immutable C0 paths",
+    "E06/E12/E18 symmetric square-canvas inset only",
+    "16/20/24/32/48/64/96/128 CSS-px roles",
+    "neutral light/dark hosts",
+    "normal and forced-colors at 1200/320",
+    "currentColor-only geometry",
+    "static/no-motion"
+  ],
+  "local_result": {
+    "summary": "All three envelopes pass mechanics; frozen Design Sol scoring leaves E06 as the sole survivor.",
+    "survivors_or_closure": [
+      "E06 — 6% inset / 88% source-viewBox height"
+    ],
+    "recommended_incumbent": "E06 exact-C0 deployment envelope",
+    "targeted_refinement_required": [
+      "E12 — underfilled/timid at required 16px role"
+    ],
+    "rejections": [
+      "E18 — over-inset; undersized glyph pressure at compact roles"
+    ],
+    "director_taste_gate_triggered": false
+  },
+  "judgment": {
+    "design_sol_view": "E06 is the only envelope that balances micro identity recovery with sufficient square-field breathing room.",
+    "director_view_or_delegation": "No Director adjudication required because the frozen method reserves that gate for multiple materially viable survivors.",
+    "resolution_mode": "DIRECTOR_AUTHORIZED_DESIGN_SOL_SINGLE_SURVIVOR"
+  },
+  "evidence": {
+    "mechanical_preflight": "docs/evidence/APPICON_01_MECHANICAL_ACCESSIBILITY_PREFLIGHT_01.json",
+    "mechanical_preflight_sha256": "bec35eccabc14429ec4e15eb5e912c9b2a993a2d765e4a7d3148e56f650ec1ea",
+    "design_sol_evaluation": "docs/evidence/APPICON_01_DESIGN_SOL_ENVELOPE_EVALUATION_01.json",
+    "design_sol_evaluation_sha256": "960d5266aec673010b28a306582d669a3ea7047f414d7bc65567167e634a565d",
+    "carrier": "prototypes/appicon-01/carrier.html",
+    "carrier_sha256": "0a5a4fcbdd4927830f32aba54e8bd9d1a5512d4d74c592d717bc81258fb933f1",
+    "browser_probe": "tools/appicon01_browser_probe.mjs",
+    "browser_probe_sha256": "22af9f2365a7df6141cf9997bdbef446d5202ec83691eade9c7a34ad8735d46a"
+  },
+  "dependencies": {
+    "requires": [
+      "later native/package/productization authority before shipping asset implementation"
+    ],
+    "constrains": [
+      "future app-icon design-master use of exact C0",
+      "later production derivative preparation"
+    ],
+    "must_not_be_confused_with": [
+      "final symbol approval",
+      "production app icon",
+      "Store/MSIX asset package",
+      "trademark clearance",
+      "CLR selection",
+      "Phase C exit"
+    ]
+  },
+  "known_integration_sensitivities": [
+    "Preserve exact C0 path geometry; E06 changes deployment envelope only.",
+    "Do not use color/material/platform masking to rescue or redefine identity.",
+    "If later platform packaging imposes masks/safe zones, treat that as implementation evidence against this design master rather than retroactive APPICON-01 tuning."
+  ],
+  "explicit_non_authority": [
+    "No final shared identity or production symbol/vector authority.",
+    "No Store/package/MSIX/shipping/native/runtime implementation.",
+    "No CLR, Stage, Character-art, product-semantic or Phase-D authority."
+  ],
+  "canonical_artifacts": {
+    "repository": [
+      "prototypes/appicon-01/carrier.html",
+      "docs/evidence/APPICON_01_PRIMARY_APP_ICON_DESIGN_MASTER_METHOD_01.json",
+      "docs/evidence/APPICON_01_MECHANICAL_ACCESSIBILITY_PREFLIGHT_01.json",
+      "docs/evidence/APPICON_01_DESIGN_SOL_ENVELOPE_EVALUATION_01.json",
+      "tools/appicon01_browser_probe.mjs"
+    ]
+  },
+  "synthesis_state": {
+    "whole_app_synthesis_status": "NOT_REPRESENTATIVE_REAL_APP_TESTED",
+    "next_boundary": "Run fresh post-APPICON Phase-C reentry audit before activating another program."
+  }
+}

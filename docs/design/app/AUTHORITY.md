@@ -12,6 +12,12 @@ The exact receiving manifest remains preserved at [Project receiving authority](
 
 Machine-readable receipt: `docs/design/app/TRANSFER_RECEIPT.json`. Lease: `docs/design/app/TRANSFER_LEASE.md`. Decision receipt: `docs/design/app/DESIGN_LEDGER.md`.
 
+### Website migration-completeness recovery — 2026-09-24
+
+A full pre-renovation Website/branch audit is recorded at `docs/evidence/WEBSITE_APP_DESIGN_MIGRATION_COMPLETENESS_AUDIT_2026_09_24.md`. Its local mirror is `docs/design/app/archive/website-audit-2026-09-24/`.
+
+The mirror makes Q-ADMIN-05 D01/D02 pointer evidence locally recoverable and preserves bounded CPS-B / DUR-01 / APPICON-E06 predecessor evidence plus the minimal IMG-01 decision context required to understand the CPS successor; those records existed only in Website side history. It is historical/reference continuity only. The frozen transfer receipt remains unchanged; current Project-native contracts remain authoritative; Home A/B and FIRSTUSE retain their existing unresolved/pending status.
+
 ## Historical transfer role/routing clauses
 
 The current **Design** role owns application UX/UI judgment and Design acceptance at this root. The **Implementation** role owns source/tests/build/runtime mutation; Product/Architecture semantics remain separately authoritative. Historical `App Design Sol` / `Engineering` labels below are provenance. A contract or browser result never promotes Product semantics, runtime, native accessibility, ARM64, WACK or Store evidence.

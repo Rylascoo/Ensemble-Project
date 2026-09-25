@@ -1,0 +1,44 @@
+{
+  "schema": "kymaean.cps-01.director-architecture-decision.v1",
+  "status": "DIRECTOR_SELECTED_CPS_B",
+  "date": "2026-09-14",
+  "program": "CPS-01",
+  "source_evaluation": "docs/evidence/CPS_01_DESIGN_SOL_ARCHITECTURE_EVALUATION_01.json",
+  "source_evaluation_sha256": "b85fd86efc65bd74d1def8c2e9445f343257801c04cd3510de02eea222e19137",
+  "pre_decision_packet_sha256": "e3c12d607e370dd4304421082d29719a9a39a72f2c0906facb27d18279b4069f",
+  "director_input": "CPS-B",
+  "selected_architecture": {
+    "id": "CPS-B",
+    "name": "Distributed Recognition Mesh",
+    "authority": "CANONICAL_PHASE_C_CHARACTER_PRESENCE_ARCHITECTURE"
+  },
+  "design_sol_frozen_recommendation": "CPS-B",
+  "nonselected_survivor": {
+    "id": "CPS-C",
+    "name": "Context-Persistent Presence Scaffold",
+    "disposition": "LAWFUL_NONSELECTED_ALTERNATE_PRESERVED"
+  },
+  "targeted_refinement": {
+    "id": "CPS-A",
+    "name": "Nested Invariant Stack",
+    "disposition": "TARGETED_REFINEMENT_REQUIRED_NO_SAME_GATE_RESCUE"
+  },
+  "binding_law": [
+    "Canonical Character identity/presence uses the CPS-B distributed-recognition architecture beneath optional depiction.",
+    "Redundant identity cues must stay sparse, truthful and mutually supportive; they must not become decorative inventory.",
+    "Face, portrait, color, costume, pose, lighting, motion, one crop or one emblem may not become sole canonical identity authority.",
+    "Authorized current state, authoritative history residue, relational context and optional expressive depiction remain separate layers."
+  ],
+  "authority_effect": {
+    "canonical_cps_incumbent_created": true,
+    "cps_c_rejected": false,
+    "cps_a_reopened": false,
+    "new_renderer_generation_authorized": false,
+    "img01_result_changed": false,
+    "clr_selected": false,
+    "stage_changed": false,
+    "phase_d_authorized": false,
+    "runtime_native_production_authority_created": false
+  },
+  "next_boundary": "Close CPS-01 continuity, then run a fresh Phase-C post-CPS reentry audit before activating any successor renderer, DUR-01, Phase-D, CLR or Stage-to-shell gate."
+}

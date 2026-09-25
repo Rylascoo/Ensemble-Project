@@ -1,0 +1,1950 @@
+{
+  "schema": "ensemble.website-app-design-migration-completeness-census.v1",
+  "date": "2026-09-24",
+  "project_base": "34ff50c23b411da33d16e615ace780088b257f4a",
+  "website_qadmin05_source": "846c60ee448abf7d5c57bdd64de55cb9294880e2",
+  "website_pre_renovation": "43801c0be01f7892b42b7127468e844b9e2aa822",
+  "website_remote_non_main_branches": 176,
+  "unique_branch_blob_variants": 996,
+  "raw_unresolved_candidate_blobs_before_qadmin_exact_source_subtraction": 512,
+  "audit_role": "machine-readable audit-surface census only; not Website branch disposition or deletion authority",
+  "branches": [
+    {
+      "branch": "design/a1-teo-odr-reconciliation-2026-09-06",
+      "head": "624b4fdc0086e23714a27c6796cbfb1ae694d082",
+      "ahead_of_pre_renovation": 6,
+      "changed_path_count": 3,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "SHARED_ADJUDICATE": 2
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/appui-firstuse-01-2026-09-17",
+      "head": "e2e4119dcffc9082378a822c048523c9675c1bf6",
+      "ahead_of_pre_renovation": 117,
+      "changed_path_count": 293,
+      "bucket_counts": {
+        "UNCLASSIFIED": 44,
+        "GOVERNANCE": 4,
+        "APP": 226,
+        "SHARED_ADJUDICATE": 19
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/appui-home-threshold-reentry-2026-09-17",
+      "head": "4c73d02c6a1c85d860024a9e2d55b3ef490906b3",
+      "ahead_of_pre_renovation": 119,
+      "changed_path_count": 291,
+      "bucket_counts": {
+        "UNCLASSIFIED": 44,
+        "GOVERNANCE": 4,
+        "APP": 224,
+        "SHARED_ADJUDICATE": 19
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/appui01-working-compositions-2026-09-14",
+      "head": "33b8e13c4e71c8ceee1fdc3a646f291c9422a047",
+      "ahead_of_pre_renovation": 139,
+      "changed_path_count": 293,
+      "bucket_counts": {
+        "UNCLASSIFIED": 44,
+        "GOVERNANCE": 4,
+        "APP": 226,
+        "SHARED_ADJUDICATE": 19
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/attributable-aftermath-a1-prompt-2026-09-05",
+      "head": "600e0799375592a83064ee2b8f2f4e8a1c9c3406",
+      "ahead_of_pre_renovation": 3,
+      "changed_path_count": 3,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "SHARED_ADJUDICATE": 2
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/attributable-aftermath-a1-result-01-2026-09-05",
+      "head": "f3c0ef409fd0beaaab41b8f820856296ef65908d",
+      "ahead_of_pre_renovation": 2,
+      "changed_path_count": 2,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "SHARED_ADJUDICATE": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/attributable-aftermath-gate-01-2026-09-05",
+      "head": "ef3df824acbb0f1abc379bcf5485dd27571fe6ed",
+      "ahead_of_pre_renovation": 6,
+      "changed_path_count": 5,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "SHARED_ADJUDICATE": 4
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/belle-canonical-costume-system-freeze-2026-09-20",
+      "head": "95ac84cb40f667552ebefe57227b26c80d28b153",
+      "ahead_of_pre_renovation": 0,
+      "changed_path_count": 0,
+      "bucket_counts": {},
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/belle-costume-language-exploration-handoff-2026-09-20",
+      "head": "fad21a11d9501f33c2a5839a889f7c66d5697223",
+      "ahead_of_pre_renovation": 0,
+      "changed_path_count": 0,
+      "bucket_counts": {},
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/belle-costume02-source-correction-2026-09-20",
+      "head": "c4e50aecdb5a384c9086fed1745af07f7609732d",
+      "ahead_of_pre_renovation": 0,
+      "changed_path_count": 0,
+      "bucket_counts": {},
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/belle-costume05-freeze-2026-09-20",
+      "head": "550ff0a26dddc16e1f29ccb6ddd812179a9eac8d",
+      "ahead_of_pre_renovation": 0,
+      "changed_path_count": 0,
+      "bucket_counts": {},
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/belle-five-costume-library-handoff-2026-09-20",
+      "head": "19c443e3ddf52a53ab0c60620f3f2811173960f8",
+      "ahead_of_pre_renovation": 0,
+      "changed_path_count": 0,
+      "bucket_counts": {},
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/belle-focused-first-four-preservation-2026-09-20",
+      "head": "e1b7c7fbc41cb505c5b50afd5db4b6f71d14c8d3",
+      "ahead_of_pre_renovation": 0,
+      "changed_path_count": 0,
+      "bucket_counts": {},
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/belle-identity-foundation-02-2026-09-19",
+      "head": "4d1a5454962b37660193a0f2bc6010dfdcf90c67",
+      "ahead_of_pre_renovation": 10,
+      "changed_path_count": 3,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "CHARACTER": 1,
+        "UNCLASSIFIED": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/belle-shadow-surveyor-handoff-2026-09-21",
+      "head": "e011876eab82d11012398b9c49c53170557e58bd",
+      "ahead_of_pre_renovation": 0,
+      "changed_path_count": 0,
+      "bucket_counts": {},
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/belle-storm-pressure-sylph-rain-glass-freeze-2026-09-21",
+      "head": "8b8ef0c672183c9e014a50b05d7a9f0e3858fc01",
+      "ahead_of_pre_renovation": 0,
+      "changed_path_count": 0,
+      "bucket_counts": {},
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/belle-storm-rowdeep-02a-02g-preservation-2026-09-20",
+      "head": "531b980947fbcb16a97db2a25ae41f830ae9564f",
+      "ahead_of_pre_renovation": 0,
+      "changed_path_count": 0,
+      "bucket_counts": {},
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/belle-two-costume-focus-2026-09-20",
+      "head": "9a93f98e2b7fd8084ba7d2518797b348d9a906c9",
+      "ahead_of_pre_renovation": 0,
+      "changed_path_count": 0,
+      "bucket_counts": {},
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/bellweather-alt-identity-rebuild-01",
+      "head": "16e8c86cb156083094de039d11c4eef60c490214",
+      "ahead_of_pre_renovation": 7,
+      "changed_path_count": 7,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 3,
+        "CHARACTER": 3
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/bellweather-alt-marketing-identity-01",
+      "head": "312fcae68332a6eab79e57b015dc18ed152702ea",
+      "ahead_of_pre_renovation": 2,
+      "changed_path_count": 1,
+      "bucket_counts": {
+        "CHARACTER": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/bellweather-alt-marketing-identity-01-rebase",
+      "head": "3714a7729ba72dd71967b618721eb91d3bad12d9",
+      "ahead_of_pre_renovation": 1,
+      "changed_path_count": 1,
+      "bucket_counts": {
+        "CHARACTER": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/bellweather-alt-role-review-01",
+      "head": "a7086e5840bde1c3429acbbb5d33d8ed7e35c503",
+      "ahead_of_pre_renovation": 4,
+      "changed_path_count": 4,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "CHARACTER": 2,
+        "UNCLASSIFIED": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/bellweather-alt-scenario-architecture-01",
+      "head": "41b58aeda4033dc4d4254d6e8b6adb6613779c9b",
+      "ahead_of_pre_renovation": 5,
+      "changed_path_count": 5,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "CHARACTER": 2,
+        "UNCLASSIFIED": 2
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/bellweather-alternate-before-identity-2026-09-18",
+      "head": "5f1b0ac1f5dc8515d3e9feb485718074ec833875",
+      "ahead_of_pre_renovation": 1,
+      "changed_path_count": 5,
+      "bucket_counts": {
+        "GOVERNANCE": 2,
+        "CHARACTER": 2,
+        "UNCLASSIFIED": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/bellweather-alternate-identity-stress-01-2026-09-18",
+      "head": "7f4055451154e5b33659b328ad891060a07a1934",
+      "ahead_of_pre_renovation": 8,
+      "changed_path_count": 4,
+      "bucket_counts": {
+        "GOVERNANCE": 2,
+        "CHARACTER": 1,
+        "UNCLASSIFIED": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/bellweather-alternate-role-handoff-2026-09-19",
+      "head": "2aded4086971b277ffac188c580f06d8160d1060",
+      "ahead_of_pre_renovation": 4,
+      "changed_path_count": 4,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "CHARACTER": 2,
+        "UNCLASSIFIED": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/bellweather-alternate-website-identity-freeze-2026-09-19",
+      "head": "c2ef78f14bff340bcd0e7f6bd485f220aee09dcf",
+      "ahead_of_pre_renovation": 6,
+      "changed_path_count": 6,
+      "bucket_counts": {
+        "GOVERNANCE": 2,
+        "CHARACTER": 2,
+        "UNCLASSIFIED": 2
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/bellweather-exploration-source-mascot-01",
+      "head": "86d93202c90af7130ec76e48ea6bee235ca3f9fd",
+      "ahead_of_pre_renovation": 4,
+      "changed_path_count": 4,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 2,
+        "CHARACTER": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/bellweather-exploration-source-mascot-json",
+      "head": "296952ce2e499e47ec20c3a2b73a40c350bc2878",
+      "ahead_of_pre_renovation": 3,
+      "changed_path_count": 3,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "CHARACTER": 1,
+        "UNCLASSIFIED": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/bellweather-mediate-full-render-set-01-2026-09-18",
+      "head": "626dd71c464879ff1da640ea614443d28d4df972",
+      "ahead_of_pre_renovation": 1,
+      "changed_path_count": 4,
+      "bucket_counts": {
+        "CHARACTER": 2,
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/bellweather-post-l189-chat-archive-handoff-2026-09-16",
+      "head": "c36d2885eb36e37e7d5f9b6170459e953493205b",
+      "ahead_of_pre_renovation": 0,
+      "changed_path_count": 0,
+      "bucket_counts": {},
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/bellweather-post-l189-manifest-id-correction-2026-09-16",
+      "head": "ab9ea4ea5f2298b976fa6abc6116de57859d3d93",
+      "ahead_of_pre_renovation": 0,
+      "changed_path_count": 0,
+      "bucket_counts": {},
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/bellweather-three-interpretation-index-2026-09-18",
+      "head": "00f4d8583afe86db41daea2e927ef55a7bdcc8b6",
+      "ahead_of_pre_renovation": 1,
+      "changed_path_count": 5,
+      "bucket_counts": {
+        "GOVERNANCE": 2,
+        "CHARACTER": 3
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/browser-reset-current-chat-image-recovery-2026-09-18",
+      "head": "7a1b39570b7c5529e3762dcafa257846c33082c5",
+      "ahead_of_pre_renovation": 1,
+      "changed_path_count": 1,
+      "bucket_counts": {
+        "CHARACTER": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/c08-clearance-d9-termination-correction",
+      "head": "05e3801d110ac830aa50f141246a4338e4476156",
+      "ahead_of_pre_renovation": 13,
+      "changed_path_count": 12,
+      "bucket_counts": {
+        "APP": 2,
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 1,
+        "WEBSITE": 5,
+        "SHARED_ADJUDICATE": 3
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/clr01-defer-to-app-asset-convergence-2026-09-10",
+      "head": "283158300369c474ef4086379530d94edc7a82bd",
+      "ahead_of_pre_renovation": 0,
+      "changed_path_count": 0,
+      "bucket_counts": {},
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/clr01-method",
+      "head": "8595a45980674a3d52dd95f6c7e710087029636a",
+      "ahead_of_pre_renovation": 8,
+      "changed_path_count": 3,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "SHARED_ADJUDICATE": 1,
+        "UNCLASSIFIED": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/clr01-q19-diagnostic-repair-2026-09-10",
+      "head": "1fc0784fb75d3b8628aa886b2f1e4e21e7e1d5e6",
+      "ahead_of_pre_renovation": 0,
+      "changed_path_count": 0,
+      "bucket_counts": {},
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/clr01-q19-materialization-2026-09-10",
+      "head": "dd1c9f88b84bbf541a121082815d615a715dfe5e",
+      "ahead_of_pre_renovation": 0,
+      "changed_path_count": 0,
+      "bucket_counts": {},
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/design-packet-synthesis-framework-2026-09-10",
+      "head": "21564c31eb84c2f5a1db91fde3eec87f4b15c312",
+      "ahead_of_pre_renovation": 0,
+      "changed_path_count": 0,
+      "bucket_counts": {},
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/design-sol-agent-protocol-migration-2026-09-09",
+      "head": "83b86c9effe65dad438b2fc5214ed5e5ca6aa74a",
+      "ahead_of_pre_renovation": 0,
+      "changed_path_count": 0,
+      "bucket_counts": {},
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/dpsc-c01-construction",
+      "head": "b815f02aad44327a731d380507b859f26a8e4a72",
+      "ahead_of_pre_renovation": 3,
+      "changed_path_count": 3,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 1,
+        "SHARED_ADJUDICATE": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/dpsc-c01-lateral-continuum-correction",
+      "head": "425e736bdcac10f47aa5c308b9a70fc7afb82ccd",
+      "ahead_of_pre_renovation": 3,
+      "changed_path_count": 3,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 1,
+        "SHARED_ADJUDICATE": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/dpsc-c01-neutral-scaffold-falsification",
+      "head": "513f3c4d0001004027160a8e13285151ce339bbb",
+      "ahead_of_pre_renovation": 4,
+      "changed_path_count": 3,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 1,
+        "SHARED_ADJUDICATE": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/dpsc-c01-r2-neutral-scaffold",
+      "head": "6c86d0cc493d4ab957e4ba171a0e6441fea20ef4",
+      "ahead_of_pre_renovation": 3,
+      "changed_path_count": 3,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 1,
+        "SHARED_ADJUDICATE": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/dpsc-rendered-successor-program-01",
+      "head": "082d6cc94387f5edfc9bdadba07580df72a8ce08",
+      "ahead_of_pre_renovation": 3,
+      "changed_path_count": 3,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 1,
+        "WEBSITE": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/fresh-chat-handoff-phase-b-packets-2026-09-10",
+      "head": "c0cdc1473604a0ec0031304e1d7515d53aee8cdc",
+      "ahead_of_pre_renovation": 0,
+      "changed_path_count": 0,
+      "bucket_counts": {},
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/g1-integration-replication-gates-2026-09-05",
+      "head": "a1a2ffffdb2828bece30fa2dbfbff73bbbe05683",
+      "ahead_of_pre_renovation": 6,
+      "changed_path_count": 6,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "WEBSITE": 2,
+        "APP": 2,
+        "UNCLASSIFIED": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/hero-candidate-02-evaluation",
+      "head": "6e1867f0e68c3f458d27afb1474afc0c2f9eb2fe",
+      "ahead_of_pre_renovation": 3,
+      "changed_path_count": 3,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "WEBSITE": 2
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/hero-candidate-02-stage-physics-renderer-packets",
+      "head": "2acc1f2f5917b27431206c137dec0dfed35c7af7",
+      "ahead_of_pre_renovation": 9,
+      "changed_path_count": 6,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "SHARED_ADJUDICATE": 4,
+        "UNCLASSIFIED": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/hero-post-program-reconciliation",
+      "head": "d92b3920e02e1bfcefbae596d03e6f0ef35c3ebe",
+      "ahead_of_pre_renovation": 3,
+      "changed_path_count": 3,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 1,
+        "WEBSITE": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/hero-surface-falsification-criteria-01-2026-09-06",
+      "head": "f8f039dc9804d8f3e18561dc99bf0ef4fd52648d",
+      "ahead_of_pre_renovation": 6,
+      "changed_path_count": 4,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "WEBSITE": 3
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/hero-surface-falsification-handoff-2026-09-06",
+      "head": "bda8bf0daa3bbf8cd90d03d5f9c544ac81858e8e",
+      "ahead_of_pre_renovation": 11,
+      "changed_path_count": 10,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "WEBSITE": 9
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/hero-surface-method-01-2026-09-06",
+      "head": "cb4e33f16d9f3b4ad6e0c0be142246f8c01584ba",
+      "ahead_of_pre_renovation": 5,
+      "changed_path_count": 3,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "WEBSITE": 2
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/hero-translation-carrier-reconciliation",
+      "head": "cf6b9bc42a54c1a82e89bab61822c5753de61949",
+      "ahead_of_pre_renovation": 16,
+      "changed_path_count": 7,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 1,
+        "WEBSITE": 5
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/hero-translation-carrier-reconciliation-2",
+      "head": "7039d168f054db1ccfb3c6ef780a5a326dfb19d8",
+      "ahead_of_pre_renovation": 1,
+      "changed_path_count": 7,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 1,
+        "WEBSITE": 5
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/lane-a-degradation-failures-2026-09-05",
+      "head": "75b45ce728626547084be7fff6b0219438d141e6",
+      "ahead_of_pre_renovation": 4,
+      "changed_path_count": 3,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "APP": 2
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/lane-a-integration-closure-2026-09-05",
+      "head": "b049d1ee6da2b1ca5079a4c5ab8a3b742f504025",
+      "ahead_of_pre_renovation": 4,
+      "changed_path_count": 4,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "APP": 3
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/lane-a-o0-reintegration-2026-09-05",
+      "head": "f648d21f05b343357434cf086d14f713a1d10dba",
+      "ahead_of_pre_renovation": 7,
+      "changed_path_count": 5,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "APP": 4
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/lane-a-production-library-2026-09-05",
+      "head": "1c1732fd2b7a8df4b85b457b3db39702132bbac4",
+      "ahead_of_pre_renovation": 3,
+      "changed_path_count": 3,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "APP": 2
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/lane-a-stage-carrier-selection-2026-09-05",
+      "head": "bf62a518f9ef05c618a987e03fba5f059a53e194",
+      "ahead_of_pre_renovation": 3,
+      "changed_path_count": 3,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "APP": 2
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/lane-a-stage-cone-interaction-2026-09-05",
+      "head": "214859e53218ae2b068a40726928906f8ee476e3",
+      "ahead_of_pre_renovation": 6,
+      "changed_path_count": 5,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "APP": 3,
+        "UNCLASSIFIED": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/lane-b-bespoke-wordmark-02-2026-09-05",
+      "head": "97cb447ef57baaac178fcd6add169211147a969d",
+      "ahead_of_pre_renovation": 3,
+      "changed_path_count": 3,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "WEBSITE": 2
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/lane-b-hero-artwork-brief-01-2026-09-05",
+      "head": "bd10b352c20e93853155861b89a7d34ba41b69d9",
+      "ahead_of_pre_renovation": 4,
+      "changed_path_count": 4,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "WEBSITE": 2,
+        "UNCLASSIFIED": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/lane-b-identity-source-readiness-01-2026-09-05",
+      "head": "33effcf410620c7cc76863802a46a0396c73d346",
+      "ahead_of_pre_renovation": 6,
+      "changed_path_count": 6,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 3,
+        "WEBSITE": 2
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/lane-b-integrated-brand-surface-test-01-2026-09-05",
+      "head": "0144888972ce140c2759a88f5ec3d3312cb4e49a",
+      "ahead_of_pre_renovation": 2,
+      "changed_path_count": 2,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/lane-b-integration-laws-approval-2026-09-05",
+      "head": "a8bec37479f648fc70f1b71d9a86af78ff619560",
+      "ahead_of_pre_renovation": 2,
+      "changed_path_count": 2,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/lane-b-mineral-theater-approval-hero-brief-01-2026-09-05",
+      "head": "68c4539e99f0a48cabc286b0fb8401b372352e02",
+      "ahead_of_pre_renovation": 31,
+      "changed_path_count": 9,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "WEBSITE": 4,
+        "UNCLASSIFIED": 1,
+        "SHARED_ADJUDICATE": 3
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/lane-b-o3-wordmark-approval-2026-09-05",
+      "head": "44d415cee5228911d419a40f391215c052525ac8",
+      "ahead_of_pre_renovation": 2,
+      "changed_path_count": 2,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "WEBSITE": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/lane-b-quiet-stage-approval-2026-09-05",
+      "head": "e2423583cfea8297bc23e976824d84d7993de28c",
+      "ahead_of_pre_renovation": 2,
+      "changed_path_count": 2,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/lane-b-quiet-stage-extension-01-2026-09-05",
+      "head": "51a29157fd2d8d28a2d5d419084a70c5937742a3",
+      "ahead_of_pre_renovation": 2,
+      "changed_path_count": 2,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/lane-b-threshold-k-context-deployment-01-2026-09-05",
+      "head": "5a7b215f868f952e69c1a7391ef6c881d9b7c380",
+      "ahead_of_pre_renovation": 4,
+      "changed_path_count": 3,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "WEBSITE": 2
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/lane-b-threshold-k-controlled-refinement-01-2026-09-05",
+      "head": "cb5fc0769ca9ca7aa0f9a9534af61d78b76ca282",
+      "ahead_of_pre_renovation": 4,
+      "changed_path_count": 4,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "WEBSITE": 3
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/lane-b-threshold-k-wordmark-integration-01",
+      "head": "f4ca79c464e9084187975875de375d5bfe206ec7",
+      "ahead_of_pre_renovation": 4,
+      "changed_path_count": 3,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "WEBSITE": 2
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/lane-b-website-v0-material-roles-01-2026-09-05",
+      "head": "589e1bbd7b348f3a3b010ccf6c429ef7125d45c4",
+      "ahead_of_pre_renovation": 3,
+      "changed_path_count": 3,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "WEBSITE": 2
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/lane-b-website-v0-site-spine-01-2026-09-05",
+      "head": "ee2a275aa1eca4d0e37f080346bfa9b8c7f5b14a",
+      "ahead_of_pre_renovation": 6,
+      "changed_path_count": 4,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "WEBSITE": 2,
+        "UNCLASSIFIED": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/lane-b-website-visual-world-composition-01-2026-09-05",
+      "head": "3f05aad76422cfb453ba7de98d929c3e914ec237",
+      "ahead_of_pre_renovation": 3,
+      "changed_path_count": 3,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "WEBSITE": 2
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/lane-b-wordmark-divergence-01-2026-09-05",
+      "head": "355f41d1e3e60a29f107575f504262266a6eb469",
+      "ahead_of_pre_renovation": 2,
+      "changed_path_count": 0,
+      "bucket_counts": {},
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/mot01-blind-review-kit-production-01",
+      "head": "7f5276d5c879dd61bda61b6d2585d8db5f458b0c",
+      "ahead_of_pre_renovation": 2,
+      "changed_path_count": 2,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "SHARED_ADJUDICATE": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/mot01-blinded-review-instrument-01",
+      "head": "fa71d7e65ec6e116678b2422198b501732e88c06",
+      "ahead_of_pre_renovation": 4,
+      "changed_path_count": 3,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 1,
+        "SHARED_ADJUDICATE": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/mot01-blinded-review-instrument-02",
+      "head": "8c76f84a2dacdfb44112fbcf232b4491f775abec",
+      "ahead_of_pre_renovation": 3,
+      "changed_path_count": 4,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 1,
+        "SHARED_ADJUDICATE": 2
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/mot01-context-shift-comparison-01",
+      "head": "1f74a278c89c5758f32573a4f3d0722dc9dae9bb",
+      "ahead_of_pre_renovation": 7,
+      "changed_path_count": 6,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "SHARED_ADJUDICATE": 5
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/mot01-context-shift-cs2-adjudication",
+      "head": "b494a1c001e9a563dc33541faa004237d7bb8619",
+      "ahead_of_pre_renovation": 4,
+      "changed_path_count": 3,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 1,
+        "SHARED_ADJUDICATE": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/mot01-context-shift-differentiation-01",
+      "head": "e0c51fc0a4a0ebc9735e604ff94ecf19f71b93e3",
+      "ahead_of_pre_renovation": 3,
+      "changed_path_count": 3,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "SHARED_ADJUDICATE": 2
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/mot01-cs2-deployment-envelope-contract",
+      "head": "cb118dd35957f54d75920c7b2f852a4b50c607c9",
+      "ahead_of_pre_renovation": 5,
+      "changed_path_count": 3,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 1,
+        "SHARED_ADJUDICATE": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/mot01-cs2-envelope-exemplars",
+      "head": "8f2ad39e6f058c0b703d0f0fff1546000156d82e",
+      "ahead_of_pre_renovation": 9,
+      "changed_path_count": 6,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 1,
+        "SHARED_ADJUDICATE": 4
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/mot01-execution-defaults-01",
+      "head": "0dfb3eacf8b9e1a3e67f907ee4221a983e252df3",
+      "ahead_of_pre_renovation": 4,
+      "changed_path_count": 3,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 1,
+        "SHARED_ADJUDICATE": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/mot01-f1-cadence-adjudication-01",
+      "head": "29145113d2000b539a85f985514590eb18dca7e1",
+      "ahead_of_pre_renovation": 4,
+      "changed_path_count": 3,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 1,
+        "SHARED_ADJUDICATE": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/mot01-f1a-deployment-envelope-01",
+      "head": "c262b74af1319f1502b97bbcd27277d7b7aac08a",
+      "ahead_of_pre_renovation": 5,
+      "changed_path_count": 3,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 1,
+        "SHARED_ADJUDICATE": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/mot01-f1a-envelope-exemplars-01",
+      "head": "0770a2bdc0d1739b8a386e0cb4b6a2b9af08e4d6",
+      "ahead_of_pre_renovation": 4,
+      "changed_path_count": 4,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "SHARED_ADJUDICATE": 3
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/odr-33-hero-burden-evidence-audit-01",
+      "head": "b58021d1889925b450caac13626d7cd639266bcf",
+      "ahead_of_pre_renovation": 3,
+      "changed_path_count": 2,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "WEBSITE": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/odr-33-resolution-2026-09-06",
+      "head": "da5051b66d424fd8b6fc7e11a4221d4c2f45e9c9",
+      "ahead_of_pre_renovation": 7,
+      "changed_path_count": 5,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "WEBSITE": 4
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/phase-c-completion-audit-2026-09-13",
+      "head": "405c8d014300e8154f1cd5dc0e0c326d0498533a",
+      "ahead_of_pre_renovation": 20,
+      "changed_path_count": 57,
+      "bucket_counts": {
+        "UNCLASSIFIED": 33,
+        "GOVERNANCE": 4,
+        "APP": 7,
+        "SHARED_ADJUDICATE": 13
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/post-r08-clearance-and-d9-director-reconciliation",
+      "head": "bd3effa028b71890dd10985e7fadff6db96874f8",
+      "ahead_of_pre_renovation": 10,
+      "changed_path_count": 8,
+      "bucket_counts": {
+        "APP": 2,
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 1,
+        "WEBSITE": 2,
+        "SHARED_ADJUDICATE": 2
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/q-design-16-closeout-color-reentry",
+      "head": "3daf43ff7c7a7604235258d9ffca6bf0e8107ecf",
+      "ahead_of_pre_renovation": 7,
+      "changed_path_count": 5,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 2,
+        "SHARED_ADJUDICATE": 2
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/q-design-16-closeout-color-reentry-clean",
+      "head": "5fe49e4b8a13a4c191f2761e8f0842d62a45884e",
+      "ahead_of_pre_renovation": 1,
+      "changed_path_count": 4,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 1,
+        "SHARED_ADJUDICATE": 2
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/residual-presence-replication-r1-2026-09-05",
+      "head": "e44cb883213bbce50a561a3a3b1b543415b64b5c",
+      "ahead_of_pre_renovation": 3,
+      "changed_path_count": 3,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "APP": 2
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/stage-inspired-visual-physics-synthesis-01",
+      "head": "75229e4d10e1c82b56d260fa870925d3291ebcbd",
+      "ahead_of_pre_renovation": 4,
+      "changed_path_count": 3,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 2
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/sym02-threshold-k-shape-refinement-2026-09-11",
+      "head": "9308fb581c07d0b732cc488418a89c1c1ae4e750",
+      "ahead_of_pre_renovation": 6,
+      "changed_path_count": 24,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 1,
+        "SHARED_ADJUDICATE": 22
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/typ01-specimen-preflight-01",
+      "head": "3051ba25fa5d39bbecef6d6d28754c1cf2c02243",
+      "ahead_of_pre_renovation": 1,
+      "changed_path_count": 1,
+      "bucket_counts": {
+        "SHARED_ADJUDICATE": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/website-prelaunch-successor-01",
+      "head": "5cb73e66a760e0889f704675ae8295b5506b1385",
+      "ahead_of_pre_renovation": 11,
+      "changed_path_count": 6,
+      "bucket_counts": {
+        "WEBSITE": 6
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/wordmark-lettering-master-study-01",
+      "head": "c2c29c9b743cba11d40461e3ef066e31af399386",
+      "ahead_of_pre_renovation": 5,
+      "changed_path_count": 5,
+      "bucket_counts": {
+        "WEBSITE": 5
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/wordmark-lettering-master-study-02",
+      "head": "b308bbdc57706b2beda94cfc1b71be91321b512b",
+      "ahead_of_pre_renovation": 9,
+      "changed_path_count": 9,
+      "bucket_counts": {
+        "WEBSITE": 9
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "design/wordmark-lettering-master-study-03",
+      "head": "f61391e77d04f959bc41a1a061cfe68be187a713",
+      "ahead_of_pre_renovation": 10,
+      "changed_path_count": 12,
+      "bucket_counts": {
+        "WEBSITE": 12
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "docs/q-admin-05-source-freeze-2026-09-19",
+      "head": "845464481b8c446047e950f35769ee5ab5107368",
+      "ahead_of_pre_renovation": 0,
+      "changed_path_count": 0,
+      "bucket_counts": {},
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "preview/reference17-crop04-placeholder-2026-09-19",
+      "head": "2e3fc52d6e55cb3763a2293059801204c260fbd5",
+      "ahead_of_pre_renovation": 2,
+      "changed_path_count": 2,
+      "bucket_counts": {
+        "WEBSITE": 2
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "preview/stage-emerald-magenta-textfree-2026-09-19",
+      "head": "7aab48a2f5c769d73bfa29f5e0bdfb662501fc6d",
+      "ahead_of_pre_renovation": 3,
+      "changed_path_count": 2,
+      "bucket_counts": {
+        "WEBSITE": 2
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "preview/website-placeholder-refinement-01",
+      "head": "f57bf6c370787bacbf0c0ac3d97fb6d1537c5e67",
+      "ahead_of_pre_renovation": 5,
+      "changed_path_count": 5,
+      "bucket_counts": {
+        "WEBSITE": 5
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "preview/website-prelaunch-successor-01",
+      "head": "15898ab9b407c813c479c51d2206f27962166f2b",
+      "ahead_of_pre_renovation": 12,
+      "changed_path_count": 9,
+      "bucket_counts": {
+        "WEBSITE": 9
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "preview/website-user-stage-image-exact-2026-09-19",
+      "head": "d83aa1fcb0d1e078180a7bfdaf96a0ec05d109d6",
+      "ahead_of_pre_renovation": 1,
+      "changed_path_count": 2,
+      "bucket_counts": {
+        "WEBSITE": 2
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "preview/website-wordmark-bronze-synthesis-04",
+      "head": "a82c70cf4cb146f78a0714482280d52f724ab020",
+      "ahead_of_pre_renovation": 12,
+      "changed_path_count": 11,
+      "bucket_counts": {
+        "WEBSITE": 11
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "preview/website-wordmark-concept-exploration-05",
+      "head": "8bc4f399e0cee790ce00c08bbfa0d6687469af82",
+      "ahead_of_pre_renovation": 13,
+      "changed_path_count": 12,
+      "bucket_counts": {
+        "WEBSITE": 12
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "preview/website-wordmark-concept-exploration-06",
+      "head": "71e4aa4b06314732d4f16674853607bcef0e2f2c",
+      "ahead_of_pre_renovation": 13,
+      "changed_path_count": 12,
+      "bucket_counts": {
+        "WEBSITE": 12
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "preview/website-wordmark-k-bronze-03",
+      "head": "fe8517c4435a91895391c70d48b4824315552341",
+      "ahead_of_pre_renovation": 12,
+      "changed_path_count": 11,
+      "bucket_counts": {
+        "WEBSITE": 11
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "preview/website-wordmark-k-derived-02",
+      "head": "cf309fcb0f386921b294602f7fb864bb86e692ce",
+      "ahead_of_pre_renovation": 12,
+      "changed_path_count": 11,
+      "bucket_counts": {
+        "WEBSITE": 11
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "preview/website-wordmark-quiet-architectural-08",
+      "head": "2eed40f575f378c1ec095d1770c9f008aee6c550",
+      "ahead_of_pre_renovation": 8,
+      "changed_path_count": 7,
+      "bucket_counts": {
+        "WEBSITE": 7
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "preview/website-wordmark-refinement-01",
+      "head": "a76511330c5bb637066850c4dae506a88efcbc3a",
+      "ahead_of_pre_renovation": 12,
+      "changed_path_count": 11,
+      "bucket_counts": {
+        "WEBSITE": 11
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "preview/website-wordmark-sculptural-09",
+      "head": "50a81bb4a0ac2c2a113ff81383b6b6b06828841c",
+      "ahead_of_pre_renovation": 8,
+      "changed_path_count": 7,
+      "bucket_counts": {
+        "WEBSITE": 7
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "preview/website-wordmark-visual-reset-07",
+      "head": "ac0d35c0f4a1ecf77f7ae1dbcdd4991e88bd8998",
+      "ahead_of_pre_renovation": 12,
+      "changed_path_count": 11,
+      "bucket_counts": {
+        "WEBSITE": 11
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "renovation/w1-txt-corpus-coverage",
+      "head": "cddbd5e2f955dc894b4e781c43c4f83831d7da93",
+      "ahead_of_pre_renovation": 1,
+      "changed_path_count": 5,
+      "bucket_counts": {
+        "UNCLASSIFIED": 4,
+        "GOVERNANCE": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "research/reference17-context-integration-01",
+      "head": "fc30634735aff5a2b27bccfa3dd32370335b51e6",
+      "ahead_of_pre_renovation": 8,
+      "changed_path_count": 6,
+      "bucket_counts": {
+        "WEBSITE": 6
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "research/website-world-spine-recovery-01",
+      "head": "ecb57a6f833d833f947e556526c23304cb8ee303",
+      "ahead_of_pre_renovation": 15,
+      "changed_path_count": 7,
+      "bucket_counts": {
+        "WEBSITE": 7
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "site/bellweather-narrative-cadence-refinement-2026-09-17",
+      "head": "c9e7a72d8f4596cdc6d743fff2384c4124291014",
+      "ahead_of_pre_renovation": 2,
+      "changed_path_count": 10,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 2,
+        "WEBSITE": 6,
+        "SHARED_ADJUDICATE": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "site/bellweather-production-rollback-closeout-2026-09-17",
+      "head": "cd7f89cdb2f3246d9713ae489cfb4a9932889a88",
+      "ahead_of_pre_renovation": 1,
+      "changed_path_count": 4,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 2,
+        "CHARACTER": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "site/concealed-production-motion-choreography-01-2026-09-18",
+      "head": "48eea859574ee546364bb5c541143cd6aafb9f62",
+      "ahead_of_pre_renovation": 3,
+      "changed_path_count": 18,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 2,
+        "WEBSITE": 15
+      },
+      "preexisting_tags_at_exact_head": [
+        "archive/site-concealed-production-motion-choreography-01-2026-09-18"
+      ]
+    },
+    {
+      "branch": "site/concealed-production-near-target-handoff-2026-09-17",
+      "head": "d1492c0446f0f5211df3afaa6900380d2565b930",
+      "ahead_of_pre_renovation": 1,
+      "changed_path_count": 7,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 3,
+        "WEBSITE": 3
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "site/concealed-production-synthesis-01-closeout-2026-09-17",
+      "head": "644c6f273770014c4c23e7c6c4e0b9c44c0ef2ab",
+      "ahead_of_pre_renovation": 1,
+      "changed_path_count": 6,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 3,
+        "WEBSITE": 2
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "site/homepage-concept-reset-concealed-production-2026-09-17",
+      "head": "cd2e68ec55437834230451138f574e8d36dd1747",
+      "ahead_of_pre_renovation": 1,
+      "changed_path_count": 6,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 3,
+        "WEBSITE": 2
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "site/placeholder-v2-detached-preservation-20260919",
+      "head": "c6e2d2f3470d8aa4e5a69658c0fc2cb0f9918e8f",
+      "ahead_of_pre_renovation": 6,
+      "changed_path_count": 9,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 3,
+        "WEBSITE": 5
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "site/placeholder-v2-threshold-k-2026-09-14",
+      "head": "33eb662737c7a3eab63abfd0dd71427df387df54",
+      "ahead_of_pre_renovation": 3,
+      "changed_path_count": 6,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "WEBSITE": 5
+      },
+      "preexisting_tags_at_exact_head": [
+        "archive/site/placeholder-v2-threshold-k-2026-09-14"
+      ]
+    },
+    {
+      "branch": "site/reference17-crop03-carrier-addendum",
+      "head": "958d9325db5d52f22f40439683505949af76682a",
+      "ahead_of_pre_renovation": 1,
+      "changed_path_count": 1,
+      "bucket_counts": {
+        "WEBSITE": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "site/reference17-crop03-disposition-l239",
+      "head": "30e3dcc27ca2b2e750e60bb83033b0335cb290df",
+      "ahead_of_pre_renovation": 1,
+      "changed_path_count": 4,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 1,
+        "WEBSITE": 2
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "site/reference17-crop03-prereg",
+      "head": "2de6dcfa21dd448175eeb5943faf4b320477db45",
+      "ahead_of_pre_renovation": 1,
+      "changed_path_count": 1,
+      "bucket_counts": {
+        "WEBSITE": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "site/reference17-crop03-result-20260919",
+      "head": "6282c6855970591ee8e9f7d4ebb84dfa7bb25cf9",
+      "ahead_of_pre_renovation": 2,
+      "changed_path_count": 4,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 1,
+        "WEBSITE": 2
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "site/reference17-crop04-director-disposition-l242",
+      "head": "2d25f44a521d2712534ed1d6a6f5afc4c5f72996",
+      "ahead_of_pre_renovation": 2,
+      "changed_path_count": 4,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 1,
+        "WEBSITE": 2
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "site/reference17-crop04-director-disposition-l243-2026-09-19",
+      "head": "ea38b3687ce419f677662aa4f8c50f2d16786987",
+      "ahead_of_pre_renovation": 4,
+      "changed_path_count": 4,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 1,
+        "WEBSITE": 2
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "site/reference17-crop04-fullscene-diag-prereg",
+      "head": "aaf93330164922865459a2760d77b1d9a5477a26",
+      "ahead_of_pre_renovation": 1,
+      "changed_path_count": 1,
+      "bucket_counts": {
+        "WEBSITE": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "site/reference17-crop04-fullscene-diagnostic-20260919",
+      "head": "bdbe572d18fb17559898818e7b989579953ccffa",
+      "ahead_of_pre_renovation": 1,
+      "changed_path_count": 6,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 1,
+        "WEBSITE": 4
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "site/reference17-crop04-prereg",
+      "head": "d9d655eb5d74fc34f8d446e80d428628313f7c49",
+      "ahead_of_pre_renovation": 1,
+      "changed_path_count": 1,
+      "bucket_counts": {
+        "WEBSITE": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "site/reference17-crop04-result-20260919",
+      "head": "ee5a020a850de0980da32b614937d113f3d244aa",
+      "ahead_of_pre_renovation": 2,
+      "changed_path_count": 4,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 1,
+        "WEBSITE": 2
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "site/reference17-l237-forensic-correction",
+      "head": "2877242017fb9558ccdfbfa56fa7eecbfdd3685a",
+      "ahead_of_pre_renovation": 1,
+      "changed_path_count": 3,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 1,
+        "WEBSITE": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "site/reference17-stage-background-production-20260923",
+      "head": "e68ee93342a3464cc7dd450a7222ba9e310315b7",
+      "ahead_of_pre_renovation": 2,
+      "changed_path_count": 5,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 1,
+        "WEBSITE": 3
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "site/reference17-stage-background-production-closeout-20260923",
+      "head": "df938c4c515a8e7665dda33dc7153d940fdd7ef0",
+      "ahead_of_pre_renovation": 1,
+      "changed_path_count": 3,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 1,
+        "WEBSITE": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "site/restore-v2-2-pre-bellweather-2026-09-17",
+      "head": "3d131e2874819781d03230a56edd7665ffa64e71",
+      "ahead_of_pre_renovation": 1,
+      "changed_path_count": 10,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 2,
+        "CHARACTER": 3,
+        "WEBSITE": 4
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "site/threshold-k-favicon-optical-refinement-2026-09-14",
+      "head": "9f0fa5eb42642e70fe1ea13d3575dfd89de83a22",
+      "ahead_of_pre_renovation": 3,
+      "changed_path_count": 3,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "WEBSITE": 2
+      },
+      "preexisting_tags_at_exact_head": [
+        "archive/site/threshold-k-favicon-optical-refinement-2026-09-14"
+      ]
+    },
+    {
+      "branch": "site/v2-2-letter-size-parity-study-2026-09-16",
+      "head": "696adf8635776bd0fbbfbad480fff5e8b1f9b9b6",
+      "ahead_of_pre_renovation": 1,
+      "changed_path_count": 5,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 2,
+        "WEBSITE": 2
+      },
+      "preexisting_tags_at_exact_head": [
+        "archive/site/v2-2-letter-size-parity-study-2026-09-16"
+      ]
+    },
+    {
+      "branch": "site/v2-2-mascot-integration-candidate-2026-09-16",
+      "head": "c5e393bba1909b178df4476bafa25a839bae200b",
+      "ahead_of_pre_renovation": 3,
+      "changed_path_count": 14,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 2,
+        "CHARACTER": 7,
+        "WEBSITE": 4
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "site/v2-2-mascot-person-state-closeout-2026-09-16",
+      "head": "7909b831c7bd59d8e36ef9cfc799e9d02f6747cf",
+      "ahead_of_pre_renovation": 5,
+      "changed_path_count": 2,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "site/v2-2-mascot-placement-state-sync-2026-09-16",
+      "head": "62a5e688c45756e4e26e0ab10afea6aaa06601f7",
+      "ahead_of_pre_renovation": 0,
+      "changed_path_count": 0,
+      "bucket_counts": {},
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "site/v2-2-mascot-placement-study-2026-09-16",
+      "head": "bb0b966d8c2dc6ce77917fee1064fbc4fe385026",
+      "ahead_of_pre_renovation": 2,
+      "changed_path_count": 40,
+      "bucket_counts": {
+        "UNCLASSIFIED": 1,
+        "CHARACTER": 39
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "site/v2-2-mascot-placement-study-closeout-2026-09-16",
+      "head": "8e6f8866bf9755dabf9b416990c50cf2e915c331",
+      "ahead_of_pre_renovation": 20,
+      "changed_path_count": 4,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 2,
+        "CHARACTER": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "site/v2-2-mascot-production-closeout-2026-09-17",
+      "head": "403dad972376b7a4ab57d7d43f50d6af228bdbb3",
+      "ahead_of_pre_renovation": 1,
+      "changed_path_count": 5,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 2,
+        "CHARACTER": 2
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "site/v2-2-temporal-choreography-closeout-2026-09-16",
+      "head": "22782f196bef7c8374ee6b41d6726b84436cca9b",
+      "ahead_of_pre_renovation": 7,
+      "changed_path_count": 2,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "site/v2-2-temporal-interaction-accessibility-study-2026-09-16",
+      "head": "95cf78ab1c996eeb84a189186c4e667cd7e2ae39",
+      "ahead_of_pre_renovation": 1,
+      "changed_path_count": 10,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 2,
+        "SHARED_ADJUDICATE": 3,
+        "WEBSITE": 4
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "site/v2-2-world-deterministic-closeout-2026-09-16",
+      "head": "94422b49b8b764a6c6807228790b4c1991f0adb5",
+      "ahead_of_pre_renovation": 4,
+      "changed_path_count": 2,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "site/v2-2-world-minimal-evidence-closeout-2026-09-16",
+      "head": "a7d22e26078aa917821669725876d22aa29ee57d",
+      "ahead_of_pre_renovation": 6,
+      "changed_path_count": 2,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "tmp/mot01-context-shift-ledger",
+      "head": "2336fd41e36bac7fda2040702520c1615e979776",
+      "ahead_of_pre_renovation": 6,
+      "changed_path_count": 5,
+      "bucket_counts": {
+        "UNCLASSIFIED": 2,
+        "GOVERNANCE": 1,
+        "SHARED_ADJUDICATE": 2
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "tmp/mot01-context-shift-preflight",
+      "head": "0ed2f28b052c6c6f0a30e64232fa666327b8bd96",
+      "ahead_of_pre_renovation": 6,
+      "changed_path_count": 5,
+      "bucket_counts": {
+        "UNCLASSIFIED": 2,
+        "SHARED_ADJUDICATE": 3
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "tmp/mot01-cs2-envelope-preflight",
+      "head": "0f9c618726d3dca9c8dd7b9cce2bc45053627d4a",
+      "ahead_of_pre_renovation": 6,
+      "changed_path_count": 4,
+      "bucket_counts": {
+        "UNCLASSIFIED": 2,
+        "SHARED_ADJUDICATE": 2
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "tmp/mot01-f1-comparison-preflight",
+      "head": "3629603740039fd41e12f241f609fb80eda65f74",
+      "ahead_of_pre_renovation": 2,
+      "changed_path_count": 3,
+      "bucket_counts": {
+        "UNCLASSIFIED": 1,
+        "SHARED_ADJUDICATE": 2
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "tmp/mot01-f1-ledger-closeout",
+      "head": "12b720471a694604b23f5158436cb585ac60c81b",
+      "ahead_of_pre_renovation": 2,
+      "changed_path_count": 1,
+      "bucket_counts": {
+        "UNCLASSIFIED": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "tmp/mot01-f1a-envelope-exemplars-ledger",
+      "head": "759d97f8a7af0e6c7ee2a868975964b20141cbab",
+      "ahead_of_pre_renovation": 6,
+      "changed_path_count": 5,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 1,
+        "SHARED_ADJUDICATE": 3
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "tmp/mot01-f1a-envelope-exemplars-preflight",
+      "head": "17d65141ca3049f3cc057da5be34e594fbb37d74",
+      "ahead_of_pre_renovation": 4,
+      "changed_path_count": 3,
+      "bucket_counts": {
+        "UNCLASSIFIED": 1,
+        "SHARED_ADJUDICATE": 2
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "tmp/mot01-method-materialize",
+      "head": "1eac1e2b031897d0467fcdbe39a3c947e4268df0",
+      "ahead_of_pre_renovation": 6,
+      "changed_path_count": 3,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 1,
+        "SHARED_ADJUDICATE": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "tmp/mot01-preflight-closeout",
+      "head": "549bae15741fe45e735f36bde465ff6157114777",
+      "ahead_of_pre_renovation": 10,
+      "changed_path_count": 7,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 1,
+        "SHARED_ADJUDICATE": 5
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "tmp/mot01-preflight-materialize",
+      "head": "84e749886d52a2861c2cda120851d0ffd6890a72",
+      "ahead_of_pre_renovation": 6,
+      "changed_path_count": 5,
+      "bucket_counts": {
+        "UNCLASSIFIED": 1,
+        "SHARED_ADJUDICATE": 4
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "tmp/mot01-preflight-v2",
+      "head": "c3c7ce1838a2a215a03bb5aa4410496cf11d3e45",
+      "ahead_of_pre_renovation": 7,
+      "changed_path_count": 5,
+      "bucket_counts": {
+        "SHARED_ADJUDICATE": 5
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "tmp/post-program-reconciliation-index-generation",
+      "head": "bb1c73b1379fed84fe765318e7e2366f28c6b4d5",
+      "ahead_of_pre_renovation": 2,
+      "changed_path_count": 5,
+      "bucket_counts": {
+        "UNCLASSIFIED": 3,
+        "GOVERNANCE": 1,
+        "WEBSITE": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "tmp/reconciled-corpus-index-generation",
+      "head": "2272643cee9e67dd3441a609bcd6e689e33e178d",
+      "ahead_of_pre_renovation": 3,
+      "changed_path_count": 6,
+      "bucket_counts": {
+        "UNCLASSIFIED": 5,
+        "GOVERNANCE": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "tmp/shared-brand-divergence-reentry-audit-index",
+      "head": "89bba0889999903c0714a1bf467a2b35a2b6d9da",
+      "ahead_of_pre_renovation": 9,
+      "changed_path_count": 5,
+      "bucket_counts": {
+        "UNCLASSIFIED": 3,
+        "GOVERNANCE": 1,
+        "SHARED_ADJUDICATE": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "tmp/shared-brand-orthogonal-reentry-02-materialize",
+      "head": "b0c492122f423c6f426b01e442fb074eedc68f9f",
+      "ahead_of_pre_renovation": 4,
+      "changed_path_count": 4,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 2,
+        "SHARED_ADJUDICATE": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "tmp/typ01-execution-addendum-ledger",
+      "head": "9c41eb2b8e28d69af4d3d8eb8ed3f7028cef1217",
+      "ahead_of_pre_renovation": 3,
+      "changed_path_count": 3,
+      "bucket_counts": {
+        "UNCLASSIFIED": 3
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "tmp/typ01-harness-materialization",
+      "head": "ac503b2b64ad24ce553336f3130a414673322722",
+      "ahead_of_pre_renovation": 11,
+      "changed_path_count": 14,
+      "bucket_counts": {
+        "UNCLASSIFIED": 9,
+        "SHARED_ADJUDICATE": 5
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "tmp/typ01-method-ledger-materialization",
+      "head": "2282f05b324e75610adfc8f3ba09c7c72775267f",
+      "ahead_of_pre_renovation": 3,
+      "changed_path_count": 3,
+      "bucket_counts": {
+        "UNCLASSIFIED": 3
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "tmp/typ01-termination-materialization",
+      "head": "9e4876e99b2fd803e45c2f52ec16b63a80c088a9",
+      "ahead_of_pre_renovation": 3,
+      "changed_path_count": 4,
+      "bucket_counts": {
+        "GOVERNANCE": 1,
+        "UNCLASSIFIED": 1,
+        "SHARED_ADJUDICATE": 2
+      },
+      "preexisting_tags_at_exact_head": []
+    },
+    {
+      "branch": "tooling/corpus-coverage-guard-02",
+      "head": "7f5dd2b2196dd4e02a556368cae2bd65f3ac1ac2",
+      "ahead_of_pre_renovation": 1,
+      "changed_path_count": 5,
+      "bucket_counts": {
+        "UNCLASSIFIED": 4,
+        "GOVERNANCE": 1
+      },
+      "preexisting_tags_at_exact_head": []
+    }
+  ]
+}

@@ -17,9 +17,9 @@ For engineering work:
 
 ## Repository roles
 
-- **`Rylascoo/Ensemble-Project`:** engineering source/tests/fixtures/tooling/validation plus central product/policy/ODR decisions.
-- **`Rylascoo/Ensemble-Website`:** app UI/UX design, website implementation/design, visual identity, version-controlled design assets, and design-specific evidence.
-- **Google Drive `Ensemble Project`:** canonical visual workspace and master assets.
+- **`Rylascoo/Ensemble-Project`:** application Product/Architecture, App Design, implementation, source/tests/fixtures/tooling/validation, and central product/policy/ODR decisions.
+- **`Rylascoo/Ensemble-Website`:** website design/implementation and historical Website-side app-design provenance.
+- **Google Drive `Ensemble Project`:** canonical shared visual/creative workspace and master assets.
 
 The one-canonical-home and cross-lane migration rules are in [`docs/REPOSITORY_RESIDENCY.md`](docs/REPOSITORY_RESIDENCY.md). A design-looking ODR or Director decision can legitimately belong here; classification is by authority, not appearance.
 

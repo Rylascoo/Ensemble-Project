@@ -1,0 +1,154 @@
+{
+  "schema": "kymaean.dur-01.integrated-identity-durability-method.v1",
+  "status": "FROZEN_PRE_CONSTRUCTION_DETERMINISTIC_NON_RENDER",
+  "date": "2026-09-14",
+  "program": {
+    "id": "DUR-01",
+    "name": "Integrated Identity Durability",
+    "phase": "C_CONTROLLED_VISUAL_CONVERGENCE",
+    "type": "INTEGRATED_SHARED_IDENTITY_DURABILITY"
+  },
+  "activation_audit": "docs/evidence/PHASE_C_POST_CPS_01_REENTRY_AUDIT_07.json",
+  "activation_audit_sha256": "7623092491bdc705351cc74d856ab15b61be04a71ae0d72ef3f5e27c956080f3",
+  "bounded_question": "Can the current shared-identity packet set remain recognizable, hierarchical, accessible and semantically restrained under small scale, monochrome, forced colors, 200% text, no-image, reduced-motion/static fallback, narrow reflow and APP↔WEB translation without promoting provisional components into final authority?",
+  "inputs": [
+    {
+      "id": "C0_THRESHOLD_K",
+      "path": "assets/brand/kymaean-threshold-k-working-candidate.svg",
+      "sha256": "303a1b0d5caaf6f1e25bfd20a525d280ff5097b6543d91e5b2f45a9fbef30d63",
+      "authority": "PKT-SYM-01-01 provisional incumbent"
+    },
+    {
+      "id": "O3_WORDMARK",
+      "path": "assets/brand/kymaean-o3-wordmark-temporary-incumbent.svg",
+      "sha256": "d44776e7f4cdd26f4e7912408967aa3dbcd0f8bfdb18099e6c15440e8271ebf1",
+      "authority": "PKT-W0-O3-01 temporary incumbent"
+    },
+    {
+      "id": "TYP_F1",
+      "packet": "PKT-TYP-02-01",
+      "mechanism": "Ratio Ladder provisional role grammar"
+    },
+    {
+      "id": "MAT_F1",
+      "packet": "PKT-MAT-01-01",
+      "mechanism": "Subtractive Channel structural topology"
+    },
+    {
+      "id": "STA_F2",
+      "packet": "PKT-STA-01-01",
+      "mechanism": "Ring + Edge Witness non-color selection treatment"
+    },
+    {
+      "id": "MOT_F1A_CS2",
+      "packets": [
+        "PKT-MOT-F1A-01",
+        "PKT-MOT-CS2-01"
+      ],
+      "mechanism": "bounded succession plus context-replacement/CUT fallback"
+    },
+    {
+      "id": "CPS_B",
+      "packet": "PKT-CPS-01-01",
+      "decision_sha256": "02f14c5360b07ca6b5d04f80e16fb9877976eee0c4a0ec10f1d9a924f82413a8",
+      "mechanism": "Distributed Recognition Mesh canonical Phase C Character-presence architecture"
+    }
+  ],
+  "reduction_law": [
+    "Do not shrink every identity artifact uniformly. C0 and CPS-B carry the smallest-scale burden; O3 is an identity-moment carrier and may be omitted below its lawful compact range rather than distorted.",
+    "Human-readable product/Character labels remain valid redundant identity carriers where present; typography fixture choice is not final type authority.",
+    "MAT F1 may become visually quieter or disappear in forced-colors when it carries no task/identity semantics; it must never be required to understand state or identity.",
+    "STA F2 selection treatment must remain distinguishable from keyboard focus and from progress/navigation/status meaning.",
+    "MOT F1A/CS2 cannot be required for comprehension. Reduced motion must retain state/context through static presentation or CUT.",
+    "Optional expressive Character depiction is absent from the canonical durability carrier; no-image must be a first-class state, not an error simulation."
+  ],
+  "test_roles": [
+    "SYMBOL_MICRO_16_20_24 — exact C0 geometry at smallest identity-bearing sizes in currentColor only",
+    "WORDMARK_IDENTITY_MOMENT — exact O3 geometry at bounded non-micro widths; below range use semantic name rather than forced shrink",
+    "CHARACTER_MICRO_CPS_B — CPS-B signatures remain recoverable without portrait, color or motion",
+    "COMPACT_IDENTITY_STACK — current shared identity carriers coexist without one provisional axis visually swallowing the others",
+    "NARROW_REFLOW_320 — integrated stack reflows without horizontal overflow or clipped identity",
+    "TEXT_200 — text enlargement preserves hierarchy and geometry remains identity-stable",
+    "MONOCHROME_CURRENTCOLOR — identity remains legible without palette",
+    "FORCED_COLORS — essential identity/state survives system-color substitution",
+    "NO_IMAGE — canonical identity/state remains complete with zero expressive images",
+    "STATIC_REDUCED_MOTION — motion mechanisms reduce to static/CUT without information loss",
+    "SELECTION_VS_FOCUS — STA F2 witness and keyboard focus remain visibly/programmatically distinct",
+    "APP_WEB_TRANSLATION — same identity facts/carriers survive restrained APP and more expressive WEB composition without copied layout"
+  ],
+  "mechanical_preflight": {
+    "viewports": [
+      1440,
+      320
+    ],
+    "modes": [
+      "NORMAL",
+      "TEXT_200",
+      "FORCED_COLORS",
+      "REDUCED_MOTION",
+      "NO_IMAGE"
+    ],
+    "required_checks": [
+      "zero unintended page/internal overflow",
+      "zero external resources",
+      "zero raster/generated imagery",
+      "exact C0/O3 source geometry hashes preserved in construction source",
+      "CPS-B signature identity preserved across APP/WEB",
+      "all micro carriers retain required structural cues",
+      "200% text reflow",
+      "forced-colors identity/state survival",
+      "reduced-motion has zero comprehension dependency",
+      "selection witness remains distinct from focus",
+      "no hidden CLR/Stage dependency"
+    ]
+  },
+  "design_sol_evaluation_dimensions": [
+    "IDENTITY_RECOVERY",
+    "SMALL_SCALE_DISCIPLINE",
+    "WORDMARK_USAGE_RESTRAINT",
+    "HIERARCHY_WITHOUT_OVERBRANDING",
+    "MONOCHROME_AND_FORCED_COLOR_SURVIVAL",
+    "TEXT_SCALE_AND_REFLOW",
+    "STATE_VS_FOCUS_SEPARATION",
+    "MOTION_FALLBACK_EQUIVALENCE",
+    "NO_IMAGE_COMPLETENESS",
+    "APP_WEB_TRANSLATION",
+    "PROVISIONAL_AUTHORITY_RESTRAINT",
+    "NON_GENERIC_NON_AVATAR_CONTINUITY"
+  ],
+  "promotion_floor": "DUR-01 may pass only after the full mechanical/accessibility matrix is clean and Design Sol finds no material identity collapse, hierarchy inversion, state/focus ambiguity, motion dependency, forced-color dependency, provisional-to-final authority smuggling, or generic avatar/logo-dashboard drift.",
+  "result_classes": [
+    "PASS_INTEGRATED_DURABILITY",
+    "PASS_WITH_USAGE_RESTRAINT",
+    "TARGETED_REFINEMENT_REQUIRED",
+    "FAIL_INTEGRATED_DURABILITY",
+    "INSUFFICIENT_AUTHORITY_OR_EVIDENCE"
+  ],
+  "excluded_variables": [
+    "CLR F2/F1 selection or palette tokenization",
+    "Stage geometry/scenery or Stage-to-shell translation",
+    "final typeface/font selection",
+    "final symbol/wordmark production master or trademark",
+    "final Character artwork/portrait family or renderer generation",
+    "functional product-domain icon semantics",
+    "WinUI/runtime/provider/application implementation",
+    "Phase C exit by DUR-01 alone"
+  ],
+  "sequence": [
+    "freeze method before carrier construction",
+    "construct one neutral deterministic carrier from the frozen inputs and reduction law",
+    "run mechanical/accessibility preflight and repair carrier defects before subjective evaluation",
+    "freeze preflight evidence",
+    "Design Sol evaluates only after clean preflight; no result-aware retuning",
+    "packetize durability result and update continuity",
+    "run recursive audit; any later integration conflict opens a bounded successor/refinement gate"
+  ],
+  "recursive_audit": {
+    "status": "CLEAN_PRE_CONSTRUCTION_METHOD_FREEZE",
+    "no_retroactive_criteria": true,
+    "no_generated_art": true,
+    "clr_stage_phase_d_boundaries_preserved": true,
+    "provisional_packet_authority_preserved": true,
+    "approval": "APPROVED BY STANDING DIRECTOR DELEGATION — CLEAN RECURSIVE AUDIT."
+  }
+}

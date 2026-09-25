@@ -1,0 +1,183 @@
+{
+  "schema": "kymaean.img-01.shared-image-character-art-direction-method.v1",
+  "status": "FROZEN_PRE_MATERIALIZATION_NO_VISUAL_RESULT",
+  "date": "2026-09-13",
+  "program": {
+    "id": "IMG-01",
+    "name": "Shared Image / Character Art-Direction Convergence",
+    "phase": "C_CONTROLLED_VISUAL_CONVERGENCE",
+    "type": "SUCCESSOR_CONVERGENCE_SYNTHESIS_NOT_FRESH_RESET"
+  },
+  "authority": {
+    "activation_audit": "docs/evidence/PHASE_C_SHARED_IDENTITY_COMPLETION_AUDIT_01.json",
+    "website_base": "87c24f86d63a40a514f6702a7b2211e14dd95c73",
+    "project_checkpoint": "65b73d4a6193ce6e2110dc35ac8e3c13ac21e539",
+    "stage_packet": "docs/evidence/packets/PKT_STAGE_CORE_02.json",
+    "app_syn_view": "docs/evidence/APP_SYN_01_DESIGN_SOL_WHOLE_SYSTEM_VIEW_01.json",
+    "visual_grammar": "docs/KYMAEAN_VISUAL_SYSTEM_GRAMMAR_PROPOSAL_01.md",
+    "cross_product_roadmap": "docs/KYMAEAN_CROSS_PRODUCT_VISUAL_WEBSITE_LAUNCH_ROADMAP_01.md",
+    "asset_materialization_roadmap": "docs/KYMAEAN_VISUAL_ASSET_MATERIALIZATION_ROADMAP_01.md"
+  },
+  "bounded_question": "Can the accumulated Stage/hero/VID/Lane-B/visual-grammar evidence be converged into a coherent cross-surface image/art-direction and Character/human-representation law that preserves human specificity, relational causality and Kymaean identity across APP and WEB without copying Stage composition, selecting CLR, inventing product semantics, or depending on one permanent portrait medium?",
+  "purpose": [
+    "Close the explicit Phase C gaps for Character/human imagery principles and image/art direction at the level of shared design law.",
+    "Create a current, usable cross-surface representation envelope for later design-master app assets and website artwork.",
+    "Convert saturated historical evidence into successor/convergence authority rather than rerunning old visual-family experiments."  ],
+  "source_evidence_classes": [
+    {
+      "class": "CURRENT_POSITIVE_BASELINE",
+      "sources": [
+        "PKT-STAGE-CORE-02 exact current Stage visual baseline",
+        "APP-SYN-01 usage-restraint and Stage-primacy findings",
+        "current C0/O3/TYP/MAT/STA/MOT packet constraints where they affect image/identity hierarchy"
+      ]
+    },
+    {
+      "class": "DURABLE_VISUAL_LAW",
+      "sources": [
+        "KYMAEAN_VISUAL_SYSTEM_GRAMMAR_PROPOSAL_01.md — human signal over system ornament; persistent Character identity; representation depth; APP/WEB transfer; accessibility fallback",
+        "KYMAEAN_APP_ARCHITECTURE_TO_VISUAL_REQUIREMENTS_CROSSWALK_01.md — semantic constraints that imagery must not contradict",
+        "KYMAEAN_LANE_B_STAGE_INSPIRED_VISUAL_PHYSICS_SYNTHESIS_01.md and KYMAEAN_LANE_B_WEBSITE_VISUAL_WORLD_COMPOSITION_01.md — translation constraints, not automatic incumbents"
+      ]
+    },
+    {
+      "class": "HISTORICAL_POSITIVE_NEGATIVE_EVIDENCE",
+      "sources": [
+        "VID / CIR / CRV / hero Method 01 and Method 02 evidence",
+        "renderer-cartography and prior cross-surface transfer results",
+        "closed Stage refinement gates as anti-repetition constraints"
+      ]    }
+  ],
+  "materialization_model": {
+    "stage_0": "Evidence atlas only: assemble current positive/negative representation laws and exact source provenance; no new image generation.",
+    "stage_1": "Construct three materially divergent art-direction principle families as text + deterministic layout/reference boards using only current masters and non-authoritative reference abstractions.",
+    "stage_2": "Preflight each family against APP restrained context, WEB expressive context and monochrome/high-contrast/no-image fallback requirements.",
+    "stage_3": "Only after source freeze and clean preflight, produce bounded visual exemplars for the surviving families. Rendered masters/evidence live in Google Drive; GitHub stores method, manifest, diagnostics and decision records.",
+    "stage_4": "Freeze Design Sol view before any consequential Director taste choice. A selected family or principle envelope remains Phase C design authority, not shipping implementation."
+  },
+  "required_family_divergence": {
+    "family_count": 3,
+    "must_materially_differ_on_at_least": 4,
+    "axes": [
+      "human-representation medium/depth",
+      "figure/silhouette versus environmental-presence emphasis",
+      "line/shape construction",
+      "relational/spatial composition behavior",
+      "material/depth posture",
+      "image-to-type/wordmark relationship",
+      "APP restraint versus WEB expressive translation"
+    ],
+    "prohibited_fake_divergence": [
+      "palette-only variants",
+      "cropping-only variants",
+      "lighting-only variants",      "same portrait style with different decorative backgrounds",
+      "same Stage composition transplanted into website/app carriers"
+    ]
+  },
+  "evaluation_dimensions": [
+    {
+      "id": "HUMAN_SPECIFICITY",
+      "pass": "Characters read as persistent specific people/roles rather than generic profile badges, anonymous avatars or interchangeable AI portraits."
+    },
+    {
+      "id": "REPRESENTATION_DEPTH_CONTINUITY",
+      "pass": "The same Character can survive compact, focused and transformed representation depths without exact portrait repetition or hue-only identity."
+    },
+    {
+      "id": "RELATIONAL_CAUSAL_MEANING",
+      "pass": "Composition strengthens relationship, bounded perspective, consequence or causal structure rather than decorative atmosphere alone."
+    },
+    {
+      "id": "STAGE_PRIMACY_NONCOPY",
+      "pass": "APP/WEB imagery feels Kymaean by law while preserving the exact Stage as the richest current app-world surface; no family merely copies Stage scenery/cone composition."
+    },
+    {
+      "id": "CROSS_SURFACE_TRANSLATION",
+      "pass": "APP and WEB can differ in scale/amplitude while remaining recognizably related without identical composition."
+    },    {
+      "id": "IMAGE_FALLBACK_SEMANTIC_SURVIVAL",
+      "pass": "Removing expressive imagery leaves names, hierarchy, state meaning and task comprehension intact; imagery enriches the experience but is never the sole semantic carrier."
+    },
+    {
+      "id": "MONOCHROME_HIGH_CONTRAST_DURABILITY",
+      "pass": "Identity and hierarchy retain intelligible non-color structure under monochrome/high-contrast abstraction; Character specificity never depends solely on hue, texture or lighting."
+    },
+    {
+      "id": "CLR_INDEPENDENCE",
+      "pass": "The family can be judged without selecting CLR F2 or F1 and does not smuggle a palette decision into art direction."
+    },
+    {
+      "id": "NON_GENERIC_AI_ART_DIRECTION",
+      "pass": "The family has specific Kymaean relational/causal construction laws and does not reduce to cinematic AI portraiture, generic luxury editorial, game-avatar art, mystical portal imagery or technology spectacle."
+    },
+    {
+      "id": "USAGE_RESTRAINT",
+      "pass": "Expressive imagery is concentrated where it earns meaning; shell/control/supporting surfaces remain able to stay quiet and Stage remains the richest current app-world surface."
+    },
+    {
+      "id": "PROVENANCE_REPRODUCIBILITY",
+      "pass": "Every visual exemplar is traceable to its method family, source masters/reference abstractions and exact generation/construction record; no attractive orphan image can become authority."
+    }
+  ],  "hard_failures": [
+    "generic interchangeable AI portraits or profile-avatar language",
+    "Character identity carried only by color, costume tint, lighting or one permanent headshot",
+    "copied Stage cone/scenery composition used as the cross-surface identity shortcut",
+    "decorative atmosphere that weakens or obscures relational/causal meaning",
+    "image treatment that forces CLR F2/F1 selection before representative assembly",
+    "imagery whose removal destroys essential UI meaning or task comprehension",
+    "website/app translations that only match through copied composition rather than shared law",
+    "provider/model spectacle visually outranking Character identity",
+    "untraceable or result-aware prompt retuning after subjective review"
+  ],
+  "excluded_variables": [
+    "CLR F2-versus-F1 adjudication or palette tokenization",
+    "final typeface selection or TYP-02 rerun",
+    "C0 Threshold K or O3 geometry refinement",
+    "functional bespoke product icon-family semantics",
+    "Stage pixel/geometry modification or reopening CIR-S1/CONE-S1/STATE-S1/PERF-S1/SEL-S1",
+    "WinUI/runtime component architecture, provider behavior or application implementation",
+    "ODR-05/07/14/15/19/30 resolution",
+    "final Store/marketing asset packaging"
+  ],  "preflight_requirements": [
+    "Evidence atlas/source manifest is frozen before any new family exemplar is produced.",
+    "Three family definitions are frozen before any subjective visual comparison begins.",
+    "APP and WEB transfer roles use the same controlled Character/relationship facts so families cannot win by changing content.",
+    "At least one compact APP role, one expressive WEB role, one monochrome abstraction and one no-image fallback are defined per family.",
+    "Visual binaries and high-fidelity review masters reside in authenticated Google Drive; GitHub records exact IDs, hashes, dimensions and provenance.",
+    "Mechanical/layout/accessibility preflight passes before Design Sol aesthetic scoring.",
+    "Design Sol view is frozen before any consequential Director taste selection."
+  ],
+  "result_classes": [
+    "FAMILY_SURVIVES_CROSS_SURFACE",
+    "FAMILY_SURVIVES_WITH_USAGE_RESTRAINT",
+    "TARGETED_REFINEMENT_REQUIRED",
+    "FAMILY_REJECTED_GENERIC_OR_SEMANTICALLY_WEAK",
+    "ZERO_SURVIVORS",
+    "INSUFFICIENT_AUTHORITY_OR_EVIDENCE"
+  ],
+  "promotion_floor": "A family may survive only if it passes HUMAN_SPECIFICITY, REPRESENTATION_DEPTH_CONTINUITY, RELATIONAL_CAUSAL_MEANING, STAGE_PRIMACY_NONCOPY, CROSS_SURFACE_TRANSLATION, IMAGE_FALLBACK_SEMANTIC_SURVIVAL, MONOCHROME_HIGH_CONTRAST_DURABILITY and CLR_INDEPENDENCE with no hard failure. Genericity, usage restraint and provenance may require explicit restrictions but may not be ignored.",  "required_outputs": [
+    "IMG-01 evidence atlas/source manifest",
+    "three frozen art-direction family definitions",
+    "controlled APP/WEB/no-image/monochrome review matrix",
+    "mechanical/accessibility preflight record",
+    "Design Sol comparative view",
+    "Director review surface only if a genuine consequential taste choice remains",
+    "IMG-01 packet/registry entry if the gate creates a survivor, restriction, rejection or zero-survivor closure"
+  ],
+  "authority_limit": [
+    "IMG-01 may establish shared Character/human-imagery and image/art-direction principles for Phase C design use.",
+    "IMG-01 does not select CLR, finalize symbol/wordmark/typeface/material/motion, authorize Phase C exit by itself, or create shipping implementation authority.",
+    "Later app/website design may inherit the selected art-direction law while adapting composition to its surface role; copied layouts are never required.",
+    "Any later conflict discovered in representative app assembly is new synthesis evidence and must open a bounded successor/refinement gate rather than silently retuning IMG-01 history."
+  ],
+  "recursive_audit": {
+    "status": "CLEAN_PRE_MATERIALIZATION_METHOD_FREEZE",
+    "fresh_reset_avoided": true,
+    "historical_incumbent_pressure_named": true,
+    "closed_gate_no_reroll_laws_preserved": true,
+    "clr_deferral_preserved": true,
+    "engineering_product_authority_respected": true,
+    "no_visual_result_created": true,
+    "approval": "APPROVED BY STANDING DIRECTOR DELEGATION - CLEAN RECURSIVE AUDIT."
+  }
+}

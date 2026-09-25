@@ -1,0 +1,219 @@
+{
+    "schema":  "kymaean.dur-01.mechanical-accessibility-preflight.v1",
+    "status":  "PASS_COMPLETE_MATRIX_POST_REPAIR",
+    "date":  "2026-09-14",
+    "program":  "DUR-01",
+    "authority":  {
+                      "method":  "docs/evidence/DUR_01_INTEGRATED_IDENTITY_DURABILITY_METHOD_01.json",
+                      "method_sha256":  "7b82ddc895843f27e7ca8b0740b5108fa0b44f2a29507e129cf6aa14e9d8c308",
+                      "carrier":  "prototypes/dur-01/carrier.html",
+                      "carrier_sha256":  "88384760873d44198cf94f1ac242eeaa8d30027b61f9760073ad40a3bffde971",
+                      "browser_probe":  "tools/dur01_browser_probe.mjs",
+                      "browser_probe_sha256":  "06b440e91ea57a8231518595f67fe0bbbe59160c32bf8192866e48300a9e918d"
+                  },
+    "repairs_before_scoring":  [
+                                   "Root carrier grid was forced to minmax(0,1fr) after the initial 320px run exposed min-content track overflow.",
+                                   "Frozen uppercase role identifiers were allowed to wrap after they remained the final narrow overflow source.",
+                                   "Browser probe now retries transient EBUSY/EACCES reads of DevToolsActivePort; this was probe lifecycle hardening, not carrier tuning."
+                               ],
+    "superseded_preflight_attempts":  [
+                                          "Initial 320px runs exposed deterministic carrier overflow before scoring; those diagnostics were discarded after neutral reflow repair.",
+                                          "One rerun aborted before evidence because Edge briefly locked DevToolsActivePort; no design result was consumed."
+                                      ],
+    "matrix":  {
+                   "normal-1440":  {
+                                       "diagnostic_sha256":  "2b8bcf2a3ff0dce4af7349b6e7bd0e245a94ea7f009889f4e15015ad22c50501",
+                                       "viewport":  {
+                                                        "width":  1440,
+                                                        "height":  12000,
+                                                        "scrollWidth":  1440,
+                                                        "scrollHeight":  12000
+                                                    },
+                                       "forced_colors":  false,
+                                       "reduced_motion":  false,
+                                       "text_scale_percent":  100,
+                                       "overflow_count":  0,
+                                       "image_count":  0,
+                                       "background_image_count":  0,
+                                       "external_resource_count":  0,
+                                       "motion_dependency_count":  2,
+                                       "wordmark_fallbacks_visible":  0
+                                   },
+                   "normal-320":  {
+                                      "diagnostic_sha256":  "2f2a6a307ff5d95fdd0bd17bf3c7aee588cf740477cb22a115b9fa6956ddebff",
+                                      "viewport":  {
+                                                       "width":  320,
+                                                       "height":  12000,
+                                                       "scrollWidth":  320,
+                                                       "scrollHeight":  12000
+                                                   },
+                                      "forced_colors":  false,
+                                      "reduced_motion":  false,
+                                      "text_scale_percent":  100,
+                                      "overflow_count":  0,
+                                      "image_count":  0,
+                                      "background_image_count":  0,
+                                      "external_resource_count":  0,
+                                      "motion_dependency_count":  2,
+                                      "wordmark_fallbacks_visible":  4
+                                  },
+                   "text200-1440":  {
+                                        "diagnostic_sha256":  "6bd2a3d3325f453828e9fdaad1ab815b0bc01ae7b9ca2ae428d4575136963d2f",
+                                        "viewport":  {
+                                                         "width":  1440,
+                                                         "height":  12000,
+                                                         "scrollWidth":  1440,
+                                                         "scrollHeight":  12000
+                                                     },
+                                        "forced_colors":  false,
+                                        "reduced_motion":  false,
+                                        "text_scale_percent":  200,
+                                        "overflow_count":  0,
+                                        "image_count":  0,
+                                        "background_image_count":  0,
+                                        "external_resource_count":  0,
+                                        "motion_dependency_count":  2,
+                                        "wordmark_fallbacks_visible":  0
+                                    },
+                   "text200-320":  {
+                                       "diagnostic_sha256":  "e42521e9cd5b765512788a4e4c9209605225bdf15e4205d260a29a96e695bf44",
+                                       "viewport":  {
+                                                        "width":  320,
+                                                        "height":  12000,
+                                                        "scrollWidth":  320,
+                                                        "scrollHeight":  12000
+                                                    },
+                                       "forced_colors":  false,
+                                       "reduced_motion":  false,
+                                       "text_scale_percent":  200,
+                                       "overflow_count":  0,
+                                       "image_count":  0,
+                                       "background_image_count":  0,
+                                       "external_resource_count":  0,
+                                       "motion_dependency_count":  2,
+                                       "wordmark_fallbacks_visible":  4
+                                   },
+                   "forced-1440":  {
+                                       "diagnostic_sha256":  "7ea9fd460f1c825117558e1feb5a677b4d72f5ac91aba0c1cc38fcb3f0578593",
+                                       "viewport":  {
+                                                        "width":  1440,
+                                                        "height":  12000,
+                                                        "scrollWidth":  1440,
+                                                        "scrollHeight":  12000
+                                                    },
+                                       "forced_colors":  true,
+                                       "reduced_motion":  false,
+                                       "text_scale_percent":  100,
+                                       "overflow_count":  0,
+                                       "image_count":  0,
+                                       "background_image_count":  0,
+                                       "external_resource_count":  0,
+                                       "motion_dependency_count":  2,
+                                       "wordmark_fallbacks_visible":  0
+                                   },
+                   "forced-320":  {
+                                      "diagnostic_sha256":  "82a2203b28806ed890e366efa31e9a075643b969de2ba08a5b4702df78b2ba5d",
+                                      "viewport":  {
+                                                       "width":  320,
+                                                       "height":  12000,
+                                                       "scrollWidth":  320,
+                                                       "scrollHeight":  12000
+                                                   },
+                                      "forced_colors":  true,
+                                      "reduced_motion":  false,
+                                      "text_scale_percent":  100,
+                                      "overflow_count":  0,
+                                      "image_count":  0,
+                                      "background_image_count":  0,
+                                      "external_resource_count":  0,
+                                      "motion_dependency_count":  2,
+                                      "wordmark_fallbacks_visible":  4
+                                  },
+                   "reduced-1440":  {
+                                        "diagnostic_sha256":  "6176723fe93f65cdf8c6f34723fa2cb017ca0467bf6ab2ffd0c3b8e7dbe15b0d",
+                                        "viewport":  {
+                                                         "width":  1440,
+                                                         "height":  12000,
+                                                         "scrollWidth":  1440,
+                                                         "scrollHeight":  12000
+                                                     },
+                                        "forced_colors":  false,
+                                        "reduced_motion":  true,
+                                        "text_scale_percent":  100,
+                                        "overflow_count":  0,
+                                        "image_count":  0,
+                                        "background_image_count":  0,
+                                        "external_resource_count":  0,
+                                        "motion_dependency_count":  0,
+                                        "wordmark_fallbacks_visible":  0
+                                    },
+                   "noimage-1440":  {
+                                        "diagnostic_sha256":  "229f61a8d5a66ab674f6dadad9425bb17cbe9918275c904dafa2367ecdae6527",
+                                        "viewport":  {
+                                                         "width":  1440,
+                                                         "height":  12000,
+                                                         "scrollWidth":  1440,
+                                                         "scrollHeight":  12000
+                                                     },
+                                        "forced_colors":  false,
+                                        "reduced_motion":  false,
+                                        "text_scale_percent":  100,
+                                        "overflow_count":  0,
+                                        "image_count":  0,
+                                        "background_image_count":  0,
+                                        "external_resource_count":  0,
+                                        "motion_dependency_count":  2,
+                                        "wordmark_fallbacks_visible":  0
+                                    },
+                   "noimage-320":  {
+                                       "diagnostic_sha256":  "4b28d4a7b87155cd04eb522bc50db35311818541b5a719823ed4f81895e1fa67",
+                                       "viewport":  {
+                                                        "width":  320,
+                                                        "height":  12000,
+                                                        "scrollWidth":  320,
+                                                        "scrollHeight":  12000
+                                                    },
+                                       "forced_colors":  false,
+                                       "reduced_motion":  false,
+                                       "text_scale_percent":  100,
+                                       "overflow_count":  0,
+                                       "image_count":  0,
+                                       "background_image_count":  0,
+                                       "external_resource_count":  0,
+                                       "motion_dependency_count":  2,
+                                       "wordmark_fallbacks_visible":  4
+                                   }
+               },
+    "cross_mode_assertions":  {
+                                  "role_count":  12,
+                                  "zero_unintended_overflow_all_modes":  true,
+                                  "zero_images_all_modes":  true,
+                                  "zero_background_images_all_modes":  true,
+                                  "zero_external_resources_all_modes":  true,
+                                  "exact_c0_hash_preserved":  true,
+                                  "exact_c0_path_count":  3,
+                                  "exact_o3_hash_preserved":  true,
+                                  "exact_o3_path_count":  19,
+                                  "cps_b_signatures":  [
+                                                           "1-3-2",
+                                                           "2-1-3",
+                                                           "3-2-1"
+                                                       ],
+                                  "cps_b_micro_visible_segments_each":  3,
+                                  "o3_visible_wide_and_omitted_narrow":  true,
+                                  "semantic_name_fallback_visible_narrow":  true,
+                                  "text_200_percent_verified_1440_320":  true,
+                                  "forced_colors_verified_1440_320":  true,
+                                  "reduced_motion_zero_animation_dependencies":  true,
+                                  "selection_witness_distinct_from_focus":  true,
+                                  "app_web_c0_and_cps_b_identity_match":  true,
+                                  "no_hidden_clr_or_stage_asset_dependency":  true
+                              },
+    "visual_review":  "Normal wide/narrow, forced-colors narrow and 200%-text narrow screenshots were inspected after the final matrix; no clipping, identity collapse, hierarchy inversion or state/focus conflation was found.",
+    "authority_limit":  "Deterministic browser evidence only; no final symbol, wordmark, typeface, artwork, palette, Stage, native/runtime or production authority is created.",
+    "recursive_audit":  {
+                            "status":  "CLEAN_POST_REPAIR_PREFLIGHT",
+                            "scoring_started_before_clean_preflight":  false,
+                            "carrier_changed_after_clean_preflight":  false
+                        }
+}

@@ -1,0 +1,80 @@
+{
+  "schema": "kymaean.img-01.director-prior-concordance.v1",
+  "status": "MATERIAL_CONFLICT_SUCCESSOR_GATE_SELECTED_CPS_01",
+  "date": "2026-09-13",
+  "program": "IMG-01",
+  "method_bound_evaluation_sha256": "f17a98b1b64ac7ea471f356912c88c547027bc20381c2bab8796b5addeb05257",
+  "director_prior": {
+    "document_id": "1KJeorPBsNnRivFVFJQqKB3CsB6nHtlLiApfAHxh0-VU",
+    "revision_id": "ANLCKQnjzHUOp9C3Ndagje5i9kftz2LmN6ma-ST5dIQ5B_ToLCYggqxZJGm9qkCyUUy9cYyetx0AVkCyXPVNG5gniBQxj70au2tKOi2QuaU",
+    "title": "Kymaean Character & Image Direction — Pre-Candidate Director Intuition Synthesis 01"
+  },
+  "constitution": {
+    "document_id": "1VXug3hCV-LDyfgqN5QXh6aNOB-G5W3CtR_TFdClGcns",
+    "revision_id": "ANLCKQkT4jaqwOedM5XOUYeDIWgWBLJeba20KpzhPq_hbMWwfZHHmLgXFP60jMjll6mlx41-uSLaXawPPqj_Yf5GhIuhSIrernzzJj3oX90",
+    "scope": "Qualitative prior/challenge checks only; live frozen IMG-01 scores remain authoritative and unchanged."
+  },
+  "unchanged_method_result": {
+    "IMG-F1": "FAMILY_SURVIVES_WITH_USAGE_RESTRAINT",
+    "IMG-F2": "TARGETED_REFINEMENT_REQUIRED",
+    "IMG-F3": "FAMILY_REJECTED_GENERIC_OR_SEMANTICALLY_WEAK"
+  },
+  "concordance_findings": [
+    {
+      "family": "IMG-F1",
+      "finding": "METHOD_SURVIVOR_BUT_NOT_CANONICAL_IDENTITY_LANGUAGE",
+      "alignment": ["strong human specificity", "relationship through orientation/spacing", "ordinary people can carry presence", "psychological restraint"],
+      "conflict": ["the result is already a finished figurative depiction", "faces/bodies/clothing carry too much recognition weight", "it approaches the prior's prohibited decorative-editorial condition", "it does not by itself establish identity that survives portrait removal/crop/reduction"],
+      "lawful_role": "Retain only as an optional expressive depiction/artwork layer under usage restraint; do not make it the canonical Character identity carrier."
+    },
+    {
+      "family": "IMG-F2",
+      "finding": "FAMILY_THESIS_HIGH_PRIOR_CONCORDANCE_BUT_CURRENT_OUTPUT_STILL_FAILS",
+      "alignment": ["persistent identity through redundant invariants", "crop/scale/reduction survival", "face not load-bearing", "same person across changing depiction depth"],
+      "conflict": ["the actual raw exemplar did not materialize the transforming-invariant mechanism and collapsed back toward conventional full-figure illustration"],
+      "lawful_role": "Use the unresolved system question as successor evidence only; do not retroactively rescue IMG-F2 or reroll its consumed prompt."
+    },
+    {
+      "family": "IMG-F3",
+      "finding": "REJECTION_REINFORCED_WITH_CONTEXTUAL_LAW_RETAINED",
+      "alignment": ["presence may alter shared composition", "consequence may reorganize space", "environmental response can be meaningful when context warrants it"],
+      "conflict": ["the prior says environmental response is optional rather than mandatory", "the raw exemplar lets one sculptural field object outrank the people", "spectacle weakens personhood and relationship rather than supporting them"],
+      "lawful_role": "Retain only the contextual principle that shared space may respond to people; do not revive the rejected IMG-F3 surface/family."
+    }
+  ],
+  "system_conclusion": {
+    "direct_img01_promotion_to_canonical_character_identity": false,
+    "optional_expressive_depiction_evidence": "IMG-F1",
+    "strongest_unresolved_canonical_identity_question": "How can one persistent Character remain recoverable across scale, crop, context, accessibility reduction and optional depiction changes without one fixed portrait or image becoming identity authority?",
+    "successor_gate": "CPS-01 - Canonical Character Presence System",
+    "successor_type": "DETERMINISTIC_NON_RENDER_SYSTEM_ARCHITECTURE_BEFORE_ANY_NEW_GENERATED_ART",
+    "reason": "The method survivor and the Director prior separate two jobs that IMG-01 had intentionally explored together: expressive depiction can enrich Character presence, but canonical identity must persist beneath or without depiction. A deterministic system gate can test that architecture without result-aware rerendering."
+  },
+  "authority_effect": {
+    "img01_scores_changed": false,
+    "img01_prompt_retune_authorized": false,
+    "f2_retroactively_rescued": false,
+    "f3_reopened": false,
+    "f1_promoted_to_final_identity": false,
+    "clr_or_stage_changed": false,
+    "phase_c_exit_authorized": false
+  },
+  "successor_preconditions": {
+    "new_renderer_generation_required": false,
+    "deterministic_system_design_sufficient_to_begin": true,
+    "must_preserve_img01_result_history": true,
+    "must_keep_optional_depiction_separate_from_canonical_identity": true,
+    "must_keep_environmental_response_contextual_not_mandatory": true
+  },
+  "recursive_audit": {
+    "status": "CLEAN_CONCORDANCE_WITH_SUCCESSOR_GATE_SELECTION",
+    "director_prior_used_only_after_method_bound_view_frozen": true,
+    "retroactive_criteria_added": false,
+    "img01_history_rewritten": false,
+    "f1_overpromotion_prevented": true,
+    "f2_result_aware_reroll_prevented": true,
+    "f3_surface_revival_prevented": true,
+    "successor_scope_is_design_owned": true,
+    "approval": "APPROVED BY STANDING DIRECTOR DELEGATION - CLEAN RECURSIVE AUDIT."
+  }
+}

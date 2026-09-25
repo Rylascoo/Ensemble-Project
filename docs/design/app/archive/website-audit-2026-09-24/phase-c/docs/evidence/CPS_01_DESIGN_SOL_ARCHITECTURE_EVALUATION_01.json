@@ -1,0 +1,124 @@
+{
+  "schema": "kymaean.cps-01.design-sol-method-bound-architecture-evaluation.v1",
+  "status": "DESIGN_SOL_VIEW_FROZEN_DIRECTOR_ADJUDICATION_PENDING",
+  "date": "2026-09-14",
+  "program": "CPS-01",
+  "evaluation_basis": {
+    "method": "docs/evidence/CPS_01_CANONICAL_CHARACTER_PRESENCE_SYSTEM_METHOD_01.json",
+    "method_sha256": "3069f468a0fb98964758154f82e126d7a4296a529b78885c90818235527d6dc4",
+    "preflight": "docs/evidence/CPS_01_MECHANICAL_ACCESSIBILITY_PREFLIGHT_01.json",
+    "preflight_sha256": "6cb91ac47baf957e15fe8fef6d8daa9cab5cadc9c97d22acf3fb4ee98b486275",
+    "carrier_sha256": "28fb10f481345288b8dc1cb278caf60a804027b82a1a4fd7058ccdd9f04ea65e",
+    "scoring_after_clean_preflight_only": true
+  },
+  "candidate_results": [
+    {
+      "candidate": "CPS-A",
+      "name": "Nested Invariant Stack",
+      "result_class": "TARGETED_REFINEMENT_REQUIRED",
+      "dimensions": {
+        "PORTRAIT_INDEPENDENT_RECOVERY": "PASS",
+        "SCALE_CROP_CONTINUITY": "PASS",
+        "ACCESSIBILITY_REDUNDANCY": "PASS",
+        "LAYER_SEPARATION": "PASS",
+        "OPTIONAL_DEPICTION_DECOUPLING": "PASS",
+        "ORDINARY_PERSON_VIABILITY": "PASS",
+        "RELATIONAL_COMPOSITION": "PASS",
+        "PERSPECTIVE_PROVENANCE_RESTRAINT": "PASS",
+        "APP_WEB_TRANSLATION": "PASS",
+        "STAGE_AND_CLR_INDEPENDENCE": "PASS",
+        "IMPLEMENTATION_NEUTRALITY": "PASS",
+        "NON_AVATAR_NON_GAME_NON_EDITORIAL": "FAIL_PRESSURE_STRUCTURAL_AT_MICRO_COMPACT"
+      },
+      "hard_failure": false,
+      "design_sol_read": "The centralized kernel remains mechanically robust, but at MICRO/COMPACT scale it carries too much identity weight as one bounded emblem-like object. It therefore does not earn survivor status in this construction even though the same kernel persists across roles.",
+      "refinement_boundary": "Any later CPS-A refinement must be a separately authorized refinement path; do not tune this consumed comparison carrier after result exposure."
+    },
+    {
+      "candidate": "CPS-B",
+      "name": "Distributed Recognition Mesh",
+      "result_class": "ARCHITECTURE_SURVIVES",
+      "dimensions": {
+        "PORTRAIT_INDEPENDENT_RECOVERY": "PASS",
+        "SCALE_CROP_CONTINUITY": "PASS",
+        "ACCESSIBILITY_REDUNDANCY": "PASS",
+        "LAYER_SEPARATION": "PASS",
+        "OPTIONAL_DEPICTION_DECOUPLING": "PASS",
+        "ORDINARY_PERSON_VIABILITY": "PASS",
+        "RELATIONAL_COMPOSITION": "PASS",
+        "PERSPECTIVE_PROVENANCE_RESTRAINT": "PASS",
+        "APP_WEB_TRANSLATION": "PASS",
+        "STAGE_AND_CLR_INDEPENDENCE": "PASS",
+        "IMPLEMENTATION_NEUTRALITY": "PASS",
+        "NON_AVATAR_NON_GAME_NON_EDITORIAL": "PASS_WITH_RESTRAINT_AGAINST_CUE_PROLIFERATION"
+      },
+      "hard_failure": false,
+      "design_sol_read": "Strongest architecture. Identity remains recoverable through redundant structural carriers under crop, scale, no-image, forced-color and APP/WEB changes without requiring one central emblem or contextual scene.",
+      "usage_restraint": "Keep the mesh sparse and truthful; redundancy must not become a decorative inventory of identity marks."
+    },
+    {
+      "candidate": "CPS-C",
+      "name": "Context-Persistent Presence Scaffold",
+      "result_class": "ARCHITECTURE_SURVIVES_WITH_USAGE_RESTRAINT",
+      "dimensions": {
+        "PORTRAIT_INDEPENDENT_RECOVERY": "PASS",
+        "SCALE_CROP_CONTINUITY": "PASS",
+        "ACCESSIBILITY_REDUNDANCY": "PASS",
+        "LAYER_SEPARATION": "PASS",
+        "OPTIONAL_DEPICTION_DECOUPLING": "PASS",
+        "ORDINARY_PERSON_VIABILITY": "PASS",
+        "RELATIONAL_COMPOSITION": "PASS",
+        "PERSPECTIVE_PROVENANCE_RESTRAINT": "PASS",
+        "APP_WEB_TRANSLATION": "PASS",
+        "STAGE_AND_CLR_INDEPENDENCE": "PASS",
+        "IMPLEMENTATION_NEUTRALITY": "PASS",
+        "NON_AVATAR_NON_GAME_NON_EDITORIAL": "PASS_WITH_CONTEXT_DEPENDENCY_RESTRAINT"
+      },
+      "hard_failure": false,
+      "design_sol_read": "The persistent scaffold survives alone and translates cleanly while leaving more room for relational composition than CPS-A. It clears the promotion floor, but its thesis creates a material risk that context could become identity authority if usage discipline weakens.",
+      "usage_restraint": "Context may expand, position or relate the Character but must never substitute for, mirror-mutate, or carry required canonical identification."
+    }
+  ],
+  "comparative_conclusion": {
+    "survivors": [
+      "CPS-B",
+      "CPS-C"
+    ],
+    "targeted_refinement_required": [
+      "CPS-A"
+    ],
+    "rejected": [],
+    "design_sol_ranked_view": [
+      "CPS-B",
+      "CPS-C",
+      "CPS-A"
+    ],
+    "design_sol_recommendation": "CPS-B",
+    "recommendation_reason": "CPS-B provides the strongest redundant identity recovery across scale/crop/accessibility and optional depiction loss while avoiding CPS-A central-emblem pressure and relying less on relational/contextual support than CPS-C.",
+    "canonical_architecture_selected": false,
+    "director_adjudication_required": true,
+    "director_choice_set": [
+      "CPS-B",
+      "CPS-C"
+    ],
+    "director_question": "Which surviving canonical Character-presence architecture should become the Phase C incumbent: CPS-B Distributed Recognition Mesh, or CPS-C Context-Persistent Presence Scaffold under its context-dependency restraint?"
+  },
+  "no_post_result_retuning": {
+    "carrier_frozen_after_clean_preflight_before_scoring": true,
+    "candidate_tuned_after_preference_exposure": false,
+    "cps_a_rescue_inside_consumed_comparison_authorized": false
+  },
+  "preserved_boundaries": {
+    "img_f1_optional_expressive_depiction_only": true,
+    "img_f2_not_rescued_or_rerolled": true,
+    "img_f3_rejected": true,
+    "clr_deferred": true,
+    "stage_unchanged": true,
+    "phase_d_not_authorized": true,
+    "runtime_native_production_authority_created": false
+  },
+  "recursive_audit": {
+    "status": "CLEAN_DESIGN_SOL_VIEW_FROZEN",
+    "material_defects_remaining_before_director_choice": false
+  }
+}

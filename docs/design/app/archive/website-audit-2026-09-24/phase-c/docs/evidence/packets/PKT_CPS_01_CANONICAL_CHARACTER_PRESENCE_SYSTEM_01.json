@@ -1,0 +1,123 @@
+{
+  "schema": "kymaean.design-gate-packet.v1",
+  "framework": "docs/evidence/DESIGN_PACKET_AND_SYNTHESIS_FRAMEWORK_01.json",
+  "packet_id": "PKT-CPS-01-01",
+  "packet_class": "GATE_MECHANISM_PACKET",
+  "status": "PROVISIONAL_INCUMBENT",
+  "date": "2026-09-14",
+  "gate_or_program": "CPS-01 — Canonical Character Presence System",
+  "design_axis": "canonical Character identity/presence architecture beneath optional depiction",
+  "bounded_question": "How can one persistent Character remain visually recoverable across scale, crop, context, accessibility reduction and optional depiction changes without one fixed portrait or image becoming identity authority?",
+  "authority": {
+    "repository": "Rylascoo/Ensemble-Website",
+    "governing_method_or_contract": [
+      "docs/evidence/CPS_01_CANONICAL_CHARACTER_PRESENCE_SYSTEM_METHOD_01.json"
+    ],
+    "method_sha256": "3069f468a0fb98964758154f82e126d7a4296a529b78885c90818235527d6dc4",
+    "img01_concordance": "docs/evidence/IMG_01_DIRECTOR_PRIOR_CONCORDANCE_01.json"
+  },
+  "controlled_inputs": [
+    "identical synthetic Characters A/B/C and signatures 1-3-2 / 2-1-3 / 3-2-1",
+    "identical observable S1/S2/S3 current-state labels",
+    "identical authoritative synthetic H1/H2/H3 history labels",
+    "A/B strongest relational focus while C remains fully specific",
+    "the ten frozen deterministic CPS-01 roles",
+    "neutral grayscale/value-first deterministic geometry and labels only"
+  ],
+  "excluded_variables": [
+    "CLR F2-versus-F1 adjudication or palette tokenization",
+    "final typeface, symbol, wordmark, material or motion selection",
+    "Stage pixel/geometry modification or reopening closed Stage gates",
+    "functional product-domain icon semantics",
+    "WinUI/runtime/provider architecture or application implementation",
+    "new renderer/image generation during CPS-01",
+    "Phase C exit by CPS-01 alone"
+  ],
+  "local_result": {
+    "summary": "Mechanical/accessibility preflight passes; frozen-method Design Sol scoring leaves CPS-B and CPS-C as survivors and CPS-A targeted-refinement-required. The Director selected CPS-B as the canonical Phase C Character-presence architecture.",
+    "survivors_or_closure": [
+      "CPS-B",
+      "CPS-C"
+    ],
+    "recommended_incumbent": "CPS-B — Director-selected canonical Phase C Character-presence architecture",
+    "alternates": [
+      "CPS-C — lawful non-selected survivor preserved with context-dependency restraint"
+    ],
+    "rejections": [],
+    "targeted_refinement_required": [
+      "CPS-A — centralized kernel creates structural emblem/avatar pressure at MICRO/COMPACT scale"
+    ]
+  },
+  "judgment": {
+    "design_sol_view": "Frozen pre-Director ranking was CPS-B first, CPS-C second, CPS-A third.",
+    "director_view_or_delegation": "DIRECTOR SELECTED CPS-B.",
+    "resolution_mode": "DIRECTOR_ADJUDICATED"
+  },
+  "evidence": {
+    "mechanical": [
+      "docs/evidence/CPS_01_MECHANICAL_ACCESSIBILITY_PREFLIGHT_01.json",
+      "carrier sha256:28fb10f481345288b8dc1cb278caf60a804027b82a1a4fd7058ccdd9f04ea65e",
+      "browser probe sha256:a351cd302afa27365206af1338c00e463efffaa1dba16c8bb1d48d036b6ec8b2"
+    ],
+    "visual": [
+      "prototypes/cps-01/carrier.html — deterministic human-viewable architecture comparison surface"
+    ],
+    "accessibility": [
+      "normal 1440/320, 200% text 1440/320, forced-colors 1440/320, reduced-motion 1440; all zero unintended overflow"
+    ],
+    "director_decision": [
+      "docs/evidence/CPS_01_DIRECTOR_ARCHITECTURE_DECISION_01.json",
+      "decision sha256:02f14c5360b07ca6b5d04f80e16fb9877976eee0c4a0ec10f1d9a924f82413a8"
+    ]
+  },
+  "dependencies": {
+    "requires": [],
+    "constrains": [
+      "future Character identity/presence system",
+      "later optional expressive depiction stress tests",
+      "APP/WEB Character translation"
+    ],
+    "must_not_be_confused_with": [
+      "final portrait/art family",
+      "CLR selection",
+      "Stage geometry",
+      "native implementation",
+      "product semantics"
+    ]
+  },
+  "known_integration_sensitivities": [
+    "CPS-B redundancy must remain sparse and truthful; it must not become an inventory of decorative marks.",
+    "CPS-C remains preserved as a lawful non-selected survivor, not a rejected architecture.",
+    "CPS-A remains targeted-refinement-required and cannot be repaired inside the consumed gate.",
+    "Any representative real-app conflict is new integration evidence and must open a bounded successor/refinement gate rather than rewrite CPS-01 history."
+  ],
+  "explicit_non_authority": [
+    "No final Character appearance, portrait system, generated artwork or renderer authorization.",
+    "No CLR choice, Stage modification, Phase-D entry, native/runtime/production authority or ODR resolution."
+  ],
+  "lawful_reentry_triggers": [
+    "new integration evidence after selection",
+    "direct contradiction",
+    "changed governing contract",
+    "explicit successor/refinement authorization"
+  ],
+  "canonical_artifacts": {
+    "repository": [
+      "prototypes/cps-01/carrier.html",
+      "docs/evidence/CPS_01_MECHANICAL_ACCESSIBILITY_PREFLIGHT_01.json",
+      "docs/evidence/CPS_01_DESIGN_SOL_ARCHITECTURE_EVALUATION_01.json",
+      "docs/evidence/CPS_01_DIRECTOR_ARCHITECTURE_DECISION_01.json"
+    ],
+    "drive_visual_masters": [],
+    "director_review_surface": {
+      "entry_point": "prototypes/cps-01/carrier.html",
+      "what_to_review": "Historical comparison surface; Director adjudication is complete and CPS-B is selected.",
+      "diagnostics_not_for_aesthetic_choice": "docs/evidence/CPS_01_MECHANICAL_ACCESSIBILITY_PREFLIGHT_01.json"
+    }
+  },
+  "synthesis_state": {
+    "tested_with_packet_ids": [],
+    "latest_composition_packet": null,
+    "whole_app_synthesis_status": "CANONICAL_CPS_B_SELECTED_NOT_YET_TESTED_IN_REPRESENTATIVE_REAL_APP_ASSEMBLY"
+  }
+}
