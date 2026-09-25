@@ -1,0 +1,130 @@
+{
+  "schema": "kymaean.appicon-01.primary-app-icon-design-master-method.v1",
+  "status": "FROZEN_PRE_CONSTRUCTION_DETERMINISTIC_NON_RENDER",
+  "date": "2026-09-14",
+  "program": {
+    "id": "APPICON-01",
+    "name": "Primary App Icon Design-Master Convergence",
+    "phase": "C_CONTROLLED_VISUAL_CONVERGENCE",
+    "type": "EXACT_C0_DEPLOYMENT_ENVELOPE"
+  },
+  "activation_audit": "docs/evidence/PHASE_C_POST_DUR_01_REENTRY_AUDIT_08.json",
+  "activation_audit_sha256": "305e4c7fff0ddd58cd0c43fb0da5a9c62f6535e231a5818d28e0246e0ab29447",
+  "bounded_question": "Which neutral square deployment envelope, if any, allows the exact immutable C0 Threshold K to function as a design-master app icon across compact scales and accessibility modes without changing C0 geometry, depending on color/material, or claiming Store/package/runtime authority?",
+  "source": {
+    "path": "assets/brand/kymaean-threshold-k-working-candidate.svg",
+    "canonical_lf_git_blob_sha256": "72cdd4c35928e1fb0bc279b680b9b7a698707dc1564ee800a84840fe61356305",
+    "historical_windows_crlf_raw_sha256": "303a1b0d5caaf6f1e25bfd20a525d280ff5097b6543d91e5b2f45a9fbef30d63",
+    "path_semantic_sha256": "95304d003e63ab2272501da3451c1bca3deb84d206468d7e35264575d2bfe30d",
+    "viewBox": "0 0 170 233",
+    "path_count": 3,
+    "authority": "PKT-SYM-01-01 provisional incumbent; SYM-02 zero-survivor closure; DUR-01 durability PASS"
+  },
+  "candidate_variable": "Only symmetric square-canvas inset around exact C0. C0 aspect ratio and all three path d attributes remain byte/semantic identical; transforms may scale and center the unchanged source geometry.",
+  "candidates": [
+    {
+      "id": "E06",
+      "inset_percent": 6,
+      "nominal_viewbox_height_percent": 88,
+      "description": "least-inset comparison envelope"
+    },
+    {
+      "id": "E12",
+      "inset_percent": 12,
+      "nominal_viewbox_height_percent": 76,
+      "description": "middle-inset comparison envelope"
+    },
+    {
+      "id": "E18",
+      "inset_percent": 18,
+      "nominal_viewbox_height_percent": 64,
+      "description": "most-inset comparison envelope"
+    }
+  ],
+  "controlled_roles": [
+    "ICON_16",
+    "ICON_20",
+    "ICON_24",
+    "ICON_32",
+    "ICON_48",
+    "ICON_64",
+    "ICON_96",
+    "ICON_128",
+    "MONOCHROME_LIGHT_HOST",
+    "MONOCHROME_DARK_HOST",
+    "FORCED_COLORS",
+    "STATIC_NO_MOTION"
+  ],
+  "mechanical_preflight": {
+    "required_checks": [
+      "exact C0 canonical LF source and path-semantic hashes preserved",
+      "three paths per candidate with identical d attributes",
+      "square canvas and centered geometry",
+      "zero clipping or unintended overflow",
+      "zero external resources and zero raster/generated imagery",
+      "currentColor-only candidate geometry",
+      "forced-colors survival",
+      "16/20/24 compact visibility",
+      "no animation/motion dependency",
+      "no palette/material/Stage/Character-art dependency"
+    ],
+    "browser_widths": [
+      1200,
+      320
+    ],
+    "modes": [
+      "NORMAL",
+      "FORCED_COLORS"
+    ]
+  },
+  "design_sol_dimensions": [
+    "MICRO_IDENTITY_RECOVERY",
+    "FIELD_BALANCE",
+    "EDGE_PRESSURE_RESTRAINT",
+    "COMPACT_DISTINCTIVENESS",
+    "MONOCHROME_SURVIVAL",
+    "FORCED_COLOR_SURVIVAL",
+    "EXACT_C0_FIDELITY",
+    "NON_GENERIC_APP_TILE_PRESSURE",
+    "CROSS_SURFACE_IDENTITY_CONTINUITY",
+    "PROVISIONAL_AUTHORITY_RESTRAINT"
+  ],
+  "promotion_floor": "A survivor must pass full mechanical/accessibility preflight and avoid both cramped edge pressure and over-small/generic glyph behavior at compact sizes. Exact C0 geometry may not be altered to rescue an envelope. If multiple materially viable envelopes survive, Design Sol freezes an independent ranking and returns the consequential app-icon composition choice to the Director.",
+  "result_classes": [
+    "ENVELOPE_SURVIVES",
+    "ENVELOPE_SURVIVES_WITH_USAGE_RESTRAINT",
+    "TARGETED_REFINEMENT_REQUIRED",
+    "REJECTED",
+    "INSUFFICIENT_EVIDENCE"
+  ],
+  "excluded_variables": [
+    "C0 path/anatomy refinement or new symbol concepts",
+    "CLR F2/F1 selection or palette tokens",
+    "material/texture/depth as identity rescue",
+    "wordmark/typeface coupling",
+    "Character artwork or renderer generation",
+    "Stage geometry/scenery or Stage-to-shell translation",
+    "product-semantic iconography",
+    "Store/package/MSIX/shipping implementation",
+    "trademark/legal clearance",
+    "Phase C exit by APPICON-01 alone"
+  ],
+  "sequence": [
+    "freeze method before carrier construction",
+    "construct one neutral exact-C0 E06/E12/E18 comparison carrier",
+    "run mechanical/accessibility preflight and repair carrier defects before scoring",
+    "freeze preflight evidence",
+    "Design Sol evaluates only after clean preflight with no result-aware retuning",
+    "if multiple survivors remain, stop for Director app-icon composition adjudication",
+    "packetize closure and run post-APPICON reentry audit before any new program"
+  ],
+  "recursive_audit": {
+    "status": "CLEAN_PRE_CONSTRUCTION_METHOD_FREEZE",
+    "no_retroactive_criteria": true,
+    "c0_geometry_immutable": true,
+    "no_generated_art": true,
+    "clr_stage_phase_d_boundaries_preserved": true,
+    "shipping_authority_created": false,
+    "approval": "APPROVED BY STANDING DIRECTOR DELEGATION — CLEAN RECURSIVE AUDIT."
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "schema": "kymaean.img-01.raw-exemplar-method-bound-evaluation.v1",
+  "status": "DESIGN_SOL_METHOD_BOUND_VIEW_FROZEN_BEFORE_DIRECTOR_PRIOR_CONCORDANCE",
+  "date": "2026-09-13",
+  "program": "IMG-01",
+  "authority": {
+    "renderer_packets_sha256": "7b861b38acec500013c62ed2284d3c7eb0e0db42b3254483590a98a302cd5b33",
+    "method_sha256": "2d7cbdc5471b0c97f156d9bf1928eba0f12ba821ac954dce4d1c3877a1c8be13",
+    "families_sha256": "13513408875a6f4f6ba8be8e5aaead83bf616d38cb821f36291e82d2f79e8207",
+    "preflight_sha256": "3dc93454fe9caa2962e87c193dfac68e9db197bdf6925fa79f48dd2ee702d575",
+    "director_prior_quarantine_sha256": "be4b7063c8c76174e90898d7c32073af7341a338218c94b0906364f2a543743a"
+  },
+  "raw_outputs": [
+    {"family":"IMG-F1","drive_file_id":"1Howv8ATwZ1fCbuJ5EPTv_TQZxJv2gWvr","file_name":"IMG-01 F1 Raw First Output.png","sha256":"249775ebce22d7f6436dc1a2e0d43c2ba7a6fcdd03221b6c0a236bb7ec317118","bytes":2763158,"width":1672,"height":941},
+    {"family":"IMG-F2","drive_file_id":"1GB8_eQ08cKKJsd7rj-eyqDI3OyBjHfOJ","file_name":"IMG-01 F2 Raw First Output.png","sha256":"b93d4c9f27dacf15a23680396076c366f658d41fadba9565e404a71583cd09e1","bytes":2971316,"width":1672,"height":941},
+    {"family":"IMG-F3","drive_file_id":"117XdfJLTGPlH6q3Ihxygbztg3hrqO8zG","file_name":"IMG-01 F3 Raw First Output.png","sha256":"5f73ac31a2b3dbb5998c2f3dfe892eef31af388bd42a118de1c4f35efb97999a","bytes":2936767,"width":1672,"height":941}
+  ],
+  "evaluation_basis": "Frozen IMG-01 method + Stage-0 + family definitions + mechanical preflight only. Director prior language is not used as criterion, prompt repair, or tie-break.",
+  "family_results": [
+    {
+      "family": "IMG-F1",
+      "name": "Authored Figurative Ensemble",
+      "result_class": "FAMILY_SURVIVES_WITH_USAGE_RESTRAINT",
+      "promotion_floor": {
+        "HUMAN_SPECIFICITY": "PASS - three adults are specific, differentiated, and human-first rather than avatar-like.",
+        "REPRESENTATION_DEPTH_CONTINUITY": "PASS_WITH_RESERVATION - silhouette, proportion, hair and clothing-structure cues are strong enough to support reduction, while this one full-figure exemplar does not itself prove every depth.",
+        "RELATIONAL_CAUSAL_MEANING": "PASS_WITH_RESERVATION - A/B relational orientation is immediate and C remains specific/present; the completed changed-present condition is comparatively weak/ambiguous.",
+        "STAGE_PRIMACY_NONCOPY": "PASS - no cone, spotlight, black-box theater or copied Stage carrier.",
+        "CROSS_SURFACE_TRANSLATION": "PASS_WITH_USAGE_RESTRAINT - figure-led art can expand on WEB and reduce on APP, but should remain concentrated at identity-bearing moments.",
+        "IMAGE_FALLBACK_SEMANTIC_SURVIVAL": "PASS - mechanical preflight already proves complete no-image fallback.",
+        "MONOCHROME_HIGH_CONTRAST_DURABILITY": "PASS - mechanical preflight plus strong non-color silhouette/form cues.",
+        "CLR_INDEPENDENCE": "PASS - current result is value/form-led and creates no CLR selection."
+      },
+      "secondary_dimensions": {
+        "NON_GENERIC_AI_ART_DIRECTION": "RESERVATION - the result approaches familiar editorial/cinematic lifestyle illustration; specificity keeps it above outright generic portrait failure, but this pressure must remain explicit.",
+        "USAGE_RESTRAINT": "REQUIRED - do not turn every shell/supporting surface into a figurative editorial scene.",
+        "PROVENANCE_REPRODUCIBILITY": "PASS"
+      },
+      "hard_failure": false,
+      "design_sol_read": "Strongest current exemplar because human specificity and relational legibility survive without Stage copying; it earns survival, not final selection."
+    },
+    {
+      "family": "IMG-F2",
+      "name": "Transforming Human Invariants",
+      "result_class": "TARGETED_REFINEMENT_REQUIRED",
+      "promotion_floor": {
+        "HUMAN_SPECIFICITY": "PASS - all three adults remain specific and non-interchangeable.",
+        "REPRESENTATION_DEPTH_CONTINUITY": "FAIL_CURRENT_EXEMPLAR - the renderer returned conventional full-figure representation and did not materially demonstrate transformation across crop/completeness/orientation or reduced-depth invariants.",
+        "RELATIONAL_CAUSAL_MEANING": "PASS_WITH_RESERVATION - A/B relation is readable and the broken shared barrier suggests a changed present, but authorship/causal attribution remains ambiguous.",
+        "STAGE_PRIMACY_NONCOPY": "PASS - no copied Stage carrier or cone/scenery shorthand.",
+        "CROSS_SURFACE_TRANSLATION": "FAIL_CURRENT_EXEMPLAR - because the intended transformable-invariant mechanism did not visibly materialize, this output does not yet prove a distinct APP/WEB translation law beyond F1-like figurative illustration.",
+        "IMAGE_FALLBACK_SEMANTIC_SURVIVAL": "PASS - mechanical preflight already proves complete no-image fallback.",
+        "MONOCHROME_HIGH_CONTRAST_DURABILITY": "PASS_MECHANICALLY / NOT_FULLY_PROVEN_AESTHETICALLY - structural cues exist, but the family-specific transformation claim is under-materialized.",
+        "CLR_INDEPENDENCE": "PASS - no palette selection or color-only identity."
+      },
+      "secondary_dimensions": {
+        "NON_GENERIC_AI_ART_DIRECTION": "RESERVATION - the output collapses toward familiar contemplative editorial/cinematic illustration instead of a visibly distinct transformable identity system.",
+        "USAGE_RESTRAINT": "PASS_IN_PRINCIPLE",
+        "PROVENANCE_REPRODUCIBILITY": "PASS"
+      },
+      "hard_failure": false,
+      "design_sol_read": "The family thesis remains conceptually valuable, but this first output does not earn survival because its defining representation mechanism failed to transfer. Any rescue would require a separately authorized successor/refinement gate; this run cannot be retuned after result exposure."
+    },
+    {
+      "family": "IMG-F3",
+      "name": "Grounded Residual Presence",
+      "result_class": "FAMILY_REJECTED_GENERIC_OR_SEMANTICALLY_WEAK",
+      "promotion_floor": {
+        "HUMAN_SPECIFICITY": "PASS - three specific adults remain identifiable and human.",
+        "REPRESENTATION_DEPTH_CONTINUITY": "PASS_WITH_RESERVATION - non-color figure cues exist, though this image does not test multiple depths.",
+        "RELATIONAL_CAUSAL_MEANING": "FAIL - the large sculptural field dominates interpretation; the changed condition is visible, but human authorship/relationship is weaker than the object itself.",
+        "STAGE_PRIMACY_NONCOPY": "PASS - no literal Stage carrier is copied.",
+        "CROSS_SURFACE_TRANSLATION": "FAIL_CURRENT_EXEMPLAR - the field/object is too dominant to translate safely into restrained APP contexts without becoming the visual system itself.",
+        "IMAGE_FALLBACK_SEMANTIC_SURVIVAL": "PASS - mechanical preflight already proves complete no-image fallback.",
+        "MONOCHROME_HIGH_CONTRAST_DURABILITY": "PASS_MECHANICALLY - structural field/figure separation survives without color.",
+        "CLR_INDEPENDENCE": "PASS - value/contact/geometry carry the image."
+      },
+      "secondary_dimensions": {
+        "NON_GENERIC_AI_ART_DIRECTION": "FAIL_PRESSURE - reads close to architectural/concept-art spectacle rather than a uniquely human-causal image law.",
+        "USAGE_RESTRAINT": "FAIL_CURRENT_EXEMPLAR - expressive field response visually outranks the people.",
+        "PROVENANCE_REPRODUCIBILITY": "PASS"
+      },
+      "hard_failure": true,
+      "hard_failure_basis": "Decorative/material atmosphere weakens relational/causal meaning and the environment/material spectacle outranks people; the dominant sculptural wave behaves like the giant symbolic object the renderer packet explicitly prohibited.",
+      "design_sol_read": "The output proves the family can make consequence visible, but it does so by sacrificing human primacy. Under the frozen conjunctive method this is a rejection, not a prompt-fix invitation."
+    }
+  ],
+  "comparative_conclusion": {
+    "current_survivors": ["IMG-F1"],
+    "survivor_restrictions": ["Use figurative imagery selectively at identity-bearing or relational moments; avoid generic editorial/campaign repetition; keep quiet shell/supporting surfaces image-light or image-free."],
+    "targeted_refinement_required": ["IMG-F2"],
+    "rejected": ["IMG-F3"],
+    "design_sol_method_bound_preference": "IMG-F1",
+    "reason": "F1 is the only raw exemplar that clears the frozen conjunctive promotion floor without a hard failure. It best preserves human specificity and relationship while keeping environment subordinate and Stage uncopied. F2's defining transformable-invariant mechanism did not visibly transfer; F3 makes consequence visible by letting environmental spectacle outrank people.",
+    "final_identity_selected": false,
+    "phase_c_exit_authorized": false,
+    "clr_selection_created": false,
+    "refinement_authorized": false
+  },
+  "director_prior_disposition": {
+    "used_in_this_evaluation": false,
+    "blind_independence_claimed": false,
+    "next_step": "After this method-bound view is frozen durably, perform a separate concordance audit against the quarantined Director qualitative prior without changing any IMG-01 score or criterion."
+  },
+  "recursive_audit": {
+    "raw_first_outputs_preserved_before_scoring": true,
+    "provider_ids_pinned": true,
+    "exact_sha256_pinned": true,
+    "frozen_criteria_only": true,
+    "no_result_aware_prompt_retuning": true,
+    "no_competing_family_prompt_or_output_reintroduced_to_renderer": true,
+    "director_prior_quarantined_from_scoring": true,
+    "material_defects_remaining": false,
+    "approval": "APPROVED BY STANDING DIRECTOR DELEGATION - CLEAN METHOD-BOUND IMG-01 EVALUATION."
+  }
+}

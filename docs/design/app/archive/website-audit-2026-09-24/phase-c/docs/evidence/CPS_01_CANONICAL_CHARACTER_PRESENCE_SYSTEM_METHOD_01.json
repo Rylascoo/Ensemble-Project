@@ -1,0 +1,211 @@
+{
+  "schema": "kymaean.cps-01.canonical-character-presence-system-method.v1",
+  "status": "FROZEN_PRE_CONSTRUCTION_DETERMINISTIC_NON_RENDER",
+  "date": "2026-09-13",
+  "program": {
+    "id": "CPS-01",
+    "name": "Canonical Character Presence System",
+    "phase": "C_CONTROLLED_VISUAL_CONVERGENCE",
+    "type": "SUCCESSOR_SYSTEM_ARCHITECTURE_AFTER_IMG_01"
+  },
+  "authority": {
+    "img01_method_bound_evaluation": "docs/evidence/IMG_01_RAW_EXEMPLAR_METHOD_BOUND_EVALUATION_01.json",
+    "img01_method_bound_evaluation_sha256": "f17a98b1b64ac7ea471f356912c88c547027bc20381c2bab8796b5addeb05257",
+    "img01_director_prior_concordance": "docs/evidence/IMG_01_DIRECTOR_PRIOR_CONCORDANCE_01.json",
+    "director_prior_document_id": "1KJeorPBsNnRivFVFJQqKB3CsB6nHtlLiApfAHxh0-VU",
+    "visual_continuity_constitution_id": "1VXug3hCV-LDyfgqN5QXh6aNOB-G5W3CtR_TFdClGcns",
+    "stage_packet": "docs/evidence/packets/PKT_STAGE_CORE_02.json",
+    "app_syn_view": "docs/evidence/APP_SYN_01_DESIGN_SOL_WHOLE_SYSTEM_VIEW_01.json"
+  },
+  "bounded_question": "How can one persistent Character remain visually recoverable across scale, crop, context, accessibility reduction and optional depiction changes without one fixed portrait or image becoming identity authority?",
+  "why_successor_not_img01_rerun": [
+    "IMG-F1 survives IMG-01 only as restrained expressive depiction evidence, not as canonical identity language.",
+    "IMG-F2's invariant-identity thesis remains conceptually useful but its consumed raw output failed to materialize that mechanism; result-aware rerendering is prohibited.",
+    "IMG-F3 is rejected; only the contextual law that shared space may respond to people survives.",
+    "The unresolved problem is therefore system architecture beneath depiction, not another art-style search."
+  ],
+  "layer_model": [
+    {
+      "layer": "CANONICAL_IDENTITY_PRESENCE",
+      "role": "Slowest-changing recognition layer. Must survive without a portrait, without color, without motion and without one exact crop.",
+      "may_use": ["redundant structural form", "proportion", "silhouette or fragment geometry", "internal rhythm", "edge behavior", "density/openness", "truthful naming or typographic identity where present"],
+      "must_not_use_as_sole_carrier": ["face", "color", "costume", "pose", "lighting", "portrait", "one decorative emblem"]
+    },
+    {
+      "layer": "AUTHORIZED_CURRENT_STATE",
+      "role": "Temporary modulation of the same person when current presentation authority supports it; never replaces identity.",
+      "must_not_claim": ["private motive", "belief", "knowledge", "memory", "objective truth", "diagnostic psychology"]
+    },
+    {
+      "layer": "AUTHORITATIVE_HISTORY_RESIDUE",
+      "role": "Optional, selective consequence projected from authoritative history; may deepen specificity without becoming an inventory of badges or damage marks."
+    },
+    {
+      "layer": "RELATIONAL_CONTEXT",
+      "role": "Meaning created between Characters through spacing, orientation, interruption, overlap, shared negative space or other contextually justified field behavior; not a permanent Character attribute."
+    },
+    {
+      "layer": "OPTIONAL_EXPRESSIVE_DEPICTION",
+      "role": "Portrait, figurative artwork or richer presentation may increase immediacy and atmosphere but remains replaceable; removal must not destroy canonical identity recovery.",
+      "img01_evidence": "IMG-F1 may inform this layer under usage restraint only."
+    }
+  ],
+  "architecture_candidates": [
+    {
+      "id": "CPS-A",
+      "name": "Nested Invariant Stack",
+      "thesis": "A compact stable non-color structural kernel carries identity while state, history, relationship and optional depiction modulate around it without mutating the kernel casually.",
+      "risk": "Can become emblematic or logo-like if the kernel is over-centralized."
+    },
+    {
+      "id": "CPS-B",
+      "name": "Distributed Recognition Mesh",
+      "thesis": "Identity is recoverable from several redundant truthful carriers so loss of face, full silhouette, exact crop, color or motion does not collapse recognition.",
+      "risk": "Can become visually diffuse or require too many simultaneous cues if redundancy is not disciplined."
+    },
+    {
+      "id": "CPS-C",
+      "name": "Context-Persistent Presence Scaffold",
+      "thesis": "A minimal persistent identity scaffold survives alone while relational composition and optional depiction can expand it in context without becoming identity authority.",
+      "risk": "Can make context do too much work and weaken solitary recognition."
+    }
+  ],
+  "required_architecture_divergence": {
+    "candidate_count": 3,
+    "axes": ["identity centralization versus distribution", "fragment/crop recovery strategy", "label/form redundancy", "state/history attachment", "relational-context dependency", "optional-depiction attachment"],
+    "minimum_material_difference_axes_per_pair": 3,
+    "prohibited_fake_divergence": ["palette changes", "decorative icon changes", "portrait-style changes", "same architecture with renamed layers"]
+  },
+  "deterministic_test_roles": [
+    "MICRO: identity at the smallest functional representation, no portrait and no color dependency",
+    "COMPACT: app-list or supporting-surface presence with name/label available",
+    "FOCUSED: larger Character view where optional expressive depiction may appear but may be removed without identity collapse",
+    "CROPPED_FRAGMENT: deliberately incomplete representation that must still recover the same Character",
+    "RELATIONAL_PAIR: two Characters whose relationship emerges compositionally without connector graphics",
+    "ENSEMBLE_THREE: three distinct Characters with unequal attention but equal identity legitimacy",
+    "MONOCHROME_HIGH_CONTRAST: non-color identity and hierarchy only",
+    "NO_IMAGE: all expressive depiction absent; canonical identity/state/task comprehension must remain",
+    "STATIC_REDUCED_MOTION: motion unavailable; identity and state hierarchy remain intelligible",
+    "APP_WEB_TRANSLATION: same Character identity survives restrained APP carrier and more expressive WEB carrier without copied layout"
+  ],
+  "controlled_facts": {
+    "character_count": 3,
+    "identity_placeholders": ["A", "B", "C"],
+    "content_rule": "Use identical neutral synthetic facts across all three architecture candidates; placeholders are test labels only and create no naming law.",
+    "relationship_rule": "A and B may carry the strongest current relational focus while C remains fully specific and recoverable.",
+    "state_rule": "Any temporary state used in the board must be observable/presentation-safe and identical across candidates.",
+    "history_rule": "Any residue used in the board must be explicitly marked as authoritative synthetic test history and identical across candidates."
+  },
+  "construction_sequence": [
+    "Stage 0: freeze the identity/state/history/relationship/depiction layer contract and candidate divergence matrix.",
+    "Stage 1: construct one deterministic grayscale/value-first comparison carrier for CPS-A/B/C across all required roles; no generated imagery.",
+    "Stage 2: mechanical preflight for reflow, crop, text scaling, high contrast, no-image fallback and reduced motion.",
+    "Stage 3: Design Sol evaluates the architectures against the frozen promotion floor and records survivor/refinement/rejection classes.",
+    "Stage 4: only if architecture needs a later expressive artwork stress test may a separate renderer gate be proposed; CPS-01 itself does not authorize new image generation."
+  ],
+  "evaluation_dimensions": [
+    {
+      "id": "PORTRAIT_INDEPENDENT_RECOVERY",
+      "pass": "The same Character remains recoverable when facial/portrait information is absent."
+    },
+    {
+      "id": "SCALE_CROP_CONTINUITY",
+      "pass": "Identity survives micro scale, compact scale, focused scale and aggressive crop without becoming a different avatar system."
+    },
+    {
+      "id": "ACCESSIBILITY_REDUNDANCY",
+      "pass": "Loss of color, motion, fine texture or exact spatial position leaves enough truthful non-color structure and/or labeling to recover identity."
+    },
+    {
+      "id": "LAYER_SEPARATION",
+      "pass": "Identity, current state, authoritative history, relationship and optional depiction remain distinguishable and do not silently overwrite one another."
+    },
+    {
+      "id": "OPTIONAL_DEPICTION_DECOUPLING",
+      "pass": "Expressive portrait/artwork can be added, replaced or removed without changing the canonical identity carrier."
+    },
+    {
+      "id": "ORDINARY_PERSON_VIABILITY",
+      "pass": "The system can make a visually quiet ordinary person specific without forcing spectacle, eccentricity, damage, fantasy or glamour."
+    },
+    {
+      "id": "RELATIONAL_COMPOSITION",
+      "pass": "Relationship can become legible through composition/context without connectors, meters, diagnostic emotion or one giant shared object."
+    },
+    {
+      "id": "PERSPECTIVE_PROVENANCE_RESTRAINT",
+      "pass": "The system does not visualize private motive, belief, knowledge, memory or objective truth unless presentation authority explicitly supports it."
+    },
+    {
+      "id": "APP_WEB_TRANSLATION",
+      "pass": "One canonical identity survives restrained app use and expressive website use without requiring identical composition or portrait treatment."
+    },
+    {
+      "id": "STAGE_AND_CLR_INDEPENDENCE",
+      "pass": "The architecture does not copy the Stage, modify Stage authority, select CLR F2/F1 or depend on a palette to remain intelligible."
+    },
+    {
+      "id": "NON_AVATAR_NON_GAME_NON_EDITORIAL",
+      "pass": "The canonical presence system reads as persistent personhood rather than profile avatar, hero class, collectible unit, mascot, character sheet or decorative editorial illustration."
+    },
+    {
+      "id": "IMPLEMENTATION_NEUTRALITY",
+      "pass": "The design law is precise enough for later implementation while remaining independent of unearned WinUI/runtime architecture and unresolved product semantics."
+    }
+  ],
+  "hard_failures": [
+    "one fixed face, portrait, costume, hue or decorative emblem becomes the sole canonical identity carrier",
+    "micro/compact representation becomes a separate avatar identity rather than a reduction of the same Character",
+    "state, history or relationship permanently mutates identity without explicit successor authority",
+    "history becomes badges, levels, scars, collectibles, power accumulation or ornamental inventory by default",
+    "relationship is explained primarily through graph connectors, meters or diagnostic emotion labels",
+    "environmental response becomes mandatory or visually outranks the person",
+    "ordinary Characters require spectacle, eccentricity or genre archetype to remain specific",
+    "optional expressive depiction becomes required for task comprehension or identity recovery",
+    "palette selection is smuggled into identity architecture",
+    "new generated art is used before deterministic architecture evaluation closes"
+  ],
+  "result_classes": [
+    "ARCHITECTURE_SURVIVES",
+    "ARCHITECTURE_SURVIVES_WITH_USAGE_RESTRAINT",
+    "TARGETED_REFINEMENT_REQUIRED",
+    "ARCHITECTURE_REJECTED",
+    "ZERO_SURVIVORS",
+    "INSUFFICIENT_AUTHORITY_OR_EVIDENCE"
+  ],
+  "promotion_floor": "An architecture may survive only if it passes PORTRAIT_INDEPENDENT_RECOVERY, SCALE_CROP_CONTINUITY, ACCESSIBILITY_REDUNDANCY, LAYER_SEPARATION, OPTIONAL_DEPICTION_DECOUPLING, ORDINARY_PERSON_VIABILITY, PERSPECTIVE_PROVENANCE_RESTRAINT, APP_WEB_TRANSLATION and STAGE_AND_CLR_INDEPENDENCE with no hard failure. Relational composition, anti-avatar discipline and implementation neutrality must be explicitly accounted for and may impose usage restraints.",
+  "required_outputs": [
+    "CPS-01 frozen layer contract and architecture divergence record",
+    "deterministic grayscale/value-first CPS-A/B/C comparison carrier",
+    "mechanical/accessibility preflight across all required roles",
+    "Design Sol method-bound architecture evaluation",
+    "CPS-01 packet/registry update for survivor, refinement, rejection or zero-survivor closure",
+    "fresh-chat continuity update at every durable checkpoint"
+  ],
+  "excluded_variables": [
+    "CLR F2-versus-F1 adjudication or palette tokenization",
+    "final typeface, symbol, wordmark, material or motion selection",
+    "Stage pixel/geometry modification or reopening closed Stage gates",
+    "functional product-domain icon semantics",
+    "WinUI/runtime/provider architecture or application implementation",
+    "new renderer/image generation during CPS-01",
+    "Phase C exit by CPS-01 alone"
+  ],
+  "authority_limit": [
+    "CPS-01 may establish Phase C design law for canonical Character identity/presence architecture and its separation from state, history, relationship and optional depiction.",
+    "CPS-01 does not make IMG-F1 a canonical portrait system, rescue IMG-F2, reopen IMG-F3, select CLR, modify Stage, authorize Phase D or create shipping implementation authority.",
+    "Any later artwork/portrait family is subordinate to the surviving canonical presence architecture and requires its own authorized materialization path.",
+    "Any conflict discovered in representative real app assembly is new integration evidence and must open a bounded successor/refinement gate rather than rewrite CPS-01 history."
+  ],
+  "recursive_audit": {
+    "status": "CLEAN_PRE_CONSTRUCTION_METHOD_FREEZE",
+    "img01_history_preserved": true,
+    "director_prior_used_as_qualitative_successor_evidence_not_retroactive_gate": true,
+    "f1_depiction_and_identity_roles_separated": true,
+    "f2_result_aware_rerender_prevented": true,
+    "f3_environmental_spectacle_not_revived": true,
+    "deterministic_non_render_first": true,
+    "clr_stage_engineering_boundaries_preserved": true,
+    "approval": "APPROVED BY STANDING DIRECTOR DELEGATION - CLEAN RECURSIVE AUDIT."
+  }
+}

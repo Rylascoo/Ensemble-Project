@@ -1,0 +1,243 @@
+{
+  "schema": "kymaean.appicon-01.mechanical-accessibility-preflight.v1",
+  "status": "PASS_COMPLETE_MATRIX",
+  "date": "2026-09-14",
+  "program": "APPICON-01",
+  "activation_audit_sha256": "305e4c7fff0ddd58cd0c43fb0da5a9c62f6535e231a5818d28e0246e0ab29447",
+  "method_sha256": "37bd7fff587779167a2062868430829f2fc660da7753214ea15a1f43b0c7712a",
+  "carrier": "prototypes/appicon-01/carrier.html",
+  "carrier_sha256": "0a5a4fcbdd4927830f32aba54e8bd9d1a5512d4d74c592d717bc81258fb933f1",
+  "browser_probe": "tools/appicon01_browser_probe.mjs",
+  "browser_probe_sha256": "22af9f2365a7df6141cf9997bdbef446d5202ec83691eade9c7a34ad8735d46a",
+  "browser": {
+    "product": "Microsoft Edge",
+    "version": "153.0.4234.32",
+    "os": "Microsoft Windows 11 Home 10.0.26200 ARM64"
+  },
+  "matrix": [
+    {
+      "case": "1-normal-1200",
+      "mode": "normal",
+      "viewport_width": 1200,
+      "forced_colors": false,
+      "scroll_width": 1200,
+      "overflow_count": 0,
+      "record_count": 36,
+      "images": 0,
+      "background_image_elements": 0,
+      "external_resources": 0,
+      "animated_or_transitioning_elements": 0
+    },
+    {
+      "case": "2-normal-320",
+      "mode": "normal",
+      "viewport_width": 320,
+      "forced_colors": false,
+      "scroll_width": 320,
+      "overflow_count": 0,
+      "record_count": 36,
+      "images": 0,
+      "background_image_elements": 0,
+      "external_resources": 0,
+      "animated_or_transitioning_elements": 0
+    },
+    {
+      "case": "3-forced-1200",
+      "mode": "forced",
+      "viewport_width": 1200,
+      "forced_colors": true,
+      "scroll_width": 1200,
+      "overflow_count": 0,
+      "record_count": 36,
+      "images": 0,
+      "background_image_elements": 0,
+      "external_resources": 0,
+      "animated_or_transitioning_elements": 0
+    },
+    {
+      "case": "4-forced-320",
+      "mode": "forced",
+      "viewport_width": 320,
+      "forced_colors": true,
+      "scroll_width": 320,
+      "overflow_count": 0,
+      "record_count": 36,
+      "images": 0,
+      "background_image_elements": 0,
+      "external_resources": 0,
+      "animated_or_transitioning_elements": 0
+    }
+  ],
+  "source_fidelity": {
+    "canonical_lf_git_blob_sha256": "72cdd4c35928e1fb0bc279b680b9b7a698707dc1564ee800a84840fe61356305",
+    "path_semantic_sha256": "95304d003e63ab2272501da3451c1bca3deb84d206468d7e35264575d2bfe30d",
+    "path_count": 3,
+    "instances_checked_per_mode": 36,
+    "all_instances_square": true,
+    "all_instances_center_source_viewbox_at_128_128": true,
+    "all_instances_three_paths_identical": true,
+    "all_paths_inside_canvas": true,
+    "currentColor_only": true
+  },
+  "candidate_micro_rendered_bounds_css_px": {
+    "E06": [
+      {
+        "size": 16,
+        "visual": {
+          "w": 9.12481689453125,
+          "h": 12.62969970703125,
+          "leftMargin": 3.467803955078125,
+          "rightMargin": 3.407379150390625,
+          "topMargin": 1.866424560546875,
+          "bottomMargin": 1.503875732421875
+        },
+        "visiblePaths": 3,
+        "allPathsInside": true
+      },
+      {
+        "size": 20,
+        "visual": {
+          "w": 11.406005859375,
+          "h": 15.787109375,
+          "leftMargin": 4.3347625732421875,
+          "rightMargin": 4.2592315673828125,
+          "topMargin": 2.33306884765625,
+          "bottomMargin": 1.87982177734375
+        },
+        "visiblePaths": 3,
+        "allPathsInside": true
+      },
+      {
+        "size": 24,
+        "visual": {
+          "w": 13.687210083007812,
+          "h": 18.94451904296875,
+          "leftMargin": 5.20172119140625,
+          "rightMargin": 5.1110687255859375,
+          "topMargin": 2.7996826171875,
+          "bottomMargin": 2.25579833984375
+        },
+        "visiblePaths": 3,
+        "allPathsInside": true
+      }
+    ],
+    "E12": [
+      {
+        "size": 16,
+        "visual": {
+          "w": 7.88055419921875,
+          "h": 10.907470703125,
+          "leftMargin": 4.0858154296875,
+          "rightMargin": 4.03363037109375,
+          "topMargin": 2.70281982421875,
+          "bottomMargin": 2.38970947265625
+        },
+        "visiblePaths": 3,
+        "allPathsInside": true
+      },
+      {
+        "size": 20,
+        "visual": {
+          "w": 9.85064697265625,
+          "h": 13.63433837890625,
+          "leftMargin": 5.1072998046875,
+          "rightMargin": 5.04205322265625,
+          "topMargin": 3.3785400390625,
+          "bottomMargin": 2.98712158203125
+        },
+        "visiblePaths": 3,
+        "allPathsInside": true
+      },
+      {
+        "size": 24,
+        "visual": {
+          "w": 11.82073974609375,
+          "h": 16.3612060546875,
+          "leftMargin": 6.1287841796875,
+          "rightMargin": 6.05047607421875,
+          "topMargin": 4.05426025390625,
+          "bottomMargin": 3.58453369140625
+        },
+        "visiblePaths": 3,
+        "allPathsInside": true
+      }
+    ],
+    "E18": [
+      {
+        "size": 16,
+        "visual": {
+          "w": 6.63623046875,
+          "h": 9.18524169921875,
+          "leftMargin": 4.703857421875,
+          "rightMargin": 4.659912109375,
+          "topMargin": 3.539215087890625,
+          "bottomMargin": 3.275543212890625
+        },
+        "visiblePaths": 3,
+        "allPathsInside": true
+      },
+      {
+        "size": 20,
+        "visual": {
+          "w": 8.2952880859375,
+          "h": 11.4815673828125,
+          "leftMargin": 5.87982177734375,
+          "rightMargin": 5.82489013671875,
+          "topMargin": 4.42401123046875,
+          "bottomMargin": 4.09442138671875
+        },
+        "visiblePaths": 3,
+        "allPathsInside": true
+      },
+      {
+        "size": 24,
+        "visual": {
+          "w": 9.954345703125,
+          "h": 13.77783203125,
+          "leftMargin": 7.0557861328125,
+          "rightMargin": 6.9898681640625,
+          "topMargin": 5.308837890625,
+          "bottomMargin": 4.913330078125
+        },
+        "visiblePaths": 3,
+        "allPathsInside": true
+      }
+    ]
+  },
+  "candidate_mechanical_results": {
+    "E06": {
+      "status": "PASS_MECHANICAL",
+      "issues": []
+    },
+    "E12": {
+      "status": "PASS_MECHANICAL",
+      "issues": []
+    },
+    "E18": {
+      "status": "PASS_MECHANICAL",
+      "issues": []
+    }
+  },
+  "invalid_attempts": [
+    {
+      "attempt": "appicon-01-run1",
+      "reason": "stale local HTTP server returned net::ERR_EMPTY_RESPONSE before carrier navigation; no candidate evidence consumed"
+    },
+    {
+      "attempt": "appicon-01-run2",
+      "reason": "fresh Python HTTP server also reset local requests; no candidate evidence consumed; probe changed to self-contained file:// navigation before valid run"
+    }
+  ],
+  "visual_pre_score_review": {
+    "surfaces_reviewed": [
+      "normal 1200",
+      "normal 320",
+      "forced-colors 1200",
+      "forced-colors 320"
+    ],
+    "carrier_defects_found": 0,
+    "repair_after_valid_matrix": false,
+    "result_aware_retuning": false
+  },
+  "scope": "Mechanical/accessibility/source/viewport/forced-colors evidence only. Design Sol envelope judgment is frozen separately after this PASS."
+}

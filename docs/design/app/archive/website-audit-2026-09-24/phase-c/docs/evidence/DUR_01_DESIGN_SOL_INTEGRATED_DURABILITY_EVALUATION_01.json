@@ -1,0 +1,60 @@
+{
+    "schema":  "kymaean.dur-01.design-sol-integrated-durability-evaluation.v1",
+    "status":  "DESIGN_SOL_VIEW_FROZEN_PASS_INTEGRATED_DURABILITY",
+    "date":  "2026-09-14",
+    "program":  "DUR-01",
+    "result_class":  "PASS_INTEGRATED_DURABILITY",
+    "evaluation_basis":  {
+                             "method":  "docs/evidence/DUR_01_INTEGRATED_IDENTITY_DURABILITY_METHOD_01.json",
+                             "method_sha256":  "7b82ddc895843f27e7ca8b0740b5108fa0b44f2a29507e129cf6aa14e9d8c308",
+                             "preflight":  "docs/evidence/DUR_01_MECHANICAL_ACCESSIBILITY_PREFLIGHT_01.json",
+                             "preflight_sha256":  "2c845d354e13ee872a74cf4a82b1533f6168f94711baa4d88cdbad7b2a2de3e8",
+                             "carrier_sha256":  "88384760873d44198cf94f1ac242eeaa8d30027b61f9760073ad40a3bffde971",
+                             "scoring_after_clean_preflight_only":  true
+                         },
+    "dimensions":  {
+                       "IDENTITY_RECOVERY":  "PASS",
+                       "SMALL_SCALE_DISCIPLINE":  "PASS",
+                       "WORDMARK_USAGE_RESTRAINT":  "PASS",
+                       "HIERARCHY_WITHOUT_OVERBRANDING":  "PASS",
+                       "MONOCHROME_AND_FORCED_COLOR_SURVIVAL":  "PASS",
+                       "TEXT_SCALE_AND_REFLOW":  "PASS",
+                       "STATE_VS_FOCUS_SEPARATION":  "PASS",
+                       "MOTION_FALLBACK_EQUIVALENCE":  "PASS",
+                       "NO_IMAGE_COMPLETENESS":  "PASS",
+                       "APP_WEB_TRANSLATION":  "PASS",
+                       "PROVISIONAL_AUTHORITY_RESTRAINT":  "PASS",
+                       "NON_GENERIC_NON_AVATAR_CONTINUITY":  "PASS"
+                   },
+    "design_sol_read":  "The current provisional shared-identity packet set remains recognizable, hierarchical, accessible and semantically restrained across the frozen reduction matrix. C0 and CPS-B carry micro identity; O3 is lawfully omitted below its bounded identity-moment role; semantic names remain redundant carriers; MAT F1 stays subordinate; STA F2 remains distinct from focus; F1A/CS2 reduce to static/CUT; and APP/WEB preserve the same C0/CPS-B identity facts without copied layout.",
+    "inherited_usage_laws":  [
+                                 "O3 is not forced into unsafe micro deployment; semantic-name fallback is preferred below its bounded role.",
+                                 "CPS-B redundancy remains sparse and truthful rather than decorative inventory.",
+                                 "MAT F1 carries no required task/identity semantics and may flatten/disappear in forced colors.",
+                                 "Motion remains optional for comprehension and CUT/static is first-class.",
+                                 "All source packets remain provisional or otherwise bounded by their own authority."
+                             ],
+    "new_usage_restrictions":  [
+
+                               ],
+    "hard_failure":  false,
+    "no_post_result_retuning":  {
+                                    "carrier_frozen_after_clean_preflight_before_scoring":  true,
+                                    "carrier_or_packet_mechanisms_tuned_after_result":  false,
+                                    "result_aware_rescue_authorized":  false
+                                },
+    "preserved_boundaries":  {
+                                 "clr_deferred":  true,
+                                 "stage_unchanged":  true,
+                                 "stage_to_shell_not_activated":  true,
+                                 "final_typeface_not_selected":  true,
+                                 "final_symbol_wordmark_not_created":  true,
+                                 "final_character_artwork_not_selected":  true,
+                                 "phase_d_not_authorized":  true,
+                                 "runtime_native_production_authority_created":  false
+                             },
+    "recursive_audit":  {
+                            "status":  "CLEAN_DESIGN_SOL_DURABILITY_PASS",
+                            "material_defects_remaining":  false
+                        }
+}

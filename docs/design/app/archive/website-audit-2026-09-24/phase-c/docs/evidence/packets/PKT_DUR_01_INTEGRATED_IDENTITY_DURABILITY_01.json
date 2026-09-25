@@ -1,0 +1,142 @@
+{
+    "schema":  "kymaean.design-gate-packet.v1",
+    "framework":  "docs/evidence/DESIGN_PACKET_AND_SYNTHESIS_FRAMEWORK_01.json",
+    "packet_id":  "PKT-DUR-01-01",
+    "packet_class":  "GATE_MECHANISM_PACKET",
+    "status":  "FROZEN_LOCAL_RESULT",
+    "date":  "2026-09-14",
+    "gate_or_program":  "DUR-01 â€” Integrated Identity Durability",
+    "design_axis":  "shared-identity reduction/accessibility durability",
+    "bounded_question":  "Can the current shared-identity packet set survive the frozen reduction matrix without identity collapse, hierarchy inversion, accessibility failure or authority smuggling?",
+    "authority":  {
+                      "repository":  "Rylascoo/Ensemble-Website",
+                      "governing_method_or_contract":  [
+                                                           "docs/evidence/DUR_01_INTEGRATED_IDENTITY_DURABILITY_METHOD_01.json"
+                                                       ],
+                      "method_sha256":  "7b82ddc895843f27e7ca8b0740b5108fa0b44f2a29507e129cf6aa14e9d8c308",
+                      "activation_audit":  "docs/evidence/PHASE_C_POST_CPS_01_REENTRY_AUDIT_07.json"
+                  },
+    "controlled_inputs":  [
+                              "C0 Threshold K exact source geometry",
+                              "O3 Balanced Hierarchy exact source geometry",
+                              "TYP-02 F1 Ratio Ladder role grammar",
+                              "MAT-01 F1 Subtractive Channel structural topology",
+                              "STA-01 F2 Ring + Edge Witness",
+                              "MOT F1A bounded succession and CS2 context replacement/CUT",
+                              "CPS-B Distributed Recognition Mesh canonical Phase C Character-presence architecture"
+                          ],
+    "excluded_variables":  [
+                               "CLR F2/F1 selection or palette tokens",
+                               "Stage geometry/scenery or Stage-to-shell translation",
+                               "final typeface/font",
+                               "final symbol/wordmark production master or trademark",
+                               "final Character artwork/portrait family or renderer generation",
+                               "functional product-domain icon semantics",
+                               "WinUI/runtime/provider/application implementation",
+                               "Phase C exit by DUR-01 alone"
+                           ],
+    "local_result":  {
+                         "summary":  "The full repaired mechanical/accessibility matrix passes and the frozen Design Sol evaluation returns PASS_INTEGRATED_DURABILITY with no new usage restriction beyond the preregistered reduction law.",
+                         "survivors_or_closure":  [
+                                                      "PASS_INTEGRATED_DURABILITY"
+                                                  ],
+                         "recommended_incumbent":  null,
+                         "alternates":  [
+
+                                        ],
+                         "rejections":  [
+
+                                        ]
+                     },
+    "judgment":  {
+                     "design_sol_view":  "PASS_INTEGRATED_DURABILITY",
+                     "director_view_or_delegation":  "Standing Director delegation covers this non-taste in-lane durability closure after clean recursive audit.",
+                     "resolution_mode":  "DIRECTOR_AUTHORIZED_DESIGN_SOL"
+                 },
+    "evidence":  {
+                     "mechanical":  [
+                                        "docs/evidence/DUR_01_MECHANICAL_ACCESSIBILITY_PREFLIGHT_01.json",
+                                        "carrier sha256:88384760873d44198cf94f1ac242eeaa8d30027b61f9760073ad40a3bffde971",
+                                        "browser probe sha256:06b440e91ea57a8231518595f67fe0bbbe59160c32bf8192866e48300a9e918d"
+                                    ],
+                     "visual":  [
+                                    "prototypes/dur-01/carrier.html â€” deterministic durability review carrier; not a production design surface"
+                                ],
+                     "accessibility":  [
+                                           "normal 1440/320, 200% text 1440/320, forced-colors 1440/320, reduced-motion 1440, no-image 1440/320: zero unintended overflow; reduced motion has zero animation dependencies"
+                                       ],
+                     "invalid_or_superseded_attempts":  [
+                                                            "Pre-scoring narrow overflow carrier attempts and one probe lifecycle lock are preserved in the preflight repair history, not as scored evidence."
+                                                        ]
+                 },
+    "dependencies":  {
+                         "requires":  [
+                                          "PKT-SYM-01-01",
+                                          "PKT-W0-O3-01",
+                                          "PKT-TYP-02-01",
+                                          "PKT-MAT-01-01",
+                                          "PKT-STA-01-01",
+                                          "PKT-MOT-F1A-01",
+                                          "PKT-MOT-CS2-01",
+                                          "PKT-CPS-01-01"
+                                      ],
+                         "constrains":  [
+                                            "later shared-identity synthesis/reduction law",
+                                            "later representative real-app assembly"
+                                        ],
+                         "must_not_be_confused_with":  [
+                                                           "final identity selection",
+                                                           "final artwork/palette/typeface",
+                                                           "Stage-to-shell translation",
+                                                           "native/runtime implementation"
+                                                       ]
+                     },
+    "known_integration_sensitivities":  [
+                                            "C0 micro durability is browser/vector evidence, not final device-raster or Store/package proof.",
+                                            "O3 remains an identity-moment carrier and may be omitted rather than forced below its bounded compact role.",
+                                            "CPS-B redundancy must remain sparse and truthful.",
+                                            "Representative real-app assembly may expose new integration pressure; any contradiction opens a bounded successor/refinement gate rather than rewriting DUR-01 history."
+                                        ],
+    "explicit_non_authority":  [
+                                   "No final symbol, wordmark, typeface, material, palette, Character artwork or production token is created.",
+                                   "No CLR adjudication, Stage/Stage-to-shell modification, Phase-D entry, product-semantic invention, ODR resolution, native/runtime/provider authority or shipping implementation is created."
+                               ],
+    "lawful_reentry_triggers":  [
+                                    "new representative integration evidence",
+                                    "direct contradiction",
+                                    "materially changed product/engineering truth",
+                                    "changed governing contract",
+                                    "explicit successor/refinement program"
+                                ],
+    "canonical_artifacts":  {
+                                "repository":  [
+                                                   "prototypes/dur-01/carrier.html",
+                                                   "docs/evidence/DUR_01_MECHANICAL_ACCESSIBILITY_PREFLIGHT_01.json",
+                                                   "docs/evidence/DUR_01_DESIGN_SOL_INTEGRATED_DURABILITY_EVALUATION_01.json"
+                                               ],
+                                "drive_visual_masters":  [
+
+                                                         ],
+                                "director_review_surface":  {
+                                                                "entry_point":  "prototypes/dur-01/carrier.html",
+                                                                "what_to_review":  "Historical deterministic durability carrier; result is closed PASS_INTEGRATED_DURABILITY, not a taste surface.",
+                                                                "diagnostics_not_for_aesthetic_choice":  [
+                                                                                                             "docs/evidence/DUR_01_MECHANICAL_ACCESSIBILITY_PREFLIGHT_01.json"
+                                                                                                         ]
+                                                            }
+                            },
+    "synthesis_state":  {
+                            "tested_with_packet_ids":  [
+                                                           "PKT-SYM-01-01",
+                                                           "PKT-W0-O3-01",
+                                                           "PKT-TYP-02-01",
+                                                           "PKT-MAT-01-01",
+                                                           "PKT-STA-01-01",
+                                                           "PKT-MOT-F1A-01",
+                                                           "PKT-MOT-CS2-01",
+                                                           "PKT-CPS-01-01"
+                                                       ],
+                            "latest_composition_packet":  "PKT-APP-SYN-01-01",
+                            "whole_app_synthesis_status":  "DETERMINISTIC_DURABILITY_PASS_REPRESENTATIVE_REAL_APP_ASSEMBLY_STILL_UNTESTED"
+                        }
+}

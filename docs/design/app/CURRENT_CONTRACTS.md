@@ -82,6 +82,7 @@ Human comprehension/discoverability, Narrator and exact-source High Contrast rem
 
 - Home re-entry A/B: unresolved.
 - FIRSTUSE: evidence pending adoption.
+- Website migration-completeness reference: `archive/website-audit-2026-09-24/INDEX.md` locally mirrors the exact D01/D02 source bytes plus bounded historical CPS-B / DUR-01 / APPICON-E06 predecessor evidence and minimal IMG-01 decision context; it creates no adoption or current-authority change.
 - rename/delete/import/restore: no current Product/UI authority.
 - Character semantics beyond integrated identity/name/establishment; Scene semantics beyond integrated identity/initial-roster presentation; Circumstance/Pressure/Take/Rehearsal: separately gated.
 - Human Scene-code comprehension/discoverability, Narrator intelligibility and exact-source High Contrast proof remain open falsifiers.

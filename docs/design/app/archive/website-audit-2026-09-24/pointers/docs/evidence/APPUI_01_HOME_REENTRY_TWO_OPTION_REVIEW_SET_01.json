@@ -1,0 +1,41 @@
+{
+  "schema": "kymaean.appui-home-reentry-two-option-review-set.v1",
+  "status": "TWO_OPTIONS_PRESERVED_REVIEW_DEFERRED_NO_SELECTION",
+  "date": "2026-09-17",
+  "program": "APPUI-HOME-REENTRY-TWO-OPTION-REVIEW-01",
+  "incumbent_authority": "Prior accepted Production Home remains authoritative until Director selects a successor.",
+  "options": {
+    "A": {
+      "name": "Threshold Re-entry",
+      "evidence": "docs/evidence/APPUI_01_HOME_THRESHOLD_REENTRY_STUDY_01.json",
+      "carrier": "prototypes/appui-01/home-threshold-reentry-study-01.html",
+      "premise": "Production/Resume threshold first; Stage as bounded aperture; Other Productions as quiet rows."
+    },
+    "B": {
+      "name": "Scene Horizon",
+      "evidence": "docs/evidence/APPUI_01_HOME_SCENE_HORIZON_STUDY_01.json",
+      "carrier": "prototypes/appui-01/home-scene-horizon-study-01.html",
+      "premise": "Production/Resume remain primary while current Scene becomes the wide visual horizon; portfolio collapses to a strip."
+    }
+  },
+  "frozen_common_ground": [
+    "Home / Productions / Settings durable shell",
+    "Light F2 / Dark D3",
+    "MAT F1",
+    "TYP F1 + Source Sans 3 design reference",
+    "STA F2",
+    "Invariant dark Stage/S1",
+    "No Product semantic change",
+    "No Bellweather placement or Bellweather-specific UI language",
+    "Q-DESIGN-20 native convergence remains separate"
+  ],
+  "decision": "DEFERRED_BY_DIRECTOR_FOR_LATER_REVIEW",
+  "selection": null,
+  "next": "Preserve both options and the neutral review board unchanged for later Director review. Do not merge either option as adopted Home before explicit selection.",
+  "review_board": {
+    "carrier": "prototypes/appui-01/home-two-option-review-board-01.html",
+    "sha256": "5ead98cfadda13193c4ac81dbcd1f225ebd2e60d49ba77fa58c9d17671828987",
+    "purpose": "Neutral same-screen side-by-side carrier for later Director review; contains no ranking or selection.",
+    "narrow_measurement": "PASS_PARENT_AND_BOTH_IFRAMES_ZERO_OVERFLOW_AT_390_PARENT_349_IFRAME"
+  }
+}

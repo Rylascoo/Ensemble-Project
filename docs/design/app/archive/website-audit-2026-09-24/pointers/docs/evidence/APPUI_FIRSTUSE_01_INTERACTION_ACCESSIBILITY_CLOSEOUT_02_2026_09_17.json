@@ -1,0 +1,56 @@
+{
+  "id": "APPUI-FIRSTUSE-01-INTERACTION-ACCESSIBILITY-CLOSEOUT-02",
+  "status": "PASS_REVIEW_CANDIDATE_INTERACTION_CLOSED_NOT_ADOPTED",
+  "date": "2026-09-17",
+  "authority_base": "design/appui-firstuse-01-2026-09-17@f4e78afc32b71d1b4b2063387b949f9dc9cfea89",
+  "method": "docs/evidence/APPUI_FIRSTUSE_01_METHOD_2026_09_17.json",
+  "predecessor": "prototypes/appui-01/first-use-entry-experience-01.html",
+  "successor": "prototypes/appui-01/first-use-entry-experience-02.html",
+  "bounded_change": [
+    "preserve the three-state first-use concept and visual hierarchy",
+    "move focus forward into Production name after Begin Production",
+    "preserve logical Tab order from name to situation to Create Production",
+    "move focus to Shape current situation after Create Production",
+    "restore focus to Begin a Production after Back or Return to Home",
+    "preserve identical Light/Dark values and handoff title",
+    "remove the illustrative dead Import Production control because import behavior is outside this study"
+  ],
+  "browser_matrix": {
+    "cases": 24,
+    "overflow_cases": 0,
+    "duplicate_id_cases": 0,
+    "broken_label_cases": 0,
+    "external_resources": 0
+  },
+  "interaction_probe": {
+    "checks": 14,
+    "failed": 0,
+    "keyboard_activation": "PASS",
+    "focus_forward_and_return": "PASS",
+    "form_tab_order": "PASS",
+    "light_dark_value_sync": "PASS",
+    "forced_colors_focus_visibility": "PASS",
+    "reduced_motion_media_behavior": "PASS",
+    "narrow_320_keyboard_entry": "PASS"
+  },
+  "recursive_audit": [
+    "initial keyboard probe falsely failed because the CDP key injection omitted Chromium's default Enter activation metadata; the probe was corrected without changing the carrier",
+    "a second probe defect targeted a hidden Back control while the handoff state was active; selector scoping was corrected and the sequence rerun from a clean page",
+    "one complete rerun then passed all 14 interaction checks"
+  ],
+  "claim_boundary": "Browser/CDP evidence only. No WinUI, Windows screen-reader, native high-contrast, ARM64 runtime, WACK or Store validation claim is created.",
+  "non_authority": "No final Production creation/import schema, persistence implementation, returning-user Home selection, Bellweather placement, Stage/Scene/Take/Perspective/provider/Performer semantics, production token or native implementation authority is created.",
+  "next_boundary": "Preserve carrier 02 as the FIRSTUSE review surface. Q-DESIGN-20 remains the immediate Design priority when stable Engineering native evidence appears.",
+  "sha256": {
+    "method": "580684d4836c53227906c0466d28522410307b9a3fc814fba43716991ffc6333",
+    "carrier_02": "ad5784dc283b1fa01fb35305f23325fd03b1cd4636a7d47b76d934767d5ae56f",
+    "matrix_probe_02": "16e7ecfe267d52a4f2612b47ecbe29c50f9123a526926bddc00370127185e572",
+    "interaction_probe_02": "ae9578bb558aec78f4b3f762aae6f38d413eef87fb9cb00e33375cec0e3a7563",
+    "matrix_result": "c335c35cd72f5acf2991561cf11d4d9cf51a48ffde02c3503f7ca696705ba0df",
+    "interaction_result": "1730ae669d5175144a4facb629546f1e97c1e467c7062a751881d27ec2f8b145"
+  },
+  "machine_evidence": {
+    "browser_matrix": "docs/evidence/APPUI_FIRSTUSE_01_BROWSER_MATRIX_02_2026_09_17.json",
+    "interaction_probe": "docs/evidence/APPUI_FIRSTUSE_01_INTERACTION_PROBE_02_2026_09_17.json"
+  }
+}

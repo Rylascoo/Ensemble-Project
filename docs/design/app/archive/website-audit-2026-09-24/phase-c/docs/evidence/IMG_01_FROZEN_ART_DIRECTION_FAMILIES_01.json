@@ -1,0 +1,214 @@
+{
+  "schema": "kymaean.img-01.frozen-art-direction-families.v1",
+  "status": "FROZEN_BEFORE_REFERENCE_BOARD_OR_SUBJECTIVE_COMPARISON",
+  "date": "2026-09-13",
+  "program": "IMG-01",
+  "authority": {
+    "activation_commit": "d5afa8fda779133fb56e8bd947b960f690fa3d72",
+    "method": "docs/evidence/IMG_01_SHARED_IMAGE_CHARACTER_ART_DIRECTION_METHOD_01.json",
+    "stage0_manifest": "docs/evidence/IMG_01_STAGE0_EVIDENCE_ATLAS_AND_SOURCE_MANIFEST_01.json"
+  },
+  "shared_control_contract": {
+    "content_source": "docs/evidence/IMG_01_STAGE0_EVIDENCE_ATLAS_AND_SOURCE_MANIFEST_01.json",
+    "clr_posture": "VALUE_FIRST_NEUTRAL_FOR_PRESELECTION; no F2/F1 dependency",
+    "identity_floor": "Name/textual identity + at least one non-color persistent authored invariant; no family may rely on image recognition alone.",
+    "semantic_floor": "Perspective, opportunity, focus, performance/causal state and capability remain separate from Character identity.",
+    "stage_floor": "PKT-STAGE-CORE-02 stays exact and visually richest current app-world anchor; no family copies its cone/scenery composition.",
+    "accessibility_floor": "No-image, monochrome/high-contrast and deterministic reading-order equivalents preserve identity and task meaning.",
+    "surface_floor": "APP is restrained and operational; WEB may increase scale/amplitude but must translate by law rather than copied composition."
+  },
+  "families": [
+    {
+      "id": "IMG-F1",
+      "name": "Authored Figurative Ensemble",
+      "thesis": "Use deliberately authored stylized human figures as the strongest immediate identity carrier, with names and persistent form cues reinforcing rather than replacing the people. Relationship emerges from ensemble blocking, orientation, negative space and selective crop rather than diagrams or portrait cards.",
+      "human_representation_medium_depth": "Expressive figurative R2-leaning: clearly human faces/bodies or bust/half-figure forms, stylized enough that identity does not depend on photographic realism or micro-expression.",
+      "figure_environment_emphasis": "Figure-forward. People occupy the primary visual hierarchy; environment is sparse, quiet and subordinate.",
+      "line_shape_construction": "Authored contour and mass with persistent silhouette/hair/garment/shape signatures; avoid decorative identity badges.",
+      "relational_spatial_composition": "Ensemble blocking and theatrical/editorial negative space. Distance, orientation, overlap and crop indicate relationship without connectors.",
+      "material_depth_posture": "Low to moderate; figures may have tactile illustration depth, while surrounding APP carriers stay quiet and mostly flat.",
+      "image_type_relationship": "Names and concise identity text sit close to figures as redundant identity, not magazine headlines that overpower them.",
+      "app_translation": "Compact identity/focus moments use concise figurative crops or reduced derivatives with explicit names; shell/supporting controls remain largely image-free.",
+      "web_translation": "Larger ensemble compositions may use more gesture, crop and environmental breathing room, but must preserve product truth and avoid campaign/editorial genericity.",
+      "monochrome_strategy": "Silhouette, contour, proportion, name and relative placement remain differentiable without color.",
+      "no_image_strategy": "Names + structural identity region + relational/status text remain complete; the figure can disappear without changing semantic truth.",
+      "strength_hypothesis": "Highest immediate human specificity and emotional presence while retaining representation-depth flexibility.",
+      "primary_failure_pressures": [
+        "generic cinematic/editorial portraiture",
+        "psychology inferred from face/gaze/gesture",
+        "fixed-headshot dependence",
+        "figure spectacle outranking relationship or Stage",
+        "luxury/cultural campaign drift"
+      ],
+      "historical_sources_used_as_pressure": [
+        "CRV-01B expressive figurative positive evidence",
+        "VSG-A human/editorial strength and editorial-portfolio risk",
+        "Quiet Stage human/presence priority",
+        "APP-SYN usage restraint"
+      ],
+      "explicit_non_inheritance": [
+        "No exact CRV cast/style/clothing/camera",
+        "No VSG-A typography/palette/layout",
+        "No historical hero composition or website image becomes a family master"
+      ]
+    },
+    {
+      "id": "IMG-F2",
+      "name": "Transforming Human Invariants",
+      "thesis": "Build each Character from a coherent set of repeatable human-form invariants that can survive crop, scale, pose, orientation, partial visibility and representation-depth change. The art direction demonstrates that the same person remains specific even when no single portrait is repeated.",
+      "human_representation_medium_depth": "R1-to-R2 transformable: reduced human forms, partial figures, silhouettes or concise figurative fragments with unmistakable human anatomy and individually persistent structural signatures.",
+      "figure_environment_emphasis": "Balanced but identity-led. Human forms may be incomplete or transformed, yet they remain the attribution anchor; environment never substitutes for the person.",
+      "line_shape_construction": "Distinct recurring perceptual invariants across contour, proportion, hair/body geometry, recurring authored marks and compositional signature; stylistic sameness alone is insufficient.",
+      "relational_spatial_composition": "Asymmetric shared field organized by people and negative space, with no graph nodes, connector beams or quantified-distance semantics.",
+      "material_depth_posture": "Primarily planar or shallow; transformation comes from crop/scale/completeness/orientation rather than effects or simulated material spectacle.",
+      "image_type_relationship": "Text is quieter than F1 but becomes more explicit as visual certainty decreases; names are always available and become primary in image-limited states.",
+      "app_translation": "Compact APP can use reduced derivatives or partial human-form invariants while preserving explicit names and deterministic ordering; no permanent avatar rail.",
+      "web_translation": "WEB can expand transformation across sections through scale, crop, pose and partial presence while proving recognizability without repeating one hero portrait.",
+      "monochrome_strategy": "Identity must survive through geometry/invariant combinations plus name; hue and texture are optional enrichment only.",
+      "no_image_strategy": "Adaptive explicitness makes textual/programmatic identity primary without manufacturing a duplicate roster or alternate identity system.",
+      "strength_hypothesis": "Strongest proof of durable Character identity across responsive, accessibility and cross-surface representation changes.",
+      "primary_failure_pressures": [
+        "human forms collapse into icons/nodes/tokens",
+        "stylistic continuity mistaken for identity continuity",
+        "abstract-tech or social-graph drift",
+        "insufficient warmth/human immediacy",
+        "spatial attribution becomes ambiguous under narrow layouts"
+      ],
+      "historical_sources_used_as_pressure": [
+        "AL-H01 identity-through-invariants positive evidence",
+        "AL-G01 fragmented-presence attribution failure",
+        "CRV-01A reduced-human viability and avatar risk",
+        "CIR-V1 adaptive explicitness",
+        "VSG-B relational-field opportunity and graph risk"
+      ],
+      "explicit_non_inheritance": [
+        "No AL renderer surface/prompt becomes master",
+        "No VSG-B field layout/accents/connectors",
+        "No generic circular avatar/node system"
+      ]
+    },
+    {
+      "id": "IMG-F3",
+      "name": "Grounded Residual Presence",
+      "thesis": "Make people visibly alter a shared world through contact, occlusion, displacement, pressure, residue or changed available space, while retaining an explicit human anchor and persistent identity cues. The environment carries evidence of presence/consequence, but never replaces the person or becomes a literal causal diagram.",
+      "human_representation_medium_depth": "R1/R2 concise human anchor: silhouette, contour, partial figure or relief-like presence remains attributable while the surrounding shared field participates strongly.",
+      "figure_environment_emphasis": "Environment-responsive but human-anchored. Shared-space behavior may occupy more area than the figure, yet every response must remain attributable to specific people without private-state claims.",
+      "line_shape_construction": "Ground-contact, occlusion, local deformation, pressure/residue boundaries and repeatable person-linked spatial behavior; no beams, arrows, portals or magical traces.",
+      "relational_spatial_composition": "Relationship appears through how one presence changes another person's available space or the field they share; consequence may leave the field structurally non-neutral.",
+      "material_depth_posture": "Moderate localized depth/field response around human presence; no global glassmorphism, continuous shader spectacle, paper/archive metaphor or decorative texture carpet.",
+      "image_type_relationship": "Names/identity remain direct near the human anchor; explanatory type stays secondary so environmental response does not require interpretive captions to be understood.",
+      "app_translation": "Use sparingly at Stage-adjacent, identity or consequence-bearing design-master moments; ordinary shell/control surfaces stay quiet and do not receive ambient field effects.",
+      "web_translation": "WEB may expand shared-space response into larger atmospheric/causal compositions, including non-cone relationship and consequence systems, while avoiding Stage screenshots and generic dark mood.",
+      "monochrome_strategy": "Occlusion, contact, geometry, value separation and explicit identity survive color loss; residue never relies on glow/hue alone.",
+      "no_image_strategy": "Names + relationship/consequence language + structural ordering preserve meaning when the expressive field response is absent.",
+      "strength_hypothesis": "Strongest bridge from Kymaean's human-causal Stage physics into a broader image world without copying the Stage carrier.",
+      "primary_failure_pressures": [
+        "environment/material spectacle outranks people",
+        "mystical portal/rift or magical-residue drift",
+        "generic cinematic concept art",
+        "field behavior reads as quantified psychology or hidden state",
+        "Stage cone/scenery copied as shortcut",
+        "continuous animation/effects implied as necessary"
+      ],
+      "historical_sources_used_as_pressure": [
+        "Stage-inspired visual physics G1/G2/G3 laws",
+        "Quiet Stage and non-cone extension success",
+        "VSG-C material-metaphor overreach warning",
+        "current Stage human-causal background law",
+        "APP-SYN Stage-primacy/usage-restraint law"
+      ],
+      "explicit_non_inheritance": [
+        "No cone geometry, floor-name treatment, spotlight or black-box theater transfer",
+        "No Causal Scar layout as universal motif",
+        "No VSG-C living-record/archive material language",
+        "No historical renderer world/props"
+      ]
+    }
+  ],
+  "pairwise_divergence_audit": [
+    {
+      "pair": [
+        "IMG-F1",
+        "IMG-F2"
+      ],
+      "materially_different_axes": [
+        "human-representation medium/depth",
+        "line/shape construction",
+        "relational/spatial composition behavior",
+        "image-to-type relationship",
+        "APP restraint translation",
+        "WEB expressive translation"
+      ],
+      "count": 6
+    },
+    {
+      "pair": [
+        "IMG-F1",
+        "IMG-F3"
+      ],
+      "materially_different_axes": [
+        "human-representation medium/depth",
+        "figure/environment emphasis",
+        "line/shape construction",
+        "relational/spatial composition behavior",
+        "material/depth posture",
+        "image-to-type relationship",
+        "APP/WEB translation"
+      ],
+      "count": 7
+    },
+    {
+      "pair": [
+        "IMG-F2",
+        "IMG-F3"
+      ],
+      "materially_different_axes": [
+        "figure/environment emphasis",
+        "line/shape construction",
+        "relational/spatial composition behavior",
+        "material/depth posture",
+        "image-to-type relationship",
+        "APP/WEB translation"
+      ],
+      "count": 6
+    }
+  ],
+  "review_roles": [
+    {
+      "id": "APP_COMPACT_IDENTITY",
+      "intent": "Restrained compact app-context identity/focus composition; no Stage copy, no product behavior invention."
+    },
+    {
+      "id": "WEB_EXPRESSIVE_RELATIONSHIP",
+      "intent": "Expressive website/brand relationship composition using the same controlled people/facts with greater amplitude."
+    },
+    {
+      "id": "MONOCHROME_IDENTITY",
+      "intent": "Remove color/texture dependence and test attribution plus human specificity."
+    },
+    {
+      "id": "NO_IMAGE_FALLBACK",
+      "intent": "Remove expressive imagery and verify names, hierarchy, relationship/state references and task comprehension survive."
+    }
+  ],
+  "construction_order": [
+    "Freeze this family file and Stage-0 manifest.",
+    "Create deterministic neutral reference board from text laws, current masters as clearly labeled historical/current source tiles, and non-authoritative geometric abstractions only.",
+    "Run mechanical/readability/fallback preflight on the board.",
+    "Only after preflight freeze, create bounded new visual exemplars for any family not mechanically disqualified."
+  ],
+  "subjective_scoring_started": false,
+  "new_visual_generation_consumed": false,
+  "clr_selection_created": false,
+  "stage_change_created": false,
+  "recursive_audit": {
+    "three_families_exact": true,
+    "all_pairwise_divergence_counts_meet_floor": true,
+    "historical_surfaces_quarantined": true,
+    "clr_independence_explicit": true,
+    "stage_noncopy_explicit": true,
+    "no_product_semantics_invented": true,
+    "material_defects_remaining": false,
+    "approval": "APPROVED BY STANDING DIRECTOR DELEGATION - CLEAN IMG-01 FAMILY FREEZE."
+  }
+}
