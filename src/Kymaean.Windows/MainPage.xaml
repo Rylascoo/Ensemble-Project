@@ -348,40 +348,44 @@
                             <StackPanel
                                 MaxWidth="900"
                                 HorizontalAlignment="Stretch"
-                                Spacing="18">
-                                <Button
-                                    AutomationProperties.Name="Back"
-                                    Background="Transparent"
-                                    BorderBrush="Transparent"
-                                    Click="OnBackToProductionsClicked"
-                                    FocusVisualMargin="2"
-                                    HorizontalAlignment="Left"
-                                    Padding="6"
-                                    ToolTipService.ToolTip="Back"
-                                    UseSystemFocusVisuals="True">
-                                    <FontIcon
-                                        FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                                        FontSize="20"
-                                        Glyph="&#xE72B;" />
-                                </Button>
-
-                                <StackPanel Spacing="6">
-                                    <TextBlock
-                                        Foreground="{ThemeResource KymaeanSecondaryBrush}"
-                                        Text="Use the material already established in this Production, then open deeper work only when you need it."
-                                        TextWrapping="Wrap" />
+                                Spacing="12">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Button
+                                        AutomationProperties.Name="Back"
+                                        Background="Transparent"
+                                        BorderBrush="Transparent"
+                                        Click="OnBackToProductionsClicked"
+                                        FocusVisualMargin="2"
+                                        HorizontalAlignment="Left"
+                                        Padding="6"
+                                        ToolTipService.ToolTip="Back"
+                                        UseSystemFocusVisuals="True">
+                                        <FontIcon
+                                            FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                                            FontSize="20"
+                                            Glyph="&#xE72B;" />
+                                    </Button>
                                     <StackPanel
+                                        Grid.Column="2"
+                                        VerticalAlignment="Center"
                                         Orientation="Horizontal"
                                         Spacing="8">
                                         <TextBlock
+                                            FontSize="12"
                                             FontWeight="SemiBold"
                                             Foreground="{ThemeResource KymaeanSecondaryBrush}"
                                             Text="Product space" />
                                         <TextBlock
+                                            FontSize="12"
                                             Foreground="{ThemeResource KymaeanPrimaryBrush}"
                                             Text="{Binding ActiveProductSpace}" />
                                     </StackPanel>
-                                </StackPanel>
+                                </Grid>
 
                                 <Border
                                     Padding="0,18,0,0"
