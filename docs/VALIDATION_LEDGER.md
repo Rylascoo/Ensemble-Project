@@ -4,7 +4,7 @@ Status: validation fact register only. This file cannot advance phase/checkpoint
 
 ## Current promoted machine-tested checkpoint
 
-## Q-DESIGN-25 Current Production workspace candidate — 2026-09-25
+## Q-DESIGN-25 Current Production workspace integrated checkpoint — 2026-09-25
 
 | Field | Fact |
 |---|---|
@@ -18,7 +18,9 @@ Status: validation fact register only. This file cannot advance phase/checkpoint
 | Review | fresh independent exact-a05 behavioral no-write review CLEAN; clean before/after; effective workspace-write policy means technical containment unproven. Prior stale-authority finding reconciled in closeout. |
 | Contract | `docs/design/app/contracts/CURRENT_PRODUCTION_WORKSPACE_COMPOSITION.md` |
 | Evidence | `docs/evidence/Q_DESIGN_25_CURRENT_PRODUCTION_WORKSPACE_COMPOSITION_NATIVE_ARM64_VALIDATION_2026_09_25.md` |
-| Limits | integration pending; no human comprehension/Narrator/High Contrast PASS; no Product/Persistence/provider/deferred-E0/release authority |
+| Final PR head | `dc56a10dac18c22bf1b6b3f3ef27033d85ac89db`; push Validation #1431, PR Validation #1432 and E0-E preparation #244 PASS |
+| Integration | Director-authorized PR #276 merged at `37a1ce950690d09fc78d52acbba59fe85ab17993`; exact-main push [Validation #1433](https://github.com/Rylascoo/Ensemble-Project/actions/runs/36196123786) PASS. Merge tree equals approved PR-head tree. |
+| Limits | native authority remains the exact accepted executable; no human comprehension/Narrator/High Contrast PASS; no Product/Persistence/provider/deferred-E0/release or successor-package authority |
 
 ## Presentation seam / native ARM64 baseline integrated — 2026-09-24
 

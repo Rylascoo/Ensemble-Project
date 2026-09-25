@@ -8,13 +8,13 @@ Application Product, Implementation and App Design authority: `Rylascoo/Ensemble
 
 ## Integrated checkpoint
 
-`DESIGN_ARCHITECTURE_READY = READY`. `main@34ff50c23b411da33d16e615ace780088b257f4a` is the integrated checkpoint; exact-main Validation #1417 PASS. Q-PROD-02/03/04/05/06/07/08/09, Q-DESIGN-20/21/22/23/24, Q-ADMIN-08, Q-PREVIEW-01, the Presentation seam and native ARM64 baseline are integrated. PR #262/#269/#265 remain unmerged.
+`DESIGN_ARCHITECTURE_READY = READY`. `main@37a1ce950690d09fc78d52acbba59fe85ab17993` integrates Director-authorized PR #276; exact-main push Validation #1433 (`36196123786`) PASS. Q-PROD-02/03/04/05/06/07/08/09, Q-DESIGN-20/21/22/23/24/25, Q-ADMIN-08, Q-PREVIEW-01, the Presentation seam and native ARM64 baseline are integrated. PR #262/#269/#265 remain unmerged.
 
-## Q-DESIGN-25 candidate
+## Q-DESIGN-25 integrated
 
 Q-UNITY-01/02 remain current through `docs/Q_UNITY_01_PROJECT_UNIFICATION_AND_SIMPLIFICATION_2026_09_22.md` and `docs/evidence/Q_UNITY_02_DISCONNECTED_WORKSPACE_DEMO_SCAFFOLD_RETIREMENT_2026_09_22.md`.
 
-Current Production workspace composition is **DESIGN ACCEPTED / INTEGRATION PENDING** at exact executable `a05f00e64d16a5bc13bd1def03912472fd62c25b`.
+Current Production workspace composition is **DESIGN ACCEPTED / INTEGRATED**. Native validation and Design acceptance remain bound to exact executable `a05f00e64d16a5bc13bd1def03912472fd62c25b`; the merge does not inherit a new native-validation rung.
 
 Contract: `docs/design/app/contracts/CURRENT_PRODUCTION_WORKSPACE_COMPOSITION.md`. Evidence: `docs/evidence/Q_DESIGN_25_CURRENT_PRODUCTION_WORKSPACE_COMPOSITION_NATIVE_ARM64_VALIDATION_2026_09_25.md`.
 
@@ -28,4 +28,4 @@ Windows 11 ARM64 / Microsoft Store remains the sole shipping target until releas
 
 ## Next
 
-**Director merge disposition** of draft PR #276: `https://github.com/Rylascoo/Ensemble-Project/pull/276`, branch `codex/qdesign25-current-production-closeout-2026-09-25`. Require passing exact-head hosted gates and fresh refs before any authorized merge. No merge or successor lane is authorized by this checkpoint.
+Recover from freshly resolved live `main`; earlier Q-DESIGN-25 handoff/candidate branches are historical provenance. Q-DESIGN-25 is complete. No successor implementation or Design package is activated; a new bounded package requires explicit Director disposition. This documentation closeout requires its own merge authorization.

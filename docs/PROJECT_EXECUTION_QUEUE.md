@@ -19,13 +19,14 @@ This file now carries only current, deferred, or blocking work. Completed histor
 
 ## Current application work
 
+Q-DESIGN-25 is **DONE / INTEGRATED** through Director-authorized PR #276 at `37a1ce950690d09fc78d52acbba59fe85ab17993`; exact-main push Validation #1433 (`36196123786`) PASS. Native/Design authority remains exact `a05f00e64d16a5bc13bd1def03912472fd62c25b`. Recover from live main; older Q-DESIGN-25 handoff/candidate branches are historical provenance. No successor package is active. Integration evidence: `docs/evidence/Q_DESIGN_25_CURRENT_PRODUCTION_WORKSPACE_COMPOSITION_NATIVE_ARM64_VALIDATION_2026_09_25.md`.
+
 Q-ADMIN-08, Q-PREVIEW-01, Q-PROD-09 and Q-DESIGN-24 are integrated. The bounded Presentation seam and native ARM64 baseline are also integrated through PR #273 at `14133395ac40df28e193c443f077dd7c02078e31`; exact-main Validation #1410 (`36077914162`) PASS. Native authority remains exact `5205f13dd6872372f4c9ed8f7b078dabb854646a`; reviewed application seam remains `c11c842c9e75ce1db1555a660919562bb74c055b`. PR #262/#269/#265 remain unmerged; human Scene-code comprehension/discoverability, Narrator intelligibility and High Contrast remain later falsifiers.
 
 Program completion doctrine: Windows 11 ARM64 / Microsoft Store is the sole shipping target until release. Cross-platform work is deferred. The one bounded platform-neutral Presentation seam is integrated; broad architecture analysis is now closed unless executable evidence falsifies the structure. `tools/native-arm64-baseline.ps1` remains the standing target-machine regression mechanism. NPU/local AI remains optional measured infrastructure, not a correctness dependency.
 
 | ID | Role | Status | Work | Hard boundary / successor |
 |---|---|---|---|---|
-| Q-DESIGN-25 — Current Production workspace composition | Design / Governance | DESIGN ACCEPTED — DIRECTOR MERGE DISPOSITION | Exact executable `a05f00e64d16a5bc13bd1def03912472fd62c25b`; native/Preview evidence reconciled and fresh independent review CLEAN. Draft PR #276, branch `codex/qdesign25-current-production-closeout-2026-09-25`. | Passing exact-head PR gates and explicit Director merge authority required. No new Product semantics or successor activation. |
 | Q-ADMIN-07 | Governance / Recovery | DEFERRED — LOCAL RESIDUE ONLY | Disposition remaining local historical/deferred worktrees after owner/status/evidence review. | Preserve ambiguous local evidence and the unique historical PR #226 branch; merged remote refs require archive-tag-before-delete handling. |
 
 ## Deferred E0 / architecture gates

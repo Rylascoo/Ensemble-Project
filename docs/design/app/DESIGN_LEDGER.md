@@ -2,7 +2,9 @@
 
 ## Project-native Q-DESIGN-25 Current Production workspace acceptance — 2026-09-25
 
-**State:** DESIGN ACCEPTED / INTEGRATION PENDING / EXACT EXECUTABLE `a05f00e64d16a5bc13bd1def03912472fd62c25b`
+**State:** DESIGN ACCEPTED / INTEGRATED / EXACT EXECUTABLE `a05f00e64d16a5bc13bd1def03912472fd62c25b`
+
+Integration addendum: the Director explicitly approved PR #276 at head `dc56a10dac18c22bf1b6b3f3ef27033d85ac89db`. It was marked ready, live main/base/head and gates were revalidated, and it merged at `37a1ce950690d09fc78d52acbba59fe85ab17993`. Exact-main push Validation #1433 (`36196123786`) PASS; merge tree equals the approved head. Native/Design authority remains exact-a05. Recovery now begins at live main; historical handoff branches do not resume authority. PR #262/#265/#269 remain unmerged, and no successor Design package is activated.
 
 The Director’s continuation activated the previously deferred bounded Current Production composition candidate. Design reconciled current Product and App Design contracts without adopting historical current-Scene, Pressure, relationship, history, resume or provider semantics. The accepted workspace is one continuous contextual field: ProductSpace orientation, World truths, Characters and Scenes/initial rosters, each using presentation-only bounded preview disclosure into its already-adopted deeper action. This recovery did not read or change Drive masters.
 
@@ -12,7 +14,7 @@ Contract: `contracts/CURRENT_PRODUCTION_WORKSPACE_COMPOSITION.md`. Evidence: `do
 
 No human comprehension, Narrator or High Contrast PASS is claimed. No Product/Persistence, provider, lifecycle, deferred-E0, Alpha/Beta/release, WACK or Store authority is created.
 
-Fresh recovery review at exact `a05f00e...` is CLEAN, behaviorally no-write with clean before/after checkout. Effective workspace-write policy leaves technical containment unproven. The Director explicitly authorized reconciliation of preserved local `a05f00e...` / `fe605def...` work in this task; merge remains separately gated.
+Fresh recovery review at exact `a05f00e...` is CLEAN, behaviorally no-write with clean before/after checkout. Effective workspace-write policy leaves technical containment unproven. The Director explicitly authorized reconciliation of preserved local `a05f00e...` / `fe605def...` work in this task; merge remained separately gated at that recovery checkpoint and was later authorized as recorded above.
 
 **APPROVED BY STANDING DIRECTOR DELEGATION — CLEAN RECURSIVE AUDIT.** Bounded acceptance under the Director-adopted dual-review method.
 
