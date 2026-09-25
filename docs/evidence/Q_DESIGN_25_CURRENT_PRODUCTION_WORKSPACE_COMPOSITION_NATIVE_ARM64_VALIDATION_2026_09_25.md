@@ -79,6 +79,8 @@ All 31 recovered live branch heads were inventoried: main, 23 ancestral refs, fo
 
 ## Limits
 
+Publication: draft [PR #276](https://github.com/Rylascoo/Ensemble-Project/pull/276), branch `codex/qdesign25-current-production-closeout-2026-09-25`, with the annotated validation tag published and exact peel verified. Local commissioning closeout at `ce208b70e19b9fd5f12b0515273e39f3e2d067e0` PASS: repository law, document census (562 total / 440 current / 30 historical / 92 archive / 0 unexplained), oracle guard, whitespace and explicitly adopted protected changes. Later publication-locator changes are documentation only. The PR's exact-head hosted results must pass before Director-authorized integration; neither PR creation nor CI creates merge authority.
+
 Fresh Presentation log SHA-256: `A4B05DB5581EA29D7376726969BFA8E370F63EFF56D2D986A855A10C5B427383`; exact-a05 validator remained clean after execution.
 
 No Product/Persistence expansion, current Scene/situation, pressure/relationship/history, provider/Performer, lifecycle, deferred-E0, architecture reopening, Alpha/Beta/release, WACK or Store authority. Merge/integration commits do not inherit native machine-test authority from `a05f00e...`.

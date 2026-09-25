@@ -25,7 +25,7 @@ Program completion doctrine: Windows 11 ARM64 / Microsoft Store is the sole ship
 
 | ID | Role | Status | Work | Hard boundary / successor |
 |---|---|---|---|---|
-| Q-DESIGN-25 — Current Production workspace composition | Design / Governance | DESIGN ACCEPTED — PR / DIRECTOR DISPOSITION PENDING | Exact executable `a05f00e64d16a5bc13bd1def03912472fd62c25b`; native/Preview evidence reconciled and fresh independent review CLEAN. Closeout branch: `codex/qdesign25-current-production-closeout-2026-09-25`. | Verify exact-head PR gates, then obtain explicit Director merge authority. No new Product semantics or successor activation. |
+| Q-DESIGN-25 — Current Production workspace composition | Design / Governance | DESIGN ACCEPTED — DIRECTOR MERGE DISPOSITION | Exact executable `a05f00e64d16a5bc13bd1def03912472fd62c25b`; native/Preview evidence reconciled and fresh independent review CLEAN. Draft PR #276, branch `codex/qdesign25-current-production-closeout-2026-09-25`. | Passing exact-head PR gates and explicit Director merge authority required. No new Product semantics or successor activation. |
 | Q-ADMIN-07 | Governance / Recovery | DEFERRED — LOCAL RESIDUE ONLY | Disposition remaining local historical/deferred worktrees after owner/status/evidence review. | Preserve ambiguous local evidence and the unique historical PR #226 branch; merged remote refs require archive-tag-before-delete handling. |
 
 ## Deferred E0 / architecture gates

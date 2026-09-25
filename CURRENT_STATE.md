@@ -28,4 +28,4 @@ Windows 11 ARM64 / Microsoft Store remains the sole shipping target until releas
 
 ## Next
 
-Prepare the bounded Q-DESIGN-25 PR from `codex/qdesign25-current-production-closeout-2026-09-25`, verify exact-head hosted gates, then stop for **explicit Director merge authorization**. No successor implementation or architecture lane is activated.
+**Director merge disposition** of draft PR #276: `https://github.com/Rylascoo/Ensemble-Project/pull/276`, branch `codex/qdesign25-current-production-closeout-2026-09-25`. Require passing exact-head hosted gates and fresh refs before any authorized merge. No merge or successor lane is authorized by this checkpoint.
