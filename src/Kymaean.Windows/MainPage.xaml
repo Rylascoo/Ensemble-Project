@@ -510,7 +510,7 @@
                                             Visibility="{Binding HasScenes, Converter={StaticResource BoolToVisibility}}" />
                                         <TextBlock
                                             Foreground="{ThemeResource KymaeanSecondaryBrush}"
-                                            Text="No Scenes yet."
+                                            Text="{Binding SceneEmptyMessage}"
                                             Visibility="{Binding HasNoScenes, Converter={StaticResource BoolToVisibility}}" />
                                         <TextBlock
                                             FontSize="12"
@@ -556,7 +556,7 @@
                                                 Visibility="{Binding HasSceneNotice, Converter={StaticResource BoolToVisibility}}">
                                     <TextBlock Text="{Binding SceneNotice}" TextWrapping="Wrap" AutomationProperties.AccessibilityView="Raw" />
                                 </ContentControl>
-                                <TextBlock Text="No Scenes yet." Visibility="{Binding HasNoScenes, Converter={StaticResource BoolToVisibility}}" />
+                                <TextBlock Text="{Binding SceneEmptyMessage}" Visibility="{Binding HasNoScenes, Converter={StaticResource BoolToVisibility}}" />
                                 <Border BorderBrush="{ThemeResource KymaeanBoundaryBrush}" BorderThickness="1"
                                         Visibility="{Binding HasScenes, Converter={StaticResource BoolToVisibility}}">
                                     <ListView IsTabStop="False" x:Name="SceneList" ItemsSource="{Binding SceneRows}"

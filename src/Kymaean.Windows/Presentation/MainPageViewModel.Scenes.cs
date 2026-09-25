@@ -51,6 +51,9 @@ public sealed partial class MainPageViewModel
     public string SceneListDescription => HasSceneUncertainty
         ? "Last confirmed Scenes and their initial rosters."
         : "Established Scenes and their initial rosters.";
+    public string SceneEmptyMessage => HasSceneUncertainty
+        ? "There were no last confirmed Scenes."
+        : "No Scenes yet.";
     public string SceneListInstruction => HasSceneUncertainty
         ? "Choose a last confirmed Scene to inspect its initial roster."
         : "Choose a Scene to inspect its initial roster, or establish a new Scene.";
@@ -213,6 +216,7 @@ public sealed partial class MainPageViewModel
             nameof(OverviewSceneRows), nameof(HasMoreOverviewScenes), nameof(SceneCast),
             nameof(HasNoSceneCast), nameof(SceneDraftRoster), nameof(HasEmptySceneDraft), nameof(InspectedScene),
             nameof(SubmittedSceneRoster), nameof(HasEmptySubmittedSceneRoster), nameof(SceneNotice), nameof(HasSceneNotice),
-            nameof(SceneListHeading), nameof(SceneListDescription), nameof(SceneListInstruction), nameof(SceneNewSceneHelp) }) OnPropertyChanged(property);
+            nameof(SceneListHeading), nameof(SceneListDescription), nameof(SceneEmptyMessage), nameof(SceneListInstruction),
+            nameof(SceneNewSceneHelp) }) OnPropertyChanged(property);
     }
 }

@@ -133,6 +133,40 @@ public sealed class ScenePresentationTests
     }
 
     [TestMethod]
+    public void EmptySceneNonconfirmationNeverClaimsAuthoritativeAbsence()
+    {
+        foreach (var environmental in new[] { false, true })
+        {
+            var (vm, catalog) = Start();
+            if (environmental)
+            {
+                catalog.Error = new IOException();
+            }
+            else
+            {
+                catalog.Failure = ProductAccessFailureKind.Invalid;
+            }
+
+            Assert.IsTrue(vm.BeginSceneDraft());
+            Assert.IsNull(vm.EstablishScene());
+            Assert.IsTrue(vm.HasSceneUncertainty);
+            Assert.IsTrue(vm.HasNoScenes);
+            Assert.AreEqual(
+                "There were no last confirmed Scenes.",
+                vm.SceneEmptyMessage);
+
+            vm.CloseScenes();
+
+            Assert.IsTrue(vm.IsCurrentProductionOverview);
+            Assert.AreEqual("Last confirmed Scenes", vm.SceneListHeading);
+            Assert.IsTrue(vm.HasNoScenes);
+            Assert.AreEqual(
+                "There were no last confirmed Scenes.",
+                vm.SceneEmptyMessage);
+        }
+    }
+
+    [TestMethod]
     public void OverviewPreservesWorldAndCharacterNonconfirmationOnReturn()
     {
         var (vm, catalog) = Start();
