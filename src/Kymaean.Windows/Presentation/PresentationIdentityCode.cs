@@ -24,39 +24,40 @@ internal static class PresentationIdentityCode
                 continue;
             }
 
-            foreach (var (identity, code) in BuildSceneCodes(duplicates.Select(identityValueSelector).ToArray()))
+            foreach (var (identity, code) in BuildSceneCodes(
+                         duplicates.Select(identityValueSelector).ToArray()))
             {
-                result[identity] = code ?? throw new InvalidOperationException("Presentation identity fingerprints collide.");
+                result[identity] = code ??
+                    throw new InvalidOperationException(
+                        "Presentation identity fingerprints collide.");
             }
         }
 
         return result;
     }
 
-    public static IReadOnlyDictionary<string, string?> BuildSceneCodes(IReadOnlyList<string> identities)
-    {
-#if SCENE_PRESENTATION_TESTS
-        if (FullHashCollisionIdentitiesForTest is { } collision)
-            return ResolveSceneHashes(identities.ToDictionary(id => id,
-                id => collision.Contains(id) ? new string('F', 64) : HashIdentity(id), StringComparer.Ordinal));
-#endif
-        return ResolveSceneHashes(identities.ToDictionary(id => id, HashIdentity, StringComparer.Ordinal));
-    }
+    public static IReadOnlyDictionary<string, string?> BuildSceneCodes(
+        IReadOnlyList<string> identities) =>
+        ResolveSceneHashes(
+            identities.ToDictionary(
+                identity => identity,
+                HashIdentity,
+                StringComparer.Ordinal));
 
-    // Only tests compile the injection entry point. The retail build has no hash override.
-#if SCENE_PRESENTATION_TESTS
-    internal static IReadOnlySet<string>? FullHashCollisionIdentitiesForTest { get; set; }
     internal static IReadOnlyDictionary<string, string?> InjectFullCollisionForTest(
-        IReadOnlyDictionary<string, string> hashes) => ResolveSceneHashes(hashes);
-#endif
+        IReadOnlyDictionary<string, string> hashes) =>
+        ResolveSceneHashes(hashes);
 
     private static IReadOnlyDictionary<string, string?> ResolveSceneHashes(
         IReadOnlyDictionary<string, string> hashes)
     {
         var result = new Dictionary<string, string?>(StringComparer.Ordinal);
-        var fullCollisions = hashes.GroupBy(pair => pair.Value, StringComparer.Ordinal)
-            .Where(group => group.Count() > 1).SelectMany(group => group.Select(pair => pair.Key))
+        var fullCollisions = hashes
+            .GroupBy(pair => pair.Value, StringComparer.Ordinal)
+            .Where(group => group.Count() > 1)
+            .SelectMany(group => group.Select(pair => pair.Key))
             .ToHashSet(StringComparer.Ordinal);
+
         foreach (var (identity, hash) in hashes)
         {
             if (fullCollisions.Contains(identity))
@@ -66,13 +67,18 @@ internal static class PresentationIdentityCode
             }
 
             var length = 8;
-            while (hashes.Any(other => other.Key != identity &&
-                       other.Value.AsSpan(0, length).SequenceEqual(hash.AsSpan(0, length))))
+            while (hashes.Any(
+                       other =>
+                           other.Key != identity &&
+                           other.Value.AsSpan(0, length)
+                               .SequenceEqual(hash.AsSpan(0, length))))
             {
                 length += 4;
             }
+
             result.Add(identity, hash[..length]);
         }
+
         return result;
     }
 
@@ -84,7 +90,9 @@ internal static class PresentationIdentityCode
         for (var index = 0; index < value.Length; index++)
         {
             BinaryPrimitives.WriteUInt16BigEndian(
-                bytes.AsSpan(index * sizeof(ushort), sizeof(ushort)),
+                bytes.AsSpan(
+                    index * sizeof(ushort),
+                    sizeof(ushort)),
                 value[index]);
         }
 

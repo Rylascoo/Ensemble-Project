@@ -40,10 +40,20 @@ public sealed partial class MainPageViewModel : INotifyPropertyChanged
     private string _worldTruthStatusMessage = string.Empty;
     private string _worldTruthFailureMessage = string.Empty;
     private bool _worldTruthConfirmationUnavailable;
+    private readonly Func<IReadOnlyList<string>, IReadOnlyDictionary<string, string?>> _sceneCodeBuilder;
 
-    public MainPageViewModel(WindowsStartupResult startup)
+    public MainPageViewModel(PresentationStartupResult startup)
+        : this(startup, PresentationIdentityCode.BuildSceneCodes)
+    {
+    }
+
+    internal MainPageViewModel(
+        PresentationStartupResult startup,
+        Func<IReadOnlyList<string>, IReadOnlyDictionary<string, string?>> sceneCodeBuilder)
     {
         ArgumentNullException.ThrowIfNull(startup);
+        ArgumentNullException.ThrowIfNull(sceneCodeBuilder);
+        _sceneCodeBuilder = sceneCodeBuilder;
 
         if (startup.IsInfrastructureFailure)
         {
