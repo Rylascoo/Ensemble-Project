@@ -2,7 +2,7 @@
 
 Status: **ACTIVE CURRENT-WORK REGISTER**
 
-Updated: 2026-09-24
+Updated: 2026-09-25
 
 The complete pre-unification sequencing/history is preserved at `docs/evidence/archive/PROJECT_EXECUTION_QUEUE_PRE_UNIFICATION_2026_09_22.md`.
 
@@ -25,7 +25,7 @@ Program completion doctrine: Windows 11 ARM64 / Microsoft Store is the sole ship
 
 | ID | Role | Status | Work | Hard boundary / successor |
 |---|---|---|---|---|
-| Current Production workspace composition | Design | DEFERRED — DIRECTOR DISPOSITION | Future bounded composition candidate identified during Preview reconciliation. | Not activated by Q-PREVIEW-01 or Q-DESIGN-24; no whole-app redesign. |
+| Q-DESIGN-25 — Current Production workspace composition | Design | ACTIVE — FINAL INDEPENDENT REVIEW PENDING | Bounded continuous Current Production overview composing earned World truths, Characters and Scenes/initial rosters with presentation-only three-item previews and preserved uncertainty witnesses. Exact candidate `d0c6424d382a049f182775fe15b93fff84dbb3c9`. | No Product/Persistence/Core expansion, no whole-app redesign, no unearned current-Scene/pressure/history/provider semantics. Clean independent read-only review is required before Design acceptance or PR readiness. |
 | Q-ADMIN-07 | Governance / Recovery | DEFERRED — LOCAL RESIDUE ONLY | Disposition remaining local historical/deferred worktrees after owner/status/evidence review. | Preserve ambiguous local evidence and the unique historical PR #226 branch; merged remote refs require archive-tag-before-delete handling. |
 
 ## Deferred E0 / architecture gates
