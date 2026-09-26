@@ -72,7 +72,7 @@ PR #262 and evidence PR #269 remain unmerged historical branches and are not int
 
 ### Q-DESIGN-25 — Current Production workspace composition
 
-**DESIGN ACCEPTED / INTEGRATION PENDING.** Contract: `contracts/CURRENT_PRODUCTION_WORKSPACE_COMPOSITION.md`. Exact accepted executable: `a05f00e64d16a5bc13bd1def03912472fd62c25b`.
+**DONE / DESIGN ACCEPTED / INTEGRATED.** Contract: `contracts/CURRENT_PRODUCTION_WORKSPACE_COMPOSITION.md`. Exact accepted executable: `a05f00e64d16a5bc13bd1def03912472fd62c25b`. Director-authorized PR #276 merged at `37a1ce950690d09fc78d52acbba59fe85ab17993`; exact-main push Validation #1433 (`36196123786`) PASS. Integration does not promote native evidence beyond the accepted executable.
 
 The contextual overview now composes only earned Production identity, ProductSpace, World truths, Characters and Scenes/initial rosters in one continuous field with bounded previews and honest typed uncertainty. No current Scene/situation, Pressure/relationship/history, provider/Performer, lifecycle or Product/Persistence semantics are added. Native ARM64 and exact-source Preview evidence are recorded in `docs/evidence/Q_DESIGN_25_CURRENT_PRODUCTION_WORKSPACE_COMPOSITION_NATIVE_ARM64_VALIDATION_2026_09_25.md`.
 
@@ -92,6 +92,6 @@ Human comprehension/discoverability, Narrator and exact-source High Contrast rem
 
 ## Operating rule
 
-Director-approved Preview feedback method: `evidence/Q_PREVIEW_01_DIRECTOR_FEEDBACK_METHOD_2026_09_23.md`. Current accelerated UI loop: `DUAL_REVIEW_UI_DEVELOPMENT_METHOD_2026_09_24.md`. Design owns diagnosis; Claude Code provides independent read-only review; automation owns deterministic claims; Director input is reserved for irreducible decisions and milestone human evidence. Reference map: `pointers/DIRECTOR_PREVIEW_VISUAL_REFERENCE_MAP.md`. Q-DESIGN-25 is Design-accepted at exact executable `a05f00e...`; integration remains Director-gated.
+Director-approved Preview feedback method: `evidence/Q_PREVIEW_01_DIRECTOR_FEEDBACK_METHOD_2026_09_23.md`. Current accelerated UI loop: `DUAL_REVIEW_UI_DEVELOPMENT_METHOD_2026_09_24.md`. Design owns diagnosis; Claude Code provides independent read-only review; automation owns deterministic claims; Director input is reserved for irreducible decisions and milestone human evidence. Reference map: `pointers/DIRECTOR_PREVIEW_VISUAL_REFERENCE_MAP.md`. Q-DESIGN-25 is Design-accepted at exact executable `a05f00e...` and integrated. No successor Design package is activated.
 
 Current Product truth is an input to Design, not something Design may invent. Historical transferred capacities are not runtime permission. When a current Product contract changes, reconcile the smallest affected Design contract rather than reopening the whole transferred archive.

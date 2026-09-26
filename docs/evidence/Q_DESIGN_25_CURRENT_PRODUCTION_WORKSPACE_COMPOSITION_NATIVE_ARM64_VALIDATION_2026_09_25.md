@@ -2,7 +2,7 @@
 
 Date: 2026-09-25
 
-Status: **DESIGN ACCEPTED / INTEGRATION PENDING**
+Status: **DESIGN ACCEPTED / INTEGRATED**
 
 ## Exact lineage
 
@@ -60,7 +60,7 @@ Fresh recovery review: native reviewer task `/root/qdesign25_independent_review`
 
 The review challenged World/Character/Scene uncertainty, empty Scene absence, duplicate-Character roster freshness, complete-set identity derivation before three-item disclosure, 720x520 hierarchy, Light/Dark and empty-state parity, copy, focus/accessibility risks, dashboard drift and semantic leakage. It preserved the continuous field, three durable routes, explicit last-confirmed witnesses and focused regression coverage. Initial-viewport screenshots do not prove scrolled interaction, keyboard/UIA delivery, large-text stress, Narrator, High Contrast or human comprehension.
 
-## Recovery evidence and disposition
+## Recovery evidence and disposition (before integration)
 
 The Director explicitly authorized reconciliation of the preserved local repair/acceptance lineage `a05f00e...` / `fe605def0717dcc5488397b6c4e9141a985c7fbf` in this recovery task. GitHub still resolved main `34ff50c...`, original candidate `d0c6424d382a049f182775fe15b93fff84dbb3c9`, and handoff `13cdcef...`. Exact-main Validation #1417 (`36081026811`) and handoff Validation #1428 (`36177104086`) PASS. Candidate #1421 failed repository-law enforcement while its compiler/regression jobs passed; it is not relabeled green.
 
@@ -79,8 +79,17 @@ All 31 recovered live branch heads were inventoried: main, 23 ancestral refs, fo
 
 ## Limits
 
-Publication: draft [PR #276](https://github.com/Rylascoo/Ensemble-Project/pull/276), branch `codex/qdesign25-current-production-closeout-2026-09-25`, with the annotated validation tag published and exact peel verified. Local commissioning closeout at `ce208b70e19b9fd5f12b0515273e39f3e2d067e0` PASS: repository law, document census (562 total / 440 current / 30 historical / 92 archive / 0 unexplained), oracle guard, whitespace and explicitly adopted protected changes. Later publication-locator changes are documentation only. The PR's exact-head hosted results must pass before Director-authorized integration; neither PR creation nor CI creates merge authority.
+Historical publication: [PR #276](https://github.com/Rylascoo/Ensemble-Project/pull/276) was opened as a draft from `codex/qdesign25-current-production-closeout-2026-09-25`, with the annotated validation tag published and exact peel verified. Local commissioning closeout at `ce208b70e19b9fd5f12b0515273e39f3e2d067e0` PASS: repository law, document census (562 total / 440 current / 30 historical / 92 archive / 0 unexplained), oracle guard, whitespace and explicitly adopted protected changes. Later publication-locator changes were documentation only. PR creation and CI did not create merge authority.
 
 Fresh Presentation log SHA-256: `A4B05DB5581EA29D7376726969BFA8E370F63EFF56D2D986A855A10C5B427383`; exact-a05 validator remained clean after execution.
 
 No Product/Persistence expansion, current Scene/situation, pressure/relationship/history, provider/Performer, lifecycle, deferred-E0, architecture reopening, Alpha/Beta/release, WACK or Store authority. Merge/integration commits do not inherit native machine-test authority from `a05f00e...`.
+
+## Director-authorized integration — 2026-09-25
+
+- Director authorization: mark PR #276 ready, fresh-check live main/head/base/mergeability/gates, then merge only unchanged exact head `dc56a10dac18c22bf1b6b3f3ef27033d85ac89db`; preserve PR #262/#265/#269 unmerged and activate no successor package.
+- Revalidated main and PR base: `34ff50c23b411da33d16e615ace780088b257f4a`; head unchanged, ready, mergeable and clean. GitHub reported no applicable branch-protection/ruleset requirements; all repository workflow gates passed: push Validation #1431 (`36195291029`), PR Validation #1432 (`36195294731`), E0-E preparation #244 (`36195294753`).
+- Merge commit/live main: `37a1ce950690d09fc78d52acbba59fe85ab17993`. Parents are the revalidated base and exact authorized head. Merge and PR-head trees both equal `6c47ffa8dc2cc2e70eae51e0f5197bd16ed16924`.
+- Exact-main **push** [Validation #1433](https://github.com/Rylascoo/Ensemble-Project/actions/runs/36196123786): **PASS**, independently rechecked at post-merge recovery. This is hosted regression/compiler/repository evidence, not new native-machine validation.
+- Canonical local main was clean and fast-forwarded under the shared-Git lock to the same exact merge. PR #262/#265/#269 remained open and unmerged. Existing branch/worktree provenance remains preserved; no deletion is authorized by this closeout.
+- The Director designated freshly resolved live main as the recovery entry. Earlier Q-DESIGN-25 handoff/candidate branches are historical provenance, not active authority. Q-DESIGN-25 is complete; successor work requires explicit Director disposition. This documentation-only closeout does not inherit PR #276's merge authorization.
