@@ -4,7 +4,7 @@ Status: **NATIVE ARM64 PASS / REVIEW CLEAN / CANDIDATE NOT MERGED**
 
 ## Authority and scope
 
-The Director separately authorized this bounded implementation on 2026-09-26 after PR #279 integrated at `11ef377888ede2f31ea6505377962543b4016aa6` (exact-main Validation #1442 PASS). Base: that exact merge. Branch: `codex/offline-execution-foundation-2026-09-26`. This is Q-PROD-10, not provider admission or completion of the creator-facing interaction.
+The Director separately authorized this bounded implementation on 2026-09-26 after PR #279 integrated at `11ef377888ede2f31ea6505377962543b4016aa6` (exact-main Validation #1442 PASS). Base: that exact merge. Branch: `codex/offline-execution-foundation-2026-09-26`. Draft PR: [#280](https://github.com/Rylascoo/Ensemble-Project/pull/280), unmerged. This is Q-PROD-10, not provider admission or completion of the creator-facing interaction.
 
 The adopted `docs/PRODUCT_EXECUTOR_ADMISSION_DECISION_PACKET_2026_09_25.md` remains governing. Product semantics, Application synchronous ports, journal/replay/revision behavior and all falsifiers are unchanged. PRs #262, #265 and #269 remain preserved/unmerged.
 
@@ -36,7 +36,7 @@ Next: exact-final-head hosted gates and Director disposition of the draft PR. Di
 
 ## Review correction record
 
-Independent behavioral no-write review of `834d1fcdec9d3707c1efddecd057b33cc1ae3540` identified four P2s: implicit completion dispatch, stale-before-start invocation, missing independent technical-cause diagnostics, and invented runtime-installation copy. All four were corrected and covered by deterministic tests; the shipping copy is exactly **Performance is unavailable.** A separate exact-ref composition review found no production runtime/test fallback or dependency/isolation defect. Effective sandbox was workspace-write; technical read-only containment is not claimed. Corrected independent exact-ref review at `78e7537105d4de2020d90a9bb440856321234dba` returned no remaining actionable findings. The final native baseline at that same clean commit passed.
+Independent behavioral no-write review of `834d1fcdec9d3707c1efddecd057b33cc1ae3540` identified four P2s: implicit completion dispatch, stale-before-start invocation, missing independent technical-cause diagnostics, and invented runtime-installation copy. All four were corrected and covered by deterministic tests; the shipping copy is exactly **Performance is unavailable.** A separate exact-ref composition review found no production runtime/test fallback or dependency/isolation defect. Effective sandbox was workspace-write; technical read-only containment is not claimed. Corrected independent exact-ref review at `78e7537105d4de2020d90a9bb440856321234dba` returned no remaining actionable findings. The final native baseline at that same clean commit passed. Independent review of documentation closeout `02d85298a7841c353989199d8b12e6413f49004b` also found no actionable finding or authority inflation.
 
 ## Exact-source final validation
 
