@@ -1,8 +1,16 @@
 # Product executor admission decision packet
 
-Status: **DECISION INPUT RETURNED — AWAITING DIRECTOR DISPOSITION — NO EXECUTOR ADMITTED**
+Status: **DIRECTOR-ADOPTED — DOCUMENTATION INTEGRATION PENDING — NO EXECUTOR ADMITTED**
 
 Date: 2026-09-25 (Director local date). Roles: Product / Architecture; Governance / Recovery for the specified continuity correction. Exact source baseline: `Rylascoo/Ensemble-Project@286ad728e5c1dab9d2150f2507ff955b492501c5`.
+
+## Director adoption and publication boundary
+
+The Director adopted this packet at exact local head `414b95810aecbe810c942fac0cafde3c6e3b61f7`, preserving its execution boundary, ownership model, failure/uncertainty model, offline-validation plan, provider separation, falsifiers and explicit non-authority as written. The adoption authorizes durable recording/publication only: push `codex/product-executor-admission-decision-2026-09-25`, open a draft PR containing only this packet, `CURRENT_STATE.md` and `docs/PROJECT_EXECUTION_QUEUE.md`, verify hosted gates and independent exact-head review, then stop for Director merge disposition. Live main was freshly re-resolved at the unchanged source baseline before publication.
+
+After durable integration, the next separate proposal is the **offline execution foundation**: serialized operation owner, request/result attribution, unavailable state, executor adapter boundaries and synthetic-transport tests. No implementation is activated by adoption. Ordinary production Performance must remain unavailable until a real runtime/provider and its prerequisites receive separate admission; test doubles cannot pretend that a usable executor exists. Provider/model selection is not the next implementation package. No executor or interaction implementation, credentials, provider network traffic, spend, first live AI Performance or deferred-E0 execution is authorized.
+
+The original decision analysis below is preserved. This receipt supersedes its procedural request for adoption, not its execution contract or exclusions.
 
 ## Decision requested
 
@@ -183,8 +191,8 @@ All 34 live branch refs (main plus 33 others) were resolved. Exact refs below ar
 
 Independent source inventory confirmed absence of production Product executors and the E0 mismatch. Independent exact-commit review of `0a0eae56c64d2669ed2afe239fb257aee8b4a556` against recovered main found no material correctness or authority defect; its sole P3 was the Presentation test-directory locator, corrected here. Both reviews were behavioral no-write under effective workspace-write policy; technical read-only containment was not proven. The packet's ownership, stale/duplicate publication, uncertainty and post-success rendering rules passed static review; narrower internal noncommit evidence does not weaken the adopted conservative I/O presentation.
 
-Documentation validation: repository-law PASS; document census 564 total / 442 current / 30 historical / 92 archive / 0 unexplained PASS; diff whitespace check PASS; CURRENT_STATE 3,016 bytes (3,072-byte cap). These are documentation/static checks only. No new executable tests, build, native runtime/accessibility, credential access, provider request or spend was performed. This three-document candidate is local on `codex/product-executor-admission-decision-2026-09-25`; it is not integrated authority. Director disposition is still required.
+Adoption-source documentation validation: repository-law PASS; document census 564 total / 442 current / 30 historical / 92 archive / 0 unexplained PASS; diff whitespace check PASS; CURRENT_STATE 3,016 bytes (3,072-byte cap). These are documentation/static checks only. No new executable tests, build, native runtime/accessibility, credential access, provider request or spend was performed for that decision analysis. The Director subsequently authorized publication of this three-document candidate on `codex/product-executor-admission-decision-2026-09-25`. Adoption is recorded above; integration remains pending Director merge disposition.
 
 This packet grants no implementation, executor activation, provider/model selection, credentials, network/provider traffic, spend, first live AI Performance, persistent casting, ordinary production test doubles, Current/Active Scene, Scene switching/endings/lifecycle, automatic opportunity selection, broader actor context/consequences, history browsing, Take/review semantics, ODR closure, deferred-E0 execution, broad architecture reopening or Alpha/Beta/release/WACK/Store advancement. No Product, Design or validation law is changed. No merge is authorized.
 
-**Stop: Director disposition of this packet.**
+**Stop: Director merge disposition for the documentation PR. No implementation successor is active.**
