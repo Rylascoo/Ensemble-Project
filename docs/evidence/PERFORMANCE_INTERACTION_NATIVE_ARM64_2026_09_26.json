@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "status": "SOURCE_EVIDENCE_DRAFT_UI_CAPTURES_DEFERRED_BY_DIRECTOR",
+  "status": "NATIVE_OUTCOMES_VISUAL_REVIEW_COMPLETE_FULL_ACCEPTANCE_INCOMPLETE",
   "native": {
     "schema": 1,
     "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
@@ -238,6 +238,1440 @@
     "result": "CLEAN",
     "scope": "tools/director-preview/common.ps1 only; executable unchanged"
   },
-  "interaction": "Director requested source/evidence draft and deferred UI captures. No native Performance outcome, Narrator, High Contrast or Design acceptance PASS.",
-  "captures": []
+  "interaction": "Seven native outcome scenarios and four representative view presets observed. Visible focus and same-Production reopen sequence observed; speech/accessibility and adversarial native gaps remain. No Design acceptance or merge readiness.",
+  "captures": [
+    {
+      "label": "light-wide-roster",
+      "time": "2026-09-26T17:59:58.669Z",
+      "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+      "profile": {
+        "kind": "performance-success",
+        "id": "e25d9c23eacd4851ac0407b13752b508",
+        "theme": "Light",
+        "width": 1200,
+        "height": 800
+      },
+      "window": {
+        "app": "Kymaean.DirectorPreview_1z32rh13vfry6!App",
+        "id": 2689614,
+        "title": "KYMÆAN Director Preview — Deterministic offline exercise (performance-success)"
+      },
+      "accessibility": null,
+      "captures": [
+        {
+          "file": "C:/Users/Wiryl/Sol Dev/admin-scratch/performance-preview-20260926/captures-native-pass/light-wide-roster-0.png",
+          "sha256": "b86401efdfc0d8f349dd452393f7acd98dd75e0c54d5044f3bb872573d98a38d",
+          "width": 947,
+          "height": 634
+        },
+        {
+          "file": "C:/Users/Wiryl/Sol Dev/admin-scratch/performance-preview-20260926/captures-native-pass/light-wide-roster-1.png",
+          "sha256": "b6f1698830e1aaae97622c13b9b33f16dcaba2c31a0a3d5c8cd71b0a9819d0bc",
+          "width": 54,
+          "height": 42
+        }
+      ]
+    },
+    {
+      "label": "light-wide-origin-focus",
+      "time": "2026-09-26T18:00:09.493Z",
+      "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+      "profile": {
+        "kind": "performance-success",
+        "id": "e25d9c23eacd4851ac0407b13752b508",
+        "theme": "Light",
+        "width": 1200,
+        "height": 800
+      },
+      "window": {
+        "app": "Kymaean.DirectorPreview_1z32rh13vfry6!App",
+        "id": 2689614,
+        "title": "KYMÆAN Director Preview — Deterministic offline exercise (performance-success)"
+      },
+      "accessibility": null,
+      "captures": [
+        {
+          "file": "C:/Users/Wiryl/Sol Dev/admin-scratch/performance-preview-20260926/captures-native-pass/light-wide-origin-focus.png",
+          "sha256": "7755e029adcfc881a46cbfbbf0edf39f4ce5491a1ed9d2f154bf3c419b3d7c34",
+          "width": 947,
+          "height": 634
+        }
+      ]
+    },
+    {
+      "label": "light-wide-origin-action-focus",
+      "time": "2026-09-26T18:00:37.851Z",
+      "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+      "profile": {
+        "kind": "performance-success",
+        "id": "e25d9c23eacd4851ac0407b13752b508",
+        "theme": "Light",
+        "width": 1200,
+        "height": 800
+      },
+      "window": {
+        "app": "Kymaean.DirectorPreview_1z32rh13vfry6!App",
+        "id": 2689614,
+        "title": "KYMÆAN Director Preview — Deterministic offline exercise (performance-success)"
+      },
+      "accessibility": null,
+      "captures": [
+        {
+          "file": "C:/Users/Wiryl/Sol Dev/admin-scratch/performance-preview-20260926/captures-native-pass/light-wide-origin-action-focus.png",
+          "sha256": "be5554bc8a598d51e931f7490cc392decce57bd18eae5b729f04a659e1b91d71",
+          "width": 947,
+          "height": 634
+        }
+      ]
+    },
+    {
+      "label": "light-wide-ready",
+      "time": "2026-09-26T18:00:41.049Z",
+      "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+      "profile": {
+        "kind": "performance-success",
+        "id": "e25d9c23eacd4851ac0407b13752b508",
+        "theme": "Light",
+        "width": 1200,
+        "height": 800
+      },
+      "window": {
+        "app": "Kymaean.DirectorPreview_1z32rh13vfry6!App",
+        "id": 2689614,
+        "title": "KYMÆAN Director Preview — Deterministic offline exercise (performance-success)"
+      },
+      "accessibility": null,
+      "captures": [
+        {
+          "file": "C:/Users/Wiryl/Sol Dev/admin-scratch/performance-preview-20260926/captures-native-pass/light-wide-ready-0.png",
+          "sha256": "34feaab99719c63e6e996a23aac423ca14ce9dc13e090806588a8a1df12a69b7",
+          "width": 947,
+          "height": 634
+        },
+        {
+          "file": "C:/Users/Wiryl/Sol Dev/admin-scratch/performance-preview-20260926/captures-native-pass/light-wide-ready-1.png",
+          "sha256": "b9163f8c0097753328806464c6b47a4632ea07b80bcfe0a21ae499139a54c941",
+          "width": 54,
+          "height": 42
+        }
+      ]
+    },
+    {
+      "label": "light-wide-pending",
+      "time": "2026-09-26T18:01:11.684Z",
+      "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+      "profile": {
+        "kind": "performance-success",
+        "id": "e25d9c23eacd4851ac0407b13752b508",
+        "theme": "Light",
+        "width": 1200,
+        "height": 800
+      },
+      "window": {
+        "app": "Kymaean.DirectorPreview_1z32rh13vfry6!App",
+        "id": 2689614,
+        "title": "KYMÆAN Director Preview — Deterministic offline exercise (performance-success)"
+      },
+      "accessibility": null,
+      "captures": [
+        {
+          "file": "C:/Users/Wiryl/Sol Dev/admin-scratch/performance-preview-20260926/captures-native-pass/light-wide-pending.png",
+          "sha256": "05fee2d637e5c1786e0bf503f48a00355af93f933a788fa4de1260b9965284ea",
+          "width": 947,
+          "height": 634
+        }
+      ]
+    },
+    {
+      "label": "light-wide-completion-after-extra-enter",
+      "time": "2026-09-26T18:01:26.016Z",
+      "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+      "profile": {
+        "kind": "performance-success",
+        "id": "e25d9c23eacd4851ac0407b13752b508",
+        "theme": "Light",
+        "width": 1200,
+        "height": 800
+      },
+      "window": {
+        "app": "Kymaean.DirectorPreview_1z32rh13vfry6!App",
+        "id": 2689614,
+        "title": "KYMÆAN Director Preview — Deterministic offline exercise (performance-success)"
+      },
+      "accessibility": null,
+      "captures": [
+        {
+          "file": "C:/Users/Wiryl/Sol Dev/admin-scratch/performance-preview-20260926/captures-native-pass/light-wide-completion-after-extra-enter.png",
+          "sha256": "d15742a652c794dd526793ee1b5bb6c690d5dc905735bdbf7f02846f949f24c5",
+          "width": 947,
+          "height": 634
+        }
+      ]
+    },
+    {
+      "label": "light-wide-consequence-end",
+      "time": "2026-09-26T18:01:49.016Z",
+      "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+      "profile": {
+        "kind": "performance-success",
+        "id": "e25d9c23eacd4851ac0407b13752b508",
+        "theme": "Light",
+        "width": 1200,
+        "height": 800
+      },
+      "window": {
+        "app": "Kymaean.DirectorPreview_1z32rh13vfry6!App",
+        "id": 2689614,
+        "title": "KYMÆAN Director Preview — Deterministic offline exercise (performance-success)"
+      },
+      "accessibility": null,
+      "captures": [
+        {
+          "file": "C:/Users/Wiryl/Sol Dev/admin-scratch/performance-preview-20260926/captures-native-pass/light-wide-consequence-end.png",
+          "sha256": "4bc9476fd0b6969ac216621a90f6f2627fef6e566266d88b1384e4d32c02a876",
+          "width": 947,
+          "height": 634
+        }
+      ]
+    },
+    {
+      "label": "light-wide-back-exact-origin",
+      "time": "2026-09-26T18:02:28.469Z",
+      "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+      "profile": {
+        "kind": "performance-success",
+        "id": "e25d9c23eacd4851ac0407b13752b508",
+        "theme": "Light",
+        "width": 1200,
+        "height": 800
+      },
+      "window": {
+        "app": "Kymaean.DirectorPreview_1z32rh13vfry6!App",
+        "id": 2689614,
+        "title": "KYMÆAN Director Preview — Deterministic offline exercise (performance-success)"
+      },
+      "accessibility": null,
+      "captures": [
+        {
+          "file": "C:/Users/Wiryl/Sol Dev/admin-scratch/performance-preview-20260926/captures-native-pass/light-wide-back-exact-origin.png",
+          "sha256": "6055e0b3023357d63a54ed83373ff774be0c378b082f74a64e05e149b0e50f49",
+          "width": 947,
+          "height": 634
+        }
+      ]
+    },
+    {
+      "label": "light-compact-ready-top",
+      "time": "2026-09-26T18:07:40.081Z",
+      "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+      "profile": {
+        "kind": "performance-empty",
+        "id": "de7dffcc94e1423ea0d59203042702e2",
+        "theme": "Light",
+        "width": 720,
+        "height": 520
+      },
+      "window": {
+        "app": "Kymaean.DirectorPreview_1z32rh13vfry6!App",
+        "id": 788634,
+        "title": "KYMÆAN Director Preview — Deterministic offline exercise (performance-empty)"
+      },
+      "accessibility": null,
+      "captures": [
+        {
+          "file": "C:/Users/Wiryl/Sol Dev/admin-scratch/performance-preview-20260926/captures-native-pass/light-compact-ready-top-0.png",
+          "sha256": "ebe22acad8f601f5090c00be33db4962b5cda362da75adb8c3a2bcd5b864217b",
+          "width": 563,
+          "height": 410
+        },
+        {
+          "file": "C:/Users/Wiryl/Sol Dev/admin-scratch/performance-preview-20260926/captures-native-pass/light-compact-ready-top-1.png",
+          "sha256": "5d4541f111a6182a8dfb990cda8cea7763b864a67c8aeca8d53032fc51dbf89d",
+          "width": 54,
+          "height": 42
+        }
+      ],
+      "originalRecordedProfile": {
+        "kind": "performance-success",
+        "id": "e25d9c23eacd4851ac0407b13752b508",
+        "theme": "Light",
+        "width": 1200,
+        "height": 800
+      },
+      "metadataCorrection": "Corrected stale recorder context from verified launcher-empty-light-compact.json and selected view metadata; image bytes unchanged."
+    },
+    {
+      "label": "light-compact-ready-action",
+      "time": "2026-09-26T18:07:52.756Z",
+      "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+      "profile": {
+        "kind": "performance-empty",
+        "id": "de7dffcc94e1423ea0d59203042702e2",
+        "theme": "Light",
+        "width": 720,
+        "height": 520
+      },
+      "window": {
+        "app": "Kymaean.DirectorPreview_1z32rh13vfry6!App",
+        "id": 788634,
+        "title": "KYMÆAN Director Preview — Deterministic offline exercise (performance-empty)"
+      },
+      "accessibility": null,
+      "captures": [
+        {
+          "file": "C:/Users/Wiryl/Sol Dev/admin-scratch/performance-preview-20260926/captures-native-pass/light-compact-ready-action.png",
+          "sha256": "2eaff3bf8b28b16c0693f03685999055ada5d104b5a121871e48bcebad99e485",
+          "width": 563,
+          "height": 410
+        }
+      ],
+      "originalRecordedProfile": {
+        "kind": "performance-success",
+        "id": "e25d9c23eacd4851ac0407b13752b508",
+        "theme": "Light",
+        "width": 1200,
+        "height": 800
+      },
+      "metadataCorrection": "Corrected stale recorder context from verified launcher-empty-light-compact.json and selected view metadata; image bytes unchanged."
+    },
+    {
+      "label": "light-compact-pending",
+      "time": "2026-09-26T18:08:30.449Z",
+      "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+      "profile": {
+        "kind": "performance-empty",
+        "id": "de7dffcc94e1423ea0d59203042702e2",
+        "theme": "Light",
+        "width": 720,
+        "height": 520
+      },
+      "window": {
+        "app": "Kymaean.DirectorPreview_1z32rh13vfry6!App",
+        "id": 788634,
+        "title": "KYMÆAN Director Preview — Deterministic offline exercise (performance-empty)"
+      },
+      "accessibility": null,
+      "captures": [
+        {
+          "file": "C:/Users/Wiryl/Sol Dev/admin-scratch/performance-preview-20260926/captures-native-pass/light-compact-pending.png",
+          "sha256": "fce930c2230eb09d1166905d7da14a1b260d28fa6cbb7f598e0fb16ff4c0ad80",
+          "width": 563,
+          "height": 410
+        }
+      ],
+      "originalRecordedProfile": {
+        "kind": "performance-success",
+        "id": "e25d9c23eacd4851ac0407b13752b508",
+        "theme": "Light",
+        "width": 1200,
+        "height": 800
+      },
+      "metadataCorrection": "Corrected stale recorder context from verified launcher-empty-light-compact.json and selected view metadata; image bytes unchanged."
+    },
+    {
+      "label": "light-compact-empty-result",
+      "time": "2026-09-26T18:08:39.221Z",
+      "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+      "profile": {
+        "kind": "performance-empty",
+        "id": "de7dffcc94e1423ea0d59203042702e2",
+        "theme": "Light",
+        "width": 720,
+        "height": 520
+      },
+      "window": {
+        "app": "Kymaean.DirectorPreview_1z32rh13vfry6!App",
+        "id": 788634,
+        "title": "KYMÆAN Director Preview — Deterministic offline exercise (performance-empty)"
+      },
+      "accessibility": null,
+      "captures": [
+        {
+          "file": "C:/Users/Wiryl/Sol Dev/admin-scratch/performance-preview-20260926/captures-native-pass/light-compact-empty-result.png",
+          "sha256": "ae6caf9806ec00f8426253ae83a306209c1357cffc6bcfcb91deeea8c6eea7ae",
+          "width": 563,
+          "height": 410
+        }
+      ],
+      "originalRecordedProfile": {
+        "kind": "performance-success",
+        "id": "e25d9c23eacd4851ac0407b13752b508",
+        "theme": "Light",
+        "width": 1200,
+        "height": 800
+      },
+      "metadataCorrection": "Corrected stale recorder context from verified launcher-empty-light-compact.json and selected view metadata; image bytes unchanged."
+    },
+    {
+      "label": "light-compact-empty-text-and-circumstance",
+      "time": "2026-09-26T18:09:00.039Z",
+      "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+      "profile": {
+        "kind": "performance-empty",
+        "id": "de7dffcc94e1423ea0d59203042702e2",
+        "theme": "Light",
+        "width": 720,
+        "height": 520
+      },
+      "window": {
+        "app": "Kymaean.DirectorPreview_1z32rh13vfry6!App",
+        "id": 788634,
+        "title": "KYMÆAN Director Preview — Deterministic offline exercise (performance-empty)"
+      },
+      "accessibility": null,
+      "captures": [
+        {
+          "file": "C:/Users/Wiryl/Sol Dev/admin-scratch/performance-preview-20260926/captures-native-pass/light-compact-empty-text-and-circumstance.png",
+          "sha256": "f3416c344581b56bbe40d2ba15889771874b533491acf8a4e0e4532b68dc8ab2",
+          "width": 563,
+          "height": 410
+        }
+      ],
+      "originalRecordedProfile": {
+        "kind": "performance-success",
+        "id": "e25d9c23eacd4851ac0407b13752b508",
+        "theme": "Light",
+        "width": 1200,
+        "height": 800
+      },
+      "metadataCorrection": "Corrected stale recorder context from verified launcher-empty-light-compact.json and selected view metadata; image bytes unchanged."
+    },
+    {
+      "label": "light-compact-empty-circumstance",
+      "time": "2026-09-26T18:09:14.116Z",
+      "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+      "profile": {
+        "kind": "performance-empty",
+        "id": "de7dffcc94e1423ea0d59203042702e2",
+        "theme": "Light",
+        "width": 720,
+        "height": 520
+      },
+      "window": {
+        "app": "Kymaean.DirectorPreview_1z32rh13vfry6!App",
+        "id": 788634,
+        "title": "KYMÆAN Director Preview — Deterministic offline exercise (performance-empty)"
+      },
+      "accessibility": null,
+      "captures": [
+        {
+          "file": "C:/Users/Wiryl/Sol Dev/admin-scratch/performance-preview-20260926/captures-native-pass/light-compact-empty-circumstance.png",
+          "sha256": "46095e2bf4c44c7887ff645e5525c077f83428e68b050c25d10cbedb3734f4d2",
+          "width": 563,
+          "height": 410
+        }
+      ],
+      "originalRecordedProfile": {
+        "kind": "performance-success",
+        "id": "e25d9c23eacd4851ac0407b13752b508",
+        "theme": "Light",
+        "width": 1200,
+        "height": 800
+      },
+      "metadataCorrection": "Corrected stale recorder context from verified launcher-empty-light-compact.json and selected view metadata; image bytes unchanged."
+    },
+    {
+      "label": "light-compact-empty-end",
+      "time": "2026-09-26T18:09:30.273Z",
+      "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+      "profile": {
+        "kind": "performance-empty",
+        "id": "de7dffcc94e1423ea0d59203042702e2",
+        "theme": "Light",
+        "width": 720,
+        "height": 520
+      },
+      "window": {
+        "app": "Kymaean.DirectorPreview_1z32rh13vfry6!App",
+        "id": 788634,
+        "title": "KYMÆAN Director Preview — Deterministic offline exercise (performance-empty)"
+      },
+      "accessibility": null,
+      "captures": [
+        {
+          "file": "C:/Users/Wiryl/Sol Dev/admin-scratch/performance-preview-20260926/captures-native-pass/light-compact-empty-end.png",
+          "sha256": "838b70be8c4fdeeb7288880a1c55b89a901b59d34e1a2b5e8939ab41e8703298",
+          "width": 563,
+          "height": 410
+        }
+      ],
+      "originalRecordedProfile": {
+        "kind": "performance-success",
+        "id": "e25d9c23eacd4851ac0407b13752b508",
+        "theme": "Light",
+        "width": 1200,
+        "height": 800
+      },
+      "metadataCorrection": "Corrected stale recorder context from verified launcher-empty-light-compact.json and selected view metadata; image bytes unchanged."
+    },
+    {
+      "label": "dark-wide-render-ready",
+      "time": "2026-09-26T18:50:59.045Z",
+      "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+      "profile": {
+        "kind": "performance-render",
+        "id": "bc1dde8954ca446e9c8591e21b08bbbc",
+        "theme": "Dark",
+        "width": 1200,
+        "height": 800
+      },
+      "window": {
+        "app": "Kymaean.DirectorPreview_1z32rh13vfry6!App",
+        "id": 788186,
+        "title": "KYMÆAN Director Preview — Deterministic offline exercise (performance-render)"
+      },
+      "accessibility": null,
+      "captures": [
+        {
+          "file": "C:/Users/Wiryl/Sol Dev/admin-scratch/performance-preview-20260926/captures-native-pass/dark-wide-render-ready-0.png",
+          "sha256": "06b4326a9511e41534d4921930dbcc8ea7fdc35e91bdb592133bb3422ca96930",
+          "width": 947,
+          "height": 634
+        },
+        {
+          "file": "C:/Users/Wiryl/Sol Dev/admin-scratch/performance-preview-20260926/captures-native-pass/dark-wide-render-ready-1.png",
+          "sha256": "70552e4f6590dc3e72189ed5c7b4ca3b3f422465cf0dcb3fd8bb936eb09da23b",
+          "width": 54,
+          "height": 42
+        }
+      ]
+    },
+    {
+      "label": "dark-wide-render-pending",
+      "time": "2026-09-26T18:51:15.775Z",
+      "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+      "profile": {
+        "kind": "performance-render",
+        "id": "bc1dde8954ca446e9c8591e21b08bbbc",
+        "theme": "Dark",
+        "width": 1200,
+        "height": 800
+      },
+      "window": {
+        "app": "Kymaean.DirectorPreview_1z32rh13vfry6!App",
+        "id": 788186,
+        "title": "KYMÆAN Director Preview — Deterministic offline exercise (performance-render)"
+      },
+      "accessibility": null,
+      "captures": [
+        {
+          "file": "C:/Users/Wiryl/Sol Dev/admin-scratch/performance-preview-20260926/captures-native-pass/dark-wide-render-pending-0.png",
+          "sha256": "edeecaa14b50642d7b6dfbe9d182b8be94d65e636643aa64000acfdb3d4423bc",
+          "width": 947,
+          "height": 634
+        }
+      ]
+    },
+    {
+      "label": "dark-wide-retained-success-render-fault",
+      "time": "2026-09-26T18:51:25.834Z",
+      "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+      "profile": {
+        "kind": "performance-render",
+        "id": "bc1dde8954ca446e9c8591e21b08bbbc",
+        "theme": "Dark",
+        "width": 1200,
+        "height": 800
+      },
+      "window": {
+        "app": "Kymaean.DirectorPreview_1z32rh13vfry6!App",
+        "id": 788186,
+        "title": "KYMÆAN Director Preview — Deterministic offline exercise (performance-render)"
+      },
+      "accessibility": null,
+      "captures": [
+        {
+          "file": "C:/Users/Wiryl/Sol Dev/admin-scratch/performance-preview-20260926/captures-native-pass/dark-wide-retained-success-render-fault-0.png",
+          "sha256": "c7277f658fd7cace82228ba7499f826e4ba9efffdd99c2d8044fc7ec3f39af84",
+          "width": 947,
+          "height": 634
+        }
+      ]
+    },
+    {
+      "label": "dark-wide-render-circumstance-end",
+      "time": "2026-09-26T18:51:39.242Z",
+      "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+      "profile": {
+        "kind": "performance-render",
+        "id": "bc1dde8954ca446e9c8591e21b08bbbc",
+        "theme": "Dark",
+        "width": 1200,
+        "height": 800
+      },
+      "window": {
+        "app": "Kymaean.DirectorPreview_1z32rh13vfry6!App",
+        "id": 788186,
+        "title": "KYMÆAN Director Preview — Deterministic offline exercise (performance-render)"
+      },
+      "accessibility": null,
+      "captures": [
+        {
+          "file": "C:/Users/Wiryl/Sol Dev/admin-scratch/performance-preview-20260926/captures-native-pass/dark-wide-render-circumstance-end-0.png",
+          "sha256": "8358a77db14d2853c06ad372c875b82901d509b2c319bcab38f8bdc7be688671",
+          "width": 947,
+          "height": 634
+        }
+      ]
+    },
+    {
+      "label": "dark-compact-invalid-ready-top",
+      "time": "2026-09-26T18:54:13.046Z",
+      "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+      "profile": {
+        "kind": "performance-invalid",
+        "id": "90e0875b1cd140c99ef700c13c4fb369",
+        "theme": "Dark",
+        "width": 720,
+        "height": 520
+      },
+      "window": {
+        "app": "Kymaean.DirectorPreview_1z32rh13vfry6!App",
+        "id": 198374,
+        "title": "KYMÆAN Director Preview — Deterministic offline exercise (performance-invalid)"
+      },
+      "accessibility": null,
+      "captures": [
+        {
+          "file": "C:/Users/Wiryl/Sol Dev/admin-scratch/performance-preview-20260926/captures-native-pass/dark-compact-invalid-ready-top-0.png",
+          "sha256": "096d529737db6b94dc71f9bf0ee80072448c241a36561c7ed1cce69047dd25ff",
+          "width": 563,
+          "height": 410
+        },
+        {
+          "file": "C:/Users/Wiryl/Sol Dev/admin-scratch/performance-preview-20260926/captures-native-pass/dark-compact-invalid-ready-top-1.png",
+          "sha256": "3f92b3da8ef4210e6247f0d818772a4ac80ef7e0fea190d3acb5ab55a6f22ba9",
+          "width": 54,
+          "height": 42
+        }
+      ]
+    },
+    {
+      "label": "dark-compact-invalid-ready-action",
+      "time": "2026-09-26T18:54:20.839Z",
+      "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+      "profile": {
+        "kind": "performance-invalid",
+        "id": "90e0875b1cd140c99ef700c13c4fb369",
+        "theme": "Dark",
+        "width": 720,
+        "height": 520
+      },
+      "window": {
+        "app": "Kymaean.DirectorPreview_1z32rh13vfry6!App",
+        "id": 198374,
+        "title": "KYMÆAN Director Preview — Deterministic offline exercise (performance-invalid)"
+      },
+      "accessibility": null,
+      "captures": [
+        {
+          "file": "C:/Users/Wiryl/Sol Dev/admin-scratch/performance-preview-20260926/captures-native-pass/dark-compact-invalid-ready-action-0.png",
+          "sha256": "797b710e02420bedb7700497be4f91e41b1f2edbd269d551cac43db0774b936c",
+          "width": 563,
+          "height": 410
+        }
+      ]
+    },
+    {
+      "label": "dark-compact-invalid-pending",
+      "time": "2026-09-26T18:54:28.965Z",
+      "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+      "profile": {
+        "kind": "performance-invalid",
+        "id": "90e0875b1cd140c99ef700c13c4fb369",
+        "theme": "Dark",
+        "width": 720,
+        "height": 520
+      },
+      "window": {
+        "app": "Kymaean.DirectorPreview_1z32rh13vfry6!App",
+        "id": 198374,
+        "title": "KYMÆAN Director Preview — Deterministic offline exercise (performance-invalid)"
+      },
+      "accessibility": null,
+      "captures": [
+        {
+          "file": "C:/Users/Wiryl/Sol Dev/admin-scratch/performance-preview-20260926/captures-native-pass/dark-compact-invalid-pending-0.png",
+          "sha256": "8ccca06b3dfd98d827bbc8aa7cae71ecb672749ee9b61df3db8a8939b4f1574c",
+          "width": 563,
+          "height": 410
+        }
+      ]
+    },
+    {
+      "label": "dark-compact-invalid-outcome-focus",
+      "time": "2026-09-26T18:54:36.464Z",
+      "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+      "profile": {
+        "kind": "performance-invalid",
+        "id": "90e0875b1cd140c99ef700c13c4fb369",
+        "theme": "Dark",
+        "width": 720,
+        "height": 520
+      },
+      "window": {
+        "app": "Kymaean.DirectorPreview_1z32rh13vfry6!App",
+        "id": 198374,
+        "title": "KYMÆAN Director Preview — Deterministic offline exercise (performance-invalid)"
+      },
+      "accessibility": null,
+      "captures": [
+        {
+          "file": "C:/Users/Wiryl/Sol Dev/admin-scratch/performance-preview-20260926/captures-native-pass/dark-compact-invalid-outcome-focus-0.png",
+          "sha256": "a8cf76e7c9c16e4489d2563cc7157f7938062d4d7f672dd00e2d119d7d9a4357",
+          "width": 563,
+          "height": 410
+        }
+      ]
+    },
+    {
+      "label": "dark-compact-invalid-reopen-instruction",
+      "time": "2026-09-26T18:54:44.275Z",
+      "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+      "profile": {
+        "kind": "performance-invalid",
+        "id": "90e0875b1cd140c99ef700c13c4fb369",
+        "theme": "Dark",
+        "width": 720,
+        "height": 520
+      },
+      "window": {
+        "app": "Kymaean.DirectorPreview_1z32rh13vfry6!App",
+        "id": 198374,
+        "title": "KYMÆAN Director Preview — Deterministic offline exercise (performance-invalid)"
+      },
+      "accessibility": null,
+      "captures": [
+        {
+          "file": "C:/Users/Wiryl/Sol Dev/admin-scratch/performance-preview-20260926/captures-native-pass/dark-compact-invalid-reopen-instruction-0.png",
+          "sha256": "ff205755b6ec470fc8c8c5a397d3e22c3216c052932911ec4c5eb346a294616f",
+          "width": 563,
+          "height": 410
+        }
+      ]
+    },
+    {
+      "label": "dark-compact-invalid-back-origin",
+      "time": "2026-09-26T18:55:03.043Z",
+      "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+      "profile": {
+        "kind": "performance-invalid",
+        "id": "90e0875b1cd140c99ef700c13c4fb369",
+        "theme": "Dark",
+        "width": 720,
+        "height": 520
+      },
+      "window": {
+        "app": "Kymaean.DirectorPreview_1z32rh13vfry6!App",
+        "id": 198374,
+        "title": "KYMÆAN Director Preview — Deterministic offline exercise (performance-invalid)"
+      },
+      "accessibility": null,
+      "captures": [
+        {
+          "file": "C:/Users/Wiryl/Sol Dev/admin-scratch/performance-preview-20260926/captures-native-pass/dark-compact-invalid-back-origin-0.png",
+          "sha256": "04f31af942c2574d3482ae2bac6481b0bdb98666ff8ed26e7554b22e7656ffd7",
+          "width": 563,
+          "height": 410
+        }
+      ]
+    },
+    {
+      "label": "dark-compact-invalid-reentry-blocked",
+      "time": "2026-09-26T18:55:23.706Z",
+      "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+      "profile": {
+        "kind": "performance-invalid",
+        "id": "90e0875b1cd140c99ef700c13c4fb369",
+        "theme": "Dark",
+        "width": 720,
+        "height": 520
+      },
+      "window": {
+        "app": "Kymaean.DirectorPreview_1z32rh13vfry6!App",
+        "id": 198374,
+        "title": "KYMÆAN Director Preview — Deterministic offline exercise (performance-invalid)"
+      },
+      "accessibility": null,
+      "captures": [
+        {
+          "file": "C:/Users/Wiryl/Sol Dev/admin-scratch/performance-preview-20260926/captures-native-pass/dark-compact-invalid-reentry-blocked-0.png",
+          "sha256": "1e349988b8645d34415a55c4d92393634bebcefa59c824df0ea921a241e29c56",
+          "width": 563,
+          "height": 410
+        }
+      ]
+    },
+    {
+      "label": "dark-compact-invalid-reentry-disabled-action",
+      "time": "2026-09-26T18:55:33.139Z",
+      "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+      "profile": {
+        "kind": "performance-invalid",
+        "id": "90e0875b1cd140c99ef700c13c4fb369",
+        "theme": "Dark",
+        "width": 720,
+        "height": 520
+      },
+      "window": {
+        "app": "Kymaean.DirectorPreview_1z32rh13vfry6!App",
+        "id": 198374,
+        "title": "KYMÆAN Director Preview — Deterministic offline exercise (performance-invalid)"
+      },
+      "accessibility": null,
+      "captures": [
+        {
+          "file": "C:/Users/Wiryl/Sol Dev/admin-scratch/performance-preview-20260926/captures-native-pass/dark-compact-invalid-reentry-disabled-action-0.png",
+          "sha256": "d3c678b39c2f3000951be1fb210ed89dedd688d40fdad5ceab263b6ebfbbdb0a",
+          "width": 563,
+          "height": 410
+        }
+      ]
+    },
+    {
+      "label": "dark-compact-invalid-ordinary-open",
+      "time": "2026-09-26T18:55:50.770Z",
+      "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+      "profile": {
+        "kind": "performance-invalid",
+        "id": "90e0875b1cd140c99ef700c13c4fb369",
+        "theme": "Dark",
+        "width": 720,
+        "height": 520
+      },
+      "window": {
+        "app": "Kymaean.DirectorPreview_1z32rh13vfry6!App",
+        "id": 198374,
+        "title": "KYMÆAN Director Preview — Deterministic offline exercise (performance-invalid)"
+      },
+      "accessibility": null,
+      "captures": [
+        {
+          "file": "C:/Users/Wiryl/Sol Dev/admin-scratch/performance-preview-20260926/captures-native-pass/dark-compact-invalid-ordinary-open-0.png",
+          "sha256": "b23d8b5b2b22d24661695498385f79e80a8ced952b0c5caa8c61bd4c22060b93",
+          "width": 563,
+          "height": 410
+        }
+      ]
+    },
+    {
+      "label": "dark-compact-invalid-reopened-ready-warning",
+      "time": "2026-09-26T18:56:48.594Z",
+      "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+      "profile": {
+        "kind": "performance-invalid",
+        "id": "90e0875b1cd140c99ef700c13c4fb369",
+        "theme": "Dark",
+        "width": 720,
+        "height": 520
+      },
+      "window": {
+        "app": "Kymaean.DirectorPreview_1z32rh13vfry6!App",
+        "id": 198374,
+        "title": "KYMÆAN Director Preview — Deterministic offline exercise (performance-invalid)"
+      },
+      "accessibility": null,
+      "captures": [
+        {
+          "file": "C:/Users/Wiryl/Sol Dev/admin-scratch/performance-preview-20260926/captures-native-pass/dark-compact-invalid-reopened-ready-warning-0.png",
+          "sha256": "cbc25257c018c7120f540b5afc0dc1819bb93625243309c42aaa0eca8930700f",
+          "width": 563,
+          "height": 410
+        }
+      ]
+    },
+    {
+      "label": "light-wide-io-ready",
+      "time": "2026-09-26T18:59:12.668Z",
+      "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+      "profile": {
+        "kind": "performance-io",
+        "id": "1b41cc277d194ed2ab28af41693f7915",
+        "theme": "Light",
+        "width": 1200,
+        "height": 800
+      },
+      "window": {
+        "app": "Kymaean.DirectorPreview_1z32rh13vfry6!App",
+        "id": 329354,
+        "title": "KYMÆAN Director Preview — Deterministic offline exercise (performance-io)"
+      },
+      "accessibility": null,
+      "captures": [
+        {
+          "file": "C:/Users/Wiryl/Sol Dev/admin-scratch/performance-preview-20260926/captures-native-pass/light-wide-io-ready-0.png",
+          "sha256": "da81d917340afe32db67f4c590111e1072837242a219e59113025a84665f29ae",
+          "width": 947,
+          "height": 634
+        },
+        {
+          "file": "C:/Users/Wiryl/Sol Dev/admin-scratch/performance-preview-20260926/captures-native-pass/light-wide-io-ready-1.png",
+          "sha256": "0c8e5823a9bdd477a9c1c1aa495fa4b9e69bda2129b677fea9716e1bc75e86f1",
+          "width": 54,
+          "height": 42
+        }
+      ]
+    },
+    {
+      "label": "light-wide-io-pending",
+      "time": "2026-09-26T18:59:21.695Z",
+      "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+      "profile": {
+        "kind": "performance-io",
+        "id": "1b41cc277d194ed2ab28af41693f7915",
+        "theme": "Light",
+        "width": 1200,
+        "height": 800
+      },
+      "window": {
+        "app": "Kymaean.DirectorPreview_1z32rh13vfry6!App",
+        "id": 329354,
+        "title": "KYMÆAN Director Preview — Deterministic offline exercise (performance-io)"
+      },
+      "accessibility": null,
+      "captures": [
+        {
+          "file": "C:/Users/Wiryl/Sol Dev/admin-scratch/performance-preview-20260926/captures-native-pass/light-wide-io-pending-0.png",
+          "sha256": "d99812f7fdb92b1b13f13250a01afb79dbaba150f77aa3e7bb03983ea91a1598",
+          "width": 947,
+          "height": 634
+        }
+      ]
+    },
+    {
+      "label": "light-wide-io-outcome",
+      "time": "2026-09-26T18:59:29.380Z",
+      "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+      "profile": {
+        "kind": "performance-io",
+        "id": "1b41cc277d194ed2ab28af41693f7915",
+        "theme": "Light",
+        "width": 1200,
+        "height": 800
+      },
+      "window": {
+        "app": "Kymaean.DirectorPreview_1z32rh13vfry6!App",
+        "id": 329354,
+        "title": "KYMÆAN Director Preview — Deterministic offline exercise (performance-io)"
+      },
+      "accessibility": null,
+      "captures": [
+        {
+          "file": "C:/Users/Wiryl/Sol Dev/admin-scratch/performance-preview-20260926/captures-native-pass/light-wide-io-outcome-0.png",
+          "sha256": "05b7793d5fea30004f84a052da866650e70293a03514b80560860fe87eb76998",
+          "width": 947,
+          "height": 634
+        }
+      ]
+    },
+    {
+      "label": "dark-wide-access-ready",
+      "time": "2026-09-26T19:02:00.706Z",
+      "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+      "profile": {
+        "kind": "performance-access",
+        "id": "3b0c5380bb69465c9fc8ee8e8a97dffe",
+        "theme": "Dark",
+        "width": 1200,
+        "height": 800
+      },
+      "window": {
+        "app": "Kymaean.DirectorPreview_1z32rh13vfry6!App",
+        "id": 526266,
+        "title": "KYMÆAN Director Preview — Deterministic offline exercise (performance-access)"
+      },
+      "accessibility": null,
+      "captures": [
+        {
+          "file": "C:/Users/Wiryl/Sol Dev/admin-scratch/performance-preview-20260926/captures-native-pass/dark-wide-access-ready-0.png",
+          "sha256": "223d79401e1262ac351ed0af8e0e38bc5c7f248028a1e2a069d4d53a41762b9b",
+          "width": 947,
+          "height": 634
+        },
+        {
+          "file": "C:/Users/Wiryl/Sol Dev/admin-scratch/performance-preview-20260926/captures-native-pass/dark-wide-access-ready-1.png",
+          "sha256": "70552e4f6590dc3e72189ed5c7b4ca3b3f422465cf0dcb3fd8bb936eb09da23b",
+          "width": 54,
+          "height": 42
+        }
+      ]
+    },
+    {
+      "label": "dark-wide-access-pending",
+      "time": "2026-09-26T19:02:08.967Z",
+      "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+      "profile": {
+        "kind": "performance-access",
+        "id": "3b0c5380bb69465c9fc8ee8e8a97dffe",
+        "theme": "Dark",
+        "width": 1200,
+        "height": 800
+      },
+      "window": {
+        "app": "Kymaean.DirectorPreview_1z32rh13vfry6!App",
+        "id": 526266,
+        "title": "KYMÆAN Director Preview — Deterministic offline exercise (performance-access)"
+      },
+      "accessibility": null,
+      "captures": [
+        {
+          "file": "C:/Users/Wiryl/Sol Dev/admin-scratch/performance-preview-20260926/captures-native-pass/dark-wide-access-pending-0.png",
+          "sha256": "4d09897621571635751e978ca0bc025ebd6656835923022e6942ba0916dafc6a",
+          "width": 947,
+          "height": 634
+        }
+      ]
+    },
+    {
+      "label": "dark-wide-access-outcome",
+      "time": "2026-09-26T19:02:16.708Z",
+      "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+      "profile": {
+        "kind": "performance-access",
+        "id": "3b0c5380bb69465c9fc8ee8e8a97dffe",
+        "theme": "Dark",
+        "width": 1200,
+        "height": 800
+      },
+      "window": {
+        "app": "Kymaean.DirectorPreview_1z32rh13vfry6!App",
+        "id": 526266,
+        "title": "KYMÆAN Director Preview — Deterministic offline exercise (performance-access)"
+      },
+      "accessibility": null,
+      "captures": [
+        {
+          "file": "C:/Users/Wiryl/Sol Dev/admin-scratch/performance-preview-20260926/captures-native-pass/dark-wide-access-outcome-0.png",
+          "sha256": "4914bc6c4a999c65dd892877a0674780e0f70e0f3b943e107baed95263672182",
+          "width": 947,
+          "height": 634
+        }
+      ]
+    },
+    {
+      "label": "light-wide-incompatible-ready",
+      "time": "2026-09-26T19:05:20.632Z",
+      "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+      "profile": {
+        "kind": "performance-incompatible",
+        "id": "43ee71a4b25f4e319df25074bf0a8bd7",
+        "theme": "Light",
+        "width": 1200,
+        "height": 800
+      },
+      "window": {
+        "app": "Kymaean.DirectorPreview_1z32rh13vfry6!App",
+        "id": 5310392,
+        "title": "KYMÆAN Director Preview — Deterministic offline exercise (performance-incompatible)"
+      },
+      "accessibility": null,
+      "captures": [
+        {
+          "file": "C:/Users/Wiryl/Sol Dev/admin-scratch/performance-preview-20260926/captures-native-pass/light-wide-incompatible-ready-0.png",
+          "sha256": "83cae126ef18b350ea40d64bb6a9648298d2cdcde94d34e64efc2335c676c9d1",
+          "width": 947,
+          "height": 634
+        },
+        {
+          "file": "C:/Users/Wiryl/Sol Dev/admin-scratch/performance-preview-20260926/captures-native-pass/light-wide-incompatible-ready-1.png",
+          "sha256": "0c8e5823a9bdd477a9c1c1aa495fa4b9e69bda2129b677fea9716e1bc75e86f1",
+          "width": 54,
+          "height": 42
+        }
+      ]
+    },
+    {
+      "label": "light-wide-incompatible-pending",
+      "time": "2026-09-26T19:05:28.747Z",
+      "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+      "profile": {
+        "kind": "performance-incompatible",
+        "id": "43ee71a4b25f4e319df25074bf0a8bd7",
+        "theme": "Light",
+        "width": 1200,
+        "height": 800
+      },
+      "window": {
+        "app": "Kymaean.DirectorPreview_1z32rh13vfry6!App",
+        "id": 5310392,
+        "title": "KYMÆAN Director Preview — Deterministic offline exercise (performance-incompatible)"
+      },
+      "accessibility": null,
+      "captures": [
+        {
+          "file": "C:/Users/Wiryl/Sol Dev/admin-scratch/performance-preview-20260926/captures-native-pass/light-wide-incompatible-pending-0.png",
+          "sha256": "bb278376beea2abdff65484408f695feb3ca058f0c8729c718258ef337e936ca",
+          "width": 947,
+          "height": 634
+        }
+      ]
+    },
+    {
+      "label": "light-wide-incompatible-outcome",
+      "time": "2026-09-26T19:05:37.112Z",
+      "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+      "profile": {
+        "kind": "performance-incompatible",
+        "id": "43ee71a4b25f4e319df25074bf0a8bd7",
+        "theme": "Light",
+        "width": 1200,
+        "height": 800
+      },
+      "window": {
+        "app": "Kymaean.DirectorPreview_1z32rh13vfry6!App",
+        "id": 5310392,
+        "title": "KYMÆAN Director Preview — Deterministic offline exercise (performance-incompatible)"
+      },
+      "accessibility": null,
+      "captures": [
+        {
+          "file": "C:/Users/Wiryl/Sol Dev/admin-scratch/performance-preview-20260926/captures-native-pass/light-wide-incompatible-outcome-0.png",
+          "sha256": "328810645fd05fe579eae430bc0a60a9bebf09fd18105fd7e0d141dbf3ea5af4",
+          "width": 947,
+          "height": 634
+        }
+      ]
+    }
+  ],
+  "nativePass": {
+    "executableSource": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+    "applicationRebuilt": false,
+    "capturedStates": 38,
+    "pngCount": 46,
+    "manifest": {
+      "file": "C:\\Users\\Wiryl\\Sol Dev\\admin-scratch\\performance-preview-20260926\\captures-native-pass\\manifest.json",
+      "sha256": "15b198b0de20dadc012cd18c61a6744ec72b863a742640c6824b856447d14d95"
+    },
+    "preCorrectionManifest": {
+      "file": "C:\\Users\\Wiryl\\Sol Dev\\admin-scratch\\performance-preview-20260926\\captures-native-pass\\manifest-before-profile-metadata-correction.json",
+      "sha256": "c2da9fec526ef76a271919187f91885d08e4c358568adbcdffe21c1ca80c8b27"
+    },
+    "launches": [
+      {
+        "artifact": {
+          "file": "C:\\Users\\Wiryl\\Sol Dev\\admin-scratch\\performance-preview-20260926\\launcher-access-dark-wide.json",
+          "sha256": "166a7b50758abbf3b407e0c069846758ab87b36e4ca5cd8e3c133ec727be4a63"
+        },
+        "receipt": {
+          "pid": 15100,
+          "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+          "profile": "3b0c5380bb69465c9fc8ee8e8a97dffe",
+          "executable": "C:\\Users\\Wiryl\\Sol Dev\\admin-scratch\\performance-preview-20260926\\native-arm64-d7d92fa910e0-0df9e69d4b084160ba50556d406a4961\\stages\\d7d92fa910e0-2045cf615fba4f058472a223b07788d4\\layout\\Kymaean.Windows.exe",
+          "nativeMachine": 43620,
+          "processMachine": 0,
+          "title": "KYMÆAN Director Preview — Deterministic offline exercise (performance-access)",
+          "receipt": "C:\\Users\\Wiryl\\AppData\\Local\\Packages\\Kymaean.DirectorPreview_1z32rh13vfry6\\LocalState\\DirectorPreview\\launches\\20260926T1900145661838-01f87595f24249feaab55d16dc2e4a2c.json"
+        }
+      },
+      {
+        "artifact": {
+          "file": "C:\\Users\\Wiryl\\Sol Dev\\admin-scratch\\performance-preview-20260926\\launcher-empty-light-compact.json",
+          "sha256": "a9f9fdfb91dd1e08c502c8ca5bc20588bc55cd96c838d7c55e9f9bf3d27e9242"
+        },
+        "receipt": {
+          "pid": 9232,
+          "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+          "profile": "de7dffcc94e1423ea0d59203042702e2",
+          "executable": "C:\\Users\\Wiryl\\Sol Dev\\admin-scratch\\performance-preview-20260926\\native-arm64-d7d92fa910e0-0df9e69d4b084160ba50556d406a4961\\stages\\d7d92fa910e0-2045cf615fba4f058472a223b07788d4\\layout\\Kymaean.Windows.exe",
+          "nativeMachine": 43620,
+          "processMachine": 0,
+          "title": "KYMÆAN Director Preview — Deterministic offline exercise (performance-empty)",
+          "receipt": "C:\\Users\\Wiryl\\AppData\\Local\\Packages\\Kymaean.DirectorPreview_1z32rh13vfry6\\LocalState\\DirectorPreview\\launches\\20260926T1804070767691-564c24e3a8a14de3af8f369883df19fd.json"
+        }
+      },
+      {
+        "artifact": {
+          "file": "C:\\Users\\Wiryl\\Sol Dev\\admin-scratch\\performance-preview-20260926\\launcher-incompatible-light-wide.json",
+          "sha256": "421ebe73642617aabd6ae6151467f887ed19b032c9f38c74ca2f62905f955b09"
+        },
+        "receipt": {
+          "pid": 16184,
+          "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+          "profile": "43ee71a4b25f4e319df25074bf0a8bd7",
+          "executable": "C:\\Users\\Wiryl\\Sol Dev\\admin-scratch\\performance-preview-20260926\\native-arm64-d7d92fa910e0-0df9e69d4b084160ba50556d406a4961\\stages\\d7d92fa910e0-2045cf615fba4f058472a223b07788d4\\layout\\Kymaean.Windows.exe",
+          "nativeMachine": 43620,
+          "processMachine": 0,
+          "title": "KYMÆAN Director Preview — Deterministic offline exercise (performance-incompatible)",
+          "receipt": "C:\\Users\\Wiryl\\AppData\\Local\\Packages\\Kymaean.DirectorPreview_1z32rh13vfry6\\LocalState\\DirectorPreview\\launches\\20260926T1903395955922-aa96594459e947aaa55cb9f799f4f1fc.json"
+        }
+      },
+      {
+        "artifact": {
+          "file": "C:\\Users\\Wiryl\\Sol Dev\\admin-scratch\\performance-preview-20260926\\launcher-invalid-dark-compact.json",
+          "sha256": "a50a490a23f73d435e0da09833e5b3350aa4f331e93cfdfb367a6678116641d9"
+        },
+        "receipt": {
+          "pid": 18384,
+          "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+          "profile": "90e0875b1cd140c99ef700c13c4fb369",
+          "executable": "C:\\Users\\Wiryl\\Sol Dev\\admin-scratch\\performance-preview-20260926\\native-arm64-d7d92fa910e0-0df9e69d4b084160ba50556d406a4961\\stages\\d7d92fa910e0-2045cf615fba4f058472a223b07788d4\\layout\\Kymaean.Windows.exe",
+          "nativeMachine": 43620,
+          "processMachine": 0,
+          "title": "KYMÆAN Director Preview — Deterministic offline exercise (performance-invalid)",
+          "receipt": "C:\\Users\\Wiryl\\AppData\\Local\\Packages\\Kymaean.DirectorPreview_1z32rh13vfry6\\LocalState\\DirectorPreview\\launches\\20260926T1852289819960-eb6a307bb6c043aaa71ae5a8a5b6b826.json"
+        }
+      },
+      {
+        "artifact": {
+          "file": "C:\\Users\\Wiryl\\Sol Dev\\admin-scratch\\performance-preview-20260926\\launcher-io-light-wide.json",
+          "sha256": "ebcdcc3acc9929e68dcc513f08ef20cbfae10fc738f8b15e1cc21169c058e716"
+        },
+        "receipt": {
+          "pid": 9516,
+          "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+          "profile": "1b41cc277d194ed2ab28af41693f7915",
+          "executable": "C:\\Users\\Wiryl\\Sol Dev\\admin-scratch\\performance-preview-20260926\\native-arm64-d7d92fa910e0-0df9e69d4b084160ba50556d406a4961\\stages\\d7d92fa910e0-2045cf615fba4f058472a223b07788d4\\layout\\Kymaean.Windows.exe",
+          "nativeMachine": 43620,
+          "processMachine": 0,
+          "title": "KYMÆAN Director Preview — Deterministic offline exercise (performance-io)",
+          "receipt": "C:\\Users\\Wiryl\\AppData\\Local\\Packages\\Kymaean.DirectorPreview_1z32rh13vfry6\\LocalState\\DirectorPreview\\launches\\20260926T1857387260660-045317b3749d4d089f821d9d0bbd1a1b.json"
+        }
+      },
+      {
+        "artifact": {
+          "file": "C:\\Users\\Wiryl\\Sol Dev\\admin-scratch\\performance-preview-20260926\\launcher-render-dark-wide-resumed.json",
+          "sha256": "86c8b81c674505734fc78ed5ec1ac3ae2f05f09e917377edcdb8e53d18d7d642"
+        },
+        "receipt": {
+          "pid": 18332,
+          "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+          "profile": "bc1dde8954ca446e9c8591e21b08bbbc",
+          "executable": "C:\\Users\\Wiryl\\Sol Dev\\admin-scratch\\performance-preview-20260926\\native-arm64-d7d92fa910e0-0df9e69d4b084160ba50556d406a4961\\stages\\d7d92fa910e0-2045cf615fba4f058472a223b07788d4\\layout\\Kymaean.Windows.exe",
+          "nativeMachine": 43620,
+          "processMachine": 0,
+          "title": "KYMÆAN Director Preview — Deterministic offline exercise (performance-render)",
+          "receipt": "C:\\Users\\Wiryl\\AppData\\Local\\Packages\\Kymaean.DirectorPreview_1z32rh13vfry6\\LocalState\\DirectorPreview\\launches\\20260926T1849158869489-39655da430b94225a1db9491fad51552.json"
+        }
+      },
+      {
+        "artifact": {
+          "file": "C:\\Users\\Wiryl\\Sol Dev\\admin-scratch\\performance-preview-20260926\\launcher-render-dark-wide.json",
+          "sha256": "8879e33a3ed38f29f3b6b7efe4b4c992fd2ca002238c1f708b955bf761f14608"
+        },
+        "receipt": {
+          "pid": 6040,
+          "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+          "profile": "bc1dde8954ca446e9c8591e21b08bbbc",
+          "executable": "C:\\Users\\Wiryl\\Sol Dev\\admin-scratch\\performance-preview-20260926\\native-arm64-d7d92fa910e0-0df9e69d4b084160ba50556d406a4961\\stages\\d7d92fa910e0-2045cf615fba4f058472a223b07788d4\\layout\\Kymaean.Windows.exe",
+          "nativeMachine": 43620,
+          "processMachine": 0,
+          "title": "KYMÆAN Director Preview — Deterministic offline exercise (performance-render)",
+          "receipt": "C:\\Users\\Wiryl\\AppData\\Local\\Packages\\Kymaean.DirectorPreview_1z32rh13vfry6\\LocalState\\DirectorPreview\\launches\\20260926T1810577236615-48cb8188faf64a0fb38325339865923c.json"
+        }
+      },
+      {
+        "artifact": {
+          "file": "C:\\Users\\Wiryl\\Sol Dev\\admin-scratch\\performance-preview-20260926\\launcher-success-light-wide.json",
+          "sha256": "48083fbbf9b46f807f9be3aa96064b6dfc4ffba1e9f8e6f41a0b6d905ea6aff5"
+        },
+        "receipt": {
+          "pid": 26512,
+          "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+          "profile": "e25d9c23eacd4851ac0407b13752b508",
+          "executable": "C:\\Users\\Wiryl\\Sol Dev\\admin-scratch\\performance-preview-20260926\\native-arm64-d7d92fa910e0-0df9e69d4b084160ba50556d406a4961\\stages\\d7d92fa910e0-2045cf615fba4f058472a223b07788d4\\layout\\Kymaean.Windows.exe",
+          "nativeMachine": 43620,
+          "processMachine": 0,
+          "title": "KYMÆAN Director Preview — Deterministic offline exercise (performance-success)",
+          "receipt": "C:\\Users\\Wiryl\\AppData\\Local\\Packages\\Kymaean.DirectorPreview_1z32rh13vfry6\\LocalState\\DirectorPreview\\launches\\20260926T1757582903115-a4e47bb1a80f48b682c7a8bf4b8e4c23.json"
+        }
+      }
+    ],
+    "preservationAndEvents": {
+      "measuredUtc": "2026-09-26T19:07:38.0111972Z",
+      "originalSelection": {
+        "id": "92314cf22262414eb4d7239e6103c665"
+      },
+      "previewProcessCount": 0,
+      "profiles": [
+        {
+          "kind": "rich",
+          "id": "3ee3b4d5eaa244c88beaa6ca6376026a",
+          "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+          "acceptedPerformanceCount": 0,
+          "events": [],
+          "view": {
+            "theme": "Light",
+            "width": 1200,
+            "height": 800
+          }
+        },
+        {
+          "kind": "performance-success",
+          "id": "e25d9c23eacd4851ac0407b13752b508",
+          "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+          "acceptedPerformanceCount": 1,
+          "events": [
+            {
+              "file": "C:\\Users\\Wiryl\\AppData\\Local\\Packages\\Kymaean.DirectorPreview_1z32rh13vfry6\\LocalState\\DirectorPreview\\profiles\\e25d9c23eacd4851ac0407b13752b508\\data\\production-catalog\\entry-825732904cba4556b1aab5909edf8748\\00000000000000000014-8b9b8d36c24315fde6d7fd7e74680c0ac0e1f156e7acf59e01609b93c7e1989a.kjr",
+              "sha256": "2101AA0283B2F1CDACD8175FFBBE8963CBE4E5E6AC50BA36EDB8108A98C369A5",
+              "scene": "705c23853c244f59823c3f1d48484ed7",
+              "character": "86ece6480e8c4545aaac3e594d7f07d6",
+              "visibleTextLength": 1310,
+              "circumstanceLength": 759
+            }
+          ],
+          "view": {
+            "theme": "Light",
+            "width": 1200,
+            "height": 800
+          }
+        },
+        {
+          "kind": "performance-empty",
+          "id": "de7dffcc94e1423ea0d59203042702e2",
+          "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+          "acceptedPerformanceCount": 1,
+          "events": [
+            {
+              "file": "C:\\Users\\Wiryl\\AppData\\Local\\Packages\\Kymaean.DirectorPreview_1z32rh13vfry6\\LocalState\\DirectorPreview\\profiles\\de7dffcc94e1423ea0d59203042702e2\\data\\production-catalog\\entry-2b121ff79bd6419484644e9a879974af\\00000000000000000014-c527b30385a93f626c57aee9b30d42f1074f61cc493f58c24d95d96cb637e650.kjr",
+              "sha256": "73AD665F6CD530CEC03A56E55937F1D56453FE844348A42DC34BBF0782431ACA",
+              "scene": "ca71185e70ef4a208789fba671ae78b5",
+              "character": "6563ee7d9609463e9897bdeab0edbf9d",
+              "visibleTextLength": 0,
+              "circumstanceLength": 759
+            }
+          ],
+          "view": {
+            "theme": "Light",
+            "width": 720,
+            "height": 520
+          }
+        },
+        {
+          "kind": "performance-incompatible",
+          "id": "43ee71a4b25f4e319df25074bf0a8bd7",
+          "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+          "acceptedPerformanceCount": 0,
+          "events": [],
+          "view": {
+            "theme": "Light",
+            "width": 1200,
+            "height": 800
+          }
+        },
+        {
+          "kind": "performance-invalid",
+          "id": "90e0875b1cd140c99ef700c13c4fb369",
+          "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+          "acceptedPerformanceCount": 1,
+          "events": [
+            {
+              "file": "C:\\Users\\Wiryl\\AppData\\Local\\Packages\\Kymaean.DirectorPreview_1z32rh13vfry6\\LocalState\\DirectorPreview\\profiles\\90e0875b1cd140c99ef700c13c4fb369\\data\\production-catalog\\entry-c42007fa0b1d414fadb63fa5ae6ee732\\00000000000000000014-c4896449949e320d2d8f68bc69ed242b032a1137f6e42b8ca1b205a791ec6ca5.kjr",
+              "sha256": "B80642D801BDAE3A8BC50C450B3F86346527438CA60B363C9A9729F88F30AFE5",
+              "scene": "55502d9ae38148e7a7c4f4c99bcd0899",
+              "character": "100a27659a314e4190b7fca8391d7ca6",
+              "visibleTextLength": 1310,
+              "circumstanceLength": 759
+            }
+          ],
+          "view": {
+            "theme": "Dark",
+            "width": 720,
+            "height": 520
+          }
+        },
+        {
+          "kind": "performance-io",
+          "id": "1b41cc277d194ed2ab28af41693f7915",
+          "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+          "acceptedPerformanceCount": 1,
+          "events": [
+            {
+              "file": "C:\\Users\\Wiryl\\AppData\\Local\\Packages\\Kymaean.DirectorPreview_1z32rh13vfry6\\LocalState\\DirectorPreview\\profiles\\1b41cc277d194ed2ab28af41693f7915\\data\\production-catalog\\entry-a7129dba46c84b0388204c716bba9095\\00000000000000000014-16ebd02b318fab4550c504a5d39e90164845ce9b419bcf0e4e059ad2a860e7cb.kjr",
+              "sha256": "319C3ABD89725E3ACEB18A8264FE2EE84ACF196D99B294E52FBDC0146DAAAA9B",
+              "scene": "de09616999224def8de4be362326b6fe",
+              "character": "9d1956c03eb349889a441447359a1e50",
+              "visibleTextLength": 1310,
+              "circumstanceLength": 759
+            }
+          ],
+          "view": {
+            "theme": "Light",
+            "width": 1200,
+            "height": 800
+          }
+        },
+        {
+          "kind": "performance-access",
+          "id": "3b0c5380bb69465c9fc8ee8e8a97dffe",
+          "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+          "acceptedPerformanceCount": 1,
+          "events": [
+            {
+              "file": "C:\\Users\\Wiryl\\AppData\\Local\\Packages\\Kymaean.DirectorPreview_1z32rh13vfry6\\LocalState\\DirectorPreview\\profiles\\3b0c5380bb69465c9fc8ee8e8a97dffe\\data\\production-catalog\\entry-a167c1a254864249840c6e276b27d03c\\00000000000000000014-42dd9238f56f08b3eed19ee8967645ab5a7489f4bee1723b6d0e10de60ec9115.kjr",
+              "sha256": "2D93FFACD6CF601D64FA8A2E0508722663E1BD1300B6D979FD4E072CAEC66DE3",
+              "scene": "8826044812cf4a21b0066ad010302d5d",
+              "character": "8792dc401a5b42318ce17e431938c0c8",
+              "visibleTextLength": 1310,
+              "circumstanceLength": 759
+            }
+          ],
+          "view": {
+            "theme": "Dark",
+            "width": 1200,
+            "height": 800
+          }
+        },
+        {
+          "kind": "performance-render",
+          "id": "bc1dde8954ca446e9c8591e21b08bbbc",
+          "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+          "acceptedPerformanceCount": 1,
+          "events": [
+            {
+              "file": "C:\\Users\\Wiryl\\AppData\\Local\\Packages\\Kymaean.DirectorPreview_1z32rh13vfry6\\LocalState\\DirectorPreview\\profiles\\bc1dde8954ca446e9c8591e21b08bbbc\\data\\production-catalog\\entry-09433c03a2564edf831c8dcbbe907e1b\\00000000000000000014-863c1f8529dacf45b22495e55461cf9490c98e503212c135e52a4813dd4e8c54.kjr",
+              "sha256": "17BFCEFBD87FD0203889B5E4B0358A0109D2F0DC9FA5CB6C8B0D4A998BBCC59D",
+              "scene": "f2c707ebbc7e47cd9b53e0901fbe584a",
+              "character": "9a323edeeae949c096e4e39e7bf47f30",
+              "visibleTextLength": 1310,
+              "circumstanceLength": 759
+            }
+          ],
+          "view": {
+            "theme": "Dark",
+            "width": 1200,
+            "height": 800
+          }
+        }
+      ]
+    },
+    "preservationReceipt": {
+      "file": "C:\\Users\\Wiryl\\Sol Dev\\admin-scratch\\performance-preview-20260926\\native-pass-preservation-and-events.json",
+      "sha256": "e59bb2e4743c9a6988f33425ba28075ef2c5a31f5380336d94d01dab6cd8dddf"
+    },
+    "allProfilesVerifier": {
+      "result": "PASS",
+      "artifact": {
+        "file": "C:\\Users\\Wiryl\\Sol Dev\\admin-scratch\\performance-preview-20260926\\profiles-after-native-pass.json",
+        "sha256": "1f62101b2e2fc83b5d8c2b1b2ade1ace63372da390c9d4e7f39f5a7327b658dc"
+      }
+    },
+    "originalSelectionRestoration": {
+      "file": "C:\\Users\\Wiryl\\Sol Dev\\admin-scratch\\performance-preview-20260926\\restored-original-selection.json",
+      "sha256": "4af74cd4acaa621ecad09e7debd0730448339943bd96a5d963c0a4df13ba874e"
+    },
+    "visualReview": {
+      "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+      "result": "NO_MATERIAL_VISUAL_FINDING",
+      "method": "Primary native observation plus independent behavioral no-write review under workspace-write; technical containment unproven",
+      "verifiedPngHashes": 46
+    },
+    "notEstablishedNatively": [
+      "Entry announcement",
+      "Once-only completion announcement",
+      "No automatic long Performance narration",
+      "Narrator",
+      "High Contrast",
+      "Missing-origin fallback",
+      "Stale/reentrant/duplicate adversarial paths",
+      "Exhaustive pending navigation guards",
+      "Full keyboard-only journey",
+      "Compact empty completion focus",
+      "Narrow nonempty long Performance",
+      "Large-text stress",
+      "OS reduced-motion preference stress"
+    ],
+    "designAcceptance": "NOT_EARNED",
+    "mergeReadiness": false
+  }
 }

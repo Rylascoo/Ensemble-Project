@@ -1,22 +1,16 @@
 # Deterministic Performance interaction Preview
 
-Status: SOURCE / EVIDENCE DRAFT. Native technical PASS; UI captures deferred by Director. No Design acceptance or merge readiness.
+Status: NATIVE OUTCOME / VISUAL EVIDENCE DRAFT. Seven outcomes and four view presets observed; accessibility/adversarial evidence incomplete. No Design acceptance or merge readiness.
 
 ## Authority and scope
 
 Director authorization 2026-09-26 permits Q-DESIGN-26: adopted request/result interaction, isolated deterministic Preview scenarios, bounded corrections, native ARM64 validation, independent no-write review and a draft PR. Stop for Director disposition. Contract: `docs/design/app/contracts/CREATOR_FACING_FIRST_PERFORMANCE.md`; execution boundary: `docs/PRODUCT_EXECUTOR_ADMISSION_DECISION_PACKET_2026_09_25.md`; method: `docs/design/app/DUAL_REVIEW_UI_DEVELOPMENT_METHOD_2026_09_24.md`.
 
-All 36 live branches were resolved and rechecked before publication. Main/base remains `800785d24d772d89113ac7f2f756aecc4cf3d151`: PR #280 integrated, exact-main Validation #1447 (`36221496612`) PASS. PR #262/#265/#269 remain open/unmerged at their preserved heads; #275 remains separate governance work. Historical branch/worktree residue stays Q-ADMIN-07 preservation material.
-
-Exclusive primary writer: `C:/Users/Wiryl/.codex/worktrees/3463/Ensemble-Project`, branch `codex/performance-interaction-preview-2026-09-26`. Shared Git mutations use the repository lock. Historical worktrees/refs remain preserved.
-
-Changes cover Windows interaction/focus, Presentation, tests, Preview tooling and continuity. Product/Application/Persistence/E0 source and semantics are unchanged. No new route, Current Scene, history browser, broader context/consequences, Take/review/undo or durable request protocol.
+Live main/base remains `800785d24d772d89113ac7f2f756aecc4cf3d151`; 37 branch refs rechecked. Primary writer: `C:/Users/Wiryl/.codex/worktrees/3463/Ensemble-Project`, branch `codex/performance-interaction-preview-2026-09-26`. Shared Git uses the repository lock. Product/Application/Persistence/E0 source and semantics are unchanged; historical refs/worktrees stay preserved.
 
 ## Isolation
 
-The ordinary owner still has no executors. `KYMAEAN_DIRECTOR_PREVIEW` separately compiles the Preview ownership seam and deterministic runtime; ordinary assemblies omit both and the Windows execution-adapter reference. Existing exact-source/executable admission and distinct package identity precede profile selection. Only seven explicit `performance-*` kinds enable scenarios; director/empty/rich/falsifier profiles remain unavailable. Profile/view metadata stays outside Product data.
-
-Success returns long exact text/consequence; empty returns accepted empty text. Other profiles produce Incompatible, post-commit Invalid/I/O/access uncertainty, or a rendering fault after known success. A five-second offline worker delay exposes pending. The title visibly identifies the deterministic exercise. No network, credentials, spend, provider/model/casting persistence or runtime discovery is implemented.
+Ordinary composition has no executors. `KYMAEAN_DIRECTOR_PREVIEW` separately compiles the ownership seam and deterministic runtime; ordinary assemblies omit both and the Windows execution-adapter reference. Only seven explicit `performance-*` profiles enable scenarios. Admission binds source/executable and distinct package identity; view metadata stays outside Product data. Five-second offline delay exposes pending. No provider, network, credentials, spend or runtime discovery is implemented.
 
 ## Exact native technical evidence
 
@@ -33,40 +27,41 @@ Executable source: `d7d92fa910e03e39b4d90c59ae1c5290f0665320`. SurfSeven Windows
 | Exact-source refresh / preservation | PASS; existing profiles and selection preserved during refresh |
 | Verified native launches / graceful closes | PASS 3/3 |
 
-Artifact root: `C:/Users/Wiryl/Sol Dev/admin-scratch/performance-preview-20260926/native-arm64-d7d92fa910e0-0df9e69d4b084160ba50556d406a4961`. Its `baseline.json` references the stage, build receipt and hashed logs. Build receipt SHA-256: `73b06e2ea2146f2e633a3079c4c06731446dfae76b4643549c7067b86edf4dff`. Windows DLL SHA-256: `6cbaf75839ab46a610f286fadda8a8d28a4a978bef76d5439453bd2e9c7c6c5f`.
+Technical artifacts: `C:/Users/Wiryl/Sol Dev/admin-scratch/performance-preview-20260926/native-arm64-d7d92fa910e0-0df9e69d4b084160ba50556d406a4961/baseline.json`. Build receipt SHA-256: `73b06e2ea2146f2e633a3079c4c06731446dfae76b4643549c7067b86edf4dff`. Windows DLL: `6cbaf75839ab46a610f286fadda8a8d28a4a978bef76d5439453bd2e9c7c6c5f`.
 
-Initial sandbox NuGet.Config access failed; owner-context reruns passed.
+## Native outcome and capture evidence
 
-## Scenario and capture matrix
+The Director resumed captures on 2026-09-26. All eight preserved d7d92fa profiles were reused without reseeding. All seven labelled scenario launches passed corrected-helper source, title, executable and native ARM64 checks. No application source or executable changed.
 
-Eight fresh d7d92fa profiles are inventoried in the JSON evidence and `scenario-profiles.json` under the parent artifact directory. View metadata supports Light/Dark and 1200x800 / 720x520.
+The JSON receipt embeds 38 capture entries / 46 unmodified PNG SHA-256 records, launch receipts and profile/event measurements. Local root: `C:/Users/Wiryl/Sol Dev/admin-scratch/performance-preview-20260926`; images: `captures-native-pass`. Presets and actual Computer Use logical capture dimensions are distinct: 1200x800 -> 947x634; 720x520 -> 563x410. Small auxiliary tooltip images are also retained.
 
-| Required interaction | Automated evidence / native capture disposition |
+| Preset | Native observations |
 |---|---|
-| Unavailable; ready; activation | No-port and explicit-target tests PASS. Rich/success profiles prepared; native Performance capture DEFERRED. |
-| Pending; duplicate/reentry; navigation guards | Controlled scheduler/worker/reentry tests PASS. Native focus, keyboard guards and responsiveness DEFERRED. |
-| Success + one circumstance; accepted empty text | Atomic Product/Persistence and projection tests PASS. Success/empty profiles prepared; native results DEFERRED. |
-| Incompatible; Invalid; I/O; access uncertainty | Distinct classification/copy tests PASS. Four profiles prepared; native capture DEFERRED. |
-| Rendering/publication failure after success | Retained-success and notification/dispatcher-rejection tests PASS. Render profile prepared; native capture DEFERRED. |
-| Production-scoped block; same ordinary Open clearing | Other Production, failed Open and reopen tests PASS. Native sequence DEFERRED. |
-| Stale target/result; Back/return | Generation/identity/publication and transient-surface tests PASS. Native exact-action focus return DEFERRED. |
+| Light 1200x800 | Duplicate-name roster/Character codes; quiet entry; ready/pending; success, 1310-character text and one 759-character circumstance; permanence copy; exact-action Back. Separate I/O and Incompatible outcomes. |
+| Light 720x520 | Ready/action keyboard reachability; pending; accepted empty text with explicit explanation; wrapped circumstance and end reachable vertically. |
+| Dark 1200x800 | Ready/pending; known success with display-failure heading, retained text/circumstance and disabled request; access uncertainty. |
+| Dark 720x520 | Invalid outcome, focused wrapped heading; reopen help; Back exact origin; re-entry blocked; successful same-Production ordinary Open clears block while retaining original witness and new-request warning. |
 
-No accepted Performance captures exist. Only basic library/Open/Scenes navigation was observed. Computer Use supplied no accessibility tree and captured another window during concurrent desktop use; those images were not saved. Director instruction: **"Finish the source/evidence draft; defer UI captures."**
+Each success/empty/render/Invalid/I/O/access profile has exactly one accepted Performance event; Incompatible and rich have zero. Empty visible text is length zero. These are local deterministic fixture checks, not creator-visible attribution after uncertainty. Event hashes are preserved in `native-pass-preservation-and-events.json` and the repository JSON.
 
-Light/Dark parity, both sizes, large text, long-result wrapping/reachability, empty-result rendering, duplicate-name targeting, focus order/return, pending focus, keyboard-only traversal, completion-announcement count and reduced motion remain **NOT TESTED natively**. Narrator and High Contrast are **NOT TESTED**. Source/tests do not substitute for these claims. No Design, live AI, production availability, spend-safety or broader workflow claim is earned.
+Visible focus PASS: ready action, pending status, wide success/render/I/O/access/Incompatible headings, compact Invalid heading, exact-origin Back. Entry remained idle until explicit request. Pending replaced navigation/commands with a textual guard. Status, identity and consequence use text, not color or motion alone. Primary and independent visual reviews found no material clipping, wrapping, reachability, identity or Light/Dark defect in the observed matrix.
 
-Fresh rich profile `3ee3b4d5eaa244c88beaa6ca6376026a` remains selected in Light/wide; Preview was left open at Scenes when UI work was deferred. Original selection `92314cf22262414eb4d7239e6103c665` is preserved in `original-selection.json` beside the scenario inventory. Do not change selection while Preview is open. All existing/fresh profiles remain preserved.
+Limits: compact empty completion focus had a Tab intervention. Extra Return produced no additional success event, but pending timing is unproven. Stale/duplicate/reentrant exclusion, exhaustive pending navigation blocking and missing-origin fallback retain controlled-test evidence only; native adversarial PASS is not claimed. UIA returned null. Entry speech, once-only completion announcement, absence of automatic long-text narration, Narrator and High Contrast are NOT TESTED. Large-text and OS reduced-motion preference stress are NOT TESTED; visible textual status is not proof of OS preference compatibility. Full keyboard-only journey and narrow long nonempty Performance were not established.
+
+Seven compact entries inherited wrong profile metadata from a helper closure. Corrected identity matches empty-scenario title/launch/view metadata; original fields and pre-correction manifest are preserved. Image hashes unchanged; independent review verified all 46. Cross-window captures excluded.
+
+Preview was gracefully closed. Original selection `92314cf22262414eb4d7239e6103c665` was restored and read back; zero Preview processes and all eight exact-source profiles verified. The full profile verifier also passed. Fixture requests intentionally appended accepted events; no Product data was reseeded or overwritten.
 
 ## Review and corrections
 
-Review of `9583103434b158a4424df29e520852644a049ce8` found two P2 defects: uncertainty under another Character and rendering-fault copy contradicting retained content. Both were corrected with regressions. Exact d7d92fa re-review: **CLEAN**. The predecessor's partial native run stopped before refresh; its logs confer no final acceptance.
+Review of `9583103434b158a4424df29e520852644a049ce8` found two P2 defects: uncertainty under another Character and rendering-fault copy contradicting retained content. Both were corrected with regressions. Exact d7d92fa re-review: **CLEAN**.
 
-Tooling-only `6f32383808e54683989918dacc3d9685e60d3090` corrects verified launch to accept each admitted scenario's exact labelled title while retaining source/process/architecture/executable checks. Exact-ref helper review: **CLEAN**. No application executable source changed after d7d92fa. Scenario-launch verification of that helper correction remains deferred; ordinary-profile baseline launches passed.
+Launcher-only `6f32383808e54683989918dacc3d9685e60d3090` preserves source/process/architecture/executable checks and accepts exact scenario titles. Helper review CLEAN; all seven titles now pass launch verification. Application executable remains d7d92fa.
 
-Reviews were behaviorally no-write under workspace-write policy; technical containment is unproven. Visual/accessibility review remains pending.
+Primary and independent exact-d7d92fa visual review found no material defect. Incompatible inherits the integrated coordinator's conservative reopen guard; distinct outcome and Back remain. No source repair. Reviews were behaviorally no-write under workspace-write policy; technical containment is unproven. Accessibility and adversarial-native limits above prevent full acceptance.
 
 ## Disposition
 
-Publish a draft PR for source/technical review with UI validation incomplete. Resume the native matrix and independent visual review when stable desktop access is available; correct bounded findings, update exact-source evidence, then seek Director disposition. No merge is authorized. PR #262/#265/#269 remain preserved and unmerged.
+PR #281 remains draft. Native outcome and representative visual evidence is complete; the full required interaction/accessibility matrix is not. Next: establish the explicit speech, fallback, keyboard/adversarial and preference-stress gaps with reliable native observation, then acceptance review and Director disposition. No merge is authorized. PR #262/#265/#269 remain preserved and unmerged.
 
-Real execution still requires separate Director runtime/provider/model disposition, current capability/platform/data-exposure checks, any credentials, endpoint/privacy authorization, pricing/resource bounds, verified native composition and explicit first-live authorization. Historical E0 permissions do not transfer. Ordinary Performance remains unavailable.
+Real execution remains separately Director-gated. Historical E0 permissions do not transfer; ordinary Performance remains unavailable.
