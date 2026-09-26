@@ -78,20 +78,26 @@ The contextual overview now composes only earned Production identity, ProductSpa
 
 Human comprehension/discoverability, Narrator and exact-source High Contrast remain separate claims.
 
+## Director-adopted successor contract — implementation gated
+
+`contracts/CREATOR_FACING_FIRST_PERFORMANCE.md` is the adopted Product/Design contract for explicit Scene/Character-targeted request/result presentation over Q-PROD-09. Primary action: **Request & record Performance**. Explanation: **If successful, this Performance and one new circumstance for this Character will be recorded together. There is no separate approval step.** This is presentation clarity, not a second acceptance stage or changed Product semantics.
+
+The transient contextual surface may present the exact confirmed Performance and single added Character Circumstance under that contract. No interaction implementation is authorized. Neither Product executor interface has a production implementation at adoption baseline `bbf364b09aa08a441b20b781f09fd4dae0533e41`; test doubles cannot silently supply ordinary production behavior. Executor admission and implementation require separate Director disposition.
+
 ## Explicit unresolved / gated items
 
 - Home re-entry A/B: unresolved.
 - FIRSTUSE: evidence pending adoption.
 - rename/delete/import/restore: no current Product/UI authority.
-- Character semantics beyond integrated identity/name/establishment; Scene semantics beyond integrated identity/initial-roster presentation; Circumstance/Pressure/Take/Rehearsal: separately gated.
+- Character semantics beyond integrated Product law; Scene semantics beyond integrated identity/initial-roster law: separately gated. Only Q-PROD-09's bounded request/result and added Circumstance presentation is adopted by the successor contract above; richer Character/Circumstance presentation, Pressure/Take/Rehearsal remain gated.
 - Human Scene-code comprehension/discoverability, Narrator intelligibility and exact-source High Contrast proof remain open falsifiers.
-- provider/Performer: separately gated.
+- provider/Performer execution and casting: separately gated; the adopted request/result contract supplies no production executor or provider authority.
 - transcript-dependent Stage motion: blocked.
 - deferred E0 convergence/final architecture: not complete.
 - Alpha/Beta/release/WACK/Store: blocked by their own gates.
 
 ## Operating rule
 
-Director-approved Preview feedback method: `evidence/Q_PREVIEW_01_DIRECTOR_FEEDBACK_METHOD_2026_09_23.md`. Current accelerated UI loop: `DUAL_REVIEW_UI_DEVELOPMENT_METHOD_2026_09_24.md`. Design owns diagnosis; Claude Code provides independent read-only review; automation owns deterministic claims; Director input is reserved for irreducible decisions and milestone human evidence. Reference map: `pointers/DIRECTOR_PREVIEW_VISUAL_REFERENCE_MAP.md`. Q-DESIGN-25 is Design-accepted at exact executable `a05f00e...` and integrated. No successor Design package is activated.
+Director-approved Preview feedback method: `evidence/Q_PREVIEW_01_DIRECTOR_FEEDBACK_METHOD_2026_09_23.md`. Current accelerated UI loop: `DUAL_REVIEW_UI_DEVELOPMENT_METHOD_2026_09_24.md`. Design owns diagnosis; Claude Code provides independent read-only review; automation owns deterministic claims; Director input is reserved for irreducible decisions and milestone human evidence. Reference map: `pointers/DIRECTOR_PREVIEW_VISUAL_REFERENCE_MAP.md`. Q-DESIGN-25 is Design-accepted at exact executable `a05f00e...` and integrated. The successor contract above is Director-adopted only; no successor implementation or native Design-validation package is activated.
 
 Current Product truth is an input to Design, not something Design may invent. Historical transferred capacities are not runtime permission. When a current Product contract changes, reconcile the smallest affected Design contract rather than reopening the whole transferred archive.

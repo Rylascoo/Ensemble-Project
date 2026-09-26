@@ -6,6 +6,8 @@ Package: **Q-DESIGN-24**. Date: 2026-09-23.
 Exact Product baseline: `a225fc56acc1ef4514538562491d28d7a6bb4fb4`.
 Decision and falsification evidence: `docs/design/app/evidence/SCENE_PRESENTATION_CONTRACT_DECISION_2026_09_23.md`.
 
+Director-adopted successor (2026-09-25): `docs/design/app/contracts/CREATOR_FACING_FIRST_PERFORMANCE.md` narrowly extends the read-only roster inspection with **Performance…** navigation beside an explicitly targeted Character and a separate transient request/result surface. Roster contents remain read-only. Only that successor's Q-PROD-09 Performance and single Circumstance presentation supersedes this contract's Opportunity/Performance exclusion; initial membership still does not assert current presence or a running Scene. No interaction implementation, executor/provider admission, casting, lifecycle or other excluded authority follows. Its primary action is **Request & record Performance**, with no second confirmation/acceptance stage. All other Q-DESIGN-24 substance and evidence boundaries remain unchanged.
+
 ## Authority and purpose
 
 The Director authorized a documentation-only test of integrated Q-PROD-08 sufficiency: opaque Scene identity, initial Scene Roster, Production-Cast-order canonicalization and replay-derived Production Scenes. The Director adopted this bounded contract on 2026-09-23 without extending Product. Separate Windows implementation authorization remains required; adoption is not empirical validation.

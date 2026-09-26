@@ -1,5 +1,13 @@
 # Application Design Ledger — frozen receipt
 
+## Project-native creator-facing first Performance contract adoption — 2026-09-25
+
+**State:** DIRECTOR-ADOPTED PRODUCT / DESIGN CONTRACT / IMPLEMENTATION AND EXECUTOR ADMISSION GATED.
+
+Contract: `contracts/CREATOR_FACING_FIRST_PERFORMANCE.md`. Exact adoption baseline: `bbf364b09aa08a441b20b781f09fd4dae0533e41`. The Director adopted the reviewed proposal with only the primary action **Request & record Performance** and explanation **If successful, this Performance and one new circumstance for this Character will be recorded together. There is no separate approval step.** The amendment clarifies presentation without changing Q-PROD-09 semantics or adding confirmation/acceptance.
+
+Explicit Scene/Character targeting, transient result lifetime, exact Performance/consequence rendering, empty-text handling, conservative nonconfirmation, Production-scoped session blocking until successful ordinary reopen, focus/accessibility and all exclusions remain intact. Current Design index and Scene exclusion are reconciled only for that bounded request/result surface. Q-DESIGN-25 stays complete. Neither executor interface has a production implementation at this baseline; no test double becomes ordinary production behavior. No source change, native Design acceptance, provider/deferred-E0/release authority or implementation activation is recorded.
+
 ## Project-native Q-DESIGN-25 Current Production workspace acceptance — 2026-09-25
 
 **State:** DESIGN ACCEPTED / INTEGRATED / EXACT EXECUTABLE `a05f00e64d16a5bc13bd1def03912472fd62c25b`
