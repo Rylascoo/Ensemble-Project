@@ -9,6 +9,47 @@ namespace Kymaean.Windows.Presentation.Tests;
 public sealed class PerformanceFoundationTests
 {
     [TestMethod]
+    public async Task InFlightInvalidationRetainsKnownCommitWithoutPaintingReplacement()
+    {
+        using var f = new Fixture(); var owner = f.Owner(work => work());
+        f.Runtime.DuringPerform = owner.InvalidatePresentation;
+        var activation = owner.Begin(f.Target(owner)); var result = await activation.Completion!;
+        Assert.AreEqual(PerformanceOutcome.KnownSuccess, result.Outcome);
+        Assert.IsFalse(owner.Publish(activation.Request!, _ => Assert.Fail("Stale completion rendered.")));
+        Assert.AreEqual(1, f.Catalog.Commits);
+        Assert.IsTrue(owner.RequiresReopen(f.A));
+        Assert.AreSame(result, owner.Terminals.Single());
+    }
+
+    [TestMethod]
+    public async Task DispatcherRejectionPreservesSuccessAndFencesLateAcceptedCallback()
+    {
+        foreach (var throws in new[] { false, true })
+        {
+            using var f = new Fixture(); var owner = f.Owner(work => work());
+            Action? late = null;
+            var vm = new MainPageViewModel(PresentationStartupResult.Owned(owner), work =>
+            {
+                late = work;
+                if (throws) throw new InvalidOperationException("dispatcher unavailable");
+                return false;
+            });
+            await vm.RequestPerformanceAsync(vm.CapturePerformanceTarget(f.Scene, f.Actor)!);
+            Assert.AreEqual(PerformanceOutcome.KnownSuccess, owner.Terminals.Single().Outcome);
+            Assert.IsTrue(owner.LastPublication!.RenderingFailed);
+            Assert.IsFalse(owner.IsBusy);
+            Assert.IsTrue(owner.RequiresReopen(f.A));
+            Assert.IsTrue(vm.PerformanceAvailabilityMessage.StartsWith("Performance recorded.", StringComparison.Ordinal));
+            owner.OpenProduction(f.A);
+            var next = owner.Begin(f.Target(owner)); await next.Completion!;
+            late!();
+            Assert.IsTrue(owner.IsBusy);
+            Assert.IsNull(vm.LastPerformancePublication);
+            owner.Publish(next.Request!, _ => { });
+        }
+    }
+
+    [TestMethod]
     public async Task DefaultWorkerDoesNotOccupyDispatcherWhileRuntimeIsDelayed()
     {
         using var f = new Fixture();
@@ -55,7 +96,8 @@ public sealed class PerformanceFoundationTests
         Assert.IsTrue(owner.LastPublication!.Stale);
         Assert.IsTrue(newView.IsPerformanceReopenRequired);
         Assert.IsNull(newView.LastPerformancePublication);
-        Assert.AreEqual(PerformanceOutcome.KnownSuccess, owner.Terminals.Single().Outcome);
+        Assert.AreEqual(PerformanceOutcome.KnownNoncommit, owner.Terminals.Single().Outcome);
+        Assert.AreEqual(0, f.Runtime.Calls);
     }
 
     [TestMethod]
@@ -79,7 +121,7 @@ public sealed class PerformanceFoundationTests
         Assert.AreEqual(PerformanceAdmission.Unavailable, owner.Begin(fixture.Target(owner)).Admission);
         var vm = new MainPageViewModel(PresentationStartupResult.Product(ProductAccessResult<ProductApplication>.Success(fixture.App)));
         Assert.IsFalse(vm.HasPerformanceExecutors);
-        Assert.IsTrue(vm.PerformanceAvailabilityMessage.Contains("unavailable", StringComparison.Ordinal));
+        Assert.AreEqual("Performance is unavailable.", vm.PerformanceAvailabilityMessage);
         Assert.AreEqual(0, fixture.Catalog.Commits);
         foreach (var missingPerformer in new[] { true, false })
         {
@@ -179,7 +221,9 @@ public sealed class PerformanceFoundationTests
         var painted = false;
         Assert.IsFalse(owner.Publish(first.Request!, _ => painted = true));
         Assert.IsFalse(painted);
-        Assert.AreEqual(PerformanceOutcome.KnownSuccess, owner.Terminals.Single().Outcome);
+        Assert.AreEqual(PerformanceOutcome.KnownNoncommit, owner.Terminals.Single().Outcome);
+        Assert.AreEqual(PerformanceFailureCause.StaleBeforeInvocation, owner.Terminals.Single().Cause);
+        Assert.AreEqual(0, f.Runtime.Calls);
         Assert.IsTrue(owner.RequiresReopen(f.A));
         Assert.IsTrue(owner.OpenProduction(f.A).IsSuccess);
         var second = owner.Begin(f.Target(owner));
@@ -188,7 +232,7 @@ public sealed class PerformanceFoundationTests
         Assert.IsTrue(owner.IsBusy);
         scheduler.Take()(); await second.Completion!;
         Assert.IsTrue(owner.Publish(second.Request, _ => { }));
-        Assert.AreEqual(2, f.Catalog.Commits);
+        Assert.AreEqual(1, f.Catalog.Commits);
     }
 
     [TestMethod]
@@ -270,6 +314,14 @@ public sealed class PerformanceFoundationTests
             Assert.AreEqual(expected, terminal.Outcome, kind);
             Assert.AreEqual(kind is not ("technical" or "dispatch"), terminal.RequiresReopen, kind);
             Assert.AreEqual(0, f.Catalog.Commits, kind);
+            var cause = kind switch { "invalid" => PerformanceFailureCause.ProductInvalid,
+                "incompatible" => PerformanceFailureCause.ProductIncompatible,
+                "technical" => PerformanceFailureCause.PerformerFault,
+                "dispatch" => PerformanceFailureCause.DispatchRejected, _ => PerformanceFailureCause.InvocationIo };
+            Assert.AreEqual(cause, terminal.Cause, kind);
+            Assert.AreEqual(kind is "technical" or "io" or "dispatch" ? ProductCommitKnowledge.Noncommit : ProductCommitKnowledge.Unknown,
+                terminal.CommitKnowledge, kind);
+            if (kind is "technical" or "io" or "commit-io") Assert.IsNotNull(terminal.DiagnosticType);
         }
     }
 

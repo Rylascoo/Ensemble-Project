@@ -5,6 +5,13 @@ using Kymaean.Application;
 namespace Kymaean.Windows.Presentation;
 
 public enum PerformanceOutcome { KnownNoncommit, KnownSuccess, OutcomeUnknown, ProductIncompatible, ExecutorFailure }
+public enum ProductCommitKnowledge { Noncommit, Success, Unknown }
+public enum PerformanceFailureCause
+{
+    None, ProductInvalid, ProductIncompatible, PerformerFault, InterpreterFault,
+    InvocationIo, InvocationAccess, UnexpectedInvocation, DispatchRejected, StaleBeforeInvocation
+}
+public enum PublicationFailureCause { None, Rendering, DispatcherRejected }
 public enum PerformanceAdmission { Accepted, Unavailable, Busy, StaleTarget, ReopenRequired }
 
 public sealed record PerformanceTarget
@@ -32,8 +39,18 @@ public sealed record PerformanceTarget
 public sealed record PerformanceRequest(Guid Id, PerformanceTarget Target);
 public sealed record PerformanceTerminal(
     PerformanceRequest Request, PerformanceOutcome Outcome, PerformanceExecution? Execution,
-    ProductApplicationProjection? Projection, bool RequiresReopen);
-public sealed record PerformancePublication(PerformanceTerminal Terminal, bool Stale, bool RenderingFailed);
+    ProductApplicationProjection? Projection, bool RequiresReopen,
+    PerformanceFailureCause Cause = PerformanceFailureCause.None, string? DiagnosticType = null)
+{
+    public ProductCommitKnowledge CommitKnowledge => Outcome switch
+    {
+        PerformanceOutcome.KnownSuccess => ProductCommitKnowledge.Success,
+        PerformanceOutcome.KnownNoncommit or PerformanceOutcome.ExecutorFailure => ProductCommitKnowledge.Noncommit,
+        _ => ProductCommitKnowledge.Unknown
+    };
+}
+public sealed record PerformancePublication(PerformanceTerminal Terminal, bool Stale, bool RenderingFailed,
+    PublicationFailureCause Cause = PublicationFailureCause.None, string? DiagnosticType = null);
 public sealed record PerformanceActivation(
     PerformanceAdmission Admission, PerformanceRequest? Request, Task<PerformanceTerminal>? Completion);
 
@@ -189,15 +206,22 @@ public sealed class ProductOperationCoordinator
         void Execute()
         {
             if (Interlocked.Exchange(ref started, 1) != 0) return;
-            CaptureTerminal(request, Invoke(request), completion);
+            bool current;
+            lock (_gate) current = ReferenceEquals(_pending, request) && request.Target.Generation == _generation;
+            // This check is the invocation-start boundary. Later view invalidation does
+            // not cancel the synchronous operation or undo any committed event.
+            var terminal = current ? Invoke(request) : new PerformanceTerminal(request,
+                PerformanceOutcome.KnownNoncommit, null, null, false, PerformanceFailureCause.StaleBeforeInvocation);
+            CaptureTerminal(request, terminal, completion);
         }
         try { _schedule(Execute); }
-        catch (Exception)
+        catch (Exception error)
         {
             // Dispatch may have accepted work before throwing. Only win-before-start
             // proves non-invocation; never release an invocation already in flight.
             if (Interlocked.CompareExchange(ref started, 1, 0) == 0)
-                CaptureTerminal(request, new(request, PerformanceOutcome.KnownNoncommit, null, null, false), completion);
+                CaptureTerminal(request, new(request, PerformanceOutcome.KnownNoncommit, null, null, false,
+                    PerformanceFailureCause.DispatchRejected, error.GetType().FullName), completion);
         }
         return new(PerformanceAdmission.Accepted, request, completion.Task);
     }
@@ -205,6 +229,7 @@ public sealed class ProductOperationCoordinator
     private PerformanceTerminal Invoke(PerformanceRequest request)
     {
         var executorFailed = false;
+        var executorCause = PerformanceFailureCause.PerformerFault;
         try
         {
             var performer = new ObservedPerformer(context =>
@@ -214,6 +239,7 @@ public sealed class ProductOperationCoordinator
             });
             var interpreter = new ObservedInterpreter((context, candidate) =>
             {
+                executorCause = PerformanceFailureCause.InterpreterFault;
                 try { return _interpreter!.Interpret(context, candidate) ?? throw new InvalidOperationException("Missing consequence."); }
                 catch { executorFailed = true; throw; }
             });
@@ -221,8 +247,8 @@ public sealed class ProductOperationCoordinator
             if (result.IsSuccess)
                 return new(request, PerformanceOutcome.KnownSuccess, result.Value, _application.Query(), false);
             return result.FailureKind == ProductAccessFailureKind.Incompatible
-                ? new(request, PerformanceOutcome.ProductIncompatible, null, null, true)
-                : new(request, PerformanceOutcome.OutcomeUnknown, null, null, true);
+                ? new(request, PerformanceOutcome.ProductIncompatible, null, null, true, PerformanceFailureCause.ProductIncompatible)
+                : new(request, PerformanceOutcome.OutcomeUnknown, null, null, true, PerformanceFailureCause.ProductInvalid);
         }
         catch (Exception error)
         {
@@ -230,7 +256,11 @@ public sealed class ProductOperationCoordinator
             // the adopted conservative uncertainty presentation and reopen block.
             var conservativeIo = error is IOException or UnauthorizedAccessException;
             return new(request, executorFailed ? PerformanceOutcome.ExecutorFailure : PerformanceOutcome.OutcomeUnknown,
-                null, null, conservativeIo || !executorFailed);
+                null, null, conservativeIo || !executorFailed,
+                error is IOException ? PerformanceFailureCause.InvocationIo :
+                error is UnauthorizedAccessException ? PerformanceFailureCause.InvocationAccess :
+                executorFailed ? executorCause : PerformanceFailureCause.UnexpectedInvocation,
+                error.GetType().FullName);
         }
     }
 
@@ -247,6 +277,18 @@ public sealed class ProductOperationCoordinator
         completion.SetResult(terminal);
     }
 
+    internal void RejectPublication(PerformanceRequest request)
+    {
+        lock (_gate)
+        {
+            if (_publishing || !ReferenceEquals(request, _pending) || _pendingTerminal is not { } terminal) return;
+            _lastPublication = new(terminal, request.Target.Generation != _generation, true, PublicationFailureCause.DispatcherRejected);
+            _reopenRequired.Add(request.Target.ProductionId);
+            _pending = null; _pendingTerminal = null; _generation++; _busy = false;
+            // Dispatcher failure cannot safely raise UI notifications on this thread.
+        }
+    }
+
     internal bool Publish(PerformanceRequest request, Action<PerformanceTerminal> render)
     {
         lock (_gate)
@@ -259,7 +301,7 @@ public sealed class ProductOperationCoordinator
             else if (terminal.Projection is { } projection) _snapshot = projection;
             // Keep busy through callbacks: notification reentry cannot start another request.
             try { if (!stale) render(terminal); }
-            catch (Exception) { _lastPublication = new(terminal, stale, true); }
+            catch (Exception error) { _lastPublication = new(terminal, stale, true, PublicationFailureCause.Rendering, error.GetType().FullName); }
             finally { _pending = null; _pendingTerminal = null; _generation++; _busy = false; _publishing = false; }
             NotifyStateChanged();
             return !stale;

@@ -44,16 +44,22 @@ public sealed partial class MainPageViewModel : INotifyPropertyChanged
     private readonly Func<IReadOnlyList<string>, IReadOnlyDictionary<string, string?>> _sceneCodeBuilder;
 
     public MainPageViewModel(PresentationStartupResult startup)
-        : this(startup, PresentationIdentityCode.BuildSceneCodes)
-    {
-    }
+        : this(startup, work => { work(); return true; }, PresentationIdentityCode.BuildSceneCodes) { }
 
-    internal MainPageViewModel(
-        PresentationStartupResult startup,
+    public MainPageViewModel(PresentationStartupResult startup, Func<Action, bool> publish)
+        : this(startup, publish, PresentationIdentityCode.BuildSceneCodes) { }
+
+    internal MainPageViewModel(PresentationStartupResult startup,
+        Func<IReadOnlyList<string>, IReadOnlyDictionary<string, string?>> sceneCodeBuilder)
+        : this(startup, work => { work(); return true; }, sceneCodeBuilder) { }
+
+    private MainPageViewModel(PresentationStartupResult startup, Func<Action, bool> publish,
         Func<IReadOnlyList<string>, IReadOnlyDictionary<string, string?>> sceneCodeBuilder)
     {
         ArgumentNullException.ThrowIfNull(startup);
+        ArgumentNullException.ThrowIfNull(publish);
         ArgumentNullException.ThrowIfNull(sceneCodeBuilder);
+        _publish = publish;
         _sceneCodeBuilder = sceneCodeBuilder;
 
         if (startup.IsInfrastructureFailure)

@@ -24,7 +24,7 @@ public sealed partial class MainPage : Page
                 "Main page requires the Windows startup result.");
         }
 
-        DataContext = new MainPageViewModel(startup.Presentation);
+        DataContext = new MainPageViewModel(startup.Presentation, work => DispatcherQueue.TryEnqueue(() => work()));
         ShellNavigation.SelectedItem = HomeNavigationItem;
     }
 

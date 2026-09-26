@@ -4,6 +4,7 @@ namespace Kymaean.Windows.Presentation;
 
 public sealed partial class MainPageViewModel
 {
+    private readonly Func<Action, bool> _publish;
     private PerformancePublication? _performancePublication;
 
     public bool IsApplicationBusy => _application?.IsBusy == true;
@@ -20,11 +21,31 @@ public sealed partial class MainPageViewModel
         _performancePublication?.Terminal.Request.Target.ProductionId == _projection?.CurrentProduction?.Id
             ? _performancePublication : null;
     public string PerformanceAvailabilityMessage => !HasPerformanceExecutors
-        ? "Performance is unavailable. An admitted execution runtime is not installed."
+        ? "Performance is unavailable."
         : IsApplicationBusy ? "Request in progress. Navigation and changes are unavailable until it finishes."
-        : IsPerformanceReopenRequired ? "Confirmation unavailable. Open this Production again before making changes. The earlier request may have been recorded."
+        : _application?.LastPublication is { RenderingFailed: true, Terminal.Outcome: PerformanceOutcome.KnownSuccess } failed &&
+            failed.Terminal.Request.Target.ProductionId == _projection?.CurrentProduction?.Id
+            ? "Performance recorded. Its result could not be displayed."
+        : IsPerformanceReopenRequired ? PerformanceFailureMessage
         : HasEarlierUnknownPerformance ? "Production freshly opened. The earlier request remains unconfirmed; any new request is a separate action."
         : "Execution foundation available in this isolated test session.";
+
+    private string PerformanceFailureMessage
+    {
+        get
+        {
+            var result = _application?.Terminals.LastOrDefault(item =>
+                item.Request.Target.ProductionId == _projection?.CurrentProduction?.Id);
+            return result?.Cause switch
+            {
+                PerformanceFailureCause.ProductInvalid => "Performance not confirmed. Kymaean could not confirm whether this Performance was recorded.",
+                PerformanceFailureCause.ProductIncompatible => "Performance unavailable in this version.",
+                PerformanceFailureCause.InvocationIo or PerformanceFailureCause.InvocationAccess =>
+                    "Confirmation unavailable. Kymaean could not confirm whether this Performance was recorded.",
+                _ => "Technical failure. Open the Production again to reload its recorded state."
+            };
+        }
+    }
 
     // No ordinary UI activation is wired in this offline package. This internal seam lets
     // tests prove the full Presentation lifecycle with injected test-only executors.
@@ -40,15 +61,35 @@ public sealed partial class MainPageViewModel
         if (activation.Admission != PerformanceAdmission.Accepted) return activation.Admission;
         // A notification fault must not abandon observation/release or lose a later commit.
         NotifyPerformanceSafely();
-        await activation.Completion!;
-        var published = _application.Publish(activation.Request!, terminal =>
+        await activation.Completion!.ConfigureAwait(false);
+        var delivered = 0;
+        var publicationFinished = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        void Publish()
         {
-            _performancePublication = _application.LastPublication;
-            if (terminal.Projection is { } projection) _projection = projection;
-            RaisePerformanceProperties();
-        });
-        if (published) _performancePublication = _application.LastPublication;
-        NotifyPerformanceSafely();
+            if (Interlocked.CompareExchange(ref delivered, 1, 0) != 0) return;
+            try
+            {
+                var published = _application.Publish(activation.Request!, terminal =>
+                {
+                    _performancePublication = _application.LastPublication;
+                    if (terminal.Projection is { } projection) _projection = projection;
+                    RaisePerformanceProperties();
+                });
+                if (published) _performancePublication = _application.LastPublication;
+                NotifyPerformanceSafely();
+            }
+            finally { publicationFinished.TrySetResult(); }
+        }
+        void RejectDispatch()
+        {
+            if (Interlocked.CompareExchange(ref delivered, 1, 0) != 0) return;
+            // This path may run on the worker: retain truth and freeze safely, with no UI events.
+            _application.RejectPublication(activation.Request!);
+            publicationFinished.TrySetResult();
+        }
+        try { if (!_publish(Publish)) RejectDispatch(); }
+        catch (Exception) { RejectDispatch(); }
+        await publicationFinished.Task.ConfigureAwait(false);
         return PerformanceAdmission.Accepted;
     }
 
