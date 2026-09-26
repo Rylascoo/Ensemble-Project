@@ -611,6 +611,8 @@
                                     </StackPanel>
                                 </ContentControl>
                                 <ItemsControl IsTabStop="False" ItemsSource="{Binding InspectedScene.Roster}" ItemTemplate="{StaticResource CharacterRowTemplate}" />
+                                <TextBlock Text="{Binding PerformanceAvailabilityMessage}" TextWrapping="Wrap" />
+                                <Button Content="Request &amp; record Performance" IsEnabled="False" />
                                 <TextBlock Text="No Characters in this initial roster." TextWrapping="Wrap"
                                            Visibility="{Binding InspectedScene.IsEmpty, Converter={StaticResource BoolToVisibility}}" />
                             </StackPanel>

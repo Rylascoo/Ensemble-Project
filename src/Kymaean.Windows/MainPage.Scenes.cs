@@ -11,6 +11,7 @@ public sealed partial class MainPage
 {
     private void OnOpenScenesClicked(object sender, RoutedEventArgs e)
     {
+        if (DataContext is MainPageViewModel { IsApplicationBusy: true }) return;
         if (DataContext is not MainPageViewModel model) return;
         model.OpenScenes();
         UpdateLayout();
@@ -21,6 +22,7 @@ public sealed partial class MainPage
 
     private void OnSceneBackClicked(object sender, RoutedEventArgs e)
     {
+        if (DataContext is MainPageViewModel { IsApplicationBusy: true }) return;
         if (DataContext is not MainPageViewModel model) return;
         if (model.IsSceneDetail)
         {
@@ -40,6 +42,7 @@ public sealed partial class MainPage
 
     private void OnInspectSceneClicked(object sender, RoutedEventArgs e)
     {
+        if (DataContext is MainPageViewModel { IsApplicationBusy: true }) return;
         if (DataContext is MainPageViewModel model && sender is Button { DataContext: ScenePresentationRow row }
             && model.InspectScene(row.Id))
         {
@@ -51,6 +54,7 @@ public sealed partial class MainPage
 
     private void OnNewSceneClicked(object sender, RoutedEventArgs e)
     {
+        if (DataContext is MainPageViewModel { IsApplicationBusy: true }) return;
         if (DataContext is not MainPageViewModel model || !model.BeginSceneDraft()) return;
         // Clear native checkbox state as well as the identity draft, including reused containers.
         foreach (var checkBox in Descendants<CheckBox>(ScenePicker)) checkBox.IsChecked = false;
@@ -61,12 +65,14 @@ public sealed partial class MainPage
 
     private void OnSceneCharacterChanged(object sender, RoutedEventArgs e)
     {
+        if (DataContext is MainPageViewModel { IsApplicationBusy: true }) return;
         if (DataContext is MainPageViewModel model && sender is CheckBox { DataContext: CharacterPresentationRow row } checkBox)
             model.SetSceneCharacter(row.Id, checkBox.IsChecked == true);
     }
 
     private void OnCancelSceneClicked(object sender, RoutedEventArgs e)
     {
+        if (DataContext is MainPageViewModel { IsApplicationBusy: true }) return;
         if (DataContext is not MainPageViewModel model) return;
         model.CancelSceneDraft();
         UpdateLayout();
@@ -75,6 +81,7 @@ public sealed partial class MainPage
 
     private void OnEstablishSceneClicked(object sender, RoutedEventArgs e)
     {
+        if (DataContext is MainPageViewModel { IsApplicationBusy: true }) return;
         if (DataContext is not MainPageViewModel model) return;
         // No yield before invocation; capture and synchronous submission are one UI turn.
         var created = model.EstablishScene();

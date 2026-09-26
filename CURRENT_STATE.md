@@ -1,6 +1,6 @@
 # Ensemble Current State
 
-Updated: 2026-09-25
+Updated: 2026-09-26
 
 ## Authority
 
@@ -28,4 +28,4 @@ Windows 11 ARM64 / Microsoft Store remains the sole shipping target until releas
 
 ## Next
 
-Q-DESIGN-25 is complete. **Request & record Performance** remains contract-only. PR #278 merged at `286ad728e5c1dab9d2150f2507ff955b492501c5`; Validation #1439 PASS. Director adopted the executor decision packet at `414b95810aecbe810c942fac0cafde3c6e3b61f7`; see `docs/PROJECT_EXECUTION_QUEUE.md`. Next: documentation PR merge disposition. After integration, propose the separate offline execution foundation. No implementation, production test-double executor, provider/model selection, credentials, traffic, spend or deferred-E0 execution is authorized.
+PR #279 integrated the adopted executor decision packet at `11ef377888ede2f31ea6505377962543b4016aa6`; exact-main Validation #1442 PASS. Director-authorized **offline execution foundation**, 2026-09-26: `codex/offline-execution-foundation-2026-09-26`. Scope and evidence: `docs/evidence/OFFLINE_EXECUTION_FOUNDATION_2026_09_26.md`. Next: finish validation/review, then draft PR. Ordinary Performance remains unavailable. No provider/model selection, credentials, provider traffic, spend, live AI or deferred-E0 execution is authorized. No merge is authorized.

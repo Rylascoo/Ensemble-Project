@@ -1,10 +1,12 @@
 # Product executor admission decision packet
 
-Status: **DIRECTOR-ADOPTED — DOCUMENTATION INTEGRATION PENDING — NO EXECUTOR ADMITTED**
+Status: **DIRECTOR-ADOPTED — PR #279 INTEGRATED — NO EXECUTOR ADMITTED**
 
 Date: 2026-09-25 (Director local date). Roles: Product / Architecture; Governance / Recovery for the specified continuity correction. Exact source baseline: `Rylascoo/Ensemble-Project@286ad728e5c1dab9d2150f2507ff955b492501c5`.
 
 ## Director adoption and publication boundary
+
+Integration receipt: PR #279 merged at `11ef377888ede2f31ea6505377962543b4016aa6`; exact-main Validation #1442 PASS. The adoption/publication instructions below are preserved as provenance. The separately authorized offline successor is recorded in `CURRENT_STATE.md`; this packet's execution contract and non-authority are unchanged.
 
 The Director adopted this packet at exact local head `414b95810aecbe810c942fac0cafde3c6e3b61f7`, preserving its execution boundary, ownership model, failure/uncertainty model, offline-validation plan, provider separation, falsifiers and explicit non-authority as written. The adoption authorizes durable recording/publication only: push `codex/product-executor-admission-decision-2026-09-25`, open a draft PR containing only this packet, `CURRENT_STATE.md` and `docs/PROJECT_EXECUTION_QUEUE.md`, verify hosted gates and independent exact-head review, then stop for Director merge disposition. Live main was freshly re-resolved at the unchanged source baseline before publication.
 
@@ -191,8 +193,8 @@ All 34 live branch refs (main plus 33 others) were resolved. Exact refs below ar
 
 Independent source inventory confirmed absence of production Product executors and the E0 mismatch. Independent exact-commit review of `0a0eae56c64d2669ed2afe239fb257aee8b4a556` against recovered main found no material correctness or authority defect; its sole P3 was the Presentation test-directory locator, corrected here. Both reviews were behavioral no-write under effective workspace-write policy; technical read-only containment was not proven. The packet's ownership, stale/duplicate publication, uncertainty and post-success rendering rules passed static review; narrower internal noncommit evidence does not weaken the adopted conservative I/O presentation.
 
-Adoption-source documentation validation: repository-law PASS; document census 564 total / 442 current / 30 historical / 92 archive / 0 unexplained PASS; diff whitespace check PASS; CURRENT_STATE 3,016 bytes (3,072-byte cap). These are documentation/static checks only. No new executable tests, build, native runtime/accessibility, credential access, provider request or spend was performed for that decision analysis. The Director subsequently authorized publication of this three-document candidate on `codex/product-executor-admission-decision-2026-09-25`. Adoption is recorded above; integration remains pending Director merge disposition.
+Adoption-source documentation validation: repository-law PASS; document census 564 total / 442 current / 30 historical / 92 archive / 0 unexplained PASS; diff whitespace check PASS; CURRENT_STATE 3,016 bytes (3,072-byte cap). These are documentation/static checks only. No new executable tests, build, native runtime/accessibility, credential access, provider request or spend was performed for that decision analysis. The Director subsequently authorized publication of this three-document candidate on `codex/product-executor-admission-decision-2026-09-25`. Adoption is recorded above. PR #279 subsequently integrated at `11ef377888ede2f31ea6505377962543b4016aa6`; exact-main Validation #1442 PASS.
 
 This packet grants no implementation, executor activation, provider/model selection, credentials, network/provider traffic, spend, first live AI Performance, persistent casting, ordinary production test doubles, Current/Active Scene, Scene switching/endings/lifecycle, automatic opportunity selection, broader actor context/consequences, history browsing, Take/review semantics, ODR closure, deferred-E0 execution, broad architecture reopening or Alpha/Beta/release/WACK/Store advancement. No Product, Design or validation law is changed. No merge is authorized.
 
-**Stop: Director merge disposition for the documentation PR. No implementation successor is active.**
+**Documentation integration complete.** The Director separately authorized a bounded offline execution foundation on 2026-09-26; see `CURRENT_STATE.md`. This packet itself grants no implementation or runtime/provider admission.

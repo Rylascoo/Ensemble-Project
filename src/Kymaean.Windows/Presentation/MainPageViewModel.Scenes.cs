@@ -27,10 +27,10 @@ public sealed partial class MainPageViewModel
     public bool IsSceneDetail => IsSceneSurface && _currentProductionPresentation == CurrentProductionPresentation.SceneDetail;
     public bool IsSceneDraft => IsSceneSurface && _currentProductionPresentation is
         CurrentProductionPresentation.SceneDraft or CurrentProductionPresentation.SceneSubmitting;
-    public bool IsSceneNavigationEnabled => !_sceneSubmitting;
+    public bool IsSceneNavigationEnabled => !IsInputBlocked;
     public bool HasSceneUncertainty => Uncertainty is not null;
     public bool HasSceneCollision => SceneRows.Any(row => !row.CanInspect);
-    public bool CanEstablishScene => IsSceneSurface && !_sceneSubmitting && !HasSceneUncertainty && !HasSceneCollision;
+    public bool CanEstablishScene => !IsInputBlocked && !IsPerformanceReopenRequired && IsSceneSurface && !_sceneSubmitting && !HasSceneUncertainty && !HasSceneCollision;
     public IReadOnlyList<ScenePresentationRow> SceneRows => Uncertainty?.LastConfirmed ?? _sceneRows;
     public bool HasNoScenes => SceneRows.Count == 0;
     public bool HasScenes => !HasNoScenes;
@@ -65,6 +65,9 @@ public sealed partial class MainPageViewModel
 
     public void OpenScenes()
     {
+        if (IsInputBlocked) return;
+        _application?.InvalidatePresentation();
+        _performancePublication = null;
         if (_sceneSubmitting) return;
         RequireOpenProduction();
         RefreshSceneRows();
@@ -76,6 +79,9 @@ public sealed partial class MainPageViewModel
 
     public void CloseScenes()
     {
+        if (IsInputBlocked) return;
+        _application?.InvalidatePresentation();
+        _performancePublication = null;
         if (_sceneSubmitting) return;
         _sceneDraft.Clear();
         _sceneStatus = string.Empty;
@@ -85,6 +91,9 @@ public sealed partial class MainPageViewModel
 
     public bool InspectScene(SceneId id)
     {
+        if (IsInputBlocked) return false;
+        _application?.InvalidatePresentation();
+        _performancePublication = null;
         if (!IsScenes || _sceneSubmitting || !SceneRows.Any(row => row.Id == id && row.CanInspect)) return false;
         _inspectedScene = id;
         _currentProductionPresentation = CurrentProductionPresentation.SceneDetail;
@@ -94,6 +103,9 @@ public sealed partial class MainPageViewModel
 
     public SceneId? ReturnFromSceneDetail()
     {
+        if (IsInputBlocked) return null;
+        _application?.InvalidatePresentation();
+        _performancePublication = null;
         if (!IsSceneDetail) return null;
         _currentProductionPresentation = CurrentProductionPresentation.Scenes;
         RaiseSceneProperties();
@@ -102,6 +114,9 @@ public sealed partial class MainPageViewModel
 
     public bool BeginSceneDraft()
     {
+        if (IsInputBlocked) return false;
+        _application?.InvalidatePresentation();
+        _performancePublication = null;
         if (!IsScenes || !CanEstablishScene) return false;
         _sceneDraft.Clear();
         _sceneStatus = string.Empty;
@@ -112,6 +127,9 @@ public sealed partial class MainPageViewModel
 
     public void SetSceneCharacter(CharacterId id, bool included)
     {
+        if (IsInputBlocked) return;
+        _application?.InvalidatePresentation();
+        _performancePublication = null;
         if (!IsSceneDraft || !CanEstablishScene) return;
         if (!_sceneCast.Any(row => row.Id == id)) throw new ArgumentException("Character is not in the Cast.", nameof(id));
         if (included) _sceneDraft.Add(id); else _sceneDraft.Remove(id);
@@ -121,6 +139,9 @@ public sealed partial class MainPageViewModel
 
     public void CancelSceneDraft()
     {
+        if (IsInputBlocked) return;
+        _application?.InvalidatePresentation();
+        _performancePublication = null;
         if (!IsSceneDraft || _sceneSubmitting) return;
         _sceneDraft.Clear();
         _currentProductionPresentation = CurrentProductionPresentation.Scenes;
@@ -129,6 +150,9 @@ public sealed partial class MainPageViewModel
 
     public SceneId? EstablishScene()
     {
+        if (IsInputBlocked) return null;
+        _application?.InvalidatePresentation();
+        _performancePublication = null;
         if (!IsSceneDraft || !CanEstablishScene || _application is null || SceneProductionId is not { } productionId) return null;
         var witness = SceneDraftRoster.ToArray();
         var lastConfirmed = SceneRows.ToArray();

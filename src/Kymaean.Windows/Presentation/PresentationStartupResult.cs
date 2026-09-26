@@ -4,10 +4,10 @@ namespace Kymaean.Windows.Presentation;
 
 public sealed class PresentationStartupResult
 {
-    private readonly ProductAccessResult<ProductApplication>? _productStartup;
+    private readonly ProductAccessResult<ProductOperationCoordinator>? _productStartup;
 
     private PresentationStartupResult(
-        ProductAccessResult<ProductApplication>? productStartup,
+        ProductAccessResult<ProductOperationCoordinator>? productStartup,
         bool isInfrastructureFailure)
     {
         _productStartup = productStartup;
@@ -16,7 +16,7 @@ public sealed class PresentationStartupResult
 
     public bool IsInfrastructureFailure { get; }
 
-    public ProductAccessResult<ProductApplication> ProductStartup =>
+    public ProductAccessResult<ProductOperationCoordinator> ProductStartup =>
         !IsInfrastructureFailure && _productStartup is not null
             ? _productStartup
             : throw new InvalidOperationException(
@@ -26,8 +26,13 @@ public sealed class PresentationStartupResult
         ProductAccessResult<ProductApplication> productStartup)
     {
         ArgumentNullException.ThrowIfNull(productStartup);
-        return new PresentationStartupResult(productStartup, false);
+        return new PresentationStartupResult(productStartup.IsSuccess
+            ? ProductAccessResult<ProductOperationCoordinator>.Success(ProductOperationCoordinator.Own(productStartup.Value))
+            : ProductAccessResult<ProductOperationCoordinator>.Failure(productStartup.FailureKind), false);
     }
+
+    internal static PresentationStartupResult Owned(ProductOperationCoordinator owner) =>
+        new(ProductAccessResult<ProductOperationCoordinator>.Success(owner), false);
 
     public static PresentationStartupResult InfrastructureFailure() =>
         new(null, true);

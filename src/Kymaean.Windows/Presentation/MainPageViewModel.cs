@@ -8,7 +8,7 @@ namespace Kymaean.Windows.Presentation;
 public sealed partial class MainPageViewModel : INotifyPropertyChanged
 {
     private const int OverviewPreviewLimit = 3;
-    private readonly ProductApplication? _application;
+    private readonly ProductOperationCoordinator? _application;
     private ProductApplicationProjection? _projection;
     private IReadOnlyList<ProductionPresentationRow> _productionRows =
         Array.Empty<ProductionPresentationRow>();
@@ -67,7 +67,8 @@ public sealed partial class MainPageViewModel : INotifyPropertyChanged
         if (productStartup.IsSuccess)
         {
             _application = productStartup.Value;
-            _projection = _application.Query();
+            _projection = _application.AttachPresentation();
+            _application.StateChanged += NotifyPerformanceSafely;
             RefreshProductionRows();
         }
         else
@@ -192,7 +193,7 @@ public sealed partial class MainPageViewModel : INotifyPropertyChanged
         _currentProductionPresentation == CurrentProductionPresentation.CharacterConfirmationUnavailable;
 
     public bool CanAccessSelection =>
-        _application is not null && _selectedProductionRow is not null;
+        !IsInputBlocked && _application is not null && _selectedProductionRow is not null;
 
     public bool HasStatusMessage =>
         !string.IsNullOrWhiteSpace(_statusMessage);
@@ -307,6 +308,9 @@ public sealed partial class MainPageViewModel : INotifyPropertyChanged
         get => _characterNameDraft;
         set
         {
+            if (IsInputBlocked) return;
+            _application?.InvalidatePresentation();
+            _performancePublication = null;
             if (string.Equals(
                     _characterNameDraft,
                     value,
@@ -344,7 +348,7 @@ public sealed partial class MainPageViewModel : INotifyPropertyChanged
         !string.IsNullOrWhiteSpace(_characterFailureMessage);
 
     public bool IsCharacterCreationEnabled =>
-        IsCharacterCreation && !_characterConfirmationUnavailable;
+        !IsInputBlocked && !IsPerformanceReopenRequired && IsCharacterCreation && !_characterConfirmationUnavailable;
 
     public bool IsProductionCreationFormOpen =>
         _isProductionCreationFormOpen;
@@ -356,13 +360,16 @@ public sealed partial class MainPageViewModel : INotifyPropertyChanged
         _isProductionCreationPending;
 
     public bool IsProductionCreationEnabled =>
-        _isProductionCreationFormOpen && !_isProductionCreationPending;
+        !IsInputBlocked && _isProductionCreationFormOpen && !_isProductionCreationPending;
 
     public string ProductionNameDraft
     {
         get => _productionNameDraft;
         set
         {
+            if (IsInputBlocked) return;
+            _application?.InvalidatePresentation();
+            _performancePublication = null;
             if (string.Equals(
                     _productionNameDraft,
                     value,
@@ -391,6 +398,9 @@ public sealed partial class MainPageViewModel : INotifyPropertyChanged
 
     public void NavigateShell(ShellRoute route)
     {
+        if (IsInputBlocked) return;
+        _application?.InvalidatePresentation();
+        _performancePublication = null;
         if (_sceneSubmitting) return;
         if (!Enum.IsDefined(route))
         {
@@ -430,6 +440,9 @@ public sealed partial class MainPageViewModel : INotifyPropertyChanged
 
     public void SelectProduction(ProductionPresentationRow? production)
     {
+        if (IsInputBlocked) return;
+        _application?.InvalidatePresentation();
+        _performancePublication = null;
         if (_sceneSubmitting) return;
         _selectedProductionRow = production;
         OnPropertyChanged(nameof(SelectedProductionRow));
@@ -438,6 +451,9 @@ public sealed partial class MainPageViewModel : INotifyPropertyChanged
 
     public void OpenProductionCreationForm()
     {
+        if (IsInputBlocked) return;
+        _application?.InvalidatePresentation();
+        _performancePublication = null;
         if (_sceneSubmitting) return;
         if (_application is null)
         {
@@ -457,6 +473,9 @@ public sealed partial class MainPageViewModel : INotifyPropertyChanged
 
     public void CancelProductionCreation()
     {
+        if (IsInputBlocked) return;
+        _application?.InvalidatePresentation();
+        _performancePublication = null;
         if (_isProductionCreationPending)
         {
             return;
@@ -467,6 +486,9 @@ public sealed partial class MainPageViewModel : INotifyPropertyChanged
 
     public bool BeginProductionCreationSubmission()
     {
+        if (IsInputBlocked) return false;
+        _application?.InvalidatePresentation();
+        _performancePublication = null;
         if (_application is null ||
             !_isProductionCreationFormOpen ||
             _isProductionCreationPending)
@@ -491,6 +513,7 @@ public sealed partial class MainPageViewModel : INotifyPropertyChanged
     public ProductionPresentationRow?
         CompleteProductionCreationSubmission()
     {
+        if (IsApplicationBusy) return null;
         if (_application is null || !_isProductionCreationPending)
         {
             return null;
@@ -560,6 +583,9 @@ public sealed partial class MainPageViewModel : INotifyPropertyChanged
 
     public void OpenCharacters()
     {
+        if (IsInputBlocked) return;
+        _application?.InvalidatePresentation();
+        _performancePublication = null;
         if (_sceneSubmitting) return;
         if (_application is null || !HasCurrentProduction)
         {
@@ -585,6 +611,9 @@ public sealed partial class MainPageViewModel : INotifyPropertyChanged
 
     public void CloseCharactersToOverview()
     {
+        if (IsInputBlocked) return;
+        _application?.InvalidatePresentation();
+        _performancePublication = null;
         if (!_characterConfirmationUnavailable)
         {
             ClearCharacterTransientState();
@@ -597,6 +626,10 @@ public sealed partial class MainPageViewModel : INotifyPropertyChanged
 
     public void BeginCharacterCreation()
     {
+        if (IsPerformanceReopenRequired) return;
+        if (IsInputBlocked) return;
+        _application?.InvalidatePresentation();
+        _performancePublication = null;
         if (!IsCharacterInspection ||
             _characterConfirmationUnavailable)
         {
@@ -617,6 +650,9 @@ public sealed partial class MainPageViewModel : INotifyPropertyChanged
 
     public void CancelCharacterCreation()
     {
+        if (IsInputBlocked) return;
+        _application?.InvalidatePresentation();
+        _performancePublication = null;
         if (!IsCharacterCreation)
         {
             return;
@@ -630,6 +666,10 @@ public sealed partial class MainPageViewModel : INotifyPropertyChanged
 
     public bool BeginCharacterCreationSubmission()
     {
+        if (IsPerformanceReopenRequired) return false;
+        if (IsInputBlocked) return false;
+        _application?.InvalidatePresentation();
+        _performancePublication = null;
         if (_application is null ||
             !IsCharacterCreation ||
             _characterConfirmationUnavailable)
@@ -657,6 +697,7 @@ public sealed partial class MainPageViewModel : INotifyPropertyChanged
     public CharacterPresentationRow?
         CompleteCharacterCreationSubmission()
     {
+        if (IsApplicationBusy) return null;
         if (_application is null || !IsCharacterSubmitting)
         {
             return null;
@@ -717,6 +758,9 @@ public sealed partial class MainPageViewModel : INotifyPropertyChanged
 
     public void ReturnFromCharacterTypedFailure()
     {
+        if (IsInputBlocked) return;
+        _application?.InvalidatePresentation();
+        _performancePublication = null;
         if (!IsCharacterTypedFailure)
         {
             return;
@@ -730,6 +774,9 @@ public sealed partial class MainPageViewModel : INotifyPropertyChanged
 
     public void OpenWorldTruths()
     {
+        if (IsInputBlocked) return;
+        _application?.InvalidatePresentation();
+        _performancePublication = null;
         if (_sceneSubmitting) return;
         RequireOpenProduction();
 
@@ -750,6 +797,9 @@ public sealed partial class MainPageViewModel : INotifyPropertyChanged
 
     public void CloseWorldTruthsToOverview()
     {
+        if (IsInputBlocked) return;
+        _application?.InvalidatePresentation();
+        _performancePublication = null;
         if (!_worldTruthConfirmationUnavailable)
         {
             ClearWorldTruthProposal();
@@ -762,6 +812,10 @@ public sealed partial class MainPageViewModel : INotifyPropertyChanged
 
     public void BeginWorldTruthEdit()
     {
+        if (IsPerformanceReopenRequired) return;
+        if (IsInputBlocked) return;
+        _application?.InvalidatePresentation();
+        _performancePublication = null;
         RequireOpenProduction();
         if (_worldTruthConfirmationUnavailable)
         {
@@ -785,6 +839,9 @@ public sealed partial class MainPageViewModel : INotifyPropertyChanged
 
     public void AddWorldTruthDraft()
     {
+        if (IsInputBlocked) return;
+        _application?.InvalidatePresentation();
+        _performancePublication = null;
         if (!IsWorldTruthEdit)
         {
             return;
@@ -796,6 +853,9 @@ public sealed partial class MainPageViewModel : INotifyPropertyChanged
 
     public void RemoveWorldTruthDraft(WorldTruthDraftItem item)
     {
+        if (IsInputBlocked) return;
+        _application?.InvalidatePresentation();
+        _performancePublication = null;
         ArgumentNullException.ThrowIfNull(item);
         if (!IsWorldTruthEdit)
         {
@@ -808,6 +868,9 @@ public sealed partial class MainPageViewModel : INotifyPropertyChanged
 
     public bool ReviewWorldTruthReplacement()
     {
+        if (IsInputBlocked) return false;
+        _application?.InvalidatePresentation();
+        _performancePublication = null;
         if (!IsWorldTruthEdit)
         {
             return false;
@@ -827,6 +890,9 @@ public sealed partial class MainPageViewModel : INotifyPropertyChanged
 
     public void ReturnToWorldTruthEdit()
     {
+        if (IsInputBlocked) return;
+        _application?.InvalidatePresentation();
+        _performancePublication = null;
         if (!IsWorldTruthReview)
         {
             return;
@@ -839,6 +905,9 @@ public sealed partial class MainPageViewModel : INotifyPropertyChanged
 
     public void CancelWorldTruthProposal()
     {
+        if (IsInputBlocked) return;
+        _application?.InvalidatePresentation();
+        _performancePublication = null;
         if (_worldTruthConfirmationUnavailable)
         {
             return;
@@ -852,6 +921,10 @@ public sealed partial class MainPageViewModel : INotifyPropertyChanged
 
     public bool BeginWorldTruthReplacementSubmission()
     {
+        if (IsPerformanceReopenRequired) return false;
+        if (IsInputBlocked) return false;
+        _application?.InvalidatePresentation();
+        _performancePublication = null;
         if (!IsWorldTruthReview || _worldTruthConfirmationUnavailable)
         {
             return false;
@@ -869,6 +942,7 @@ public sealed partial class MainPageViewModel : INotifyPropertyChanged
 
     public void CompleteWorldTruthReplacementSubmission()
     {
+        if (IsApplicationBusy) return;
         if (!IsWorldTruthSubmitting || _application is null)
         {
             return;
@@ -920,6 +994,9 @@ public sealed partial class MainPageViewModel : INotifyPropertyChanged
 
     private bool AccessSelectedProduction(bool recover)
     {
+        if (IsInputBlocked) return false;
+        _application?.InvalidatePresentation();
+        _performancePublication = null;
         if (_sceneSubmitting) return false;
         if (_application is null || _selectedProductionRow is null)
         {
@@ -953,6 +1030,7 @@ public sealed partial class MainPageViewModel : INotifyPropertyChanged
 
         _projection = result.Value;
         OnSceneProductionOpened(recover);
+        RaisePerformanceProperties();
         _activeShellRoute = ShellRoute.CurrentProduction;
         ResetWorldTruthPresentationFromAuthoritativeProjection();
         ResetCharacterPresentationFromAuthoritativeProjection();
