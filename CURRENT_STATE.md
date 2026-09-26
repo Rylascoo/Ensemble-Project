@@ -28,4 +28,4 @@ Windows 11 ARM64 / Microsoft Store remains the sole shipping target until releas
 
 ## Next
 
-Recover from freshly resolved live `main`; earlier Q-DESIGN-25 handoff/candidate branches are historical provenance. Q-DESIGN-25 is complete. No successor implementation or Design package is activated; a new bounded package requires explicit Director disposition. This documentation closeout requires its own merge authorization.
+Q-DESIGN-25 is complete. Director-adopted successor: `docs/design/app/contracts/CREATOR_FACING_FIRST_PERFORMANCE.md`; **Request & record Performance**, contract only. No interaction implementation is authorized. Production executors remain absent; no production test-double substitution. Next: Director disposition of a bounded executor-admission decision package. No provider traffic or successor execution is activated. This documentation candidate requires separate merge authorization.
