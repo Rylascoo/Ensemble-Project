@@ -119,9 +119,17 @@ public static class DirectorPreviewNative {
     }
     if (!$launchFile) { throw 'No fresh native Preview launch receipt.' }
     $launch = Get-Content -LiteralPath $launchFile.FullName -Raw | ConvertFrom-Json
+    if ($launch.profile -cnotmatch '^[a-f0-9]{32}$') { throw 'Invalid launch profile identity.' }
+    $profilePath = Join-Path $localState "DirectorPreview/profiles/$($launch.profile)"
+    Assert-PlainTree $profilePath
+    $profile = Get-Content -LiteralPath (Join-Path $profilePath 'profile.json') -Raw | ConvertFrom-Json
+    $expectedTitle = $PreviewName
+    if ($profile.kind -cin @('performance-success','performance-empty','performance-incompatible','performance-invalid','performance-io','performance-access','performance-render')) {
+        $expectedTitle += " — Deterministic offline exercise ($($profile.kind))"
+    }
     $process = Get-Process -Id $previewProcessId
     [ushort]$pm = 0; [ushort]$nm = 0
     if (![DirectorPreviewNative]::IsWow64Process2($process.Handle, [ref]$pm, [ref]$nm) -or $pm -ne 0 -or $nm -ne 0xAA64) { throw 'Preview is not native ARM64.' }
-    if ($launch.source -cne $Source -or !$launch.success -or $launch.pid -ne $previewProcessId -or $launch.architecture -cne 'Arm64' -or [IO.Path]::GetFullPath($process.Path) -ne [IO.Path]::GetFullPath((Join-Path $Package.InstallLocation 'Kymaean.Windows.exe')) -or $process.MainWindowTitle -cne $PreviewName) { throw 'Native Preview admission mismatch.' }
+    if ($launch.source -cne $Source -or !$launch.success -or $launch.pid -ne $previewProcessId -or $launch.architecture -cne 'Arm64' -or [IO.Path]::GetFullPath($process.Path) -ne [IO.Path]::GetFullPath((Join-Path $Package.InstallLocation 'Kymaean.Windows.exe')) -or $process.MainWindowTitle -cne $expectedTitle) { throw 'Native Preview admission mismatch.' }
     return [ordered]@{ pid = $previewProcessId; source = $Source; profile = $launch.profile; executable = $process.Path; nativeMachine = $nm; processMachine = $pm; title = $process.MainWindowTitle; receipt = $launchFile.FullName }
 }
