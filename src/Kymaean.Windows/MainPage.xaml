@@ -66,6 +66,7 @@
         </DataTemplate>
     </Page.Resources>
 
+    <Grid>
     <NavigationView
         x:Name="ShellNavigation"
         IsEnabled="{Binding IsSceneNavigationEnabled}"
@@ -601,7 +602,7 @@
                                 </StackPanel>
                             </StackPanel>
                             <StackPanel Spacing="12" Visibility="{Binding IsSceneDetail, Converter={StaticResource BoolToVisibility}}">
-                                <ContentControl IsTabStop="False" AutomationProperties.HeadingLevel="Level2"
+                                <ContentControl x:Name="SceneRosterHeading" IsTabStop="True" AutomationProperties.HeadingLevel="Level2"
                                                 AutomationProperties.Name="{Binding InspectedScene.DetailHeadingName}" HorizontalAlignment="Left">
                                     <StackPanel Spacing="4">
                                         <TextBlock Text="Initial roster" FontSize="24" FontWeight="SemiBold"
@@ -610,9 +611,22 @@
                                                    AutomationProperties.AccessibilityView="Raw" />
                                     </StackPanel>
                                 </ContentControl>
-                                <ItemsControl IsTabStop="False" ItemsSource="{Binding InspectedScene.Roster}" ItemTemplate="{StaticResource CharacterRowTemplate}" />
+                                <ItemsControl x:Name="PerformanceRoster" IsTabStop="False" ItemsSource="{Binding InspectedScene.Roster}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate x:DataType="presentation:CharacterPresentationRow">
+                                            <Border Padding="0,10" BorderBrush="{ThemeResource KymaeanBoundaryBrush}" BorderThickness="0,0,0,1">
+                                                <StackPanel Spacing="6">
+                                                    <TextBlock Text="{x:Bind CharacterName}" TextWrapping="Wrap" />
+                                                    <TextBlock Text="{x:Bind CharacterCodeLabel}" TextWrapping="Wrap" FontSize="12"
+                                                        Visibility="{Binding HasCharacterCode, Converter={StaticResource BoolToVisibility}}" />
+                                                    <Button Content="Performance…" HorizontalAlignment="Left" Click="OnPerformanceClicked"
+                                                        AutomationProperties.Name="{x:Bind PerformanceActionName}" UseSystemFocusVisuals="True" />
+                                                </StackPanel>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
                                 <TextBlock Text="{Binding PerformanceAvailabilityMessage}" TextWrapping="Wrap" />
-                                <Button Content="Request &amp; record Performance" IsEnabled="False" />
                                 <TextBlock Text="No Characters in this initial roster." TextWrapping="Wrap"
                                            Visibility="{Binding InspectedScene.IsEmpty, Converter={StaticResource BoolToVisibility}}" />
                             </StackPanel>
@@ -1110,6 +1124,42 @@
                             </StackPanel>
                         </Grid>
 
+                        <StackPanel Spacing="16" Visibility="{Binding IsPerformanceSurface, Converter={StaticResource BoolToVisibility}}">
+                            <Button x:Name="PerformanceBackButton" Background="Transparent" BorderBrush="Transparent"
+                                FocusVisualMargin="2" HorizontalAlignment="Left" Padding="6" UseSystemFocusVisuals="True"
+                                Click="OnPerformanceBackClicked" AutomationProperties.Name="Back" ToolTipService.ToolTip="Back">
+                                <FontIcon Glyph="&#xE72B;" FontSize="16" />
+                            </Button>
+                            <TextBlock Text="Performance" FontSize="24" FontWeight="SemiBold" AutomationProperties.HeadingLevel="Level2" />
+                            <StackPanel Spacing="4">
+                                <TextBlock Text="{Binding PerformanceScene}" TextWrapping="Wrap" />
+                                <TextBlock Text="{Binding PerformanceCharacter}" TextWrapping="Wrap" />
+                            </StackPanel>
+                            <TextBlock Text="If successful, this Performance and one new circumstance for this Character will be recorded together. There is no separate approval step." TextWrapping="Wrap" />
+                            <StackPanel Spacing="6" Visibility="{Binding ShowEarlierPerformanceWarning, Converter={StaticResource BoolToVisibility}}">
+                                <TextBlock Text="{Binding EarlierPerformanceWitness}" TextWrapping="Wrap" />
+                                <TextBlock Text="The earlier request remains unconfirmed. A new request may record another Performance." TextWrapping="Wrap" />
+                            </StackPanel>
+                            <Button x:Name="RequestPerformanceButton" IsEnabled="{Binding CanRequestPerformance}" Click="OnRequestPerformanceClicked" HorizontalAlignment="Left">
+                                <TextBlock Text="Request &amp; record Performance" TextWrapping="Wrap" />
+                            </Button>
+                            <ContentControl x:Name="PerformanceOutcomeHeading" IsTabStop="True" UseSystemFocusVisuals="True"
+                                AutomationProperties.HeadingLevel="Level2" AutomationProperties.Name="{Binding PerformanceOutcomeMessage}"
+                                Visibility="{Binding HasPerformanceOutcomeMessage, Converter={StaticResource BoolToVisibility}}"
+                                HorizontalContentAlignment="Stretch">
+                                <TextBlock Text="{Binding PerformanceOutcomeMessage}" FontWeight="SemiBold" TextWrapping="Wrap" AutomationProperties.AccessibilityView="Raw" />
+                            </ContentControl>
+                            <TextBlock Text="Open the Production again to reload its recorded state. Reopening cannot confirm the outcome of this request."
+                                TextWrapping="Wrap" Visibility="{Binding ShowPerformanceReopenHelp, Converter={StaticResource BoolToVisibility}}" />
+                            <StackPanel Spacing="12" Visibility="{Binding HasRecordedPerformance, Converter={StaticResource BoolToVisibility}}">
+                                <TextBlock Text="Performance" FontWeight="SemiBold" AutomationProperties.HeadingLevel="Level3" />
+                                <TextBlock Text="No visible Performance text." TextWrapping="Wrap" Visibility="{Binding HasEmptyPerformance, Converter={StaticResource BoolToVisibility}}" />
+                                <TextBlock Text="{Binding PerformanceText}" TextWrapping="Wrap" IsTextSelectionEnabled="True" />
+                                <TextBlock Text="{Binding PerformanceConsequenceHeading}" TextWrapping="Wrap" FontWeight="SemiBold" AutomationProperties.HeadingLevel="Level3" />
+                                <TextBlock Text="{Binding PerformanceConsequence}" TextWrapping="Wrap" IsTextSelectionEnabled="True" />
+                                <TextBlock Text="Leaving closes this result view. The Performance and circumstance remain recorded." TextWrapping="Wrap" />
+                            </StackPanel>
+                        </StackPanel>
                         <Grid Visibility="{Binding IsSettings, Converter={StaticResource BoolToVisibility}}">
                             <StackPanel Spacing="12">
                                 <TextBlock
@@ -1125,4 +1175,19 @@
             </Grid>
         </Grid>
     </NavigationView>
+    <Grid Background="{ThemeResource KymaeanFieldBrush}" Visibility="{Binding IsApplicationBusy, Converter={StaticResource BoolToVisibility}}">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <StackPanel Margin="32" Spacing="16">
+                <TextBlock Text="{Binding CurrentProductionName}" TextWrapping="Wrap" />
+                <ContentControl x:Name="PerformancePendingTarget" IsTabStop="True" UseSystemFocusVisuals="True"
+                    AutomationProperties.Name="Requesting Performance…" HorizontalContentAlignment="Stretch">
+                    <TextBlock Text="Requesting Performance…" FontSize="24" TextWrapping="Wrap" AutomationProperties.AccessibilityView="Raw" />
+                </ContentControl>
+                <TextBlock Text="{Binding PerformanceScene}" TextWrapping="Wrap" />
+                <TextBlock Text="{Binding PerformanceCharacter}" TextWrapping="Wrap" />
+                <TextBlock Text="Navigation and changes are unavailable until the request finishes." TextWrapping="Wrap" />
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+    </Grid>
 </Page>

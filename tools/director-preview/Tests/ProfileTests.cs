@@ -12,6 +12,29 @@ public sealed class ProfileTests
     private string Create(string kind) => JsonSerializer.SerializeToElement(Profiles.Create(_root, kind, kind, Source)).GetProperty("id").GetString()!;
 
     [TestMethod]
+    public void PerformanceScenariosAreExplicitFreshProfilesAndPreserveExistingWorkspace()
+    {
+        using var lease = PreviewEnvironment.Acquire(_root);
+        var director = Create("director"); Profiles.Select(_root, director);
+        var directorData = PreviewEnvironment.SelectedDataRoot(_root);
+        new FileProductionCatalog(directorData).CreateProduction("Preserved workspace");
+        foreach (var kind in new[] { "performance-success", "performance-empty", "performance-incompatible",
+            "performance-invalid", "performance-io", "performance-access", "performance-render" })
+        {
+            var first = Create(kind); var second = Create(kind);
+            Assert.AreNotEqual(first, second);
+            Profiles.Select(_root, first);
+            var data = PreviewEnvironment.SelectedDataRoot(_root);
+            using var metadata = JsonDocument.Parse(File.ReadAllText(Path.Combine(Path.GetDirectoryName(data)!, "profile.json")));
+            Assert.AreEqual(kind, metadata.RootElement.GetProperty("kind").GetString());
+            Assert.AreEqual(2, new FileProductionCatalog(data).ListProductions().Value.Count);
+        }
+        Profiles.Select(_root, director);
+        Assert.AreEqual("Preserved workspace", new FileProductionCatalog(directorData).ListProductions().Value.Single().ProductionName);
+        Assert.Throws<ArgumentException>(() => Create("performance-unknown"));
+    }
+
+    [TestMethod]
     public void DirectorEditsSurviveOtherProfileCreationAndSelection()
     {
         using var lease = PreviewEnvironment.Acquire(_root);

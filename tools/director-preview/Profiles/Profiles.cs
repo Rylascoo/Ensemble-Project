@@ -10,7 +10,9 @@ internal static class Profiles
 {
     internal static object Create(string localState, string kind, string name, string source)
     {
-        if (kind is not ("director" or "empty" or "rich" or "falsifier")) throw new ArgumentException("Unknown profile kind.");
+        var performance = kind is "performance-success" or "performance-empty" or "performance-incompatible" or
+            "performance-invalid" or "performance-io" or "performance-access" or "performance-render";
+        if (!performance && kind is not ("director" or "empty" or "rich" or "falsifier")) throw new ArgumentException("Unknown profile kind.");
         ArgumentException.ThrowIfNullOrWhiteSpace(name);
         if (!Regex.IsMatch(source, "^[a-f0-9]{40}$")) throw new ArgumentException("Exact source required.");
         var root = PreviewEnvironment.Root(localState);
@@ -24,8 +26,8 @@ internal static class Profiles
         var data = PreviewEnvironment.SafePath(profile, "data");
         Directory.CreateDirectory(data);
         var catalog = new FileProductionCatalog(data);
-        if (kind is "rich" or "falsifier") Seed(catalog, data, kind);
-        var metadata = new { id, name, kind, recipe = kind is "rich" or "falsifier" ? $"{kind}-v1" : null,
+        if (performance || kind is "rich" or "falsifier") Seed(catalog, data, kind);
+        var metadata = new { id, name, kind, recipe = performance || kind is "rich" or "falsifier" ? $"{kind}-v1" : null,
             source, compatibility = PreviewEnvironment.Compatibility, createdUtc = DateTime.UtcNow,
             preservation = "Never overwrite. Recipe changes and reseeding create a new instance." };
         File.WriteAllText(PreviewEnvironment.SafePath(profile, "profile.json"), JsonSerializer.Serialize(metadata));

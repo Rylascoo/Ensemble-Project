@@ -10,6 +10,7 @@ try {
     $stage = Join-Path ([IO.Path]::GetFullPath($OutputRoot)) ($source.Substring(0,12) + '-' + [Guid]::NewGuid().ToString('N'))
     New-Item -ItemType Directory -Path $stage | Out-Null
     $commands = @(
+        @('test','--project','tests/Kymaean.Windows.Presentation.Tests/Kymaean.Windows.Presentation.Tests.csproj','-c','Release','-r','win-arm64'),
         @('test','--project','tools/director-preview/Tests/Tests.csproj','-c','Release','-r','win-arm64'),
         @('test','--project','tests/Kymaean.Application.Tests/Kymaean.Application.Tests.csproj','-c','Release','-r','win-arm64'),
         @('test','--project','tests/Kymaean.Infrastructure.Persistence.Tests/Kymaean.Infrastructure.Persistence.Tests.csproj','-c','Release','-r','win-arm64'),

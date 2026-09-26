@@ -29,6 +29,10 @@ public partial class App : Microsoft.UI.Xaml.Application
                 applicationRoot = Preview.PreviewEnvironment.SelectedDataRoot(applicationRoot);
 #endif
                 var catalog = new FileProductionCatalog(applicationRoot);
+#if KYMAEAN_DIRECTOR_PREVIEW
+                if (Preview.PerformancePreview.SelectedScenario(applicationRoot) is { } scenario)
+                    return Preview.PerformancePreview.Start(catalog, scenario);
+#endif
                 return ProductApplication.Start(catalog);
             });
 

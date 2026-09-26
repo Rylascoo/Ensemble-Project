@@ -5,9 +5,10 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(MSBuildProjectName)' == 'Kymaean.Windows' and '$(KymaeanDirectorPreview)' == 'true'">
+  <PropertyGroup Condition="('$(MSBuildProjectName)' == 'Kymaean.Windows' or '$(MSBuildProjectName)' == 'Kymaean.Presentation') and '$(KymaeanDirectorPreview)' == 'true'">
     <BaseIntermediateOutputPath>obj\DirectorPreview\</BaseIntermediateOutputPath>
     <BaseOutputPath>bin\DirectorPreview\</BaseOutputPath>
     <DefaultItemExcludes>$(DefaultItemExcludes);obj\**;bin\**</DefaultItemExcludes>
+    <DefineConstants>$(DefineConstants);KYMAEAN_DIRECTOR_PREVIEW</DefineConstants>
   </PropertyGroup>
 </Project>

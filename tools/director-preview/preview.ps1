@@ -2,7 +2,7 @@
 param(
     [Parameter(Mandatory)][ValidateSet('Refresh','Launch','Status','NewProfile','SelectProfile','VerifyProfiles')][string]$Action,
     [string]$Stage, [string]$ExpectedSource, [string]$ProfileId,
-    [ValidateSet('director','empty','rich','falsifier')][string]$Kind = 'empty', [string]$Name,
+    [ValidateSet('director','empty','rich','falsifier','performance-success','performance-empty','performance-incompatible','performance-invalid','performance-io','performance-access','performance-render')][string]$Kind = 'empty', [string]$Name,
     [switch]$Resume,
     [ValidateSet('None','BeforeRegistration','AfterRegistration','AfterReceipt')][string]$TestFailure = 'None')
 . "$PSScriptRoot/common.ps1"

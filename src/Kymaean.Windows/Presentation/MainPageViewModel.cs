@@ -1280,6 +1280,7 @@ public sealed partial class MainPageViewModel : INotifyPropertyChanged
         RaiseWorldTruthProperties();
         RaiseCharacterProperties();
         RaiseSceneProperties();
+        RaisePerformanceProperties();
     }
 
     private void RaiseCharacterProperties()
@@ -1388,6 +1389,7 @@ public sealed partial class MainPageViewModel : INotifyPropertyChanged
         Scenes,
         SceneDetail,
         SceneDraft,
-        SceneSubmitting
+        SceneSubmitting,
+        Performance
     }
 }

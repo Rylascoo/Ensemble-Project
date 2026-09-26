@@ -91,10 +91,19 @@ def check_project_graph(errors: list[str]) -> None:
         if not project_path.exists():
             continue
         root = read_xml(project_path)
+        parents = {child: parent for parent in root.iter() for child in parent}
+        preview_refs = set()
+        if project == "src/Kymaean.Windows/Kymaean.Windows.csproj":
+            for element in root.iter("ProjectReference"):
+                if normalized_project_reference(project_path, element.attrib["Include"]) == "src/Kymaean.Infrastructure.Execution/Kymaean.Infrastructure.Execution.csproj":
+                    if parents[element].attrib.get("Condition") != "'$(KymaeanDirectorPreview)' == 'true'":
+                        errors.append("Windows execution adapter reference must remain Preview-only")
+                    else:
+                        preview_refs.add(element)
         actual_refs = {
             normalized_project_reference(project_path, element.attrib["Include"])
             for element in root.iter()
-            if element.tag.rsplit("}", 1)[-1] == "ProjectReference" and "Include" in element.attrib
+            if element.tag.rsplit("}", 1)[-1] == "ProjectReference" and "Include" in element.attrib and element not in preview_refs
         }
         if actual_refs != expected_refs:
             errors.append(

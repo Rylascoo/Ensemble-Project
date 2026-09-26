@@ -33,6 +33,8 @@ public sealed class CharacterPresentationRow
             ? $"{CharacterName}, Character code {CharacterCode}"
             : CharacterName;
 
+    public string PerformanceActionName => $"Performance for {AccessibleName}";
+
     public static IReadOnlyList<CharacterPresentationRow> Build(
         IReadOnlyList<CharacterSummary> characters)
     {

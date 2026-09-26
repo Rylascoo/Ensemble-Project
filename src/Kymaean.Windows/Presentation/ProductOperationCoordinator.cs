@@ -106,6 +106,14 @@ public sealed class ProductOperationCoordinator
         }
     }
 
+#if KYMAEAN_DIRECTOR_PREVIEW
+    // Absent from the ordinary Presentation assembly. The Windows Preview host admits
+    // the package/profile before reaching this development-only ownership boundary.
+    public static ProductOperationCoordinator OwnDirectorPreview(ProductApplication application,
+        IProductPerformer performer, IProductConsequenceInterpreter interpreter) =>
+        ForTests(application, performer, interpreter);
+#endif
+
     internal event Action? StateChanged;
     internal ProductApplicationProjection AttachPresentation()
     {

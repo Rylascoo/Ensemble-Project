@@ -1,10 +1,10 @@
 # Offline execution foundation
 
-Status: **NATIVE ARM64 PASS / REVIEW CLEAN / CANDIDATE NOT MERGED**
+Status: **NATIVE ARM64 PASS / REVIEW CLEAN / INTEGRATED PR #280**
 
 ## Authority and scope
 
-The Director separately authorized this bounded implementation on 2026-09-26 after PR #279 integrated at `11ef377888ede2f31ea6505377962543b4016aa6` (exact-main Validation #1442 PASS). Base: that exact merge. Branch: `codex/offline-execution-foundation-2026-09-26`. Draft PR: [#280](https://github.com/Rylascoo/Ensemble-Project/pull/280), unmerged. This is Q-PROD-10, not provider admission or completion of the creator-facing interaction.
+The Director separately authorized this bounded implementation on 2026-09-26 after PR #279 integrated at `11ef377888ede2f31ea6505377962543b4016aa6` (exact-main Validation #1442 PASS). Base: that exact merge. Branch: `codex/offline-execution-foundation-2026-09-26`. PR [#280](https://github.com/Rylascoo/Ensemble-Project/pull/280) integrated at `800785d24d772d89113ac7f2f756aecc4cf3d151`; exact-main Validation #1447 (`36221496612`) PASS. This is Q-PROD-10, not provider admission or completion of the creator-facing interaction.
 
 The adopted `docs/PRODUCT_EXECUTOR_ADMISSION_DECISION_PACKET_2026_09_25.md` remains governing. Product semantics, Application synchronous ports, journal/replay/revision behavior and all falsifiers are unchanged. PRs #262, #265 and #269 remain preserved/unmerged.
 
@@ -32,7 +32,7 @@ This package does not claim full interaction Design acceptance, pending WinUI hu
 
 A real runtime/provider and supported model, exact request/response mapping, credentials, network/spend bounds and first-live execution must receive separate admission before ordinary Performance can be enabled. The real invocation UI and its native Design validation also remain separate. No Current/Active Scene, lifecycle, broader context/consequence, persistent casting, history browsing, Take/review, durable request protocol, E0 dependency, deferred-E0, ODR closure, architecture reopening or release/Store authority is created. All adopted falsifiers still return to Product/Architecture disposition.
 
-Next: exact-final-head hosted gates and Director disposition of the draft PR. Director merge authorization remains required.
+Integration complete. The separately authorized deterministic interaction Preview successor is recorded in `CURRENT_STATE.md`; no real executor admission follows.
 
 ## Review correction record
 
@@ -71,4 +71,4 @@ Preserved local native evidence root: `C:/Users/Wiryl/Sol Dev/admin-scratch/offl
 
 Final scope: one new four-file Execution project; shared Application owner and Performance Presentation partial; guarded existing ViewModel/code-behind and startup ownership transfer; two Scene-detail unavailable UI elements; one new test file and test-project reference; solution/project-law registration; bounded continuity and validation records. Application, Persistence and E0 production source are unchanged. Existing hosted Presentation tests compile/test the new adapter project, so no CI workflow change is needed.
 
-Canonical main remains `11ef377888ede2f31ea6505377962543b4016aa6`. Implementation worktree is `C:/Users/Wiryl/Sol Dev/Ensemble-Project-Worktrees/offline-execution-foundation-20260926`; the earlier documentation worktree and canonical main were observed clean. Historical worktrees/branches remain preservation-sensitive Q-ADMIN-07 residue; no cleanup or disposal was performed. Live #262/#265/#269 remain OPEN with no merge time. No provider/credential/live-AI action occurred.
+At candidate validation, canonical main was `11ef377888ede2f31ea6505377962543b4016aa6`; PR #280 subsequently integrated at `800785d24d772d89113ac7f2f756aecc4cf3d151`. Implementation worktree is `C:/Users/Wiryl/Sol Dev/Ensemble-Project-Worktrees/offline-execution-foundation-20260926`; the earlier documentation worktree and canonical main were observed clean. Historical worktrees/branches remain preservation-sensitive Q-ADMIN-07 residue; no cleanup or disposal was performed. Live #262/#265/#269 remain OPEN with no merge time. No provider/credential/live-AI action occurred.

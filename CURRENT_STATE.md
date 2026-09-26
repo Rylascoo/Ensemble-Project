@@ -12,7 +12,7 @@ Application Product, Implementation and App Design authority: `Rylascoo/Ensemble
 
 ## Q-DESIGN-25 integrated
 
-Q-UNITY-01/02 remain current through `docs/Q_UNITY_01_PROJECT_UNIFICATION_AND_SIMPLIFICATION_2026_09_22.md` and `docs/evidence/Q_UNITY_02_DISCONNECTED_WORKSPACE_DEMO_SCAFFOLD_RETIREMENT_2026_09_22.md`.
+Q-UNITY-01/02 evidence: `docs/Q_UNITY_01_PROJECT_UNIFICATION_AND_SIMPLIFICATION_2026_09_22.md` and `docs/evidence/Q_UNITY_02_DISCONNECTED_WORKSPACE_DEMO_SCAFFOLD_RETIREMENT_2026_09_22.md`.
 
 Current Production workspace composition is **DESIGN ACCEPTED / INTEGRATED**. Native validation and Design acceptance remain bound to exact executable `a05f00e64d16a5bc13bd1def03912472fd62c25b`; the merge does not inherit a new native-validation rung.
 
@@ -24,8 +24,10 @@ Native ARM64: Presentation 17/17, Preview 8/8, Application 92/92, Persistence 15
 
 Q-DESIGN-25 composes only earned Production identity, ProductSpace, World truths, Characters and Scenes/initial rosters. It creates no current Scene/situation, Pressure/relationship/history, provider/Performer, lifecycle, Product/Persistence, deferred-E0, architecture, Alpha/Beta/release, WACK or Store authority. Human Scene-code comprehension/discoverability, Narrator intelligibility and exact-source High Contrast remain open claims.
 
-Windows 11 ARM64 / Microsoft Store remains the sole shipping target until release. Broad architecture analysis stays closed absent executable falsification.
+Windows 11 ARM64 / Microsoft Store is the sole shipping target. Broad architecture stays closed absent executable falsification.
 
 ## Next
 
-PR #279 integrated the adopted executor decision packet at `11ef377888ede2f31ea6505377962543b4016aa6`; exact-main Validation #1442 PASS. **Offline execution foundation** authorized: `codex/offline-execution-foundation-2026-09-26`. Native/review evidence: `docs/evidence/OFFLINE_EXECUTION_FOUNDATION_2026_09_26.md`. Native `78e7537105d4de2020d90a9bb440856321234dba` PASS; review CLEAN. Draft PR #280: Director disposition after hosted gates. Ordinary Performance remains unavailable. No provider/model selection, credentials, provider traffic, spend, live AI or deferred-E0 execution is authorized. No merge is authorized.
+PR #280 integrated Q-PROD-10 at `800785d24d772d89113ac7f2f756aecc4cf3d151`; exact-main Validation #1447 PASS. Native foundation remains `78e7537105d4de2020d90a9bb440856321234dba`.
+
+Director-authorized **Q-DESIGN-26 deterministic Performance interaction Preview** is ACTIVE on `codex/performance-interaction-preview-2026-09-26`. Scope/evidence: `docs/evidence/PERFORMANCE_INTERACTION_PREVIEW_2026_09_26.md`. Prepare native evidence, captures, independent review and a draft PR for Director disposition. Ordinary Performance stays unavailable. No provider/model selection, credentials, provider traffic, spend, live AI, deferred E0 or merge is authorized.

@@ -21,6 +21,8 @@ public sealed partial class MainWindow : Window
         InitializeComponent();
 #if KYMAEAN_DIRECTOR_PREVIEW
         Title = "KYMÆAN Director Preview";
+        if (Preview.PerformancePreview.Scenario is { } scenario)
+            Title += $" — Deterministic offline exercise ({scenario})";
         AppTitleBar.Title = Title;
 #endif
 
@@ -38,6 +40,9 @@ public sealed partial class MainWindow : Window
         AppWindow.SetIcon("Assets/AppIcon.ico");
 
         RootFrame.Navigate(typeof(MainPage), startup);
+#if KYMAEAN_DIRECTOR_PREVIEW
+        Preview.PreviewView.Apply(this);
+#endif
     }
 
     private IntPtr HandleWindowMessage(
