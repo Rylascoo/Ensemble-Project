@@ -28,4 +28,4 @@ Windows 11 ARM64 / Microsoft Store remains the sole shipping target until releas
 
 ## Next
 
-Q-DESIGN-25 is complete. Director-adopted successor: `docs/design/app/contracts/CREATOR_FACING_FIRST_PERFORMANCE.md`; **Request & record Performance**, contract only. No interaction implementation is authorized. Production executors remain absent; no production test-double substitution. Next: Director disposition of a bounded executor-admission decision package. No provider traffic or successor execution is activated. This documentation candidate requires separate merge authorization.
+Q-DESIGN-25 is complete. **Request & record Performance** remains contract-only. PR #278 merged at `286ad728e5c1dab9d2150f2507ff955b492501c5`; Validation #1439 PASS. Director adopted the executor decision packet at `414b95810aecbe810c942fac0cafde3c6e3b61f7`; see `docs/PROJECT_EXECUTION_QUEUE.md`. Next: documentation PR merge disposition. After integration, propose the separate offline execution foundation. No implementation, production test-double executor, provider/model selection, credentials, traffic, spend or deferred-E0 execution is authorized.
