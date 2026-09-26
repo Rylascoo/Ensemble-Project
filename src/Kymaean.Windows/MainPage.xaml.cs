@@ -25,6 +25,21 @@ public sealed partial class MainPage : Page
         }
 
         DataContext = new MainPageViewModel(startup.Presentation, work => DispatcherQueue.TryEnqueue(() => work()));
+#if KYMAEAN_DIRECTOR_PREVIEW
+        if (Preview.PerformancePreview.Scenario == "performance-render")
+        {
+            var injected = false;
+            ((MainPageViewModel)DataContext).PropertyChanged += (_, change) =>
+            {
+                if (!injected && change.PropertyName == nameof(MainPageViewModel.PerformanceText) &&
+                    ((MainPageViewModel)DataContext).HasRecordedPerformance)
+                {
+                    injected = true;
+                    throw new InvalidOperationException("Deterministic Preview rendering fault after recorded success.");
+                }
+            };
+        }
+#endif
         ShellNavigation.SelectedItem = HomeNavigationItem;
     }
 

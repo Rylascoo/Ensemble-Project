@@ -8,6 +8,136 @@ namespace Kymaean.Windows.Presentation.Tests;
 [TestClass]
 public sealed class PerformanceFoundationTests
 {
+    private static MainPageViewModel OpenRequest(Fixture f, ProductOperationCoordinator owner)
+    {
+        var vm = new MainPageViewModel(PresentationStartupResult.Owned(owner));
+        vm.NavigateShell(ShellRoute.CurrentProduction);
+        vm.OpenScenes();
+        Assert.IsTrue(vm.InspectScene(f.Scene));
+        Assert.IsTrue(vm.OpenPerformance(f.Actor));
+        return vm;
+    }
+
+    [TestMethod]
+    public async Task CreatorSurfacePreservesIdentityPendingExactEmptySuccessAndBack()
+    {
+        using var f = new Fixture(); f.Runtime.Text = "";
+        var scheduler = new ManualScheduler(); var owner = f.Owner(scheduler.Enqueue);
+        var vm = OpenRequest(f, owner);
+        Assert.AreEqual(f.Actor, vm.PerformanceIdentity!.CharacterId);
+        Assert.AreEqual(f.Scene, vm.PerformanceIdentity.SceneId);
+        Assert.IsNotNull(vm.PerformanceIdentity.CharacterCode);
+        Assert.IsTrue(vm.CanRequestPerformance);
+        Assert.AreEqual(0, f.Runtime.Calls); // Opening is inspection only.
+        var request = vm.SubmitPerformanceAsync();
+        Assert.IsTrue(vm.IsApplicationBusy);
+        Assert.IsFalse(vm.CanRequestPerformance);
+        Assert.IsNull(vm.ClosePerformance());
+        Assert.AreEqual(PerformanceAdmission.Busy, await vm.SubmitPerformanceAsync());
+        scheduler.Take()(); await request;
+        Assert.AreEqual("Performance recorded.", vm.PerformanceOutcomeMessage);
+        Assert.IsTrue(vm.HasEmptyPerformance);
+        Assert.AreEqual("", vm.PerformanceText);
+        Assert.AreEqual("A bounded circumstance.", vm.PerformanceConsequence);
+        Assert.IsFalse(vm.CanRequestPerformance);
+        Assert.AreEqual(1, f.Catalog.Commits);
+        Assert.AreEqual(f.Actor, vm.ClosePerformance());
+        Assert.IsTrue(vm.IsSceneDetail);
+        Assert.IsFalse(vm.HasRecordedPerformance);
+        Assert.AreEqual(f.Scene, vm.InspectedScene!.Id);
+    }
+
+    [TestMethod]
+    public async Task CreatorSurfaceShowsDistinctTypedAndInvocationUncertaintyWithoutGuessedContent()
+    {
+        foreach (var mode in new[] { "invalid", "incompatible", "io", "access" })
+        {
+            using var f = new Fixture();
+            if (mode == "invalid") f.Catalog.AfterCommitInvalid = true;
+            if (mode == "incompatible") f.Catalog.Failure = ProductAccessFailureKind.Incompatible;
+            if (mode == "io") f.Catalog.CommitError = new IOException();
+            if (mode == "access") f.Catalog.CommitError = new UnauthorizedAccessException();
+            var owner = f.Owner(work => work()); var vm = OpenRequest(f, owner);
+            await vm.SubmitPerformanceAsync();
+            Assert.IsFalse(vm.HasRecordedPerformance);
+            Assert.AreEqual("", vm.PerformanceText);
+            Assert.AreEqual("", vm.PerformanceConsequence);
+            Assert.IsTrue(vm.ShowPerformanceReopenHelp); // Existing owner conservatively fences all typed failures.
+            Assert.IsTrue(vm.PerformanceOutcomeMessage.StartsWith(mode switch
+            {
+                "invalid" => "Performance not confirmed.",
+                "incompatible" => "Performance unavailable in this version.",
+                _ => "Confirmation unavailable."
+            }, StringComparison.Ordinal));
+            Assert.AreEqual(f.Actor, vm.ClosePerformance());
+            Assert.IsTrue(vm.OpenPerformance(f.Actor));
+            Assert.IsFalse(vm.CanRequestPerformance);
+        }
+    }
+
+    [TestMethod]
+    public async Task UncertaintyForOneActorNeverAppearsAsAnotherActorsRequestedOutcome()
+    {
+        using var f = new Fixture(); f.Catalog.AfterCommitInvalid = true;
+        var owner = f.Owner(work => work()); var vm = OpenRequest(f, owner);
+        var original = vm.PerformanceCharacter;
+        await vm.SubmitPerformanceAsync(); vm.ClosePerformance();
+        Assert.IsTrue(vm.OpenPerformance(f.OtherActor));
+        Assert.AreNotEqual(original, vm.PerformanceCharacter);
+        Assert.IsTrue(vm.ShowEarlierPerformanceWarning);
+        Assert.IsTrue(vm.EarlierPerformanceWitness.Contains(original, StringComparison.Ordinal));
+        Assert.AreEqual("Performance requests are unavailable until this Production is opened again.", vm.PerformanceOutcomeMessage);
+        Assert.IsFalse(vm.HasPerformanceResult);
+        Assert.IsFalse(vm.CanRequestPerformance);
+        Assert.AreEqual(1, f.Catalog.Commits);
+    }
+
+    [TestMethod]
+    public async Task ReopenedCreatorSurfaceKeepsEarlierIdentityAndWarnsAboutAnotherRecord()
+    {
+        using var f = new Fixture(); f.Catalog.AfterCommitInvalid = true;
+        var owner = f.Owner(work => work()); var vm = OpenRequest(f, owner);
+        await vm.SubmitPerformanceAsync(); vm.ClosePerformance();
+        owner.OpenProduction(f.A);
+        Assert.IsTrue(vm.OpenPerformance(f.OtherActor));
+        Assert.IsTrue(vm.ShowEarlierPerformanceWarning);
+        Assert.IsTrue(vm.EarlierPerformanceWitness.Contains("Character code", StringComparison.Ordinal));
+        Assert.IsTrue(vm.CanRequestPerformance);
+        Assert.AreEqual(f.OtherActor, vm.PerformanceIdentity!.CharacterId);
+    }
+
+    [TestMethod]
+    public async Task CreatorSurfaceRenderingFaultCannotBecomeFailedRequestOrRetry()
+    {
+        using var f = new Fixture(); var owner = f.Owner(work => work()); var vm = OpenRequest(f, owner);
+        var once = false;
+        vm.PropertyChanged += (_, change) =>
+        {
+            if (!once && change.PropertyName == nameof(vm.PerformanceText) && vm.HasRecordedPerformance)
+            { once = true; throw new InvalidOperationException("render fault"); }
+        };
+        await vm.SubmitPerformanceAsync();
+        Assert.IsTrue(once);
+        Assert.IsTrue(vm.HasRecordedPerformance);
+        Assert.IsTrue(vm.LastPerformancePublication!.RenderingFailed);
+        Assert.AreEqual("Performance recorded. A display update failed.", vm.PerformanceOutcomeMessage);
+        Assert.AreEqual("A line.", vm.PerformanceText);
+        Assert.IsFalse(vm.CanRequestPerformance);
+        Assert.AreEqual(1, f.Catalog.Commits);
+    }
+
+    [TestMethod]
+    public void OrdinaryCreatorRequestSurfaceIsTruthfullyUnavailable()
+    {
+        using var f = new Fixture(); var owner = ProductOperationCoordinator.Own(f.App);
+        var vm = OpenRequest(f, owner);
+        Assert.AreEqual("Performance is unavailable.", vm.PerformanceOutcomeMessage);
+        Assert.IsFalse(vm.CanRequestPerformance);
+        Assert.IsNull(typeof(ProductOperationCoordinator).GetMethod("OwnDirectorPreview"));
+        Assert.AreEqual(f.Actor, vm.ClosePerformance());
+        Assert.AreEqual(0, f.Runtime.Calls);
+    }
+
     [TestMethod]
     public async Task InFlightInvalidationRetainsKnownCommitWithoutPaintingReplacement()
     {

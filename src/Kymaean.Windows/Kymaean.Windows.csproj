@@ -45,6 +45,7 @@
     <DefineConstants>$(DefineConstants);KYMAEAN_DIRECTOR_PREVIEW</DefineConstants>
   </PropertyGroup>
   <ItemGroup Condition="'$(KymaeanDirectorPreview)' == 'true'">
+    <ProjectReference Include="..\Kymaean.Infrastructure.Execution\Kymaean.Infrastructure.Execution.csproj" />
     <AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute">
       <_Parameter1>DirectorPreviewSource</_Parameter1>
       <_Parameter2>$(PreviewSourceRevision)</_Parameter2>
