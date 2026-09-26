@@ -23,3 +23,7 @@ Allowed changes: Windows request/result XAML and focus handlers; existing Presen
 Native environment prerequisite verifier PASS on SurfSeven ARM64. Initial existing Presentation regressions 34/34 PASS. Expanded interaction tests and native builds are in progress. The first sandbox test attempt could not read the existing user NuGet.Config; the owner-context rerun succeeded. That failure was tooling access, not Product evidence.
 
 No native interaction, Narrator, High Contrast, Design acceptance, real provider quality, live AI correctness, production executor availability, network/spend safety or broader workflow-completeness PASS is claimed here. Exact executable, captures, final checks and independent review will be recorded after observation.
+
+## First independent review
+
+Behavioral no-write review of exact candidate `9583103434b158a4424df29e520852644a049ce8` found two P2 presentation defects: earlier uncertainty could be shown under another Character, and rendering-fault copy could contradict retained visible content. Both are corrected with focused regressions. Effective reviewer policy was workspace-write; technical read-only containment was not proven. The partial native baseline for that predecessor was stopped before refresh when corrections became necessary; its logs are preserved and confer no final-candidate acceptance.

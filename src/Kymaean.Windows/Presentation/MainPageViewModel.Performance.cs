@@ -30,16 +30,17 @@ public sealed partial class MainPageViewModel
         ? result.Terminal.Outcome switch
         {
             PerformanceOutcome.KnownSuccess => result.RenderingFailed
-                ? "Performance recorded. Its result could not be displayed." : "Performance recorded.",
+                ? "Performance recorded. A display update failed." : "Performance recorded.",
             PerformanceOutcome.ProductIncompatible => "Performance unavailable in this version.",
             _ => PerformanceFailureMessage
-        } : IsPerformanceReopenRequired ? PerformanceFailureMessage
+        } : IsPerformanceReopenRequired ? "Performance requests are unavailable until this Production is opened again."
         : !HasPerformanceExecutors ? "Performance is unavailable." : "";
     public bool HasPerformanceOutcomeMessage => PerformanceOutcomeMessage.Length != 0;
     public bool ShowPerformanceReopenHelp => IsPerformanceSurface && IsPerformanceReopenRequired;
-    public bool ShowEarlierPerformanceWarning => IsPerformanceSurface && HasEarlierUnknownPerformance && !IsPerformanceReopenRequired;
+    public bool ShowEarlierPerformanceWarning => IsPerformanceSurface && HasEarlierUnknownPerformance && CurrentPerformanceResult is null;
     public string EarlierPerformanceWitness => _application?.Terminals.LastOrDefault(item =>
-        item.Request.Target.ProductionId == _projection?.CurrentProduction?.Id && item.RequiresReopen)?.Request.Target is { } old
+        item.Request.Target.ProductionId == _projection?.CurrentProduction?.Id &&
+        (item.Outcome == PerformanceOutcome.OutcomeUnknown || item.Outcome == PerformanceOutcome.ExecutorFailure && item.RequiresReopen))?.Request.Target is { } old
         ? $"Earlier unconfirmed request: Scene code {old.SceneCode}; {old.CharacterName}" +
             (old.CharacterCode is { } code ? $", Character code {code}." : ".") : "";
 
@@ -96,7 +97,7 @@ public sealed partial class MainPageViewModel
         : IsApplicationBusy ? "Request in progress. Navigation and changes are unavailable until it finishes."
         : _application?.LastPublication is { RenderingFailed: true, Terminal.Outcome: PerformanceOutcome.KnownSuccess } failed &&
             failed.Terminal.Request.Target.ProductionId == _projection?.CurrentProduction?.Id
-            ? "Performance recorded. Its result could not be displayed."
+            ? "Performance recorded. A display update failed."
         : IsPerformanceReopenRequired ? PerformanceFailureMessage
         : HasEarlierUnknownPerformance ? "Production freshly opened. The earlier request remains unconfirmed; any new request is a separate action."
         : string.Empty;

@@ -76,6 +76,23 @@ public sealed class PerformanceFoundationTests
     }
 
     [TestMethod]
+    public async Task UncertaintyForOneActorNeverAppearsAsAnotherActorsRequestedOutcome()
+    {
+        using var f = new Fixture(); f.Catalog.AfterCommitInvalid = true;
+        var owner = f.Owner(work => work()); var vm = OpenRequest(f, owner);
+        var original = vm.PerformanceCharacter;
+        await vm.SubmitPerformanceAsync(); vm.ClosePerformance();
+        Assert.IsTrue(vm.OpenPerformance(f.OtherActor));
+        Assert.AreNotEqual(original, vm.PerformanceCharacter);
+        Assert.IsTrue(vm.ShowEarlierPerformanceWarning);
+        Assert.IsTrue(vm.EarlierPerformanceWitness.Contains(original, StringComparison.Ordinal));
+        Assert.AreEqual("Performance requests are unavailable until this Production is opened again.", vm.PerformanceOutcomeMessage);
+        Assert.IsFalse(vm.HasPerformanceResult);
+        Assert.IsFalse(vm.CanRequestPerformance);
+        Assert.AreEqual(1, f.Catalog.Commits);
+    }
+
+    [TestMethod]
     public async Task ReopenedCreatorSurfaceKeepsEarlierIdentityAndWarnsAboutAnotherRecord()
     {
         using var f = new Fixture(); f.Catalog.AfterCommitInvalid = true;
@@ -103,7 +120,8 @@ public sealed class PerformanceFoundationTests
         Assert.IsTrue(once);
         Assert.IsTrue(vm.HasRecordedPerformance);
         Assert.IsTrue(vm.LastPerformancePublication!.RenderingFailed);
-        Assert.IsTrue(vm.PerformanceOutcomeMessage.StartsWith("Performance recorded.", StringComparison.Ordinal));
+        Assert.AreEqual("Performance recorded. A display update failed.", vm.PerformanceOutcomeMessage);
+        Assert.AreEqual("A line.", vm.PerformanceText);
         Assert.IsFalse(vm.CanRequestPerformance);
         Assert.AreEqual(1, f.Catalog.Commits);
     }
