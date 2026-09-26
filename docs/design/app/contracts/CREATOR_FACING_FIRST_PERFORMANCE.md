@@ -91,6 +91,8 @@ The current result type has no request identity or explicit commit-status field.
 - Never infer attribution from matching text, collection length or roster membership.
 - A later request is a **new request**, potentially recording another Performance. It is not a deduplicated retry.
 
+After successful Open clears the block, keep the earlier request's unconfirmed outcome visible and warn before another request that it may record another Performance. Clearing the block does not clear that distinction.
+
 Request witnesses and uncertainty tracking are session-only. No cross-restart request tracking or exactly-once invocation guarantee is created.
 
 ## Accessibility and focus
