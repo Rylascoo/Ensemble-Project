@@ -18,7 +18,7 @@ Current Production workspace composition is **DESIGN ACCEPTED / INTEGRATED**. Na
 
 Contract: `docs/design/app/contracts/CURRENT_PRODUCTION_WORKSPACE_COMPOSITION.md`. Evidence: `docs/evidence/Q_DESIGN_25_CURRENT_PRODUCTION_WORKSPACE_COMPOSITION_NATIVE_ARM64_VALIDATION_2026_09_25.md`.
 
-Native ARM64: Presentation 17/17, Preview 8/8, Application 92/92, Persistence 153/153, Core 628/628 and Harness 155/155 PASS; ordinary/Preview WinUI Release ARM64 builds PASS with 0 warnings/errors; exact-source Preview refresh PASS. Validation tag: `validation/q-design-25-current-production-native-arm64`. Fresh independent behavioral no-write review of a clean exact-a05 checkout is CLEAN; technical write containment was not proven.
+Native ARM64: Presentation 17/17, Preview 8/8, Application 92/92, Persistence 153/153, Core 628/628 and Harness 155/155 PASS; ordinary/Preview WinUI Release ARM64 builds PASS with 0 warnings/errors; exact-source Preview refresh PASS. Validation tag: `validation/q-design-25-current-production-native-arm64`. Exact-a05 behavioral no-write review CLEAN; technical containment unproven.
 
 ## Boundaries
 
@@ -28,4 +28,4 @@ Windows 11 ARM64 / Microsoft Store remains the sole shipping target until releas
 
 ## Next
 
-PR #279 integrated the adopted executor decision packet at `11ef377888ede2f31ea6505377962543b4016aa6`; exact-main Validation #1442 PASS. Director-authorized **offline execution foundation**, 2026-09-26: `codex/offline-execution-foundation-2026-09-26`. Scope and evidence: `docs/evidence/OFFLINE_EXECUTION_FOUNDATION_2026_09_26.md`. Next: finish validation/review, then draft PR. Ordinary Performance remains unavailable. No provider/model selection, credentials, provider traffic, spend, live AI or deferred-E0 execution is authorized. No merge is authorized.
+PR #279 integrated the adopted executor decision packet at `11ef377888ede2f31ea6505377962543b4016aa6`; exact-main Validation #1442 PASS. **Offline execution foundation** authorized: `codex/offline-execution-foundation-2026-09-26`. Native/review evidence: `docs/evidence/OFFLINE_EXECUTION_FOUNDATION_2026_09_26.md`. Native `78e7537105d4de2020d90a9bb440856321234dba` PASS; review CLEAN. Next: draft PR hosted gates, then Director disposition. Ordinary Performance remains unavailable. No provider/model selection, credentials, provider traffic, spend, live AI or deferred-E0 execution is authorized. No merge is authorized.
