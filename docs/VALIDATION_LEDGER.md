@@ -2,6 +2,14 @@
 
 Status: validation fact register only. This file cannot advance phase/checkpoint authority; `CURRENT_STATE.md` alone does that.
 
+## Deterministic Performance interaction technical candidate - 2026-09-26
+
+Exact native executable source: `d7d92fa910e03e39b4d90c59ae1c5290f0665320`; technical-only tag `validation/performance-interaction-technical-native-arm64-20260926`. Evidence: `docs/evidence/PERFORMANCE_INTERACTION_PREVIEW_2026_09_26.md`; receipt: `docs/evidence/PERFORMANCE_INTERACTION_NATIVE_ARM64_2026_09_26.json`.
+
+SurfSeven native ARM64 PASS: Presentation 40/40, Preview 9/9, Application 92/92, Persistence 153/153, Core 628/628, Harness 155/155; ordinary/Preview WinUI builds zero warnings/errors; strengthened ordinary/Preview assembly isolation; preserved-profile refresh; three verified launches/closes. Independent exact-source and later launcher-helper reviews CLEAN, behaviorally no-write under workspace-write permissions. The later helper change does not extend application native authority beyond d7d92fa.
+
+Director deferred UI captures and requested the source/evidence draft. Eight fresh profiles are prepared; native Performance scenario/layout/focus evidence and independent visual review remain pending. No Design acceptance or merge readiness. Narrator/High Contrast NOT TESTED. Ordinary execution remains unavailable; no provider/live AI, spend-safety, deferred-E0 or release claim.
+
 ## Offline execution foundation integrated - 2026-09-26
 
 Exact native executable: `78e7537105d4de2020d90a9bb440856321234dba`, annotated tag `validation/offline-execution-foundation-native-arm64-20260926`. Evidence: `docs/evidence/OFFLINE_EXECUTION_FOUNDATION_2026_09_26.md`.

@@ -1,0 +1,243 @@
+{
+  "schema": 1,
+  "status": "SOURCE_EVIDENCE_DRAFT_UI_CAPTURES_DEFERRED_BY_DIRECTOR",
+  "native": {
+    "schema": 1,
+    "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+    "machine": "SURFSEVEN",
+    "osArchitecture": "Arm64",
+    "processArchitecture": "Arm64",
+    "sdk": "10.0.400",
+    "authorization": "Director 2026-09-26 deterministic Performance interaction Preview, review-corrected candidate; no provider admission; stop for merge disposition",
+    "measurementNote": "Wall-clock timings include harness/process verification overhead and are regression evidence, not product KPIs.",
+    "presentationTests": {
+      "result": "PASS",
+      "elapsedMs": 79238,
+      "log": "C:\\Users\\Wiryl\\Sol Dev\\admin-scratch\\performance-preview-20260926\\native-arm64-d7d92fa910e0-0df9e69d4b084160ba50556d406a4961\\presentation-tests.txt",
+      "sha256": "478671705675CCB2348D902CE178CF79990EDAAE525F431C7ECFEBD088ACB23F"
+    },
+    "previewBuild": {
+      "result": "PASS",
+      "elapsedMs": 730346,
+      "stage": "C:\\Users\\Wiryl\\Sol Dev\\admin-scratch\\performance-preview-20260926\\native-arm64-d7d92fa910e0-0df9e69d4b084160ba50556d406a4961\\stages\\d7d92fa910e0-2045cf615fba4f058472a223b07788d4",
+      "receipt": "C:\\Users\\Wiryl\\Sol Dev\\admin-scratch\\performance-preview-20260926\\native-arm64-d7d92fa910e0-0df9e69d4b084160ba50556d406a4961\\stages\\d7d92fa910e0-2045cf615fba4f058472a223b07788d4\\build.json",
+      "receiptSha256": "73B06E2EA2146F2E633A3079C4C06731446DFAE76B4643549C7067B86EDF4DFF"
+    },
+    "previewRefresh": {
+      "result": "PASS",
+      "elapsedMs": 119400,
+      "log": "C:\\Users\\Wiryl\\Sol Dev\\admin-scratch\\performance-preview-20260926\\native-arm64-d7d92fa910e0-0df9e69d4b084160ba50556d406a4961\\preview-refresh.txt"
+    },
+    "verifiedLaunches": {
+      "result": "PASS",
+      "samples": [
+        {
+          "ordinal": 1,
+          "elapsedMs": 49929,
+          "workingSetBytes": 158539776,
+          "privateMemoryBytes": 61071360,
+          "pid": 11112,
+          "nativeMachine": 43620,
+          "processMachine": 0,
+          "executable": "C:\\Users\\Wiryl\\Sol Dev\\admin-scratch\\performance-preview-20260926\\native-arm64-d7d92fa910e0-0df9e69d4b084160ba50556d406a4961\\stages\\d7d92fa910e0-2045cf615fba4f058472a223b07788d4\\layout\\Kymaean.Windows.exe",
+          "receipt": "C:\\Users\\Wiryl\\AppData\\Local\\Packages\\Kymaean.DirectorPreview_1z32rh13vfry6\\LocalState\\DirectorPreview\\launches\\20260926T0644383016774-c3c83e872c984ab8912e645f8f632a25.json"
+        },
+        {
+          "ordinal": 2,
+          "elapsedMs": 49041,
+          "workingSetBytes": 151928832,
+          "privateMemoryBytes": 60084224,
+          "pid": 24764,
+          "nativeMachine": 43620,
+          "processMachine": 0,
+          "executable": "C:\\Users\\Wiryl\\Sol Dev\\admin-scratch\\performance-preview-20260926\\native-arm64-d7d92fa910e0-0df9e69d4b084160ba50556d406a4961\\stages\\d7d92fa910e0-2045cf615fba4f058472a223b07788d4\\layout\\Kymaean.Windows.exe",
+          "receipt": "C:\\Users\\Wiryl\\AppData\\Local\\Packages\\Kymaean.DirectorPreview_1z32rh13vfry6\\LocalState\\DirectorPreview\\launches\\20260926T0645280452070-c314d3c10d714477b45870f5379130ba.json"
+        },
+        {
+          "ordinal": 3,
+          "elapsedMs": 62437,
+          "workingSetBytes": 152686592,
+          "privateMemoryBytes": 59535360,
+          "pid": 2764,
+          "nativeMachine": 43620,
+          "processMachine": 0,
+          "executable": "C:\\Users\\Wiryl\\Sol Dev\\admin-scratch\\performance-preview-20260926\\native-arm64-d7d92fa910e0-0df9e69d4b084160ba50556d406a4961\\stages\\d7d92fa910e0-2045cf615fba4f058472a223b07788d4\\layout\\Kymaean.Windows.exe",
+          "receipt": "C:\\Users\\Wiryl\\AppData\\Local\\Packages\\Kymaean.DirectorPreview_1z32rh13vfry6\\LocalState\\DirectorPreview\\launches\\20260926T0646304871211-db1cbdcdb2e24c0abb53ef6876f444a8.json"
+        }
+      ],
+      "medianElapsedMs": 49929,
+      "medianWorkingSetBytes": 152686592
+    }
+  },
+  "executableInventory": [
+    {
+      "path": "Kymaean.Presentation.dll",
+      "bytes": 90624,
+      "sha256": "1177760e39705d090ebb61427349c4a176549f96f698cc9021a16e03831fb4f3"
+    },
+    {
+      "path": "Kymaean.Windows.dll",
+      "bytes": 113152,
+      "sha256": "6cbaf75839ab46a610f286fadda8a8d28a4a978bef76d5439453bd2e9c7c6c5f"
+    },
+    {
+      "path": "Kymaean.Windows.exe",
+      "bytes": 140800,
+      "sha256": "802034c5d01ab592ff56d9ad92bd39427f38ede2d449553483f7b056490b8ab7"
+    }
+  ],
+  "buildChecks": [
+    {
+      "command": "dotnet test --project tests/Kymaean.Windows.Presentation.Tests/Kymaean.Windows.Presentation.Tests.csproj -c Release -r win-arm64",
+      "result": "PASS",
+      "log": "check-1.txt",
+      "sha256": "DEC4873055EF40D696D416D4FE33106956EC3F7E7ADD4BE7DE5947AA480E7C1E"
+    },
+    {
+      "command": "dotnet test --project tools/director-preview/Tests/Tests.csproj -c Release -r win-arm64",
+      "result": "PASS",
+      "log": "check-2.txt",
+      "sha256": "F13662992250CCA77FDD49EC5A94272A49C0DE6F871EA0F7A130ED4E1C4A77F5"
+    },
+    {
+      "command": "dotnet test --project tests/Kymaean.Application.Tests/Kymaean.Application.Tests.csproj -c Release -r win-arm64",
+      "result": "PASS",
+      "log": "check-3.txt",
+      "sha256": "6703975FCAAB90C8BC3AF29D9494E7D44FA8E73CB77293BC087D97593DD41770"
+    },
+    {
+      "command": "dotnet test --project tests/Kymaean.Infrastructure.Persistence.Tests/Kymaean.Infrastructure.Persistence.Tests.csproj -c Release -r win-arm64",
+      "result": "PASS",
+      "log": "check-4.txt",
+      "sha256": "8B907776E1E5490310506903A9BEC617E53FBE57EF058E6B08FDD7736B754B81"
+    },
+    {
+      "command": "dotnet test --project tests/Ensemble.E0.Core.Tests/Ensemble.E0.Core.Tests.csproj -c Release -r win-arm64",
+      "result": "PASS",
+      "log": "check-5.txt",
+      "sha256": "0D52DEE734FFFF93982F545B7CD2DAE34EEEDDDA919991800A525E9AF3A45CF5"
+    },
+    {
+      "command": "dotnet test --project tests/Ensemble.E0.Harness.Tests/Ensemble.E0.Harness.Tests.csproj -c Release -r win-arm64",
+      "result": "PASS",
+      "log": "check-6.txt",
+      "sha256": "029FC2ADAE97FA053E2165E9BB5F8F13321C122BC4F6421EC4688C57B89D771D"
+    },
+    {
+      "command": "dotnet build src/Kymaean.Windows/Kymaean.Windows.csproj -c Release -p:Platform=ARM64 -r win-arm64 -p:KymaeanDirectorPreview=true -p:PreviewSourceRevision=d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+      "result": "PASS",
+      "log": "check-7.txt",
+      "sha256": "0B000DF5B7E6703629B494194B87B8E4817CB7BAFAAAACBFD8AEA9CA1608D770"
+    },
+    {
+      "command": "dotnet build src/Kymaean.Windows/Kymaean.Windows.csproj -c Release -p:Platform=ARM64 -r win-arm64 -p:KymaeanDirectorPreview=false",
+      "result": "PASS",
+      "log": "check-8.txt",
+      "sha256": "24ED9D546A6DEAAE4FB0F09AF689C7FD4DCD980D0935BB1D082D0A1306658609"
+    },
+    {
+      "command": "dotnet build tools/director-preview/Profiles/Profiles.csproj -c Release -r win-arm64",
+      "result": "PASS",
+      "log": "check-9.txt",
+      "sha256": "0A030E0DAAD1EFAE141B2C130F5102680FC1A9DEF99EA12416BA6BE5F31E93BD"
+    }
+  ],
+  "buildBoundary": "ORDINARY_EXECUTOR_AND_PREVIEW_COMPOSITION_ABSENT; PREVIEW_ONLY_EXECUTOR_PRESENT=PASS\r\nORDINARY_PREVIEW_TYPE_ABSENT; PREVIEW_TYPE_PRESENT=PASS",
+  "profiles": [
+    {
+      "id": "3ee3b4d5eaa244c88beaa6ca6376026a",
+      "name": "Performance interaction rich d7d92fa910e0",
+      "kind": "rich",
+      "recipe": "rich-v1",
+      "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+      "compatibility": "qprod08-journal-v1",
+      "createdUtc": "2026-09-26T06:48:25.4597517Z",
+      "preservation": "Never overwrite. Recipe changes and reseeding create a new instance."
+    },
+    {
+      "id": "e25d9c23eacd4851ac0407b13752b508",
+      "name": "Performance interaction performance-success d7d92fa910e0",
+      "kind": "performance-success",
+      "recipe": "performance-success-v1",
+      "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+      "compatibility": "qprod08-journal-v1",
+      "createdUtc": "2026-09-26T06:51:57.5879657Z",
+      "preservation": "Never overwrite. Recipe changes and reseeding create a new instance."
+    },
+    {
+      "id": "de7dffcc94e1423ea0d59203042702e2",
+      "name": "Performance interaction performance-empty d7d92fa910e0",
+      "kind": "performance-empty",
+      "recipe": "performance-empty-v1",
+      "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+      "compatibility": "qprod08-journal-v1",
+      "createdUtc": "2026-09-26T06:53:30.4647349Z",
+      "preservation": "Never overwrite. Recipe changes and reseeding create a new instance."
+    },
+    {
+      "id": "43ee71a4b25f4e319df25074bf0a8bd7",
+      "name": "Performance interaction performance-incompatible d7d92fa910e0",
+      "kind": "performance-incompatible",
+      "recipe": "performance-incompatible-v1",
+      "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+      "compatibility": "qprod08-journal-v1",
+      "createdUtc": "2026-09-26T06:54:10.1428818Z",
+      "preservation": "Never overwrite. Recipe changes and reseeding create a new instance."
+    },
+    {
+      "id": "90e0875b1cd140c99ef700c13c4fb369",
+      "name": "Performance interaction performance-invalid d7d92fa910e0",
+      "kind": "performance-invalid",
+      "recipe": "performance-invalid-v1",
+      "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+      "compatibility": "qprod08-journal-v1",
+      "createdUtc": "2026-09-26T06:54:46.9856885Z",
+      "preservation": "Never overwrite. Recipe changes and reseeding create a new instance."
+    },
+    {
+      "id": "1b41cc277d194ed2ab28af41693f7915",
+      "name": "Performance interaction performance-io d7d92fa910e0",
+      "kind": "performance-io",
+      "recipe": "performance-io-v1",
+      "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+      "compatibility": "qprod08-journal-v1",
+      "createdUtc": "2026-09-26T06:55:22.2079024Z",
+      "preservation": "Never overwrite. Recipe changes and reseeding create a new instance."
+    },
+    {
+      "id": "3b0c5380bb69465c9fc8ee8e8a97dffe",
+      "name": "Performance interaction performance-access d7d92fa910e0",
+      "kind": "performance-access",
+      "recipe": "performance-access-v1",
+      "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+      "compatibility": "qprod08-journal-v1",
+      "createdUtc": "2026-09-26T06:56:02.9593698Z",
+      "preservation": "Never overwrite. Recipe changes and reseeding create a new instance."
+    },
+    {
+      "id": "bc1dde8954ca446e9c8591e21b08bbbc",
+      "name": "Performance interaction performance-render d7d92fa910e0",
+      "kind": "performance-render",
+      "recipe": "performance-render-v1",
+      "source": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+      "compatibility": "qprod08-journal-v1",
+      "createdUtc": "2026-09-26T06:56:32.836397Z",
+      "preservation": "Never overwrite. Recipe changes and reseeding create a new instance."
+    }
+  ],
+  "originalSelection": {
+    "id": "92314cf22262414eb4d7239e6103c665"
+  },
+  "sourceReview": {
+    "candidate": "d7d92fa910e03e39b4d90c59ae1c5290f0665320",
+    "result": "CLEAN",
+    "method": "Independent behavioral no-write; effective workspace-write, technical containment unproven"
+  },
+  "launcherReview": {
+    "candidate": "6f32383808e54683989918dacc3d9685e60d3090",
+    "result": "CLEAN",
+    "scope": "tools/director-preview/common.ps1 only; executable unchanged"
+  },
+  "interaction": "Director requested source/evidence draft and deferred UI captures. No native Performance outcome, Narrator, High Contrast or Design acceptance PASS.",
+  "captures": []
+}

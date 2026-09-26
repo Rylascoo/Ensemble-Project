@@ -18,7 +18,7 @@ Current Production workspace composition is **DESIGN ACCEPTED / INTEGRATED**. Na
 
 Contract: `docs/design/app/contracts/CURRENT_PRODUCTION_WORKSPACE_COMPOSITION.md`. Evidence: `docs/evidence/Q_DESIGN_25_CURRENT_PRODUCTION_WORKSPACE_COMPOSITION_NATIVE_ARM64_VALIDATION_2026_09_25.md`.
 
-Native ARM64: Presentation 17/17, Preview 8/8, Application 92/92, Persistence 153/153, Core 628/628 and Harness 155/155 PASS; ordinary/Preview WinUI Release ARM64 builds PASS with 0 warnings/errors; exact-source Preview refresh PASS. Validation tag: `validation/q-design-25-current-production-native-arm64`. Exact-a05 behavioral no-write review CLEAN; technical containment unproven.
+Q-DESIGN-25 native checks/refresh PASS; tag `validation/q-design-25-current-production-native-arm64`. Exact-a05 behavioral no-write review CLEAN; technical containment unproven. Details remain in its linked evidence and validation ledger.
 
 ## Boundaries
 
@@ -30,4 +30,4 @@ Windows 11 ARM64 / Microsoft Store is the sole shipping target. Broad architectu
 
 PR #280 integrated Q-PROD-10 at `800785d24d772d89113ac7f2f756aecc4cf3d151`; exact-main Validation #1447 PASS. Native foundation remains `78e7537105d4de2020d90a9bb440856321234dba`.
 
-Director-authorized **Q-DESIGN-26 deterministic Performance interaction Preview** is ACTIVE on `codex/performance-interaction-preview-2026-09-26`. Scope/evidence: `docs/evidence/PERFORMANCE_INTERACTION_PREVIEW_2026_09_26.md`. Prepare native evidence, captures, independent review and a draft PR for Director disposition. Ordinary Performance stays unavailable. No provider/model selection, credentials, provider traffic, spend, live AI, deferred E0 or merge is authorized.
+**Q-DESIGN-26 source/evidence DRAFT; UI CAPTURES DEFERRED BY DIRECTOR.** Branch: `codex/performance-interaction-preview-2026-09-26`. Native technical checks PASS at `d7d92fa910e03e39b4d90c59ae1c5290f0665320`; independent source/helper reviews CLEAN. Evidence/remaining matrix: `docs/evidence/PERFORMANCE_INTERACTION_PREVIEW_2026_09_26.md`. Next: resume native captures and independent visual review when desktop access is stable, then Director disposition. No Design acceptance or merge readiness. Ordinary Performance remains unavailable; no provider admission, credentials, traffic/spend, live AI or deferred E0.
