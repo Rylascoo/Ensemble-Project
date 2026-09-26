@@ -2,6 +2,12 @@
 
 Status: validation fact register only. This file cannot advance phase/checkpoint authority; `CURRENT_STATE.md` alone does that.
 
+## Offline execution foundation candidate - 2026-09-26
+
+Exact native executable: `78e7537105d4de2020d90a9bb440856321234dba`, annotated tag `validation/offline-execution-foundation-native-arm64-20260926`. Evidence: `docs/evidence/OFFLINE_EXECUTION_FOUNDATION_2026_09_26.md`.
+
+Native ARM64 PASS: Presentation 34/34, Application 92/92, Persistence 153/153, Core 628/628, Harness 155/155, Preview 8/8; ordinary/Preview WinUI builds 0 warnings/errors; preserved-profile refresh and three verified launches/closes PASS. Corrected independent exact-ref behavioral no-write review CLEAN; effective workspace-write means technical containment unproven. Candidate remains unmerged. Ordinary Performance is unavailable; no provider runtime, credentials, provider traffic, spend, first live AI, Design acceptance, deferred-E0 or release authority is earned.
+
 ## Current promoted machine-tested checkpoint
 
 ## Q-DESIGN-25 Current Production workspace integrated checkpoint — 2026-09-25

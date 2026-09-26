@@ -33,6 +33,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentatio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kymaean.Presentation", "src\Kymaean.Windows\Presentation\Kymaean.Presentation.csproj", "{17B3FD4B-4129-43B2-AFF6-D9F1C3DA6644}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kymaean.Infrastructure.Execution", "src\Kymaean.Infrastructure.Execution\Kymaean.Infrastructure.Execution.csproj", "{5E4D50C5-E1EE-4AAD-B7EB-71D48EBFB650}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -173,6 +175,18 @@ Global
 		{17B3FD4B-4129-43B2-AFF6-D9F1C3DA6644}.Release|x64.Build.0 = Release|Any CPU
 		{17B3FD4B-4129-43B2-AFF6-D9F1C3DA6644}.Release|x86.ActiveCfg = Release|Any CPU
 		{17B3FD4B-4129-43B2-AFF6-D9F1C3DA6644}.Release|x86.Build.0 = Release|Any CPU
+		{5E4D50C5-E1EE-4AAD-B7EB-71D48EBFB650}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E4D50C5-E1EE-4AAD-B7EB-71D48EBFB650}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E4D50C5-E1EE-4AAD-B7EB-71D48EBFB650}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5E4D50C5-E1EE-4AAD-B7EB-71D48EBFB650}.Debug|x64.Build.0 = Debug|Any CPU
+		{5E4D50C5-E1EE-4AAD-B7EB-71D48EBFB650}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5E4D50C5-E1EE-4AAD-B7EB-71D48EBFB650}.Debug|x86.Build.0 = Debug|Any CPU
+		{5E4D50C5-E1EE-4AAD-B7EB-71D48EBFB650}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E4D50C5-E1EE-4AAD-B7EB-71D48EBFB650}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E4D50C5-E1EE-4AAD-B7EB-71D48EBFB650}.Release|x64.ActiveCfg = Release|Any CPU
+		{5E4D50C5-E1EE-4AAD-B7EB-71D48EBFB650}.Release|x64.Build.0 = Release|Any CPU
+		{5E4D50C5-E1EE-4AAD-B7EB-71D48EBFB650}.Release|x86.ActiveCfg = Release|Any CPU
+		{5E4D50C5-E1EE-4AAD-B7EB-71D48EBFB650}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -191,5 +205,6 @@ Global
 		{2A54C615-355E-3FFD-B52E-8E843F011C9F} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{74D56D52-9E34-CDB0-A7B8-9D4FF4E4D399} = {2A54C615-355E-3FFD-B52E-8E843F011C9F}
 		{17B3FD4B-4129-43B2-AFF6-D9F1C3DA6644} = {74D56D52-9E34-CDB0-A7B8-9D4FF4E4D399}
+		{5E4D50C5-E1EE-4AAD-B7EB-71D48EBFB650} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 	EndGlobalSection
 EndGlobal

@@ -24,14 +24,21 @@ public sealed partial class MainPage : Page
                 "Main page requires the Windows startup result.");
         }
 
-        DataContext = new MainPageViewModel(startup.Presentation);
+        DataContext = new MainPageViewModel(startup.Presentation, work => DispatcherQueue.TryEnqueue(() => work()));
         ShellNavigation.SelectedItem = HomeNavigationItem;
+    }
+
+    protected override void OnNavigatedFrom(NavigationEventArgs e)
+    {
+        if (DataContext is MainPageViewModel viewModel) viewModel.DetachPerformancePresentation();
+        base.OnNavigatedFrom(e);
     }
 
     private void OnNavigationSelectionChanged(
         NavigationView sender,
         NavigationViewSelectionChangedEventArgs args)
     {
+        if (DataContext is MainPageViewModel { IsApplicationBusy: true }) return;
         if (DataContext is not MainPageViewModel viewModel ||
             args.SelectedItemContainer?.Tag is not string routeName ||
             !Enum.TryParse<ShellRoute>(routeName, out var route))
@@ -49,6 +56,7 @@ public sealed partial class MainPage : Page
         ListViewBase sender,
         ContainerContentChangingEventArgs args)
     {
+        if (DataContext is MainPageViewModel { IsApplicationBusy: true }) return;
         if (args.ItemContainer is ListViewItem container &&
             args.Item is ProductionPresentationRow production)
         {
@@ -62,6 +70,7 @@ public sealed partial class MainPage : Page
         object sender,
         SelectionChangedEventArgs e)
     {
+        if (DataContext is MainPageViewModel { IsApplicationBusy: true }) return;
         if (DataContext is MainPageViewModel viewModel &&
             sender is ListView listView)
         {
@@ -72,6 +81,7 @@ public sealed partial class MainPage : Page
 
     private void OnNewProductionClicked(object sender, RoutedEventArgs e)
     {
+        if (DataContext is MainPageViewModel { IsApplicationBusy: true }) return;
         if (DataContext is not MainPageViewModel viewModel)
         {
             return;
@@ -85,6 +95,7 @@ public sealed partial class MainPage : Page
         object sender,
         RoutedEventArgs e)
     {
+        if (DataContext is MainPageViewModel { IsApplicationBusy: true }) return;
         if (DataContext is not MainPageViewModel viewModel)
         {
             return;
@@ -98,6 +109,7 @@ public sealed partial class MainPage : Page
         object sender,
         RoutedEventArgs e)
     {
+        if (DataContext is MainPageViewModel { IsApplicationBusy: true }) return;
         if (DataContext is not MainPageViewModel viewModel ||
             !viewModel.BeginProductionCreationSubmission())
         {
@@ -128,6 +140,7 @@ public sealed partial class MainPage : Page
 
     private void OnOpenProductionClicked(object sender, RoutedEventArgs e)
     {
+        if (DataContext is MainPageViewModel { IsApplicationBusy: true }) return;
         if (DataContext is MainPageViewModel viewModel &&
             viewModel.OpenSelectedProduction())
         {
@@ -138,6 +151,7 @@ public sealed partial class MainPage : Page
 
     private void OnRecoverProductionClicked(object sender, RoutedEventArgs e)
     {
+        if (DataContext is MainPageViewModel { IsApplicationBusy: true }) return;
         if (DataContext is MainPageViewModel viewModel &&
             viewModel.RecoverSelectedProduction())
         {
@@ -147,6 +161,7 @@ public sealed partial class MainPage : Page
 
     private void OnBackToProductionsClicked(object sender, RoutedEventArgs e)
     {
+        if (DataContext is MainPageViewModel { IsApplicationBusy: true }) return;
         if (DataContext is not MainPageViewModel viewModel)
         {
             return;
@@ -161,6 +176,7 @@ public sealed partial class MainPage : Page
         ListViewBase sender,
         ContainerContentChangingEventArgs args)
     {
+        if (DataContext is MainPageViewModel { IsApplicationBusy: true }) return;
         if (args.ItemContainer is ListViewItem container &&
             args.Item is CharacterPresentationRow character)
         {
@@ -174,6 +190,7 @@ public sealed partial class MainPage : Page
         ListViewBase sender,
         ContainerContentChangingEventArgs args)
     {
+        if (DataContext is MainPageViewModel { IsApplicationBusy: true }) return;
         if (args.ItemContainer is ListViewItem container &&
             args.Item is ScenePresentationRow scene)
         {
@@ -183,6 +200,7 @@ public sealed partial class MainPage : Page
 
     private void OnOpenCharactersClicked(object sender, RoutedEventArgs e)
     {
+        if (DataContext is MainPageViewModel { IsApplicationBusy: true }) return;
         if (DataContext is not MainPageViewModel viewModel)
         {
             return;
@@ -194,6 +212,7 @@ public sealed partial class MainPage : Page
 
     private void OnBackFromCharactersClicked(object sender, RoutedEventArgs e)
     {
+        if (DataContext is MainPageViewModel { IsApplicationBusy: true }) return;
         if (DataContext is not MainPageViewModel viewModel)
         {
             return;
@@ -205,6 +224,7 @@ public sealed partial class MainPage : Page
 
     private void OnNewCharacterClicked(object sender, RoutedEventArgs e)
     {
+        if (DataContext is MainPageViewModel { IsApplicationBusy: true }) return;
         if (DataContext is not MainPageViewModel viewModel)
         {
             return;
@@ -218,6 +238,7 @@ public sealed partial class MainPage : Page
         object sender,
         RoutedEventArgs e)
     {
+        if (DataContext is MainPageViewModel { IsApplicationBusy: true }) return;
         if (DataContext is not MainPageViewModel viewModel)
         {
             return;
@@ -231,6 +252,7 @@ public sealed partial class MainPage : Page
         object sender,
         RoutedEventArgs e)
     {
+        if (DataContext is MainPageViewModel { IsApplicationBusy: true }) return;
         if (DataContext is not MainPageViewModel viewModel ||
             !viewModel.BeginCharacterCreationSubmission())
         {
@@ -271,6 +293,7 @@ public sealed partial class MainPage : Page
         object sender,
         RoutedEventArgs e)
     {
+        if (DataContext is MainPageViewModel { IsApplicationBusy: true }) return;
         if (DataContext is not MainPageViewModel viewModel)
         {
             return;
@@ -282,6 +305,7 @@ public sealed partial class MainPage : Page
 
     private void OnOpenWorldTruthsClicked(object sender, RoutedEventArgs e)
     {
+        if (DataContext is MainPageViewModel { IsApplicationBusy: true }) return;
         if (DataContext is not MainPageViewModel viewModel)
         {
             return;
@@ -293,6 +317,7 @@ public sealed partial class MainPage : Page
 
     private void OnBackFromWorldTruthsClicked(object sender, RoutedEventArgs e)
     {
+        if (DataContext is MainPageViewModel { IsApplicationBusy: true }) return;
         if (DataContext is not MainPageViewModel viewModel)
         {
             return;
@@ -304,6 +329,7 @@ public sealed partial class MainPage : Page
 
     private void OnEditWorldTruthsClicked(object sender, RoutedEventArgs e)
     {
+        if (DataContext is MainPageViewModel { IsApplicationBusy: true }) return;
         if (DataContext is not MainPageViewModel viewModel)
         {
             return;
@@ -315,6 +341,7 @@ public sealed partial class MainPage : Page
 
     private void OnAddWorldTruthClicked(object sender, RoutedEventArgs e)
     {
+        if (DataContext is MainPageViewModel { IsApplicationBusy: true }) return;
         if (DataContext is MainPageViewModel viewModel)
         {
             viewModel.AddWorldTruthDraft();
@@ -323,6 +350,7 @@ public sealed partial class MainPage : Page
 
     private void OnRemoveWorldTruthClicked(object sender, RoutedEventArgs e)
     {
+        if (DataContext is MainPageViewModel { IsApplicationBusy: true }) return;
         if (DataContext is MainPageViewModel viewModel &&
             sender is Button button &&
             button.DataContext is WorldTruthDraftItem item)
@@ -333,6 +361,7 @@ public sealed partial class MainPage : Page
 
     private void OnReviewWorldTruthsClicked(object sender, RoutedEventArgs e)
     {
+        if (DataContext is MainPageViewModel { IsApplicationBusy: true }) return;
         if (DataContext is MainPageViewModel viewModel &&
             viewModel.ReviewWorldTruthReplacement())
         {
@@ -342,6 +371,7 @@ public sealed partial class MainPage : Page
 
     private void OnBackToWorldTruthEditClicked(object sender, RoutedEventArgs e)
     {
+        if (DataContext is MainPageViewModel { IsApplicationBusy: true }) return;
         if (DataContext is not MainPageViewModel viewModel)
         {
             return;
@@ -353,6 +383,7 @@ public sealed partial class MainPage : Page
 
     private void OnCancelWorldTruthProposalClicked(object sender, RoutedEventArgs e)
     {
+        if (DataContext is MainPageViewModel { IsApplicationBusy: true }) return;
         if (DataContext is not MainPageViewModel viewModel)
         {
             return;
@@ -366,6 +397,7 @@ public sealed partial class MainPage : Page
         object sender,
         RoutedEventArgs e)
     {
+        if (DataContext is MainPageViewModel { IsApplicationBusy: true }) return;
         if (DataContext is not MainPageViewModel viewModel ||
             !viewModel.BeginWorldTruthReplacementSubmission())
         {

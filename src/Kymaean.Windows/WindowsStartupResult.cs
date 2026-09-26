@@ -16,7 +16,7 @@ public sealed class WindowsStartupResult
     public bool IsInfrastructureFailure =>
         Presentation.IsInfrastructureFailure;
 
-    public ProductAccessResult<ProductApplication> ProductStartup =>
+    public ProductAccessResult<ProductOperationCoordinator> ProductStartup =>
         Presentation.ProductStartup;
 
     internal static WindowsStartupResult Product(
